@@ -272,7 +272,7 @@ en:
       checking: Checking
       routing_number: Routing number
       savings: Savings
-    before_2014: before 2014
+    before_2018: before 2018
     blind: Is legally blind
     call: Call
     cancel: Cancel
@@ -1763,7 +1763,7 @@ en:
         choose_gyr: Choose File with Help
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
-          file: File for 2019-%{current_tax_year}
+          file: File for %{oldest_filing_year}-%{current_tax_year}
           income: 'Income: under $66,000'
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file

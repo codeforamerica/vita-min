@@ -81,7 +81,7 @@ module VitaMin
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.middleware.use Middleware::RejectInvalidParams
     config.middleware.use Middleware::RejectBadlyEncodedHeaders
-    config.gyr_current_tax_year = 2022
+    config.gyr_current_tax_year = 2023
     config.ctc_current_tax_year = 2021
     config.statefile_current_tax_year = 2023
     config.product_year = 2024

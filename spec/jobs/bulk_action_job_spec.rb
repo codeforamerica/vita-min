@@ -397,7 +397,7 @@ describe BulkActionJob do
           form_params: params
         )
 
-        expect(client.reload.system_notes.map(&:body)).to include "#{team_member.name_with_role} updated 2022 tax return status from Final steps/Ready to file to Quality review/Ready for call"
+        expect(client.reload.system_notes.map(&:body)).to include "#{team_member.name_with_role} updated 2023 tax return status from Final steps/Ready to file to Quality review/Ready for call"
       end
 
       context "when 'Keep current status' is selected" do

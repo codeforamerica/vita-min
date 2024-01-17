@@ -38,8 +38,8 @@ RSpec.describe Portal::PortalController, type: :controller do
       let(:client) { create :client, intake: (build :intake) }
 
       before do
-        create :tax_return, :intake_in_progress, year: 2018, client: client
-        create :tax_return, :prep_ready_for_prep, year: 2019, client: client
+        create :tax_return, :intake_in_progress, year: 2020, client: client
+        create :tax_return, :prep_ready_for_prep, year: 2021, client: client
         create :gyr_tax_return, :intake_ready_for_call, client: client
       end
 
@@ -52,7 +52,7 @@ RSpec.describe Portal::PortalController, type: :controller do
       it "loads the client tax returns in desc order" do
         get :home
 
-        expect(assigns(:tax_returns).map(&:year)).to eq [2022, 2019, 2018]
+        expect(assigns(:tax_returns).map(&:year)).to eq [2023, 2021, 2020]
         expect(assigns(:current_step)).to eq nil
       end
     end

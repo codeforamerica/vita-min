@@ -22,17 +22,17 @@ RSpec.describe "searching, sorting, and filtering clients" do
       let(:vita_partner) { create :organization, name: "Alan's Org" }
       let(:site) { create :site, name: "Some child site", parent_organization_id: vita_partner_other.id }
       let!(:vita_partner_other) { create :organization, name: "Some Other Org", allows_greeters: true }
-      let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (build :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.new(2021, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 23), tax_returns: [(build :tax_return, :intake_in_progress, year: 2019, assigned_user: user)] }
-      let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (build :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2021, 4, 28), tax_returns: [(build :tax_return, :prep_ready_for_prep, year: 2020)] }
-      let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (build :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2021, 5, 1), tax_returns: [(build :tax_return, :prep_ready_for_prep, year: 2019, assigned_user: user)] }
-      let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (build :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2021, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2021, 4, 28), tax_returns: [(build :tax_return, :intake_in_progress, year: 2020, assigned_user: mona_user)] }
+      let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (build :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.new(2024, 4, 23), first_unanswered_incoming_interaction_at: Time.new(2024, 4, 23), tax_returns: [(build :tax_return, :intake_in_progress, year: 2022, assigned_user: user)] }
+      let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (build :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.new(2024, 4, 28), tax_returns: [(build :tax_return, :prep_ready_for_prep, year: 2023)] }
+      let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (build :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.new(2024, 5, 1), first_unanswered_incoming_interaction_at: Time.new(2024, 5, 1), tax_returns: [(build :tax_return, :prep_ready_for_prep, year: 2022, assigned_user: user)] }
+      let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (build :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.new(2024, 5, 3), first_unanswered_incoming_interaction_at: Time.new(2024, 4, 28), tax_returns: [(build :tax_return, :intake_in_progress, year: 2023, assigned_user: mona_user)] }
 
       before do
         zach_prep_ready_for_call.update(first_unanswered_incoming_interaction_at: nil)
       end
 
       before do
-        allow(DateTime).to receive(:now).and_return DateTime.new(2021, 5, 4)
+        allow(DateTime).to receive(:now).and_return DateTime.new(2024, 5, 4)
         SearchIndexer.refresh_search_index
       end
 
@@ -75,21 +75,21 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         within ".filter-form" do
           fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
-          select "2020", from: "year"
+          select "2023", from: "year"
           select "Mona Mandarin", from: "assigned_user_id"
           select "Ready for prep", from: "status"
           fill_in "Search", with: "Zach"
 
           click_button "Filter results"
           expect(page).to have_text("Alan's Org")
-          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
           # reload page and filters persist
           visit hub_clients_path
           expect(page).to have_text("Alan's Org")
-          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
@@ -99,25 +99,25 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status", selected: "")
 
           fill_in_tagify '.multi-select-vita-partner', "Some Other Org"
-          select "2019", from: "year"
+          select "2022", from: "year"
           select "Not filing", from: "status"
           fill_in "Search", with: "Bob"
           click_button "Filter results"
           # Filters persist after submitting with filters
           expect(page).to have_text("Some Other Org")
-          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("year", selected: "2022")
           expect(page).to have_select("status", selected: "Not filing")
 
           # Filters persist when visiting the page directly
           visit hub_assigned_clients_path
           expect(page).to have_text("Some Other Org")
-          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("year", selected: "2022")
           expect(page).to have_select("status", selected: "Not filing")
 
           # Can navigate to another dashboard and see that pages persisted filters again.
           visit hub_clients_path
           expect(page).to have_text("Alan's Org")
-          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
         end
@@ -224,13 +224,13 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expected_rows = [
           {
             "Name" => a_string_including(alan_intake_in_progress.preferred_name),
-            "Last contact" => "7 days"
+            "Last contact" => "9 days"
           }, {
             "Name" => a_string_including(zach_prep_ready_for_call.preferred_name),
-            "Last contact" => "4 days"
+            "Last contact" => "5 days"
           }, {
             "Name" => a_string_including(patty_prep_ready_for_call.preferred_name),
-            "Last contact" => "1 day"
+            "Last contact" => "3 days"
           }, {
             "Name" => a_string_including(betty_intake_in_progress.preferred_name),
             "Last contact" => "1 day"
@@ -263,15 +263,15 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[1]).to have_text("Response")
 
         within ".filter-form" do
-          select "2019", from: "year"
+          select "2022", from: "year"
           click_button "Filter results"
-          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("year", selected: "2022")
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 2
         end
 
-        # search for client within 2019 filtered results
+        # search for client within 2022 filtered results
         fill_in "Search", with: "Banana"
         click_button "Filter results"
         expect(page.all('.client-row').length).to eq 1
@@ -284,11 +284,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 4
         end
         within ".filter-form" do
-          select "2019", from: "year"
+          select "2022", from: "year"
           select "Ready for prep", from: "status"
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
-          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("year", selected: "2022")
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 1
@@ -302,21 +302,21 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           check "assigned_to_me"
           select "Ready for prep", from: "status"
-          select "2019", from: "year"
+          select "2022", from: "year"
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
-          expect(page).to have_select("year", selected: "2019")
+          expect(page).to have_select("year", selected: "2022")
           expect(page).to have_checked_field("assigned_to_me")
         end
         within ".client-table" do
           expect(page.all('.client-row').length).to eq 1
         end
         within ".filter-form" do
-          select "2020", from: "year"
+          select "2023", from: "year"
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_checked_field("assigned_to_me")
-          expect(page).to have_select("year", selected: "2020")
+          expect(page).to have_select("year", selected: "2023")
         end
         expect(page).not_to have_css ".client-table"
         expect(page).to have_css ".empty-clients"
