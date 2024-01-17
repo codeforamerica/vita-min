@@ -277,7 +277,16 @@ describe Efile::Az::Az140 do
 
   # Check for standard deduction line 43
   describe 'Standard deductions' do
-    # TDOO
+    let(:intake) { create(:state_file_az_intake) }
+    before do
+      intake.direct_file_data.filing_status = 5 # qualifying_widow
+    end
+
+    it 'sets the standard deduction correctly for QSS' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+      expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+    end
   end
 
   # Family income tax credit and excise credit Lines 50, 56

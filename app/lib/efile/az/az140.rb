@@ -121,13 +121,11 @@ module Efile
       end
 
       def calculate_line_43
-        # AZ Standard Deductions for 2023
-        # Changes will reflect here...
         if filing_status_single?
           13_850
         elsif filing_status_mfj?
           27_700
-        elsif filing_status_hoh? # What if qualifying widow?
+        elsif filing_status_hoh?
           20_800
         end
       end
