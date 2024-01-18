@@ -248,4 +248,58 @@ describe Efile::Az::Az140 do
     end
   end
 
+  # Check for filing status lines 4-7
+  describe '#filing_status' do
+    context 'when is single' do
+      let(:intake) { create(:state_file_az_intake) }
+      before do
+        intake.direct_file_data.filing_status = 1 # single
+      end
+
+      it 'sets filing_status to single' do
+        instance.calculate
+        expect(intake.filing_status).to eq(:single)
+      end
+    end
+
+    context 'when filing_status is qualifying_widow / QSS' do
+      let(:intake) { create(:state_file_az_intake) }
+      before do
+        intake.direct_file_data.filing_status = 5 # qualifying_widow
+      end
+
+      it 'sets filing_status to hoh' do
+        instance.calculate
+        expect(intake.filing_status).to eq(:head_of_household)
+      end
+    end
+  end
+
+  # Check for standard deduction line 43
+  describe 'Standard deductions' do
+    let(:intake) { create(:state_file_az_intake) }
+    before do
+      intake.direct_file_data.filing_status = 5 # qualifying_widow
+    end
+
+    it 'sets the standard deduction correctly for QSS' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+      expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+    end
+  end
+
+  # Family income tax credit and excise credit Lines 50, 56
+  describe 'Family income tax credit and excise credit' do
+    let(:intake) { create(:state_file_az_johnny_intake) }
+    before do
+      intake.direct_file_data.filing_status = 5 # qualifying_widow
+    end
+
+    it 'sets the standard deduction correctly for QSS' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_50].value).to eq(0)
+      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+    end
+  end
 end

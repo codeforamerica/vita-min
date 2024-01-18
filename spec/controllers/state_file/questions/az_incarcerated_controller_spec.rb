@@ -61,6 +61,7 @@ RSpec.describe StateFile::Questions::AzIncarceratedController do
       end
     end
 
+    # qw now counts as hoh
     context "when the client is filing qw and has a fed_agi > 12.5k" do
       before do
         intake.direct_file_data.primary_ssn = "123456789"
@@ -68,7 +69,7 @@ RSpec.describe StateFile::Questions::AzIncarceratedController do
         intake.direct_file_data.fed_agi = 12_501
       end
       it "returns false" do
-        expect(described_class.show?(intake)).to eq false
+        expect(described_class.show?(intake)).to eq true
       end
     end
 
