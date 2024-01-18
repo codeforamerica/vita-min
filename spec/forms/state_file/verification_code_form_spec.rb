@@ -74,7 +74,7 @@ RSpec.describe StateFile::VerificationCodeForm do
   end
 
   describe "#save" do
-    context "when the intake is using email" do
+    context "when the intake is using email TEST" do
       let(:intake) { create :state_file_ny_intake, contact_preference: :email, email_address: "someone@example.com" }
       let(:verification_code) do
         EmailAccessToken.generate!(email_address: intake.email_address).first
