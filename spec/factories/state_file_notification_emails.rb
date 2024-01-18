@@ -12,17 +12,10 @@
 #  updated_at     :datetime         not null
 #  message_id     :string
 #
-class StateFileNotificationEmail < ApplicationRecord
-  validates_presence_of :to
-  validates_presence_of :body
-  validates_presence_of :subject
-
-  after_create_commit :deliver
-
-  private
-
-  def deliver
-    StateFile::SendNotificationEmailJob.perform_later(id)
+FactoryBot.define do
+  factory :state_file_notification_email do
+    body { "nothin" }
+    subject { "Update from FileYourStateTaxes" }
+    to { "outgoing@example.com" }
   end
-
 end

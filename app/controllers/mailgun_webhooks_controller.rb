@@ -141,7 +141,8 @@ class MailgunWebhooksController < ActionController::Base
     email_to_update = (
       OutgoingEmail.find_by(message_id: message_id) ||
         VerificationEmail.find_by(mailgun_id: message_id) ||
-        OutgoingMessageStatus.find_by(message_id: message_id, message_type: :email)
+        OutgoingMessageStatus.find_by(message_id: message_id, message_type: :email) ||
+        StateFileNotificationEmail.find_by(message_id: message_id)
     )
     DatadogApi.increment("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
     status_key =

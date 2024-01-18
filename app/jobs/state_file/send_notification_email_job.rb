@@ -5,9 +5,7 @@ module StateFile
     def perform(state_file_notification_email_id)
       notification_email = StateFileNotificationEmail.find(state_file_notification_email_id)
       mailer_response = StateFile::NotificationMailer.user_message(notification_email: notification_email).deliver_now
-      notification_email.update(sent_at: DateTime.now)
-      # TODO: add this to the model and handle status webhooks
-      # notification_email.update(message_id: mailer_response.message_id, sent_at: DateTime.now)
+      notification_email.update(message_id: mailer_response.message_id, sent_at: DateTime.now)
     end
 
     def priority

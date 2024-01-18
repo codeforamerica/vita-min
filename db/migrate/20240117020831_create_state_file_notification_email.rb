@@ -6,6 +6,8 @@ class CreateStateFileNotificationEmail < ActiveRecord::Migration[7.1]
       t.datetime "sent_at", precision: nil, null: true
       t.string "subject", null: false
       t.string "to", null: false
+      t.string "mailgun_status", default: "sending"
+      t.string "message_id"
       t.datetime "updated_at", null: false, precision: 6
     end
   end

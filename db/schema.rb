@@ -1679,6 +1679,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_020831) do
   create_table "state_file_notification_emails", force: :cascade do |t|
     t.string "body", null: false
     t.datetime "created_at", null: false
+    t.string "mailgun_status", default: "sending"
+    t.string "message_id"
     t.datetime "sent_at", precision: nil
     t.string "subject", null: false
     t.string "to", null: false
