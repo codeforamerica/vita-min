@@ -21,6 +21,9 @@ class Ability
         cannot :manage, StateId
         cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
       end
+      unless user.email.include?("@codeforamerica.org")
+        cannot :manage, :flipper_dashboard
+      end
       return
     end
 

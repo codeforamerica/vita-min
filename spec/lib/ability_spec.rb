@@ -1,5 +1,8 @@
 require "rails_helper"
 
+# TODO: .new is only needed if we are testing instance access instead of table access.
+#   Consider removing .new in specs below unless necessary
+
 describe Ability do
   let(:subject) { Ability.new(user) }
 
@@ -17,6 +20,18 @@ describe Ability do
       expect(subject.can?(:manage, SystemNote.new)).to eq true
       expect(subject.can?(:manage, User.new)).to eq true
       expect(subject.can?(:manage, VitaPartner.new)).to eq true
+    end
+
+    it "cannot access flipper" do
+      expect(subject.cannot?(:read, :flipper_dashboard)).to eq true
+    end
+
+    context "admin with @codeforamerica.org email" do
+      let(:user) { create :admin_user, role: role, email: "someone@codeforamerica.org" }
+
+      it "can manage flipper" do
+        expect(subject.can?(:manage, :flipper_dashboard)).to eq true
+      end
     end
 
     context "state_file true" do
