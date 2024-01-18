@@ -20,7 +20,7 @@ module StateFile
       send_email(intake: intake,
                  subject: message.email_subject(locale: locale),
                  body: message.email_body(locale: locale, **body_args))
-      # Eventually send SMS here as well
+      # TODO: Eventually send SMS here as well
     end
   end
 end
