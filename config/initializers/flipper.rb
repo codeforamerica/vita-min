@@ -5,10 +5,19 @@ Flipper.configure do |config|
   end
 end
 
-# Change this to Flipper.enable to test notification emails,
-# then eventually delete it and the corresponding flag checks when notification
-# emails are turned on in prod and running smoothly
-Flipper.disable :state_file_notification_emails
+# This structure is borrowed from https://github.com/department-of-veterans-affairs/vets-api/blob/247c84c0226d4cc90477b96a46107c6bace62bd5/config/initializers/flipper.rb
+# Make sure that each feature we reference in code is present in the UI, as long as we have a Database already
+begin
+  # Change this to Flipper.enable to test notification emails,
+  # then eventually delete it and the corresponding flag checks when notification
+  # emails are turned on in prod and running smoothly
+  unless Flipper.exist?(:state_file_notification_emails)
+    Flipper.disable :state_file_notification_emails
+  end
+rescue
+  # make sure we can still run rake tasks before table has been created
+  nil
+end
 
 Flipper::UI.configure do |config|
   # Defaults to false. Set to true to show feature descriptions on the list
@@ -33,8 +42,7 @@ end
 class CanAccessFlipperUI
   def self.matches?(request)
     return true if Rails.env.development? || Rails.env.heroku?
-
     current_user = request.env['warden'].user
-    current_user.present? && current_user.admin? && current_user.email.include?("@codeforamerica.org")
+    Ability.new(current_user).can?(:manage, :flipper_dashboard)
   end
 end
