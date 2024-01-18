@@ -3,6 +3,7 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       skip_before_action :redirect_in_offseason
       skip_before_action :redirect_if_completed_intake_present
+      before_action :redirect_if_no_intake
       helper_method :card_postscript
 
       # default layout for all state file questions
@@ -30,6 +31,17 @@ module StateFile
           Navigation::StateFileAzQuestionNavigation
         when 'ny'
           Navigation::StateFileNyQuestionNavigation
+        end
+      end
+
+      def redirect_if_no_intake
+        unless current_intake.present?
+          flash[:notice] = 'Your session expired. Please sign in again to continue.'
+          if params['us_state'] == 'az'
+            redirect_to az_questions_landing_page_path(us_state: params['us_state'])
+          else
+            redirect_to ny_questions_landing_page_path(us_state: params['us_state'])
+          end
         end
       end
 

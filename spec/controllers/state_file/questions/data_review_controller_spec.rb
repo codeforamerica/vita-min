@@ -30,6 +30,15 @@ RSpec.describe StateFile::Questions::DataReviewController do
         expect(response).to redirect_to(StateFile::Questions::DataTransferOffboardingController.to_path_helper(us_state: "az"))
       end
     end
+
+    context 'when the session times out/ is destroyed' do
+      it 'redirects to the landing page for the correct state' do
+        session.destroy
+        response = get :edit, params: { us_state: "az" }
+        expect(response).to redirect_to(az_questions_landing_page_path(us_state: 'az'))
+        expect(flash[:notice]).to eq('Your session expired. Please sign in again to continue.')
+      end
+    end
   end
 
   describe "#update" do
