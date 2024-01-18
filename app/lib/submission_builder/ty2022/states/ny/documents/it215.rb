@@ -25,9 +25,7 @@ module SubmissionBuilder
                 xml.E_HH_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_14")
                 xml.E_EITC_LMT_AMT claimed: calculated_fields.fetch("IT215_LINE_15")
                 xml.E_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_16")
-                if calculated_fields["IT215_LINE_27"]
-                  xml.E_NYC_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_27")
-                end
+                xml.E_NYC_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_27")
                 xml.E_TX_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_1")
                 xml.E_RSDT_CR_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_2")
                 xml.E_ACM_DIST_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_3")

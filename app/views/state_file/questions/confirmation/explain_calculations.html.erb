@@ -18,7 +18,7 @@
         </td>
         <td style="vertical-align: top;"><%= line.value %></td>
         <td style="vertical-align: top; white-space: nowrap;">
-          <% line.inputs.each do |line_id| %>
+          <% line.inputs&.each do |line_id| %>
             <div>
               <a href="#<%= line_id %>"><%= line_id %></a>: <%= @calculator.lines[line_id]&.value %>
             </div>
