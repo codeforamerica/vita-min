@@ -83,7 +83,7 @@ module Efile
         set_line(:IT201_LINE_67, -> { 0 })
         set_line(:IT201_LINE_69, :calculate_line_69)
         set_line(:IT201_LINE_69A, :calculate_line_69a)
-        set_line(:IT201_LINE_70, -> { @lines[:IT215_LINE_27] ? @lines[:IT215_LINE_27].value : 0})
+        set_line(:IT201_LINE_70, -> { line_or_zero(:IT215_LINE_27) })
         set_line(:IT201_LINE_72, :calculate_line_72)
         set_line(:IT201_LINE_73, :calculate_line_73)
         set_line(:IT201_LINE_76, :calculate_line_76)
