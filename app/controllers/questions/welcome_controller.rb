@@ -9,6 +9,7 @@ module Questions
     def redirect_to_triage_personal_info
       redirect_to triage_personal_info_questions_path
       # fake change 1
+      # fake change 2
     end
 
     def self.show?(_intake, _current_controller)
