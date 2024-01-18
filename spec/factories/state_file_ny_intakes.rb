@@ -44,6 +44,8 @@
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
+#  nyc_maintained_home                :integer          default("unfilled"), not null
+#  nyc_residency                      :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
 #  payment_or_deposit_type            :integer          default("unfilled"), not null
 #  permanent_address_outside_ny       :integer          default("unfilled"), not null
