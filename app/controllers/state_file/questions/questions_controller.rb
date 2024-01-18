@@ -35,14 +35,7 @@ module StateFile
       end
 
       def redirect_if_no_intake
-        if current_intake.present?
-          # Assign the global id of the state_file_intake of the session to be that of the current_intake
-          # This attempts to prevent the weird timeout issues we have been experiencing in the flow.
-          # Where the session's intake does match the true current one and ends up timing out erroneously.
-          session[:state_file_intake] = "gid://vita-min/#{current_intake.class}/#{current_intake.id}"
-          # Sign out from previous intake if they differ from current_intake
-          # TODO
-        else
+        unless current_intake.present?
           begin
             visitor_id = cookies['visitor_id']
             raise "The session for visitor with id:#{visitor_id} has expired"
@@ -50,7 +43,7 @@ module StateFile
             Sentry.capture_exception(e)
           end
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          redirect_to question_navigator.first.controller_path
+          redirect_to  '/'+I18n.locale.to_s.concat('/', request.url.split('/')[4], '/',question_navigator.first.controller_path.gsub('_page', '-page').split('/')[1..2].join('/'))
         end
       end
 
