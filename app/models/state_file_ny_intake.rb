@@ -44,6 +44,8 @@
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
 #  nyc_full_year_resident             :integer          default("unfilled"), not null
+#  nyc_maintained_home                :integer          default("unfilled"), not null
+#  nyc_residency                      :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
 #  payment_or_deposit_type            :integer          default("unfilled"), not null
 #  permanent_address_outside_ny       :integer          default("unfilled"), not null
@@ -99,6 +101,8 @@
 class StateFileNyIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
+  enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
+  enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home
   enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit

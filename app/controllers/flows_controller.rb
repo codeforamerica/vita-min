@@ -599,6 +599,8 @@ class FlowsController < ApplicationController
         eligibility_yonkers: "no",
         household_rent_own: "unfilled",
         nursing_home: "unfilled",
+        nyc_residency: "none",
+        nyc_maintained_home: "no",
         nyc_full_year_resident: "no",
         occupied_residence: "unfilled",
         permanent_apartment: "B",
