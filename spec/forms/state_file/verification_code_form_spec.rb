@@ -86,6 +86,13 @@ RSpec.describe StateFile::VerificationCodeForm do
           form.save
         }.to change(intake, :email_address_verified_at).from(nil)
       end
+
+      it "sends a welcome email" do
+        form = described_class.new(intake, verification_code: verification_code)
+        expect {
+          form.save
+        }.to change { StateFileNotificationEmail.where(to: intake.email_address).count }.from(0).to(1)
+      end
     end
 
     context "when the intake is using text message" do

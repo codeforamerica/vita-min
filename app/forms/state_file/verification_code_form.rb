@@ -22,7 +22,7 @@ module StateFile
       if is_first_time_verifying
         StateFile::MessagingService.send_notification(
           intake: intake,
-          message: AutomatedMessage::StateFile::Welcome.new)
+          message: StateFile::NotificationMessages::Welcome)
       end
     end
 
