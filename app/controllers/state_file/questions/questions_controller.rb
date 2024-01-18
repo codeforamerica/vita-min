@@ -36,14 +36,12 @@ module StateFile
 
       def redirect_if_no_intake
         unless current_intake.present?
-          begin
-            visitor_id = cookies['visitor_id']
-            raise "The session for visitor with id:#{visitor_id} has expired"
-          rescue => e
-            Sentry.capture_exception(e)
-          end
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          redirect_to  '/'+I18n.locale.to_s.concat('/', request.url.split('/')[4], '/',question_navigator.first.controller_path.gsub('_page', '-page').split('/')[1..2].join('/'))
+          if params['us_state'] == 'az'
+            redirect_to az_questions_landing_page_path(us_state: params['us_state'])
+          else
+            redirect_to ny_questions_landing_page_path(us_state: params['us_state'])
+          end
         end
       end
 
