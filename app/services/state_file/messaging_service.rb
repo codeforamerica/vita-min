@@ -12,11 +12,6 @@ module StateFile
     end
 
     def self.send_notification(intake:, message:, body_args: {})
-      # TODO: Figure out how to check for already sent
-      # Need to add message name to the record would be easiest
-      # Make sure to check for email or SMS
-      # already_sent = StateFileNotificationEmail.find(???)
-
       # TODO: Figure out locale from intake somehow (though we don't currently capture preferred language anywhere)
       locale = nil
 
