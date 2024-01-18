@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v4.0">
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
   <ReturnHeader binaryAttachmentCnt="0">
     <TaxYr>2023</TaxYr>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
-    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
       <PrimarySSN>177001011</PrimarySSN>
@@ -24,7 +24,7 @@
       </AtSubmissionFilingGrp>
     </AdditionalFilerInformation>
   </ReturnHeader>
-  <ReturnData documentCnt="4">
+  <ReturnData documentCnt="5">
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
@@ -46,7 +46,7 @@
       <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
       <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
       <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
-      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <SocSecBnftAmt>0</SocSecBnftAmt>
       <TaxableSocSecAmt>0</TaxableSocSecAmt>
       <CapitalGainLossAmt>0</CapitalGainLossAmt>
       <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
@@ -65,19 +65,15 @@
       <TaxLessCreditsAmt>618</TaxLessCreditsAmt>
       <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
       <TotalTaxAmt>618</TotalTaxAmt>
-      <FormW2WithheldTaxAmt>1900</FormW2WithheldTaxAmt>
-      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">50</Form1099WithheldTaxAmt>
       <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
-      <WithholdingTaxAmt>1900</WithholdingTaxAmt>
+      <WithholdingTaxAmt>2050</WithholdingTaxAmt>
       <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
-      <EICEligibilityLiteralCd>NO</EICEligibilityLiteralCd>
       <RefundableCreditsAmt>0</RefundableCreditsAmt>
-      <TotalPaymentsAmt>1900</TotalPaymentsAmt>
-      <OverpaidAmt>1282</OverpaidAmt>
-      <RefundAmt>1282</RefundAmt>
-      <RoutingTransitNum>011001742</RoutingTransitNum>
-      <BankAccountTypeCd>1</BankAccountTypeCd>
-      <DepositorAccountNum>99990000001011</DepositorAccountNum>
+      <TotalPaymentsAmt>2050</TotalPaymentsAmt>
+      <OverpaidAmt>1432</OverpaidAmt>
+      <RefundAmt>1432</RefundAmt>
       <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
       <OwedAmt>0</OwedAmt>
       <EsPenaltyAmt>0</EsPenaltyAmt>
@@ -93,7 +89,50 @@
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
     </IRS1040Schedule1>
     <IRSW2 documentId="W20001" documentName="IRSW2">
-      <EmployeeSSN>100001011</EmployeeSSN>
+      <EmployeeSSN>177001011</EmployeeSSN>
+      <EmployerEIN>012334561</EmployerEIN>
+      <EmployerNameControlTxt>MUSI</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Music Row</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>123 James Pl</AddressLine1Txt>
+        <CityNm>Quinton</CityNm>
+        <StateAbbreviationCd>AL</StateAbbreviationCd>
+        <ZIPCd>35130</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Javier D Jimenez</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>17725</WagesAmt>
+      <WithholdingAmt>1800</WithholdingAmt>
+      <SocialSecurityWagesAmt>17725</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1100</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>17725</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001234561</EmployerStateIdNum>
+          <StateWagesAmt>17725</StateWagesAmt>
+          <StateIncomeTaxAmt>210</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>177001011</EmployeeSSN>
       <EmployerEIN>001234520</EmployerEIN>
       <EmployerNameControlTxt>NYSO</EmployerNameControlTxt>
       <EmployerName>
@@ -115,16 +154,16 @@
       <WagesAmt>1775</WagesAmt>
       <WithholdingAmt>200</WithholdingAmt>
       <SocialSecurityWagesAmt>1775</SocialSecurityWagesAmt>
-      <SocialSecurityTaxAmt>80</SocialSecurityTaxAmt>
+      <SocialSecurityTaxAmt>120</SocialSecurityTaxAmt>
       <MedicareWagesAndTipsAmt>1775</MedicareWagesAndTipsAmt>
-      <MedicareTaxWithheldAmt>20</MedicareTaxWithheldAmt>
+      <MedicareTaxWithheldAmt>40</MedicareTaxWithheldAmt>
       <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
       <AllocatedTipsAmt>0</AllocatedTipsAmt>
       <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
-      <EmployersUseGrp>
-        <EmployersUseCd>Q</EmployersUseCd>
-        <EmployersUseAmt>0</EmployersUseAmt>
-      </EmployersUseGrp>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414HSUB</Desc>
+        <Amt>54</Amt>
+      </OtherDeductionsBenefitsGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
           <StateAbbreviationCd>NY</StateAbbreviationCd>
@@ -139,52 +178,12 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
-    <IRSW2 documentId="W20002" documentName="IRSW2">
-      <EmployeeSSN>100001011</EmployeeSSN>
-      <EmployerEIN>012334561</EmployerEIN>
-      <EmployerNameControlTxt>MUSI</EmployerNameControlTxt>
-      <EmployerName>
-        <BusinessNameLine1Txt>Music Row</BusinessNameLine1Txt>
-      </EmployerName>
-      <EmployerUSAddress>
-        <AddressLine1Txt>123 James Pl</AddressLine1Txt>
-        <CityNm>Quinton</CityNm>
-        <StateAbbreviationCd>AL</StateAbbreviationCd>
-        <ZIPCd>35130</ZIPCd>
-      </EmployerUSAddress>
-      <EmployeeNm>Javier D Jimenez</EmployeeNm>
-      <EmployeeUSAddress>
-        <AddressLine1Txt>123 Main St</AddressLine1Txt>
-        <CityNm>Pleasantville</CityNm>
-        <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>10572</ZIPCd>
-      </EmployeeUSAddress>
-      <WagesAmt>17725</WagesAmt>
-      <WithholdingAmt>1700</WithholdingAmt>
-      <SocialSecurityWagesAmt>17725</SocialSecurityWagesAmt>
-      <SocialSecurityTaxAmt>1099</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>17725</MedicareWagesAndTipsAmt>
-      <MedicareTaxWithheldAmt>257</MedicareTaxWithheldAmt>
-      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
-      <AllocatedTipsAmt>0</AllocatedTipsAmt>
-      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
-      <EmployersUseGrp>
-        <EmployersUseCd>Q</EmployersUseCd>
-        <EmployersUseAmt>0</EmployersUseAmt>
-      </EmployersUseGrp>
-      <W2StateLocalTaxGrp>
-        <W2StateTaxGrp>
-          <StateAbbreviationCd>NY</StateAbbreviationCd>
-          <EmployerStateIdNum>001234561</EmployerStateIdNum>
-          <StateWagesAmt>17725</StateWagesAmt>
-          <StateIncomeTaxAmt>210</StateIncomeTaxAmt>
-          <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
-          </W2LocalTaxGrp>
-        </W2StateTaxGrp>
-      </W2StateLocalTaxGrp>
-      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
-    </IRSW2>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>270293117</EIN>
+        <WithholdingAmt>50</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
   </ReturnData>
 </Return>
