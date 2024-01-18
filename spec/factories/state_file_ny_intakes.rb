@@ -197,5 +197,22 @@ FactoryBot.define do
         intake.dependents.reload
       end
     end
+
+    factory :state_file_taylor_intake do
+      # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
+      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_taylor_hoh_3deps_ny.xml')) }
+
+      after(:create) do |intake|
+        intake.synchronize_df_dependents_to_database
+        {
+          "Meredith" => Date.new(2021, 1, 2),
+          "Olivia" => Date.new(2019, 1, 3),
+          "Benjamin" => Date.new(2017, 1, 7),
+        }.each do |name, date|
+          intake.dependents.where(first_name: name).first.update(dob: date)
+        end
+        intake.dependents.reload
+      end
+    end
   end
 end

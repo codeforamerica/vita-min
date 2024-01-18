@@ -21,8 +21,10 @@ module SubmissionBuilder
                       xml.ESC_FED_TOT_AMT claimed: calculated_fields.fetch(:IT213_LINE_8)
                     end
                     xml.ESC_LMT_1_AMT claimed: calculated_fields.fetch(:IT213_LINE_9)
-                    xml.ESC_TOT_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_12)
-                    xml.ESC_LMT_2_AMT claimed: calculated_fields.fetch(:IT213_LINE_13)
+                    if calculated_fields.fetch(:IT213_LINE_3) == 1
+                      xml.ESC_TOT_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_12)
+                      xml.ESC_LMT_2_AMT claimed: calculated_fields.fetch(:IT213_LINE_13)
+                    end
                     xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_14)
                     xml.ESC_FY_SP_SHR_AMT claimed: calculated_fields.fetch(:IT213_LINE_15)
                     xml.ESC_PY_SP_SHR_AMT claimed: calculated_fields.fetch(:IT213_LINE_16)

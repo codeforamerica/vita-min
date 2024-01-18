@@ -577,7 +577,7 @@ describe Efile::Ny::It201 do
       let(:intake) { create(:state_file_zeus_intake) }
 
       it "calculates the proper value for line 14" do
-        expect(instance.calculate[:IT213_LINE_14]).to eq 742
+        expect(instance.calculate[:IT213_LINE_14]).to eq 743
       end
     end
 
@@ -725,6 +725,14 @@ describe Efile::Ny::It201 do
         expect(instance.lines[:IT213_WORKSHEET_B_LINE_9].value).to eq(2_700)
         expect(instance.lines[:IT213_LINE_7].value).to eq(2_700)
         expect(instance.lines[:IT213_LINE_14].value).to eq(891)
+      end
+    end
+
+    context "with dependents with QlfyChildUnderAgeSSNLimtAmt instead of fed ctc" do
+      let(:intake) { create(:state_file_taylor_intake) }
+
+      it "calculates the proper value for line 14" do
+        expect(instance.calculate[:IT213_LINE_14]).to eq 561
       end
     end
   end
