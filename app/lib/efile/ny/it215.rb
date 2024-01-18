@@ -45,14 +45,8 @@ module Efile
 
         # lines 17-26 are out of scope
 
-        # https://www.tax.ny.gov/forms/current-forms/it/it215i.htm#worksheet-c
-        set_line(:IT215_WK_C_LINE_1, -> { @lines[:IT215_LINE_10].value })
-        @nyc_eic_rate_worksheet.calculate
-        set_line(:IT215_WK_C_LINE_2, -> { @lines[:NYC_EIC_RATE_WK_LINE_6].value })
-        set_line(:IT215_WK_C_LINE_3, :calculate_wk_c_line_3)
-        # worksheet c line 4 is out of scope
-
-        set_line(:IT215_LINE_27, -> {@lines[:IT215_WK_C_LINE_3].value})
+        # NYC EIC
+        set_line(:IT215_LINE_27, :calculate_line_27)
       end
 
       def calculate_line_3
@@ -81,6 +75,21 @@ module Efile
 
       def calculate_line_16
         @lines[:IT215_LINE_12].value - @lines[:IT215_LINE_15].value
+      end
+
+      def calculate_line_27
+        # NYC EIC
+        if @intake.nyc_full_year_resident_yes?
+          # https://www.tax.ny.gov/forms/current-forms/it/it215i.htm#worksheet-c
+          set_line(:IT215_WK_C_LINE_1, -> { @lines[:IT215_LINE_10].value })
+          @nyc_eic_rate_worksheet.calculate
+          set_line(:IT215_WK_C_LINE_2, -> { @lines[:NYC_EIC_RATE_WK_LINE_6].value })
+          set_line(:IT215_WK_C_LINE_3, :calculate_wk_c_line_3)
+          # worksheet c line 4 is out of scope
+          @lines[:IT215_WK_C_LINE_3].value
+        else
+          0
+        end
       end
 
       def calculate_wk_c_line_3
