@@ -414,7 +414,6 @@ RSpec.describe MailgunWebhooksController do
               }
       }
     end
-    let!(:outgoing_email) { create :outgoing_email, message_id: "DACSsAdVSeGpLid7TN03WA"  }
 
     context "with HTTP basic auth credentials" do
       before do
@@ -422,13 +421,25 @@ RSpec.describe MailgunWebhooksController do
         allow(DatadogApi).to receive(:increment)
       end
 
-      it "updates an existing outgoing email with matching mailgun id with provided status" do
-        post :update_outgoing_email_status, params: params
-        expect(outgoing_email.reload.mailgun_status).to eq "opened"
+      context "when there is a matching outgoing email" do
+        let!(:outgoing_email) { create :outgoing_email, message_id: message_id  }
+
+        it "updates it with provided status" do
+          post :update_outgoing_email_status, params: params
+          expect(outgoing_email.reload.mailgun_status).to eq "opened"
+        end
       end
 
-      context "with no matching OutgoingEmail but a matching VerificationEmail" do
-        let(:message_id) { "verification_email_id" }
+      context "when there is a matching state file notification email" do
+        let!(:state_file_notification_email) { create :state_file_notification_email, message_id: message_id}
+
+        it "updates it with provided status" do
+          post :update_outgoing_email_status, params: params
+          expect(state_file_notification_email.reload.mailgun_status).to eq "opened"
+        end
+      end
+
+      context "when there is a matching VerificationEmail" do
         let!(:verification_email) { create(:verification_email, mailgun_id: message_id) }
         it "updates the VerificationEmail object with the status" do
           post :update_outgoing_email_status, params: params
@@ -437,7 +448,6 @@ RSpec.describe MailgunWebhooksController do
       end
 
       context "when there is a matching OutgoingMessageStatus" do
-        let(:message_id) { "msg_id" }
         let!(:outgoing_message_status) { create(:outgoing_message_status, :email, message_id: message_id) }
         it "updates the record with the status" do
           post :update_outgoing_email_status, params: params
