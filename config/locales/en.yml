@@ -1549,7 +1549,7 @@ en:
             If you would like to unsubscribe from emails, click here.
           subject: Welcome to FileYourStateTaxes
         sms: |
-          Hi - We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+          Hi - We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
 
           Need help? Reply to this text. Text "STOP" to unsubscribe.
     successful_submission_drop_off:
