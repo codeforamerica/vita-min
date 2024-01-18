@@ -161,6 +161,7 @@
         <QualifyingChildSSN>300000013</QualifyingChildSSN>
         <ChildBirthYr>2004</ChildBirthYr>
         <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
         <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
         <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
@@ -173,6 +174,7 @@
         <QualifyingChildSSN>300000012</QualifyingChildSSN>
         <ChildBirthYr>2002</ChildBirthYr>
         <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
         <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
         <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
@@ -184,6 +186,8 @@
         </ChildFirstAndLastName>
         <QualifyingChildSSN>300000010</QualifyingChildSSN>
         <ChildBirthYr>2009</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
         <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
         <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
