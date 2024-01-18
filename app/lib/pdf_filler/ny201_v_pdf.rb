@@ -11,7 +11,7 @@ module PdfFiller
     end
 
     def tax_year
-      2023
+      MultiTenantService.statefile.current_tax_year
     end
 
     def barcode_overlay_rect

@@ -94,14 +94,14 @@ module PdfHelper
   end
 
   def nys_10digit_barcode_value(form_type, page_num)
-    vendor_source_code = "1963"
+    vendor_source_code = Rails.configuration.nactp_vendor_code
     last_two_digits_of_tax_year = tax_year.to_s[-2..-1]
     "#{form_type}#{page_num}#{last_two_digits_of_tax_year}#{vendor_source_code}"
   end
 
   def nys_12digit_barcode_value(form_type, page_num)
     three_digit_page_num = "%03d" % page_num
-    vendor_source_code = "1963"
+    vendor_source_code = Rails.configuration.nactp_vendor_code
     last_two_digits_of_tax_year = tax_year.to_s[-2..-1]
     "#{form_type}#{three_digit_page_num}#{last_two_digits_of_tax_year}#{vendor_source_code}"
   end
