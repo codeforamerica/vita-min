@@ -92,6 +92,18 @@ AZ140_CCWS_LINE_6c:
 “0”'
 AZ140_CCWS_LINE_7c:
   label: '7C Multiply line 6C by 31% (.31) and enter the result'
+NYC_EIC_RATE_WK_LINE_1:
+  label: 'Enter the amount from Form IT-201, line 33, New York adjusted gross income.'
+NYC_EIC_RATE_WK_LINE_2:
+  label: 'Enter the appropriate dollar amount from the NYC EIC rate table for your New York adjusted gross income (NYAGI), if applicable.'
+NYC_EIC_RATE_WK_LINE_3:
+  label: 'Subtract line 2 from line 1.'
+NYC_EIC_RATE_WK_LINE_4:
+  label: 'Multiply line 3 by .00002 (round the result to four decimal places).'
+NYC_EIC_RATE_WK_LINE_5:
+  label: 'Enter the decimal from the NYC EIC rate table.'
+NYC_EIC_RATE_WK_LINE_6:
+  label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
