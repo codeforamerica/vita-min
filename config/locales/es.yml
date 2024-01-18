@@ -1516,6 +1516,9 @@ es:
       sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
+      state_file_pages:
+        coming_soon:
+          title: Próximamente
       welcome:
         email:
           body: |
