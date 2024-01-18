@@ -70,7 +70,7 @@ RSpec.describe Hub::CreateClientForm do
             certification_level: "basic"
           },
           "3" => {
-            year: "2019",
+            year: "2023",
             is_hsa: "0",
             certification_level: "advanced"
           },
@@ -155,7 +155,7 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.needs_help_previous_year_3).to eq "yes"
         expect(intake.needs_help_previous_year_1).to eq "yes"
         expect(intake.needs_help_current_year).to eq "yes"
-        expect(tax_returns.map(&:year)).to match_array [2022, 2021, 2020, 2019]
+        expect(tax_returns.map(&:year)).to match_array [2023, 2022, 2021, 2020]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end

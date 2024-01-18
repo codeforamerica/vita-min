@@ -13,7 +13,7 @@ module SubmissionBuilder
                   xml.ESC_FED_CR_IND claimed: calculated_fields.fetch(:IT213_LINE_2)
                   xml.ESC_FAGI_LMT_IND claimed: calculated_fields.fetch(:IT213_LINE_3)
                   if calculated_fields.fetch(:IT213_LINE_2) == 1 || calculated_fields.fetch(:IT213_LINE_3) == 1
-                    xml.ESC_FED_CHLD_NMBR claimed: @submission.data_source.dependents.where(ctc_qualifying: true).count
+                    xml.ESC_FED_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_4)
                     xml.ESC_SSN_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_5)
                     if calculated_fields.fetch(:IT213_LINE_2) == 1
                       xml.ESC_FED_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_6)

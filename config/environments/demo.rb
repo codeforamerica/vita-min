@@ -33,10 +33,6 @@ Rails.application.configure do
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "test"
 
-  # At the moment on demo, we want intake to operate even if it's before the production launch.
-  config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2023-01-01 00:00:00')
-  config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2023-01-03 00:00:00')
-
   config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-03-01 09:00:00")
   config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-04-01 09:00:00")
 end

@@ -149,84 +149,74 @@ describe Efile::Ny::It201 do
     end
   end
 
-  describe 'Line 39 New York State tax from tables' do
-    context 'when the filing status is single' do
+  describe '#calculate_line_39' do
+    context 'when single with 58k agi' do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.fed_wages = 20_000
-        intake.direct_file_data.fed_taxable_income = 20_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_33).and_return(58_000)
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_38).and_return(50_000)
       end
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(28_200) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(1_437)
+        expect(instance.lines[:IT201_LINE_39].value).to eq(2_586)
       end
     end
 
-    context 'when the filing status is mfj' do
+    context 'when mfj with 136,050 agi' do
       before do
         intake.direct_file_data.filing_status = 2 # mfj
-        intake.direct_file_data.fed_wages = 20_000
-        intake.direct_file_data.fed_taxable_income = 20_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_33).and_return(136_050)
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_38).and_return(120_000)
       end
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(20_150) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(821)
+        expect(instance.lines[:IT201_LINE_39].value).to eq(6_456)
       end
     end
 
-    context 'when the filing status is mfs' do
+    context 'when mfs with 168k agi' do
       before do
         intake.direct_file_data.filing_status = 3 # mfs
-        intake.direct_file_data.fed_wages = 20_000
-        intake.direct_file_data.fed_taxable_income = 20_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_33).and_return(168_000)
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_38).and_return(160_000)
       end
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(28_200) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(1_437)
+        expect(instance.lines[:IT201_LINE_39].value).to eq(9_600)
       end
     end
 
-    context 'when the filing status is hoh' do
+    context 'when hoh with 24.2k agi' do
       before do
         intake.direct_file_data.filing_status = 4 # hoh
-        intake.direct_file_data.fed_wages = 20_000
-        intake.direct_file_data.fed_taxable_income = 20_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_33).and_return(24_200)
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_38).and_return(11_000)
       end
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(25_000) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(1_141)
+        expect(instance.lines[:IT201_LINE_39].value).to eq(440)
       end
     end
 
-    context 'when the filing status is qw' do
+    context 'when qss with 44,950 agi' do
       before do
-        intake.direct_file_data.filing_status = 5 # qw
-        intake.direct_file_data.fed_wages = 20_000
-        intake.direct_file_data.fed_taxable_income = 20_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
+        intake.direct_file_data.filing_status = 5 # qss
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_33).and_return(44_950)
+        allow(instance).to receive(:line_or_zero).with(:IT201_LINE_38).and_return(27_900)
       end
 
       it 'sets the correct tax amount' do
         instance.calculate
-        expect(instance.lines[:IT201_LINE_38].value).to eq(20_150) # taxable income
-        expect(instance.lines[:IT201_LINE_39].value).to eq(821)
+        expect(instance.lines[:IT201_LINE_39].value).to eq(1_202)
       end
     end
   end
@@ -587,7 +577,7 @@ describe Efile::Ny::It201 do
       let(:intake) { create(:state_file_zeus_intake) }
 
       it "calculates the proper value for line 14" do
-        expect(instance.calculate[:IT213_LINE_14]).to eq 900 # TODO: verify this result for zeus
+        expect(instance.calculate[:IT213_LINE_14]).to eq 742
       end
     end
 
@@ -623,6 +613,7 @@ describe Efile::Ny::It201 do
     context "when the client has claimed fed_ctc > 0 and worksheet A line 8 <= worksheet A line 12" do
       before do
         intake.direct_file_data.fed_ctc = 1_000
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
       end
 
       it "calculated worksheets and finishes calculations" do
@@ -630,7 +621,7 @@ describe Efile::Ny::It201 do
         expect(instance.lines[:IT213_LINE_1].value).to eq(1) # lived in NY state all year
         expect(instance.lines[:IT213_LINE_2].value).to eq(1) # claimed federal CTC
         expect(instance.lines[:IT213_LINE_3].value).to eq(1) # had eligible wages
-        expect(instance.lines[:IT213_LINE_4].value).to eq(1) # one dependent
+        expect(instance.lines[:IT213_LINE_4].value).to eq(1)
         expect(instance.lines[:IT213_LINE_5].value).to eq(0)
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_1].value).to eq(1_000) # 1000 * 1 dependent
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_2].value).to eq(32_351)
@@ -653,7 +644,8 @@ describe Efile::Ny::It201 do
 
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and less than 3 dependents" do
       before do
-        intake.dependents.create(dob: 5.years.ago)
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
         intake.direct_file_data.fed_ctc = 1_000
       end
 
@@ -692,8 +684,9 @@ describe Efile::Ny::It201 do
 
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and has 3 dependents" do
       before do
-        intake.dependents.create(dob: 5.years.ago)
-        intake.dependents.create(dob: 3.years.ago)
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 1.years.ago, ctc_qualifying: true)
         intake.direct_file_data.fed_tax = 0
         intake.direct_file_data.fed_ctc = 1_000
       end
