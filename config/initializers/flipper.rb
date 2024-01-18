@@ -5,6 +5,11 @@ Flipper.configure do |config|
   end
 end
 
+# Change this to Flipper.enable to test notification emails,
+# then eventually delete it and the corresponding flag checks when notification
+# emails are turned on in prod and running smoothly
+Flipper.disable :state_file_notification_emails
+
 Flipper::UI.configure do |config|
   # Defaults to false. Set to true to show feature descriptions on the list
   # page as well as the view page.
