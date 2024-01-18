@@ -12,8 +12,6 @@ function removeReviewApp(number) {
    execSync(`heroku apps:destroy --app=${ app_name } --confirm=${ app_name }`)
 }
 
-removeReviewApp(4026)
-
 apps.split("\n").forEach(function (app) {
    let match = app.match(/gyr-review-app-(\d+)/)
    if (!match) {
@@ -24,4 +22,3 @@ apps.split("\n").forEach(function (app) {
       removeReviewApp(number)
    }
 });
-
