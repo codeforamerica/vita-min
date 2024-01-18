@@ -16,11 +16,14 @@ module StateFile
     end
 
     def save
+      is_first_time_verifying = intake.phone_number_verified_at.blank? && intake.email_address_verified_at.blank?
       intake.touch(:phone_number_verified_at) if is_text_based?
       intake.touch(:email_address_verified_at) if is_email_based?
-      StateFile::MessagingService.send_notification(
-        intake: intake,
-        message: AutomatedMessage::StateFile::Welcome.new)
+      if is_first_time_verifying
+        StateFile::MessagingService.send_notification(
+          intake: intake,
+          message: AutomatedMessage::StateFile::Welcome.new)
+      end
     end
 
     private
