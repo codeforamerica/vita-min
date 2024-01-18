@@ -186,44 +186,5 @@ FactoryBot.define do
         intake.dependents.reload
       end
     end
-
-    factory :state_file_az_martha_intake do
-      # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_martha_az.xml')) }
-
-      after(:create) do |intake|
-        intake.synchronize_df_dependents_to_database
-
-        # Under 17
-        intake.dependents.where(first_name: "John").first.update(
-          dob: Date.new(2009, 3, 3),
-          relationship: "SON",
-          months_in_home: 12
-        )
-
-        # Under 17
-        intake.dependents.where(first_name: "Martha").first.update(
-          dob: Date.new(2008, 4, 4),
-          relationship: "DAUGHTER",
-          months_in_home: 12
-        )
-
-        # Over 17 - Full-time student
-        intake.dependents.where(first_name: "Frances").first.update(
-          dob: Date.new(2002, 5, 5),
-          relationship: "NIECE",
-          months_in_home: 12,
-        )
-
-        # Over 17 - Full-time student
-        intake.dependents.where(first_name: "Nelly").first.update(
-          dob: Date.new(2004, 6, 6),
-          relationship: "NIECE",
-          months_in_home: 12,
-        )
-
-        intake.dependents.reload
-      end
-    end
   end
 end
