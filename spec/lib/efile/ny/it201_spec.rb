@@ -598,6 +598,7 @@ describe Efile::Ny::It201 do
       before do
         intake.direct_file_data.fed_wages = 200_000
         intake.direct_file_data.fed_ctc = 0
+        intake.direct_file_data.fed_qualify_child = 0
       end
 
       it "stops calculating after line 3 and sets IT213_LINE_14 to 0" do

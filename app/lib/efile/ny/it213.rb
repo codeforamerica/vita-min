@@ -236,7 +236,7 @@ module Efile
       end
 
       def calculate_line_9
-        (line_or_zero(:IT213_LINE_8) * 0.33).to_i
+        (line_or_zero(:IT213_LINE_8) * 0.33).round(1)
       end
 
       def calculate_line_10

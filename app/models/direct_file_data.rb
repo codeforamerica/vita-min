@@ -47,6 +47,7 @@ class DirectFileData
     fed_nontaxable_combat_pay_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp NontaxableCombatPayAmt',
     fed_total_earned_income_amount: 'IRS1040Schedule8812 ClaimACTCAllFilersGrp TotalEarnedIncomeAmt',
     fed_ctc: 'IRS1040Schedule8812 AdditionalChildTaxCreditAmt',
+    fed_qualify_child: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNLimtAmt',
     fed_residential_clean_energy_credit_amount: 'IRS5695 ResidentialCleanEnergyCrAmt',
     fed_mortgage_interest_credit_amount: 'IRS8396 MortgageInterestCreditAmt',
     fed_adoption_credit_amount: 'IRS8839 AdoptionCreditAmt',
@@ -281,7 +282,7 @@ class DirectFileData
   end
 
   def fed_ctc_claimed
-    (fed_ctc || 0).positive?
+    (fed_ctc || 0).positive? || (fed_qualify_child || 0).positive?
   end
 
   def fed_ctc
@@ -289,6 +290,14 @@ class DirectFileData
   end
 
   def fed_ctc=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_qualify_child
+    df_xml_value(__method__)&.to_i
+  end
+
+  def fed_qualify_child=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -909,6 +918,7 @@ class DirectFileData
       :fed_ssb,
       :fed_eic,
       :fed_ctc,
+      :fed_qualify_child,
       :fed_puerto_rico_income_exclusion_amount,
       :total_exempt_primary_spouse,
       :fed_irs_1040_nr,
