@@ -110,14 +110,18 @@ module PdfFiller
         "61" => @xml_document.at('OverPaymentOfTax')&.text,
         "63" => @xml_document.at('OverPaymentBalance')&.text,
         "79" => @xml_document.at('RefundAmt')&.text,
-        "80" => @xml_document.at('AmtOwed')&.text,
-        "3_1c" => @xml_document.at('GiftByCashOrCheck')&.text,
-        "3_2c" => @xml_document.at('OtherThanCashOrCheck')&.text,
-        "3_3c" => @xml_document.at('CarrPriorYear')&.text,
-        "3_4c" => @xml_document.at('SubTotalContributions')&.text,
-        "3_5c" => @xml_document.at('TotalContributions')&.text,
-        "3_6c" => @xml_document.at('SubTotal')&.text,
-        "3_7c" => @xml_document.at('TotalIncStdDeduction')&.text,
+        "80" => @xml_document.at('AmtOwed')&.text
+      })
+
+      @charitable_deductions = @xml_document.at('ClaimCharitableDed')
+      answers.merge!({
+        "3_1c" => @charitable_deductions&.at('GiftByCashOrCheck')&.text,
+        "3_2c" => @charitable_deductions&.at('OtherThanCashOrCheck')&.text,
+        "3_3c" => @charitable_deductions&.at('CarrPriorYear')&.text,
+        "3_4c" => @charitable_deductions&.at('SubTotalContributions')&.text,
+        "3_5c" => @charitable_deductions&.at('TotalContributions')&.text,
+        "3_6c" => @charitable_deductions&.at('SubTotal')&.text,
+        "3_7c" => @charitable_deductions&.at('TotalIncStdDeduction')&.text,
       })
       answers
     end
