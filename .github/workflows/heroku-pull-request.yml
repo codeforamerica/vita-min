@@ -30,35 +30,35 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Heroku app
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --org getyourrefund --stack heroku-22
 
       - name: Save app name and PR number as heroku environment variable
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku config:set HEROKU_APP_NAME=${{ env.HEROKU_APP_NAME }} HEROKU_PR_NUMBER=${{ github.event.number }} -a ${{ env.HEROKU_APP_NAME }}
 
       - name: Add nodejs buildpack
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 heroku/nodejs
 
       - name: Add ruby buildpack
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 heroku/ruby
 
       - name: Add activestorage-preview buildpack
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview
 
       - name: Add jvm buildpack
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 heroku/jvm
 
       - name: Add heroku-buildpack-run buildpack
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 https://github.com/weibeld/heroku-buildpack-run.git
 
       - name: Copy environment variables to Heroku app
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: |
           heroku config:set -a ${{ env.HEROKU_APP_NAME }} \
             RAILS_ENV=heroku \
@@ -73,7 +73,7 @@ jobs:
             HEROKU_PLATFORM_KEY=${{ secrets.HEROKU_PLATFORM_KEY }}
 
       - name: Create database
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku addons:create heroku-postgresql:mini --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
@@ -94,23 +94,23 @@ jobs:
         run: git push heroku ${{ github.head_ref }}:main --force
 
       - name: Setup database
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku run rails heroku:postdeploy
 
       - name: Setup hostnames (GYR and CTC)
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku run rails heroku:review_app_setup
 
       - name: Start the worker process
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Get heroku generated url
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: echo "HEROKU_URL=$(heroku apps:info -s --app ${{ env.HEROKU_APP_NAME }} | grep web_url | cut -d= -f2)" >> $GITHUB_ENV
 
       - name: Add comment to PR
-#        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
