@@ -135,6 +135,7 @@
 #  needs_help_2019                                      :integer          default(0), not null
 #  needs_help_2020                                      :integer          default(0), not null
 #  needs_help_2021                                      :integer          default(0), not null
+#  needs_help_2022                                      :integer          default(0), not null
 #  needs_help_current_year                              :integer          default(0), not null
 #  needs_help_previous_year_1                           :integer          default(0), not null
 #  needs_help_previous_year_2                           :integer          default(0), not null

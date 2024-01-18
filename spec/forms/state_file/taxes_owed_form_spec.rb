@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::TaxesOwedForm do
-  let!(:withdraw_amount) { 150 }
+  let!(:withdraw_amount) { 139 }
   let!(:intake) {
     create :state_file_ny_intake,
            payment_or_deposit_type: "unfilled",

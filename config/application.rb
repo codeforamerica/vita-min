@@ -81,10 +81,12 @@ module VitaMin
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.middleware.use Middleware::RejectInvalidParams
     config.middleware.use Middleware::RejectBadlyEncodedHeaders
-    config.gyr_current_tax_year = 2022
+    config.gyr_current_tax_year = 2023
     config.ctc_current_tax_year = 2021
     config.statefile_current_tax_year = 2023
     config.product_year = 2024
+
+    config.nactp_vendor_code = "1963"
 
     # These defaults can be overridden per-environment if needed
     config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 09:59:59')

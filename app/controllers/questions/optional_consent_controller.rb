@@ -15,6 +15,7 @@ module Questions
 
     def after_update_success
       GenerateOptionalConsentPdfJob.perform_later(current_intake.client.consent)
+      GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
     end
   end
 end

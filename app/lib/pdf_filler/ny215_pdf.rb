@@ -6,6 +6,16 @@ module PdfFiller
       "it215-TY2023"
     end
 
+    def nys_form_type
+      "215"
+    end
+
+    delegate :tax_year, to: :@submission
+
+    def barcode_overlay_rect
+      [[0, 26], 125, 29]
+    end
+
     def initialize(submission)
       @submission = submission
 
@@ -21,20 +31,20 @@ module PdfFiller
       answers = {
         'Your last name' => @submission.data_source.primary.full_name,
         'Your SSN' => @submission.data_source.primary.ssn,
-        'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'E_FED_EITC_IND'),
-        'Line 1a' => xml_value_to_pdf_checkbox('Line 1a', 'E_INV_INC_IND'),
-        'Line 2' => 'No', # Should always be no because we don't support "married filing separate" filing status
-        'Line 3' => xml_value_to_pdf_checkbox('Line 3', 'E_CHLD_CLM_IND'),
-        'Line 5' => xml_value_to_pdf_checkbox('Line 5', 'E_IRS_FED_EITC_IND'),
-        '6 dollars15' => claimed_attr_value('E_FED_WG_AMT'),
-        '9 dollars15' => claimed_attr_value('E_FED_FEDAGI_AMT'),
-        '10 dollars15' => claimed_attr_value('E_FED_EITC_CR_AMT'),
-        '12 dollars15' => claimed_attr_value('E_TNTV_EITC_CR_AMT'),
-        '13 dollars15' => claimed_attr_value('E_TX_B4CR_AMT'),
-        '14 dollars15' => claimed_attr_value('E_HH_CR_AMT'),
-        '15 dollars15' => claimed_attr_value('E_EITC_LMT_AMT'),
-        '16 dollars15' => claimed_attr_value('E_EITC_CR_AMT'),
-        '27 dollars15' => claimed_attr_value('E_NYC_EITC_CR_AMT'),
+        'Line 1' => xml_value_to_pdf_checkbox('Line 1', 'E_FED_EITC_IND'), # Line 1
+        'Line 1a' => xml_value_to_pdf_checkbox('Line 1a', 'E_INV_INC_IND'), # Line 2
+        'Line 2' => xml_value_to_pdf_checkbox('Line 2', 'E_FED_FS_REQ_IND'), # Line 3
+        'Line 3' => xml_value_to_pdf_checkbox('Line 3', 'E_CHLD_CLM_IND'), # Line 4
+        'Line 5' => xml_value_to_pdf_checkbox('Line 5', 'E_IRS_FED_EITC_IND'), # Line 5
+        '6 dollars15' => claimed_attr_value('E_FED_WG_AMT'), # Line 6
+        '9 dollars15' => claimed_attr_value('E_FED_FEDAGI_AMT'), # Line 9
+        '10 dollars15' => claimed_attr_value('E_FED_EITC_CR_AMT'), # Line 10
+        '12 dollars15' => claimed_attr_value('E_TNTV_EITC_CR_AMT'), # Line 12
+        '13 dollars15' => claimed_attr_value('E_TX_B4CR_AMT'), # Line 13
+        '14 dollars15' => claimed_attr_value('E_HH_CR_AMT'), # Line 14
+        '15 dollars15' => claimed_attr_value('E_EITC_LMT_AMT'), # Line 15
+        '16 dollars15' => claimed_attr_value('E_EITC_CR_AMT'), # Line 16
+        '27 dollars15' => claimed_attr_value('E_NYC_EITC_CR_AMT'), # Line 27
         'Worksheet B 1 dollars15' => claimed_attr_value('E_TX_AMT'),
         'Worksheet B 2 dollars15' => claimed_attr_value('E_RSDT_CR_AMT'),
         'Worksheet B 3 dollars15' => claimed_attr_value('E_ACM_DIST_AMT'),
@@ -74,6 +84,10 @@ module PdfFiller
         2 => 'No',
       },
       'Line 1a' => {
+        1 => 'Yes',
+        2 => 'No'
+      },
+      'Line 2' => {
         1 => 'Yes',
         2 => 'No'
       },

@@ -17,35 +17,11 @@ module SubmissionBuilder
               end
             end
             xml.PrimDrvrLcnsOrStateIssdIdGrp do
-              state_id = @submission.data_source.primary_state_id
-              if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
-                xml.DrvrLcnsNum state_id.id_number
-                xml.DrvrLcnsStCd state_id.state
-                xml.DrvrLcnsExprDt do
-                  if state_id.non_expiring
-                    xml.NonExpr "Non-Expiring"
-                  else
-                    xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
-                  end
-                end
-                xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
-              else
-                xml.DoNotHaveDrvrLcnsOrStIssdId "X"
-              end
+              state_id_to_xml(@submission.data_source.primary_state_id, xml)
             end
             if @submission.data_source.filing_status_mfj?
               xml.SpsDrvrLcnsOrStateIssdIdGrp do
-                state_id = @submission.data_source.spouse_state_id
-                if state_id.present? && (state_id.id_type_driver_license? || state_id.id_type_dmv_bmv?)
-                  xml.DrvrLcnsNum state_id.id_number
-                  xml.DrvrLcnsStCd state_id.state
-                  xml.DrvrLcnsExprDt do
-                    xml.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
-                  end
-                  xml.DrvrLcnsIssueDt state_id.issue_date.strftime("%Y-%m-%d")
-                else
-                  xml.DoNotHaveDrvrLcnsOrStIssdId "X"
-                end
+                state_id_to_xml(@submission.data_source.spouse_state_id, xml)
               end
             end
             xml.TransmissionDetail do
@@ -73,6 +49,35 @@ module SubmissionBuilder
               xml.TotActiveTimePrepSubmissionTs state_file_total_preparation_submission_minutes
               xml.TotalPreparationSubmissionTs state_file_total_preparation_submission_minutes
             end
+          end
+        end
+
+        def xml_type_for_state_id(state_id)
+          if state_id&.id_type_driver_license?
+            "DrvrLcns"
+          elsif state_id&.id_type_dmv_bmv?
+            "StateIssdId"
+          end
+        end
+
+        def state_id_to_xml(state_id, xml_builder)
+          xml_type = xml_type_for_state_id(state_id)
+          if xml_type
+            xml_builder.send("#{xml_type}Num", state_id.id_number)
+            xml_builder.send("#{xml_type}StCd", state_id.state)
+            xml_builder.send("#{xml_type}ExprDt") do
+              if state_id.non_expiring?
+                xml_builder.NonExpr
+              else
+                xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+              end
+            end
+            xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d"))
+            if state_id.first_three_doc_num.present?
+              xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num)
+            end
+          else
+            xml_builder.DoNotHaveDrvrLcnsOrStIssdId "X"
           end
         end
       end

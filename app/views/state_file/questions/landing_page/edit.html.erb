@@ -9,7 +9,7 @@
     <h1 class="h1"><%= title %></h1>
 
     <h2 class="h2">
-      <%=t('.built_with_html', state_full_name: state_full_name) %>
+      <%= t(".#{params[:us_state]}.built_with_html") %>
     </h2>
 
     <div class="partner-logo-wrapper spacing-below-35">
@@ -17,7 +17,7 @@
         <%= image_tag state_image_path, alt: "#{state_full_name} state logo", class: "" %>
       </div>
       <div class="partner-logo-text text--body text--bold">
-        <%=t('.supported_by', state_full_name: state_full_name) %>
+        <%=t(".#{params[:us_state]}.supported_by") %>
       </div>
     </div>
 

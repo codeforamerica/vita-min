@@ -1,10 +1,3 @@
-<% state_full_name =
-     if params[:us_state].present?
-       params[:us_state] == "ny" ? "New York" : "Arizona"
-     else
-       nil
-     end %>
-
 <footer class="footer">
   <div class="slab slab--footer">
     <div class="grid">
@@ -13,12 +6,10 @@
           <%= image_tag("checkbox-logo--white.png", alt: "") %>
         </p>
         <p>
-          <!-- TODO: externalize these strings -->
-          <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-          <% if state_full_name.present? %>
-            <%=t('.state_file_with_state_description_html', link: cfa_link, state_full_name: state_full_name) %>
+          <% if ['az', 'ny'].include?(params[:us_state]) %>
+            <%= t('.state_file_with_state_description_html', state_name_pair: t(".state_name_pair.#{params[:us_state]}")) %>
           <% else %>
-            <%=t('.state_file_description_html', link: cfa_link) %>
+            <%=t('.state_file_description_html') %>
           <% end %>
         </p>
       </div>

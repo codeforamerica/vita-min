@@ -44,10 +44,10 @@ describe TaxReturn do
     let(:client) { create :client }
 
     it "does not allow multiple tax returns with the same year on the same client" do
-      described_class.create(client: client, year: 2019)
+      described_class.create(client: client, year: 2020)
 
       expect {
-        described_class.create!(client: client, year: 2019)
+        described_class.create!(client: client, year: 2020)
       }.to raise_error(ActiveRecord::RecordNotUnique)
     end
   end
@@ -68,7 +68,7 @@ describe TaxReturn do
           "greetable" => false,
           "service_type" => "online_intake",
           "stage" => nil,
-          "year" => 2022
+          "year" => 2023
         }
         expect(tax_return.client.reload.filterable_tax_return_properties).to eq([expected_tax_return_properties])
       end
@@ -87,7 +87,7 @@ describe TaxReturn do
           "greetable" => false,
           "service_type" => "online_intake",
           "stage" => nil,
-          "year" => 2022
+          "year" => 2023
         }
         expect(client.reload.filterable_tax_return_properties).to eq([expected_properties])
         tax_return.destroy
@@ -963,9 +963,9 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1958 for tax year 2022" do
+    context "when born on/after Jan 2, 1958 for tax year 2023" do
       before do
-        tax_return.intake.update(primary_birth_date: Date.new(2022 - 64, 1, 2))
+        tax_return.intake.update(primary_birth_date: Date.new(2023 - 64, 1, 2))
       end
 
       it "returns false" do
@@ -977,9 +977,9 @@ describe TaxReturn do
   describe "#spouse_age_65_or_old" do
     let(:tax_return) { create :gyr_tax_return, filing_status: :married_filing_jointly }
 
-    context "when born before Jan 2, 1958 for tax year 2022" do
+    context "when born before Jan 2, 1958 for tax year 2023" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(2022 - 64, 1, 1))
+        tax_return.intake.update(spouse_birth_date: Date.new(2023 - 64, 1, 1))
       end
 
       it "returns true" do
@@ -987,9 +987,9 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1958 for tax year 2022" do
+    context "when born on/after Jan 2, 1958 for tax year 2023" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(2022 - 64, 1, 2))
+        tax_return.intake.update(spouse_birth_date: Date.new(2023 - 64, 1, 2))
       end
 
       it "returns false" do

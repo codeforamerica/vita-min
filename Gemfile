@@ -73,6 +73,7 @@ gem 'jwt'
 gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
+gem "syc-barcode", "~> 0.0.3"
 
 # Use Flipper for feature flagging
 gem 'flipper'
