@@ -1333,22 +1333,6 @@ es:
     document_upload:
       id_type: Tipo de Identificación
   messages:
-    state_file:
-      welcome:
-        email:
-          subject: Bienvenido a FileYourStateTaxes
-          body: |
-            Hola,
-
-            Hemos creado con éxito tu cuenta en FileYourStateTaxes/Hemos creado tu cuenta de FileYourStateTaxes sin ningún problema! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
-
-            ¿Necesitas ayuda? Responde a este correo electrónico.
-        sms: |
-          Hola,
-
-          ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
-
-          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto
     closing_soon:
       email:
         body: 'Cerramos la temporada de impuestos de GetYourRefund el 16 de octubre. Necesitamos todos los documentos requeridos antes del 9 de octubre de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del 9 de octubre.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
@@ -1531,6 +1515,22 @@ es:
         subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
       sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
+    state_file:
+      welcome:
+        email:
+          body: |
+            Hola,
+
+            Hemos creado con éxito tu cuenta en FileYourStateTaxes/Hemos creado tu cuenta de FileYourStateTaxes sin ningún problema! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+          subject: Bienvenido a FileYourStateTaxes
+        sms: |
+          Hola,
+
+          ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+
+          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto
     successful_submission_drop_off:
       email:
         body: |
