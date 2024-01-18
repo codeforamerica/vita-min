@@ -2,6 +2,10 @@ module Efile
   class TaxCalculator
     attr_reader :lines
 
+    def line_or_zero(line)
+      @lines[line.to_sym]&.value.to_i
+    end
+
     private
 
     def set_line(line_id, value_fn_or_data_source, field = nil)
@@ -40,10 +44,6 @@ module Efile
 
     def filing_status_qw?
       @filing_status == :qualifying_widow
-    end
-
-    def line_or_zero(line)
-      @lines[line.to_sym]&.value.to_i
     end
   end
 end

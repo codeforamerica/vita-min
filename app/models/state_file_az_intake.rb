@@ -157,4 +157,9 @@ class StateFileAzIntake < StateFileBaseIntake
     has_valid_agi = direct_file_data.fed_agi <= (filing_status_mfj? || filing_status_hoh? ? 25_000 : 12_500)
     has_valid_ssn && has_valid_agi
   end
+
+  def filing_status
+    return :head_of_household if direct_file_data&.filing_status == 5 # Treat qualifying_widow as hoh
+    super
+  end
 end

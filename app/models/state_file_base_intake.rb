@@ -46,9 +46,15 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def calculator
+    unless @calculator.present?
+      @calculator = tax_calculator
+      @calculator.calculate
+    end
+    @calculator
+  end
+
   def calculated_refund_or_owed_amount
-    calculator = tax_calculator
-    calculator.calculate
     calculator.refund_or_owed_amount
   end
 

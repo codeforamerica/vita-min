@@ -86,6 +86,8 @@ module VitaMin
     config.statefile_current_tax_year = 2023
     config.product_year = 2024
 
+    config.nactp_vendor_code = "1963"
+
     # These defaults can be overridden per-environment if needed
     config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 09:59:59')
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-31 09:59:59')

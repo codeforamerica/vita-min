@@ -6,6 +6,16 @@ module PdfFiller
       "it2-TY2023"
     end
 
+    def nys_form_type
+      "102"
+    end
+
+    delegate :tax_year, to: :@submission
+
+    def barcode_overlay_rect
+      [[0, 26], 125, 29]
+    end
+
     def initialize(submission, kwargs)
       @submission = submission
       @kwargs = kwargs

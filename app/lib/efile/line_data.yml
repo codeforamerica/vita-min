@@ -92,6 +92,18 @@ AZ140_CCWS_LINE_6c:
 “0”'
 AZ140_CCWS_LINE_7c:
   label: '7C Multiply line 6C by 31% (.31) and enter the result'
+NYC_EIC_RATE_WK_LINE_1:
+  label: 'Enter the amount from Form IT-201, line 33, New York adjusted gross income.'
+NYC_EIC_RATE_WK_LINE_2:
+  label: 'Enter the appropriate dollar amount from the NYC EIC rate table for your New York adjusted gross income (NYAGI), if applicable.'
+NYC_EIC_RATE_WK_LINE_3:
+  label: 'Subtract line 2 from line 1.'
+NYC_EIC_RATE_WK_LINE_4:
+  label: 'Multiply line 3 by .00002 (round the result to four decimal places).'
+NYC_EIC_RATE_WK_LINE_5:
+  label: 'Enter the decimal from the NYC EIC rate table.'
+NYC_EIC_RATE_WK_LINE_6:
+  label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
@@ -319,6 +331,12 @@ IT215_LINE_11:
   label: 'New York State earned income credit (NYS EIC) rate 30% (.30)'
 IT215_LINE_12:
   label: 'Tentative NYS EIC (multiply line 10 by line 11; see instructions).'
+IT215_WK_A_LINE_1:
+  label: 'Enter the amount from federal Form 1040, line 1z'
+IT215_WK_A_LINE_2:
+  label: 'Enter the amount of your nontaxable combat pay, if any, from federal Form 1040, line 1i'
+IT215_WK_A_LINE_3:
+  label: 'Add lines 1 and 2. Enter here and on Form IT-215, line 6.'
 IT215_WK_B_LINE_1:
   label: 'New York State tax (from Form IT-201, line 39, or Form IT-203, line 38)'
 IT215_WK_B_LINE_2:
