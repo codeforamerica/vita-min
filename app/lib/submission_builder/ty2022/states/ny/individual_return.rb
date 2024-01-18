@@ -43,7 +43,9 @@ module SubmissionBuilder
 
               xml.tiPrime do
                 xml.FIRST_NAME @submission.data_source.primary.first_name
-                xml.MI_NAME @submission.data_source.primary.middle_initial
+                if @submission.data_source.primary.middle_initial
+                  xml.MI_NAME @submission.data_source.primary.middle_initial
+                end
                 xml.LAST_NAME @submission.data_source.primary.last_name
                 xml.MAIL_LN_2_ADR @submission.data_source.direct_file_data.mailing_street
                 if @submission.data_source.direct_file_data.mailing_apartment.present?
@@ -64,13 +66,16 @@ module SubmissionBuilder
                 xml.SCHOOL_CD @submission.data_source.school_district_number
                 xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30)
                 xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation
-                xml.COUNTRY_NAME @submission.data_source.mailing_country
+                # We omit country name because we don't support out of country filers
+                #xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
               if @submission.data_source.filing_status_mfj?
                 xml.tiSpouse do
                   xml.FIRST_NAME @submission.data_source.spouse.first_name
-                  xml.MI_NAME @submission.data_source.spouse.middle_initial
+                  if @submission.data_source.spouse.middle_initial
+                    xml.MI_NAME @submission.data_source.spouse.middle_initial
+                  end
                   xml.LAST_NAME @submission.data_source.spouse.last_name
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
                   xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation
@@ -94,7 +99,7 @@ module SubmissionBuilder
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
@@ -111,7 +116,7 @@ module SubmissionBuilder
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")

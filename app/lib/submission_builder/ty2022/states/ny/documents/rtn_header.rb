@@ -46,7 +46,7 @@ module SubmissionBuilder
                 # xml.ELF_STATE_ONLY_IND
                 # xml.PREP_LN_1_ADR
                 # xml.PREP_CTY_ADR
-                xml.SOFT_VNDR_ID
+                xml.SOFT_VNDR_ID claimed: "1963"
                 # xml.FIRM_NAME
                 # xml.PP_NAME
                 # xml.PREP_SIGN_DT
@@ -69,11 +69,11 @@ module SubmissionBuilder
                   xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number[-4, 4]
                 end
                 # xml.DGT4_PHONE_NMBR
-                xml.FORM_TYPE
+                xml.FORM_TYPE claimed: "201"
                 # xml.THRDPRTY_EMAIL_ADR
                 # xml.EFIN_ID
                 # xml.PP_PH_NMBR
-                xml.IAT_IND
+                xml.IAT_IND claimed: 2
                 # xml.ORIG_SBMSN_ID
                 if @submission.data_source.spouse.present? && @submission.data_source.spouse.birth_date.present?
                   xml.SP_DOB_DT claimed: @submission.data_source.spouse.birth_date.strftime("%Y-%m-%d")
