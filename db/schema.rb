@@ -1236,6 +1236,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_020831) do
     t.integer "needs_help_2019", default: 0, null: false
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
+    t.integer "needs_help_2022", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
@@ -1655,6 +1656,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_020831) do
     t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "needed_assistance", default: 0, null: false
+    t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
     t.string "relationship"
     t.string "ssn"
