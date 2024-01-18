@@ -44,7 +44,8 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_new_york_additions") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_24)) %></p>
+        <%# Should be the sum of lines 20-23, but only line 21 is in scope %>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_21)) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -64,7 +65,10 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_dependent_exemptions") %></p>
-        <p><%= current_intake.calculator.line_or_zero(:IT201_LINE_36) %></p>
+        <%# The PDF has a hard-coded $ and 000 around the number. We replicate that here by multiplying by 1,000. %>
+        <p><%= number_to_currency(
+                 (current_intake.calculator.line_or_zero(:IT201_LINE_36) * 1_000).round
+               ) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -89,7 +93,7 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".nyc_household_credit") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_47A)) %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_48)) %></p>
       </div>
 
       <div class="spacing-below-25">
