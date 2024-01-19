@@ -2503,6 +2503,8 @@ en:
         subheader_html: "<strong>FileYourStateTaxes</strong> integrates with IRS Direct File and completes most of your state tax return using the information you have already submitted to the IRS\n"
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
+      coming_soon:
+        title: Coming soon
       footer:
         state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> to integrate with the IRS Direct File tool.
         state_file_with_state_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with the %{state_name_pair} to integrate with the IRS Direct File tool.

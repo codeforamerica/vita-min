@@ -89,6 +89,7 @@ module VitaMin
     config.nactp_vendor_code = "1963"
 
     # These defaults can be overridden per-environment if needed
+    # GetYourRefund
     config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 09:59:59')
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-31 09:59:59')
     config.tax_deadline = Time.find_zone('America/New_York').parse('2024-04-18 23:59:59')
@@ -97,6 +98,7 @@ module VitaMin
     config.end_of_in_progress_intake = Time.find_zone('America/New_York').parse('2024-10-16 23:59:59')
     config.end_of_login = Time.find_zone('America/New_York').parse('2024-10-23 23:59:00')
 
+    # GetCTC
     config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-05-04 09:00:00")
     config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-05-11 09:00:00")
     config.eitc_soft_launch = Time.find_zone("America/New_York").parse("2022-09-30 09:00:00")
@@ -104,6 +106,10 @@ module VitaMin
     config.ctc_end_of_intake = Time.find_zone("America/New_York").parse("2022-11-16 23:59:00")
     config.ctc_end_of_read_write = Time.find_zone("America/New_York").parse("2022-11-19 23:59:00")
     config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2023-12-31 23:59:00")
+
+    # StateFile
+    config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-05 7:59:59') # set this to be different in prod?
+    config.state_file_end_of_intake = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
