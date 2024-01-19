@@ -2393,9 +2393,9 @@ en:
               <li><strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li>
               <li><strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li>
               <li><strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li>
-              <li><strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at help@fileyourstatetaxes.org.</li>
+              <li><strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
             </ul>
-            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms. Thanks for choosing us for your tax filing needs!</strong>
+            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="/privacy-policy">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
           decline: Decline
           ny_text_html: |
             <b>E-file your New York State income tax return at no extra charge.</b><br><br>
