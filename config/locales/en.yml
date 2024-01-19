@@ -1375,7 +1375,6 @@ en:
         We’re here to help!
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     default_subject_with_service_name: Update from %{service_name}
-    verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
     efile:
       acceptance:
         email:
@@ -1626,6 +1625,7 @@ en:
       sms: |
         Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
         If you have questions or would like more information about this decision, please contact hello@getctc.org.
+    verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
   models:
     intake:
       your_spouse: Your spouse
