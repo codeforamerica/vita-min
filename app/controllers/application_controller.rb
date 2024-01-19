@@ -454,7 +454,6 @@ class ApplicationController < ActionController::Base
       redirect_to StateFile::StateFilePagesController.to_path_helper(action: :coming_soon)
     end
   end
-  # add tests, make sure can reach hub, session toggles page and coming-soon page
 
   def redirect_or_add_flash
     if Rails.env.production? || Rails.env.test?
