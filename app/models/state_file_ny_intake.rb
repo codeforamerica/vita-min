@@ -237,6 +237,8 @@ class StateFileNyIntake < StateFileBaseIntake
       eligibility_part_year_nyc_resident: "yes",
       eligibility_withdrew_529: "yes",
       permanent_address_outside_ny: "yes",
+      nyc_residency: "part_year",
+      nyc_maintained_home: "yes"
     }
   end
 

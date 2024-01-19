@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
+      include StateFile::StateFileControllerConcern
+
       skip_before_action :redirect_in_offseason
       skip_before_action :redirect_if_completed_intake_present
       helper_method :card_postscript
