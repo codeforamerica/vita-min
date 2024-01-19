@@ -16,6 +16,8 @@ module StateFile
 
     def about_page; end
 
+    def privacy_policy; end
+
     def clear_session
       session.delete(:state_file_intake)
       redirect_to action: :about_page

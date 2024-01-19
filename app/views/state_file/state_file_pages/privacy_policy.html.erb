@@ -1,0 +1,96 @@
+<main role="main">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <main role="main">
+          <h1><%= t(".header") %></h1>
+          <p><%= t(".header_1_html") %></p>
+          <p><%= t(".header_2_html") %></p>
+          <p><%= t(".header_3_html") %></p>
+          <h2><%= t(".overview") %></h2>
+          <h3><%= t(".info_we_collect_header") %></h3>
+          <p><%= t(".info_we_collect_1") %>
+          <ul class="list--bulleted">
+            <% (1..11).map do |n| %>
+              <li><%= t(".info_we_collect_item_#{n}") %></li>
+            <% end %>
+          </ul>
+          <h3><%= t(".how_we_collect_your_info_header") %></h3>
+          <p><%= t(".how_we_collect_your_info") %></p>
+          <ul class="list--bulleted">
+            <% (1..15).map do |n| %>
+              <li><%= t(".how_we_collect_your_info_item_#{n}") %></li>
+            <% end %>
+          </ul>
+          <p><%= t(".info_collect_1") %></p>
+          <ul class="list--bulleted">
+            <li><%= t(".info_collect_item_1") %></li>
+            <li>
+              <%= t(".info_collect_item_2") %>
+              <ul class="list--bulleted">
+                <li><%= t(".info_collect_item_2_1") %></li>
+                <li><%= t(".info_collect_item_2_2") %></li>
+              </ul>
+            </li>
+            <li><%= t(".info_collect_item_3") %></li>
+            <li><%= t(".info_collect_item_4") %></li>
+            <li><%= t(".info_collect_item_5") %></li>
+          </ul>
+
+          <h3><%= t(".your_info_header") %></h3>
+          <p><%= t(".your_info") %></p>
+
+          <h4><%= t(".postal_mail_header") %></h4>
+          <p><%= t(".postal_mail_1") %></p>
+          <ul>
+            <li><%= t(".postal_mail_item_1_html") %></li>
+            <li><%= t(".postal_mail_item_2") %></li>
+          </ul>
+          <p><%= t(".postal_mail_3") %></p>
+
+          <h4><%= t(".cookies_header") %></h4>
+          <p><%= t(".cookies_1") %></p>
+          <p><%= t(".cookies_2") %></p>
+          <p><%= t(".cookies_3") %></p>
+          <p><%= t(".cookies_4") %></p>
+
+          <h4><%= t(".analytics_header") %></h4>
+          <p><%= t(".analytics_html") %></p>
+
+          <h4><%= t(".additional_services_header") %></h4>
+          <p><%= t(".additional_services") %></p>
+
+          <h3><%= t(".protect_info_header") %></h3>
+          <p><%= t(".protect_info_1") %></p>
+          <p><%= t(".protect_info_2") %></p>
+          <p><%= t(".protect_info_3_html") %></p>
+          <p><%= t(".protect_info_4") %></p>
+
+          <h3><%= t(".data_retention_header") %></h3>
+          <p><%= t(".data_retention_1") %></p>
+          <p><%= t(".data_retention_2") %></p>
+
+          <h2><%= t(".changes_header") %></h2>
+          <p><%= t(".changes") %></p>
+
+          <h3><%= t(".access_request_header") %></h3>
+          <p><%= t(".access_request_1_html") %></p>
+          <p><%= t(".access_request_2") %></p>
+
+          <h2><%= t(".effective_date_header") %></h2>
+          <p><%= t(".effective_date") %></p>
+
+          <h2><%= t(".questions_header") %></h2>
+          <p><%= t(".questions_1_html") %></p>
+          <p>
+            FileYourStateTaxes<br />
+            c/o Code for America<br />
+            972 Mission Street<br />
+            San Francisco, CA 94103<br />
+          </p>
+          <p><%= t(".questions_2") %></p>
+        </main>
+      </div>
+    </div>
+  </section>
+</main>

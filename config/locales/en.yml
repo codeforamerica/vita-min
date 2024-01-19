@@ -2496,6 +2496,85 @@ en:
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
         phone_number_signin: Sign in with phone number
         title: Sign in to FileYourStateTaxes
+      privacy_policy:
+        header: Privacy Policy
+        header_1_html: <a href="fileyourstatetaxes.org">FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File tool.
+        header_2_html: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
+        header_3_html: If you have any questions or concerns about this Privacy Notice, please contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
+        overview: Overview
+        info_we_collect_header: Information we collect
+        info_we_collect_1: "We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:"
+        info_we_collect_item_1: Personal identifiers such as name, addresses, phone numbers, and email addresses
+        info_we_collect_item_2: Date of birth
+        info_we_collect_item_3: Demographic information, such as age and marital status
+        info_we_collect_item_4: Characteristics of protected classifications, such as gender, race, and ethnicity
+        info_we_collect_item_5: Tax information, such as social security number or individual taxpayer identification number (ITIN)
+        info_we_collect_item_6: State-issued identification, such as driver’s license number
+        info_we_collect_item_7: Financial information, such as employment, income, and income sources
+        info_we_collect_item_8: Banking details for direct deposit of refunds or payment of tax due via direct debit
+        info_we_collect_item_9: Demographic and financial details of dependents
+        info_we_collect_item_10: Household information and information about your spouse, if applicable
+        info_we_collect_item_11: Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
+        how_we_collect_your_info_header: How we collect your information
+        how_we_collect_your_info: "We collect your information from various sources, such as when you or your household members:"
+        how_we_collect_your_info_item_1: Visit our Site, fill out forms on our Site, or use our Services
+        how_we_collect_your_info_item_2: Provide us with documents to use our Services
+        how_we_collect_your_info_item_3: Communicate with us (for instance through email, chat, social media, or otherwise)
+        how_we_collect_your_info_item_4: We may also collect your information from third parties such as
+        how_we_collect_your_info_item_5: Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for
+        how_we_collect_your_info_item_6: The Internal Revenue Service (“IRS”), state departments of revenue, or other government agencies relating to our Services
+        how_we_collect_your_info_item_7: Using information we have collected
+        how_we_collect_your_info_item_8: We use your information for our business purposes, such as
+        how_we_collect_your_info_item_9: To complete forms required for use of the Services or filing of your taxes
+        how_we_collect_your_info_item_10: To provide support to you through the process and communicate with you
+        how_we_collect_your_info_item_11: To monitor and understand how the Site and our Services are used
+        how_we_collect_your_info_item_12: To improve the quality or scope of the Site or our Services
+        how_we_collect_your_info_item_13: To suggest other services or assistance programs that may be useful to you
+        how_we_collect_your_info_item_14: For fraud detection, prevention, and security purposes
+        how_we_collect_your_info_item_15: To comply with legal requirements and obligations
+        info_collect_1: "We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with 26 CFR 301.7216-2. Consistent with regulation, we may use or disclose your information in the following instances:"
+        info_collect_item_1: For analysis and reporting, we may share limited aggregate information with government agencies or other third parties, including the IRS or state departments of revenue, to analyze the use of our Services, in order to improve and expand our services. Such analysis is always performed using anonymized data, and data is never disclosed in cells smaller than ten returns.
+        info_collect_item_2: "For research to improve our tax filing products, including:"
+        info_collect_item_2_1: To invite you to complete questionnaires regarding your experience using our product.
+        info_collect_item_2_2: To send you opportunities to participate in paid user research sessions, to learn more about your experience using our product and to guide the development of future free tax filing products.
+        info_collect_item_3: "For Arizona FileYourStateTaxes users only: To notify you of the availability of free tax filing services in the future."
+        info_collect_item_4: If necessary, we may disclose your information to contractors who help us provide our services. We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
+        info_collect_item_5: We may share your information with third parties in special situations, such as when required by law.
+        your_info_header: Your choices regarding your information
+        your_info: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
+        postal_mail_header: Postal mail, email, and promotions
+        postal_mail_1: To update your preferences or contact information, you may
+        postal_mail_item_1_html: contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> and request removal from the FileYourStateTaxes update emails
+        postal_mail_item_2: follow the opt-out instructions provided in emails or postal mail
+        postal_mail_3: Please note that even if you unsubscribe from promotional email offers and updates, we may still contact you for transactional purposes. For example, we may send communications regarding your tax return status, reminders, or to alert you of additional information needed.
+        cookies_header: Cookies
+        cookies_1: We use Cookies and other technologies to gather data during your use of our Site. Your use of our Site indicates your consent to such use of Cookies.
+        cookies_2: Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.
+        cookies_3: We use Cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Site to improve the way we promote our content and programs.
+        cookies_4: Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.
+        analytics_header: Analytics
+        analytics_html: We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/legal/privacy-policy/">HERE</a>. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click <a href="https://policies.google.com/privacy?hl=en-US">HERE</a>. You can also email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for additional information.
+        additional_services_header: Additional Services and Resources
+        additional_services: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information.
+        protect_info_header: How we protect your information
+        protect_info_1: Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
+        protect_info_2: Still, no system can be guaranteed to be 100% secure.
+        protect_info_3_html: 'For Arizona FileYourStateTaxes users: In the event of a security system breach, you will be notified pursuant to <a href="https://www.azleg.gov/ars/18/00552.htm">ARS 18-552</a>.'
+        protect_info_4: If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately as described in this Privacy Notice.
+        data_retention_header: Data Retention
+        data_retention_1: "We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations."
+        data_retention_2: If you no longer wish to proceed with the FileYourStateTaxes application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.
+        changes_header: Changes
+        changes: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
+        access_request_header: Access Request
+        access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.</p>
+        effective_date_header: Effective Date
+        effective_date: This version of the policy is effective January 15, 2024.
+        questions_header: Questions
+        questions_1_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> or by mail at:'
+        questions_2: We will do our best to resolve the issue.
+
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
