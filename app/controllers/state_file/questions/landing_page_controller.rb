@@ -2,10 +2,11 @@ module StateFile
   module Questions
     class LandingPageController < QuestionsController
       include StartIntakeConcern
-      before_action :before_update, only: :update
+      before_action :clear_existing_intakes, only: :update
 
-      def before_update
-        sign_out current_intake if current_intake
+      def clear_existing_intakes
+        sign_out current_state_file_az_intake if current_state_file_az_intake.present?
+        sign_out current_state_file_ny_intake if current_state_file_ny_intake.present?
       end
     end
   end
