@@ -7,7 +7,7 @@ module StateFile
       mail(
         to: notification_email.to,
         subject: notification_email.subject,
-        from: service.default_email,
+        from: service.support_email,
         delivery_method_options: service.delivery_method_options
       )
     end

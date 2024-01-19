@@ -82,6 +82,10 @@ class MultiTenantService
     Rails.configuration.email_from[:noreply][service_type]
   end
 
+  def support_email
+    Rails.configuration.email_from[:support][service_type]
+  end
+
   def delivery_method_options
     if service_type == :ctc && EnvironmentCredentials.dig(:mailgun, :ctc_api_key)
       {
