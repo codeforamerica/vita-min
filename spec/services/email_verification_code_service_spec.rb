@@ -48,7 +48,7 @@ describe EmailVerificationCodeService do
         }.to change(ActionMailer::Base.deliveries, :count).by(1)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456."
+        expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456"
         expect(EmailAccessToken).to have_received(:generate!).with(a_hash_including(
                                                                    email_address: email_address,
                                                                    client_id: nil,
@@ -64,7 +64,7 @@ describe EmailVerificationCodeService do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456."
+        expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456"
       end
     end
 
@@ -75,7 +75,7 @@ describe EmailVerificationCodeService do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456."
+        expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456"
       end
     end
 
