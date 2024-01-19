@@ -41,7 +41,7 @@ class MultiTenantService
     case service_type
     when :ctc then "GetCTC"
     when :gyr then "GetYourRefund"
-    when :statefile then "CFA State File"
+    when :statefile then "FileYourStateTaxes"
     end
   end
 

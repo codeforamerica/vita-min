@@ -4,7 +4,7 @@ class VerificationCodeMailer < ApplicationMailer
     @service_name = service.service_name
     @service_type = service.service_type
     @locale = params[:locale]
-    @subject = I18n.t("messages.default_subject_with_service_name", service_name: @service_name, locale: @locale)
+    @subject = I18n.t("messages.verification_code_subject_with_service_name", service_name: @service_name, locale: @locale)
     @verification_code = params[:verification_code]
     attachments.inline['logo.png'] = service.email_logo
 
