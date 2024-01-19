@@ -20,6 +20,9 @@ module StateFile
       private
 
       def current_intake
+        # NOTE: This intake is unauthenticated. A second version of this is actually stored
+        # in the session by devise / warden when sign in happens. It gets checked before actions
+        # using require_state_file_intake_login
         intake = GlobalID.find(session[:state_file_intake])
         return nil if intake && !intake.is_a?(question_navigator.intake_class)
         intake
