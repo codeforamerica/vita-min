@@ -1,0 +1,36 @@
+<div class="blue-group">
+  <p class="spacing-below-0"><%= t(".bank_title") %></p>
+  <p class="text--small"><%= t(".foreign_accounts") %></p>
+  <div class="form-group-tight">
+    <% if owe_taxes %>
+      <%= form.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+      <div class="date-select">
+        <% year = MultiTenantService.new(:statefile).current_tax_year + 1 %>
+        <%= form.cfa_date_select(
+              :date_electronic_withdrawal,
+              t(".date_withdraw_text"),
+              options: {
+                start_year: year,
+                end_year: year,
+              }
+            ) %>
+      </div>
+    <% end %>
+
+    <%= form.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
+    <%= form.cfa_radio_set(
+          :account_type,
+          label_text: t("views.questions.bank_details.account_type.label"),
+          collection: [
+            { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
+            { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
+          ]
+        )
+    %>
+    <%= form.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long", "disablecopy"]) %>
+    <%= form.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+    <%= form.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
+    <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+  </div>
+  <p><strong><%= t(".disclaimer") %></strong></p>
+</div>
