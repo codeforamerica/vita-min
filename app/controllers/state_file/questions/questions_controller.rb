@@ -38,7 +38,7 @@ module StateFile
 
       def redirect_if_no_intake
         unless current_intake.present?
-          flash[:notice] = 'Your session expired. Please sign in again to continue.'
+          flash[:notice] = t('state_file.questions.questions_controller.redirect_if_no_intake_flash')
           if params['us_state'] == 'az'
             redirect_to az_questions_landing_page_path(us_state: params['us_state'])
           else

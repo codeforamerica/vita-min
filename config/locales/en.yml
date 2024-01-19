@@ -2279,6 +2279,8 @@ en:
             label: Your ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      questions_controller:
+        redirect_if_no_intake_flash: 'Your session expired. Please sign in again to continue.'
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
