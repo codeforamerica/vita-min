@@ -23,6 +23,7 @@ module Navigation
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::DataTransferOffboardingController,
       StateFile::Questions::NameDobController,
+      StateFile::Questions::NycResidencyController,
       StateFile::Questions::NyPermanentAddressController,
       StateFile::Questions::NyCountyController,
       StateFile::Questions::NySchoolDistrictController,

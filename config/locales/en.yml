@@ -2036,6 +2036,8 @@ en:
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
             eligibility_yonkers: lived or earned income in Yonkers in 2023
+            nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
+            nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
       eligibility_out_of_state_income:
@@ -2239,6 +2241,22 @@ en:
           helper_heading: How do I find my school district?
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
+      nyc_residency:
+        edit:
+          full_year:
+            one: I lived in New York City all year in %{year}
+            other: My spouse and I lived in New York City all year in %{year}
+          maintained_home:
+            one: Did you maintain a home in New York City at any time during %{year}?
+            other: Did you or your spouse maintain a home in New York City at any time during %{year}?
+          none:
+            one: I did not live in New York City at all in %{year}
+            other: My spouse and I did not live in New York City at all in %{year}
+          nyc_includes: New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+          part_year:
+            one: I lived in New York City for some of the year
+            other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
+          title: 'Select your New York City residency status during %{year}:'
       other_filing_options:
         edit:
           faq_link: Visit our FAQ
