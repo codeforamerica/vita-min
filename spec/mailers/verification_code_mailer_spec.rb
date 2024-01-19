@@ -13,7 +13,7 @@ describe VerificationCodeMailer, type: :mailer do
         email.deliver_now
       end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-      expect(email.subject).to eq "Six-Digit Code from GetYourRefund"
+      expect(email.subject).to eq "Update from GetYourRefund"
       expect(email.from).to eq ["no-reply@test.localhost"]
       expect(email.to).to eq ["example@example.com"]
       expect(email.text_part.decoded.strip).to include "GetYourRefund"
@@ -31,7 +31,7 @@ describe VerificationCodeMailer, type: :mailer do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-        expect(email.subject).to eq "Six-Digit Code from GetCTC"
+        expect(email.subject).to eq "Update from GetCTC"
         expect(email.from).to eq ["no-reply@ctc.test.localhost"]
         expect(email.to).to eq ["example@example.com"]
         expect(email.text_part.decoded.strip).to include "GetCTC"
