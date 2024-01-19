@@ -31,6 +31,10 @@
   .main-header {
     background-color: $color-az-grey;
 
+    .main-header__title {
+      display: flex;
+    }
+
     .toolbar__item {
       font-size: 1.5rem;
     }
