@@ -5,6 +5,16 @@ module AuthenticatedStateFileIntakeConcern
     before_action :require_state_file_intake_login
   end
 
+  def current_intake
+    # NOTE: This intake is different from the unauthenticated value, stored in the regular session
+    # (Which the unauthenticated sessions controller uses)
+    unless @intake
+      current_intake_name = "current_#{question_navigator.intake_class.name.underscore}"
+      @intake = self.send(current_intake_name)
+    end
+    @intake
+  end
+
   private
 
   def card_postscript

@@ -21,12 +21,10 @@ module StateFile
 
       def current_intake
         # NOTE: This intake is unauthenticated. A second version of this is actually stored
-        # in the session by devise / warden when sign in happens. It gets checked before actions
-        # using require_state_file_intake_login
-        # Nowhere else seems to use current_state_file_XX_intake
-        intake = GlobalID.find(session[:state_file_intake])
-        return nil if intake && !intake.is_a?(question_navigator.intake_class)
-        intake
+        # in the session by devise / warden when sign in happens, and this value should be deleted
+        @intake ||= GlobalID.find(session[:state_file_intake])
+        return nil if @intake && !@intake.is_a?(question_navigator.intake_class)
+        @intake
       end
 
       def question_navigator
