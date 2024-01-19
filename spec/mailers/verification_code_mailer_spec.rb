@@ -44,12 +44,11 @@ describe VerificationCodeMailer, type: :mailer do
           to: "example@example.com",
           locale: :en,
           service_type: :statefile
-        ).with_code
+        ).with_code_fyst
 
         expect do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
-        
         expect(email.subject).to eq "Six-Digit Code from FileYourStateTaxes"
         expect(email.from).to eq ["no-reply@statefile.test.localhost"]
         expect(email.to).to eq ["example@example.com"]
