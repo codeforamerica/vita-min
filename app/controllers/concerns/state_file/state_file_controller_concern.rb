@@ -3,7 +3,9 @@ module StateFile
     extend ActiveSupport::Concern
 
     included do
-      helper_method :current_tax_year, :state_name, :state_abbr, :ny?, :az?, :state_param, :filer_count
+      helper_method(
+        :current_tax_year, :filer_count, :state_name, :state_abbr, :ny?, :az?, :state_param
+      )
     end
 
     private

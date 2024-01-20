@@ -356,7 +356,7 @@ describe Efile::Ny::It201 do
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
         intake.direct_file_data.fed_unemployment = 0
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
       end
 
       it 'sets the credit to 0 because the filer is ineligible' do
@@ -367,7 +367,7 @@ describe Efile::Ny::It201 do
 
     context 'when the filer was not a full year NYC resident' do
       before do
-        intake.nyc_full_year_resident = 2 # no
+        intake.nyc_residency = "none"
       end
 
       it 'sets the credit to 0 because the filer is ineligible' do
@@ -448,7 +448,7 @@ describe Efile::Ny::It201 do
     context 'when the filer has been claimed as a dependent' do
       before do
         intake.direct_file_data.primary_claim_as_dependent = "X"
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -463,7 +463,7 @@ describe Efile::Ny::It201 do
 
     context 'when the filer was not a full year NYC resident' do
       before do
-        intake.nyc_full_year_resident = 2 # no
+        intake.nyc_residency = "none" # no
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -478,7 +478,7 @@ describe Efile::Ny::It201 do
 
     context 'when the filer had more than $250,000 in income' do
       before do
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 200_000
         intake.direct_file_data.fed_taxable_income = 200_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -494,7 +494,7 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is single' do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -510,7 +510,7 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is mfj' do
       before do
         intake.direct_file_data.filing_status = 2 # mfj
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -526,7 +526,7 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is mfs' do
       before do
         intake.direct_file_data.filing_status = 3 # mfs
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -542,7 +542,7 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is hoh' do
       before do
         intake.direct_file_data.filing_status = 4 # hoh
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -558,7 +558,7 @@ describe Efile::Ny::It201 do
     context 'when the filer is eligible and filing status is qualifying_widow' do
       before do
         intake.direct_file_data.filing_status = 5 # qualifying_widow
-        intake.nyc_full_year_resident = 1 # yes
+        intake.nyc_residency = "full_year" # yes
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0

@@ -12,11 +12,17 @@ module StateFile
 
     def next_path
       if current_intake.has_disqualifying_eligibility_answer?
-        session[:offboarded_from] = self.class.to_path_helper(us_state: params[:us_state])
+        session[:offboarded_from] = self.class.to_path_helper(from_path_params)
         return offboarding_path
       end
 
       super
+    end
+
+    def from_path_params
+      [:us_state, :return_to_review].each_with_object({}) do |key, path_params|
+        path_params[key] = params[key] if params[key].present?
+      end
     end
   end
 end

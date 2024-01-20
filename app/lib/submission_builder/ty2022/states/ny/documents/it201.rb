@@ -19,19 +19,19 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT201") do |xml|
-                xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
-                xml.FS_CD claimed: FILING_STATUSES[@submission.data_source.filing_status.to_sym]
+                xml.PR_DOB_DT claimed: intake.primary.birth_date.strftime("%Y-%m-%d")
+                xml.FS_CD claimed: FILING_STATUSES[intake.filing_status.to_sym]
                 xml.FED_ITZDED_IND claimed: 2 # Always 2 == NO
-                xml.DEP_CLAIM_IND claimed: @submission.data_source.direct_file_data.claimed_as_dependent? ? 1 : 2 # 1 == YES, 2 == NO
+                xml.DEP_CLAIM_IND claimed: intake.direct_file_data.claimed_as_dependent? ? 1 : 2 # 1 == YES, 2 == NO
                 xml.FORGN_ACCT_IND claimed: 2 # Always 2 == NO
                 xml.YNK_LVNG_QTR_IND claimed: 2 # Always 2 == NO
                 xml.YNK_WRK_LVNG_IND claimed: 2 # Always 2 == NO
-                xml.NYC_LVNG_QTR_IND claimed: NYC_RES[@submission.data_source.nyc_full_year_resident.to_sym]
-                if @submission.data_source.nyc_full_year_resident_yes?
+                if intake.nyc_residency_full_year?
                   xml.PR_NYC_MNTH_NMBR claimed: 12
-                  if @submission.data_source.filing_status_mfj?
-                    xml.SP_NYC_MNTH_NMBR claimed: 12
-                  end
+                  xml.SP_NYC_MNTH_NMBR claimed: 12 if intake.filing_status_mfj?
+                elsif intake.nyc_residency_none? && intake.nyc_maintained_home_no?
+                  xml.NYC_LVNG_QTR_IND claimed: 2
+                  xml.DAYS_NYC_NMBR claimed: 0
                 end
                 xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
                 xml.INT_AMT claimed: calculated_fields.fetch(:IT201_LINE_2)
@@ -81,13 +81,13 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, :IT201_LINE_78)
                 add_non_zero_claimed_value(xml, :RFND_AMT, :IT201_LINE_78B)
                 xml.PR_SGN_IND claimed: 1
-                if @submission.data_source.email_address.present?
-                  xml.TP_EMAIL_ADR claimed: @submission.data_source.email_address
+                if intake.email_address.present?
+                  xml.TP_EMAIL_ADR claimed: intake.email_address
                 else
-                  xml.TP_EMAIL_ADR claimed: @submission.data_source.direct_file_data.tax_payer_email
+                  xml.TP_EMAIL_ADR claimed: intake.direct_file_data.tax_payer_email
                 end
                 xml.IT201FEDADJID do
-                  @submission.data_source.direct_file_data.fed_adjustments_claimed.each do |_type, info|
+                  intake.direct_file_data.fed_adjustments_claimed.each do |_type, info|
                     xml.descAmt do
                       xml.DESCRIPTION claimed: info[:xml_label]
                       xml.AMOUNT claimed: info[:amount]
@@ -95,7 +95,7 @@ module SubmissionBuilder
                   end
                 end
                 xml.IT201DepExmpInfo do
-                  @submission.data_source.dependents.each do |dependent|
+                  intake.dependents.each do |dependent|
                     xml.depInfo do
                       xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
                       xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
@@ -111,8 +111,12 @@ module SubmissionBuilder
 
             private
 
+            def intake
+              @submission.data_source
+            end
+
             def calculated_fields
-              @it201_fields ||= @submission.data_source.tax_calculator.calculate
+              @it201_fields ||= intake.tax_calculator.calculate
             end
 
             def add_non_zero_claimed_value(xml, elem_name, claimed)
