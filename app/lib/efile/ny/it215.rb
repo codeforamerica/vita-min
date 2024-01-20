@@ -79,7 +79,7 @@ module Efile
 
       def calculate_line_27
         # NYC EIC
-        if @intake.nyc_full_year_resident_yes?
+        if @intake.nyc_residency_full_year?
           # https://www.tax.ny.gov/forms/current-forms/it/it215i.htm#worksheet-c
           set_line(:IT215_WK_C_LINE_1, -> { @lines[:IT215_LINE_10].value })
           @nyc_eic_rate_worksheet.calculate

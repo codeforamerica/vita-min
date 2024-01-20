@@ -54,7 +54,8 @@ module PdfFiller
         Foreign_account: xml_value_to_pdf_checkbox('Foreign_account', 'FORGN_ACCT_IND'),
         yonkers_freeze_credit: xml_value_to_pdf_checkbox('yonkers_freeze_credit', 'YNK_LVNG_QTR_IND'),
         D4: 'no',
-        E1: xml_value_to_pdf_checkbox('E1', 'NYC_LVNG_QTR_IND'),
+        E1: claimed_attr_value('NYC_LVNG_QTR_IND') == '2' ? 'no' : 'Off',
+        E2: claimed_attr_value('DAYS_NYC_NMBR'),
         F1_NYC: claimed_attr_value('PR_NYC_MNTH_NMBR'),
         F2_NYC: claimed_attr_value('SP_NYC_MNTH_NMBR'),
       }
