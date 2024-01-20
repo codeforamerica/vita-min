@@ -99,8 +99,7 @@
 #
 class StateFileNyIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
-
-  self.ignored_columns = ["nyc_full_year_resident"] # needed to safely drop this column in an upcoming commit
+  
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
   enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
