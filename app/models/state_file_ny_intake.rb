@@ -43,7 +43,6 @@
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
-#  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  nyc_maintained_home                :integer          default("unfilled"), not null
 #  nyc_residency                      :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
@@ -101,9 +100,9 @@
 class StateFileNyIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
+  self.ignored_columns = ["nyc_full_year_resident"] # needed to safely drop this column in an upcoming commit
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
   enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home
-  enum nyc_full_year_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_full_year_resident
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
   enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
   enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
