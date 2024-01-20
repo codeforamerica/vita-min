@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_18_201358) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_20_021530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1730,7 +1730,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_201358) do
     t.string "ny_mailing_city"
     t.string "ny_mailing_street"
     t.string "ny_mailing_zip"
-    t.integer "nyc_full_year_resident", default: 0, null: false
     t.integer "nyc_maintained_home", default: 0, null: false
     t.integer "nyc_residency", default: 0, null: false
     t.integer "occupied_residence", default: 0, null: false
