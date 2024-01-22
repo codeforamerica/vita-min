@@ -54,7 +54,7 @@
     <%= f.fields_for :dependents do |ff| %>
       <div id="dependent-<%= ff.index %>" class="blue-group">
 
-        <p><%= t(".dependent_name_dob", number: number_in_words(ff.index + 1))%></p>
+        <p><%= t(".dependent_name_dob") %></p>
 
         <%= ff.cfa_input_field(:first_name, t("general.first_name"), classes: ["form-width--long"], options: {disabled: true}) %>
         <%= ff.cfa_input_field(:last_name, t("general.last_name"), classes: ["form-width--long"], options: {disabled: true}) %>

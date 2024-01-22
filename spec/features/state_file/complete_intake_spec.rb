@@ -100,7 +100,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_ny_spouse_state_id_form_issue_date", Time.now - 4.year
       select_cfa_date "state_file_ny_spouse_state_id_form_expiration_date", Time.now + 4.year
       select("New York", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
-      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num'), with: "ABC"
+      fill_in "For New York IDs: First three characters of the document number (located on the back of your ID)", with: "ABC"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
@@ -134,7 +134,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1_825, state_name: "New York")
+      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1825. How would you like to receive your refund?"
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -271,7 +271,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1239, state_name: "Arizona")
+      expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
