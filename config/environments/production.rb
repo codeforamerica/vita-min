@@ -5,7 +5,7 @@ Rails.application.configure do
 
   config.ctc_url = "https://www.getctc.org"
   config.gyr_url = "https://www.getyourrefund.org"
-  config.statefile_url = "https://cannotdostatefileonproduction.getyourrefund.org"
+  config.statefile_url = "https://www.fileyourstatetaxes.org"
   ctc_email_from_domain = "getctc.org"
   gyr_email_from_domain = "getyourrefund.org"
   config.email_from = {
