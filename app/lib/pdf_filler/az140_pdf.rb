@@ -123,6 +123,13 @@ module PdfFiller
         "3_6c" => @charitable_deductions&.at('SubTotal')&.text,
         "3_7c" => @charitable_deductions&.at('TotalIncStdDeduction')&.text,
       })
+
+      direct_file_data = @submission.data_source.direct_file_data
+      answers.merge!({
+        "81" => direct_file_data.primary_occupation,
+        "82" => direct_file_data.spouse_occupation,
+      })
+
       answers
     end
 
