@@ -1923,20 +1923,6 @@ es:
         Si usted no hizo esta solicitud, por favor avisenos.
 
         Su equipo de impuestos de %{service_name}.org
-    with_code_fyst:
-      body_html: |
-        <p>¡Hola!</p>
-        <p>Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.</p>
-        <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
-        <p>Su equipo de impuestos de %{service_name}.org</p>
-      body_text: |
-        ¡Hola!
-
-        Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.
-
-        Si usted no hizo esta solicitud, por favor avisenos.
-
-        Su equipo de impuestos de %{service_name}.org
   verification_code_sms:
     no_match_ctc: |
       Alguien intentó iniciar una sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar una sesión con su correo electrónico %{url}/portal/iniciar sesión.
