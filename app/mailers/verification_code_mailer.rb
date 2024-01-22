@@ -4,22 +4,13 @@ class VerificationCodeMailer < ApplicationMailer
     @service_name = service.service_name
     @service_type = service.service_type
     @locale = params[:locale]
-    @subject = I18n.t("messages.default_subject_with_service_name", service_name: @service_name, locale: @locale)
     @verification_code = params[:verification_code]
     attachments.inline['logo.png'] = service.email_logo
-
-    mail(to: params[:to], subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
-  end
-
-  def with_code_fyst
-    service = MultiTenantService.new(params[:service_type])
-    @service_name = service.service_name
-    @service_type = service.service_type
-    @locale = params[:locale]
-    @subject = I18n.t("messages.verification_code_subject_with_service_name", service_name: @service_name, locale: @locale)
-    @verification_code = params[:verification_code]
-    attachments.inline['logo.png'] = service.email_logo
-
+    if @service_type == :statefile
+      @subject = I18n.t("messages.verification_code_subject_with_service_name", service_name: @service_name, locale: @locale)
+    else
+      @subject = I18n.t("messages.default_subject_with_service_name", service_name: @service_name, locale: @locale)
+    end
     mail(to: params[:to], subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
   end
 

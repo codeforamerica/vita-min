@@ -26,7 +26,7 @@ describe Hub::AutomatedMessagesController do
         get :index
 
         shown_message_classes = assigns(:messages).map{ |m| m[0] }
-        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.with_code_fyst", "VerificationCodeMailer.no_match_found", "DiyIntakeEmailMailer.high_support_message", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
+        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found", "DiyIntakeEmailMailer.high_support_message", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
 
         expect(shown_message_classes).to match_array(message_class_names)
       end

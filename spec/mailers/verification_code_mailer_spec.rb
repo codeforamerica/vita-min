@@ -44,7 +44,7 @@ describe VerificationCodeMailer, type: :mailer do
           to: "example@example.com",
           locale: :en,
           service_type: :statefile
-        ).with_code_fyst
+        ).with_code
 
         expect do
           email.deliver_now

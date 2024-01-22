@@ -9,18 +9,12 @@ class EmailVerificationCodeService
 
   def request_code
     verification_code, access_token = EmailAccessToken.generate!(email_address: @email_address, client_id: @client_id)
-    mailer = VerificationCodeMailer.with(
+    mailer_response = VerificationCodeMailer.with(
       to: @email_address,
       verification_code: verification_code,
       locale: @locale,
       service_type: @service_data.service_type
-    )
-
-    mailer_response = if @service_data.service_type == :statefile
-                        mailer.with_code_fyst.deliver_now
-                      else
-                        mailer.with_code.deliver_now
-                      end
+    ).with_code.deliver_now
 
     VerificationEmail.create!(
       email_access_token: access_token,

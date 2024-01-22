@@ -1,1 +1,5 @@
-<%= t("verification_code_mailer.with_code.body_html", service_name: @service_name, verification_code: @verification_code, locale: @locale) %>
+<% if @service_type == :statefile %>
+  <%= t("verification_code_mailer.with_code_fyst.body_html", service_name: @service_name, verification_code: @verification_code, locale: @locale) %>
+<% else %>
+  <%= t("verification_code_mailer.with_code.body_html", service_name: @service_name, verification_code: @verification_code, locale: @locale) %>
+<% end %>
