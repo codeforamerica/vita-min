@@ -2340,6 +2340,7 @@ en:
           download_pdf: You can download a PDF of your full state tax return after you submit.
         review_header:
           dependent_dob: Their date of birth
+          dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
           household_info: Household information
           nth_dependent_name: Your %{ordinal} dependent's name
