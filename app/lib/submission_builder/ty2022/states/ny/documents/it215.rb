@@ -15,22 +15,20 @@ module SubmissionBuilder
                 xml.E_FED_FS_REQ_IND claimed: calculated_fields.fetch("IT215_LINE_3") ? 1 : 2
                 xml.E_CHLD_CLM_IND claimed: calculated_fields.fetch("IT215_LINE_4") ? 1 : 2
                 xml.E_IRS_FED_EITC_IND claimed: calculated_fields.fetch("IT215_LINE_5") ? 1 : 2
-                xml.E_FED_WG_AMT claimed: calculated_fields.fetch("IT215_LINE_6")
-                xml.E_FED_FEDAGI_AMT claimed: calculated_fields.fetch("IT215_LINE_9")
-                if calculated_fields.fetch("IT215_LINE_10").present?
-                  xml.E_FED_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_10")
-                end
-                xml.E_TNTV_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_12")
-                xml.E_TX_B4CR_AMT claimed: calculated_fields.fetch("IT215_LINE_13")
-                xml.E_HH_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_14")
-                xml.E_EITC_LMT_AMT claimed: calculated_fields.fetch("IT215_LINE_15")
-                xml.E_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_16")
-                xml.E_NYC_EITC_CR_AMT claimed: calculated_fields.fetch("IT215_LINE_27")
-                xml.E_TX_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_1")
-                xml.E_RSDT_CR_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_2")
-                xml.E_ACM_DIST_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_3")
-                xml.E_TOT_OTHCR_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_4")
-                xml.E_NET_TX_AMT claimed: calculated_fields.fetch("IT215_WK_B_LINE_5")
+                add_non_zero_claimed_value(xml, :E_FED_WG_AMT, :IT215_LINE_6)
+                add_non_zero_claimed_value(xml, :E_FED_FEDAGI_AMT, :IT215_LINE_9)
+                add_non_zero_claimed_value(xml, :E_FED_EITC_CR_AMT, :IT215_LINE_10)
+                add_non_zero_claimed_value(xml, :E_TNTV_EITC_CR_AMT, :IT215_LINE_12)
+                add_non_zero_claimed_value(xml, :E_TX_B4CR_AMT, :IT215_LINE_13)
+                add_non_zero_claimed_value(xml, :E_HH_CR_AMT, :IT215_LINE_14)
+                add_non_zero_claimed_value(xml, :E_EITC_LMT_AMT, :IT215_LINE_15)
+                add_non_zero_claimed_value(xml, :E_EITC_CR_AMT, :IT215_LINE_16)
+                add_non_zero_claimed_value(xml, :E_NYC_EITC_CR_AMT, :IT215_LINE_27)
+                add_non_zero_claimed_value(xml, :E_TX_AMT, :IT215_WK_B_LINE_1)
+                add_non_zero_claimed_value(xml, :E_RSDT_CR_AMT, :IT215_WK_B_LINE_2)
+                add_non_zero_claimed_value(xml, :E_ACM_DIST_AMT, :IT215_WK_B_LINE_3)
+                add_non_zero_claimed_value(xml, :E_TOT_OTHCR_AMT, :IT215_WK_B_LINE_4)
+                add_non_zero_claimed_value(xml, :E_NET_TX_AMT, :IT215_WK_B_LINE_5)
               end
             end
 

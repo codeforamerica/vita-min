@@ -14,6 +14,17 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         xml = described_class.build(submission).document
         expect(xml.at("tiPrime FIRST_NAME").text).to eq(intake.primary.first_name)
         expect(xml.at("tiSpouse")).to be_nil
+        # Added some checks on the XML...
+        expect(xml.at("composition forms IT201 TX_UNEMP_AMT").attribute('claimed').value).to eq "8500"
+        expect(xml.at("composition forms IT201 A_PBEMP_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 HH_CR_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 TOT_NRFNDCR_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 NYC_HH_CR_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 ESC_CHLD_CR_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 RL_PROP_CR_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 OVR_PAID_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 RFND_B4_EDU_AMT")).to be_nil
+        expect(xml.at("composition forms IT201 RFND_AMT")).to be_nil
       end
     end
 

@@ -33,32 +33,28 @@ module SubmissionBuilder
                   xml.NYC_LVNG_QTR_IND claimed: 2
                   xml.DAYS_NYC_NMBR claimed: 0
                 end
-                xml.WG_AMT claimed: calculated_fields.fetch(:IT201_LINE_1)
-                xml.INT_AMT claimed: calculated_fields.fetch(:IT201_LINE_2)
-                if calculated_fields.fetch(:IT201_LINE_14).present?
-                  xml.TX_UNEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_14)
-                end
-                xml.SSINC_AMT claimed: calculated_fields.fetch(:IT201_LINE_15)
-                xml.FEDAGI_B4_ADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_17)
-                if calculated_fields.fetch(:IT201_LINE_18).present?
-                  xml.FEDADJ_AMT claimed: calculated_fields.fetch(:IT201_LINE_18)
-                end
-                xml.FEDAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_19)
-                xml.A_PBEMP_AMT claimed: calculated_fields.fetch(:IT201_LINE_21)
-                xml.A_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_24)
-                xml.S_TXBL_SS_AMT claimed: calculated_fields.fetch(:IT201_LINE_27)
-                xml.S_SUBTL_AMT claimed: calculated_fields.fetch(:IT201_LINE_32)
-                xml.NYSAGI_AMT claimed: calculated_fields.fetch(:IT201_LINE_33)
+                add_non_zero_claimed_value(xml, :WG_AMT, :IT201_LINE_1)
+                add_non_zero_claimed_value(xml, :INT_AMT, :IT201_LINE_2)
+                add_non_zero_claimed_value(xml, :TX_UNEMP_AMT, :IT201_LINE_14)
+                add_non_zero_claimed_value(xml, :SSINC_AMT, :IT201_LINE_15)
+                add_non_zero_claimed_value(xml, :FEDAGI_B4_ADJ_AMT, :IT201_LINE_17)
+                add_non_zero_claimed_value(xml, :FEDADJ_AMT, :IT201_LINE_18)
+                add_non_zero_claimed_value(xml, :FEDAGI_AMT, :IT201_LINE_19)
+                add_non_zero_claimed_value(xml, :A_PBEMP_AMT, :IT201_LINE_21)
+                add_non_zero_claimed_value(xml, :A_SUBTL_AMT, :IT201_LINE_24)
+                add_non_zero_claimed_value(xml, :S_TXBL_SS_AMT, :IT201_LINE_27)
+                add_non_zero_claimed_value(xml, :S_SUBTL_AMT, :IT201_LINE_32)
+                add_non_zero_claimed_value(xml, :NYSAGI_AMT, :IT201_LINE_33)
                 xml.STD_ITZ_IND claimed: 1
-                xml.DED_AMT claimed: calculated_fields.fetch(:IT201_LINE_34)
-                xml.INC_B4_EXMPT_AMT claimed: calculated_fields.fetch(:IT201_LINE_35)
+                add_non_zero_claimed_value(xml, :DED_AMT, :IT201_LINE_34)
+                add_non_zero_claimed_value(xml, :INC_B4_EXMPT_AMT, :IT201_LINE_35)
                 xml.EXMPT_NMBR claimed: calculated_fields.fetch(:IT201_LINE_36)
-                xml.TXBL_INC_AMT claimed: calculated_fields.fetch(:IT201_LINE_37)
-                xml.TX_B4CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_39)
-                xml.HH_CR_AMT claimed: calculated_fields.fetch(:IT201_LINE_40)
-                xml.TOT_NRFNDCR_AMT claimed: calculated_fields.fetch(:IT201_LINE_43)
-                xml.TX_AFT_NRFNDCR_AMT claimed: calculated_fields.fetch(:IT201_LINE_44)
-                xml.TOT_TX_AMT claimed: calculated_fields.fetch(:IT201_LINE_46)
+                add_non_zero_claimed_value(xml, :TXBL_INC_AMT, :IT201_LINE_37)
+                add_non_zero_claimed_value(xml, :TX_B4CR_AMT, :IT201_LINE_39)
+                add_non_zero_claimed_value(xml, :HH_CR_AMT, :IT201_LINE_40)
+                add_non_zero_claimed_value(xml, :TOT_NRFNDCR_AMT, :IT201_LINE_43)
+                add_non_zero_claimed_value(xml, :TX_AFT_NRFNDCR_AMT, :IT201_LINE_44)
+                add_non_zero_claimed_value(xml, :TOT_TX_AMT, :IT201_LINE_46)
                 add_non_zero_claimed_value(xml, :NYC_TXBL_INC_AMT, :IT201_LINE_47)
                 add_non_zero_claimed_value(xml, :NYC_TX_B4CR_AMT, :IT201_LINE_47A)
                 add_non_zero_claimed_value(xml, :NYC_HH_CR_AMT, :IT201_LINE_48)
@@ -67,16 +63,16 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :NYC_TAX_AFT_CR_AMT, :IT201_LINE_54)
                 add_non_zero_claimed_value(xml, :NYC_YNK_NET_TX_AMT, :IT201_LINE_58)
                 xml.SALE_USE_AMT claimed: calculated_fields.fetch(:IT201_LINE_59) || 0
-                xml.TX_GFT_AMT claimed: calculated_fields.fetch(:IT201_LINE_61)
+                add_non_zero_claimed_value(xml, :TX_GFT_AMT, :IT201_LINE_61)
                 add_non_zero_claimed_value(xml, :ESC_CHLD_CR_AMT, :IT201_LINE_63)
                 add_non_zero_claimed_value(xml, :EITC_CR_AMT, :IT201_LINE_65)
                 add_non_zero_claimed_value(xml, :RL_PROP_CR_AMT, :IT201_LINE_67)
                 add_non_zero_claimed_value(xml, :NYC_STAR_CR_AMT, :IT201_LINE_69)
                 add_non_zero_claimed_value(xml, :NYC_STAR_REDCR_AMT, :IT201_LINE_69A)
                 add_non_zero_claimed_value(xml, :NYC_EITC_CR_AMT, :IT201_LINE_70)
-                xml.TOT_WTHLD_AMT claimed: calculated_fields.fetch(:IT201_LINE_72)
+                add_non_zero_claimed_value(xml, :TOT_WTHLD_AMT, :IT201_LINE_72)
                 add_non_zero_claimed_value(xml, :TOT_NYC_WTHLD_AMT, :IT201_LINE_73)
-                xml.TOT_PAY_AMT claimed: calculated_fields.fetch(:IT201_LINE_76)
+                add_non_zero_claimed_value(xml, :TOT_PAY_AMT, :IT201_LINE_76)
                 add_non_zero_claimed_value(xml, :OVR_PAID_AMT, :IT201_LINE_77)
                 add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, :IT201_LINE_78)
                 add_non_zero_claimed_value(xml, :RFND_AMT, :IT201_LINE_78B)
@@ -117,13 +113,6 @@ module SubmissionBuilder
 
             def calculated_fields
               @it201_fields ||= intake.tax_calculator.calculate
-            end
-
-            def add_non_zero_claimed_value(xml, elem_name, claimed)
-              claimed_value = calculated_fields.fetch(claimed)
-              if claimed_value.present? && claimed_value.to_i != 0
-                xml.send(elem_name, claimed: claimed_value)
-              end
             end
           end
         end
