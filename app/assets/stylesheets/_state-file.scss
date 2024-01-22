@@ -28,8 +28,17 @@
   font-family: $font-state-file;
   font-size: 1.6rem;
 
+  .fyst-logo {
+    width: 222px;
+    height: 38px;
+  }
+
   .main-header {
     background-color: $color-az-grey;
+
+    .main-header__title {
+      display: flex;
+    }
 
     .toolbar__item {
       font-size: 1.5rem;
