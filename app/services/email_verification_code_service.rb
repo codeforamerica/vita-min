@@ -15,7 +15,6 @@ class EmailVerificationCodeService
       locale: @locale,
       service_type: @service_data.service_type
     ).with_code.deliver_now
-
     VerificationEmail.create!(
       email_access_token: access_token,
       visitor_id: @visitor_id,
