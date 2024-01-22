@@ -43,12 +43,6 @@
         <p class="text--bold spacing-below-5"><%=t(".dependent_dob") %></p>
         <p><%=dependent.dob %></p>
       </div>
-      <% if dependent.months_in_home.present? %>
-        <div class="spacing-below-5">
-          <p class="text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></p>
-          <p><%=dependent.months_in_home %></p>
-        </div>
-      <% end %>
     <% end %>
     <div class="spacing-below-5">
       <%= link_to t("general.edit"), StateFile::Questions::NameDobController.to_path_helper(us_state: us_state, return_to_review: "y"), class: "button--small" %>
