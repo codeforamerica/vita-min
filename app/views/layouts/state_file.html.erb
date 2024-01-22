@@ -18,9 +18,11 @@
   <% end %>
 
   <% content_for :meta_tags do %>
-    <meta name="description" content="State file">
-    <meta property="og:title" content="<%= content_for(:page_title) %>">
-    <meta property="twitter:title" content="<%= content_for(:page_title) %>">
+    <meta property="og:title" content="<%= content_for(:page_title) || I18n.t("general.title") %>">
+    <meta property="description" content="<%= I18n.t("general.description") %>">
+    <meta property="og:title" content="<%= content_for(:page_title) || I18n.t("general.title") %>">
+    <meta name="og:description" content="<%= I18n.t("general.description") %>">
+    <meta property="og:image" content="<%= image_url("state-file-thumbnail.png") %>">
   <% end %>
   <%= yield %>
 <% end %>

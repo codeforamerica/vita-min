@@ -332,6 +332,7 @@ en:
       stepsister: Stepsister
       uncle: Uncle
     dependents: Dependents
+    description: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File.
     divorced: Divorced
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.
     document_type: Document type
@@ -557,6 +558,7 @@ en:
       ssn: Social Security Number (SSN)
       ssn_no_employment: SSN (Not valid for employment)
     tin_type: Identification Type
+    title: FileYourStateTaxes
     today: Today
     type: Type
     ui: UI
