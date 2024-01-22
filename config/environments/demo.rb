@@ -23,7 +23,7 @@ Rails.application.configure do
     support: {
       ctc: "support@#{ctc_email_from_domain}",
       gyr: "support@#{gyr_email_from_domain}",
-      statefile: "support@#{statefile_email_from_domain}"
+      statefile: "help@#{statefile_email_from_domain}"
     }
   }
   config.action_mailer.default_url_options = { host: 'demo.getyourrefund.org' }

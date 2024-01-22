@@ -57,15 +57,18 @@ Rails.application.configure do
     default: {
       ctc: "hello@#{ctc_email_from_domain}",
       gyr: "hello@#{gyr_email_from_domain}",
-      statefile: "hello@#{statefile_email_from_domain}"},
+      statefile: "hello@#{statefile_email_from_domain}"
+    },
     noreply: {
       ctc: "no-reply@#{ctc_email_from_domain}",
       gyr: "no-reply@#{gyr_email_from_domain}",
-      statefile: "hello@#{statefile_email_from_domain}"},
+      statefile: "no-reply@#{statefile_email_from_domain}"
+    },
     support: {
       ctc: "support@#{ctc_email_from_domain}",
       gyr: "support@#{gyr_email_from_domain}",
-      statefile: "hello@#{statefile_email_from_domain}"}
+      statefile: "help@#{statefile_email_from_domain}"
+    }
 
   }
   if ngrok_host.present?
