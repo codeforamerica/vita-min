@@ -52,6 +52,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
+      choose I18n.t("state_file.questions.nyc_residency.edit.none", count: 2, year: 2023)
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.ineligible_reason.nyc_maintained_home")
+      click_on "Go back"
+      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
+      choose I18n.t("state_file.questions.nyc_residency.edit.full_year", count: 2, year: 2023)
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title")
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
@@ -123,7 +134,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1_715, state_name: "New York")
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title", refund_amount: 1_825, state_name: "New York")
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")

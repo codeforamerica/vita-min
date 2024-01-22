@@ -90,10 +90,14 @@ module Questions
     private
 
     def redirect_in_offseason
+      return if state_file?
+
       redirect_to root_path unless open_for_gyr_intake? || (open_for_finishing_in_progress_intakes? && current_client.present?)
     end
 
     def redirect_if_completed_intake_present
+      return if state_file?
+
       if current_intake && current_intake.completed_at.present?
         redirect_to portal_root_path
       end

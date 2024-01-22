@@ -43,7 +43,6 @@
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
-#  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  nyc_maintained_home                :integer          default("unfilled"), not null
 #  nyc_residency                      :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
@@ -116,7 +115,7 @@ FactoryBot.define do
     permanent_street { direct_file_data.mailing_street }
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
-    nyc_full_year_resident { 'yes' }
+    nyc_residency { 'full_year' }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -150,7 +149,7 @@ FactoryBot.define do
     end
 
     factory :state_file_ny_owed_intake do
-      nyc_full_year_resident { 'no' }
+      nyc_residency { 'none' }
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_unemployment = 45000
         intake.raw_direct_file_data = intake.direct_file_data.to_s

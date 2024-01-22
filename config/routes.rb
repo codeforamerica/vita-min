@@ -244,7 +244,6 @@ Rails.application.routes.draw do
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end
-          # Foobar
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]
@@ -585,6 +584,7 @@ Rails.application.routes.draw do
       scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
         root to: "state_file_pages#about_page"
         get "/fake_direct_file_transfer_page", to: "state_file_pages#fake_direct_file_transfer_page"
+        get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
       end

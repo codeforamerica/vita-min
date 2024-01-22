@@ -43,7 +43,6 @@
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
-#  nyc_full_year_resident             :integer          default("unfilled"), not null
 #  nyc_maintained_home                :integer          default("unfilled"), not null
 #  nyc_residency                      :integer          default("unfilled"), not null
 #  occupied_residence                 :integer          default("unfilled"), not null
@@ -259,6 +258,16 @@ describe StateFileNyIntake do
       intake = build(:state_file_ny_intake, eligibility_withdrew_529: "yes")
       expect(intake.disqualifying_eligibility_answer).to eq :eligibility_withdrew_529
     end
+
+    it "returns :nyc_residency when they were a part year resident" do
+      intake = build(:state_file_ny_intake, nyc_residency: "part_year")
+      expect(intake.disqualifying_eligibility_answer).to eq :nyc_residency
+    end
+
+    it "returns :nyc_maintained_home when they maintained a home in nyc" do
+      intake = build(:state_file_ny_intake, nyc_maintained_home: "yes")
+      expect(intake.disqualifying_eligibility_answer).to eq :nyc_maintained_home
+    end
   end
 
   describe "#has_disqualifying_eligibility_answer?" do
@@ -289,6 +298,16 @@ describe StateFileNyIntake do
 
     it "returns true when they withdrew from a 529 account" do
       intake = build(:state_file_ny_intake, eligibility_withdrew_529: "yes")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they were a part year resident" do
+      intake = build(:state_file_ny_intake, nyc_residency: "part_year")
+      expect(intake.has_disqualifying_eligibility_answer?).to eq true
+    end
+
+    it "returns true when they maintained a home in nyc" do
+      intake = build(:state_file_ny_intake, nyc_maintained_home: "yes")
       expect(intake.has_disqualifying_eligibility_answer?).to eq true
     end
   end
