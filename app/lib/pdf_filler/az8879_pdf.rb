@@ -34,7 +34,7 @@ module PdfFiller
         answers["5 Owed Amount"] = @xml_document.at("AmtOwed")&.text
       end
 
-      # TODO: double check assumption that "Foreign Account Checkbox" will always be unchecked
+      # Foreign Accounts are not supported
       case @submission.data_source.account_type
       when 'checking'
         answers['Account Type Checkbox - Checking'] = 'Yes'

@@ -29,6 +29,9 @@ module SubmissionBuilder
             attached_documents.each do |attached|
               document.at('ReturnDataState').add_child(document_fragment(attached))
             end
+            if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
+              document.at("ReturnState").add_child(financial_transaction)
+            end
             document
           end
 
@@ -156,7 +159,7 @@ module SubmissionBuilder
                   end
                 end
               end
-              if calculated_fields[:AZ140_LINE_79] > 0
+              if calculated_fields[:AZ140_LINE_79].positive?
                 xml.RefundAmt calculated_fields.fetch(:AZ140_LINE_79)
               else
                 xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
@@ -179,6 +182,17 @@ module SubmissionBuilder
 
           def return_header
             SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
+          end
+
+          def financial_transaction
+            refund = calculated_fields.fetch(:AZ140_LINE_79)
+            owed = calculated_fields.fetch(:AZ140_LINE_80)
+            return_balance = refund.positive? ? refund : 0 - owed
+            SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
+              @submission,
+              validate: false,
+              kwargs: { return_balance: return_balance }
+            ).document.at("*")
           end
 
           def schema_file

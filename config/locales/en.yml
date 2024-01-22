@@ -2346,7 +2346,7 @@ en:
       tax_refund:
         edit:
           account_number: Account Number
-          bank_title: 'Please provide your bank details: '
+          bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
           direct_deposit: Direct deposit (fastest)
