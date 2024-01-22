@@ -43,7 +43,7 @@
         <p class="text--bold spacing-below-5"><%=t(".dependent_dob") %></p>
         <p><%=dependent.dob %></p>
       </div>
-      <% if dependent.months_in_home.present? && us_state != 'ny' %>
+      <% if dependent.months_in_home.present? && @show_dependent_months_in_home %>
         <div class="spacing-below-5">
           <p class="text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></p>
           <p><%=dependent.months_in_home %></p>
