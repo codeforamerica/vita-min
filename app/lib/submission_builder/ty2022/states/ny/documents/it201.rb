@@ -39,6 +39,7 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :SSINC_AMT, :IT201_LINE_15)
                 add_non_zero_claimed_value(xml, :FEDAGI_B4_ADJ_AMT, :IT201_LINE_17)
                 add_non_zero_claimed_value(xml, :FEDADJ_AMT, :IT201_LINE_18)
+                add_non_zero_claimed_value(xml, :FEDAGI_AMT, :IT201_LINE_19)
                 add_non_zero_claimed_value(xml, :A_PBEMP_AMT, :IT201_LINE_21)
                 add_non_zero_claimed_value(xml, :A_SUBTL_AMT, :IT201_LINE_24)
                 add_non_zero_claimed_value(xml, :S_TXBL_SS_AMT, :IT201_LINE_27)
