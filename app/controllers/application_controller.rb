@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
+  before_action :redirect_state_file_in_off_season
   after_action :track_page_view, :track_form_submission
 
   before_action do
@@ -387,6 +388,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_ctc_read_write?
 
+  def open_for_state_file_intake?
+    app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_intake)
+  end
+  helper_method :open_for_state_file_intake?
+
+  def before_state_file_launch?
+    app_time <= Rails.configuration.state_file_start_of_open_intake
+  end
+  helper_method :before_state_file_launch?
+
   private
 
   def locale
@@ -432,6 +443,15 @@ class ApplicationController < ActionController::Base
       redirect_to Questions::PersonalInfoController.to_path_helper
     else
       redirect_to Questions::EnvironmentWarningController.to_path_helper
+    end
+  end
+
+  def redirect_state_file_in_off_season
+    return unless state_file?
+    return if hub? || self.class.name.include?("SessionTogglesController")
+
+    if before_state_file_launch?
+      redirect_to StateFile::StateFilePagesController.to_path_helper(action: :coming_soon)
     end
   end
 

@@ -1375,6 +1375,38 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#before_state_file_launch?" do
+    context "before state file open intake" do
+      let(:fake_time) { Rails.configuration.state_file_start_of_open_intake - 1.minute }
+
+      it "returns true" do
+        Timecop.freeze(fake_time) do
+          expect(subject.before_state_file_launch?).to eq true
+        end
+      end
+    end
+
+    context "after state of open intake" do
+      let(:fake_time) { Rails.configuration.state_file_start_of_open_intake + 1.minute }
+
+      it "returns false" do
+        Timecop.freeze(fake_time) do
+          expect(subject.before_state_file_launch?).to eq false
+        end
+      end
+    end
+
+    context "after end of intake" do
+      let(:fake_time) { Rails.configuration.state_file_end_of_intake + 1.minute }
+
+      it "returns false" do
+        Timecop.freeze(fake_time) do
+          expect(subject.before_state_file_launch?).to eq false
+        end
+      end
+    end
+  end
+
   context "when receiving invalid requests from robots" do
     before do
       allow(DatadogApi).to receive(:increment)

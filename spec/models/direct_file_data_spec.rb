@@ -330,5 +330,21 @@ describe DirectFileData do
         expect(described_class.new(xml).dependents.select{ |d| d.eic_disability }.length).to eq(1)
       end
     end
+
+    context "when there are dependents in AZ, the months_in_home is not populated" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_johnny_mfj_8_deps_az.xml')) }
+
+      it 'sets the months_in_home to nil' do
+        expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
+      end
+    end
+
+    context "when there are dependents in NY, the months_in_home IS populated" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_matthew_ny.xml')) }
+
+      it 'sets the months_in_home' do
+        expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
+      end
+    end
   end
 end

@@ -334,6 +334,7 @@ es:
       stepsister: Hermanastra
       uncle: Tío
     dependents: Dependientes
+    description: Una herramienta de presentación estatal sencilla y gratuita para los contribuyentes de Arizona y Nueva York que utilizan Direct File del IRS.
     divorced: Divorciado
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
@@ -559,6 +560,7 @@ es:
       ssn: Número de Seguro Social (SSN)
       ssn_no_employment: Número de Seguro Social (SSN) (No es válido para el empleo)
     tin_type: Tipo de identificación
+    title: FileYourStateTaxes
     today: Hoy
     type: Tipo
     ui: UI
@@ -1861,6 +1863,9 @@ es:
       verification_code:
         edit:
           subtitle_html: "<strong>%{contact_info}</strong>"
+    state_file_pages:
+      coming_soon:
+        title: Próximamente
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -1967,7 +1972,7 @@ es:
           <strong>Autorizo al sitio VITA:</strong>
           Global Carry Forward de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner la información de su declaración de impuestos a disposición de CUALQUIER sitio voluntario que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio voluntario que utilice TaxSlayer el próximo año y que su declaración de impuestos se complete con sus datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2023</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{product_year}</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información de identificación personal, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 
@@ -1975,7 +1980,7 @@ es:
 
           No es necesario que dé su consentimiento para que el colaborador de VITA/TCE que le prepare la declaración de impuestos este año. Carry Forward le ayudará sólo si el año que viene acude a otro colaborador de VITA o TCE.
 
-          <i>Limitación de la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada anteriormente (30 de noviembre de 2023). Si deseo/queremos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
+          <i>Limitación de la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada anteriormente (30 de noviembre de %{product_year}). Si deseo/queremos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
 
           <i>Limitación del alcance de la divulgación</i>: Yo/nosotros, el contribuyente, no deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo presentado anteriormente. Si deseo/queremos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo presentado anteriormente, negaré/rechazamos el consentimiento.
 

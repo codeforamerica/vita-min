@@ -57,15 +57,18 @@ Rails.application.configure do
     default: {
       ctc: "hello@#{ctc_email_from_domain}",
       gyr: "hello@#{gyr_email_from_domain}",
-      statefile: "hello@#{statefile_email_from_domain}"},
+      statefile: "hello@#{statefile_email_from_domain}"
+    },
     noreply: {
       ctc: "no-reply@#{ctc_email_from_domain}",
       gyr: "no-reply@#{gyr_email_from_domain}",
-      statefile: "hello@#{statefile_email_from_domain}"},
+      statefile: "no-reply@#{statefile_email_from_domain}"
+    },
     support: {
       ctc: "support@#{ctc_email_from_domain}",
       gyr: "support@#{gyr_email_from_domain}",
-      statefile: "hello@#{statefile_email_from_domain}"}
+      statefile: "help@#{statefile_email_from_domain}"
+    }
 
   }
   if ngrok_host.present?
@@ -129,6 +132,10 @@ Rails.application.configure do
   config.gyr_url = "http://localhost:3000"
   config.efile_environment = "test"
 
+  # CTC
   config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-03-01 09:00:00")
   config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-04-01 09:00:00")
+
+  # StateFile
+  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
 end

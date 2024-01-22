@@ -11,10 +11,19 @@ class SessionTogglesController < ApplicationController
         times: [
           SessionToggleTime.new(name: 'Start of unique-links only intake', property: :start_of_unique_links_only_intake),
           SessionToggleTime.new(name: 'Start of open intake', property: :start_of_open_intake),
+          SessionToggleTime.new(name: 'Tax deadline', property: :tax_deadline),
           SessionToggleTime.new(name: 'End of intake', property: :end_of_intake),
           SessionToggleTime.new(name: 'End of documents upload', property: :end_of_docs),
           SessionToggleTime.new(name: 'End of finishing in-progress intakes', property: :end_of_in_progress_intake),
           SessionToggleTime.new(name: 'End of login', property: :end_of_login),
+        ]
+      },
+      {
+        service_name: 'StateFile',
+        service_url: url_for(host: MultiTenantService.new(:statefile).host, controller: :session_toggles),
+        times: [
+          SessionToggleTime.new(name: 'Start of open intake', property: :state_file_start_of_open_intake),
+          SessionToggleTime.new(name: 'End of intake', property: :state_file_end_of_intake),
         ]
       },
       {

@@ -47,23 +47,16 @@ module PdfFiller
         "Account Number" => @submission.data_source.account_number,
         "Direct Debit Date" => @submission.data_source.date_electronic_withdrawal&.strftime("%m%d%Y"),
         "Direct Debit Amount" => @submission.data_source.withdraw_amount,
-        "Electronic Return Originator" => 'Code for America Labs, Inc'
+        "Electronic Return Originator" => 'FileYourStateTaxes'
       )
 
-      if @submission.data_source.primary_esigned_yes?
-        answers["Your Signature"] = @submission.data_source.primary.full_name 
-        answers["Your Date Signed"] = @submission.data_source.primary_esigned_at.to_date
-        if @xml_document.at('RefundAmt').present?
-          answers["6a Checkbox"] = 'Yes'
-        elsif @xml_document.at('AmtOwed').present?
-          answers["6b Checkbox"] = 'Yes'
-          answers["6c Checkbox"] = 'Yes'
-        end
+      if @xml_document.at('RefundAmt').present?
+        answers["6a Checkbox"] = 'Yes'
+      elsif @xml_document.at('AmtOwed').present?
+        answers["6b Checkbox"] = 'Yes'
+        answers["6c Checkbox"] = 'Yes'
       end
-      if @submission.data_source.spouse_esigned_yes?
-        answers["Spouse Signature"] = @submission.data_source.spouse.full_name
-        answers["Spouse Date Signed"] = @submission.data_source.spouse_esigned_at.to_date
-      end
+
       answers
     end
   end

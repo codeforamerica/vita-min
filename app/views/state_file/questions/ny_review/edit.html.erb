@@ -5,8 +5,8 @@
   <div id="full-year-resident" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".nyc_full_year_resident") %></p>
-      <p><%=current_intake.nyc_full_year_resident_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NyCountyController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      <p><%=current_intake.nyc_residency_full_year? ? t("general.affirmative") : t("general.negative") %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NycResidencyController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 

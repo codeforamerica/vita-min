@@ -3,7 +3,7 @@
     <div class="grid">
       <div class="grid__item width-three-fourths footer-description">
         <p>
-          <%= image_tag("checkbox-logo--white.png", alt: "") %>
+          <%= image_tag("fyst-logo.svg", alt: "FileYourStateTaxes", title: "FileYourStateTaxes", class_names: "fyst-logo") %>
         </p>
         <p>
           <% if ['az', 'ny'].include?(params[:us_state]) %>
@@ -14,30 +14,43 @@
         </p>
       </div>
 
+
       <ul class="grid__item width-one-fourth footer-links">
-        <li>
-          <% if I18n.locale != :en %>
-            <%= link_to_english %>
-          <% end %>
-          <% if I18n.locale != :es %>
-            <%= link_to_spanish %>
-          <% end %>
-        </li>
-
-        <li>
-          <%= link_to "https://www.getyourrefundstatus.org/" do %>
-            <%= t("views.shared.footer.service_status") %>
-          <% end %>
-        </li>
-
-        <% unless Rails.env.production? %>
-          <li><%= link_to "Flow explorer", flows_path %></li>
-
+        <% unless before_state_file_launch? %>
           <li>
-            <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/users/sessions", action: 'new') do %>
-              <%= "Hub sign in" %>
+            <% if I18n.locale != :en %>
+              <%= link_to_english %>
+            <% end %>
+            <% if I18n.locale != :es %>
+              <%= link_to_spanish %>
             <% end %>
           </li>
+
+          <li>
+            <%= link_to "https://www.getyourrefundstatus.org/" do %>
+              <%= t("views.shared.footer.service_status") %>
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to "privacy-policy" do %>
+              <%= t("state_file.state_file_pages.privacy_policy.header") %>
+            <% end %>
+          </li>
+
+          <% unless Rails.env.production? %>
+            <li><%= link_to "Flow explorer", flows_path %></li>
+
+            <li>
+              <%= link_to url_for(host: MultiTenantService.new(:gyr).host, controller: "/users/sessions", action: 'new') do %>
+                <%= "Hub sign in" %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% unless Rails.env.production? %>
+          <li><%= link_to "Session toggles", session_toggles_path %></li>
         <% end %>
       </ul>
     </div>

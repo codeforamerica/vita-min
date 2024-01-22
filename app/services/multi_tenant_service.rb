@@ -26,12 +26,12 @@ class MultiTenantService
 
   def host
     base =
-      case service_type
+      case service_type_or_parent
       when :ctc
         Rails.configuration.ctc_url
       when :gyr
         Rails.configuration.gyr_url
-      when :statefile, :statefile_az, :statefile_ny
+      when :statefile
         Rails.configuration.statefile_url
       end
     URI(base).hostname
@@ -67,7 +67,7 @@ class MultiTenantService
   end
 
   def email_logo
-    case service_type
+    case service_type_or_parent
     when :ctc then File.read(Rails.root.join('app/assets/images/get-ctc-logo.png'))
     when :gyr then File.read(Rails.root.join('app/assets/images/logo.png'))
     when :statefile then File.read(Rails.root.join('app/assets/images/logo.png')) # TODO(state-file): email logo for state file
@@ -75,11 +75,15 @@ class MultiTenantService
   end
 
   def default_email
-    Rails.configuration.email_from[:default][service_type]
+    Rails.configuration.email_from[:default][service_type_or_parent]
   end
 
   def noreply_email
-    Rails.configuration.email_from[:noreply][service_type]
+    Rails.configuration.email_from[:noreply][service_type_or_parent]
+  end
+
+  def support_email
+    Rails.configuration.email_from[:support][service_type]
   end
 
   def delivery_method_options
@@ -94,7 +98,7 @@ class MultiTenantService
   end
 
   def current_tax_year
-    case service_type
+    case service_type_or_parent
     when :ctc then Rails.configuration.ctc_current_tax_year
     when :gyr then Rails.configuration.gyr_current_tax_year
     when :statefile then Rails.configuration.statefile_current_tax_year
@@ -110,7 +114,7 @@ class MultiTenantService
   end
 
   def filing_years
-    if service_type == :ctc || service_type == :state_file
+    if service_type_or_parent == :ctc || service_type_or_parent == :state_file
       [current_tax_year]
     else
       ((current_tax_year - 3)..current_tax_year).to_a.reverse.freeze

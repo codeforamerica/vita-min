@@ -216,7 +216,7 @@ module Efile
       end
 
       def calculate_line_47
-        if @intake.nyc_full_year_resident_yes?
+        if @intake.nyc_residency_full_year?
           line_or_zero(:IT201_LINE_38)
         else
           0
@@ -224,7 +224,7 @@ module Efile
       end
 
       def calculate_line_47a
-        if @intake.nyc_full_year_resident_yes?
+        if @intake.nyc_residency_full_year?
           nyc_tax_from_tables(@lines[:IT201_LINE_47].value)
         else
           0
@@ -233,7 +233,7 @@ module Efile
 
       def calculate_line_48
         # If you are married and filing a joint New York State return and only one of you was a resident of New York City for all of 2022, do not enter an amount here. See the instructions for line 51.
-        if @direct_file_data.claimed_as_dependent? || @intake.nyc_full_year_resident_no?
+        if @direct_file_data.claimed_as_dependent? || @intake.nyc_residency_none?
           0
         else
           nyc_household_credit(line_or_zero(:IT201_LINE_19))
@@ -287,13 +287,13 @@ module Efile
         # account and an individual retirement annuity, from Form IT-201, line 9, if they were included in your federal
         # adjusted gross income.
         income_eligible = (line_or_zero(:IT201_LINE_19) - line_or_zero(:IT201_LINE_9)) < 250_000
-        return 0 unless income_eligible && @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
+        return 0 unless income_eligible && @intake.nyc_residency_full_year? && !@direct_file_data.claimed_as_dependent?
 
         @filing_status.in?([:single, :married_filing_separately, :head_of_household]) ? 63 : 125
       end
 
       def calculate_line_69a
-        return 0 unless @intake.nyc_full_year_resident_yes? && !@direct_file_data.claimed_as_dependent?
+        return 0 unless @intake.nyc_residency_full_year? && !@direct_file_data.claimed_as_dependent?
 
         nyc_taxable_income = line_or_zero(:IT201_LINE_47)
         result = case @filing_status
