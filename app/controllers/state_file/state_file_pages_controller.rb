@@ -17,6 +17,8 @@ module StateFile
 
     def about_page; end
 
+    def privacy_policy; end
+
     def coming_soon
       redirect_to root_path unless before_state_file_launch?
     end

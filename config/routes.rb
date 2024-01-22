@@ -586,8 +586,10 @@ Rails.application.routes.draw do
         get "/fake_direct_file_transfer_page", to: "state_file_pages#fake_direct_file_transfer_page"
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
+        get "/privacy-policy", to: "state_file_pages#privacy_policy"
       end
     end
+    get "/privacy-policy", to: "state_file_pages#privacy_policy"
   end
 
   get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|

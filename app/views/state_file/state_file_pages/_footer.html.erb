@@ -32,6 +32,12 @@
             <% end %>
           </li>
 
+          <li>
+            <%= link_to "privacy-policy" do %>
+              <%= t("state_file.state_file_pages.privacy_policy.header") %>
+            <% end %>
+          </li>
+
           <% unless Rails.env.production? %>
             <li><%= link_to "Flow explorer", flows_path %></li>
 
