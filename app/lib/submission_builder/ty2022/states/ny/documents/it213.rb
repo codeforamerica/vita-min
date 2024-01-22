@@ -13,21 +13,21 @@ module SubmissionBuilder
                   xml.ESC_FED_CR_IND claimed: calculated_fields.fetch(:IT213_LINE_2)
                   xml.ESC_FAGI_LMT_IND claimed: calculated_fields.fetch(:IT213_LINE_3)
                   if calculated_fields.fetch(:IT213_LINE_2) == 1 || calculated_fields.fetch(:IT213_LINE_3) == 1
-                    xml.ESC_FED_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_4)
-                    xml.ESC_SSN_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_5)
+                    add_non_zero_claimed_value(xml, :ESC_FED_CHLD_NMBR, :IT213_LINE_4)
+                    add_non_zero_claimed_value(xml, :ESC_SSN_CHLD_NMBR, :IT213_LINE_5)
                     if calculated_fields.fetch(:IT213_LINE_2) == 1
-                      xml.ESC_FED_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_6)
-                      xml.ESC_FED_ADDL_AMT claimed: calculated_fields.fetch(:IT213_LINE_7)
-                      xml.ESC_FED_TOT_AMT claimed: calculated_fields.fetch(:IT213_LINE_8)
+                      add_non_zero_claimed_value(xml, :ESC_FED_CR_AMT, :IT213_LINE_6)
+                      add_non_zero_claimed_value(xml, :ESC_FED_ADDL_AMT, :IT213_LINE_7)
+                      add_non_zero_claimed_value(xml, :ESC_FED_TOT_AMT, :IT213_LINE_8)
                     end
-                    xml.ESC_LMT_1_AMT claimed: calculated_fields.fetch(:IT213_LINE_9)
+                    add_non_zero_claimed_value(xml, :ESC_LMT_1_AMT, :IT213_LINE_9)
                     if calculated_fields.fetch(:IT213_LINE_3) == 1
-                      xml.ESC_TOT_CHLD_NMBR claimed: calculated_fields.fetch(:IT213_LINE_12)
-                      xml.ESC_LMT_2_AMT claimed: calculated_fields.fetch(:IT213_LINE_13)
+                      add_non_zero_claimed_value(xml, :ESC_TOT_CHLD_NMBR, :IT213_LINE_12)
+                      add_non_zero_claimed_value(xml, :ESC_LMT_2_AMT, :IT213_LINE_13)
                     end
-                    xml.ESC_CHLD_CR_AMT claimed: calculated_fields.fetch(:IT213_LINE_14)
-                    xml.ESC_FY_SP_SHR_AMT claimed: calculated_fields.fetch(:IT213_LINE_15)
-                    xml.ESC_PY_SP_SHR_AMT claimed: calculated_fields.fetch(:IT213_LINE_16)
+                    add_non_zero_claimed_value(xml, :ESC_CHLD_CR_AMT, :IT213_LINE_14)
+                    add_non_zero_claimed_value(xml, :ESC_FY_SP_SHR_AMT, :IT213_LINE_15)
+                    add_non_zero_claimed_value(xml, :ESC_PY_SP_SHR_AMT, :IT213_LINE_16)
                   end
                 end
               end

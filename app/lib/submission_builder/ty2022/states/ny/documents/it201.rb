@@ -114,13 +114,6 @@ module SubmissionBuilder
             def calculated_fields
               @it201_fields ||= intake.tax_calculator.calculate
             end
-
-            def add_non_zero_claimed_value(xml, elem_name, claimed)
-              claimed_value = calculated_fields.fetch(claimed)
-              if claimed_value.present? && claimed_value.to_i != 0
-                xml.send(elem_name, claimed: claimed_value)
-              end
-            end
           end
         end
       end
