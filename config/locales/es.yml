@@ -1970,7 +1970,7 @@ es:
           <strong>Autorizo al sitio VITA:</strong>
           Global Carry Forward de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner la información de su declaración de impuestos a disposición de CUALQUIER sitio voluntario que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio voluntario que utilice TaxSlayer el próximo año y que su declaración de impuestos se complete con sus datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2023</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{product_year}</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información de identificación personal, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 
@@ -1978,7 +1978,7 @@ es:
 
           No es necesario que dé su consentimiento para que el colaborador de VITA/TCE que le prepare la declaración de impuestos este año. Carry Forward le ayudará sólo si el año que viene acude a otro colaborador de VITA o TCE.
 
-          <i>Limitación de la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada anteriormente (30 de noviembre de 2023). Si deseo/queremos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
+          <i>Limitación de la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada anteriormente (30 de noviembre de %{product_year}). Si deseo/queremos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
 
           <i>Limitación del alcance de la divulgación</i>: Yo/nosotros, el contribuyente, no deseamos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo presentado anteriormente. Si deseo/queremos limitar el alcance de la divulgación de la información de la declaración de impuestos más allá de lo presentado anteriormente, negaré/rechazamos el consentimiento.
 

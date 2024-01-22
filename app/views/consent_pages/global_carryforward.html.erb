@@ -4,5 +4,5 @@
 <h1><%= @main_heading %></h1>
 
 <div class="spacing-below-60">
-  <%=  simple_format(t('views.consent_pages.global_carryforward.content_html')) %>
+  <%=  simple_format(t('views.consent_pages.global_carryforward.content_html', product_year: Rails.configuration.product_year)) %>
 </div>
