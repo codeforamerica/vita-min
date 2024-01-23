@@ -99,7 +99,7 @@ module SubmissionBuilder
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
@@ -116,7 +116,7 @@ module SubmissionBuilder
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
