@@ -38,8 +38,8 @@ RSpec.describe StateFile::TaxesOwedForm do
           payment_or_deposit_type: "direct_deposit",
           routing_number: "123456789",
           routing_number_confirmation: "123456789",
-          account_number: "123",
-          account_number_confirmation: "123",
+          account_number: "12345",
+          account_number_confirmation: "12345",
           account_type: "checking",
           bank_name: "Bank official",
           withdraw_amount: withdraw_amount,
@@ -58,7 +58,7 @@ RSpec.describe StateFile::TaxesOwedForm do
         expect(intake.payment_or_deposit_type).to eq "direct_deposit"
         expect(intake.account_type).to eq "checking"
         expect(intake.routing_number).to eq "123456789"
-        expect(intake.account_number).to eq "123"
+        expect(intake.account_number).to eq "12345"
         expect(intake.bank_name).to eq "Bank official"
       end
     end
@@ -98,8 +98,8 @@ RSpec.describe StateFile::TaxesOwedForm do
     let(:payment_or_deposit_type) { "direct_deposit" }
     let(:routing_number) { "123456789" }
     let(:routing_number_confirmation) { "123456789" }
-    let(:account_number) { "123" }
-    let(:account_number_confirmation) { "123" }
+    let(:account_number) { "12345" }
+    let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }
     let(:bank_name) { "Bank official" }
     let(:month) { "3" }

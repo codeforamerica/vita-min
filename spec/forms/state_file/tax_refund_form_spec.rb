@@ -27,8 +27,8 @@ RSpec.describe StateFile::TaxRefundForm do
           payment_or_deposit_type: "direct_deposit",
           routing_number: "123456789",
           routing_number_confirmation: "123456789",
-          account_number: "123",
-          account_number_confirmation: "123",
+          account_number: "12345",
+          account_number_confirmation: "12345",
           account_type: "checking",
           bank_name: "Bank official",
         }
@@ -43,7 +43,7 @@ RSpec.describe StateFile::TaxRefundForm do
         expect(intake.payment_or_deposit_type).to eq "direct_deposit"
         expect(intake.account_type).to eq "checking"
         expect(intake.routing_number).to eq "123456789"
-        expect(intake.account_number).to eq "123"
+        expect(intake.account_number).to eq "12345"
         expect(intake.bank_name).to eq "Bank official"
       end
     end
@@ -77,8 +77,8 @@ RSpec.describe StateFile::TaxRefundForm do
     let(:payment_or_deposit_type) { "direct_deposit" }
     let(:routing_number) { "123456789" }
     let(:routing_number_confirmation) { "123456789" }
-    let(:account_number) { "123" }
-    let(:account_number_confirmation) { "123" }
+    let(:account_number) { "12345" }
+    let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }
     let(:bank_name) { "Bank official" }
     let(:params) do
@@ -123,6 +123,16 @@ RSpec.describe StateFile::TaxRefundForm do
         let(:account_number) { "ABC" }
 
         it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_number
+        end
+      end
+
+      context 'account number is too long' do
+        let(:account_number) { '1234567891011121314' }
+
+        it 'is not valid' do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
           expect(form.errors).to include :account_number
