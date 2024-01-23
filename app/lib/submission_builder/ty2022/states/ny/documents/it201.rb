@@ -47,7 +47,7 @@ module SubmissionBuilder
                 xml.STD_ITZ_IND claimed: 1
                 add_non_zero_claimed_value(xml, :DED_AMT, :IT201_LINE_34)
                 add_non_zero_claimed_value(xml, :INC_B4_EXMPT_AMT, :IT201_LINE_35)
-                if calculated_fields.fetch(:IT201_LINE_36).positive?
+                if calculated_fields.fetch(:IT201_LINE_36) != 0
                   xml.EXMPT_NMBR claimed: calculated_fields.fetch(:IT201_LINE_36)
                 end
                 add_non_zero_claimed_value(xml, :TXBL_INC_AMT, :IT201_LINE_37)
