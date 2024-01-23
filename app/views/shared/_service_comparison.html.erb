@@ -42,7 +42,7 @@
                 <%= t("views.shared.service_comparison.services.diy.service_description", year: MultiTenantService.new(:gyr).current_tax_year) %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.diy.cta"), 'https://myfreetaxes.com/form/by-myself', class: "button", "data-track-click": "service-comparison-diy" %>
+                <%= link_to t("views.shared.service_comparison.services.diy.cta"), Diy::FileYourselfController.to_path_helper, class: "button", "data-track-click": "service-comparison-diy" %>
               </div>
             </div>
           </div>
