@@ -13,6 +13,6 @@
     </div>
   </div>
   <div class="spacing-above-35">
-    <%= link_to t('.choose_diy'), 'https://myfreetaxes.com/form/by-myself', class: "button button--wide text--centered", "data-track-click": click_tracking_event_name %>
+    <%= link_to t('.choose_diy'), Diy::FileYourselfController.to_path_helper, class: "button button--wide text--centered", "data-track-click": click_tracking_event_name %>
   </div>
 </div>
