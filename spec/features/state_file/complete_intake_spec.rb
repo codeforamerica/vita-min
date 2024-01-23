@@ -275,7 +275,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
-      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.bank_title")
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
       fill_in "state_file_tax_refund_form_bank_name", with: "bank name"
       choose "Checking"
       fill_in "state_file_tax_refund_form_routing_number", with: "111111111"
