@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>100000010</PrimarySSN>
+      <NameLine1Txt>LEOPOLD&lt;BLOOM</NameLine1Txt>
+      <PrimaryNameControlTxt>BLOO</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 Dublin St</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </USAddress>
+      <PhoneNum>7185555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test018@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <QualifyingHOHNm>Stephen Deadalus</QualifyingHOHNm>
+      <QualifyingHOHSSN>878787878</QualifyingHOHSSN>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">30000</WagesAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>30000</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>30000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>30000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <TaxableIncomeAmt>9200</TaxableIncomeAmt>
+      <TaxAmt>923</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>923</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
+      <TaxLessCreditsAmt>923</TaxLessCreditsAmt>
+      <TotalTaxAmt>923</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">2642</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>2642</RefundableCreditsAmt>
+      <TotalPaymentsAmt>5642</TotalPaymentsAmt>
+      <OverpaidAmt>4719</OverpaidAmt>
+      <RefundAmt>4719</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Advertising AGent</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>DEAD</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Stephen</PersonFirstNm>
+          <PersonLastNm>Deadalus</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>878787878</QualifyingChildSSN>
+        <ChildBirthYr>2010</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>656565656</EmployeeSSN>
+      <EmployerEIN>012334561</EmployerEIN>
+      <EmployerNameControlTxt>JAME</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>James Joyce Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Ireland Way</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11238</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Leopold Bloom</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Dublin St</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>30000</WagesAmt>
+      <WithholdingAmt>3000</WithholdingAmt>
+      <SocialSecurityWagesAmt>30000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>878787878</EmployerStateIdNum>
+          <StateWagesAmt>30000</StateWagesAmt>
+          <StateIncomeTaxAmt>1500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>30000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>500</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
