@@ -8,6 +8,8 @@ module StateFile
     end
 
     def fake_direct_file_transfer_page
+      return render "public_pages/page_not_found", status: 404 if Rails.env.production? || Rails.env.staging?
+
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
       @xml_samples = XmlReturnSampleService.new.samples.map do |sample|
         [sample.label, transfer_url(sample.key, params[:redirect])]

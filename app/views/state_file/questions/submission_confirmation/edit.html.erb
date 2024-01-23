@@ -15,7 +15,7 @@
   <% end %>
 
   <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: params[:us_state], action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary" %>
-  <% if Rails.env != "production" %>
+  <% unless Rails.env.production? %>
     <p>
       <% xml_bundle = EfileSubmission.where(data_source: current_intake).last&.submission_bundle %>
       <%= link_to "Main XML Doc", StateFile::Questions::ConfirmationController.to_path_helper(us_state: params[:us_state], action: :show_xml), class: 'dev-button' %>

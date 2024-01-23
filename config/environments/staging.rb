@@ -32,4 +32,7 @@ Rails.application.configure do
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "test"
+
+  # StateFile
+  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
 end
