@@ -15,7 +15,7 @@ module StateFile
       validates :bank_name, presence: true
       validates :account_type, presence: true
 
-      validates :account_number, presence: true, confirmation: true, numericality: true
+      validates :account_number, presence: true, confirmation: true, length: { in: 5..17 }, numericality: true
       validates :account_number_confirmation, presence: true
 
       validates :routing_number, presence: true, confirmation: true, length: { is: 9 }, numericality: true
