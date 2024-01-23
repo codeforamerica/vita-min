@@ -49,11 +49,10 @@ describe VerificationCodeMailer, type: :mailer do
         expect do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
-
-        expect(email.subject).to eq "Update from CFA State File"
+        expect(email.subject).to eq "Six-Digit Code from FileYourStateTaxes"
         expect(email.from).to eq ["no-reply@statefile.test.localhost"]
         expect(email.to).to eq ["example@example.com"]
-        expect(email.text_part.decoded.strip).to include "CFA State File"
+        expect(email.text_part.decoded.strip).to include "FileYourStateTaxes"
       end
     end
   end
@@ -87,10 +86,10 @@ describe VerificationCodeMailer, type: :mailer do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-        expect(email.subject).to eq "CFA State File Login Attempt"
+        expect(email.subject).to eq "FileYourStateTaxes Login Attempt"
         expect(email.from).to eq ["no-reply@statefile.test.localhost"]
         expect(email.to).to eq ["example@example.com"]
-        expect(email.text_part.decoded.strip).to include "CFA State File"
+        expect(email.text_part.decoded.strip).to include "FileYourStateTaxes"
       end
     end
   end

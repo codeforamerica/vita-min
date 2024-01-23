@@ -84,9 +84,9 @@ describe TextMessageVerificationCodeService do
       context "service_type is :statefile" do
         let(:service_type) { :statefile }
 
-        it "sends a message that mentions CFA State File" do
+        it "sends a message that mentions FileYourStateTaxes" do
           described_class.request_code(**params)
-          text_body = "Your 6-digit CFA State File verification code is: 123456. This code will expire after two days."
+          text_body = "Your 6-digit FileYourStateTaxes verification code is: 123456. This code will expire after two days."
 
           expect(TwilioService).to have_received(:send_text_message).with(
             a_hash_including(

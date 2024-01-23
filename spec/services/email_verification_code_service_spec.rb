@@ -48,7 +48,7 @@ describe EmailVerificationCodeService do
         }.to change(ActionMailer::Base.deliveries, :count).by(1)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456"
+        expect(email.body.encoded).to include "Your six-digit verification code for GetCTC is: 123456"
         expect(EmailAccessToken).to have_received(:generate!).with(a_hash_including(
                                                                    email_address: email_address,
                                                                    client_id: nil,
@@ -64,7 +64,7 @@ describe EmailVerificationCodeService do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetCTC verification code is: 123456"
+        expect(email.body.encoded).to include "Your six-digit verification code for GetCTC is: 123456"
       end
     end
 
@@ -75,18 +75,18 @@ describe EmailVerificationCodeService do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit GetYourRefund verification code is: 123456"
+        expect(email.body.encoded).to include "Your six-digit verification code for GetYourRefund is: 123456"
       end
     end
 
     context "when service type is statefile" do
       let(:service_type) { :statefile }
 
-      it "sends an email that includes 'CFA State File'" do
+      it "sends an email that includes 'FileYourStateTaxes'" do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your 6-digit CFA State File verification code is: 123456"
+        expect(email.body.encoded).to include "Your six-digit verification code for FileYourStateTaxes is: 123456"
       end
     end
   end

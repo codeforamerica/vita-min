@@ -1627,6 +1627,7 @@ en:
       sms: |
         Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
         If you have questions or would like more information about this decision, please contact hello@getctc.org.
+    verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
   models:
     intake:
       your_spouse: Your spouse
@@ -2639,13 +2640,13 @@ en:
     with_code:
       body_html: |
         <p>Hello!</p>
-        <p>Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.</p>
+        <p>Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after two days.</p>
         <p>If you did not initiate this request, please let us know.</p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
-        Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.
+        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after two days.
 
         If you did not initiate this request, please let us know.
 

@@ -1607,6 +1607,7 @@ es:
       sms: |
         Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
         Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
+    verification_code_subject_with_service_name: Código de seis dígitos de %{service_name}
   models:
     intake:
       your_spouse: Su cónyuge
