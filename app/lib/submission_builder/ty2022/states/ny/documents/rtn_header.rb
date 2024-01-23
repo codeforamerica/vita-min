@@ -41,7 +41,9 @@ module SubmissionBuilder
                 end
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
                 xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
-                xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
+                if calculated_fields.fetch(:IT201_LINE_80).positive?
+                  xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
+                end
                 # xml.SBMSN_ID
                 # xml.ELF_STATE_ONLY_IND
                 # xml.PREP_LN_1_ADR
