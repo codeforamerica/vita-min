@@ -14,9 +14,9 @@ class TriageResultService
       else
         route_to_gyr_diy_choice
       end
-    elsif intake.triage_income_level_65000_to_73000?
+    elsif intake.triage_income_level_66000_to_79000?
       route_to_diy
-    elsif intake.triage_income_level_over_73000?
+    elsif intake.triage_income_level_over_79000?
       route_to_does_not_qualify
     end
   end

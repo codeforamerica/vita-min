@@ -1818,9 +1818,9 @@ es:
             12500_to_25000: De $12,500 a 25,000 dólares
             1_to_12500: De $1 a 12,500 dólares
             25000_to_40000: De $25,000 a 40,000 dólares
-            40000_to_65000: De $40,000 a 65,000 dólares
-            65000_to_73000: De $65,000 a 73,000 dólares
-            over_73000: más de $73,000
+            40000_to_66000: De $40,000 a 66,000 dólares
+            66000_to_79000: De $66,000 a 79,000 dólares
+            over_79000: más de $79,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -4367,7 +4367,7 @@ es:
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
-          diy: menos de $73,000
+          diy: menos de $79,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)

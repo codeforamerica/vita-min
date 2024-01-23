@@ -1838,9 +1838,9 @@ en:
             12500_to_25000: "$12,500 - 25,000"
             1_to_12500: "$1 - 12,500"
             25000_to_40000: "$25,000 - 40,000"
-            40000_to_65000: "$40,000 - 65,000"
-            65000_to_73000: "$65,000 - 73,000"
-            over_73000: over $73,000
+            40000_to_66000: "$40,000 - 66,000"
+            66000_to_79000: "$66,000 - 79,000"
+            over_79000: over $79,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -5024,7 +5024,7 @@ en:
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
-          diy: under $73,000
+          diy: under $79,000
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance
