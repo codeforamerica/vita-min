@@ -63,7 +63,7 @@ module SubmissionBuilder
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
                       xml.LastName dependent.last_name
                     end
                     unless dependent.ssn.nil?
@@ -82,7 +82,7 @@ module SubmissionBuilder
                   xml.QualParentsAncestors do
                     xml.Name do
                       xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
                       xml.LastName dependent.last_name
                     end
                     unless dependent.ssn.nil?

@@ -31,7 +31,6 @@ module SubmissionBuilder
                   xml.SP_NYC_MNTH_NMBR claimed: 12 if intake.filing_status_mfj?
                 elsif intake.nyc_residency_none? && intake.nyc_maintained_home_no?
                   xml.NYC_LVNG_QTR_IND claimed: 2
-                  xml.DAYS_NYC_NMBR claimed: 0
                 end
                 add_non_zero_claimed_value(xml, :WG_AMT, :IT201_LINE_1)
                 add_non_zero_claimed_value(xml, :INT_AMT, :IT201_LINE_2)
@@ -48,7 +47,9 @@ module SubmissionBuilder
                 xml.STD_ITZ_IND claimed: 1
                 add_non_zero_claimed_value(xml, :DED_AMT, :IT201_LINE_34)
                 add_non_zero_claimed_value(xml, :INC_B4_EXMPT_AMT, :IT201_LINE_35)
-                xml.EXMPT_NMBR claimed: calculated_fields.fetch(:IT201_LINE_36)
+                if calculated_fields.fetch(:IT201_LINE_36) != 0
+                  xml.EXMPT_NMBR claimed: calculated_fields.fetch(:IT201_LINE_36)
+                end
                 add_non_zero_claimed_value(xml, :TXBL_INC_AMT, :IT201_LINE_37)
                 add_non_zero_claimed_value(xml, :TX_B4CR_AMT, :IT201_LINE_39)
                 add_non_zero_claimed_value(xml, :HH_CR_AMT, :IT201_LINE_40)
@@ -94,7 +95,7 @@ module SubmissionBuilder
                   intake.dependents.each do |dependent|
                     xml.depInfo do
                       xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                      xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial
+                      xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial if dependent.middle_initial.present?
                       xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
                       xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") # no spaces
                       xml.DEP_SSN_NMBR claimed: dependent.ssn
