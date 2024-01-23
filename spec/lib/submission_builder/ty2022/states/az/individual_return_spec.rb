@@ -87,5 +87,23 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
         end
       end
     end
+
+    context "when there is a refund with banking info" do
+      let(:intake) { create(:state_file_az_refund_intake)}
+      it "generates FinancialTransaction xml with correct RefundAmt" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("FinancialTransaction")).to be_present
+        expect(xml.at("RefundDirectDeposit Amount").text).to eq "475"
+      end
+    end
+
+    context "when there is a payment owed with banking info" do
+      let(:intake) { create(:state_file_az_owed_intake)}
+      it "generates FinancialTransaction xml with correct Amount" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("FinancialTransaction")).to be_present
+        expect(xml.at("StatePayment PaymentAmount").text).to eq "2011"
+      end
+    end
   end
 end
