@@ -107,7 +107,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       it "creates an additional dependents pdf" do
         submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
         additional_dependents = submission_builder.pdf_documents.select do |d|
-          d.pdf == PdfFiller::AdditionalDependentsPdf
+          d.pdf == SubmissionBuilder::Ty2022::States::Ny::Documents::It201AdditionalDependents
         end
         expect(additional_dependents.present?).to eq true
       end
