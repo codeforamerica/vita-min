@@ -22,9 +22,9 @@ class AbandonedPreConsentIntake < ApplicationRecord
     "1_to_12500" => 2,
     "12500_to_25000" => 3,
     "25000_to_40000" => 4,
-    "40000_to_65000" => 5,
-    "65000_to_73000" => 6,
-    "over_73000" => 7,
+    "40000_to_66000" => 5,
+    "66000_to_79000" => 6,
+    "over_79000" => 7,
   }, _prefix: :triage_income_level
   enum triage_filing_status: { unfilled: 0, single: 1, jointly: 2 }, _prefix: :triage_filing_status
   enum triage_filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :triage_filing_frequency

@@ -88,7 +88,7 @@ en:
     file_yourself:
       edit:
         info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $73,000 to file taxes and collect the tax credits you are owed!
+        - File taxes online on your own using our partner website. This is our quickest option for households earning under $79,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         received_1099:
           help_text: If you were self employed or worked as an independent contractor, you may have gotten a 1099 form.
@@ -1778,7 +1778,7 @@ en:
         description: File quickly on your own.
         list:
           file: File for %{current_tax_year} only
-          income: 'Income: under $73,000'
+          income: 'Income: under $79,000'
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
@@ -1797,7 +1797,7 @@ en:
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: Our free service is available to households earning less than $73,000 a year.
+        help_text: Our free service is available to households earning less than $79,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
@@ -1839,9 +1839,9 @@ en:
             12500_to_25000: "$12,500 - 25,000"
             1_to_12500: "$1 - 12,500"
             25000_to_40000: "$25,000 - 40,000"
-            40000_to_65000: "$40,000 - 65,000"
-            65000_to_73000: "$65,000 - 73,000"
-            over_73000: over $73,000
+            40000_to_66000: "$40,000 - 66,000"
+            66000_to_79000: "$66,000 - 79,000"
+            over_79000: over $79,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -5025,7 +5025,7 @@ en:
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
-          diy: under $73,000
+          diy: under $79,000
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance

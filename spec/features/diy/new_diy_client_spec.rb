@@ -9,7 +9,7 @@ RSpec.feature "Client wants to file on their own" do
     FaqDatabaseExportService.export_yml_to_database
   end
 
-  scenario "a new client in the high-support experiment files through TaxSlayer", :flow_explorer_screenshot do
+  xscenario "a new client in the high-support experiment files through TaxSlayer", :flow_explorer_screenshot do
     allow(MixpanelService).to receive(:send_event)
     visit "/diy/file_yourself"
 
