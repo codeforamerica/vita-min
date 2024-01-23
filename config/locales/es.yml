@@ -89,7 +89,7 @@ es:
     file_yourself:
       edit:
         info:
-        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $73,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
+        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $79,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
         received_1099:
           help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
@@ -1757,7 +1757,7 @@ es:
         description: Declare rápidamente por su cuenta.
         list:
           file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $73,000'
+          income: 'Ingresos: menos de $79,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
@@ -1776,7 +1776,7 @@ es:
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Nuestro servicio gratuito está disponible para hogares que ganan menos de $73,000 al año.
+        help_text: Nuestro servicio gratuito está disponible para hogares que ganan menos de $79,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
