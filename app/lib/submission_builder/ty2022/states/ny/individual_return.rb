@@ -213,9 +213,8 @@ module SubmissionBuilder
 
             supported_docs << {
               xml: nil,
-              pdf: PdfFiller::AdditionalDependentsPdf,
+              pdf: SubmissionBuilder::Ty2022::States::Ny::Documents::It201AdditionalDependents,
               include: @submission.data_source.dependents.count >= 8,
-              kwargs: { start_node: 7 }
             }
 
             supported_docs
