@@ -1917,7 +1917,7 @@ es:
     with_code:
       body_html: |
         <p>¡Hola!</p>
-        <p>Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.</p>
+        <p>Su código de verificación de 6 dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará en dos días.</p>
         <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
         <p>Su equipo de impuestos de %{service_name}.org</p>
       body_text: |
