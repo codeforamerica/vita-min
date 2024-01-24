@@ -182,6 +182,12 @@ module SubmissionBuilder
                 include: receiving_213_credit
               },
               {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
+                pdf: PdfFiller::Ny213AttPdf,
+                include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > 6,
+                kwargs: { dependent_offset: 6 }
+              },
+              {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It214,
                 pdf: PdfFiller::Ny214Pdf,
                 include: receiving_214_credit

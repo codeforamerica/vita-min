@@ -111,6 +111,22 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         end
         expect(additional_dependents.present?).to eq true
       end
+
+      context "it-213" do
+        before do
+          intake.dependents.each_with_index do |dependent, i|
+            dependent.update(dob: i.years.ago, relationship: "daughter", ctc_qualifying: true)
+          end
+        end
+
+        it "fills in and attaches the it-213-att" do
+          submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+          additional_dependents = submission_builder.pdf_documents.select do |d|
+            d.pdf == PdfFiller::Ny213AttPdf
+          end
+          expect(additional_dependents.present?).to eq true
+        end
+      end
     end
   end
 end
