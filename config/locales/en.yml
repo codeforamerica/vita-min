@@ -1902,7 +1902,7 @@ en:
           title:
             one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
-      az_incarcerated:
+      az_excise_credit:
         edit:
           title:
             one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?

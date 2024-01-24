@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::AzIncarceratedController do
+RSpec.describe StateFile::Questions::AzExciseCreditController do
   let(:intake) { create :state_file_az_intake }
   before do
     session[:state_file_intake] = intake.to_global_id
@@ -137,7 +137,7 @@ RSpec.describe StateFile::Questions::AzIncarceratedController do
       let(:form_params) do
         {
           us_state: "az",
-          state_file_az_incarcerated_form: {
+          state_file_az_excise_credit_form: {
             was_incarcerated: "yes",
           }
         }

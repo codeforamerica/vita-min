@@ -1,5 +1,5 @@
 module StateFile
-  class AzIncarceratedForm < QuestionsForm
+  class AzExciseCreditForm < QuestionsForm
     set_attributes_for :intake, :was_incarcerated
 
     validates :was_incarcerated, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }
