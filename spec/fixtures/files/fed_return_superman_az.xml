@@ -102,6 +102,8 @@
         </ChildFirstAndLastName>
         <QualifyingChildSSN>600001111</QualifyingChildSSN>
         <ChildBirthYr>2008</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
         <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
         <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
