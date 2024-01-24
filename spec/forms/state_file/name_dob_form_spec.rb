@@ -39,6 +39,12 @@ RSpec.describe StateFile::NameDobForm do
     }
   end
 
+  def params_with_values_from_intake(intake)
+    params = valid_params
+    params[:dependents_attributes][0][:months_in_home] = intake.dependents[0].months_in_home
+    params[:dependents_attributes][1][:months_in_home] = intake.dependents[1].months_in_home
+  end
+
   describe "#valid?" do
     context "without a primary first name or last name" do
       let(:intake) { build(:state_file_az_intake) }
@@ -216,6 +222,27 @@ RSpec.describe StateFile::NameDobForm do
           form = described_class.new(intake, valid_params)
           expect(form).to be_valid
           form.save
+        end
+      end
+    end
+
+    context "when the filer is head of household" do
+      context "when the federal return does not have an hoh qualifying person" do
+        # it "is valid if there is a dependent with a non-NONE relationship and 6 or more months in home" do
+        #   expect no errors
+        # end
+        #
+        # it "is valid if there is a PARENT dependent with any number of months in home" do
+        #   expect no errors
+        # end
+        context "when dependents are all non-PARENT relationship type and fewer than 6 months in home" do
+          let!(:intake) { create :state_file_az_intake, filing_status: 'head_of_household', dependents: [create(:az_hoh_nonqualifying_person_nonparent), create(:az_hoh_nonqualifying_person_nonparent)] }
+
+          it "is not valid" do
+            form = described_class.new(intake, params_with_values_from_intake(intake))
+            expect(form).to_not be_valid
+            form.save
+          end
         end
       end
     end

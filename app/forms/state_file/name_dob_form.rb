@@ -55,7 +55,8 @@ module StateFile
 
     def valid?
       dependents_valid = dependents.map { |d| d.valid?(:dob_form) }
-      super && dependents_valid.all?
+      hoh_valid = @intake.class == StateFileAzIntake && @intake.requires_qualifying_person_name? && @intake.hoh_qualifying_person_name.present?
+      super && dependents_valid.all? && hoh_valid
     end
 
     def self.existing_attributes(intake)

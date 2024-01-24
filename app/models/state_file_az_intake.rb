@@ -162,4 +162,17 @@ class StateFileAzIntake < StateFileBaseIntake
     return :head_of_household if direct_file_data&.filing_status == 5 # Treat qualifying_widow as hoh
     super
   end
+
+  def requires_qualifying_person_name?
+    filing_status == :head_of_household
+  end
+
+  def hoh_qualifying_person_name
+    return direct_file_data.hoh_qualifying_person_name if direct_file_data&.hoh_qualifying_person_name.present?
+    hoh_qualifying_dependents = self.dependents.select(&:is_hoh_qualifying_person?)
+    unless hoh_qualifying_dependents.empty?
+      hoh_qualifying_dependent = hoh_qualifying_dependents.first  # TODO: choose this according to the logic in the story
+      hoh_qualifying_dependent.full_name
+    end
+  end
 end
