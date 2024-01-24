@@ -102,7 +102,7 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
       it "generates FinancialTransaction xml with correct Amount" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
-        expect(xml.at("StatePayment PaymentAmount").text).to eq "2011"
+        expect(xml.at("StatePayment PaymentAmount").text).to eq "5"
       end
     end
   end

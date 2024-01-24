@@ -110,6 +110,7 @@ FactoryBot.define do
         intake.routing_number = 111111111
         intake.account_number = 222222222
         intake.date_electronic_withdrawal = Date.new(2024, 4, 15)
+        intake.withdraw_amount = 5
       end
     end
 
