@@ -614,10 +614,10 @@ class DirectFileData
       if eitc_dependent_node.present?
         dependent.eic_qualifying = true
         unless self.mailing_state == 'AZ'
-          dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt').text.to_i
+          dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt')&.text.to_i
         end
-        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind').text == "true"
-        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd').text == "true"
+        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind')&.text == "true"
+        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd')&.text == "true"
       else
         dependent.eic_qualifying = false
       end

@@ -346,5 +346,13 @@ describe DirectFileData do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
       end
     end
+
+    context 'when there are dependents with missing tags' do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_batman_ny.xml')) }
+      it 'still sets the dependents' do
+        expect(described_class.new(xml).dependents.length).to eq(1)
+      end
+    end
+
   end
 end
