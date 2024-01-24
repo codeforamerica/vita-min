@@ -2,20 +2,22 @@ module PdfFiller
   class Ny213AttPdf
     include PdfHelper
     attr_accessor :start_node
+    delegate :tax_year, to: :@submission
 
     def source_pdf_name
       "it213att-TY2023"
     end
 
-    # def nys_form_type
-    #   "213att"
-    # end
+    def nys_form_type
+      "239"
+    end
 
-    # def barcode_overlay_rect
-    #   [[0, 26], 125, 29]
-    # end
+    def barcode_overlay_rect
+      [[0, 26], 125, 29]
+    end
 
     def initialize(submission, dependent_offset: 6)
+      @submission = submission
       @intake = submission.data_source
       @xml_document = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission).document
       @dependent_offset = dependent_offset
