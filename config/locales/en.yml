@@ -4604,7 +4604,8 @@ en:
       email_address:
         email_address: Email address
         email_address_confirmation: Confirm email address
-        info: An email is required for the final signature on your tax return.
+        info: We’ll need to reach out with questions and updates. Please provide the email address that works best for reaching you! An email is required for the final signature on your tax return.
+        legal_info_html: We will not share your information with any outside parties. Message frequency will vary. See our <a href="%{url}" target="_blank" rel="noopener">Privacy Policy</a> for more information.
         title: Please share your email address.
       energy_efficient_purchases:
         help_text: For example, windows, furnaces, insulation, etc.

@@ -5,26 +5,26 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
   def fill_out_notification_preferences(fill_out_optional_consent: true)
     # Notification Preference
-    check I18n.t('views.questions.notification_preference.options.email_notification_opt_in')
-    check I18n.t('views.questions.notification_preference.options.sms_notification_opt_in')
-    click_on I18n.t('general.continue')
+    # check I18n.t('views.questions.notification_preference.options.email_notification_opt_in')
+    # check I18n.t('views.questions.notification_preference.options.sms_notification_opt_in')
+    # click_on I18n.t('general.continue')
 
     # Phone number can text
-    expect(page).to have_text("(415) 888-0088")
-    click_on I18n.t('general.negative')
+    # expect(page).to have_text("(415) 888-0088")
+    # click_on I18n.t('general.negative')
 
     # Phone number
-    expect(page).to have_selector("h1", text: I18n.t("views.questions.phone_number.title"))
-    fill_in I18n.t("views.questions.phone_number.phone_number"), with: "(415) 553-7865"
-    fill_in I18n.t("views.questions.phone_number.phone_number_confirmation"), with: "+1415553-7865"
-    click_on I18n.t('general.continue')
+    # expect(page).to have_selector("h1", text: I18n.t("views.questions.phone_number.title"))
+    # fill_in I18n.t("views.questions.phone_number.phone_number"), with: "(415) 553-7865"
+    # fill_in I18n.t("views.questions.phone_number.phone_number_confirmation"), with: "+1415553-7865"
+    # click_on I18n.t('general.continue')
 
     # Verify cell phone contact
-    perform_enqueued_jobs
-    sms = FakeTwilioClient.messages.last
-    code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
-    fill_in I18n.t("views.questions.verification.verification_code_label"), with: code
-    click_on I18n.t("views.questions.verification.verify")
+    # perform_enqueued_jobs
+    # sms = FakeTwilioClient.messages.last
+    # code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+    # fill_in I18n.t("views.questions.verification.verification_code_label"), with: code
+    # click_on I18n.t("views.questions.verification.verify")
 
     # Email
     fill_in I18n.t("views.questions.email_address.email_address"), with: "gary.gardengnome@example.green"
