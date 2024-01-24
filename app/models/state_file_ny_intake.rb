@@ -163,7 +163,6 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def calculate_sales_use_tax
     fed_agi = direct_file_data&.fed_agi
-    return unless fed_agi
 
     if fed_agi <= 15_000
       3
