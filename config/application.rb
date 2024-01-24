@@ -90,7 +90,7 @@ module VitaMin
 
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
-    config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 09:59:59')
+    config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 12:00:00')
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-31 09:59:59')
     config.tax_deadline = Time.find_zone('America/New_York').parse('2024-04-18 23:59:59')
     config.end_of_intake = Time.find_zone('America/New_York').parse('2024-10-01 23:59:59')
