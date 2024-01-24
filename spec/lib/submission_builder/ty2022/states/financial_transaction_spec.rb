@@ -8,7 +8,7 @@ describe SubmissionBuilder::Ty2022::States::FinancialTransaction do
       it "populates the StatePayment" do
         xml = Nokogiri::XML::Document.parse(
           described_class.build(
-            submission, validate: false, kwargs: { return_balance: -5 }
+            submission, validate: false
           ).document.to_xml)
         expect(xml.at("StatePayment Checking").text).to eq "X"
         expect(xml.at("StatePayment RoutingTransitNumber").text).to eq "111111111"
@@ -25,7 +25,7 @@ describe SubmissionBuilder::Ty2022::States::FinancialTransaction do
       it "populates the RefundDirectDeposit" do
         xml = Nokogiri::XML::Document.parse(
           described_class.build(
-            submission, validate: false, kwargs: { return_balance: 5 }
+            submission, validate: false, kwargs: { refund_amount: 5 }
           ).document.to_xml)
         expect(xml.at("RefundDirectDeposit Savings").text).to eq "X"
         expect(xml.at("RefundDirectDeposit RoutingTransitNumber").text).to eq "111111111"
