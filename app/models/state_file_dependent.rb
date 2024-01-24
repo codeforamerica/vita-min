@@ -74,7 +74,7 @@ class StateFileDependent < ApplicationRecord
   end
 
   def is_hoh_qualifying_person?
-    relationship == 'PARENT' || (relationship != 'NONE' && months_in_home >= 6)
+    relationship == 'PARENT' || (relationship != 'NONE' && (months_in_home || 0) >= 6)
   end
 
   def under_17?
