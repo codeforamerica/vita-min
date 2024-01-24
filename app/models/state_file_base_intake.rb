@@ -197,4 +197,10 @@ class StateFileBaseIntake < ApplicationRecord
       lock_access! unless access_locked?
     end
   end
+
+  def controller_for_current_step
+    step_name = current_step.split('/').last
+    controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
+    controller_name.constantize
+  end
 end
