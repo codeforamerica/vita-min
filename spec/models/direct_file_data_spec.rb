@@ -125,10 +125,10 @@ describe DirectFileData do
       end
 
       it "sets the correct values" do
-        expect(@direct_file_data.fed_unemployment).to be_nil
-        expect(@direct_file_data.fed_housing_deduction_amount).to be_nil
-        expect(@direct_file_data.fed_gross_income_exclusion_amount).to be_nil
-        expect(@direct_file_data.fed_total_income_exclusion_amount).to be_nil
+        expect(@direct_file_data.fed_unemployment).to eq 0
+        expect(@direct_file_data.fed_housing_deduction_amount).to eq 0
+        expect(@direct_file_data.fed_gross_income_exclusion_amount).to eq 0
+        expect(@direct_file_data.fed_total_income_exclusion_amount).to eq 0
       end
     end
   end
@@ -182,15 +182,15 @@ describe DirectFileData do
       end
 
       it "sets the correct values" do
-        expect(@direct_file_data.fed_foreign_tax_credit_amount).to be_nil
-        expect(@direct_file_data.fed_credit_for_child_and_dependent_care_amount).to be_nil
-        expect(@direct_file_data.fed_education_credit_amount).to be_nil
-        expect(@direct_file_data.fed_retirement_savings_contribution_credit_amount).to be_nil
-        expect(@direct_file_data.fed_energy_efficiency_home_improvement_credit_amount).to be_nil
-        expect(@direct_file_data.fed_credit_for_elderly_or_disabled_amount).to be_nil
-        expect(@direct_file_data.fed_clean_vehicle_personal_use_credit_amount).to be_nil
-        expect(@direct_file_data.fed_total_reporting_year_tax_increase_or_decrease_amount).to be_nil
-        expect(@direct_file_data.fed_previous_owned_clean_vehicle_credit_amount).to be_nil
+        expect(@direct_file_data.fed_foreign_tax_credit_amount).to eq 0
+        expect(@direct_file_data.fed_credit_for_child_and_dependent_care_amount).to eq 0
+        expect(@direct_file_data.fed_education_credit_amount).to eq 0
+        expect(@direct_file_data.fed_retirement_savings_contribution_credit_amount).to eq 0
+        expect(@direct_file_data.fed_energy_efficiency_home_improvement_credit_amount).to eq 0
+        expect(@direct_file_data.fed_credit_for_elderly_or_disabled_amount).to eq 0
+        expect(@direct_file_data.fed_clean_vehicle_personal_use_credit_amount).to eq 0
+        expect(@direct_file_data.fed_total_reporting_year_tax_increase_or_decrease_amount).to eq 0
+        expect(@direct_file_data.fed_previous_owned_clean_vehicle_credit_amount).to eq 0
       end
     end
   end
@@ -224,9 +224,9 @@ describe DirectFileData do
       end
 
       it "sets the correct values" do
-        expect(@direct_file_data.fed_total_earned_income_amount).to be_nil
-        expect(@direct_file_data.fed_calculated_difference_amount).to be_nil
-        expect(@direct_file_data.fed_nontaxable_combat_pay_amount).to be_nil
+        expect(@direct_file_data.fed_total_earned_income_amount).to eq 0
+        expect(@direct_file_data.fed_calculated_difference_amount).to eq 0
+        expect(@direct_file_data.fed_nontaxable_combat_pay_amount).to eq 0
       end
     end
   end
@@ -273,10 +273,10 @@ describe DirectFileData do
 
       it "sets the correct values" do
         expect(@direct_file_data.fed_irs_1040_nr_filed).to be_falsey
-        expect(@direct_file_data.fed_residential_clean_energy_credit_amount).to be_nil
-        expect(@direct_file_data.fed_mortgage_interest_credit_amount).to be_nil
-        expect(@direct_file_data.fed_adoption_credit_amount).to be_nil
-        expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to be_nil
+        expect(@direct_file_data.fed_residential_clean_energy_credit_amount).to eq 0
+        expect(@direct_file_data.fed_mortgage_interest_credit_amount).to eq 0
+        expect(@direct_file_data.fed_adoption_credit_amount).to eq 0
+        expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to eq 0
       end
     end
   end
