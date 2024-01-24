@@ -3909,8 +3909,8 @@ es:
       email_address:
         email_address: Dirección de correo electrónico
         email_address_confirmation: Confirmar correo electrónico
-        legal_info_html: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Consulte nuestra <a href="%{url}" target="_blank" rel="noopener">Política de Privacidad</a> para obtener más información.
         info: Tendremos que comunicarnos con preguntas y actualizaciones. ¡Proporcione la dirección de correo electrónico que mejor funcione para comunicarnos con usted! Se requiere un correo electrónico para la firma final de su declaración de impuestos.
+        legal_info_html: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Consulte nuestra <a href="%{url}" target="_blank" rel="noopener">Política de Privacidad</a> para obtener más información.
         title: Por favor comparte tu dirección de correo electrónico.
       energy_efficient_purchases:
         help_text: Por ejemplo, ventanas, hornos, aislamientos, etc.
