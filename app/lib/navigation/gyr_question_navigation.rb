@@ -22,7 +22,7 @@ module Navigation
       Questions::StartWithCurrentYearController,
       Questions::ReturningClientController, # possible off-boarding from flow
       Questions::InterviewSchedulingController,
-      Questions::NotificationPreferenceController, # here
+      Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
       Questions::CellPhoneNumberController,
       Questions::PhoneVerificationController,

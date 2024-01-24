@@ -4,7 +4,6 @@ module Questions
     private
 
     def self.show?(intake)
-      # don't show this page, save notification preference as email
       false
     end
     def tracking_data
