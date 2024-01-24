@@ -45,7 +45,8 @@ module PdfFiller
 
     def dependents_info
       answers = {}
-      @intake.dependents[@dependent_offset..].each_with_index do |dependent, index|
+      qualifying_dependents = @intake.dependents.select(&:eligible_for_child_tax_credit)[@dependent_offset..]
+      qualifying_dependents.each_with_index do |dependent, index|
         answers["Last Name #{index + 1}"] = dependent.last_name
         answers["MI #{index + 1}"] = dependent.middle_initial
         answers["First Name #{index + 1}"] = dependent.first_name
