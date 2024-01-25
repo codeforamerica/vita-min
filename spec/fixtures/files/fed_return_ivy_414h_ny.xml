@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>177001009</PrimarySSN>
+      <NameLine1Txt>IVY B&lt;IRVING</NameLine1Txt>
+      <PrimaryNameControlTxt>IRVI</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>215 LAIDBACK WAY</AddressLine1Txt>
+        <CityNm>ROCKY POINT</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11778</ZIPCd>
+      </USAddress>
+      <PhoneNum>5185556677</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>irving@ats.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <QualifyingHOHNm>JOHNMIRVING</QualifyingHOHNm>
+      <QualifyingHOHSSN>188000031</QualifyingHOHSSN>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>MARY</DependentFirstNm>
+        <DependentLastNm>IRVING</DependentLastNm>
+        <DependentNameControlTxt>IRVI</DependentNameControlTxt>
+        <DependentSSN>188000032</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>ANNA</DependentFirstNm>
+        <DependentLastNm>IRVING</DependentLastNm>
+        <DependentNameControlTxt>IRVI</DependentNameControlTxt>
+        <DependentSSN>188000034</DependentSSN>
+        <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>JOHN</DependentFirstNm>
+        <DependentLastNm>IRVING</DependentLastNm>
+        <DependentNameControlTxt>IRVI</DependentNameControlTxt>
+        <DependentSSN>188000031</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>SALLY</DependentFirstNm>
+        <DependentLastNm>IRVING</DependentLastNm>
+        <DependentNameControlTxt>IRVI</DependentNameControlTxt>
+        <DependentSSN>188000033</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <MoreDependentsInd>X</MoreDependentsInd>
+      <ChldWhoLivedWithYouCnt>3</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>5</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">13018</WagesAmt>
+      <WagesSalariesAndTipsAmt>13018</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>13018</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>13018</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">5861</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1578</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>7439</RefundableCreditsAmt>
+      <TotalPaymentsAmt>8439</TotalPaymentsAmt>
+      <OverpaidAmt>8439</OverpaidAmt>
+      <RefundAmt>8439</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>CLERK</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>13018</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>13018</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>6000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>1</OtherDependentCnt>
+      <OtherDependentCreditAmt>500</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>6500</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>6500</CTCODCAfterAGILimitAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>6500</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>4800</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>4800</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>13018</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>10518</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>1578</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>true</ThreeOrMoreQlfyChildrenInd>
+        <FromW2Amt>996</FromW2Amt>
+        <CalcFromW2AndReturnAmt>996</CalcFromW2AndReturnAmt>
+        <CalcAmtFromRetPlusTaxWhldAmt>5861</CalcAmtFromRetPlusTaxWhldAmt>
+        <LargerCalcIncomeOrDiffAmt>1578</LargerCalcIncomeOrDiffAmt>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>1578</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>IRVI</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>SALLY</PersonFirstNm>
+          <PersonLastNm>IRVING</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>188000033</QualifyingChildSSN>
+        <ChildBirthYr>2014</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>IRVI</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>MARY</PersonFirstNm>
+          <PersonLastNm>IRVING</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>188000032</QualifyingChildSSN>
+        <ChildBirthYr>2012</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>IRVI</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>JOHN</PersonFirstNm>
+          <PersonLastNm>IRVING</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>188000031</QualifyingChildSSN>
+        <ChildBirthYr>2022</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>177001009</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>NEWY</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NEW YORK STATE DEPT OF TRANSPORTATION</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>11 RIVER RD</AddressLine1Txt>
+        <CityNm>NEW YORK</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10019</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>IVYBIRVING</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>215 LAIDBACK WAY</AddressLine1Txt>
+        <CityNm>ROCKY POINT</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11778</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>13018</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>13018</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>807</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>13018</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>189</MedicareTaxWithheldAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414HSUB</Desc>
+        <Amt>1255</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001245767</EmployerStateIdNum>
+          <StateWagesAmt>13018</StateWagesAmt>
+          <StateIncomeTaxAmt>618</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>13018</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>312</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
