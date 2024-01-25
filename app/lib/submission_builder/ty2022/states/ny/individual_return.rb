@@ -4,6 +4,8 @@ module SubmissionBuilder
     module States
       module Ny
         class IndividualReturn < SubmissionBuilder::Document
+          DEPENDENT_OVERFLOW_THRESHOLD = 6
+
           def document
             document = build_xml_doc('ReturnState')
             document.at("ReturnState").add_child(authentication_header)
@@ -184,8 +186,8 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213AttPdf,
-                include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > 6,
-                kwargs: { dependent_offset: 6 }
+                include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
+                kwargs: { dependent_offset: DEPENDENT_OVERFLOW_THRESHOLD }
               },
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It214,
