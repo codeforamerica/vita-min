@@ -27,6 +27,7 @@
 #  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  hashed_ssn                            :string
+#  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locked_at                             :datetime
@@ -49,6 +50,7 @@
 #  spouse_first_name                     :string
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
+#  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
 #  was_incarcerated                      :integer          default("unfilled"), not null
