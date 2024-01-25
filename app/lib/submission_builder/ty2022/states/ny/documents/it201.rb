@@ -84,23 +84,27 @@ module SubmissionBuilder
                 elsif intake.direct_file_data.tax_payer_email.present?
                   xml.TP_EMAIL_ADR claimed: intake.direct_file_data.tax_payer_email
                 end
-                xml.IT201FEDADJID do
-                  intake.direct_file_data.fed_adjustments_claimed.each do |_type, info|
-                    xml.descAmt do
-                      xml.DESCRIPTION claimed: info[:xml_label] if info[:xml_label].present?
-                      xml.AMOUNT claimed: info[:amount] if info[:amount].present?
+                if intake.direct_file_data.fed_adjustments_claimed.present?
+                  xml.IT201FEDADJID do
+                    intake.direct_file_data.fed_adjustments_claimed.each do |_type, info|
+                      xml.descAmt do
+                        xml.DESCRIPTION claimed: info[:xml_label] if info[:xml_label].present?
+                        xml.AMOUNT claimed: info[:amount] if info[:amount].present?
+                      end
                     end
                   end
                 end
-                xml.IT201DepExmpInfo do
-                  intake.dependents.each do |dependent|
-                    xml.depInfo do
-                      xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name if dependent.first_name.present?
-                      xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial if dependent.middle_initial.present?
-                      xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name if dependent.last_name.present?
-                      xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") if dependent.relationship.present?
-                      xml.DEP_SSN_NMBR claimed: dependent.ssn if dependent.ssn.present?
-                      xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                if intake.dependents.present?
+                  xml.IT201DepExmpInfo do
+                    intake.dependents.each do |dependent|
+                      xml.depInfo do
+                        xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name if dependent.first_name.present?
+                        xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial if dependent.middle_initial.present?
+                        xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name if dependent.last_name.present?
+                        xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") if dependent.relationship.present?
+                        xml.DEP_SSN_NMBR claimed: dependent.ssn if dependent.ssn.present?
+                        xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                      end
                     end
                   end
                 end
