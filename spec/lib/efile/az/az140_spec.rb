@@ -189,6 +189,7 @@ describe Efile::Az::Az140 do
   context 'when the client qualifies for the credit and is filing mfj' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
+      intake.direct_file_data.spouse_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 2 # mfj
       intake.direct_file_data.fed_agi = 25_000 # qualifying agi
       intake.was_incarcerated = 2 # no
