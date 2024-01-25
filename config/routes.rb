@@ -558,6 +558,7 @@ Rails.application.routes.draw do
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+          get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
         end
         get "payment_voucher", to: "state_file/payment_voucher#show"
         get "login-options", to: "state_file/state_file_pages#login_options"
