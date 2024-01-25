@@ -7,6 +7,8 @@ class UpdateStateFileDependentEicDisablityAndStudent < ActiveRecord::Migration[7
 
       # Backfill data from old columns to new columns
       StateFileDependent.update_all("new_eic_disability = CASE WHEN eic_disability THEN 1 ELSE 0 END")
+      StateFileDependent.update_all("new_eic_disability = CASE WHEN eic_disability THEN 1 WHEN eic_student THEN 2 ELSE 0 END")
+
       StateFileDependent.update_all("new_eic_student = CASE WHEN eic_student THEN 2 ELSE 0 END")
 
       # Remove old columns

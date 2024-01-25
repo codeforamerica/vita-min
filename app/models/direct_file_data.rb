@@ -598,6 +598,7 @@ class DirectFileData
   end
 
   def dependents
+    binding.pry
     return @dependents if @dependents
 
     @dependents = []
@@ -611,11 +612,13 @@ class DirectFileData
       )
 
       eitc_dependent_node = eitc_eligible_dependents[ssn]
+      binding.pry
       if eitc_dependent_node.present?
         dependent.eic_qualifying = true
         unless self.mailing_state == 'AZ'
           dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt')&.text.to_i
         end
+        # StateFileNyIntake.find(48) nil becomes false and that should not be the case!!!
         dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind')&.text == "true"
         dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd')&.text == "true"
       else
