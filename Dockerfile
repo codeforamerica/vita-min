@@ -47,8 +47,12 @@ ADD .ruby-version Gemfile Gemfile.lock /app/
 
 RUN set -a \
     && . ./.aptible.env \
+    && bundle config set --local without 'test development'
+
+RUN set -a \
+    && . ./.aptible.env \
     && gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
-    && bundle install --without test development
+    && bundle install
 
 # Add IRS e-file schemas, which are not in the git repo
 RUN set -a \
