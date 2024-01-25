@@ -105,5 +105,15 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
         expect(xml.at("StatePayment PaymentAmount").text).to eq "5"
       end
     end
+
+    context "new df xml" do
+      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: File.read(Rails.root.join('spec', 'fixtures', 'files', 'fed_return_superman_az.xml')))}
+
+      it "does not error" do
+        # xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        builder_response = described_class.build(submission)
+        expect(builder_response.errors).not_to be_present
+      end
+    end
   end
 end

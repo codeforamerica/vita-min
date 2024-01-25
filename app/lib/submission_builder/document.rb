@@ -17,7 +17,7 @@ module SubmissionBuilder
     def determine_default_schema_version_by_tax_year
       case @submission.tax_return&.year || @submission.data_source&.tax_return_year
       when 2023
-        "2023v3.0"
+        "2023v5.0"
       when 2022
         "2022v5.3"
       when 2021
