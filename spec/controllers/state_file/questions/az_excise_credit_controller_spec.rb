@@ -76,6 +76,7 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
     context "when the client is filing mfj and has a fed_agi <= 25k" do
       before do
         intake.direct_file_data.primary_ssn = "123456789"
+        intake.direct_file_data.spouse_ssn = "123456789"
         intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 25_000
       end
@@ -139,6 +140,8 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
           us_state: "az",
           state_file_az_excise_credit_form: {
             was_incarcerated: "yes",
+            ssn_no_employment: "yes",
+            household_excise_credit_claimed: "yes",
           }
         }
       end

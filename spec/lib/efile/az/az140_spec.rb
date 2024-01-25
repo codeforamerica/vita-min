@@ -26,12 +26,31 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client does not have a valid SSN because it starts with 9' do
+  context 'when the spouse of the client does not have a valid SSN' do
+    before do
+      intake.direct_file_data.primary_ssn = '555002222' # valid
+      intake.direct_file_data.spouse_ssn = '999999999' # invalid
+      intake.direct_file_data.filing_status = 2 # mfj
+      intake.direct_file_data.fed_agi = 12_500 # qualifying agi
+      intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
+    end
+
+    it 'sets the amount to 0 because the client does not qualify' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+    end
+  end
+
+  context 'when the client does not have a valid SSN' do
     before do
       intake.direct_file_data.primary_ssn = '999999999' # invalid
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the amount to 0 because the client does not qualify' do
@@ -47,6 +66,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
       intake.direct_file_data.primary_claim_as_dependent = 'X'
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the amount to 0 because the client does not qualify' do
@@ -75,6 +96,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_501 # disqualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the amount to 0 because the client does not qualify' do
@@ -89,6 +112,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 3 # mfs
       intake.direct_file_data.fed_agi = 12_501 # disqualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the amount to 0 because the client does not qualify' do
@@ -103,6 +128,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 2 # mfj
       intake.direct_file_data.fed_agi = 25_001 # disqualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the amount to 0 because the client does not qualify' do
@@ -117,6 +144,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 4 # hoh
       intake.direct_file_data.fed_agi = 25_001 # disqualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the amount to 0 because the client does not qualify' do
@@ -131,6 +160,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the credit to the correct amount' do
@@ -145,6 +176,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 3 # mfs
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the credit to the correct amount' do
@@ -159,6 +192,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 2 # mfj
       intake.direct_file_data.fed_agi = 25_000 # qualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the credit to the correct amount' do
@@ -173,6 +208,8 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 4 # hoh
       intake.direct_file_data.fed_agi = 25_000 # # qualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
     end
 
     it 'sets the credit to the correct amount' do
@@ -187,6 +224,10 @@ describe Efile::Az::Az140 do
       intake.direct_file_data.filing_status = 1 # single
       intake.direct_file_data.fed_agi = 12_500 # qualifying agi
       intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
       intake.dependents.create(dob: 5.years.ago)
       intake.dependents.create(dob: 3.years.ago)
       intake.dependents.create(dob: 1.years.ago)

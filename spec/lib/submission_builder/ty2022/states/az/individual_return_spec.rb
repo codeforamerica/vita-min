@@ -89,7 +89,7 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
     end
 
     context "when there is a refund with banking info" do
-      let(:intake) { create(:state_file_az_refund_intake)}
+      let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no")}
       it "generates FinancialTransaction xml with correct RefundAmt" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
