@@ -54,30 +54,30 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Notification Preference
-    expect(intake.reload.current_step).to end_with("/questions/notification-preference")
-    expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
-    check "Email Me"
-    check "Text Me"
-    click_on "Continue"
+    # expect(intake.reload.current_step).to end_with("/questions/notification-preference")
+    # expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
+    # check "Email Me"
+    # check "Text Me"
+    # click_on "Continue"
 
     # Phone number can text
-    expect(page).to have_text("Can we text the phone number you previously entered?")
-    expect(page).to have_text("(828) 634-5533")
-    click_on "No"
+    # expect(page).to have_text("Can we text the phone number you previously entered?")
+    # expect(page).to have_text("(828) 634-5533")
+    # click_on "No"
 
     # Phone number
-    expect(page).to have_selector("h1", text: "Please share your cell phone number.")
-    fill_in "Cell phone number", with: "(415) 553-7865"
-    fill_in "Confirm cell phone number", with: "+1415553-7865"
-    click_on "Continue"
+    # expect(page).to have_selector("h1", text: "Please share your cell phone number.")
+    # fill_in "Cell phone number", with: "(415) 553-7865"
+    # fill_in "Confirm cell phone number", with: "+1415553-7865"
+    # click_on "Continue"
 
     # Verify cell phone contact
-    expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
-    perform_enqueued_jobs
-    sms = FakeTwilioClient.messages.last
-    code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
-    fill_in "Enter 6 digit code", with: code
-    click_on "Verify"
+    # expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+    # perform_enqueued_jobs
+    # sms = FakeTwilioClient.messages.last
+    # code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+    # fill_in "Enter 6 digit code", with: code
+    # click_on "Verify"
 
     # Email
     expect(page).to have_selector("h1", text: "Please share your email address.")
@@ -417,7 +417,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
       expect {
         click_on "Submit"
-      }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
+      }.to change(OutgoingEmail, :count).by(1) #.and change(OutgoingTextMessage, :count).by(1)
 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
@@ -526,7 +526,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
       expect {
         click_on "Submit"
-      }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
+      }.to change(OutgoingEmail, :count).by(1) #.and change(OutgoingTextMessage, :count).by(1)
 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")

@@ -65,7 +65,7 @@ RSpec.feature "Logging in with an existing account" do
     end
 
     mail = ActionMailer::Base.deliveries.last
-    expect(mail.html_part.body.to_s).to include("Your six-digit verification code for FileYourStateTaxes is: #{verification_code}. This code will expire after two days.")
+    expect(mail.html_part.body.to_s).to include("Your six-digit verification code for FileYourStateTaxes is: <strong> #{verification_code}.</strong> This code will expire after two days.")
 
     expect(page).to have_text "Enter the code to continue"
     fill_in "Enter the 6-digit code", with: verification_code

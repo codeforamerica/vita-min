@@ -4,6 +4,8 @@ module SubmissionBuilder
     module States
       module Ny
         class IndividualReturn < SubmissionBuilder::Document
+          DEPENDENT_OVERFLOW_THRESHOLD = 6
+
           def document
             document = build_xml_doc('ReturnState')
             document.at("ReturnState").add_child(authentication_header)
@@ -99,7 +101,7 @@ module SubmissionBuilder
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
@@ -116,7 +118,7 @@ module SubmissionBuilder
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name
                   xml.DEP_CHLD_FRST_NAME dependent.first_name
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
                   xml.DEP_CHLD_SFX_NAME dependent.suffix
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
@@ -180,6 +182,12 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213Pdf,
                 include: receiving_213_credit
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
+                pdf: PdfFiller::Ny213AttPdf,
+                include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
+                kwargs: { dependent_offset: DEPENDENT_OVERFLOW_THRESHOLD }
               },
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It214,

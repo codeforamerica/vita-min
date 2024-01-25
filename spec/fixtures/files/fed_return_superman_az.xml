@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000090</PrimarySSN>
+      <SpouseSSN>600000090</SpouseSSN>
+      <NameLine1Txt>JONATHAN &amp; MARTHA&lt;KENT</NameLine1Txt>
+      <PrimaryNameControlTxt>KENT</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>KENT</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1000 East Hickory Lane</AddressLine1Txt>
+        <CityNm>Chandler</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85286</ZIPCd>
+      </USAddress>
+      <PhoneNum>4805551234</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@superman.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Clark</DependentFirstNm>
+        <DependentLastNm>Kent</DependentLastNm>
+        <DependentNameControlTxt>KENT</DependentNameControlTxt>
+        <DependentSSN>600001111</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>3</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">30000</WagesAmt>
+      <WagesSalariesAndTipsAmt>30000</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>1000</TaxableInterestAmt>
+      <TotalIncomeAmt>31000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>31000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>3300</TaxableIncomeAmt>
+      <TaxAmt>333</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>333</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>333</CTCODCAmt>
+      <TotalCreditsAmt>333</TotalCreditsAmt>
+      <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">3531</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1600</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>5131</RefundableCreditsAmt>
+      <TotalPaymentsAmt>8131</TotalPaymentsAmt>
+      <OverpaidAmt>8131</OverpaidAmt>
+      <RefundAmt>8131</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Race car driver</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Soldier</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>31000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>31000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>333</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>333</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>1667</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>1600</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>30000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>27500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>4125</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>1600</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>KENT</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Clark</PersonFirstNm>
+          <PersonLastNm>Kent</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>600001111</QualifyingChildSSN>
+        <ChildBirthYr>2008</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000090</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>NASC</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NASCAR</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>100 N 3rd St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85004</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>JonathanKent</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1000 East Hickory Lane</AddressLine1Txt>
+        <CityNm>Chandler</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85286</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>600000090</EmployeeSSN>
+      <EmployerEIN>001245797</EmployerEIN>
+      <EmployerNameControlTxt>USAR</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>US Army</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>8899 E 56 Street</AddressLine1Txt>
+        <CityNm>Indianapois</CityNm>
+        <StateAbbreviationCd>IN</StateAbbreviationCd>
+        <ZIPCd>46249</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>MarthaKent</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1000 East Hickory Lane</AddressLine1Txt>
+        <CityNm>Chandler</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85286</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>20000</WagesAmt>
+      <WithholdingAmt>2000</WithholdingAmt>
+      <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1250</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>290</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12346</EmployerStateIdNum>
+          <StateWagesAmt>20000</StateWagesAmt>
+          <StateIncomeTaxAmt>700</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

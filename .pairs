@@ -2,7 +2,6 @@
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  bg: Ben Golder
   dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
   jh: Jenny Heath
@@ -13,7 +12,6 @@ pairs:
   rk: Ricardo Kreyhsig
   mp: Martha Pidcock
 email_addresses:
-  bg: bgolder2@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
   em: ebarnard@codeforamerica.org
   jh: jheath@codeforamerica.org

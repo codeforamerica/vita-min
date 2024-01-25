@@ -12,7 +12,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
       expect(mail.html_part.body.to_s).to have_text("Your six-digit verification code for GetCTC is: ")
-      code = mail.html_part.body.to_s.match(/Your six-digit verification code for GetCTC is: (\d+)/)[1]
+      code = mail.html_part.body.to_s.match(/Your six-digit verification code for GetCTC is: <strong> (\d+)/)[1]
       fill_in "Enter 6 digit code", with: code
       click_on "Verify"
       expect(page).to have_selector("h1", text: "Authentication needed to continue.")

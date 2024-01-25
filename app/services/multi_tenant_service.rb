@@ -70,7 +70,7 @@ class MultiTenantService
     case service_type_or_parent
     when :ctc then File.read(Rails.root.join('app/assets/images/get-ctc-logo.png'))
     when :gyr then File.read(Rails.root.join('app/assets/images/logo.png'))
-    when :statefile then File.read(Rails.root.join('app/assets/images/FYST_email_logo.svg'))
+    when :statefile then File.read(Rails.root.join('app/assets/images/FYST_email_logo.png'))
     end
   end
 

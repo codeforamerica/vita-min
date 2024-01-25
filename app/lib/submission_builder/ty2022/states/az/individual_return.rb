@@ -29,6 +29,9 @@ module SubmissionBuilder
             attached_documents.each do |attached|
               document.at('ReturnDataState').add_child(document_fragment(attached))
             end
+            if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
+              document.at("ReturnState").add_child(financial_transaction)
+            end
             document
           end
 
@@ -63,7 +66,7 @@ module SubmissionBuilder
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
                       xml.LastName dependent.last_name
                     end
                     unless dependent.ssn.nil?
@@ -82,7 +85,7 @@ module SubmissionBuilder
                   xml.QualParentsAncestors do
                     xml.Name do
                       xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present? # TODO: we may not have this from DF, might have to ask the client for i
+                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
                       xml.LastName dependent.last_name
                     end
                     unless dependent.ssn.nil?
@@ -156,7 +159,7 @@ module SubmissionBuilder
                   end
                 end
               end
-              if calculated_fields[:AZ140_LINE_79] > 0
+              if calculated_fields[:AZ140_LINE_79].positive?
                 xml.RefundAmt calculated_fields.fetch(:AZ140_LINE_79)
               else
                 xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
@@ -179,6 +182,14 @@ module SubmissionBuilder
 
           def return_header
             SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
+          end
+
+          def financial_transaction
+            SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
+              @submission,
+              validate: false,
+              kwargs: { refund_amount: calculated_fields.fetch(:AZ140_LINE_79) }
+            ).document.at("*")
           end
 
           def schema_file

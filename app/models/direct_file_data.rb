@@ -177,7 +177,7 @@ class DirectFileData
   end
 
   def fed_tax
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_tax=(value)
@@ -185,7 +185,7 @@ class DirectFileData
   end
 
   def fed_agi
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_agi=(value)
@@ -193,7 +193,7 @@ class DirectFileData
   end
 
   def fed_wages
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_wages=(value)
@@ -201,11 +201,11 @@ class DirectFileData
   end
 
   def fed_wages_salaries_tips
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_taxable_income
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_taxable_income=(value)
@@ -213,7 +213,7 @@ class DirectFileData
   end
 
   def fed_unemployment
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_unemployment=(value)
@@ -221,7 +221,7 @@ class DirectFileData
   end
 
   def fed_taxable_ssb
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_taxable_ssb=(value)
@@ -229,7 +229,7 @@ class DirectFileData
   end
 
   def fed_ssb
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_ssb=(value)
@@ -251,12 +251,12 @@ class DirectFileData
         xml_label: "Student Loan Interest Deduction"
       }
     }
-    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i }
+    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i || 0 }
     adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
   end
 
   def fed_total_adjustments
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_total_adjustments=(value)
@@ -286,7 +286,7 @@ class DirectFileData
   end
 
   def fed_ctc
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_ctc=(value)
@@ -294,7 +294,7 @@ class DirectFileData
   end
 
   def fed_qualify_child
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_qualify_child=(value)
@@ -302,7 +302,7 @@ class DirectFileData
   end
 
   def fed_calculated_difference_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_calculated_difference_amount=(value)
@@ -310,7 +310,7 @@ class DirectFileData
   end
 
   def fed_nontaxable_combat_pay_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_nontaxable_combat_pay_amount=(value)
@@ -318,7 +318,7 @@ class DirectFileData
   end
 
   def fed_total_earned_income_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_total_earned_income_amount=(value)
@@ -326,7 +326,7 @@ class DirectFileData
   end
 
   def fed_puerto_rico_income_exclusion_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_puerto_rico_income_exclusion_amount=(value)
@@ -334,7 +334,7 @@ class DirectFileData
   end
 
   def fed_total_income_exclusion_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_total_income_exclusion_amount=(value)
@@ -342,7 +342,7 @@ class DirectFileData
   end
 
   def fed_housing_deduction_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_housing_deduction_amount=(value)
@@ -350,7 +350,7 @@ class DirectFileData
   end
 
   def fed_gross_income_exclusion_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_gross_income_exclusion_amount=(value)
@@ -358,7 +358,7 @@ class DirectFileData
   end
 
   def fed_mortgage_interest_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_mortgage_interest_credit_amount=(value)
@@ -366,7 +366,7 @@ class DirectFileData
   end
 
   def fed_dc_homebuyer_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_dc_homebuyer_credit_amount=(value)
@@ -374,7 +374,7 @@ class DirectFileData
   end
 
   def fed_residential_clean_energy_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_residential_clean_energy_credit_amount=(value)
@@ -382,7 +382,7 @@ class DirectFileData
   end
 
   def fed_adoption_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_adoption_credit_amount=(value)
@@ -390,7 +390,7 @@ class DirectFileData
   end
 
   def fed_foreign_tax_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_foreign_tax_credit_amount=(value)
@@ -398,7 +398,7 @@ class DirectFileData
   end
 
   def fed_credit_for_child_and_dependent_care_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_credit_for_child_and_dependent_care_amount=(value)
@@ -406,7 +406,7 @@ class DirectFileData
   end
 
   def fed_education_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_education_credit_amount=(value)
@@ -414,7 +414,7 @@ class DirectFileData
   end
 
   def fed_retirement_savings_contribution_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_retirement_savings_contribution_credit_amount=(value)
@@ -422,7 +422,7 @@ class DirectFileData
   end
 
   def fed_energy_efficiency_home_improvement_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_energy_efficiency_home_improvement_credit_amount=(value)
@@ -430,7 +430,7 @@ class DirectFileData
   end
 
   def fed_credit_for_elderly_or_disabled_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_credit_for_elderly_or_disabled_amount=(value)
@@ -438,7 +438,7 @@ class DirectFileData
   end
 
   def fed_clean_vehicle_personal_use_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_clean_vehicle_personal_use_credit_amount=(value)
@@ -446,7 +446,7 @@ class DirectFileData
   end
 
   def fed_total_reporting_year_tax_increase_or_decrease_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_total_reporting_year_tax_increase_or_decrease_amount=(value)
@@ -454,7 +454,7 @@ class DirectFileData
   end
 
   def fed_previous_owned_clean_vehicle_credit_amount
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_previous_owned_clean_vehicle_credit_amount=(value)
@@ -474,7 +474,7 @@ class DirectFileData
   end
 
   def fed_eic
-    df_xml_value(__method__)&.to_i
+    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_eic_qc_claimed
@@ -614,10 +614,10 @@ class DirectFileData
       if eitc_dependent_node.present?
         dependent.eic_qualifying = true
         unless self.mailing_state == 'AZ'
-          dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt').text.to_i
+          dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt')&.text.to_i
         end
-        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind').text == "true"
-        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd').text == "true"
+        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind')&.text == "true"
+        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd')&.text == "true"
       else
         dependent.eic_qualifying = false
       end
@@ -732,7 +732,7 @@ class DirectFileData
     end
 
     def WagesAmt
-      df_xml_value(__method__)&.to_i
+      df_xml_value(__method__)&.to_i || 0
     end
 
     def WagesAmt=(value)
@@ -790,7 +790,7 @@ class DirectFileData
     end
 
     def WithholdingAmt
-      df_xml_value(__method__)&.to_i
+      df_xml_value(__method__)&.to_i || 0
     end
 
     def WithholdingAmt=(value)
@@ -798,7 +798,7 @@ class DirectFileData
     end
 
     def StateWagesAmt
-      df_xml_value(__method__)&.to_i
+      df_xml_value(__method__)&.to_i || 0
     end
 
     def StateWagesAmt=(value)
@@ -807,7 +807,7 @@ class DirectFileData
     end
 
     def StateIncomeTaxAmt
-      df_xml_value(__method__)&.to_i
+      df_xml_value(__method__)&.to_i || 0
     end
 
     def StateIncomeTaxAmt=(value)
@@ -816,7 +816,7 @@ class DirectFileData
     end
 
     def LocalWagesAndTipsAmt
-      df_xml_value(__method__)&.to_i
+      df_xml_value(__method__)&.to_i || 0
     end
 
     def LocalWagesAndTipsAmt=(value)
@@ -825,7 +825,7 @@ class DirectFileData
     end
 
     def LocalIncomeTaxAmt
-      df_xml_value(__method__)&.to_i
+      df_xml_value(__method__)&.to_i || 0
     end
 
     def LocalIncomeTaxAmt=(value)

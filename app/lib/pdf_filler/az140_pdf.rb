@@ -113,6 +113,14 @@ module PdfFiller
         "80" => @xml_document.at('AmtOwed')&.text
       })
 
+      if @xml_document.at('RefundAmt')&.text.present?
+        answers.merge!({
+          "Refund" => refund_account_type,
+          "Routing Number" => @xml_document.at('RoutingTransitNumber')&.text,
+          "Account Number" => @xml_document.at('BankAccountNumber')&.text
+        })
+      end
+
       @charitable_deductions = @xml_document.at('ClaimCharitableDed')
       answers.merge!({
         "3_1c" => @charitable_deductions&.at('GiftByCashOrCheck')&.text,
@@ -155,6 +163,17 @@ module PdfFiller
         'Yes'
       else
         "Off"
+      end
+    end
+
+    def refund_account_type
+      if @xml_document.at('RefundAmt').present?
+        case @submission.data_source.account_type
+        when 'checking'
+          'Checking Acct'
+        when 'savings'
+          'Savings Acct'
+        end
       end
     end
   end
