@@ -1902,9 +1902,14 @@ en:
           title:
             one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
-      az_incarcerated:
+      az_excise_credit:
         edit:
-          title:
+          household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
+          ssn_no_employment_html:
+            one: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
+            other: Do you or your spouse have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
+          title: Finally, we have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
+          was_incarcerated:
             one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
             other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
       az_prior_last_names:
@@ -1923,7 +1928,7 @@ en:
           charitable_cash: Charitable contributions (Cash)
           charitable_contributions: Made charitable contributions
           charitable_noncash: Charitable contributions (Non-Cash)
-          incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
+          excise_credit: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
           last_names: Other last names in the last four years
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe

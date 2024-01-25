@@ -1,0 +1,34 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="blue-group">
+      <%= f.cfa_radio_set(:was_incarcerated, label_text: t(".was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year, count: current_intake.filer_count), collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") },
+      ]) %>
+    </div>
+
+    <div class="blue-group">
+      <%= f.cfa_radio_set(:ssn_no_employment, label_text: t(".ssn_no_employment_html", count: current_intake.filer_count), collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") },
+      ]) %>
+    </div>
+
+    <div class="blue-group">
+      <%= f.cfa_radio_set(:household_excise_credit_claimed, label_text: t(".household_excise_credit_html"), collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") },
+      ]) %>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

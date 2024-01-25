@@ -48,7 +48,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
         session[:state_file_intake] = intake.to_global_id
 
         get :edit, params: { us_state: "az" }
-        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.incarcerated")
+        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.excise_credit")
       end
 
       it "does not show the incarcerated question" do
@@ -56,7 +56,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
         session[:state_file_intake] = intake.to_global_id
 
         get :edit, params: { us_state: "az" }
-        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.incarcerated")
+        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.excise_credit")
       end
     end
   end
