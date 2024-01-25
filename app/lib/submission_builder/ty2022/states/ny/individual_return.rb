@@ -69,7 +69,7 @@ module SubmissionBuilder
               if @submission.data_source.filing_status_mfj?
                 xml.tiSpouse do
                   xml.FIRST_NAME @submission.data_source.spouse.first_name if @submission.data_source.spouse.first_name.present?
-                  xml.MI_NAME @submission.data_source.spouse.middle_initial @submission.data_source.spouse.middle_initial.present?
+                  xml.MI_NAME @submission.data_source.spouse.middle_initial if @submission.data_source.spouse.middle_initial.present?
                   xml.LAST_NAME @submission.data_source.spouse.last_name if @submission.data_source.spouse.last_name.present?
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
                   xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation if @submission.data_source.direct_file_data.spouse_occupation.present?
