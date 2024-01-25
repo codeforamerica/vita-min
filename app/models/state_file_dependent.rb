@@ -46,6 +46,8 @@ class StateFileDependent < ApplicationRecord
   encrypts :ssn
   enum needed_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needed_assistance
   enum passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away
+  enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
+  enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
 
   # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
