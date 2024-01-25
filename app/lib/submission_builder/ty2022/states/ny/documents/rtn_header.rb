@@ -22,33 +22,22 @@ module SubmissionBuilder
                 # xml.COND_CODE_2_NMBR
                 # xml.THRD_PRTY_DSGN_IND
                 # xml.THRD_PRTY_PIN_NMBR
-                xml.EXT_TP_ID claimed: @submission.data_source.primary.ssn
-                unless @submission.data_source.routing_number.nil?
-                  xml.ABA_NMBR claimed: @submission.data_source.routing_number
-                end
-
-                unless @submission.data_source.account_number.nil?
-                  xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-')
-                end
-                unless @submission.data_source.account_type.nil? || ACCOUNT_TYPES[@submission.data_source.account_type.to_sym] == 0
+                xml.EXT_TP_ID claimed: @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
+                xml.ABA_NMBR claimed: @submission.data_source.routing_number if @submission.data_source.routing_number.present?
+                xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-') if @submission.data_source.account_number.present?
+                if @submission.data_source.account_type.present? && ACCOUNT_TYPES[@submission.data_source.account_type.to_sym] != 0
                   xml.ACCT_TYPE_CD claimed: ACCOUNT_TYPES[@submission.data_source.account_type.to_sym]
                 end
-                unless @submission.data_source.date_electronic_withdrawal.nil?
-                  xml.ELC_AUTH_EFCTV_DT claimed: @submission.data_source.date_electronic_withdrawal
-                end
-                unless @submission.data_source.withdraw_amount.nil?
-                  xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount
-                end
+                xml.ELC_AUTH_EFCTV_DT claimed: @submission.data_source.date_electronic_withdrawal if @submission.data_source.date_electronic_withdrawal.present?
+                xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
                 xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
-                if calculated_fields.fetch(:IT201_LINE_80) != 0
-                  xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80)
-                end
+                xml.BAL_DUE_AMT claimed: calculated_fields.fetch(:IT201_LINE_80) if calculated_fields.fetch(:IT201_LINE_80) != 0
                 # xml.SBMSN_ID
                 # xml.ELF_STATE_ONLY_IND
                 # xml.PREP_LN_1_ADR
                 # xml.PREP_CTY_ADR
-                xml.SOFT_VNDR_ID claimed: "1963"
+                xml.SOFT_VNDR_ID claimed: "21013326"
                 # xml.FIRM_NAME
                 # xml.PP_NAME
                 # xml.PREP_SIGN_DT

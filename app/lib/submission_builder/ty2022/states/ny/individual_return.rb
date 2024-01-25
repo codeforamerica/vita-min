@@ -37,54 +37,46 @@ module SubmissionBuilder
               xml.filingKeys do
                 # unclear what SOURCE_CD is, but 61 is implied as the valid value
                 xml.SOURCE_CD "61" # https://docs.google.com/spreadsheets/d/16MdzKhIElG90GmC8OI2SsIPIc2CsTeSj/edit#gid=1799047667
-                xml.EXT_TP_ID @submission.data_source.primary.ssn
-                xml.LIAB_PRD_BEG_DT Date.new(@submission.data_source.tax_return_year).beginning_of_year
-                xml.LIAB_PRD_END_DT Date.new(@submission.data_source.tax_return_year).end_of_year
-                xml.TAX_YEAR @submission.data_source.tax_return_year
+                xml.EXT_TP_ID @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
+                xml.LIAB_PRD_BEG_DT Date.new(@submission.data_source.tax_return_year).beginning_of_year if @submission.data_source.tax_return_year.present?
+                xml.LIAB_PRD_END_DT Date.new(@submission.data_source.tax_return_year).end_of_year if @submission.data_source.tax_return_year.present?
+                xml.TAX_YEAR @submission.data_source.tax_return_year if @submission.data_source.tax_return_year.present?
               end
 
               xml.tiPrime do
-                xml.FIRST_NAME @submission.data_source.primary.first_name
-                if @submission.data_source.primary.middle_initial
-                  xml.MI_NAME @submission.data_source.primary.middle_initial
-                end
-                xml.LAST_NAME @submission.data_source.primary.last_name
-                xml.MAIL_LN_2_ADR @submission.data_source.direct_file_data.mailing_street
-                if @submission.data_source.direct_file_data.mailing_apartment.present?
-                  xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment
-                end
-                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city
-                xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state
-                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip
-                xml.COUNTY_CD @submission.data_source.county_code
-                xml.COUNTY_NAME @submission.data_source.county_name&.truncate(20)
-                if @submission.data_source.permanent_apartment.present?
-                  xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment
-                end
-                xml.PERM_LN_2_ADR @submission.data_source.permanent_street
-                xml.PERM_CTY_ADR @submission.data_source.permanent_city
+                xml.FIRST_NAME @submission.data_source.primary.first_name if @submission.data_source.primary.first_name.present?
+                xml.MI_NAME @submission.data_source.primary.middle_initial if @submission.data_source.primary.middle_initial.present?
+                xml.LAST_NAME @submission.data_source.primary.last_name if @submission.data_source.primary.last_name.present?
+                xml.MAIL_LN_2_ADR @submission.data_source.direct_file_data.mailing_street if @submission.data_source.direct_file_data.mailing_street.present?
+                xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
+                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city if @submission.data_source.direct_file_data.mailing_city.present?
+                xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state if @submission.data_source.direct_file_data.mailing_state.present?
+                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
+                xml.COUNTY_CD @submission.data_source.county_code if @submission.data_source.county_code.present?
+                xml.COUNTY_NAME @submission.data_source.county_name&.truncate(20) if @submission.data_source.county_name.present?
+                xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment if @submission.data_source.permanent_apartment.present?
+                xml.PERM_LN_2_ADR @submission.data_source.permanent_street if @submission.data_source.permanent_street.present?
+                xml.PERM_CTY_ADR @submission.data_source.permanent_city if @submission.data_source.permanent_city.present?
                 xml.PERM_ST_ADR "NY"
-                xml.PERM_ZIP_ADR @submission.data_source.permanent_zip
-                xml.SCHOOL_CD @submission.data_source.school_district_number
-                xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30)
-                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation
+                xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?
+                xml.SCHOOL_CD @submission.data_source.school_district_number if @submission.data_source.school_district_number.present?
+                xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30) if @submission.data_source.school_district.present?
+                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation if @submission.data_source.direct_file_data.primary_occupation.present?
                 # We omit country name because we don't support out of country filers
                 #xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
               if @submission.data_source.filing_status_mfj?
                 xml.tiSpouse do
-                  xml.FIRST_NAME @submission.data_source.spouse.first_name
-                  if @submission.data_source.spouse.middle_initial
-                    xml.MI_NAME @submission.data_source.spouse.middle_initial
-                  end
-                  xml.LAST_NAME @submission.data_source.spouse.last_name
-                  xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
-                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation
+                  xml.FIRST_NAME @submission.data_source.spouse.first_name if @submission.data_source.spouse.first_name.present?
+                  xml.MI_NAME @submission.data_source.spouse.middle_initial @submission.data_source.spouse.middle_initial.present?
+                  xml.LAST_NAME @submission.data_source.spouse.last_name if @submission.data_source.spouse.last_name.present?
+                  xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
+                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation if @submission.data_source.direct_file_data.spouse_occupation.present?
                 end
               elsif @submission.data_source.filing_status_mfs?
                 xml.tiSpouse do
-                  xml.SP_SSN_NMBR @submission.data_source.spouse.ssn
+                  xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
                 end
               end
 
@@ -93,35 +85,35 @@ module SubmissionBuilder
 
               it_213_qualified_dependents.each_with_index do |dependent, index|
                 xml.dependent do
-                  xml.DEP_SSN_NMBR dependent.ssn
+                  xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
-                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") # no spaces
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
-                  xml.DEP_CHLD_LAST_NAME dependent.last_name
-                  xml.DEP_CHLD_FRST_NAME dependent.first_name
+                  xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
+                  xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
-                  xml.DEP_CHLD_SFX_NAME dependent.suffix
-                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
+                  xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
+                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
+                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
                 end
               end
 
               @submission.data_source.dependents.where(eic_qualifying: true).each_with_index do |dependent, index|
                 xml.dependent do
-                  xml.DEP_SSN_NMBR dependent.ssn
+                  xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
                   xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 215
-                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") # no spaces
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
                   xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
-                  xml.DEP_CHLD_LAST_NAME dependent.last_name
-                  xml.DEP_CHLD_FRST_NAME dependent.first_name
+                  xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
+                  xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
-                  xml.DEP_CHLD_SFX_NAME dependent.suffix
-                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home
-                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d")
+                  xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
+                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
+                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
                 end
               end
 
