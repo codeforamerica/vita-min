@@ -10,9 +10,13 @@
     <%= t(".button") %>
   <% end %>
 
-  <% if ENV["IRS_TRANSFER_AUTH_URL"].present? %>
-    <%= link_to @irs_testing_link.to_s, class: "button", id: "firstCta" do %>
-      Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
+  <% if @irs_link.present? %>
+    <%= link_to @irs_link.to_s, class: "button", id: "firstCta" do %>
+      <% if Rails.env.production? || Rails.env.staging? %>
+        Transfer Data from IRS site
+      <% else %>
+        Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
+      <% end %>
     <% end %>
   <% end %>
 
