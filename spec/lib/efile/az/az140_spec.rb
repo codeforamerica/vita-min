@@ -59,7 +59,7 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client does have a valid SSN that starts with 9 ' do
+  context 'when the client does have a valid SSN that starts with 9' do
     before do
       intake.direct_file_data.primary_ssn = '999669999' # invalid
       intake.direct_file_data.filing_status = 1 # single
@@ -69,7 +69,7 @@ describe Efile::Az::Az140 do
       intake.household_excise_credit_claimed = 2 # no
     end
 
-    it 'sets the amount to 0 because the client does not qualify' do
+    it 'sets the credit to the correct amount' do
       instance.calculate
       expect(instance.lines[:AZ140_LINE_56].value).to eq(50)
     end
