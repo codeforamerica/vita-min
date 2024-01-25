@@ -63,7 +63,5 @@ module SubmissionBuilder
         xml.send(elem_name, claimed: claimed_value)
       end
     end
-
-    def add
   end
 end
