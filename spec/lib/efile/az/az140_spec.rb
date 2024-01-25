@@ -59,6 +59,22 @@ describe Efile::Az::Az140 do
     end
   end
 
+  context 'when the client does have a valid SSN that starts with 9 ' do
+    before do
+      intake.direct_file_data.primary_ssn = '999669999' # invalid
+      intake.direct_file_data.filing_status = 1 # single
+      intake.direct_file_data.fed_agi = 12_500 # qualifying agi
+      intake.was_incarcerated = 2 # no
+      intake.ssn_no_employment = 2 # no
+      intake.household_excise_credit_claimed = 2 # no
+    end
+
+    it 'sets the amount to 0 because the client does not qualify' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_56].value).to eq(50)
+    end
+  end
+
   context 'when the client has been claimed as a dependent' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
