@@ -140,5 +140,19 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         end
       end
     end
+
+    context "when address is longer than 30 characters" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.direct_file_data.mailing_street = '211212 SUBDIVISION DRIVELINE SUITE 157'
+      end
+      it 'truncates under 30 characters' do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime MAIL_LN_2_ADR").text.length).to be <= 30
+        expect(xml.at("tiPrime MAIL_LN_2_ADR").text).to eq('211212 SUBDIVISION DRIVELINE')
+        expect(xml.at("tiPrime MAIL_LN_1_ADR").text).to eq('SUITE 157')
+      end
+    end
   end
 end

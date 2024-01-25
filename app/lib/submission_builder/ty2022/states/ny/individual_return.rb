@@ -47,6 +47,30 @@ module SubmissionBuilder
                 xml.FIRST_NAME @submission.data_source.primary.first_name if @submission.data_source.primary.first_name.present?
                 xml.MI_NAME @submission.data_source.primary.middle_initial if @submission.data_source.primary.middle_initial.present?
                 xml.LAST_NAME @submission.data_source.primary.last_name if @submission.data_source.primary.last_name.present?
+                if @submission.data_source.direct_file_data.mailing_street.present?
+                  mailing_street = @submission.data_source.direct_file_data.mailing_street
+                  if mailing_street.length > 30
+                    truncated_mailing_street = mailing_street[0, 30].rpartition(' ').first
+                    xml.MAIL_LN_2_ADR truncated_mailing_street
+                    excess_characters = mailing_street[truncated_mailing_street.length + 1..]
+                    if @submission.data_source.direct_file_data.mailing_apartment.present?
+                      apartment = @submission.data_source.direct_file_data.mailing_apartment
+                      if apartment.length + excess_characters.length > 30
+                        truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
+                        xml.MAIL_LN_1_ADR excess_characters + " " + truncated_apartment
+                      else
+                        xml.MAIL_LN_1_ADR excess_characters + " " + apartment
+                      end
+                    else
+                      xml.MAIL_LN_1_ADR excess_characters
+                    end
+                  else
+                    xml.MAIL_LN_2_ADR mailing_street
+                    if @submission.data_source.direct_file_data.mailing_apartment.present?
+                      xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment
+                    end
+                  end
+                end
                 xml.MAIL_LN_2_ADR @submission.data_source.direct_file_data.mailing_street if @submission.data_source.direct_file_data.mailing_street.present?
                 xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
                 xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city if @submission.data_source.direct_file_data.mailing_city.present?
@@ -86,7 +110,7 @@ module SubmissionBuilder
               it_213_qualified_dependents.each_with_index do |dependent, index|
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                  xml.DEP_SEQ_NMBR index+1
+                  xml.DEP_SEQ_NMBR index + 1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
@@ -103,7 +127,7 @@ module SubmissionBuilder
               @submission.data_source.dependents.where(eic_qualifying: true).each_with_index do |dependent, index|
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                  xml.DEP_SEQ_NMBR index+1
+                  xml.DEP_SEQ_NMBR index + 1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 215
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
