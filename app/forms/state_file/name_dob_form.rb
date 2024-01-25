@@ -18,10 +18,12 @@ module StateFile
              :ask_spouse_dob?,
              :ask_spouse_name?,
              :filing_status_mfj?,
+             :hoh_qualifying_person_name,
              to: :intake
 
     validates_presence_of :primary_first_name, :primary_last_name
     validates_presence_of :spouse_first_name, :spouse_last_name, if: -> { @intake.ask_spouse_name? }
+    validates_presence_of :hoh_qualifying_person_name, if: -> {  @intake.class == StateFileAzIntake && @intake.requires_hoh_qualifying_person_name? }
     validate :primary_birth_date_is_valid_date, if: -> { @intake.ask_primary_dob? }
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
 
@@ -55,11 +57,8 @@ module StateFile
 
     def valid?
       dependents_valid = dependents.map { |d| d.valid?(:dob_form) }
-      hoh_valid = @intake.class == StateFileAzIntake && @intake.requires_qualifying_person_name? && @intake.hoh_qualifying_person_name.present?
 
-      errors.add(:hoh_qualifying_person, 'ya gotta qualify')
-
-      super && dependents_valid.all? && hoh_valid && false
+      super && dependents_valid.all?
     end
 
     def self.existing_attributes(intake)

@@ -5,10 +5,6 @@
   <p><%= t('.title2') %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-    <%= @form.errors.full_messages %>
-    <% if @form.errors.include? :hoh_qualifying_person %>
-        <h3><%= @form.errors[:hoh_qualifying_person] %> </h3>
-    <%end%>
     </br>
     <div class="blue-group">
       <p>
@@ -54,6 +50,14 @@
         <% end %>
       </div>
     <% end %>
+
+    <% if @form.errors.include? :hoh_qualifying_person_name %>
+      <span class="text--error" id="hoh_qualifying_person__errors">
+        <i class="icon-warning"></i>
+<!--        This is gross, figure out a better way to set and get only one error for a key -->
+        <%= @form.errors[:hoh_qualifying_person_name][0] %>
+      </span>
+    <%end%>
 
     <% asked_months = false %>
     <%= f.fields_for :dependents do |ff| %>

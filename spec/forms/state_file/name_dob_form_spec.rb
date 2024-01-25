@@ -253,7 +253,7 @@ RSpec.describe StateFile::NameDobForm do
           it "is not valid" do
             form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
             expect(form).to_not be_valid
-            expect(form.errors).to_include
+            expect(form.errors[:hoh_qualifying_person_name]).to be_present
           end
         end
       end

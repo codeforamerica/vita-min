@@ -163,7 +163,7 @@ class StateFileAzIntake < StateFileBaseIntake
     super
   end
 
-  def requires_qualifying_person_name?
+  def requires_hoh_qualifying_person_name?
     filing_status == :head_of_household
   end
 
