@@ -221,7 +221,7 @@ module Efile
 
 
       def calculate_line_56
-        if @direct_file_data.primary_ssn.present? && !@direct_file_data.primary_has_itin? && !@direct_file_data.claimed_as_dependent? && !@intake.was_incarcerated_yes?
+        if !@direct_file_data.claimed_as_dependent? && @intake.qualified_for_excise_credit?
           # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
           if filing_status_mfj? || filing_status_hoh?
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 25000
