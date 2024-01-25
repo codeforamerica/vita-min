@@ -63,5 +63,16 @@ module SubmissionBuilder
         xml.send(elem_name, claimed: claimed_value)
       end
     end
+
+    def add_positive_claimed_value_or_zero(xml, elem_name, claimed)
+      claimed_value = calculated_fields.fetch(claimed)
+      if claimed_value.present?
+        if claimed_value.to_i < 0
+          xml.send(elem_name, claimed: 0)
+        else
+          xml.send(elem_name, claimed: claimed_value)
+        end
+      end
+    end
   end
 end
