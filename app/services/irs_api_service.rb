@@ -43,8 +43,6 @@ class IrsApiService
       # Just cert and key are required
       http.cert = cert_finder.client_cert
       http.key = cert_finder.client_key
-    elsif server_url.host.include?('cloud.gov')
-      # No mTLS on this endpoint
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -87,14 +85,14 @@ class IrsApiService
     decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
     encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
 
-    if ENV['IRS_API_MTLS'] || ENV['IRS_API_NO_MTLS']
+    if ENV['IRS_API_LOCALHOST']
+      decipher.auth_tag = Base64.decode64(response.header['AUTHENTICATION-TAG'])
+    else
       char_array = encrypted_tax_return_bytes.unpack("C*")
       encrypted_tax_return_bytes = char_array[0..-17].pack("C*")
       auth_tag = char_array.last(16).pack("C*")
 
       decipher.auth_tag = auth_tag
-    else
-      decipher.auth_tag = Base64.decode64(response.header['AUTHENTICATION-TAG'])
     end
     plain = decipher.update(encrypted_tax_return_bytes) + decipher.final
 
@@ -133,8 +131,6 @@ class IrsApiService
     def client_cert_bytes
       if server_url.host.include?('irs.gov')
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "cert_base64"))
-      elsif server_url.host.include?('cloud.gov')
-        File.read(File.join(certs_dir, "#{state_code}-cert.pem.txt"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.crt'))
       end
@@ -147,8 +143,6 @@ class IrsApiService
     def client_key_bytes
       if server_url.host.include?('irs.gov')
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
-      elsif server_url.host.include?('cloud.gov')
-        File.read(File.join(certs_dir, "#{state_code}-key.pem.txt"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.key'))
       end
@@ -156,12 +150,10 @@ class IrsApiService
   end
 
   def self.server_url
-    if ENV['IRS_API_MTLS']
-      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
-    elsif ENV['IRS_API_NO_MTLS']
-      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_no_mtls))
-    elsif ENV['IRS_API_LOCALHOST']
+    if ENV['IRS_API_LOCALHOST']
       URI.parse('https://localhost:443/')
+    else
+      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
     end
   end
 
