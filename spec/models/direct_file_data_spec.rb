@@ -366,4 +366,13 @@ describe DirectFileData do
       end
     end
   end
+
+  describe '#determine_eic_attribute' do
+    let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_depdropping_ny.xml')) }
+    it 'returns yes for true' do
+      expect(described_class.new(xml).determine_eic_attribute('true')).to eq('yes')
+      expect(described_class.new(xml).determine_eic_attribute('false')).to eq('no')
+      expect(described_class.new(xml).determine_eic_attribute(nil)).to eq('unfilled')
+    end
+  end
 end
