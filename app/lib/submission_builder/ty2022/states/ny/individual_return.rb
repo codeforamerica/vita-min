@@ -106,7 +106,7 @@ module SubmissionBuilder
               it_213_qualified_dependents.each_with_index do |dependent, index|
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                  xml.DEP_SEQ_NMBR index + 1
+                  xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
@@ -123,7 +123,7 @@ module SubmissionBuilder
               @submission.data_source.dependents.where(eic_qualifying: true).each_with_index do |dependent, index|
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                  xml.DEP_SEQ_NMBR index + 1
+                  xml.DEP_SEQ_NMBR index+1
                   xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
                   xml.DEP_FORM_ID 215
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
