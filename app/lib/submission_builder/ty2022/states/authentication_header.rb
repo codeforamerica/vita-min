@@ -7,12 +7,20 @@ module SubmissionBuilder
 
         def document
           build_xml_doc("AuthenticationHeader") do |xml|
+            xml.FilingLicenseTypeCd 'P' # or I or the other one
+            xml.FinancialResolution do
+              xml.Submission do
+                xml.RefundProductCIPCdSubmit "0"
+                xml.NoUBADisbursementCdSubmit "3"
+                xml.NoFinancialProduct "X"
+              end
+            end
             xml.PrimDrvrLcnsOrStateIssdIdGrp do
-              state_id_to_xml(@submission.data_source.primary_state_id, xml) if @submission.data_source.primary_state_id.present?
+              state_id_to_xml(@submission.data_source.primary_state_id, xml)
             end
             if @submission.data_source.filing_status_mfj?
               xml.SpsDrvrLcnsOrStateIssdIdGrp do
-                state_id_to_xml(@submission.data_source.spouse_state_id, xml) if @submission.data_source.spouse_state_id.present?
+                state_id_to_xml(@submission.data_source.spouse_state_id, xml)
               end
             end
             xml.TransmissionDetail do
@@ -23,7 +31,7 @@ module SubmissionBuilder
                   xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
                   xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs datetime_type(device_info&.updated_at) if device_info&.updated_at?
+                xml.IPTs datetime_type(device_info&.updated_at)
                 xml.DeviceId device_info&.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
@@ -33,7 +41,7 @@ module SubmissionBuilder
                   xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
                   xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs datetime_type(device_info&.updated_at) if device_info&.updated_at?
+                xml.IPTs datetime_type(device_info&.updated_at)
                 xml.DeviceId device_info&.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
