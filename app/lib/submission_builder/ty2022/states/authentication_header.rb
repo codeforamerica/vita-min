@@ -67,7 +67,7 @@ module SubmissionBuilder
             xml_builder.send("#{xml_type}StCd", state_id.state)
             xml_builder.send("#{xml_type}ExprDt") do
               if state_id.non_expiring?
-                xml_builder.NonExpr
+                xml_builder.NonExpr "X"
               else
                 xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
               end
