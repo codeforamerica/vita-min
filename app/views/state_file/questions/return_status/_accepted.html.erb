@@ -11,38 +11,43 @@
 <% if @refund_or_owed_amount.positive? %>
   <p><%= t('.check_your_refund_html', refund_url: @refund_url) %></p>
 <% elsif @refund_or_owed_amount.negative? %>
-  <p><%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
+  <p>
+    <%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
     <%= t('.track_your_payment_html') if params[:us_state] == 'ny' %>
   </p>
 <% end %>
-<p><%= t('.register_to_vote_html') %></p>
+
+<p>
+  <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
+</p>
 
 <div class="blue-group">
-  <div>
+  <p>
     <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
-  </div>
+  </p>
 
-  <div class="spacing-above-15">
+  <p>
     <%= t('.include_payment') %>
     (<%= @download_form_name %>)
-  </div>
+  </p>
 
-  <div>
+  <p>
     <%= link_to t('.download_voucher'), StateFile::PaymentVoucherController.to_path_helper(action: :show, us_state: params[:us_state]) %>
-  </div>
+  </p>
 
-  <hr>
+  <hr class="spacing-above-25 spacing-below-25">
 
   <% if params[:us_state] == 'az' %>
-    <div>
+    <p>
       <%= t('.check_payable') %>
-    </div>
-    <hr>
+    </p>
+
+    <hr class="spacing-above-25 spacing-below-25">
   <% end %>
 
-  <div class="spacing-below-15">
+  <p>
     <%= t('.mail_voucher_and_payment') %>
-  </div>
+  </p>
 
   <strong>
     <%= @mail_voucher_address %>

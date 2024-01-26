@@ -8,7 +8,9 @@
 
   <p><%= t(".email_text_update") %></p>
 
-  <p><%= link_to t(".register_to_vote"), "https://vote.gov/" %></p>
+  <p>
+    <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
+  </p>
 
   <% if params[:us_state] == "ny" %>
     <p><%= t(".ny_notifications_signup_html") %></p>
