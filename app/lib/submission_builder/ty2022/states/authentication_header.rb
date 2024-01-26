@@ -23,7 +23,7 @@ module SubmissionBuilder
                   xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
                   xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs datetime_type(device_info&.updated_at)
+                xml.IPTs datetime_type(device_info&.updated_at) if device_info&.updated_at?
                 xml.DeviceId device_info&.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
@@ -33,7 +33,7 @@ module SubmissionBuilder
                   xml.IPv4AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv4?
                   xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
                 end
-                xml.IPTs datetime_type(device_info&.updated_at)
+                xml.IPTs datetime_type(device_info&.updated_at) if device_info&.updated_at?
                 xml.DeviceId device_info&.device_id || 'AB' * 20
                 xml.DeviceTypeCd 'Browser-based'
               end
@@ -60,13 +60,11 @@ module SubmissionBuilder
               if state_id.non_expiring?
                 xml_builder.NonExpr "X"
               else
-                xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d") if state_id.expiration_date.present?
               end
             end
             xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d")) if state_id.issue_date.present?
-            if state_id.first_three_doc_num.present?
-              xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num)
-            end
+            xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num) if state_id.first_three_doc_num.present?
           else
             xml_builder.DoNotHaveDrvrLcnsOrStIssdId "X"
           end
