@@ -648,7 +648,9 @@ class FlowsController < ApplicationController
         prior_last_names: "Jordan, Pippen, Rodman",
         tribal_member: "yes",
         tribal_wages: 100,
-        was_incarcerated: "no"
+        was_incarcerated: "no",
+        household_excise_credit_claimed: "no",
+        ssn_no_employment: "no"
       )
     end
 

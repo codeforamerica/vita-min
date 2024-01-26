@@ -6,7 +6,6 @@ module SubmissionBuilder
         include SubmissionBuilder::BusinessLogicMethods
 
         def document
-          # TODO: all these are dummy values, fix up when we get access to state test environments
           build_xml_doc("AuthenticationHeader") do |xml|
             xml.FilingLicenseTypeCd 'P' # or I or the other one
             xml.FinancialResolution do
@@ -63,19 +62,17 @@ module SubmissionBuilder
         def state_id_to_xml(state_id, xml_builder)
           xml_type = xml_type_for_state_id(state_id)
           if xml_type
-            xml_builder.send("#{xml_type}Num", state_id.id_number)
-            xml_builder.send("#{xml_type}StCd", state_id.state)
+            xml_builder.send("#{xml_type}Num", state_id.id_number) if state_id.id_number.present?
+            xml_builder.send("#{xml_type}StCd", state_id.state) if state_id.state.present?
             xml_builder.send("#{xml_type}ExprDt") do
               if state_id.non_expiring?
-                xml_builder.NonExpr
+                xml_builder.NonExpr "Non-Expiring"
               else
-                xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
+                xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d") if state_id.expiration_date.present?
               end
             end
-            xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d"))
-            if state_id.first_three_doc_num.present?
-              xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num)
-            end
+            xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d")) if state_id.issue_date.present?
+            xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num) if state_id.first_three_doc_num.present?
           else
             xml_builder.DoNotHaveDrvrLcnsOrStIssdId "X"
           end

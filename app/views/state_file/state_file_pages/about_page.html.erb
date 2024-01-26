@@ -16,17 +16,17 @@
 </div>
 
 <h1 class="h2" id="common_questions"><%= t('.common_questions') %></h1>
-<section>
+<section class="spacing-below-35">
   <strong><%= link_to t('.az_section'), state_faq_path(us_state: "az"), class: "undecorated-link"  %></strong>
   <%= render 'state_taxpayers', state: "az" %>
 </section>
-<section class="spacing-above-35">
+<section class="spacing-below-35">
   <strong><%= link_to t('.ny_section'), state_faq_path(us_state: "ny"), class: "undecorated-link"  %></strong>
   <%= render 'state_taxpayers', state: "ny" %>
 </section>
 
-<section class="spacing-above-35">
 <% unless Rails.env.production? %>
+<section>
   <%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
   <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
   <% if session[:state_file_intake] %>
@@ -35,5 +35,5 @@
       <%= button_to "Clear", StateFile::StateFilePagesController.to_path_helper(action: :clear_session) %>
     </div>
   <% end %>
-<% end %>
 </section>
+<% end %>

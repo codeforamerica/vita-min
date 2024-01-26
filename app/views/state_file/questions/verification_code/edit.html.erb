@@ -4,8 +4,9 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <h1 class="h2" id="main-question"><%= title %></h1>
     <p><%= t(".subtitle_html", contact_info: @contact_info) %></p>
-    <%= f.cfa_input_field(:verification_code, t(".verification_code_label"), classes: ["form-width--long"]) %>
-
-    <%= f.submit t(".action") %>
+    <div class="blue-group">
+        <%= f.cfa_input_field(:verification_code, t(".verification_code_label"), classes: ["form-width--long"]) %>
+    </div>
+    <%= f.submit t(".action"), class: "button button--primary button--wide spacing-below-15"%>
   <% end %>
 <% end %>

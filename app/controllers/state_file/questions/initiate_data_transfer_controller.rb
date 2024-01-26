@@ -5,7 +5,7 @@ module StateFile
 
       def edit
         @link = data_transfer_link
-        @irs_testing_link = irs_testing_link
+        @irs_link = irs_link
       end
 
       private

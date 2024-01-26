@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzIncarceratedController < AuthenticatedQuestionsController
+    class AzExciseCreditController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
       def self.show?(intake)
