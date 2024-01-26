@@ -87,10 +87,10 @@ module SubmissionBuilder
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
                   xml.DEP_SEQ_NMBR index+1
-                  xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
+                  xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
                   xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
-                  xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
+                  xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
                   xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
                   xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
@@ -104,12 +104,12 @@ module SubmissionBuilder
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
                   xml.DEP_SEQ_NMBR index+1
-                  if dependent.eic_disability_yes? || dependent.eic_disability_no?
+                  unless dependent.eic_disability_unfilled?
                     xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
                   end
                   xml.DEP_FORM_ID 215
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
-                  if dependent.eic_student_yes? || dependent.eic_student_no?
+                  unless dependent.eic_student_unfilled?
                     xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
                   end
                   xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?

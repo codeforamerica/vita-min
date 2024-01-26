@@ -327,7 +327,7 @@ describe DirectFileData do
 
       it "sets eic_disability on those dependents" do
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability }.length).to eq(1)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'yes' }.length).to eq(1)
       end
     end
 

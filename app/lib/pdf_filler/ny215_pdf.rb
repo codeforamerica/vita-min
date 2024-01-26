@@ -65,8 +65,8 @@ module PdfFiller
                          "ln34suf#{index}" => dependent.suffix,
                          "ln34real#{index}" => dependent.relationship_label,
                          "month#{index}" => dependent.months_in_home,
-                         "ln34disability#{index}" =>  dependent.eic_disability_yes? ? "Yes" : "Off",
-                         "ln34student#{index}" =>  dependent.eic_student_yes? ? "Yes" : "Off",
+                         "ln34disability#{index}" => dependent.eic_disability_yes? ? "Yes" : "Off",
+                         "ln34student#{index}" => dependent.eic_student_yes? ? "Yes" : "Off",
                          "ln34ssn#{index}" => dependent.ssn,
                          "ln34birth#{index}" => dependent.dob.strftime("%m%d%Y")
                        })
