@@ -8,20 +8,12 @@ module SubmissionBuilder
         def document
           # TODO: all these are dummy values, fix up when we get access to state test environments
           build_xml_doc("AuthenticationHeader") do |xml|
-            xml.FilingLicenseTypeCd 'P' # or I or the other one
-            xml.FinancialResolution do
-              xml.Submission do
-                xml.RefundProductCIPCdSubmit "0"
-                xml.NoUBADisbursementCdSubmit "3"
-                xml.NoFinancialProduct "X"
-              end
-            end
             xml.PrimDrvrLcnsOrStateIssdIdGrp do
-              state_id_to_xml(@submission.data_source.primary_state_id, xml)
+              state_id_to_xml(@submission.data_source.primary_state_id, xml) if @submission.data_source.primary_state_id.present?
             end
             if @submission.data_source.filing_status_mfj?
               xml.SpsDrvrLcnsOrStateIssdIdGrp do
-                state_id_to_xml(@submission.data_source.spouse_state_id, xml)
+                state_id_to_xml(@submission.data_source.spouse_state_id, xml) if @submission.data_source.spouse_state_id.present?
               end
             end
             xml.TransmissionDetail do
@@ -63,8 +55,8 @@ module SubmissionBuilder
         def state_id_to_xml(state_id, xml_builder)
           xml_type = xml_type_for_state_id(state_id)
           if xml_type
-            xml_builder.send("#{xml_type}Num", state_id.id_number)
-            xml_builder.send("#{xml_type}StCd", state_id.state)
+            xml_builder.send("#{xml_type}Num", state_id.id_number) if state_id.id_number.present?
+            xml_builder.send("#{xml_type}StCd", state_id.state) if state_id.state.present?
             xml_builder.send("#{xml_type}ExprDt") do
               if state_id.non_expiring?
                 xml_builder.NonExpr "X"
@@ -72,7 +64,7 @@ module SubmissionBuilder
                 xml_builder.ExprDt state_id.expiration_date.strftime("%Y-%m-%d")
               end
             end
-            xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d"))
+            xml_builder.send("#{xml_type}IssueDt", state_id.issue_date.strftime("%Y-%m-%d")) if state_id.issue_date.present?
             if state_id.first_three_doc_num.present?
               xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num)
             end
