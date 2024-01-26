@@ -53,33 +53,24 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         eic_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "215" }
         expect(eic_dependent_nodes.length).to eq 3
       end
-
-      context "when the calculated EIC is negative" do
-        before do
-          allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return -28
-          allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return -28
-        end
-
-        it "fills it in as zero" do
-          xml = described_class.build(submission).document
-          expect(xml.at("IT215 E_EITC_CR_AMT")).to be_nil
-          expect(xml.at("IT215 E_NYC_EITC_CR_AMT")).to be_nil
-        end
-      end
     end
 
-    context "numbers that should be omitted if not positive" do
+    context "numbers that should be omitted if zero" do
       let(:intake) { create(:state_file_ny_intake) }
 
       before do
+        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 0
+        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0
         allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_63).and_return 0
         allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_65).and_return 0
-        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69).and_return -15
-        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69a).and_return -15
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69a).and_return 0
       end
 
       it "fills it in as zero" do
         xml = described_class.build(submission).document
+        expect(xml.at("IT215 E_EITC_CR_AMT")).to be_nil
+        expect(xml.at("IT215 E_NYC_EITC_CR_AMT")).to be_nil
         expect(xml.at("IT215 IT201_LINE_63")).to be_nil
         expect(xml.at("IT215 IT201_LINE_65")).to be_nil
         expect(xml.at("IT215 IT201_LINE_69")).to be_nil
