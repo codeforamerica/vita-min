@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000009</PrimarySSN>
+      <NameLine1Txt>RORY&lt;GILMORE</NameLine1Txt>
+      <PrimaryNameControlTxt>GILM</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>2556 Stars Hollow ct</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </USAddress>
+      <PhoneNum>4546567676</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>me@me.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">7000</WagesAmt>
+      <WagesSalariesAndTipsAmt>7000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>7000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>7000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>7400</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>7400</TotalDeductionsAmt>
+      <FormW2WithheldTaxAmt>250</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>250</WithholdingTaxAmt>
+      <TotalPaymentsAmt>250</TotalPaymentsAmt>
+      <OverpaidAmt>250</OverpaidAmt>
+      <RefundAmt>250</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Cashier</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>876543219</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>NYDO</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NY Doooses Market</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>2556 Stars Hollow ct</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Rory Gilmore</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>321 Creek drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>7000</WagesAmt>
+      <WithholdingAmt>250</WithholdingAmt>
+      <SocialSecurityWagesAmt>7000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>434</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>7000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>102</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>7000</StateWagesAmt>
+          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
