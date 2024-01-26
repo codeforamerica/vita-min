@@ -160,10 +160,6 @@ class DirectFileData
     df_xml_value(__method__)
   end
 
-  def mailing_apartment=(value)
-    write_df_xml_value(__method__, value)
-  end
-
   def mailing_state
     df_xml_value(__method__)
   end

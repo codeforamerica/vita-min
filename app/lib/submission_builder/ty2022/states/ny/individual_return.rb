@@ -51,7 +51,6 @@ module SubmissionBuilder
                   mailing_street = @submission.data_source.direct_file_data.mailing_street
                   if mailing_street.length > 30
                     truncated_mailing_street = mailing_street[0, 30].rpartition(' ').first
-                    xml.MAIL_LN_2_ADR truncated_mailing_street
                     excess_characters = mailing_street[truncated_mailing_street.length + 1..]
                     if @submission.data_source.direct_file_data.mailing_apartment.present?
                       apartment = @submission.data_source.direct_file_data.mailing_apartment
@@ -64,15 +63,12 @@ module SubmissionBuilder
                     else
                       xml.MAIL_LN_1_ADR excess_characters
                     end
+                    xml.MAIL_LN_2_ADR truncated_mailing_street
                   else
+                    xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
                     xml.MAIL_LN_2_ADR mailing_street
-                    if @submission.data_source.direct_file_data.mailing_apartment.present?
-                      xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment
-                    end
                   end
                 end
-                xml.MAIL_LN_2_ADR @submission.data_source.direct_file_data.mailing_street if @submission.data_source.direct_file_data.mailing_street.present?
-                xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
                 xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city if @submission.data_source.direct_file_data.mailing_city.present?
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state if @submission.data_source.direct_file_data.mailing_state.present?
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
