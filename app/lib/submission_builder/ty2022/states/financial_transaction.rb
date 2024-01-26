@@ -7,8 +7,8 @@ module SubmissionBuilder
           build_xml_doc("FinancialTransaction") do |xml|
             if (@kwargs[:refund_amount] || 0).positive? # REFUND
               xml.RefundDirectDeposit do
-                xml.RoutingTransitNumber @submission.data_source.routing_number
-                xml.BankAccountNumber @submission.data_source.account_number
+                xml.RoutingTransitNumber @submission.data_source.routing_number if @submission.data_source.routing_number.present?
+                xml.BankAccountNumber @submission.data_source.account_number if @submission.data_source.account_number.present?
                 xml.Amount @kwargs[:refund_amount]
                 case @submission.data_source.account_type
                 when 'checking'
@@ -26,10 +26,10 @@ module SubmissionBuilder
                 when 'savings'
                   xml.Savings 'X'
                 end
-                xml.RoutingTransitNumber @submission.data_source.routing_number
-                xml.BankAccountNumber @submission.data_source.account_number
-                xml.PaymentAmount @submission.data_source.withdraw_amount
-                xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) unless @submission.data_source.date_electronic_withdrawal.nil?
+                xml.RoutingTransitNumber @submission.data_source.routing_number if @submission.data_source.routing_number.present?
+                xml.BankAccountNumber @submission.data_source.account_number if @submission.data_source.account_number.present?
+                xml.PaymentAmount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
+                xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) if @submission.data_source.date_electronic_withdrawal.present?
                 xml.NotIATTransaction 'X'
               end
             end
