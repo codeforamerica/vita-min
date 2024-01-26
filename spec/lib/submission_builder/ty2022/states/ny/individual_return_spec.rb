@@ -67,7 +67,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69a).and_return 0
       end
 
-      it "fills it in as zero" do
+      it "omits the tag from the xml" do
         xml = described_class.build(submission).document
         expect(xml.at("IT215 E_EITC_CR_AMT")).to be_nil
         expect(xml.at("IT215 E_NYC_EITC_CR_AMT")).to be_nil
