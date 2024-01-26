@@ -104,10 +104,14 @@ module SubmissionBuilder
                 xml.dependent do
                   xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
                   xml.DEP_SEQ_NMBR index+1
-                  xml.DEP_DISAB_IND dependent.eic_disability == true ? 1 : 2
+                  if dependent.eic_disability_yes? || dependent.eic_disability_no?
+                    xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
+                  end
                   xml.DEP_FORM_ID 215
                   xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
-                  xml.DEP_STUDENT_IND dependent.eic_student == true ? 1 : 2
+                  if dependent.eic_student_yes? || dependent.eic_student_no?
+                    xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
+                  end
                   xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
                   xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
