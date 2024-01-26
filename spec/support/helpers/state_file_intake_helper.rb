@@ -69,7 +69,7 @@ module StateFileIntakeHelper
 
   def step_through_df_data_transfer(sample_name = "Transfer my 2023 federal tax return to FileYourStateTaxes")
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
-    click_on I18n.t('state_file.questions.initiate_data_transfer.edit.button')
+    click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 
     expect(page).to have_text "Your 2023 federal tax return is ready to transfer to your state tax return."
     click_on sample_name
