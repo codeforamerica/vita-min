@@ -62,9 +62,28 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
         it "fills it in as zero" do
           xml = described_class.build(submission).document
-          expect(xml.at("IT215 E_EITC_CR_AMT").attribute('claimed').value.to_i).to eq 0
-          expect(xml.at("IT215 E_NYC_EITC_CR_AMT").attribute('claimed').value.to_i).to eq 0
+          expect(xml.at("IT215 E_EITC_CR_AMT")).to be_nil
+          expect(xml.at("IT215 E_NYC_EITC_CR_AMT")).to be_nil
         end
+      end
+    end
+
+    context "numbers that should be omitted if not positive" do
+      let(:intake) { create(:state_file_ny_intake) }
+
+      before do
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_63).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_65).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69).and_return -15
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69a).and_return -15
+      end
+
+      it "fills it in as zero" do
+        xml = described_class.build(submission).document
+        expect(xml.at("IT215 IT201_LINE_63")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_65")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_69")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_69A")).to be_nil
       end
     end
 
