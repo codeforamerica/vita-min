@@ -619,6 +619,7 @@ class DirectFileData
           dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt')&.text.to_i
         end
         # StateFileNyIntake.find(48) nil becomes false and that should not be the case!!!
+        # This value can now be 0 (null) 1 (yes) 2 (no)
         dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind')&.text == "true"
         dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd')&.text == "true"
       else
