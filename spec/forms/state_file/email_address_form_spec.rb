@@ -7,6 +7,16 @@ RSpec.describe StateFile::EmailAddressForm do
   end
 
   describe "validations" do
+    context "no email present" do
+      let(:invalid_params) do
+        { email_address: "" }
+      end
+      it "is not valid" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+      end
+    end
+
     context "with an invalid email" do
       let(:invalid_params) do
         { email_address: "someone@example" }
