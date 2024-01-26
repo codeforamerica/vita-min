@@ -354,5 +354,12 @@ describe DirectFileData do
       end
     end
 
+    context 'when there are dependents with missing eic tags' do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_depdropping_ny.xml')) }
+      it 'returns an array of DirectFileData::Dependent objects' do
+        expect(described_class.new(xml).dependents.count).to eq(8)
+        expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
+      end
+    end
   end
 end
