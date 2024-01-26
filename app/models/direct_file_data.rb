@@ -598,7 +598,6 @@ class DirectFileData
   end
 
   def dependents
-    binding.pry
     return @dependents if @dependents
 
     @dependents = []
@@ -612,7 +611,6 @@ class DirectFileData
       )
 
       eitc_dependent_node = eitc_eligible_dependents[ssn]
-      binding.pry
       if eitc_dependent_node.present?
         dependent.eic_qualifying = true
         unless self.mailing_state == 'AZ'
