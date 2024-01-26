@@ -1607,6 +1607,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_25_224124) do
     t.string "federal_submission_id"
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
+    t.integer "household_excise_credit_claimed", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"
@@ -1631,6 +1632,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_25_224124) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.bigint "spouse_state_id_id"
+    t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
     t.datetime "updated_at", null: false

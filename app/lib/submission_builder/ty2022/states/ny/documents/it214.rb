@@ -8,7 +8,7 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT214") do |xml|
-                xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d")
+                xml.PR_DOB_DT claimed: @submission.data_source.primary.birth_date.strftime("%Y-%m-%d") if @submission.data_source.primary.birth_date.present?
                 add_non_zero_claimed_value(xml, :R_RSDT_IND, :IT214_LINE_1)
                 add_non_zero_claimed_value(xml, :R_OCCPY_RSDT_IND, :IT214_LINE_2)
                 add_non_zero_claimed_value(xml, :R_RL_PROP_VL_IND, :IT214_LINE_3)
@@ -37,7 +37,7 @@ module SubmissionBuilder
                   add_non_zero_claimed_value(xml, :R_B4_EXMPT_AMT, :IT214_LINE_25)
                   add_non_zero_claimed_value(xml, :R_HOME_RPTX_AMT, :IT214_LINE_27)
                 end
-                xml.R_RL_PROP_TX_AMT claimed: calculated_fields.fetch('IT214_LINE_28') || 0
+                add_non_zero_claimed_value(xml, :R_RL_PROP_TX_AMT, :IT214_LINE_28)
                 add_non_zero_claimed_value(xml, :R_GRSS_AVL_AMT, :IT214_LINE_29)
                 add_non_zero_claimed_value(xml, :R_TNTV_RL_CR_AMT, :IT214_LINE_30)
                 add_non_zero_claimed_value(xml, :R_TX_AVL_CR_AMT, :IT214_LINE_31)

@@ -15,30 +15,30 @@ module SubmissionBuilder
                     xml.BusinessNameLine1Txt form1099g.payer_name
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt form1099g.payer_street_address
-                    xml.CityNm form1099g.payer_city
+                    xml.AddressLine1Txt form1099g.payer_street_address if form1099g.payer_street_address.present?
+                    xml.CityNm form1099g.payer_city if form1099g.payer_city.present?
                     xml.StateAbbreviationCd "NY"
-                    xml.ZIPCd form1099g.payer_zip
+                    xml.ZIPCd form1099g.payer_zip if form1099g.payer_zip.present?
                   end
-                  xml.PayerEIN form1099g.payer_tin
+                  xml.PayerEIN form1099g.payer_tin if form1099g.payer_tin.present?
                 end
                 recipient = if form1099g.recipient_primary?
                   form1099g.intake.primary
                 elsif form1099g.recipient_spouse?
                   form1099g.intake.spouse
                 end
-                xml.RecipientSSN recipient.ssn
-                xml.RecipientName recipient.full_name
+                xml.RecipientSSN recipient.ssn if recipient.ssn.present?
+                xml.RecipientName recipient.full_name if recipient.full_name.present?
                 xml.RecipientUSAddress do
-                  xml.AddressLine1Txt form1099g.recipient_address_line1
-                  xml.CityNm form1099g.recipient_city
+                  xml.AddressLine1Txt form1099g.recipient_address_line1 if form1099g.recipient_address_line1.present?
+                  xml.CityNm form1099g.recipient_city if form1099g.recipient_city.present?
                   xml.StateAbbreviationCd "NY"
-                  xml.ZIPCd form1099g.recipient_zip
+                  xml.ZIPCd form1099g.recipient_zip if form1099g.recipient_zip.present?
                 end
-                xml.UnemploymentCompensation form1099g.unemployment_compensation
-                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld
+                xml.UnemploymentCompensation form1099g.unemployment_compensation if form1099g.unemployment_compensation.present?
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld if form1099g.federal_income_tax_withheld.present?
                 xml.State1099GStateLocalTaxGrp do
-                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld
+                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld if form1099g.state_income_tax_withheld.present?
                   xml.StateAbbreviationCd "NY"
                   if form1099g.state_identification_number && form1099g.state_identification_number != ''
                     xml.PayerStateIdNumber form1099g.state_identification_number

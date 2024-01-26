@@ -8,12 +8,13 @@ module StateFile
       link
     end
 
-    def irs_testing_link
-      if ENV["IRS_TRANSFER_AUTH_URL"].present?
-        irs_testing_link = URI(ENV["IRS_TRANSFER_AUTH_URL"])
-        irs_testing_link.query = { redirect: return_url }.to_param
+    def irs_link
+      df_transfer_auth = EnvironmentCredentials.dig('statefile', 'df_transfer_auth')
+      if df_transfer_auth
+        irs_link = URI(df_transfer_auth)
+        irs_link.query = { redirect: return_url }.to_param
       end
-      irs_testing_link
+      irs_link
     end
 
     private
