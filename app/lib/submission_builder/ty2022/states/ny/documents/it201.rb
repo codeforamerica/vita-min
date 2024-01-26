@@ -66,12 +66,12 @@ module SubmissionBuilder
                 # This field must be populated even when zero
                 xml.SALE_USE_AMT claimed: calculated_fields.fetch(:IT201_LINE_59) || 0
                 add_non_zero_claimed_value(xml, :TX_GFT_AMT, :IT201_LINE_61)
-                add_positive_claimed_value(xml, :ESC_CHLD_CR_AMT, :IT201_LINE_63)
-                add_positive_claimed_value(xml, :EITC_CR_AMT, :IT201_LINE_65)
+                add_non_zero_claimed_value(xml, :ESC_CHLD_CR_AMT, :IT201_LINE_63)
+                add_non_zero_claimed_value(xml, :EITC_CR_AMT, :IT201_LINE_65)
                 add_non_zero_claimed_value(xml, :RL_PROP_CR_AMT, :IT201_LINE_67)
-                add_positive_claimed_value(xml, :NYC_STAR_CR_AMT, :IT201_LINE_69)
-                add_positive_claimed_value(xml, :NYC_STAR_REDCR_AMT, :IT201_LINE_69A)
-                add_positive_claimed_value(xml, :NYC_EITC_CR_AMT, :IT201_LINE_70)
+                add_non_zero_claimed_value(xml, :NYC_STAR_CR_AMT, :IT201_LINE_69)
+                add_non_zero_claimed_value(xml, :NYC_STAR_REDCR_AMT, :IT201_LINE_69A)
+                add_non_zero_claimed_value(xml, :NYC_EITC_CR_AMT, :IT201_LINE_70)
                 add_non_zero_claimed_value(xml, :TOT_WTHLD_AMT, :IT201_LINE_72)
                 add_non_zero_claimed_value(xml, :TOT_NYC_WTHLD_AMT, :IT201_LINE_73)
                 add_non_zero_claimed_value(xml, :TOT_PAY_AMT, :IT201_LINE_76)
