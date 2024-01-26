@@ -9,7 +9,8 @@ module StateFile
       end
 
       def edit
-        @link = data_transfer_link
+        @fake_data_transfer_link = fake_data_transfer_link
+        @irs_df_transfer_link = irs_df_transfer_link
       end
 
       def illustration_path

@@ -2153,10 +2153,13 @@ en:
           title: Electronically sign your %{state_name} state tax return
       initiate_data_transfer:
         edit:
-          button: Transfer data from IRS site
           button_help_text: Don’t worry, you'll return here after you transfer your data
           description: To save time, transfer your federal return to fill in parts of your state return. This usually takes 3 minutes or less.
           title: Now, let’s complete your state tax return
+        data_transfer_buttons:
+          from_irs: Transfer data from IRS site
+          from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
+          from_fake_df_page: Transfer data from fake DF transfer page
       landing_page:
         edit:
           az:

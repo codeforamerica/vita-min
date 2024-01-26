@@ -1,0 +1,20 @@
+<% if @fake_data_transfer_link.present? %>
+  <%= link_to @fake_data_transfer_link.to_s, class: "button button--primary button--icon button--full-width", id: "firstCta" do %>
+    <%= image_tag("icons/link-white.svg", alt: "") %>
+    <%= t(".from_fake_df_page") %>
+  <% end %>
+<% end %>
+
+<% if @irs_df_transfer_link.present? %>
+  <% unless Rails.env.production? || Rails.env.staging? %>
+    <%= link_to @irs_df_transfer_link.to_s, class: "button button--primary button--icon", id: "firstCta" do %>
+      <%= image_tag("icons/link-white.svg", alt: "") %>
+      <%= t(".from_irs") %>
+    <% end %>
+  <% else %>
+    <%= link_to @irs_df_transfer_link.to_s, class: "button button--icon text--small button--full-width", id: "firstCta" do %>
+      <%= t(".from_irs_testing") %>
+    <% end %>
+  <% end %>
+<% end %>
+

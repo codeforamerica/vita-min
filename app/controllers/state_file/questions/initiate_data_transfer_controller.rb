@@ -4,8 +4,8 @@ module StateFile
       include IrsDataTransferLinksConcern
 
       def edit
-        @link = data_transfer_link
-        @irs_link = irs_link
+        @fake_data_transfer_link = fake_data_transfer_link
+        @irs_df_transfer_link = irs_df_transfer_link
       end
 
       private
