@@ -359,6 +359,10 @@ describe DirectFileData do
       it 'returns an array of DirectFileData::Dependent objects' do
         expect(described_class.new(xml).dependents.count).to eq(8)
         expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'yes' }.length).to eq(1)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'no' }.length).to eq(1)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'unfilled' }.length).to eq(7)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'unfilled' }.length).to eq(7)
       end
     end
   end
