@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_24_221917) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_25_224124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1648,9 +1648,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_221917) do
     t.datetime "created_at", null: false
     t.boolean "ctc_qualifying"
     t.date "dob"
-    t.boolean "eic_disability"
+    t.integer "eic_disability", default: 0
     t.boolean "eic_qualifying"
-    t.boolean "eic_student"
+    t.integer "eic_student", default: 0
     t.string "first_name"
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false

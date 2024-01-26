@@ -327,7 +327,7 @@ describe DirectFileData do
 
       it "sets eic_disability on those dependents" do
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability }.length).to eq(1)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'yes' }.length).to eq(1)
       end
     end
 
@@ -354,5 +354,25 @@ describe DirectFileData do
       end
     end
 
+    context 'when there are dependents with missing eic tags' do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_depdropping_ny.xml')) }
+      it 'returns the correct array of DirectFileData::Dependent objects' do
+        expect(described_class.new(xml).dependents.count).to eq(8)
+        expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'yes' }.length).to eq(1)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'no' }.length).to eq(1)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'unfilled' }.length).to eq(7)
+        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'unfilled' }.length).to eq(7)
+      end
+    end
+  end
+
+  describe '#determine_eic_attribute' do
+    let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_depdropping_ny.xml')) }
+    it 'returns yes for true' do
+      expect(described_class.new(xml).determine_eic_attribute('true')).to eq('yes')
+      expect(described_class.new(xml).determine_eic_attribute('false')).to eq('no')
+      expect(described_class.new(xml).determine_eic_attribute(nil)).to eq('unfilled')
+    end
   end
 end

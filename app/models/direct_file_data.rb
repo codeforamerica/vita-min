@@ -616,10 +616,12 @@ class DirectFileData
         unless self.mailing_state == 'AZ'
           dependent.months_in_home = eitc_dependent_node.at('MonthsChildLivedWithYouCnt')&.text.to_i
         end
-        dependent.eic_student = eitc_dependent_node.at('ChildIsAStudentUnder24Ind')&.text == "true"
-        dependent.eic_disability = eitc_dependent_node.at('ChildPermanentlyDisabledInd')&.text == "true"
+        dependent.eic_student = determine_eic_attribute(eitc_dependent_node.at('ChildIsAStudentUnder24Ind')&.text)
+        dependent.eic_disability = determine_eic_attribute(eitc_dependent_node.at('ChildPermanentlyDisabledInd')&.text)
       else
         dependent.eic_qualifying = false
+        dependent.eic_student = 'unfilled'
+        dependent.eic_disability = 'unfilled'
       end
 
       dependent.ctc_qualifying = node.at('EligibleForChildTaxCreditInd')&.text == 'X'
@@ -627,6 +629,17 @@ class DirectFileData
       @dependents << dependent
     end
     @dependents
+  end
+
+  def determine_eic_attribute(node)
+    case node
+    when 'true'
+      'yes'
+    when 'false'
+      'no'
+    else
+      'unfilled'
+    end
   end
     
   class DfW2
