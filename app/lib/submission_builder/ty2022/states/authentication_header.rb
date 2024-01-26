@@ -6,7 +6,6 @@ module SubmissionBuilder
         include SubmissionBuilder::BusinessLogicMethods
 
         def document
-          # TODO: all these are dummy values, fix up when we get access to state test environments
           build_xml_doc("AuthenticationHeader") do |xml|
             xml.PrimDrvrLcnsOrStateIssdIdGrp do
               state_id_to_xml(@submission.data_source.primary_state_id, xml) if @submission.data_source.primary_state_id.present?
