@@ -32,7 +32,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # name dob page
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
@@ -140,7 +140,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
-      expect(page).to have_text("I have examined the information on my 2023 New York State electronic personal income tax return")
+      expect(page).to have_text("I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return")
       check "state_file_esign_declaration_form_primary_esigned"
       check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
@@ -190,7 +190,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
