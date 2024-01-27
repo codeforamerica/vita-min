@@ -2514,6 +2514,10 @@ en:
       footer:
         state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> to integrate with the IRS Direct File tool.
         state_file_with_state_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with the %{state_name_pair} to integrate with the IRS Direct File tool.
+        privacy_policy: Privacy Policy
+        about: About
+        faq: FAQ
+        terms_of_service: Terms of Service
         state_name_pair:
           az: state of Arizona
           ny: New York State
