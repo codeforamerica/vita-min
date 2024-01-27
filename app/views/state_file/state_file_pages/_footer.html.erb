@@ -18,7 +18,7 @@
             <%= link_to t(".privacy_policy"), privacy_policy_path %>
           </li>
 
-          <li><%= link_to t(".about"), about_us_path %></li>
+          <li><%= link_to t(".about"), root_path %></li>
 
           <% faq_link = params[:us_state].present? ? state_faq_path(us_state: params[:us_state]) : root_path(anchor: "common_questions")  %>
           <li><%= link_to t(".faq"), faq_link %></li>
