@@ -4,6 +4,11 @@ module StateFile
       before_action :set_prev_path, only: [:edit]
       helper_method :ineligible_reason
 
+      def edit
+        product_type = FaqCategory.state_to_product_type(params[:us_state])
+        @learn_more_link = FaqCategory.where(slug: "other_state_filing_options", product_type: product_type).present? ? state_faq_section_path(section_key: "other_state_filing_options") : state_faq_path
+        super
+      end
       def ineligible_reason
         key = current_intake.disqualifying_eligibility_answer
         if key.present?

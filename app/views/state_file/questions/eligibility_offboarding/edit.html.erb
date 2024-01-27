@@ -6,4 +6,33 @@
   <% unless ineligible_reason.nil? %>
     <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
   <% end %>
+
+  <p><%= t(".other_option", state_name: States.name_for_key(params[:us_state].upcase)) %></p>
+
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.learn_more_reveal.title') %></a></p>
+    <div class="reveal__content">
+      <p><%= t('.learn_more_reveal.p1', state_name: States.name_for_key(params[:us_state].upcase)) %></p>
+      <p><%= t('.learn_more_reveal.p2') %></p>
+      <p><%= t('.learn_more_here_html', link: @learn_more_link) %></p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.other_options_reveal.title') %></a></p>
+    <div class="reveal__content">
+      <p><%= t('.other_options_reveal.list.body') %></p>
+      <ul>
+        <li><%= t('.other_options_reveal.list.list1_html') %></li>
+        <li><%= t('.other_options_reveal.list.list2') %></li>
+        <li><%= t('.other_options_reveal.list.list3') %></li>
+      </ul>
+      <p><%= t('.other_options_reveal.fees') %></p>
+      <p><%= t('.learn_more_here_html', link: @learn_more_link) %></p>
+    </div>
+  </div>
+
+  <p class="spacing-above-35"><%= link_to t(".vita_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home') %></p>
+  <p><%= link_to t(".faq_link"), state_faq_path %></p>
+
 <% end %>

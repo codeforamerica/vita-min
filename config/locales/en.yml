@@ -2022,9 +2022,9 @@ en:
           title: 'Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:'
       declined_terms_and_conditions:
         edit:
-          action_html: "<b>Is this a mistake?</b>"
+          action_html: "<strong>Is this a mistake?</strong>"
           drop_down_html: |
-            <b>Want to file using a different product or service?</b><br>
+            <strong>Want to file using a different product or service?</strong><br>
             Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
           faq_link: Visit our FAQ
           go_back_link: Go back to correct.
@@ -2033,9 +2033,23 @@ en:
       eligibility_offboarding:
         edit:
           body_html: |
-            You are not qualified because you %{ineligible_reason}. This means you can't use this tool this year. (Is this a mistake? <a href=%{prev_link}>Go back to correct.</a>)
-            <br/><br/>
-            <strong>Don't worry</strong>, you can still file your state taxes for free with help from IRS-certified volunteers at GetYourRefund.
+            You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          other_option: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+          learn_more_reveal:
+            title: Learn more about this process
+            p1: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state_name}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
+            p2: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
+          other_options_reveal:
+            title: What are my other state filing options?
+            list:
+              body: "Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:"
+              list1_html: Since you’ve already submitted your federal tax return, make sure the service or software you use allows you to file a <strong>state-only tax return.</strong> You may need to reach out to their customer support to confirm.
+              list2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
+              list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
+            fees: Fees may apply.
+          learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow">here.</a>
+          faq_link: Visit our FAQ
+          vita_link: Get started with VITA now
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_lived_in_state: did not live in %{state} for all of 2023
