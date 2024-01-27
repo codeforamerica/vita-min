@@ -2512,8 +2512,7 @@ en:
       coming_soon:
         title: Coming soon
       footer:
-        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> to integrate with the IRS Direct File tool.
-        state_file_with_state_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with the %{state_name_pair} to integrate with the IRS Direct File tool.
+        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with the IRS Direct File tool.
         privacy_policy: Privacy Policy
         about: About
         faq: FAQ

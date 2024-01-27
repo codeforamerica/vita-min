@@ -5,12 +5,9 @@
         <p>
           <%= image_tag("fyst-logo.svg", alt: "FileYourStateTaxes", title: "FileYourStateTaxes", class_names: "fyst-logo") %>
         </p>
+
         <p>
-          <% if ['az', 'ny'].include?(params[:us_state]) %>
-            <%= t('.state_file_with_state_description_html', state_name_pair: t(".state_name_pair.#{params[:us_state]}")) %>
-          <% else %>
-            <%=t('.state_file_description_html') %>
-          <% end %>
+          <%=t('.state_file_description_html') %>
         </p>
       </div>
 
@@ -18,7 +15,7 @@
       <ul class="grid__item width-one-fourth footer-links">
         <% unless before_state_file_launch? %>
           <li>
-            <%= link_to t(".privacy_policy"), "" %>
+            <%= link_to t(".privacy_policy"), privacy_policy_path %>
           </li>
 
           <li><%= link_to t(".about"), about_us_path %></li>
