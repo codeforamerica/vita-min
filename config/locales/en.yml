@@ -2543,7 +2543,7 @@ en:
         effective_date: This version of the policy is effective January 15, 2024.
         effective_date_header: Effective Date
         header: Privacy Policy
-        header_1_html: <a href="fileyourstatetaxes.org">FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File tool.
+        header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File tool.
         header_2_html: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         header_3_html: If you have any questions or concerns about this Privacy Notice, please contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
         how_we_collect_your_info: 'We collect your information from various sources, such as when you or your household members:'

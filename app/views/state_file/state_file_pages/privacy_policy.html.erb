@@ -1,10 +1,12 @@
+<% content_for :page_title, t(".header") %>
+
 <main role="main">
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
         <main role="main">
           <h1><%= t(".header") %></h1>
-          <p><%= t(".header_1_html") %></p>
+          <p><%= t(".header_1_html", link: url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: 'about_page')) %></p>
           <p><%= t(".header_2_html") %></p>
           <p><%= t(".header_3_html") %></p>
           <h2><%= t(".overview") %></h2>
