@@ -263,9 +263,9 @@ describe StateFileAzIntake do
       it 'returns the oldest parent if there are no non-Parents in home more than 6 months' do
         intake = build(:state_file_az_intake, filing_status: "head_of_household")
         create :az_hoh_qualifying_person_parent,
-               first_name: "OlderParent", dob: StateFileDependent.senior_cutoff_date + 2.years, intake: intake
+               first_name: "OlderParent", dob: StateFileDependent.senior_cutoff_date + 1.years, intake: intake
         create :az_hoh_qualifying_person_parent,
-               first_name: "OlderParent", intake: intake
+               first_name: "YoungerParent", dob: StateFileDependent.senior_cutoff_date + 2.years, intake: intake
         expect(intake.hoh_qualifying_person_name[:first_name]).to eq "OlderParent"
         expect(intake.hoh_qualifying_person_name[:last_name]).to eq "Qualifying"
       end

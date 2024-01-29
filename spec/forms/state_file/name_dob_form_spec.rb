@@ -226,8 +226,8 @@ RSpec.describe StateFile::NameDobForm do
       end
     end
 
-    context "when the filer is head of household" do
-      context "when the federal return does not have an hoh qualifying person" do
+    context "when the federal return does not have an hoh qualifying person" do
+      context "when the filer is head of household" do
 
         context "when there is a dependent with a non-NONE relationship and 6 or more months in home" do
           let!(:intake) { create :state_file_az_intake, filing_status: 'head_of_household', dependents: [create(:az_hoh_qualifying_person_nonparent), create(:az_hoh_nonqualifying_person_nonparent)] }
@@ -252,9 +252,28 @@ RSpec.describe StateFile::NameDobForm do
 
           it "is not valid" do
             form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
-            expect(form).to_not be_valid
+            expect(form).not_to be_valid
             expect(form.errors[:hoh_qualifying_person_name]).to be_present
           end
+        end
+      end
+
+      context "when the filer is qualifying surviving spouse/qualifying widow without a valid household member" do
+        let!(:intake) { create :state_file_az_intake, filing_status: "5", dependents: [create(:az_hoh_nonqualifying_person_nonparent), create(:az_hoh_nonqualifying_person_none_relationship)] }
+
+        it "is not valid" do
+          form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+          expect(form).not_to be_valid
+          expect(form.errors[:hoh_qualifying_person_name]).to be_present
+        end
+      end
+
+      context "when the filer is not HOH or QSS without a valid household member" do
+        let!(:intake) { create :state_file_az_intake, filing_status: "1", dependents: [create(:az_hoh_nonqualifying_person_nonparent), create(:az_hoh_nonqualifying_person_none_relationship)] }
+
+        it "is valid" do
+          form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+          expect(form).to be_valid
         end
       end
     end
