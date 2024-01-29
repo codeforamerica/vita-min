@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000019</PrimarySSN>
+      <NameLine1Txt>ALBERT&lt;EGGSTEIN</NameLine1Txt>
+      <PrimaryNameControlTxt>EGGS</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>300 Very Very Very Very Long Street</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11238</ZIPCd>
+      </USAddress>
+      <PhoneNum>7185551234</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test011@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">5000</WagesAmt>
+      <WagesSalariesAndTipsAmt>5000</WagesSalariesAndTipsAmt>
+      <TotalAdditionalIncomeAmt>3000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>8000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>8000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <FormW2WithheldTaxAmt>500</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>500</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt>384</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>384</RefundableCreditsAmt>
+      <TotalPaymentsAmt>884</TotalPaymentsAmt>
+      <OverpaidAmt>884</OverpaidAmt>
+      <RefundAmt>884</RefundAmt>
+      <RoutingTransitNum>021000322</RoutingTransitNum>
+      <BankAccountTypeCd>1</BankAccountTypeCd>
+      <DepositorAccountNum>234523452345</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>true</ThirdPartyDesigneeInd>
+      <ThirdPartyDesigneeNm>Desig Nee</ThirdPartyDesigneeNm>
+      <ThirdPartyDesigneePhoneNum>7185554321</ThirdPartyDesigneePhoneNum>
+      <ThirdPartyDesigneePIN>25252</ThirdPartyDesigneePIN>
+      <PrimaryOccupationTxt>Inventor</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>3000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>3000</TotalAdditionalIncomeAmt>
+    </IRS1040Schedule1>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000019</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>NEWY</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>New York State Dept of Transportation</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Incredibly Fake Street</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>112219898</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Albert Eggstein</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>300 Fake Street</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>112381234</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>5000</WagesAmt>
+      <WithholdingAmt>500</WithholdingAmt>
+      <SocialSecurityWagesAmt>5000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>310</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>5000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>73</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>5000</StateWagesAmt>
+          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>5000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>5</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

@@ -5,9 +5,9 @@
 #  id                :bigint           not null, primary key
 #  ctc_qualifying    :boolean
 #  dob               :date
-#  eic_disability    :boolean
+#  eic_disability    :integer          default("unfilled")
 #  eic_qualifying    :boolean
-#  eic_student       :boolean
+#  eic_student       :integer          default("unfilled")
 #  first_name        :string
 #  intake_type       :string           not null
 #  last_name         :string

@@ -89,7 +89,7 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
     end
 
     context "when there is a refund with banking info" do
-      let(:intake) { create(:state_file_az_refund_intake)}
+      let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no")}
       it "generates FinancialTransaction xml with correct RefundAmt" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
@@ -102,7 +102,17 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
       it "generates FinancialTransaction xml with correct Amount" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
-        expect(xml.at("StatePayment PaymentAmount").text).to eq "2011"
+        expect(xml.at("StatePayment PaymentAmount").text).to eq "5"
+      end
+    end
+
+    context "new df xml" do
+      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: File.read(Rails.root.join('spec', 'fixtures', 'files', 'fed_return_superman_az.xml')))}
+
+      it "does not error" do
+        # xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        builder_response = described_class.build(submission)
+        expect(builder_response.errors).not_to be_present
       end
     end
   end

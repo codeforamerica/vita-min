@@ -7,9 +7,10 @@
 
       <p class="spacing-below-15"><%= t(".code_sent_to_html", contact_info: @verification_code_form.formatted_contact_info) %></p>
       <%= f.hidden_field(:contact_info) %>
-      <%= f.cfa_input_field(:verification_code, t(".enter_6_digit_code"), classes: ["form-width--long"]) %>
+      <div class="blue-group">
+        <%= f.cfa_input_field(:verification_code, t(".enter_6_digit_code"), classes: ["form-width--long"]) %>
+      </div>
     </div>
-
-    <%= f.continue t(".verify") %>
+    <%= f.submit t(".verify"), class: "button button--primary button--wide spacing-below-15" %>
   <% end %>
 <% end %>

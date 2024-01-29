@@ -291,7 +291,7 @@ describe Efile::Ny::It201 do
 
       context "income between 20k and 22k and 2 dependents" do
         before do
-          intake.dependents.create!
+          intake.dependents.create!(dob: 7.years.ago)
           intake.direct_file_data.fed_wages = 21_000
           intake.direct_file_data.fed_total_adjustments = 0
           intake.direct_file_data.fed_taxable_income = 0

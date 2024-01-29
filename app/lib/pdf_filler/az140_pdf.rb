@@ -110,11 +110,16 @@ module PdfFiller
         "61" => @xml_document.at('OverPaymentOfTax')&.text,
         "63" => @xml_document.at('OverPaymentBalance')&.text,
         "79" => @xml_document.at('RefundAmt')&.text,
-        "80" => @xml_document.at('AmtOwed')&.text,
-        "Refund" => refund_account_type,
-        "Routing Number" => @xml_document.at('RoutingTransitNumber')&.text,
-        "Account Number" => @xml_document.at('BankAccountNumber')&.text
+        "80" => @xml_document.at('AmtOwed')&.text
       })
+
+      if @xml_document.at('RefundAmt')&.text.present?
+        answers.merge!({
+          "Refund" => refund_account_type,
+          "Routing Number" => @xml_document.at('RoutingTransitNumber')&.text,
+          "Account Number" => @xml_document.at('BankAccountNumber')&.text
+        })
+      end
 
       @charitable_deductions = @xml_document.at('ClaimCharitableDed')
       answers.merge!({

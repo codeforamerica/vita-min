@@ -4,13 +4,12 @@ module SubmissionBuilder
       class FinancialTransaction < SubmissionBuilder::Document
 
         def document
-          return if @kwargs[:return_balance].nil?
           build_xml_doc("FinancialTransaction") do |xml|
-            if @kwargs[:return_balance].positive? # REFUND
+            if (@kwargs[:refund_amount] || 0).positive? # REFUND
               xml.RefundDirectDeposit do
-                xml.RoutingTransitNumber @submission.data_source.routing_number
-                xml.BankAccountNumber @submission.data_source.account_number
-                xml.Amount @kwargs[:return_balance]
+                xml.RoutingTransitNumber @submission.data_source.routing_number if @submission.data_source.routing_number.present?
+                xml.BankAccountNumber @submission.data_source.account_number if @submission.data_source.account_number.present?
+                xml.Amount @kwargs[:refund_amount]
                 case @submission.data_source.account_type
                 when 'checking'
                   xml.Checking 'X'
@@ -19,18 +18,18 @@ module SubmissionBuilder
                 end
                 xml.NotIATTransaction 'X'
               end
-            else # OWE
+            elsif (@submission.data_source.withdraw_amount || 0).positive? # OWE
               xml.StatePayment do
-                xml.RoutingTransitNumber @submission.data_source.routing_number
-                xml.BankAccountNumber @submission.data_source.account_number
-                xml.PaymentAmount 0 - @kwargs[:return_balance]
-                xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) unless @submission.data_source.date_electronic_withdrawal.nil?
                 case @submission.data_source.account_type
                 when 'checking'
                   xml.Checking 'X'
                 when 'savings'
                   xml.Savings 'X'
                 end
+                xml.RoutingTransitNumber @submission.data_source.routing_number if @submission.data_source.routing_number.present?
+                xml.BankAccountNumber @submission.data_source.account_number if @submission.data_source.account_number.present?
+                xml.PaymentAmount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
+                xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) if @submission.data_source.date_electronic_withdrawal.present?
                 xml.NotIATTransaction 'X'
               end
             end

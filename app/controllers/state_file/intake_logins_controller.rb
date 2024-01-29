@@ -12,6 +12,11 @@ module StateFile
       super
     end
 
+    def create
+      @contact_method = params[:contact_method] unless @contact_method.present?
+      super
+    end
+
     def edit
       @form = IntakeLoginForm.new(possible_intakes: @records)
     end
@@ -33,7 +38,6 @@ module StateFile
     end
 
     private
-
     def prev_path; end
 
     def illustration_path; end

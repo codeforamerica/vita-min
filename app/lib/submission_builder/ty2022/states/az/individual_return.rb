@@ -189,13 +189,10 @@ module SubmissionBuilder
           end
 
           def financial_transaction
-            refund = calculated_fields.fetch(:AZ140_LINE_79)
-            owed = calculated_fields.fetch(:AZ140_LINE_80)
-            return_balance = refund.positive? ? refund : 0 - owed
             SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
               @submission,
               validate: false,
-              kwargs: { return_balance: return_balance }
+              kwargs: { refund_amount: calculated_fields.fetch(:AZ140_LINE_79) }
             ).document.at("*")
           end
 

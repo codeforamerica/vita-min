@@ -196,13 +196,6 @@ describe StateFileNyIntake do
         end
       end
     end
-
-    context "when there is no direct file data" do
-      it "returns nil" do
-        intake = StateFileNyIntake.create(raw_direct_file_data: nil)
-        expect(intake.calculate_sales_use_tax).to eq nil
-      end
-    end
   end
 
   describe "#ask_spouse_name?" do

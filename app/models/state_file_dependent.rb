@@ -5,9 +5,9 @@
 #  id                :bigint           not null, primary key
 #  ctc_qualifying    :boolean
 #  dob               :date
-#  eic_disability    :boolean
+#  eic_disability    :integer          default("unfilled")
 #  eic_qualifying    :boolean
-#  eic_student       :boolean
+#  eic_student       :integer          default("unfilled")
 #  first_name        :string
 #  intake_type       :string           not null
 #  last_name         :string
@@ -46,6 +46,8 @@ class StateFileDependent < ApplicationRecord
   encrypts :ssn
   enum needed_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needed_assistance
   enum passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away
+  enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
+  enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
 
   # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
@@ -95,7 +97,7 @@ class StateFileDependent < ApplicationRecord
     if relationship
       child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
     end
-    if odc_qualifying && under_17? && child_credit_qualifying_relationship
+    if under_17? && child_credit_qualifying_relationship
       return true
     end
 

@@ -19,8 +19,8 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT201") do |xml|
-                xml.PR_DOB_DT claimed: intake.primary.birth_date.strftime("%Y-%m-%d")
-                xml.FS_CD claimed: FILING_STATUSES[intake.filing_status.to_sym]
+                xml.PR_DOB_DT claimed: intake.primary.birth_date.strftime("%Y-%m-%d") if intake.primary.birth_date.present?
+                xml.FS_CD claimed: FILING_STATUSES[intake.filing_status.to_sym] if intake.filing_status.present?
                 xml.FED_ITZDED_IND claimed: 2 # Always 2 == NO
                 xml.DEP_CLAIM_IND claimed: intake.direct_file_data.claimed_as_dependent? ? 1 : 2 # 1 == YES, 2 == NO
                 xml.FORGN_ACCT_IND claimed: 2 # Always 2 == NO
@@ -63,6 +63,7 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :NYC_TOT_TX_AMT, :IT201_LINE_52)
                 add_non_zero_claimed_value(xml, :NYC_TAX_AFT_CR_AMT, :IT201_LINE_54)
                 add_non_zero_claimed_value(xml, :NYC_YNK_NET_TX_AMT, :IT201_LINE_58)
+                # This field must be populated even when zero
                 xml.SALE_USE_AMT claimed: calculated_fields.fetch(:IT201_LINE_59) || 0
                 add_non_zero_claimed_value(xml, :TX_GFT_AMT, :IT201_LINE_61)
                 add_non_zero_claimed_value(xml, :ESC_CHLD_CR_AMT, :IT201_LINE_63)
@@ -80,26 +81,30 @@ module SubmissionBuilder
                 xml.PR_SGN_IND claimed: 1
                 if intake.email_address.present?
                   xml.TP_EMAIL_ADR claimed: intake.email_address
-                else
+                elsif intake.direct_file_data.tax_payer_email.present?
                   xml.TP_EMAIL_ADR claimed: intake.direct_file_data.tax_payer_email
                 end
-                xml.IT201FEDADJID do
-                  intake.direct_file_data.fed_adjustments_claimed.each do |_type, info|
-                    xml.descAmt do
-                      xml.DESCRIPTION claimed: info[:xml_label]
-                      xml.AMOUNT claimed: info[:amount]
+                if intake.direct_file_data.fed_adjustments_claimed.present?
+                  xml.IT201FEDADJID do
+                    intake.direct_file_data.fed_adjustments_claimed.each do |_type, info|
+                      xml.descAmt do
+                        xml.DESCRIPTION claimed: info[:xml_label] if info[:xml_label].present?
+                        xml.AMOUNT claimed: info[:amount] if info[:amount].present?
+                      end
                     end
                   end
                 end
-                xml.IT201DepExmpInfo do
-                  intake.dependents.each do |dependent|
-                    xml.depInfo do
-                      xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name
-                      xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial if dependent.middle_initial.present?
-                      xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name
-                      xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") # no spaces
-                      xml.DEP_SSN_NMBR claimed: dependent.ssn
-                      xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d")
+                if intake.dependents.present?
+                  xml.IT201DepExmpInfo do
+                    intake.dependents.each do |dependent|
+                      xml.depInfo do
+                        xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name if dependent.first_name.present?
+                        xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial if dependent.middle_initial.present?
+                        xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name if dependent.last_name.present?
+                        xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") if dependent.relationship.present?
+                        xml.DEP_SSN_NMBR claimed: dependent.ssn if dependent.ssn.present?
+                        xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                      end
                     end
                   end
                 end
@@ -121,3 +126,4 @@ module SubmissionBuilder
     end
   end
 end
+ 
