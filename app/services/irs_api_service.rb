@@ -43,6 +43,10 @@ class IrsApiService
       # Just cert and key are required
       http.cert = cert_finder.client_cert
       http.key = cert_finder.client_key
+
+      # CA chain for the IRS server certificate, so that we can verify it in mTLS
+      http.ca_file = "config/entrust_l1k_full_chain.cer"
+
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
