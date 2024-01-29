@@ -651,7 +651,7 @@ describe Efile::Ny::It201 do
         allow_any_instance_of(DirectFileData).to receive(:fed_tax).and_return(nil)
       end
 
-      it 'calculated worksheets and finishes calculations' do
+      it 'avoids getting undefined method `-` for nil:NilClass (NoMethodError)' do
         instance.calculate
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to be_positive
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to be_zero
