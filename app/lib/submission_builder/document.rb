@@ -80,7 +80,7 @@ module SubmissionBuilder
     end
 
     def process_long_mailing_street(xml, mailing_street)
-      key_found = KEYS_OR_OTHER_DESCRIPTIVE_NAME.any? do |key|
+      key_found = COMMON_ADDRESS_ABBREV.any? do |key|
         mailing_street.include?(key)
       end
 
