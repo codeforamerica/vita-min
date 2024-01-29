@@ -47,6 +47,8 @@ module SubmissionBuilder
 
     private
 
+    KEYS_OR_OTHER_DESCRIPTIVE_NAME = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].freeze
+
     def build_xml_doc(tag_name, **root_node_attributes)
       default_attributes = { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
       xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
@@ -78,12 +80,12 @@ module SubmissionBuilder
     end
 
     def process_long_mailing_street(xml, mailing_street)
-      key_found = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr","APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].any? do |key|
+      key_found = KEYS_OR_OTHER_DESCRIPTIVE_NAME.any? do |key|
         mailing_street.include?(key)
       end
 
       if key_found
-        key_position = mailing_street.index(/\b(?:#{Regexp.union(["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"])})\b/)
+        key_position = mailing_street.index(/\b(?:#{Regexp.union(KEYS_OR_OTHER_DESCRIPTIVE_NAME)})\b/)
         truncated_mailing_street = mailing_street[0, key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
       else
