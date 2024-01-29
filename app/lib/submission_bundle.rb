@@ -14,7 +14,6 @@ class SubmissionBundle
       end
       File.open("#{dir}/xml/submission.xml", "w+") do |f|
         f.write(submission_content)
-        binding.pry
       end
       input_filenames = ['manifest/manifest.xml', 'xml/submission.xml']
 
