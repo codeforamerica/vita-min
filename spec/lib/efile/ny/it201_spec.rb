@@ -647,18 +647,15 @@ describe Efile::Ny::It201 do
       before do
         intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
         intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
-        intake.direct_file_data.fed_tax = nil
         intake.direct_file_data.fed_ctc = 1_000
+        allow_any_instance_of(DirectFileData).to receive(:fed_tax).and_return(nil)
       end
 
       it 'calculated worksheets and finishes calculations' do
-        # allow(instance.lines).to receive(:[]).with(:IT213_WORKSHEET_A_LINE_8).and_return(double('Line', value: 2000.0))
-        # allow(instance.lines).to receive(:[]).with(:IT213_WORKSHEET_A_LINE_9).and_return(double('Line', value: nil))
         instance.calculate
-        binding.pry
         expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to be_positive
-        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to be_nil
-        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to be_nil
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to be_zero
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to be_zero
       end
     end
 

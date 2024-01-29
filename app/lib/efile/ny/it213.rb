@@ -180,7 +180,7 @@ module Efile
       end
 
       def calculate_worksheet_a_line_9
-        @direct_file_data.fed_tax
+        @direct_file_data.fed_tax || 0
       end
 
       def calculate_worksheet_a_line_10
@@ -200,7 +200,6 @@ module Efile
       end
 
       def calculate_worksheet_a_line_12
-        # binding.pry
         [@lines[:IT213_WORKSHEET_A_LINE_9].value - @lines[:IT213_WORKSHEET_A_LINE_11].value, 0].max
       end
 
