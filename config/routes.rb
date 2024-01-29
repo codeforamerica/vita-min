@@ -589,7 +589,6 @@ Rails.application.routes.draw do
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
       end
     end
-    get "/privacy-policy", to: "state_file_pages#privacy_policy"
   end
 
   get '*unmatched_route', to: 'public_pages#page_not_found', constraints: lambda { |req|
