@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative '../app/services/irs_api_service'
-require 'awesome_print'
-require 'pry-byebug'
 
 if ARGV.length < 2
   puts "please provide token and state code"
