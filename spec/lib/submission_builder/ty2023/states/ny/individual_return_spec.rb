@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
+describe SubmissionBuilder::Ty2023::States::Ny::IndividualReturn do
   describe '.build' do
     let(:intake) { create(:state_file_ny_intake, filing_status: filing_status) }
     let(:submission) { create(:efile_submission, data_source: intake) }
@@ -128,7 +128,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
 
       it "creates an additional dependents pdf" do
-        submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+        submission_builder = SubmissionBuilder::Ty2023::States::Ny::IndividualReturn.new(submission)
         additional_dependents = submission_builder.pdf_documents.select do |d|
           d.pdf == PdfFiller::AdditionalDependentsPdf
         end
@@ -144,7 +144,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
           end
 
           it "fills in and attaches the it-213-att" do
-            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+            submission_builder = SubmissionBuilder::Ty2023::States::Ny::IndividualReturn.new(submission)
             additional_dependents = submission_builder.pdf_documents.select do |d|
               d.pdf == PdfFiller::Ny213AttPdf
             end
@@ -154,7 +154,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
         context "when there are not more than 6 dependents who qualify for the ctc" do
           it "does not attach the it-213-att" do
-            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+            submission_builder = SubmissionBuilder::Ty2023::States::Ny::IndividualReturn.new(submission)
             additional_dependents = submission_builder.pdf_documents.select do |d|
               d.pdf == PdfFiller::Ny213AttPdf
             end

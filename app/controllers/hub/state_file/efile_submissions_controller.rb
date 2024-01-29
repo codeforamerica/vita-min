@@ -20,9 +20,9 @@ module Hub
         submission = EfileSubmission.find(params[:efile_submission_id])
         builder_response = case submission.data_source.state_code
                            when "ny"
-                             SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission)
+                             SubmissionBuilder::Ty2023::States::Ny::IndividualReturn.build(submission)
                            when "az"
-                             SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
+                             SubmissionBuilder::Ty2023::States::Az::IndividualReturn.build(submission)
                            end
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end

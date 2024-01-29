@@ -16,10 +16,10 @@ module PdfFiller
       [[0, 26], 125, 29]
     end
 
-    def initialize(submission, dependent_offset: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn::DEPENDENT_OVERFLOW_THRESHOLD)
+    def initialize(submission, dependent_offset: SubmissionBuilder::Ty2023::States::Ny::IndividualReturn::DEPENDENT_OVERFLOW_THRESHOLD)
       @submission = submission
       @intake = submission.data_source
-      @xml_document = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission).document
+      @xml_document = SubmissionBuilder::Ty2023::States::Ny::IndividualReturn.new(submission).document
       @dependent_offset = dependent_offset
     end
 

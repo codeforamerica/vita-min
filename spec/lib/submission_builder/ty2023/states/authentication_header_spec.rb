@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
+describe SubmissionBuilder::Ty2023::States::AuthenticationHeader do
   describe '.build' do
 
     context "when no state_id is defined" do
@@ -8,7 +8,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds generates xml indicating there is no id" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::Ty2023::States::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DoNotHaveDrvrLcnsOrStIssdId").text).to eq "X"
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdStCd")).to eq nil
@@ -27,7 +27,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a drivers license" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::Ty2023::States::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DoNotHaveDrvrLcnsOrStIssdId")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdAddInfo")).to eq nil
@@ -48,7 +48,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a no expiration date info license" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::Ty2023::States::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsExprDt ExprDt")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsExprDt NonExpr")).to be_truthy
       end
@@ -60,7 +60,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a no additonal info" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::Ty2023::States::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsAddInfo")).to eq nil
       end
@@ -73,7 +73,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a no additonal info" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::Ty2023::States::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DoNotHaveDrvrLcnsOrStIssdId")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsAddInfo")).to eq nil

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module SubmissionBuilder
-  module Ty2022
+  module Ty2023
     module States
       module Ny
         class IndividualReturn < SubmissionBuilder::Document
@@ -165,11 +165,11 @@ module SubmissionBuilder
           end
 
           def authentication_header
-            SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
+            SubmissionBuilder::Ty2023::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
           end
 
           def return_header
-            SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
+            SubmissionBuilder::Ty2023::States::ReturnHeader.build(@submission, validate: false).document.at("*")
           end
 
           def schema_file
@@ -196,33 +196,33 @@ module SubmissionBuilder
             receiving_215_credit = calculated_fields[:IT215_LINE_1].present? && !calculated_fields[:IT215_LINE_2]
             supported_docs = [
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::RtnHeader,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::RtnHeader,
                 pdf: nil,
                 include: true
               },
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It201,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::It201,
                 pdf: PdfFiller::Ny201Pdf,
                 include: true
               },
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213Pdf,
                 include: receiving_213_credit
               },
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213AttPdf,
                 include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
                 kwargs: { dependent_offset: DEPENDENT_OVERFLOW_THRESHOLD }
               },
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It214,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::It214,
                 pdf: PdfFiller::Ny214Pdf,
                 include: receiving_214_credit
               },
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It215,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::It215,
                 pdf: PdfFiller::Ny215Pdf,
                 include: receiving_215_credit
               }
@@ -239,7 +239,7 @@ module SubmissionBuilder
 
             @submission.data_source.state_file1099_gs.each do |form1099g|
               supported_docs << {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
+                xml: SubmissionBuilder::Ty2023::States::Ny::Documents::State1099G,
                 pdf: nil,
                 include: true,
                 kwargs: { form1099g: form1099g }

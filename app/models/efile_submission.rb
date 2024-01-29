@@ -206,9 +206,9 @@ class EfileSubmission < ApplicationRecord
 
   def bundle_class
     if data_source&.class == StateFileNyIntake
-      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
+      return SubmissionBuilder::Ty2023::States::Ny::IndividualReturn
     elsif data_source&.class == StateFileAzIntake
-      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
+      return SubmissionBuilder::Ty2023::States::Az::IndividualReturn
     end
 
     case tax_year

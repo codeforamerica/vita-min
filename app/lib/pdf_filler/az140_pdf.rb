@@ -10,7 +10,7 @@ module PdfFiller
       @submission = submission
 
       # Most PDF fields are grabbed right off the XML
-      @xml_document = SubmissionBuilder::Ty2022::States::Az::IndividualReturn.new(submission).document
+      @xml_document = SubmissionBuilder::Ty2023::States::Az::IndividualReturn.new(submission).document
     end
 
     def hash_for_pdf

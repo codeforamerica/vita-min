@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module SubmissionBuilder
-  module Ty2022
+  module Ty2023
     module States
       module Az
         class IndividualReturn < SubmissionBuilder::Document
@@ -177,15 +177,15 @@ module SubmissionBuilder
           end
 
           def authentication_header
-            SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
+            SubmissionBuilder::Ty2023::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
           end
 
           def return_header
-            SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
+            SubmissionBuilder::Ty2023::States::ReturnHeader.build(@submission, validate: false).document.at("*")
           end
 
           def financial_transaction
-            SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
+            SubmissionBuilder::Ty2023::States::FinancialTransaction.build(
               @submission,
               validate: false,
               kwargs: { refund_amount: calculated_fields.fetch(:AZ140_LINE_79) }
@@ -233,7 +233,7 @@ module SubmissionBuilder
 
             @submission.data_source.state_file1099_gs.each do |form1099g|
               supported_docs << {
-                xml: SubmissionBuilder::Ty2022::States::Az::Documents::State1099G,
+                xml: SubmissionBuilder::Ty2023::States::Az::Documents::State1099G,
                 pdf: nil,
                 include: true,
                 kwargs: { form1099g: form1099g }
