@@ -507,6 +507,11 @@ class DirectFileData
     df_xml_value(__method__)
   end
 
+  def hoh_qualifying_person_name=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'SpouseNm')
+    write_df_xml_value(__method__, value)
+  end
+
   def primary_has_itin?
     primary_ssn.start_with?("9")
   end
