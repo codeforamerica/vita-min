@@ -85,7 +85,7 @@ module SubmissionBuilder
       end
 
       if key_found
-        key_position = mailing_street.index(/\b(?:#{Regexp.union(KEYS_OR_OTHER_DESCRIPTIVE_NAME)})\b/)
+        key_position = mailing_street.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
         truncated_mailing_street = mailing_street[0, key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
       else
