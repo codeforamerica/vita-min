@@ -4,20 +4,7 @@
   <h1 class="h2" id="main-question"><%= title %></h1>
   <p><%= t('.description') %></p>
 
-  <%= link_to @link.to_s, class: "button button--primary button--icon", id: "firstCta" do %>
-    <%= image_tag("icons/link-white.svg", alt: "") %>
-    <%= t(".button") %>
-  <% end %>
-
-  <% if @irs_link.present? %>
-    <%= link_to @irs_link.to_s, class: "button", id: "firstCta" do %>
-      <% if Rails.env.production? || Rails.env.staging? %>
-        Transfer Data from IRS site
-      <% else %>
-        Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= render "state_file/questions/initiate_data_transfer/data_transfer_buttons" %>
 
   <div><%= t('.button_help_text') %></div>
 <% end %>
