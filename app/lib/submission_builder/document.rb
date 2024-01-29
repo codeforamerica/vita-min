@@ -63,5 +63,50 @@ module SubmissionBuilder
         xml.send(elem_name, claimed: claimed_value)
       end
     end
+
+    def process_mailing_street(xml)
+      return unless @submission.data_source.direct_file_data.mailing_street.present?
+
+      mailing_street = @submission.data_source.direct_file_data.mailing_street
+
+      if mailing_street.length > 30
+        process_long_mailing_street(xml, mailing_street)
+      else
+        xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.MAIL_LN_2_ADR mailing_street
+      end
+    end
+
+    def process_long_mailing_street(xml, mailing_street)
+      key_found = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr","APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].any? do |key|
+        mailing_street.include?(key)
+      end
+
+      if key_found
+        key_position = mailing_street.index(/\b(?:#{Regexp.union(["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"])})\b/)
+        truncated_mailing_street = mailing_street[0, key_position].rstrip
+        excess_characters = mailing_street[key_position..].lstrip
+      else
+        truncated_mailing_street = mailing_street[0, 30].rpartition(' ').first
+        excess_characters = mailing_street[truncated_mailing_street.length + 1..]
+      end
+
+      process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+    end
+
+    def process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+      if @submission.data_source.direct_file_data.mailing_apartment.present?
+        apartment = @submission.data_source.direct_file_data.mailing_apartment
+        if apartment.length + excess_characters.length > 30
+          truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
+          xml.MAIL_LN_1_ADR excess_characters + " " + truncated_apartment
+        else
+          xml.MAIL_LN_1_ADR excess_characters + " " + apartment
+        end
+      else
+        xml.MAIL_LN_1_ADR excess_characters
+      end
+      xml.MAIL_LN_2_ADR truncated_mailing_street
+    end
   end
 end
