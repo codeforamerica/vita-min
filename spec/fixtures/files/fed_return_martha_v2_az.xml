@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>222009999</PrimarySSN>
+      <NameLine1Txt>TOM B&lt;THREE</NameLine1Txt>
+      <PrimaryNameControlTxt>THRE</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>2050B MAIN STREET</AddressLine1Txt>
+        <CityNm>MENANDS</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>122044567</ZIPCd>
+      </USAddress>
+      <PhoneNum>5188672083</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>Agnieszka.Ciesielczyk@tax.ny.gov</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <PECFPrimaryInd>X</PECFPrimaryInd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <TotalAdditionalIncomeAmt>20000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>20000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>6150</TaxableIncomeAmt>
+      <TaxAmt>618</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>618</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>618</TaxLessCreditsAmt>
+      <TotalTaxAmt>618</TotalTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">2000</Form1099WithheldTaxAmt>
+      <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+      <OverpaidAmt>1382</OverpaidAmt>
+      <RefundAmt>1382</RefundAmt>
+      <RoutingTransitNum>021000021</RoutingTransitNum>
+      <BankAccountTypeCd>1</BankAccountTypeCd>
+      <DepositorAccountNum>04444</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>true</ThirdPartyDesigneeInd>
+      <ThirdPartyDesigneeNm>ALICECOOPER</ThirdPartyDesigneeNm>
+      <ThirdPartyDesigneePhoneNum>5185555555</ThirdPartyDesigneePhoneNum>
+      <ThirdPartyDesigneePIN>65432</ThirdPartyDesigneePIN>
+      <PrimaryOccupationTxt>UNEMPLOYED</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>20000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>20000</TotalAdditionalIncomeAmt>
+    </IRS1040Schedule1>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>002222222</EIN>
+        <WithholdingAmt>2000</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>
