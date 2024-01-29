@@ -191,5 +191,18 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(xml.at("tiPrime MAIL_LN_1_ADR").text).to eq('Suite 157')
       end
     end
+
+    context 'when zip code is longer than 5 chars' do
+      let(:filing_status) { 'single' }
+
+      it 'truncates to 5 chars' do
+        allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return('123456789')
+        xml = described_class.build(submission).document
+        expect(intake.direct_file_data.mailing_zip).to eq('123456789')
+        expect(intake.direct_file_data.mailing_zip.length).to eq(9)
+        expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text.length).to eq(5)
+        expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text).to eq('12345')
+      end
+    end
   end
 end

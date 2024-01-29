@@ -82,7 +82,7 @@ module SubmissionBuilder
                 end
                 xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city if @submission.data_source.direct_file_data.mailing_city.present?
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state if @submission.data_source.direct_file_data.mailing_state.present?
-                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
+                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.slice(0, 5) if @submission.data_source.direct_file_data.mailing_zip.present?
                 xml.COUNTY_CD @submission.data_source.county_code if @submission.data_source.county_code.present?
                 xml.COUNTY_NAME @submission.data_source.county_name&.truncate(20) if @submission.data_source.county_name.present?
                 xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment if @submission.data_source.permanent_apartment.present?
