@@ -75,6 +75,10 @@ class StateFileDependent < ApplicationRecord
     ask_senior_questions? && needed_assistance_yes?
   end
 
+  def is_hoh_qualifying_person?
+    relationship == 'PARENT' || (relationship != 'NONE' && (months_in_home || 0) >= 6)
+  end
+
   def under_17?
     age < 17
   end

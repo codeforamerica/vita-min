@@ -158,6 +158,8 @@ en:
         format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
+      hoh_qualifying_person_name:
+        blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
         inclusion: Please select an intake site.
       job_count:

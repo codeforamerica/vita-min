@@ -159,6 +159,8 @@ es:
         format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, ingrese un nombre.
+      hoh_qualifying_person_name:
+        blank: Verifica tus respuestas con respecto a cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con uno de estos dependientes durante al menos la mitad del año.
       intake_site:
         inclusion: Por favor, seleccione un sitio de admisión.
       job_count:

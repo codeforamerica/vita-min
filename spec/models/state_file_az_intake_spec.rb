@@ -229,6 +229,55 @@ describe StateFileAzIntake do
       expect(intake.qualifying_parents_and_grandparents).to eq(1)
     end
   end
+  
+  describe 'when the filer is head of household' do
+    context 'when the federal return has an hoh qualifying person' do
+      it 'returns the federal return data' do
+        intake = build(:state_file_az_intake, filing_status: "head_of_household", hoh_qualifying_person_name: "Name With Spaces")
+        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "Name"
+        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "With Spaces"
+      end
+    end
+
+    context 'when the federal return does not have an hoh qualifying person' do
+      it 'returns a dependent with a non-NONE relationship and the greatest months in home' do
+        intake = build(:state_file_az_intake, filing_status: "head_of_household")
+        create :az_hoh_qualifying_person_parent,
+               last_name: "TwelveMonths", months_in_home: 12, intake: intake
+        create :az_hoh_qualifying_person_nonparent,
+               last_name: "ElevenMonths", months_in_home: 11, intake: intake
+        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "Parent"
+        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "TwelveMonths"
+      end
+
+      it 'returns the youngest non-None dependent when the months in home are the same' do
+        intake = build(:state_file_az_intake, filing_status: "head_of_household")
+        create :az_hoh_qualifying_person_nonparent,
+               last_name: "Younger", intake: intake
+        create :az_hoh_qualifying_person_nonparent,
+               last_name: "Older", dob: StateFileDependent.senior_cutoff_date + 5.years, intake: intake
+        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "Nonparent"
+        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "Younger"
+      end
+
+      it 'returns the oldest parent if there are no non-Parents in home more than 6 months' do
+        intake = build(:state_file_az_intake, filing_status: "head_of_household")
+        create :az_hoh_qualifying_person_parent,
+               first_name: "OlderParent", dob: StateFileDependent.senior_cutoff_date + 1.years, intake: intake
+        create :az_hoh_qualifying_person_parent,
+               first_name: "YoungerParent", dob: StateFileDependent.senior_cutoff_date + 2.years, intake: intake
+        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "OlderParent"
+        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "Qualifying"
+      end
+
+      it 'returns nil if there are no dependents that meet the qualifying criteria' do
+        intake = build(:state_file_az_intake, filing_status: "head_of_household")
+        create :az_hoh_nonqualifying_person_nonparent, intake: intake
+        create :az_hoh_nonqualifying_person_none_relationship, intake: intake
+        expect(intake.hoh_qualifying_person_name).to eq nil
+      end
+    end
+  end
 
   describe 'ask_whether_incarcerated' do
     let(:intake) { create :state_file_az_intake }

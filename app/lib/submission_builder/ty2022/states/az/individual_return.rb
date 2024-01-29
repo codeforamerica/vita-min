@@ -53,6 +53,12 @@ module SubmissionBuilder
             xml_doc = build_xml_doc("Form140") do |xml|
               xml.LNPriorYrs @submission.data_source.prior_last_names
               xml.FilingStatus filing_status
+              if @submission.data_source.hoh_qualifying_person_name.present?
+                xml.QualChildDependentName do
+                  xml.FirstName @submission.data_source.hoh_qualifying_person_name[:first_name]
+                  xml.LastName @submission.data_source.hoh_qualifying_person_name[:last_name]
+                end
+              end
               xml.Exemptions do
                 xml.AgeExemp calculated_fields.fetch(:AZ140_LINE_8)
                 xml.VisionExemp calculated_fields.fetch(:AZ140_LINE_9)
