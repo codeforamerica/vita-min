@@ -3,7 +3,7 @@ require 'net/https'
 require 'uri'
 require 'jwt'
 require 'nokogiri'
-require 'state_file/xml_return_sample_service'
+require_relative 'state_file/xml_return_sample_service'
 
 class IrsApiService
   def self.df_return_sample
