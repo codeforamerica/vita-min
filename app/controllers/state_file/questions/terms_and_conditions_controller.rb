@@ -11,7 +11,6 @@ module StateFile
             end
           end
         end
-        # binding.pry
       end
     end
   end

@@ -6,8 +6,11 @@
 
   <h1 class="h2"><%= title %></h1>
 
-  <p><%= t(".email_text_update") %></p>
-
+  <% if Flipper.enabled?(:sms_notifications) %>
+    <p><%= t(".email_text_update") %></p>
+  <% else %>
+    <p><%= t(".email_update") %></p>
+  <% end %>
   <p>
     <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
   </p>
