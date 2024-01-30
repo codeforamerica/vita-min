@@ -2,6 +2,7 @@ module StateFile
   module Questions
     class VerificationCodeController < QuestionsController
       def edit
+        # TODO: Sending a code here feels icky. By convention, edit trigger mutations
         case current_intake.contact_preference
         when "text"
           RequestVerificationCodeTextMessageJob.perform_later(
@@ -31,26 +32,24 @@ module StateFile
           intake = current_intake
           existing_intake = get_existing_intake(intake)
           if existing_intake.present?
+            if intake.contact_preference == "email"
+              contact_info = intake.email_address
+            else
+              contact_info = intake.phone_number
+            end
+            hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(contact_info, @form.verification_code)
             @form.intake = existing_intake
             intake.destroy
-            session[:state_file_intake] = existing_intake.to_global_id
-            sign_in existing_intake
+            session[:state_file_intake] = existing_intake.id
+            redirect_to IntakeLoginsController.to_path_helper(action: :edit, id: hashed_verification_code, **{
+              us_state: params[:us_state]
+            })
+            return
           end
           @form.save
           after_update_success
           track_question_answer
-          target_path = next_path
-          if existing_intake.present?
-            target_controller = existing_intake.controller_for_current_step
-            flow = form_navigation.controllers
-            if flow.find_index(self.class) >= flow.find_index(target_controller)
-              target_path = path_for_step(target_controller)
-            end
-          end
-          if existing_intake.present?
-            session.delete(:state_file_intake)
-          end
-          redirect_to(target_path)
+          redirect_to(next_path)
         else
           after_update_failure
           track_validation_error

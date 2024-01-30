@@ -194,7 +194,7 @@ class StateFileBaseIntake < ApplicationRecord
   def increment_failed_attempts
     super
     if attempts_exceeded?
-      lock_access! unless access_locked?
+      lock_access! if locking_enabled? and !access_locked?
     end
   end
 
