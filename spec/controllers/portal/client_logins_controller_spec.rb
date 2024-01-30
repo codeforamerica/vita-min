@@ -167,6 +167,43 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
     end
 
+    context "with a magic code" do
+      let(:email_address) { "example@example.com" }
+      let(:verification_code) { "000000" }
+      let(:hashed_verification_code) { "hashed_verification_code" }
+      let(:params) { { portal_verification_code_form: {
+        contact_info: email_address,
+        verification_code: verification_code
+      }}}
+      before do
+        EmailAccessToken.generate!(email_address: email_address)
+      end
+
+      context "with magic verification codes allowed" do
+        before do
+          allow(Rails.configuration).to receive(:allow_magic_verification_code).and_return(true)
+        end
+        it "allows access" do
+          post :check_verification_code, params: params
+          # The token was updated...
+          hashed_000000 = "7a427d84b0efea39b117413ab2f9ee0a166a729277655a85672416f4d58c91fd"
+          expect(EmailAccessToken.last.token).to eq hashed_000000
+        end
+      end
+
+      context "with magic verification codes not allowed" do
+        before do
+          allow(Rails.configuration).to receive(:allow_magic_verification_code).and_return(false)
+        end
+        it "does not allow access" do
+          post :check_verification_code, params: params
+          # The token was not updated...
+          hashed_000000 = "7a427d84b0efea39b117413ab2f9ee0a166a729277655a85672416f4d58c91fd"
+          expect(EmailAccessToken.last.token).not_to eq hashed_000000
+        end
+      end
+    end
+
     context "with invalid params" do
       context "with clients matching the contact info but invalid verification code" do
         let(:email_address) { "example@example.com" }
