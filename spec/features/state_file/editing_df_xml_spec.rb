@@ -6,6 +6,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+    Flipper.enable :sms_notifications
   end
 
   it "does not modify the df xml if nothing was changed" do
