@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>888001234</PrimarySSN>
+      <SpouseSSN>888005678</SpouseSSN>
+      <NameLine1Txt>JOHN &amp; JANE&lt;TEST</NameLine1Txt>
+      <PrimaryNameControlTxt>TEST</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>TEST</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>10 Teting Lane</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12205</ZIPCd>
+      </USAddress>
+      <PhoneNum>5184532562</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test034@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">22805</WagesAmt>
+      <WagesSalariesAndTipsAmt>22805</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>22805</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>22805</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <EarnedIncomeCreditAmt>106</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>106</RefundableCreditsAmt>
+      <TotalPaymentsAmt>106</TotalPaymentsAmt>
+      <OverpaidAmt>106</OverpaidAmt>
+      <RefundAmt>106</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>tester</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>tester</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>888001234</EmployeeSSN>
+      <EmployerEIN>008009876</EmployerEIN>
+      <EmployerNameControlTxt>TEST</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>testingdepot</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>10 testing lane</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12205</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>JohnTest</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>10 Teting Lane</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12205</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>22805</WagesAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414H</Desc>
+        <Amt>500</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>008009876</EmployerStateIdNum>
+          <StateWagesAmt>22805</StateWagesAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

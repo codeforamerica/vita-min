@@ -1,10 +1,11 @@
-<% content_for :page_title, t('.title') %>
+<% content_for :page_title, t('.title1') %>
 
 <% content_for :card do %>
   <p><%= t('.title1') %></p>
   <p><%= t('.title2') %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
+    </br>
     <div class="blue-group">
       <p>
         <% if f.object.ask_primary_dob? %>
@@ -49,6 +50,14 @@
         <% end %>
       </div>
     <% end %>
+
+    <% if @form.errors.include? :hoh_qualifying_person_name %>
+      <span class="text--error" id="hoh_qualifying_person__errors">
+        <i class="icon-warning"></i>
+<!--        This is gross, figure out a better way to set and get only one error for a key -->
+        <%= @form.errors[:hoh_qualifying_person_name][0] %>
+      </span>
+    <%end%>
 
     <% asked_months = false %>
     <%= f.fields_for :dependents do |ff| %>

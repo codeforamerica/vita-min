@@ -17,7 +17,7 @@ module SubmissionBuilder
     def determine_default_schema_version_by_tax_year
       case @submission.tax_return&.year || @submission.data_source&.tax_return_year
       when 2023
-        "2023v3.0"
+        "2023v5.0"
       when 2022
         "2022v5.3"
       when 2021
@@ -47,6 +47,8 @@ module SubmissionBuilder
 
     private
 
+    COMMON_ADDRESS_ABBREV = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].freeze
+
     def build_xml_doc(tag_name, **root_node_attributes)
       default_attributes = { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
       xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
@@ -62,6 +64,51 @@ module SubmissionBuilder
       if claimed_value.present? && claimed_value.to_i != 0
         xml.send(elem_name, claimed: claimed_value)
       end
+    end
+
+    def process_mailing_street(xml)
+      return unless @submission.data_source.direct_file_data.mailing_street.present?
+
+      mailing_street = @submission.data_source.direct_file_data.mailing_street
+
+      if mailing_street.length > 30
+        process_long_mailing_street(xml, mailing_street)
+      else
+        xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.MAIL_LN_2_ADR mailing_street
+      end
+    end
+
+    def process_long_mailing_street(xml, mailing_street)
+      key_found = COMMON_ADDRESS_ABBREV.any? do |key|
+        mailing_street.include?(key)
+      end
+
+      if key_found
+        key_position = mailing_street.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
+        truncated_mailing_street = mailing_street[0, key_position].rstrip
+        excess_characters = mailing_street[key_position..].lstrip
+      else
+        truncated_mailing_street = mailing_street[0, 30].rpartition(' ').first
+        excess_characters = mailing_street[truncated_mailing_street.length + 1..]
+      end
+
+      process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+    end
+
+    def process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+      if @submission.data_source.direct_file_data.mailing_apartment.present?
+        apartment = @submission.data_source.direct_file_data.mailing_apartment
+        if apartment.length + excess_characters.length > 30
+          truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
+          xml.MAIL_LN_1_ADR excess_characters + " " + truncated_apartment
+        else
+          xml.MAIL_LN_1_ADR excess_characters + " " + apartment
+        end
+      else
+        xml.MAIL_LN_1_ADR excess_characters
+      end
+      xml.MAIL_LN_2_ADR truncated_mailing_street
     end
   end
 end

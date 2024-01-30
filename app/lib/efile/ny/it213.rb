@@ -180,7 +180,7 @@ module Efile
       end
 
       def calculate_worksheet_a_line_9
-        @direct_file_data.fed_tax
+        @direct_file_data.fed_tax || 0
       end
 
       def calculate_worksheet_a_line_10

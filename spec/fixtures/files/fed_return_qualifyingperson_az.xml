@@ -13,8 +13,8 @@
       <USAddress>
         <AddressLine1Txt>1 Dublin St</AddressLine1Txt>
         <CityNm>Brooklyn</CityNm>
-        <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>11221</ZIPCd>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85005</ZIPCd>
       </USAddress>
       <PhoneNum>7185555555</PhoneNum>
     </Filer>
@@ -113,15 +113,10 @@
       <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
           <EmployerStateIdNum>878787878</EmployerStateIdNum>
           <StateWagesAmt>30000</StateWagesAmt>
           <StateIncomeTaxAmt>1500</StateIncomeTaxAmt>
-          <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>30000</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>500</LocalIncomeTaxAmt>
-            <LocalityNm>NYC</LocalityNm>
-          </W2LocalTaxGrp>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>

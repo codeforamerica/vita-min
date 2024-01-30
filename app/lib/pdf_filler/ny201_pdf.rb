@@ -40,7 +40,7 @@ module PdfFiller
         NYS_county_residence: @submission.data_source.county_name,
         TP_mail_city: @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
         TP_mail_state: @xml_document.at('tiPrime MAIL_STATE_ADR')&.text,
-        TP_mail_zip: @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text,
+        TP_mail_zip: @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text&.slice(0, 5),
         TP_mail_country: 'United States',
         TP_home_address: @xml_document.at('tiPrime PERM_LN_2_ADR')&.text,
         TP_home_apt: @xml_document.at('tiPrime PERM_LN_1_ADR')&.text,

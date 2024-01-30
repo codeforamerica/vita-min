@@ -5,9 +5,9 @@
 #  id                :bigint           not null, primary key
 #  ctc_qualifying    :boolean
 #  dob               :date
-#  eic_disability    :boolean
+#  eic_disability    :integer          default("unfilled")
 #  eic_qualifying    :boolean
-#  eic_student       :boolean
+#  eic_student       :integer          default("unfilled")
 #  first_name        :string
 #  intake_type       :string           not null
 #  last_name         :string
@@ -54,6 +54,39 @@ FactoryBot.define do
       needed_assistance { "no" }
       months_in_home { 12 }
       relationship { "PARENT" }
+    end
+
+    factory :az_hoh_qualifying_person_nonparent do
+      dob { StateFileDependent.senior_cutoff_date + 10.years }
+      first_name { "Nonparent" }
+      last_name { "Qualifying" }
+      months_in_home { 12 }
+      relationship { "DAUGHTER" }
+    end
+
+
+    factory :az_hoh_qualifying_person_parent do
+      dob { StateFileDependent.senior_cutoff_date + 1.years }
+      first_name { "Parent" }
+      last_name { "Qualifying" }
+      months_in_home { 0 }
+      relationship { "PARENT" }
+    end
+
+    factory :az_hoh_nonqualifying_person_nonparent do
+      dob { StateFileDependent.senior_cutoff_date + 5.years }
+      first_name { "Nonparent" }
+      last_name { "Nonqualifying" }
+      months_in_home { 5 }
+      relationship { "DAUGHTER" }
+    end
+
+    factory :az_hoh_nonqualifying_person_none_relationship do
+      dob { StateFileDependent.senior_cutoff_date + 20.years }
+      first_name { "NoneRelationship" }
+      last_name { "Nonqualifying" }
+      months_in_home { 12 }
+      relationship { "NONE" }
     end
   end
 end

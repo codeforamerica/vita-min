@@ -32,7 +32,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # name dob page
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
@@ -140,7 +140,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
-      expect(page).to have_text("I have examined the information on my 2023 New York State electronic personal income tax return")
+      expect(page).to have_text("I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return")
       check "state_file_esign_declaration_form_primary_esigned"
       check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
@@ -190,7 +190,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
@@ -274,7 +274,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
-      choose I18n.t("state_file.questions.tax_refund.edit.mail")
+      choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
+      fill_in "state_file_tax_refund_form_bank_name", with: "bank name"
+      choose "Checking"
+      fill_in "state_file_tax_refund_form_routing_number", with: "111111111"
+      fill_in "state_file_tax_refund_form_routing_number_confirmation", with: "111111111"
+      fill_in "state_file_tax_refund_form_account_number", with: "2222222222"
+      fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))

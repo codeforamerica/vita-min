@@ -7,7 +7,7 @@ class CreateDriversLicense < ActiveRecord::Migration[6.1]
       t.date :issue_date, null: false
       t.date :expiration_date, null: false
     end
-    add_reference :intakes, :primary_drivers_license, references: :drivers_license
-    add_reference :intakes, :spouse_drivers_license, references: :drivers_license
+    add_reference :intakes, :primary_drivers_license, foreign_key: {to_table: :drivers_licenses}
+    add_reference :intakes, :spouse_drivers_license, foreign_key: {to_table: :drivers_licenses}
   end
 end

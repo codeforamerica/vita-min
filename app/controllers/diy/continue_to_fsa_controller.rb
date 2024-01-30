@@ -11,6 +11,7 @@ module Diy
     end
 
     def click_fsa_link
+      # We switched to a hardcoded link for now
       diy_intake = DiyIntake.find(session[:diy_intake_id])
       treatment = ExperimentParticipant.find_by(
         experiment: Experiment.find_by(key: ExperimentService::DIY_SUPPORT_LEVEL_EXPERIMENT),

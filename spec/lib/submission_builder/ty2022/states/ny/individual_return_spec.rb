@@ -55,6 +55,29 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
+    context "numbers that should be omitted if zero" do
+      let(:intake) { create(:state_file_ny_intake) }
+
+      before do
+        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 0
+        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_63).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_65).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69).and_return 0
+        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69a).and_return 0
+      end
+
+      it "omits the tag from the xml" do
+        xml = described_class.build(submission).document
+        expect(xml.at("IT215 E_EITC_CR_AMT")).to be_nil
+        expect(xml.at("IT215 E_NYC_EITC_CR_AMT")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_63")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_65")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_69")).to be_nil
+        expect(xml.at("IT215 IT201_LINE_69A")).to be_nil
+      end
+    end
+
     context "when claiming the federal CTC and ODC" do
       let(:intake) { create(:state_file_zeus_intake) }
 
@@ -110,6 +133,75 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
           d.pdf == PdfFiller::AdditionalDependentsPdf
         end
         expect(additional_dependents.present?).to eq true
+      end
+
+      context "it-213" do
+        context "when there are more than 6 dependents who qualify for the ctc" do
+          before do
+            intake.dependents.each_with_index do |dependent, i|
+              dependent.update(dob: i.years.ago, relationship: "daughter", ctc_qualifying: true)
+            end
+          end
+
+          it "fills in and attaches the it-213-att" do
+            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+            additional_dependents = submission_builder.pdf_documents.select do |d|
+              d.pdf == PdfFiller::Ny213AttPdf
+            end
+            expect(additional_dependents.present?).to eq true
+          end
+        end
+
+        context "when there are not more than 6 dependents who qualify for the ctc" do
+          it "does not attach the it-213-att" do
+            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+            additional_dependents = submission_builder.pdf_documents.select do |d|
+              d.pdf == PdfFiller::Ny213AttPdf
+            end
+            expect(additional_dependents).not_to be_present
+          end
+        end
+      end
+    end
+
+    context "when address is longer than 30 characters" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR POBOX #157'
+      end
+      it 'truncates under 30 characters' do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime MAIL_LN_2_ADR").text.length).to be <= 30
+        expect(xml.at("tiPrime MAIL_LN_2_ADR").text).to eq('211212 SUBDIVISION DR POBOX')
+        expect(xml.at("tiPrime MAIL_LN_1_ADR").text).to eq('#157')
+      end
+    end
+
+    context "when address is longer than 30 characters with a key word" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR Suite 157'
+      end
+      it 'truncates before the key word' do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime MAIL_LN_2_ADR").text.length).to be <= 30
+        expect(xml.at("tiPrime MAIL_LN_2_ADR").text).to eq('211212 SUBDIVISION DR')
+        expect(xml.at("tiPrime MAIL_LN_1_ADR").text).to eq('Suite 157')
+      end
+    end
+
+    context 'when zip code is longer than 5 chars' do
+      let(:filing_status) { 'single' }
+
+      it 'truncates to 5 chars' do
+        allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return('123456789')
+        xml = described_class.build(submission).document
+        expect(intake.direct_file_data.mailing_zip).to eq('123456789')
+        expect(intake.direct_file_data.mailing_zip.length).to eq(9)
+        expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text.length).to eq(5)
+        expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text).to eq('12345')
       end
     end
   end

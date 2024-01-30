@@ -27,6 +27,7 @@
 #  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  hashed_ssn                            :string
+#  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locked_at                             :datetime
@@ -49,6 +50,7 @@
 #  spouse_first_name                     :string
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
+#  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
 #  was_incarcerated                      :integer          default("unfilled"), not null
@@ -72,6 +74,7 @@ FactoryBot.define do
   factory :state_file_az_intake do
     transient do
       filing_status { 'single' }
+      hoh_qualifying_person_name { '' }
     end
 
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
@@ -87,6 +90,7 @@ FactoryBot.define do
         qualifying_widow: 5,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
+      intake.direct_file_data.hoh_qualifying_person_name = evaluator.hoh_qualifying_person_name
       intake.direct_file_data.fed_agi = 120000
       intake.direct_file_data.fed_w2_state = "AZ"
       intake.raw_direct_file_data = intake.direct_file_data.to_s
@@ -96,6 +100,9 @@ FactoryBot.define do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
       end
     end
 
@@ -103,6 +110,11 @@ FactoryBot.define do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 120000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.account_type = "checking"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+        intake.date_electronic_withdrawal = Date.new(2024, 4, 15)
+        intake.withdraw_amount = 5
       end
     end
 

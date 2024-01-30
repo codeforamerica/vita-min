@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>900500012</PrimarySSN>
+      <SpouseSSN>400000014</SpouseSSN>
+      <NameLine1Txt>ROBIN &amp; JAY&lt;PILOT</NameLine1Txt>
+      <PrimaryNameControlTxt>PILO</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>PILO</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1500 N Main St</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86004</ZIPCd>
+      </USAddress>
+      <PhoneNum>4085558765</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test012@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseNm>Robin Pilot</SpouseNm>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <ExemptSpouseNm>Robin Pilot</ExemptSpouseNm>
+      <ExemptSpouseNameControlTxt>PILO</ExemptSpouseNameControlTxt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Sparrow</DependentFirstNm>
+        <DependentLastNm>Pilot</DependentLastNm>
+        <DependentNameControlTxt>PILO</DependentNameControlTxt>
+        <DependentSSN>300000019</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Crane</DependentFirstNm>
+        <DependentLastNm>Pilot</DependentLastNm>
+        <DependentNameControlTxt>PILO</DependentNameControlTxt>
+        <DependentSSN>300000020</DependentSSN>
+        <DependentRelationshipCd>STEPCHILD</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Penguin</DependentFirstNm>
+        <DependentLastNm>Pilot</DependentLastNm>
+        <DependentNameControlTxt>PILO</DependentNameControlTxt>
+        <DependentSSN>300000021</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>5</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">24000</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>24000</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>24000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>24000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">0</EarnedIncomeCreditAmt>
+      <EICEligibilityLiteralCd>NO</EICEligibilityLiteralCd>
+      <RefundableCreditsAmt>3225</RefundableCreditsAmt>
+      <TotalPaymentsAmt>6225</TotalPaymentsAmt>
+      <OverpaidAmt>6225</OverpaidAmt>
+      <RefundAmt>6225</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Flight Attendant</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Bird watcher</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>24000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>24000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>6000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <OtherDependentCreditAmt>0</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>6000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>6000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>6000</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>4800</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>4800</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>24000</TotalEarnedIncomeAmt>
+        <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>21500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>3225</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>true</ThreeOrMoreQlfyChildrenInd>
+        <FromW2Amt>1836</FromW2Amt>
+        <CalcFromW2AndReturnAmt>1836</CalcFromW2AndReturnAmt>
+        <CalcAmtFromRetPlusTaxWhldAmt>0</CalcAmtFromRetPlusTaxWhldAmt>
+        <CalculatedDifferenceAmt>1836</CalculatedDifferenceAmt>
+        <LargerCalcIncomeOrDiffAmt>3225</LargerCalcIncomeOrDiffAmt>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>3225</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>PILO</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Sparrow</PersonFirstNm>
+          <PersonLastNm>Pilot</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000019</QualifyingChildSSN>
+        <ChildBirthYr>2018</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>PILO</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Penguin</PersonFirstNm>
+          <PersonLastNm>Pilot</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000021</QualifyingChildSSN>
+        <ChildBirthYr>2020</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>PILO</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Crane</PersonFirstNm>
+          <PersonLastNm>Pilot</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000020</QualifyingChildSSN>
+        <ChildBirthYr>2019</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>false</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>STEPCHILD</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000014</EmployeeSSN>
+      <EmployerEIN>678912345</EmployerEIN>
+      <EmployerNameControlTxt>PARR</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Parrot Airlines</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Jay Pilot</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1500 N Main St</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86004</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>24000</WagesAmt>
+      <WithholdingAmt>3000</WithholdingAmt>
+      <SocialSecurityWagesAmt>24000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1488</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>24000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>348</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <EmployersUseGrp>
+        <EmployersUseCd>Q</EmployersUseCd>
+        <EmployersUseAmt>0</EmployersUseAmt>
+      </EmployersUseGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>24000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

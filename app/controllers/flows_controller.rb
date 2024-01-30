@@ -573,7 +573,10 @@ class FlowsController < ApplicationController
         spouse_esigned_at: 1.minute.ago,
         raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         payment_or_deposit_type: "mail",
+        bank_name: 'bank name',
         account_type: 'unfilled',
+        routing_number: '111111111',
+        account_number: '2222222222',
         current_step: "/en/questions/confirmation",
         eligibility_lived_in_state: "yes",
         eligibility_out_of_state_income: "no",
@@ -645,7 +648,9 @@ class FlowsController < ApplicationController
         prior_last_names: "Jordan, Pippen, Rodman",
         tribal_member: "yes",
         tribal_wages: 100,
-        was_incarcerated: "no"
+        was_incarcerated: "no",
+        household_excise_credit_claimed: "no",
+        ssn_no_employment: "no"
       )
     end
 

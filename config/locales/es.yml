@@ -89,7 +89,7 @@ es:
     file_yourself:
       edit:
         info:
-        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $73,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
+        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $79,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
         received_1099:
           help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
@@ -159,6 +159,8 @@ es:
         format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, ingrese un nombre.
+      hoh_qualifying_person_name:
+        blank: Verifica tus respuestas con respecto a cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con uno de estos dependientes durante al menos la mitad del año.
       intake_site:
         inclusion: Por favor, seleccione un sitio de admisión.
       job_count:
@@ -1758,7 +1760,7 @@ es:
         description: Declare rápidamente por su cuenta.
         list:
           file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $73,000'
+          income: 'Ingresos: menos de $79,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
@@ -1777,7 +1779,7 @@ es:
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Nuestro servicio gratuito está disponible para hogares que ganan menos de $73,000 al año.
+        help_text: Nuestro servicio gratuito está disponible para hogares que ganan menos de $79,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
@@ -1819,9 +1821,9 @@ es:
             12500_to_25000: De $12,500 a 25,000 dólares
             1_to_12500: De $1 a 12,500 dólares
             25000_to_40000: De $25,000 a 40,000 dólares
-            40000_to_65000: De $40,000 a 65,000 dólares
-            65000_to_73000: De $65,000 a 73,000 dólares
-            over_73000: más de $73,000
+            40000_to_66000: De $40,000 a 66,000 dólares
+            66000_to_79000: De $66,000 a 79,000 dólares
+            over_79000: más de $79,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -1845,19 +1847,20 @@ es:
         edit:
           az:
             body_html: |
-              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete. I further declare that the amounts of Arizona adjusted gross income, total tax, Arizona income tax withheld, and refund (or amount owed) listed above are the amounts shown on the copy of my electronic Arizona income tax return.</p>
+              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
               <ul class="list--bulleted">
-                <li>I consent that my refund be directly deposited as designated in the electronic portion of my 2022 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
-                <li>6b I do not want direct deposit of my refund or I am not receiving a refund.</li>
-                <li>6c I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
+                <li>If I am owed a refund and I provided direct deposit information, I consent that my refund be directly deposited as designated in the electronic portion of my 2022 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
+                <li>If I am not owed a refund or if I elected to receive my refund via mailed check, I do not want direct deposit of my refund or I am not receiving a refund.</li>
+                <li>If I owe tax and I provided direct debit information, I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
               </ul>
-              <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 18, 2023, I will remain liable for the tax liability and all applicable interest and penalties. When electronically filing my federal and state tax returns, I understand that if there is an error on my federal return, my state return will also be rejected.</p>
+              <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 18, 2023, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
-              <p>I authorize (ELECTRONIC RETURN ORIGINATOR) to make the election that I want my electronic signature to my electronic federal individual income tax return to serve as my signature to my electronic Arizona individual income tax return for the year ending December 31, 2022. I understand that when my ERO makes the election that my electronic signature to my federal individual income tax return will serve as my signature to my Arizona individual income tax return, I will have signed my Arizona individual income tax return and declared under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+              <p>I authorize FileYourStateTaxes to make the election that I want my electronic signature to my electronic federal individual income tax return to serve as my signature to my electronic Arizona individual income tax return for the year ending December 31, 2023. I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
           ny:
             body_html: |
-              <p>By checking the box shown below, I declare, under penalty of perjury, that I have examined the information on my 2023 New York State electronic personal income tax return, including any accompanying schedules, attachments, and statements, and certify that my electronic return is true, correct, and complete.</p>
-              <p>If I am paying my New York State personal income taxes owed by electronic funds withdrawal, I authorize the New York State Tax Department and its designated financial agents to initiate an electronic funds withdrawal from the financial institution account indicated on my 2023 electronic return, and I authorize my financial institution to debit the entry to my account. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than five (5) business days prior to the payment date.</p>
+              <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
+              <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
+              <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
       ny_sales_use_tax:
         edit:
           use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
@@ -1917,7 +1920,7 @@ es:
     with_code:
       body_html: |
         <p>¡Hola!</p>
-        <p>Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.</p>
+        <p>Su código de verificación de 6 dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará en dos días.</p>
         <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
         <p>Su equipo de impuestos de %{service_name}.org</p>
       body_text: |
@@ -3909,7 +3912,8 @@ es:
       email_address:
         email_address: Dirección de correo electrónico
         email_address_confirmation: Confirmar correo electrónico
-        info: Se requiere un correo electrónico para la firma final en su declaración de impuestos.
+        info: Tendremos que comunicarnos con preguntas y actualizaciones. ¡Proporcione la dirección de correo electrónico que mejor funcione para comunicarnos con usted! Se requiere un correo electrónico para la firma final de su declaración de impuestos.
+        legal_info_html: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Consulte nuestra <a href="%{url}" target="_blank" rel="noopener">Política de Privacidad</a> para obtener más información.
         title: Por favor comparte tu dirección de correo electrónico.
       energy_efficient_purchases:
         help_text: Por ejemplo, ventanas, hornos, aislamientos, etc.
@@ -4368,7 +4372,7 @@ es:
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
-          diy: menos de $73,000
+          diy: menos de $79,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)

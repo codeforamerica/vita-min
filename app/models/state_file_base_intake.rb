@@ -144,7 +144,11 @@ class StateFileBaseIntake < ApplicationRecord
     end
 
     def has_itin?
-      @ssn.start_with?("9")
+      starts_with_9 = @ssn.start_with?('9')
+      digits_4_and_5 = @ssn[3, 2].to_i
+
+      in_valid_range = (50..65).include?(digits_4_and_5) || (70..88).include?(digits_4_and_5) || (90..92).include?(digits_4_and_5) || (94..99).include?(digits_4_and_5)
+      starts_with_9 && in_valid_range
     end
   end
 

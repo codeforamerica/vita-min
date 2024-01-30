@@ -27,6 +27,7 @@
 #  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  hashed_ssn                            :string
+#  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locked_at                             :datetime
@@ -49,6 +50,7 @@
 #  spouse_first_name                     :string
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
+#  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
 #  was_incarcerated                      :integer          default("unfilled"), not null
@@ -71,6 +73,8 @@ class StateFileAzIntake < StateFileBaseIntake
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
+  enum ssn_no_employment: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ssn_no_employment
+  enum household_excise_credit_claimed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_excise_credit_claimed
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
@@ -155,11 +159,57 @@ class StateFileAzIntake < StateFileBaseIntake
   def ask_whether_incarcerated?
     has_valid_ssn = primary.ssn.present? && !primary.has_itin?
     has_valid_agi = direct_file_data.fed_agi <= (filing_status_mfj? || filing_status_hoh? ? 25_000 : 12_500)
-    has_valid_ssn && has_valid_agi
+    if filing_status_mfj?
+      spouse_has_valid_ssn = spouse.ssn.present? && !spouse.has_itin?
+      has_valid_ssn && has_valid_agi && spouse_has_valid_ssn
+    else
+      has_valid_ssn && has_valid_agi
+    end
+  end
+
+  def qualified_for_excise_credit?
+    was_incarcerated_no? && ssn_no_employment_no? && household_excise_credit_claimed_no?
   end
 
   def filing_status
     return :head_of_household if direct_file_data&.filing_status == 5 # Treat qualifying_widow as hoh
     super
+  end
+
+  def requires_hoh_qualifying_person_name?
+    filing_status == :head_of_household
+  end
+
+  def hoh_qualifying_person_name
+    return unless requires_hoh_qualifying_person_name?
+
+    if direct_file_data&.hoh_qualifying_person_name.present?
+      # Federal data is an unstructured string - split on first space and everything in the second group goes to last name
+      names = direct_file_data.hoh_qualifying_person_name.split(/ /, 2)
+      return {
+        :first_name => names[0],
+        :last_name => names[1]
+      }
+    end
+
+    # This is fallback logic in case the data is not given in the federal return
+    hoh_qualifying_dependents = self.dependents.select(&:is_hoh_qualifying_person?)
+    unless hoh_qualifying_dependents.empty?
+      six_plus_months_in_home = hoh_qualifying_dependents.reject { |dependent|
+        dependent[:months_in_home] < 6
+      }
+      hoh_qualifying_dependent = six_plus_months_in_home.max_by { |dependent|
+        [dependent[:months_in_home], -dependent.age]
+      }
+      if hoh_qualifying_dependent.nil?
+        hoh_qualifying_dependent = hoh_qualifying_dependents.select { |dependent|
+          dependent[:relationship] == "PARENT"
+        }.max_by(&:age)
+      end
+      {
+        :first_name => hoh_qualifying_dependent.first_name,
+        :last_name => hoh_qualifying_dependent.last_name
+      }
+    end
   end
 end

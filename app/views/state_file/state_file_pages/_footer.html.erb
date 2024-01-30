@@ -5,12 +5,9 @@
         <p>
           <%= image_tag("fyst-logo.svg", alt: "FileYourStateTaxes", title: "FileYourStateTaxes", class_names: "fyst-logo") %>
         </p>
+
         <p>
-          <% if ['az', 'ny'].include?(params[:us_state]) %>
-            <%= t('.state_file_with_state_description_html', state_name_pair: t(".state_name_pair.#{params[:us_state]}")) %>
-          <% else %>
-            <%=t('.state_file_description_html') %>
-          <% end %>
+          <%=t('.state_file_description_html') %>
         </p>
       </div>
 
@@ -18,27 +15,23 @@
       <ul class="grid__item width-one-fourth footer-links">
         <% unless before_state_file_launch? %>
           <li>
-            <% if I18n.locale != :en %>
-              <%= link_to_english %>
-            <% end %>
-            <% if I18n.locale != :es %>
-              <%= link_to_spanish %>
-            <% end %>
+            <%= link_to t(".privacy_policy"), state_file_privacy_policy_path %>
           </li>
 
-          <li>
-            <%= link_to "https://www.getyourrefundstatus.org/" do %>
-              <%= t("views.shared.footer.service_status") %>
-            <% end %>
-          </li>
+          <li><%= link_to t(".about"), root_path %></li>
 
-          <li>
-            <%= link_to "privacy-policy" do %>
-              <%= t("state_file.state_file_pages.privacy_policy.header") %>
-            <% end %>
-          </li>
+          <% faq_link = params[:us_state].present? ? state_faq_path(us_state: params[:us_state]) : root_path(anchor: "common_questions")  %>
+          <li><%= link_to t(".faq"), faq_link %></li>
+
+          <li><%= link_to t(".terms_of_service"), "" %></li>
 
           <% unless Rails.env.production? %>
+            <li class="spacing-above-60">
+              <%= link_to "https://www.getyourrefundstatus.org/" do %>
+                <%= t("views.shared.footer.service_status") %>
+              <% end %>
+            </li>
+
             <li><%= link_to "Flow explorer", flows_path %></li>
 
             <li>

@@ -39,6 +39,12 @@ RSpec.describe StateFile::NameDobForm do
     }
   end
 
+  def params_with_values_from_intake(params, intake)
+    params[:dependents_attributes][:"0"][:months_in_home] = intake.dependents[0].months_in_home
+    params[:dependents_attributes][:"1"][:months_in_home] = intake.dependents[1].months_in_home
+    params
+  end
+
   describe "#valid?" do
     context "without a primary first name or last name" do
       let(:intake) { build(:state_file_az_intake) }
@@ -216,6 +222,58 @@ RSpec.describe StateFile::NameDobForm do
           form = described_class.new(intake, valid_params)
           expect(form).to be_valid
           form.save
+        end
+      end
+    end
+
+    context "when the federal return does not have an hoh qualifying person" do
+      context "when the filer is head of household" do
+
+        context "when there is a dependent with a non-NONE relationship and 6 or more months in home" do
+          let!(:intake) { create :state_file_az_intake, filing_status: 'head_of_household', dependents: [create(:az_hoh_qualifying_person_nonparent), create(:az_hoh_nonqualifying_person_nonparent)] }
+
+          it "is valid" do
+            form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+            expect(form).to be_valid
+          end
+        end
+
+        context "when there is a PARENT dependent with any number of months in home" do
+          let!(:intake) { create :state_file_az_intake, filing_status: 'head_of_household', dependents: [create(:az_hoh_qualifying_person_parent), create(:az_hoh_nonqualifying_person_nonparent)] }
+
+          it "is valid" do
+            form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+            expect(form).to be_valid
+          end
+        end
+
+        context "when dependents are all non-PARENT relationship type or fewer than 6 months in home" do
+          let!(:intake) { create :state_file_az_intake, filing_status: 'head_of_household', dependents: [create(:az_hoh_nonqualifying_person_nonparent), create(:az_hoh_nonqualifying_person_none_relationship)] }
+
+          it "is not valid" do
+            form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+            expect(form).not_to be_valid
+            expect(form.errors[:hoh_qualifying_person_name]).to be_present
+          end
+        end
+      end
+
+      context "when the filer is qualifying surviving spouse/qualifying widow without a valid household member" do
+        let!(:intake) { create :state_file_az_intake, filing_status: "5", dependents: [create(:az_hoh_nonqualifying_person_nonparent), create(:az_hoh_nonqualifying_person_none_relationship)] }
+
+        it "is not valid" do
+          form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+          expect(form).not_to be_valid
+          expect(form.errors[:hoh_qualifying_person_name]).to be_present
+        end
+      end
+
+      context "when the filer is not HOH or QSS without a valid household member" do
+        let!(:intake) { create :state_file_az_intake, filing_status: "1", dependents: [create(:az_hoh_nonqualifying_person_nonparent), create(:az_hoh_nonqualifying_person_none_relationship)] }
+
+        it "is valid" do
+          form = described_class.new(intake, params_with_values_from_intake(valid_params, intake))
+          expect(form).to be_valid
         end
       end
     end

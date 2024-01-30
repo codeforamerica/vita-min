@@ -9,9 +9,5 @@
     <div class="spacing-above-35"><%= link_to t(".faq"), state_faq_path %></div>
   </div>
 
-  <%= link_to @link.to_s, class: "button button--primary button--icon", id: "firstCta" do %>
-    <%= image_tag("icons/link-white.svg", alt: "") %>
-
-    <%= t("state_file.questions.initiate_data_transfer.edit.button") %>
-  <% end %>
+  <%= render "state_file/questions/initiate_data_transfer/data_transfer_buttons" %>
 <% end %>

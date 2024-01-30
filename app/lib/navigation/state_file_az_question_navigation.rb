@@ -28,7 +28,7 @@ module Navigation
       StateFile::Questions::UnemploymentController,
       StateFile::Questions::AzStateCreditsController,
       StateFile::Questions::AzCharitableContributionsController,
-      StateFile::Questions::AzIncarceratedController,
+      StateFile::Questions::AzExciseCreditController,
       StateFile::Questions::AzPrimaryStateIdController,
       StateFile::Questions::AzSpouseStateIdController,
       StateFile::Questions::AzReviewController,
