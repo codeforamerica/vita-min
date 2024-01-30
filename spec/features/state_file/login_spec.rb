@@ -23,6 +23,7 @@ RSpec.feature "Logging in with an existing account" do
     # mock case for wrong code
     allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, "999999").and_return("hashed_wrong_verification_code")
     allow(TwilioService).to receive(:send_text_message)
+    Flipper.enable :sms_notifications
   end
 
   scenario "signing in with phone number" do
