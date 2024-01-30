@@ -2343,8 +2343,8 @@ en:
           show_xml: Show XML
         pending:
           more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
-          receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           receive_email: You'll receive an email update when your state tax return is accepted.
+          receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           title: You have submitted your 2023 %{state_name} tax return, and it is still waiting to be accepted.
         rejected:
           contact_us: Contact our team of Support Specialists by clicking chat with us.
