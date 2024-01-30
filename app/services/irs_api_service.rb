@@ -11,16 +11,14 @@ class IrsApiService
   end
 
   def self.import_federal_data(authorization_code, state_code)
-    unless Rails.env.production?
-      matching_fake_xml_sample = StateFile::XmlReturnSampleService.new.lookup(authorization_code)
-      return
-      if matching_fake_xml_sample
-        return {
-          'xml' => matching_fake_xml_sample.read,
-          'submissionId' => "12345202201011234570",
-          'status' => "accepted"
-        }
-      end
+    matching_fake_xml_sample = StateFile::XmlReturnSampleService.new.lookup(authorization_code)
+    return
+    if matching_fake_xml_sample
+      return {
+        'xml' => matching_fake_xml_sample.read,
+        'submissionId' => "12345202201011234570",
+        'status' => "accepted"
+      }
     end
 
     account_id = EnvironmentCredentials.dig('statefile', state_code, "account_id")
@@ -58,7 +56,7 @@ class IrsApiService
     end
 
     request = Net::HTTP::Get.new(server_url.request_uri)
-    request.initialize_http_header({'Authorization' => "Bearer #{token}"})
+    request.initialize_http_header({ 'Authorization' => "Bearer #{token}" })
 
     response = http.request(request)
 
