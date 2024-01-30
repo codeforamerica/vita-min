@@ -94,19 +94,19 @@ module SubmissionBuilder
 
     def process_long_mailing_street(xml, street_address)
       key_found = COMMON_ADDRESS_ABBREV.any? do |key|
-        street_address.include?(key)
+        mailing_street.include?(key)
       end
 
       if key_found
-        key_position = street_address.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
-        truncated_street_address = street_address[0, key_position].rstrip
-        excess_characters = street_address[key_position..].lstrip
+        key_position = mailing_street.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
+        truncated_mailing_street = mailing_street[0, key_position].rstrip
+        excess_characters = mailing_street[key_position..].lstrip
       else
-        truncated_street_address = street_address[0, 30].rpartition(' ').first
-        excess_characters = street_address[truncated_street_address.length + 1..]
+        truncated_mailing_street = mailing_street[0, 30].rpartition(' ').first
+        excess_characters = mailing_street[truncated_mailing_street.length + 1..]
       end
 
-      process_mailing_apartment(xml, excess_characters, truncated_street_address)
+      process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
     end
 
     def process_long_permanent_street(xml, street_address)
