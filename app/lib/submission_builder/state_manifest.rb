@@ -9,7 +9,7 @@ module SubmissionBuilder
     def document
       data_source = @submission.data_source
 
-      build_xml_doc("efile:StateSubmissionManifest") do |xml|
+      build_xml_doc("StateSubmissionManifest") do |xml|
         xml.SubmissionId @submission.irs_submission_id
         xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr data_source.tax_return_year
