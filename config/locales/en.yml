@@ -2605,6 +2605,9 @@ en:
         questions_header: Questions
         your_info: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
         your_info_header: Your choices regarding your information
+      data_transfer_failed:
+        title: "Unfortunately, your federal tax return failed to transfer. To continue, you’ll need to connect with one of our tax specialists."
+        help_text: "Don’t worry, we can help. Reach out by tapping the chat button below or email us at help@fileyourstatetaxes.org."
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.

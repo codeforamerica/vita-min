@@ -35,7 +35,7 @@ RSpec.describe StateFile::Questions::DataReviewController do
       it "redirects to the offboard screen" do
         intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
         response = get :edit, params: { us_state: "az" }
-        expect(response).to redirect_to(StateFile::Questions::DataTransferFailedController.to_path_helper(us_state: "az"))
+        expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: "data_transfer_failed", us_state: "az"))
       end
     end
 
