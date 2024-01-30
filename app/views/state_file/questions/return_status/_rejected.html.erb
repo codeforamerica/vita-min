@@ -8,15 +8,19 @@
   <%= @title %>
 </h1>
 
-<section class="spacing-below-15">
-  <strong><%= t('.reject_code') %></strong>
-  <%= @reject_code %>
-</section>
+<% if @reject_code.present? %>
+  <section class="spacing-below-15">
+    <strong><%= t('.reject_code') %></strong>
+    <%= @reject_code %>
+  </section>
+<% end %>
 
-<section class="spacing-below-15">
-  <strong><%= t('.reject_desc') %></strong>
-  <%= @reject_description %>
-</section>
+<% if @reject_description.present? %>
+  <section class="spacing-below-15">
+    <strong><%= t('.reject_desc') %></strong>
+    <%= @reject_description %>
+  </section>
+<% end %>
 
 <section class="spacing-below-15">
   <p class="spacing-below-5"><strong><%= t('.whats_next') %></strong></p>
