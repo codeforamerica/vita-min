@@ -181,9 +181,7 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def hoh_qualifying_person_name
-    unless requires_hoh_qualifying_person_name?
-      return nil
-    end
+    return unless requires_hoh_qualifying_person_name?
 
     if direct_file_data&.hoh_qualifying_person_name.present?
       # Federal data is an unstructured string - split on first space and everything in the second group goes to last name
