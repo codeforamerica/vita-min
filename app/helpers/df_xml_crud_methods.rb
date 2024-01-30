@@ -1,9 +1,9 @@
 module DfXmlCrudMethods
   def df_xml_value(key)
-    return nil unless node
+    return nil unless node.present?
 
     selector = selectors[key]
-    return nil unless selector
+    return nil unless selector.present?
 
     node.at(selector)&.text
   end
