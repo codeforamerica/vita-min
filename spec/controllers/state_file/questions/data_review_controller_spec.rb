@@ -23,11 +23,19 @@ RSpec.describe StateFile::Questions::DataReviewController do
       end
     end
 
-    context "with invalid federal data" do
+    context "with disqualifying federal data" do
       it "redirects to the offboard screen" do
         allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(3)
         response = get :edit, params: { us_state: "az" }
         expect(response).to redirect_to(StateFile::Questions::DataTransferOffboardingController.to_path_helper(us_state: "az"))
+      end
+    end
+
+    context "with federal data which we could not import successfully" do
+      it "redirects to the offboard screen" do
+        intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
+        response = get :edit, params: { us_state: "az" }
+        expect(response).to redirect_to(StateFile::Questions::DataTransferFailedController.to_path_helper(us_state: "az"))
       end
     end
 

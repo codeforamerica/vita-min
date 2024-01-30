@@ -3,11 +3,9 @@ require 'rails_helper'
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
-
     let(:xml_result) do
       File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents_ny.xml"))
     end
-
     let(:json_result) do
       {
         "xml" => xml_result,
@@ -38,6 +36,19 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         )
         expect(intake.hashed_ssn).to eq expected_hashed_ssn
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
+      end
+    end
+
+    context "when the direct file xml is formed in a way that causes our code to error" do
+      before do
+        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError
+      end
+
+      it "catches the error and persists it to the intake record" do
+        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
+        described_class.perform_now(authorization_code: auth_code, intake: intake)
+
+        expect(intake.df_data_import_failed_at).to be_present
       end
     end
   end
