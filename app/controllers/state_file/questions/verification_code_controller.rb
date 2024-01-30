@@ -32,19 +32,7 @@ module StateFile
           intake = current_intake
           existing_intake = get_existing_intake(intake)
           if existing_intake.present?
-            if intake.contact_preference == "email"
-              contact_info = intake.email_address
-            else
-              contact_info = intake.phone_number
-            end
-            hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(contact_info, @form.verification_code)
-            @form.intake = existing_intake
-            intake.destroy
-            session[:state_file_intake] = existing_intake.id
-            redirect_to IntakeLoginsController.to_path_helper(action: :edit, id: hashed_verification_code, **{
-              us_state: params[:us_state]
-            })
-            return
+            redirect_into_login(intake, existing_intake) and return
           end
           @form.save
           after_update_success
@@ -64,6 +52,26 @@ module StateFile
         search.first
       end
 
+      def redirect_into_login(intake, existing_intake)
+        contact_info = (
+          if intake.contact_preference == "email"
+            intake.email_address
+          else
+            intake.phone_number
+          end
+        )
+        hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(
+          contact_info, @form.verification_code
+        )
+        @form.intake = existing_intake
+        intake.destroy
+        session[:state_file_intake] = existing_intake.id
+        redirect_to IntakeLoginsController.to_path_helper(
+          action: :edit,
+          id: hashed_verification_code,
+          us_state: params[:us_state]
+        )
+      end
     end
   end
 end
