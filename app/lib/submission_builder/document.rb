@@ -79,21 +79,66 @@ module SubmissionBuilder
       end
     end
 
-    def process_long_mailing_street(xml, mailing_street)
+    def process_permanent_street(xml)
+      return unless @submission.data_source.permanent_street.present?
+
+      permanent_street = @submission.data_source.permanent_street
+
+      if permanent_street.length > 30
+        process_long_permanent_street(xml, permanent_street)
+      else
+        xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment if @submission.data_source.permanent_apartment.present?
+        xml.PERM_LN_2_ADR permanent_street
+      end
+    end
+
+    def process_long_mailing_street(xml, street_address)
       key_found = COMMON_ADDRESS_ABBREV.any? do |key|
-        mailing_street.include?(key)
+        street_address.include?(key)
       end
 
       if key_found
-        key_position = mailing_street.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
-        truncated_mailing_street = mailing_street[0, key_position].rstrip
-        excess_characters = mailing_street[key_position..].lstrip
+        key_position = street_address.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
+        truncated_street_address = street_address[0, key_position].rstrip
+        excess_characters = street_address[key_position..].lstrip
       else
-        truncated_mailing_street = mailing_street[0, 30].rpartition(' ').first
-        excess_characters = mailing_street[truncated_mailing_street.length + 1..]
+        truncated_street_address = street_address[0, 30].rpartition(' ').first
+        excess_characters = street_address[truncated_street_address.length + 1..]
       end
 
-      process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+      process_mailing_apartment(xml, excess_characters, truncated_street_address)
+    end
+
+    def process_long_permanent_street(xml, street_address)
+      key_found = COMMON_ADDRESS_ABBREV.any? do |key|
+        street_address.include?(key)
+      end
+
+      if key_found
+        key_position = street_address.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
+        truncated_street_address = street_address[0, key_position].rstrip
+        excess_characters = street_address[key_position..].lstrip
+      else
+        truncated_street_address = street_address[0, 30].rpartition(' ').first
+        excess_characters = street_address[truncated_street_address.length + 1..]
+      end
+
+      process_permanent_apartment(xml, excess_characters, truncated_street_address)
+    end
+
+    def process_permanent_apartment(xml, excess_characters, truncated_permanent_street)
+      if @submission.data_source.permanent_apartment.present?
+        apartment = @submission.data_source.permanent_apartment
+        if apartment.length + excess_characters.length > 30
+          truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
+          xml.PERM_LN_1_ADR excess_characters + " " + truncated_apartment
+        else
+          xml.PERM_LN_1_ADR excess_characters + " " + apartment
+        end
+      else
+        xml.PERM_LN_1_ADR excess_characters
+      end
+      xml.PERM_LN_2_ADR truncated_permanent_street
     end
 
     def process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
