@@ -643,6 +643,23 @@ describe Efile::Ny::It201 do
       end
     end
 
+    context 'when IT213_WORKSHEET_A_LINE_9 is nil' do
+      before do
+        intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
+        intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
+        intake.direct_file_data.fed_ctc = 1_000
+        allow_any_instance_of(DirectFileData).to receive(:fed_tax).and_return(nil)
+      end
+
+      it 'avoids getting undefined method `-` for nil:NilClass (NoMethodError)' do
+        instance.calculate
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_8].value).to be_positive
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_9].value).to be_zero
+        expect(instance.lines[:IT213_WORKSHEET_A_LINE_12].value).to be_zero
+      end
+    end
+
+
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and less than 3 dependents" do
       before do
         intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
