@@ -6,7 +6,6 @@ module StateFile
       end
 
       private
-
       def form_class
         NullForm
       end

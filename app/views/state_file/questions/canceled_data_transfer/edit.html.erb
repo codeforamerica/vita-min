@@ -1,13 +1,14 @@
-<% title = t(".title_html") %>
+<% title = t(".title1") %>
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= title %></h1>
+  <p class="h2 spacing-above-25"><%= t(".title2")%></p>
 
-  <div class="text--small spacing-below-35">
-    <div class="spacing-above-25"><%= t(".other_options_html") %></div>
+  <p><%= t(".mistake_html", link: @go_back_link) %></p>
 
-    <div class="spacing-above-35"><%= link_to t(".faq"), state_faq_path %></div>
-  </div>
+  <p class="spacing-above-25"><%= t(".other_options_html") %></p>
+
+  <p class="spacing-above-25 spacing-below-35"><%= link_to t(".faq"), state_faq_path %></p>
 
   <%= render "state_file/questions/initiate_data_transfer/data_transfer_buttons" %>
 <% end %>

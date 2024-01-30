@@ -1,6 +1,6 @@
 <% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 <% state_image_path = params[:us_state] == "ny" ? "partner-logos/nygov-logo.svg" : "partner-logos/azgov-logo.svg" %>
-<% title = t(".title", state_full_name: state_full_name) %>
+<% title = t(".#{params[:us_state]}.title") %>
 
 <% content_for :page_title, title %>
 

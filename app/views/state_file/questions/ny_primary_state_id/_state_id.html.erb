@@ -22,7 +22,7 @@
       <div class="blue-group form-group-tight">
         <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long"]) %>
         <%= f.cfa_date_select(:issue_date,
-                              t("state_file.questions.primary_state_id.state_id.id_details.issue_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.issue_year"),
+                              t("state_file.questions.primary_state_id.state_id.id_details.issue"),
                               options: {
                                 start_year: Time.now.year,
                                 end_year: 2000,
@@ -30,7 +30,7 @@
             ) %>
         <span id="fields_to_clear">
           <%= f.cfa_date_select(:expiration_date,
-                                t("state_file.questions.primary_state_id.state_id.id_details.expiration_month") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_day") + " / " + t("state_file.questions.primary_state_id.state_id.id_details.expiration_year"),
+                                t("state_file.questions.primary_state_id.state_id.id_details.expiration"),
                                 options: {
                                   start_year: Time.now.year - 2,
                                   end_year: Time.now.year + 50,
