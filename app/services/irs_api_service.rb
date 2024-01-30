@@ -12,7 +12,6 @@ class IrsApiService
 
   def self.import_federal_data(authorization_code, state_code)
     matching_fake_xml_sample = StateFile::XmlReturnSampleService.new.lookup(authorization_code)
-    return
     if matching_fake_xml_sample
       return {
         'xml' => matching_fake_xml_sample.read,
@@ -56,7 +55,7 @@ class IrsApiService
     end
 
     request = Net::HTTP::Get.new(server_url.request_uri)
-    request.initialize_http_header({ 'Authorization' => "Bearer #{token}" })
+    request.initialize_http_header({'Authorization' => "Bearer #{token}"})
 
     response = http.request(request)
 
