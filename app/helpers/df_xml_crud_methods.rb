@@ -1,6 +1,11 @@
 module DfXmlCrudMethods
   def df_xml_value(key)
-    node.at(selectors[key])&.text
+    return nil unless node
+
+    selector = selectors[key]
+    return nil unless selector
+
+    node.at(selector)&.text
   end
 
   def create_or_destroy_df_xml_node(key, value, after = nil)
