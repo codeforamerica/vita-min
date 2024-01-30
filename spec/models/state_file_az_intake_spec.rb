@@ -230,7 +230,7 @@ describe StateFileAzIntake do
     end
   end
   
-  describe 'when the filer is head of household' do
+  describe 'when the filer is head of household or QSS/QW' do
     context 'when the federal return has an hoh qualifying person' do
       it 'returns the federal return data' do
         intake = build(:state_file_az_intake, filing_status: "head_of_household", hoh_qualifying_person_name: "Name With Spaces")
@@ -277,6 +277,14 @@ describe StateFileAzIntake do
         expect(intake.hoh_qualifying_person_name).to eq nil
       end
     end
+  end
+
+  context 'when a filer is not head of household or QSS/QW and the federal return has an hoh qualifying person' do
+    it 'returns nil' do
+      intake = build(:state_file_az_intake, filing_status: "single", hoh_qualifying_person_name: "Any Name")
+      expect(intake.hoh_qualifying_person_name).to eq nil
+    end
+
   end
 
   describe 'ask_whether_incarcerated' do

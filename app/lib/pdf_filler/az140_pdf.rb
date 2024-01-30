@@ -28,7 +28,7 @@ module PdfFiller
         "ZIP Code" => @xml_document.at("ZIPCd")&.text,
         "Last Names 4 years" => @xml_document.at('LNPriorYrs')&.text,
         "Filing Status" => filing_status,
-        "Head of Household" => @xml_document.at('QualChildDependentName')&.text,
+        "Head of Household" => [@xml_document.at('QualChildDependentName FirstName')&.text, @xml_document.at('QualChildDependentName LastName')&.text].join(' '),
         "8" => @xml_document.at("AgeExemp")&.text,
         "9" => @xml_document.at("VisionExemp")&.text,
         "10a" => @xml_document.at("DependentsUnder17")&.text,
