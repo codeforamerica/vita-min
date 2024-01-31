@@ -13,7 +13,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     visit "/"
     click_on "Start Test NY"
 
-    expect(page).to have_text "File your New York state taxes for free"
+    expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.ny.title")
     click_on "Get Started", id: "firstCta"
 
     step_through_eligibility_screener(us_state: "ny")
