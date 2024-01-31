@@ -12,7 +12,7 @@ class StateFileBaseIntake < ApplicationRecord
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
   scope :can_be_authenticated, -> { where.not(hashed_ssn: nil) }
-  devise :timeoutable, :timeout_in => 15.minutes
+  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
 
   class << self
     alias :accessible_intakes :can_be_authenticated # integrate with legacy login service
@@ -198,7 +198,7 @@ class StateFileBaseIntake < ApplicationRecord
   def increment_failed_attempts
     super
     if attempts_exceeded?
-      lock_access! if locking_enabled? and !access_locked?
+      lock_access! unless access_locked?
     end
   end
 
