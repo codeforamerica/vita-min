@@ -31,7 +31,9 @@ module DfXmlCrudMethods
 
   def write_df_xml_value(key, value)
     selector = setter_symbol_to_selector(key)
-    node.at(selector).content = value
+    selected_node = node.at(selector)
+
+    selected_node.content = value if selected_node.present?
   end
 
   def setter_symbol_to_selector(method_name)

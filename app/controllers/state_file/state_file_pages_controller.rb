@@ -1,7 +1,7 @@
 module StateFile
   class StateFilePagesController < ApplicationController
     layout "state_file"
-    before_action :redirect_state_file_in_off_season, only: [:about_page]
+    before_action :redirect_state_file_in_off_season, except: [:coming_soon]
 
     def redirect_locale_home
       redirect_to root_path
@@ -16,6 +16,8 @@ module StateFile
       end.sort
       render layout: nil
     end
+
+    def data_import_failed; end
 
     def about_page; end
 

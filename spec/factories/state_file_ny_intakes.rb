@@ -13,6 +13,7 @@
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
+#  df_data_import_failed_at           :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
 #  eligibility_part_year_nyc_resident :integer          default("unfilled"), not null

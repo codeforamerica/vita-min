@@ -55,8 +55,9 @@ module SubmissionBuilder
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.slice(0, 5) if @submission.data_source.direct_file_data.mailing_zip.present?
                 xml.COUNTY_CD @submission.data_source.county_code if @submission.data_source.county_code.present?
                 xml.COUNTY_NAME @submission.data_source.county_name&.truncate(20) if @submission.data_source.county_name.present?
-                xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment if @submission.data_source.permanent_apartment.present?
-                xml.PERM_LN_2_ADR @submission.data_source.permanent_street if @submission.data_source.permanent_street.present?
+                if @submission.data_source.permanent_street.present?
+                  process_permanent_street(xml)
+                end
                 xml.PERM_CTY_ADR @submission.data_source.permanent_city if @submission.data_source.permanent_city.present?
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?

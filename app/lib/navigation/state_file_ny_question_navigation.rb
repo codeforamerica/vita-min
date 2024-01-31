@@ -19,7 +19,6 @@ module Navigation
       StateFile::Questions::InitiateDataTransferController,
       StateFile::Questions::CanceledDataTransferController, # show? false
       StateFile::Questions::WaitingToLoadDataController,
-      StateFile::Questions::DataLoadedController,
       StateFile::Questions::DataReviewController,
       StateFile::Questions::FederalInfoController,
       StateFile::Questions::DataTransferOffboardingController,

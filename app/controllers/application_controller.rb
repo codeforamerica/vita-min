@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
+  before_action :redirect_state_file_in_off_season
   after_action :track_page_view, :track_form_submission
 
   before_action do
@@ -447,7 +448,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_state_file_in_off_season
     return unless state_file?
-    return if hub? || self.class.name.include?("SessionTogglesController") || (self.class.name.include?("StateFilePagesController") && action_name == "coming_soon" )
+    return if hub? || self.class.name.include?("SessionTogglesController") || (self.class.name.include?("StateFilePagesController") && action_name == "coming_soon")
 
     if before_state_file_launch?
       redirect_to StateFile::StateFilePagesController.to_path_helper(action: :coming_soon)
