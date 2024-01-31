@@ -19,14 +19,18 @@ module StateFile
 
     def edit
       @form = IntakeLoginForm.new(possible_intakes: @records)
+      if @records.all? { |intake| intake.hashed_ssn.nil? }
+        session_sign_in
+        parts = request.path.split('/')
+        redirect_to StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit, locale: parts[1], us_state: parts[2])
+      end
     end
 
     def update
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
-        sign_in @form.intake
-        session[:state_file_intake] = @form.intake.to_global_id
-        redirect_to session.delete(:after_state_file_intake_login_path) || StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
+        session_sign_in
+        redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
       else
         @records.each(&:increment_failed_attempts)
 
@@ -76,6 +80,13 @@ module StateFile
 
     def redirect_to_data_review_if_intake_authenticated
       redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state]) if current_state_file_az_intake.present? || current_state_file_ny_intake.present?
+    end
+
+    def session_sign_in
+      intake = @records.first
+      sign_in intake
+      session[:state_file_intake] = intake.to_global_id
+      session.delete(:after_state_file_intake_login_path)
     end
   end
 end

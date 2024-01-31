@@ -44,7 +44,7 @@ class ClientLoginService
     if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
       return service_class.accessible_intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes").exists?
     elsif service_class == StateFileAzIntake || service_class == StateFileNyIntake
-      return service_class.can_be_authenticated.where(phone_number: sms_phone_number).exists?
+      return service_class.accessible_intakes.where(phone_number: sms_phone_number).exists?
     end
   end
 end
