@@ -148,7 +148,7 @@ module Portal
       else
         tokens = TextMessageAccessToken.where(sms_phone_number: @verification_code_form.contact_info)
       end
-      puts "TRACE:verification_code_4:#{tokens}"
+      puts "TRACE:verification_code_4:#{tokens.to_a}"
       token = tokens.last
       if token
         token.update(
