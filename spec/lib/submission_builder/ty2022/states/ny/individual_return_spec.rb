@@ -164,7 +164,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    context "when address is longer than 30 characters" do
+    context "when mailing address is longer than 30 characters" do
       let(:intake) { create(:state_file_ny_intake) }
       let(:filing_status) { 'single' }
       before do
@@ -178,7 +178,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    context "when address is longer than 30 characters with a key word" do
+    context "when mailing address is longer than 30 characters with a key word" do
       let(:intake) { create(:state_file_ny_intake) }
       let(:filing_status) { 'single' }
       before do
@@ -189,6 +189,34 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(xml.at("tiPrime MAIL_LN_2_ADR").text.length).to be <= 30
         expect(xml.at("tiPrime MAIL_LN_2_ADR").text).to eq('211212 SUBDIVISION DR')
         expect(xml.at("tiPrime MAIL_LN_1_ADR").text).to eq('Suite 157')
+      end
+    end
+
+    context "when permanent address is longer than 30 characters" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.permanent_street = '211212 SUBDIVISION DR POBOX #157'
+      end
+      it 'truncates under 30 characters' do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime PERM_LN_2_ADR").text.length).to be <= 30
+        expect(xml.at("tiPrime PERM_LN_2_ADR").text).to eq('211212 SUBDIVISION DR POBOX')
+        expect(xml.at("tiPrime PERM_LN_1_ADR").text).to eq('#157')
+      end
+    end
+
+    context "when permanent address is longer than 30 characters with a key word" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.permanent_street = '211212 SUBDIVISION DR Suite 157'
+      end
+      it 'truncates before the key word' do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime PERM_LN_2_ADR").text.length).to be <= 30
+        expect(xml.at("tiPrime PERM_LN_2_ADR").text).to eq('211212 SUBDIVISION DR')
+        expect(xml.at("tiPrime PERM_LN_1_ADR").text).to eq('Suite 157')
       end
     end
 
