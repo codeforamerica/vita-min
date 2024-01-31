@@ -45,12 +45,15 @@ module Portal
           update_existing_token_with_magic_code(hashed_verification_code)
         end
         @records = client_login_service.login_records_for_token(hashed_verification_code)
+        puts "TRACE:verification_code_6:#{@records.to_a}"
         return if redirect_locked_clients # check if any records are already locked
         if @records.present? # we have at least one match and none are locked
+          puts "TRACE:verification_code_7:#{hashed_verification_code}"
           DatadogApi.increment("#{self.controller_name}.verification_codes.right_code")
           redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code, **extra_path_params)
           return
         else # we have no matches for the verification code
+          puts "TRACE:verification_code_8"
           @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
           DatadogApi.increment("#{self.controller_name}.verification_codes.wrong_code")
           increment_failed_attempts_on_login_records
@@ -58,6 +61,7 @@ module Portal
         end
       end
 
+      puts "TRACE:verification_code_9"
       render :enter_verification_code
     end
 
@@ -151,6 +155,7 @@ module Portal
       puts "TRACE:verification_code_4:#{tokens.to_a}"
       token = tokens.last
       if token
+        puts "TRACE:verification_code_5:#{Devise.token_generator.digest(token.class, :token, hashed_verification_code)}"
         token.update(
           token: Devise.token_generator.digest(token.class, :token, hashed_verification_code)
         )
