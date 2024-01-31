@@ -167,6 +167,45 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
     end
 
+    context "with a magic code" do
+      let(:email_address) { "example@example.com" }
+      let(:verification_code) { "000000" }
+      let(:params) { { portal_verification_code_form: {
+        contact_info: email_address,
+        verification_code: verification_code
+      }}}
+      let(:hashed_000000) do
+        hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(email_address, verification_code)
+        Devise.token_generator.digest(EmailAccessToken, :token, hashed_verification_code)
+      end
+
+      before do
+        EmailAccessToken.generate!(email_address: email_address)
+      end
+
+      context "with magic verification codes allowed" do
+        before do
+          allow(Rails.configuration).to receive(:allow_magic_verification_code).and_return(true)
+        end
+        it "allows access" do
+          post :check_verification_code, params: params
+          # The token was updated...
+          expect(EmailAccessToken.last.token).to eq hashed_000000
+        end
+      end
+
+      context "with magic verification codes not allowed" do
+        before do
+          allow(Rails.configuration).to receive(:allow_magic_verification_code).and_return(false)
+        end
+        it "does not allow access" do
+          post :check_verification_code, params: params
+          # The token was not updated...
+          expect(EmailAccessToken.last.token).not_to eq hashed_000000
+        end
+      end
+    end
+
     context "with invalid params" do
       context "with clients matching the contact info but invalid verification code" do
         let(:email_address) { "example@example.com" }

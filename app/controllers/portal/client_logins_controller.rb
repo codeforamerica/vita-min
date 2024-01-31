@@ -35,9 +35,13 @@ module Portal
         return
       end
 
-      @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: params[:verification_code])
+      verification_code = params[:verification_code]
+      @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: verification_code)
       if @verification_code_form.valid?
-        hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], params[:verification_code])
+        hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], verification_code)
+        if Rails.configuration.allow_magic_verification_code && @verification_code_form.verification_code == "000000"
+          update_existing_token_with_magic_code(hashed_verification_code)
+        end
         @records = client_login_service.login_records_for_token(hashed_verification_code)
         return if redirect_locked_clients # check if any records are already locked
         if @records.present? # we have at least one match and none are locked
@@ -130,6 +134,24 @@ module Portal
       return unless Routes::GyrDomain.new.matches?(request)
 
       redirect_to portal_closed_login_path unless open_for_gyr_logged_in_clients?
+    end
+
+    def update_existing_token_with_magic_code(hashed_verification_code)
+      # If the environment supports magic codes, then the easiest thing is to
+      # update the last record with the magic code.
+      return unless Rails.configuration.allow_magic_verification_code
+      @records = client_login_service.service_class
+      if @verification_code_form.contact_info.include?("@")
+        tokens = EmailAccessToken.where(email_address: @verification_code_form.contact_info)
+      else
+        tokens = TextMessageAccessToken.where(sms_phone_number: @verification_code_form.contact_info)
+      end
+      token = tokens.last
+      if token
+        token.update(
+          token: Devise.token_generator.digest(token.class, :token, hashed_verification_code)
+        )
+      end
     end
   end
 end

@@ -49,5 +49,22 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         )
       end
     end
+
+    context "with an intake matching an existing intake" do
+      let(:intake) { create(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9") }
+      let(:token) { EmailAccessToken.generate!(email_address: "someone@example.com") }
+
+      it "redirects to login" do
+        post :update, params: { us_state: "az", state_file_verification_code_form: { verification_code: token[0] }}
+        login_location = StateFile::IntakeLoginsController.to_path_helper(
+          action: :edit,
+          id: VerificationCodeService.hash_verification_code_with_contact_info(
+            "someone@example.com", token[0]
+          ),
+          us_state: "az"
+        )
+        expect(response).to redirect_to(login_location)
+      end
+    end
   end
 end
