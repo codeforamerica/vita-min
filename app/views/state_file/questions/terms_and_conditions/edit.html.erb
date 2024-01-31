@@ -11,7 +11,7 @@
       <% @li_items.each do |item| %>
         <%= content_tag(:li, raw(item)) %>
       <% end %>
-      <%= t(".body_text_closer_html") %>
+      <%= t(".body_text_closer_html", privacy_policy_link: state_file_privacy_policy_path) %>
     </p>
 
   </div>
