@@ -139,6 +139,7 @@ module Portal
     def update_existing_token_with_magic_code(hashed_verification_code)
       # If the environment supports magic codes, then the easiest thing is to
       # update the last record with the magic code.
+      return unless Rails.configuration.allow_magic_verification_code
       @records = client_login_service.service_class
       if @verification_code_form.contact_info.include?("@")
         tokens = EmailAccessToken.where(email_address: @verification_code_form.contact_info)
