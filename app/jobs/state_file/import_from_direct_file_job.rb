@@ -15,8 +15,8 @@ module StateFile
           hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
         )
         intake.synchronize_df_dependents_to_database
-      rescue StandardError
-        intake.df_data_import_failed_at = DateTime.now
+      rescue => err
+        intake.update(df_data_import_failed_at: DateTime.now)
       end
 
       DfDataTransferJobChannel.broadcast_job_complete(intake)

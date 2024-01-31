@@ -17,7 +17,7 @@ module StateFile
       render layout: nil
     end
 
-    def data_transfer_failed; end
+    def data_import_failed; end
 
     def about_page; end
 
