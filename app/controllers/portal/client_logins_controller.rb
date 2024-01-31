@@ -38,8 +38,10 @@ module Portal
       verification_code = params[:verification_code]
       @verification_code_form = Portal::VerificationCodeForm.new(contact_info: params[:contact_info], verification_code: verification_code)
       if @verification_code_form.valid?
+        puts "TRACE:verification_code_1:#{verification_code}"
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(params[:contact_info], verification_code)
         if Rails.configuration.allow_magic_verification_code && @verification_code_form.verification_code == "000000"
+          puts "TRACE:verification_code_2:#{hashed_verification_code}"
           update_existing_token_with_magic_code(hashed_verification_code)
         end
         @records = client_login_service.login_records_for_token(hashed_verification_code)
@@ -140,11 +142,13 @@ module Portal
       # If the environment supports magic codes, then the easiest thing is to
       # update the last record with the magic code.
       @records = client_login_service.service_class
+      puts "TRACE:verification_code_3:#{@records}"
       if @verification_code_form.contact_info.include?("@")
         tokens = EmailAccessToken.where(email_address: @verification_code_form.contact_info)
       else
         tokens = TextMessageAccessToken.where(sms_phone_number: @verification_code_form.contact_info)
       end
+      puts "TRACE:verification_code_4:#{tokens}"
       token = tokens.last
       if token
         token.update(
