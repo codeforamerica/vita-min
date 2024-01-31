@@ -6,6 +6,7 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+    Flipper.enable :sms_notifications
   end
 
   it "advances past the loading screen by listening for an actioncable broadcast", js: true do

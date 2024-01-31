@@ -14,6 +14,8 @@ begin
   unless Flipper.exist?(:state_file_notification_emails)
     Flipper.disable :state_file_notification_emails
   end
+  Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
+
 rescue
   # make sure we can still run rake tasks before table has been created
   nil

@@ -7,8 +7,10 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="options-wrapper">
       <div class="yes-no-buttons">
-        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "text", class: "button", "aria-describedby": "main-question" do %>
-          <%= t(".text_message_option") %>
+        <% if Flipper.enabled?(:sms_notifications) %>
+          <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "text", class: "button", "aria-describedby": "main-question" do %>
+            <%= t(".text_message_option") %>
+          <% end %>
         <% end %>
         <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "email", class: "button", "aria-describedby": "main-question" do %>
           <%= t(".email_option") %>
