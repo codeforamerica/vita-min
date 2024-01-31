@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <p class="spacing-above-35"><%= link_to t(".vita_link"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home') %></p>
+  <p class="spacing-above-35"><%= link_to t(".vita_link"), @vita_link %></p>
   <p><%= link_to t(".faq_link"), state_faq_path %></p>
 
 <% end %>
