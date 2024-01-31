@@ -9,7 +9,11 @@
 </h1>
 
 <p>
+<% if Flipper.enabled?(:sms_notifications) %>
+  <%= t('.receive_email_sms') %>
+<% else %>
   <%= t('.receive_email') %>
+<% end %>
 </p>
 
 <p>
