@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class DataReviewController < QuestionsController
-
       def edit
         super
         # Redirect to offboarding here if not eligible
