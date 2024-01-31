@@ -170,11 +170,15 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
     context "with a magic code" do
       let(:email_address) { "example@example.com" }
       let(:verification_code) { "000000" }
-      let(:hashed_verification_code) { "hashed_verification_code" }
       let(:params) { { portal_verification_code_form: {
         contact_info: email_address,
         verification_code: verification_code
       }}}
+      let(:hashed_000000) do
+        hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(email_address, verification_code)
+        Devise.token_generator.digest(EmailAccessToken, :token, hashed_verification_code)
+      end
+
       before do
         EmailAccessToken.generate!(email_address: email_address)
       end
@@ -186,7 +190,6 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         it "allows access" do
           post :check_verification_code, params: params
           # The token was updated...
-          hashed_000000 = "7a427d84b0efea39b117413ab2f9ee0a166a729277655a85672416f4d58c91fd"
           expect(EmailAccessToken.last.token).to eq hashed_000000
         end
       end
@@ -198,7 +201,6 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         it "does not allow access" do
           post :check_verification_code, params: params
           # The token was not updated...
-          hashed_000000 = "7a427d84b0efea39b117413ab2f9ee0a166a729277655a85672416f4d58c91fd"
           expect(EmailAccessToken.last.token).not_to eq hashed_000000
         end
       end
