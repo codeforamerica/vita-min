@@ -17,6 +17,7 @@
 #  current_sign_in_ip                    :inet
 #  current_step                          :string
 #  date_electronic_withdrawal            :date
+#  df_data_import_failed_at              :datetime
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
 #  eligibility_married_filing_separately :integer          default("unfilled"), not null

@@ -2516,6 +2516,9 @@ en:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
         title: Coming soon
+      data_import_failed:
+        help_text_html: Don’t worry, we can help. Reach out by tapping the chat button below or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        title: Unfortunately, your federal tax return failed to transfer. To continue, you’ll need to connect with one of our tax specialists.
       footer:
         about: About
         faq: FAQ
