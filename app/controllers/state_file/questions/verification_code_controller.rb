@@ -45,6 +45,8 @@ module StateFile
         end
       end
 
+      private
+
       def get_existing_intake(intake)
         search = intake.class.where.not(id: intake.id, raw_direct_file_data: nil)
         search = search.where(phone_number: intake.phone_number) if intake.phone_number.present?
