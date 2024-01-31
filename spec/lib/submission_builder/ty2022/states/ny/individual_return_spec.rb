@@ -130,7 +130,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       it "creates an additional dependents pdf" do
         submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
         additional_dependents = submission_builder.pdf_documents.select do |d|
-          d.pdf == PdfFiller::AdditionalDependentsPdf
+          d.pdf == PdfFiller::It201AdditionalDependentsPdf
         end
         expect(additional_dependents.present?).to eq true
       end
@@ -230,6 +230,19 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(intake.direct_file_data.mailing_zip.length).to eq(9)
         expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text.length).to eq(5)
         expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text).to eq('12345')
+      end
+    end
+
+    context "when there are less than 7 dependents" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+
+      it "does not create an additional dependents pdf" do
+        submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+        additional_dependents = submission_builder.pdf_documents.select do |d|
+          d.pdf == PdfFiller::It201AdditionalDependentsPdf
+        end
+        expect(additional_dependents.present?).to eq false
       end
     end
   end
