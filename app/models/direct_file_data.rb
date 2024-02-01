@@ -780,7 +780,6 @@ class DirectFileData
     end
 
     def w2_box14
-      ###
       @node.css('OtherDeductionsBenefitsGrp').map do |node|
         {
           other_description: node.at('Desc')&.text,
