@@ -77,7 +77,14 @@ module StateFile
     end
 
     def redirect_to_data_review_if_intake_authenticated
-      redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state]) if current_state_file_az_intake.present? || current_state_file_ny_intake.present?
+      intake = current_state_file_az_intake || current_state_file_ny_intake
+      if intake.present?
+        if intake.hashed_ssn.present?
+          redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
+        else
+          redirect_to StateFile::Questions::TermsAndConditionsController.to_path_helper(us_state: params[:us_state])
+        end
+      end
     end
 
     def session_sign_in

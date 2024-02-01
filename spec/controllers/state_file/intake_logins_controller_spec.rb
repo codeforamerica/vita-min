@@ -335,6 +335,16 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             expect(response).to redirect_to account_locked_portal_client_logins_path
           end
         end
+
+        context "when the client account does not have an ssn" do
+          before { intake.update(hashed_ssn: nil) }
+
+          it "redirects to terms and conditions page" do
+            get :edit, params: params
+
+            expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+          end
+        end
       end
 
       context "with invalid token" do
@@ -358,6 +368,15 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         get :edit, params: params
 
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake does not have an ssn" do
+        before { intake.update(hashed_ssn: nil) }
+
+        it "redirects to terms and conditions page" do
+          get :edit, params: params
+          expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+        end
       end
     end
   end
