@@ -19,13 +19,13 @@ module PdfFiller
 
     def dependents_info
       answers = {}
-      @intake.dependents[@dependent_offset..].each_with_index do |dependent, index|
-        answers["first_name_#{index + 1}"] = dependent.first_name
-        answers["mi_#{index + 1}"] = dependent.middle_initial
-        answers["last_name_#{index + 1}"] = dependent.last_name
-        answers["relationship_#{index + 1}"] = dependent.relationship.delete(" ")
-        answers["ssn_or_itin_#{index + 1}"] = dependent.ssn
-        answers["date_of_birth_#{index + 1}"] = dependent.dob.strftime("%Y-%m-%d")
+      @intake.dependents[@dependent_offset..][..7].each_with_index do |dependent, index|
+        answers["First nameRow#{index + 1}"] = dependent.first_name
+        answers["MIRow#{index + 1}"] = dependent.middle_initial
+        answers["Last nameRow#{index + 1}"] = dependent.last_name
+        answers["RelationshipRow#{index + 1}"] = dependent.relationship_label || dependent.relationship.delete(" ")
+        answers["SSN or ITINRow#{index + 1}"] = dependent.ssn
+        answers["Date of birthRow#{index + 1}"] = dependent.dob.strftime("%Y-%m-%d")
       end
       answers
     end
