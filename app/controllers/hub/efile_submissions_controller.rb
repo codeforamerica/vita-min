@@ -30,6 +30,7 @@ module Hub
     end
 
     def failed
+      return if Rails.env.production? || Rails.env.staging?
       # TODO: remove eventually, for testing only
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:failed, { initiated_by_id: current_user.id })

@@ -37,4 +37,20 @@ describe Hub::StateFile::EfileSubmissionsController do
       end
     end
   end
+
+  describe "#state_counts" do
+    context "when authenticated as an admin" do
+      let(:user) { create :state_file_admin_user }
+      let(:state_counts) { { "accepted" => 1, "rejected" => 2 } }
+      before do
+        sign_in user
+        allow(EfileSubmission).to receive(:statefile_state_counts).and_return state_counts
+      end
+
+      it "loads most recent submissions for tax returns" do
+        get :state_counts, format: :js, xhr: true
+        expect(assigns(:efile_submission_state_counts)).to eq state_counts
+      end
+    end
+  end
 end
