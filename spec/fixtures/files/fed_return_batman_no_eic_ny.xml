@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000080</PrimarySSN>
+      <SpouseSSN>600000081</SpouseSSN>
+      <NameLine1Txt>MARTHA &amp; THOMAS&lt;WAYNE</NameLine1Txt>
+      <PrimaryNameControlTxt>WAYN</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>WAYN</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>70 Flushing Ave</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11205</ZIPCd>
+      </USAddress>
+      <PhoneNum>7185559876</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test018@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="6">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Bruce</DependentFirstNm>
+        <DependentLastNm>Wayne</DependentLastNm>
+        <DependentNameControlTxt>WAYN</DependentNameControlTxt>
+        <DependentSSN>600002222</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>3</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">18000</WagesAmt>
+      <WagesSalariesAndTipsAmt>18000</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>1000</TaxableInterestAmt>
+      <TotalIncomeAmt>19000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>19000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1600</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>5595</RefundableCreditsAmt>
+      <TotalPaymentsAmt>7595</TotalPaymentsAmt>
+      <OverpaidAmt>7595</OverpaidAmt>
+      <RefundAmt>7595</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Nonprofit worker</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Doctor</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>19000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>19000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>2000</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>1600</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>18000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>15500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>2325</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>1600</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleLEP documentId="LEP005">
+      <PersonNm>MarthaWayne</PersonNm>
+      <SSN>400000080</SSN>
+      <LanguagePreferenceCd>014</LanguagePreferenceCd>
+    </IRS1040ScheduleLEP>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>600000081</EmployeeSSN>
+      <EmployerEIN>001245788</EmployerEIN>
+      <EmployerNameControlTxt>GOTH</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Gotham Health</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1218 Prospect Place</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11213</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>ThomasWayne</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>70 Flushing Ave</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11205</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>8000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>8000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>500</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>8000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>120</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001245788</EmployerStateIdNum>
+          <StateWagesAmt>8000</StateWagesAmt>
+          <StateIncomeTaxAmt>600</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>8000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>200</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>400000080</EmployeeSSN>
+      <EmployerEIN>001245799</EmployerEIN>
+      <EmployerNameControlTxt>HENR</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Henry Street Settlement</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>265 Henry St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10002</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>MarthaWayne</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>70 Flushing Ave</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11205</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001245799</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>800</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>10000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

@@ -245,5 +245,23 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(additional_dependents.present?).to eq false
       end
     end
+
+    context "fed xml has missing nodes" do
+      let(:intake) { create(:state_file_batman_no_eic_intake) }
+      let(:filing_status) { 'single' }
+      it 'builds submission' do
+        xml = described_class.build(submission).document
+        expect(intake.direct_file_data.fed_total_adjustments).to eq(0)
+        expect(intake.direct_file_data.fed_tax).to eq(0)
+        expect(intake.direct_file_data.fed_adjustments_claimed).to eq({})
+        expect(intake.direct_file_data.fed_nontaxable_combat_pay_amount).to eq(0)
+        expect(intake.direct_file_data.w2s.first.AllocatedTipsAmt).to eq(0)
+        expect(intake.direct_file_data.w2s.second.AllocatedTipsAmt).to eq(0)
+        expect(intake.direct_file_data.w2s.first.NonqualifiedPlansAmt).to eq(0)
+        expect(intake.direct_file_data.w2s.second.NonqualifiedPlansAmt).to eq(0)
+        expect(intake.direct_file_data.w2s.first.AllocatedTipsAmt).to eq(0)
+        expect(intake.direct_file_data.eitc_eligible_nodes).to eq([])
+      end
+    end
   end
 end

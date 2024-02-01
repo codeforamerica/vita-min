@@ -216,5 +216,21 @@ FactoryBot.define do
         intake.dependents.reload
       end
     end
+
+    factory :state_file_batman_no_eic_intake do
+      # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
+      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_batman_no_eic_ny.xml')) }
+
+      after(:create) do |intake|
+        intake.synchronize_df_dependents_to_database
+        {
+          "Bruce" => Date.new(2021, 1, 2),
+        }.each do |name, date|
+          intake.dependents.where(first_name: name).first.update(dob: date)
+        end
+        intake.dependents.reload
+      end
+    end
+
   end
 end
