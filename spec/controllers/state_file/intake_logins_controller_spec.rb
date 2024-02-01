@@ -411,7 +411,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             expect(GlobalID.find(session[:state_file_intake])).to eq intake
           end
 
-          context "when they had already submitted their return" do
+          context "when the intake has a submitted return" do
             before do
               intake.efile_submissions.create!
             end
@@ -501,10 +501,22 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         sign_in intake
       end
 
-      it "redirects to data review page" do
-        post :update, params: params
+      it "redirects to data review page if they have no submitted return" do
+        get :new, params: { contact_method: :email_address, us_state: "az" }
 
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a submitted return" do
+        before do
+          intake.efile_submissions.create!
+        end
+
+        it "redirects to return status page" do
+          get :new, params: { contact_method: :email_address, us_state: "az" }
+
+          expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+        end
       end
     end
   end
