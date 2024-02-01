@@ -267,7 +267,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "redirects to the account locked page" do
           post :check_verification_code, params: params
 
-          expect(response).to redirect_to(account_locked_portal_client_logins_path)
+          expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'ny'))
         end
       end
 
@@ -332,7 +332,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           it "redirects to the lockout page" do
             get :edit, params: params
 
-            expect(response).to redirect_to account_locked_portal_client_logins_path
+            expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
           end
         end
       end
@@ -415,7 +415,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             it "redirects to an account-locked page" do
               post :update, params: params
 
-              expect(response).to redirect_to account_locked_portal_client_logins_path
+              expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
             end
           end
         end
@@ -445,7 +445,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               end.to change { intake.reload.failed_attempts }.by 1
               expect(intake.reload.access_locked?).to be_truthy
 
-              expect(response).to redirect_to(account_locked_portal_client_logins_path)
+              expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'az'))
             end
           end
         end

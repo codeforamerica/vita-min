@@ -37,7 +37,14 @@ module StateFile
       end
     end
 
+    def account_locked; end
+
     private
+
+    def redirect_locked_clients
+      redirect_to account_locked_intake_logins_path if @records.map(&:access_locked?).any?
+    end
+
     def prev_path; end
 
     def illustration_path; end

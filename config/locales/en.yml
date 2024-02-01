@@ -1866,6 +1866,9 @@ en:
       index:
         title: Common questions from %{state} taxpayers
     intake_logins:
+      account_locked:
+        body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        title: This account has been locked
       edit:
         help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
