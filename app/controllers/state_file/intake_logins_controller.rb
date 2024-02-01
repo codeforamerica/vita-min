@@ -20,8 +20,7 @@ module StateFile
     def edit
       @form = IntakeLoginForm.new(possible_intakes: @records)
       if @records.all? { |intake| intake.hashed_ssn.nil? }
-        parts = request.path.split('/')
-        redirect_to session_sign_in || StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit, locale: parts[1], us_state: parts[2])
+        redirect_to session_sign_in || StateFile::Questions::TermsAndConditionsController.to_path_helper(us_state: params[:us_state])
       end
     end
 
