@@ -87,7 +87,9 @@ module StateFile
     def redirect_to_data_review_if_intake_authenticated
       intake = current_state_file_az_intake || current_state_file_ny_intake
       if intake.present?
-        if intake.hashed_ssn.present?
+        if intake.efile_submissions.present?
+          redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(us_state: params[:us_state])
+        elsif intake.hashed_ssn.present?
           redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
         else
           redirect_to StateFile::Questions::TermsAndConditionsController.to_path_helper(us_state: params[:us_state])
@@ -102,6 +104,9 @@ module StateFile
       to_path = session.delete(:after_state_file_intake_login_path)
       unless to_path
         to_path = controller.to_path_helper(us_state: params[:us_state])
+      end
+      if intake.efile_submissions.present?
+        to_path = StateFile::Questions::ReturnStatusController.to_path_helper(us_state: params[:us_state])
       end
       redirect_to to_path
     end
