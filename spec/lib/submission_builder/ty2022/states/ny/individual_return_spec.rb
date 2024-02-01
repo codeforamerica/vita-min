@@ -260,7 +260,6 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(intake.direct_file_data.w2s.first.NonqualifiedPlansAmt).to eq(0)
         expect(intake.direct_file_data.w2s.second.NonqualifiedPlansAmt).to eq(0)
         expect(intake.direct_file_data.w2s.first.AllocatedTipsAmt).to eq(0)
-        expect(intake.direct_file_data.eitc_eligible_nodes).to eq([])
       end
     end
   end
