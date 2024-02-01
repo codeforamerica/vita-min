@@ -11,6 +11,12 @@ module StateFile
       def edit
         @fake_data_transfer_link = fake_data_transfer_link
         @irs_df_transfer_link = irs_df_transfer_link
+        @go_back_link = case current_intake.state_code
+                        when "ny"
+                          ny_questions_initiate_data_transfer_path
+                        when "az"
+                          az_questions_initiate_data_transfer_path
+                        end
       end
 
       def illustration_path

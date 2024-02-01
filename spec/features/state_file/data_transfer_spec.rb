@@ -13,7 +13,7 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
     visit "/"
     click_on "Start Test NY"
 
-    expect(page).to have_text "File your New York state taxes for free"
+    expect(page).to have_text "File your New York State taxes for free"
     click_on "Get Started", id: "firstCta"
 
     step_through_eligibility_screener(us_state: "ny")
