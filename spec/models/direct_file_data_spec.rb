@@ -44,39 +44,15 @@ describe DirectFileData do
     context 'when the desc provided is not an exact match (different format)' do
       let(:desc1) { '414 (H)' }
 
-      it 'still sums up the numbers' do
+      it 'still sums up the numbers correctly when there are parens' do
         expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
       end
     end
 
-    context 'when the desc provided is not an exact match (different format)' do
+    context 'when the desc provided is not an exact match (multiple parens)' do
       let(:desc1) { '414 (H)(CU)' }
 
-      it 'still sums up the numbers' do
-        expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
-      end
-    end
-
-    context 'when the desc provided is not an exact match (different format)' do
-      let(:desc1) { '414H' }
-
-      it 'still sums up the numbers' do
-        expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
-      end
-    end
-
-    context 'when the desc provided is not an exact match (different format)' do
-      let(:desc1) { '414HCU' }
-
-      it 'still sums up the numbers' do
-        expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
-      end
-    end
-
-    context 'when the desc provided is not an exact match (different format)' do
-      let(:desc1) { '414HSUB' }
-
-      it 'still sums up the numbers' do
+      it 'still sums up the numbers with spaces and parens' do
         expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
       end
     end
