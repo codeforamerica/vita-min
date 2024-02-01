@@ -15,6 +15,10 @@ module StateFile
         @voucher_path = voucher_path
       end
 
+      def prev_path
+        nil
+      end
+
       private
 
       def title
