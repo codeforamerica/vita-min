@@ -28,6 +28,7 @@ describe SubmissionBuilder::Ty2021::Documents::IrsW2 do
     submission_builder_response = described_class.build(submission, kwargs: { w2: primary_w2 })
     expect(submission_builder_response).to be_valid
     xml = Nokogiri::XML::Document.parse(submission_builder_response.document.to_xml)
+    #
     box14_node = xml.at('OtherDeductionsBenefitsGrp')
     expect(box14_node.at('Desc').text).to eq('hi')
     expect(box14_node.at('Amt').text).to eq('65')
@@ -79,6 +80,7 @@ describe SubmissionBuilder::Ty2021::Documents::IrsW2 do
       submission_builder_response = described_class.build(submission, kwargs: { w2: primary_w2 })
       expect(submission_builder_response).to be_valid
       xml = Nokogiri::XML::Document.parse(submission_builder_response.document.to_xml)
+      #
       expect(xml.at('OtherDeductionsBenefitsGrp')).to be_nil
 
       box15_node = xml.at('W2StateLocalTaxGrp')

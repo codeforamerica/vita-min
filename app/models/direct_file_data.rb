@@ -550,6 +550,7 @@ class DirectFileData
 
   def ny_public_employee_retirement_contributions
     box14_total = 0
+    ###
     retirement_types = ['414(H)', '414HCU', 'ERSNYSRE', 'NYSERS', 'RET', 'RETSH', 'TIER3RET', '414(H)CU', '414HSUB', 'ERSRETCO', 'NYSRETCO', 'RETDEF', 'RETSM', 'TIER4', '414H', 'ERS', 'NYRET', 'PUBRET', 'RETMT', 'TIER4RET', 'RETSUM']
 
     parsed_xml.css('IRSW2 OtherDeductionsBenefitsGrp').map do |deduction|
@@ -780,6 +781,7 @@ class DirectFileData
     end
 
     def w2_box14
+      ###
       @node.css('OtherDeductionsBenefitsGrp').map do |node|
         {
           other_description: node.at('Desc')&.text,
