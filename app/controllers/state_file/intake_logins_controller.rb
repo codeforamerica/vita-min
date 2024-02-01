@@ -18,15 +18,18 @@ module StateFile
     end
 
     def edit
+      # Displays verify SSN form
       @form = IntakeLoginForm.new(possible_intakes: @records)
+      if @records.all? { |intake| intake.hashed_ssn.nil? }
+        sign_in_and_redirect(StateFile::Questions::TermsAndConditionsController)
+      end
     end
 
     def update
+      # Validates SSN
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
-        sign_in @form.intake
-        session[:state_file_intake] = @form.intake.to_global_id
-        redirect_to session.delete(:after_state_file_intake_login_path) || StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
+        sign_in_and_redirect(StateFile::Questions::DataReviewController)
       else
         @records.each(&:increment_failed_attempts)
 
@@ -82,7 +85,25 @@ module StateFile
     end
 
     def redirect_to_data_review_if_intake_authenticated
-      redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state]) if current_state_file_az_intake.present? || current_state_file_ny_intake.present?
+      intake = current_state_file_az_intake || current_state_file_ny_intake
+      if intake.present?
+        if intake.hashed_ssn.present?
+          redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
+        else
+          redirect_to StateFile::Questions::TermsAndConditionsController.to_path_helper(us_state: params[:us_state])
+        end
+      end
+    end
+
+    def sign_in_and_redirect(controller)
+      intake = @records.take
+      sign_in intake
+      session[:state_file_intake] = intake.to_global_id
+      to_path = session.delete(:after_state_file_intake_login_path)
+      unless to_path
+        to_path = controller.to_path_helper(us_state: params[:us_state])
+      end
+      redirect_to to_path
     end
   end
 end

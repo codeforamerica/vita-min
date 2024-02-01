@@ -324,7 +324,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           expect(response).to be_ok
         end
 
-        context "when the client account is locked" do
+        context "when the intake is locked" do
           before do
             intake.lock_access!
           end
@@ -333,6 +333,16 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             get :edit, params: params
 
             expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
+          end
+        end
+
+        context "when the intake does not have an ssn" do
+          before { intake.update(hashed_ssn: nil) }
+
+          it "redirects to terms and conditions page" do
+            get :edit, params: params
+
+            expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
           end
         end
       end
@@ -358,6 +368,15 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         get :edit, params: params
 
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake does not have an ssn" do
+        before { intake.update(hashed_ssn: nil) }
+
+        it "redirects to terms and conditions page" do
+          get :edit, params: params
+          expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+        end
       end
     end
   end
@@ -439,7 +458,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               intake.update(failed_attempts: 4)
             end
 
-            it "locks the client account and redirects to a lockout page" do
+            it "locks the intake and redirects to a lockout page" do
               expect do
                 post :update, params: params
               end.to change { intake.reload.failed_attempts }.by 1

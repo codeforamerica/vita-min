@@ -7,10 +7,12 @@ module Portal
     layout "portal"
 
     def new
+      # Displays the enter email / phone number
       @form = request_login_form_class.new
     end
 
     def create
+      # Sends verification code
       @form = request_login_form_class.new(request_client_login_params)
       if @form.valid?
         RequestVerificationCodeForLoginJob.perform_later(
@@ -67,10 +69,12 @@ module Portal
     end
 
     def edit
+      # Displays verify SSN form
       @form = ClientLoginForm.new(possible_clients: @records)
     end
 
     def update
+      # Validates SSN
       @form = ClientLoginForm.new(client_login_params)
       if @form.valid?
         sign_in @form.client
@@ -140,7 +144,6 @@ module Portal
       # If the environment supports magic codes, then the easiest thing is to
       # update the last record with the magic code.
       return unless Rails.configuration.allow_magic_verification_code
-      @records = client_login_service.service_class
       if @verification_code_form.contact_info.include?("@")
         tokens = EmailAccessToken.where(email_address: @verification_code_form.contact_info)
       else
