@@ -62,7 +62,7 @@ module SubmissionBuilder
     end
 
     def merge_state_attrs_for_ny?(tag_name)
-      if self.submission.data_source_type != 'StateFileAzIntake' && %w[ReturnState efile:ReturnState].include?(tag_name)
+      if self.submission.data_source_type != 'StateFileNyIntake' && %w[ReturnState efile:ReturnState].include?(tag_name)
         return true
       end
       false
