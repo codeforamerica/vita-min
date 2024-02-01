@@ -23,7 +23,7 @@ module PdfFiller
         answers["first_name_#{index + 1}"] = dependent.first_name
         answers["mi_#{index + 1}"] = dependent.middle_initial
         answers["last_name_#{index + 1}"] = dependent.last_name
-        answers["relationship_#{index + 1}"] = dependent.relationship.delete(" ")
+        answers["relationship_#{index + 1}"] = dependent.relationship_label || dependent.relationship.delete(" ")
         answers["ssn_or_itin_#{index + 1}"] = dependent.ssn
         answers["date_of_birth_#{index + 1}"] = dependent.dob.strftime("%Y-%m-%d")
       end
