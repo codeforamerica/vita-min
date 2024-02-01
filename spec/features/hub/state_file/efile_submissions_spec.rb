@@ -15,9 +15,8 @@ RSpec.feature "View state-file efile submissions page in hub" do
       expect(page).to have_content(efile_submission.id)
       expect(page).to have_content(efile_submission.current_state.humanize(capitalize: false))
       expect(page).to have_content(efile_submission.irs_submission_id)
-      expect(page).to have_content(efile_submission.data_source.federal_submission_id)
-      expect(page).to have_content(efile_submission.data_source_id)
-      expect(page).to have_content(efile_submission.data_source_type)
+      expect(page).to have_content(efile_submission.data_source.state_name)
+      expect(page).to have_content(efile_submission.data_source.email_address)
     end
 
     context "when before state file launch" do
