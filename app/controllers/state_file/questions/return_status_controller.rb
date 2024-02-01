@@ -12,6 +12,7 @@ module StateFile
         @tax_payment_url = tax_payment_url
         @download_form_name = download_form_name
         @mail_voucher_address = mail_voucher_address
+        @voucher_path = voucher_path
       end
 
       private
@@ -80,6 +81,17 @@ module StateFile
           "Arizona Department of Revenue<br/>"\
           "PO Box 29085<br/>"\
           "Phoenix, AZ 85038-9085".html_safe
+        else
+          ''
+        end
+      end
+
+      def voucher_path
+        case params[:us_state]
+        when 'ny'
+          '/pdfs/it201v_1223.pdf'
+        when 'az'
+          '/pdfs/AZ-140V.pdf'
         else
           ''
         end

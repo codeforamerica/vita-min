@@ -31,9 +31,9 @@
     (<%= @download_form_name %>)
   </p>
 
-  <p>
-    <%= link_to t('.download_voucher'), StateFile::PaymentVoucherController.to_path_helper(action: :show, us_state: params[:us_state]) %>
-  </p>
+  <div>
+    <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
+  </div>
 
   <hr class="spacing-above-25 spacing-below-25">
 
