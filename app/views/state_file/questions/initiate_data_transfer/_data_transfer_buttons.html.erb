@@ -6,7 +6,7 @@
 <% end %>
 
 <% if @irs_df_transfer_link.present? %>
-  <% if Rails.env.production? || Rails.env.staging? %>
+  <% if acts_like_production? %>
     <%= link_to @irs_df_transfer_link.to_s, class: "button button--primary button--icon", id: "firstCta" do %>
       <%= image_tag("icons/link-white.svg", alt: "") %>
       <%= t(".from_irs") %>

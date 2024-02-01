@@ -416,6 +416,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :app_time
 
+  def acts_like_production?
+    Rails.env.production? || Rails.env.staging?
+  end
+  helper_method :acts_like_production?
+
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
   end
@@ -448,7 +453,11 @@ class ApplicationController < ActionController::Base
 
   def redirect_state_file_in_off_season
     return unless state_file?
-    return if hub? || self.class.name.include?("SessionTogglesController") || (self.class.name.include?("StateFilePagesController") && action_name == "coming_soon")
+    protected_page = hub? ||
+      self.class.name.include?("SessionTogglesController") ||
+      (self.class.name.include?("StateFilePagesController") && action_name == "coming_soon") ||
+      self.class.name.include?("StateFile::FaqController")
+    return if protected_page
 
     if before_state_file_launch?
       redirect_to StateFile::StateFilePagesController.to_path_helper(action: :coming_soon)

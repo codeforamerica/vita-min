@@ -11,7 +11,7 @@ class IrsApiService
   end
 
   def self.import_federal_data(authorization_code, state_code)
-    unless Rails.env.production? || Rails.env.staging?
+    unless acts_like_production?
       matching_fake_xml_sample = StateFile::XmlReturnSampleService.new.lookup(authorization_code)
       if matching_fake_xml_sample
         return {
