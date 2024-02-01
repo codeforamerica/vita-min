@@ -14,6 +14,10 @@ module StateFile
         @mail_voucher_address = mail_voucher_address
       end
 
+      def prev_path
+        nil
+      end
+
       private
 
       def title
