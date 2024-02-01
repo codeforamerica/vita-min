@@ -25,11 +25,21 @@
       <% end %>
 
       <div style="display: flex;">
-        <% unless Rails.env.production? || Rails.env.staging?  %>
+        <% unless Rails.env.production? || Rails.env.staging? %>
           <%= link_to "Show XML", hub_state_file_efile_submission_show_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
           <div style="margin-left: 10px;">
             <%= link_to "Show direct-file XML", hub_state_file_efile_submission_show_df_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
           </div>
+
+          <% if @efile_submission.can_transition_to?(:failed) %>
+            <div style="margin-left: 10px">
+              <%= link_to("Failed",
+                          failed_hub_efile_submission_path(id: @efile_submission.id),
+                          method: :patch,
+                          data: { confirm: "Are you sure you want to mark this tax return submission as 'Failed'?" },
+                          class: "button button--danger button--small") %>
+            </div>
+          <% end %>
         <% end %>
         <% if @efile_submission.can_transition_to?(:resubmitted) %>
           <div style="margin-left: 10px;">
@@ -49,16 +59,6 @@
                         cancel_hub_efile_submission_path(id: @efile_submission.id),
                         method: :patch,
                         data: { confirm: "Are you sure you want to mark this tax return submission as 'Not filing'?" },
-                        class: "button button--danger button--small") %>
-          </div>
-        <% end %>
-
-        <% if @efile_submission.can_transition_to?(:failed) %>
-          <div style="margin-left: 10px">
-            <%= link_to("Failed",
-                        failed_hub_efile_submission_path(id: @efile_submission.id),
-                        method: :patch,
-                        data: { confirm: "Are you sure you want to mark this tax return submission as 'Failed'?" },
                         class: "button button--danger button--small") %>
           </div>
         <% end %>

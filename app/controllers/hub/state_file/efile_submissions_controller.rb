@@ -7,7 +7,6 @@ module Hub
       def index
         @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)
         @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
-        # @efile_submission_state_counts = state_counts
       end
 
       def show
@@ -36,7 +35,6 @@ module Hub
       end
 
       def state_counts
-        # binding.pry
         @efile_submission_state_counts = EfileSubmission.statefile_state_counts(except: %w[new resubmitted ready_to_resubmit])
         respond_to :js
       end
