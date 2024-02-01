@@ -12,7 +12,7 @@ module StateFile
       private
 
       def redirect_on_prod
-        redirect_to prev_path if Rails.env.production?
+        redirect_to prev_path if acts_like_production?
       end
 
       def form_params

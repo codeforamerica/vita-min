@@ -25,7 +25,7 @@
   <%= render 'state_taxpayers', state: "ny" %>
 </section>
 
-<% unless Rails.env.production? %>
+<% unless acts_like_production? %>
 <section>
   <%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
   <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
