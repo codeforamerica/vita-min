@@ -28,7 +28,6 @@ module StateFile
     def update
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
-        session_sign_in
         redirect_to session_sign_in || StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
       else
         @records.each(&:increment_failed_attempts)
