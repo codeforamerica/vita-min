@@ -27,7 +27,8 @@ RSpec.describe StateFile::IrsDataTransferLinksConcern, type: :controller do
       end
 
       it "returns false" do
-        expect(subject.fake_data_transfer_link).to eq nil
+        expect(subject.fake_data_transfer_link.query).to include "waiting-to-load-data"
+        expect(subject.fake_data_transfer_link.path).to include "fake_direct_file_transfer_page"
       end
     end
 

@@ -199,8 +199,20 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def controller_for_current_step
-    step_name = current_step.split('/').last
-    controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
-    controller_name.constantize
+    begin
+      if efile_submissions.present?
+        StateFile::Questions::ReturnStatusController
+      else
+        step_name = current_step.split('/').last
+        controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
+        controller_name.constantize
+      end
+    rescue
+      if hashed_ssn.present?
+        StateFile::Questions::DataReviewController
+      else
+        StateFile::Questions::TermsAndConditionsController
+      end
+    end
   end
 end

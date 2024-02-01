@@ -15,7 +15,7 @@ module Hub
       end
 
       def show_xml
-        return nil if Rails.env.production? || Rails.env.staging?
+        return nil if acts_like_production?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
         builder_response = case submission.data_source.state_code
@@ -28,7 +28,7 @@ module Hub
       end
 
       def show_df_xml
-        return nil if Rails.env.production? || Rails.env.staging?
+        return nil if acts_like_production?
 
         response = EfileSubmission.find(params[:efile_submission_id]).data_source.raw_direct_file_data
         render(xml: response)

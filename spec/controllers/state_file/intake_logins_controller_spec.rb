@@ -366,8 +366,16 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       it "redirects to data review page" do
         get :edit, params: params
-
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a current step" do
+        before { intake.update(current_step: "/en/questions/name-dob") }
+
+        it "redirects to the current step" do
+          post :update, params: params
+          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
+        end
       end
 
       context "when the intake does not have an ssn" do
@@ -516,6 +524,15 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           get :new, params: { contact_method: :email_address, us_state: "az" }
 
           expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+        end
+      end
+
+      context "when the intake has a current step" do
+        before { intake.update(current_step: "/en/questions/name-dob") }
+
+        it "redirects to the current step" do
+          post :update, params: params
+          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
         end
       end
     end

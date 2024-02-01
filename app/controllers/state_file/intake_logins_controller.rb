@@ -21,7 +21,7 @@ module StateFile
       # Displays verify SSN form
       @form = IntakeLoginForm.new(possible_intakes: @records)
       if @records.all? { |intake| intake.hashed_ssn.nil? }
-        sign_in_and_redirect(StateFile::Questions::TermsAndConditionsController)
+        sign_in_and_redirect
       end
     end
 
@@ -29,7 +29,7 @@ module StateFile
       # Validates SSN
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
-        sign_in_and_redirect(StateFile::Questions::DataReviewController)
+        sign_in_and_redirect
       else
         @records.each(&:increment_failed_attempts)
 
@@ -87,26 +87,27 @@ module StateFile
     def redirect_to_data_review_if_intake_authenticated
       intake = current_state_file_az_intake || current_state_file_ny_intake
       if intake.present?
-        if intake.efile_submissions.present?
-          redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(us_state: params[:us_state])
-        elsif intake.hashed_ssn.present?
-          redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
-        else
-          redirect_to StateFile::Questions::TermsAndConditionsController.to_path_helper(us_state: params[:us_state])
-        end
+        # Redirect to last step
+        controller = intake.controller_for_current_step
+        to_path = controller.to_path_helper(
+          action: controller.navigation_actions.first,
+          us_state: params[:us_state]
+        )
+        redirect_to to_path
       end
     end
 
-    def sign_in_and_redirect(controller)
+    def sign_in_and_redirect
       intake = @records.take
       sign_in intake
       session[:state_file_intake] = intake.to_global_id
       to_path = session.delete(:after_state_file_intake_login_path)
       unless to_path
-        to_path = controller.to_path_helper(us_state: params[:us_state])
-      end
-      if intake.efile_submissions.present?
-        to_path = StateFile::Questions::ReturnStatusController.to_path_helper(us_state: params[:us_state])
+        controller = intake.controller_for_current_step
+        to_path = controller.to_path_helper(
+          action: controller.navigation_actions.first,
+          us_state: params[:us_state]
+        )
       end
       redirect_to to_path
     end
