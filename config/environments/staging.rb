@@ -6,9 +6,9 @@ Rails.application.configure do
   config.ctc_url = "https://ctc.staging.getyourrefund.org"
   config.statefile_url = "https://staging.fileyourstatetaxes.org"
   config.gyr_url = "https://staging.getyourrefund.org"
-  ctc_email_from_domain = "mg-staging-ctc.getyourrefund-testing.org"
-  gyr_email_from_domain = "mg-staging.getyourrefund-testing.org"
-  statefile_email_from_domain = "mg-staging-statefile.getyourrefund-testing.org"
+  ctc_email_from_domain = "getctc.org"
+  gyr_email_from_domain = "getyourrefund.org"
+  statefile_email_from_domain = "fileyourstatetaxes.org"
   config.email_from = {
     default: {
       ctc: "hello@#{ctc_email_from_domain}",
