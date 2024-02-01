@@ -89,7 +89,11 @@ module StateFile
       if intake.present?
         # Redirect to last step
         controller = intake.controller_for_current_step
-        redirect_to controller.to_path_helper(us_state: params[:us_state])
+        to_path = controller.to_path_helper(
+          action: controller.navigation_actions.first,
+          us_state: params[:us_state]
+        )
+        redirect_to to_path
       end
     end
 
