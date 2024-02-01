@@ -25,8 +25,11 @@
       <% end %>
 
       <div style="display: flex;">
-        <% unless Rails.env.production? %>
+        <% unless Rails.env.production? || Rails.env.staging?  %>
           <%= link_to "Show XML", hub_state_file_efile_submission_show_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
+          <div style="margin-left: 10px;">
+            <%= link_to "Show direct-file XML", hub_state_file_efile_submission_show_df_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
+          </div>
         <% end %>
         <% if @efile_submission.can_transition_to?(:resubmitted) %>
           <div style="margin-left: 10px;">

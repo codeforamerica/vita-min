@@ -7,6 +7,7 @@ module Hub
       def index
         @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)
         @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
+        # @efile_submission_state_counts = state_counts
       end
 
       def show
@@ -15,7 +16,7 @@ module Hub
       end
 
       def show_xml
-        return nil if Rails.env.production?
+        return nil if Rails.env.production? || Rails.env.staging?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
         builder_response = case submission.data_source.state_code
@@ -25,6 +26,19 @@ module Hub
                              SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
                            end
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
+      end
+
+      def show_df_xml
+        return nil if Rails.env.production? || Rails.env.staging?
+
+        response = EfileSubmission.find(params[:efile_submission_id]).data_source.raw_direct_file_data
+        render(xml: response)
+      end
+
+      def state_counts
+        # binding.pry
+        @efile_submission_state_counts = EfileSubmission.statefile_state_counts(except: %w[new resubmitted ready_to_resubmit])
+        respond_to :js
       end
 
       private

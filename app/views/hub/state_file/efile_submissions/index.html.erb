@@ -1,5 +1,8 @@
 <% content_for :card do %>
   <div class="spacing-above-25 submissions-index">
+    <div class="efile-state-counts" style="display: flex;">
+      <%= render "state_counts", efile_submission_state_counts: @efile_submission_state_counts %>
+    </div>
     <div class="slab slab--not-padded spacing-above-25">
       <div class="pagination-wrapper">
         <div class="count-wrapper">
