@@ -113,6 +113,7 @@ module VitaMin
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
 
     config.intercom_app_id = "rird6gz6"
+    config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
 
     # Add pdftk to PATH
