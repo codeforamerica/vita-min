@@ -7,10 +7,12 @@ module Portal
     layout "portal"
 
     def new
+      # Displays the enter email / phone number
       @form = request_login_form_class.new
     end
 
     def create
+      # Sends verification code
       @form = request_login_form_class.new(request_client_login_params)
       if @form.valid?
         RequestVerificationCodeForLoginJob.perform_later(
@@ -67,10 +69,12 @@ module Portal
     end
 
     def edit
+      # Displays verify SSN form
       @form = ClientLoginForm.new(possible_clients: @records)
     end
 
     def update
+      # Validates SSN
       @form = ClientLoginForm.new(client_login_params)
       if @form.valid?
         sign_in @form.client

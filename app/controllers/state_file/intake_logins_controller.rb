@@ -18,6 +18,7 @@ module StateFile
     end
 
     def edit
+      # Displays verify SSN form
       @form = IntakeLoginForm.new(possible_intakes: @records)
       if @records.all? { |intake| intake.hashed_ssn.nil? }
         sign_in_and_redirect(StateFile::Questions::TermsAndConditionsController)
@@ -25,6 +26,7 @@ module StateFile
     end
 
     def update
+      # Validates SSN
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
         sign_in_and_redirect(StateFile::Questions::DataReviewController)
