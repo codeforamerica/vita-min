@@ -50,8 +50,10 @@ module SubmissionBuilder
     COMMON_ADDRESS_ABBREV = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].freeze
 
     def build_xml_doc(tag_name, **root_node_attributes)
-      default_attributes = { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
+      default_attributes = { "xmlns:efile" => "http://www.irs.gov/efile" }
+      return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
       xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        default_attributes.merge!(return_state_attributes) if tag_name == 'ReturnState'
         xml.send(tag_name, default_attributes.merge(root_node_attributes)) do |contents_builder|
           yield contents_builder if block_given?
         end
