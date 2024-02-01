@@ -20,9 +20,8 @@ module StateFile
     def edit
       @form = IntakeLoginForm.new(possible_intakes: @records)
       if @records.all? { |intake| intake.hashed_ssn.nil? }
-        session_sign_in
         parts = request.path.split('/')
-        redirect_to StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit, locale: parts[1], us_state: parts[2])
+        redirect_to session_sign_in || StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit, locale: parts[1], us_state: parts[2])
       end
     end
 
@@ -30,7 +29,7 @@ module StateFile
       @form = IntakeLoginForm.new(intake_login_params)
       if @form.valid?
         session_sign_in
-        redirect_to StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
+        redirect_to session_sign_in || StateFile::Questions::DataReviewController.to_path_helper(us_state: params[:us_state])
       else
         @records.each(&:increment_failed_attempts)
 
