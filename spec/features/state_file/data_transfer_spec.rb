@@ -6,13 +6,14 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+    Flipper.enable :sms_notifications
   end
 
   it "advances past the loading screen by listening for an actioncable broadcast", js: true do
     visit "/"
     click_on "Start Test NY"
 
-    expect(page).to have_text "File your New York state taxes for free"
+    expect(page).to have_text "File your New York State taxes for free"
     click_on "Get Started", id: "firstCta"
 
     step_through_eligibility_screener(us_state: "ny")

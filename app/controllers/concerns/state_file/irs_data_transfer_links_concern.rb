@@ -3,7 +3,7 @@ module StateFile
     extend ActiveSupport::Concern
 
     def fake_data_transfer_link
-      return nil if Rails.env.production? || Rails.env.staging?
+      return nil if Rails.env.production?
 
       fake_df_transfer_page_link = URI(state_file_fake_direct_file_transfer_page_path)
       fake_df_transfer_page_link.query = { redirect: return_url }.to_param

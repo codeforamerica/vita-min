@@ -5,8 +5,11 @@ module StateFile
         raise ActiveRecord::RecordNotFound unless EfileSubmission.where(data_source: current_intake).present?
       end
 
-      private
+      def prev_path
+        nil
+      end
 
+      private
       def form_class
         NullForm
       end

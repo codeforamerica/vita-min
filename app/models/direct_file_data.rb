@@ -550,13 +550,13 @@ class DirectFileData
 
   def ny_public_employee_retirement_contributions
     box14_total = 0
-    retirement_types = ['414(H)', '414HCU', 'ERSNYSRE', 'NYSERS', 'RET', 'RETSH', 'TIER3RET', '414(H)CU', '414HSUB', 'ERSRETCO', 'NYSRETCO', 'RETDEF', 'RETSM', 'TIER4', '414H', 'ERS', 'NYRET', 'PUBRET', 'RETMT', 'TIER4RET', 'RETSUM']
+    retirement_types = %w[ERSNYSRE NYSERS RET RETSH TIER3RET ERSRETCO NYSRETCO RETDEF RETSM TIER4 ERS NYRET PUBRET RETMT TIER4RET RETSUM]
 
     parsed_xml.css('IRSW2 OtherDeductionsBenefitsGrp').map do |deduction|
       desc = deduction.at('Desc')&.text
       amt = deduction.at('Amt')&.text.to_i
 
-      if retirement_types.include?(desc.upcase.gsub(/\s/, ''))
+      if retirement_types.include?(desc.upcase.gsub(/[\s()]/, '')) || desc.upcase.gsub(/[\s()]/, '')[0..3] == '414H'
         box14_total += amt
       end
     end

@@ -240,6 +240,8 @@ Rails.application.routes.draw do
         namespace :state_file, path: "state-file" do
           resources :efile_submissions, only: [:index, :show]  do
             get "show_xml", to: "efile_submissions#show_xml"
+            get "show_df_xml", to: "efile_submissions#show_df_xml"
+            get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
           end
           resources :faq_categories, path: "faq" do
             resources :faq_items
@@ -558,8 +560,8 @@ Rails.application.routes.draw do
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+          get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
         end
-        get "payment_voucher", to: "state_file/payment_voucher#show"
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section

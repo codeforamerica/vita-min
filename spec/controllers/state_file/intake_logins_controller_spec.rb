@@ -267,7 +267,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "redirects to the account locked page" do
           post :check_verification_code, params: params
 
-          expect(response).to redirect_to(account_locked_portal_client_logins_path)
+          expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'ny'))
         end
       end
 
@@ -324,7 +324,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           expect(response).to be_ok
         end
 
-        context "when the client account is locked" do
+        context "when the intake is locked" do
           before do
             intake.lock_access!
           end
@@ -332,7 +332,17 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           it "redirects to the lockout page" do
             get :edit, params: params
 
-            expect(response).to redirect_to account_locked_portal_client_logins_path
+            expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
+          end
+        end
+
+        context "when the intake does not have an ssn" do
+          before { intake.update(hashed_ssn: nil) }
+
+          it "redirects to terms and conditions page" do
+            get :edit, params: params
+
+            expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
           end
         end
       end
@@ -356,8 +366,25 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       it "redirects to data review page" do
         get :edit, params: params
-
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a current step" do
+        before { intake.update(current_step: "/en/questions/name-dob") }
+
+        it "redirects to the current step" do
+          post :update, params: params
+          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
+        end
+      end
+
+      context "when the intake does not have an ssn" do
+        before { intake.update(hashed_ssn: nil) }
+
+        it "redirects to terms and conditions page" do
+          get :edit, params: params
+          expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+        end
       end
     end
   end
@@ -392,6 +419,20 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             expect(GlobalID.find(session[:state_file_intake])).to eq intake
           end
 
+          context "when the intake has a submitted return" do
+            before do
+              intake.efile_submissions.create!
+            end
+
+            it "redirects to the return status page" do
+              post :update, params: params
+
+              expect(subject.current_state_file_az_intake).to eq(intake)
+              expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+              expect(GlobalID.find(session[:state_file_intake])).to eq intake
+            end
+          end
+
           context "when they were trying to access a protected page" do
             let(:original_path) { "/questions/fake-page?test=1234" }
 
@@ -415,7 +456,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             it "redirects to an account-locked page" do
               post :update, params: params
 
-              expect(response).to redirect_to account_locked_portal_client_logins_path
+              expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
             end
           end
         end
@@ -439,13 +480,13 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               intake.update(failed_attempts: 4)
             end
 
-            it "locks the client account and redirects to a lockout page" do
+            it "locks the intake and redirects to a lockout page" do
               expect do
                 post :update, params: params
               end.to change { intake.reload.failed_attempts }.by 1
               expect(intake.reload.access_locked?).to be_truthy
 
-              expect(response).to redirect_to(account_locked_portal_client_logins_path)
+              expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'az'))
             end
           end
         end
@@ -468,10 +509,31 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         sign_in intake
       end
 
-      it "redirects to data review page" do
-        post :update, params: params
+      it "redirects to data review page if they have no submitted return" do
+        get :new, params: { contact_method: :email_address, us_state: "az" }
 
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a submitted return" do
+        before do
+          intake.efile_submissions.create!
+        end
+
+        it "redirects to return status page" do
+          get :new, params: { contact_method: :email_address, us_state: "az" }
+
+          expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+        end
+      end
+
+      context "when the intake has a current step" do
+        before { intake.update(current_step: "/en/questions/name-dob") }
+
+        it "redirects to the current step" do
+          post :update, params: params
+          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
+        end
       end
     end
   end

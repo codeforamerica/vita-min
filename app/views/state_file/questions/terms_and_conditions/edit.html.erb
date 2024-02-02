@@ -6,7 +6,14 @@
     <% if params[:us_state] == "ny" %>
       <p><%=t(".ny_text_html") %></p>
     <% end %>
-    <p><%=t(".body_text_html") %></p>
+    <p>
+      <%= t(".body_text_opener_html") %>
+      <% @li_items.each do |item| %>
+        <%= content_tag(:li, raw(item)) %>
+      <% end %>
+      <%= t(".body_text_closer_html", privacy_policy_link: state_file_privacy_policy_path) %>
+    </p>
+
   </div>
   <p><%=t(".read_text") %></p>
 

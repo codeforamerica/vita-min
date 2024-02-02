@@ -11,12 +11,8 @@ class StateFileBaseIntake < ApplicationRecord
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
-  scope :can_be_authenticated, -> { where.not(hashed_ssn: nil) }
-  devise :timeoutable, :timeout_in => 15.minutes
-
-  class << self
-    alias :accessible_intakes :can_be_authenticated # integrate with legacy login service
-  end
+  scope :accessible_intakes, -> { all }
+  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
@@ -199,6 +195,24 @@ class StateFileBaseIntake < ApplicationRecord
     super
     if attempts_exceeded?
       lock_access! unless access_locked?
+    end
+  end
+
+  def controller_for_current_step
+    begin
+      if efile_submissions.present?
+        StateFile::Questions::ReturnStatusController
+      else
+        step_name = current_step.split('/').last
+        controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
+        controller_name.constantize
+      end
+    rescue
+      if hashed_ssn.present?
+        StateFile::Questions::DataReviewController
+      else
+        StateFile::Questions::TermsAndConditionsController
+      end
     end
   end
 end

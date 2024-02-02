@@ -86,8 +86,6 @@ module VitaMin
     config.statefile_current_tax_year = 2023
     config.product_year = 2024
 
-    config.nactp_vendor_code = "1963"
-
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
     config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 12:00:00')
@@ -108,7 +106,7 @@ module VitaMin
     config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2023-12-31 23:59:00")
 
     # StateFile
-    config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-05 7:59:59')
+    config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-08 12:59:59')
     config.state_file_end_of_intake = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)

@@ -58,14 +58,16 @@ module StateFile
       end
 
       def prev_path
-        prev_step = form_navigation.prev
-        return unless prev_step
+        path_for_step(form_navigation.prev)
+      end
 
-        options = { us_state: params[:us_state], action: prev_step.navigation_actions.first }
-        if prev_step.resource_name
-          options[:id] = prev_step.model_for_show_check(self)&.id
+      def path_for_step(step)
+        return unless step
+        options = { us_state: params[:us_state], action: step.navigation_actions.first }
+        if step.resource_name
+          options[:id] = step.model_for_show_check(self)&.id
         end
-        prev_step.to_path_helper(options)
+        step.to_path_helper(options)
       end
 
       # by default, most state file questions have no illustration

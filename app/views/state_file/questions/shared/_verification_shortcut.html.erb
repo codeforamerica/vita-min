@@ -1,4 +1,4 @@
-<% unless Rails.env.production? %>
+<% unless acts_like_production? %>
   <%=
     link_to(
         "I'm on a #{Rails.env} environment, skip this",

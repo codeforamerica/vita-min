@@ -25,7 +25,7 @@
 
           <li><%= link_to t(".terms_of_service"), "" %></li>
 
-          <% unless Rails.env.production? %>
+          <% unless acts_like_production? %>
             <li class="spacing-above-60">
               <%= link_to "https://www.getyourrefundstatus.org/" do %>
                 <%= t("views.shared.footer.service_status") %>
@@ -42,7 +42,7 @@
           <% end %>
         <% end %>
 
-        <% unless Rails.env.production? %>
+        <% unless acts_like_production? %>
           <li><%= link_to "Session toggles", session_toggles_path %></li>
         <% end %>
       </ul>

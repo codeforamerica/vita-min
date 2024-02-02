@@ -1,6 +1,4 @@
-<% title = t(".title_html",
-             state_name: States.name_for_key(params[:us_state].upcase),
-             refund_amount: refund_amount) %>
+<% title = params[:us_state] == "az" ? t(".az_title_html", refund_amount: refund_amount) : t(".ny_title_html", refund_amount: refund_amount) %>
 
 <% content_for :page_title, title %>
 <% content_for :card do %>

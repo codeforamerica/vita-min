@@ -92,6 +92,11 @@ class MultiTenantService
         api_key: EnvironmentCredentials.dig(:mailgun, :ctc_api_key),
         domain: EnvironmentCredentials.dig(:mailgun, :ctc_domain)
       }
+    elsif service_type == :statefile && EnvironmentCredentials.dig(:mailgun, :statefile_api_key)
+      {
+        api_key: EnvironmentCredentials.dig(:mailgun, :statefile_api_key),
+        domain: EnvironmentCredentials.dig(:mailgun, :statefile_domain)
+      }
     else
       Rails.configuration.action_mailer.mailgun_settings
     end

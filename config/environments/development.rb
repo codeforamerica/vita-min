@@ -52,7 +52,6 @@ Rails.application.configure do
   ctc_email_from_domain = "ctc.localhost"
   gyr_email_from_domain = "localhost"
   statefile_email_from_domain = "statefile.localhost"
-
   config.email_from = {
     default: {
       ctc: "hello@#{ctc_email_from_domain}",
@@ -69,7 +68,6 @@ Rails.application.configure do
       gyr: "support@#{gyr_email_from_domain}",
       statefile: "help@#{statefile_email_from_domain}"
     }
-
   }
   if ngrok_host.present?
     config.action_mailer.default_url_options = { protocol: 'https', host: ngrok_host, port: 80 }

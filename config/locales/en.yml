@@ -1660,7 +1660,7 @@ en:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 5 failed attempts, accounts are locked.
       new:
-        one_form_of_contact: 'Please enter one form of contact below:'
+        one_form_of_contact: 'Please enter your form of contact below:'
         send_code: Send code
         title: We’ll send you a secure code to sign in
     closed_logins:
@@ -1866,6 +1866,9 @@ en:
       index:
         title: Common questions from %{state} taxpayers
     intake_logins:
+      account_locked:
+        body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        title: This account has been locked
       edit:
         help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
@@ -1910,7 +1913,7 @@ en:
           ssn_no_employment_html:
             one: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
             other: Do you or your spouse have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
-          title: Finally, we have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
+          title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
           was_incarcerated:
             one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
             other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
@@ -1925,7 +1928,7 @@ en:
             other: Did you or your spouse file with a different last name in the last four years?
       az_review:
         edit:
-          armed_forces_member: Member of the U.S. armed forces
+          armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
           charitable_cash: Charitable contributions (Cash)
           charitable_contributions: Made charitable contributions
@@ -1941,13 +1944,13 @@ en:
           title: Please provide some more information about the people in your family who are 65 years of age or older.
       az_state_credits:
         edit:
-          armed_forces_member_label: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
+          armed_forces_member_label_html: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces <strong>and</strong> received pay for active duty military service.
           armed_forces_wages_label:
             one: How much did you receive in active duty pay?
             other: How much did you or your spouse receive in active duty pay?
           learn_more_content_html: |
-            If you are a member of the U.S. armed forces, enter the amount of active duty pay that you reported on your federal tax return.<br><br>
-            If you are a member of the Reserves or the National Guard, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
+            If you are a member of the <strong>U.S. Armed Forces</strong>, enter the amount of active duty pay that you reported on your federal tax return.<br><br>
+            If you are a member of <strong>the Reserves or the National Guard</strong>, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
           should_not_exceed_wages_html: "<strong>Note:</strong> this should not exceed %{wages}"
@@ -1958,7 +1961,7 @@ en:
             one: Did any of the following scenarios apply to you in %{year}?
             other: Did any of the following scenarios apply to you or your spouse in %{year}?
           tribal_member_label:
-            one: You are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
+            one: You are an enrolled member of a <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">federally recognized American Indian tribe</a> and you earned wages while living and working on that tribe’s reservation.
             other: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
           tribal_wages_label:
             one: How much did you earn while living and working on your tribe’s reservation?
@@ -1967,14 +1970,13 @@ en:
       canceled_data_transfer:
         edit:
           faq: Visit our FAQ
+          mistake_html: Is this a mistake? <a href="%{link}">Go back to correct.</a>
           other_options_html: |
             <strong>Want to file using a different product or service?</strong>
             <br/>
             Before choosing an option, make sure it supports state-only tax filing. You will need to reenter your federal tax return information to prepare your state tax return. Fees may apply.
-          title_html: |
-            You canceled the transfer of your federal return.
-            <br/><br/>
-            Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
+          title1: You canceled the transfer of your federal return.
+          title2: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.
@@ -2034,7 +2036,7 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: 'You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: 'You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
 
             '
           faq_link: Visit our FAQ
@@ -2073,15 +2075,15 @@ en:
           expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
           expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
           expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-          out_of_state_income: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income received from another state.)
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
           part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
           title: First, let's see if you can use this tool to file your taxes
-          used_529_for_non_qual_expense: Did you (or your spouse, if you’re filing together) withdraw money from a 529 college savings account and use it for non-qualifying expenses in 2023?
+          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
       eligibility_residence:
         edit:
           filing_status_married_filing_separately: Are you filing as “married filing separately”?
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
-          lived_or_income_in_yonkers: Did you (and your spouse, if you’re filing together) live, earn income, or maintain a home in Yonkers at any time in 2023?
+          lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
           mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
           mfs_helper_heading: What does “married filing separately” mean?
           mfs_helper_no_if: 'Select no if:'
@@ -2120,7 +2122,7 @@ en:
           nys_eic: NYS/NYC Earned Income Credit
           nys_hh_credit: NYS/NYC Household Credit
           title1: Good news, you can use this tool this year to file your state taxes.
-          title2: Here are the credits and deductions you may be able to claim with this tool to maximize your refund.
+          title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in Arizona. Note that this option may take 2-3 weeks to complete.
@@ -2130,7 +2132,6 @@ en:
           long_term_care_credit: Long-term care insurance credit
           non_custodial_nys_eic_html: Non-custodial NYS Earned Income Credit (for <a href="https://www.tax.ny.gov/pit/credits/nceic.htm" target="_blank" rel="noopener nofollow">parents who do not live with their children</a>)
           nys_child_dependent_care_credit: NYS Child and Dependent Care Credit
-          other_credits_529: 529 college savings plan contributions
           other_credits_change_filing_status: Change in filing status from federal to state
           other_credits_est_tax_etc: Estimated tax, extension payments, and prior year credit forward
           other_credits_heading: 'Other credits, deductions and resources not supported this year:'
@@ -2153,13 +2154,13 @@ en:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
               <ul class="list--bulleted">
-                <li>If I am owed a refund and I provided direct deposit information, I consent that my refund be directly deposited as designated in the electronic portion of my 2022 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
-                <li>If I am not owed a refund or if I elected to receive my refund via mailed check, I do not want direct deposit of my refund or I am not receiving a refund.</li>
-                <li>If I owe tax and I provided direct debit information, I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
+                <li><em>If I am owed a refund and I provided direct deposit information,</em> I consent that my refund be directly deposited as designated in the electronic portion of my 2023 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
+                <li><em>If I am not owed a refund or if I elected to receive my refund via mailed check,</em> I do not want direct deposit of my refund or I am not receiving a refund.</li>
+                <li><em>If I owe tax and I provided direct debit information,</em> I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
               </ul>
-              <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 18, 2023, I will remain liable for the tax liability and all applicable interest and penalties.</p>
+              <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
-              <p>I authorize FileYourStateTaxes to make the election that I want my electronic signature to my electronic federal individual income tax return to serve as my signature to my electronic Arizona individual income tax return for the year ending December 31, 2023. I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+              <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
@@ -2183,22 +2184,25 @@ en:
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool."
             supported_by: Supported by the state of Arizona
+            title: File your Arizona state taxes for free
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool."
             supported_by: Supported by New York State
-          title: File your %{state_full_name} state taxes for free
+            title: File your New York State taxes for free
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dependent_name_dob: Please tell us your dependent’s date of birth
+          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith, Jr.)
           months_helper_born_died: Select 12 months if the dependent was born or died during 2023.
           months_helper_description: Count any months the dependent lived in your home, as well as any months the dependent was temporarily absent due to being away at school, in a hospital or medical facility, or away on business or vacation.
           months_helper_heading: Which months should I count?
           primary_name: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           primary_name_dob: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_dob: Your spouse's date of birth
-          spouse_name: Your spouse’s name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
-          spouse_name_dob: Your spouse’s name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
+          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith, Jr.)
+          spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
+          spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
@@ -2259,9 +2263,9 @@ en:
           select_one: 'Select one of the following:'
           subtitle: For example, online purchases with no sales tax applied.
           title:
-            one: Did you make any out-of-state purchases in %{year} that went untaxed?
+            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
-          use_tax_method_automated: All of your purchases were less than $1,000 each. Calculate the amount of use tax for me.
+          use_tax_method_automated: All of my purchases were less than $1,000 each. Calculate the amount of use tax for me.
           use_tax_method_manual_html: I had an untaxed purchase over $1,000, or I would prefer to calculate my use tax manually. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Learn more</a> and search ‘exact calculation method’)
       ny_school_district:
         edit:
@@ -2306,17 +2310,14 @@ en:
           title: Enter your phone number
       primary_state_id:
         edit:
+          ny_subtitle: This information is required for all NY residents with a state-issued ID.
           title: Please share some details from your state-issued ID
         state_id:
           id_details:
-            expiration_day: Day
-            expiration_month: Expiration month
-            expiration_year: Year
+            expiration: Expiration Date
             first_three_doc_num_html: "<strong>For New York IDs:</strong> First three characters of the document number (located on the back of your ID)"
-            issue_day: Day
-            issue_month: Issue month
+            issue: Issue Date
             issue_state: Issue State
-            issue_year: Year
             no_expiration_date: No expiration date
             number: ID Number
           id_type_question:
@@ -2343,12 +2344,13 @@ en:
           show_xml: Show XML
         pending:
           more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
-          receive_email: You'll receive an email or text update when your state tax return is accepted.
-          title: You have submitted your 2023 %{state_name} tax return, and it is still waiting to be accepted.
+          receive_email: You'll receive an email update when your state tax return is accepted.
+          receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
+          title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
           contact_us: Contact our team of Support Specialists by clicking chat with us.
           have_questions: Have questions?
-          its_unusual: It's unusual for your state return to be rejected after your federal return was accepted. Our team is looking into the issue to see what we can do to help fix the problem. We'll let you know if you need to do anything else.
+          its_unusual: It's unusual for your state return to be rejected after your federal return was accepted. Our team is looking into the issue to see what we can do to help fix the problem. We'll let you know if you need to take any additional next steps.
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
@@ -2380,6 +2382,7 @@ en:
         edit:
           download_state_return_pdf: Download your state return
           email_text_update: You’ll receive an email or text update when your state return is accepted.
+          email_update: You'll receive an email update when your state tax return is accepted.
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote.
           title: Your 2023 %{state_name} state tax return is now submitted!
@@ -2395,9 +2398,10 @@ en:
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
         edit:
+          az_title_html: Good news, you're getting a Arizona state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
           direct_deposit: Direct deposit (fastest)
           mail: Mail my payment (slower)
-          title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
+          ny_title_html: Good news, you're getting a New York State tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
       taxes_owed:
         edit:
           page_title: You owe $%{owed_amount} in %{state_name} state taxes. How would you like to pay?
@@ -2407,27 +2411,17 @@ en:
       terms_and_conditions:
         edit:
           accept: Accept
-          body_text_html: |
+          body_text_closer_html: |
+            </ul>
+            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
+          body_text_opener_html: |
             <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
             <ul class="list--numbered">
-              <li><strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use tool built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li>
-              <li><strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.</li>
-              <li><strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li>
-              <li><strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li>
-              <li><strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li>
-              <li><strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li>
-              <li><strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our Privacy Policy for all the details.</li>
-              <li><strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.</li>
-              <li><strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li>
-              <li><strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li>
-              <li><strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li>
-              <li><strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li>
-              <li><strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
-            </ul>
-            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="/privacy-policy">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
           decline: Decline
+          list_items_html: <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use tool built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li> <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.</li> <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li> <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li> <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li> <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li> <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.</li> <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.</li> <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li> <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li> <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li> <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li> <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
+          list_items_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through email. This includes status updates, reminders, and important information.</li>\n"
           ny_text_html: |
-            <b>E-file your New York State income tax return at no extra charge.</b><br><br>
+            <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
             Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
             <ul class="list--bulleted">
              <li>90% of New Yorkers e-file their income tax returns.</li>
@@ -2444,7 +2438,7 @@ en:
           apartment: Apartment/Unit Number
           box_10b_html: "<strong>Box 10b</strong>, State identification number"
           city: City
-          confirm_address_html: Please confirm <strong>the mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
+          confirm_address_html: Please confirm <strong>your mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
           confirm_address_no: No, I need to edit
           confirm_address_yes: Yes, that's the address
           federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld"
@@ -2454,7 +2448,7 @@ en:
             Next, find the requested information in the following locations: </br>
             <ol class="list--numbered">
               <li><strong>Who does this form belong to?</strong> The left side of the form will say if this form belongs to you or your spouse, if applicable. Look for “recipient’s name.”</li>
-              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address on the form matches what you enter here.</li>
+              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address <strong>on the form</strong> matches what you enter here.</li>
               <li><strong>Payer’s information,</strong> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
               <li><strong>Boxes 1, 4, 10b, and 11</strong> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
             </ol>
@@ -2465,7 +2459,7 @@ en:
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
-          payer_tin: Payer’s TIN (XX-XXXXXXX)
+          payer_tin: Payer’s TIN (9-digit number)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
           recipient_question: Who is this form for?
@@ -2540,9 +2534,9 @@ en:
         analytics_html: We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/legal/privacy-policy/">HERE</a>. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click <a href="https://policies.google.com/privacy?hl=en-US">HERE</a>. You can also email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for additional information.
         changes: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
         changes_header: Changes
-        cookies_1: We use Cookies and other technologies to gather data during your use of our Site. Your use of our Site indicates your consent to such use of Cookies.
+        cookies_1: We use cookies and other technologies to gather data during your use of our Site. Your use of our Site indicates your consent to such use of cookies.
         cookies_2: Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.
-        cookies_3: We use Cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Site to improve the way we promote our content and programs.
+        cookies_3: We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Site to improve the way we promote our content and programs.
         cookies_4: Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.
         cookies_header: Cookies
         data_retention_1: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.'
@@ -2606,6 +2600,8 @@ en:
         questions_1_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> or by mail at:'
         questions_2: We will do our best to resolve the issue.
         questions_header: Questions
+        transactional_sms: You may unsubscribe to transactional messages by texting back STOP at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see FileYourStateTaxes’s SMS terms for additional details and opt-out instructions for these services. Data obtained through the SMS program will not be shared with any third-parties for their marketing reasons/purposes.
+        transactional_sms_header: Transactional SMS (Text) Messages
         your_info: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
         your_info_header: Your choices regarding your information
   validators:

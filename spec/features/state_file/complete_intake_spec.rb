@@ -6,6 +6,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+    Flipper.enable :sms_notifications
   end
 
   context "NY", :flow_explorer_screenshot, js: true do
@@ -13,7 +14,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test NY"
 
-      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.title", state_full_name: "New York")
+      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.ny.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "ny")
@@ -119,7 +120,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1418. How would you like to receive your refund?"
+      expect(page).to have_text "Good news, you're getting a New York State tax refund of $1418. How would you like to receive your refund?"
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -152,7 +153,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test AZ"
 
-      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.title", state_full_name: "Arizona")
+      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.az.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "az")

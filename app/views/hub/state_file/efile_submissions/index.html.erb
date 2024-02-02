@@ -1,5 +1,8 @@
 <% content_for :card do %>
   <div class="spacing-above-25 submissions-index">
+    <div class="efile-state-counts" style="display: flex;">
+      <%= render "state_counts", efile_submission_state_counts: @efile_submission_state_counts %>
+    </div>
     <div class="slab slab--not-padded spacing-above-25">
       <div class="pagination-wrapper">
         <div class="count-wrapper">
@@ -29,16 +32,17 @@
         <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
           Status
         </th>
-        <th scope="col" style="width: 10rem" class="index-table__header sortable">IRS Submission ID</th>
-        <th scope="col" style="width: 10rem" class="index-table__header sortable">Federal Submission ID</th>
         <th scope="col" class="index-table__header">
           Errors
         </th>
-        <th scope="col" class="index-table__header">
-          Data Source ID
+        <th scope="col" style="width: 10rem" class="index-table__header sortable">
+          State Submission ID
         </th>
         <th scope="col" class="index-table__header">
-          Data Source type
+          State
+        </th>
+        <th scope="col" class="index-table__header">
+          Email Address
         </th>
       </tr>
       </thead>
@@ -53,12 +57,6 @@
             <%= link_to submission.current_state.humanize(capitalize: false), hub_state_file_efile_submission_path(id: submission.id), class: "underline" %>
           </td>
           <td class="index-table__cell">
-            <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
-          </td>
-          <td class="index-table__cell">
-            <%= submission.data_source.federal_submission_id.present? ? link_to(submission.data_source.federal_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
-          </td>
-          <td class="index-table__cell">
             <% submission.last_transition&.efile_errors&.each do |error| %>
                 <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
                   <%= link_to hub_efile_error_path(id: error.id) do %>
@@ -67,8 +65,11 @@
                 </span>
             <% end %>
           </td>
-          <td class="index-table__cell"><%= submission.data_source_id %></td>
-          <td class="index-table__cell"><%= submission.data_source_type %></td>
+          <td class="index-table__cell">
+            <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
+          </td>
+          <td class="index-table__cell"><%= submission.data_source.state_name %></td>
+          <td class="index-table__cell"><%= submission.data_source.email_address %></td>
         </tr>
       <% end %>
       </tbody>

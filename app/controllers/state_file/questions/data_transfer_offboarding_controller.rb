@@ -2,11 +2,13 @@ module StateFile
   module Questions
     class DataTransferOffboardingController < StateFile::Questions::QuestionsController
       helper_method :ineligible_reason
+      include VitaTransferConcern
 
       def edit
         super
         product_type = FaqCategory.state_to_product_type(params[:us_state])
         @learn_more_link = FaqCategory.where(slug: "other_state_filing_options", product_type: product_type).present? ? state_faq_section_path(section_key: "other_state_filing_options") : state_faq_path
+        @vita_link = vita_link
       end
 
       def ineligible_reason

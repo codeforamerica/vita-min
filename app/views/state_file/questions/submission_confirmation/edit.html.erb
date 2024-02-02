@@ -6,7 +6,13 @@
 
   <h1 class="h2"><%= title %></h1>
 
-  <p><%= t(".email_text_update") %></p>
+  <p>
+    <% if Flipper.enabled?(:sms_notifications) %>
+      <%= t(".email_text_update") %>
+    <% else %>
+      <%= t(".email_update") %>
+    <% end %>
+  </p>
 
   <p>
     <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
@@ -17,7 +23,7 @@
   <% end %>
 
   <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: params[:us_state], action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary" %>
-  <% unless Rails.env.production? %>
+  <% unless acts_like_production? %>
     <p>
       <% xml_bundle = EfileSubmission.where(data_source: current_intake).last&.submission_bundle %>
       <%= link_to "Main XML Doc", StateFile::Questions::ConfirmationController.to_path_helper(us_state: params[:us_state], action: :show_xml), class: 'dev-button' %>
