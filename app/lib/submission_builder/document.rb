@@ -53,7 +53,6 @@ module SubmissionBuilder
       default_attributes = { 'xmlns:efile' => 'http://www.irs.gov/efile' }
       return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
       xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-        # binding.pry
         default_attributes.merge!(return_state_attributes) if merge_state_attrs_for_state?(tag_name)
         xml.send(tag_name, default_attributes.merge(root_node_attributes)) do |contents_builder|
           yield contents_builder if block_given?
@@ -64,7 +63,7 @@ module SubmissionBuilder
 
     def merge_state_attrs_for_state?(tag_name)
       if self.submission.data_source_type == 'StateFileNyIntake'
-        if %w[ReturnState efile:ReturnState].include?(tag_name)
+        if %w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
           return true
         else
           return false
