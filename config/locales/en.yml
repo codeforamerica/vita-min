@@ -2193,14 +2193,14 @@ en:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dependent_name_dob: Please tell us your dependent’s date of birth
-          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith, Jr.)
+          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith Jr.)
           months_helper_born_died: Select 12 months if the dependent was born or died during 2023.
           months_helper_description: Count any months the dependent lived in your home, as well as any months the dependent was temporarily absent due to being away at school, in a hospital or medical facility, or away on business or vacation.
           months_helper_heading: Which months should I count?
           primary_name: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           primary_name_dob: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_dob: Your spouse's date of birth
-          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith, Jr.)
+          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith Jr.)
           spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
