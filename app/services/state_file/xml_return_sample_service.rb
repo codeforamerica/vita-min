@@ -4,7 +4,11 @@ module StateFile
       @_samples = []
       @_sample_lookup = {}
       @_submission_id_lookup = {
-        rudy_v2_ny: '1016422024027ate001k'
+        rudy_v2_ny: '1016422024027ate001k',
+        javier_ny: '1016422024018atw000x',
+        matthew_v2_ny: '1016422024026atw001u',
+        khaled_ny: '1016422024009at0000z',
+        ivy_414h_ny: '1016422024025atw000h'
       }
     end
 
