@@ -3,6 +3,9 @@ module StateFile
     def initialize
       @_samples = []
       @_sample_lookup = {}
+      @_submission_id_lookup = {
+        rudy_v2_ny: '1016422024027ate001k'
+      }
     end
 
     def samples
@@ -13,6 +16,10 @@ module StateFile
     def lookup(key)
       load_samples
       @_sample_lookup[key]
+    end
+
+    def lookup_submission_id(key)
+      @_submission_id_lookup[key.to_sym] || '12345202201011234570'
     end
 
     def read(key)
