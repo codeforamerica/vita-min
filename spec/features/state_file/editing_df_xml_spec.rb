@@ -27,11 +27,6 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     xml_before = StateFileNyIntake.last.raw_direct_file_data.strip
 
-    click_on "visit_federal_info_controller"
-    expect(page).to have_select("state_file_federal_info_form[filing_status]", selected: "head of household")
-
-    click_on I18n.t("general.continue")
-
     expect(page).to have_text I18n.t('state_file.questions.name_dob.edit.title1')
 
     xml_after = StateFileNyIntake.last.raw_direct_file_data.strip

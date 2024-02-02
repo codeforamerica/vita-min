@@ -17,6 +17,7 @@ module StateFile
           intake: current_intake,
         )
         sign_in current_intake
+        redirect_to next_path
       end
 
       def update
