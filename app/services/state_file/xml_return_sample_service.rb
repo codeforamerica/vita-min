@@ -8,7 +8,11 @@ module StateFile
         javier_ny: '1016422024018atw000x',
         matthew_v2_ny: '1016422024026atw001u',
         khaled_ny: '1016422024009at0000z',
-        ivy_414h_ny: '1016422024025atw000h'
+        ivy_414h_ny: '1016422024025atw000h',
+        leslie_qss_v2_az: '1016422024026atw001h',
+        donald_v2_az: '1016422024027atw0020',
+        robin_v2_az: '1016422024028ate001q',
+        superman_v2_az: '1016422024025ate000b'
       }
     end
 
