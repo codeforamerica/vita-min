@@ -18,7 +18,7 @@ We maintain collections of the XSD and PDF forms in S3. This task downloads / un
 
 The data collected by the IRS does not match up exactly with forms that will be easily understood by a filer, so a little bit of translation is required e.g.: `EligibleForChildTaxCreditInd` can be derived based on the age of the dependent and the relationship to the filer, so we derived this rather than presenting a checkbox a filer has to work out themselves.
 
-For state file, we actually redirect filers to the IRS's efile service, and then get the resultant XML via a back channel when they are finished. We then gather remaining required data to file taxes for the appropriate State
+For state file, we actually redirect filers to the IRS's efile service, and then get the resultant XML via a back channel when they are finished. We then gather remaining required data to file taxes for the appropriate State.
 
 The remaining business logic mostly concerns login and session management, filing with efile, checking the status of submissions, and alerting users as to the status of their submission.
 
