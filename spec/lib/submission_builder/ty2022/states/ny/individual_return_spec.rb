@@ -25,6 +25,10 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(xml.at("composition forms IT201 OVR_PAID_AMT")).to be_nil
         expect(xml.at("composition forms IT201 RFND_B4_EDU_AMT")).to be_nil
         expect(xml.at("composition forms IT201 RFND_AMT")).to be_nil
+        expect(xml.document.root.namespaces).to include({"xmlns:efile"=>"http://www.irs.gov/efile", "xmlns"=>"http://www.irs.gov/efile"})
+        expect(xml.document.at('AuthenticationHeader').to_s).not_to include('xmlns="http://www.irs.gov/efile"')
+        expect(xml.document.at('ReturnHeaderState').to_s).not_to include('xmlns="http://www.irs.gov/efile"')
+        expect(xml.document.at('processBO').to_s).not_to include('xmlns="http://www.irs.gov/efile"')
       end
     end
 

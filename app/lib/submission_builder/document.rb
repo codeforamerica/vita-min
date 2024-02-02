@@ -50,13 +50,29 @@ module SubmissionBuilder
     COMMON_ADDRESS_ABBREV = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].freeze
 
     def build_xml_doc(tag_name, **root_node_attributes)
-      default_attributes = { "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" }
+      default_attributes = { 'xmlns:efile' => 'http://www.irs.gov/efile' }
+      return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
       xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        default_attributes.merge!(return_state_attributes) if merge_state_attrs_for_tag?(tag_name)
         xml.send(tag_name, default_attributes.merge(root_node_attributes)) do |contents_builder|
           yield contents_builder if block_given?
         end
       end
       xml_builder.doc
+    end
+
+    # This method is requirement from NY to remove the namespace attribute from
+    # any tag unrelated to the root XML tag. StateSubmissionManifest seems to
+    # need it also in order for the XML to be valid.
+    def merge_state_attrs_for_tag?(tag_name)
+      if self.submission.data_source_type == 'StateFileNyIntake'
+        if %w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
+          return true
+        else
+          return false
+        end
+      end
+      true # Arizona and other future states we add will include the namespace tag
     end
 
     def add_non_zero_claimed_value(xml, elem_name, claimed)

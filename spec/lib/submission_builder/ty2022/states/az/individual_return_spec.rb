@@ -13,6 +13,9 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
       it "generates xml" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FilingStatus").text).to eq('MarriedJoint')
+        expect(xml.document.root.namespaces).to include({"xmlns:efile"=>"http://www.irs.gov/efile", "xmlns"=>"http://www.irs.gov/efile"})
+        expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
+        expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
       end
     end
 
