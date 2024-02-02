@@ -27,7 +27,7 @@ module PdfFiller
         'Spouse\'s last name' => @submission.data_source.spouse&.last_name,
         'Spouse DOB' => @submission.data_source.spouse&.birth_date&.strftime("%m%d%Y"),
         'Spouse\'s SSN' => @submission.data_source.spouse&.ssn,
-        'Mailing address' => @xml_document.at('tiPrime MAIL_LN_2_ADR')&.text,
+        'Mailing address' => @submission.data_source.direct_file_data.mailing_street,
         'NY State county of residence' => @submission.data_source.residence_county,
         'City, village or post office 1' => @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
         'State 1' => @submission.data_source.mailing_state,
