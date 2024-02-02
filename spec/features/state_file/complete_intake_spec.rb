@@ -25,12 +25,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer
 
-      click_on "visit_federal_info_controller"
-
-      expect(page).to have_field("tax return year", with: "2023")
-      select "married filing jointly", from: "state_file_federal_info_form[filing_status]"
-      click_on I18n.t("general.continue")
-
       # name dob page
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
@@ -38,10 +32,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
       fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
       select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
-
-      fill_in "state_file_name_dob_form_spouse_first_name", with: "Taliesen"
-      fill_in "state_file_name_dob_form_spouse_last_name", with: "Testerson"
-      select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1979, 6, 22)
 
       within "#dependent-0" do
         expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
@@ -53,14 +43,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose I18n.t("state_file.questions.nyc_residency.edit.none", count: 2, year: 2023)
+      choose I18n.t("state_file.questions.nyc_residency.edit.none", count: 1, year: 2023)
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.ineligible_reason.nyc_maintained_home")
       click_on "Go back"
       expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose I18n.t("state_file.questions.nyc_residency.edit.full_year", count: 2, year: 2023)
+      choose I18n.t("state_file.questions.nyc_residency.edit.full_year", count: 1, year: 2023)
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title")
@@ -86,26 +76,21 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
-      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.no_id')
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text "Please provide information for your spouse’s state issued ID"
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
-      select_cfa_date "state_file_ny_spouse_state_id_form_issue_date", Time.now - 4.year
-      select_cfa_date "state_file_ny_spouse_state_id_form_expiration_date", Time.now + 4.year
+      select_cfa_date "state_file_ny_primary_state_id_form_issue_date", Time.now - 4.year
+      select_cfa_date "state_file_ny_primary_state_id_form_expiration_date", Time.now + 4.year
       select("New York", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       fill_in "For New York IDs: First three characters of the document number (located on the back of your ID)", with: "ABC"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
-      choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
       fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "New York", match: :first
@@ -134,7 +119,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1825. How would you like to receive your refund?"
+      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1418. How would you like to receive your refund?"
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -142,7 +127,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
       expect(page).to have_text("I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return")
       check "state_file_esign_declaration_form_primary_esigned"
-      check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
@@ -179,16 +163,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer AZ Old sample")
-
-      click_on "visit_federal_info_controller"
-      click_on "New Dependent Detail"
-      within page.all('.df-dependent-detail-form')[1] do
-        fill_in 'DependentSSN', with: "123456789"
-        fill_in 'DependentFirstNm', with: "Grampy"
-        fill_in 'DependentLastNm', with: "Gramps"
-        select "GRANDPARENT", from: "DependentRelationshipCd"
-      end
-      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")

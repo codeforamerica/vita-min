@@ -14,12 +14,12 @@ RSpec.describe StateFile::Questions::DataReviewController do
           get :edit, params: { us_state: "az", state_file_data_review_form: { device_id: "ABC123" } }
         end.to change(StateFileEfileDeviceInfo, :count).by(1)
 
-        expect(response).to render_template :edit
         efile_info = StateFileEfileDeviceInfo.last
         expect(efile_info.event_type).to eq "initial_creation"
         expect(efile_info.ip_address.to_s).to eq "72.34.67.178"
         expect(efile_info.device_id).to eq nil
         expect(efile_info.intake).to eq intake
+        expect(response).to redirect_to("/en/az/questions/name-dob")
       end
     end
 

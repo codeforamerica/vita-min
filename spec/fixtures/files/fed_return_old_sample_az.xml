@@ -83,6 +83,13 @@
         <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
         <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
       </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Grampy</DependentFirstNm>
+        <DependentLastNm>Gramps</DependentLastNm>
+        <DependentNameControlTxt>TEST</DependentNameControlTxt>
+        <DependentSSN>123456789</DependentSSN>
+        <DependentRelationshipCd>GRANDPARENT</DependentRelationshipCd>
+      </DependentDetail>
       <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
       <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
       <TotalExemptionsCnt>1</TotalExemptionsCnt>
