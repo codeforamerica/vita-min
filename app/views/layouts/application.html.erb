@@ -108,7 +108,7 @@
     <%= yield(:script) if content_for?(:script) %>
     <!-- hiding intercom on hub again until we tackle styling it into the sticky action footer -->
     <% if state_file? %>
-      <%= render("shared/state_file_intercom")%>
+      <%= render("shared/state_file_intercom", current_intake: current_intake)%>
     <% else %>
       <%= render("shared/intercom", isHub: hub?) unless (hub? || Routes::CtcDomain.new.matches?(request)) %>
     <% end %>

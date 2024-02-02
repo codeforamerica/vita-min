@@ -4,7 +4,7 @@
 </button>
 
 <script>
-    const isClient = <%= current_client.present? %>;
+    const hasIntake = <%= current_intake.present? %>;
     // https://developers.intercom.com/installing-intercom/docs/javascript-api-attributes-objects#section-data-attributes
     let intercomSettings = {
         app_id: "<%= Rails.configuration.intercom_app_id_statefile %>",
@@ -13,16 +13,17 @@
         hide_default_launcher: true
     };
     // avoid sending an empty string for user_id
-    if (isClient) {
-        intercomSettings.user_id = "<%= current_client&.id %>"
-        intercomSettings.user_hash = "<%= IntercomService.generate_user_hash(current_client&.id) %>"
+    if (hasIntake) {
+        intercomSettings.user_id = "<%= current_intake&.id %>"
+        intercomSettings.user_hash = "<%= IntercomService.generate_user_hash(current_intake&.id) %>"
     }
     const hubStyles = {
         action_color: "#757575",
         background_color: "black",
         alignment: "left"
     };
-    intercomSettings = isHub ? Object.assign({}, intercomSettings, hubStyles) : intercomSettings;
+    intercomSettings = intercomSettings;
     window.intercomSettings = intercomSettings;
+
     (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='<%="https://widget.intercom.io/widget/#{Rails.configuration.intercom_app_id}"%>';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
 </script>
