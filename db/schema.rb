@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_005146) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1615,6 +1615,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_005146) do
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -1627,6 +1628,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_005146) do
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
+    t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
@@ -2194,6 +2196,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_005146) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
+  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
