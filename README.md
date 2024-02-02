@@ -2,6 +2,26 @@
 
 Vita-Min is a Rails app that helps people access the VITA program through a digital intake form, provides the "Hub" to VITA volunteers for workflow management, messaging, outbound calls, etc to facilitate tax preparation, and a national landing page to find the nearest VITA site.
 
+## Background
+
+The IRS provides endpoints where approved clients can file both Federal and State taxes on behalf of users in XML and PDF format. They also provide a detailed collection of XML Schemas and PDF forms for this purpose. This project contains a web app that gathers information from files that are used by those endpoints to file taxes on their behalf. There are actually 3 parts to this web app:
+
+* GYR (Get Your Refund) for filing Federal taxes
+* State File for filing State taxes (Currently AZ and NY - written after GYR)
+* Hub for Volunteers
+
+### (Setup tasks for acquiring XSDs and PDF froms from preset locations)[lib/tasks.setup.rake]
+
+We maintain collections of the XSD and PDF forms in S3. This task downloads / unzips these to (vendor/irs)[vendor/irs] and (vendor/us_states)[vendor/us_states]
+
+### WebApp
+
+The data collected by the IRS does not match up exactly with forms that will be easily understood by a filer, so a little bit of translation is required e.g.: `EligibleForChildTaxCreditInd` can be derived based on the age of the dependent and the relationship to the filer, so we derived this rather than presenting a checkbox a filer has to work out themselves.
+
+For state file, we actually redirect filers to the IRS's efile service, and then get the resultant XML via a back channel when they are finished. We then gather remaining required data to file taxes for the appropriate State.
+
+The remaining business logic mostly concerns login and session management, filing with efile, checking the status of submissions, and alerting users as to the status of their submission.
+
 ## Setup 🧰
 
 ### Assumptions before first time setup
