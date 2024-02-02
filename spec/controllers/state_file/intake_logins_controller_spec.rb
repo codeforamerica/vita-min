@@ -419,6 +419,20 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             expect(GlobalID.find(session[:state_file_intake])).to eq intake
           end
 
+          context "when the intake has a submitted return" do
+            before do
+              intake.efile_submissions.create!
+            end
+
+            it "redirects to the return status page" do
+              post :update, params: params
+
+              expect(subject.current_state_file_az_intake).to eq(intake)
+              expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+              expect(GlobalID.find(session[:state_file_intake])).to eq intake
+            end
+          end
+
           context "when they were trying to access a protected page" do
             let(:original_path) { "/questions/fake-page?test=1234" }
 
@@ -495,10 +509,22 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         sign_in intake
       end
 
-      it "redirects to data review page" do
-        post :update, params: params
+      it "redirects to data review page if they have no submitted return" do
+        get :new, params: { contact_method: :email_address, us_state: "az" }
 
         expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a submitted return" do
+        before do
+          intake.efile_submissions.create!
+        end
+
+        it "redirects to return status page" do
+          get :new, params: { contact_method: :email_address, us_state: "az" }
+
+          expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+        end
       end
 
       context "when the intake has a current step" do
