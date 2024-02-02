@@ -4,7 +4,7 @@ Vita-Min is a Rails app that helps people access the VITA program through a digi
 
 ## Background
 
-The IRS provides endpoints where approved clients can file both Federal and State taxes on behalf of users in XML and PDF format. They also provide a detailed collection of XML Schemas and PDF forms for this purpose. This project contains a web app that gathers information from files are uses those endpoints to file taxes on their behalf. There are actually 3 parts to this web app:
+The IRS provides endpoints where approved clients can file both Federal and State taxes on behalf of users in XML and PDF format. They also provide a detailed collection of XML Schemas and PDF forms for this purpose. This project contains a web app that gathers information from files that are used by those endpoints to file taxes on their behalf. There are actually 3 parts to this web app:
 
 * GYR (Get Your Refund) for filing Federal taxes
 * State File for filing State taxes (Currently AZ and NY - written after GYR)
