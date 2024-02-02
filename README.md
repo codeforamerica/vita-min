@@ -14,7 +14,7 @@ The IRS provides endpoints where approved clients can file both Federal and Stat
 
 We maintain collections of the XSD and PDF forms in S3. This task downloads / unzips these to [vendor/irs](vendor/irs) and [vendor/us_states](vendor/us_states)
 
-### Main constructs
+### Notable constructs
 
 * [EfileSubmission](app/models/efile_submission.rb) : Data which was submitted / to be submitted to the IRS.
 * Intakes : Data being gathered for from a filer that will be needed to build a submission for state file [StateFileNyIntake](app/models/state_file_ny_intake.rb) / [StateFileAzIntake](app/models/state_file_az_intake.rb)
