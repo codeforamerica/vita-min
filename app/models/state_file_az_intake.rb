@@ -138,7 +138,7 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def ask_spouse_dob?
-    false
+    filing_status_mfj?
   end
 
   def disqualifying_df_data_reason

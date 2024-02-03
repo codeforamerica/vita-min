@@ -64,14 +64,17 @@ RSpec.describe StateFile::NameDobForm do
       end
     end
 
-    context "when filing jointly and missing spouse first or last name" do
+    context "when filing jointly and missing spouse first or last name or dob" do
       let(:intake) { build(:state_file_az_intake) }
       let(:params) do
         {
           primary_first_name: "Tornelius",
           primary_last_name: "Testofferson",
           spouse_first_name: "",
-          spouse_last_name: ""
+          spouse_last_name: "",
+          spouse_birth_date_month: "",
+          spouse_birth_date_day: "",
+          spouse_birth_date_year: ""
         }
       end
       before { allow(intake).to receive_messages(filing_status_mfj?: true) }
@@ -82,6 +85,7 @@ RSpec.describe StateFile::NameDobForm do
         expect(form).not_to be_valid
         expect(form.errors).to include :spouse_first_name
         expect(form.errors).to include :spouse_last_name
+        expect(form.errors).to include :spouse_birth_date
       end
     end
 
