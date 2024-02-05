@@ -88,5 +88,18 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdIssueDt").text).to eq "2020-11-11"
       end
     end
+
+    context '#refund_disbursement' do
+      let(:state_id) { create(:state_id, :state_issued_id)}
+      let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+
+      it 'build the XML with the correct refund disbursement tag' do
+        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        # binding.pry
+        expect(doc.at('NoUBADisbursementCdSubmit').text).to eq '0'
+      end
+    end
+
   end
 end

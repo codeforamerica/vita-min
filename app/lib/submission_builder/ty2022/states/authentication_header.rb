@@ -13,7 +13,7 @@ module SubmissionBuilder
                 xml.RefundProductCIPCdSubmit "0"
                 ### TODO RefundDisbursementUBASubmit || NoUBADisbursementCdSubmit
                 refund_disbursement(xml)
-                xml.NoUBADisbursementCdSubmit "3"
+                # xml.NoUBADisbursementCdSubmit "3"
                 xml.NoFinancialProduct "X"
               end
             end
@@ -81,10 +81,16 @@ module SubmissionBuilder
         end
 
         def refund_disbursement(xml_builder)
-          binding.pry
+          # binding.pry
           refund_or_owed_amount = @submission.data_source.calculated_refund_or_owed_amount
           if refund_or_owed_amount.negative? || refund_or_owed_amount.zero?
             xml_builder.NoUBADisbursementCdSubmit 0
+          else
+            if @submission.data_source.payment_or_deposit_type == "direct_deposit"
+              xml_builder.RefundDisbursementUBASubmit 2
+            else # deposit_type == "mail"
+              xml_builder.NoUBADisbursementCdSubmit 3
+            end
           end
           # @submission.data_source.calculated_refund_or_owed_amount
           # @submission.data_source.calculated_refund_or_owed_amount.positive?
