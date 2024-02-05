@@ -85,7 +85,7 @@ module SubmissionBuilder
           else
             if @submission.data_source.payment_or_deposit_type == "direct_deposit"
               xml_builder.RefundDisbursementUBASubmit 2
-            else # deposit_type == "mail"
+            else # deposit_type == 'mail'
               xml_builder.NoUBADisbursementCdSubmit 3
             end
           end
