@@ -91,11 +91,11 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
   end
 
   describe '#refund_disbursement' do
-    context 'when a submission is not receiving a refund' do
-      let(:state_id) { create(:state_id, :state_issued_id)}
-      let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
-      let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:state_id) { create(:state_id, :state_issued_id)}
+    let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
+    let(:submission) { create(:efile_submission, data_source: intake) }
 
+    context 'when a submission is not receiving a refund' do
       it 'build the XML with the correct refund disbursement tag' do
         doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
         expect(doc.at('NoUBADisbursementCdSubmit').text).to eq '0'
@@ -103,10 +103,6 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
     end
 
     context 'when a submission is receiving a refund with payment_or_deposit_type of mail' do
-      let(:state_id) { create(:state_id, :state_issued_id)}
-      let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
-      let(:submission) { create(:efile_submission, data_source: intake) }
-
       before do
         allow_any_instance_of(StateFileNyIntake).to receive(:calculated_refund_or_owed_amount).and_return(100)
         allow_any_instance_of(StateFileNyIntake).to receive(:payment_or_deposit_type).and_return('mail')
@@ -119,10 +115,6 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
     end
 
     context 'when a submission is receiving a refund with payment_or_deposit_type of direct deposit' do
-      let(:state_id) { create(:state_id, :state_issued_id)}
-      let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
-      let(:submission) { create(:efile_submission, data_source: intake) }
-
       before do
         allow_any_instance_of(StateFileNyIntake).to receive(:calculated_refund_or_owed_amount).and_return(100)
         allow_any_instance_of(StateFileNyIntake).to receive(:payment_or_deposit_type).and_return('direct_deposit')
@@ -133,6 +125,5 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
         expect(doc.at('RefundDisbursementUBASubmit').text).to eq '2'
       end
     end
-
   end
 end
