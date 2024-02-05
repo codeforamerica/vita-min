@@ -46,12 +46,15 @@ RSpec.describe StateFile::NameDobForm do
   end
 
   describe "#valid?" do
-    context "without a primary first name or last name" do
+    context "without a primary first name or last name or dob" do
       let(:intake) { build(:state_file_az_intake) }
       let(:params) do
         {
           primary_first_name: "",
-          primary_last_name: ""
+          primary_last_name: "",
+          primary_birth_date_month: "",
+          primary_birth_date_day: "",
+          primary_birth_date_year: ""
         }
       end
 
@@ -61,6 +64,7 @@ RSpec.describe StateFile::NameDobForm do
         expect(form).not_to be_valid
         expect(form.errors).to include :primary_first_name
         expect(form.errors).to include :primary_last_name
+        expect(form.errors).to include :primary_birth_date
       end
     end
 
@@ -126,7 +130,7 @@ RSpec.describe StateFile::NameDobForm do
   end
 
   describe "#save" do
-    context "when primary dob is required" do
+    context "saving all the params (particularly dates)" do
       let!(:intake) { create :state_file_ny_intake, filing_status: 'married_filing_jointly', dependents: [create(:state_file_dependent), create(:state_file_dependent)] }
 
       it "saves names, dobs, and months in home" do
@@ -150,67 +154,16 @@ RSpec.describe StateFile::NameDobForm do
         expect(first_dependent.months_in_home).to eq 8
         expect(first_dependent.dob).to eq Date.parse("August 24, 2015")
 
-
         expect(second_dependent.first_name).to eq "Teague"
         expect(second_dependent.last_name).to eq "Testingson"
-        expect(second_dependent.dob).to eq Date.parse("January 11, 2013")
         expect(second_dependent.months_in_home).to eq 10
-      end
-    end
-
-    context "when primary dob is optional" do
-      context "with valid params" do
-        let(:valid_params) do
-          {
-            primary_first_name: "Taliesen",
-            primary_last_name: "Testingson",
-            dependents_attributes: {
-              "0": {
-                id: first_dependent.id,
-                first_name: "Tessa",
-                last_name: "Testofferson",
-                dob_year: "2015",
-                dob_day: "24",
-                dob_month: "8",
-                months_in_home: "8"
-              },
-              "1": {
-                id: second_dependent.id,
-                first_name: "Teague",
-                last_name: "Testingson",
-                dob_year: "2013",
-                dob_day: "11",
-                dob_month: "1",
-                months_in_home: "10"
-              }
-            }
-          }
-        end
-
-        it "saves names, dobs, and months in home" do
-          form = described_class.new(intake, valid_params)
-          expect(form).to be_valid
-          form.save
-
-          first_dependent.reload
-          second_dependent.reload
-
-          expect(first_dependent.first_name).to eq "Tessa"
-          expect(first_dependent.last_name).to eq "Testofferson"
-          expect(first_dependent.months_in_home).to eq 8
-          expect(first_dependent.dob).to eq Date.parse("August 24, 2015")
-
-
-          expect(second_dependent.first_name).to eq "Teague"
-          expect(second_dependent.last_name).to eq "Testingson"
-          expect(second_dependent.dob).to eq Date.parse("January 11, 2013")
-          expect(second_dependent.months_in_home).to eq 10
-        end
+        expect(second_dependent.dob).to eq Date.parse("January 11, 2013")
       end
     end
 
     context "when married filing separately in new york" do
       let!(:intake) { create :state_file_ny_intake, filing_status: "married_filing_separately" }
+
       context "with valid params" do
         let(:valid_params) do
           {
