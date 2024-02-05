@@ -20,11 +20,13 @@
           <h3><%= t(".how_we_collect_your_info_header") %></h3>
           <p><%= t(".how_we_collect_your_info") %></p>
           <ul class="list--bulleted">
-            <% (1..15).map do |n| %>
+            <% (1..3).map do |n| %>
               <li><%= t(".how_we_collect_your_info_item_#{n}") %></li>
             <% end %>
           </ul>
-          <p><%= t(".info_collect_1") %></p>
+          <%= t(".collect_info_third_parties_html") %>
+          <%= t(".using_info_collected_html") %>
+          <p><%= t(".info_collect_1_html") %></p>
           <ul class="list--bulleted">
             <li><%= t(".info_collect_item_1") %></li>
             <li>
@@ -34,7 +36,7 @@
                 <li><%= t(".info_collect_item_2_2") %></li>
               </ul>
             </li>
-            <li><%= t(".info_collect_item_3") %></li>
+            <li><%= t(".info_collect_item_3_html") %></li>
             <li><%= t(".info_collect_item_4") %></li>
             <li><%= t(".info_collect_item_5") %></li>
           </ul>

@@ -2526,7 +2526,7 @@ en:
         title: Sign in to FileYourStateTaxes
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-        access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.</p>
+        access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
         access_request_header: Access Request
         additional_services: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information.
         additional_services_header: Additional Services and Resources
@@ -2534,6 +2534,12 @@ en:
         analytics_html: We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/legal/privacy-policy/">HERE</a>. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click <a href="https://policies.google.com/privacy?hl=en-US">HERE</a>. You can also email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for additional information.
         changes: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
         changes_header: Changes
+        collect_info_third_parties_html: |
+          <p>We may also collect your information from third parties such as</p>
+          <ul class="list--bulleted">
+            <li>Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for</li>
+            <li>The Internal Revenue Service (“IRS”), state departments of revenue, or other government agencies relating to our Services</li>
+          </ul>
         cookies_1: We use cookies and other technologies to gather data during your use of our Site. Your use of our Site indicates your consent to such use of cookies.
         cookies_2: Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.
         cookies_3: We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Site to improve the way we promote our content and programs.
@@ -2551,26 +2557,14 @@ en:
         how_we_collect_your_info: 'We collect your information from various sources, such as when you or your household members:'
         how_we_collect_your_info_header: How we collect your information
         how_we_collect_your_info_item_1: Visit our Site, fill out forms on our Site, or use our Services
-        how_we_collect_your_info_item_10: To provide support to you through the process and communicate with you
-        how_we_collect_your_info_item_11: To monitor and understand how the Site and our Services are used
-        how_we_collect_your_info_item_12: To improve the quality or scope of the Site or our Services
-        how_we_collect_your_info_item_13: To suggest other services or assistance programs that may be useful to you
-        how_we_collect_your_info_item_14: For fraud detection, prevention, and security purposes
-        how_we_collect_your_info_item_15: To comply with legal requirements and obligations
         how_we_collect_your_info_item_2: Provide us with documents to use our Services
         how_we_collect_your_info_item_3: Communicate with us (for instance through email, chat, social media, or otherwise)
-        how_we_collect_your_info_item_4: We may also collect your information from third parties such as
-        how_we_collect_your_info_item_5: Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for
-        how_we_collect_your_info_item_6: The Internal Revenue Service (“IRS”), state departments of revenue, or other government agencies relating to our Services
-        how_we_collect_your_info_item_7: Using information we have collected
-        how_we_collect_your_info_item_8: We use your information for our business purposes, such as
-        how_we_collect_your_info_item_9: To complete forms required for use of the Services or filing of your taxes
-        info_collect_1: 'We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with 26 CFR 301.7216-2. Consistent with regulation, we may use or disclose your information in the following instances:'
+        info_collect_1_html: We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> Consistent with regulation, we may use or disclose your information in the following instances&#58;
         info_collect_item_1: For analysis and reporting, we may share limited aggregate information with government agencies or other third parties, including the IRS or state departments of revenue, to analyze the use of our Services, in order to improve and expand our services. Such analysis is always performed using anonymized data, and data is never disclosed in cells smaller than ten returns.
         info_collect_item_2: 'For research to improve our tax filing products, including:'
         info_collect_item_2_1: To invite you to complete questionnaires regarding your experience using our product.
         info_collect_item_2_2: To send you opportunities to participate in paid user research sessions, to learn more about your experience using our product and to guide the development of future free tax filing products.
-        info_collect_item_3: 'For Arizona FileYourStateTaxes users only: To notify you of the availability of free tax filing services in the future.'
+        info_collect_item_3_html: "<em>For Arizona FileYourStateTaxes users only&#58;</em> To notify you of the availability of free tax filing services in the future."
         info_collect_item_4: If necessary, we may disclose your information to contractors who help us provide our services. We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
         info_collect_item_5: We may share your information with third parties in special situations, such as when required by law.
         info_we_collect_1: 'We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:'
@@ -2602,6 +2596,18 @@ en:
         questions_header: Questions
         transactional_sms: You may unsubscribe to transactional messages by texting back STOP at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see FileYourStateTaxes’s SMS terms for additional details and opt-out instructions for these services. Data obtained through the SMS program will not be shared with any third-parties for their marketing reasons/purposes.
         transactional_sms_header: Transactional SMS (Text) Messages
+        using_info_collected_html: |
+          <h3>Using information we have collected</h3>
+          <p>We use your information for our business purposes, such as</p>
+          <ul class="list--bulleted">
+            <li>To complete forms required for use of the Services or filing of your taxes</li>
+            <li>To provide support to you through the process and communicate with you</li>
+            <li>To monitor and understand how the Site and our Services are used</li>
+            <li>To improve the quality or scope of the Site or our Services</li>
+            <li>To suggest other services or assistance programs that may be useful to you</li>
+            <li>For fraud detection, prevention, and security purposes</li>
+            <li>To comply with legal requirements and obligations</li>
+          </ul>
         your_info: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
         your_info_header: Your choices regarding your information
   validators:
