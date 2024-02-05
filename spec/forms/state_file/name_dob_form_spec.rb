@@ -163,7 +163,6 @@ RSpec.describe StateFile::NameDobForm do
 
     context "when married filing separately in new york" do
       let!(:intake) { create :state_file_ny_intake, filing_status: "married_filing_separately" }
-
       context "with valid params" do
         let(:valid_params) do
           {
