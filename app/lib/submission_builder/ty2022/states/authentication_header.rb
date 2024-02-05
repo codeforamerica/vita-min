@@ -81,7 +81,6 @@ module SubmissionBuilder
         end
 
         def refund_disbursement(xml_builder)
-          # binding.pry
           refund_or_owed_amount = @submission.data_source.calculated_refund_or_owed_amount
           if refund_or_owed_amount.negative? || refund_or_owed_amount.zero?
             xml_builder.NoUBADisbursementCdSubmit 0
@@ -92,10 +91,6 @@ module SubmissionBuilder
               xml_builder.NoUBADisbursementCdSubmit 3
             end
           end
-          # @submission.data_source.calculated_refund_or_owed_amount
-          # @submission.data_source.calculated_refund_or_owed_amount.positive?
-          # @submission.data_source.payment_or_deposit_type
-          ###  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
         end
       end
     end
