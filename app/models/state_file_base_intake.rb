@@ -107,6 +107,14 @@ class StateFileBaseIntake < ApplicationRecord
     Person.new(self, :spouse)
   end
 
+  def ask_spouse_dob?
+    filing_status_mfj?
+  end
+
+  def ask_spouse_name?
+    filing_status_mfj?
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial
@@ -120,7 +128,7 @@ class StateFileBaseIntake < ApplicationRecord
         @first_name = intake.primary_first_name
         @last_name = intake.primary_last_name
         @middle_initial = intake.primary_middle_initial
-        @birth_date = intake.primary_birth_date if intake.ask_primary_dob?
+        @birth_date = intake.primary_birth_date
         @ssn = intake.direct_file_data.primary_ssn
       else
         @first_name = intake.spouse_first_name

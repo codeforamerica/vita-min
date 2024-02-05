@@ -8,24 +8,18 @@
     </br>
     <div class="blue-group">
       <p>
-        <% if f.object.ask_primary_dob? %>
-          <%= t(".primary_name_dob", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
-        <% else %>
-          <%= t(".primary_name", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
-        <% end %>
+        <%= t(".primary_name_dob", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
       </p>
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t(".last_name"), classes: ["form-width--long"]) %>
-      <% if f.object.ask_primary_dob? %>
-        <div class="date-select">
-          <%= f.cfa_date_select(:primary_birth_date,
-                                t('.your_dob'),
-                                options: {
-                                  start_year: Time.now.year,
-                                  end_year: 1900,
-                                }) %>
-        </div>
-      <% end %>
+      <div class="date-select">
+        <%= f.cfa_date_select(:primary_birth_date,
+                              t('.your_dob'),
+                              options: {
+                                start_year: Time.now.year,
+                                end_year: 1900,
+                              }) %>
+      </div>
     </div>
     <% if f.object.ask_spouse_name?  %>
       <div class="blue-group">

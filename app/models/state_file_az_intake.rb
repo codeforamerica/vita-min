@@ -129,18 +129,6 @@ class StateFileAzIntake < StateFileBaseIntake
     true
   end
 
-  def ask_primary_dob?
-    true
-  end
-
-  def ask_spouse_name?
-    filing_status_mfj?
-  end
-
-  def ask_spouse_dob?
-    filing_status_mfj?
-  end
-
   def disqualifying_df_data_reason
     return :married_filing_separately if direct_file_data.filing_status == 3
 
