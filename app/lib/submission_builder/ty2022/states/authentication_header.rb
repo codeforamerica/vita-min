@@ -11,9 +11,7 @@ module SubmissionBuilder
             xml.FinancialResolution do
               xml.Submission do
                 xml.RefundProductCIPCdSubmit "0"
-                ### TODO RefundDisbursementUBASubmit || NoUBADisbursementCdSubmit
                 refund_disbursement(xml)
-                # xml.NoUBADisbursementCdSubmit "3"
                 xml.NoFinancialProduct "X"
               end
             end
