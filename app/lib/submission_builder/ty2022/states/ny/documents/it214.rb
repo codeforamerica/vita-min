@@ -43,9 +43,7 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :R_TX_AVL_CR_AMT, :IT214_LINE_31)
                 add_non_zero_claimed_value(xml, :R_CR_LMT_AMT, :IT214_LINE_32)
                 add_non_zero_claimed_value(xml, :R_RL_PROP_CR_AMT, :IT214_LINE_33)
-                if @submission.data_source.primary_esigned_yes?
-                  xml.PR_SGN_IND claimed: 1
-                end
+                xml.PR_SGN_IND claimed: 1
                 if @submission.data_source.spouse_esigned_yes?
                   xml.SP_SGN_IND claimed: 1
                 end
