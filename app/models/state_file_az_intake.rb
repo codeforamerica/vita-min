@@ -35,6 +35,7 @@
 #  payment_or_deposit_type               :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime
+#  primary_birth_date                    :date
 #  primary_esigned                       :integer          default("unfilled"), not null
 #  primary_esigned_at                    :datetime
 #  primary_first_name                    :string
@@ -46,6 +47,7 @@
 #  routing_number                        :string
 #  sign_in_count                         :integer          default(0), not null
 #  source                                :string
+#  spouse_birth_date                     :date
 #  spouse_esigned                        :integer          default("unfilled"), not null
 #  spouse_esigned_at                     :datetime
 #  spouse_first_name                     :string
@@ -125,18 +127,6 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def ask_months_in_home?
     true
-  end
-
-  def ask_primary_dob?
-    false
-  end
-
-  def ask_spouse_name?
-    filing_status_mfj?
-  end
-
-  def ask_spouse_dob?
-    false
   end
 
   def disqualifying_df_data_reason

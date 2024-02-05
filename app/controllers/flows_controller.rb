@@ -643,6 +643,7 @@ class FlowsController < ApplicationController
         email_address: "someone@example.com",
         email_address_verified_at: 1.minute.ago,
         has_prior_last_names: "yes",
+        primary_birth_date: Date.parse('1978-06-21'),
         primary_first_name: first_name,
         primary_last_name: last_name,
         prior_last_names: "Jordan, Pippen, Rodman",

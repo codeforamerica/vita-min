@@ -14,7 +14,6 @@ module StateFile
 
 
     delegate :ask_months_in_home?,
-             :ask_primary_dob?,
              :ask_spouse_dob?,
              :ask_spouse_name?,
              :filing_status_mfj?,
@@ -24,7 +23,7 @@ module StateFile
     validates_presence_of :primary_first_name, :primary_last_name
     validates_presence_of :spouse_first_name, :spouse_last_name, if: -> { @intake.ask_spouse_name? }
     validates_presence_of :hoh_qualifying_person_name, if: -> {  @intake.class == StateFileAzIntake && @intake.requires_hoh_qualifying_person_name? }
-    validate :primary_birth_date_is_valid_date, if: -> { @intake.ask_primary_dob? }
+    validate :primary_birth_date_is_valid_date
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
 
     def initialize(intake = nil, params = nil)
@@ -50,7 +49,7 @@ module StateFile
           spouse_last_name: spouse_last_name,
         )
       end
-      attributes_to_update[:primary_birth_date] = primary_birth_date if @intake.ask_primary_dob?
+      attributes_to_update[:primary_birth_date] = primary_birth_date
       attributes_to_update[:spouse_birth_date] = spouse_birth_date if @intake.ask_spouse_dob?
       @intake.update!(attributes_to_update)
     end
@@ -63,13 +62,11 @@ module StateFile
 
     def self.existing_attributes(intake)
       attributes = super
-      if intake.ask_primary_dob?
-        attributes.merge!(
-          primary_birth_date_day: intake.primary_birth_date&.day,
-          primary_birth_date_month: intake.primary_birth_date&.month,
-          primary_birth_date_year: intake.primary_birth_date&.year,
-        )
-      end
+      attributes.merge!(
+        primary_birth_date_day: intake.primary_birth_date&.day,
+        primary_birth_date_month: intake.primary_birth_date&.month,
+        primary_birth_date_year: intake.primary_birth_date&.year,
+      )
       if intake.ask_spouse_dob?
         attributes.merge!(
           spouse_birth_date_day: intake.spouse_birth_date&.day,
