@@ -2493,7 +2493,8 @@ en:
         action2_text: Sign in here.
         az_section: Arizona taxpayers
         common_questions: Common questions
-        header: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
+        header_old: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
+        header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
         ny_section: New York taxpayers
         section1_html: |
           <strong>How does it work?</strong>
@@ -2505,7 +2506,12 @@ en:
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
           </ol>
-        subheader_html: "<strong>FileYourStateTaxes</strong> integrates with IRS Direct File and completes most of your state tax return using the information you have already submitted to the IRS\n"
+        subheader_html_old: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> and completes most of your state tax return using the information you have already submitted to the IRS\n"
+        subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong>directfile.irs.gov. TODO put href here...</strong><br/><br/>
+          Already filed your federal return with IRS Direct File and need to complete your state return? Start here.<br/><br/>
+          Already started your state return? Sign in here.
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
