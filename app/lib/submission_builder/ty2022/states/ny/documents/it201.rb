@@ -78,7 +78,12 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :OVR_PAID_AMT, :IT201_LINE_77)
                 add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, :IT201_LINE_78)
                 add_non_zero_claimed_value(xml, :RFND_AMT, :IT201_LINE_78B)
-                xml.PR_SGN_IND claimed: 1
+                if @submission.data_source.primary_esigned_yes?
+                  xml.PR_SGN_IND claimed: 1
+                end
+                if @submission.data_source.spouse_esigned_yes?
+                  xml.SP_SGN_IND claimed: 1
+                end
                 if intake.email_address.present?
                   xml.TP_EMAIL_ADR claimed: intake.email_address
                 elsif intake.direct_file_data.tax_payer_email.present?
