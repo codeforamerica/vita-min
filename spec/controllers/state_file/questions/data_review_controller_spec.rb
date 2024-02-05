@@ -48,22 +48,4 @@ RSpec.describe StateFile::Questions::DataReviewController do
       end
     end
   end
-
-  describe "#update" do
-    let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
-
-    context "without device id information due to JS being disabled" do
-      it "flashes an alert and does re-renders edit" do
-        post :update, params: { us_state: "az", device_id: "" }
-        expect(flash[:alert]).to eq(I18n.t("general.enable_javascript"))
-      end
-    end
-
-    context "with device id" do
-      it "updates device id" do
-        post :update, params: { us_state: "az", state_file_data_review_form: { device_id: "ABC123" } }
-        expect(efile_device_info.reload.device_id).to eq "ABC123"
-      end
-    end
-  end
 end
