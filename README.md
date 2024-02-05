@@ -10,9 +10,16 @@ The IRS provides endpoints where approved clients can file both Federal and Stat
 * State File for filing State taxes (Currently AZ and NY - written after GYR)
 * Hub for Volunteers
 
-### (Setup tasks for acquiring XSDs and PDF froms from preset locations)[lib/tasks.setup.rake]
+### [Setup tasks for acquiring XSDs and PDF froms from preset locations](lib/tasks/setup.rake)
 
-We maintain collections of the XSD and PDF forms in S3. This task downloads / unzips these to (vendor/irs)[vendor/irs] and (vendor/us_states)[vendor/us_states]
+We maintain collections of the XSD and PDF forms in S3. This task downloads / unzips these to [vendor/irs](vendor/irs) and [vendor/us_states](vendor/us_states)
+
+### Notable constructs
+
+* [EfileSubmission](app/models/efile_submission.rb) : Data which was submitted / to be submitted to the IRS.
+* Intakes : Data being gathered for from a filer that will be needed to build a submission for state file [StateFileNyIntake](app/models/state_file_ny_intake.rb) / [StateFileAzIntake](app/models/state_file_az_intake.rb)
+* [efile](app/lib/efile) : Code for calculating values to be placed in the XML. Following the pattern here means that debugging via the 'Explain calculations' tab is possible
+* [pdf_filler](app/lib/pdf_filler) : Code for taking XML data and populating PDFs (Typically, PDFs are populated from the XML which is schema bound - calculations should be done in [efile](app/lib/efile)).
 
 ### WebApp
 
@@ -21,6 +28,20 @@ The data collected by the IRS does not match up exactly with forms that will be 
 For state file, we actually redirect filers to the IRS's efile service, and then get the resultant XML via a back channel when they are finished. We then gather remaining required data to file taxes for the appropriate State.
 
 The remaining business logic mostly concerns login and session management, filing with efile, checking the status of submissions, and alerting users as to the status of their submission.
+
+### IRS Endpoints & SOAP
+
+SOAP interactions with the IRS are handled by a java project - [GYR eFiler](https://github.com/codeforamerica/gyr-efiler)
+This is coordinated through [GyrEfilerService](app/services/gyr_efile_service.rb)
+
+### Background Jobs
+
+ActiveJob is used to manage building submission files, with statesman used to define states and actions for submissions.
+e.g.: [app/state_machines/efile_submission_state_machine.rb](app/state_machines/efile_submission_state_machine.rb)
+
+### Security
+
+We use [devise to secure access to resources](config/initializers/devise.rb)
 
 ## Setup 🧰
 
