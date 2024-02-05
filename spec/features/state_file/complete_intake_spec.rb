@@ -149,6 +149,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "AZ", :flow_explorer_screenshot, js: true do
+    before do
+      allow_any_instance_of(StateFileAzIntake).to receive(:payment_or_deposit_type).and_return('mail')
+    end
     it "has content" do
       visit "/"
       click_on "Start Test AZ"

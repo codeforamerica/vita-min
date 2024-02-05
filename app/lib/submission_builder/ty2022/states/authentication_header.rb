@@ -81,12 +81,12 @@ module SubmissionBuilder
         def refund_disbursement(xml_builder)
           refund_or_owed_amount = @submission.data_source.calculated_refund_or_owed_amount
           if refund_or_owed_amount.negative? || refund_or_owed_amount.zero?
-            xml_builder.NoUBADisbursementCdSubmit 0
+            xml_builder.NoUBADisbursementCdSubmit '0'
           else
             if @submission.data_source.payment_or_deposit_type == "direct_deposit"
-              xml_builder.RefundDisbursementUBASubmit 2
+              xml_builder.RefundDisbursementUBASubmit '2'
             else # deposit_type == 'mail'
-              xml_builder.NoUBADisbursementCdSubmit 3
+              xml_builder.NoUBADisbursementCdSubmit '3'
             end
           end
         end
