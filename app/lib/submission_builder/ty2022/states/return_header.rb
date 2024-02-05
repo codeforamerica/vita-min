@@ -26,6 +26,7 @@ module SubmissionBuilder
                   xml.LastName @submission.data_source.primary.last_name if @submission.data_source.primary.last_name.present?
                 end
                 xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
+                xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
               end
               if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present?
                 xml.Secondary do
@@ -35,6 +36,7 @@ module SubmissionBuilder
                     xml.LastName @submission.data_source.spouse.last_name if @submission.data_source.spouse.last_name.present?
                   end
                   xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
+                  xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
                 end
               end
               xml.USAddress do |xml|
