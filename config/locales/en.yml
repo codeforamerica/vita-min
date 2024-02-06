@@ -2488,12 +2488,8 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
     state_file_pages:
       about_page:
-        action1_text: Get Started at IRS Direct File
-        action2: Already started your state return?
-        action2_text: Sign in here.
         az_section: Arizona taxpayers
         common_questions: Common questions
-        header_old: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
         header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
         ny_section: New York taxpayers
         section1_html: |
@@ -2507,7 +2503,6 @@ en:
             <li>E-file your return for free!</li>
           </ol>
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
-        subheader_html_old: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> and completes most of your state tax return using the information you have already submitted to the IRS\n"
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
