@@ -28,6 +28,8 @@ module StateFile
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
     validates :primary_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze }
     validates :primary_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze }
+    validates :spouse_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze }, if: -> { @intake.ask_spouse_name? }
+    validates :spouse_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze }, if: -> { @intake.ask_spouse_name? }
 
     def initialize(intake = nil, params = nil)
       super
