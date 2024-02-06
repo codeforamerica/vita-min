@@ -2499,13 +2499,14 @@ en:
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
-            <li>File and submit your federal return with IRS <a href=%{direct_file_url}>Direct File</a> before using this tool.</li>
+            <li>File and submit your federal return with IRS <a href="https://directfile.irs.gov/">IRS Direct File</a> before using this tool.</li>
             <li>Click "continue to file your state taxes"</li>
-            <li>Answer a few questions to make sure this is the right service for you. See more about eligibility below.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a href='https://directfile.irs.gov/state'>Learn more about who is eligible for this tax year</a>.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
           </ol>
+          <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
         subheader_html_old: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> and completes most of your state tax return using the information you have already submitted to the IRS\n"
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
