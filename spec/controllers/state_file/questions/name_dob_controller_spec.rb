@@ -10,6 +10,9 @@ RSpec.describe StateFile::Questions::NameDobController do
         device_id: device_id,
         primary_first_name: "Jo",
         primary_last_name: "Parker",
+        primary_birth_date_month: "8",
+        primary_birth_date_day: "12",
+        primary_birth_date_year: "1981"
       },
     }
   end
