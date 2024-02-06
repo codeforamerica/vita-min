@@ -64,6 +64,14 @@ describe DirectFileData do
         expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
       end
     end
+
+    context 'when the desc provided is not an exact match but starts with 414H' do
+      let(:desc1) { '414_H' }
+
+      it 'still sums up the numbers with spaces and starting 414H' do
+        expect(@direct_file_data.ny_public_employee_retirement_contributions).to eq(223)
+      end
+    end
   end
 
   describe '#fed_adjustments_claimed' do

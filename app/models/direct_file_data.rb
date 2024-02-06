@@ -556,7 +556,7 @@ class DirectFileData
       desc = deduction.at('Desc')&.text
       amt = deduction.at('Amt')&.text.to_i
 
-      if retirement_types.include?(desc.upcase.gsub(/[\s()]/, '')) || desc.upcase.gsub(/[\s()]/, '')[0..3] == '414H'
+      if retirement_types.include?(desc.upcase.gsub(/[\s()]/, '')) || desc.upcase.gsub(/[\s()_]/, '')[0..3] == '414H'
         box14_total += amt
       end
     end
