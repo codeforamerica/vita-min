@@ -11,7 +11,7 @@ module SubmissionBuilder
             xml.FinancialResolution do
               xml.Submission do
                 xml.RefundProductCIPCdSubmit "0"
-                xml.NoUBADisbursementCdSubmit "3"
+                refund_disbursement(xml)
                 xml.NoFinancialProduct "X"
               end
             end
@@ -75,6 +75,27 @@ module SubmissionBuilder
             xml_builder.send("#{xml_type}AddInfo", state_id.first_three_doc_num) if state_id.first_three_doc_num.present?
           else
             xml_builder.DoNotHaveDrvrLcnsOrStIssdId "X"
+          end
+        end
+
+        def refund_disbursement(xml_builder)
+          intake = @submission.data_source
+          unless intake.calculated_refund_or_owed_amount.positive?
+            xml_builder.NoUBADisbursementCdSubmit '0'
+            return
+          end
+
+          if intake.payment_or_deposit_type == 'mail'
+            xml_builder.NoUBADisbursementCdSubmit '3'
+            return
+          end
+
+          xml_builder.RefundDisbursementUBASubmit do
+            xml_builder.RefundDisbursementCdSubmit '2'
+            xml_builder.UBASubmit do
+              xml_builder.UBARoutingTransitNumSubmit intake.routing_number
+              xml_builder.UBADepositorAccountNumSubmit intake.account_number
+            end
           end
         end
       end
