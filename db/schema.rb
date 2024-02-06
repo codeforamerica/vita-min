@@ -2196,8 +2196,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

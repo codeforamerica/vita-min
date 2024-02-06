@@ -81,6 +81,7 @@ module StateFile
       case params[:us_state]
       when "az" then :statefile_az
       when "ny" then :statefile_ny
+      when "us" then :statefile
       end
     end
 

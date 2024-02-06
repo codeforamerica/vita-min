@@ -558,14 +558,17 @@ Rails.application.routes.draw do
         resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
         resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+        get "/faq", to: "state_file/faq#index", as: :state_faq
+        get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
+        get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
+      end
+
+      scope ':us_state', constraints: { us_state: /az|ny|us/ } do
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
           get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
         end
         get "login-options", to: "state_file/state_file_pages#login_options"
-        get "/faq", to: "state_file/faq#index", as: :state_faq
-        get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
-        get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
@@ -574,6 +577,11 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+      end
+
+      scope ':us_state', as: 'us', constraints: { us_state: :us } do
+        scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
+        zzzzz
       end
 
       unless Rails.env.production?
