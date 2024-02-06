@@ -558,6 +558,7 @@ Rails.application.routes.draw do
         resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
         resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+        get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
         get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       end
@@ -568,7 +569,6 @@ Rails.application.routes.draw do
           get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
         end
         get "login-options", to: "state_file/state_file_pages#login_options"
-        get "/faq", to: "state_file/faq#index", as: :state_faq
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
