@@ -2509,7 +2509,7 @@ en:
         subheader_html_old: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> and completes most of your state tax return using the information you have already submitted to the IRS\n"
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong>directfile.irs.gov. TODO put href here...</strong><br/><br/>
+          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
           Already filed your federal return with IRS Direct File and need to complete your state return? Start here.<br/><br/>
           Already started your state return? Sign in here.
       card_postscript:

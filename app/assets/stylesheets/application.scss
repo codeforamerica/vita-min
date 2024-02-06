@@ -324,9 +324,12 @@ ol.with-bullets {
 }
 .fyst-home-content {
   flex: 1;
+  padding: 15px;
 }
 .fyst-home-image {
   flex-shrink: 0;
-  width: 30%;
+  width: 25%;
+  height: auto;
+  padding: 15px;
 }
 
