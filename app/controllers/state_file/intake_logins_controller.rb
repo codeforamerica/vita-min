@@ -63,10 +63,12 @@ module StateFile
     end
 
     def increment_failed_attempts_on_login_records
-      model = MultiTenantService.new(service_type).intake_model
       contact_info = params[:portal_verification_code_form][:contact_info]
-      @records = model.where(email_address: contact_info).or(model.where(phone_number: contact_info))
-      @records.map(&:increment_failed_attempts)
+      intake_classes = client_login_service.intake_classes
+      intake_classes.each do |intake_class|
+        @records = intake_class.where(email_address: contact_info).or(intake_class.where(phone_number: contact_info))
+        @records.map(&:increment_failed_attempts)
+      end
     end
 
     def request_login_form_class
