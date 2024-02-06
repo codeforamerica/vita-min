@@ -18,7 +18,7 @@ module StateFile
       validates :account_number, presence: true, confirmation: true, length: { in: 5..17 }, numericality: true
       validates :account_number_confirmation, presence: true
 
-      validates :routing_number, presence: true, confirmation: true, length: { is: 9 }, numericality: true
+      validates :routing_number, presence: true, confirmation: true, routing_number: true
       validates :routing_number_confirmation, presence: true
 
       with_options if: -> { account_number.present? && routing_number.present? } do
