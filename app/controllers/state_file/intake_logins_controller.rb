@@ -92,7 +92,7 @@ module StateFile
         controller = intake.controller_for_current_step
         to_path = controller.to_path_helper(
           action: controller.navigation_actions.first,
-          us_state: params[:us_state]
+          us_state: intake.state_code
         )
         redirect_to to_path
       end
@@ -107,7 +107,7 @@ module StateFile
         controller = intake.controller_for_current_step
         to_path = controller.to_path_helper(
           action: controller.navigation_actions.first,
-          us_state: params[:us_state]
+          us_state: intake.state_code
         )
       end
       redirect_to to_path
