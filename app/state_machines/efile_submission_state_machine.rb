@@ -170,10 +170,11 @@ class EfileSubmissionStateMachine
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
+    intake = efile_submission.is_for_state_filing? ? efile_submission.data_source : efile_submission.client.intake
     MixpanelService.send_event(
-      distinct_id: efile_submission.client.intake.visitor_id,
+      distinct_id: intake.visitor_id,
       event_name: event_name,
-      subject: efile_submission.intake,
+      subject: intake,
       data: data,
     )
   end
