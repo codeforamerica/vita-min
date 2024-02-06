@@ -8,6 +8,33 @@ RSpec.describe StateFile::Questions::NycResidencyController do
   end
 
   describe "#update" do
+    let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
+    let(:device_id) { "ABC123" }
+    let(:params) do
+      { us_state: "ny",
+        state_file_nyc_residency_form: {
+          nyc_residency: "none",
+          nyc_maintained_home: "yes",
+          device_id: device_id
+        } }
+    end
+
+    context "without device id information due to JS being disabled" do
+      let(:device_id) { nil }
+
+      it "flashes an alert and does re-renders edit" do
+        post :update, params: params
+        expect(flash[:alert]).to eq(I18n.t("general.enable_javascript"))
+      end
+    end
+
+    context "with device id" do
+      it "updates device id" do
+        post :update, params: params
+        expect(efile_device_info.reload.device_id).to eq "ABC123"
+      end
+    end
+
     describe "#next_path" do
       context "with a disqualifying answer" do
         it "redirects to the offboarding page with offboarded_from" do
@@ -15,7 +42,8 @@ RSpec.describe StateFile::Questions::NycResidencyController do
             us_state: "ny",
             state_file_nyc_residency_form: {
               nyc_residency: "none",
-              nyc_maintained_home: "yes"
+              nyc_maintained_home: "yes",
+              device_id: "ABC123"
             }
           }
 
@@ -32,7 +60,8 @@ RSpec.describe StateFile::Questions::NycResidencyController do
             us_state: "ny",
             return_to_review: "y",
             state_file_nyc_residency_form: {
-              nyc_residency: "full_year"
+              nyc_residency: "full_year",
+              device_id: "ABC123"
             }
           }
 
@@ -46,7 +75,8 @@ RSpec.describe StateFile::Questions::NycResidencyController do
             us_state: "ny",
             return_to_review: "y",
             state_file_nyc_residency_form: {
-              nyc_residency: "part_year"
+              nyc_residency: "part_year",
+              device_id: "ABC123"
             }
           }
 

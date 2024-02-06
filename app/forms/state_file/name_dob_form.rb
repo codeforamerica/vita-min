@@ -11,6 +11,7 @@ module StateFile
                        :spouse_last_name,
                        :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year,
                        :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
+    set_attributes_for :state_file_efile_device_info, :device_id
 
 
     delegate :ask_months_in_home?,
@@ -40,6 +41,9 @@ module StateFile
     end
 
     def save
+      efile_info = StateFileEfileDeviceInfo.find_by(event_type: "initial_creation", intake: @intake)
+      efile_info&.update!(attributes_for(:state_file_efile_device_info))
+
       attributes_to_update = {
         primary_first_name: primary_first_name,
         primary_last_name: primary_last_name,

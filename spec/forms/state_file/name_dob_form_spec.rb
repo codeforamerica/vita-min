@@ -4,8 +4,10 @@ RSpec.describe StateFile::NameDobForm do
   let!(:intake) { create :state_file_az_intake, dependents: [create(:state_file_dependent), create(:state_file_dependent)] }
   let!(:first_dependent) { intake.dependents.first }
   let(:second_dependent) { intake.dependents.second }
+  let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
   let(:valid_params) do
     {
+      device_id: "ABC123",
       primary_first_name: "Taliesen",
       primary_last_name: "Testingson",
       primary_birth_date_month: "3",
@@ -78,7 +80,8 @@ RSpec.describe StateFile::NameDobForm do
           spouse_last_name: "",
           spouse_birth_date_month: "",
           spouse_birth_date_day: "",
-          spouse_birth_date_year: ""
+          spouse_birth_date_year: "",
+          device_id: "ABC123",
         }
       end
       before { allow(intake).to receive_messages(filing_status_mfj?: true) }
@@ -171,6 +174,7 @@ RSpec.describe StateFile::NameDobForm do
             primary_birth_date_month: "3",
             primary_birth_date_day: "12",
             primary_birth_date_year: "1987",
+            device_id: "ABC123"
           }
         end
 

@@ -75,6 +75,17 @@ module StateFile
 
       def card_postscript; end
 
+      def update_for_device_id_collection(efile_device_info)
+        @form = initialized_update_form
+        if form_params["device_id"].blank? && efile_device_info&.device_id.blank?
+          flash[:alert] = I18n.t("general.enable_javascript")
+          redirect_to render: :edit
+        else
+          flash.clear
+          method(:update).super_method.call
+        end
+      end
+
       class << self
         def resource_name
           nil

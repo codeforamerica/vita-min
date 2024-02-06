@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe StateFile::AzPriorLastNamesForm do
   describe "#valid?" do
     let(:intake) { create :state_file_az_intake }
+    let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
 
     context "with empty last names" do
       let(:invalid_params) do

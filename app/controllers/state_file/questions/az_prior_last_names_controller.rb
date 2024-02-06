@@ -3,10 +3,8 @@ module StateFile
     class AzPriorLastNamesController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
-      private
-
-      def form_params
-        params.require(:state_file_az_prior_last_names_form).permit([:prior_last_names, :has_prior_last_names])
+      def update
+        update_for_device_id_collection(current_intake&.initial_efile_device_info)
       end
     end
   end

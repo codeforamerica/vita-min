@@ -11,16 +11,8 @@ module StateFile
       end
 
       def update
-        @form = initialized_update_form
-        if form_params["device_id"].blank?
-          flash[:alert] = I18n.t("general.enable_javascript")
-          render :edit
-        else
-          flash.clear
-          super
-        end
+        update_for_device_id_collection(current_intake&.submission_efile_device_info)
       end
-
 
       private
 
