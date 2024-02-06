@@ -316,3 +316,17 @@ ol.with-bullets {
     margin-bottom: .5rem;
   }
 }
+
+.fyst-home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fyst-home-content {
+  flex: 1;
+}
+.fyst-home-image {
+  flex-shrink: 0;
+  width: 30%;
+}
+

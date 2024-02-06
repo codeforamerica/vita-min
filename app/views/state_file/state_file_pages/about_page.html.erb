@@ -1,6 +1,12 @@
 <% title = t(".header") %>
-<h1 class="h2 strong" style="font-weight: bold"><%= title %></h1>
-<%= image_tag 'questions/welcome.svg' %>
+
+<div class="fyst-home-container">
+  <div class="fyst-home-content">
+    <h1 class="h1 strong" style="font-weight: bold"><%= title %></h1>
+  </div>
+  <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image' %>
+</div>
+
 <div>
   <%= t(".subheader_html") %>
 </div><br>
