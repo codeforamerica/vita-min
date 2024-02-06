@@ -65,7 +65,7 @@ describe DirectFileData do
       end
     end
 
-    context 'when the desc provided is not an exact match but starts with 414H' do
+    context 'when the desc provided is not an exact match but starts with 414_H' do
       let(:desc1) { '414_H' }
 
       it 'still sums up the numbers with spaces and starting 414H' do
