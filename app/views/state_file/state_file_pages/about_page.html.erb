@@ -3,16 +3,16 @@
 <div class="fyst-home-container">
   <div class="fyst-home-content">
     <h1 class="h1 strong" style="font-weight: bold"><%= title %></h1>
+
+    <div>
+      <%= t(".subheader_html", login_path: login_options_path(us_state: "az")) %>
+    </div><br>
+
+    <div class="blue-group spacing-below-15 spacing-above-15">
+      <%= t(".section1_html", faq_link: root_path(anchor: 'common_questions')) %>
+    </div>
   </div>
   <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image' %>
-</div>
-
-<div>
-  <%= t(".subheader_html", login_path: login_options_path(us_state: "az")) %>
-</div><br>
-
-<div class="blue-group spacing-below-15 spacing-above-15">
-  <%= t(".section1_html", faq_link: root_path(anchor: 'common_questions')) %>
 </div>
 
 <h1 class="h2" id="common_questions"><%= t('.common_questions') %></h1>
