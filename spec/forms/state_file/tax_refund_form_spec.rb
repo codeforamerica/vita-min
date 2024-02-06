@@ -129,7 +129,7 @@ RSpec.describe StateFile::TaxRefundForm do
         end
       end
 
-      context 'account number is too long' do
+      context "account number is too long" do
         let(:account_number) { '1234567891011121314' }
 
         it 'is not valid' do
@@ -151,6 +151,17 @@ RSpec.describe StateFile::TaxRefundForm do
 
       context "routing number is 3 numbers long" do
         let(:routing_number) { "123" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number
+        end
+      end
+
+      context "routing number does not match the regex" do
+        let(:routing_number) { "339999999" }
+        let(:routing_number_confirmation) { "339999999" }
 
         it "is not valid" do
           form = described_class.new(intake, params)
