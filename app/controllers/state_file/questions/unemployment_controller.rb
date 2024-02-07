@@ -78,6 +78,7 @@ module StateFile
           :unemployment_compensation,
           :recipient_city,
           :recipient_street_address,
+          :recipient_street_address_apartment,
           :recipient_zip,
           :state_identification_number
         )
