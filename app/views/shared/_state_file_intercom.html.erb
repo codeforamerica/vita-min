@@ -1,4 +1,4 @@
-<button type="button" class="open-intercom button button--green button--intercom">
+<button type="button" class="open-intercom button--blue button--intercom ">
   <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "") %>
   <%= I18n.t("general.intercom_cta") %>
 </button>
@@ -18,12 +18,9 @@
         intercomSettings.email = "<%= current_intake&.email_address %>"
         intercomSettings.name = "<%= "#{current_intake&.primary_first_name} #{current_intake&.primary_last_name}" %>";
         intercomSettings.state = "<%= state %>"
-        intercomSettings.user_hash = "<%= IntercomService.generate_user_hash(current_intake&.id) %>"
+        intercomSettings.user_hash = "<%= IntercomService.generate_statefile_user_hash(current_intake&.id) %>"
     }
-    const hubStyles = {
-        action_color: "#4DCCE3",
-    };
-    window.intercomSettings = Object.assign({}, intercomSettings, hubStyles);
+    window.intercomSettings = intercomSettings;
 
     (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='<%="https://widget.intercom.io/widget/#{Rails.configuration.intercom_app_id_statefile}"%>';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
 </script>

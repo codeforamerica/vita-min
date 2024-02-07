@@ -304,10 +304,8 @@ class ApplicationController < ActionController::Base
         is_bot: user_agent.bot?,
         request_id: request.request_id,
         user_id: current_user&.id,
-        client_id: (current_client&.id || current_intake&.id)
+        client_id: current_client&.id
       )
-      # scope.set_extras(client_id: current_client&.id) unless state_file?
-      # binding.pry
     end
   end
 
