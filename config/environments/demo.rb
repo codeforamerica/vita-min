@@ -38,5 +38,5 @@ Rails.application.configure do
   config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-04-01 09:00:00")
 
   # StateFile
-  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-07 13:35:00')
+  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
 end
