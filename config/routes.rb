@@ -563,7 +563,7 @@ Rails.application.routes.draw do
         get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       end
 
-      scope ':us_state', constraints: { us_state: /az|ny|us/ } do
+      scope ':us_state', constraints: { us_state: /az|ny|us/i } do
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
           get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
