@@ -90,7 +90,7 @@ describe ClientLoginService do
 
         it "returns the az intake with matching phone number" do
           create :text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212"
-          matching_intake = create :state_file_ny_intake_after_transfer, phone_number: "+16505551212"
+          matching_intake = create :state_file_az_intake_after_transfer, phone_number: "+16505551212"
           create :state_file_az_intake_after_transfer, phone_number: "+15551231234"
 
           expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
