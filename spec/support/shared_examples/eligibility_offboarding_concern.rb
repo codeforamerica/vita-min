@@ -4,7 +4,7 @@ shared_examples :eligibility_offboarding_concern do |intake_factory:|
   # requires ineligible_params and eligible_params to be defined
   describe "#next_path" do
     before do
-      session[:state_file_intake] = create(intake_factory).to_global_id
+      sign_in create(intake_factory)
     end
 
     context "with eligible params" do
