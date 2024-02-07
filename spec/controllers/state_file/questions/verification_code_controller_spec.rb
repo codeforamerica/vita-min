@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe StateFile::Questions::VerificationCodeController do
   describe "#edit" do
     before do
-      session[:state_file_intake] = intake.to_global_id
+      sign_in intake
     end
 
     context "with an intake that prefers text message" do
