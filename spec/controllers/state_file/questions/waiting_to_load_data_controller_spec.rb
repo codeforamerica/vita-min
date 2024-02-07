@@ -4,7 +4,7 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
   let!(:intake) { create(:state_file_ny_intake) }
 
   before do
-    session[:state_file_intake] = intake.to_global_id
+    sign_in intake
   end
 
   describe '#edit' do
