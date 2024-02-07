@@ -18,7 +18,7 @@ module StateFile
       efile_submission = EfileSubmission.create!(
         data_source: @intake,
       )
-      if open_for_state_file_intake?
+      if open_for_state_file_intake? # TODO: change to after deadline to start new intake when we get that date
         efile_submission.transition_to(:preparing) # will start the process of submitting the return
       end
 
