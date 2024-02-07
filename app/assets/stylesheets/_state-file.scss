@@ -585,4 +585,29 @@ $state-colors: (
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
+
+  .button--green {
+    background: $color-green-money;
+    border-color: $color-green-money;
+    color: $color-black;
+    font-size: 1.6rem;
+    border-radius: 0.5rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    height: 6rem;
+    letter-spacing: 0;
+    padding: 1.6rem 2.4rem 1.6rem 2.4rem;
+    text-align: center;
+
+    &:active {
+      background-color: $color-green-money;
+      border-color: $color-green-money;
+    }
+
+    &:hover {
+      background-color: darken($color-green-money, 5%);
+      border-color: darken($color-green-money, 5%);
+    }
+  }
+
 }

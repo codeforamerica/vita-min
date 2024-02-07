@@ -57,7 +57,6 @@ gem 'business_time'
 gem 'scenic'
 gem 'rubyzip'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
-gem 'intercom-rails'
 gem 'statesman'
 gem 'redcarpet'
 gem 'platform-api'
