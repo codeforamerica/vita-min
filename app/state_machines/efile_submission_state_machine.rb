@@ -95,7 +95,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :transmitted) do |submission|
     if submission.is_for_federal_filing?
       submission.tax_return.transition_to(:file_efiled)
-      send_mixpanel_event(submission, "ctc_efile_return_transmitted")
+      send_mixpanel_event(submission, "efile_return_transmitted")
     end
   end
 
