@@ -269,6 +269,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
           expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'ny'))
         end
+
+        it "redirects to the account locked page even when the state is us" do
+          post :check_verification_code, params: params.merge(us_state: "us")
+          expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'us'))
+        end
       end
 
       context "with blank contact info" do

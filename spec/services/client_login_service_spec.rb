@@ -83,6 +83,27 @@ describe ClientLoginService do
           expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
         end
       end
+
+
+      context "with US intakes" do
+        subject { described_class.new(:statefile) }
+
+        it "returns the az intake with matching phone number" do
+          create :text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212"
+          matching_intake = create :state_file_az_intake_after_transfer, phone_number: "+16505551212"
+          create :state_file_az_intake_after_transfer, phone_number: "+15551231234"
+
+          expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
+        end
+
+        it "returns the ny intake with matching email" do
+          create :email_access_token, token: "hashed_token", email_address: "someone@example.com"
+          matching_intake = create :state_file_ny_intake_after_transfer, email_address: "someone@example.com"
+          create :state_file_ny_intake_after_transfer, email_address: "someone_else@example.com"
+
+          expect(subject.intakes_for_token("hashed_token")).to match_array [matching_intake]
+        end
+      end
     end
   end
 

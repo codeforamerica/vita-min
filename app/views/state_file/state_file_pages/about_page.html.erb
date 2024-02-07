@@ -1,18 +1,18 @@
 <% title = t(".header") %>
-<h1 class="h2 strong" style="font-weight: bold"><%= title %></h1>
-<div>
-  <%= t(".subheader_html") %>
-</div><br>
-<div>
-  <%= link_to t(".action1_text"), "" %>
-</div><br>
-<div>
-  <%= t(".action2") %>
-  <%= link_to t(".action2_text"), "" %>
-</div>
 
-<div class="blue-group spacing-below-15 spacing-above-15">
-  <%= t(".section1_html", direct_file_url: '') %>
+<div class="fyst-home-container">
+  <div class="fyst-home-content">
+    <h1 class="h1 strong" style="font-weight: bold"><%= title %></h1>
+
+    <div>
+      <%= t(".subheader_html", login_path: login_options_path(us_state: "az")) %>
+    </div><br>
+
+    <div class="blue-group spacing-below-15 spacing-above-15">
+      <%= t(".section1_html", faq_link: root_path(anchor: 'common_questions')) %>
+    </div>
+  </div>
+  <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image' %>
 </div>
 
 <h1 class="h2" id="common_questions"><%= t('.common_questions') %></h1>
