@@ -70,7 +70,7 @@ class FlowsController < ApplicationController
 
   def current_intake
     if %w[state_file_az state_file_ny].include?(params[:id] || params[:type])
-      current_state_file_az_intake || current_state_file_ny_intake
+      send("current_#{params[:id] || params[:type]}_intake")
     else
       super
     end
