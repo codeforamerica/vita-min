@@ -9,7 +9,7 @@ RSpec.describe StateFile::Questions::SubmissionPdfsController do
       let(:efile_submission) { create :efile_submission, :for_state, data_source: ny_intake }
 
       before do
-        session[:state_file_intake] = ny_intake.to_global_id
+        sign_in ny_intake
       end
 
       it "creates the pdf and then shows it" do
@@ -26,7 +26,7 @@ RSpec.describe StateFile::Questions::SubmissionPdfsController do
       let(:efile_submission) { create :efile_submission, :for_state, data_source: az_intake }
 
       before do
-        session[:state_file_intake] = az_intake.to_global_id
+        sign_in az_intake
       end
 
       it "creates the pdf and then shows it" do
