@@ -18,8 +18,8 @@ module StateFile
       efile_submission = EfileSubmission.create!(
         data_source: @intake,
       )
-      if Rails.env.development? || Rails.env.test? || Rails.env.demo?
-        efile_submission.transition_to(:preparing)
+      if open_for_state_file_intake?
+        efile_submission.transition_to(:preparing) # will start the process of submitting the return
       end
 
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
