@@ -19,9 +19,8 @@ module StateFile
       private
 
       def current_intake
-        intake = GlobalID.find(session[:state_file_intake])
-        return nil if intake && !intake.is_a?(question_navigator.intake_class)
-        intake
+        state_code = question_navigator.intake_class.new.state_code
+        send("current_state_file_#{state_code}_intake")
       end
 
       def question_navigator

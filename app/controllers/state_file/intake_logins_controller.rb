@@ -100,7 +100,6 @@ module StateFile
     def sign_in_and_redirect
       intake = @records.take
       sign_in intake
-      session[:state_file_intake] = intake.to_global_id
       to_path = session.delete(:after_state_file_intake_login_path)
       unless to_path
         controller = intake.controller_for_current_step

@@ -15,7 +15,8 @@ module ApplicationCable
     end
 
     def current_state_file_intake
-      GlobalID.find(@request.session[:state_file_intake])
+      binding.pry
+      current_state_file_ny_intake || current_state_file_az_intake
     end
   end
 end

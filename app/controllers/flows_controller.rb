@@ -39,7 +39,8 @@ class FlowsController < ApplicationController
       if intake.respond_to?(:client)
         sign_in(intake.client)
       elsif [:state_file_az, :state_file_ny].include?(type)
-        session[:state_file_intake] = intake.to_global_id
+        sign_in intake
+        # session[:state_file_intake] = intake.to_global_id
       end
     else
       flash[:alert] = "Unable to create intake, maybe your name or email or phone number was bad?"
@@ -70,7 +71,7 @@ class FlowsController < ApplicationController
 
   def current_intake
     if %w[state_file_az state_file_ny].include?(params[:id] || params[:type])
-      GlobalID.find(session[:state_file_intake])
+      current_state_file_az_intake || current_state_file_ny_intake
     else
       super
     end

@@ -18,7 +18,7 @@ module StateFile
 
     def after_update_success
       current_intake.save unless current_intake.persisted?
-      session[:state_file_intake] = current_intake.to_global_id
+      sign_in current_intake
     end
   end
 end
