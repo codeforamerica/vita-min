@@ -40,7 +40,6 @@ class FlowsController < ApplicationController
         sign_in(intake.client)
       elsif [:state_file_az, :state_file_ny].include?(type)
         sign_in intake
-        # session[:state_file_intake] = intake.to_global_id
       end
     else
       flash[:alert] = "Unable to create intake, maybe your name or email or phone number was bad?"

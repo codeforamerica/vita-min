@@ -6,7 +6,6 @@ RSpec.describe StateFile::Questions::AzReviewController do
       # Higher adjusted agi to result in an owed amount
       let(:intake) { create :state_file_az_owed_intake}
       before do
-        session[:state_file_intake] = intake.to_global_id
         sign_in intake
       end
 
@@ -22,12 +21,10 @@ RSpec.describe StateFile::Questions::AzReviewController do
       # This fixture sets a lower agi and results in an estimated refund
       let(:intake) { create :state_file_az_refund_intake }
       before do
-        session[:state_file_intake] = intake.to_global_id
         sign_in intake
       end
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
-        session[:state_file_intake] = intake.to_global_id
 
         get :edit, params: { us_state: "az" }
 
@@ -40,12 +37,10 @@ RSpec.describe StateFile::Questions::AzReviewController do
       render_views
       let(:intake) { create :state_file_az_refund_intake }
       before do
-        session[:state_file_intake] = intake.to_global_id
         sign_in intake
       end
 
       it "shows the incarcerated question" do
-        session[:state_file_intake] = intake.to_global_id
 
         get :edit, params: { us_state: "az" }
         expect(response.body).to include I18n.t("state_file.questions.az_review.edit.excise_credit")
@@ -53,7 +48,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
 
       it "does not show the incarcerated question" do
         intake.update(raw_direct_file_data: intake.raw_direct_file_data.gsub!("10000", "20000"))
-        session[:state_file_intake] = intake.to_global_id
+        sign_in intake
 
         get :edit, params: { us_state: "az" }
         expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.excise_credit")

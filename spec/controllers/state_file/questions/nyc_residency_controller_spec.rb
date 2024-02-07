@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe StateFile::Questions::NycResidencyController do
   let(:intake) { create :state_file_ny_intake }
   before do
-    session[:state_file_intake] = intake.to_global_id
     sign_in intake
   end
 
