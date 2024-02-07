@@ -12,8 +12,7 @@ shared_examples :start_intake_concern do |intake_class:, intake_factory:|
       expect {
         post :update, params: valid_params
       }.to change { intake_class.count }.by 1
-
-      intake = GlobalID.find(session[:state_file_intake])
+      intake = intake_class.find(session["warden.user.#{intake_class.name.underscore}.key"].first.first)
       expect(intake).to be_present
       expect(intake.visitor_id).to eq "visitor-id"
       expect(intake.source).to eq "some-source"
@@ -25,12 +24,11 @@ shared_examples :start_intake_concern do |intake_class:, intake_factory:|
         create(intake_factory)
       end
 
-      before { session[:state_file_intake] = existing_intake.to_global_id }
+      before { sign_in existing_intake }
 
       it "replaces the existing intake in the session with a new one" do
         post :update, params: valid_params
-
-        intake = GlobalID.find(session[:state_file_intake])
+        intake = intake_class.find(session["warden.user.#{intake_class.name.underscore}.key"].first.first)
         expect(intake).not_to eq existing_intake
       end
     end
