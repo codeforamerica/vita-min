@@ -174,7 +174,7 @@ es:
       payer_name:
         blank: Por favor ingrese un nombre valido.
       payer_tin:
-        blank: Ingrese un TIN válido de 9 dígitos.
+        blank: Ingresa un TIN válido de 9 dígitos.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -248,10 +248,10 @@ es:
         is_hsa: es HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Por favor ingrese una cantidad menor o igual a %{owed_amount}
-        withdrawal_date_deadline: Ingrese una fecha anterior al 15 de abril de %{year}
+        withdrawal_date_deadline: Introduce una fecha en o antes del 15 de Abril, %{year}
   general:
     NA: N/A
-    about: Acerca de
+    about: Acerca de nosotros
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
@@ -1523,18 +1523,20 @@ es:
       welcome:
         email:
           body: |
-            Hola,
+            ¡Bienvenido/a!
 
-            Hemos creado con éxito tu cuenta en FileYourStateTaxes/Hemos creado tu cuenta de FileYourStateTaxes sin ningún problema! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras completas tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Saludos cordiales, El equipo de FileYourStateTaxes
+
+            Si deseas cancelar la suscripción a los correos electrónicos, haz clic aquí.
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          Hola,
+          ¡Bienvenido/a! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estés presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas tomar un descanso, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
 
-          ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
-
-          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto
+          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para cancelar la suscripción.
     successful_submission_drop_off:
       email:
         body: |
@@ -1842,35 +1844,775 @@ es:
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
   state_file:
+    faq:
+      index:
+        title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
+    intake_logins:
+      account_locked:
+        body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        title: Esta cuenta ha sido bloqueada
+      edit:
+        help_text: Para salvaguardar su identidad, necesitamos confirmar su número de seguro social para la verificación de identificación.
+        ssn_label: Ingresa tu número de Seguro Social o ITIN. Por ejemplo, 123-45-6789.
+        title: Código verificado. Se necesita autenticación para continuar.
+      enter_verification_code:
+        code_sent_to_html: Te enviamos tu código a %{contact_info}. Si no recibiste un código y necesitas ayuda para volver a suscribirte, chatea con nosotros.
+        enter_6_digit_code: Ingresa el código de 6 dígitos
+        title: Ingresa el código para continuar
+        verify: Verificar el código
+      form:
+        errors:
+          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+      new:
+        email_address:
+          label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
+          title: Inicia sesión con tu dirección de correo electrónico. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
+        sms_phone_number:
+          label: Tu número de teléfono
+          title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
+      no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     questions:
+      az_charitable_contributions:
+        edit:
+          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
+          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500.'
+          learn_more_content_html: |
+            Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
+            Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
+            <strong>No</strong> incluyes:<br>
+            <ul><li>regalos hechos directamente a individuos;</li>
+            <li>contribuciones políticas;</li>
+            <li>todas las tarifas pagadas a escuelas públicas, incluyendo las tarifas que califican para el <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito Tributario para Escuelas Públicas</a>;</li>
+            <li>dinero gastado en eventos de recaudación de fondos, incluyendo rifas, bingo; o</li>
+            <li>artículos comprados para una recaudación de fondos.</li></ul>
+          learn_more_title: "¿Qué quiere decir esto?"
+          title:
+            many: "¿Usted o su cónyuge hicieron contribuciones caritativas a una organización calificada en %{tax_year}? (en efectivo y/o en especie)"
+            one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
+            other: "¿Usted o su cónyuge hicieron contribuciones caritativas a una organización calificada en %{tax_year}? (en efectivo y/o en especie)"
+      az_excise_credit:
+        edit:
+          household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
+          ssn_no_employment_html:
+            many: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
+            one: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
+            other: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
+          title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
+          was_incarcerated:
+            many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+            one: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+            other: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+      az_prior_last_names:
+        edit:
+          prior_last_names_label:
+            many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
+            one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
+            other: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
+          subtitle: Esto incluye los años tributarios 2019-2022.
+          title:
+            many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
+            one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
+            other: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
+      az_review:
+        edit:
+          armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
+          armed_forces_wages: Salario por servicio activo recibido como miembro de las Fuerzas Armadas de los Estados Unidos
+          charitable_cash: 'Donaciones caritativas (en efectivo) '
+          charitable_contributions: Realizó contribuciones caritativas
+          charitable_noncash: Donaciones caritativas (en especie)
+          excise_credit: Encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en 2023
+          last_names: Otros apellidos usados en los últimos cuatro años
+          tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
+          tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
+      az_senior_dependents:
+        edit:
+          assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"
+          passed_away_label: "%{name}falleció en el 2023?"
+          title: Proporciónanos más información sobre las personas en tu familia que tienen 65 años o más.
+      az_state_credits:
+        edit:
+          armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
+          armed_forces_wages_label:
+            many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
+            one: "¿Cuánto recibiste en salario por servicio activo?"
+            other: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
+          learn_more_content_html: |
+            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en tu declaración de impuestos federal.<br><br>
+            Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
+            <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
+          learn_more_title: Obtener más información
+          should_not_exceed_wages_html: "<strong>Nota:</strong> Esto no debe superar %{wages}"
+          subtitle:
+            many: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
+            one: Marca cada casilla que te aplique a ti. Si no te aplica, déjala en blanco y continúa.
+            other: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
+          title:
+            many: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
+            one: "¿Alguna de las siguientes situaciones te aplican a ti en el %{year}?"
+            other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
+          tribal_member_label:
+            many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
+            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganaron salario mientras vivían y trabajaban en la reserva.
+            other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
+          tribal_wages_label:
+            many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
+            one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
+            other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
+          wages_tip: 'Ingresa la cantidad que recibiste:'
+      canceled_data_transfer:
+        edit:
+          faq: Visita nuestras Preguntas Frecuentes (FAQ)
+          mistake_html: ¿Es un error? <a href="%{link}">Regresa para corregirlo.</a>
+          other_options_html: |
+            <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong>
+            <br/>
+            Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
+          title1: 'Parece que cancelaste la transferencia de tu declaración federal. '
+          title2: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
+      code_verified:
+        edit:
+          subtitle_email: A partir de ahora, recibirás actualizaciones por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
+          subtitle_text: A partir de ahora, recibirás actualizaciones por texto cuando tu declaración de impuestos estatales sea aceptada.
+          title: "¡Código verificado!"
+      contact_preference:
+        edit:
+          email_option: Enviar código por correo electrónico
+          subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
+          text_message_option: Enviar código por mensaje de texto.
+          title: Ahora crea tu cuenta con un código
+      data_review:
+        edit:
+          basic_household_info_title: Información básica del hogar
+          complete_description: Completo
+          filing_status_title: Estado civil para la declaración
+          income_and_deductions_title: Ingresos y deducciones
+          partially_complete_description: Parcialmente completa
+          state_tax_withheld_title: Retención de impuestos estatales de %{name}
+          title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
+      data_transfer_offboarding:
+        edit:
+          file_with_vita: No te preocupes, aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+          get_started_with_vita: Solicitar asistencia de un voluntario VITA
+          ineligible_reason:
+            has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
+            has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
+            has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
+            married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
+          learn_more_content_how: Los voluntarios certificados por el IRS de VITA utilizarán esta información para preparar y presentar electrónicamente tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
+          learn_more_content_link_html: Obtén más información <a href="%{link}">aquí</a>.
+          learn_more_content_what: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación fiscal y enviar de forma segura tus documentos tributarios en línea.
+          learn_more_title: Obtén más información sobre este proceso
+          offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
+          other_options: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
+          title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar esta herramienta este año. No te preocupes, aquí tienes otras opciones de presentación.
+          visit_faq: Visita nuestras Preguntas Frecuentes (FAQ)
+        gyr:
+          how_it_works: Si eliges este servicio, te conectarás con un socio de VITA en tu estado. Se te pedirá que respondas algunas preguntas más y que subas de forma segura tus documentos fiscales y de identificación. Este proceso puede tardar de 1 a 3 semanas en completarse.
+          what_it_is: GetYourRefund es un servicio sin costo en línea que te conecta con un preparador de impuestos certificado por el IRS del programa de Asistencia Voluntaria para la Declaración de Impuestos sobre Ingresos (VITA) del IRS. Con tu consentimiento, los voluntarios te ayudarán a preparar y presentar electrónicamente tu declaración de impuestos estatales sin costo.
+        other_options:
+          learn_more_link_html: Obtén más información <a href="%{link}">aquí</a>.
+          tip1_html: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales</strong>. Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
+          tip2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
+          tip3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
+          tip4: Se pueden aplicar tarifas.
+          title: 'Varios servicios comerciales de preparación de impuestos ofrecen la presentación de impuestos solo a nivel estatal. Aquí tienes algunos consejos para elegir una opción:'
+      declined_terms_and_conditions:
+        edit:
+          action_html: "<strong>¿Es un error?</strong>"
+          drop_down_html: |
+            <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong><br>
+            Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
+          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+          go_back_link: Regresa para corregirlo.
+          subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
+          title: 'Has rechazado los términos y condiciones. '
+      eligibility_offboarding:
+        edit:
+          body_html: 'No puedes usar esta herramienta este año porque %{ineligible_reason}. <strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
+
+            '
+          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+          ineligible_reason:
+            eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
+            eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
+            eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
+            eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
+            eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2023
+            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
+            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
+            nyc_maintained_home: no viviste en Nueva York durante todo el 2023
+            nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
+            permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
+          learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow">aquí.</a>
+          learn_more_reveal:
+            p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
+            p2: Los voluntarios certificados por el IRS de VITA utilizarán esta información para preparar y presentar electrónicamente tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
+            title: Obtén más información sobre este proceso
+          other_option: No te preocupes, aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+          other_options_reveal:
+            fees: Se pueden aplicar tarifas.
+            list:
+              body: 'Varios servicios comerciales de preparación de impuestos ofrecen la presentación de impuestos solo a nivel estatal. Aquí tienes algunos consejos para elegir una opción:'
+              list1_html: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales.</strong> Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
+              list2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
+              list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
+            title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
+          title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
+          vita_link: Solicitar asistencia de un voluntario VITA
+      eligibility_out_of_state_income:
+        edit:
+          expenses_helper_heading: "¿Cuáles son los gastos que califican y los que no califican?"
+          expenses_helper_no_if: 'Selecciona ''no'' si:'
+          expenses_helper_no_nothing_withdrawn: No retiraste dinero de una cuenta 529 en absoluto.
+          expenses_helper_no_qualifying: Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o
+          expenses_helper_nonqualifying_description: La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
+          expenses_helper_qualifying_description: Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.
+          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
+          part_year_nyc_resident_html: "¿Fuiste (o tu cónyuge, si presentan la declaración juntos) residente de la ciudad de Nueva York durante algún momento del 2023? (¿Te mudaste dentro o fuera de la ciudad durante el 2023?) <br><br> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
+          used_529_for_non_qual_expense_html: ¿Retiraste (o tu cónyuge, si presentan la declaración juntos) dinero de una <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">cuenta de ahorro universitario 529</a> y lo usaste para gastos que no califican en el 2023?
+      eligibility_residence:
+        edit:
+          filing_status_married_filing_separately: "¿Estás presentando tu declaración como “Casado presentando por separado”? "
+          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
+          lived_or_income_in_yonkers_html: "¿<strong>Viviste, recibiste ingresos o mantuviste un hogar</strong> (y tu cónyuge, si presentan la declaración juntos) en Yonkers en algún momento del 2023?"
+          mfs_helper_description: El estado civil de "casado presentando separado" es una opción para presentar la declaración de impuestos para personas que están legalmente casadas pero que deciden presentar declaraciones por separado.
+          mfs_helper_heading: ¿Qué quiere decir "Casado presentando por separado”?
+          mfs_helper_no_if: 'Selecciona ''no'' si:'
+          mfs_helper_no_mfj: Estás casado y estás presentado conjuntamente tus declaraciones, tanto federal como estatal.
+          mfs_helper_no_unmarried: No estás casado.
+          mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
+          mfs_helper_yes_if: 'Selecciona ''sí'' si:'
+          mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
+          subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
+      eligible:
+        az_unsupported:
+          other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
+          other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
+          other_credits_add_dependents: Agregar dependientes no reclamados en la declaración federal
+          other_credits_change_filing_status: Cambio en el estado civil de presentación de la declaración federal a estatal
+          other_credits_heading: 'Otros créditos y deducciones no admitidos este año:'
+          other_credits_itemized_deductions: Deducciones detalladas
+          other_credits_qcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Crédito por donaciones caritativas a organizaciones calificadas</a>
+          other_credits_qfcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Crédito por donaciones caritativas a organizaciones de cuidado y crianza calificadas</a>
+          property_tax_credit_age: Tener 65 años o más, o recibir pagos de Seguridad de Ingreso Suplementario
+          property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Crédito tributario por impuestos a la propiedad</a>. Para calificar para este crédito, debes:'
+          property_tax_credit_income: Tener un ingreso total del hogar menor a $3,751 si vives solo; o un ingreso total del hogar menor a $5,501 si vives con otros
+          property_tax_credit_paid: Haber pagado impuestos a la propiedad o alquiler de una vivienda en Arizona durante el año
+          public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito tributario para escuelas públicas</a>. Para calificar para este crédito debes:'
+          public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
+          public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
+        edit:
+          dependent_credit: Crédito por Dependientes
+          empire_state_ctc: Crédito Empire State por hijos
+          family_income_credit: Crédito por ingresos familiares
+          increased_deduction: Una deducción aumentada por donaciones caritativas
+          increased_excise_credit: Aumento en el crédito por impuesto de consumo
+          not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
+          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
+          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
+          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
+          title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
+          title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
+          want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
+          want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
+          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+        ny_unsupported:
+          college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
+          firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
+          long_term_care_credit: Crédito por seguro de atención a largo plazo
+          non_custodial_nys_eic_html: Crédito por ingresos del trabajo para padres sin custodia (para <a href="https://www.tax.ny.gov/pit/credits/nceic.htm" target="_blank" rel="noopener nofollow">padres que no viven con sus hijos</a>)
+          nys_child_dependent_care_credit: Crédito de la Ciudad de Nueva York por cuidado de dependientes y menores
+          other_credits_change_filing_status: Cambio en el estado civil para la presentación de impuestos federales a estatales
+          other_credits_est_tax_etc: Impuesto estimado, pagos prorrogados y créditos de años anteriores
+          other_credits_heading: 'Otros créditos, deducciones y recursos no admitidos este año:'
+          other_credits_itemized_deductions: Deducciones detalladas
+          real_property_tax_credit: Crédito por Unidad Familiar (del Estado de Nueva York)
+          subtractions_225_heading_html: 'Todas las <a href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart" target="_blank" rel="noopener nofollow">deducciones de Nueva York reclamadas en el IT-225, incluyendo</a>:'
+          subtractions_225_health_care_worker: Bonificaciones para trabajadores de salud y salud mental
+          subtractions_225_help_loan: Intereses de préstamos HELP
+          subtractions_225_military: Pago por combate militar
+          subtractions_225_native_american: Exclusión de ingresos para Nativos Americanos
+          subtractions_225_student_loan: Premios por condonación de préstamos estudiantiles
+      email_address:
+        edit:
+          action: Enviar el código
+          email_address_label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
+          title: Ingresa tu dirección de correo electrónico
       esign_declaration:
         edit:
           az:
             body_html: |
-              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
+              <p>Bajo pena de perjurio, declaro que he revisado una copia de mi declaración electrónica de impuestos personales a las ganancias de Arizona, así como los anexos y declaraciones adjuntas, para el año que finaliza el 31 de diciembre de 2023 y la información es verdadera, correcta y completa a mi mejor conocimiento y creencia.</p>
               <ul class="list--bulleted">
-                <li><em>If I am owed a refund and I provided direct deposit information,</em> I consent that my refund be directly deposited as designated in the electronic portion of my 2023 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
-                <li><em>If I am not owed a refund or if I elected to receive my refund via mailed check,</em> I do not want direct deposit of my refund or I am not receiving a refund.</li>
-                <li><em>If I owe tax and I provided direct debit information,</em> I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
+              <li><em>Si me deben un reembolso y proporcioné información para depósito directo,</em> doy mi consentimiento para que mi reembolso se deposite directamente según lo designado en la parte electrónica de mi declaración de impuestos sobre ingresos individual de Arizona de 2023. Si he presentado una declaración conjunta, esta es una designación irrevocable del otro cónyuge como agente para recibir el reembolso.</li>
+              <li><em>Si no me deben un reembolso o si elegí recibir mi reembolso mediante un cheque enviado por correo,</em> no deseo el depósito directo de mi reembolso o no estoy recibiendo un reembolso.</li>
+              <li><em>Si debo impuestos y proporcioné información para débito directo,</em> autorizo al Departamento de Ingresos de Arizona (ADOR) y a su Agente Financiero designado a iniciar un retiro de fondos electrónico ACH (débito directo) en la cuenta del instituto financiero indicada en el software de preparación de impuestos para el pago de mis impuestos de Arizona adeudados en esta declaración. También autorizo a las instituciones financieras involucradas en el procesamiento del pago electrónico de impuestos a recibir información confidencial necesaria para responder a consultas y resolver problemas relacionados con el pago.</li>
               </ul>
-              <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
-              <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
-              <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+              <p>Si he presentado una declaración de saldo adeudado, entiendo que si el ADOR no recibe el pago completo y oportuno de mi responsabilidad tributaria antes del 15 de abril de 2024, seguiré siendo responsable de la responsabilidad tributaria y todos los intereses y penalidades aplicables.</p><p>Consiento que mi Originador de Declaraciones Electrónicas (ERO) o Proveedor de Servicios en Línea (OLSP) envíe mi declaración electrónica de impuestos sobre el ingreso individual de Arizona y los horarios y declaraciones adjuntas a ADOR, y consiento que mi ERO o OLSP envíe dicha información a ADOR a través de un transmisor. Consiento que ADOR envíe a mi ERO, OLSP y/o transmisor un acuse de recibo de la transmisión y una indicación de si se acepta o no la transmisión de mi declaración, y, si se rechaza, la razón o razones del rechazo. Si se retrasa el procesamiento de mi declaración o reembolso, autorizo a ADOR a divulgar a mi ERO, OLSP y/ o transmisor la razón o razones del retraso, o cuando se envió el reembolso. Si ADOR se comunica con mi ERO para obtener una copia de mi declaración, cualquier documento o horario de mi declaración, y/o este formulario de autorización, autorizo a mi ERO a proporcionar copias de los documentos solicitados a ADOR.</p>
+              <p>Yo declaro bajo pena de perjurio que, según mi leal saber y entender, la declaración es verdadera, correcta y completa.</p>
           ny:
             body_html: |
-              <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
-              <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
-              <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
-          primary_esign: I have read the certification above and agreeny_sales_use_tax
+              <p>Al marcar la(s) casilla(s) que se muestran a continuación y presionar "Enviar", entiendo y acepto que estoy presentando para la presentación mi declaración de impuestos electrónica del impuesto sobre la renta personal del estado de Nueva York (NYS) para el año 2023. Declaro, bajo pena de perjurio, que he examinado la información en mi declaración de impuestos electrónica de NYS, incluida toda la información transferida a mi declaración de NYS desde mi declaración federal, y todas las programaciones, anexos y declaraciones adjuntas proporcionadas con la declaración, y certifico que mi declaración electrónica de NYS es verdadera, correcta y completa. Al ejecutar el Formulario TR-579-IT y proporcionarlo al ERO, he autorizado al ERO (Code for America) a presentar mi declaración de impuestos electrónica de NYS para el año 2023 ante el Departamento de Impuestos de NYS a través del Sistema de Presentación Electrónica Modernizada del IRS (Servicio de Impuestos Internos).</p>
+              <p>Además, entiendo y acepto que al utilizar un sistema informático y software para preparar y transmitir mi declaración de impuestos electrónicamente, he consentido a la divulgación a NYS de toda la información relacionada con la transmisión de mi declaración de impuestos de NYS electrónicamente. Si estoy pagando mis impuestos personales del estado de Nueva York adeudados o recibiendo un reembolso de impuestos mediante transferencia electrónica de fondos, certifico que el titular de la cuenta autoriza al Departamento de Impuestos de NYS y a sus agentes financieros designados a iniciar una transferencia electrónica de fondos desde la cuenta de la institución financiera indicada en la declaración electrónica de NYS 2023, y autoriza a la institución financiera a debitar la cantidad de esa cuenta (si se debe impuestos) o acreditar la cuenta con un depósito directo (si se debe un reembolso).</p>
+              <p>Dado que Nueva York no admite Transacciones ACH Internacionales (IAT), atestiguo que la fuente de estos fondos se encuentra dentro de los Estados Unidos. Entiendo y acepto que puedo revocar esta autorización de pago comunicándome con el Departamento de Impuestos en no más de cinco (5) días hábiles antes de la fecha de pago.</p>
+          primary_esign: He leído y acepto la certificación anterior
+          spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
+          submit: Envía tu declaración estatal
+          title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      initiate_data_transfer:
+        data_transfer_buttons:
+          from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
+          from_irs: Transferir datos desde el sitio del IRS
+          from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
+        edit:
+          button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
+          description: 'Para ahorrar tiempo, transfiere tu declaración federal para completar partes de tu declaración estatal. Esto suele tomar 3 minutos o menos. '
+          title: Ahora completemos tu declaración de impuestos estatales
+      landing_page:
+        edit:
+          az:
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS."
+            supported_by: Respaldada por el estado de Arizona
+            title: Presenta tus impuestos estatales de Arizona sin costo
+          ny:
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Nueva York para integrarse con la herramienta Direct File del IRS."
+            supported_by: Respaldada por el estado de Nueva York
+            title: Presenta tus impuestos Estatales de Nueva York sin costo
+      name_dob:
+        edit:
+          dependent_months_lived_label: Número de meses que vivió contigo en %{year}
+          dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
+          last_name: Apellido (Si tienes un sufijo, ingresalo aquí junto con tu apellido. Por ejemplo, Smith, Jr.)
+          months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
+          months_helper_description: Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones.
+          months_helper_heading: "¿Cuáles meses debería contar?"
+          primary_name_dob: Tu nombre (como aparece en tu tarjeta de Seguro Social o tu carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento
+          spouse_dob: Fecha de nacimiento de tu cónyuge
+          spouse_last_name: Apellido (Si tu cónyuge tiene un sufijo, ingrésalo aquí junto con su apellido. Por ejemplo, Smith, Jr.)
+          spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
+          spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
+          title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
+          title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
+          your_dob: Tu fecha de nacimiento
+      ny_county:
+        edit:
+          county: Condado
+          title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      ny_eligibility_college_savings_withdrawal:
+        edit:
+          non_qualifying_expenses:
+            reveal_info_html: |
+              <p>Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.</p>
+
+              <p>La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.</p>
+
+              <p><strong>Selecciona 'no' si:</strong></p>
+              <ul>
+              <li>Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o</li>
+              <li>No retiraste dinero de una cuenta 529 en absoluto.</li>
+              </ul>
+            title: "¿Cuáles son los gastos que califican y los que no califican?"
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
+          withdraw_529: En el 2023, ¿contribuiste a una <u>cuenta de ahorros universitarios 529</u>, o retiraste dinero de una cuenta 529 y los usaste para gastos no calificados?
+      ny_permanent_address:
+        edit:
+          address_header: Dirección
+          apartment_number_label: Número de apartamento/unidad
+          city_label: Cuidad
+          mark_no_hint_html: Marque "No" si la dirección indicada es un apartado postal <strong>o</strong> si vivió en una dirección diferente el 31 de diciembre de 2023
+          state_label: Estado
+          street_address_label: Dirección
+          title: "¿Viviste en esta dirección el 31 de diciembre de 2023?"
+          where_did_you_live: "¿Dónde viviste el 31 de diciembre de 2023?"
+          zip_label: Código postal
+      ny_review:
+        edit:
+          empire_state_child_credit: Crédito Empire State por hijos
+          fed_agi: Ingreso bruto ajustado federal
+          ny_agi: Ingreso bruto ajustado de Nueva York
+          nyc_eic: Crédito por ingreso del trabajo de la ciudad de Nueva York
+          nyc_full_year_resident: Residente a tiempo completo de la ciudad de Nueva York
+          nyc_household_credit: Crédito de la Ciudad de Nueva York por unidad familiar
+          nyc_resident_tax: Impuesto sobre la renta personal de la Ciudad de Nueva York
+          nyc_school_tax_credit_fixed: Crédito tributario escolar de la ciudad de Nueva York (fijo)
+          nyc_school_tax_credit_rate_reduction: Crédito tributario escolar de la ciudad de Nueva York (reducción de tasa)
+          nys_eic: Crédito tributario por ingreso del trabajo (del Estado de Nueva York)
+          nys_household_credit: Crédito por Unidad Familiar (del Estado de Nueva York)
+          nys_tax: Impuesto estatal de Nueva York
+          out_of_state_purchases: Compras fuera del estado/Impuesto de Uso Aplicado
+          residence_county: Condado
+          sales_or_use_tax: Impuestos de venta o de uso
+          school_district: Distrito Escolar
+          see_detailed_return: 'Ver información detallada de la declaración:'
+          standard_deduction: Deducción estándar
+          taxable_income: Ingreso gravable
+          total_dependent_exemptions: Total de exenciones por dependientes
+          total_new_york_additions: Total de adiciones de Nueva York
+          total_new_york_subtractions: Total de sustracciones de Nueva York
+          total_ny_tax: Total de impuestos de Nueva York
+          total_nyc_tax_withheld: Total retenido de impuestos municipales de la ciudad de Nueva York
+          total_nys_tax_withheld: Total retenido de impuestos estatales de Nueva York
+          total_payments: Total de pagos
       ny_sales_use_tax:
         edit:
-          use_tax_method_manual_html: I will calculate my use tax manually. <a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">(Learn more)</a>
+          calculated_use_tax: Ingresa el impuesto sobre el uso que calculaste
+          enter_valid_dollar_amount: Ingresa una cantidad en dólares entre 0 y 1699.
+          select_one: 'Selecciona una de las siguientes opciones:'
+          subtitle: Por ejemplo, compras en línea sin aplicar impuestos de venta.
+          title:
+            many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
+            one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
+            other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
+          use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. Calcula la cantidad de impuesto sobre el uso por mi.
+          use_tax_method_manual_html: ' Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca ''exact calculation method’)'
+      ny_school_district:
+        edit:
+          helper_description_html: Puedes buscar tu distrito escolar <a href="https://www.greatschools.org/school-district-boundaries-map/" target="_blank" rel="noopener nofollow">aquí</a>. Si aún no estás seguro, contacta a la escuela pública más cercana y pregunta el nombre del distrito escolar.
+          helper_heading: "¿Cómo encuentro mi distrito escolar?"
+          school_district_name: Nombre del Distrito Escolar
+          title: Selecciona el distrito escolar donde vivías el 31 de diciembre de %{filing_year}
+      nyc_residency:
+        edit:
+          full_year:
+            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante todo el %{year}
+            one: Viví en la ciudad de Nueva York durante todo el %{year}
+            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante todo el %{year}
+          maintained_home:
+            many: "¿Tú o tu cónyuge mantuvieron un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
+            one: "¿Mantuviste un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
+            other: "¿Tú o tu cónyuge mantuvieron un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
+          none:
+            many: Mi cónyuge y yo no vivimos en la ciudad de Nueva York en absoluto en el %{year}
+            one: No viví en la ciudad de Nueva York en absoluto en el %{year}
+            other: Mi cónyuge y yo no vivimos en la ciudad de Nueva York en absoluto en el %{year}
+          nyc_includes: La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island.
+          part_year:
+            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
+            one: Viví en la ciudad de Nueva York durante parte del año
+            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
+          title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
+      other_filing_options:
+        edit:
+          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+          learn_more: Obtén más información sobre este proceso
+          state_options: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
+          subtitle: Aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+          title: "¿No puedes usar esta herramienta este año? No te preocupes, aquí tienes otras opciones para presentar tu declaración."
+          vita_link: Solicitar asistencia de un voluntario VITA
+      pending_federal_return:
+        edit:
+          title_html: |
+            Lamentamos hacerte esperar. Tu declaración federal debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales.
+            <br/><br/>
+            Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada con un enlace para traerte de vuelta aquí.
+      phone_number:
+        edit:
+          action: Enviar el código
+          phone_number_label: Tu número de teléfono
+          title: Ingresa tu número de teléfono
+      primary_state_id:
+        edit:
+          ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
+          title: Comparte algunos detalles de tu identificación emitida por el estado
+        state_id:
+          id_details:
+            expiration: Fecha de Vencimiento
+            first_three_doc_num_html: "<strong>Para identificaciones de Nueva York:</strong> Los primeros tres caracteres del número de documento (ubicado en la parte posterior de tu identificación)"
+            issue: Fecha de Emisión
+            issue_state: Estado de Emisión
+            no_expiration_date: No tiene fecha de vencimiento
+            number: Número de identificación
+          id_type_question:
+            dmv: Identificación estatal del DMV/BMV
+            drivers_license: Licencia de conducción
+            label: Tu tipo de identificación
+            no_id: No tengo licencia de conducir ni identificación estatal
+          info_link: Vea dónde encontrar esta información
+      return_status:
+        accepted:
+          check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
+          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Verifica el estado</a> de tu reembolso.
+          direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
+          download_voucher: Descargar formulario de comprobante de pago
+          include_payment: Debes incluir el formulario de comprobante de pago.
+          mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
+          pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
+          register_to_vote: Regístrate para votar.
+          title: Tu declaración de impuestos del estado de %{state_name} para el año 2023 ha sido aceptada
+          track_your_payment_html: Puedes hacerle seguimiento a tu pago <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">aquí.</a>
+        edit:
+          download_state_return_pdf: Descarga tu declaración estatal
+          explain_calcs: Explicación de Cálculos
+          show_xml: Mostrar XML
+        pending:
+          more_than_two_days: Si han pasado más de 2 días desde que presentaste tus impuestos estatales, ponte en contacto con nuestro equipo haciendo clic en "chatea con nosotros".
+          receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
+          receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
+          title: "¡Ha enviado su declaración de impuestos de %{state_name} de 2023! Actualmente se encuentra a la espera de ser aceptado para su procesamiento."
+        rejected:
+          contact_us: Contacte a nuestro equipo de expertos haciendo clic en "Chatea con nosotros".
+          have_questions: "¿Tienes preguntas?"
+          its_unusual: Es poco común que tu declaración estatal sea rechazada después de que tu declaración federal haya sido aceptada. Nuestro equipo está investigando el problema para ver qué podemos hacer para ayudarte a solucionarlo. Te informaremos si necesitas hacer algo más.
+          reject_code: 'Código de Rechazo:'
+          reject_desc: 'Descripción del Rechazo:'
+          title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+          whats_next: "¿Qué sigue?"
+      shared:
+        review_footer:
+          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
+        review_header:
+          dependent_dob: Su fecha de nacimiento
+          dependent_months_in_home: Número de meses que vivieron contigo
+          dependent_name: Nombre de tu dependiente
+          household_info: Información del hogar
+          nth_dependent_name: Nombre de tu %{ordinal} dependiente
+          spouse_name: Nombre de tu cónyuge
+          taxes_owed_html: |
+            <p>
+            <strong>Tu reembolso estimado o tus impuestos estimados a pagar</strong><br/>
+            $0
+            </p>
+            Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
+          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
+          your_name: Tu nombre
+          your_refund: Tu reembolso
+          your_tax_owed: Tus impuestos adeudados
+      spouse_state_id:
+        edit:
+          title_html: Proporcione la información para la identificación emitida por el estado de <strong>su cónyuge</strong>
+      submission_confirmation:
+        edit:
+          download_state_return_pdf: Descarga tu declaración estatal
+          email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
+          email_update: Recibirá una actualización por correo electrónico cuando se acepte su declaración de impuestos estatales.
+          ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
+          register_to_vote: Regístrate para votar.
+          title: "¡Tu declaración de impuestos del estado de %{state_name} de 2023 ha sido enviada!"
+      tax_refund:
+        bank_details:
+          account_number: Número de cuenta
+          bank_title: 'Comparte los detalles de tu cuenta bancaria:'
+          confirm_account_number: Confirma el número de cuenta
+          confirm_routing_number: Confirma el número de ruta bancaria (routing number)
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el dia del 15 de abril de 2024):"
+          disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
+          foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
+          routing_number: Número de ruta bancaria (routing number)
+          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}.)"
+        edit:
+          az_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Arizona de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
+          direct_deposit: Depósito directo (más rápido)
+          mail: Enviar mi pago por correo (más lento)
+          ny_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Nueva York de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
+      taxes_owed:
+        edit:
+          page_title: Debes $%{owed_amount} en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+          pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
+          pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
+          title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+      terms_and_conditions:
+        edit:
+          accept: Aceptar
+          body_text_closer_html: |
+            </ul>
+            <strong>Al usar FileYourStateTaxes, nos estás informando que has leído, comprendido y aceptado estos términos, así como nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a>. ¡Gracias por elegirnos para presentar tus impuestos!</strong>
+          body_text_opener_html: |
+            <strong>Cuando usas el servicio FileYourStateTaxes, esto es a lo que te estás comprometiendo:</strong><br>
+            <ul class="list--numbered">
+          decline: Rechazar
+          list_items_html: <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es una herramienta gratis y fácil de usar desarrollada por Code for America para ayudarte a presentar convenientemente tu declaración de impuestos estatales después de completar tu declaración federal.</li><strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.</li><strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.</li><strong>Presentación electrónica modernizada:</strong> Enviaremos tu declaración de impuestos estatales utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.</li><strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.</li><strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.</li><strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.</li><strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li><strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.</li><strong>Eliminación de datos:</strong> Tienes el derecho de pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente contáctanos o utiliza la función de eliminación de datos en la plataforma. Pero ten en cuenta que esto podría afectar tu acceso al servicio.</li><strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.</li><strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.</li><strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
+          list_items_no_sms_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li>\n"
+          ny_text_html: |
+            <strong>Presenta tu declaración de impuestos del estado de Nueva York electrónicamente sin costo adicional. </strong><br><br>
+            Antes de imprimir y enviar tu declaración, ten en cuenta que no hay un costo adicional por presentarla electrónicamente. Otras razones para presentar electrónicamente:
+            <ul class="list--bulleted">
+            <li>El 90% de los neoyorquinos presentan electrónicamente sus declaraciones de impuestos.</li>
+             <li>La presentación electrónica es rápida, sencilla y segura.</li>
+            <li>Las personas que presentan sus impuestos electrónicamente obtienen sus reembolsos más rápido que los que lo hacen en papel.</li>
+            <li>No solo es presentar tus impuestos electrónicamente una buena opción, también es un requisito legal: El estado de Nueva York requiere que la mayoría de los contribuyentes presenten electrónicamente si están usando software de impuestos para preparar su declaración.</li>
+            </ul>
+          read_text: Lee los términos y condiciones antes de tomar tu decisión.
+          title: Ahora revisa y acepta los términos y condiciones
+      unemployment:
+        destroy:
+          removed: Eliminado el formulario 1099-G para %{name}
+        edit:
+          apartment: Número de apartamento/unidad
+          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal"
+          city: Ciudad
+          confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
+          confirm_address_no: No, necesito cambiarla
+          confirm_address_yes: Sí, esa es la dirección
+          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal retenido"
+          had_box_11: "¿Tenías un monto listado por impuestos estatales (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
+          information_content_html: |
+            Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
+            Luego busca la información solicitada en las siguientes ubicaciones: </br>
+            <ol class="list--numbered">
+            <li><strong>¿De quién es el formulario?</strong> El lado izquierdo del formulario indicará si este formulario te pertenece a ti o a tu cónyuge, si corresponde. Busca "recipient’s name.”</li>
+            <li><strong>Tu dirección de envío</strong> aparece bajo "recipient’s name" en el lado izquierdo del formulario. Asegúrate de que <strong>la dirección coincida</strong> con la que ingreses aquí.</li>
+            <li><strong>La información del pagador</strong> o la agencia gubernamental que emitió el formulario se encuentra en la esquina superior izquierda de la página. Ingresa el nombre, la dirección y el TIN (Número de Identificación del Empleador) tal como aparecen en el formulario.</li>
+            <li><strong>Las casillas 1, 4, 10b y 11</strong> tienen los mismos números en el lado derecho del formulario. Ingresa la información exactamente como aparece en esas casillas.</li>
+            </ol>
+          information_html: "<strong>¿Cómo encuentro esta información?</strong>"
+          money_boxes_label: Completa las siguientes casillas según lo especificado en el Formulario 1099-G.
+          need_additional_information: "¡Excelente! Necesitamos información adicional sobre lo que aparece en el Formulario 1099-G. (Si tienes más de un formulario 1099-G, puedes agregarlo al final.)"
+          other_tax_filing_options_html: <strong>Recuerda:</strong> En 2024, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
+          payer_address: Dirección del pagador
+          payer_name: Nombre del pagador
+          payer_question_html: 'Ingresa la <strong>información del pagador 1ubicada en la esquina superior izquierda</strong> del formulario:'
+          payer_tin: Número de Identificación del Pagador (Número de 9 dígitos)
+          recipient_my_spouse: Para mi cónyuge
+          recipient_myself: Para mí
+          recipient_question: "¿Para quién es este formulario?"
+          state: Estado
+          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, Impuesto Estatal retenido"
+          street_address: Dirección
+          title:
+            many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
+            one: Parece que recibiste compensaciones por desempleo en %{year}
+            other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
+          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo"
+          zip_code: Código postal
+        index:
+          1099_label: 1099-G para %{name}
+          add_another: Agrega otro Formulario 1099-G
+          delete_confirmation: "¿Estás seguro de que quieres eliminar este formulario 1099-G?"
+          lets_review: "¡Excelente! Gracias por compartir esa información. Revisémosla."
+          unemployment_compensation: 'Compensación por desempleo: $%{amount}'
       verification_code:
         edit:
-          subtitle_html: "<strong>%{contact_info}</strong>"
+          action: Verificar el código
+          subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
+          title: Ingresa el código para continuar
+          verification_code_label: Ingresa el código de 6 dígitos
+      waiting_to_load_data:
+        edit:
+          title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
     state_file_pages:
+      about_page:
+        header: Una herramienta sencilla y sin costo para presentar impuestos estatales para los contribuyentes de Arizona y Nueva York usando IRS Direct File
+        section1_html: |
+          <strong>¿Cómo funciona?</strong>
+          <ol class="list--numbered">
+            <li>Primero, presenta y envía tu declaración federal con IRS <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Direct File</a> antes de usar esta herramienta.</li>
+            <li>Haz clic en "continuar para presentar tus impuestos estatales"</li>
+            <li>Responde algunas preguntas para asegurarte de que este sea el servicio adecuado para ti. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Consulta más información sobre la elegibilidad a continuación</a>.</li>
+            <li>Transfiere tu declaración federal para completar la mayor parte de tu declaración estatal.</li>
+            <li>Responde algunas preguntas adicionales para maximizar tu reembolso de impuestos estatales.</li>
+            <li>¡Presenta tu declaración electrónicamente sin costo!</li>
+          </ol>
+          <strong>Para obtener más información, consulte <a href=%{faq_link}>las preguntas frecuentes</a>.</strong>
+        subheader_html: |
+          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>gratis.</strong> <br/><br/>
+          Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs. gov/">directfile.irs.gov</a></strong><br/><br/>
+          ¿Ya presentó su declaración federal ante IRS Direct File y necesita completar su declaración estatal? <a href=%{login_path}>Empiece aquí</a>.<br/><br/>
+      card_postscript:
+        responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
         title: Próximamente
+      data_import_failed:
+        help_text_html: No te preocupes, podemos ayudarte. Ponte en contacto haciendo clic en el botón de chat debajo o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        title: Lamentablemente, tu declaración de impuestos federales no se pudo transferir. Para continuar, necesitarás ponerte en contacto con uno de nuestros especialistas en impuestos.
+      footer:
+        about: Acerca de nosotros
+        faq: Preguntas Frecuentes
+        privacy_policy: Política de Privacidad
+        state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
+        terms_of_service: Términos del servicio
+      login_options:
+        email_signin: Iniciar sesión con correo electrónico
+        help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
+        phone_number_signin: Iniciar sesión con número de teléfono
+        title: Iniciar sesión en FileYourStateTaxes
+      privacy_policy:
+        access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        access_request_2: Ten en cuenta que para la información personal sobre ti que hemos obtenido o recibido para procesar en nombre de una entidad separada y no afiliada, que determinó los medios y fines del procesamiento, todas esas solicitudes deben hacerse directamente a esa entidad. Honraremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a tu información personal.
+        access_request_header: Solicitud de Acceso
+        additional_services: Podemos proporcionar enlaces adicionales a recursos que creemos que te resultaran útiles. Estos enlaces pueden llevarte a sitios que no están afiliados a nosotros y/o que pueden operar bajo prácticas de privacidad diferentes. No somos responsables del contenido o las prácticas de privacidad de dichos sitios. Alentamos a nuestros visitantes y usuarios a estar al tanto cuando abandonen nuestro sitio y leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos cómo otros sitios recopilan información personal.
+        additional_services_header: Servicios y Recursos Adicionales
+        analytics_header: Analítica
+        analytics_html: Usamos MixPanel y Google Analytics para comprender cómo los visitantes usan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haz clic <a href="https://mixpanel.com/legal/privacy-policy/">AQUÍ</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haz clic <a href="https://policies.google.com/privacy?hl=en-US">AQUÍ</a>. También puedes enviar un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org"> help@fileyourstatetaxes.org</a> para obtener información adicional.
+        changes: Es posible que cambiemos esta Política de Privacidad de vez en cuando. Consulta esta página con frecuencia para obtener actualizaciones, ya que tu uso continuado de nuestros servicios después de cualquier cambio en esta Política de Privacidad constituirá tu aceptación de los cambios. Para cambios importantes, te notificaremos por correo electrónico u otros medios consistentes con la ley aplicable.
+        changes_header: Cambios
+        collect_info_third_parties_html: |
+          <p>También podemos recopilar tu información de terceros como</p>
+          <ul class="list--bulleted">
+          <li>Nuestros socios que te están ayudando con servicios de preparación de impuestos u otros programas de beneficios para los que solicites</li>
+          <li>El Servicio de Impuestos Internos (“IRS”), departamentos estatales de ingresos u otras agencias gubernamentales relacionadas con nuestros servicios</li>
+          </ul>
+        cookies_1: Usamos cookies y otras tecnologías para recopilar datos durante el uso de nuestro sitio. Tu uso de nuestro sitio indica tu consentimiento para dicho uso de cookies.
+        cookies_2: Las cookies son archivos de texto pequeños que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxeles (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos.
+        cookies_3: Usamos cookies y otras tecnologías como etiquetas de píxel para recordar tus preferencias, mejorar tu experiencia en línea y recopilar datos sobre cómo usas nuestro Sitio para mejorar la forma en que promovemos nuestro contenido y programas.
+        cookies_4: La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si deseas restringir o bloquear las cookies que establece nuestro sitio, u cualquier otro sitio, puedes hacerlo a través de la configuración de tu navegador. La función 'Ayuda' de tu navegador debería explicar cómo hacerlo. Alternativamente, puedes visitar www.aboutcookies.org, que contiene información completa sobre cómo hacerlo en una amplia variedad de navegadores. Encontrarás información general sobre cookies y detalles sobre cómo eliminar cookies de tu máquina.
+        cookies_header: Cookies
+        data_retention_1: 'Retendremos tu información mientras sea necesario para: proporcionarte servicios, operar nuestro negocio de acuerdo con esta Notificación, o demostrar el cumplimiento de las leyes y obligaciones legales.'
+        data_retention_2: Si ya no deseas continuar con la aplicación de FileYourStateTaxes y solicitas eliminar tu información de nuestros servicios antes de enviar la solicitud, eliminaremos o desidentificaremos tu información dentro de los 90 días posteriores a la terminación de los servicios, a menos que la ley nos exija retener tu información. En ese caso, solo retendremos tu información durante el tiempo requerido por dicha ley.
+        data_retention_header: Retención de datos
+        effective_date: Esta versión de la política es efectiva a partir del 15 de enero de 2024.
+        effective_date_header: Fecha de entrada en vigor
+        header: Política de Privacidad
+        header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los contribuyentes a presentar sus impuestos estatales después de usar la herramienta federal de presentación IRS Direct File.
+        header_2_html: Esta Política de Privacidad describe cómo recopilamos, usamos, compartimos y protegemos tu información personal. Al usar nuestros servicios, aceptas los términos de esta Política de Privacidad. Esta Notificación de Privacidad se aplica independientemente del tipo de dispositivo que utilices para acceder a nuestros servicios.
+        header_3_html: Si tienes alguna pregunta sobre esta Notificación de Privacidad, contáctanos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
+        how_we_collect_your_info: 'Recopilamos tu información de diversas fuentes, como cuando tú o los miembros de tu hogar:'
+        how_we_collect_your_info_header: Cómo recopilamos tu información
+        how_we_collect_your_info_item_1: Visita nuestro Sitio, completa formularios en nuestro Sitio o usan nuestros Servicios
+        how_we_collect_your_info_item_2: Proporcionanos documentos para usar nuestros Servicios
+        how_we_collect_your_info_item_3: Comunícate con nosotros (por ejemplo, a través de correo electrónico, chat, redes sociales o de otra manera)
+        info_collect_1_html: No vendemos tu información personal. No compartimos tu información personal con ningún tercero, excepto según se establece en esta Política de Privacidad y de conformidad con el <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> De conformidad con la regulación, podemos usar o divulgar tu información en los siguientes casos&#58;
+        info_collect_item_1: Para análisis e informes, es posible que compartamos información agregada limitada con agencias gubernamentales u otros terceros, incluido el IRS o los departamentos estatales de ingresos, para analizar el uso de nuestros servicios, con el fin de mejorar y ampliar nuestros servicios. Dicho análisis siempre se realiza usando datos anonimizados, y los datos nunca se divulgan en celdas de menos de diez declaraciones.
+        info_collect_item_2: 'Para investigación para mejorar nuestros productos de presentación de impuestos, incluido:'
+        info_collect_item_2_1: Para invitarte a completar cuestionarios sobre tu experiencia usando nuestro producto.
+        info_collect_item_2_2: Para enviarte oportunidades para participar en sesiones de investigación de usuarios pagadas, para aprender más sobre tu experiencia usando nuestro producto y para orientar el desarrollo de futuros productos sin costo de declaración de impuestos.
+        info_collect_item_3_html: "<em>Solo para usuarios de Arizona FileYourStateTaxes&#58;</em> Para notificarle sobre la disponibilidad de servicios gratuitos de presentación de impuestos en el futuro."
+        info_collect_item_4: Si es necesario, es posible que divulguemos tu información a contratistas que nos ayuden a proporcionar nuestros servicios. Exigimos que nuestros terceros que actúan en nuestro nombre mantengan segura tu información personal y no permitimos que estos terceros utilicen o compartan tu información personal para ningún otro fin que no sea proporcionar servicios en nuestro nombre.
+        info_collect_item_5: Es posible que compartamos tu información con terceros en situaciones especiales, como cuando lo exija la ley.
+        info_we_collect_1: 'Seguimos el principio de Minimización de Datos en la recopilación y uso de tu información personal. Podemos recopilar la siguiente información sobre ti, tus dependientes o miembros de tu hogar:'
+        info_we_collect_header: Información que recopilamos
+        info_we_collect_item_1: Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
+        info_we_collect_item_10: Información del hogar y información sobre tu cónyuge, si corresponde
+        info_we_collect_item_11: Información de tu computadora o dispositivo, como dirección IP, sistema operativo, navegador, fecha y hora de visita, y datos de clics (el sitio web o dominio del que provienes, las páginas que visitas y los elementos en los que haces clic durante tu sesión)
+        info_we_collect_item_2: Fecha de nacimiento
+        info_we_collect_item_3: Información demográfica, como edad y estado civil
+        info_we_collect_item_4: Características de clasificaciones protegidas, como género, raza y etnia
+        info_we_collect_item_5: Información tributaria, como número de seguro social o número de identificación de contribuyente individual (ITIN)
+        info_we_collect_item_6: Identificación emitida por el estado, como número de licencia de conducir
+        info_we_collect_item_7: Información financiera, como empleo, ingresos y fuentes de ingresos
+        info_we_collect_item_8: Detalles bancarios para depósito directo de reembolsos o pago de impuestos adeudados mediante débito directo
+        info_we_collect_item_9: Detalles demográficos y financieros de dependientes
+        overview: Descripción general
+        postal_mail_1: Para actualizar tus preferencias o información de contacto, puedes
+        postal_mail_3: Ten en cuenta que incluso si te das de baja de las ofertas de correo electrónico promocional y actualizaciones, es posible que aún te contactemos con fines transaccionales. Por ejemplo, podemos enviar comunicaciones sobre el estado de tu declaración de impuestos, recordatorios o para alertarte sobre información adicional necesaria.
+        postal_mail_header: Correo postal, correo electrónico y promociones
+        postal_mail_item_1_html: Ponte en contacto con nosotros en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> y solicita que te excluyan de los correos electrónicos de actualización de FileYourStateTaxes
+        postal_mail_item_2: Sigue las instrucciones para darte de baja la suscripción que se proporcionan en correos electrónicos o correo postal
+        protect_info_1: Proteger tu información personal es extremadamente importante para nosotros, por lo que tomamos precauciones razonables administrativas, técnicas y físicas para proteger tu información tanto en línea como fuera de línea.
+        protect_info_2: Sin embargo, ningún sistema puede garantizarse al 100% seguro.
+        protect_info_3_html: 'Para usuarios de Arizona FileYourStateTaxes: En caso de violación del sistema de seguridad, se te notificará de acuerdo con <a href="https://www.azleg.gov/ars/18/00552.htm">ARS 18-552</a>.'
+        protect_info_4: Si tienes preguntas sobre la seguridad de tu información personal, o si tienes motivos para creer que la información personal que tenemos sobre ti ya no es segura, contáctanos de inmediato según se describe en esta Notificación de Privacidad.
+        protect_info_header: Cómo protegemos tu información
+        questions_1_html: 'Si tienes alguna pregunta, comentario, inquietud o queja sobre el Sitio, contáctanos por correo electrónico en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> o por correo postal a:'
+        questions_2: Haremos todo lo posible para resolver el problema.
+        questions_header: Preguntas
+        transactional_sms: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los términos de SMS de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
+        transactional_sms_header: Mensajes de texto transaccionales (SMS)
+        using_info_collected_html: |
+          <h3>Uso de la información que hemos recopilado</h3>
+          <p>Usamos tu información para nuestros fines empresariales, como</p>
+          <ul class="list--bulleted">
+          <li>Completar formularios requeridos para el uso de los servicios o la presentación de tus impuestos</li>
+          <li>Brindarte apoyo durante el proceso y comunicarnos contigo</li>
+          <li>Monitorear y comprender cómo se usan el Sitio y nuestros Servicios</li>
+          <li>Mejorar la calidad o alcance del sitio o nuestros servicios</li>
+          <li>Sugerir otros servicios o programas de asistencia que puedan ser útiles para ti</li>
+          <li>Para la detección, prevención y seguridad contra fraudes</li>
+          <li>Para cumplir con requisitos y obligaciones legales</li>
+          </ul>
+        your_info: Valoramos y respetamos tu privacidad y te ofrecemos opciones sobre cómo recopilamos, usamos y compartimos tu información.
+        your_info_header: Tus opciones con respecto a tu información
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -3513,7 +4255,7 @@ es:
             body: '"Sólo quería decirles que no puedo expresar cuánto estrés me aliviaron al ofrecer sus servicios en línea. Había visto otros servicios como Credit Karma o Turbo Tax, pero no tenia confianza a los pasos iniciales, así que no seguí adelante. Hasta que encontré GetYourRefund y ¡Dios mío, es increíble!"'
             header: "¡Dios mío esto es increíble!"
           quote2:
-            body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
+            body: '"Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido."'
             header: Son muy profesionales y amables
           rating: Hemos recibido una valoración de 4.8/5 estrellas
           trusted_support:
@@ -4343,7 +5085,7 @@ es:
         add_dependent: Agregar dependiente
         remove: Eliminado
       document_deadline_warning:
-        body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 4 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 18 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/es/forms-pubs/about-form-4868' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
+        body_html: "<strong>Recordatorio: debe presentar sus documentos antes del 1 de abril para cumplir con la fecha límite de presentación de impuestos federales sobre la renta del 15 de abril. Puede presentar sus impuestos después de la fecha límite sin penalización si no debe.</strong> Si no está seguro de si o no deberá, puede completar y enviar por correo  <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una prórroga."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
