@@ -21,6 +21,7 @@ describe Ctc::BankAccountForm do
         account_number_confirmation: account_number_confirmation
     }
   end
+
   context 'validations' do
     context "bank_name" do
       context "when not present" do
