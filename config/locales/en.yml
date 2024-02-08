@@ -2125,7 +2125,7 @@ en:
           title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in Arizona. Note that this option may take 2-3 weeks to complete.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2336,7 +2336,7 @@ en:
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           register_to_vote: Register to vote.
           title: Your 2023 %{state_name} state tax return is accepted
-          track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="">here.</a>
+          track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
@@ -2491,9 +2491,9 @@ en:
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
-            <li>File and submit your federal return with <a href="https://directfile.irs.gov/" target='_blank'>IRS Direct File</a> before using this tool.</li>
-            <li>Click "continue to file your state taxes".</li>
-            <li>Answer a few questions to make sure this is the right service for you. <a href='https://directfile.irs.gov/state' target=_blank'>Learn more about who is eligible for this tax year</a>.</li>
+            <li>File and submit your federal return with IRS <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this tool.</li>
+            <li>Click "continue to file your state taxes"</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more about who is eligible for this tax year</a>.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
@@ -2501,8 +2501,8 @@ en:
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a href='https://directfile.irs.gov/' target='_blank'>directfile.irs.gov</a></strong><br/><br/>
-          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
+          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Start here</a>.<br/><br/>
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
