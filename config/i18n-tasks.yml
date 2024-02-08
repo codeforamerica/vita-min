@@ -94,7 +94,6 @@ translation:
 
 ## Do not consider these keys missing:
 ignore_missing:
-  - 'state_file.*'
   - 'date.formats.medium'
   - 'views.public_pages.faq.*'
   - 'devise.omniauth_callbacks.{failure,success}'
