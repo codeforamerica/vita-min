@@ -126,7 +126,8 @@ RSpec.configure do |config|
       },
       intercom: {
         intercom_access_token: "fake_access_token",
-        secure_mode_secret_key: "a-fake-key-to-use-for-hashing"
+        secure_mode_secret_key: "a-fake-key-to-use-for-hashing",
+        statefile_secure_mode_secret_key: "a-fake-key-to-use-for-hashing"
       }
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)

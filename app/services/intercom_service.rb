@@ -49,6 +49,16 @@ class IntercomService
     ) unless user_id.nil?
   end
 
+  def self.generate_statefile_user_hash(user_id)
+    cred = EnvironmentCredentials.dig(:intercom, :statefile_secure_mode_secret_key)
+
+    OpenSSL::HMAC.hexdigest(
+      'sha256',
+      cred,
+      user_id.to_s
+    ) unless user_id.nil?
+  end
+
   private
 
   def self.contact_from_email(email)
