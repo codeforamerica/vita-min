@@ -84,10 +84,14 @@ class EfileSubmission < ApplicationRecord
     ActiveRecord::Base.connection.execute(<<~SQL).each { |row| result[row['to_state']] = row['count'] }
       SELECT to_state, COUNT(*) FROM "efile_submissions"
       LEFT OUTER JOIN efile_submission_transitions AS most_recent_efile_submission_transition ON (
-        efile_submissions.id = most_recent_efile_submission_transition.efile_submission_id AND 
+        efile_submissions.id = most_recent_efile_submission_transition.efile_submission_id AND
         most_recent_efile_submission_transition.most_recent = TRUE
       )
       WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
+      AND (
+        efile_submissions.data_source_type = 'StateFileAzIntake'
+        OR efile_submissions.data_source_type = 'StateFileNyIntake'
+      )
       GROUP BY to_state
     SQL
     result.except(*except)
