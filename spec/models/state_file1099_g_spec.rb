@@ -96,10 +96,12 @@ RSpec.describe StateFile1099G do
       expect(state_file_1099.save).to eq false
     end
 
-    it "yields a valid recipient address line 1" do
-      expect(state_file_1099.recipient_address_line1).to eq "Apt E 123 Main St"
+    it "yields a valid recipient address line 1 and line 2" do
+      expect(state_file_1099.recipient_address_line1).to eq "123 Main St"
+      expect(state_file_1099.recipient_address_line2).to eq "Apt E"
       state_file_1099.recipient_street_address_apartment = nil
       expect(state_file_1099.recipient_address_line1).to eq "123 Main St"
+      expect(state_file_1099.recipient_address_line2).to eq nil
     end
   end
 end
