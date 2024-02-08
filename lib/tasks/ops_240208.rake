@@ -1,4 +1,4 @@
-namespace :not_ready_reminders do
+namespace :ops_240208 do
   desc "Ops scripts for 240208"
   task "delete_invalid_intakes" => :environment do
     # EFile accidentally pointed at our production servers before launch, so there is some trash test
