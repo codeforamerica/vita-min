@@ -29,6 +29,11 @@ class StateFileBaseIntake < ApplicationRecord
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
 
+  STATE_CODE_AND_NAMES = {
+    'az' => 'Arizona',
+    'ny' => 'New York'
+  }.freeze
+
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
