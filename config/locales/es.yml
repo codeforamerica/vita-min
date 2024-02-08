@@ -2028,7 +2028,7 @@ es:
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: 'No puedes usar esta herramienta este año porque %{ineligible_reason}.<strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: 'No puedes usar esta herramienta este año porque %{ineligible_reason}. <strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
 
             '
           faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
@@ -2078,11 +2078,11 @@ es:
           lived_or_income_in_yonkers_html: "¿<strong>Viviste, recibiste ingresos o mantuviste un hogar</strong> (y tu cónyuge, si presentan la declaración juntos) en Yonkers en algún momento del 2023?"
           mfs_helper_description: El estado civil de "casado presentando separado" es una opción para presentar la declaración de impuestos para personas que están legalmente casadas pero que deciden presentar declaraciones por separado.
           mfs_helper_heading: ¿Qué quiere decir "Casado presentando por separado”?
-          mfs_helper_no_if: 'Selecciona no si:'
+          mfs_helper_no_if: 'Selecciona ''no'' si:'
           mfs_helper_no_mfj: Estás casado y estás presentado conjuntamente tus declaraciones, tanto federal como estatal.
           mfs_helper_no_unmarried: No estás casado.
           mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
-          mfs_helper_yes_if: 'Selecciona ''sí'' si::'
+          mfs_helper_yes_if: 'Selecciona ''sí'' si:'
           mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
           subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
           title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
@@ -2117,7 +2117,7 @@ es:
           title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en Arizona. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
         ny_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
@@ -2503,7 +2503,7 @@ es:
         section1_html: |
           <strong>¿Cómo funciona?</strong>
           <ol class="list--numbered">
-          <li>Primero, presenta y envía tu declaración federal con IRS <a href=%{direct_file_url}>Direct File</a>antes de usar esta herramienta.</li>
+          <li>Primero, presenta y envía tu declaración federal con IRS <a href=%{direct_file_url}>Direct File</a> antes de usar esta herramienta.</li>
           <li>Haz clic en "continuar para presentar tus impuestos estatales"</li>
           <li>Responde algunas preguntas para asegurarte de que este sea el servicio adecuado para ti. Consulta más información sobre la elegibilidad a continuación.</li>
           <li>Transfiere tu declaración federal para completar la mayor parte de tu declaración estatal.</li>
