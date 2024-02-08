@@ -2491,8 +2491,8 @@ en:
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
-            <li>File and submit your federal return with IRS <a href="https://directfile.irs.gov/" target='_blank'>IRS Direct File</a> before using this tool.</li>
-            <li>Click "continue to file your state taxes"</li>
+            <li>File and submit your federal return with <a href="https://directfile.irs.gov/" target='_blank'>IRS Direct File</a> before using this tool.</li>
+            <li>Click "continue to file your state taxes".</li>
             <li>Answer a few questions to make sure this is the right service for you. <a href='https://directfile.irs.gov/state' target=_blank'>Learn more about who is eligible for this tax year</a>.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
