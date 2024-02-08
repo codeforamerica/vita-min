@@ -325,14 +325,22 @@ ol.with-bullets {
 .fyst-home-content {
   flex: 1;
   padding: 15px;
+  padding-top: 45px;
 }
 .fyst-home-image {
   flex-shrink: 0;
-  width: 25%;
+  width: auto;
   height: auto;
   padding: 15px;
-  max-width: 300px;
-  max-height: 280px;
+  padding-top: 45px;
   align-self: flex-start;
 }
+
+/* Media query for screens smaller than 768px (typical mobile devices) */
+@media (max-width: 767px) {
+  .fyst-home-image {
+    display: none; /* Hides the home page image on mobile */
+  }
+}
+
 
