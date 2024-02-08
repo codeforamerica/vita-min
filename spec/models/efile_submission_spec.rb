@@ -248,7 +248,7 @@ describe EfileSubmission do
 
           expect(MixpanelService).to have_received(:send_event).with hash_including(
             distinct_id: submission.client.intake.visitor_id,
-            event_name: "ctc_efile_return_transmitted",
+            event_name: "efile_return_transmitted",
             subject: submission.intake,
           )
         end
@@ -349,7 +349,7 @@ describe EfileSubmission do
 
           expect(MixpanelService).to have_received(:send_event).with hash_including(
                                                                          distinct_id: submission.client.intake.visitor_id,
-                                                                         event_name: "ctc_efile_return_transmitted",
+                                                                         event_name: "efile_return_transmitted",
                                                                          subject: submission.intake,
                                                                          )
         end

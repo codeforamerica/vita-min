@@ -34,7 +34,7 @@ module Navigation
       StateFile::Questions::NyReviewController,
       StateFile::Questions::TaxesOwedController,
       StateFile::Questions::TaxRefundController,
-      StateFile::Questions::EsignDeclarationController,
+      StateFile::Questions::EsignDeclarationController, # creates EfileSubmission and transitions to preparing
       StateFile::Questions::SubmissionConfirmationController,
       StateFile::Questions::ReturnStatusController,
     ].freeze

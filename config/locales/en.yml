@@ -2487,24 +2487,26 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
     state_file_pages:
       about_page:
-        action1_text: Get Started at IRS Direct File
-        action2: Already started your state return?
-        action2_text: Sign in here.
         az_section: Arizona taxpayers
         common_questions: Common questions
-        header: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File
+        header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
         ny_section: New York taxpayers
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
-            <li>File and submit your federal return with IRS <a href=%{direct_file_url}>Direct File</a> before using this tool.</li>
+            <li>File and submit your federal return with IRS <a href="https://directfile.irs.gov/">IRS Direct File</a> before using this tool.</li>
             <li>Click "continue to file your state taxes"</li>
-            <li>Answer a few questions to make sure this is the right service for you. See more about eligibility below.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a href='https://directfile.irs.gov/state'>Learn more about who is eligible for this tax year</a>.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
           </ol>
-        subheader_html: "<strong>FileYourStateTaxes</strong> integrates with IRS Direct File and completes most of your state tax return using the information you have already submitted to the IRS\n"
+          <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
+        subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Start here</a>.<br/><br/>
+          Already started your state return? <a href=%{login_path}>Sign in here</a>.
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
