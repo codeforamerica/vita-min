@@ -10,7 +10,7 @@ RSpec.describe StateFile::Questions::DataTransferOffboardingController do
 
     context "when the client's Direct File data disqualifies them" do
       before do
-        session[:state_file_intake] = intake.to_global_id
+        sign_in intake
         allow(subject).to receive(:params).and_return({us_state: 'az'})
         # TODO: Why can't I set this directly by saying `intake.direct_file_data.filing_status = 3`?
         allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(3)
@@ -23,7 +23,6 @@ RSpec.describe StateFile::Questions::DataTransferOffboardingController do
 
     context "when the client is eligible" do
       before do
-        session[:state_file_intake] = intake.to_global_id
         allow(subject).to receive(:params).and_return({us_state: 'az'})
       end
 

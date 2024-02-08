@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe StateFile::Questions::NyReviewController do
   describe "#edit" do
     before do
-      session[:state_file_intake] = intake.to_global_id
       sign_in intake
     end
 

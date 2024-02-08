@@ -16,7 +16,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
       let(:efile_submission) { create :efile_submission, :for_state, data_source: ny_intake }
 
       before do
-        session[:state_file_intake] = ny_intake.to_global_id
+        sign_in ny_intake
       end
 
       it "returns some xml" do
@@ -32,7 +32,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
     let(:efile_submission) { create :efile_submission, :for_state, data_source: intake }
 
     before do
-      session[:state_file_intake] = intake.to_global_id
+      sign_in intake
     end
 
     context "in ny" do

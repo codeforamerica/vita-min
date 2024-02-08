@@ -421,7 +421,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
             expect(subject.current_state_file_az_intake).to eq(intake)
             expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
-            expect(GlobalID.find(session[:state_file_intake])).to eq intake
+            expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 
           context "when the intake has a submitted return" do
@@ -434,7 +434,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
               expect(subject.current_state_file_az_intake).to eq(intake)
               expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
-              expect(GlobalID.find(session[:state_file_intake])).to eq intake
+              expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
             end
           end
 

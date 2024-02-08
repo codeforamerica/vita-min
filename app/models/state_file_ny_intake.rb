@@ -99,6 +99,7 @@
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
+  STATE_CODE = 'ny'.freeze
   encrypts :account_number, :routing_number, :raw_direct_file_data
   
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
@@ -139,7 +140,7 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def state_code
-    'ny'
+    STATE_CODE
   end
 
   def state_name

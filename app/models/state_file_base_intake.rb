@@ -1,4 +1,5 @@
 class StateFileBaseIntake < ApplicationRecord
+  STATE_CODES = %w[az ny].freeze
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true

@@ -5,7 +5,10 @@ module StateFile
       before_action :before_update, only: :update
 
       def before_update
-        sign_out current_intake if current_intake
+        StateFileBaseIntake::STATE_CODES.each do |state_code|
+          intake = send("current_state_file_#{state_code}_intake")
+          sign_out intake if intake
+        end
       end
     end
   end

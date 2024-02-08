@@ -29,7 +29,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
         )
       end
       before do
-        session[:state_file_intake] = intake.to_global_id
+        sign_in intake
         session[:offboarded_from] = offboarded_from_path
       end
 
