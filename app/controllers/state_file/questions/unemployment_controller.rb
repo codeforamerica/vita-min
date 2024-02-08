@@ -1,6 +1,9 @@
 module StateFile
   module Questions
     class UnemploymentController < AuthenticatedQuestionsController
+      include OtherOptionsLinksConcern
+      before_action :load_faq_link, only: [:new, :edit]
+
       def self.show?(intake)
         fed_unemployment = intake.direct_file_data.fed_unemployment
         fed_unemployment.present? && fed_unemployment > 0
@@ -62,6 +65,10 @@ module StateFile
       end
 
       private
+
+      def load_faq_link
+        @faq_other_options_link = faq_state_filing_options_link
+      end
 
       def state_file1099_params
         state_file_params = params.require(:state_file1099_g).permit(

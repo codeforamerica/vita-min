@@ -2014,9 +2014,6 @@ en:
           other_options: What are my other state filing options?
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
           visit_faq: Visit our FAQ
-        gyr:
-          how_it_works: If you choose this service, you’ll be connected with a VITA partner in your state. You will be asked to answer a few more questions and securely upload your tax and ID documents. This process can take 1-3 weeks to complete.
-          what_it_is: GetYourRefund is a free, online service that connects you with an IRS-certified tax preparer from the IRS' Volunteer Income Tax Assistance (VITA) program. With your consent, volunteers will help prepare and e-file your state tax return for free.
         other_options:
           learn_more_link_html: Learn more <a href="%{link}">here</a>.
           tip1_html: Since you’ve already submitted your federal tax return, make sure the service or software you use allows you to file a <strong>state-only tax return</strong>. You may need to reach out to their customer support to confirm.
@@ -2036,9 +2033,7 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: 'You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
-
-            '
+          body_html: You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           faq_link: Visit our FAQ
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
@@ -2288,14 +2283,6 @@ en:
             one: I lived in New York City for some of the year
             other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
           title: 'Select your New York City residency status during %{year}:'
-      other_filing_options:
-        edit:
-          faq_link: Visit our FAQ
-          learn_more: Learn more about this process
-          state_options: What are my other state filing options?
-          subtitle: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
-          title: Can’t use this tool this year? Don’t worry, here are other filing options.
-          vita_link: Get started with VITA now
       pending_federal_return:
         edit:
           title_html: |
