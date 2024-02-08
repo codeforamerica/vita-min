@@ -9,21 +9,11 @@
     </div><br>
 
     <div class="blue-group spacing-below-15 spacing-above-15">
-      <%= t(".section1_html", faq_link: root_path(anchor: 'common_questions')) %>
+      <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
     </div>
   </div>
   <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image' %>
 </div>
-
-<h1 class="h2" id="common_questions"><%= t('.common_questions') %></h1>
-<section class="spacing-below-35">
-  <strong><%= link_to t('.az_section'), state_faq_path(us_state: "az"), class: "undecorated-link"  %></strong>
-  <%= render 'state_taxpayers', state: "az" %>
-</section>
-<section class="spacing-below-35">
-  <strong><%= link_to t('.ny_section'), state_faq_path(us_state: "ny"), class: "undecorated-link"  %></strong>
-  <%= render 'state_taxpayers', state: "ny" %>
-</section>
 
 <% unless acts_like_production? %>
 <section>
