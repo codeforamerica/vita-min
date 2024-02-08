@@ -2257,7 +2257,7 @@ en:
           total_payments: Total payments
       ny_sales_use_tax:
         edit:
-          calculated_use_tax: Enter calculated use tax
+          calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
           enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
           select_one: 'Select one of the following:'
           subtitle: For example, online purchases with no sales tax applied.
