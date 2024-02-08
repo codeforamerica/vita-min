@@ -68,6 +68,10 @@ class StateFile1099G < ApplicationRecord
   end
 
   def recipient_address_line1
-    "#{recipient_street_address_apartment} #{recipient_street_address}".strip
+    "#{recipient_street_address}".strip
+  end
+
+  def recipient_address_line2
+    "#{recipient_street_address_apartment}".strip if recipient_street_address_apartment
   end
 end

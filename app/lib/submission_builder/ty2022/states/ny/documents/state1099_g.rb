@@ -31,6 +31,7 @@ module SubmissionBuilder
                 xml.RecipientName recipient.full_name if recipient.full_name.present?
                 xml.RecipientUSAddress do
                   xml.AddressLine1Txt form1099g.recipient_address_line1 if form1099g.recipient_address_line1.present?
+                  xml.AddressLine2Txt form1099g.recipient_address_line2 if form1099g.recipient_address_line2.present?
                   xml.CityNm form1099g.recipient_city if form1099g.recipient_city.present?
                   xml.StateAbbreviationCd "NY"
                   xml.ZIPCd form1099g.recipient_zip if form1099g.recipient_zip.present?
