@@ -1991,31 +1991,13 @@ es:
           title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
-          file_with_vita: No te preocupes, aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
-          get_started_with_vita: Solicitar asistencia de un voluntario VITA
           ineligible_reason:
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
             has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
-          learn_more_content_how: Los voluntarios certificados por el IRS de VITA utilizarán esta información para preparar y presentar electrónicamente tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
-          learn_more_content_link_html: Obtén más información <a href="%{link}">aquí</a>.
-          learn_more_content_what: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación fiscal y enviar de forma segura tus documentos tributarios en línea.
-          learn_more_title: Obtén más información sobre este proceso
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
-          other_options: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar esta herramienta este año. No te preocupes, aquí tienes otras opciones de presentación.
-          visit_faq: Visita nuestras Preguntas Frecuentes (FAQ)
-        gyr:
-          how_it_works: Si eliges este servicio, te conectarás con un socio de VITA en tu estado. Se te pedirá que respondas algunas preguntas más y que subas de forma segura tus documentos fiscales y de identificación. Este proceso puede tardar de 1 a 3 semanas en completarse.
-          what_it_is: GetYourRefund es un servicio sin costo en línea que te conecta con un preparador de impuestos certificado por el IRS del programa de Asistencia Voluntaria para la Declaración de Impuestos sobre Ingresos (VITA) del IRS. Con tu consentimiento, los voluntarios te ayudarán a preparar y presentar electrónicamente tu declaración de impuestos estatales sin costo.
-        other_options:
-          learn_more_link_html: Obtén más información <a href="%{link}">aquí</a>.
-          tip1_html: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales</strong>. Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
-          tip2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
-          tip3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
-          tip4: Se pueden aplicar tarifas.
-          title: 'Varios servicios comerciales de preparación de impuestos ofrecen la presentación de impuestos solo a nivel estatal. Aquí tienes algunos consejos para elegir una opción:'
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
@@ -2028,10 +2010,7 @@ es:
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: 'No puedes usar esta herramienta este año porque %{ineligible_reason}. <strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
-
-            '
-          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+          body_html: No puedes usar esta herramienta este año porque %{ineligible_reason}. <strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
@@ -2043,6 +2022,9 @@ es:
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
             permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
+          title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
+        other_options:
+          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow">aquí.</a>
           learn_more_reveal:
             p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
@@ -2057,7 +2039,6 @@ es:
               list2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
               list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
-          title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
           vita_link: Solicitar asistencia de un voluntario VITA
       eligibility_out_of_state_income:
         edit:
@@ -2293,14 +2274,6 @@ es:
             one: Viví en la ciudad de Nueva York durante parte del año
             other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
-      other_filing_options:
-        edit:
-          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
-          learn_more: Obtén más información sobre este proceso
-          state_options: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
-          subtitle: Aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
-          title: "¿No puedes usar esta herramienta este año? No te preocupes, aquí tienes otras opciones para presentar tu declaración."
-          vita_link: Solicitar asistencia de un voluntario VITA
       pending_federal_return:
         edit:
           title_html: |

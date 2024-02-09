@@ -2019,7 +2019,6 @@ en:
       eligibility_offboarding:
         edit:
           body_html: You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
-          faq_link: Visit our FAQ
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_lived_in_state: did not live in %{state} for all of 2023
@@ -2031,6 +2030,9 @@ en:
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
+          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
+        other_options:
+          faq_link: Visit our FAQ
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
           learn_more_reveal:
             p1: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state_name}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
@@ -2045,7 +2047,6 @@ en:
               list2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
               list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
-          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
           vita_link: Get started with VITA now
       eligibility_out_of_state_income:
         edit:
