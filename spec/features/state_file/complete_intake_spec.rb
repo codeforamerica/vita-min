@@ -254,8 +254,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
       fill_in "state_file_tax_refund_form_bank_name", with: "bank name"
       choose "Checking"
-      fill_in "state_file_tax_refund_form_routing_number", with: "111111111"
-      fill_in "state_file_tax_refund_form_routing_number_confirmation", with: "111111111"
+      fill_in "state_file_tax_refund_form_routing_number", with: "019456124"
+      fill_in "state_file_tax_refund_form_routing_number_confirmation", with: "019456124"
       fill_in "state_file_tax_refund_form_account_number", with: "2222222222"
       fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
       click_on I18n.t("general.continue")

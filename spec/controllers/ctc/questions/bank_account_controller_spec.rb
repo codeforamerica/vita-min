@@ -31,8 +31,8 @@ describe Ctc::Questions::BankAccountController do
             account_type: "savings",
             bank_name: "Bank of Two Melons",
             my_bank_account: "yes",
-            routing_number: "123456789",
-            routing_number_confirmation: "123456789",
+            routing_number: "019456124",
+            routing_number_confirmation: "019456124",
             account_number: "123456789",
             account_number_confirmation: "123456789"
           }

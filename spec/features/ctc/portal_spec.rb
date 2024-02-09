@@ -286,8 +286,8 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         choose I18n.t('views.questions.bank_details.account_type.checking')
         check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
 
-        fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
-        fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+        fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "019456124"
+        fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "019456124"
         fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
         fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
         click_on I18n.t("general.save")
@@ -295,7 +295,7 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
         within ".bank-account-info" do
           expect(page).to have_text "Bank of Three Melons"
           expect(page).to have_text "Type: Checking"
-          expect(page).to have_text "Routing number: 123456789"
+          expect(page).to have_text "Routing number: 019456124"
           expect(page).to have_text "Account number: ●●●●●6789"
         end
 
@@ -508,8 +508,8 @@ RSpec.feature "CTC Intake", :js, :active_job, requires_default_vita_partners: tr
           choose I18n.t('views.questions.bank_details.account_type.checking')
           check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
 
-          fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
-          fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+          fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "019456124"
+          fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "019456124"
           fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
           fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
           click_on I18n.t("general.save")
