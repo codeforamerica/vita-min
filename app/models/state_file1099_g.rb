@@ -45,7 +45,7 @@ class StateFile1099G < ApplicationRecord
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
   validates_presence_of :recipient_city
   validates_presence_of :recipient_street_address
-  validates_presence_of :recipient_zip
+  validates :recipient_zip, zip_code: true
   validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, only_integer: true }
   validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
