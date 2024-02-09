@@ -1,5 +1,10 @@
 class StateFileBaseIntake < ApplicationRecord
-  STATE_CODES = %w[az ny].freeze
+  STATE_CODE_AND_NAMES = {
+    'az' => 'Arizona',
+    'ny' => 'New York'
+  }.freeze
+  STATE_CODES = STATE_CODE_AND_NAMES.keys
+
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true
@@ -29,11 +34,6 @@ class StateFileBaseIntake < ApplicationRecord
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
-
-  STATE_CODE_AND_NAMES = {
-    'az' => 'Arizona',
-    'ny' => 'New York'
-  }.freeze
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)

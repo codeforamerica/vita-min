@@ -72,7 +72,12 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  STATE_CODE = "az".freeze
+  STATE_CODE = 'az'.freeze
+  STATE_NAME = 'Arizona'.freeze
+  STATE_CODE_AND_NAME = {
+    STATE_CODE => STATE_NAME
+  }.freeze
+
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
@@ -103,7 +108,7 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def state_name
-    'Arizona'
+    STATE_NAME
   end
 
   def tax_calculator(include_source: false)
