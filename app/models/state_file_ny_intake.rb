@@ -100,6 +100,11 @@
 #
 class StateFileNyIntake < StateFileBaseIntake
   STATE_CODE = 'ny'.freeze
+  STATE_NAME = 'New York'.freeze
+  STATE_CODE_AND_NAME = {
+    STATE_CODE => STATE_NAME
+  }.freeze
+
   encrypts :account_number, :routing_number, :raw_direct_file_data
   
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
@@ -144,7 +149,7 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def state_name
-    'New York'
+    STATE_NAME
   end
 
   def county_name
