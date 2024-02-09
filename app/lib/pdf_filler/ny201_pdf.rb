@@ -102,7 +102,7 @@ module PdfFiller
         TP_occupation: @xml_document.at('tiPrime PR_EMP_DESC')&.text,
         day_ac: claimed_attr_value('AREACODE_NMBR'),
         day_phone: phone_number('EXCHNG_PHONE_NMBR', 'DGT4_PHONE_NMBR'),
-        sign_email: claimed_attr_value('TP_EMAIL_ADR')
+        sign_email: "123456789-123456789-123456789-123456789-" # +claimed_attr_value('TP_EMAIL_ADR')
       )
       unless @xml_document.at('ACCT_TYPE_CD').nil?
         answers.merge!(
@@ -120,7 +120,7 @@ module PdfFiller
         answers[:Line80_box] = xml_value_to_pdf_checkbox('Line80_box', 'RFND_OWE_IND')
       end
       if @submission.data_source.primary_esigned_yes?
-        answers[:signed_date] = @submission.data_source.primary_esigned_at.to_date
+        answers[:signed_date] = @submission.data_source.primary_esigned_at.strftime("%m%d%Y")
       end
       if @submission.data_source.spouse_esigned_yes?
         answers[:Spouse_occupation] = @xml_document.at('tiSpouse SP_EMP_DESC')&.text
