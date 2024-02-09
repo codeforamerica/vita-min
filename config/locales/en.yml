@@ -127,6 +127,8 @@ en:
           blank: Please enter a valid city.
         street_address:
           blank: Please enter a valid street address.
+        zip:
+          blank: Please enter a valid zip code.
       birth_date:
         blank: Please enter a valid date.
         must_be_sixteen: Primary tax filer must be at least 16.
