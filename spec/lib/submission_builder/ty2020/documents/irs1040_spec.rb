@@ -99,7 +99,7 @@ describe SubmissionBuilder::Ty2020::Documents::Irs1040 do
         expect(xml.at("TotalPaymentsAmt").text).to eq "900"
         expect(xml.at("OverpaidAmt").text).to eq "900"
         expect(xml.at("RefundAmt").text).to eq "900"
-        expect(xml.at("RoutingTransitNum").text).to eq "123456789"
+        expect(xml.at("RoutingTransitNum").text).to eq "019456124"
         expect(xml.at("BankAccountTypeCd").text).to eq "1"
         expect(xml.at("DepositorAccountNum").text).to eq "87654321"
         expect(xml.at("RefundProductCd").text).to eq "NO FINANCIAL PRODUCT"

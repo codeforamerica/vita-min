@@ -40,7 +40,6 @@ describe EfileSubmissionStateMachine do
         end
       end
 
-
       context "calculating spouse agi" do
         context "when the filer is not married_filing_jointly" do
           it "does not do any calculations" do
@@ -163,6 +162,22 @@ describe EfileSubmissionStateMachine do
       it "updates the tax return status" do
         submission.transition_to!(:transmitted)
         expect(submission.tax_return.current_state).to eq("file_efiled")
+      end
+
+      context "state file intakes" do
+        before do
+          submission.update(data_source: create(:state_file_az_intake))
+        end
+
+        it "creates a record to store the analytics data" do
+          expect {
+            submission.transition_to(:transmitted)
+          }.to change(StateFileAnalytics, :count).by 1
+
+          expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
+          expect(submission.data_source.state_file_analytics.filing_status).to eq 1
+          expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
+        end
       end
     end
 

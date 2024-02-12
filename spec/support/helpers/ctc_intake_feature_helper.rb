@@ -439,8 +439,8 @@ module CtcIntakeFeatureHelper
     fill_in I18n.t('views.questions.bank_details.bank_name'), with: "Bank of Two Melons"
     choose I18n.t('views.questions.bank_details.account_type.checking')
     check I18n.t('views.ctc.questions.direct_deposit.my_bank_account.label')
-    fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "123456789"
-    fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "123456789"
+    fill_in I18n.t('views.ctc.questions.routing_number.routing_number'), with: "019456124"
+    fill_in I18n.t('views.ctc.questions.routing_number.routing_number_confirmation'), with: "019456124"
     fill_in I18n.t('views.ctc.questions.account_number.account_number'), with: "123456789"
     fill_in I18n.t('views.ctc.questions.account_number.account_number_confirmation'), with: "123456789"
     click_on I18n.t('general.continue')
@@ -449,7 +449,7 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector("h2", text: I18n.t('views.ctc.questions.confirm_bank_account.bank_information'))
     expect(page).to have_selector("li", text: "Bank of Two Melons")
     expect(page).to have_selector("li", text: "#{I18n.t('general.type')}: Checking")
-    expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.routing_number')}: 123456789")
+    expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.routing_number')}: 019456124")
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.account_number')}: ●●●●●6789")
     click_on I18n.t('general.continue')
 
@@ -544,7 +544,7 @@ module CtcIntakeFeatureHelper
     expect(page).to have_selector("h2", text: I18n.t("views.ctc.questions.confirm_bank_account.bank_information"))
     expect(page).to have_selector("li", text: "Bank of Two Melons")
     expect(page).to have_selector("li", text: "#{I18n.t('general.type')}: Checking")
-    expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.routing_number')}: 123456789")
+    expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.routing_number')}: 019456124")
     expect(page).to have_selector("li", text: "#{I18n.t('general.bank_account.account_number')}: ●●●●●6789")
 
     fill_in I18n.t("views.ctc.questions.confirm_information.labels.signature_pin", name: "Garold Mango III"), with: "12345"
