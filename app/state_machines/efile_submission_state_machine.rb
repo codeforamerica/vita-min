@@ -97,6 +97,11 @@ class EfileSubmissionStateMachine
       submission.tax_return.transition_to(:file_efiled)
       send_mixpanel_event(submission, "efile_return_transmitted")
     end
+
+    if submission.is_for_state_filing?
+      analytics = submission.data_source.create_state_file_analytics!
+      analytics.update!(analytics.calculated_attrs)
+    end
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|
