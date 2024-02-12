@@ -37,6 +37,7 @@ namespace :heroku do
     # To create this key, follow https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
     heroku_client = PlatformAPI.connect_oauth(ENV["HEROKU_PLATFORM_KEY"])
     heroku_app_name = ENV["HEROKU_APP_NAME"]
+    puts "this is the step that might fail:"
     HerokuHostnameHelper.hostnames.each do |_service_type, hostname|
       heroku_client.domain.create(heroku_app_name, hostname: hostname, sni_endpoint: nil)
     end
