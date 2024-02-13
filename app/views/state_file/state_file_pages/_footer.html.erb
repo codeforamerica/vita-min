@@ -15,14 +15,20 @@
       <ul class="grid__item width-one-fourth footer-links">
         <% unless before_state_file_launch? %>
           <li>
+            <%= mail_to "help@fileyourstatetaxes.org", t("general.contact_us")  %>
+          </li>
+
+          <li>
             <%= link_to t(".privacy_policy"), state_file_privacy_policy_path %>
           </li>
 
-          <li><%= link_to t(".about"), root_path %></li>
-
           <li><%= link_to t(".faq"), state_faq_path(us_state: 'us') %></li>
 
-          <li><%= link_to t(".terms_of_service"), "" %></li>
+          <li>
+            <% if I18n.locale != :es %>
+              <%= link_to_spanish %>
+            <% end %>
+          </li>
 
           <% unless acts_like_production? %>
             <li class="spacing-above-60">
