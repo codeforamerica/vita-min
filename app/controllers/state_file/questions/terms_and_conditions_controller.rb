@@ -3,10 +3,11 @@ module StateFile
     class TermsAndConditionsController < QuestionsController
 
 
-      def update
-        # binding.pry
-        @li_items = I18n.t('state_file.questions.terms_and_conditions.edit.list_items_html', privacy_policy_link: state_file_privacy_policy_path).split('</li>')
-      end
+      # def update
+      #   # binding.pry
+      #   @li_items = I18n.t('state_file.questions.terms_and_conditions.edit.list_items_html', privacy_policy_link: state_file_privacy_policy_path).split('</li>')
+      #   render action: 'edit'
+      # end
 
       def edit
         @li_items = I18n.t('state_file.questions.terms_and_conditions.edit.list_items_html', privacy_policy_link: state_file_privacy_policy_path).split('</li>')
@@ -21,10 +22,13 @@ module StateFile
 
       private
       def next_path
-        # binding.pry
-        if current_intake.has_disqualifying_eligibility_answer?
-          session[:offboarded_from] = self.class.to_path_helper(from_path_params)
-          return offboarding_path
+        binding.pry
+        if current_intake.consented_to_terms_and_conditions_no?
+          if params[:us_state] == 'az'
+            return az_questions_declined_terms_and_conditions_path
+          else
+            return ny_questions_declined_terms_and_conditions_path
+          end
         end
 
         super
