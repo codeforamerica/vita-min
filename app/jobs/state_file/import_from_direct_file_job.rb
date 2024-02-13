@@ -16,6 +16,7 @@ module StateFile
         )
         intake.synchronize_df_dependents_to_database
       rescue => err
+        Rails.logger.error(err)
         intake.update(df_data_import_failed_at: DateTime.now)
       end
 
