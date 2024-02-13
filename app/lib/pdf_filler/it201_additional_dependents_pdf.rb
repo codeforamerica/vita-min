@@ -10,7 +10,15 @@ module PdfFiller
     end
 
     def hash_for_pdf
-      answers = {}
+      primary = @intake.primary
+      name = primary.full_name
+      if @intake.filing_status_mfj?
+        name = "#{name} and #{@intake.spouse.full_name}"
+      end
+      answers = {
+        "Names as shown on returnRow1": name,
+        "Social Security NumberRow1": primary.ssn
+      }
       answers.merge!(dependents_info) if @intake.dependents.length > @dependent_offset
       answers
     end
