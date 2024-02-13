@@ -2,6 +2,7 @@ module StateFile
   module Questions
     class WaitingToLoadDataController < QuestionsController
       include EligibilityOffboardingConcern
+      skip_before_action :set_current_step
 
       def edit
         raise ActionController::RoutingError, 'Not Found' unless params[:authorizationCode]
