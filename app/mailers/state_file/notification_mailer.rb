@@ -4,6 +4,16 @@ module StateFile
       service = MultiTenantService.new(:statefile)
       @body = notification_email.body
       attachments.inline['logo.png'] = service.email_logo
+      @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
+        {
+          host: MultiTenantService.new(:statefile).host,
+          controller: "state_file/notifications_settings",
+          action: :unsubscribe_email,
+          locale: I18n.locale,
+          _recall: {},
+          email_address: notification_email.to
+        }
+      )
       mail(
         to: notification_email.to,
         subject: notification_email.subject,
