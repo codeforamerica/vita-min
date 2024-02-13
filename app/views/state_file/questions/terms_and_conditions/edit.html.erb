@@ -20,7 +20,7 @@
   <%= form_with model: @form, url: { action: :edit }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="options-wrapper">
       <div class="yes-no-buttons">
-        <%= f.button :submit, name: "#{f.object_name}[consented_to_terms_and_conditions]", value: 'yes', class: 'button button--primary' do %>
+        <%= f.button :submit, name: "state_file_terms_and_conditions_form[consented_to_terms_and_conditions]", value: 'yes', class: 'button button--primary' do %>
           <%= t(".accept") %>
         <% end %>
         <%= f.button :submit, name: "state_file_terms_and_conditions_form[consented_to_terms_and_conditions]", value: 'no', class: 'button' do %>
