@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_231710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1578,6 +1578,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.integer "unemployment_compensation"
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
+  end
+
+  create_table "state_file_analytics", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "fed_eitc_amount"
+    t.integer "filing_status"
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.integer "refund_or_owed_amount"
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|

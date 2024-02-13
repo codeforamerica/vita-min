@@ -97,7 +97,7 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku run rails heroku:postdeploy
 
-      - name: Setup hostnames (GYR and CTC)
+      - name: Setup hostnames (GYR, CTC and StateFile)
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku run rails heroku:review_app_setup
 
