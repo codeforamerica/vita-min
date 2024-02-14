@@ -1874,8 +1874,8 @@ es:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500.'
+          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más próximo. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
+          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500 (Redondea al número entero más próximo.)'
           learn_more_content_html: |
             Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
             Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
@@ -1958,7 +1958,7 @@ es:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: 'Ingresa la cantidad que recibiste:'
+          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más próximo.)
       canceled_data_transfer:
         edit:
           faq: Visita nuestras Preguntas Frecuentes (FAQ)
@@ -2373,7 +2373,7 @@ es:
           disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria (routing number)
-          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}.)"
+          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondea al número entero más próximo.)"
         edit:
           az_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Arizona de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
           direct_deposit: Depósito directo (más rápido)
@@ -2413,12 +2413,12 @@ es:
           removed: Eliminado el formulario 1099-G para %{name}
         edit:
           apartment: Número de apartamento/unidad
-          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal"
+          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal (Redondea al número entero más próximo.)"
           city: Ciudad
           confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
-          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal retenido"
+          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal retenido (Redondea al número entero más próximo.)"
           had_box_11: "¿Tenías un monto listado por impuestos estatales (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
             Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
@@ -2441,13 +2441,13 @@ es:
           recipient_myself: Para mí
           recipient_question: "¿Para quién es este formulario?"
           state: Estado
-          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, Impuesto Estatal retenido"
+          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, Impuesto Estatal retenido (Redondea al número entero más próximo.)"
           street_address: Dirección
           title:
             many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
             one: Parece que recibiste compensaciones por desempleo en %{year}
             other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo"
+          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo (Redondea al número entero más próximo.)"
           zip_code: Código postal
         index:
           1099_label: 1099-G para %{name}
