@@ -28,9 +28,9 @@ module StateFile
       end
 
       def state_code
-        state_code_ = params['us_state']
+        state_code_ = params[:us_state].downcase
         unless StateFileBaseIntake::STATE_CODES.include?(state_code_)
-          raise StandardError state_code_
+          raise StandardError, state_code_
         end
         state_code_
       end
