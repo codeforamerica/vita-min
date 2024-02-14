@@ -2176,6 +2176,8 @@ es:
           spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
+          validation_first_name: ", y el nombre debe tener menos de 16 caracteres."
+          validation_name: Sólo se aceptan letras, guiones y apóstrofes
           your_dob: Tu fecha de nacimiento
       ny_county:
         edit:
