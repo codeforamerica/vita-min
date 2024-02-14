@@ -7,25 +7,19 @@
         <% end %>
       </div>
     </div>
-    <% unless before_state_file_launch? %>
       <div class="toolbar__right is-mobile-hidden">
-        <%= link_to t("general.about"), root_path, class: "toolbar__item text--small" %>
-
-        <%= link_to t("general.faq"), state_faq_path(us_state: 'us'), class: "toolbar__item text--small" %>
-
-        <%= link_to "Help", "", class: "toolbar__item text--small" %>
-
         <% if I18n.locale != :en %>
           <%= link_to_english(class: "toolbar__item text--small") %>
         <% end %>
         <% if I18n.locale != :es %>
           <%= link_to_spanish(class: "toolbar__item text--small") %>
         <% end %>
+
+        <%= link_to t("general.sign_in"), login_options_path(us_state: 'us'), class: "toolbar__item text--small" %>
       </div>
       <a data-component="ClientMenuTrigger" class="client-menu-trigger is-desktop-hidden toolbar__item text--small">Menu</a>
       <a class="is-desktop-hidden client-menu-closer" data-component="ClientMenuCloser">
         <%= image_tag "icons/close.svg"%>
       </a>
-    <% end %>
   </div>
 </header>
