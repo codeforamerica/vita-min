@@ -25,6 +25,9 @@
           <li><%= link_to t(".faq"), state_faq_path(us_state: 'us') %></li>
 
           <li>
+            <% if I18n.locale != :en %>
+              <%= link_to_english %>
+            <% end %>
             <% if I18n.locale != :es %>
               <%= link_to_spanish %>
             <% end %>
