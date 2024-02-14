@@ -24,22 +24,21 @@ module StateFile
       end
 
       def question_navigator
-        case params[:us_state]
-        when 'az'
-          Navigation::StateFileAzQuestionNavigation
-        when 'ny'
-          Navigation::StateFileNyQuestionNavigation
+        @navigator ||= "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+      end
+
+      def state_code
+        state_code_ = params['us_state']
+        unless StateFileBaseIntake::STATE_CODES.include?(state_code_)
+          raise StandardError state_code_
         end
+        state_code_
       end
 
       def redirect_if_no_intake
         unless current_intake.present?
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          if params['us_state'] == 'az'
-            redirect_to az_questions_landing_page_path(us_state: params['us_state'])
-          else
-            redirect_to ny_questions_landing_page_path(us_state: params['us_state'])
-          end
+          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: state_code)
         end
       end
 
