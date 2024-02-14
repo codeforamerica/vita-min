@@ -10,14 +10,18 @@ module StateFile
       end
 
       def self.navigation_actions
-        [:new, :index]
+        [:index, :new]
       end
 
       def index
         @state_file1099_gs = current_intake.state_file1099_gs
+        unless @state_file1099_gs.present?
+          redirect_to action: :new
+        end
       end
 
       def new
+        # redirect_to action: :index and return if current_intake.state_file1099_gs
         @state_file1099_g = current_intake.state_file1099_gs.build
       end
 
