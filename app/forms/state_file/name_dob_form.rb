@@ -26,10 +26,11 @@ module StateFile
     validates_presence_of :hoh_qualifying_person_name, if: -> {  @intake.class == StateFileAzIntake && @intake.requires_hoh_qualifying_person_name? }
     validate :primary_birth_date_is_valid_date
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
-    validates :primary_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze }
-    validates :primary_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze }
-    validates :spouse_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze }, if: -> { @intake.ask_spouse_name? }
-    validates :spouse_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze }, if: -> { @intake.ask_spouse_name? }
+    ### TODO
+    validates :primary_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: 'Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.' }
+    validates :primary_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: 'Only letters, hyphen, and apostrophe are accepted.' }
+    validates :spouse_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: 'Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.' }, if: -> { @intake.ask_spouse_name? }
+    validates :spouse_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: 'Only letters, hyphen, and apostrophe are accepted.' }, if: -> { @intake.ask_spouse_name? }
 
     def initialize(intake = nil, params = nil)
       super
