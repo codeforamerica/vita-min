@@ -14,6 +14,13 @@ module StateFile
 
     def create
       @contact_method = params[:contact_method] unless @contact_method.present?
+      value = params[:state_file_request_intake_login_form][@contact_method]
+      @records = client_login_service.intake_classes.map { |intake_class| intake_class.where({@contact_method => value}) }.flatten
+      if @records.blank?
+        flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found")
+        redirect_to action: :new, contact_method: @contact_method
+        return
+      end
       super
     end
 

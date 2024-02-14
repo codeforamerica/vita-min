@@ -1884,9 +1884,11 @@ en:
       new:
         email_address:
           label: Your email address (use an account you can access)
+          not_found: Sorry, we don’t have an account registered for that email. Would you like to sign in with a different email?
           title: Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code.
         sms_phone_number:
           label: Your phone number
+          not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     questions:
@@ -2162,6 +2164,7 @@ en:
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
+          already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool."
             supported_by: Supported by the state of Arizona
