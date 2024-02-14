@@ -17,11 +17,6 @@ RSpec.describe ZipCodeValidator do
     assert_invalid("1092")
   end
 
-  # For the moment we have excluded this spec because we not checking against known zip codes
-  xspecify do
-    assert_invalid("99999")
-  end
-
   specify do
     assert_valid("10752")
   end
