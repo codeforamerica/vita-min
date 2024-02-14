@@ -2484,11 +2484,9 @@ en:
         help_text_html: Don’t worry, we can help. Reach out by tapping the chat button below or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: Unfortunately, your federal tax return failed to transfer. To continue, you’ll need to connect with one of our tax specialists.
       footer:
-        about: About
         faq: FAQ
         privacy_policy: Privacy Policy
         state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with the IRS Direct File tool.
-        terms_of_service: Terms of Service
       login_options:
         email_signin: Sign in with email
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>

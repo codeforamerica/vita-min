@@ -2490,11 +2490,9 @@ es:
         help_text_html: No te preocupes, podemos ayudarte. Ponte en contacto haciendo clic en el botón de chat debajo o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: Lamentablemente, tu declaración de impuestos federales no se pudo transferir. Para continuar, necesitarás ponerte en contacto con uno de nuestros especialistas en impuestos.
       footer:
-        about: Acerca de nosotros
         faq: Preguntas Frecuentes
         privacy_policy: Política de Privacidad
         state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
-        terms_of_service: Términos del servicio
       login_options:
         email_signin: Iniciar sesión con correo electrónico
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
