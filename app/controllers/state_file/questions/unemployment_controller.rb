@@ -21,7 +21,6 @@ module StateFile
       end
 
       def new
-        # redirect_to action: :index and return if current_intake.state_file1099_gs
         @state_file1099_g = current_intake.state_file1099_gs.build
       end
 
