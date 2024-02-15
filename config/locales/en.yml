@@ -2408,7 +2408,7 @@ en:
           removed: Removed 1099-G for %{name}
         edit:
           apartment: Apartment/Unit Number
-          box_10b_html: "<strong>Box 10b</strong>, State identification number (Round to the nearest whole number.)"
+          box_10b_html: "<strong>Box 10b</strong>, State identification number"
           city: City
           confirm_address_html: Please confirm <strong>your mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
           confirm_address_no: No, I need to edit

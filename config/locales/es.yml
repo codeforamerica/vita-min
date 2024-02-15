@@ -2413,7 +2413,7 @@ es:
           removed: Eliminado el formulario 1099-G para %{name}
         edit:
           apartment: Número de apartamento/unidad
-          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal (Redondea al número entero más próximo.)"
+          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal"
           city: Ciudad
           confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
           confirm_address_no: No, necesito cambiarla
