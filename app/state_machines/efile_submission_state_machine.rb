@@ -35,6 +35,7 @@ class EfileSubmissionStateMachine
   transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
   transition from: :fraud_hold,        to: [:investigating, :resubmitted, :waiting, :cancelled]
   transition from: :cancelled,         to: [:investigating, :waiting]
+  transition from: :accepted,         to: [:rejected]
 
   guard_transition(to: :bundling) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
@@ -132,6 +133,10 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
+    if submission.is_for_state_filing?
+      StateFile::AfterTransitionMessagingService.new(submission.data_source).send_efile_submission_rejected_message
+      EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+    end
   end
 
   after_transition(to: :accepted) do |submission|
@@ -154,18 +159,19 @@ class EfileSubmissionStateMachine
         recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
         third_stimulus_amount: benefits.eip3_amount,
       })
+    elsif submission.is_for_state_filing?
+      StateFile::AfterTransitionMessagingService.new(submission.data_source).send_efile_submission_accepted_message
+      send_mixpanel_event(submission, "fyst_efile_return_accepted")
     end
   end
 
   after_transition(to: :investigating) do |submission|
     submission.source_record.transition_to(:file_hold)
-    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
 
 
   after_transition(to: :waiting) do |submission|
     submission.source_record.transition_to(:file_hold)
-    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
@@ -175,7 +181,6 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :cancelled) do |submission|
     submission.source_record.transition_to(:file_not_filing)
-    submission.source_record.transition_to(:file_not_filing) if submission.is_for_federal_filing?
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})

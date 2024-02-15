@@ -14,7 +14,7 @@ class SendAutomatedMessage
   end
 
   def message_tracker
-    @message_tracker ||= MessageTracker.new(client: client, message: message)
+    @message_tracker ||= MessageTracker.new(data_source: client, message: message)
   end
 
   def send_messages

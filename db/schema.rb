@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_231710) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_175116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1623,6 +1623,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_231710) do
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -1695,12 +1696,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_231710) do
   create_table "state_file_notification_emails", force: :cascade do |t|
     t.string "body", null: false
     t.datetime "created_at", null: false
+    t.bigint "data_source_id"
+    t.string "data_source_type"
     t.string "mailgun_status", default: "sending"
     t.string "message_id"
     t.datetime "sent_at", precision: nil
     t.string "subject", null: false
     t.string "to", null: false
     t.datetime "updated_at", null: false
+    t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_emails_on_data_source"
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|
@@ -1742,6 +1746,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_231710) do
     t.datetime "locked_at"
     t.string "mailing_country"
     t.string "mailing_state"
+    t.jsonb "message_tracker", default: {}
     t.integer "nursing_home", default: 0, null: false
     t.string "ny_mailing_apartment"
     t.string "ny_mailing_city"

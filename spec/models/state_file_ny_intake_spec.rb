@@ -39,6 +39,7 @@
 #  locked_at                          :datetime
 #  mailing_country                    :string
 #  mailing_state                      :string
+#  message_tracker                    :jsonb
 #  nursing_home                       :integer          default("unfilled"), not null
 #  ny_mailing_apartment               :string
 #  ny_mailing_city                    :string

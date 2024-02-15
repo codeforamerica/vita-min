@@ -246,6 +246,7 @@ Rails.application.routes.draw do
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end
+          resources :automated_messages, only: [:index]
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]

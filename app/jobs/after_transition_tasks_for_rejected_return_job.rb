@@ -2,7 +2,7 @@ class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
   def perform(submission, transition)
     transition ||= submission.last_transition
 
-    # submission.tax_return&.transition_to(:file_rejected) #ctc only
+    submission.tax_return&.transition_to(:file_rejected) if submission.is_for_federal_filing?
 
     Efile::SubmissionErrorParser.persist_errors(transition)
 
@@ -13,20 +13,24 @@ class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
         already_auto_resubmitted = submission.previously_transmitted_submission && submission.previously_transmitted_submission.efile_submission_transitions.where(to_state: :resubmitted
         ).any? { |transition| transition.metadata.dig("auto_resubmitted") }
         unless already_auto_resubmitted
-          submission.transition_to!(:resubmitted, {auto_resubmitted: true})
+          submission.transition_to!(:resubmitted, { auto_resubmitted: true })
         end
       end
-      # message_class = message_class_for_state(submission.current_state)
-      # if message_class
-      #   ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      #     client: submission.client,
-      #     message: message_class,
-      #     locale: submission.client.intake.locale
-      #   )
-      # end
-    end
 
-    EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+      message_class = message_class_for_state(submission.current_state)
+
+      if submission.is_for_federal_filing?
+        if message_class
+          ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+            client: submission.client,
+            message: message_class,
+            locale: submission.client.intake.locale
+          )
+        end
+        EfileSubmissionStateMachine.send_mixpanel_event(submission, "ctc_efile_return_rejected")
+      end
+
+    end
   end
 
   def priority

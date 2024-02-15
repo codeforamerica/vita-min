@@ -1522,6 +1522,52 @@ es:
       sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
+      accepted_owe:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no has pagado mediante débito directo al presentar tu declaración.
+
+            Descarga tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue aceptada'
+        sms: |
+          ¡Hola %{primary_first_name}! - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no has pagado con depósito directo o cheque.
+
+          Descarga tu declaración en %{return_status_link}.
+
+          ¿Preguntas? Responde a este mensaje.
+      accepted_refund:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Deberías recibir tu reembolso una vez que el estado de %{state_name} apruebe el monto de tu reembolso.
+
+            Puedes descargar tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Notificación de FileYourStateTaxes: Aceptación de la declaración de impuestos estatales de %{state_name}'
+        sms: "Hola %{primary_first_name} - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Recibirás tu reembolso una vez que el estado de %{state_name}  apruebe el monto de tu reembolso. \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}.\n\n¿Necesitas ayuda? Responde a este mensaje.\n"
+      rejected:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\nQuestions? Reply to this text.\n"
       welcome:
         email:
           body: |
@@ -1532,8 +1578,6 @@ es:
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Saludos cordiales, El equipo de FileYourStateTaxes
-
-            Si deseas cancelar la suscripción a los correos electrónicos, haz clic aquí.
           subject: Bienvenido a FileYourStateTaxes
         sms: |
           ¡Bienvenido/a! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estés presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas tomar un descanso, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
