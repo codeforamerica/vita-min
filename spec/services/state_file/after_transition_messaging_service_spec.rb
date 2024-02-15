@@ -9,13 +9,16 @@ describe StateFile::AfterTransitionMessagingService do
 
   before do
     allow(Flipper).to receive(:enabled?).with(:state_file_notification_emails).and_return(true)
-    allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
     allow(StateFile::MessagingService).to receive(:new).with(intake: intake, message: message, body_args: body_args).and_return(sf_messaging_service)
   end
 
   describe "#send_efile_submission_accepted_message" do
+    before do
+      allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
+    end
+
     context "when has a refund" do
-      it "sends the accepted refund" do
+      it "sends the accepted refund email message" do
         expect do
           messaging_service.send_efile_submission_accepted_message
         end.to change(StateFileNotificationEmail, :count).by(1)
@@ -39,7 +42,7 @@ describe StateFile::AfterTransitionMessagingService do
         allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(-100)
       end
 
-      it "sends the accepted owe email" do
+      it "sends the accepted owe email message" do
         expect do
           messaging_service.send_efile_submission_accepted_message
         end.to change(StateFileNotificationEmail, :count).by(1)
@@ -48,6 +51,20 @@ describe StateFile::AfterTransitionMessagingService do
 
         expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message, body_args: body_args)
       end
+    end
+  end
+
+  describe "#send_efile_submission_rejected_message" do
+    let(:message) { StateFile::AutomatedMessage::Rejected }
+
+    it "sends the accepted refund" do
+      expect do
+        messaging_service.send_efile_submission_rejected_message
+      end.to change(StateFileNotificationEmail, :count).by(1)
+
+      expect(intake.message_tracker).to include "messages.state_file.rejected"
+
+      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message, body_args: body_args)
     end
   end
 end

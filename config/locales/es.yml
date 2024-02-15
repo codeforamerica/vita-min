@@ -1553,6 +1553,22 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: Aceptación de la declaración de impuestos estatales de %{state_name}'
         sms: "Hola %{primary_first_name} - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Recibirás tu reembolso una vez que el estado de %{state_name}  apruebe el monto de tu reembolso. \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}.\n\n¿Necesitas ayuda? Responde a este mensaje.\n"
+      rejected:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+
+            If you would like to unsubscribe from emails, click here.
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+        sms:
+          body: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\nQuestions? Reply to this text.\n"
       welcome:
         email:
           body: |

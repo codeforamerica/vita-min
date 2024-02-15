@@ -11,7 +11,8 @@ module Hub::StateFile
       automated_messages = [
         [StateFile::AutomatedMessage::Welcome, {}],
         [StateFile::AutomatedMessage::AcceptedRefund, {}],
-        [StateFile::AutomatedMessage::AcceptedOwe, {}]
+        [StateFile::AutomatedMessage::AcceptedOwe, {}],
+        [StateFile::AutomatedMessage::Rejected, {}]
       ]
 
       automated_messages_and_mailers = automated_messages.map do |m|

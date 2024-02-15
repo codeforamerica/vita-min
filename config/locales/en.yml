@@ -1566,6 +1566,24 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      rejected:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+
+            If you would like to unsubscribe from emails, click here.
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+        sms: |
+          Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+
+          Questions? Reply to this text.
       welcome:
         email:
           body: |

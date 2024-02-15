@@ -16,17 +16,20 @@ module StateFile
         body_args = { state_pay_taxes_link: state_pay_taxes_link, return_status_link: return_status_link }
       end
 
-      messaging_service = StateFile::MessagingService.new(
+      StateFile::MessagingService.new(
         intake: @intake,
         message: message,
-        body_args: body_args)
-
-      messaging_service.send_message
+        body_args: body_args).send_message
     end
 
-    # def send_efile_submission_rejected_message
-    #
-    # end
+    def send_efile_submission_rejected_message
+      message = StateFile::AutomatedMessage::Rejected
+      body_args = { return_status_link: return_status_link }
+      StateFile::MessagingService.new(
+        intake: @intake,
+        message: message,
+        body_args: body_args).send_message
+    end
 
     private
 

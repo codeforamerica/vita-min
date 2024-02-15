@@ -128,6 +128,10 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
+    if submission.is_for_state_filing?
+      StateFile::AfterTransitionMessagingService.new(submission.data_source).send_efile_submission_rejected_message
+      EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+    end
   end
 
   after_transition(to: :accepted) do |submission|
