@@ -37,7 +37,7 @@ describe StateFileAnalytics do
       let(:intake) { create :state_file_az_intake }
 
       it "returns the calculated attributes" do
-        expect(StateFileAnalytics.create(record: intake).calculated_attrs).to eq expected_attributes
+        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
       end
     end
 
@@ -45,7 +45,7 @@ describe StateFileAnalytics do
       let(:intake) { create :state_file_ny_intake }
 
       it "returns the calculated attributes" do
-        expect(StateFileAnalytics.create(record: intake).calculated_attrs).to eq expected_attributes
+        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
       end
     end
   end
