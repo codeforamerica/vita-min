@@ -1,6 +1,7 @@
 module StateFile
   class IntakeLoginsController < Portal::ClientLoginsController
     helper_method :prev_path, :illustration_path
+    before_action :redirect_to_data_review_if_intake_authenticated
     layout "state_file/question"
 
     def new
@@ -85,6 +86,19 @@ module StateFile
 
     def request_client_login_params
       params.require(:state_file_request_intake_login_form).permit(:email_address, :sms_phone_number)
+    end
+
+    def redirect_to_data_review_if_intake_authenticated
+      intake = current_state_file_az_intake || current_state_file_ny_intake
+      if intake.present?
+        # Redirect to last step
+        controller = intake.controller_for_current_step
+        to_path = controller.to_path_helper(
+          action: controller.navigation_actions.first,
+          us_state: intake.state_code
+        )
+        redirect_to to_path
+      end
     end
 
     def service_type
