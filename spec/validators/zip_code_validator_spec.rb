@@ -22,7 +22,7 @@ RSpec.describe ZipCodeValidator do
   end
 
   specify do
-    assert_valid("10752")
+    assert_valid("10572")
   end
 
   specify do
