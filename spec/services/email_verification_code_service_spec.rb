@@ -98,8 +98,9 @@ describe EmailVerificationCodeService do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        str = 'Tu código de verificación de 6 dígitos para FileYourStateT'
-        expect(email.body.encoded).to include Mail::Encodings::QuotedPrintable.encode(str)
+        expect(email.body.encoded).to include Mail::Encodings::QuotedPrintable.encode(
+          'Tu código de verificación de 6 dígitos para FileYourStateT'
+        )
       end
     end
 

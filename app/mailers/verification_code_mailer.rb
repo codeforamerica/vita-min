@@ -6,11 +6,11 @@ class VerificationCodeMailer < ApplicationMailer
     @locale = params[:locale]
     @verification_code = params[:verification_code]
     attachments.inline['logo.png'] = service.email_logo
-    if @service_type == :statefile
-      @subject = I18n.t("messages.verification_code_subject_with_service_name", service_name: @service_name, locale: @locale)
-    else
-      @subject = I18n.t("messages.default_subject_with_service_name", service_name: @service_name, locale: @locale)
-    end
+    @subject = if @service_type == :statefile
+                 I18n.t("messages.verification_code_subject_with_service_name", service_name: @service_name, locale: @locale)
+               else
+                 I18n.t("messages.default_subject_with_service_name", service_name: @service_name, locale: @locale)
+               end
     mail(to: params[:to], subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
   end
 
