@@ -125,8 +125,10 @@ en:
       address:
         city:
           blank: Please enter a valid city.
+          invalid: Only letters and single spaces are accepted.
         street_address:
           blank: Please enter a valid street address.
+          invalid: Only letters, numbers, hyphen, slash, and single spaces are accepted.
         zip:
           blank: Please enter a valid zip code.
       birth_date:
@@ -174,8 +176,9 @@ en:
         too_short: The password must be a minimum %{count} characters.
       payer_name:
         blank: Please enter a valid name.
+        invalid: 'Only letters, numbers, parentheses, hyphen, apostrophe, and # are accepted.'
       payer_tin:
-        blank: Please enter a valid 9-digit TIN.
+        invalid: EIN must be a 9-digit number. Do not include a dash.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -219,6 +222,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
+      invalid_format: Only letters, hyphen, and apostrophe are accepted.
   forms:
     errors:
       at_least_one_year: Please pick at least one year.

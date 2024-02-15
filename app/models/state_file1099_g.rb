@@ -37,16 +37,15 @@ class StateFile1099G < ApplicationRecord
   enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
-  validates_presence_of :payer_name, :message => I18n.t("errors.attributes.payer_name.blank")
-  validates_presence_of :payer_street_address, :message => I18n.t("errors.attributes.address.street_address.blank")
-  validates_presence_of :payer_city, :message => I18n.t("errors.attributes.address.city.blank")
-  validates :payer_street_address, irs_street_address_type: true
-  validates :payer_city, irs_street_address_type: true
+  validates :payer_name, :presence => {:message => I18n.t("errors.attributes.payer_name.blank") }, format: { with: /(([A-Za-z0-9#-()]|&|') ?)*([A-Za-z0-9#-()]|&|')/.freeze, message: I18n.t("errors.attributes.payer_name.invalid")}
+  validates :payer_street_address, :presence => {:message => I18n.t("errors.attributes.address.street_address.blank") }, format: { with: /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}, irs_street_address_type: true
+  validates :payer_city, :presence => {:message => I18n.t("errors.attributes.address.city.blank")}, format: { with: /[A-Za-z\s]/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}, irs_street_address_type: true
   validates :payer_zip, zip_code: true
-  validates :payer_tin, format: { :with => /\d{9}/, :message => I18n.t("errors.attributes.payer_tin.blank")}
+  validates :payer_tin, format: { :with => /\A\d{9}\z/, :message => I18n.t("errors.attributes.payer_tin.invalid")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
-  validates :recipient_city, presence: true, irs_street_address_type: true
-  validates :recipient_street_address, presence: true, irs_street_address_type: true
+  validate :recipient_street_address, format: { :with => /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}, presence: true
+  validate :recipient_street_address_apartment, format: { :with => /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
+  validates :recipient_city, presence: true, format: { with: /[A-Za-z\s]/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}, irs_street_address_type: true
   validates :recipient_zip, zip_code: true
   validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, only_integer: true }
   validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
