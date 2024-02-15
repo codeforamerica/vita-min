@@ -2185,8 +2185,8 @@ en:
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
-          validation_first_name: ", and first name must be less than 16 characters."
-          validation_name: Only letters, hyphen, and apostrophe are accepted
+          validation_first_name: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
+          validation_last_name: Only letters, hyphen, and apostrophe are accepted.
           your_dob: Your date of birth
       ny_county:
         edit:
