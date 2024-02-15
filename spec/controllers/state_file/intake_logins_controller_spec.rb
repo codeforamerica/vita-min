@@ -42,10 +42,10 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     context "as an authenticated intake" do
       before { sign_in intake }
 
-      it "renders the login page" do
-        get :new, params: { us_state: "az", contact_method: "email_address" }
+      it "redirects to data review page" do
+        get :new, params: { us_state: "az" }
 
-        expect(response.status).to eq(200)
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
       end
     end
   end
@@ -170,10 +170,10 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     context "as an authenticated intake" do
       before { sign_in intake }
 
-      it "renders the login page" do
-        post :create, params: { us_state: "az", state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
+      it "redirects to data review page" do
+        post :create, params: { us_state: "az" }
 
-        expect(response.status).to eq(200)
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
       end
     end
   end
@@ -370,9 +370,18 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         sign_in intake
       end
 
-      it "still displays the login page" do
+      it "redirects to data review page" do
         get :edit, params: params
-        expect(response.status).to eq(200)
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a current step" do
+        before { intake.update(current_step: "/en/questions/name-dob") }
+
+        it "redirects to the current step" do
+          post :update, params: params
+          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
+        end
       end
 
       context "when the intake does not have an ssn" do
@@ -413,15 +422,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
             expect(subject.current_state_file_az_intake).to eq(intake)
             expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
-            expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
-          end
-
-          it "signs in the intake, updates the session, and redirects to the current step" do
-            intake.update(current_step: "/en/questions/name-dob")
-            post :update, params: params
-
-            expect(subject.current_state_file_az_intake).to eq(intake)
-            expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 
@@ -515,9 +515,31 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         sign_in intake
       end
 
-      it "displays the form" do
+      it "redirects to data review page if they have no submitted return" do
         get :new, params: { contact_method: :email_address, us_state: "az" }
-        expect(response.status).to eq(200)
+
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+      end
+
+      context "when the intake has a submitted return" do
+        before do
+          intake.efile_submissions.create!
+        end
+
+        it "redirects to return status page" do
+          get :new, params: { contact_method: :email_address, us_state: "az" }
+
+          expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+        end
+      end
+
+      context "when the intake has a current step" do
+        before { intake.update(current_step: "/en/questions/name-dob") }
+
+        it "redirects to the current step" do
+          post :update, params: params
+          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
+        end
       end
     end
   end
