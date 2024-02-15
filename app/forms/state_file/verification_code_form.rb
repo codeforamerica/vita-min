@@ -19,10 +19,13 @@ module StateFile
       is_first_time_verifying = intake.phone_number_verified_at.blank? && intake.email_address_verified_at.blank?
       intake.touch(:phone_number_verified_at) if is_text_based?
       intake.touch(:email_address_verified_at) if is_email_based?
-      if is_first_time_verifying # message tracker should also cover this
+      if is_first_time_verifying
         messaging_service = StateFile::MessagingService.new(
           message: StateFile::AutomatedMessage::Welcome,
-          intake: intake)
+          intake: intake,
+          sms: is_text_based?,
+          email: is_email_based?
+        )
         messaging_service.send_message
       end
     end
