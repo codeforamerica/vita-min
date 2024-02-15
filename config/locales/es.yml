@@ -1548,8 +1548,7 @@ es:
             ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Deberías recibir tu reembolso una vez que el estado de %{state_name} apruebe el monto de tu reembolso.
 
             Puedes descargar tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
-
-            Puedes verificar el estado de tu reembolso en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            
             Atentamente,
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: Aceptación de la declaración de impuestos estatales de %{state_name}'
