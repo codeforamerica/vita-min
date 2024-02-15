@@ -245780,16 +245780,6 @@
   :coordinates:
   - 49.4292
   - 7.6969
-'09025':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.1113
-  - 9.7391
-'09026':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.3776
-  - 9.9109
 '09028':
   :name: 'APO AE, '
   :coordinates:
@@ -245815,16 +245805,6 @@
   :coordinates:
   - 49.7939
   - 9.9512
-'09039':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.1155
-  - 8.6842
-'09041':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.1374
-  - 11.5755
 '09044':
   :name: 'APO AE, '
   :coordinates:
@@ -245835,21 +245815,6 @@
   :coordinates:
   - 48.6821
   - 9.0117
-'09047':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.759
-  - 9.5085
-'09050':
-  :name: 'APO AE, '
-  :coordinates:
-  - 47.7611
-  - 11.5589
-'09052':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.2469
-  - 7.3698
 '09053':
   :name: 'APO AE, '
   :coordinates:
@@ -245865,11 +245830,6 @@
   :coordinates:
   - 49.6328
   - 8.3592
-'09057':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50
-  - 8.6667
 '09058':
   :name: 'APO AE, '
   :coordinates:
@@ -245890,16 +245850,6 @@
   :coordinates:
   - 49.4077
   - 8.6908
-'09064':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50
-  - 8.6667
-'09066':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.591
-  - 11.0078
 '09067':
   :name: 'APO AE, '
   :coordinates:
@@ -245915,41 +245865,11 @@
   :coordinates:
   - 53.5502
   - 8.5767
-'09070':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.4424
-  - 10.9541
-'09071':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.4429
-  - 11.8627
-'09072':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.8699
-  - 6.6969
-'09073':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.7035
-  - 9.6521
 '09074':
   :name: 'APO AE, '
   :coordinates:
   - 48.3569
   - 10.9846
-'09077':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.4339
-  - 8.6712
-'09078':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.9624
-  - 7.6257
 '09079':
   :name: 'APO AE, '
   :coordinates:
@@ -245965,11 +245885,6 @@
   :coordinates:
   - 49.3822
   - 8.5823
-'09082':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.1006
-  - 8.7665
 '09086':
   :name: 'APO AE, '
   :coordinates:
@@ -245985,11 +245900,6 @@
   :coordinates:
   - 50.1254
   - 8.6089
-'09091':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.2016
-  - 9.1874
 '09094':
   :name: 'APO AE, '
   :coordinates:
@@ -246005,16 +245915,6 @@
   :coordinates:
   - 50.0826
   - 8.2493
-'09097':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50
-  - 8.6667
-'09098':
-  :name: 'APO AE, '
-  :coordinates:
-  - 47.8638
-  - 12.0105
 '09099':
   :name: 'APO AE, '
   :coordinates:
@@ -246045,21 +245945,11 @@
   :coordinates:
   - 48.1761
   - 9.5392
-'09108':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.1374
-  - 11.5755
 '09110':
   :name: 'APO AE, '
   :coordinates:
   - 49.8472
   - 8.3167
-'09111':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.8414
-  - 7.8671
 '09112':
   :name: 'APO AE, '
   :coordinates:
@@ -246085,21 +245975,11 @@
   :coordinates:
   - 48.9356
   - 8.9604
-'09130':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.5118
-  - 7.8666
 '09131':
   :name: 'APO AE, '
   :coordinates:
   - 48.9356
   - 8.9604
-'09132':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.9679
-  - 6.5273
 '09136':
   :name: 'APO AE, '
   :coordinates:
@@ -246125,11 +246005,6 @@
   :coordinates:
   - 49.4804
   - 10.3877
-'09141':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.872
-  - 9.7089
 '09142':
   :name: 'APO AE, '
   :coordinates:
@@ -246140,41 +246015,16 @@
   :coordinates:
   - 50.5873
   - 8.6755
-'09144':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.1514
-  - 8.425
 '09154':
   :name: 'APO AE, '
   :coordinates:
   - 48.7823
   - 9.177
-'09156':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.9679
-  - 6.5273
-'09157':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.3715
-  - 10.8985
 '09160':
   :name: 'APO AE, '
   :coordinates:
   - 48.542
   - 9.7905
-'09162':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.977
-  - 9.1521
-'09164':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.0094
-  - 8.4044
 '09165':
   :name: 'APO AE, '
   :coordinates:
@@ -246240,11 +246090,6 @@
   :coordinates:
   - 48.1374
   - 11.5755
-'09184':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.1374
-  - 11.5755
 '09185':
   :name: 'APO AE, '
   :coordinates:
@@ -246255,36 +246100,6 @@
   :coordinates:
   - 49.443
   - 7.7716
-'09187':
-  :name: 'APO AE, '
-  :coordinates:
-  - 52.5244
-  - 13.4105
-'09189':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.2014
-  - 7.6053
-'09192':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.0826
-  - 8.2493
-'09196':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.0826
-  - 8.2493
-'09202':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.0099
-  - 8.2829
-'09205':
-  :name: 'APO AE, '
-  :coordinates:
-  - 52.1727
-  - 9.2491
 '09211':
   :name: 'APO AE, '
   :coordinates:
@@ -246305,26 +246120,11 @@
   :coordinates:
   - 50.1738
   - 7.0633
-'09215':
-  :name: 'APO AE, '
-  :coordinates:
-  - 53.5753
-  - 10.0153
 '09216':
   :name: 'APO AE, '
   :coordinates:
   - 52.1338
   - 10.8897
-'09220':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.0826
-  - 8.2493
-'09222':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.4759
-  - 10.9886
 '09225':
   :name: 'APO AE, '
   :coordinates:
@@ -246340,36 +246140,16 @@
   :coordinates:
   - 49.443
   - 7.7716
-'09228':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.1155
-  - 8.6842
 '09229':
   :name: 'APO AE, '
   :coordinates:
   - 49.443
   - 7.7716
-'09233':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.2217
-  - 6.7762
-'09235':
-  :name: 'APO AE, '
-  :coordinates:
-  - 52.5244
-  - 13.4105
 '09237':
   :name: 'APO AE, '
   :coordinates:
   - 50.1155
   - 8.6842
-'09239':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.1344
-  - 10.0719
 '09242':
   :name: 'APO AE, '
   :coordinates:
@@ -246385,41 +246165,16 @@
   :coordinates:
   - 48.1374
   - 11.5755
-'09248':
-  :name: 'APO AE, '
-  :coordinates:
-  - 50.5873
-  - 8.6755
-'09249':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.2469
-  - 7.3698
 '09250':
   :name: 'APO AE, '
   :coordinates:
   - 49.4667
   - 10.7
-'09251':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.2469
-  - 7.3698
 '09252':
   :name: 'APO AE, '
   :coordinates:
   - 49.8414
   - 7.8671
-'09258':
-  :name: 'APO AE, '
-  :coordinates:
-  - 49.4445
-  - 7.5553
-'09259':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.8055
-  - 13.0902
 '09261':
   :name: 'APO AE, '
   :coordinates:
@@ -246450,11 +246205,6 @@
   :coordinates:
   - 48.8973
   - 9.1916
-'09281':
-  :name: 'APO AE, '
-  :coordinates:
-  - 48.7995
-  - 9.7981
 '09305':
   :name: 'APO AE, '
   :coordinates:
@@ -246505,26 +246255,6 @@
   :coordinates:
   - 49.032
   - 8.3426
-'09405':
-  :name: 'APO AE, '
-  :coordinates:
-  - 52.0933
-  - 1.3204
-'09415':
-  :name: 'FPO AE, '
-  :coordinates:
-  - 50.4406
-  - -4.9954
-'09418':
-  :name: 'FPO AE, '
-  :coordinates:
-  - 58.5927
-  - -3.5259
-'09419':
-  :name: 'FPO AE, '
-  :coordinates:
-  - 56.8091
-  - -2.656
 '09420':
   :name: 'FPO AE, '
   :coordinates:
@@ -246535,31 +246265,11 @@
   :coordinates:
   - 51.5085
   - -0.1257
-'09422':
-  :name: 'FPO AE, '
-  :coordinates:
-  - 55.4232
-  - -5.7347
 '09447':
   :name: 'APO AE, '
   :coordinates:
   - 51.4015
   - -1.3247
-'09448':
-  :name: 'APO AE, '
-  :coordinates:
-  - 53.4295
-  - -2.6585
-'09449':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.5486
-  - -0.4805
-'09450':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.8782
-  - 0.5529
 '09456':
   :name: 'APO AE, '
   :coordinates:
@@ -246575,11 +246285,6 @@
   :coordinates:
   - 52.4167
   - 0.75
-'09462':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.4015
-  - -1.3247
 '09463':
   :name: 'APO AE, '
   :coordinates:
@@ -246610,26 +246315,11 @@
   :coordinates:
   - 52.3642
   - -0.2243
-'09471':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.6291
-  - -0.7493
-'09472':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.7193
-  - -1.9714
 '09494':
   :name: 'APO AE, '
   :coordinates:
   - 51.9977
   - -1.2047
-'09495':
-  :name: 'APO AE, '
-  :coordinates:
-  - 51.4015
-  - -1.3247
 '09497':
   :name: 'APO AE, '
   :coordinates:
@@ -246745,26 +246435,11 @@
   :coordinates:
   - 37.4017
   - 14.9224
-'09628':
-  :name: 'APO AE, '
-  :coordinates:
-  - 45.4299
-  - 10.9844
-'09629':
-  :name: 'APO AE, '
-  :coordinates:
-  - 45.5467
-  - 11.5475
 '09630':
   :name: 'APO AE, '
   :coordinates:
   - 45.5467
   - 11.5475
-'09641':
-  :name: 'APO AE, '
-  :coordinates:
-  - 40.4165
-  - -3.7026
 '09642':
   :name: 'APO AE, '
   :coordinates:
@@ -246785,11 +246460,6 @@
   :coordinates:
   - 36.6255
   - -6.3622
-'09646':
-  :name: 'APO AE, '
-  :coordinates:
-  - 41.6561
-  - -0.8773
 '09647':
   :name: 'APO AE, '
   :coordinates:
@@ -246800,46 +246470,6 @@
   :coordinates:
   - 24.6877
   - 46.7218
-'09655':
-  :name: 'APO AE, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09658':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09670':
-  :name: 'FPO AE, '
-  :coordinates:
-  - 44.0575
-  - 12.5653
-'09680':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09681':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09682':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09683':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09694':
-  :name: 'APO AE, '
-  :coordinates:
-  - 36.9489
-  - 14.6073
 '09703':
   :name: 'APO AE, '
   :coordinates:
@@ -247025,46 +246655,6 @@
   :coordinates:
   - 24.6877
   - 46.7218
-'09765':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09766':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09767':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09768':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09770':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09772':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09774':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09775':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
 '09777':
   :name: 'FPO AE, '
   :coordinates:
@@ -247300,11 +246890,6 @@
   :coordinates:
   - 24.6877
   - 46.7218
-'09850':
-  :name: 'APO AE, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
 '09851':
   :name: 'APO AE, '
   :coordinates:
@@ -247345,11 +246930,6 @@
   :coordinates:
   - 35.5249
   - 24.1435
-'09866':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2106
-  - 50.6117
 '09873':
   :name: 'APO AA, '
   :coordinates:
@@ -247375,57 +246955,12 @@
   :coordinates:
   - 24.6877
   - 46.7218
-'09878':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09879':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
 '09880':
   :name: 'APO AE, '
   :coordinates:
   - 26.2886
   - 50.114
-'09881':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09882':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09883':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09884':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09886':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09887':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
 '09888':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
-'09889':
   :name: 'APO AA, '
   :coordinates:
   - 24.6877
@@ -247435,41 +246970,16 @@
   :coordinates:
   - 26.2886
   - 50.114
-'09891':
-  :name: 'APO AA, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
 '09892':
   :name: 'FPO AE, '
   :coordinates:
   - 31.9552
   - 35.945
-'09893':
-  :name: 'APO AE, '
-  :coordinates:
-  - 30.0626
-  - 31.2497
-'09894':
-  :name: 'APO AE, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
 '09895':
   :name: 'APO AE, '
   :coordinates:
   - 26.2886
   - 50.114
-'09896':
-  :name: 'APO AE, '
-  :coordinates:
-  - 26.2886
-  - 50.114
-'09897':
-  :name: 'APO AE, '
-  :coordinates:
-  - 24.6877
-  - 46.7218
 '09898':
   :name: 'APO AE, '
   :coordinates:
@@ -247480,21 +246990,11 @@
   :coordinates:
   - 8.9733
   - -79.5556
-'34003':
-  :name: 'APO AA, '
-  :coordinates:
-  - 8.95
-  - -79.55
 '34004':
   :name: 'APO AA, '
   :coordinates:
   - 9
   - -79.75
-'34005':
-  :name: 'APO AA, '
-  :coordinates:
-  - 9.2917
-  - -79.9077
 '34006':
   :name: 'APO AA, '
   :coordinates:
@@ -247600,11 +247100,6 @@
   :coordinates:
   - -0.2299
   - -78.525
-'34040':
-  :name: 'APO AA, '
-  :coordinates:
-  - 18.4663
-  - -66.1057
 '34041':
   :name: 'APO AA, '
   :coordinates:
@@ -247615,16 +247110,6 @@
   :coordinates:
   - 14.3824
   - -87.6212
-'34045':
-  :name: 'APO AA, '
-  :coordinates:
-  - 9.9333
-  - -84.0833
-'34046':
-  :name: 'APO AA, '
-  :coordinates:
-  - 14.0818
-  - -87.2068
 '34050':
   :name: 'FPO AA, '
   :coordinates:
@@ -247650,21 +247135,11 @@
   :coordinates:
   - 24.4333
   - -77.95
-'34059':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 8.9395
-  - -79.5491
 '34060':
   :name: 'FPO AA, '
   :coordinates:
   - 9.4008
   - -79.8697
-'34061':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 8.95
-  - -79.5833
 '96201':
   :name: 'APO AA, '
   :coordinates:
@@ -247720,11 +247195,6 @@
   :coordinates:
   - 35.2342
   - 128.8811
-'96216':
-  :name: 'APO AA, '
-  :coordinates:
-  - 34.78
-  - 127.0615
 '96218':
   :name: 'APO AA, '
   :coordinates:
@@ -247740,16 +247210,6 @@
   :coordinates:
   - 37.9211
   - 127.0626
-'96231':
-  :name: 'APO AA, '
-  :coordinates:
-  - 36.3214
-  - 127.4197
-'96236':
-  :name: 'APO AA, '
-  :coordinates:
-  - 33.6
-  - 130.4167
 '96257':
   :name: 'APO AA, '
   :coordinates:
@@ -247770,11 +247230,6 @@
   :coordinates:
   - 35.9925
   - 128.3979
-'96261':
-  :name: 'APO AA, '
-  :coordinates:
-  - 37.2911
-  - 127.0089
 '96264':
   :name: 'APO AA, '
   :coordinates:
@@ -247796,11 +247251,6 @@
   - 35.0642
   - 128.7653
 '96271':
-  :name: 'APO AA, '
-  :coordinates:
-  - 36.9622
-  - 127.0311
-'96272':
   :name: 'APO AA, '
   :coordinates:
   - 36.9622
@@ -247840,11 +247290,6 @@
   :coordinates:
   - 35.4919
   - 139.475
-'96318':
-  :name: 'APO AA, '
-  :coordinates:
-  - 40.6868
-  - 141.3897
 '96319':
   :name: 'APO AA, '
   :coordinates:
@@ -247861,11 +247306,6 @@
   - 33.1592
   - 129.7228
 '96323':
-  :name: 'APO AA, '
-  :coordinates:
-  - 35.7485
-  - 139.3485
-'96325':
   :name: 'APO AA, '
   :coordinates:
   - 35.7485
@@ -247935,11 +247375,6 @@
   :coordinates:
   - 26.3
   - 127.7667
-'96364':
-  :name: 'APO AA, '
-  :coordinates:
-  - 26.3652
-  - 127.7586
 '96365':
   :name: 'APO STA, '
   :coordinates:
@@ -248005,122 +247440,12 @@
   :coordinates:
   - 27
   - 142.1667
-'96390':
-  :name: 'APO AA, '
-  :coordinates:
-  - -23.697
-  - 133.8818
-'96407':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96408':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96409':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96410':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96411':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96415':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 15.3312
-  - 120.5898
-'96419':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 15.1423
-  - 120.9757
-'96428':
-  :name: 'APO AA, '
-  :coordinates:
-  - 14.6042
-  - 120.9822
-'96431':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96432':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96434':
-  :name: 'APO AA, '
-  :coordinates:
-  - 15.15
-  - 120.5833
-'96440':
-  :name: 'APO AA, '
-  :coordinates:
-  - 14.6042
-  - 120.9822
-'96445':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 15.1423
-  - 120.9757
 '96447':
   :name: 'APO AA, '
   :coordinates:
   - 16.6159
   - 120.3166
-'96450':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 14.7944
-  - 120.2714
-'96451':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 14.7944
-  - 120.2714
-'96452':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 14.7944
-  - 120.2714
-'96454':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 14.7944
-  - 120.2714
-'96456':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 15.3312
-  - 120.5898
-'96468':
-  :name: 'APO AA, '
-  :coordinates:
-  - 13.754
-  - 100.5014
-'96498':
-  :name: 'APO AA, '
-  :coordinates:
-  - 14.7484
-  - 120.965
 '96505':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 51.88
-  - -176.6581
-'96506':
   :name: 'FPO AA, '
   :coordinates:
   - 51.88
@@ -248130,16 +247455,6 @@
   :coordinates:
   - 51.5672
   - 178.8775
-'96508':
-  :name: 'APO AA, '
-  :coordinates:
-  - 45.7833
-  - -86.7001
-'96509':
-  :name: 'APO AA, '
-  :coordinates:
-  - 64.3006
-  - -149.1128
 '96510':
   :name: 'APO AA, '
   :coordinates:
@@ -248150,21 +247465,6 @@
   :coordinates:
   - 34.2322
   - 132.5666
-'96512':
-  :name: 'APO AA, '
-  :coordinates:
-  - 52.7242
-  - 174.1189
-'96513':
-  :name: 'APO AA, '
-  :coordinates:
-  - 58.6883
-  - -156.6614
-'96514':
-  :name: 'FPO AA, '
-  :coordinates:
-  - 28.228
-  - -177.389
 '96516':
   :name: 'FPO AA, '
   :coordinates:
@@ -248270,16 +247570,6 @@
   :coordinates:
   - -33.8678
   - 151.2073
-'96556':
-  :name: 'APO AA, '
-  :coordinates:
-  - 19.7542
-  - -155.5858
-'96558':
-  :name: 'APO AA, '
-  :coordinates:
-  - 19.7542
-  - -155.5858
 '96598':
   :name: 'FPO AA, '
   :coordinates:
@@ -248290,3 +247580,8039 @@
   :coordinates:
   - -77.846
   - 166.676
+'00601':
+  :name: Adjuntas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.16
+  - -66.72
+'00602':
+  :name: Aguada, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.38
+  - -67.18
+'00603':
+  :name: Aguadilla, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -67.15
+'00604':
+  :name: Aguadilla, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -67.15
+'00605':
+  :name: Aguadilla, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -67.15
+'00606':
+  :name: Maricao, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.18
+  - -66.98
+'00610':
+  :name: Anasco, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.28
+  - -67.14
+'00611':
+  :name: Angeles, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.28
+  - -66.81
+'00612':
+  :name: Arecibo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.73
+'00613':
+  :name: Arecibo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.73
+'00614':
+  :name: Arecibo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.73
+'00616':
+  :name: Bajadero, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.42
+  - -66.67
+'00617':
+  :name: Barceloneta, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.56
+'00622':
+  :name: Boqueron, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.99
+  - -67.15
+'00623':
+  :name: Cabo Rojo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.08
+  - -67.14
+'00624':
+  :name: Penuelas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.06
+  - -66.72
+'00627':
+  :name: Camuy, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.48
+  - -66.84
+'00631':
+  :name: Castaner, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.19
+  - -66.82
+'00636':
+  :name: Rosario, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.16
+  - -67.08
+'00637':
+  :name: Sabana Grande, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.08
+  - -66.96
+'00638':
+  :name: Ciales, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.33
+  - -66.47
+'00641':
+  :name: Utuado, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.27
+  - -66.7
+'00646':
+  :name: Dorado, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.47
+  - -66.27
+'00647':
+  :name: Ensenada, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.96
+  - -66.94
+'00650':
+  :name: Florida, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.36
+  - -66.56
+'00652':
+  :name: Garrochales, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.6
+'00653':
+  :name: Guanica, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.99
+  - -66.89
+'00656':
+  :name: Guayanilla, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.02
+  - -66.79
+'00659':
+  :name: Hatillo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.48
+  - -66.82
+'00660':
+  :name: Hormigueros, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.14
+  - -67.12
+'00662':
+  :name: Isabela, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.5
+  - -67.02
+'00664':
+  :name: Jayuya, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -66.59
+'00667':
+  :name: Lajas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.04
+  - -67.06
+'00669':
+  :name: Lares, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.29
+  - -66.88
+'00670':
+  :name: Las Marias, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.27
+  - -67.06
+'00674':
+  :name: Manati, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -66.48
+'00676':
+  :name: Moca, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.39
+  - -67.11
+'00677':
+  :name: Rincon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.34
+  - -67.25
+'00678':
+  :name: Quebradillas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.47
+  - -66.93
+'00680':
+  :name: Mayaguez, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.2
+  - -67.14
+'00681':
+  :name: Mayaguez, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.2
+  - -67.14
+'00682':
+  :name: Mayaguez, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -67.16
+'00683':
+  :name: San German, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.08
+  - -67.04
+'00685':
+  :name: San Sebastian, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.33
+  - -66.99
+'00687':
+  :name: Morovis, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.32
+  - -66.4
+'00688':
+  :name: Sabana Hoyos, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.38
+  - -66.62
+'00690':
+  :name: San Antonio, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.49
+  - -67.09
+'00692':
+  :name: Vega Alta, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -66.32
+'00693':
+  :name: Vega Baja, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.44
+  - -66.39
+'00694':
+  :name: Vega Baja, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.48
+  - -66.39
+'00698':
+  :name: Yauco, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.03
+  - -66.86
+'00703':
+  :name: Aguas Buenas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.25
+  - -66.1
+'00704':
+  :name: Aguirre, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.96
+  - -66.22
+'00705':
+  :name: Aibonito, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.14
+  - -66.26
+'00707':
+  :name: Maunabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.0
+  - -65.9
+'00714':
+  :name: Arroyo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.97
+  - -66.06
+'00715':
+  :name: Mercedita, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.01
+  - -66.56
+'00716':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.98
+  - -66.6
+'00717':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.0
+  - -66.61
+'00718':
+  :name: Naguabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.21
+  - -65.73
+'00719':
+  :name: Naranjito, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.3
+  - -66.24
+'00720':
+  :name: Orocovis, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -66.39
+'00721':
+  :name: Palmer, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.37
+  - -65.77
+'00723':
+  :name: Patillas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.0
+  - -66.01
+'00725':
+  :name: Caguas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.23
+  - -66.03
+'00726':
+  :name: Caguas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.23
+  - -66.03
+'00727':
+  :name: Caguas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -66.07
+'00728':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.99
+  - -66.66
+'00729':
+  :name: Canovanas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.37
+  - -65.9
+'00730':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.03
+  - -66.62
+'00731':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.11
+  - -66.63
+'00732':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.98
+  - -66.6
+'00733':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.98
+  - -66.6
+'00734':
+  :name: Ponce, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.98
+  - -66.6
+'00735':
+  :name: Ceiba, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.25
+  - -65.68
+'00736':
+  :name: Cayey, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.11
+  - -66.16
+'00737':
+  :name: Cayey, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.11
+  - -66.16
+'00738':
+  :name: Fajardo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.33
+  - -65.65
+'00739':
+  :name: Cidra, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.17
+  - -66.15
+'00740':
+  :name: Puerto Real, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.33
+  - -65.63
+'00741':
+  :name: Punta Santiago, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.16
+  - -65.75
+'00742':
+  :name: Roosevelt Roads, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.27
+  - -65.65
+'00744':
+  :name: Rio Blanco, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -65.79
+'00745':
+  :name: Rio Grande, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.38
+  - -65.83
+'00751':
+  :name: Salinas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.97
+  - -66.29
+'00754':
+  :name: San Lorenzo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.19
+  - -65.96
+'00757':
+  :name: Santa Isabel, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.97
+  - -66.4
+'00765':
+  :name: Vieques, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.13
+  - -65.44
+'00766':
+  :name: Villalba, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.13
+  - -66.48
+'00767':
+  :name: Yabucoa, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.04
+  - -65.87
+'00769':
+  :name: Coamo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.08
+  - -66.36
+'00771':
+  :name: Las Piedras, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.18
+  - -65.86
+'00772':
+  :name: Loiza, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -65.88
+'00773':
+  :name: Luquillo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.34
+  - -65.72
+'00775':
+  :name: Culebra, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.33
+  - -65.3
+'00777':
+  :name: Juncos, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -65.91
+'00778':
+  :name: Gurabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.25
+  - -65.97
+'00780':
+  :name: Coto Laurel, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.09
+  - -66.57
+'00782':
+  :name: Comerio, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.22
+  - -66.22
+'00783':
+  :name: Corozal, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.34
+  - -66.31
+'00784':
+  :name: Guayama, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.97
+  - -66.11
+'00785':
+  :name: Guayama, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 17.97
+  - -66.11
+'00786':
+  :name: La Plata, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.14
+  - -66.23
+'00791':
+  :name: Humacao, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.15
+  - -65.81
+'00792':
+  :name: Humacao, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.15
+  - -65.81
+'00794':
+  :name: Barranquitas, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.18
+  - -66.3
+'00795':
+  :name: Juana Diaz, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.05
+  - -66.5
+'00801':
+  :name: St Thomas, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.35
+  - -64.97
+'00802':
+  :name: St Thomas, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.35
+  - -64.93
+'00803':
+  :name: St Thomas, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.35
+  - -64.93
+'00804':
+  :name: St Thomas, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.35
+  - -64.93
+'00805':
+  :name: St Thomas, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.34
+  - -64.93
+'00820':
+  :name: Christiansted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.74
+  - -64.7
+'00821':
+  :name: Christiansted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.74
+  - -64.7
+'00822':
+  :name: Christiansted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.74
+  - -64.7
+'00823':
+  :name: Christiansted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.72
+  - -64.75
+'00824':
+  :name: Christiansted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.74
+  - -64.68
+'00830':
+  :name: St John, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.33
+  - -64.79
+'00831':
+  :name: St John, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 18.33
+  - -64.79
+'00840':
+  :name: Frederiksted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.71
+  - -64.88
+'00841':
+  :name: Frederiksted, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.77
+  - -64.81
+'00850':
+  :name: Kingshill, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.73
+  - -64.79
+'00851':
+  :name: Kingshill, Virgin Islands
+  :state: VI
+  :coordinates:
+  - 17.75
+  - -64.79
+'00901':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.47
+  - -66.11
+'00902':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00906':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.46
+  - -66.09
+'00907':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.08
+'00908':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00909':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.44
+  - -66.07
+'00910':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00911':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.06
+'00912':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.06
+'00913':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.45
+  - -66.04
+'00914':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00915':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.44
+  - -66.05
+'00916':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00917':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.42
+  - -66.05
+'00918':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.42
+  - -66.07
+'00919':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00920':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -66.09
+'00921':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.39
+  - -66.09
+'00922':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00923':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -66.04
+'00924':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.01
+'00925':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.05
+'00926':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.35
+  - -66.05
+'00927':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00928':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00929':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00930':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00931':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00933':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00934':
+  :name: Fort Buchanan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -66.12
+'00935':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00936':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.07
+'00937':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00939':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00940':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00949':
+  :name: Toa Baja, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.44
+  - -66.25
+'00950':
+  :name: Toa Baja, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.46
+  - -66.23
+'00951':
+  :name: Toa Baja, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -66.26
+'00952':
+  :name: Sabana Seca, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.42
+  - -66.19
+'00953':
+  :name: Toa Alta, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.39
+  - -66.25
+'00954':
+  :name: Toa Alta, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.39
+  - -66.25
+'00955':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00956':
+  :name: Bayamon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.32
+  - -66.17
+'00957':
+  :name: Bayamon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.37
+  - -66.19
+'00958':
+  :name: Bayamon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.28
+  - -66.13
+'00959':
+  :name: Bayamon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.39
+  - -66.15
+'00960':
+  :name: Bayamon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.42
+  - -66.15
+'00961':
+  :name: Bayamon, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -66.17
+'00962':
+  :name: Catano, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.44
+  - -66.15
+'00963':
+  :name: Catano, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -66.11
+'00965':
+  :name: Guaynabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.43
+  - -66.11
+'00966':
+  :name: Guaynabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.12
+'00968':
+  :name: Guaynabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -66.1
+'00969':
+  :name: Guaynabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.38
+  - -66.11
+'00970':
+  :name: Guaynabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.38
+  - -66.11
+'00971':
+  :name: Guaynabo, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.32
+  - -66.12
+'00975':
+  :name: San Juan, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -66.06
+'00976':
+  :name: Trujillo Alto, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.36
+  - -66.01
+'00977':
+  :name: Trujillo Alto, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.36
+  - -66.01
+'00978':
+  :name: Saint Just, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.37
+  - -66.01
+'00979':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.44
+  - -66.03
+'00981':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -65.98
+'00982':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -65.99
+'00983':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -65.98
+'00984':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -65.98
+'00985':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.41
+  - -65.95
+'00986':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -65.98
+'00987':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.34
+  - -65.94
+'00988':
+  :name: Carolina, Puerto Rico
+  :state: PR
+  :coordinates:
+  - 18.4
+  - -65.98
+'01133':
+  :name: Springfield, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.1
+  - -72.59
+'01195':
+  :name: Springfield, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.1
+  - -72.58
+'01477':
+  :name: Winchendon Springs, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.69
+  - -72.01
+'01517':
+  :name: East Princeton, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.46
+  - -71.89
+'01580':
+  :name: Westborough, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.26
+  - -71.61
+'01582':
+  :name: Westborough, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.26
+  - -71.61
+'01654':
+  :name: Worcester, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.26
+  - -71.8
+'01806':
+  :name: Woburn, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.47
+  - -71.15
+'01807':
+  :name: Woburn, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.48
+  - -71.15
+'01808':
+  :name: Woburn, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.5
+  - -71.12
+'02031':
+  :name: East Mansfield, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.02
+  - -71.17
+'02207':
+  :name: Boston, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.35
+  - -71.05
+'02216':
+  :name: Boston, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.34
+  - -71.07
+'02228':
+  :name: East Boston, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.35
+  - -71.06
+'02239':
+  :name: Cambridge, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.36
+  - -71.1
+'02295':
+  :name: Boston, Massachusetts
+  :state: MA
+  :coordinates:
+  - 42.35
+  - -71.06
+'02565':
+  :name: Silver Beach, Massachusetts
+  :state: MA
+  :coordinates:
+  - 41.63
+  - -70.64
+'02573':
+  :name: West Chop, Massachusetts
+  :state: MA
+  :coordinates:
+  - 41.45
+  - -70.6
+'02636':
+  :name: Centerville, Massachusetts
+  :state: MA
+  :coordinates:
+  - 41.64
+  - -70.34
+'02854':
+  :name: North Kingstown, Rhode Island
+  :state: RI
+  :coordinates:
+  - 41.59
+  - -71.45
+'03107':
+  :name: Manchester, New Hampshire
+  :state: NH
+  :coordinates:
+  - 42.99
+  - -71.45
+'03274':
+  :name: Stinson Lake, New Hampshire
+  :state: NH
+  :coordinates:
+  - 43.86
+  - -71.8
+'03805':
+  :name: Newington, New Hampshire
+  :state: NH
+  :coordinates:
+  - 43.23
+  - -70.82
+'04075':
+  :name: Sebago Lake, Maine
+  :state: ME
+  :coordinates:
+  - 43.85
+  - -70.63
+'04467':
+  :name: Olamon, Maine
+  :state: ME
+  :coordinates:
+  - 45.12
+  - -68.61
+'04846':
+  :name: Glen Cove, Maine
+  :state: ME
+  :coordinates:
+  - 44.11
+  - -69.08
+'05144':
+  :name: Chester Depot, Vermont
+  :state: VT
+  :coordinates:
+  - 43.28
+  - -72.63
+'06386':
+  :name: Waterford, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.33
+  - -72.13
+'06454':
+  :name: Meriden, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.54
+  - -72.8
+'06497':
+  :name: Stratford, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.19
+  - -73.12
+'06650':
+  :name: Bridgeport, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.18
+  - -73.19
+'06832':
+  :name: Greenwich, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.02
+  - -73.62
+'06842':
+  :name: New Canaan, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.14
+  - -73.49
+'06859':
+  :name: Norwalk, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.09
+  - -73.42
+'06925':
+  :name: Stamford, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.09
+  - -73.55
+'06928':
+  :name: Stamford, Connecticut
+  :state: CT
+  :coordinates:
+  - 41.09
+  - -73.55
+'07182':
+  :name: Newark, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.73
+  - -74.17
+'07194':
+  :name: Newark, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.73
+  - -74.17
+'07309':
+  :name: Jersey City, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.71
+  - -74.03
+'07477':
+  :name: Wayne, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.92
+  - -74.27
+'07709':
+  :name: Red Bank, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.23
+  - -74.0
+'07983':
+  :name: Whippany, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.82
+  - -74.41
+'08905':
+  :name: New Brunswick, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.48
+  - -74.44
+'08922':
+  :name: New Brunswick, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.48
+  - -74.45
+'08988':
+  :name: New Brunswick, New Jersey
+  :state: NJ
+  :coordinates:
+  - 40.45
+  - -74.48
+'09002':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09003':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09004':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09005':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09006':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09010':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09011':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09013':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09015':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09016':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09017':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09018':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09020':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09038':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09042':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09045':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09049':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09051':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09055':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09075':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09076':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09088':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09092':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09101':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09113':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09115':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09116':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09125':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09135':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09161':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09170':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09174':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09201':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09203':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09204':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09240':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09241':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09266':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09267':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09276':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09277':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09278':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09280':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09283':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09285':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09287':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09289':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09290':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09291':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09292':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09300':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09301':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09302':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09303':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09304':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09306':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09307':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09308':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09309':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09310':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09311':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09312':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09313':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09314':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09315':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09316':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09317':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09318':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09319':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09320':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09321':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09322':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09323':
+  :name: Apo, AE
+  :coordinates:
+  - -44.25
+  - 33.53
+'09324':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09327':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09328':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09330':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09331':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09332':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09334':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09336':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09337':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09338':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09339':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09340':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09342':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09343':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09344':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09346':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09347':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09348':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09350':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09356':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09357':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09361':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09362':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09363':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09364':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09365':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09366':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09367':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09368':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09369':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09370':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09371':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09372':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09373':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09374':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09375':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09376':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09377':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09378':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09379':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09380':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09381':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09382':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09383':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09384':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09386':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09387':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09388':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09389':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09390':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09391':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09393':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09394':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09396':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09397':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09399':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09401':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09402':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09403':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09409':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09410':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09454':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09487':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09488':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09489':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09490':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09491':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09496':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09501':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09502':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09503':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09504':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09505':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09506':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09507':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09509':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09510':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09511':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09512':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09513':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09514':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09516':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09517':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09520':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09522':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09523':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09524':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09532':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09533':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09534':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09541':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09542':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09543':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09544':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09545':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09549':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09550':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09554':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09556':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09557':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09564':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09565':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09566':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09567':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09568':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09569':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09570':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09573':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09574':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09575':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09576':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09577':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09578':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09579':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09581':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09582':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09583':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09586':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09587':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09588':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09589':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09590':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09591':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09592':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09594':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09595':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09599':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09600':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09603':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09607':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09608':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09611':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09612':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09614':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09617':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09623':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09631':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09633':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09634':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09636':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09649':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09701':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09702':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09710':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09711':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09712':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09733':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09735':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09736':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09737':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09739':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09741':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09742':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09743':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09744':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09748':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09750':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09751':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09752':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09753':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09755':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09756':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09757':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09758':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09759':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09761':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09769':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09771':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09780':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09789':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09790':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09798':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09800':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09801':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09807':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09854':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09856':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09857':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09859':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09860':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09862':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09863':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09867':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09868':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09869':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09870':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09871':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09872':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09901':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09902':
+  :name: Fpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09903':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09904':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09908':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09909':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09910':
+  :name: Apo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09974':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09975':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09976':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09977':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'09978':
+  :name: Dpo, AE
+  :coordinates:
+  - 0.0
+  - 0.0
+'10015':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10046':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.01
+'10047':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.01
+'10048':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.01
+'10072':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.75
+  - -73.99
+'10079':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10082':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.77
+  - -73.98
+'10094':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10095':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -73.99
+'10096':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10098':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.75
+  - -73.99
+'10099':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10149':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.76
+  - -73.98
+'10184':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10196':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10197':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -74.0
+'10200':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.77
+  - -73.95
+'10257':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -73.99
+'10292':
+  :name: New York, New York
+  :state: NY
+  :coordinates:
+  - 40.71
+  - -73.99
+'10499':
+  :name: Bronx, New York
+  :state: NY
+  :coordinates:
+  - 40.84
+  - -73.87
+'10557':
+  :name: Mount Vernon, New York
+  :state: NY
+  :coordinates:
+  - 40.9
+  - -73.82
+'10558':
+  :name: Mount Vernon, New York
+  :state: NY
+  :coordinates:
+  - 40.9
+  - -73.82
+'10571':
+  :name: Pleasantville, New York
+  :state: NY
+  :coordinates:
+  - 41.13
+  - -73.79
+'10572':
+  :name: Pleasantville, New York
+  :state: NY
+  :coordinates:
+  - 41.13
+  - -73.79
+'10943':
+  :name: Middletown, New York
+  :state: NY
+  :coordinates:
+  - 41.44
+  - -74.42
+'11025':
+  :name: Great Neck, New York
+  :state: NY
+  :coordinates:
+  - 40.8
+  - -73.72
+'11041':
+  :name: New Hyde Park, New York
+  :state: NY
+  :coordinates:
+  - 40.73
+  - -73.68
+'11043':
+  :name: New Hyde Park, New York
+  :state: NY
+  :coordinates:
+  - 40.73
+  - -73.68
+'11044':
+  :name: New Hyde Park, New York
+  :state: NY
+  :coordinates:
+  - 40.73
+  - -73.68
+'11099':
+  :name: New Hyde Park, New York
+  :state: NY
+  :coordinates:
+  - 40.73
+  - -73.68
+'11240':
+  :name: Brooklyn, New York
+  :state: NY
+  :coordinates:
+  - 40.69
+  - -73.98
+'11244':
+  :name: Brooklyn, New York
+  :state: NY
+  :coordinates:
+  - 40.68
+  - -73.99
+'11248':
+  :name: Brooklyn, New York
+  :state: NY
+  :coordinates:
+  - 40.69
+  - -73.99
+'11254':
+  :name: Brooklyn, New York
+  :state: NY
+  :coordinates:
+  - 40.69
+  - -73.99
+'11255':
+  :name: Brooklyn, New York
+  :state: NY
+  :coordinates:
+  - 40.69
+  - -73.98
+'11390':
+  :name: Flushing, New York
+  :state: NY
+  :coordinates:
+  - 40.77
+  - -73.84
+'11437':
+  :name: Jamaica, New York
+  :state: NY
+  :coordinates:
+  - 0.0
+  - 0.0
+'11535':
+  :name: Garden City, New York
+  :state: NY
+  :coordinates:
+  - 40.72
+  - -73.64
+'11536':
+  :name: Garden City, New York
+  :state: NY
+  :coordinates:
+  - 40.67
+  - -73.7
+'11592':
+  :name: Rockville Center, New York
+  :state: NY
+  :coordinates:
+  - 40.75
+  - -73.57
+'11594':
+  :name: Westbury, New York
+  :state: NY
+  :coordinates:
+  - 40.75
+  - -73.58
+'11595':
+  :name: Westbury, New York
+  :state: NY
+  :coordinates:
+  - 40.75
+  - -73.58
+'11597':
+  :name: Westbury, New York
+  :state: NY
+  :coordinates:
+  - 40.75
+  - -73.58
+'11708':
+  :name: Amityville, New York
+  :state: NY
+  :coordinates:
+  - 40.68
+  - -73.41
+'11736':
+  :name: Farmingdale, New York
+  :state: NY
+  :coordinates:
+  - 40.73
+  - -73.44
+'11750':
+  :name: Huntington Station, New York
+  :state: NY
+  :coordinates:
+  - 40.83
+  - -73.37
+'11774':
+  :name: Farmingdale, New York
+  :state: NY
+  :coordinates:
+  - 40.73
+  - -73.44
+'11854':
+  :name: Hicksville, New York
+  :state: NY
+  :coordinates:
+  - 40.76
+  - -73.52
+'11855':
+  :name: Hicksville, New York
+  :state: NY
+  :coordinates:
+  - 40.76
+  - -73.52
+'12593':
+  :name: West Copake, New York
+  :state: NY
+  :coordinates:
+  - 42.09
+  - -73.58
+'13837':
+  :name: Shinhopple, New York
+  :state: NY
+  :coordinates:
+  - 42.03
+  - -75.06
+'14645':
+  :name: Rochester, New York
+  :state: NY
+  :coordinates:
+  - 43.15
+  - -77.6
+'14664':
+  :name: Rochester, New York
+  :state: NY
+  :coordinates:
+  - 43.15
+  - -77.6
+'14673':
+  :name: Rochester, New York
+  :state: NY
+  :coordinates:
+  - 43.15
+  - -77.6
+'14683':
+  :name: Rochester, New York
+  :state: NY
+  :coordinates:
+  - 43.15
+  - -77.6
+'14925':
+  :name: Elmira, New York
+  :state: NY
+  :coordinates:
+  - 42.08
+  - -76.8
+'15263':
+  :name: Pittsburgh, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.44
+  - -79.98
+'15266':
+  :name: Pittsburgh, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.44
+  - -79.99
+'15273':
+  :name: Pittsburgh, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.37
+  - -79.9
+'15285':
+  :name: Pittsburgh, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.44
+  - -79.99
+'15288':
+  :name: Pittsburgh, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.44
+  - -79.94
+'15740':
+  :name: Frostburg, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.96
+  - -79.03
+'16215':
+  :name: Kittanning, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.81
+  - -79.52
+'16532':
+  :name: Erie, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 42.11
+  - -80.02
+'16533':
+  :name: Erie, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 42.11
+  - -80.02
+'16554':
+  :name: Erie, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 42.11
+  - -80.02
+'16918':
+  :name: Cowanesque, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.93
+  - -77.49
+'17008':
+  :name: Bowmansdale, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.23
+  - -77.02
+'17091':
+  :name: Lebanon, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.23
+  - -76.92
+'17270':
+  :name: Williamson, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 39.85
+  - -77.8
+'17326':
+  :name: Gettysburg, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 39.83
+  - -77.23
+'17415':
+  :name: York, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 39.96
+  - -76.73
+'17738':
+  :name: North Bend, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.33
+  - -77.64
+'17767':
+  :name: Salona, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.08
+  - -77.46
+'17773':
+  :name: Tylersville, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.99
+  - -77.42
+'17839':
+  :name: Lightstreet, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.03
+  - -76.41
+'17942':
+  :name: Landingville, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.62
+  - -76.12
+'18010':
+  :name: Ackermanville, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.84
+  - -75.17
+'18050':
+  :name: Flicksville, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.84
+  - -75.17
+'18175':
+  :name: Allentown, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.6
+  - -75.46
+'18373':
+  :name: Unity House, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.14
+  - -75.0
+'18514':
+  :name: Scranton, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.37
+  - -75.68
+'18522':
+  :name: Scranton, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 41.43
+  - -75.64
+'18926':
+  :name: Gardenville, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.37
+  - -75.1
+'19388':
+  :name: West Chester, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 39.96
+  - -75.61
+'19420':
+  :name: Arcola, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.18
+  - -75.44
+'19483':
+  :name: Valley Forge, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.08
+  - -75.41
+'19485':
+  :name: Valley Forge, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.09
+  - -75.47
+'19487':
+  :name: King Of Prussia, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.1
+  - -75.47
+'19488':
+  :name: Norristown, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.09
+  - -75.37
+'19489':
+  :name: Norristown, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.1
+  - -75.47
+'19542':
+  :name: Monocacy Station, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.26
+  - -75.77
+'19640':
+  :name: Reading, Pennsylvania
+  :state: PA
+  :coordinates:
+  - 40.36
+  - -75.91
+'19887':
+  :name: Wilmington, Delaware
+  :state: DE
+  :coordinates:
+  - 39.81
+  - -75.5
+'19889':
+  :name: Wilmington, Delaware
+  :state: DE
+  :coordinates:
+  - 39.74
+  - -75.54
+'20023':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.9
+  - -77.01
+'20046':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'20051':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'20088':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'20097':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'20098':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'20107':
+  :name: Arcola, Virginia
+  :state: VA
+  :coordinates:
+  - 38.96
+  - -77.52
+'20193':
+  :name: Reston, Virginia
+  :state: VA
+  :coordinates:
+  - 38.93
+  - -77.34
+'20199':
+  :name: Dulles, Virginia
+  :state: VA
+  :coordinates:
+  - 39.0
+  - -77.45
+'20307':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.97
+  - -77.03
+'20532':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'20558':
+  :name: Washington, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'21098':
+  :name: Hanover, Maryland
+  :state: MD
+  :coordinates:
+  - 39.19
+  - -76.72
+'21260':
+  :name: Baltimore, Maryland
+  :state: MD
+  :coordinates:
+  - 39.35
+  - -76.7
+'21261':
+  :name: Baltimore, Maryland
+  :state: MD
+  :coordinates:
+  - 39.3
+  - -76.45
+'21265':
+  :name: Baltimore, Maryland
+  :state: MD
+  :coordinates:
+  - 39.29
+  - -76.6
+'21268':
+  :name: Baltimore, Maryland
+  :state: MD
+  :coordinates:
+  - 39.21
+  - -76.72
+'21274':
+  :name: Baltimore, Maryland
+  :state: MD
+  :coordinates:
+  - 39.29
+  - -76.6
+'21283':
+  :name: Baltimore, Maryland
+  :state: MD
+  :coordinates:
+  - 39.29
+  - -76.61
+'21606':
+  :name: Easton, Maryland
+  :state: MD
+  :coordinates:
+  - 38.77
+  - -76.07
+'21681':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21682':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21683':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21684':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21685':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21686':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21687':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21688':
+  :name: Ridgely, Maryland
+  :state: MD
+  :coordinates:
+  - 38.94
+  - -75.88
+'21748':
+  :name: Hagerstown, Maryland
+  :state: MD
+  :coordinates:
+  - 39.63
+  - -77.71
+'22047':
+  :name: Falls Church, Virginia
+  :state: VA
+  :coordinates:
+  - 38.86
+  - -77.22
+'22092':
+  :name: Herndon, Virginia
+  :state: VA
+  :coordinates:
+  - 38.96
+  - -77.38
+'22093':
+  :name: Ashburn, Virginia
+  :state: VA
+  :coordinates:
+  - 39.04
+  - -77.48
+'22120':
+  :name: Merrifield, Virginia
+  :state: VA
+  :coordinates:
+  - 38.87
+  - -77.22
+'22184':
+  :name: Vienna, Virginia
+  :state: VA
+  :coordinates:
+  - 38.9
+  - -77.26
+'22218':
+  :name: Arlington, Virginia
+  :state: VA
+  :coordinates:
+  - 38.88
+  - -77.09
+'22222':
+  :name: Arlington, Virginia
+  :state: VA
+  :coordinates:
+  - 38.87
+  - -77.1
+'22223':
+  :name: Arlington, Virginia
+  :state: VA
+  :coordinates:
+  - 38.88
+  - -77.09
+'22229':
+  :name: Arlington, Virginia
+  :state: VA
+  :coordinates:
+  - 38.89
+  - -77.07
+'22234':
+  :name: Arlington, Virginia
+  :state: VA
+  :coordinates:
+  - 38.89
+  - -77.07
+'22321':
+  :name: Alexandria, Virginia
+  :state: VA
+  :coordinates:
+  - 38.8
+  - -77.05
+'22336':
+  :name: Alexandria, Virginia
+  :state: VA
+  :coordinates:
+  - 38.8
+  - -77.04
+'22721':
+  :name: Graves Mill, Virginia
+  :state: VA
+  :coordinates:
+  - 38.39
+  - -78.28
+'23101':
+  :name: Macon, Virginia
+  :state: VA
+  :coordinates:
+  - 37.52
+  - -77.96
+'23240':
+  :name: Richmond, Virginia
+  :state: VA
+  :coordinates:
+  - 37.55
+  - -77.46
+'23512':
+  :name: Norfolk, Virginia
+  :state: VA
+  :coordinates:
+  - 36.84
+  - -76.28
+'23520':
+  :name: Norfolk, Virginia
+  :state: VA
+  :coordinates:
+  - 36.84
+  - -76.28
+'23521':
+  :name: Norfolk, Virginia
+  :state: VA
+  :coordinates:
+  - 36.84
+  - -76.28
+'23825':
+  :name: Blackstone, Virginia
+  :state: VA
+  :coordinates:
+  - 37.08
+  - -77.99
+'24044':
+  :name: Roanoke, Virginia
+  :state: VA
+  :coordinates:
+  - 37.27
+  - -79.94
+'24045':
+  :name: Roanoke, Virginia
+  :state: VA
+  :coordinates:
+  - 37.27
+  - -79.94
+'24048':
+  :name: Roanoke, Virginia
+  :state: VA
+  :coordinates:
+  - 37.27
+  - -79.94
+'24512':
+  :name: Lynchburg, Virginia
+  :state: VA
+  :coordinates:
+  - 37.45
+  - -79.25
+'24544':
+  :name: Danville, Virginia
+  :state: VA
+  :coordinates:
+  - 36.58
+  - -79.39
+'24842':
+  :name: Hemphill, West Virginia
+  :state: WV
+  :coordinates:
+  - 37.44
+  - -81.59
+'24961':
+  :name: White Sulphur Springs, West Virginia
+  :state: WV
+  :coordinates:
+  - 37.97
+  - -80.11
+'25429':
+  :name: Martinsburg, West Virginia
+  :state: WV
+  :coordinates:
+  - 39.32
+  - -77.94
+'25926':
+  :name: Beckley, West Virginia
+  :state: WV
+  :coordinates:
+  - 37.79
+  - -81.18
+'25965':
+  :name: Elton, West Virginia
+  :state: WV
+  :coordinates:
+  - 37.83
+  - -80.78
+'26461':
+  :name: Wilsonburg, West Virginia
+  :state: WV
+  :coordinates:
+  - 39.29
+  - -80.39
+'27151':
+  :name: Winston-salem, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.11
+  - -80.24
+'27156':
+  :name: Winston-salem, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.14
+  - -80.22
+'27220':
+  :name: Burlington, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.02
+  - -79.48
+'27321':
+  :name: Reidsville, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.35
+  - -79.66
+'27322':
+  :name: Reidsville, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.35
+  - -79.66
+'27395':
+  :name: Greensboro, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.07
+  - -79.79
+'27480':
+  :name: Greensboro, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.07
+  - -79.79
+'27564':
+  :name: Creedmoor, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.11
+  - -78.68
+'27854':
+  :name: Milwaukee, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.4
+  - -77.23
+'28674':
+  :name: North Wilkesboro, North Carolina
+  :state: NC
+  :coordinates:
+  - 36.15
+  - -81.14
+'29318':
+  :name: Boiling Springs, South Carolina
+  :state: SC
+  :coordinates:
+  - 34.94
+  - -81.92
+'29390':
+  :name: Duncan, South Carolina
+  :state: SC
+  :coordinates:
+  - 34.93
+  - -82.14
+'29391':
+  :name: Duncan, South Carolina
+  :state: SC
+  :coordinates:
+  - 34.93
+  - -82.14
+'29430':
+  :name: Bethera, South Carolina
+  :state: SC
+  :coordinates:
+  - 33.2
+  - -79.78
+'29573':
+  :name: Minturn, South Carolina
+  :state: SC
+  :coordinates:
+  - 34.51
+  - -79.47
+'29698':
+  :name: Greenville, South Carolina
+  :state: SC
+  :coordinates:
+  - 34.91
+  - -82.09
+'30073':
+  :name: Decatur, Georgia
+  :state: GA
+  :coordinates:
+  - 33.7
+  - -84.25
+'30219':
+  :name: Glenn, Georgia
+  :state: GA
+  :coordinates:
+  - 33.28
+  - -85.12
+'30330':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.7
+  - -84.43
+'30347':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.82
+  - -84.33
+'30376':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.81
+  - -84.35
+'30379':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'30386':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.64
+  - -84.39
+'30387':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'30389':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'30390':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'30399':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'30544':
+  :name: Habersham, Georgia
+  :state: GA
+  :coordinates:
+  - 34.56
+  - -83.54
+'30596':
+  :name: Alto, Georgia
+  :state: GA
+  :coordinates:
+  - 34.44
+  - -83.59
+'30911':
+  :name: Augusta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.47
+  - -81.96
+'30913':
+  :name: Augusta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.47
+  - -81.96
+'31120':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'31191':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.79
+  - -84.44
+'31197':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'31198':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'31199':
+  :name: Atlanta, Georgia
+  :state: GA
+  :coordinates:
+  - 33.74
+  - -84.38
+'31212':
+  :name: Macon, Georgia
+  :state: GA
+  :coordinates:
+  - 32.83
+  - -83.65
+'32215':
+  :name: Jacksonville, Florida
+  :state: FL
+  :coordinates:
+  - 30.33
+  - -81.65
+'32230':
+  :name: Jacksonville, Florida
+  :state: FL
+  :coordinates:
+  - 30.33
+  - -81.65
+'32267':
+  :name: Jacksonville, Florida
+  :state: FL
+  :coordinates:
+  - 30.38
+  - -81.41
+'32290':
+  :name: Jacksonville, Florida
+  :state: FL
+  :coordinates:
+  - 30.33
+  - -81.65
+'32454':
+  :name: Point Washington, Florida
+  :state: FL
+  :coordinates:
+  - 30.37
+  - -86.11
+'32590':
+  :name: Pensacola, Florida
+  :state: FL
+  :coordinates:
+  - 30.44
+  - -87.18
+'32592':
+  :name: Pensacola, Florida
+  :state: FL
+  :coordinates:
+  - 30.44
+  - -87.18
+'32613':
+  :name: Gainesville, Florida
+  :state: FL
+  :coordinates:
+  - 29.67
+  - -82.33
+'32782':
+  :name: Titusville, Florida
+  :state: FL
+  :coordinates:
+  - 28.61
+  - -80.8
+'32890':
+  :name: Orlando, Florida
+  :state: FL
+  :coordinates:
+  - 28.46
+  - -81.38
+'32893':
+  :name: Orlando, Florida
+  :state: FL
+  :coordinates:
+  - 28.42
+  - -81.3
+'32898':
+  :name: Orlando, Florida
+  :state: FL
+  :coordinates:
+  - 28.53
+  - -81.37
+'33107':
+  :name: Miami, Florida
+  :state: FL
+  :coordinates:
+  - 25.79
+  - -80.31
+'33110':
+  :name: Miami, Florida
+  :state: FL
+  :coordinates:
+  - 25.85
+  - -80.2
+'33121':
+  :name: Miami, Florida
+  :state: FL
+  :coordinates:
+  - 25.79
+  - -80.31
+'33148':
+  :name: Miami, Florida
+  :state: FL
+  :coordinates:
+  - 25.79
+  - -80.31
+'33159':
+  :name: Miami, Florida
+  :state: FL
+  :coordinates:
+  - 25.77
+  - -80.2
+'33439':
+  :name: Canal Point, Florida
+  :state: FL
+  :coordinates:
+  - 26.84
+  - -80.61
+'33447':
+  :name: Delray Beach, Florida
+  :state: FL
+  :coordinates:
+  - 26.46
+  - -80.07
+'33651':
+  :name: Tampa, Florida
+  :state: FL
+  :coordinates:
+  - 27.95
+  - -82.53
+'33690':
+  :name: Tampa, Florida
+  :state: FL
+  :coordinates:
+  - 27.92
+  - -82.49
+'33900':
+  :name: Fort Myers, Florida
+  :state: FL
+  :coordinates:
+  - 26.62
+  - -81.84
+'34001':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34025':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34043':
+  :name: Apo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34044':
+  :name: Apo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34052':
+  :name: Apo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34055':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34066':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34067':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34068':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34069':
+  :name: Dpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34071':
+  :name: Apo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34076':
+  :name: Apo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34078':
+  :name: Apo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34079':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34080':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34081':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34082':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34083':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34084':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34085':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34086':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34087':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34088':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34089':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34090':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34091':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34092':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34093':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34094':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34095':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34096':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34098':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34099':
+  :name: Fpo, AA
+  :coordinates:
+  - 0.0
+  - 0.0
+'34249':
+  :name: Sarasota, Florida
+  :state: FL
+  :coordinates:
+  - 27.34
+  - -82.54
+'35041':
+  :name: Cardiff, Alabama
+  :state: AL
+  :coordinates:
+  - 33.64
+  - -86.92
+'35225':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.46
+  - -86.81
+'35230':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.46
+  - -86.81
+'35240':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.46
+  - -86.81
+'35245':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.46
+  - -86.81
+'35263':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.53
+  - -86.78
+'35277':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.44
+  - -86.73
+'35278':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.46
+  - -86.81
+'35279':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.42
+  - -86.78
+'35280':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.51
+  - -86.8
+'35281':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.51
+  - -86.8
+'35286':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.42
+  - -86.78
+'35289':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.51
+  - -86.8
+'35299':
+  :name: Birmingham, Alabama
+  :state: AL
+  :coordinates:
+  - 33.51
+  - -86.8
+'35485':
+  :name: Tuscaloosa, Alabama
+  :state: AL
+  :coordinates:
+  - 33.23
+  - -87.54
+'36133':
+  :name: Montgomery, Alabama
+  :state: AL
+  :coordinates:
+  - 32.35
+  - -86.28
+'36134':
+  :name: Montgomery, Alabama
+  :state: AL
+  :coordinates:
+  - 32.35
+  - -86.28
+'36210':
+  :name: Anniston, Alabama
+  :state: AL
+  :coordinates:
+  - 33.65
+  - -85.77
+'36462':
+  :name: Monroeville, Alabama
+  :state: AL
+  :coordinates:
+  - 31.51
+  - -87.32
+'36501':
+  :name: Jackson, Alabama
+  :state: AL
+  :coordinates:
+  - 31.46
+  - -87.73
+'36515':
+  :name: Carlton, Alabama
+  :state: AL
+  :coordinates:
+  - 31.34
+  - -87.84
+'36621':
+  :name: Mobile, Alabama
+  :state: AL
+  :coordinates:
+  - 30.69
+  - -88.04
+'36622':
+  :name: Mobile, Alabama
+  :state: AL
+  :coordinates:
+  - 30.69
+  - -88.04
+'36625':
+  :name: Mobile, Alabama
+  :state: AL
+  :coordinates:
+  - 30.68
+  - -88.04
+'36630':
+  :name: Mobile, Alabama
+  :state: AL
+  :coordinates:
+  - 30.68
+  - -88.04
+'36690':
+  :name: Mobile, Alabama
+  :state: AL
+  :coordinates:
+  - 30.69
+  - -88.04
+'36721':
+  :name: Annemanie, Alabama
+  :state: AL
+  :coordinates:
+  - 32.07
+  - -87.56
+'36762':
+  :name: Morvin, Alabama
+  :state: AL
+  :coordinates:
+  - 31.98
+  - -87.99
+'37237':
+  :name: Nashville, Tennessee
+  :state: TN
+  :coordinates:
+  - 36.16
+  - -86.78
+'37245':
+  :name: Nashville, Tennessee
+  :state: TN
+  :coordinates:
+  - 36.16
+  - -86.78
+'37247':
+  :name: Nashville, Tennessee
+  :state: TN
+  :coordinates:
+  - 36.16
+  - -86.78
+'37248':
+  :name: Nashville, Tennessee
+  :state: TN
+  :coordinates:
+  - 36.16
+  - -86.78
+'37249':
+  :name: Nashville, Tennessee
+  :state: TN
+  :coordinates:
+  - 36.16
+  - -86.78
+'37990':
+  :name: Knoxville, Tennessee
+  :state: TN
+  :coordinates:
+  - 35.86
+  - -84.12
+'38110':
+  :name: Memphis, Tennessee
+  :state: TN
+  :coordinates:
+  - 35.05
+  - -89.94
+'38142':
+  :name: Memphis, Tennessee
+  :state: TN
+  :coordinates:
+  - 35.14
+  - -90.04
+'38147':
+  :name: Memphis, Tennessee
+  :state: TN
+  :coordinates:
+  - 35.1
+  - -90.0
+'38165':
+  :name: Memphis, Tennessee
+  :state: TN
+  :coordinates:
+  - 35.14
+  - -90.04
+'38227':
+  :name: Elbridge, Tennessee
+  :state: TN
+  :coordinates:
+  - 36.26
+  - -89.32
+'39072':
+  :name: Pocahontas, Mississippi
+  :state: MS
+  :coordinates:
+  - 32.41
+  - -90.22
+'39235':
+  :name: Jackson, Mississippi
+  :state: MS
+  :coordinates:
+  - 32.29
+  - -90.18
+'40386':
+  :name: Versailles, Kentucky
+  :state: KY
+  :coordinates:
+  - 38.02
+  - -84.74
+'40446':
+  :name: Lancaster, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.61
+  - -84.57
+'40495':
+  :name: Winston, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.7
+  - -84.08
+'40754':
+  :name: Nevisdale, Kentucky
+  :state: KY
+  :coordinates:
+  - 36.65
+  - -84.11
+'40931':
+  :name: Eriline, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.11
+  - -83.75
+'40999':
+  :name: Woollum, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.0
+  - -83.8
+'41307':
+  :name: Athol, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.55
+  - -83.57
+'41313':
+  :name: Bethany, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.74
+  - -83.5
+'41333':
+  :name: Heidelberg, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.55
+  - -83.77
+'41338':
+  :name: Island City, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.36
+  - -83.76
+'41362':
+  :name: Primrose, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.6
+  - -83.6
+'41433':
+  :name: Gapville, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.63
+  - -82.95
+'41459':
+  :name: Ophir, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.9
+  - -83.01
+'41747':
+  :name: Hardburly, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.24
+  - -83.2
+'42084':
+  :name: Tolu, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.43
+  - -88.25
+'42283':
+  :name: South Union, Kentucky
+  :state: KY
+  :coordinates:
+  - 36.87
+  - -86.65
+'42287':
+  :name: Welchs Creek, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.31
+  - -86.52
+'42375':
+  :name: Stanley, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.82
+  - -87.24
+'42403':
+  :name: Blackford, Kentucky
+  :state: KY
+  :coordinates:
+  - 37.44
+  - -87.93
+'42731':
+  :name: Dubre, Kentucky
+  :state: KY
+  :coordinates:
+  - 36.83
+  - -85.55
+'43098':
+  :name: Hebron, Ohio
+  :state: OH
+  :coordinates:
+  - 39.96
+  - -82.49
+'43163':
+  :name: West Rushville, Ohio
+  :state: OH
+  :coordinates:
+  - 39.76
+  - -82.44
+'43196':
+  :name: Groveport, Ohio
+  :state: OH
+  :coordinates:
+  - 39.86
+  - -82.89
+'43198':
+  :name: Groveport, Ohio
+  :state: OH
+  :coordinates:
+  - 39.86
+  - -82.89
+'43265':
+  :name: Columbus, Ohio
+  :state: OH
+  :coordinates:
+  - 39.96
+  - -82.99
+'43299':
+  :name: Columbus, Ohio
+  :state: OH
+  :coordinates:
+  - 40.03
+  - -82.86
+'43306':
+  :name: Marion, Ohio
+  :state: OH
+  :coordinates:
+  - 40.58
+  - -83.12
+'43307':
+  :name: Marion, Ohio
+  :state: OH
+  :coordinates:
+  - 40.58
+  - -83.12
+'43618':
+  :name: Oregon, Ohio
+  :state: OH
+  :coordinates:
+  - 41.67
+  - -83.39
+'43789':
+  :name: Sycamore Valley, Ohio
+  :state: OH
+  :coordinates:
+  - 39.66
+  - -81.23
+'44178':
+  :name: Cleveland, Ohio
+  :state: OH
+  :coordinates:
+  - 41.49
+  - -81.69
+'44185':
+  :name: Cleveland, Ohio
+  :state: OH
+  :coordinates:
+  - 41.49
+  - -81.67
+'44189':
+  :name: Cleveland, Ohio
+  :state: OH
+  :coordinates:
+  - 41.49
+  - -81.67
+'44322':
+  :name: Akron, Ohio
+  :state: OH
+  :coordinates:
+  - 41.04
+  - -81.58
+'44393':
+  :name: Akron, Ohio
+  :state: OH
+  :coordinates:
+  - 41.06
+  - -81.52
+'44399':
+  :name: Akron, Ohio
+  :state: OH
+  :coordinates:
+  - 41.06
+  - -81.52
+'44488':
+  :name: Warren, Ohio
+  :state: OH
+  :coordinates:
+  - 41.23
+  - -80.81
+'44631':
+  :name: Harlem Springs, Ohio
+  :state: OH
+  :coordinates:
+  - 40.52
+  - -81.0
+'44999':
+  :name: Mansfield, Ohio
+  :state: OH
+  :coordinates:
+  - 40.76
+  - -82.51
+'45025':
+  :name: Hamilton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.39
+  - -84.56
+'45026':
+  :name: Hamilton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.39
+  - -84.56
+'45043':
+  :name: Middletown, Ohio
+  :state: OH
+  :coordinates:
+  - 39.5
+  - -84.37
+'45110':
+  :name: Buford, Ohio
+  :state: OH
+  :coordinates:
+  - 39.08
+  - -83.85
+'45138':
+  :name: Lees Creek, Ohio
+  :state: OH
+  :coordinates:
+  - 39.41
+  - -83.63
+'45145':
+  :name: Marathon, Ohio
+  :state: OH
+  :coordinates:
+  - 39.15
+  - -84.01
+'45228':
+  :name: Cincinnati, Ohio
+  :state: OH
+  :coordinates:
+  - 39.06
+  - -84.42
+'45400':
+  :name: Dayton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.76
+  - -84.19
+'45408':
+  :name: Dayton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.74
+  - -84.22
+'45418':
+  :name: Dayton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.7
+  - -84.26
+'45427':
+  :name: Dayton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.75
+  - -84.27
+'45454':
+  :name: Dayton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.77
+  - -84.19
+'45463':
+  :name: Dayton, Ohio
+  :state: OH
+  :coordinates:
+  - 39.75
+  - -84.17
+'46197':
+  :name: Plainfield, Indiana
+  :state: IN
+  :coordinates:
+  - 39.7
+  - -86.4
+'46210':
+  :name: Indianapolis, Indiana
+  :state: IN
+  :coordinates:
+  - 39.77
+  - -86.15
+'46223':
+  :name: Indianapolis, Indiana
+  :state: IN
+  :coordinates:
+  - 39.77
+  - -86.14
+'46288':
+  :name: Indianapolis, Indiana
+  :state: IN
+  :coordinates:
+  - 39.77
+  - -86.15
+'46604':
+  :name: South Bend, Indiana
+  :state: IN
+  :coordinates:
+  - 41.68
+  - -86.25
+'46620':
+  :name: South Bend, Indiana
+  :state: IN
+  :coordinates:
+  - 41.68
+  - -86.25
+'47139':
+  :name: Little York, Indiana
+  :state: IN
+  :coordinates:
+  - 38.69
+  - -85.9
+'47430':
+  :name: Fort Ritner, Indiana
+  :state: IN
+  :coordinates:
+  - 38.77
+  - -86.28
+'47490':
+  :name: Bloomington, Indiana
+  :state: IN
+  :coordinates:
+  - 39.09
+  - -86.46
+'47614':
+  :name: Folsomville, Indiana
+  :state: IN
+  :coordinates:
+  - 38.14
+  - -87.16
+'47727':
+  :name: Evansville, Indiana
+  :state: IN
+  :coordinates:
+  - 38.08
+  - -87.52
+'47739':
+  :name: Evansville, Indiana
+  :state: IN
+  :coordinates:
+  - 38.02
+  - -87.57
+'47741':
+  :name: Evansville, Indiana
+  :state: IN
+  :coordinates:
+  - 37.97
+  - -87.56
+'47744':
+  :name: Evansville, Indiana
+  :state: IN
+  :coordinates:
+  - 37.91
+  - -87.64
+'47811':
+  :name: Terre Haute, Indiana
+  :state: IN
+  :coordinates:
+  - 39.47
+  - -87.38
+'47812':
+  :name: Terre Haute, Indiana
+  :state: IN
+  :coordinates:
+  - 39.47
+  - -87.38
+'47856':
+  :name: Judson, Indiana
+  :state: IN
+  :coordinates:
+  - 39.81
+  - -87.13
+'47864':
+  :name: Sullivan, Indiana
+  :state: IN
+  :coordinates:
+  - 39.11
+  - -87.42
+'47934':
+  :name: Crawfordsville, Indiana
+  :state: IN
+  :coordinates:
+  - 40.04
+  - -86.89
+'47935':
+  :name: Crawfordsville, Indiana
+  :state: IN
+  :coordinates:
+  - 40.04
+  - -86.89
+'47936':
+  :name: Crawfordsville, Indiana
+  :state: IN
+  :coordinates:
+  - 40.04
+  - -86.89
+'47937':
+  :name: Crawfordsville, Indiana
+  :state: IN
+  :coordinates:
+  - 40.04
+  - -86.89
+'47938':
+  :name: Crawfordsville, Indiana
+  :state: IN
+  :coordinates:
+  - 40.04
+  - -86.89
+'47939':
+  :name: Crawfordsville, Indiana
+  :state: IN
+  :coordinates:
+  - 40.04
+  - -86.89
+'48559':
+  :name: Flint, Michigan
+  :state: MI
+  :coordinates:
+  - 43.02
+  - -83.68
+'48736':
+  :name: Gilford, Michigan
+  :state: MI
+  :coordinates:
+  - 43.49
+  - -83.62
+'48769':
+  :name: Vassar, Michigan
+  :state: MI
+  :coordinates:
+  - 43.33
+  - -83.34
+'48802':
+  :name: Alma, Michigan
+  :state: MI
+  :coordinates:
+  - 43.37
+  - -84.65
+'48863':
+  :name: Howell, Michigan
+  :state: MI
+  :coordinates:
+  - 42.63
+  - -83.91
+'48921':
+  :name: Lansing, Michigan
+  :state: MI
+  :coordinates:
+  - 42.72
+  - -84.56
+'48950':
+  :name: Lansing, Michigan
+  :state: MI
+  :coordinates:
+  - 42.7
+  - -84.55
+'49069':
+  :name: Marshall, Michigan
+  :state: MI
+  :coordinates:
+  - 42.27
+  - -84.95
+'49121':
+  :name: Niles, Michigan
+  :state: MI
+  :coordinates:
+  - 41.82
+  - -86.25
+'49550':
+  :name: Grand Rapids, Michigan
+  :state: MI
+  :coordinates:
+  - 42.97
+  - -85.67
+'49790':
+  :name: Eckerman, Michigan
+  :state: MI
+  :coordinates:
+  - 46.35
+  - -84.96
+'50347':
+  :name: Des Moines, Iowa
+  :state: IA
+  :coordinates:
+  - 41.6
+  - -93.6
+'50397':
+  :name: Des Moines, Iowa
+  :state: IA
+  :coordinates:
+  - 41.6
+  - -93.6
+'50706':
+  :name: Waterloo, Iowa
+  :state: IA
+  :coordinates:
+  - 42.4
+  - -92.26
+'51344':
+  :name: Gruver, Iowa
+  :state: IA
+  :coordinates:
+  - 43.39
+  - -94.7
+'51602':
+  :name: Shenandoah, Iowa
+  :state: IA
+  :coordinates:
+  - 40.75
+  - -95.36
+'52319':
+  :name: Oakdale, Iowa
+  :state: IA
+  :coordinates:
+  - 41.7
+  - -91.6
+'52350':
+  :name: Viola, Iowa
+  :state: IA
+  :coordinates:
+  - 42.03
+  - -91.42
+'52538':
+  :name: West Grove, Iowa
+  :state: IA
+  :coordinates:
+  - 40.69
+  - -92.61
+'53199':
+  :name: Silver Lake, Wisconsin
+  :state: WI
+  :coordinates:
+  - 42.55
+  - -88.17
+'53244':
+  :name: Milwaukee, Wisconsin
+  :state: WI
+  :coordinates:
+  - 42.94
+  - -87.91
+'55131':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.94
+  - -93.1
+'55161':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.01
+  - -93.15
+'55166':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.94
+  - -93.1
+'55168':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.94
+  - -93.1
+'55169':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.94
+  - -93.09
+'55171':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.94
+  - -93.1
+'55177':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.01
+  - -93.15
+'55191':
+  :name: Saint Paul, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.07
+  - -93.19
+'55365':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55393':
+  :name: Maple Plain, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.0
+  - -93.66
+'55394':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55399':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55468':
+  :name: Minneapolis, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.98
+  - -93.26
+'55552':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55555':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55556':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55557':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55559':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55560':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55561':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.27
+  - -93.8
+'55562':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55563':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.27
+  - -93.8
+'55564':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55565':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55566':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55567':
+  :name: Young America, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.78
+  - -93.91
+'55580':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55581':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55582':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55584':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55585':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55586':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55587':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55588':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55589':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55590':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55591':
+  :name: Monticello, Minnesota
+  :state: MN
+  :coordinates:
+  - 45.3
+  - -93.8
+'55701':
+  :name: Adolph, Minnesota
+  :state: MN
+  :coordinates:
+  - 46.84
+  - -92.22
+'56006':
+  :name: Mankato, Minnesota
+  :state: MN
+  :coordinates:
+  - 44.16
+  - -93.99
+'56177':
+  :name: Trosky, Minnesota
+  :state: MN
+  :coordinates:
+  - 43.89
+  - -96.25
+'56478':
+  :name: Nimrod, Minnesota
+  :state: MN
+  :coordinates:
+  - 46.63
+  - -94.88
+'56902':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56904':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56908':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56935':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56945':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56950':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56964':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56965':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56966':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56967':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56968':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56969':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56970':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56971':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56973':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56980':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56981':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56982':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56983':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56984':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56985':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'56998':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'56999':
+  :name: Parcel Return Service, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 38.89
+  - -77.03
+'57056':
+  :name: Rowena, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.52
+  - -96.55
+'57079':
+  :name: Yankton, South Dakota
+  :state: SD
+  :coordinates:
+  - 42.87
+  - -97.39
+'57188':
+  :name: Sioux Falls, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.6
+  - -96.7
+'57189':
+  :name: Sioux Falls, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.6
+  - -96.7
+'57192':
+  :name: Sioux Falls, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.6
+  - -96.7
+'57194':
+  :name: Sioux Falls, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.6
+  - -96.7
+'57195':
+  :name: Sioux Falls, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.6
+  - -96.7
+'57196':
+  :name: Sioux Falls, South Dakota
+  :state: SD
+  :coordinates:
+  - 43.54
+  - -96.72
+'57253':
+  :name: Milbank, South Dakota
+  :state: SD
+  :coordinates:
+  - 45.21
+  - -96.63
+'58319':
+  :name: Bremen, North Dakota
+  :state: ND
+  :coordinates:
+  - 47.72
+  - -99.36
+'59773':
+  :name: Bozeman, Montana
+  :state: MT
+  :coordinates:
+  - 45.67
+  - -111.03
+'60049':
+  :name: Lake Zurich, Illinois
+  :state: IL
+  :coordinates:
+  - 42.17
+  - -87.99
+'60092':
+  :name: Libertyville, Illinois
+  :state: IL
+  :coordinates:
+  - 42.28
+  - -87.95
+'60125':
+  :name: Carol Stream, Illinois
+  :state: IL
+  :coordinates:
+  - 41.91
+  - -88.12
+'60170':
+  :name: Plato Center, Illinois
+  :state: IL
+  :coordinates:
+  - 42.02
+  - -88.43
+'60290':
+  :name: Chicago, Illinois
+  :state: IL
+  :coordinates:
+  - 41.85
+  - -87.65
+'60570':
+  :name: Hinsdale, Illinois
+  :state: IL
+  :coordinates:
+  - 41.84
+  - -87.9
+'60597':
+  :name: Fox Valley, Illinois
+  :state: IL
+  :coordinates:
+  - 41.76
+  - -88.22
+'60663':
+  :name: Chicago, Illinois
+  :state: IL
+  :coordinates:
+  - 41.87
+  - -87.63
+'60679':
+  :name: Chicago, Illinois
+  :state: IL
+  :coordinates:
+  - 41.87
+  - -87.63
+'62224':
+  :name: Mascoutah, Illinois
+  :state: IL
+  :coordinates:
+  - 38.49
+  - -89.79
+'62713':
+  :name: Springfield, Illinois
+  :state: IL
+  :coordinates:
+  - 39.8
+  - -89.64
+'62721':
+  :name: Springfield, Illinois
+  :state: IL
+  :coordinates:
+  - 39.78
+  - -89.64
+'62746':
+  :name: Springfield, Illinois
+  :state: IL
+  :coordinates:
+  - 39.8
+  - -89.64
+'62805':
+  :name: Akin, Illinois
+  :state: IL
+  :coordinates:
+  - 37.98
+  - -88.75
+'62857':
+  :name: Loogootee, Illinois
+  :state: IL
+  :coordinates:
+  - 38.91
+  - -88.87
+'63001':
+  :name: Allenton, Missouri
+  :state: MO
+  :coordinates:
+  - 38.5
+  - -90.67
+'63190':
+  :name: Saint Louis, Missouri
+  :state: MO
+  :coordinates:
+  - 38.62
+  - -90.19
+'63196':
+  :name: Saint Louis, Missouri
+  :state: MO
+  :coordinates:
+  - 38.62
+  - -90.2
+'63198':
+  :name: Saint Louis, Missouri
+  :state: MO
+  :coordinates:
+  - 38.65
+  - -90.56
+'63963':
+  :name: Shook, Missouri
+  :state: MO
+  :coordinates:
+  - 37.07
+  - -90.32
+'64172':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 39.09
+  - -94.57
+'64183':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 39.09
+  - -94.57
+'64185':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 39.08
+  - -94.58
+'64192':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 38.96
+  - -94.52
+'64193':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 39.08
+  - -94.58
+'64194':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 39.08
+  - -94.58
+'64447':
+  :name: Maysville, Missouri
+  :state: MO
+  :coordinates:
+  - 39.98
+  - -94.34
+'64789':
+  :name: Osceola, Missouri
+  :state: MO
+  :coordinates:
+  - 37.98
+  - -93.66
+'64869':
+  :name: Waco, Missouri
+  :state: MO
+  :coordinates:
+  - 37.24
+  - -94.59
+'64944':
+  :name: Kansas City, Missouri
+  :state: MO
+  :coordinates:
+  - 38.95
+  - -94.57
+'65701':
+  :name: Mc Clurg, Missouri
+  :state: MO
+  :coordinates:
+  - 36.76
+  - -92.81
+'65776':
+  :name: South Fork, Missouri
+  :state: MO
+  :coordinates:
+  - 36.62
+  - -91.96
+'66019':
+  :name: Clearview City, Kansas
+  :state: KS
+  :coordinates:
+  - 38.95
+  - -95.0
+'66077':
+  :name: Potter, Kansas
+  :state: KS
+  :coordinates:
+  - 39.42
+  - -95.12
+'66279':
+  :name: Shawnee Mission, Kansas
+  :state: KS
+  :coordinates:
+  - 39.01
+  - -94.66
+'66628':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.03
+  - -95.69
+'66630':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.05
+  - -95.67
+'66637':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.01
+  - -95.69
+'66642':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.06
+  - -95.66
+'66652':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.05
+  - -95.67
+'66653':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.05
+  - -95.67
+'66692':
+  :name: Topeka, Kansas
+  :state: KS
+  :coordinates:
+  - 39.05
+  - -95.67
+'68181':
+  :name: Omaha, Nebraska
+  :state: NE
+  :coordinates:
+  - 41.24
+  - -95.93
+'70140':
+  :name: New Orleans, Louisiana
+  :state: LA
+  :coordinates:
+  - 29.95
+  - -90.07
+'70149':
+  :name: New Orleans, Louisiana
+  :state: LA
+  :coordinates:
+  - 29.95
+  - -90.07
+'70500':
+  :name: Lafayette, Louisiana
+  :state: LA
+  :coordinates:
+  - 30.22
+  - -92.01
+'70595':
+  :name: Lafayette, Louisiana
+  :state: LA
+  :coordinates:
+  - 30.22
+  - -92.02
+'70883':
+  :name: Baton Rouge, Louisiana
+  :state: LA
+  :coordinates:
+  - 30.44
+  - -91.18
+'71208':
+  :name: Monroe, Louisiana
+  :state: LA
+  :coordinates:
+  - 32.49
+  - -92.07
+'71768':
+  :name: El Dorado, Arkansas
+  :state: AR
+  :coordinates:
+  - 33.1
+  - -92.49
+'71844':
+  :name: Laneburg, Arkansas
+  :state: AR
+  :coordinates:
+  - 33.68
+  - -93.34
+'71951':
+  :name: Hot Springs National Park, Arkansas
+  :state: AR
+  :coordinates:
+  - 34.5
+  - -93.05
+'72189':
+  :name: Mc Crory, Arkansas
+  :state: AR
+  :coordinates:
+  - 35.25
+  - -91.2
+'72198':
+  :name: North Little Rock, Arkansas
+  :state: AR
+  :coordinates:
+  - 34.77
+  - -92.27
+'72405':
+  :name: Jonesboro, Arkansas
+  :state: AR
+  :coordinates:
+  - 35.85
+  - -90.65
+'72439':
+  :name: Light, Arkansas
+  :state: AR
+  :coordinates:
+  - 36.07
+  - -90.74
+'72643':
+  :name: Lead Hill, Missouri
+  :state: MO
+  :coordinates:
+  - 37.32
+  - -92.88
+'73094':
+  :name: Washita, Oklahoma
+  :state: OK
+  :coordinates:
+  - 35.1
+  - -98.34
+'73193':
+  :name: Oklahoma City, Oklahoma
+  :state: OK
+  :coordinates:
+  - 35.45
+  - -97.51
+'73197':
+  :name: Oklahoma City, Oklahoma
+  :state: OK
+  :coordinates:
+  - 35.46
+  - -97.51
+'73198':
+  :name: Oklahoma City, Oklahoma
+  :state: OK
+  :coordinates:
+  - 35.52
+  - -97.56
+'73199':
+  :name: Oklahoma City, Oklahoma
+  :state: OK
+  :coordinates:
+  - 35.45
+  - -97.51
+'73451':
+  :name: Ardmore, Oklahoma
+  :state: OK
+  :coordinates:
+  - 34.17
+  - -97.14
+'73454':
+  :name: Ardmore, Oklahoma
+  :state: OK
+  :coordinates:
+  - 34.17
+  - -97.14
+'74183':
+  :name: Tulsa, Oklahoma
+  :state: OK
+  :coordinates:
+  - 36.06
+  - -95.94
+'74184':
+  :name: Tulsa, Oklahoma
+  :state: OK
+  :coordinates:
+  - 36.06
+  - -95.94
+'74189':
+  :name: Tulsa, Oklahoma
+  :state: OK
+  :coordinates:
+  - 36.15
+  - -95.99
+'74194':
+  :name: Tulsa, Oklahoma
+  :state: OK
+  :coordinates:
+  - 36.15
+  - -95.99
+'74542':
+  :name: Atoka, Oklahoma
+  :state: OK
+  :coordinates:
+  - 34.38
+  - -96.12
+'75037':
+  :name: Irving, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75059':
+  :name: Irving, Texas
+  :state: TX
+  :coordinates:
+  - 0.0
+  - 0.0
+'75064':
+  :name: Irving, Texas
+  :state: TX
+  :coordinates:
+  - 32.81
+  - -96.96
+'75245':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.82
+  - -96.83
+'75258':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.8
+  - -96.88
+'75286':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75310':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75323':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.96
+  - -96.8
+'75334':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.67
+  - -96.61
+'75340':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.76
+  - -96.86
+'75343':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.76
+  - -96.86
+'75344':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.79
+'75353':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75363':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.93
+  - -96.79
+'75364':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75386':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.87
+'75387':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75388':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'75396':
+  :name: Dallas, Texas
+  :state: TX
+  :coordinates:
+  - 32.78
+  - -96.8
+'76299':
+  :name: Roanoke, Texas
+  :state: TX
+  :coordinates:
+  - 32.99
+  - -97.23
+'76505':
+  :name: Temple, Texas
+  :state: TX
+  :coordinates:
+  - 31.09
+  - -97.36
+'76545':
+  :name: Killeen, Texas
+  :state: TX
+  :coordinates:
+  - 31.11
+  - -97.72
+'76546':
+  :name: Killeen, Texas
+  :state: TX
+  :coordinates:
+  - 31.11
+  - -97.72
+'76795':
+  :name: Waco, Texas
+  :state: TX
+  :coordinates:
+  - 31.47
+  - -97.24
+'77097':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.76
+  - -95.36
+'77246':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.64
+  - -95.43
+'77247':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.64
+  - -95.43
+'77250':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.7
+  - -95.53
+'77260':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.67
+  - -95.24
+'77276':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.75
+  - -95.36
+'77278':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.76
+  - -95.51
+'77285':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.75
+  - -95.36
+'77286':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.67
+  - -95.36
+'77294':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.86
+  - -95.24
+'77296':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.76
+  - -95.36
+'77298':
+  :name: Houston, Texas
+  :state: TX
+  :coordinates:
+  - 29.76
+  - -95.36
+'77709':
+  :name: Beaumont, Texas
+  :state: TX
+  :coordinates:
+  - 30.14
+  - -94.14
+'77869':
+  :name: Navasota, Texas
+  :state: TX
+  :coordinates:
+  - 30.35
+  - -96.06
+'78049':
+  :name: Laredo, Texas
+  :state: TX
+  :coordinates:
+  - 27.53
+  - -99.48
+'78262':
+  :name: San Antonio, Texas
+  :state: TX
+  :coordinates:
+  - 29.42
+  - -98.49
+'78275':
+  :name: San Antonio, Texas
+  :state: TX
+  :coordinates:
+  - 29.53
+  - -98.42
+'78286':
+  :name: San Antonio, Texas
+  :state: TX
+  :coordinates:
+  - 29.42
+  - -98.49
+'78287':
+  :name: San Antonio, Texas
+  :state: TX
+  :coordinates:
+  - 29.45
+  - -98.5
+'78461':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.79
+  - -97.42
+'78470':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.8
+  - -97.39
+'78471':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.8
+  - -97.39
+'78473':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.79
+  - -97.39
+'78474':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.8
+  - -97.39
+'78475':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.79
+  - -97.39
+'78476':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.8
+  - -97.39
+'78477':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.8
+  - -97.39
+'78478':
+  :name: Corpus Christi, Texas
+  :state: TX
+  :coordinates:
+  - 27.79
+  - -97.39
+'78780':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.26
+  - -97.74
+'78781':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.26
+  - -97.74
+'78785':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.26
+  - -97.74
+'78786':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.35
+  - -97.65
+'78788':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.26
+  - -97.74
+'78789':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.26
+  - -97.74
+'78798':
+  :name: Austin, Texas
+  :state: TX
+  :coordinates:
+  - 30.37
+  - -97.68
+'79187':
+  :name: Amarillo, Texas
+  :state: TX
+  :coordinates:
+  - 35.26
+  - -101.71
+'79320':
+  :name: Bula, Texas
+  :state: TX
+  :coordinates:
+  - 33.86
+  - -102.67
+'79405':
+  :name: Lubbock, Texas
+  :state: TX
+  :coordinates:
+  - 33.57
+  - -101.84
+'80028':
+  :name: Louisville, Colorado
+  :state: CO
+  :coordinates:
+  - 39.95
+  - -105.14
+'80279':
+  :name: Denver, Colorado
+  :state: CO
+  :coordinates:
+  - 39.76
+  - -104.87
+'80280':
+  :name: Denver, Colorado
+  :state: CO
+  :coordinates:
+  - 39.76
+  - -104.87
+'80295':
+  :name: Denver, Colorado
+  :state: CO
+  :coordinates:
+  - 39.76
+  - -104.87
+'80321':
+  :name: Boulder, Colorado
+  :state: CO
+  :coordinates:
+  - 40.02
+  - -105.25
+'80322':
+  :name: Boulder, Colorado
+  :state: CO
+  :coordinates:
+  - 40.02
+  - -105.25
+'80323':
+  :name: Boulder, Colorado
+  :state: CO
+  :coordinates:
+  - 40.02
+  - -105.25
+'80328':
+  :name: Boulder, Colorado
+  :state: CO
+  :coordinates:
+  - 40.02
+  - -105.25
+'80329':
+  :name: Boulder, Colorado
+  :state: CO
+  :coordinates:
+  - 40.02
+  - -105.25
+'80940':
+  :name: Colorado Springs, Colorado
+  :state: CO
+  :coordinates:
+  - 38.88
+  - -104.67
+'80943':
+  :name: Colorado Springs, Colorado
+  :state: CO
+  :coordinates:
+  - 38.86
+  - -104.76
+'80945':
+  :name: Colorado Springs, Colorado
+  :state: CO
+  :coordinates:
+  - 38.86
+  - -104.76
+'81075':
+  :name: Stonington, Colorado
+  :state: CO
+  :coordinates:
+  - 37.29
+  - -102.18
+'81127':
+  :name: Chimney Rock, Colorado
+  :state: CO
+  :coordinates:
+  - 37.21
+  - -107.34
+'81134':
+  :name: San Luis, Colorado
+  :state: CO
+  :coordinates:
+  - 37.0
+  - -105.53
+'81153':
+  :name: San Pablo, Colorado
+  :state: CO
+  :coordinates:
+  - 37.12
+  - -105.36
+'81247':
+  :name: Gunnison, Colorado
+  :state: CO
+  :coordinates:
+  - 38.54
+  - -106.92
+'83721':
+  :name: Boise, Idaho
+  :state: ID
+  :coordinates:
+  - 43.61
+  - -116.2
+'83727':
+  :name: Boise, Idaho
+  :state: ID
+  :coordinates:
+  - 43.61
+  - -116.2
+'83730':
+  :name: Boise, Idaho
+  :state: ID
+  :coordinates:
+  - 43.61
+  - -116.2
+'83733':
+  :name: Boise, Idaho
+  :state: ID
+  :coordinates:
+  - 43.61
+  - -116.2
+'83757':
+  :name: Boise, Idaho
+  :state: ID
+  :coordinates:
+  - 43.61
+  - -116.2
+'84144':
+  :name: Salt Lake City, Utah
+  :state: UT
+  :coordinates:
+  - 40.77
+  - -111.89
+'84717':
+  :name: Bryce Canyon, Utah
+  :state: UT
+  :coordinates:
+  - 37.62
+  - -112.17
+'85055':
+  :name: Phoenix, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.45
+  - -111.97
+'85077':
+  :name: Phoenix, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.45
+  - -111.97
+'85096':
+  :name: Phoenix, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.44
+  - -112.09
+'85099':
+  :name: Phoenix, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.45
+  - -111.97
+'85217':
+  :name: Apache Junction, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.32
+  - -111.32
+'85218':
+  :name: Apache Junction, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.35
+  - -111.41
+'85219':
+  :name: Apache Junction, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.4
+  - -111.46
+'85220':
+  :name: Apache Junction, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.41
+  - -111.57
+'85221':
+  :name: Bapchule, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.12
+  - -111.9
+'85222':
+  :name: Casa Grande, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.87
+  - -111.73
+'85223':
+  :name: Arizona City, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.74
+  - -111.68
+'85227':
+  :name: Chandler Heights, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.34
+  - -111.63
+'85228':
+  :name: Coolidge, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.96
+  - -111.52
+'85230':
+  :name: Casa Grande, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.87
+  - -111.75
+'85231':
+  :name: Eloy, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.71
+  - -111.57
+'85232':
+  :name: Florence, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.96
+  - -111.31
+'85235':
+  :name: Hayden, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.99
+  - -110.78
+'85237':
+  :name: Kearny, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.09
+  - -110.97
+'85238':
+  :name: Maricopa, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.0
+  - -111.93
+'85239':
+  :name: Maricopa, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.02
+  - -112.04
+'85240':
+  :name: Queen Creek, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.22
+  - -111.53
+'85241':
+  :name: Picacho, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.71
+  - -111.49
+'85242':
+  :name: Queen Creek, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.22
+  - -111.61
+'85243':
+  :name: Queen Creek, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.15
+  - -111.54
+'85245':
+  :name: Red Rock, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.62
+  - -111.37
+'85247':
+  :name: Sacaton, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.1
+  - -111.75
+'85272':
+  :name: Stanfield, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.85
+  - -111.97
+'85273':
+  :name: Superior, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.28
+  - -111.11
+'85278':
+  :name: Apache Junction, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.41
+  - -111.54
+'85279':
+  :name: Florence, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.79
+  - -111.21
+'85288':
+  :name: Tempe, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.43
+  - -111.94
+'85289':
+  :name: Tempe, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.4
+  - -111.96
+'85290':
+  :name: Apache Junction, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.45
+  - -111.63
+'85291':
+  :name: Valley Farms, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.99
+  - -111.44
+'85292':
+  :name: Winkelman, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.94
+  - -110.72
+'85293':
+  :name: Casa Grande, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.85
+  - -111.79
+'85294':
+  :name: Casa Grande, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.92
+  - -111.61
+'85313':
+  :name: Glendale, Arizona
+  :state: AZ
+  :coordinates:
+  - 33.6
+  - -112.16
+'85777':
+  :name: Tucson, Arizona
+  :state: AZ
+  :coordinates:
+  - 32.09
+  - -110.91
+'86330':
+  :name: Prescott, Arizona
+  :state: AZ
+  :coordinates:
+  - 34.67
+  - -112.52
+'86555':
+  :name: Douglas, Arizona
+  :state: AZ
+  :coordinates:
+  - 31.38
+  - -109.55
+'87165':
+  :name: Albuquerque, New Mexico
+  :state: NM
+  :coordinates:
+  - 35.08
+  - -106.64
+'88516':
+  :name: El Paso, Texas
+  :state: TX
+  :coordinates:
+  - 31.84
+  - -106.43
+'88888':
+  :name: North Pole, District Of Columbia
+  :state: DC
+  :coordinates:
+  - 0.0
+  - 0.0
+'89437':
+  :name: Sparks, Nevada
+  :state: NV
+  :coordinates:
+  - 39.5
+  - -119.47
+'89824':
+  :name: Halleck, Nevada
+  :state: NV
+  :coordinates:
+  - 41.02
+  - -115.41
+'90101':
+  :name: Los Angeles, California
+  :state: CA
+  :coordinates:
+  - 33.99
+  - -118.16
+'90102':
+  :name: Los Angeles, California
+  :state: CA
+  :coordinates:
+  - 34.01
+  - -118.19
+'90103':
+  :name: Los Angeles, California
+  :state: CA
+  :coordinates:
+  - 33.99
+  - -118.16
+'90134':
+  :name: Los Angeles, California
+  :state: CA
+  :coordinates:
+  - 34.05
+  - -118.25
+'90313':
+  :name: Inglewood, California
+  :state: CA
+  :coordinates:
+  - 33.96
+  - -118.35
+'90397':
+  :name: Inglewood, California
+  :state: CA
+  :coordinates:
+  - 33.96
+  - -118.35
+'90398':
+  :name: Inglewood, California
+  :state: CA
+  :coordinates:
+  - 33.96
+  - -118.35
+'90612':
+  :name: Whittier, California
+  :state: CA
+  :coordinates:
+  - 33.96
+  - -118.02
+'90659':
+  :name: Norwalk, California
+  :state: CA
+  :coordinates:
+  - 33.9
+  - -118.07
+'90845':
+  :name: Long Beach, California
+  :state: CA
+  :coordinates:
+  - 33.77
+  - -118.18
+'90888':
+  :name: Long Beach, California
+  :state: CA
+  :coordinates:
+  - 33.77
+  - -118.18
+'91131':
+  :name: Pasadena, California
+  :state: CA
+  :coordinates:
+  - 34.15
+  - -118.15
+'91191':
+  :name: Pasadena, California
+  :state: CA
+  :coordinates:
+  - 34.15
+  - -118.15
+'91363':
+  :name: Thousand Oaks, California
+  :state: CA
+  :coordinates:
+  - 34.14
+  - -118.8
+'91388':
+  :name: Van Nuys, California
+  :state: CA
+  :coordinates:
+  - 34.2
+  - -118.47
+'91399':
+  :name: Woodland Hills, California
+  :state: CA
+  :coordinates:
+  - 34.16
+  - -118.6
+'91497':
+  :name: Van Nuys, California
+  :state: CA
+  :coordinates:
+  - 34.2
+  - -118.47
+'91795':
+  :name: Walnut, California
+  :state: CA
+  :coordinates:
+  - 34.02
+  - -117.85
+'91797':
+  :name: Pomona, California
+  :state: CA
+  :coordinates:
+  - 34.08
+  - -117.96
+'91798':
+  :name: Ontario, California
+  :state: CA
+  :coordinates:
+  - 34.06
+  - -117.61
+'91799':
+  :name: Pomona, California
+  :state: CA
+  :coordinates:
+  - 34.05
+  - -117.75
+'91841':
+  :name: Alhambra, California
+  :state: CA
+  :coordinates:
+  - 34.09
+  - -118.12
+'91947':
+  :name: Lincoln Acres, California
+  :state: CA
+  :coordinates:
+  - 32.66
+  - -117.07
+'91990':
+  :name: Potrero, California
+  :state: CA
+  :coordinates:
+  - 32.6
+  - -116.61
+'92090':
+  :name: El Cajon, California
+  :state: CA
+  :coordinates:
+  - 32.79
+  - -116.96
+'92133':
+  :name: San Diego, California
+  :state: CA
+  :coordinates:
+  - 32.72
+  - -117.21
+'92162':
+  :name: San Diego, California
+  :state: CA
+  :coordinates:
+  - 32.71
+  - -117.12
+'92164':
+  :name: San Diego, California
+  :state: CA
+  :coordinates:
+  - 32.74
+  - -117.12
+'92184':
+  :name: San Diego, California
+  :state: CA
+  :coordinates:
+  - 32.71
+  - -117.16
+'92194':
+  :name: San Diego, California
+  :state: CA
+  :coordinates:
+  - 32.8
+  - -117.13
+'92292':
+  :name: Palm Springs, California
+  :state: CA
+  :coordinates:
+  - 33.83
+  - -116.54
+'92326':
+  :name: Crest Park, California
+  :state: CA
+  :coordinates:
+  - 34.24
+  - -117.2
+'92412':
+  :name: San Bernardino, California
+  :state: CA
+  :coordinates:
+  - 34.08
+  - -117.26
+'92414':
+  :name: San Bernardino, California
+  :state: CA
+  :coordinates:
+  - 34.18
+  - -117.26
+'92424':
+  :name: San Bernardino, California
+  :state: CA
+  :coordinates:
+  - 34.14
+  - -117.3
+'92709':
+  :name: Irvine, California
+  :state: CA
+  :coordinates:
+  - 33.67
+  - -117.73
+'92710':
+  :name: Irvine, California
+  :state: CA
+  :coordinates:
+  - 33.7
+  - -117.81
+'92725':
+  :name: Santa Ana, California
+  :state: CA
+  :coordinates:
+  - 33.75
+  - -117.86
+'93093':
+  :name: Simi Valley, California
+  :state: CA
+  :coordinates:
+  - 34.27
+  - -118.71
+'93381':
+  :name: Bakersfield, California
+  :state: CA
+  :coordinates:
+  - 35.37
+  - -119.01
+'93382':
+  :name: Bakersfield, California
+  :state: CA
+  :coordinates:
+  - 35.25
+  - -119.0
+'93780':
+  :name: Fresno, California
+  :state: CA
+  :coordinates:
+  - 36.73
+  - -119.8
+'93784':
+  :name: Fresno, California
+  :state: CA
+  :coordinates:
+  - 36.82
+  - -119.76
+'94013':
+  :name: Daly City, California
+  :state: CA
+  :coordinates:
+  - 37.7
+  - -122.45
+'94101':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94106':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94135':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94136':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94138':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.79
+  - -122.4
+'94150':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94152':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94153':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94154':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94155':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94156':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.78
+  - -122.4
+'94162':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.78
+  - -122.4
+'94171':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94175':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94199':
+  :name: San Francisco, California
+  :state: CA
+  :coordinates:
+  - 37.77
+  - -122.41
+'94246':
+  :name: Sacramento, California
+  :state: CA
+  :coordinates:
+  - 38.58
+  - -121.49
+'94625':
+  :name: Oakland, California
+  :state: CA
+  :coordinates:
+  - 37.8
+  - -122.31
+'95250':
+  :name: San Andreas, California
+  :state: CA
+  :coordinates:
+  - 38.24
+  - -120.43
+'95314':
+  :name: Pinecrest, California
+  :state: CA
+  :coordinates:
+  - 38.34
+  - -119.83
+'95887':
+  :name: Sacramento, California
+  :state: CA
+  :coordinates:
+  - 38.61
+  - -121.36
+'96209':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96210':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96215':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96217':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96219':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96221':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96251':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96262':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96273':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96275':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96297':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96301':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96303':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96309':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96311':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96315':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96331':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96346':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96351':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96371':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96380':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96384':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96385':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96386':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96387':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96388':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96389':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96400':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96401':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96426':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96427':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96444':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96501':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96502':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96503':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96504':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96515':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96530':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96532':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96535':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96536':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96537':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96538':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96544':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96547':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96555':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96557':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96562':
+  :name: Dpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96577':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96578':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96595':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96601':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96602':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96603':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96604':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96605':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96606':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96607':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96608':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96609':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96610':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96611':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96612':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96613':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96614':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96615':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96616':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96617':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96619':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96620':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96621':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96622':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96624':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96628':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96629':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96631':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96632':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96633':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96634':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96641':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96642':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96643':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96644':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96645':
+  :name: Apo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96649':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96650':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96657':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96660':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96661':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96662':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96663':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96664':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96665':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96666':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96667':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96668':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96669':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96670':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96671':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96672':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96673':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96674':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96675':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96677':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96678':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96679':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96681':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96682':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96683':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96686':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96687':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96691':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96692':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96693':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96694':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96695':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96696':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96698':
+  :name: Fpo, AP
+  :coordinates:
+  - 0.0
+  - 0.0
+'96799':
+  :name: Pago Pago, American Samoa
+  :state: AS
+  :coordinates:
+  - -14.27
+  - -170.7
+'96827':
+  :name: Honolulu, Hawaii
+  :state: HI
+  :coordinates:
+  - 21.31
+  - -157.86
+'96835':
+  :name: Honolulu, Hawaii
+  :state: HI
+  :coordinates:
+  - 21.35
+  - -157.87
+'96910':
+  :name: Hagatna, Guam
+  :state: GU
+  :coordinates:
+  - 13.47
+  - 144.74
+'96912':
+  :name: Dededo, Guam
+  :state: GU
+  :coordinates:
+  - 13.51
+  - 144.83
+'96913':
+  :name: Barrigada, Guam
+  :state: GU
+  :coordinates:
+  - 13.48
+  - 144.81
+'96915':
+  :name: Santa Rita, Guam
+  :state: GU
+  :coordinates:
+  - 13.38
+  - 144.7
+'96916':
+  :name: Merizo, Guam
+  :state: GU
+  :coordinates:
+  - 13.26
+  - 144.7
+'96917':
+  :name: Inarajan, Guam
+  :state: GU
+  :coordinates:
+  - 13.28
+  - 144.74
+'96919':
+  :name: Agana Heights, Guam
+  :state: GU
+  :coordinates:
+  - 13.46
+  - 144.74
+'96921':
+  :name: Barrigada, Guam
+  :state: GU
+  :coordinates:
+  - 13.46
+  - 144.79
+'96923':
+  :name: Mangilao, Guam
+  :state: GU
+  :coordinates:
+  - 13.43
+  - 144.79
+'96928':
+  :name: Agat, Guam
+  :state: GU
+  :coordinates:
+  - 13.38
+  - 144.66
+'96929':
+  :name: Yigo, Guam
+  :state: GU
+  :coordinates:
+  - 13.53
+  - 144.88
+'96931':
+  :name: Tamuning, Guam
+  :state: GU
+  :coordinates:
+  - 13.48
+  - 144.77
+'96932':
+  :name: Hagatna, Guam
+  :state: GU
+  :coordinates:
+  - 13.48
+  - 144.74
+'96939':
+  :name: Ngerulmud, Palau
+  :state: PW
+  :coordinates:
+  - 7.51
+  - 134.58
+'96940':
+  :name: Koror, Palau
+  :state: PW
+  :coordinates:
+  - 7.5
+  - 134.5
+'96941':
+  :name: Pohnpei, Federated States Of Micronesia
+  :state: FM
+  :coordinates:
+  - 6.85
+  - 158.26
+'96942':
+  :name: Chuuk, Federated States Of Micronesia
+  :state: FM
+  :coordinates:
+  - 7.33
+  - 151.8
+'96943':
+  :name: Yap, Federated States Of Micronesia
+  :state: FM
+  :coordinates:
+  - 9.5
+  - 138.14
+'96944':
+  :name: Kosrae, Federated States Of Micronesia
+  :state: FM
+  :coordinates:
+  - 5.29
+  - 162.97
+'96950':
+  :name: Saipan, Northern Mariana Islands
+  :state: MP
+  :coordinates:
+  - 15.17
+  - 145.75
+'96951':
+  :name: Rota, Northern Mariana Islands
+  :state: MP
+  :coordinates:
+  - 14.15
+  - 145.21
+'96952':
+  :name: Tinian, Northern Mariana Islands
+  :state: MP
+  :coordinates:
+  - 15.0
+  - 145.63
+'97079':
+  :name: Beaverton, Oregon
+  :state: OR
+  :coordinates:
+  - 45.48
+  - -122.8
+'97129':
+  :name: Hillsboro, Oregon
+  :state: OR
+  :coordinates:
+  - 45.52
+  - -122.99
+'97251':
+  :name: Portland, Oregon
+  :state: OR
+  :coordinates:
+  - 45.52
+  - -122.67
+'97255':
+  :name: Portland, Oregon
+  :state: OR
+  :coordinates:
+  - 45.52
+  - -122.67
+'97259':
+  :name: Portland, Oregon
+  :state: OR
+  :coordinates:
+  - 45.52
+  - -122.67
+'97271':
+  :name: Portland, Oregon
+  :state: OR
+  :coordinates:
+  - 45.52
+  - -122.67
+'97272':
+  :name: Portland, Oregon
+  :state: OR
+  :coordinates:
+  - 45.52
+  - -122.67
+'97299':
+  :name: Portland, Oregon
+  :state: OR
+  :coordinates:
+  - 45.54
+  - -122.61
+'97372':
+  :name: Rose Lodge, Oregon
+  :state: OR
+  :coordinates:
+  - 45.01
+  - -123.87
+'97425':
+  :name: Crescent Lake, Oregon
+  :state: OR
+  :coordinates:
+  - 43.47
+  - -121.92
+'97427':
+  :name: Culp Creek, Oregon
+  :state: OR
+  :coordinates:
+  - 43.68
+  - -122.79
+'97428':
+  :name: Curtin, Oregon
+  :state: OR
+  :coordinates:
+  - 43.74
+  - -123.18
+'97472':
+  :name: Cottage Grove, Oregon
+  :state: OR
+  :coordinates:
+  - 43.79
+  - -123.06
+'97482':
+  :name: Thurston, Oregon
+  :state: OR
+  :coordinates:
+  - 44.05
+  - -122.91
+'98054':
+  :name: Redondo, Washington
+  :state: WA
+  :coordinates:
+  - 47.34
+  - -122.32
+'98132':
+  :name: Seattle, Washington
+  :state: WA
+  :coordinates:
+  - 47.46
+  - -122.29
+'98151':
+  :name: Seattle, Washington
+  :state: WA
+  :coordinates:
+  - 47.6
+  - -122.33
+'98171':
+  :name: Seattle, Washington
+  :state: WA
+  :coordinates:
+  - 47.6
+  - -122.33
+'98184':
+  :name: Seattle, Washington
+  :state: WA
+  :coordinates:
+  - 47.6
+  - -122.33
+'98189':
+  :name: Seattle, Washington
+  :state: WA
+  :coordinates:
+  - 47.42
+  - -122.25
+'98205':
+  :name: Everett, Washington
+  :state: WA
+  :coordinates:
+  - 47.99
+  - -122.15
+'98442':
+  :name: Tacoma, Washington
+  :state: WA
+  :coordinates:
+  - 47.14
+  - -122.43
+'98450':
+  :name: Tacoma, Washington
+  :state: WA
+  :coordinates:
+  - 47.25
+  - -122.44
+'98455':
+  :name: Tacoma, Washington
+  :state: WA
+  :coordinates:
+  - 47.25
+  - -122.44
+'98460':
+  :name: Tacoma, Washington
+  :state: WA
+  :coordinates:
+  - 47.25
+  - -122.44
+'98477':
+  :name: Tacoma, Washington
+  :state: WA
+  :coordinates:
+  - 47.25
+  - -122.44
+'98492':
+  :name: Tacoma, Washington
+  :state: WA
+  :coordinates:
+  - 47.12
+  - -122.55
+'98667':
+  :name: Vancouver, Washington
+  :state: WA
+  :coordinates:
+  - 45.63
+  - -122.66
+'98929':
+  :name: Naches, Washington
+  :state: WA
+  :coordinates:
+  - 46.88
+  - -121.29
+'99165':
+  :name: Pullman, Washington
+  :state: WA
+  :coordinates:
+  - 46.73
+  - -117.17
+'99299':
+  :name: Spokane, Washington
+  :state: WA
+  :coordinates:
+  - 47.65
+  - -117.42
+'99779':
+  :name: Tok, Alaska
+  :state: AK
+  :coordinates:
+  - 63.13
+  - -142.53
