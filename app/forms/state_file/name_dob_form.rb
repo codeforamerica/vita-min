@@ -26,10 +26,10 @@ module StateFile
     validates_presence_of :hoh_qualifying_person_name, if: -> {  @intake.class == StateFileAzIntake && @intake.requires_hoh_qualifying_person_name? }
     validate :primary_birth_date_is_valid_date
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
-    validates :primary_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: I18n.t('state_file.questions.name_dob.edit.validation_first_name') }
-    validates :primary_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: I18n.t('state_file.questions.name_dob.edit.validation_last_name') }
-    validates :spouse_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: I18n.t('state_file.questions.name_dob.edit.validation_first_name') }, if: -> { @intake.ask_spouse_name? }
-    validates :spouse_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: I18n.t('state_file.questions.name_dob.edit.validation_last_name') }, if: -> { @intake.ask_spouse_name? }
+    validates :primary_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: I18n.t('errors.attributes.first_name.invalid_format') }
+    validates :primary_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: I18n.t('errors.attributes.last_name.invalid_format') }
+    validates :spouse_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: I18n.t('errors.attributes.first_name.invalid_format') }, if: -> { @intake.ask_spouse_name? }
+    validates :spouse_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: I18n.t('errors.attributes.last_name.invalid_format') }, if: -> { @intake.ask_spouse_name? }
 
     def initialize(intake = nil, params = nil)
       super

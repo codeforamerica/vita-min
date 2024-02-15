@@ -158,6 +158,7 @@ en:
         format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
+        invalid_format: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
       hoh_qualifying_person_name:
         blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
@@ -166,6 +167,7 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
+        invalid_format: Only letters, hyphen, and apostrophe are accepted.
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
@@ -2185,8 +2187,6 @@ en:
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
-          validation_first_name: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
-          validation_last_name: Only letters, hyphen, and apostrophe are accepted.
           your_dob: Your date of birth
       ny_county:
         edit:
