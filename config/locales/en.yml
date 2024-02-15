@@ -222,7 +222,6 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
-      invalid_format: Only letters, hyphen, and apostrophe are accepted.
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
