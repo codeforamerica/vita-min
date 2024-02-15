@@ -88,6 +88,14 @@ module StateFile
       params.require(:state_file_request_intake_login_form).permit(:email_address, :sms_phone_number)
     end
 
+    def service_type
+      case params[:us_state]
+      when "az" then :statefile_az
+      when "ny" then :statefile_ny
+      when "us" then :statefile
+      end
+    end
+
     def redirect_to_data_review_if_intake_authenticated
       intake = current_state_file_az_intake || current_state_file_ny_intake
       if intake.present?
@@ -98,14 +106,6 @@ module StateFile
           us_state: intake.state_code
         )
         redirect_to to_path
-      end
-    end
-
-    def service_type
-      case params[:us_state]
-      when "az" then :statefile_az
-      when "ny" then :statefile_ny
-      when "us" then :statefile
       end
     end
 
