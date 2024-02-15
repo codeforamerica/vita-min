@@ -1556,6 +1556,48 @@ en:
           Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
 
           Need help? Reply to this text. Text "STOP" to unsubscribe.
+      accepted_refund:
+        email:
+          body: |
+            Hi %{primary_first_name},
+            
+            %{state_name} accepted your state tax return!  You can expect to receive your refund as soon as %{state_name} approves your refund amount.
+            
+            Download your return and check your refund status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            
+            Best,
+            The FileYourStateTaxes team
+            
+            If you would like to unsubscribe from emails, click <a>here.</a>
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
+        sms: |
+          Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. 
+          
+          Download your return and check your refund status at %{return_status_link}
+          
+          Need help? Reply to this text.
+      accepted_owe:
+        email:
+          body: |
+            Hi %{primary_first_name},
+            
+            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{pay_taxes_state_link} if you have not paid via direct debit while filing your return.
+            
+            Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            
+            Questions? Reply to this email.
+            
+            Best,
+            The FileYourStateTaxes team
+            
+            If you would like to unsubscribe from emails, click <a>here.</a>
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
+        sms: |
+          Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{pay_taxes_state_link} if you have not paid via direct deposit or check. 
+  
+          Download your return at %{return_status_link}
+          
+          Questions? Reply to this text.
     successful_submission_drop_off:
       email:
         body: |

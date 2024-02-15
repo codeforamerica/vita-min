@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe MessageTracker do
   let(:client) { create :client }
-  subject { described_class.new(client: client, message: AutomatedMessage::ClosingSoon) }
+  subject { described_class.new(data_source: client, message: AutomatedMessage::ClosingSoon) }
 
   describe "#record" do
     it "sets the datetime onto client#message_tracker" do

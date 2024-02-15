@@ -25,4 +25,5 @@ class StateFileNotificationEmail < ApplicationRecord
     StateFile::SendNotificationEmailJob.perform_later(id)
   end
 
+  # TODO: automated? Add intake pk field
 end

@@ -32,6 +32,7 @@
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locked_at                             :datetime
+#  message_tracker                       :jsonb
 #  payment_or_deposit_type               :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime
