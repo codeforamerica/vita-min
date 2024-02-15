@@ -2,7 +2,7 @@ module StateFile
   class MessagingService
     attr_accessor :locale, :message, :intake, :locale, :message_tracker, :sent_messages
 
-    def initialize(message:, intake: nil, locale: nil, sms: true, email: true, body_args: {})
+    def initialize(message:, intake:, locale: nil, sms: true, email: true, body_args: {})
       @locale = locale || "en" #|| intake.locale || "en", add the intake locale once start collectin
       @message = message
       @message_instance = message.new
@@ -31,15 +31,14 @@ module StateFile
     private
 
     def send_email
-      # raise ArgumentError unless intake.present? && @subject.present? && @body.present?
       return unless Flipper.enabled?(:state_file_notification_emails) && intake.email_address.present? && intake.email_address_verified_at.present?
 
       if @message_instance.email_body.present?
-        binding.pry
         sent_message = StateFileNotificationEmail.create!(
+          data_source: intake,
           to: intake.email_address,
           body: @message_instance.email_body(locale: locale, **email_args),
-          subject: @message_instance.email_subject(locale: @locale),
+          subject: @message_instance.email_subject(locale: @locale, **email_args),
         )
         sent_messages << sent_message if sent_message.present?
       end
@@ -50,9 +49,10 @@ module StateFile
     # end
 
     def base_args
+      first_name = intake.primary_first_name ? intake.primary_first_name.split(/ |\_/).map(&:capitalize).join(" ") : ""
       {
         locale: locale,
-        primary_first_name: intake.primary_first_name.split(/ |\_/).map(&:capitalize).join(" "),
+        primary_first_name: first_name,
         state_name: intake.state_name,
         state_code: intake.state_code
       }

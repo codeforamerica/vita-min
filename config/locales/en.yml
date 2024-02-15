@@ -1567,8 +1567,6 @@ en:
             
             Best,
             The FileYourStateTaxes team
-            
-            If you would like to unsubscribe from emails, click <a>here.</a>
           subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
         sms: |
           Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. 
@@ -1581,7 +1579,7 @@ en:
           body: |
             Hi %{primary_first_name},
             
-            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{pay_taxes_state_link} if you have not paid via direct debit while filing your return.
+            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct debit while filing your return.
             
             Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
             
@@ -1589,11 +1587,9 @@ en:
             
             Best,
             The FileYourStateTaxes team
-            
-            If you would like to unsubscribe from emails, click <a>here.</a>
           subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
         sms: |
-          Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{pay_taxes_state_link} if you have not paid via direct deposit or check. 
+          Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. 
   
           Download your return at %{return_status_link}
           
