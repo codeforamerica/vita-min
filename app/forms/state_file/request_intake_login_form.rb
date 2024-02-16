@@ -1,5 +1,14 @@
 module StateFile
   class RequestIntakeLoginForm < Portal::RequestClientLoginForm
+
+    def filter_records(intake_class)
+      if email_address.present?
+        intake_class.where(email_address: email_address)
+      else
+        intake_class.where(phone_number: sms_phone_number)
+      end
+    end
+
     private
 
     def phone_number_or_email_address

@@ -23,5 +23,10 @@
     <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
       <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
     <% end %>
+
+    <h2 class="h2">
+      <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])) %>
+    </h2>
+
   </div>
 <% end %>

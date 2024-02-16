@@ -1912,9 +1912,11 @@ es:
       new:
         email_address:
           label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
+          not_found: Lo sentimos, no tenemos una cuenta registrada para ese correo electrónico. ¿Quieres iniciar sesión con un correo electrónico diferente?
           title: Inicia sesión con tu dirección de correo electrónico. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
         sms_phone_number:
           label: Tu número de teléfono
+          not_found: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. ¿Quieres iniciar sesión con un número de teléfono diferente?
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     questions:
@@ -2199,6 +2201,7 @@ es:
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
+          already_started_html: ¿Ya comenzó a presentar su declaración estatal? <a href="%{sign_in_url}">Iniciar sesión</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS."
             supported_by: Respaldada por el estado de Arizona

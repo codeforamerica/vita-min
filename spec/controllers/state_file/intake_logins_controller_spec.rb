@@ -5,10 +5,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     create(
       :state_file_az_intake,
       email_address: "client@example.com",
-      sms_phone_number: "+15105551234",
+      phone_number: "+15105551234",
       hashed_ssn: "hashed_ssn"
     )
   end
+  before { intake }
   let(:intake_query) { StateFileAzIntake.where(id: intake) }
 
   before do
