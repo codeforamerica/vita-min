@@ -43,9 +43,9 @@ class StateFile1099G < ApplicationRecord
   validates :payer_zip, zip_code: true
   validates :payer_tin, format: { :with => /\A\d{9}\z/, :message => I18n.t("errors.attributes.payer_tin.invalid")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
-  validate :recipient_street_address, format: { :with => /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}, presence: true
-  validate :recipient_street_address_apartment, format: { :with => /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
-  validates :recipient_city, presence: true, format: { with: /[A-Za-z\s]/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}, irs_street_address_type: true
+  validates :recipient_street_address, presence: true, irs_street_address_type: true, format: { :with => /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
+  validates :recipient_street_address_apartment, format: { :with => /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
+  validates :recipient_city, presence: true, irs_street_address_type: true, format: { with: /[A-Za-z\s]/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}
   validates :recipient_zip, zip_code: true
   validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, only_integer: true }
   validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
