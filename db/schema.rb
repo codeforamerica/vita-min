@@ -855,6 +855,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.string "data_source_type"
     t.string "irs_submission_id"
     t.datetime "last_checked_for_ack_at", precision: nil
+    t.jsonb "message_tracker", default: {}
     t.bigint "tax_return_id"
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"

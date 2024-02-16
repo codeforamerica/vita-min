@@ -5,6 +5,10 @@ module StateFile::AutomatedMessage
       'messages.state_file.rejected'.freeze
     end
 
+    def self.after_transition_notification?
+      true
+    end
+
     def self.send_only_once?
       true
     end

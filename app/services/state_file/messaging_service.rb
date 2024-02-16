@@ -1,12 +1,13 @@
 module StateFile
   class MessagingService
-    attr_accessor :locale, :message, :intake, :locale, :message_tracker, :sent_messages
+    attr_accessor :locale, :message, :intake, :submission, :locale, :message_tracker, :sent_messages
 
-    def initialize(message:, intake:, locale: nil, sms: true, email: true, body_args: {})
-      @locale = locale || "en" #|| intake.locale || "en", add the intake locale once start collectin
+    def initialize(message:, intake:, submission: nil, locale: nil, sms: true, email: true, body_args: {})
+      @locale = locale || "en" # TODO: add intake.locale once we start collecting it
       @message = message
       @message_instance = message.new
       @intake = intake
+      @submission = submission.nil? ? intake.efile_submissions.last : submission
       @sent_messages = []
       @body_args = body_args
       @do_sms = sms
@@ -14,7 +15,8 @@ module StateFile
     end
 
     def message_tracker
-      @message_tracker ||= MessageTracker.new(data_source: intake, message: message)
+      data_source = @message.after_transition_notification? ? submission : intake
+      @message_tracker ||= MessageTracker.new(data_source: data_source, message: message)
     end
 
     def send_message
