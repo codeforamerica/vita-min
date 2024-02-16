@@ -160,7 +160,7 @@ class EfileSubmissionStateMachine
       })
     elsif submission.is_for_state_filing?
       StateFile::AfterTransitionMessagingService.new(submission.data_source).send_efile_submission_accepted_message
-      send_mixpanel_event(submission, "fyst_efile_return_accepted")
+      send_mixpanel_event(submission, "state_file_efile_return_accepted")
     end
   end
 
