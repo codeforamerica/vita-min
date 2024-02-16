@@ -1927,7 +1927,7 @@ en:
           bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
       new:
         email_address:
-          label: Your email address (use an account you can access)
+          label: Your email address
           not_found: Sorry, we don’t have an account registered for that email. Would you like to sign in with a different email?
           title: Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code.
         sms_phone_number:
