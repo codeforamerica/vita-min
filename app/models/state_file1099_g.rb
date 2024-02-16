@@ -38,8 +38,8 @@ class StateFile1099G < ApplicationRecord
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
   validates :payer_name, :presence => {:message => I18n.t("errors.attributes.payer_name.blank") }, format: { with: /(([A-Za-z0-9#-()]|&|') ?)*([A-Za-z0-9#-()]|&|')/.freeze, message: I18n.t("errors.attributes.payer_name.invalid")}
-  validates :payer_street_address, :presence => {:message => I18n.t("errors.attributes.address.street_address.blank") }, format: { with: /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}, irs_street_address_type: true
-  validates :payer_city, :presence => {:message => I18n.t("errors.attributes.address.city.blank")}, format: { with: /[A-Za-z\s]/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}, irs_street_address_type: true
+  validates :payer_street_address, :presence => {:message => I18n.t("errors.attributes.address.street_address.blank") }, irs_street_address_type: true, format: { with: /[a-zA-Z0-9\-\/ ]+/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
+  validates :payer_city, :presence => {:message => I18n.t("errors.attributes.address.city.blank")}, irs_street_address_type: true, format: { with: /[A-Za-z\s]/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}
   validates :payer_zip, zip_code: true
   validates :payer_tin, format: { :with => /\A\d{9}\z/, :message => I18n.t("errors.attributes.payer_tin.invalid")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
