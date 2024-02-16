@@ -16,14 +16,17 @@ class SendAcceptedRejectedNotificationJob < ApplicationJob
 
     case submission.current_state
     when "accepted"
-      messaging_service.send_efile_submission_accepted_message
-      puts "*****Sent accepted message to efile submission #{efile_submission_id}"
+      message = messaging_service.send_efile_submission_accepted_message
+      puts "*****Sent accepted message to efile submission #{efile_submission_id}" if message.present?
     when "rejected"
-      messaging_service.send_efile_submission_rejected_message
-      puts "*****Sent rejected message to efile submission #{efile_submission_id}"
+      message = messaging_service.send_efile_submission_rejected_message
+      puts "*****Sent rejected message to efile submission #{efile_submission_id}" if message.present?
     else
       puts "*****Error: current state '#{submission.current_state}' doesn't qualify"
     end
+
+    puts "*********no message sent for efile submission #{efile_submission_id}" unless message
+    puts "*********StateFileNotificationEmail ##{message.id} created" if message.present?
   end
 
   def priority
