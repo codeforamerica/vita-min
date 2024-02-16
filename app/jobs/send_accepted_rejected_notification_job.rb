@@ -26,7 +26,7 @@ class SendAcceptedRejectedNotificationJob < ApplicationJob
     end
 
     Rails.logger.error("*********No message sent for EfileSubmission ##{efile_submission_id}") unless message
-    Rails.logger.info("*********StateFileNotificationEmail ##{message.id} created") if message.present?
+    Rails.logger.info("*********StateFileNotificationEmail ##{message.first.id} created") if message.present?
   end
 
   def priority
