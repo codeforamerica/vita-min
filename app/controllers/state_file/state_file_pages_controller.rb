@@ -41,5 +41,9 @@ module StateFile
       uri.query = { authorizationCode: key }.to_query
       uri.to_s
     end
+
+    def current_intake
+      @current_intake ||= current_state_file_az_intake || current_state_file_ny_intake
+    end
   end
 end
