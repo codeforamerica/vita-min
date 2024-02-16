@@ -34,7 +34,6 @@ module StateFileIntakeHelper
     when :text_message
       click_on "Text me a code"
 
-      # binding.pry
       expect(page).to have_text "Enter your phone number"
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
