@@ -41,5 +41,14 @@ module StateFile
       uri.query = { authorizationCode: key }.to_query
       uri.to_s
     end
+
+    def current_intake
+      @current_intake ||= (
+        StateFileBaseIntake::STATE_CODES
+          .lazy
+          .map{|c| send("current_state_file_#{c}_intake".to_sym) }
+          .find(&:itself)
+      )
+    end
   end
 end
