@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_15_175116) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1622,6 +1622,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_175116) do
     t.integer "household_excise_credit_claimed", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
+    t.string "locale", default: "us"
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
@@ -1743,6 +1744,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_175116) do
     t.integer "household_ssi"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
+    t.string "locale", default: "us"
     t.datetime "locked_at"
     t.string "mailing_country"
     t.string "mailing_state"

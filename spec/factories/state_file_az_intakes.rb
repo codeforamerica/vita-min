@@ -31,6 +31,7 @@
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
+#  locale                                :string           default("us")
 #  locked_at                             :datetime
 #  message_tracker                       :jsonb
 #  payment_or_deposit_type               :integer          default("unfilled"), not null
