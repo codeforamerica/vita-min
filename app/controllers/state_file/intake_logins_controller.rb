@@ -1,7 +1,6 @@
 module StateFile
   class IntakeLoginsController < Portal::ClientLoginsController
     helper_method :prev_path, :illustration_path
-    before_action :redirect_to_data_review_if_intake_authenticated
     layout "state_file/question"
 
     def new
@@ -93,19 +92,6 @@ module StateFile
       when "az" then :statefile_az
       when "ny" then :statefile_ny
       when "us" then :statefile
-      end
-    end
-
-    def redirect_to_data_review_if_intake_authenticated
-      intake = current_state_file_az_intake || current_state_file_ny_intake
-      if intake.present?
-        # Redirect to last step
-        controller = intake.controller_for_current_step
-        to_path = controller.to_path_helper(
-          action: controller.navigation_actions.first,
-          us_state: intake.state_code
-        )
-        redirect_to to_path
       end
     end
 
