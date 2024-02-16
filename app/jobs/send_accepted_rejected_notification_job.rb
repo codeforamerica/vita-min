@@ -8,7 +8,7 @@ class SendAcceptedRejectedNotificationJob < ApplicationJob
   def send_notification(efile_submission_id)
     submission = EfileSubmission.for_state_filing.find(efile_submission_id)
     if submission.nil?
-      puts "*****Error: No efile submission found with id #{efile_submission_id}"
+      Rails.logger.error("*****Error: No efile submission found with id #{efile_submission_id}")
       return
     end
 
@@ -17,16 +17,16 @@ class SendAcceptedRejectedNotificationJob < ApplicationJob
     case submission.current_state
     when "accepted"
       message = messaging_service.send_efile_submission_accepted_message
-      puts "*****Sent accepted message to efile submission #{efile_submission_id}" if message.present?
+      Rails.logger.info("*****Sent accepted message to EfileSubmission ##{efile_submission_id}") if message.present?
     when "rejected"
       message = messaging_service.send_efile_submission_rejected_message
-      puts "*****Sent rejected message to efile submission #{efile_submission_id}" if message.present?
+      Rails.logger.info("*****Sent rejected message to EfileSubmission ##{efile_submission_id}") if message.present?
     else
-      puts "*****Error: current state '#{submission.current_state}' doesn't qualify"
+      Rails.logger.error("*****Current state '#{submission.current_state}' doesn't qualify")
     end
 
-    puts "*********no message sent for efile submission #{efile_submission_id}" unless message
-    puts "*********StateFileNotificationEmail ##{message.id} created" if message.present?
+    Rails.logger.error("*********No message sent for EfileSubmission ##{efile_submission_id}") unless message
+    Rails.logger.info("*********StateFileNotificationEmail ##{message.id} created") if message.present?
   end
 
   def priority
