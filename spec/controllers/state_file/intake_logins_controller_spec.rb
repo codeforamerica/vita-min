@@ -40,12 +40,14 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before { sign_in intake }
 
       it "renders the login page" do
         get :new, params: { us_state: "az", contact_method: "email_address" }
 
         expect(response.status).to eq(200)
+        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
       end
     end
   end
@@ -168,12 +170,14 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before { sign_in intake }
 
       it "renders the login page" do
         post :create, params: { us_state: "az", state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
 
         expect(response.status).to eq(200)
+        expect(response.body).to include "Enter the code to continue"
       end
     end
   end
@@ -365,6 +369,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before do
         allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
         sign_in intake
@@ -373,6 +378,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       it "still displays the login page" do
         get :edit, params: params
         expect(response.status).to eq(200)
+        expect(response.body).to include "Code verified! Authentication needed to continue."
       end
 
       context "when the intake does not have an ssn" do
@@ -510,6 +516,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before do
         allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
         sign_in intake
@@ -518,6 +525,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       it "displays the form" do
         get :new, params: { contact_method: :email_address, us_state: "az" }
         expect(response.status).to eq(200)
+        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
       end
     end
   end
