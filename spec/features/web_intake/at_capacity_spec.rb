@@ -25,12 +25,12 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       expect(page).to have_select("What is your preferred language for the review?", selected: "English")
       click_on "Continue"
 
-      # expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
-      # check "Email Me"
-      # click_on "Continue"
-      #
-      # expect(page).to have_text("Can we text the phone number you previously entered?")
-      # click_on "Yes"
+      expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
+      check "Email Me"
+      click_on "Continue"
+
+      expect(page).to have_text("Can we text the phone number you previously entered?")
+      click_on "Yes"
 
       expect(page).to have_selector("h1", text: "Please share your email address.")
       fill_in "Email address", with: "gary.gardengnome@example.green"

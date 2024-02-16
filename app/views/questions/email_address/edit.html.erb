@@ -12,8 +12,6 @@
     <div class="form-card__content">
       <%= f.cfa_input_field(:email_address, t("views.questions.email_address.email_address"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:email_address_confirmation, t("views.questions.email_address.email_address_confirmation"), classes: ["form-width--long"]) %>
-      <% link = url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'privacy_policy') %>
-      <span class="text--small"><%=t("views.questions.email_address.legal_info_html", url: link) %></span>
     </div>
 
     <%= f.continue %>
