@@ -5,5 +5,9 @@ module StateFile::AutomatedMessage
     def self.send_only_once?
       false
     end
+
+    def self.after_transition_notification?
+      false
+    end
   end
 end

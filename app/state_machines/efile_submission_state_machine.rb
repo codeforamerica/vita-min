@@ -133,7 +133,7 @@ class EfileSubmissionStateMachine
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
-      StateFile::AfterTransitionMessagingService.new(submission.data_source).send_efile_submission_rejected_message
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
     end
   end
@@ -159,7 +159,7 @@ class EfileSubmissionStateMachine
         third_stimulus_amount: benefits.eip3_amount,
       })
     elsif submission.is_for_state_filing?
-      StateFile::AfterTransitionMessagingService.new(submission.data_source).send_efile_submission_accepted_message
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
       send_mixpanel_event(submission, "state_file_efile_return_accepted")
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_15_175116) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_16_164743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -855,6 +855,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_175116) do
     t.string "data_source_type"
     t.string "irs_submission_id"
     t.datetime "last_checked_for_ack_at", precision: nil
+    t.jsonb "message_tracker", default: {}
     t.bigint "tax_return_id"
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"

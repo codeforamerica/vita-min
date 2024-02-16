@@ -2,22 +2,25 @@ module StateFile
   class AfterTransitionMessagingService
     include Rails.application.routes.url_helpers
 
-    def initialize(intake)
-      @intake = intake
-      raise(ArgumentError, "Unsupported intake type: #{intake.class.name}") unless %w[StateFileAzIntake StateFileNyIntake].include?(intake.class.name)
+    def initialize(efile_submission)
+      @intake = efile_submission.data_source
+      @submission = efile_submission
+      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless %w[StateFileAzIntake StateFileNyIntake].include?(@intake.class.name)
     end
 
     def send_efile_submission_accepted_message
-      if @intake.calculated_refund_or_owed_amount.positive?
+      case @intake.refund_or_owe_taxes_type
+      when :refund, :none
         message = StateFile::AutomatedMessage::AcceptedRefund
         body_args = { return_status_link: return_status_link }
-      else
+      when :owe
         message = StateFile::AutomatedMessage::AcceptedOwe
         body_args = { state_pay_taxes_link: state_pay_taxes_link, return_status_link: return_status_link }
       end
 
       StateFile::MessagingService.new(
         intake: @intake,
+        submission: @submission,
         message: message,
         body_args: body_args).send_message
     end
@@ -27,6 +30,7 @@ module StateFile
       body_args = { return_status_link: return_status_link }
       StateFile::MessagingService.new(
         intake: @intake,
+        submission: @submission,
         message: message,
         body_args: body_args).send_message
     end
