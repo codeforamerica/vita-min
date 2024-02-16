@@ -40,11 +40,13 @@ class StateFile1099G < ApplicationRecord
   validates_presence_of :payer_name, :message => I18n.t("errors.attributes.payer_name.blank")
   validates_presence_of :payer_street_address, :message => I18n.t("errors.attributes.address.street_address.blank")
   validates_presence_of :payer_city, :message => I18n.t("errors.attributes.address.city.blank")
+  validates :payer_street_address, irs_street_address_type: true
+  validates :payer_city, irs_street_address_type: true
   validates :payer_zip, zip_code: true
   validates :payer_tin, format: { :with => /\d{9}/, :message => I18n.t("errors.attributes.payer_tin.blank")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
-  validates_presence_of :recipient_city
-  validates_presence_of :recipient_street_address
+  validates :recipient_city, presence: true, irs_street_address_type: true
+  validates :recipient_street_address, presence: true, irs_street_address_type: true
   validates :recipient_zip, zip_code: true
   validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, only_integer: true }
   validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
