@@ -7,7 +7,7 @@ module StateFile
       @message = message
       @message_instance = message.new
       @intake = intake
-      @submission = submission || intake.efile_submissions.last
+      @submission = submission.nil? ? intake.efile_submissions.last : submission
       @sent_messages = []
       @body_args = body_args
       @do_sms = sms
