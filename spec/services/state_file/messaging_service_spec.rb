@@ -6,10 +6,6 @@ describe StateFile::MessagingService do
   let(:message) { StateFile::AutomatedMessage::Welcome }
   let!(:messaging_service) { described_class.new(message: message, intake: intake) }
 
-  before do
-    allow(Flipper).to receive(:enabled?).with(:state_file_notification_emails).and_return(true)
-  end
-
   context "when has an email_address" do
     it "creates an email and records message in intake message tracker" do
       expect do

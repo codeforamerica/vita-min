@@ -33,7 +33,7 @@ module StateFile
     private
 
     def send_email
-      return unless Flipper.enabled?(:state_file_notification_emails) && intake.email_address.present? && intake.email_address_verified_at.present?
+      return unless intake.email_address.present? && intake.email_address_verified_at.present?
 
       if @message_instance.email_body.present?
         sent_message = StateFileNotificationEmail.create!(
