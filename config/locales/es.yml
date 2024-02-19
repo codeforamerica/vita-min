@@ -1571,18 +1571,16 @@ es:
       welcome:
         email:
           body: |
-            ¡Bienvenido/a!
+            Hola %{primary_first_name}
 
-            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras completas tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+            ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
-
-            Saludos cordiales, El equipo de FileYourStateTaxes
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          ¡Bienvenido/a! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estés presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas tomar un descanso, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
+          ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
-          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para cancelar la suscripción.
+          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto.
     successful_submission_drop_off:
       email:
         body: |

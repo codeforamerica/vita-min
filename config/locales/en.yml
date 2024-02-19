@@ -1587,7 +1587,7 @@ en:
       welcome:
         email:
           body: |
-            Welcome!
+            Hello %{primary_first_name}
 
             We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
 
