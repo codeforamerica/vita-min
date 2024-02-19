@@ -1558,16 +1558,13 @@ es:
       rejected:
         email:
           body: |
-            Hi %{primary_first_name},
+            Hola %{primary_first_name},
 
-            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
-
-            Best,
-            The FileYourStateTaxes team
+            ¿Necesitas ayuda? Responde a este mensaje.
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\nQuestions? Reply to this text.\n"
+        sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\n¿Necesitas ayuda? Responde a este mensaje..\n"
       welcome:
         email:
           body: |
