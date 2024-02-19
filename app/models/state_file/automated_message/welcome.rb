@@ -17,6 +17,7 @@ module StateFile::AutomatedMessage
     end
 
     def email_body(**args)
+      binding.pry
       I18n.t("messages.state_file.welcome.email.body", **args)
     end
   end

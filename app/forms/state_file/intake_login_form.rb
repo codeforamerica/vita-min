@@ -15,6 +15,7 @@ module StateFile
 
     def matches_intake
       @intake = possible_intakes.where(hashed_ssn: SsnHashingService.hash(parsed_ssn)).first
+      binding.pry
       if @intake.blank?
         errors.add(:ssn, I18n.t("state_file.intake_logins.form.errors.bad_input"))
         errors.add(:failed_ssn_match)
