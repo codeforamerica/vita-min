@@ -11,11 +11,9 @@ module StateFile
     def send_efile_submission_accepted_message
       case @intake.refund_or_owe_taxes_type
       when :refund, :none
-        ###
         message = StateFile::AutomatedMessage::AcceptedRefund
         body_args = { return_status_link: return_status_link }
       when :owe
-        ###
         message = StateFile::AutomatedMessage::AcceptedOwe
         body_args = { state_pay_taxes_link: state_pay_taxes_link, return_status_link: return_status_link }
       end
@@ -28,7 +26,6 @@ module StateFile
     end
 
     def send_efile_submission_rejected_message
-      ###
       message = StateFile::AutomatedMessage::Rejected
       body_args = { return_status_link: return_status_link }
       StateFile::MessagingService.new(
