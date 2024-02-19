@@ -20,7 +20,6 @@ module StateFile
       intake.touch(:phone_number_verified_at) if is_text_based?
       intake.touch(:email_address_verified_at) if is_email_based?
       if is_first_time_verifying
-        ###
         messaging_service = StateFile::MessagingService.new(
           message: StateFile::AutomatedMessage::Welcome,
           intake: intake,
