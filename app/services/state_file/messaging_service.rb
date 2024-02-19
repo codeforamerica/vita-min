@@ -4,7 +4,7 @@ module StateFile
     attr_accessor :locale, :message, :intake, :submission, :locale, :message_tracker, :sent_messages
 
     def initialize(message:, intake:, submission: nil, locale: nil, sms: true, email: true, body_args: {})
-      @locale = intake.locale || DEFAULT_LOCALE
+      @locale = override_us_locale
       @message = message
       @message_instance = message.new
       @intake = intake
@@ -18,6 +18,12 @@ module StateFile
     def message_tracker
       data_source = @message.after_transition_notification? ? submission : intake
       @message_tracker ||= MessageTracker.new(data_source: data_source, message: message)
+    end
+
+    # Since locale: 'us' is not a true locale, we need to override this so as to simplify downstream code
+    def override_us_locale
+      return DEFAULT_LOCALE unless @intake.try(:locale) == 'us'
+      @intake.locale
     end
 
     def send_message
