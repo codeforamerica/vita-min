@@ -22,7 +22,6 @@ module StateFile::AutomatedMessage
     end
 
     def email_body(**args)
-      binding.pry
       I18n.t("messages.state_file.accepted_refund.email.body", **args)
     end
   end
