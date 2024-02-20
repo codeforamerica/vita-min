@@ -130,7 +130,7 @@ module StateFile
         # here when the federal return was not yet approved.
         # We have alerted them, and once they have updated their URL we can probably remove this
         if params[:ref_location] == "df_authorize_state"
-          redirect_to state_file_questions_pending_federal_return_path
+          redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code)
         end
       end
 

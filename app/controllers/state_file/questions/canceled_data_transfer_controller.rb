@@ -3,6 +3,7 @@ module StateFile
     class CanceledDataTransferController < QuestionsController
       include IrsDataTransferLinksConcern
       before_action :redirect_if_no_us_state_in_params
+      skip_before_action :set_current_step
 
       def self.show?(_intake)
         false
