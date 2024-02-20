@@ -3,6 +3,7 @@ module StateFile
     class CanceledDataTransferController < QuestionsController
       include IrsDataTransferLinksConcern
       before_action :redirect_if_no_us_state_in_params
+      skip_before_action :set_current_step
 
       def self.show?(_intake)
         false
@@ -24,11 +25,6 @@ module StateFile
       end
 
       private
-
-      # this page sometimes doesn't have us_state in the params so can't use the default current_intake
-      def current_intake
-        GlobalID.find(session[:state_file_intake])
-      end
 
       # in order to give the IRS team one cancel link, this controller will redirect to the path with the us_state
       # based on the intake in the session; part of the reason for this is so we can leverage the default implementation
