@@ -16,6 +16,14 @@ module StateFile
         end
       end
 
+      def progress_calculator
+        StateFileProgressCalculator.new(question_navigator)
+      end
+
+      def show_progress?
+        question_navigator.controllers.include?(self.class)
+      end
+
       private
 
       def current_intake
