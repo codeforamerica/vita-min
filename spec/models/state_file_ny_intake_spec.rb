@@ -36,7 +36,7 @@
 #  household_ssi                      :integer
 #  last_sign_in_at                    :datetime
 #  last_sign_in_ip                    :inet
-#  locale                             :string           default("us")
+#  locale                             :string           default("en")
 #  locked_at                          :datetime
 #  mailing_country                    :string
 #  mailing_state                      :string
