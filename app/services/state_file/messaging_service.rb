@@ -1,6 +1,6 @@
 module StateFile
   class MessagingService
-    DEFAULT_LOCALE = 'en'
+    DEFAULT_LOCALE = 'en'.freeze
     attr_accessor :locale, :message, :intake, :submission, :locale, :message_tracker, :sent_messages
 
     def initialize(message:, intake:, submission: nil, locale: nil, sms: true, email: true, body_args: {})
