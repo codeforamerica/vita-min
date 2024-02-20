@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class ReturnStatusController < AuthenticatedQuestionsController
+      before_action :redirect_if_from_efile
+      before_action :redirect_if_no_submission
 
       def edit
         @title = title
@@ -116,6 +118,21 @@ module StateFile
       private
 
       def card_postscript; end
+
+      def redirect_if_no_submission
+        if current_intake.efile_submissions.empty?
+          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: state_code)
+        end
+      end
+
+      def redirect_if_from_efile
+        # We had a situation where we gave the wrong URL to direct file, and they were redirecting
+        # here when the federal return was not yet approved.
+        # We have alerted them, and once they have updated their URL we can probably remove this
+        if params[:ref_location] == "df_authorize_state"
+          redirect_to state_file_questions_pending_federal_return_path
+        end
+      end
 
     end
   end
