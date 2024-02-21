@@ -1568,6 +1568,14 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      issue_resolved:
+        email:
+          body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
+          subject: Issue resolved; continue filing your state taxes
+        sms: |
+          Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
+
+          Questions? Reply to this text.
       rejected:
         email:
           body: |
@@ -1583,20 +1591,6 @@ en:
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
-          Questions? Reply to this text.
-      issue_resolved:
-        email:
-          body: |
-            Hello - Thank you for using FileYourStateTaxes! 
-
-            Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href="%{login_link}">log in here.</a>
-
-            Best,
-            The FileYourStateTaxes team
-          subject: 'Issue resolved; continue filing your state taxes'
-        sms: |
-          Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
-          
           Questions? Reply to this text.
       welcome:
         email:

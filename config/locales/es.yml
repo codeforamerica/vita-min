@@ -1555,6 +1555,14 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: Aceptación de la declaración de impuestos estatales de %{state_name}'
         sms: "Hola %{primary_first_name} - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Recibirás tu reembolso una vez que el estado de %{state_name}  apruebe el monto de tu reembolso. \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}.\n\n¿Necesitas ayuda? Responde a este mensaje.\n"
+      issue_resolved:
+        email:
+          body: "Hola: ¡Gracias por utilizar FileYourStateTaxes! \n\nCualquier problema que haya experimentado al usar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, <a href=\"%{login_link}\">inicie sesión aquí .</a>\n\nMejor,\nEl equipo de FileYourStateTaxes\n"
+          subject: Problema resuelto; continúe presentando sus impuestos estatales
+        sms: |
+          Hola. ¡Gracias por utilizar FileYourStateTaxes! Cualquier problema que haya experimentado al utilizar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, inicie sesión aquí: %{login_link}
+
+          ¿Preguntas? Responder a este texto.
       rejected:
         email:
           body: |
