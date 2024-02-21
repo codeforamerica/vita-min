@@ -1584,6 +1584,20 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      issue_resolved:
+        email:
+          body: |
+            Hello - Thank you for using FileYourStateTaxes! 
+
+            Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href="%{login_link}">log in here.</a>
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'Issue resolved; continue filing your state taxes'
+        sms: |
+          Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
+          
+          Questions? Reply to this text.
       welcome:
         email:
           body: |
