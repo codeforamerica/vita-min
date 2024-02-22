@@ -9,7 +9,7 @@ module StateFile
       when 'ny'
         'https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form'
       when 'az'
-        'https://uwvita.freshdesk.com/support/tickets/new'
+        'https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form'
       end
     end
 

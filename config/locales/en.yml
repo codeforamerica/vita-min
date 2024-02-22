@@ -2082,7 +2082,7 @@ en:
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
           learn_more_reveal:
             p1: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state_name}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
-            p2: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
+            p2: IRS-certified VITA volunteers will use this information to prepare your state return. This process can take 2-3 weeks to complete.
             title: Learn more about this process
           other_option: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
           other_options_reveal:
