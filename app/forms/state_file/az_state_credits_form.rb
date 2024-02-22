@@ -19,7 +19,7 @@ module StateFile
     private
 
     def exceeds_1040_amount
-      amount_limit = @intake.direct_file_data.fed_wages_salaries_tips.to_i
+      amount_limit = @intake.direct_file_data.fed_wages_salaries_tips
       total = self.tribal_wages.to_i + self.armed_forces_wages.to_i
       if total > amount_limit
         errors.add(:tribal_wages, I18n.t("forms.errors.state_credit.exceeds_limit", limit: amount_limit))
