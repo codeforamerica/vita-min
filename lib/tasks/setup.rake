@@ -41,6 +41,7 @@ namespace :setup do
     end
   end
 
+  # If we run these two rake tasks on the Heroku instance, will it be enough?
   task unzip_efile_schemas: :environment do |_task|
     [Rails.root.join('vendor', 'irs', 'unpacked'), Rails.root.join('vendor', 'us_states', 'unpacked')].each do |unpack_path|
       FileUtils.rm_rf(unpack_path)

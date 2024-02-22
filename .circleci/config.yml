@@ -70,6 +70,7 @@ commands:
     steps:
       - restore_cache:
           key: bundle-{{ checksum "lib/tasks/setup.rake" }}-v2
+      # How to get these in Heroku?
       - run: if [ ! -d vendor/irs/unpacked ] ; then bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas ; fi && find vendor/irs
       - save_cache:
           key: bundle-{{ checksum "lib/tasks/setup.rake" }}-v2
