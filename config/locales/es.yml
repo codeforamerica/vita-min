@@ -2528,9 +2528,10 @@ es:
           </ol>
           <strong>Para obtener más información, consulte <a href=%{faq_link}>las preguntas frecuentes</a>.</strong>
         subheader_html: |
-          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>gratis.</strong> <br/><br/>
-          Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs. gov/">directfile.irs.gov</a></strong><br/><br/>
-          ¿Ya presentó su declaración federal ante IRS Direct File y necesita completar su declaración estatal? <a href=%{login_path}>Empiece aquí</a>.<br/><br/>
+          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>sin costo.</strong> <br/><br/>
+          Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          ¿Ya presentó su declaración federal ante IRS Direct File y necesita comenzar con su declaración estatal? <a href=%{ny_landing_path}>Comience aquí para Nueva York</a>. <a href=%{az_landing_path}>Comience aquí para Arizona</a>. <br/><br/>
+          ¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>.<br/>
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
