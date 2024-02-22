@@ -1927,6 +1927,17 @@ es:
           not_found: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. ¿Quieres iniciar sesión con un número de teléfono diferente?
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
+    notification_mailer:
+      user_message:
+        unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
+    notifications_settings:
+      subscribe_email:
+        flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
+      unsubscribe_email:
+        help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@ fileyourstatetaxes.org.</a>
+        link_text: Inscríbete nuevamente.
+        mistake: "¿Es esto un error?"
+        title: Ha optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
       az_charitable_contributions:
         edit:

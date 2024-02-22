@@ -1943,6 +1943,17 @@ en:
           not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+    notification_mailer:
+      user_message:
+        unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
+    notifications_settings:
+      subscribe_email:
+        flash: You are successfully re-subscribed to email notifications.
+      unsubscribe_email:
+        help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
+        link_text: Opt in again.
+        mistake: Is this a mistake?
+        title: You've opted out of email notifications from FileYourStateTaxes.
     questions:
       az_charitable_contributions:
         edit:
