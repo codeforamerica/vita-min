@@ -5,8 +5,7 @@ module Questions
     layout "yes_no_question"
 
     def self.show?(intake)
-      # intake.phone_number.present?
-      false
+      intake.phone_number.present?
     end
 
     def illustration_path

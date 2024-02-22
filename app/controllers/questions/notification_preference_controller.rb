@@ -3,9 +3,6 @@ module Questions
     include AnonymousIntakeConcern
     private
 
-    def self.show?(intake)
-      false
-    end
     def tracking_data
       @form.attributes_for(:intake).reject { |k, _| k == :sms_phone_number }
     end
