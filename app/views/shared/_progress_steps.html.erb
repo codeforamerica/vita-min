@@ -1,0 +1,14 @@
+<% if show_progress? && current_intake.present?
+  step_number = progress_calculator.get_step_number(controller.class)
+  unless step_number.nil? %>
+    <div class="progress-steps" style="display:flex; gap: 5px; margin: -10px 0 5px 0;"><%
+      number_of_steps = progress_calculator.get_number_of_steps(controller.class)
+      (0..number_of_steps).each do |step| %>
+        <div class="progress-step<%=(step_number <= step) ? " completed-step" : ""%>"
+          style="height: 10px; background: <%=(step_number <= step) ? "#21C834" : "#EEE"%>; flex-shrink: 1; flex-grow: 1; border-radius: 5px; "
+        ></div>
+      <% end %>
+    </div>
+    <p class="progress-text"><%= progress_calculator.get_progress_title(controller.class) %></p>
+  <% end
+ end %>
