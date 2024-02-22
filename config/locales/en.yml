@@ -1957,8 +1957,7 @@ en:
         edit:
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           ssn_no_employment_html:
-            one: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
-            other: Do you or your spouse have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
+            label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
           was_incarcerated:
             one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
