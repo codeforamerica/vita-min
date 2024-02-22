@@ -239,6 +239,8 @@ es:
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       routing_account_number:
         not_same: El número de ruta y el número de cuenta no pueden ser iguales
+      state_credit:
+        exceeds_limit: El monto total ingresado no debe exceder $%{limit}
       state_routings:
         delegated_routing: Solo puede enviar los porcentajes de enrutamiento para una organización o su sub-organización, no para ambas.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
