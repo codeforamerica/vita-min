@@ -1547,7 +1547,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Deberías recibir tu reembolso una vez que el estado de %{state_name} apruebe el monto de tu reembolso. Cualquier cantidad no pagada para esa fecha puede estar sujeta a penalidades adicionales.
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Descarga tu declaración y verifica el estado de tu reembolso en fileyourstatetaxes.org. Cualquier cantidad no pagada para esa fecha puede estar sujeta a penalidades adicionales.
 
             Puedes descargar tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
