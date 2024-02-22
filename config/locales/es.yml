@@ -1562,8 +1562,8 @@ es:
 
             Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            ¿Necesitas ayuda? Responde a este mensaje.
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+            ¿Preguntas? Responde a este correo electrónico.
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
         sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\n¿Necesitas ayuda? Responde a este mensaje..\n"
       welcome:
         email:
