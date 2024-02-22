@@ -549,8 +549,6 @@ Rails.application.routes.draw do
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
-          get "pending_federal_return", to: "pending_federal_return#edit"
-          get "canceled_data_transfer", to: "canceled_data_transfer#edit"
         end
       end
 
@@ -569,6 +567,8 @@ Rails.application.routes.draw do
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
+
+        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
