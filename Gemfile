@@ -83,7 +83,7 @@ group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
 end
 
-group :heroku, development, :test do
+group :heroku, :development, :test do
   gem 'annotate'
 end
 
