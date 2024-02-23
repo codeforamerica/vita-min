@@ -86,6 +86,7 @@ end
 group :heroku, :development, :test do
   gem 'annotate'
   gem 'listen', '>= 3.4.0'
+  gem 'warning', require: false
 end
 
 group :demo, :development, :heroku, :staging, :production do
@@ -115,7 +116,6 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'turbo_tests'
   gem 'timecop'
-  gem 'warning', require: false
   gem 'rspec_junit_formatter'
 end
 
