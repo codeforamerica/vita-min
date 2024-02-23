@@ -18,6 +18,8 @@ namespace :heroku do
     else
       Rails.logger.info "Database not initialized, skipping database migration."
     end
+    Rake::Task['setup:download_efile_schemas'].invoke
+    Rake::Task['setup:unzip_efile_schemas'].invoke
   end
 
   task review_app_setup: :environment do
@@ -81,6 +83,8 @@ namespace :heroku do
     heroku_client.app.enable_acm(heroku_app_name)
 
     Rails.logger.info("Done setting up Heroku review app DNS")
+    Rake::Task['setup:download_efile_schemas'].invoke
+    Rake::Task['setup:unzip_efile_schemas'].invoke
   end
 
   task review_app_predestroy: :environment do
@@ -124,7 +128,7 @@ namespace :heroku do
   task postdeploy: :environment do
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
-    Rake::Task['setup:download_efile_schemas'].invoke
-    Rake::Task['setup:unzip_efile_schemas'].invoke
+    # Rake::Task['setup:download_efile_schemas'].invoke
+    # Rake::Task['setup:unzip_efile_schemas'].invoke
   end
 end
