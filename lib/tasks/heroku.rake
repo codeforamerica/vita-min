@@ -14,10 +14,14 @@ namespace :heroku do
   desc 'Heroku release task (runs on every code push; on review app creation, runs before postdeploy task)'
   task release: :environment do
     if ActiveRecord::Base.connection.schema_migration.table_exists?
+      Rails.logger.info "===== Migrate DB ====="
+
       Rake::Task['db:migrate'].invoke
     else
       Rails.logger.info "Database not initialized, skipping database migration."
     end
+    Rails.logger.info "===== Ricardo test ====="
+
     Rake::Task['setup:download_efile_schemas'].invoke
     Rake::Task['setup:unzip_efile_schemas'].invoke
   end
@@ -31,6 +35,9 @@ namespace :heroku do
     # web interface for editing environment variables.
     require 'platform-api'
     require 'aws-sdk-route53'
+
+    Rails.logger.info "===== Ricardo test ====="
+
 
     # Extract out "pr-<pull request ID>" from heroku runtime app variable; use as subdomain
     Rails.logger.info("Setting up Heroku review app DNS: #{HerokuHostnameHelper.hostname_desc}")
@@ -85,6 +92,8 @@ namespace :heroku do
     Rails.logger.info("Done setting up Heroku review app DNS")
     Rake::Task['setup:download_efile_schemas'].invoke
     Rake::Task['setup:unzip_efile_schemas'].invoke
+
+    # cd vendor/us_states/unpacked/AZIndividual2023v1.0/AZIndividual
   end
 
   task review_app_predestroy: :environment do
@@ -128,7 +137,7 @@ namespace :heroku do
   task postdeploy: :environment do
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
-    # Rake::Task['setup:download_efile_schemas'].invoke
-    # Rake::Task['setup:unzip_efile_schemas'].invoke
+    Rake::Task['setup:download_efile_schemas'].invoke
+    Rake::Task['setup:unzip_efile_schemas'].invoke
   end
 end
