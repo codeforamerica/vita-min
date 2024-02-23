@@ -124,5 +124,7 @@ namespace :heroku do
   task postdeploy: :environment do
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
+    Rake::Task['setup:download_efile_schemas'].invoke
+    Rake::Task['setup:unzip_efile_schemas'].invoke
   end
 end
