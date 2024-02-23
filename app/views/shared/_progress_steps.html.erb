@@ -5,11 +5,9 @@
     step_number = progress[:step_number]
     title = progress[:title]
     %>
-    <div class="progress-steps" style="display:flex; gap: 5px; margin: -10px 0 5px 0;"><%
-      (0..number_of_steps).each do |step| %>
-        <div class="progress-step<%=(step_number <= step) ? " completed-step" : ""%>"
-          style="height: 10px; background: <%=(step_number <= step) ? "#21C834" : "#EEE"%>; flex-shrink: 1; flex-grow: 1; border-radius: 5px; "
-        ></div>
+    <div class="progress-steps" title="<%=title%> (<%=step_number%> / <%=number_of_steps%>)"><%
+      (0..number_of_steps-1).each do |step| %>
+        <div class="progress-step<%=(step_number >= step) ? " completed-step" : "" %>"></div>
       <% end %>
     </div>
     <p class="progress-text"><%= title %></p>
