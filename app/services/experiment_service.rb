@@ -67,10 +67,11 @@ class ExperimentService
 
   def self.ensure_experiments_exist_in_database
     CONFIG.each do |key, _details|
-      experiment = Experiment.find_or_create_by(key: key)
-      if experiment.name.blank?
-        experiment.update(name: CONFIG[key][:name])
-      end
+      # experiment = Experiment.find_or_create_by(key: key)
+      # ap experiment
+      # if experiment.name.blank?
+      #   experiment.update(name: CONFIG[key][:name])
+      # end
     end
   end
 end

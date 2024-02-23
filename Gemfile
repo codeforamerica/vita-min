@@ -89,6 +89,10 @@ group :heroku, :development, :test do
   gem 'warning', require: false
 end
 
+group :heroku, :development do
+  gem 'listen', '>= 3.4.0'
+end
+
 group :demo, :development, :heroku, :staging, :production do
   # for storing results of rack-mini-profiler
   gem 'redis'
@@ -122,7 +126,6 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.4.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'git-pair'
