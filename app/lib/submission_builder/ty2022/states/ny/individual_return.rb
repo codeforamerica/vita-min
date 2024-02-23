@@ -63,7 +63,7 @@ module SubmissionBuilder
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?
                 xml.SCHOOL_CD @submission.data_source.school_district_number if @submission.data_source.school_district_number.present?
                 xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30) if @submission.data_source.school_district.present?
-                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation.truncate(25) if @submission.data_source.direct_file_data.primary_occupation.present?
+                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation[0..24] if @submission.data_source.direct_file_data.primary_occupation.present?
                 # We omit country name because we don't support out of country filers
                 #xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
@@ -74,7 +74,7 @@ module SubmissionBuilder
                   xml.MI_NAME @submission.data_source.spouse.middle_initial if @submission.data_source.spouse.middle_initial.present?
                   xml.LAST_NAME @submission.data_source.spouse.last_name if @submission.data_source.spouse.last_name.present?
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
-                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation.truncate(25) if @submission.data_source.direct_file_data.spouse_occupation.present?
+                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation[0..24] if @submission.data_source.direct_file_data.spouse_occupation.present?
                 end
               elsif @submission.data_source.filing_status_mfs?
                 xml.tiSpouse do
