@@ -598,6 +598,8 @@ Rails.application.routes.draw do
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
+        get "/unsubscribe_email", to: "notifications_settings#unsubscribe_email", as: :unsubscribe_email
+        post "/subscribe_email", to: "notifications_settings#subscribe_email", as: :subscribe_email
       end
     end
   end

@@ -1568,6 +1568,14 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      issue_resolved:
+        email:
+          body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
+          subject: Issue resolved; continue filing your state taxes
+        sms: |
+          Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
+
+          Questions? Reply to this text.
       rejected:
         email:
           body: |
@@ -1942,6 +1950,17 @@ en:
       section_4: "Section 4: Transfer your data"
       section_5: "Section 5: Complete your state tax return"
       section_6: "Section 6: Submit your state taxes"
+    notification_mailer:
+      user_message:
+        unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
+    notifications_settings:
+      subscribe_email:
+        flash: You are successfully re-subscribed to email notifications.
+      unsubscribe_email:
+        help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
+        link_text: Opt in again.
+        mistake: Is this a mistake?
+        title: You've opted out of email notifications from FileYourStateTaxes.
     questions:
       az_charitable_contributions:
         edit:
@@ -2528,9 +2547,8 @@ en:
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
-          Already filed your federal return with IRS Direct File and need to get started with your state return? <a href=%{ny_landing_path}>Start here for New York</a>. <a href=%{az_landing_path}>Start here for Arizona</a>. <br/><br/>
-          Already started your state return and need to complete it? <a href=%{login_path}>Sign in here</a>.<br/>
+          IRS Direct File will be broadly available to all eligible taxpayers by mid March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:

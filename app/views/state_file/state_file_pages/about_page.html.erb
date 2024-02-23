@@ -5,12 +5,7 @@
     <h1 class="h1 strong" style="font-weight: bold"><%= title %></h1>
 
     <div>
-      <%= t(".subheader_html",
-            login_path: login_options_path(us_state: 'us'),
-            ny_landing_path: ny_questions_landing_page_path(us_state: 'ny'),
-            az_landing_path: az_questions_landing_page_path(us_state: 'az')
-          )
-      %>
+      <%= t(".subheader_html", login_path: login_options_path(us_state: 'us')) %>
     </div><br>
 
     <div class="blue-group spacing-below-15 spacing-above-15">
