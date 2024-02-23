@@ -1928,12 +1928,12 @@ es:
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     navigation:
-      section_1: "Sección 1: ¿Puedes utilizar esta herramienta?"
-      section_2: "Sección 2: Crear cuenta"
-      section_3: "Sección 3: Términos y condiciones"
-      section_4: "Sección 4: Transferir tus datos"
-      section_5: "Sección 5: Complete su declaración de impuestos estatales"
-      section_6: "Sección 6: Presente sus impuestos estatales"
+      section_1: 'Sección 1: ¿Puedes utilizar esta herramienta?'
+      section_2: 'Sección 2: Crear cuenta'
+      section_3: 'Sección 3: Términos y condiciones'
+      section_4: 'Sección 4: Transferir tus datos'
+      section_5: 'Sección 5: Complete su declaración de impuestos estatales'
+      section_6: 'Sección 6: Presente sus impuestos estatales'
     notification_mailer:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
