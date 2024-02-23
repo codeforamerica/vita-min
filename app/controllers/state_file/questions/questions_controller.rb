@@ -16,10 +16,6 @@ module StateFile
         end
       end
 
-      def progress_calculator
-        StateFileProgressCalculator.new(question_navigator)
-      end
-
       def show_progress?
         question_navigator.controllers.include?(self.class)
       end
@@ -34,6 +30,7 @@ module StateFile
       def question_navigator
         @navigator ||= "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
       end
+      helper_method :question_navigator
 
       def state_code
         state_code_ = params[:us_state].downcase
