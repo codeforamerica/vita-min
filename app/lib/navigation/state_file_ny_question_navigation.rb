@@ -58,8 +58,11 @@ module Navigation
       SECTIONS.detect { |section| section.controllers.select { |c| c == controller }}
     end
 
-    def get_display_attrs(controller)
-      SECTIONS.detect { |section| section.get_display_attrs(controller) }
+    def self.get_progress(controller)
+      SECTIONS.lazy.map { |s|
+        s.get_progress(controller)
+      }.detect.first
+
     end
 
     def self.intake_class
