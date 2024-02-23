@@ -85,6 +85,7 @@ end
 
 group :heroku, :development, :test do
   gem 'annotate'
+  gem 'listen', '>= 3.4.0'
 end
 
 group :demo, :development, :heroku, :staging, :production do
