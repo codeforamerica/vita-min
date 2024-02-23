@@ -32,8 +32,8 @@ module Navigation
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
-        Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController, false),
-        Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController, false, false),
+        Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false, false),
         Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::NycResidencyController),
         Navigation::NavigationStep.new(StateFile::Questions::NyPermanentAddressController),
