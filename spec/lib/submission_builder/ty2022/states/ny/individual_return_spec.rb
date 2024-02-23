@@ -56,8 +56,8 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         intake.direct_file_data.spouse_occupation = "Manufacturer of artisan lightbulbs"
 
         xml = described_class.build(submission).document
-        expect(xml.at("PR_EMP_DESC").text).to eq("Professional Juggler a...")
-        expect(xml.at("tiSpouse SP_EMP_DESC").text).to eq("Manufacturer of artisa...")
+        expect(xml.at("PR_EMP_DESC").text).to eq("Professional Juggler and ")
+        expect(xml.at("tiSpouse SP_EMP_DESC").text).to eq("Manufacturer of artisan l")
       end
     end
 
