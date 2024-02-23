@@ -1,7 +1,7 @@
 module Navigation
   class StateFileAzQuestionNavigation
     include ControllerNavigation
-
+    include Navigation::StateFileBaseQuestionNavigationMixin
 
     SECTIONS = [
       Navigation::NavigationSection.new("", [

@@ -1,6 +1,7 @@
 module Navigation
   class StateFileNyQuestionNavigation
     include ControllerNavigation
+    include Navigation::StateFileBaseQuestionNavigationMixin
 
     SECTIONS = [
       Navigation::NavigationSection.new(nil, [
@@ -53,14 +54,6 @@ module Navigation
       ]),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
-
-    def self.get_section(controller)
-      SECTIONS.detect { |section| section.controllers.select { |c| c == controller }}
-    end
-
-    def self.get_progress(controller)
-      SECTIONS.lazy.map { |s| s.get_progress(controller) }.detect(&:present?)
-    end
 
     def self.intake_class
       StateFileNyIntake
