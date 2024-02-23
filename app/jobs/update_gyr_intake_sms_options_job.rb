@@ -12,4 +12,8 @@ class UpdateGyrIntakeSmsOptionsJob < ApplicationJob
     intakes.where(sms_phone_number: nil).in_batches.update_all("sms_phone_number=phone_number")
     intakes.in_batches.update_all(sms_notification_opt_in: "yes")
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end
