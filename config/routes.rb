@@ -248,6 +248,11 @@ Rails.application.routes.draw do
             get "show_pdf", to: "efile_submissions#show_pdf"
             get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
           end
+
+          resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
+            patch "/reprocess", to: "efile_errors#reprocess", on: :member, as: :reprocess
+          end
+
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end

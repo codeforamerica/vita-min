@@ -5,29 +5,39 @@
 </div>
 
 <h1 class="h2">
-  <%= @title %>
+  <%= t("state_file.questions.return_status.rejected.title", state_name: States.name_for_key(params[:us_state].upcase)) %>
 </h1>
 
-<% if @reject_code.present? %>
+<% if @error.expose %>
+  <% if @error.code.present? %>
+    <section class="spacing-below-15">
+      <strong><%= t('.reject_code') %></strong>
+      <%= @error.code %>
+    </section>
+  <% end %>
+
+  <% if @error.message.present? %>
+    <section class="spacing-below-15">
+      <strong><%= t('.reject_desc') %></strong>
+      <%= @error.description(I18n.locale).present? ? @error.description(I18n.locale) : @error.message %>
+    </section>
+  <% end %>
+<% end %>
+
+<% if @error.auto_cancel %>
   <section class="spacing-below-15">
-    <strong><%= t('.reject_code') %></strong>
-    <%= @reject_code %>
+    <p class="spacing-below-5"><strong><%= t('.auto_cancel.next') %></strong></p>
+    <%= t('.auto_cancel.body_html') %>
+  </section>
+<% else %>
+  <section class="spacing-below-15">
+    <p class="spacing-below-5"><strong><%= t('.whats_next') %></strong></p>
+    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.its_unusual') %>
+  </section>
+
+  <section>
+    <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+    <%= t('.contact_us') %>
   </section>
 <% end %>
 
-<% if @reject_description.present? %>
-  <section class="spacing-below-15">
-    <strong><%= t('.reject_desc') %></strong>
-    <%= @reject_description %>
-  </section>
-<% end %>
-
-<section class="spacing-below-15">
-  <p class="spacing-below-5"><strong><%= t('.whats_next') %></strong></p>
-  <%= t('.its_unusual') %>
-</section>
-
-<section>
-  <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-  <%= t('.contact_us') %>
-</section>

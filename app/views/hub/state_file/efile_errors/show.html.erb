@@ -1,0 +1,39 @@
+<% content_for :back_to, "efile_errors" %>
+<% content_for :card do %>
+  <div class="slab slab--not-padded spacing-above-25">
+    <%= render "header" %>
+    <hr/>
+
+    <div class="spacing-below-25">
+      <h4 class="spacing-below-5">Expose to client?</h4>
+      <%= image_tag @efile_error.expose ? "icons/check.svg" : "icons/cancelled.svg", alt: @efile_error.expose ? "yes" : "no" %>
+    </div>
+
+    <div class="test-auto-cancel spacing-below-25">
+      <h4 class="spacing-below-5">Auto-cancel?</h4>
+      <%= image_tag @efile_error.auto_cancel ? "icons/check.svg" : "icons/cancelled.svg", alt: @efile_error.auto_cancel ? "yes" : "no" %>
+    </div>
+
+    <div class="test-auto-wait spacing-below-25">
+      <h4 class="spacing-below-5">Auto-wait?</h4>
+      <%= image_tag @efile_error.auto_wait ? "icons/check.svg" : "icons/cancelled.svg", alt: @efile_error.auto_wait ? "yes" : "no" %>
+    </div>
+
+    <h4 class="spacing-below-5">Description (English)</h4>
+    <%= @efile_error.description_en.present? ? @efile_error.description_en : "N/A" %>
+
+    <h4 class="spacing-below-5">Description (Spanish)</h4>
+    <%= @efile_error.description_es.present? ? @efile_error.description_es : "N/A"%>
+
+    <h4 class="spacing-below-5">Resolution (English)</h4>
+    <%= @efile_error.resolution_en.present? ? @efile_error.resolution_en : "N/A" %>
+
+    <h4 class="spacing-below-5">Resolution (Spanish)</h4>
+    <%= @efile_error.resolution_es.present? ? @efile_error.resolution_es : "N/A" %>
+
+    <div class="spacing-above-35">
+      <%= link_to t("general.edit"), edit_hub_state_file_efile_error_path(id: @efile_error.id), class: "button button--primary" %>
+      <%= link_to "Reprocess errors", reprocess_hub_state_file_efile_error_path(id: @efile_error), method: :patch, class: "button button--centered" %>
+    </div>
+  </div>
+<% end %>

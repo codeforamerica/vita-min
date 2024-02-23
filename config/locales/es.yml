@@ -2457,6 +2457,9 @@ es:
           receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           title: "¡Ha enviado su declaración de impuestos de %{state_name} de 2023! Actualmente se encuentra a la espera de ser aceptado para su procesamiento."
         rejected:
+          auto_cancel:
+            body_html: Desafortunadamente, ha habido un problema con la presentación de su declaración estatal que no se puede resolver con nuestra herramienta. <u>Chatee con nosotros</u> o envíenos un correo electrónico a help@fileyourstatetaxes.org para obtener orientación sobre los próximos pasos.
+            next: "¿Qué puedo hacer a continuación?"
           contact_us: Contacte a nuestro equipo de expertos haciendo clic en "Chatea con nosotros".
           have_questions: "¿Tienes preguntas?"
           its_unusual: Es poco común que tu declaración estatal sea rechazada después de que tu declaración federal haya sido aceptada. Nuestro equipo está investigando el problema para ver qué podemos hacer para ayudarte a solucionarlo. Te informaremos si necesitas hacer algo más.

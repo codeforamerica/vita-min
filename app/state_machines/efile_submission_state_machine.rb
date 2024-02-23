@@ -87,11 +87,13 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :fraud_hold) do |submission|
-    submission.source_record.transition_to(:file_fraud_hold)
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: submission.client,
-      message: AutomatedMessage::InformOfFraudHold,
-    )
+    if submission.is_for_federal_filing?
+      submission.tax_return.transition_to(:file_fraud_hold)
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: submission.client,
+        message: AutomatedMessage::InformOfFraudHold,
+      )
+    end
   end
 
   after_transition(to: :transmitted) do |submission|
@@ -172,12 +174,13 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :investigating) do |submission|
-    submission.source_record.transition_to(:file_hold)
+    # transitioning tax-return state
+    submission.tax_return.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
 
 
   after_transition(to: :waiting) do |submission|
-    submission.source_record.transition_to(:file_hold)
+    submission.tax_return.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
@@ -186,7 +189,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :cancelled) do |submission|
-    submission.source_record.transition_to(:file_not_filing)
+    submission.tax_return.transition_to(:file_not_filing) if submission.is_for_federal_filing?
   end
 
   after_transition do |submission, transition|

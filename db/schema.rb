@@ -792,8 +792,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "category"
     t.string "code"
     t.datetime "created_at", null: false
-    t.boolean "expose", default: true
+    t.boolean "expose", default: false
     t.text "message"
+    t.integer "service_type", default: 0, null: false
     t.string "severity"
     t.string "source"
     t.datetime "updated_at", null: false

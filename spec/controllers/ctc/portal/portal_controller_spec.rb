@@ -50,12 +50,12 @@ describe Ctc::Portal::PortalController do
         end
 
         context "when there are multiple errors and at least one of them is auto-cancel" do
-          let(:auto_cancel_error) { create(:efile_error, auto_cancel: true) }
+          let(:auto_cancel_error) { create(:efile_error, auto_cancel: true, service_type: :ctc, expose: true) }
           let(:auto_cancel_transition_error) { create(:efile_submission_transition_error, efile_error: auto_cancel_error) }
           before do
             client.tax_returns.first.efile_submissions.first.last_transition.update(efile_submission_transition_errors: [
-              create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true)),
-              create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true)),
+              create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true, service_type: :ctc, expose: true)),
+              create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true, service_type: :ctc, expose: true)),
               auto_cancel_transition_error
             ])
           end
@@ -67,11 +67,11 @@ describe Ctc::Portal::PortalController do
         end
 
         context "when there are multiple errors and none of them are auto-cancel" do
-          let(:efile_submission_transition_error) { create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true)) }
+          let(:efile_submission_transition_error) { create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true, expose: true)) }
           before do
             client.tax_returns.first.efile_submissions.first.last_transition.update(efile_submission_transition_errors: [
               efile_submission_transition_error,
-              create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true)),
+              create(:efile_submission_transition_error, efile_error: create(:efile_error, auto_wait: true, expose: true)),
             ])
           end
 

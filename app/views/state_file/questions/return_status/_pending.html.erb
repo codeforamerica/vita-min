@@ -5,7 +5,7 @@
 </div>
 
 <h1 class="h2">
-  <%= @title %>
+  <%= t("state_file.questions.return_status.pending.title", state_name: States.name_for_key(params[:us_state].upcase)) %>
 </h1>
 
 <p>
