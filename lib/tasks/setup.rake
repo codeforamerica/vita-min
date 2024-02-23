@@ -1,4 +1,5 @@
 require 'zip'
+require 'annotate'
 
 namespace :setup do
   desc "Download and/or unpack some dependencies for vita-min"
