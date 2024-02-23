@@ -31,8 +31,8 @@ module Navigation
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
-        Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
-        Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController),
+        Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSeniorDependentsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
