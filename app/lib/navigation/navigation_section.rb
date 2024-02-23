@@ -12,20 +12,20 @@ module Navigation
     end
 
     def get_progress(controller)
+      binding.pry
       step_number = 0
       step = @steps.detect do |s|
         return true if s.controller == controller
-        if step.increment_step?
-          step_number += 1
-        end
+        step_number += 1 if s.increment_step?
         false
       end
-      return if step.nil? or !step.show_steps?
-      {
-        step_number: step_number,
-        number_of_steps: number_of_steps,
-        title: title
-      }
+      if step.present? && step.show_steps?
+        {
+          step_number: step_number,
+          number_of_steps: number_of_steps,
+          title: title
+        }
+      end
     end
 
     def number_of_steps

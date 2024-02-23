@@ -59,9 +59,7 @@ module Navigation
     end
 
     def self.get_progress(controller)
-      SECTIONS.lazy.map { |s|
-        s.get_progress(controller)
-      }.detect.first
+      SECTIONS.lazy.map { |s| s.get_progress(controller) }.detect.first
 
     end
 
