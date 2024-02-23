@@ -74,6 +74,10 @@ module Questions
     end
     helper_method :progress_calculator
 
+    def show_progress?
+      progress_calculator.show_progress?(self.class)
+    end
+
     def question_navigator
       Navigation::GyrQuestionNavigation
     end
