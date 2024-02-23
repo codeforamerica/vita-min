@@ -16,10 +16,6 @@ module StateFile
         end
       end
 
-      def show_progress?
-        question_navigator.controllers.include?(self.class)
-      end
-
       private
 
       def current_intake
