@@ -83,6 +83,10 @@ group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
 end
 
+group :heroku, development, :test do
+  gem 'annotate'
+end
+
 group :demo, :development, :heroku, :staging, :production do
   # for storing results of rack-mini-profiler
   gem 'redis'
@@ -91,7 +95,6 @@ group :demo, :development, :heroku, :staging, :production do
 end
 
 group :development, :test do
-  gem 'annotate'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'axe-matchers'
