@@ -7,7 +7,11 @@
         <%= image_tag("questions/error-circle.svg", alt: "") %>
       </div>
       <h1 class="h2"><%= content_for(:page_title) %></h1>
-      <h2 class="h2"><%= t(".help_text_html") %></h2>
+      <h2 class="h2 spacing-below-35"><%= t(".help_text_html") %></h2>
+      <%= link_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: params[:us_state]),
+                  class: "button button--primary button--wide" do %>
+        <%= I18n.t("general.try_again") %>
+      <% end %>
     </div>
   </div>
 </section>
