@@ -6,7 +6,7 @@ module Navigation
     SECTIONS = [
       Navigation::NavigationSection.new("", [
         Navigation::NavigationStep.new(StateFile::Questions::LandingPageController, false)
-      ]),
+      ], false),
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityResidenceController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOutOfStateIncomeController),
