@@ -18,7 +18,12 @@ namespace :setup do
   # try to limit distribution.
   task download_efile_schemas: :environment do |_task|
     EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
+      p filename, download_folder, '---'
       download_path = Rails.root.join('vendor', download_folder, filename)
+      # download_path = Rails.root.join('vendor', 'irs', 'efile1040x_2020v5.1.zip')
+      # download_folder = 'irs'
+      # filename = 'efile1040x_2020v5.1.zip'
+      # download_path = Rails.root.join('vendor', download_folder, filename)
       # If the file already exists, do not re-download.
       next if File.exist?(download_path)
 

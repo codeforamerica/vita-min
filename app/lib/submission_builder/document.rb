@@ -34,6 +34,7 @@ module SubmissionBuilder
     def build
       errors = []
       if @validate
+        # We would need to store the file on AWS and read it, since Heroku filesystem is ephemeral.
         xsd = Nokogiri::XML::Schema(File.open(schema_file))
         xml = Nokogiri::XML(document.to_xml)
         errors = xsd.validate(xml)
