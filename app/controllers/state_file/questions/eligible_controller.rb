@@ -6,6 +6,7 @@ module StateFile
       def edit
         super
         @faq_other_options_link = faq_state_filing_options_link
+        @state_name = States.name_for_key(params[:us_state].upcase)
       end
 
       private
