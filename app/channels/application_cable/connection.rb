@@ -16,7 +16,7 @@ module ApplicationCable
 
     def current_state_file_intake
       warden = env['warden']
-      @current_state_file_intake ||= warden.user(:state_file_az_intake) || warden.user(:state_file_ny_intake)
+      @current_state_file_intake = StateFileBaseIntake::STATE_CODES.lazy.map{|c| warden.user("state_file_#{c}_intake".to_sym) }.find(&:itself)
     rescue UncaughtThrowError => e
       raise unless e.tag == :warden
 
