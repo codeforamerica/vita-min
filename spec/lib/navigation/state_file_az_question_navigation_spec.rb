@@ -41,4 +41,28 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
       ])
     end
   end
+
+  context "get_section" do
+    it "gets the correct section" do
+      section = Navigation::StateFileAzQuestionNavigation.get_section(StateFile::Questions::AzReviewController)
+      expect(section.title).to eq "state_file.navigation.section_5"
+    end
+  end
+
+  context "number_of_steps" do
+    it "returns the correct number of steps" do
+      expect(Navigation::StateFileAzQuestionNavigation.number_of_steps).to eq 6
+    end
+  end
+
+  context "get_progress" do
+    it "returns the correct progress" do
+      progress = Navigation::StateFileAzQuestionNavigation.get_progress(StateFile::Questions::FederalInfoController)
+      expect(progress).to eq({
+         title: "Section 5: Complete your state tax return",
+         step_number: 4,
+         number_of_steps: 6
+      })
+    end
+  end
 end

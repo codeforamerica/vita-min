@@ -11,7 +11,7 @@ module Navigation
       end
 
       def get_section(controller)
-        sections.detect { |section| section.controllers.select { |c| c == controller }}
+        sections.detect { |section| section.controllers.select { |c| c == controller }.present? }
       end
 
       def number_of_steps
