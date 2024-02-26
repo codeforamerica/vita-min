@@ -12,11 +12,11 @@ module SubmissionBuilder
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name && form1099g.payer_name != ''
                   xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+/, '').upcase[0..3] do
-                    xml.BusinessNameLine1Txt form1099g.payer_name
+                    xml.BusinessNameLine1Txt form1099g.payer_name[0..74]
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt form1099g.payer_street_address if form1099g.payer_street_address.present?
-                    xml.CityNm form1099g.payer_city if form1099g.payer_city.present?
+                    xml.AddressLine1Txt form1099g.payer_street_address[0..34] if form1099g.payer_street_address.present?
+                    xml.CityNm form1099g.payer_city[0..21] if form1099g.payer_city.present?
                     xml.StateAbbreviationCd "NY"
                     xml.ZIPCd form1099g.payer_zip if form1099g.payer_zip.present?
                   end
@@ -30,9 +30,9 @@ module SubmissionBuilder
                 xml.RecipientSSN recipient.ssn if recipient.ssn.present?
                 xml.RecipientName recipient.full_name if recipient.full_name.present?
                 xml.RecipientUSAddress do
-                  xml.AddressLine1Txt form1099g.recipient_address_line1 if form1099g.recipient_address_line1.present?
-                  xml.AddressLine2Txt form1099g.recipient_address_line2 if form1099g.recipient_address_line2.present?
-                  xml.CityNm form1099g.recipient_city if form1099g.recipient_city.present?
+                  xml.AddressLine1Txt form1099g.recipient_address_line1[0..34] if form1099g.recipient_address_line1.present?
+                  xml.AddressLine2Txt form1099g.recipient_address_line2[0..34] if form1099g.recipient_address_line2.present?
+                  xml.CityNm form1099g.recipient_city[0..21] if form1099g.recipient_city.present?
                   xml.StateAbbreviationCd "NY"
                   xml.ZIPCd form1099g.recipient_zip if form1099g.recipient_zip.present?
                 end

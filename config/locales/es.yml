@@ -126,8 +126,10 @@ es:
       address:
         city:
           blank: Por favor introduzca una ciudad válida.
+          invalid: Sólo se aceptan letras y espacios simples.
         street_address:
           blank: Por favor ingrese una dirección postal válida.
+          invalid: Sólo se aceptan letras, números, guiones, barras y espacios simples.
         zip:
           blank: Por favor ingrese un código postal válido.
       birth_date:
@@ -175,8 +177,9 @@ es:
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       payer_name:
         blank: Por favor ingrese un nombre valido.
+        invalid: 'Sólo se aceptan letras, números, paréntesis, guión, apóstrofo y #.'
       payer_tin:
-        blank: Ingresa un TIN válido de 9 dígitos.
+        invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guión.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -566,6 +569,7 @@ es:
     tin_type: Tipo de identificación
     title: FileYourStateTaxes
     today: Hoy
+    try_again: Intentar otra vez
     type: Tipo
     ui: UI
     unassigned: No asignado
@@ -1555,6 +1559,14 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: Aceptación de la declaración de impuestos estatales de %{state_name}'
         sms: "Hola %{primary_first_name} - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Recibirás tu reembolso una vez que el estado de %{state_name}  apruebe el monto de tu reembolso. \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}.\n\n¿Necesitas ayuda? Responde a este mensaje.\n"
+      issue_resolved:
+        email:
+          body: "Hola: ¡Gracias por utilizar FileYourStateTaxes! \n\nCualquier problema que haya experimentado al usar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, <a href=\"%{login_link}\">inicie sesión aquí .</a>\n\nMejor,\nEl equipo de FileYourStateTaxes\n"
+          subject: Problema resuelto; continúe presentando sus impuestos estatales
+        sms: |
+          Hola. ¡Gracias por utilizar FileYourStateTaxes! Cualquier problema que haya experimentado al utilizar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, inicie sesión aquí: %{login_link}
+
+          ¿Preguntas? Responder a este texto.
       rejected:
         email:
           body: |
@@ -1919,6 +1931,17 @@ es:
           not_found: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. ¿Quieres iniciar sesión con un número de teléfono diferente?
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
+    notification_mailer:
+      user_message:
+        unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
+    notifications_settings:
+      subscribe_email:
+        flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
+      unsubscribe_email:
+        help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@ fileyourstatetaxes.org.</a>
+        link_text: Inscríbete nuevamente.
+        mistake: "¿Es esto un error?"
+        title: Ha optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
       az_charitable_contributions:
         edit:
@@ -2530,7 +2553,6 @@ es:
         subheader_html: |
           <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>sin costo.</strong> <br/><br/>
           Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
-          ¿Ya presentó su declaración federal ante IRS Direct File y necesita comenzar con su declaración estatal? <a href=%{ny_landing_path}>Comience aquí para Nueva York</a>. <a href=%{az_landing_path}>Comience aquí para Arizona</a>. <br/><br/>
           ¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>.<br/>
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
