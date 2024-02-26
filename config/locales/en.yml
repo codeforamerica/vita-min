@@ -564,6 +564,7 @@ en:
     tin_type: Identification Type
     title: FileYourStateTaxes
     today: Today
+    try_again: Try Again
     type: Type
     ui: UI
     unassigned: Unassigned
@@ -2547,8 +2548,8 @@ en:
       coming_soon:
         title: Coming soon
       data_import_failed:
-        help_text_html: Don’t worry, we can help. Reach out by tapping the chat button below or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-        title: Unfortunately, your federal tax return failed to transfer. To continue, you’ll need to connect with one of our tax specialists.
+        help_text_html: Don’t worry, you can try again or <a class="open-intercom">chat with us</a> to connect with a tax specialist.
+        title: Unfortunately, your federal tax return failed to transfer.
       footer:
         faq: FAQ
         privacy_policy: Privacy Policy
