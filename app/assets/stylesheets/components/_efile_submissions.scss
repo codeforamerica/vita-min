@@ -28,7 +28,7 @@
 
 .submission-table, .logs, .metric-box {
   .status {
-    &.rejected, &.failed, &.fraud_hold {
+    &.rejected, &.failed, &.fraud_hold, &.notified_of_rejection {
       color: $color-red;
       font-weight: bold;
     }

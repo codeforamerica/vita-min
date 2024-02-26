@@ -236,6 +236,16 @@ describe EfileSubmissionStateMachine do
       end
     end
 
+    context "to notified_of_rejection" do
+      let(:submission) { create(:efile_submission, :rejected) }
+
+      it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+        submission.transition_to!(:notified_of_rejection)
+
+        expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
+      end
+    end
+
     context "to investigating" do
       let(:submission) { create(:efile_submission, :rejected) }
       it "transitions the tax return status to on hold" do

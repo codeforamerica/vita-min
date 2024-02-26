@@ -52,6 +52,16 @@
             %>
           </div>
         <% end %>
+        <% if @efile_submission.can_transition_to?(:notified_of_rejection) %>
+          <div style="margin-left: 10px;">
+            <%= button_to("Notify of Rejection",
+                          notify_of_rejection_hub_efile_submission_path(id: @efile_submission.id),
+                          method: :patch,
+                          data: { confirm: "Are you sure you want to notify the filer?" },
+                          class: "button button--small button--teal button--no-margin")
+            %>
+          </div>
+        <% end %>
 
         <% if @efile_submission.can_transition_to?(:cancelled) %>
           <div style="margin-left: 10px">

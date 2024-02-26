@@ -210,6 +210,7 @@ Rails.application.routes.draw do
           patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
+          patch '/notify_of_rejection', to: 'efile_submissions#notify_of_rejection', on: :member, as: :notify_of_rejection
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
           get '/download', to: 'efile_submissions#download', on: :member, as: :download
           get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts

@@ -31,7 +31,7 @@ class EfileSubmissionStateMachine
   transition from: :transmitted,           to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted, :notified_of_rejection]
   transition from: :ready_for_ack,         to: [:accepted, :rejected, :failed, :ready_for_ack, :notified_of_rejection]
   transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
-  transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :rejection_alerted]
+  transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :notified_of_rejection]
   transition from: :notified_of_rejection, to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :investigating,         to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
   transition from: :waiting,               to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
@@ -139,7 +139,7 @@ class EfileSubmissionStateMachine
     end
   end
 
-  after_transition(to: :rejected, after_commit: true) do |submission, transition|
+  before_transition(to: :notified_of_rejection) do |submission, transition|
     if submission.is_for_state_filing?
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
     end
