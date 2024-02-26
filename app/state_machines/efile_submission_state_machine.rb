@@ -16,6 +16,7 @@ class EfileSubmissionStateMachine
   state :rejected
   state :accepted
 
+  state :notified_of_rejection
   state :investigating
   state :waiting
   state :fraud_hold
@@ -23,18 +24,19 @@ class EfileSubmissionStateMachine
   state :resubmitted
   state :cancelled
 
-  transition from: :new,               to: [:preparing]
-  transition from: :preparing,         to: [:bundling, :fraud_hold]
-  transition from: :bundling,          to: [:queued, :failed]
-  transition from: :queued,            to: [:transmitted, :failed]
-  transition from: :transmitted,       to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted]
-  transition from: :ready_for_ack,     to: [:accepted, :rejected, :failed, :ready_for_ack]
-  transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
-  transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
-  transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
-  transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
-  transition from: :fraud_hold,        to: [:investigating, :resubmitted, :waiting, :cancelled]
-  transition from: :cancelled,         to: [:investigating, :waiting]
+  transition from: :new,                   to: [:preparing]
+  transition from: :preparing,             to: [:bundling, :fraud_hold]
+  transition from: :bundling,              to: [:queued, :failed]
+  transition from: :queued,                to: [:transmitted, :failed]
+  transition from: :transmitted,           to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted, :notified_of_rejection]
+  transition from: :ready_for_ack,         to: [:accepted, :rejected, :failed, :ready_for_ack, :notified_of_rejection]
+  transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :rejection_alerted]
+  transition from: :notified_of_rejection, to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :investigating,         to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
+  transition from: :waiting,               to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
+  transition from: :fraud_hold,            to: [:investigating, :resubmitted, :waiting, :cancelled]
+  transition from: :cancelled,             to: [:investigating, :waiting]
 
   guard_transition(to: :bundling) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
@@ -133,8 +135,13 @@ class EfileSubmissionStateMachine
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
-      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+    end
+  end
+
+  after_transition(to: :rejected, after_commit: true) do |submission, transition|
+    if submission.is_for_state_filing?
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
     end
   end
 
