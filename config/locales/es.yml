@@ -126,8 +126,10 @@ es:
       address:
         city:
           blank: Por favor introduzca una ciudad válida.
+          invalid: Sólo se aceptan letras y espacios simples.
         street_address:
           blank: Por favor ingrese una dirección postal válida.
+          invalid: Sólo se aceptan letras, números, guiones, barras y espacios simples.
         zip:
           blank: Por favor ingrese un código postal válido.
       birth_date:
@@ -175,8 +177,9 @@ es:
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       payer_name:
         blank: Por favor ingrese un nombre valido.
+        invalid: 'Sólo se aceptan letras, números, paréntesis, guión, apóstrofo y #.'
       payer_tin:
-        blank: Ingresa un TIN válido de 9 dígitos.
+        invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guión.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
