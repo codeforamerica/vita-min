@@ -122,6 +122,14 @@ class StateFileBaseIntake < ApplicationRecord
     filing_status_mfj?
   end
 
+  def ask_spouse_esign?
+    filing_status_mfj? && !spouse_deceased?
+  end
+
+  def spouse_deceased?
+    direct_file_data.surviving_spouse.present?
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial
