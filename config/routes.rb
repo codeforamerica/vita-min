@@ -549,8 +549,6 @@ Rails.application.routes.draw do
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
-          get "pending_federal_return", to: "pending_federal_return#edit"
-          get "canceled_data_transfer", to: "canceled_data_transfer#edit"
         end
       end
 
@@ -569,6 +567,8 @@ Rails.application.routes.draw do
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
+
+        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
@@ -598,6 +598,8 @@ Rails.application.routes.draw do
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
+        get "/unsubscribe_email", to: "notifications_settings#unsubscribe_email", as: :unsubscribe_email
+        post "/subscribe_email", to: "notifications_settings#subscribe_email", as: :subscribe_email
       end
     end
   end

@@ -47,6 +47,20 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
+
+    context "with long employment description" do
+      let(:intake) { create(:state_file_ny_intake, :mfj_with_complete_spouse) }
+
+      it 'generates XML from the database models' do
+        intake.direct_file_data.primary_occupation = "Professional Juggler and unicyclist"
+        intake.direct_file_data.spouse_occupation = "Manufacturer of artisan lightbulbs"
+
+        xml = described_class.build(submission).document
+        expect(xml.at("PR_EMP_DESC").text).to eq("Professional Juggler and ")
+        expect(xml.at("tiSpouse SP_EMP_DESC").text).to eq("Manufacturer of artisan l")
+      end
+    end
+
     context "when claiming the federal EIC" do
       let(:intake) { create(:state_file_zeus_intake) }
 
