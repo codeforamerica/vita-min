@@ -10,7 +10,7 @@
   <% end %>
 
   <% unless content_for? :page_title %>
-    <%= content_for :page_title do %>Free AZ and NY state tax filing<% end %>
+    <%= content_for :page_title do I18n.t("state_file.general.title") end %>
   <% end %>
 
   <% content_for :header do %>

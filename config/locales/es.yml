@@ -1907,6 +1907,8 @@ es:
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
+    general:
+      title: Presentación gratuita de impuestos estatales de AZ y Nueva York
     intake_logins:
       account_locked:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
