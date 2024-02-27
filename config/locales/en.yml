@@ -241,6 +241,8 @@ en:
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       routing_account_number:
         not_same: Routing number and account number can not be the same
+      state_credit:
+        exceeds_limit: Total amount entered must not exceed $%{limit}
       state_routings:
         delegated_routing: You can only submit routing percentages for an organization OR its child sites, not both.
         must_equal_100: Routing percentages must total 100%.
@@ -1603,10 +1605,14 @@ en:
 
             We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
 
+            Your Client ID is %{intake_id}. This is an important piece of account information that you may need when talking to our support team. Please keep track of this number and do not delete this message.
+
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
+
+            If you would like to unsubscribe from emails, click here.
           subject: Welcome to FileYourStateTaxes
         sms: |
           Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
@@ -1947,6 +1953,13 @@ en:
           not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+    navigation:
+      section_1: 'Section 1: Can you use this tool'
+      section_2: 'Section 2: Create account'
+      section_3: 'Section 3: Terms and conditions'
+      section_4: 'Section 4: Transfer your data'
+      section_5: 'Section 5: Complete your state tax return'
+      section_6: 'Section 6: Submit your state taxes'
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
@@ -1980,8 +1993,7 @@ en:
         edit:
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           ssn_no_employment_html:
-            one: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
-            other: Do you or your spouse have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
+            label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
           was_incarcerated:
             one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?

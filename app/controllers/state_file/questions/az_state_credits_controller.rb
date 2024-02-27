@@ -2,6 +2,10 @@ module StateFile
   module Questions
     class AzStateCreditsController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
+      def self.show?(intake)
+        wages_salaries_tips = intake.direct_file_data.fed_wages_salaries_tips
+        wages_salaries_tips.present? && wages_salaries_tips > 0
+      end
 
       private
 

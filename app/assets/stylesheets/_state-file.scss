@@ -80,6 +80,30 @@
     }
   }
 
+  .progress-steps {
+    display: flex;
+    gap: 5px;
+    margin: -10px 0 5px 0;
+
+    .progress-step {
+      height: 10px;
+      background: $color-grey-medium-light;
+      flex-shrink: 1;
+      flex-grow: 1;
+      border-radius: 5px;
+    }
+
+    .completed-step {
+      background: $color-state-file-primary;
+    }
+  }
+
+  p.progress-text {
+    color: $color-black;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+
   .footer {
     background-color: $color-state-file-black;
   }

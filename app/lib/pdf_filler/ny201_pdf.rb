@@ -125,6 +125,10 @@ module PdfFiller
       if @submission.data_source.spouse_esigned_yes?
         answers[:Spouse_occupation] = @xml_document.at('tiSpouse SP_EMP_DESC')&.text
       end
+      if @submission.data_source.spouse_deceased?
+        answers[:Spouse_date_death] = Date.parse(@xml_document.at('tiSpouse DCSD_DT')&.text)&.strftime("%m%d%Y")
+        answers[:Spouse_occupation] = "Filing as surviving spouse"
+      end
       answers
     end
 

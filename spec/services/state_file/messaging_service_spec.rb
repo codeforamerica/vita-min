@@ -4,11 +4,8 @@ describe StateFile::MessagingService do
   let(:intake) { create :state_file_az_intake, primary_first_name: "Mona", email_address: "mona@example.com", email_address_verified_at: 1.minute.ago, message_tracker: {} }
   let(:efile_submission) { create :efile_submission, :for_state, data_source: intake }
   let(:message) { StateFile::AutomatedMessage::Welcome }
-  let!(:messaging_service) { described_class.new(message: message, intake: intake) }
-
-  before do
-    allow(Flipper).to receive(:enabled?).with(:state_file_notification_emails).and_return(true)
-  end
+  let(:body_args) { {intake_id: intake.id} }
+  let!(:messaging_service) { described_class.new(message: message, intake: intake, body_args: body_args) }
 
   context "when has an email_address" do
     it "creates an email and records message in intake message tracker" do

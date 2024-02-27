@@ -242,6 +242,8 @@ es:
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       routing_account_number:
         not_same: El número de ruta y el número de cuenta no pueden ser iguales
+      state_credit:
+        exceeds_limit: El monto total ingresado no debe exceder $%{limit}
       state_routings:
         delegated_routing: Solo puede enviar los porcentajes de enrutamiento para una organización o su sub-organización, no para ambas.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
@@ -1551,7 +1553,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Deberías recibir tu reembolso una vez que el estado de %{state_name} apruebe el monto de tu reembolso.
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Descarga tu declaración y verifica el estado de tu reembolso en fileyourstatetaxes.org. Cualquier cantidad no pagada para esa fecha puede estar sujeta a penalidades adicionales.
 
             Puedes descargar tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
@@ -1570,31 +1572,31 @@ es:
       rejected:
         email:
           body: |
-            Hi %{primary_first_name},
+            Hola %{primary_first_name},
 
-            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
-
-            Best,
-            The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\nQuestions? Reply to this text.\n"
+            ¿Preguntas? Responde a este correo electrónico.
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
+        sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\n¿Necesitas ayuda? Responde a este mensaje..\n"
       welcome:
         email:
           body: |
             ¡Bienvenido/a!
 
-            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras completas tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+
+            Su ID de cliente es %{intake_id}. Esta es una información importante de la cuenta que puede necesitar cuando hable con nuestro equipo de soporte. Mantenga un registro de este número y no elimine este mensaje.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
-            Saludos cordiales, El equipo de FileYourStateTaxes
+            Saludos,
+            El equipo de FileYourStateTaxes
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          ¡Bienvenido/a! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estés presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas tomar un descanso, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
+          ¡Bienvenido! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
-          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para cancelar la suscripción.
+          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto.
     successful_submission_drop_off:
       email:
         body: |
@@ -1931,6 +1933,13 @@ es:
           not_found: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. ¿Quieres iniciar sesión con un número de teléfono diferente?
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
+    navigation:
+      section_1: 'Sección 1: ¿Puedes utilizar esta herramienta?'
+      section_2: 'Sección 2: Crear cuenta'
+      section_3: 'Sección 3: Términos y condiciones'
+      section_4: 'Sección 4: Transferir tus datos'
+      section_5: 'Sección 5: Complete su declaración de impuestos estatales'
+      section_6: 'Sección 6: Presente sus impuestos estatales'
     notification_mailer:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
@@ -1965,9 +1974,7 @@ es:
         edit:
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           ssn_no_employment_html:
-            many: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
-            one: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-            other: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
+            label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
           was_incarcerated:
             many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"

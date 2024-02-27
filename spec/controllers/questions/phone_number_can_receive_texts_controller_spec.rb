@@ -17,6 +17,28 @@ RSpec.describe Questions::PhoneNumberCanReceiveTextsController do
     allow(subject).to receive(:current_intake).and_return(intake)
   end
 
+  describe ".show?" do
+    context "when they have entered a non-sms phone number and opted in to texting" do
+      it "returns true" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "when they have not entered a phone number" do
+      let!(:intake) { create :intake, sms_notification_opt_in: "yes", phone_number: nil }
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "when they have not opted in to texting" do
+      let!(:intake) { create :intake, sms_notification_opt_in: "no" }
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+  end
+
   describe "#edit" do
     it "renders the corresponding template" do
       get :edit

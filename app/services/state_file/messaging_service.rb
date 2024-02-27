@@ -1,9 +1,10 @@
 module StateFile
   class MessagingService
+    DEFAULT_LOCALE = 'en'.freeze
     attr_accessor :locale, :message, :intake, :submission, :locale, :message_tracker, :sent_messages
 
     def initialize(message:, intake:, submission: nil, locale: nil, sms: true, email: true, body_args: {})
-      @locale = locale || "en" # TODO: add intake.locale once we start collecting it
+      @locale = locale || intake.locale || DEFAULT_LOCALE
       @message = message
       @message_instance = message.new
       @intake = intake
@@ -33,7 +34,7 @@ module StateFile
     private
 
     def send_email
-      return unless Flipper.enabled?(:state_file_notification_emails) && intake.email_address.present? && intake.email_address_verified_at.present?
+      return unless intake.email_address.present? && intake.email_address_verified_at.present?
 
       if @message_instance.email_body.present?
         sent_message = StateFileNotificationEmail.create!(

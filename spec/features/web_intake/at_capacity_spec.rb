@@ -29,9 +29,6 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       check "Email Me"
       click_on "Continue"
 
-      expect(page).to have_text("Can we text the phone number you previously entered?")
-      click_on "Yes"
-
       expect(page).to have_selector("h1", text: "Please share your email address.")
       fill_in "Email address", with: "gary.gardengnome@example.green"
       fill_in "Confirm email address", with: "gary.gardengnome@example.green"

@@ -18,7 +18,7 @@ module PdfFiller
         "1a" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '),
         "1b" => @xml_document.at('Primary TaxpayerName LastName')&.text,
         "1c" => @xml_document.at('Primary TaxpayerSSN')&.text,
-        "1d" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text].join(' '),
+        "1d" => spouse_first_name,
         "1e" => @xml_document.at('Secondary TaxpayerName LastName')&.text,
         "1f" => @xml_document.at('Secondary TaxpayerSSN')&.text,
         "2a" => @xml_document.at("USAddress AddressLine1Txt")&.text,
@@ -138,6 +138,8 @@ module PdfFiller
         "82" => direct_file_data.spouse_occupation,
       })
 
+      answers["SpouseSignature"] = "Filing as surviving spouse" if @submission.data_source.spouse_deceased?
+
       answers
     end
 
@@ -156,6 +158,16 @@ module PdfFiller
 
     def filing_status
       FILING_STATUS_OPTIONS[@xml_document.at('FilingStatus')&.text]
+    end
+
+    def spouse_first_name
+      name = [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text].join(' ')
+      if @submission.data_source.spouse_deceased?
+        dod = Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death)&.strftime("%-m/%-d/%Y")
+        name = name + " Deceased #{dod}" if dod.present?
+      end
+
+      name
     end
 
     def charitable_contributions

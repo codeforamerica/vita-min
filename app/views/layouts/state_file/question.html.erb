@@ -9,6 +9,7 @@
     <div class="grid">
       <div class="grid__item question-wrapper">
         <%= yield :notices %>
+        <%= render "shared/progress_steps" %>
         <% if prev_path %>
           <div class="back grid">
             <%= link_to t("general.back"), prev_path %>
