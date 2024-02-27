@@ -25,7 +25,7 @@ class EmailAccessToken < ApplicationRecord
   before_create :ensure_token_limit
 
   scope :lookup, ->(raw_token) do
-    where(token: Devise.token_generator.digest(EmailAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 2.days)
+    where(token: Devise.token_generator.digest(EmailAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 30.minutes)
   end
 
   def self.generate!(email_address:, client_id: nil)

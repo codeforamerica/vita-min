@@ -24,6 +24,10 @@ class TextMessageAccessToken < ApplicationRecord
   before_create :ensure_token_limit
   after_create :increment_datadog
 
+  scope :lookup, ->(raw_token) do
+    where(token: Devise.token_generator.digest(TextMessageAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 30.minutes)
+  end
+
   def self.generate!(sms_phone_number:, client_id: nil)
     raw_verification_code, hashed_verification_code = VerificationCodeService.generate(sms_phone_number)
     [raw_verification_code, create!(
@@ -43,9 +47,5 @@ class TextMessageAccessToken < ApplicationRecord
     if existing_token_count > 4
       self.class.where(sms_phone_number: sms_phone_number).order(created_at: :asc).limit(existing_token_count - 4).delete_all
     end
-  end
-
-  scope :lookup, ->(raw_token) do
-    where(token: Devise.token_generator.digest(TextMessageAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 2.days)
   end
 end
