@@ -62,6 +62,56 @@ RSpec.describe StateFile::EsignDeclarationForm do
         expect(intake.submission_efile_device_info.device_id).to eq device_id
       end
     end
+
+    context "when married-filing-jointly and spouse is deceased" do
+      it "does not record spouse signature" do
+
+      end
+    end
+  end
+
+  describe "#validations" do
+    let!(:intake) { create :state_file_az_intake, primary_esigned: "unfilled", primary_esigned_at: nil, spouse_esigned: "unfilled", filing_status: "married_filing_jointly" }
+
+    context "when married-filing-jointly and spouse is deceased" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(true)
+      end
+
+      it "does not require spouse signature" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: nil,
+            device_id: device_id,
+          }
+        )
+
+        expect(form).to be_valid
+      end
+    end
+
+    context "when married-filing-jointly and spouse is not deceased" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(false)
+      end
+
+      it "does require spouse signature" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: "unfilled",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+    end
   end
 
 end
