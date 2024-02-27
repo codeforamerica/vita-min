@@ -24,7 +24,8 @@ module StateFile
           message: StateFile::AutomatedMessage::Welcome,
           intake: intake,
           sms: is_text_based?,
-          email: is_email_based?
+          email: is_email_based?,
+          body_args: {intake_id: intake.id}
         )
         messaging_service.send_message
       end
