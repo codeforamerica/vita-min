@@ -1553,7 +1553,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Deberías recibir tu reembolso una vez que el estado de %{state_name} apruebe el monto de tu reembolso.
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Descarga tu declaración y verifica el estado de tu reembolso en fileyourstatetaxes.org. Cualquier cantidad no pagada para esa fecha puede estar sujeta a penalidades adicionales.
 
             Puedes descargar tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
@@ -1572,33 +1572,31 @@ es:
       rejected:
         email:
           body: |
-            Hi %{primary_first_name},
+            Hola %{primary_first_name},
 
-            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
-
-            Best,
-            The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\nQuestions? Reply to this text.\n"
+            ¿Preguntas? Responde a este correo electrónico.
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
+        sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\n¿Necesitas ayuda? Responde a este mensaje..\n"
       welcome:
         email:
           body: |
             ¡Bienvenido/a!
 
-            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras completas tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
             Su ID de cliente es %{intake_id}. Esta es una información importante de la cuenta que puede necesitar cuando hable con nuestro equipo de soporte. Mantenga un registro de este número y no elimine este mensaje.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
-            Saludos cordiales, El equipo de FileYourStateTaxes
+            Saludos,
+            El equipo de FileYourStateTaxes
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          ¡Bienvenido/a! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estés presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas tomar un descanso, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
+          ¡Bienvenido! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
-          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para cancelar la suscripción.
+          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto.
     successful_submission_drop_off:
       email:
         body: |
