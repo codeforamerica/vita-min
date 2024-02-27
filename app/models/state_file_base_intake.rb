@@ -127,7 +127,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def spouse_deceased?
-    direct_file_data.surviving_spouse.present?
+    direct_file_data.surviving_spouse?
   end
 
   class Person

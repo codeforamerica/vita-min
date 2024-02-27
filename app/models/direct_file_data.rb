@@ -147,24 +147,21 @@ class DirectFileData
     df_xml_value(__method__)
   end
 
-  def surviving_spouse=(value)
-    # create_or_destroy_df_xml_node(__method__, value, after="SurvivingSpouseInd??")
+  def surviving_spouse?
+    surviving_spouse == "X"
+  end
 
+  def surviving_spouse=(value)
     if value.present?
-      # if its X then it is true, do we need to convert this to a boolean?
       write_df_xml_value(__method__, value)
     end
   end
 
-  # this is where we call the value
   def spouse_date_of_death
     df_xml_value(__method__)
   end
 
-  #this is where we write the value from the DF XML
   def spouse_date_of_death=(value)
-    # create_or_destroy_df_xml_node(__method__, value, after="SpouseDeathDt??")
-
     if value.present?
       write_df_xml_value(__method__, value)
     end
