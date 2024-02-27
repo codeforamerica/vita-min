@@ -26,6 +26,7 @@ module StateFile
       def question_navigator
         @navigator ||= "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
       end
+      helper_method :question_navigator
 
       def state_code
         state_code_ = params[:us_state].downcase

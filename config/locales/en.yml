@@ -1949,6 +1949,13 @@ en:
           not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+    navigation:
+      section_1: 'Section 1: Can you use this tool'
+      section_2: 'Section 2: Create account'
+      section_3: 'Section 3: Terms and conditions'
+      section_4: 'Section 4: Transfer your data'
+      section_5: 'Section 5: Complete your state tax return'
+      section_6: 'Section 6: Submit your state taxes'
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.

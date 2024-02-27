@@ -1,0 +1,15 @@
+<% if current_intake.present?
+  progress = question_navigator.get_progress(controller.class)
+  unless progress.nil?
+    number_of_steps = progress[:number_of_steps]
+    step_number = progress[:step_number]
+    title = progress[:title]
+    %>
+    <div class="progress-steps" title="<%=title%> (<%=step_number%> / <%=number_of_steps%>)"><%
+      (0..number_of_steps-1).each do |step| %>
+        <div class="progress-step<%=(step_number >= step) ? " completed-step" : "" %>"></div>
+      <% end %>
+    </div>
+    <p class="progress-text"><%= title %></p>
+  <% end
+ end %>
