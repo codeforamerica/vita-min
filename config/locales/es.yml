@@ -1589,6 +1589,8 @@ es:
 
             ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras completas tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
+            Su ID de cliente es %{intake_id}. Esta es una información importante de la cuenta que puede necesitar cuando hable con nuestro equipo de soporte. Mantenga un registro de este número y no elimine este mensaje.
+
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Saludos cordiales, El equipo de FileYourStateTaxes
