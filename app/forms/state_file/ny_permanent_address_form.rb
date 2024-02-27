@@ -9,9 +9,9 @@ module StateFile
                        :permanent_address_outside_ny
 
     validates :confirmed_permanent_address, presence: true
-    validates :permanent_street, presence: true, irs_street_address_type: true, if: -> { confirmed_permanent_address == "no" }
-    validates :permanent_apartment, irs_street_address_type: true
-    validates :permanent_city, presence: true, irs_street_address_type: true, if: -> { confirmed_permanent_address == "no" }
+    validates :permanent_street, presence: true, irs_street_address_type: { maximum: nil }, if: -> { confirmed_permanent_address == "no" }
+    validates :permanent_apartment, irs_street_address_type: { maximum: nil }
+    validates :permanent_city, presence: true, irs_street_address_type: { maximum: nil }, if: -> { confirmed_permanent_address == "no" }
     validates :permanent_zip, presence: true, zip_code: true, if: -> { confirmed_permanent_address == "no" }
 
     def initialize(intake = nil, params = nil)
