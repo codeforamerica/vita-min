@@ -8,14 +8,7 @@ end
 # This structure is borrowed from https://github.com/department-of-veterans-affairs/vets-api/blob/247c84c0226d4cc90477b96a46107c6bace62bd5/config/initializers/flipper.rb
 # Make sure that each feature we reference in code is present in the UI, as long as we have a Database already
 begin
-  # Change this to Flipper.enable to test notification emails,
-  # then eventually delete it and the corresponding flag checks when notification
-  # emails are turned on in prod and running smoothly
-  unless Flipper.exist?(:state_file_notification_emails)
-    Flipper.disable :state_file_notification_emails
-  end
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
-
 rescue
   # make sure we can still run rake tasks before table has been created
   nil

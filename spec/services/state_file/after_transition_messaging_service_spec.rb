@@ -9,7 +9,6 @@ describe StateFile::AfterTransitionMessagingService do
   let(:sf_messaging_service) { StateFile::MessagingService.new(intake: intake, submission: efile_submission, message: message, body_args: body_args) }
 
   before do
-    allow(Flipper).to receive(:enabled?).with(:state_file_notification_emails).and_return(true)
     allow(StateFile::MessagingService).to receive(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args).and_return(sf_messaging_service)
   end
 
