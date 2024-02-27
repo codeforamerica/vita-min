@@ -36,6 +36,14 @@ module StateFile
         state_code_
       end
 
+      def state_name
+        state_code_ = params[:us_state]
+        unless StateFileBaseIntake::STATE_CODES.include?(state_code_)
+          raise StandardError, state_code_
+        end
+        States.name_for_key(state_code_.upcase)
+      end
+
       def redirect_if_no_intake
         unless current_intake.present?
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
