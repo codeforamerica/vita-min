@@ -29,6 +29,13 @@ module Hub
       redirect_after_action
     end
 
+    def notify_of_rejection
+      authorize! :update, @efile_submission
+      @efile_submission.transition_to!(:notified_of_rejection, { initiated_by_id: current_user.id })
+      flash[:notice] = "Filer Notified."
+      redirect_after_action
+    end
+
     def failed
       return if acts_like_production?
 
