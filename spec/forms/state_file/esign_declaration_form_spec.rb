@@ -62,12 +62,6 @@ RSpec.describe StateFile::EsignDeclarationForm do
         expect(intake.submission_efile_device_info.device_id).to eq device_id
       end
     end
-
-    context "when married-filing-jointly and spouse is deceased" do
-      it "does not record spouse signature" do
-
-      end
-    end
   end
 
   describe "#validations" do
