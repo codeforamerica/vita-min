@@ -147,7 +147,7 @@ class DirectFileData
     df_xml_value(__method__)
   end
 
-  def surviving_spouse?
+  def spouse_deceased?
     surviving_spouse == "X"
   end
 

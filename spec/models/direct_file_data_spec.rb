@@ -412,14 +412,14 @@ describe DirectFileData do
     context "when federal XML SurvivingSpouseInd has a value of 'X'" do
       let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_deceased_spouse_ny.xml')) }
       it 'returns true' do
-        expect(described_class.new(xml).surviving_spouse?).to eq(true)
+        expect(described_class.new(xml).spouse_deceased?).to eq(true)
       end
     end
 
     context "when federal XML SurvivingSpouseInd node not present" do
       let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_john_jane_no_eic_ny.xml')) }
       it 'returns false' do
-        expect(described_class.new(xml).surviving_spouse?).to eq(false)
+        expect(described_class.new(xml).spouse_deceased?).to eq(false)
       end
     end
   end
