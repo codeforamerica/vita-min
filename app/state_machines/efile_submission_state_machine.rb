@@ -139,7 +139,7 @@ class EfileSubmissionStateMachine
     end
   end
 
-  before_transition(to: :notified_of_rejection) do |submission, transition|
+  before_transition(to: :notified_of_rejection) do |submission|
     if submission.is_for_state_filing?
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
     end
