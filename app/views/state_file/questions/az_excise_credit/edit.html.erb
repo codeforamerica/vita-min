@@ -13,7 +13,7 @@
     </div>
 
     <div class="blue-group">
-      <%= f.cfa_radio_set(:ssn_no_employment, label_text: t(".ssn_no_employment_html", count: current_intake.filer_count), collection: [
+      <%= f.cfa_radio_set(:ssn_no_employment, label_text: t(".ssn_no_employment_html.label"), collection: [
         { value: "yes", label: t("general.affirmative") },
         { value: "no", label: t("general.negative") },
       ]) %>

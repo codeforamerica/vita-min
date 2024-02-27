@@ -1976,9 +1976,7 @@ es:
         edit:
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           ssn_no_employment_html:
-            many: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
-            one: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-            other: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
+            label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
           was_incarcerated:
             many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"

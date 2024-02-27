@@ -158,12 +158,7 @@ class StateFileAzIntake < StateFileBaseIntake
   def ask_whether_incarcerated?
     has_valid_ssn = primary.ssn.present? && !primary.has_itin?
     has_valid_agi = direct_file_data.fed_agi <= (filing_status_mfj? || filing_status_hoh? ? 25_000 : 12_500)
-    if filing_status_mfj?
-      spouse_has_valid_ssn = spouse.ssn.present? && !spouse.has_itin?
-      has_valid_ssn && has_valid_agi && spouse_has_valid_ssn
-    else
-      has_valid_ssn && has_valid_agi
-    end
+    has_valid_ssn && has_valid_agi
   end
 
   def qualified_for_excise_credit?
