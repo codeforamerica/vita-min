@@ -39,7 +39,7 @@ RSpec.feature "Logging in with an existing account" do
 
     expect(TwilioService).to have_received(:send_text_message).with(
       to: phone_number,
-      body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after two days.",
+      body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 30 minutes.",
       status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
     )
 
@@ -66,7 +66,7 @@ RSpec.feature "Logging in with an existing account" do
     end
 
     mail = ActionMailer::Base.deliveries.last
-    expect(mail.html_part.body.to_s).to include("Your six-digit verification code for FileYourStateTaxes is: <strong> #{verification_code}.</strong> This code will expire after two days.")
+    expect(mail.html_part.body.to_s).to include("Your six-digit verification code for FileYourStateTaxes is: <strong> #{verification_code}.</strong> This code will expire after 30 minutes.")
 
     expect(page).to have_text "Enter the code to continue"
     fill_in "Enter the 6-digit code", with: verification_code
