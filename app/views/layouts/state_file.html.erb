@@ -1,5 +1,5 @@
 <%= extends :application do %>
-  <% content_for :app_name do %>State File<% end %>
+  <% content_for :app_name do %>FileYourStateTaxes<% end %>
   <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
   <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
   <% content_for :head_links do %>
@@ -10,7 +10,7 @@
   <% end %>
 
   <% unless content_for? :page_title %>
-    <%= content_for :page_title do %>Free AZ and NY state tax filing | FileYourStateTaxes<% end %>
+    <%= content_for :page_title do %>Free AZ and NY state tax filing<% end %>
   <% end %>
 
   <% content_for :header do %>
