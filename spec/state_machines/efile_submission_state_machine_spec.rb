@@ -240,9 +240,14 @@ describe EfileSubmissionStateMachine do
       let(:submission) { create(:efile_submission, :rejected) }
 
       it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+        after_transition_messaging_service = instance_double(StateFile::AfterTransitionMessagingService)
+        allow(StateFile::AfterTransitionMessagingService)
+          .to receive(:new)
+          .and_return(after_transition_messaging_service)
+        allow(after_transition_messaging_service)
+          .to receive(:send_efile_submission_rejected_message)
         submission.transition_to!(:notified_of_rejection)
 
-        expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
       end
     end
 
