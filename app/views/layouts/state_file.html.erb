@@ -9,6 +9,10 @@
     <%= javascript_pack_tag 'application', 'state_file', defer: true %>
   <% end %>
 
+  <% unless content_for? :page_title %>
+    <%= content_for :page_title do %>Free AZ and NY state tax filing | FileYourStateTaxes<% end %>
+  <% end %>
+
   <% content_for :header do %>
     <% render 'state_file/state_file_pages/header' %>
   <% end %>
