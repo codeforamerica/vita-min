@@ -241,6 +241,8 @@ en:
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       routing_account_number:
         not_same: Routing number and account number can not be the same
+      state_credit:
+        exceeds_limit: Total amount entered must not exceed $%{limit}
       state_routings:
         delegated_routing: You can only submit routing percentages for an organization OR its child sites, not both.
         must_equal_100: Routing percentages must total 100%.
