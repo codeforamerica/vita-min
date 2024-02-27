@@ -407,4 +407,20 @@ describe DirectFileData do
       expect(described_class.new(xml).determine_eic_attribute(nil)).to eq('unfilled')
     end
   end
+
+  describe '#surviving_spouse?' do
+    context "when federal XML SurvivingSpouseInd has a value of 'X'" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_deceased_spouse_ny.xml')) }
+      it 'returns true' do
+        expect(described_class.new(xml).spouse_deceased?).to eq(true)
+      end
+    end
+
+    context "when federal XML SurvivingSpouseInd node not present" do
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_john_jane_no_eic_ny.xml')) }
+      it 'returns false' do
+        expect(described_class.new(xml).spouse_deceased?).to eq(false)
+      end
+    end
+  end
 end

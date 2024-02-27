@@ -54,7 +54,9 @@ class DirectFileData
     fed_dc_homebuyer_credit_amount: 'IRS8859 DCHmByrCurrentYearCreditAmt',
     fed_w2_state: 'W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd',
     primary_claim_as_dependent: 'IRS1040 PrimaryClaimAsDependentInd',
-    hoh_qualifying_person_name: 'IRS1040 QualifyingHOHNm'
+    hoh_qualifying_person_name: 'IRS1040 QualifyingHOHNm',
+    surviving_spouse: 'IRS1040 SurvivingSpouseInd',
+    spouse_date_of_death: 'IRS1040 SpouseDeathDt',
   }.freeze
 
   def initialize(raw_xml)
@@ -136,6 +138,30 @@ class DirectFileData
   def spouse_occupation=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
 
+    if value.present?
+      write_df_xml_value(__method__, value)
+    end
+  end
+
+  def surviving_spouse
+    df_xml_value(__method__)
+  end
+
+  def spouse_deceased?
+    surviving_spouse == "X"
+  end
+
+  def surviving_spouse=(value)
+    if value.present?
+      write_df_xml_value(__method__, value)
+    end
+  end
+
+  def spouse_date_of_death
+    df_xml_value(__method__)
+  end
+
+  def spouse_date_of_death=(value)
     if value.present?
       write_df_xml_value(__method__, value)
     end

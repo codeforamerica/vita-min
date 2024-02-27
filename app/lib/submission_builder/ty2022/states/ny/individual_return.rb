@@ -74,6 +74,7 @@ module SubmissionBuilder
                   xml.MI_NAME @submission.data_source.spouse.middle_initial if @submission.data_source.spouse.middle_initial.present?
                   xml.LAST_NAME @submission.data_source.spouse.last_name if @submission.data_source.spouse.last_name.present?
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
+                  xml.DCSD_DT @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.spouse_deceased?
                   xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation[0..24] if @submission.data_source.direct_file_data.spouse_occupation.present?
                 end
               elsif @submission.data_source.filing_status_mfs?
