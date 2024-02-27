@@ -421,6 +421,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :acts_like_production?
 
+  def show_xml?
+    !(Rails.env.demo? || Rails.env.staging?)
+  end
+  helper_method :show_xml?
+
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
   end
