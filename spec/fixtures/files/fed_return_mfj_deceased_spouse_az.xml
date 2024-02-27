@@ -1,88 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v4.0">
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
   <ReturnHeader binaryAttachmentCnt="0">
     <TaxYr>2023</TaxYr>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
-    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <SoftwareVersionNum>5d388420</SoftwareVersionNum>
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
-      <PrimarySSN>123456789</PrimarySSN>
-      <SpouseSSN>123456543</SpouseSSN>
-      <NameLine1Txt>MEG &amp; MARLA DECD&lt;MAPLES</NameLine1Txt>
-      <PrimaryNameControlTxt>MAPL</PrimaryNameControlTxt>
-      <SpouseNameControlTxt>MAPL</SpouseNameControlTxt>
+      <PrimarySSN>400000001</PrimarySSN>
+      <SpouseSSN>900500010</SpouseSSN>
+      <NameLine1Txt>YOKO&lt;ONO&lt;&amp; JOHN LENNON DECD</NameLine1Txt>
+      <PrimaryNameControlTxt>ONO</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>LENN</SpouseNameControlTxt>
       <USAddress>
-        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
         <CityNm>Phoenix</CityNm>
         <StateAbbreviationCd>AZ</StateAbbreviationCd>
-        <ZIPCd>85005</ZIPCd>
+        <ZIPCd>85001</ZIPCd>
       </USAddress>
-      <PhoneNum>2454765712</PhoneNum>
+      <PhoneNum>4805555555</PhoneNum>
     </Filer>
     <AdditionalFilerInformation>
       <AtSubmissionFilingGrp>
-        <EmailAddressTxt>{email=test017@test.com}</EmailAddressTxt>
+        <EmailAddressTxt>test@test.test</EmailAddressTxt>
       </AtSubmissionFilingGrp>
     </AdditionalFilerInformation>
   </ReturnHeader>
-  <ReturnData documentCnt="1">
+  <ReturnData documentCnt="2">
     <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
       <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
-      <SpouseDeathDt>2023-06-08</SpouseDeathDt>
-      <SpouseNm>Marla Maples</SpouseNm>
+      <SpouseDeathDt>2023-09-30</SpouseDeathDt>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
       <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
       <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
       <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
       <TotalExemptionsCnt>2</TotalExemptionsCnt>
-      <WagesAmt>0</WagesAmt>
-      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
-      <TipIncomeAmt>0</TipIncomeAmt>
-      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
-      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
-      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
-      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
-      <WagesSalariesAndTipsAmt>0</WagesSalariesAndTipsAmt>
-      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
-      <TaxableInterestAmt>0</TaxableInterestAmt>
-      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
-      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
-      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
-      <CapitalGainLossAmt>0</CapitalGainLossAmt>
-      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
-      <TotalIncomeAmt>0</TotalIncomeAmt>
-      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
-      <AdjustedGrossIncomeAmt>0</AdjustedGrossIncomeAmt>
-      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
-      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10000</WagesAmt>
+      <WagesSalariesAndTipsAmt>10000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>10000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
       <TaxableIncomeAmt>0</TaxableIncomeAmt>
       <TaxAmt>0</TaxAmt>
-      <AdditionalTaxAmt>0</AdditionalTaxAmt>
       <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
-      <CTCODCAmt>0</CTCODCAmt>
-      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
-      <TotalCreditsAmt>0</TotalCreditsAmt>
       <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
-      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
       <TotalTaxAmt>0</TotalTaxAmt>
-      <FormW2WithheldTaxAmt>0</FormW2WithheldTaxAmt>
-      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
-      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
-      <WithholdingTaxAmt>0</WithholdingTaxAmt>
-      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
-      <RefundableCreditsAmt>0</RefundableCreditsAmt>
-      <TotalPaymentsAmt>0</TotalPaymentsAmt>
-      <OverpaidAmt>0</OverpaidAmt>
-      <RefundAmt>0</RefundAmt>
-      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>1000</TotalPaymentsAmt>
+      <OverpaidAmt>1000</OverpaidAmt>
+      <RefundAmt>1000</RefundAmt>
       <OwedAmt>0</OwedAmt>
-      <EsPenaltyAmt>0</EsPenaltyAmt>
       <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-      <PrimaryOccupationTxt>engineer</PrimaryOccupationTxt>
-      <SpouseOccupationTxt>none</SpouseOccupationTxt>
+      <PrimaryOccupationTxt>Artist</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Singer</SpouseOccupationTxt>
       <SurvivingSpouseInd>X</SurvivingSpouseInd>
       <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
     </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000001</EmployeeSSN>
+      <EmployerEIN>010457678</EmployerEIN>
+      <EmployerNameControlTxt>PENN</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Penny Lane Diner</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Yoko Ono</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>800</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
   </ReturnData>
 </Return>
