@@ -7,7 +7,7 @@ module Questions
     end
 
     def self.show?(intake)
-      intake.phone_number_can_receive_texts_no?
+      intake.sms_phone_number.blank? && intake.sms_notification_opt_in_yes?
     end
 
     def illustration_path

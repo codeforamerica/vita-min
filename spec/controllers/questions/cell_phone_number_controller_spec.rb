@@ -10,6 +10,28 @@ RSpec.describe Questions::CellPhoneNumberController do
     allow(MixpanelService).to receive(:send_event)
   end
 
+  describe ".show?" do
+    context "when they do not have an sms phone number and opted in to texting" do
+      it "returns true" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "when they have an sms phone number" do
+      let!(:intake) { create :intake, sms_notification_opt_in: "yes", sms_phone_number: "+14155551212" }
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "when they have not opted in to texting" do
+      let!(:intake) { create :intake, sms_notification_opt_in: "no" }
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+  end
+
   describe "#edit" do
     it "renders successfully" do
       get :edit
