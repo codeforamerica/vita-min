@@ -49,6 +49,29 @@ describe StateFileAnalytics do
       it "returns the calculated attributes" do
         expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
       end
+
+      it "returns calculated values for AZ intake attributes" do
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.attributes.symbolize_keys).to include(
+                                                         household_fed_agi: 112273,
+                                                         dependent_tax_credit: 0,
+                                                         excise_credit: 0,
+                                                         family_income_tax_credit: 0,
+                                                         )
+
+      end
+
+      it "returns only nil for NY intake attributes" do
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.attributes.symbolize_keys).to include(
+                                                         nys_eitc: nil,
+                                                         nyc_eitc: nil,
+                                                         empire_state_child_credit: nil,
+                                                         nyc_school_tax_credit: nil,
+                                                         nys_household_credit: nil,
+                                                         nyc_household_credit: nil,
+                                                         )
+      end
     end
 
     context "NY intake" do
@@ -56,6 +79,28 @@ describe StateFileAnalytics do
 
       it "returns the calculated attributes" do
         expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
+      end
+
+      it "returns the calculated attributes for NY intake attributes" do
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.attributes.symbolize_keys).to include(
+                                                         household_fed_agi: 32351,
+                                                         nys_eitc: 600,
+                                                         nyc_eitc: 300,
+                                                         empire_state_child_credit: 0,
+                                                         nyc_school_tax_credit: 125,
+                                                         nys_household_credit: 0,
+                                                         nyc_household_credit: 0,
+                                                       )
+      end
+
+      it "returns nil values for AZ intake attributes" do
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.attributes.symbolize_keys).to include(
+                                                         dependent_tax_credit: nil,
+                                                         excise_credit: nil,
+                                                         family_income_tax_credit: nil,
+                                                         )
       end
     end
   end
