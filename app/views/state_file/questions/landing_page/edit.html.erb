@@ -13,7 +13,7 @@
 
     <div class="partner-logo-wrapper spacing-below-35">
       <div class="partner-logo-image">
-        <%= image_tag state_image_path, alt: "#{States.name_for_key(params[:us_state].upcase)} state logo", class: "" %>
+        <%= image_tag state_image_path, alt: "#{state_name} state logo", class: "" %>
       </div>
       <div class="partner-logo-text text--body text--bold">
         <%=t(".#{params[:us_state]}.supported_by") %>
