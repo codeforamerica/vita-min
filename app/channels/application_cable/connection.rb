@@ -28,7 +28,7 @@ module ApplicationCable
     end
 
     def report_error(e)
-      Rails.logger.error ([e.message]+e.backtrace).join($/)
+      Rails.logger.warn ([e.message]+e.backtrace).join($/)
     end
   end
 end
