@@ -193,7 +193,7 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push --force git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - run: git push --force git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:main
     parallelism: 1
   deploy_to_aptible--production:
     executor: ruby_executor
