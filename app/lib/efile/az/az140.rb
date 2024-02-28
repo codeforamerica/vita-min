@@ -70,6 +70,22 @@ module Efile
         calculate_line_79 - calculate_line_80
       end
 
+      def household_fed_agi
+        line_or_zero(:AZ140_LINE_42)
+      end
+
+      def dependent_tax_credit
+        line_or_zero(:AZ140_LINE_49)
+      end
+
+      def family_income_tax_credit
+        line_or_zero(:AZ140_LINE_50)
+      end
+
+      def excise_credit
+        line_or_zero(:AZ140_LINE_56)
+      end
+
       private
 
       def calculate_line_14

@@ -25,7 +25,6 @@
 #  federal_return_status              :string
 #  hashed_ssn                         :string
 #  household_cash_assistance          :integer
-#  household_fed_agi                  :integer
 #  household_ny_additions             :integer
 #  household_other_income             :integer
 #  household_own_assessments          :integer

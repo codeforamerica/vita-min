@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_28_171734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1583,8 +1583,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
 
   create_table "state_file_analytics", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "dependent_tax_credit"
+    t.integer "empire_state_child_credit"
+    t.integer "excise_credit"
+    t.integer "family_income_tax_credit"
     t.integer "fed_eitc_amount"
     t.integer "filing_status"
+    t.integer "household_fed_agi"
+    t.integer "nyc_eitc"
+    t.integer "nyc_household_credit"
+    t.integer "nyc_school_tax_credit"
+    t.integer "nys_eitc"
+    t.integer "nys_household_credit"
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.integer "refund_or_owed_amount"
@@ -1735,7 +1745,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.string "federal_submission_id"
     t.string "hashed_ssn"
     t.integer "household_cash_assistance"
-    t.integer "household_fed_agi"
     t.integer "household_ny_additions"
     t.integer "household_other_income"
     t.integer "household_own_assessments"
