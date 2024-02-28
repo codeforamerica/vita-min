@@ -49,8 +49,8 @@ class StateFileAnalytics < ApplicationRecord
         nyc_eitc: record.calculator.nyc_eitc,
         empire_state_child_credit: record.calculator.empire_state_child_credit,
         nyc_school_tax_credit: record.calculator.nyc_school_tax_credit,
-        nys_household_credit: record.calculator.nys_household_credit,
-        nyc_household_credit: record.calculator.nyc_household_credit
+        nys_household_credit: record.calculator.nys_household_credit_amount,
+        nyc_household_credit: record.calculator.nyc_household_credit_amount
         )
     end
     assign_attributes(attributes)

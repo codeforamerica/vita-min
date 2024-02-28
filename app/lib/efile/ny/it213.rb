@@ -55,10 +55,6 @@ module Efile
         set_line(:IT213_LINE_14, -> { 0 })
       end
 
-      def empire_state_child_credit
-        line_or_zero(:IT213_LINE_14)
-      end
-
       private
 
       def calculate_worksheets

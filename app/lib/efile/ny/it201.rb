@@ -111,15 +111,19 @@ module Efile
         line_or_zero(:IT201_LINE_70)
       end
 
+      def empire_state_child_credit
+        line_or_zero(:IT201_LINE_63)
+      end
+
       def nyc_school_tax_credit
         line_or_zero(:IT201_LINE_69)
       end
 
-      def nys_household_credit
+      def nys_household_credit_amount
         line_or_zero(:IT201_LINE_40)
       end
 
-      def nyc_household_credit
+      def nyc_household_credit_amount
         line_or_zero(:IT201_LINE_48)
       end
 
