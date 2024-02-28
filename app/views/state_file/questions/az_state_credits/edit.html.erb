@@ -59,6 +59,14 @@
       </div>
     </div>
 
+    <% if @form.errors[:base].any? %>
+      <div class="form-group form-group--error">
+        <% @form.errors[:base].each do |error| %>
+          <p class="text--error"><i class="icon-warning"></i><%= error %></p>
+        <% end %>
+      </div>
+    <% end %>
+
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>

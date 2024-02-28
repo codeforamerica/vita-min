@@ -17,7 +17,7 @@ describe Questions::EmailVerificationController do
     context "if the email was blank" do
       let(:email_address) { nil }
 
-      it "redirects back to the SMS phone number entry screen " do
+      it "redirects back to the email entry screen " do
         expect(
           get :edit, params: {}
         ).to redirect_to(Questions::EmailAddressController.to_path_helper)

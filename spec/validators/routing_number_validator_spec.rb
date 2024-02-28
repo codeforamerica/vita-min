@@ -15,11 +15,10 @@ describe RoutingNumberValidator do
 
   context 'with valid routing number' do
     before do
-      allow(subject).to receive(:routing_number).and_return '123456789'
+      allow(subject).to receive(:routing_number).and_return '019456124'
     end
 
     it 'is valid' do
-
       expect(subject).to be_valid
     end
   end
@@ -46,13 +45,26 @@ describe RoutingNumberValidator do
     end
   end
 
-  context "with a routing number that is too long not match the regex" do
+  context "with a routing number that is too long" do
     before do
       allow(subject).to receive(:routing_number).and_return '1334567890'
     end
 
     it 'is not valid' do
       expect(subject).not_to be_valid
+      expect(subject.errors.messages[:routing_number]).to include I18n.t("validators.routing_number")
+    end
+  end
+
+  context "with a routing number that doesn't pass the checksum formula" do
+    before do
+      allow(subject).to receive(:routing_number).and_return '029456134'
+      allow(RoutingNumberValidator).to receive(:passes_checksum)
+    end
+
+    it 'is not valid' do
+      expect(subject).not_to be_valid
+      expect(RoutingNumberValidator).to have_received(:passes_checksum)
       expect(subject.errors.messages[:routing_number]).to include I18n.t("validators.routing_number")
     end
   end

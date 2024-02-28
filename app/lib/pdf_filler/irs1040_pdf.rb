@@ -86,6 +86,7 @@ module PdfFiller
         SpouseFirstNm: @intake.spouse.middle_initial.present? ? "#{@intake.spouse.first_name} #{@intake.spouse.middle_initial}" : @intake.spouse.first_name,
         SpouseLastNm: @intake.spouse.last_name,
         SpouseSSN: @xml_document.at("SpouseSSN")&.text,
+        SpouseDateOfDeath: @xml_document.at("SpouseDeathDt")&.text,
         SpouseIPPIN: @xml_document.at("SpouseIdentityProtectionPIN")&.text,
         SpouseBlindInd: xml_value_to_bool(@xml_document.at("SpouseBlindInd"), "CheckboxType") ? "1" : "Off",
       }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>5d388420</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000001</PrimarySSN>
+      <SpouseSSN>900500010</SpouseSSN>
+      <NameLine1Txt>YOKO&lt;ONO&lt;&amp; JOHN LENNON DECD</NameLine1Txt>
+      <PrimaryNameControlTxt>ONO</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>LENN</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </USAddress>
+      <PhoneNum>4805555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@test.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseDeathDt>2023-09-30</SpouseDeathDt>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10000</WagesAmt>
+      <WagesSalariesAndTipsAmt>10000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>10000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>1000</TotalPaymentsAmt>
+      <OverpaidAmt>1000</OverpaidAmt>
+      <RefundAmt>1000</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Artist</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Singer</SpouseOccupationTxt>
+      <SurvivingSpouseInd>X</SurvivingSpouseInd>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000001</EmployeeSSN>
+      <EmployerEIN>010457678</EmployerEIN>
+      <EmployerNameControlTxt>PENN</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Penny Lane Diner</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Yoko Ono</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>800</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

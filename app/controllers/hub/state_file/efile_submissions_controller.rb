@@ -34,6 +34,13 @@ module Hub
         render(xml: response)
       end
 
+      def show_pdf
+        submission = EfileSubmission.find(params[:efile_submission_id])
+        error_redirect and return unless submission.present?
+
+        send_data submission.generate_filing_pdf.read, filename: "#{params[:efile_submission_id]}_submission.pdf", disposition: 'inline'
+      end
+
       def state_counts
         @efile_submission_state_counts = EfileSubmission.statefile_state_counts(except: %w[new resubmitted ready_to_resubmit])
         respond_to :js

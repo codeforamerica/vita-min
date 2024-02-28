@@ -57,7 +57,7 @@ describe TextMessageVerificationCodeService do
 
         it "sends a message that mentions GetCTC" do
           described_class.request_code(**params)
-          text_body = "Your 6-digit GetCTC verification code is: 123456. This code will expire after two days."
+          text_body = "Your 6-digit GetCTC verification code is: 123456. This code will expire after 30 minutes."
 
           expect(TwilioService).to have_received(:send_text_message).with(
             a_hash_including(
@@ -72,7 +72,7 @@ describe TextMessageVerificationCodeService do
 
         it "sends a message that mentions GetYourRefund" do
           described_class.request_code(**params)
-          text_body = "Your 6-digit GetYourRefund verification code is: 123456. This code will expire after two days."
+          text_body = "Your 6-digit GetYourRefund verification code is: 123456. This code will expire after 30 minutes."
 
           expect(TwilioService).to have_received(:send_text_message).with(a_hash_including(
               to: phone_number,
@@ -86,7 +86,7 @@ describe TextMessageVerificationCodeService do
 
         it "sends a message that mentions FileYourStateTaxes" do
           described_class.request_code(**params)
-          text_body = "Your 6-digit FileYourStateTaxes verification code is: 123456. This code will expire after two days."
+          text_body = "Your 6-digit FileYourStateTaxes verification code is: 123456. This code will expire after 30 minutes."
 
           expect(TwilioService).to have_received(:send_text_message).with(
             a_hash_including(

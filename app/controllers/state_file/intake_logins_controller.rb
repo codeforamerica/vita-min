@@ -1,7 +1,6 @@
 module StateFile
   class IntakeLoginsController < Portal::ClientLoginsController
     helper_method :prev_path, :illustration_path
-    before_action :redirect_to_data_review_if_intake_authenticated
     layout "state_file/question"
 
     def new
@@ -14,6 +13,15 @@ module StateFile
 
     def create
       @contact_method = params[:contact_method] unless @contact_method.present?
+      @form = request_login_form_class.new(request_client_login_params)
+      if @form.valid?
+        intake_classes = client_login_service.intake_classes
+        @records = intake_classes.map { |intake_class| @form.filter_records(intake_class) }.flatten
+        if @records.blank?
+          flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found")
+          render :new and return
+        end
+      end
       super
     end
 
@@ -84,19 +92,6 @@ module StateFile
       when "az" then :statefile_az
       when "ny" then :statefile_ny
       when "us" then :statefile
-      end
-    end
-
-    def redirect_to_data_review_if_intake_authenticated
-      intake = current_state_file_az_intake || current_state_file_ny_intake
-      if intake.present?
-        # Redirect to last step
-        controller = intake.controller_for_current_step
-        to_path = controller.to_path_helper(
-          action: controller.navigation_actions.first,
-          us_state: intake.state_code
-        )
-        redirect_to to_path
       end
     end
 

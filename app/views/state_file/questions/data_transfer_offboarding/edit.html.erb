@@ -1,43 +1,11 @@
-<% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
-
 <% title = t('.title') %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
-  <h1 class="h2">
-    <%= title %>
-  </h1>
+  <h1 class="h2"><%= title %></h1>
 
-  <p>
-    <%= t('.offboarding_reason', reason: ineligible_reason) %>
-  </p>
+  <p><%= t('.offboarding_reason', reason: ineligible_reason) %></p>
 
-  <p>
-    <%= t('.file_with_vita', state: state_full_name) %>
-  </p>
-
-  <div class="reveal">
-    <p><a href="#" class="reveal__link"><%= t('.learn_more_title') %></a></p>
-    <div class="reveal__content">
-      <p><%= t('.learn_more_content_what', state: state_full_name) %></p>
-      <p><%= t('.learn_more_content_how') %></p>
-      <p><%= t('.learn_more_content_link_html', link: @learn_more_link) %></p>
-    </div>
-  </div>
-
-  <div class="reveal">
-    <p><a href="#" class="reveal__link"><%= t('.other_options') %></a></p>
-    <div class="reveal__content">
-      <%= render partial: "other_options" %>
-    </div>
-  </div>
-
-  <div class="spacing-below-25">
-    <%= link_to t('.get_started_with_vita'), @vita_link %>
-  </div>
-
-  <div>
-    <%= link_to t('.visit_faq'), state_faq_path %>
-  </div>
+  <%= render 'state_file/questions/eligibility_offboarding/other_options' %>
 
 <% end %>

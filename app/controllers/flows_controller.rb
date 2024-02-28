@@ -627,6 +627,8 @@ class FlowsController < ApplicationController
         spouse_state_id_id: 2,
         untaxed_out_of_state_purchases: "no",
         permanent_address_outside_ny: "no",
+        message_tracker: {},
+        locale: 'en',
       )
     end
 
@@ -651,7 +653,9 @@ class FlowsController < ApplicationController
         tribal_wages: 100,
         was_incarcerated: "no",
         household_excise_credit_claimed: "no",
-        ssn_no_employment: "no"
+        ssn_no_employment: "no",
+        message_tracker: {},
+        locale: 'en',
       )
     end
 

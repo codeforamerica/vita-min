@@ -32,7 +32,7 @@ RSpec.feature "Logging in" do
           end
 
           mail = ActionMailer::Base.deliveries.last
-          expect(mail.html_part.body.to_s).to include("Your six-digit verification code for GetYourRefund is: <strong> 000004.</strong> This code will expire after two days.")
+          expect(mail.html_part.body.to_s).to include("Your six-digit verification code for GetYourRefund is: <strong> 000004.</strong> This code will expire after 30 minutes.")
 
           fill_in "Enter 6 digit code", with: "000004"
           click_on "Verify"
@@ -54,62 +54,61 @@ RSpec.feature "Logging in" do
           expect(page).not_to have_text("Carrie")
         end
 
-        # skipping while investigating sms issue
-        # scenario "requesting a verification code with a phone number and signing in with the last four of a social" do
-        #   visit new_portal_client_login_path
-        #
-        #   expect(page).to have_text I18n.t("portal.client_logins.new.title")
-        #   fill_in "Cell phone number", with: "(500) 555-0006"
-        #
-        #   perform_enqueued_jobs do
-        #     click_on "Send code"
-        #     expect(page).to have_text "Let’s verify that code!"
-        #     expect(page).to have_text("A message with your code has been sent to: (500) 555-0006")
-        #   end
-        #
-        #   expect(TwilioService).to have_received(:send_text_message).with(
-        #     to: "+15005550006",
-        #     body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after two days.",
-        #     status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
-        #   )
-        #
-        #   fill_in "Enter 6 digit code", with: "000004"
-        #   click_on "Verify"
-        #
-        #   fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
-        #   click_on "Continue"
-        #
-        #   expect(page).to have_text("Welcome back Carrie!")
-        # end
+        scenario "requesting a verification code with a phone number and signing in with the last four of a social" do
+          visit new_portal_client_login_path
 
-        # scenario "getting locked out due to too many wrong verification codes" do
-        #   visit new_portal_client_login_path
-        #
-        #   expect(page).to have_text I18n.t("portal.client_logins.new.title")
-        #   fill_in "Cell phone number", with: "(500) 555-0006"
-        #
-        #   perform_enqueued_jobs do
-        #     click_on "Send code"
-        #     expect(page).to have_text "Let’s verify that code!"
-        #   end
-        #
-        #   fill_in "Enter 6 digit code", with: "999999"
-        #   click_on "Verify"
-        #
-        #   fill_in "Enter 6 digit code", with: "999999"
-        #   click_on "Verify"
-        #
-        #   fill_in "Enter 6 digit code", with: "999999"
-        #   click_on "Verify"
-        #
-        #   fill_in "Enter 6 digit code", with: "999999"
-        #   click_on "Verify"
-        #
-        #   fill_in "Enter 6 digit code", with: "999999"
-        #   click_on "Verify"
-        #
-        #   expect(page).to have_text("This account has been locked")
-        # end
+          expect(page).to have_text I18n.t("portal.client_logins.new.title")
+          fill_in "Cell phone number", with: "(500) 555-0006"
+
+          perform_enqueued_jobs do
+            click_on "Send code"
+            expect(page).to have_text "Let’s verify that code!"
+            expect(page).to have_text("A message with your code has been sent to: (500) 555-0006")
+          end
+
+          expect(TwilioService).to have_received(:send_text_message).with(
+            to: "+15005550006",
+            body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after 30 minutes.",
+            status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
+          )
+
+          fill_in "Enter 6 digit code", with: "000004"
+          click_on "Verify"
+
+          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
+          click_on "Continue"
+
+          expect(page).to have_text("Welcome back Carrie!")
+        end
+
+        scenario "getting locked out due to too many wrong verification codes" do
+          visit new_portal_client_login_path
+
+          expect(page).to have_text I18n.t("portal.client_logins.new.title")
+          fill_in "Cell phone number", with: "(500) 555-0006"
+
+          perform_enqueued_jobs do
+            click_on "Send code"
+            expect(page).to have_text "Let’s verify that code!"
+          end
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          expect(page).to have_text("This account has been locked")
+        end
       end
 
       context "signing in with link" do
@@ -167,7 +166,7 @@ RSpec.feature "Logging in" do
         end
 
         mail = ActionMailer::Base.deliveries.last
-        expect(mail.html_part.body.to_s).to have_text("de 6 dígitos para GetYourRefund es: 000004. Este código expirará en dos días.")
+        expect(mail.html_part.body.to_s).to have_text("de 6 dígitos para GetYourRefund es: 000004. Este código expirará en 30 minutos.")
 
         fill_in "Ingrese el código de 6 dígitos", with: "000004"
         click_on "Verificar"

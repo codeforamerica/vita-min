@@ -243,11 +243,11 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
 
           it "includes direct deposit nodes and excludes CheckCd" do
             xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-            expect(xml.at("RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("RoutingTransitNum").text).to eq "019456124"
             expect(xml.at("DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("CheckCd")).to eq nil
             expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "2"
-            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "019456124"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
           end
@@ -258,11 +258,11 @@ describe SubmissionBuilder::Shared::ReturnHeader1040 do
 
           it "includes direct deposit info and sets RefundDisbursementCd to 2" do
             xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-            expect(xml.at("RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("RoutingTransitNum").text).to eq "019456124"
             expect(xml.at("DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("CheckCd")).to eq nil
             expect(xml.at("RefundDisbursementGrp RefundDisbursementCd").text).to eq "2"
-            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "123456789"
+            expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp RoutingTransitNum").text).to eq "019456124"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp DepositorAccountNum").text).to eq "87654321"
             expect(xml.at("AdditionalFilerInformation AtSubmissionCreationGrp BankAccountDataCapturedTs").text).not_to be_nil
           end

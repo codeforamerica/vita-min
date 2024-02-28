@@ -17,6 +17,13 @@
         <span class="form-question">federal_submission_id:</span>
         <span class="label-value"><%= @efile_submission.data_source.federal_submission_id  %></span>
       </div>
+      <% s3_key = @efile_submission&.submission_bundle&.blob&.key %>
+      <% if s3_key %>
+        <div class="field-display">
+          <span class="form-question">S3 Key:</span>
+          <span class="label-value"><%= s3_key %></span>
+        </div>
+      <% end %>
       <% if @efile_submissions_same_intake.present? %>
         <div class="field-display">
           <span class="form-question">submissions with matching intake:</span>
@@ -29,6 +36,9 @@
           <%= link_to "Show XML", hub_state_file_efile_submission_show_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
           <div style="margin-left: 10px;">
             <%= link_to "Show direct-file XML", hub_state_file_efile_submission_show_df_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
+          </div>
+          <div style="margin-left: 10px;">
+            <%= link_to "Download PDF", hub_state_file_efile_submission_show_pdf_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
           </div>
 
           <% if @efile_submission.can_transition_to?(:failed) %>
@@ -48,6 +58,16 @@
                           method: :patch,
                           # disabled: @efile_submission.intake.refund_payment_method_direct_deposit? && !@efile_submission.intake.bank_account.present?,
                           data: { confirm: "Have you updated the necessary information?" },
+                          class: "button button--small button--teal button--no-margin")
+            %>
+          </div>
+        <% end %>
+        <% if @efile_submission.can_transition_to?(:notified_of_rejection) %>
+          <div style="margin-left: 10px;">
+            <%= button_to("Notify of Rejection",
+                          notify_of_rejection_hub_efile_submission_path(id: @efile_submission.id),
+                          method: :patch,
+                          data: { confirm: "Are you sure you want to notify the filer?" },
                           class: "button button--small button--teal button--no-margin")
             %>
           </div>

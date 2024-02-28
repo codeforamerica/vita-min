@@ -1,4 +1,3 @@
-<% state_name = States.name_for_key(params[:us_state].upcase) %>
 <% title = t(".title", state_name: state_name) %>
 <% content_for :page_title, title %>
 
@@ -9,7 +8,7 @@
     <div class="spacing-above-60">
       <%= f.hidden_field(:device_id) %>
       <%= f.cfa_checkbox(:primary_esigned, t(".primary_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <% if current_intake.filing_status_mfj? %>
+      <% if current_intake.ask_spouse_esign? %>
         <%= f.cfa_checkbox(:spouse_esigned, t(".spouse_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
     <%= f.submit(t(".submit"), class: "button button--primary button--wide") %>

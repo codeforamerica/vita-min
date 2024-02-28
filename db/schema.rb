@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -855,6 +855,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.string "data_source_type"
     t.string "irs_submission_id"
     t.datetime "last_checked_for_ack_at", precision: nil
+    t.jsonb "message_tracker", default: {}
     t.bigint "tax_return_id"
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_efile_submissions_on_created_at"
@@ -1580,6 +1581,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
   end
 
+  create_table "state_file_analytics", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "fed_eitc_amount"
+    t.integer "filing_status"
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.integer "refund_or_owed_amount"
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
   create_table "state_file_az_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type"
@@ -1611,7 +1623,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.integer "household_excise_credit_claimed", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -1638,6 +1652,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
+    t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
@@ -1684,12 +1699,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
   create_table "state_file_notification_emails", force: :cascade do |t|
     t.string "body", null: false
     t.datetime "created_at", null: false
+    t.bigint "data_source_id"
+    t.string "data_source_type"
     t.string "mailgun_status", default: "sending"
     t.string "message_id"
     t.datetime "sent_at", precision: nil
     t.string "subject", null: false
     t.string "to", null: false
     t.datetime "updated_at", null: false
+    t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_emails_on_data_source"
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|
@@ -1728,9 +1746,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.integer "household_ssi"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
     t.datetime "locked_at"
     t.string "mailing_country"
     t.string "mailing_state"
+    t.jsonb "message_tracker", default: {}
     t.integer "nursing_home", default: 0, null: false
     t.string "ny_mailing_apartment"
     t.string "ny_mailing_city"
@@ -1777,6 +1797,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_02_223714) do
     t.string "spouse_middle_initial"
     t.string "spouse_signature"
     t.bigint "spouse_state_id_id"
+    t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"

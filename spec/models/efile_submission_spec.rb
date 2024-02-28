@@ -6,6 +6,7 @@
 #  claimed_eitc            :boolean
 #  data_source_type        :string
 #  last_checked_for_ack_at :datetime
+#  message_tracker         :jsonb
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  data_source_id          :bigint
@@ -232,7 +233,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "transmitted", "ready_for_ack", "failed").each do |state|
+        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "notified_of_rejection", "transmitted", "ready_for_ack", "failed").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end
@@ -269,7 +270,7 @@ describe EfileSubmission do
       end
 
       context "cannot transition to" do
-        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "ready_for_ack", "failed").each do |state|
+        EfileSubmissionStateMachine.states.excluding("accepted", "rejected", "notified_of_rejection", "ready_for_ack", "failed").each do |state|
           it state.to_s do
             expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
           end

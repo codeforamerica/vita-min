@@ -31,7 +31,9 @@
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
+#  locale                                :string           default("en")
 #  locked_at                             :datetime
+#  message_tracker                       :jsonb
 #  payment_or_deposit_type               :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime
@@ -56,6 +58,7 @@
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  unsubscribed_from_email               :boolean          default(FALSE), not null
 #  was_incarcerated                      :integer          default("unfilled"), not null
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null

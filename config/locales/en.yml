@@ -125,8 +125,10 @@ en:
       address:
         city:
           blank: Please enter a valid city.
+          invalid: Only letters and single spaces are accepted.
         street_address:
           blank: Please enter a valid street address.
+          invalid: Only letters, numbers, hyphen, slash, and single spaces are accepted.
         zip:
           blank: Please enter a valid zip code.
       birth_date:
@@ -158,6 +160,7 @@ en:
         format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
+        invalid_format: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
       hoh_qualifying_person_name:
         blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
@@ -166,14 +169,16 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
+        invalid_format: Only letters, hyphen, and apostrophe are accepted.
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
         too_short: The password must be a minimum %{count} characters.
       payer_name:
         blank: Please enter a valid name.
+        invalid: 'Only letters, numbers, parentheses, hyphen, apostrophe, and # are accepted.'
       payer_tin:
-        blank: Please enter a valid 9-digit TIN.
+        invalid: EIN must be a 9-digit number. Do not include a dash.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -236,6 +241,8 @@ en:
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       routing_account_number:
         not_same: Routing number and account number can not be the same
+      state_credit:
+        exceeds_limit: Total amount entered must not exceed $%{limit}
       state_routings:
         delegated_routing: You can only submit routing percentages for an organization OR its child sites, not both.
         must_equal_100: Routing percentages must total 100%.
@@ -562,6 +569,7 @@ en:
     tin_type: Identification Type
     title: FileYourStateTaxes
     today: Today
+    try_again: Try Again
     type: Type
     ui: UI
     unassigned: Unassigned
@@ -1538,12 +1546,66 @@ en:
       sms: Hello from your tax team - If you received Child Tax Credit payments in 2021, you will receive a 6419 Letter from the IRS in January 2022. Please save this letter for when you file your taxes to collect any missing payments and avoid a delay in processing your refund.
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     state_file:
+      accepted_owe:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct debit while filing your return.
+
+            Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
+        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Reply to this text.\n"
+      accepted_refund:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            %{state_name} accepted your state tax return!  You can expect to receive your refund as soon as %{state_name} approves your refund amount.
+
+            Download your return and check your refund status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
+        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      issue_resolved:
+        email:
+          body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
+          subject: Issue resolved; continue filing your state taxes
+        sms: |
+          Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
+
+          Questions? Reply to this text.
+      rejected:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+        sms: |
+          Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+
+          Questions? Reply to this text.
       welcome:
         email:
           body: |
             Welcome!
 
             We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+
+            Your Client ID is %{intake_id}. This is an important piece of account information that you may need when talking to our support team. Please keep track of this number and do not delete this message.
 
             Need help? Reply to this email.
 
@@ -1660,7 +1722,7 @@ en:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 5 failed attempts, accounts are locked.
       new:
-        one_form_of_contact: 'Please enter your form of contact below:'
+        one_form_of_contact: 'Please enter one form of contact below:'
         send_code: Send code
         title: We’ll send you a secure code to sign in
     closed_logins:
@@ -1883,17 +1945,37 @@ en:
           bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
       new:
         email_address:
-          label: Your email address (use an account you can access)
+          label: Your email address
+          not_found: Sorry, we don’t have an account registered for that email. Would you like to sign in with a different email?
           title: Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code.
         sms_phone_number:
           label: Your phone number
+          not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+    navigation:
+      section_1: 'Section 1: Can you use this tool'
+      section_2: 'Section 2: Create account'
+      section_3: 'Section 3: Terms and conditions'
+      section_4: 'Section 4: Transfer your data'
+      section_5: 'Section 5: Complete your state tax return'
+      section_6: 'Section 6: Submit your state taxes'
+    notification_mailer:
+      user_message:
+        unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
+    notifications_settings:
+      subscribe_email:
+        flash: You are successfully re-subscribed to email notifications.
+      unsubscribe_email:
+        help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
+        link_text: Opt in again.
+        mistake: Is this a mistake?
+        title: You've opted out of email notifications from FileYourStateTaxes.
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500.'
+          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)'
+          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)'
           learn_more_content_html: |
             Charitable contributions include <strong>cash</strong> and <strong>non-cash</strong> donations to qualifying organizations.<br><br>
             Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">here</a> to see if an organization qualifies.<br><br>
@@ -1911,8 +1993,7 @@ en:
         edit:
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           ssn_no_employment_html:
-            one: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
-            other: Do you or your spouse have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
+            label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
           was_incarcerated:
             one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
@@ -1966,7 +2047,7 @@ en:
           tribal_wages_label:
             one: How much did you earn while living and working on your tribe’s reservation?
             other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
-          wages_tip: Enter amount earned&#58;
+          wages_tip: Enter amount earned (round to the nearest whole number.)
       canceled_data_transfer:
         edit:
           faq: Visit our FAQ
@@ -1999,31 +2080,13 @@ en:
           title: Your federal tax return is now transferred. We completed some sections to save you time.
       data_transfer_offboarding:
         edit:
-          file_with_vita: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
-          get_started_with_vita: Get started with VITA now
           ineligible_reason:
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
             has_out_of_state_w2: you earned income in another state in 2023.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.
             married_filing_separately: you are filing “married filing separately”.
-          learn_more_content_how: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
-          learn_more_content_link_html: Learn more <a href="%{link}">here</a>.
-          learn_more_content_what: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
-          learn_more_title: Learn more about this process
           offboarding_reason: You cannot use this tool this year because %{reason}
-          other_options: What are my other state filing options?
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
-          visit_faq: Visit our FAQ
-        gyr:
-          how_it_works: If you choose this service, you’ll be connected with a VITA partner in your state. You will be asked to answer a few more questions and securely upload your tax and ID documents. This process can take 1-3 weeks to complete.
-          what_it_is: GetYourRefund is a free, online service that connects you with an IRS-certified tax preparer from the IRS' Volunteer Income Tax Assistance (VITA) program. With your consent, volunteers will help prepare and e-file your state tax return for free.
-        other_options:
-          learn_more_link_html: Learn more <a href="%{link}">here</a>.
-          tip1_html: Since you’ve already submitted your federal tax return, make sure the service or software you use allows you to file a <strong>state-only tax return</strong>. You may need to reach out to their customer support to confirm.
-          tip2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
-          tip3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
-          tip4: Fees may apply.
-          title: 'Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:'
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>Is this a mistake?</strong>"
@@ -2036,10 +2099,7 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: 'You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
-
-            '
-          faq_link: Visit our FAQ
+          body_html: You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_lived_in_state: did not live in %{state} for all of 2023
@@ -2051,10 +2111,13 @@ en:
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
-          learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow">here.</a>
+          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
+        other_options:
+          faq_link: Visit our FAQ
+          learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
           learn_more_reveal:
             p1: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state_name}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
-            p2: IRS-certified VITA volunteers will use this information to prepare and e-file your state return. This entire process can take 2-3 weeks to complete.
+            p2: IRS-certified VITA volunteers will use this information to prepare your state return. This process can take 2-3 weeks to complete.
             title: Learn more about this process
           other_option: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
           other_options_reveal:
@@ -2065,7 +2128,6 @@ en:
               list2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
               list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
-          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
           vita_link: Get started with VITA now
       eligibility_out_of_state_income:
         edit:
@@ -2181,6 +2243,7 @@ en:
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
+          already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool."
             supported_by: Supported by the state of Arizona
@@ -2193,13 +2256,13 @@ en:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dependent_name_dob: Please tell us your dependent’s date of birth
-          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith Jr.)
+          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith Jr)
           months_helper_born_died: Select 12 months if the dependent was born or died during 2023.
           months_helper_description: Count any months the dependent lived in your home, as well as any months the dependent was temporarily absent due to being away at school, in a hospital or medical facility, or away on business or vacation.
           months_helper_heading: Which months should I count?
           primary_name_dob: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_dob: Your spouse's date of birth
-          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith Jr.)
+          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith Jr)
           spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
@@ -2257,7 +2320,7 @@ en:
           total_payments: Total payments
       ny_sales_use_tax:
         edit:
-          calculated_use_tax: Enter calculated use tax
+          calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
           enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
           select_one: 'Select one of the following:'
           subtitle: For example, online purchases with no sales tax applied.
@@ -2288,14 +2351,6 @@ en:
             one: I lived in New York City for some of the year
             other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
           title: 'Select your New York City residency status during %{year}:'
-      other_filing_options:
-        edit:
-          faq_link: Visit our FAQ
-          learn_more: Learn more about this process
-          state_options: What are my other state filing options?
-          subtitle: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state}. Note that this option may take 2-3 weeks to complete.
-          title: Can’t use this tool this year? Don’t worry, here are other filing options.
-          vita_link: Get started with VITA now
       pending_federal_return:
         edit:
           title_html: |
@@ -2395,7 +2450,7 @@ en:
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
-          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
+          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. Round to the nearest whole number.)
         edit:
           az_title_html: Good news, you're getting a Arizona state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
           direct_deposit: Direct deposit (fastest)
@@ -2440,7 +2495,7 @@ en:
           confirm_address_html: Please confirm <strong>your mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
           confirm_address_no: No, I need to edit
           confirm_address_yes: Yes, that's the address
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld"
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld (Round to the nearest whole number.)"
           had_box_11: Did you have an amount listed for state income tax (Box 11) on your unemployment compensation (Form 1099-G)?
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
@@ -2463,12 +2518,12 @@ en:
           recipient_myself: Myself
           recipient_question: Who is this form for?
           state: State
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld (Round to the nearest whole number.)"
           street_address: Street Address
           title:
             one: It looks like you received unemployment benefits in %{year}
             other: It looks like you or your spouse received unemployment benefits in %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation"
+          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation (Round to the nearest whole number.)"
           zip_code: Zip code
         index:
           1099_label: 1099-G for %{name}
@@ -2491,7 +2546,7 @@ en:
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
-            <li>File and submit your federal return with IRS <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this tool.</li>
+            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this tool.</li>
             <li>Click "continue to file your state taxes"</li>
             <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more about who is eligible for this tax year</a>.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
@@ -2501,21 +2556,19 @@ en:
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File will be broadly available to all eligible taxpayers by early March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
-          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Start here</a>.<br/><br/>
+          IRS Direct File will be broadly available to all eligible taxpayers by mid March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
         title: Coming soon
       data_import_failed:
-        help_text_html: Don’t worry, we can help. Reach out by tapping the chat button below or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-        title: Unfortunately, your federal tax return failed to transfer. To continue, you’ll need to connect with one of our tax specialists.
+        help_text_html: Don’t worry, you can try again or <a class="open-intercom">chat with us</a> to connect with a tax specialist.
+        title: Unfortunately, your federal tax return failed to transfer.
       footer:
-        about: About
         faq: FAQ
         privacy_policy: Privacy Policy
         state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with the IRS Direct File tool.
-        terms_of_service: Terms of Service
       login_options:
         email_signin: Sign in with email
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
@@ -2659,13 +2712,13 @@ en:
     with_code:
       body_html: |
         <p>Hello!</p>
-        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after two days.</p>
+        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
         <p>If you did not initiate this request, please let us know.</p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
-        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after two days.
+        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
 
         If you did not initiate this request, please let us know.
 
@@ -2677,7 +2730,7 @@ en:
     no_match_gyr: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{url} to get started.
-    with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after two days.'
+    with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after 30 minutes.'
   views:
     consent_pages:
       consent_to_disclose:
@@ -4623,8 +4676,7 @@ en:
       email_address:
         email_address: Email address
         email_address_confirmation: Confirm email address
-        info: We’ll need to reach out with questions and updates. Please provide the email address that works best for reaching you! An email is required for the final signature on your tax return.
-        legal_info_html: We will not share your information with any outside parties. Message frequency will vary. See our <a href="%{url}" target="_blank" rel="noopener">Privacy Policy</a> for more information.
+        info: An email is required for the final signature on your tax return.
         title: Please share your email address.
       energy_efficient_purchases:
         help_text: For example, windows, furnaces, insulation, etc.

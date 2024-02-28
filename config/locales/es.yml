@@ -126,8 +126,10 @@ es:
       address:
         city:
           blank: Por favor introduzca una ciudad válida.
+          invalid: Sólo se aceptan letras y espacios simples.
         street_address:
           blank: Por favor ingrese una dirección postal válida.
+          invalid: Sólo se aceptan letras, números, guiones, barras y espacios simples.
         zip:
           blank: Por favor ingrese un código postal válido.
       birth_date:
@@ -159,6 +161,7 @@ es:
         format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, ingrese un nombre.
+        invalid_format: Sólo se aceptan letras, guiones y apóstrofes, y el nombre debe tener menos de 16 caracteres.
       hoh_qualifying_person_name:
         blank: Verifica tus respuestas con respecto a cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con uno de estos dependientes durante al menos la mitad del año.
       intake_site:
@@ -167,14 +170,16 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
+        invalid_format: Sólo se aceptan letras, guiones y apóstrofes.
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       payer_name:
         blank: Por favor ingrese un nombre valido.
+        invalid: 'Sólo se aceptan letras, números, paréntesis, guión, apóstrofo y #.'
       payer_tin:
-        blank: Ingresa un TIN válido de 9 dígitos.
+        invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guión.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -237,6 +242,8 @@ es:
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       routing_account_number:
         not_same: El número de ruta y el número de cuenta no pueden ser iguales
+      state_credit:
+        exceeds_limit: El monto total ingresado no debe exceder $%{limit}
       state_routings:
         delegated_routing: Solo puede enviar los porcentajes de enrutamiento para una organización o su sub-organización, no para ambas.
         must_equal_100: Los porcentajes de enrutamiento deben totalizar el 100%.
@@ -564,6 +571,7 @@ es:
     tin_type: Tipo de identificación
     title: FileYourStateTaxes
     today: Hoy
+    try_again: Intentar otra vez
     type: Tipo
     ui: UI
     unassigned: No asignado
@@ -1520,23 +1528,74 @@ es:
       sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
+      accepted_owe:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no has pagado mediante débito directo al presentar tu declaración.
+
+            Descarga tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue aceptada'
+        sms: |
+          ¡Hola %{primary_first_name}! - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no has pagado con depósito directo o cheque.
+
+          Descarga tu declaración en %{return_status_link}.
+
+          ¿Preguntas? Responde a este mensaje.
+      accepted_refund:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Descarga tu declaración y verifica el estado de tu reembolso en fileyourstatetaxes.org. Cualquier cantidad no pagada para esa fecha puede estar sujeta a penalidades adicionales.
+
+            Puedes descargar tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Notificación de FileYourStateTaxes: Aceptación de la declaración de impuestos estatales de %{state_name}'
+        sms: "Hola %{primary_first_name} - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Recibirás tu reembolso una vez que el estado de %{state_name}  apruebe el monto de tu reembolso. \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}.\n\n¿Necesitas ayuda? Responde a este mensaje.\n"
+      issue_resolved:
+        email:
+          body: "Hola: ¡Gracias por utilizar FileYourStateTaxes! \n\nCualquier problema que haya experimentado al usar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, <a href=\"%{login_link}\">inicie sesión aquí .</a>\n\nMejor,\nEl equipo de FileYourStateTaxes\n"
+          subject: Problema resuelto; continúe presentando sus impuestos estatales
+        sms: |
+          Hola. ¡Gracias por utilizar FileYourStateTaxes! Cualquier problema que haya experimentado al utilizar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, inicie sesión aquí: %{login_link}
+
+          ¿Preguntas? Responder a este texto.
+      rejected:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            ¿Preguntas? Responde a este correo electrónico.
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
+        sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\n¿Necesitas ayuda? Responde a este mensaje..\n"
       welcome:
         email:
           body: |
             ¡Bienvenido/a!
+            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
-            ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras completas tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
+            Su ID de cliente es %{intake_id}. Esta es una información importante de la cuenta que puede necesitar cuando hable con nuestro equipo de soporte. Mantenga un registro de este número y no elimine este mensaje.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
-            Saludos cordiales, El equipo de FileYourStateTaxes
-
-            Si deseas cancelar la suscripción a los correos electrónicos, haz clic aquí.
+            Saludos,
+            El equipo de FileYourStateTaxes
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          ¡Bienvenido/a! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estés presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas tomar un descanso, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
+          ¡Bienvenido! ¡Hemos creado con éxito tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales cuando la envíes. Mientras estás presentando, tus respuestas se guardarán a medida que avanzas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
-          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para cancelar la suscripción.
+          ¿Necesitas ayuda? Responde a este mensaje. Envía "STOP" para no recibir más notificaciones por mensaje de texto.
     successful_submission_drop_off:
       email:
         body: |
@@ -1866,16 +1925,36 @@ es:
       new:
         email_address:
           label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
+          not_found: Lo sentimos, no tenemos una cuenta registrada para ese correo electrónico. ¿Quieres iniciar sesión con un correo electrónico diferente?
           title: Inicia sesión con tu dirección de correo electrónico. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
         sms_phone_number:
           label: Tu número de teléfono
+          not_found: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. ¿Quieres iniciar sesión con un número de teléfono diferente?
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
+    navigation:
+      section_1: 'Sección 1: ¿Puedes utilizar esta herramienta?'
+      section_2: 'Sección 2: Crear cuenta'
+      section_3: 'Sección 3: Términos y condiciones'
+      section_4: 'Sección 4: Transferir tus datos'
+      section_5: 'Sección 5: Complete su declaración de impuestos estatales'
+      section_6: 'Sección 6: Presente sus impuestos estatales'
+    notification_mailer:
+      user_message:
+        unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
+    notifications_settings:
+      subscribe_email:
+        flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
+      unsubscribe_email:
+        help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@ fileyourstatetaxes.org.</a>
+        link_text: Inscríbete nuevamente.
+        mistake: "¿Es esto un error?"
+        title: Ha optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500.'
+          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más próximo. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
+          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500 (Redondea al número entero más próximo.)'
           learn_more_content_html: |
             Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
             Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
@@ -1894,9 +1973,7 @@ es:
         edit:
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           ssn_no_employment_html:
-            many: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
-            one: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-            other: "¿Tú o tu cónyuge tienen la frase <b>'not valid for employment'</b> escrita en su tarjeta de Seguro Social? (Esto es poco común.)"
+            label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
           was_incarcerated:
             many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
@@ -1958,7 +2035,7 @@ es:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: 'Ingresa la cantidad que recibiste:'
+          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más próximo.)
       canceled_data_transfer:
         edit:
           faq: Visita nuestras Preguntas Frecuentes (FAQ)
@@ -1991,31 +2068,13 @@ es:
           title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
-          file_with_vita: No te preocupes, aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
-          get_started_with_vita: Solicitar asistencia de un voluntario VITA
           ineligible_reason:
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
             has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
-          learn_more_content_how: Los voluntarios certificados por el IRS de VITA utilizarán esta información para preparar y presentar electrónicamente tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
-          learn_more_content_link_html: Obtén más información <a href="%{link}">aquí</a>.
-          learn_more_content_what: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación fiscal y enviar de forma segura tus documentos tributarios en línea.
-          learn_more_title: Obtén más información sobre este proceso
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
-          other_options: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar esta herramienta este año. No te preocupes, aquí tienes otras opciones de presentación.
-          visit_faq: Visita nuestras Preguntas Frecuentes (FAQ)
-        gyr:
-          how_it_works: Si eliges este servicio, te conectarás con un socio de VITA en tu estado. Se te pedirá que respondas algunas preguntas más y que subas de forma segura tus documentos fiscales y de identificación. Este proceso puede tardar de 1 a 3 semanas en completarse.
-          what_it_is: GetYourRefund es un servicio sin costo en línea que te conecta con un preparador de impuestos certificado por el IRS del programa de Asistencia Voluntaria para la Declaración de Impuestos sobre Ingresos (VITA) del IRS. Con tu consentimiento, los voluntarios te ayudarán a preparar y presentar electrónicamente tu declaración de impuestos estatales sin costo.
-        other_options:
-          learn_more_link_html: Obtén más información <a href="%{link}">aquí</a>.
-          tip1_html: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales</strong>. Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
-          tip2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
-          tip3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
-          tip4: Se pueden aplicar tarifas.
-          title: 'Varios servicios comerciales de preparación de impuestos ofrecen la presentación de impuestos solo a nivel estatal. Aquí tienes algunos consejos para elegir una opción:'
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
@@ -2028,10 +2087,7 @@ es:
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: 'No puedes usar esta herramienta este año porque %{ineligible_reason}. <strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
-
-            '
-          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+          body_html: No puedes usar esta herramienta este año porque %{ineligible_reason}. <strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
@@ -2057,7 +2113,6 @@ es:
               list2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
               list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
-          title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
           vita_link: Solicitar asistencia de un voluntario VITA
       eligibility_out_of_state_income:
         edit:
@@ -2172,6 +2227,7 @@ es:
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
+          already_started_html: ¿Ya comenzó a presentar su declaración estatal? <a href="%{sign_in_url}">Iniciar sesión</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS."
             supported_by: Respaldada por el estado de Arizona
@@ -2293,14 +2349,6 @@ es:
             one: Viví en la ciudad de Nueva York durante parte del año
             other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
-      other_filing_options:
-        edit:
-          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
-          learn_more: Obtén más información sobre este proceso
-          state_options: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
-          subtitle: Aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
-          title: "¿No puedes usar esta herramienta este año? No te preocupes, aquí tienes otras opciones para presentar tu declaración."
-          vita_link: Solicitar asistencia de un voluntario VITA
       pending_federal_return:
         edit:
           title_html: |
@@ -2400,7 +2448,7 @@ es:
           disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria (routing number)
-          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}.)"
+          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondea al número entero más próximo.)"
         edit:
           az_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Arizona de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
           direct_deposit: Depósito directo (más rápido)
@@ -2445,7 +2493,7 @@ es:
           confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
-          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal retenido"
+          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal retenido (Redondea al número entero más próximo.)"
           had_box_11: "¿Tenías un monto listado por impuestos estatales (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
             Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
@@ -2468,13 +2516,13 @@ es:
           recipient_myself: Para mí
           recipient_question: "¿Para quién es este formulario?"
           state: Estado
-          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, Impuesto Estatal retenido"
+          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, Impuesto Estatal retenido (Redondea al número entero más próximo.)"
           street_address: Dirección
           title:
             many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
             one: Parece que recibiste compensaciones por desempleo en %{year}
             other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo"
+          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo (Redondea al número entero más próximo.)"
           zip_code: Código postal
         index:
           1099_label: 1099-G para %{name}
@@ -2506,9 +2554,9 @@ es:
           </ol>
           <strong>Para obtener más información, consulte <a href=%{faq_link}>las preguntas frecuentes</a>.</strong>
         subheader_html: |
-          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>gratis.</strong> <br/><br/>
-          Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs. gov/">directfile.irs.gov</a></strong><br/><br/>
-          ¿Ya presentó su declaración federal ante IRS Direct File y necesita completar su declaración estatal? <a href=%{login_path}>Empiece aquí</a>.<br/><br/>
+          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>sin costo.</strong> <br/><br/>
+          Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          ¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>.<br/>
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -2517,11 +2565,9 @@ es:
         help_text_html: No te preocupes, podemos ayudarte. Ponte en contacto haciendo clic en el botón de chat debajo o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: Lamentablemente, tu declaración de impuestos federales no se pudo transferir. Para continuar, necesitarás ponerte en contacto con uno de nuestros especialistas en impuestos.
       footer:
-        about: Acerca de nosotros
         faq: Preguntas Frecuentes
         privacy_policy: Política de Privacidad
         state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
-        terms_of_service: Términos del servicio
       login_options:
         email_signin: Iniciar sesión con correo electrónico
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
@@ -2663,23 +2709,23 @@ es:
     with_code:
       body_html: |
         <p>¡Hola!</p>
-        <p>Su código de verificación de 6 dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará en dos días.</p>
-        <p>Si usted no hizo esta solicitud, por favor avisenos.</p>
-        <p>Su equipo de impuestos de %{service_name}.org</p>
+        <p>Tu código de verificación de 6 dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará en 30 minutos.</p>
+        <p>Si no solicitaste esto, avísanos por favor.</p>
+        <p>Tu equipo de impuestos de %{service_name}.org</p>
       body_text: |
         ¡Hola!
 
-        Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.
+        Tu código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en 30 minutos.
 
-        Si usted no hizo esta solicitud, por favor avisenos.
+        Si no solicitaste esto, avísanos por favor.
 
-        Su equipo de impuestos de %{service_name}.org
+        Tu equipo de impuestos de %{service_name}.org
   verification_code_sms:
     no_match_ctc: |
       Alguien intentó iniciar una sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar una sesión con su correo electrónico %{url}/portal/iniciar sesión.
       O visite %{url}y haga clic en "Presentar su declaración simplificada ahora" para empezar.
     no_match_gyr: "Alguien intentó iniciar una sesión en GetYourRefund con este número de teléfono, pero no pudimos verificar sus credenciales. Se registró con un número de teléfono diferente? \nTambién puede visitar %{url}para empezar.\n"
-    with_code: 'Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en dos días.'
+    with_code: 'Su código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en 30 minutos.'
   views:
     consent_pages:
       consent_to_disclose:
@@ -4655,8 +4701,7 @@ es:
       email_address:
         email_address: Dirección de correo electrónico
         email_address_confirmation: Confirmar correo electrónico
-        info: Tendremos que comunicarnos con preguntas y actualizaciones. ¡Proporcione la dirección de correo electrónico que mejor funcione para comunicarnos con usted! Se requiere un correo electrónico para la firma final de su declaración de impuestos.
-        legal_info_html: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Consulte nuestra <a href="%{url}" target="_blank" rel="noopener">Política de Privacidad</a> para obtener más información.
+        info: Se requiere un correo electrónico para la firma final en su declaración de impuestos.
         title: Por favor comparte tu dirección de correo electrónico.
       energy_efficient_purchases:
         help_text: Por ejemplo, ventanas, hornos, aislamientos, etc.

@@ -36,9 +36,11 @@
 #  household_ssi                      :integer
 #  last_sign_in_at                    :datetime
 #  last_sign_in_ip                    :inet
+#  locale                             :string           default("en")
 #  locked_at                          :datetime
 #  mailing_country                    :string
 #  mailing_state                      :string
+#  message_tracker                    :jsonb
 #  nursing_home                       :integer          default("unfilled"), not null
 #  ny_mailing_apartment               :string
 #  ny_mailing_city                    :string
@@ -82,6 +84,7 @@
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
+#  unsubscribed_from_email            :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  withdraw_amount                    :integer
 #  created_at                         :datetime         not null

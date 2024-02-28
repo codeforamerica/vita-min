@@ -89,5 +89,20 @@ describe EmailVerificationCodeService do
         expect(email.body.encoded).to include "Your six-digit verification code for FileYourStateTaxes is: 123456"
       end
     end
+
+    context 'when service type is statefile with spanish locale' do
+      let(:service_type) { :statefile }
+      let(:locale) { :es }
+
+      it "sends an email that includes 'FileYourStateTaxes'" do
+        described_class.request_code(**params)
+        email = ActionMailer::Base.deliveries.last
+        expect(email.to).to eq [email_address]
+        expect(email.body.encoded).to include Mail::Encodings::QuotedPrintable.encode(
+          'Tu código de verificación de 6 dígitos para FileYourStateT'
+        )
+      end
+    end
+
   end
 end

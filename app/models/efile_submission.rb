@@ -6,6 +6,7 @@
 #  claimed_eitc            :boolean
 #  data_source_type        :string
 #  last_checked_for_ack_at :datetime
+#  message_tracker         :jsonb
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  data_source_id          :bigint

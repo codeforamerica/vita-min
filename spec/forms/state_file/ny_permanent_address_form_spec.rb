@@ -96,7 +96,6 @@ RSpec.describe StateFile::NyPermanentAddressForm do
             permanent_apartment: nil,
             permanent_city: nil,
             permanent_street: nil,
-            permanent_apartment: nil,
             permanent_zip: nil
           }
         end
@@ -107,6 +106,19 @@ RSpec.describe StateFile::NyPermanentAddressForm do
           expect(form.errors[:permanent_street]).to include "Can't be blank."
           expect(form.errors).not_to include :permanent_apartment
           expect(form.errors[:permanent_zip]).to include "Can't be blank."
+        end
+
+        it "is non alphanumeric" do
+          invalid_params.merge!({
+            permanent_apartment: "San José",
+            permanent_city: "San José",
+            permanent_street: "San José",
+          })
+          expect(form.valid?).to eq false
+          msg = "Only numbers 0-9, letters A-Z and a-z, hyphen, slash and single spaces are accepted."
+          expect(form.errors[:permanent_city]).to include msg
+          expect(form.errors[:permanent_street]).to include msg
+          expect(form.errors[:permanent_apartment]).to include msg
         end
       end
     end
@@ -163,7 +175,7 @@ RSpec.describe StateFile::NyPermanentAddressForm do
 
     context "they say no (mailing address not the same as permanent address)" do
       let(:permanent_street) { "132 Peanut Way" }
-      let(:permanent_apartment) { "Shell #4" }
+      let(:permanent_apartment) { "Shell 4" }
       let(:permanent_city) { "New York" }
       let(:permanent_zip) { "11102" }
       let(:valid_params) do

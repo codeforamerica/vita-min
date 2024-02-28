@@ -277,3 +277,23 @@ CREATE VIEW analytics.vita_partners AS
 CREATE VIEW analytics.vita_providers AS
     SELECT id, appointment_info, archived, coordinates, created_at, dates, details, hours, irs_id, languages, last_scrape_id, name, updated_at
     FROM public.vita_providers;
+
+CREATE view analytics.state_ids AS
+    SELECT id, created_at, id_type, updated_at
+    FROM public.state_ids;
+
+CREATE view analytics.state_file1099_gs AS
+    SELECT id, updated_at, created_at, intake_id, intake_type
+    FROM public.state_file1099_gs;
+
+CREATE view analytics.state_file_dependents AS
+    SELECT id, updated_at, created_at, intake_id, intake_type
+    FROM public.state_file_dependents;
+
+CREATE view analytics.state_file_az_intakes AS
+    SELECT id, updated_at, armed_forces_member, charitable_contributions, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_529_for_non_qual_expense, eligibility_lived_in_state, eligibility_married_filing_separately, eligibility_out_of_state_income, hashed_ssn, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, tribal_member, was_incarcerated
+    FROM public.state_file_az_intakes;
+
+CREATE view analytics.state_file_ny_intakes AS
+    SELECT id, updated_at, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_lived_in_state, eligibility_out_of_state_income, eligibility_part_year_nyc_resident, eligibility_withdrew_529, eligibility_yonkers, hashed_ssn, household_fed_agi, nyc_maintained_home, nyc_residency, primary_birth_date, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, untaxed_out_of_state_purchases
+    FROM public.state_file_ny_intakes;
