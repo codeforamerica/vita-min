@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_27_234143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1608,6 +1608,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.inet "current_sign_in_ip"
     t.string "current_step"
     t.date "date_electronic_withdrawal"
+    t.integer "dependent_tax_credit"
     t.datetime "df_data_import_failed_at"
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
@@ -1615,12 +1616,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "excise_credit"
     t.integer "failed_attempts", default: 0, null: false
+    t.integer "family_income_tax_credit"
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
+    t.integer "household_fed_agi"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1730,6 +1734,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.integer "eligibility_yonkers", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "empire_state_child_credit"
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1756,8 +1761,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.string "ny_mailing_city"
     t.string "ny_mailing_street"
     t.string "ny_mailing_zip"
+    t.integer "nyc_eitc"
+    t.integer "nyc_household_credit"
     t.integer "nyc_maintained_home", default: 0, null: false
     t.integer "nyc_residency", default: 0, null: false
+    t.integer "nyc_school_tax_credit"
+    t.integer "nys_eitc"
+    t.integer "nys_household_credit"
     t.integer "occupied_residence", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.integer "permanent_address_outside_ny", default: 0, null: false
@@ -2217,8 +2227,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

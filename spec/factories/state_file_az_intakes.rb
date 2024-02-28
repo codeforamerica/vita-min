@@ -17,6 +17,7 @@
 #  current_sign_in_ip                    :inet
 #  current_step                          :string
 #  date_electronic_withdrawal            :date
+#  dependent_tax_credit                  :integer
 #  df_data_import_failed_at              :datetime
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
@@ -24,11 +25,14 @@
 #  eligibility_out_of_state_income       :integer          default("unfilled"), not null
 #  email_address                         :citext
 #  email_address_verified_at             :datetime
+#  excise_credit                         :integer
 #  failed_attempts                       :integer          default(0), not null
+#  family_income_tax_credit              :integer
 #  federal_return_status                 :string
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  hashed_ssn                            :string
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
+#  household_fed_agi                     :integer
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locale                                :string           default("en")

@@ -21,6 +21,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  empire_state_child_credit          :integer
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -46,8 +47,13 @@
 #  ny_mailing_city                    :string
 #  ny_mailing_street                  :string
 #  ny_mailing_zip                     :string
+#  nyc_eitc                           :integer
+#  nyc_household_credit               :integer
 #  nyc_maintained_home                :integer          default("unfilled"), not null
 #  nyc_residency                      :integer          default("unfilled"), not null
+#  nyc_school_tax_credit              :integer
+#  nys_eitc                           :integer
+#  nys_household_credit               :integer
 #  occupied_residence                 :integer          default("unfilled"), not null
 #  payment_or_deposit_type            :integer          default("unfilled"), not null
 #  permanent_address_outside_ny       :integer          default("unfilled"), not null
