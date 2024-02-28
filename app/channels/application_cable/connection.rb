@@ -6,7 +6,6 @@ module ApplicationCable
     def connect; end
 
     def current_user
-      raise UnauthorizedError
       @current_user ||= env['warden'].user
     rescue UncaughtThrowError => e
       raise unless e.tag == :warden
