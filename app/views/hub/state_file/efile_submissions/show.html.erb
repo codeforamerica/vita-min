@@ -37,6 +37,9 @@
           <div style="margin-left: 10px;">
             <%= link_to "Show direct-file XML", hub_state_file_efile_submission_show_df_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
           </div>
+          <div style="margin-left: 10px;">
+            <%= link_to "Download PDF", hub_state_file_efile_submission_show_pdf_path(efile_submission_id: @efile_submission.id), class: "button button--small" %>
+          </div>
 
           <% if @efile_submission.can_transition_to?(:failed) %>
             <div style="margin-left: 10px">

@@ -242,6 +242,7 @@ Rails.application.routes.draw do
           resources :efile_submissions, only: [:index, :show]  do
             get "show_xml", to: "efile_submissions#show_xml"
             get "show_df_xml", to: "efile_submissions#show_df_xml"
+            get "show_pdf", to: "efile_submissions#show_pdf"
             get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
           end
           resources :faq_categories, path: "faq" do
