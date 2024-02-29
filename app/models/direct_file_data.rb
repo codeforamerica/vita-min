@@ -685,6 +685,7 @@ class DirectFileData
       EmployeeSSN: 'EmployeeSSN',
       EmployerEIN: 'EmployerEIN',
       EmployerName: 'EmployerName BusinessNameLine1Txt',
+      EmployerStateIdNum: 'EmployerStateIdNum',
       AddressLine1Txt: 'EmployerUSAddress AddressLine1Txt',
       City: 'EmployerUSAddress CityNm',
       State: 'EmployerUSAddress StateAbbreviationCd',
@@ -737,6 +738,14 @@ class DirectFileData
     end
 
     def EmployerEIN=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def EmployerStateIdNum
+      df_xml_value(__method__)
+    end
+
+    def EmployerStateIdNum=(value)
       write_df_xml_value(__method__, value)
     end
 

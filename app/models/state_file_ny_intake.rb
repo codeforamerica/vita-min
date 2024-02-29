@@ -107,6 +107,28 @@ class StateFileNyIntake < StateFileBaseIntake
   STATE_CODE_AND_NAME = {
     STATE_CODE => STATE_NAME
   }.freeze
+  LOCALITIES = [
+    "NEW YORK CITY",
+    "NY",
+    "NYC",
+    "N Y",
+    "NWY",
+    "NW Y",
+    "NEWY",
+    "BRONX",
+    "BROOKLYN",
+    "CITYNY",
+    "STATEN",
+    "QUEENS",
+    "CITY NY",
+    "CITYN Y",
+    "CITYOFNY",
+    "CITYOF NY",
+    "CITY OFNY",
+    "CITYOFN Y",
+    "CTY OF NY",
+    "MANHATTAN"
+  ].freeze
 
   encrypts :account_number, :routing_number, :raw_direct_file_data
   
