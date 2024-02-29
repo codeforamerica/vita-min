@@ -83,24 +83,23 @@ module SubmissionBuilder
                 end
               end
 
-              # These dependents are for NY IT-213, and only for when the IT-213 is present.
-              if @submission.data_source.form_213_present?
-                it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
-                it_213_qualified_dependents.each_with_index do |dependent, index|
-                  xml.dependent do
-                    xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                    xml.DEP_SEQ_NMBR index+1
-                    xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
-                    xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
-                    xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
-                    xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
-                    xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
-                    xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
-                    xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
-                    xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
-                    xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
-                    xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
-                  end
+              # These dependents are for NY IT-213
+              it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
+
+              it_213_qualified_dependents.each_with_index do |dependent, index|
+                xml.dependent do
+                  xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
+                  xml.DEP_SEQ_NMBR index+1
+                  xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
+                  xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
+                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
+                  xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
+                  xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
+                  xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
+                  xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
+                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
+                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
                 end
               end
 
@@ -164,7 +163,7 @@ module SubmissionBuilder
           def supported_documents
             tax_calculator = @submission.data_source.tax_calculator
             calculated_fields = tax_calculator.calculate
-            receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.form_213_present?
+            receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.direct_file_data.claimed_as_dependent?
             receiving_214_credit = calculated_fields[:IT214_LINE_33].present? && calculated_fields[:IT214_LINE_33] > 0
             receiving_215_credit = calculated_fields[:IT215_LINE_1].present? && !calculated_fields[:IT215_LINE_2]
             supported_docs = [

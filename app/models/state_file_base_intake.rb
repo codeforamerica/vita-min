@@ -238,8 +238,4 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
   end
-
-  def form_213_present?
-    self.direct_file_data.claimed_as_dependent?
-  end
 end
