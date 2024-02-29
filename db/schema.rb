@@ -1662,6 +1662,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
@@ -1806,6 +1807,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
     t.string "spouse_middle_initial"
     t.string "spouse_signature"
     t.bigint "spouse_state_id_id"
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false

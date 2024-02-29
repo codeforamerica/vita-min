@@ -83,6 +83,7 @@
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
+#  unfinished_intake_ids              :text             default([]), is an Array
 #  unsubscribed_from_email            :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  withdraw_amount                    :integer

@@ -58,6 +58,7 @@
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  unfinished_intake_ids                 :text             default([]), is an Array
 #  unsubscribed_from_email               :boolean          default(FALSE), not null
 #  was_incarcerated                      :integer          default("unfilled"), not null
 #  withdraw_amount                       :integer
