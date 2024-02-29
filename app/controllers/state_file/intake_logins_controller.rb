@@ -97,7 +97,18 @@ module StateFile
 
     def sign_in_and_redirect
       intake = @records.take
+
+      # Note: for god knows what reason, you cannot reference "current_state_file_#{state_code}_intake" or the new intake will fail to log in,
+      # or at least in the test it seems to fail. Couldn't think of a better solution than grabbing the id from the session even though it looks terrible.
+      # (Should return an array of 1 id)
+      unfinished_logged_in_intake_id = session.dig("warden.user.state_file_#{params[:us_state]}_intake.key", 0)
+
       sign_in intake
+
+      if unfinished_logged_in_intake_id.present? && unfinished_logged_in_intake_id[0] != intake.id
+        intake.update(unfinished_intake_ids: intake.unfinished_intake_ids + unfinished_logged_in_intake_id)
+      end
+
       to_path = session.delete(:after_state_file_intake_login_path)
       unless to_path
         controller = intake.controller_for_current_step
