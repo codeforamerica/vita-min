@@ -83,23 +83,24 @@ module SubmissionBuilder
                 end
               end
 
-              # These dependents are for NY IT-213
-              it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
+              if receiving_213_credit?
+                it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
 
-              it_213_qualified_dependents.each_with_index do |dependent, index|
-                xml.dependent do
-                  xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                  xml.DEP_SEQ_NMBR index+1
-                  xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
-                  xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
-                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
-                  xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
-                  xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
-                  xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
-                  xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
-                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
-                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                it_213_qualified_dependents.each_with_index do |dependent, index|
+                  xml.dependent do
+                    xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
+                    xml.DEP_SEQ_NMBR index+1
+                    xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
+                    xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
+                    xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
+                    xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
+                    xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
+                    xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
+                    xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
+                    xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
+                    xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
+                    xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                  end
                 end
               end
 
