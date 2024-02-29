@@ -187,7 +187,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
 
       before do
-        allow_any_instance_of(StateFileNyIntake).to receive(:eligibility_lived_in_state_yes?).and_return false
+        allow_any_instance_of(StateFileNyIntake).to receive(:form_213_present?).and_return false
       end
 
       context 'it-213' do
