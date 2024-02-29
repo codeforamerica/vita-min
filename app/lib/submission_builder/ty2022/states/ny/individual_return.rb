@@ -190,7 +190,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213AttPdf,
-                include: submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
+                include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
                 kwargs: { dependent_offset: DEPENDENT_OVERFLOW_THRESHOLD }
               },
               {
