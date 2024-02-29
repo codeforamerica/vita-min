@@ -56,6 +56,7 @@ class DirectFileData
     primary_claim_as_dependent: 'IRS1040 PrimaryClaimAsDependentInd',
     hoh_qualifying_person_name: 'IRS1040 QualifyingHOHNm',
     surviving_spouse: 'IRS1040 SurvivingSpouseInd',
+    third_party_designee: 'IRS 1040 ThirdPartyDesigneeInd',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
   }.freeze
 
@@ -610,6 +611,9 @@ class DirectFileData
   def build_new_qualifying_child_information_node
     dd = parsed_xml.css('QualifyingChildInformation').first
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
+  end
+
+  def third_party_designee
   end
 
   def w2_nodes
