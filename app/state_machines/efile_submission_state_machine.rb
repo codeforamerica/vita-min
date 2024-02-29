@@ -189,6 +189,11 @@ class EfileSubmissionStateMachine
     submission.source_record.transition_to(:file_not_filing)
   end
 
+  after_transition do |submission, transition|
+    return unless submission.is_for_state_filing?
+    Rails.logger.info({event_type: "submission_transition", to: transition.to_state, state_code: submission.data_source.state_code, intake_id: submission.data_source_id, submission_id: submission.id})
+  end
+
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
     intake = efile_submission.is_for_state_filing? ? efile_submission.data_source : efile_submission.client.intake
     MixpanelService.send_event(
