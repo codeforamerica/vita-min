@@ -1,5 +1,10 @@
 class StateFileBaseIntake < ApplicationRecord
-  STATE_CODES = %w[az ny].freeze
+  STATE_CODE_AND_NAMES = {
+    'az' => 'Arizona',
+    'ny' => 'New York'
+  }.freeze
+  STATE_CODES = STATE_CODE_AND_NAMES.keys
+
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true
@@ -8,6 +13,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
   has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
+  has_one :state_file_analytics, as: :record
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
@@ -29,11 +35,6 @@ class StateFileBaseIntake < ApplicationRecord
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
-
-  STATE_CODE_AND_NAMES = {
-    'az' => 'Arizona',
-    'ny' => 'New York'
-  }.freeze
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
@@ -119,6 +120,14 @@ class StateFileBaseIntake < ApplicationRecord
 
   def ask_spouse_name?
     filing_status_mfj?
+  end
+
+  def ask_spouse_esign?
+    filing_status_mfj? && !spouse_deceased?
+  end
+
+  def spouse_deceased?
+    direct_file_data.spouse_deceased?
   end
 
   class Person

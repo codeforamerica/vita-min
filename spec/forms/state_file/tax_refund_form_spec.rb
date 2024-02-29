@@ -25,8 +25,8 @@ RSpec.describe StateFile::TaxRefundForm do
       let(:valid_params) do
         {
           payment_or_deposit_type: "direct_deposit",
-          routing_number: "123456789",
-          routing_number_confirmation: "123456789",
+          routing_number: "019456124",
+          routing_number_confirmation: "019456124",
           account_number: "12345",
           account_number_confirmation: "12345",
           account_type: "checking",
@@ -42,7 +42,7 @@ RSpec.describe StateFile::TaxRefundForm do
         intake.reload
         expect(intake.payment_or_deposit_type).to eq "direct_deposit"
         expect(intake.account_type).to eq "checking"
-        expect(intake.routing_number).to eq "123456789"
+        expect(intake.routing_number).to eq "019456124"
         expect(intake.account_number).to eq "12345"
         expect(intake.bank_name).to eq "Bank official"
       end
@@ -75,8 +75,8 @@ RSpec.describe StateFile::TaxRefundForm do
 
   describe "#valid?" do
     let(:payment_or_deposit_type) { "direct_deposit" }
-    let(:routing_number) { "123456789" }
-    let(:routing_number_confirmation) { "123456789" }
+    let(:routing_number) { "019456124" }
+    let(:routing_number_confirmation) { "019456124" }
     let(:account_number) { "12345" }
     let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }

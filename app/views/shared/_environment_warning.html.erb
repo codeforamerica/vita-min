@@ -3,7 +3,11 @@
     <div class="grid">
       <div class="grid__item">
         <%= t("views.shared.environment_warning.banner")%>
-        <%= link_to "GetYourRefund.org", "https://www.getyourrefund.org" %>.
+        <% if state_file? %>
+          <%= link_to "FileYourStateTaxes.org", "https://www.fileyourstatetaxes.org" %>.
+        <% else %>
+          <%= link_to "GetYourRefund.org", "https://www.getyourrefund.org" %>.
+        <% end %>
       </div>
     </div>
   </div>
@@ -23,8 +27,9 @@
         <div class="grid__item">
           <% heroku_gyr_url = root_url(host: MultiTenantService.new(:gyr).host) %>
           <% heroku_ctc_url = root_url(host: MultiTenantService.new(:ctc).host) %>
+          <% heroku_fyst_url = root_url(host: MultiTenantService.new(:statefile).host) %>
           You're on a Heroku review app, you can also visit this via the url
-            <%= link_to heroku_gyr_url, heroku_gyr_url %> (GYR) or <%= link_to heroku_ctc_url, heroku_ctc_url %>
+            <%= link_to heroku_gyr_url, heroku_gyr_url %> (GYR) or <%= link_to heroku_ctc_url, heroku_ctc_url %> or <%= link_to heroku_fyst_url, heroku_fyst_url %>
         </div>
       </div>
     </div>

@@ -36,6 +36,14 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         expect(response.body).to include intake.spouse.full_name
       end
     end
+
+    context "with no existing dependents" do
+      render_views
+      it "redirects to the new view" do
+        get :index, params: { us_state: :ny }
+        expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :new, us_state: :ny)
+      end
+    end
   end
 
   describe "#create" do
@@ -235,6 +243,13 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
       expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(us_state: :ny, action: :index)
       expect(flash[:notice]).to eq I18n.t('state_file.questions.unemployment.destroy.removed', name: intake.primary.full_name)
+    end
+  end
+
+  describe "navigation" do
+    it "has index as the default action" do
+      action = StateFile::Questions::UnemploymentController.navigation_actions.first
+      expect(action).to eq :index
     end
   end
 end

@@ -25,8 +25,8 @@ describe Ctc::RoutingNumberForm do
     it "is valid when the routing number is at least 9 digits and confirmation matches" do
       expect(
         described_class.new(intake, {
-            routing_number: "123456789",
-            routing_number_confirmation: "123456789"
+            routing_number: "019456124",
+            routing_number_confirmation: "019456124"
         })
       ).to be_valid
     end

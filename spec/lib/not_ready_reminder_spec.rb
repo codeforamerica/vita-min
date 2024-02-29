@@ -35,11 +35,11 @@ describe NotReadyReminder do
       context "when the not ready message has already been sent" do
         before do
 
-          MessageTracker.new(client: tax_return.client, message: AutomatedMessage::SecondNotReadyReminder).record(DateTime.current)
+          MessageTracker.new(data_source: tax_return.client, message: AutomatedMessage::SecondNotReadyReminder).record(DateTime.current)
         end
 
         it "does not send a message, responds with nil" do
-          expect(MessageTracker.new(client: tax_return.client, message: AutomatedMessage::SecondNotReadyReminder).already_sent?).to eq true
+          expect(MessageTracker.new(data_source: tax_return.client, message: AutomatedMessage::SecondNotReadyReminder).already_sent?).to eq true
           response = described_class.process(tax_return)
           expect(response).to eq nil
           expect(SendAutomatedMessage).not_to have_received(:new)
@@ -68,11 +68,11 @@ describe NotReadyReminder do
 
       context "when the not ready message has already been sent" do
         before do
-          MessageTracker.new(client: tax_return.client, message: AutomatedMessage::FirstNotReadyReminder).record(DateTime.current)
+          MessageTracker.new(data_source: tax_return.client, message: AutomatedMessage::FirstNotReadyReminder).record(DateTime.current)
         end
 
         it "does not send a message, responds with nil" do
-          expect(MessageTracker.new(client: tax_return.client, message: AutomatedMessage::FirstNotReadyReminder).already_sent?).to eq true
+          expect(MessageTracker.new(data_source: tax_return.client, message: AutomatedMessage::FirstNotReadyReminder).already_sent?).to eq true
           response = described_class.process(tax_return)
           expect(response).to eq nil
           expect(SendAutomatedMessage).not_to have_received(:new)

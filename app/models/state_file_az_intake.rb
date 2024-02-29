@@ -31,7 +31,9 @@
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
+#  locale                                :string           default("en")
 #  locked_at                             :datetime
+#  message_tracker                       :jsonb
 #  payment_or_deposit_type               :integer          default("unfilled"), not null
 #  phone_number                          :string
 #  phone_number_verified_at              :datetime
@@ -56,6 +58,7 @@
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
+#  unsubscribed_from_email               :boolean          default(FALSE), not null
 #  was_incarcerated                      :integer          default("unfilled"), not null
 #  withdraw_amount                       :integer
 #  created_at                            :datetime         not null
@@ -72,7 +75,12 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  STATE_CODE = "az".freeze
+  STATE_CODE = 'az'.freeze
+  STATE_NAME = 'Arizona'.freeze
+  STATE_CODE_AND_NAME = {
+    STATE_CODE => STATE_NAME
+  }.freeze
+
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
@@ -103,7 +111,7 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def state_name
-    'Arizona'
+    STATE_NAME
   end
 
   def tax_calculator(include_source: false)
@@ -151,12 +159,7 @@ class StateFileAzIntake < StateFileBaseIntake
   def ask_whether_incarcerated?
     has_valid_ssn = primary.ssn.present? && !primary.has_itin?
     has_valid_agi = direct_file_data.fed_agi <= (filing_status_mfj? || filing_status_hoh? ? 25_000 : 12_500)
-    if filing_status_mfj?
-      spouse_has_valid_ssn = spouse.ssn.present? && !spouse.has_itin?
-      has_valid_ssn && has_valid_agi && spouse_has_valid_ssn
-    else
-      has_valid_ssn && has_valid_agi
-    end
+    has_valid_ssn && has_valid_agi
   end
 
   def qualified_for_excise_credit?

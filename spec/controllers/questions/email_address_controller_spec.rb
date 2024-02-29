@@ -10,6 +10,29 @@ RSpec.describe Questions::EmailAddressController do
     allow(MixpanelService).to receive(:send_event)
   end
 
+  describe ".show?" do
+    context "when they do not have an email address and opted in to email" do
+      let!(:intake) { create :intake, email_notification_opt_in: "yes" }
+      it "returns true" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "when they have an email" do
+      let!(:intake) { create :intake, email_notification_opt_in: "yes", email_address: "email@example.com" }
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "when they have not opted in to texting" do
+      let!(:intake) { create :intake, email_notification_opt_in: "no" }
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+  end
+
   describe "#edit" do
     it "renders successfully" do
       get :edit

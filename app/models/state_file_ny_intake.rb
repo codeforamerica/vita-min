@@ -36,9 +36,11 @@
 #  household_ssi                      :integer
 #  last_sign_in_at                    :datetime
 #  last_sign_in_ip                    :inet
+#  locale                             :string           default("en")
 #  locked_at                          :datetime
 #  mailing_country                    :string
 #  mailing_state                      :string
+#  message_tracker                    :jsonb
 #  nursing_home                       :integer          default("unfilled"), not null
 #  ny_mailing_apartment               :string
 #  ny_mailing_city                    :string
@@ -82,6 +84,7 @@
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
+#  unsubscribed_from_email            :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  withdraw_amount                    :integer
 #  created_at                         :datetime         not null
@@ -100,6 +103,11 @@
 #
 class StateFileNyIntake < StateFileBaseIntake
   STATE_CODE = 'ny'.freeze
+  STATE_NAME = 'New York'.freeze
+  STATE_CODE_AND_NAME = {
+    STATE_CODE => STATE_NAME
+  }.freeze
+
   encrypts :account_number, :routing_number, :raw_direct_file_data
   
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
@@ -144,7 +152,7 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def state_name
-    'New York'
+    STATE_NAME
   end
 
   def county_name

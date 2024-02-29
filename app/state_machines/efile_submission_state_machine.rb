@@ -16,6 +16,7 @@ class EfileSubmissionStateMachine
   state :rejected
   state :accepted
 
+  state :notified_of_rejection
   state :investigating
   state :waiting
   state :fraud_hold
@@ -23,18 +24,19 @@ class EfileSubmissionStateMachine
   state :resubmitted
   state :cancelled
 
-  transition from: :new,               to: [:preparing]
-  transition from: :preparing,         to: [:bundling, :fraud_hold]
-  transition from: :bundling,          to: [:queued, :failed]
-  transition from: :queued,            to: [:transmitted, :failed]
-  transition from: :transmitted,       to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted]
-  transition from: :ready_for_ack,     to: [:accepted, :rejected, :failed, :ready_for_ack]
-  transition from: :failed,            to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
-  transition from: :rejected,          to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
-  transition from: :investigating,     to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
-  transition from: :waiting,           to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
-  transition from: :fraud_hold,        to: [:investigating, :resubmitted, :waiting, :cancelled]
-  transition from: :cancelled,         to: [:investigating, :waiting]
+  transition from: :new,                   to: [:preparing]
+  transition from: :preparing,             to: [:bundling, :fraud_hold]
+  transition from: :bundling,              to: [:queued, :failed]
+  transition from: :queued,                to: [:transmitted, :failed]
+  transition from: :transmitted,           to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted, :notified_of_rejection]
+  transition from: :ready_for_ack,         to: [:accepted, :rejected, :failed, :ready_for_ack, :notified_of_rejection]
+  transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :notified_of_rejection]
+  transition from: :notified_of_rejection, to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :investigating,         to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
+  transition from: :waiting,               to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
+  transition from: :fraud_hold,            to: [:investigating, :resubmitted, :waiting, :cancelled]
+  transition from: :cancelled,             to: [:investigating, :waiting]
 
   guard_transition(to: :bundling) do |_submission|
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
@@ -97,6 +99,15 @@ class EfileSubmissionStateMachine
       submission.tax_return.transition_to(:file_efiled)
       send_mixpanel_event(submission, "efile_return_transmitted")
     end
+
+    if submission.is_for_state_filing?
+      # NOTE: a submission can have multiple successive :transmitted states, each with different
+      # response XML
+      analytics = submission.data_source.state_file_analytics
+      if analytics.blank?
+        submission.data_source.create_state_file_analytics!
+      end
+    end
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|
@@ -123,6 +134,15 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
+    if submission.is_for_state_filing?
+      EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+    end
+  end
+
+  before_transition(to: :notified_of_rejection) do |submission|
+    if submission.is_for_state_filing?
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
+    end
   end
 
   after_transition(to: :accepted) do |submission|
@@ -145,18 +165,19 @@ class EfileSubmissionStateMachine
         recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
         third_stimulus_amount: benefits.eip3_amount,
       })
+    elsif submission.is_for_state_filing?
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
+      send_mixpanel_event(submission, "state_file_efile_return_accepted")
     end
   end
 
   after_transition(to: :investigating) do |submission|
     submission.source_record.transition_to(:file_hold)
-    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
 
 
   after_transition(to: :waiting) do |submission|
     submission.source_record.transition_to(:file_hold)
-    submission.source_record.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
@@ -166,7 +187,6 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :cancelled) do |submission|
     submission.source_record.transition_to(:file_not_filing)
-    submission.source_record.transition_to(:file_not_filing) if submission.is_for_federal_filing?
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})

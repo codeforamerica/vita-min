@@ -210,6 +210,7 @@ Rails.application.routes.draw do
           patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
+          patch '/notify_of_rejection', to: 'efile_submissions#notify_of_rejection', on: :member, as: :notify_of_rejection
           patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
           get '/download', to: 'efile_submissions#download', on: :member, as: :download
           get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
@@ -241,11 +242,13 @@ Rails.application.routes.draw do
           resources :efile_submissions, only: [:index, :show]  do
             get "show_xml", to: "efile_submissions#show_xml"
             get "show_df_xml", to: "efile_submissions#show_df_xml"
+            get "show_pdf", to: "efile_submissions#show_pdf"
             get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
           end
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end
+          resources :automated_messages, only: [:index]
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]
@@ -548,9 +551,6 @@ Rails.application.routes.draw do
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
-          get "pending_federal_return", to: "pending_federal_return#edit"
-          get "canceled_data_transfer", to: "canceled_data_transfer#edit"
-          get "other_filing_options", to: "other_filing_options#edit"
         end
       end
 
@@ -569,6 +569,8 @@ Rails.application.routes.draw do
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
+
+        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
@@ -598,6 +600,8 @@ Rails.application.routes.draw do
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
+        get "/unsubscribe_email", to: "notifications_settings#unsubscribe_email", as: :unsubscribe_email
+        post "/subscribe_email", to: "notifications_settings#subscribe_email", as: :subscribe_email
       end
     end
   end

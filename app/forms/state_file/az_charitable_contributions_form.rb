@@ -3,8 +3,8 @@ module StateFile
     set_attributes_for :intake, :charitable_contributions, :charitable_cash, :charitable_noncash
 
     validates :charitable_contributions, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }
-    validates :charitable_cash, presence: true, gyr_numericality: { only_integer: true }, allow_blank: false, if: -> { charitable_contributions == "yes" }
-    validates :charitable_noncash, presence: true, gyr_numericality: { only_integer: true, less_than_or_equal_to: 500 }, allow_blank: false, if: -> { charitable_contributions == "yes" }
+    validates :charitable_cash, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_blank: false, if: -> { charitable_contributions == "yes" }
+    validates :charitable_noncash, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 500 }, allow_blank: false, if: -> { charitable_contributions == "yes" }
 
 
     def save

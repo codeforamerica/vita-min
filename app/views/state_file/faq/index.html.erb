@@ -1,4 +1,4 @@
-<% StateFileBaseIntake::STATE_CODE_AND_NAMES.each do |state_code, state_name| %>
+<% @state_code_names.each do |state_code, state_name| %>
   <% title = t('.title', state: state_name) %>
   <h1 class="h2"><%= title %></h1>
   <div class="spacing-below-35 spacing-above-35">

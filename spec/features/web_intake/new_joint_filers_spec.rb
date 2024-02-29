@@ -58,37 +58,37 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
 
-    # screenshot_after do
-    #   # Notification Preference
-    #   expect(intake.reload.current_step).to end_with("/questions/notification-preference")
-    #   check "Email Me"
-    #   check "Text Me"
-    #   click_on "Continue"
-    # end
+    screenshot_after do
+      # Notification Preference
+      expect(intake.reload.current_step).to end_with("/questions/notification-preference")
+      check "Email Me"
+      check "Text Me"
+      click_on "Continue"
+    end
 
-    # screenshot_after do
-    #   # Phone number can text
-    #   expect(page).to have_text("Can we text the phone number you previously entered?")
-    #   click_on "No"
-    # end
+    screenshot_after do
+      # Phone number can text
+      expect(page).to have_text("Can we text the phone number you previously entered?")
+      click_on "No"
+    end
 
-    # screenshot_after do
-    #   # Phone number
-    #   expect(page).to have_selector("h1", text: "Please share your cell phone number.")
-    #   fill_in "Cell phone number", with: "(415) 553-7865"
-    #   fill_in "Confirm cell phone number", with: "+1415553-7865"
-    #   click_on "Continue"
-    # end
+    screenshot_after do
+      # Phone number
+      expect(page).to have_selector("h1", text: "Please share your cell phone number.")
+      fill_in "Cell phone number", with: "(415) 553-7865"
+      fill_in "Confirm cell phone number", with: "+1415553-7865"
+      click_on "Continue"
+    end
 
-    # screenshot_after do
-    #   # Verify cell phone contact
-    #   expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
-    #   perform_enqueued_jobs
-    #   sms = FakeTwilioClient.messages.last
-    #   code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
-    #   fill_in "Enter 6 digit code", with: code
-    #   click_on "Verify"
-    # end
+    screenshot_after do
+      # Verify cell phone contact
+      expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
+      perform_enqueued_jobs
+      sms = FakeTwilioClient.messages.last
+      code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
+    end
 
     screenshot_after do
       # Email

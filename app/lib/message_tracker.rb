@@ -1,23 +1,23 @@
 class MessageTracker
-  attr_accessor :client, :message_name
+  attr_accessor :data_source, :message_name
 
-  def initialize(client:, message:)
-    @client = client
+  def initialize(data_source:, message:)
+    @data_source = data_source
     @message_name = message.name
   end
 
   def sent_at
     return nil unless already_sent?
 
-    DateTime.parse(client.message_tracker[message_name])
+    DateTime.parse(data_source.message_tracker[message_name])
   end
 
   def already_sent?
-    client.message_tracker[message_name].present?
+    data_source.message_tracker[message_name].present?
   end
 
   def record(datetime)
-    client.message_tracker[message_name] = datetime.to_s
-    client.save
+    data_source.message_tracker[message_name] = datetime.to_s
+    data_source.save
   end
 end

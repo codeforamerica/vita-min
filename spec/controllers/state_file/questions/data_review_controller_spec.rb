@@ -42,7 +42,7 @@ RSpec.describe StateFile::Questions::DataReviewController do
       it 'redirects to the landing page for the correct state' do
         session.destroy
         response = get :edit, params: { us_state: "az" }
-        expect(response).to redirect_to(az_questions_landing_page_path(us_state: 'az'))
+        expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: 'az'))
         expect(flash[:notice]).to eq('Your session expired. Please sign in again to continue.')
       end
     end

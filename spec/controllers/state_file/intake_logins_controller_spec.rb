@@ -5,10 +5,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     create(
       :state_file_az_intake,
       email_address: "client@example.com",
-      sms_phone_number: "+15105551234",
+      phone_number: "+15105551234",
       hashed_ssn: "hashed_ssn"
     )
   end
+  before { intake }
   let(:intake_query) { StateFileAzIntake.where(id: intake) }
 
   before do
@@ -39,12 +40,14 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before { sign_in intake }
 
-      it "redirects to data review page" do
-        get :new, params: { us_state: "az" }
+      it "renders the login page" do
+        get :new, params: { us_state: "az", contact_method: "email_address" }
 
-        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+        expect(response.status).to eq(200)
+        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
       end
     end
   end
@@ -167,12 +170,14 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before { sign_in intake }
 
-      it "redirects to data review page" do
-        post :create, params: { us_state: "az" }
+      it "renders the login page" do
+        post :create, params: { us_state: "az", state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
 
-        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+        expect(response.status).to eq(200)
+        expect(response.body).to include "Enter the code to continue"
       end
     end
   end
@@ -364,23 +369,16 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before do
         allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
         sign_in intake
       end
 
-      it "redirects to data review page" do
+      it "still displays the login page" do
         get :edit, params: params
-        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
-      end
-
-      context "when the intake has a current step" do
-        before { intake.update(current_step: "/en/questions/name-dob") }
-
-        it "redirects to the current step" do
-          post :update, params: params
-          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
-        end
+        expect(response.status).to eq(200)
+        expect(response.body).to include "Code verified! Authentication needed to continue."
       end
 
       context "when the intake does not have an ssn" do
@@ -421,6 +419,15 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
             expect(subject.current_state_file_az_intake).to eq(intake)
             expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+            expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
+          end
+
+          it "signs in the intake, updates the session, and redirects to the current step" do
+            intake.update(current_step: "/en/questions/name-dob")
+            post :update, params: params
+
+            expect(subject.current_state_file_az_intake).to eq(intake)
+            expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 
@@ -509,36 +516,16 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
 
     context "as an authenticated intake" do
+      render_views
       before do
         allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
         sign_in intake
       end
 
-      it "redirects to data review page if they have no submitted return" do
+      it "displays the form" do
         get :new, params: { contact_method: :email_address, us_state: "az" }
-
-        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
-      end
-
-      context "when the intake has a submitted return" do
-        before do
-          intake.efile_submissions.create!
-        end
-
-        it "redirects to return status page" do
-          get :new, params: { contact_method: :email_address, us_state: "az" }
-
-          expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
-        end
-      end
-
-      context "when the intake has a current step" do
-        before { intake.update(current_step: "/en/questions/name-dob") }
-
-        it "redirects to the current step" do
-          post :update, params: params
-          expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
-        end
+        expect(response.status).to eq(200)
+        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
       end
     end
   end

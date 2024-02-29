@@ -20,7 +20,30 @@ RSpec.describe StateFile::AzStateCreditsForm do
       end
     end
 
-    context "with checkboxes selected but empty wages" do
+    context "with all checkboxes selected" do
+      let(:params) do
+        {
+          tribal_member: "yes",
+          armed_forces_member: "yes",
+        }
+      end
+
+      it "is not valid" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors).to include :tribal_wages
+        expect(form.errors).to include :armed_forces_wages
+      end
+
+      it "non numeric values are invalid" do
+        form = described_class.new(intake, params.merge(tribal_wages: "a10", armed_forces_wages: "b10"))
+        expect(form).not_to be_valid
+        expect(form.errors).to include :tribal_wages
+        expect(form.errors).to include :armed_forces_wages
+      end
+    end
+
+    context "with checkboxes selected and non numeric wages" do
       let(:params) do
         {
           tribal_member: "yes",

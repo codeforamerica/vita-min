@@ -40,7 +40,6 @@ describe EfileSubmissionStateMachine do
         end
       end
 
-
       context "calculating spouse agi" do
         context "when the filer is not married_filing_jointly" do
           it "does not do any calculations" do
@@ -164,6 +163,33 @@ describe EfileSubmissionStateMachine do
         submission.transition_to!(:transmitted)
         expect(submission.tax_return.current_state).to eq("file_efiled")
       end
+
+      context "state file intakes" do
+        before do
+          submission.update(data_source: create(:state_file_az_intake))
+        end
+
+        it "creates a record to store the analytics data" do
+          expect {
+            submission.transition_to(:transmitted)
+          }.to change(StateFileAnalytics, :count).by 1
+
+          expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
+          expect(submission.data_source.state_file_analytics.filing_status).to eq 1
+          expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
+        end
+
+        context "when state is already transmitted" do
+          let(:submission) { create(:efile_submission, :queued) }
+          before { submission.transition_to(:transmitted) }
+
+          it "sucessfully transitions to transmitted" do
+            expect {
+              submission.transition_to(:transmitted)
+            }.not_to change(StateFileAnalytics, :count)
+          end
+        end
+      end
     end
 
     context "to failed" do
@@ -207,6 +233,21 @@ describe EfileSubmissionStateMachine do
         submission.transition_to!(:rejected, error_code: efile_error.code)
 
         expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
+      end
+    end
+
+    context "to notified_of_rejection" do
+      let(:submission) { create(:efile_submission, :rejected) }
+
+      it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+        after_transition_messaging_service = instance_double(StateFile::AfterTransitionMessagingService)
+        allow(StateFile::AfterTransitionMessagingService)
+          .to receive(:new)
+          .and_return(after_transition_messaging_service)
+        allow(after_transition_messaging_service)
+          .to receive(:send_efile_submission_rejected_message)
+        submission.transition_to!(:notified_of_rejection)
+
       end
     end
 
