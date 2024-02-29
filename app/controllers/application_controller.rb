@@ -417,7 +417,7 @@ class ApplicationController < ActionController::Base
   helper_method :app_time
 
   def acts_like_production?
-    Rails.env.production? || Rails.env.staging?
+    Rails.env.production?
   end
   helper_method :acts_like_production?
 
