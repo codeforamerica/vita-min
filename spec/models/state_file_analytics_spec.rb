@@ -52,7 +52,7 @@ describe StateFileAnalytics do
 
       it "returns calculated values for AZ intake attributes" do
         expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
-                                                         household_fed_agi: 112273,
+                                                         household_fed_agi: 120000,
                                                          dependent_tax_credit: 0,
                                                          excise_credit: 0,
                                                          family_income_tax_credit: 0,

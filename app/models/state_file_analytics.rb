@@ -34,25 +34,9 @@ class StateFileAnalytics < ApplicationRecord
       fed_eitc_amount: record.direct_file_data.fed_eic,
       filing_status: record.direct_file_data.filing_status,
       refund_or_owed_amount: record.calculated_refund_or_owed_amount,
-      household_fed_agi: record.calculator.household_fed_agi
+      household_fed_agi: record.direct_file_data.fed_agi
     }
-    if record_type == "StateFileAzIntake"
-      attributes.merge!(
-        dependent_tax_credit: record.calculator.dependent_tax_credit,
-        family_income_tax_credit: record.calculator.family_income_tax_credit,
-        excise_credit: record.calculator.excise_credit
-      )
-    end
-    if record_type == "StateFileNyIntake"
-      attributes.merge!(
-        nys_eitc: record.calculator.nys_eitc,
-        nyc_eitc: record.calculator.nyc_eitc,
-        empire_state_child_credit: record.calculator.empire_state_child_credit,
-        nyc_school_tax_credit: record.calculator.nyc_school_tax_credit,
-        nys_household_credit: record.calculator.nys_household_credit_amount,
-        nyc_household_credit: record.calculator.nyc_household_credit_amount
-        )
-    end
+    attributes.merge!(record.calculator&.analytics_attrs || {})
     assign_attributes(attributes)
   end
 end
