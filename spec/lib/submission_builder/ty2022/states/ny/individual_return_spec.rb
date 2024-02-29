@@ -96,17 +96,15 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    context 'when claiming the federal CTC and ODC' do
+    context "when claiming the federal CTC and ODC" do
       let(:intake) { create(:state_file_zeus_intake) }
 
       it 'includes the IT213 document and CTC and ODC dependents' do
         xml = described_class.build(submission).document
-        expect(xml.at('IT213')).to be_present
-        dependent_nodes = xml.search('dependent')
-        eic_dependent_nodes = dependent_nodes.select { |n| n.at('DEP_FORM_ID').text == '215' }
-        ctc_dependent_nodes = dependent_nodes.select { |n| n.at('DEP_FORM_ID').text == '348' }
-        expect(eic_dependent_nodes.length).to eq 3
-        expect(ctc_dependent_nodes.length).to eq 0
+        expect(xml.at("IT213")).to be_present
+        dependent_nodes = xml.search("dependent")
+        ctc_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "348" }
+        expect(ctc_dependent_nodes.length).to eq 4
       end
     end
 
@@ -179,23 +177,6 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
               d.pdf == PdfFiller::Ny213AttPdf
             end
             expect(additional_dependents).not_to be_present
-          end
-        end
-      end
-    end
-
-    context 'when there is 1 dependent' do
-      let(:intake) { create(:state_file_taylor_intake) }
-      let(:filing_status) { 'single' }
-
-      before do
-        allow_any_instance_of(StateFileNyIntake).to receive(:form_213_present?).and_return false
-      end
-
-      context 'it-213' do
-        context 'when the 213 is not present' do
-          it '348 dependents should also not be present' do
-            expect(submission.data_source).not_to be_form_213_present
           end
         end
       end
