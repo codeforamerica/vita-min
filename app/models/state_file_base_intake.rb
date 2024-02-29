@@ -240,6 +240,6 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def form_213_present?
-    self.eligibility_lived_in_state_yes?
+    self.direct_file_data.claimed_as_dependent?
   end
 end
