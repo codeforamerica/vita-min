@@ -324,7 +324,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
   describe "#edit" do
     let(:params) { { us_state: "az", id: "raw_token" } }
 
-    context "as an unauthenticated client" do
+    context "as an unauthenticated intake" do
       context "with valid token" do
         before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query) }
 
@@ -347,12 +347,17 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
 
         context "when the intake does not have an ssn" do
-          before { intake.update(hashed_ssn: nil) }
+          let(:stub_intake) { create :state_file_az_intake }
+          before do
+            intake.update(hashed_ssn: nil)
+            sign_in stub_intake
+          end
 
           it "redirects to terms and conditions page" do
             get :edit, params: params
 
             expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+            expect(intake.reload.unfinished_intake_ids).to match_array([stub_intake.id.to_s])
           end
         end
       end
@@ -377,6 +382,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       it "still displays the login page" do
         get :edit, params: params
+
         expect(response.status).to eq(200)
         expect(response.body).to include "Code verified! Authentication needed to continue."
       end
@@ -384,9 +390,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       context "when the intake does not have an ssn" do
         before { intake.update(hashed_ssn: nil) }
 
-        it "redirects to terms and conditions page" do
+        it "redirects to terms and conditions page, does not save its own id as an unfinished intake id" do
           get :edit, params: params
+
           expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+          expect(intake.reload.unfinished_intake_ids).to be_empty
         end
       end
     end
@@ -515,17 +523,32 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       end
     end
 
-    context "as an authenticated intake" do
-      render_views
+    context "when there is a signed in intake in the session" do
+      let(:current_unfinished_intake) { create :state_file_az_intake }
+      let(:ssn) { "111223333" }
+      let(:params) do
+        {
+          us_state: "az",
+          id: "raw_token",
+          state_file_intake_login_form: {
+            ssn: ssn
+          }
+        }
+      end
       before do
         allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
-        sign_in intake
+        allow(SsnHashingService).to receive(:hash).with(ssn).and_return intake.hashed_ssn
+        intake.update(unfinished_intake_ids: [3])
+        sign_in current_unfinished_intake
       end
 
-      it "displays the form" do
-        get :new, params: { contact_method: :email_address, us_state: "az" }
-        expect(response.status).to eq(200)
-        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
+      it "signs in the intake, updates the session, saves the unfinished intake id, and redirects to the appropriate page" do
+        post :update, params: params
+
+        expect(subject.current_state_file_az_intake).to eq(intake)
+        expect(intake.reload.unfinished_intake_ids).to match_array ["3", current_unfinished_intake.id.to_s]
+        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+        expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
       end
     end
   end
