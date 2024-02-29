@@ -1583,6 +1583,7 @@ es:
         email:
           body: |
             ¡Bienvenido/a!
+
             ¡Hemos creado tu cuenta en FileYourStateTaxes con éxito! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán automáticamente. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.
 
             Su ID de cliente es %{intake_id}. Esta es una información importante de la cuenta que puede necesitar cuando hable con nuestro equipo de soporte. Mantenga un registro de este número y no elimine este mensaje.
@@ -2099,6 +2100,9 @@ es:
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
             permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
+            title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
+            other_options:
+              faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow">aquí.</a>
           learn_more_reveal:
             p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
