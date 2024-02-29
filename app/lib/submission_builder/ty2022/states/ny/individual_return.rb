@@ -87,7 +87,7 @@ module SubmissionBuilder
                 end
               end
 
-              # These dependents are for NY IT-213, and only for when thr IT-213 is present.
+              # These dependents are for NY IT-213, and only for when the IT-213 is present.
               if form_213_present?
                 it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
                 it_213_qualified_dependents.each_with_index do |dependent, index|
