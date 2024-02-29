@@ -2100,9 +2100,9 @@ es:
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
             permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
-            title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
-            other_options:
-              faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+          title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
+          other_options:
+            faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow">aquí.</a>
           learn_more_reveal:
             p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
