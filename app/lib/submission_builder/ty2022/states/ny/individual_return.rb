@@ -30,6 +30,10 @@ module SubmissionBuilder
             included_documents.map { |item| item if item.pdf }.compact
           end
 
+          def form_213_present?
+            submission.data_source.eligibility_lived_in_state_yes?
+          end
+
           private
 
           def documents_wrapper
@@ -162,10 +166,6 @@ module SubmissionBuilder
             supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
           end
 
-          def form_213_present?
-            submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD
-          end
-
           def supported_documents
             tax_calculator = @submission.data_source.tax_calculator
             calculated_fields = tax_calculator.calculate
@@ -191,7 +191,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
                 pdf: PdfFiller::Ny213AttPdf,
-                include: form_213_present?,
+                include: submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
                 kwargs: { dependent_offset: DEPENDENT_OVERFLOW_THRESHOLD }
               },
               {

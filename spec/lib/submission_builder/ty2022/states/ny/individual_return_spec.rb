@@ -179,11 +179,22 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
             expect(additional_dependents).not_to be_present
           end
         end
+      end
+    end
 
-        context "when the 213 is not present" do
-          it "348 dependents should also not be present" do
+    context 'when there is 1 dependent' do
+      let(:intake) { create(:state_file_taylor_intake) }
+      let(:filing_status) { 'single' }
+
+      before do
+        allow_any_instance_of(StateFileNyIntake).to receive(:eligibility_lived_in_state_yes?).and_return false
+      end
+
+      context 'it-213' do
+        context 'when the 213 is not present' do
+          it '348 dependents should also not be present' do
             submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
-            expect(submission_builder.send(:form_213_present?)).to be_falsey
+            expect(submission_builder).not_to be_form_213_present
           end
         end
       end
