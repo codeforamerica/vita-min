@@ -193,8 +193,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       context 'it-213' do
         context 'when the 213 is not present' do
           it '348 dependents should also not be present' do
-            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
-            expect(submission_builder).not_to be_form_213_present
+            expect(submission.data_source).not_to be_form_213_present
           end
         end
       end

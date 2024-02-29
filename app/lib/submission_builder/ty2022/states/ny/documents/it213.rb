@@ -8,7 +8,7 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("IT213") do |xml|
-                if @submission.data_source.eligibility_lived_in_state_yes?
+                if @submission.data_source.form_213_present?
                   xml.ESC_RSDT_IND claimed: calculated_fields.fetch(:IT213_LINE_1) if calculated_fields.fetch(:IT213_LINE_1).present?
                   xml.ESC_FED_CR_IND claimed: calculated_fields.fetch(:IT213_LINE_2) if calculated_fields.fetch(:IT213_LINE_2).present?
                   xml.ESC_FAGI_LMT_IND claimed: calculated_fields.fetch(:IT213_LINE_3) if calculated_fields.fetch(:IT213_LINE_3).present?

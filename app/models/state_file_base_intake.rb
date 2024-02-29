@@ -238,4 +238,8 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
   end
+
+  def form_213_present?
+    self.eligibility_lived_in_state_yes?
+  end
 end

@@ -30,10 +30,6 @@ module SubmissionBuilder
             included_documents.map { |item| item if item.pdf }.compact
           end
 
-          def form_213_present?
-            submission.data_source.eligibility_lived_in_state_yes?
-          end
-
           private
 
           def documents_wrapper
@@ -88,7 +84,7 @@ module SubmissionBuilder
               end
 
               # These dependents are for NY IT-213, and only for when the IT-213 is present.
-              if form_213_present?
+              if @submission.data_source.form_213_present?
                 it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
                 it_213_qualified_dependents.each_with_index do |dependent, index|
                   xml.dependent do
