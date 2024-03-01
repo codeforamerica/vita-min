@@ -10,6 +10,10 @@ module StateFile
       def index
         # Show the list of W2s and whether they are valid - we build this list on the fly based on existing and
         # new entries...
+        @w2s_with_metadata = @w2s.map do |w2|
+          dfw2 = w2.state_file_intake.direct_file_data.w2s[w2.w2_index]
+          [w2, dfw2.EmployerName]
+        end
       end
 
       def edit

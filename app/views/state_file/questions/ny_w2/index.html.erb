@@ -1,12 +1,21 @@
-<% content_for :page_title, "Index page" %>
+<% title = "TODO: ask design for copy" %>
+<% content_for :page_title, title %>
 
 <% content_for :card do %>
-  <h1 class="h2">Show all the W2s for the intake and whether they are valid - with an edit button for each </h1>
-  <div class="blue-group">
-    <% @w2s.each_with_index do |w2, index| %>
-      <%= w2.attributes %><br />
-      Valid: <%= w2.valid? %>
-      <%= link_to "View", action: :edit, id: w2.w2_index %>
-    <% end %>
-  </div>
+  <h1 class="h2"><%= title %></h1>
+  <% @w2s_with_metadata.each do |w2_info| %>
+    <% w2 = w2_info[0] %>
+    <% w2_employer_name = w2_info[1] %>
+    <div class="blue-group">
+      <div>W2 for: <%= w2_employer_name %></div>
+      <div>Valid: <%= w2.valid? %></div>
+      <div>
+        <%= link_to t("general.edit"), action: :edit, id: w2.w2_index, class: "button--small button--inline-action" %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to(next_path, class: "button button--primary button--wide") do %>
+    <%= t('general.continue') %>
+  <% end %>
 <% end %>
