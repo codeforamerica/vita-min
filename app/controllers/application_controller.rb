@@ -422,8 +422,7 @@ class ApplicationController < ActionController::Base
   helper_method :acts_like_production?
 
   def show_xml?
-    ## NEED to add staging here?
-    Rails.env.development? || Rails.env.heroku? || Rails.env.test?
+    Rails.env.development? || Rails.env.heroku? || Rails.env.test? || Rails.env.staging?
   end
   helper_method :show_xml?
 
