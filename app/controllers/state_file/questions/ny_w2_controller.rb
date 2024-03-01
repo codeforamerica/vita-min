@@ -4,7 +4,7 @@ module StateFile
       before_action :create_w2_list
 
       def self.show?(intake)
-        get_w2s_for_intake(intake).detect { |w2| !w2.valid? }
+        get_w2s_for_intake(intake).any? { |w2| !w2.valid? }
       end
 
       def index
@@ -32,6 +32,7 @@ module StateFile
         end
         w2s.each_with_index do |state_file_w2, index|
           state_file_w2.w2_index = index
+          state_file_w2.state_file_intake = intake
         end
         # Override values in the array with any that are already persisted
         intake.state_file_w2s.each do |state_file_w2|
