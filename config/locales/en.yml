@@ -1927,6 +1927,8 @@ en:
     faq:
       index:
         title: Common questions from %{state} taxpayers
+    general:
+      title: Free AZ and NY state tax filing
     intake_logins:
       account_locked:
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
