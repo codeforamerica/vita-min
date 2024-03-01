@@ -73,6 +73,7 @@ module StateFile
       #   self.class
       # end
 
+      # TODO: only permit attributes that are on the page
       def form_params
         params.require(StateFileW2.name.underscore).permit(*StateFileW2.attribute_names)
       end

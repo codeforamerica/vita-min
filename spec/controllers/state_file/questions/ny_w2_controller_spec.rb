@@ -201,9 +201,12 @@ RSpec.describe StateFile::Questions::NyW2Controller do
         let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0 }
 
         it "updates the w2 and redirects to the index" do
-          post :update, params: params
+          expect {
+            post :update, params: params
+          }.not_to change(StateFileW2, :count)
 
           w2.reload
+          expect(w2.state_file_intake).to eq intake
           expect(w2.employer_state_id_num).to eq "12345"
           expect(w2.state_wages_amt).to eq 10005
           expect(w2.state_income_tax_amt).to eq 500

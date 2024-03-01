@@ -1,3 +1,5 @@
+# TODO delete this
+
 module StateFile
   class NyW2Form < QuestionsForm
     attr_accessor :w2s
