@@ -6,7 +6,7 @@
     <% @w2s.each_with_index do |w2, index| %>
       <%= w2.attributes %><br />
       Valid: <%= w2.valid? %>
-      <%= link_to "View", action: :edit, id: index %>
+      <%= link_to "View", action: :edit, id: w2.w2_index %>
     <% end %>
   </div>
 <% end %>

@@ -165,4 +165,104 @@ RSpec.describe StateFile::Questions::NyW2Controller do
       end
     end
   end
+
+  describe "#index" do
+    it "renders index of invalid w2s with w2_index as id" do
+      get :index, params: { us_state: :ny }
+
+      w2s_list = assigns(:w2s)
+      expect(w2s_list.count).to eq 2
+      expect(w2s_list[0].w2_index).to eq 0
+      expect(w2s_list[1].w2_index).to eq 1
+
+      # TODO: render_views and check that id in link is w2_index?
+    end
+  end
+
+  describe "#update" do
+    context "with valid params" do
+      let(:params) do
+        {
+          us_state: :ny,
+          id: 1,
+          state_file_w2: {
+            employer_state_id_num: "12345",
+            state_wages_amt: 10005,
+            state_income_tax_amt: 500,
+            local_wages_and_tips_amt: 20,
+            local_income_tax_amt: 30,
+            locality_nm: "NYC"
+          }
+        }
+      end
+
+      context "with existing w2" do
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1 }
+        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0 }
+
+        it "updates the w2 and redirects to the index" do
+          post :update, params: params
+
+          w2.reload
+          expect(w2.employer_state_id_num).to eq "12345"
+          expect(w2.state_wages_amt).to eq 10005
+          expect(w2.state_income_tax_amt).to eq 500
+          expect(w2.local_wages_and_tips_amt).to eq 20
+          expect(w2.local_income_tax_amt).to eq 30
+          expect(w2.locality_nm).to eq "NYC"
+
+          # TODO: check other_w2 hasn't been updated? perhaps unnecessary test
+
+          expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
+        end
+      end
+
+      context "without existing w2" do
+        it "creates new w2 and redirects to the index" do
+          expect {
+            post :update, params: params
+          }.to change(StateFileW2, :count).by(1)
+
+          new_w2 = StateFileW2.last
+
+          expect(new_w2.w2_index).to eq 1
+          expect(new_w2.state_file_intake).to eq intake
+          expect(new_w2.employer_state_id_num).to eq "12345"
+          expect(new_w2.state_wages_amt).to eq 10005
+          expect(new_w2.state_income_tax_amt).to eq 500
+          expect(new_w2.local_wages_and_tips_amt).to eq 20
+          expect(new_w2.local_income_tax_amt).to eq 30
+          expect(new_w2.locality_nm).to eq "NYC"
+
+          expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
+        end
+      end
+    end
+
+    context "with invalid params" do
+      render_views
+      let(:params) do
+        {
+          us_state: :ny,
+          id: 0,
+          state_file_w2: {
+            employer_state_id_num: "12345",
+            state_wages_amt: 0,
+            state_income_tax_amt: 500,
+            local_wages_and_tips_amt: 20,
+            local_income_tax_amt: 30,
+            locality_nm: "NYC"
+          }
+        }
+      end
+
+      it "renders edit with validation errors" do
+        post :update, params: params
+
+        expect(response).to render_template(:edit)
+        # TODO: test for real validation error message
+        expect(response.body).to include "Need a proper message here"
+      end
+    end
+  end
 end

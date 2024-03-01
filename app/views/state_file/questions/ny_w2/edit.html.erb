@@ -1,14 +1,21 @@
-<% content_for :page_title, "CATCHPHRASE!" %>
+<% @main_heading = t(".title_info_html", employer_name: @employer_name,total_wages: @wages_amt) %>
+<% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
-  <h1 class="h2">Show a form for editing a single W2</h1>
-  <%= @form %>
+  <h1 class="form-question spacing-below-25"><%= @main_heading %></h1>
 
+  <%= form_with model: @w2, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <div class="blue-group">
+      <%= f.cfa_input_field(:employer_state_id_num, "employer_state_id_num", classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:state_wages_amt, "state_wages_amt", classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:state_income_tax_amt, "state_income_tax_amt", classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:local_wages_and_tips_amt, "local_wages_and_tips_amt", classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:local_income_tax_amt, "local_income_tax_amt", classes: ["form-width--long"]) %>
+      <%= f.cfa_select(:locality_nm, "locality_nm", StateFileNyIntake::LOCALITIES, include_blank: true) %>
+    </div>
 
-  <%
-    #form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f|
-  %>
-    Fields here!
-    <% # f.continue %>
-  <% # end %>
+    <button class="button button--primary button--wide" type="submit">
+      <%= t("general.continue") %>
+    </button>
+  <% end %>
 <% end %>

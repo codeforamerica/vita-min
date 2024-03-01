@@ -2540,6 +2540,12 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
+      ny_w2:
+        edit:
+          title_info_html: |
+            We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages}.
+            <br/><br/>
+            If any of these boxes are blank on your W-2, leave them blank here.
     state_file_pages:
       about_page:
         header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
