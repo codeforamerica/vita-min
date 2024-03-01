@@ -11,6 +11,11 @@ module StateFile
 
       private
 
+      def form_params
+        # We relax the form constraint here - we are gonna cherry pick the ones we want anyway
+        params.fetch(form_name, {}) #.permit(*form_class.attribute_names)
+      end
+
       def self.invalid_w2?(intake, w2)
         return true if w2.StateWagesAmt == 0
         if intake.nyc_residency_full_year?

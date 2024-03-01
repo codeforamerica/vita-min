@@ -21,4 +21,25 @@
 #
 class StateFileW2 < ApplicationRecord
   belongs_to :state_file_intake, polymorphic: true
+
+  def self.from_df_w2(df_w2)
+    attributes = {}
+    DirectFileData::DfW2::SELECTORS.keys.each do |selector|
+      column_name = selector.to_s.underscore
+      if columns_hash[column_name].present?
+        attributes[column_name] = df_w2.send(selector.to_sym)
+      end
+    end
+    StateFileW2.new(attributes)
+  end
+
+  def to_df_w2(df_w2)
+    DirectFileData::DfW2::SELECTORS.keys.each do |selector|
+      column_name = selector.to_s.underscore
+      if columns_hash[column_name].present?
+        value = send(column_name.to_sym)
+        attributes[column_name] = df_w2.send("#{selector}=".to_sym, value)
+      end
+    end
+  end
 end
