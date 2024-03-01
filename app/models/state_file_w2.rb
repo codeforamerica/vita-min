@@ -46,20 +46,23 @@ class StateFileW2 < ApplicationRecord
 
   def validate_w2
     #TODO: Proper messages
-    if w2.state_wages_amt == 0
+    if state_wages_amt == 0
       errors.add :state_wages_amt, "Need a proper message here"
     end
-    if intake.nyc_residency_full_year?
-      return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
+    #if intake.nyc_residency_full_year?
+    #  return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
+    #end
+    if locality_nm.blank?
+      errors.add :locality_nm, "Need a proper message here"
     end
-    if w2.LocalityNm.blank?
-      return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
-    end
-    return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
-    return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
-    return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
-    return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
+    #if w2.LocalityNm.blank?
+    #  return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
+    #end
+    #return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
+    #return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
+    #return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
+    #return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
 
-    false
+    #false
   end
 end
