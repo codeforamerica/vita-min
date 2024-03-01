@@ -47,7 +47,6 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-
     context "with long employment description" do
       let(:intake) { create(:state_file_ny_intake, :mfj_with_complete_spouse) }
 
@@ -134,10 +133,50 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:intake) { create(:state_file_ny_intake) }
       let(:filing_status) { 'single' }
 
-      it "w2s are copied from the intake" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-        expect(xml.css('IRSW2').count).to eq 1
-        expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
+      context "when the intake does not have any state_file_w2s" do
+        it "copies all w2s from the direct file xml field" do
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.css('IRSW2').count).to eq 1
+          expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
+        end
+      end
+
+      context "when the intake has state_file_w2s" do
+        let(:intake) { create(:state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml"))) }
+        let!(:w2) {
+          create(
+            :state_file_w2,
+            state_file_intake: intake,
+            w2_index: 1,
+            employer_state_id_num: "00123",
+            local_income_tax_amt: "300.12",
+            local_wages_and_tips_amt: "2000",
+            locality_nm: "NEW YORK CITY",
+            state_income_tax_amt: "699.9",
+            state_wages_amt: "2000",
+          )
+        }
+
+        it "prioritises state_file_w2s over w2s from the direct file xml" do
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.css('IRSW2').count).to eq 2
+
+          w2_from_xml = xml.css('IRSW2')[0]
+          expect(w2_from_xml.at("EmployerStateIdNum").text).to eq "001245788"
+          expect(w2_from_xml.at("LocalIncomeTaxAmt").text).to eq "200"
+          expect(w2_from_xml.at("LocalWagesAndTipsAmt").text).to eq "8000"
+          expect(w2_from_xml.at("LocalityNm").text).to eq "NYC"
+          expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq "600"
+          expect(w2_from_xml.at("StateWagesAmt").text).to eq "8000"
+
+          w2_from_db = xml.css('IRSW2')[1]
+          expect(w2_from_db.at("EmployerStateIdNum").text).to eq "00123"
+          expect(w2_from_db.at("LocalIncomeTaxAmt").text).to eq "300"
+          expect(w2_from_db.at("LocalWagesAndTipsAmt").text).to eq "2000"
+          expect(w2_from_db.at("LocalityNm").text).to eq "NEW YORK CITY"
+          expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq "700"
+          expect(w2_from_db.at("StateWagesAmt").text).to eq "2000"
+        end
       end
     end
 
