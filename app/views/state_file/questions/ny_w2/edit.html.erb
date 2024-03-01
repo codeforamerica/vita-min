@@ -2,7 +2,7 @@
 <% content_for :card do %>
   <p><%= t(".instructions_1", employer_name: @employer_name , total_wages_amt: number_to_currency(@wages_amt)) %></p>
   <p><%= t(".instructions_2") %></p>
-  <%= form_with model: @w2, url: { action: :update }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <%= form_with model: @w2, url: { action: :update }, method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="blue-group">
       <div class="form-question spacing-below-15">
         <div class="text--bold"><%=t("general.state") %></div>
@@ -22,8 +22,8 @@
       <div class="form-question spacing-below-25">
         <%= f.cfa_input_field(:local_income_tax_amt, t(".box19_html"), classes: ["form-width--long"]) %>
       </div>
-      <div class="form-question spacing-below-25">
-        <%= f.cfa_select(:locality_nm, "locality_nm", StateFileNyIntake::LOCALITIES, include_blank: true) %>
+      <div class="form-question spacing-below-25 ny-w2-locality-nm">
+        <%= f.cfa_select(:locality_nm, t(".box20_locality_name"), StateFileNyIntake::LOCALITIES, include_blank: true) %>
       </div>
       <button class="button button--primary button--wide" type="submit">
         <%= t("general.continue") %>

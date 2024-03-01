@@ -2553,6 +2553,7 @@ en:
           box17_html: "<strong>Box 17</strong>: State income tax"
           box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
           box19_html: "<strong>Box 19</strong>: Local income tax"
+          box20_locality_name: '<strong>Box 20</strong>: Locality name'
           instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
     state_file_pages:
