@@ -9,9 +9,7 @@ module SubmissionBuilder
 
         if intake_w2
           ["EmployerStateIdNum", "LocalIncomeTaxAmt", "LocalWagesAndTipsAmt", "LocalityNm", "StateIncomeTaxAmt", "StateWagesAmt"].each do |attr|
-            value = intake_w2.send(attr.underscore)
-            value = value.round if value.is_a?(BigDecimal)
-            xml_node.at(attr).content = value
+            xml_node.at(attr).content = intake_w2.send(attr.underscore)
           end
         end
 

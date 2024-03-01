@@ -149,10 +149,10 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
             state_file_intake: intake,
             w2_index: 1,
             employer_state_id_num: "00123",
-            local_income_tax_amt: "300.12",
+            local_income_tax_amt: "300",
             local_wages_and_tips_amt: "2000",
             locality_nm: "NEW YORK CITY",
-            state_income_tax_amt: "699.9",
+            state_income_tax_amt: "700",
             state_wages_amt: "2000",
           )
         }
