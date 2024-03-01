@@ -14,7 +14,7 @@ module StateFile
 
       def edit
         # Show a single W2 to edit
-        @form = @w2s[params[:index].to_i]
+        @form = @w2s[params[:id].to_i]
       end
 
       def self.navigation_actions

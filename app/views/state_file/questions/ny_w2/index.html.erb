@@ -3,9 +3,10 @@
 <% content_for :card do %>
   <h1 class="h2">Show all the W2s for the intake and whether they are valid - with an edit button for each </h1>
   <div class="blue-group">
-    <% @w2s.each do |w2| %>
+    <% @w2s.each_with_index do |w2, index| %>
       <%= w2.attributes %><br />
       Valid: <%= w2.valid? %>
+      <%= link_to "View", action: :edit, id: index %>
     <% end %>
   </div>
 <% end %>
