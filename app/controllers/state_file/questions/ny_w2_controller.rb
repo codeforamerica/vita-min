@@ -1,10 +1,10 @@
 module StateFile
   module Questions
     class NyW2Controller < AuthenticatedQuestionsController
-      before_action :create_w2_list
+      before_action :load_w2s
 
       def self.show?(intake)
-        get_w2s_for_intake(intake).any? { |w2| !w2.valid? }
+        invalid_w2s(intake).any?
       end
 
       def index
@@ -39,32 +39,41 @@ module StateFile
         [:index, :edit]
       end
 
-      def create_w2_list
-        # Generate a new array of unsaved W2s based on direct file data
-        @w2s = self.class.get_w2s_for_intake(current_intake)
-      end
-
-      def self.get_w2s_for_intake(intake)
-        # instantiates new StateFileW2 with fields from direct file xml
-        w2s = intake.direct_file_data.w2s.map do |df_w2|
-          StateFileW2.from_df_w2(df_w2)
-        end
-        # sets w2_index and associated intake on each StateFileW2
-        w2s.each_with_index do |state_file_w2, index|
-          state_file_w2.w2_index = index
-          state_file_w2.state_file_intake = intake
-        end
-        # replaces w2s from df xml with any that are already persisted in our db
-        intake.state_file_w2s.each do |state_file_w2|
-          w2s[state_file_w2.w2_index] = state_file_w2
-        end
-        w2s
-      end
-
       def form_params
         params.require(StateFileW2.name.underscore)
               .except(:state_file_intake_id, :state_file_intake_type)
               .permit(*StateFileW2.attribute_names)
+      end
+
+      def load_w2s
+        @w2s = self.class.w2s_for_intake(current_intake)
+      end
+
+      def self.w2s_for_intake(intake)
+        self.invalid_w2s(intake).each_with_index.map do |_, i|
+          existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == i }
+          existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: i)
+        end
+      end
+
+      def self.invalid_w2s(intake)
+        intake.direct_file_data.w2s.filter { |w2| invalid_w2?(intake, w2) }
+      end
+
+      def self.invalid_w2?(intake, w2)
+        return true if w2.StateWagesAmt == 0
+        if intake.nyc_residency_full_year?
+          return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
+        end
+        if w2.LocalityNm.blank?
+          return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
+        end
+        return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
+        return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
+        return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
+        return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
+
+        false
       end
     end
   end

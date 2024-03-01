@@ -167,6 +167,15 @@ RSpec.describe StateFile::Questions::NyW2Controller do
   end
 
   describe "#index" do
+    # must have invalid df w2s
+    let(:direct_file_xml) do
+      xml = super()
+      xml.search("IRSW2").map do |w2|
+        w2.at("StateWagesAmt").content = ""
+      end
+      xml
+    end
+
     it "renders index of invalid w2s with w2_index as id" do
       get :index, params: { us_state: :ny }
 
@@ -180,6 +189,15 @@ RSpec.describe StateFile::Questions::NyW2Controller do
   end
 
   describe "#update" do
+    # df w2s must be invalid
+    let(:direct_file_xml) do
+      xml = super()
+      xml.search("IRSW2").map do |w2|
+        w2.at("StateWagesAmt").content = ""
+      end
+      xml
+    end
+
     context "with valid params" do
       let(:params) do
         {
