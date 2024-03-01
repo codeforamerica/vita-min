@@ -29,10 +29,10 @@ class StateFileW2 < ApplicationRecord
   validates :state_income_tax_amt, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :local_wages_and_tips_amt, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :local_income_tax_amt, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :locality_nm, presence: true, if: -> { local_wages_and_tips_amt.positive? }
-  validates :local_wages_and_tips_amt, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, if: -> { local_income_tax_amt.positive? }
-  validates :state_wages_amt, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, if: -> { state_income_tax_amt.positive? }
-  validates :employer_state_id_num, presence: true, if: -> { state_wages_amt.positive? }
+  validates :locality_nm, presence: true, if: -> { local_wages_and_tips_amt.present? && local_wages_and_tips_amt.positive? }
+  validates :local_wages_and_tips_amt, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, if: -> { local_income_tax_amt.present? && local_income_tax_amt.positive? }
+  validates :state_wages_amt, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, if: -> { state_income_tax_amt.present? && state_income_tax_amt.positive? }
+  validates :employer_state_id_num, presence: true, if: -> { state_wages_amt.present? && state_wages_amt.positive? }
 
   def to_df_w2(df_w2)
     DirectFileData::DfW2::SELECTORS.keys.each do |selector|
