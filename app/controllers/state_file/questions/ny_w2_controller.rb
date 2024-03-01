@@ -21,16 +21,16 @@ module StateFile
         [:index, :edit]
       end
 
-      def create_w2_list(intake)
+      def create_w2_list
         # Generate a new array of unsaved W2s based on direct file data
-        @w2s = intake.direct_file_data.w2s.map do |df_w2|
+        @w2s = current_intake.direct_file_data.w2s.map do |df_w2|
           StateFileW2.from_df_w2(df_w2)
         end
         @w2s.each_with_index do |state_file_w2, index|
           state_file_w2.index = index
         end
         # Override values in the array with any that are already persisted
-        intake.state_file_w2s.each do |state_file_w2|
+        current_intake.state_file_w2s.each do |state_file_w2|
           @w2s[state_file_w2.index] = state_file_w2
         end
       end
