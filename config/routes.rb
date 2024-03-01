@@ -579,6 +579,7 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+        resources :ny_w2, only: [:index, :edit, :update], module: 'state_file/questions', path: 'questions/ny_w2'
       end
 
       scope ':us_state', as: 'us', constraints: { us_state: :us } do

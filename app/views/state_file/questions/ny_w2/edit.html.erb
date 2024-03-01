@@ -1,7 +1,7 @@
 <% content_for :page_title, "CATCHPHRASE!" %>
 
 <% content_for :card do %>
-  <h1 class="h2">Normally there'd be content here...</h1>
+  <h1 class="h2">Show a form for editing a single W2</h1>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     Boom!
     <%= f.continue %>

@@ -26,22 +26,10 @@ module StateFile
     # TODO: Should we refactor this to override the assign_attributes method?
     def assign_w2_params(params)
       @w2s.each_with_index do |state_file_w2, index|
-        params.fetch()
+        w2_params = params.fetch("w2[#{index}]")
+        # TODO: Only allow setting the ids here...
+        state_file_w2.assign_attributes(w2_params)
       end
-
-      #if @intake.state_file_w2s.present?
-      #  @intake.state_file_w2s.each do |w2|
-      #    matching_attrs = w2s_attributes.find do |_, attrs|
-      #      w2.w2_index == attrs[:w2_index]
-      #    end
-      #    w2.assign_attributes(matching_attrs[1])
-      #  end
-      #  @w2s = @intake.state_file_w2s
-      #else
-      #  @w2s = w2s_attributes.map do |_, attrs|
-      #    StateFileW2.new(state_file_intake: @intake, **attrs)
-      #  end
-      #end
     end
 
     def validate_w2s

@@ -5,6 +5,40 @@ module StateFile
         invalid_w2s(intake).any?
       end
 
+      def index
+        # Show the list of W2s and whether they are valid - we build this list on the fly based on existing and
+        # new entries...
+      end
+
+      def edit
+        # Show a single W2 to edit
+        super
+      end
+
+      def update
+        # Update a single W2 record
+        super
+      end
+
+      def self.navigation_actions
+        [:index, :edit]
+      end
+
+      def self.state_file_w2s(intake)
+        # Generate a new array of unsaved W2s based on direct file data
+        state_file_w2s = intake.direct_file_data.w2s.map do |df_w2|
+          StateFileW2.from_df_w2(df_w2)
+        end
+        state_file_w2s.each_with_index do |state_file_w2, index|
+          state_file_w2.index = index
+        end
+        # Override values in the array with any that are already persisted
+        intake.state_file_w2s.each do |state_file_w2|
+          state_file_w2s[state_file_w2.index] = state_file_w2
+        end
+        state_file_w2s
+      end
+
       def self.invalid_w2s(intake)
         intake.direct_file_data.w2s.filter { |w2| invalid_w2?(intake, w2) }
       end
