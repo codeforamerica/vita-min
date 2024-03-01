@@ -2335,17 +2335,6 @@ en:
           helper_heading: How do I find my school district?
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
-      ny_w2:
-        edit:
-          box15_html: |
-            <strong>Box 15</strong>: State and Employer’s State ID number<br />
-            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
-          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
-          box17_html: "<strong>Box 17</strong>: State income tax"
-          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
-          box19_html: "<strong>Box 19</strong>: Local income tax"
-          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
-          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
       nyc_residency:
         edit:
           full_year:
@@ -2551,6 +2540,21 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
+      ny_w2:
+        edit:
+          title_info_html: |
+            We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages}.
+            <br/><br/>
+            If any of these boxes are blank on your W-2, leave them blank here.
+          box15_html: |
+            <strong>Box 15</strong>: State and Employer’s State ID number<br />
+            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
+          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
+          box17_html: "<strong>Box 17</strong>: State income tax"
+          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
+          box19_html: "<strong>Box 19</strong>: Local income tax"
+          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
+          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
     state_file_pages:
       about_page:
         header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File

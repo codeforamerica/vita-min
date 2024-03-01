@@ -47,22 +47,17 @@ class StateFileW2 < ApplicationRecord
   def validate_w2
     #TODO: Proper messages
     if state_wages_amt == 0
-      errors.add :state_wages_amt, "Need a proper message here"
+      errors.add(:state_wages_amt, "Need a proper message here")
     end
-    #if intake.nyc_residency_full_year?
-    #  return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
-    #end
+    if state_file_intake.nyc_residency_full_year?
+      errors.add(:local_wages_and_tips_amt, "Need a proper message here") if local_wages_and_tips_amt == 0 || locality_nm.blank?
+    end
     if locality_nm.blank?
-      errors.add :locality_nm, "Need a proper message here"
+      errors.add(:local_wages_and_tips_amt, "Need a proper message here") if local_wages_and_tips_amt != 0 || local_income_tax_amt != 0
     end
-    #if w2.LocalityNm.blank?
-    #  return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
-    #end
-    #return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
-    #return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
-    #return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
-    #return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
-
-    #false
+    errors.add(:local_income_tax_amt, "Need a proper message here") if local_income_tax_amt != 0 && local_wages_and_tips_amt == 0
+    errors.add(:state_income_tax_amt, "Need a proper message here") if state_income_tax_amt != 0 && state_wages_amt == 0
+    errors.add(:state_wages_amt, "Need a proper message here") if state_wages_amt != 0 && employer_state_id_num.blank?
+    errors.add(:locality_nm, "Need a proper message here") if locality_nm.present? && !StateFileNyIntake::LOCALITIES.include?(locality_nm)
   end
 end
