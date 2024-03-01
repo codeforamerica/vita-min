@@ -27,11 +27,11 @@ module StateFile
           StateFileW2.from_df_w2(df_w2)
         end
         @w2s.each_with_index do |state_file_w2, index|
-          state_file_w2.index = index
+          state_file_w2.w2_index = index
         end
         # Override values in the array with any that are already persisted
         current_intake.state_file_w2s.each do |state_file_w2|
-          @w2s[state_file_w2.index] = state_file_w2
+          @w2s[state_file_w2.w2_index] = state_file_w2
         end
       end
 
