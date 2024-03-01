@@ -91,6 +91,12 @@ RSpec.describe StateFile::TaxesOwedForm do
         expect(form.errors[:withdraw_amount]).to be_present
         expect(form.errors[:date_electronic_withdrawal]).to be_present
       end
+
+      it "rejects withdraw amount value 0" do
+        form = described_class.new(intake, invalid_params.merge(withdraw_amount: 0))
+        expect(form).not_to be_valid
+        expect(form.errors[:withdraw_amount]).to be_present
+      end
     end
   end
 
