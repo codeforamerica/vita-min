@@ -5,6 +5,7 @@ module StateFile
 
       private
 
+      # thinking we should copy this for NyW2Controller
       def form_params
         permitted_attributes = [:primary_first_name, :primary_last_name, :device_id]
         permitted_attributes.concat([:primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year])
