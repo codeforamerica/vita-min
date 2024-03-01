@@ -2543,6 +2543,12 @@ es:
       waiting_to_load_data:
         edit:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
+      ny_w2:
+        index:
+          title: "Necesitamos un poco más de información sobre la información fiscal estatal y local en sus formularios W-2."
+          w2_for: "W-2 para: %{employer_name}"
+          wages_amount: "Monto total de salarios: $%{wages_amount}"
+          updated: "Has actualizado este W-2"
     state_file_pages:
       about_page:
         header: Una herramienta sencilla y sin costo para presentar impuestos estatales para los contribuyentes de Arizona y Nueva York usando IRS Direct File
