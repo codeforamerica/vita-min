@@ -61,47 +61,11 @@ module StateFile
         w2s
       end
 
-      # def self.invalid_w2s(intake)
-      #   intake.direct_file_data.w2s.filter { |w2| invalid_w2?(intake, w2) }
-      # end
-
-      # private
-
-      # def next_step
-      #   # Edits on this redirect back to index
-      #   #@w2s.detect { |w2| !w2.valid? }.present? ? self.class : super
-      #   self.class
-      # end
-
-      # TODO: only permit attributes that are on the page
       def form_params
-        params.require(StateFileW2.name.underscore).permit(*StateFileW2.attribute_names)
+        params.require(StateFileW2.name.underscore)
+              .except(:state_file_intake_id, :state_file_intake_type)
+              .permit(*StateFileW2.attribute_names)
       end
-
-      # def form_class
-      #   StateFileW2
-      # end
-
-      #def form_params
-        # We relax the form constraint here - we are gonna cherry pick the ones we want anyway
-      #  params.fetch(form_name, {}) #.permit(*form_class.attribute_names)
-      #end
-
-      # def self.invalid_w2?(intake, w2)
-      #   return true if w2.StateWagesAmt == 0
-      #   if intake.nyc_residency_full_year?
-      #     return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
-      #   end
-      #   if w2.LocalityNm.blank?
-      #     return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
-      #   end
-      #   return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
-      #   return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
-      #   return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
-      #   return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
-      #
-      #   false
-      # end
     end
   end
 end

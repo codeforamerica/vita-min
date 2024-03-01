@@ -240,6 +240,42 @@ RSpec.describe StateFile::Questions::NyW2Controller do
           expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
         end
       end
+
+      context "with a hacker trying to change the owner of a w2" do
+        let(:intake2) do
+          create :state_file_ny_intake, raw_direct_file_data: direct_file_xml.to_xml
+        end
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0 }
+        let(:params) do
+          p = super()
+          p.merge({
+            id: 0,
+            state_file_w2: p[:state_file_w2].merge({
+              state_file_intake_id: intake2.id
+            })
+          })
+        end
+
+        it "ignores attempts to change the intake of a w2" do
+          expect {
+            post :update, params: params
+          }.not_to change(StateFileW2, :count)
+          w2.reload
+          expect(w2.state_file_intake_id).to eq(intake.id)
+        end
+      end
+
+      context "with a hacker add w2s" do
+        let(:params) do
+          super().merge({ id: 2 })
+        end
+
+        it "throws an error" do
+          expect {
+            post :update, params: params
+          }.to raise_error
+        end
+      end
     end
 
     context "with invalid params" do
