@@ -6,6 +6,10 @@ module StateFile
       begin
         direct_file_json = IrsApiService.import_federal_data(authorization_code, intake.state_code)
 
+        if direct_file_json.blank?
+          raise Exception, "Direct file data was not transferred for intake #{intake.state_code} #{intake.id}."
+        end
+
         intake.update(
           raw_direct_file_data: direct_file_json['xml'],
           federal_submission_id: direct_file_json['submissionId'],

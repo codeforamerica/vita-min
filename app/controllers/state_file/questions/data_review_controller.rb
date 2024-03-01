@@ -8,7 +8,7 @@ module StateFile
            current_intake&.disqualifying_df_data_reason.present?
           redirect_to next_path and return
         end
-        if current_intake&.df_data_import_failed_at.present?
+        if current_intake&.raw_direct_file_data.blank?
           redirect_to StateFilePagesController.to_path_helper(action: :data_import_failed, us_state: params[:us_state]) and return
         end
         StateFileEfileDeviceInfo.find_or_create_by!(
