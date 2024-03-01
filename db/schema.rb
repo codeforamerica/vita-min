@@ -1812,13 +1812,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
   create_table "state_file_w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "employer_state_id_num"
-    t.decimal "local_income_tax_amt", precision: 12, scale: 2
-    t.decimal "local_wages_and_tips_amt", precision: 12, scale: 2
+    t.integer "local_income_tax_amt"
+    t.integer "local_wages_and_tips_amt"
     t.string "locality_nm"
     t.bigint "state_file_intake_id"
     t.string "state_file_intake_type"
-    t.decimal "state_income_tax_amt", precision: 12, scale: 2
-    t.decimal "state_wages_amt", precision: 12, scale: 2
+    t.integer "state_income_tax_amt"
+    t.integer "state_wages_amt"
     t.datetime "updated_at", null: false
     t.integer "w2_index"
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
