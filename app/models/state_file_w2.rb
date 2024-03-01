@@ -21,6 +21,7 @@
 #
 class StateFileW2 < ApplicationRecord
   belongs_to :state_file_intake, polymorphic: true
+  validate :validate_w2
 
   def self.from_df_w2(df_w2)
     attributes = {}
@@ -41,5 +42,24 @@ class StateFileW2 < ApplicationRecord
         attributes[column_name] = df_w2.send("#{selector}=".to_sym, value)
       end
     end
+  end
+
+  def validate_w2
+    #TODO: Proper messages
+    if w2.state_wages_amt == 0
+      errors.add :state_wages_amt, "Need a proper message here"
+    end
+    if intake.nyc_residency_full_year?
+      return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
+    end
+    if w2.LocalityNm.blank?
+      return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
+    end
+    return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
+    return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
+    return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
+    return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
+
+    false
   end
 end

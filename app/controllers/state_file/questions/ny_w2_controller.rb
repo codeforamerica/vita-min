@@ -4,7 +4,7 @@ module StateFile
       before_action :create_w2_list
 
       def self.show?(intake)
-        invalid_w2s(intake).any?
+        get_w2s_for_intake(intake).detect { |w2| !w2.valid? }
       end
 
       def index
@@ -23,6 +23,10 @@ module StateFile
 
       def create_w2_list
         # Generate a new array of unsaved W2s based on direct file data
+        @w2s = get_w2s_for_intake(current_intake)
+      end
+
+      def self.get_w2s_for_intake(intake)
         @w2s = current_intake.direct_file_data.w2s.map do |df_w2|
           StateFileW2.from_df_w2(df_w2)
         end
