@@ -5,11 +5,11 @@ module StateFile
         invalid_w2s(intake).any?
       end
 
-      private
-
       def self.invalid_w2s(intake)
         intake.direct_file_data.w2s.filter { |w2| invalid_w2?(intake, w2) }
       end
+
+      private
 
       def self.invalid_w2?(intake, w2)
         return true if w2.StateWagesAmt == 0
