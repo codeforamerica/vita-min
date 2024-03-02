@@ -317,8 +317,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
         post :update, params: params
 
         expect(response).to render_template(:edit)
-        # TODO: test for real validation error message
-        expect(response.body).to include "Need a proper message here"
+        expect(response.body).to include "must be greater than or equal to 1"
       end
     end
   end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         next if controller_class.navigation_actions.length > 1
+        next if controller_class == StateFile::Questions::NyW2Controller
 
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
