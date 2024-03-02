@@ -97,7 +97,6 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
-
     it "requires employer_state_id_num to be present if state_income_tax_amt is present" do
       w2.employer_state_id_num = nil
       expect(w2).not_to be_valid

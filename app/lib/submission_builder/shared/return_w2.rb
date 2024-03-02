@@ -6,14 +6,26 @@ module SubmissionBuilder
         w2 = @kwargs[:w2]
         intake_w2 = @kwargs[:intake_w2]
         xml_node = Nokogiri::XML(w2.node.to_xml)
-
-        if intake_w2
-          ["EmployerStateIdNum", "LocalIncomeTaxAmt", "LocalWagesAndTipsAmt", "LocalityNm", "StateIncomeTaxAmt", "StateWagesAmt"].each do |attr|
-            xml_node.at(attr).content = intake_w2.send(attr.underscore)
-          end
+        w2 = DirectFileData::DfW2.new(xml_node)
+        if intake_w2.present?
+          update_xml(w2, :EmployerStateIdNum, intake_w2.employer_state_id_num, "W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd")
+          update_xml(w2, :StateWagesAmt, intake_w2.state_wages_amt, "W2StateLocalTaxGrp W2StateTaxGrp EmployerStateIdNum")
+          update_xml(w2, :StateIncomeTaxAmt, intake_w2.state_income_tax_amt, "W2StateLocalTaxGrp W2StateTaxGrp StateWagesAmt")
+          update_xml(w2, :LocalWagesAndTipsAmt, intake_w2.local_wages_and_tips_amt)
+          update_xml(w2, :LocalIncomeTaxAmt, intake_w2.local_income_tax_amt, "W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt")
+          update_xml(w2, :LocalityNm, intake_w2.locality_nm, "W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt")
         end
-
         xml_node
+      end
+
+      private
+
+      def update_xml(w2, attr, value, prev = nil)
+        if value == 0
+          value = nil
+        end
+        w2.create_or_destroy_df_xml_node(attr, value, prev)
+        w2.send("#{attr}=", value)
       end
     end
   end

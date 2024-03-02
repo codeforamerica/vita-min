@@ -34,13 +34,4 @@ class StateFileW2 < ApplicationRecord
   validates :state_wages_amt, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, if: -> { state_income_tax_amt.present? && state_income_tax_amt.positive? }
   validates :employer_state_id_num, presence: true, if: -> { state_wages_amt.present? && state_wages_amt.positive? }
 
-  def to_df_w2(df_w2)
-    DirectFileData::DfW2::SELECTORS.keys.each do |selector|
-      column_name = selector.to_s.underscore
-      if columns_hash[column_name].present?
-        value = send(column_name.to_sym)
-        attributes[column_name] = df_w2.send("#{selector}=".to_sym, value)
-      end
-    end
-  end
 end
