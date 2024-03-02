@@ -142,14 +142,24 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
 
       context "when the intake has state_file_w2s" do
-        let(:intake) { create(:state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml"))) }
+        let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
+        let(:direct_file_xml) do
+          xml = Nokogiri::XML(raw_direct_file_data)
+          xml.search("IRSW2").each_with_index do |w2, i|
+            if i == 1
+              w2.at("StateWagesAmt").remove
+            end
+          end
+          xml
+        end
+        let(:intake) { create :state_file_ny_intake, raw_direct_file_data: direct_file_xml.to_xml }
         let!(:w2) {
           create(
             :state_file_w2,
             state_file_intake: intake,
             w2_index: 1,
             employer_state_id_num: "00123",
-            local_income_tax_amt: "300",
+            local_income_tax_amt: "0",
             local_wages_and_tips_amt: "2000",
             locality_nm: "NEW YORK CITY",
             state_income_tax_amt: "700",
@@ -171,7 +181,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
           w2_from_db = xml.css('IRSW2')[1]
           expect(w2_from_db.at("EmployerStateIdNum").text).to eq "00123"
-          expect(w2_from_db.at("LocalIncomeTaxAmt").text).to eq "300"
+          expect(w2_from_db.at("LocalIncomeTaxAmt")).to be_nil
           expect(w2_from_db.at("LocalWagesAndTipsAmt").text).to eq "2000"
           expect(w2_from_db.at("LocalityNm").text).to eq "NEW YORK CITY"
           expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq "700"
