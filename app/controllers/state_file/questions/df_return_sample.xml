@@ -248,6 +248,11 @@
                     <EmployerStateIdNum>911123456</EmployerStateIdNum>
                     <StateWagesAmt>21000</StateWagesAmt>
                     <StateIncomeTaxAmt>450</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>1000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>50</LocalIncomeTaxAmt>
+                        <LocalityNm>NYC</LocalityNm>
+                    </W2LocalTaxGrp>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
