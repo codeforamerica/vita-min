@@ -23,10 +23,10 @@ FactoryBot.define do
   factory :state_file_w2 do
     w2_index { 0 }
     employer_state_id_num { "12345" }
-    state_wages_amt { 10000.0 }
-    state_income_tax_amt { 350.0 }
-    local_wages_and_tips_amt { 100.0 }
-    local_income_tax_amt { 100.0 }
+    state_wages_amt { 10000 }
+    state_income_tax_amt { 350 }
+    local_wages_and_tips_amt { 100 }
+    local_income_tax_amt { 100 }
     locality_nm { "NYC" }
   end
 end
