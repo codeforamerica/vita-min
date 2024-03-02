@@ -38,7 +38,7 @@ module StateFile
       end
 
       def self.navigation_actions
-        [:index, :edit]
+        [:index]
       end
 
       def form_params
