@@ -2337,6 +2337,23 @@ en:
           helper_heading: How do I find my school district?
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
+      ny_w2:
+        edit:
+          box15_html: |
+            <strong>Box 15</strong>: State and Employer’s State ID number<br />
+            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
+          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
+          box17_html: "<strong>Box 17</strong>: State income tax"
+          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
+          box19_html: "<strong>Box 19</strong>: Local income tax"
+          box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
+          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+        index:
+          title: We need a little more information about the state and local tax information on your W-2s
+          updated: You've updated this W-2
+          w2_for: 'W-2 for: %{employer_name}'
+          wages_amount: 'Total wages amount: $%{wages_amount}'
       nyc_residency:
         edit:
           full_year:
