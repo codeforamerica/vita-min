@@ -51,5 +51,16 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.df_data_import_failed_at).to be_present
       end
     end
+
+    context "when the direct file data is missing" do
+      let(:json_result) { nil }
+      it "marks the failure gracefully" do
+        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
+        described_class.perform_now(authorization_code: auth_code, intake: intake)
+
+        expect(intake.df_data_import_failed_at).to be_present
+        expect(intake.raw_direct_file_data).to_not be_present
+      end
+    end
   end
 end
