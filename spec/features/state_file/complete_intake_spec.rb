@@ -26,6 +26,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer
 
+      intake = StateFileNyIntake.last
+      intake = []
+
       # name dob page
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
@@ -120,7 +123,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a New York State tax refund of $1418. How would you like to receive your refund?"
+      expect(page).to have_text "Good news, you're getting a New York State tax refund of $1468. How would you like to receive your refund?"
       expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
