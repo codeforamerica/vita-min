@@ -1,7 +1,6 @@
-
 <% content_for :card do %>
-  <p><%= t(".instructions_1", employer_name: @employer_name , total_wages_amt: number_to_currency(@wages_amt)) %></p>
-  <p><%= t(".instructions_2") %></p>
+  <h1 class="form-question"><%= t(".instructions_1", employer_name: @employer_name , total_wages_amt: number_to_currency(@wages_amt)) %></h1>
+  <h2 class="form-question"><%= t(".instructions_2") %></h2>
   <%= form_with model: @w2, url: { action: :update }, method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="blue-group">
       <div class="form-question spacing-below-15">
