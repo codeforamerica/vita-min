@@ -28,5 +28,6 @@ module SubmissionBuilder
         w2.send("#{attr}=", value)
       end
     end
+
   end
 end
