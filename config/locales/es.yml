@@ -2349,7 +2349,9 @@ es:
           instructions_2: Si alguna de estas casillas está en blanco en su W-2, déjela en blanco aquí.
           locality_nm_error: "Escriba “NYC” si el nombre de la localidad en su W-2 es la ciudad de Nueva York o cualquiera de los cinco condados."
           locality_nm_missing_error: Por favor seleccione el nombre de la localidad
+          local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Por favor ingrese salarios y propinas locales
+          state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Por favor ingrese los salarios y propinas estatales.
           w2s_error: Actualice todos los formularios W-2 enumerados anteriormente para continuar.
         index:

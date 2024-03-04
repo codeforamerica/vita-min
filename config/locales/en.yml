@@ -2351,9 +2351,9 @@ en:
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           locality_nm_error: "Please type in “NYC” if the locality name on your W-2 is New York City or any of the five boroughs."
           locality_nm_missing_error: Please select locality name
-          local_income_tax_amt_error: Please enter local wages and tips
+          local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
-          state_income_tax_amt_error: Please enter state wages and tips
+          state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           w2s_error: Please update all of the W-2s listed above to continue.
         index:
