@@ -7,6 +7,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
     create :state_file_ny_intake, raw_direct_file_data: direct_file_xml.to_xml
   end
   before do
+    Flipper.enable(:w2_override)
     sign_in intake
   end
 
