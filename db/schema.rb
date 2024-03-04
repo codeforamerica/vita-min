@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1807,6 +1807,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
   end
 
+  create_table "state_file_w2s", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "employer_state_id_num"
+    t.integer "local_income_tax_amt"
+    t.integer "local_wages_and_tips_amt"
+    t.string "locality_nm"
+    t.bigint "state_file_intake_id"
+    t.string "state_file_intake_type"
+    t.integer "state_income_tax_amt"
+    t.integer "state_wages_amt"
+    t.datetime "updated_at", null: false
+    t.integer "w2_index"
+    t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
+  end
+
   create_table "state_ids", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.date "expiration_date"
@@ -2217,8 +2232,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

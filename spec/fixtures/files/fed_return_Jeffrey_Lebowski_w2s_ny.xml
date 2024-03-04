@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>14e99fab</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000099</PrimarySSN>
+      <NameLine1Txt>JEFFREY&lt;LEBOWSKI</NameLine1Txt>
+      <PrimaryNameControlTxt>LEBO</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 24th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@test.testtest</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="6">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002 W20003 W20004 W20005" referenceDocumentName="IRSW2">65000</WagesAmt>
+      <WagesSalariesAndTipsAmt>65000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>65000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>65000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>51150</TaxableIncomeAmt>
+      <TaxAmt>6566</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>6566</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>6566</TaxLessCreditsAmt>
+      <TotalTaxAmt>6566</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>6000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>6000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>6000</TotalPaymentsAmt>
+      <OwedAmt>566</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Bowler</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000099</EmployeeSSN>
+      <EmployerEIN>001456787</EmployerEIN>
+      <EmployerNameControlTxt>NOLO</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>No Locality Name Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 25th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10011</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Jeffrey Lebowski</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 24th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>11000</WagesAmt>
+      <WithholdingAmt>2000</WithholdingAmt>
+      <SocialSecurityWagesAmt>11000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>11000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>11000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>11000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>800</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>400000099</EmployeeSSN>
+      <EmployerEIN>001456767</EmployerEIN>
+      <EmployerNameControlTxt>LOCA</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Local Withholding Without Local Income Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 25th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Jeffrey Lebowski</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 24th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>12000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>12000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>12000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>12000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalIncomeTaxAmt>1000</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20003" documentName="IRSW2">
+      <EmployeeSSN>400000099</EmployeeSSN>
+      <EmployerEIN>001567676</EmployerEIN>
+      <EmployerNameControlTxt>STAT</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>State Withholding without State Income Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 39th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10011</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Jeffrey Lebowski</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 24th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>13000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>13000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>13000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>13000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1000</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20004" documentName="IRSW2">
+      <EmployeeSSN>400000099</EmployeeSSN>
+      <EmployerEIN>001456789</EmployerEIN>
+      <EmployerNameControlTxt>MISS</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Missing State Employer ID Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 29th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Jeffrey Lebowski</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 24th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>14000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>14000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>14000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <StateWagesAmt>14000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>14000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1000</LocalIncomeTaxAmt>
+            <LocalityNm>New York Cit</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20005" documentName="IRSW2">
+      <EmployeeSSN>400000099</EmployeeSSN>
+      <EmployerEIN>001456767</EmployerEIN>
+      <EmployerNameControlTxt>TOOM</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Too Much Withholding Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 28th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Jeffrey Lebowski</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 24th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>15000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>15000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>15000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>123467</EmployerStateIdNum>
+          <StateWagesAmt>15000</StateWagesAmt>
+          <StateIncomeTaxAmt>14000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>15000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>4000</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

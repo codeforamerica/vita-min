@@ -13,6 +13,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
   has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
+  has_many :state_file_w2s, as: :state_file_intake, class_name: "StateFileW2", inverse_of: :state_file_intake, dependent: :destroy
   has_one :state_file_analytics, as: :record
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
