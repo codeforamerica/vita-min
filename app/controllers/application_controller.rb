@@ -420,7 +420,6 @@ class ApplicationController < ActionController::Base
     Rails.env.production?
   end
   helper_method :acts_like_production?
-  
 
   def available_locale(locale)
     locale if I18n.available_locales.map(&:to_sym).include?(locale&.to_sym)
