@@ -2349,6 +2349,7 @@ en:
           box20_locality_name: "<strong>Box 20</strong>: Locality name"
           instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+          locality_nm_error: "Please type in “NYC” if the locality name on your W-2 is New York City or any of the five boroughs."
         index:
           title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
