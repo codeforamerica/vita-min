@@ -2348,8 +2348,10 @@ es:
           instructions_1: Necesitamos un poco más de información sobre los impuestos estatales y locales en su W-2 de %{employer_name} para %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en su W-2, déjela en blanco aquí.
           locality_nm_error: "Escriba “NYC” si el nombre de la localidad en su W-2 es la ciudad de Nueva York o cualquiera de los cinco condados."
+          locality_nm_missing_error: Por favor seleccione el nombre de la localidad
           local_wages_and_tips_amt_error: Por favor ingrese salarios y propinas locales
           state_wages_amt_error: Por favor ingrese los salarios y propinas estatales.
+          w2s_error: Actualice todos los formularios W-2 enumerados anteriormente para continuar.
         index:
           title: Necesitamos un poco más de información sobre la información fiscal estatal y local en sus formularios W-2.
           updated: Has actualizado este W-2
