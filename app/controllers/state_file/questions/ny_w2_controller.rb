@@ -4,7 +4,7 @@ module StateFile
       before_action :load_w2s
 
       def self.show?(intake)
-        invalid_w2s(intake).any?
+        Flipper.enabled?(:w2_override) && invalid_w2s(intake).any?
       end
 
       def index
