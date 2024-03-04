@@ -186,6 +186,22 @@ RSpec.describe StateFile::Questions::NyW2Controller do
 
       # TODO: render_views and check that id in link is w2_index?
     end
+
+    context "with both valid and invalid W2s" do
+      let(:direct_file_xml) do
+        xml = super()
+        # Lets fix the first W2...
+        xml.at("StateWagesAmt").content = "600"
+        xml
+      end
+
+      it "filters correctly" do
+        get :index, params: { us_state: :ny }
+        w2s_list = assigns(:w2s)
+        expect(w2s_list.count).to eq 1
+        expect(w2s_list[0].w2_index).to eq 1
+      end
+    end
   end
 
   describe "#update" do
