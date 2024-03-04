@@ -191,7 +191,7 @@ class EfileSubmissionStateMachine
 
   after_transition do |submission, transition|
     if submission.is_for_state_filing?
-      Rails.logger.info({event_type: "submission_transition", to: transition.to_state, state_code: submission.data_source.state_code, intake_id: submission.data_source_id, submission_id: submission.id})
+      Rails.logger.info({event_type: "submission_transition", to: transition.to_state, state_code: submission.data_source.state_code, intake_id: submission.data_source_id, submission_id: submission.id}.as_json)
     end
   end
 
