@@ -23,7 +23,7 @@
         <%= f.cfa_input_field(:local_income_tax_amt, t(".box19_html"), classes: ["form-width--long"]) %>
       </div>
       <div class="form-question spacing-below-25 ny-w2-locality-nm">
-        <%= f.cfa_select(:locality_nm, t(".box20_locality_name"), StateFileNyIntake::LOCALITIES, include_blank: true) %>
+        <%= f.cfa_input_field(:locality_nm, t(".box20_locality_name"), classes: ["form-width--long"]) %>
       </div>
       <button class="button button--primary button--wide" type="submit">
         <%= t("general.continue") %>

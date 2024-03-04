@@ -108,9 +108,7 @@ class StateFileNyIntake < StateFileBaseIntake
     STATE_CODE => STATE_NAME
   }.freeze
   LOCALITIES = [
-    "NEW YORK CITY",
     "NY",
-    "NYC",
     "N Y",
     "NWY",
     "NW Y",
