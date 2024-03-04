@@ -3,8 +3,9 @@
   <h2 class="form-question"><%= t(".instructions_2") %></h2>
   <%= form_with model: @w2, url: { action: :update }, method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="blue-group">
-      <div class="form-question spacing-below-15">
-        <div class="text--bold"><%=t("general.state") %></div>
+      <div class="form-question spacing-below-25">
+        <div class="text--bold spacing-below-15"><%=t("general.state") %></div>
+        <div><%=current_intake.state_name %></div>
       </div>
       <div class="form-question spacing-below-25">
         <%= f.cfa_input_field(:employer_state_id_num, t(".box15_html"), classes: ["form-width--long"]) %>
