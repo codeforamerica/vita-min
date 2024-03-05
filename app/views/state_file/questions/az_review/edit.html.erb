@@ -52,19 +52,23 @@
     </div>
   <% end %>
 
+  <!--
+#          Total Arizona subtractions [sum of line 20-34]
+#          Total exemptions [sum of line 38-41]
+#          —
+  -->
   <div id="details" class="reveal">
     <p><a href="#" class="reveal__link"><%= t('.see_detailed_return') %></a></p>
     <div class="reveal__content">
       <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%=t(".fed_agi") %></p>
-        <p><%#= number_to_currency(current_intake.direct_file_data.fed_agi) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_12)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_arizona_subtractions") %></p>
         <%# Should be the sum of lines 20-23, but only line 21 is in scope %>
-        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_21)) %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_21)) %></p>
         <p><%= 'TEst' %></p>
       </div>
 
@@ -76,66 +80,66 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".az_agi") %></p>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_33)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_42)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".standard_deduction") %></p>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_34)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_43)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".incr_deduction_chrit_contributions") %></p>
-        <%# The PDF has a hard-coded $ and 000 around the number. We replicate that here by multiplying by 1,000. %>
-        <p><%#= number_to_currency(
-                 (current_intake.calculator.line_or_zero(:IT201_LINE_36) * 1_000).round
-               ) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_44)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".az_taxable_income") %></p>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_37)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_45)) %></p>
       </div>
 
       <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%=t(".az_tax") %></p>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_39)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_46)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".dependent_tax_credit") %></p>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_59)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_49)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".family_income_tax_credit") %></p>
-        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_76)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_50)) %></p>
       </div>
 
       <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%=t(".az_tax_withheld") %></p>
-        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_76)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_53)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".increased_excise_tax_credit") %></p>
-        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_76)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_56)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_payments") %></p>
-        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_76)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_59)) %></p>
       </div>
+
+<!--
+
+      MFJ fields
+# Also note: there's some dynamic language if they are MFJ, specifically for the Excise Tax credit questions:
+
+# You or your spouse were incarcerated in a county, state, or federal prison for at least 60 days in 2023 Yes / No
+
+# You or your spouse have ‘Not valid for employment’ is written on your Social Security Card Yes / No
+
+# Other members in your household have claimed the Arizona Increased Excise Tax Credit Yes / No
+
+-->
     </div>
   </div>
 
