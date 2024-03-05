@@ -1,0 +1,41 @@
+<IRSW2 documentId="W20001" documentName="IRSW2">
+  <EmployeeSSN>600000081</EmployeeSSN>
+  <EmployerEIN>001245788</EmployerEIN>
+  <EmployerNameControlTxt>GOTH</EmployerNameControlTxt>
+  <EmployerName>
+    <BusinessNameLine1Txt>Gotham Health</BusinessNameLine1Txt>
+  </EmployerName>
+  <EmployerUSAddress>
+    <AddressLine1Txt>1218 Prospect Place</AddressLine1Txt>
+    <CityNm>Brooklyn</CityNm>
+    <StateAbbreviationCd>NY</StateAbbreviationCd>
+    <ZIPCd>11213</ZIPCd>
+  </EmployerUSAddress>
+  <EmployeeNm>ThomasWayne</EmployeeNm>
+  <EmployeeUSAddress>
+    <AddressLine1Txt>70 Flushing Ave</AddressLine1Txt>
+    <CityNm>Brooklyn</CityNm>
+    <StateAbbreviationCd>NY</StateAbbreviationCd>
+    <ZIPCd>11205</ZIPCd>
+  </EmployeeUSAddress>
+  <WagesAmt>8000</WagesAmt>
+  <WithholdingAmt>1000</WithholdingAmt>
+  <SocialSecurityWagesAmt>8000</SocialSecurityWagesAmt>
+  <SocialSecurityTaxAmt>500</SocialSecurityTaxAmt>
+  <MedicareWagesAndTipsAmt>8000</MedicareWagesAndTipsAmt>
+  <MedicareTaxWithheldAmt>120</MedicareTaxWithheldAmt>
+  <W2StateLocalTaxGrp>
+    <W2StateTaxGrp>
+      <StateAbbreviationCd>NY</StateAbbreviationCd>
+      <EmployerStateIdNum>12345</EmployerStateIdNum>
+      <StateWagesAmt>10000</StateWagesAmt>
+      <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
+      <W2LocalTaxGrp>
+        <LocalWagesAndTipsAmt>100</LocalWagesAndTipsAmt>
+        <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+        <LocalityNm>NYC</LocalityNm>
+      </W2LocalTaxGrp>
+    </W2StateTaxGrp>
+  </W2StateLocalTaxGrp>
+  <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+</IRSW2>
