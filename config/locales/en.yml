@@ -2340,7 +2340,7 @@ en:
       ny_w2:
         edit:
           box15_html: |
-            <strong>Box 15</strong>: State and Employer’s State ID number<br />
+            <strong>Box 15</strong>: Employer’s State ID number<br />
             If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
           box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
           box17_html: "<strong>Box 17</strong>: State income tax"
