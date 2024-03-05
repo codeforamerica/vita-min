@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DfXmlCrudMethods do
+describe XmlMethods do
   describe "#delete_blank_nodes" do
     it "deletes nodes" do
       content = <<~XML
@@ -12,7 +12,7 @@ describe DfXmlCrudMethods do
         </outer>
       XML
       xml = Nokogiri::XML(content)
-      Class.new.extend(DfXmlCrudMethods).delete_blank_nodes(xml)
+      Class.new.extend(XmlMethods).delete_blank_nodes(xml)
       result = "<?xml version=\"1.0\"?>\n<outer>\n  <inner3>1</inner3>\n</outer>\n"
       expect(xml.to_xml).to eq result
     end
