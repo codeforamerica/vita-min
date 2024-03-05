@@ -58,11 +58,11 @@ class StateFileW2 < ApplicationRecord
   end
 
   def validate_tax_amts
-    if state_income_tax_amt.present? && state_income_tax_amt.positive? && state_wages_amt <= 0
-      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.state_wages_amt_error"))
+    if (state_income_tax_amt || 0).positive? && (state_wages_amt || 0) <= 0
+      errors.add(:state_wages_amt, I18n.t("state_file.questions.ny_w2.edit.state_wages_amt_error"))
     end
-    if local_income_tax_amt.present? && local_income_tax_amt.positive? && local_wages_and_tips_amt <= 0
-      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_wages_and_tips_amt_error"))
+    if (local_income_tax_amt || 0).positive? && (local_wages_and_tips_amt || 0) <= 0
+      errors.add(:local_wages_and_tips_amt, I18n.t("state_file.questions.ny_w2.edit.local_wages_and_tips_amt_error"))
     end
     if state_income_tax_amt.present? && state_wages_amt.present? && state_income_tax_amt > state_wages_amt
       errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.state_income_tax_amt_error"))
