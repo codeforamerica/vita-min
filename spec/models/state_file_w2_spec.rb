@@ -110,5 +110,16 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
+    it "rejects localities without the correct prefix" do
+      w2.locality_nm = "YONKERS"
+      expect(w2).not_to be_valid
+      expect(w2.errors[:locality_nm]).to be_present
+    end
+
+    it "permits localities prefixed with an approved value" do
+      w2.locality_nm = "NYC LOL JUST KIDDING ITS YONKERS"
+      expect(w2).to be_valid
+    end
+
   end
 end
