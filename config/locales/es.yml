@@ -2338,7 +2338,7 @@ es:
       ny_w2:
         edit:
           box15_html: |
-            <strong>Casilla 15</strong>: Estado y número de identificación estatal del empleador<br />
+            <strong>Casilla 15</strong>: Número de identificación estatal del empleador<br />
             Si la casilla 15 está en blanco en su W-2, ingrese aquí el número del <strong>casilla b Número de identificación del empleador (EIN)</strong>.
           box16_html: "<strong>Recuadro 16</strong>: Salarios estatales, propinas, etc."
           box17_html: "<strong>Cuadro 17</strong>: Impuesto estatal sobre la renta"

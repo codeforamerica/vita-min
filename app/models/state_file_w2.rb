@@ -20,6 +20,7 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
+  include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML
   <W2StateTaxGrp>
     <StateAbbreviationCd></StateAbbreviationCd>
@@ -87,6 +88,8 @@ class StateFileW2 < ApplicationRecord
     xml_template.at(:LocalIncomeTaxAmt).content = local_income_tax_amt
     xml_template.at(:LocalityNm).content = locality_nm
 
-    xml_template.at(:W2StateTaxGrp).to_xml
+    result = xml_template.at(:W2StateTaxGrp)
+    delete_blank_nodes(result)
+    result.to_xml
   end
 end
