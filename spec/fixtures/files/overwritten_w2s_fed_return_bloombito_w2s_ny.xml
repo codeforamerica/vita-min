@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>14e99fab</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000001</PrimarySSN>
+      <SpouseSSN>500000001</SpouseSSN>
+      <NameLine1Txt>MIGUEL&lt;BLOOMBITO&lt;&amp; GEORGE PATAKI</NameLine1Txt>
+      <PrimaryNameControlTxt>BLOO</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>PATA</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 72nd St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@example.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002 W20003 W20004" referenceDocumentName="IRSW2">50000</WagesAmt>
+      <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>50000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>50000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>22300</TaxableIncomeAmt>
+      <TaxAmt>2239</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>2239</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>2239</TaxLessCreditsAmt>
+      <TotalTaxAmt>2239</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>4500</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>4500</WithholdingTaxAmt>
+      <TotalPaymentsAmt>4500</TotalPaymentsAmt>
+      <OverpaidAmt>2261</OverpaidAmt>
+      <RefundAmt>2261</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Bad Spanish Speaker</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Former Governor</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000001</EmployeeSSN>
+      <EmployerEIN>001457678</EmployerEIN>
+      <EmployerNameControlTxt>MISS</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Missing Local Industries</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 W 23rd St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Miguel Bloombito</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 72nd St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>11000</WagesAmt>
+      <WithholdingAmt>1200</WithholdingAmt>
+      <SocialSecurityWagesAmt>11000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>800</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>11000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>100</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>400000001</EmployeeSSN>
+      <EmployerEIN>001457888</EmployerEIN>
+      <EmployerNameControlTxt>SKIP</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Skip The Whole Page Diner</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 27th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Miguel Bloombito</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 72nd St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>12000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>12000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>600</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>12000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>100</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20003" documentName="IRSW2">
+      <EmployeeSSN>500000001</EmployeeSSN>
+      <EmployerEIN>001456765</EmployerEIN>
+      <EmployerNameControlTxt>STAT</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>State Not There Incorporated</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 W 29th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10011</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>George Pataki</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 72nd St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>13000</WagesAmt>
+      <WithholdingAmt>1300</WithholdingAmt>
+      <SocialSecurityWagesAmt>13000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>13000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>100</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20004" documentName="IRSW2">
+      <EmployeeSSN>500000001</EmployeeSSN>
+      <EmployerEIN>001456667</EmployerEIN>
+      <EmployerNameControlTxt>CRAZ</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Crazy Locality Name Dot Biz</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 W 31 Street</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>George Pataki</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 72nd St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>14000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>14000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>14000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>100</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
