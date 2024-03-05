@@ -2022,46 +2022,18 @@ en:
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
           fed_agi: Federal adjusted gross income
           total_arizona_subtractions: Total Arizona subtractions
-          total_dependent_exemptions: Total dependent exemptions
-          see_detailed_return: See detailed return information
-          total_arizona_additions: Total Arizona additions
-          ny_agi: New York adjusted gross income
+          total_exemptions: Total exemptions
+          az_agi: Arizona adjusted gross income
           standard_deduction: Standard deduction
-          taxable_income: Taxable income
-          azs_tax: AZS tax
-          nys_household_credit: NYS household credit
-          nyc_resident_tax: NYC resident tax
-          sales_or_use_tax: Sales or use tax
+          incr_deduction_chrit_contributions: Increased deduction for charitable contributions
+          az_taxable_income: Arizona taxable income
+          az_tax: Arizona tax
+          dependent_tax_credit: Dependent tax credit
+          family_income_tax_credit: Family income tax credit
+          az_tax_withheld: Arizona tax withheld
+          increased_excise_tax_credit: Increased Excise Tax Credit
           total_payments: Total payments
-
-          #
-          #
-#          empire_state_child_credit: Empire State child credit
-#          fed_agi: Federal adjusted gross income
-#          ny_agi: New York adjusted gross income
-#          nyc_eic: NYC earned income credit
-#          nyc_full_year_resident: New York City full-year resident
-#          nyc_household_credit: NYC household credit
-#          nyc_resident_tax: NYC resident tax
-#          nyc_school_tax_credit_fixed: NYC school tax credit (fixed)
-#          nyc_school_tax_credit_rate_reduction: NYC school tax credit (rate reduction)
-#          nys_eic: NYS earned income credit
-#          nys_household_credit: NYS household credit
-#          nys_tax: NYS tax
-#          out_of_state_purchases: Out of state purchases/Use Tax Applied
-#          residence_county: County
-#          sales_or_use_tax: Sales or use tax
-#          school_district: School District
-#          see_detailed_return: See detailed return information
-#          standard_deduction: Standard deduction
-#          taxable_income: Taxable income
-#          total_dependent_exemptions: Total dependent exemptions
-#          total_new_york_additions: Total New York additions
-#          total_new_york_subtractions: Total New York subtractions
-#          total_ny_tax: Total NY tax
-#          total_nyc_tax_withheld: Total New York City tax withheld
-#          total_nys_tax_withheld: Total New York State tax withheld
-#          total_payments: Total payments
+          see_detailed_return: See detailed return information
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
