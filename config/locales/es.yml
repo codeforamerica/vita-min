@@ -2008,16 +2008,19 @@ es:
           excise_credit: Encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en 2023
           family_income_tax_credit: Family income tax credit
           fed_agi: Federal adjusted gross income
+          household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
           incr_deduction_chrit_contributions: Increased deduction for charitable contributions
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Otros apellidos usados en los últimos cuatro años
           see_detailed_return: See detailed return information
+          ssn_no_employment: You or your spouse have 'Not valid for employment' written on your Social Security Card
           standard_deduction: Standard deduction
           total_arizona_subtractions: Total Arizona subtractions
           total_exemptions: Exenciones totales
           total_payments: Total payments
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
+          was_incarcerated: You or your spouse were incarcerated in a county, state, or federal prison for at least 60 days in 2023
       az_senior_dependents:
         edit:
           assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"

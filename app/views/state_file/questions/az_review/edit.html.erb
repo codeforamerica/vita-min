@@ -52,11 +52,6 @@
     </div>
   <% end %>
 
-  <!--
-#          Total Arizona subtractions [sum of line 20-34]
-#          Total exemptions [sum of line 38-41]
-#          —
-  -->
   <div id="details" class="reveal">
     <p><a href="#" class="reveal__link"><%= t('.see_detailed_return') %></a></p>
     <div class="reveal__content">
@@ -125,18 +120,22 @@
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_59)) %></p>
       </div>
 
-<!--
+      <% if current_intake.filing_status_mfj?  %>
+        <div class="spacing-below-25 with-top-separator">
+          <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
+          <p><%= current_intake.was_incarcerated.capitalize %></p>
+        </div>
 
-      MFJ fields
-# Also note: there's some dynamic language if they are MFJ, specifically for the Excise Tax credit questions:
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
+          <p><%= current_intake.ssn_no_employment.capitalize %></p>
+        </div>
 
-# You or your spouse were incarcerated in a county, state, or federal prison for at least 60 days in 2023 Yes / No
-
-# You or your spouse have ‘Not valid for employment’ is written on your Social Security Card Yes / No
-
-# Other members in your household have claimed the Arizona Increased Excise Tax Credit Yes / No
-
--->
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%=t(".household_excise_credit_claimed") %></p>
+          <p><%= current_intake.household_excise_credit_claimed.capitalize %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 
