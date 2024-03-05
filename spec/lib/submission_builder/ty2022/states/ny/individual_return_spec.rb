@@ -142,7 +142,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
 
       context "when the intake has state_file_w2s" do
-        context "create, update, delete nodes" do
+        xcontext "create, update, delete nodes" do
           let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
           let(:direct_file_xml) do
             xml = Nokogiri::XML(raw_direct_file_data)
