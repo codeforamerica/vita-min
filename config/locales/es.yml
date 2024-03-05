@@ -1997,11 +1997,25 @@ es:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
           armed_forces_wages: Salario por servicio activo recibido como miembro de las Fuerzas Armadas de los Estados Unidos
+          az_agi: Arizona adjusted gross income
+          az_tax: Arizona tax
+          az_tax_withheld: Arizona tax withheld
+          az_taxable_income: Arizona taxable income
           charitable_cash: 'Donaciones caritativas (en efectivo) '
           charitable_contributions: Realizó contribuciones caritativas
           charitable_noncash: Donaciones caritativas (en especie)
+          dependent_tax_credit: Dependent tax credit
           excise_credit: Encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en 2023
+          family_income_tax_credit: Family income tax credit
+          fed_agi: Federal adjusted gross income
+          incr_deduction_chrit_contributions: Increased deduction for charitable contributions
+          increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Otros apellidos usados en los últimos cuatro años
+          see_detailed_return: See detailed return information
+          standard_deduction: Standard deduction
+          total_arizona_subtractions: Total Arizona subtractions
+          total_exemptions: Exenciones totales
+          total_payments: Total payments
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
       az_senior_dependents:
