@@ -67,15 +67,12 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_arizona_subtractions") %></p>
-        <%# Should be the sum of lines 20-23, but only line 21 is in scope %>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_21)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.total_subtractions) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_exemptions") %></p>
-        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_32)) %></p>
-        <p><%= 'TEst' %></p>
+        <p><%= number_to_currency(current_intake.total_exemptions) %></p>
       </div>
 
       <div class="spacing-below-25">
