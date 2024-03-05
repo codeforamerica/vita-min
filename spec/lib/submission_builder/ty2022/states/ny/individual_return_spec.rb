@@ -167,7 +167,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
           )
         }
 
-        it "prioritises state_file_w2s over w2s from the direct file xml" do
+        it "prioritises state_file_w2s over w2s from the direct file xml, correctly updates & creates & deletes nodes" do
           xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.css('IRSW2').count).to eq 2
 
@@ -186,6 +186,23 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
           expect(w2_from_db.at("LocalityNm").text).to eq "NEW YORK CITY"
           expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq "700"
           expect(w2_from_db.at("StateWagesAmt").text).to eq "2000"
+        end
+
+        xcontext "updating multiple w2s" do
+          let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
+          let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, w2_index: 0) }
+          let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, w2_index: 1) }
+
+          it "updates the correct tags" do
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+            expect(xml.css('IRSW2').count).to eq 2
+            w2_1 = xml.css('IRSW2')[0]
+            w2_2 = xml.css('IRSW2')[1]
+
+            result = Nokogiri::XML(File.read(Rails.root.join("spec/fixtures/files/irs_w2_batman_and_factory.xml"))).css('IRSW2').to_xml
+            expect(w2_1.to_xml).to eq result
+            expect(w2_2.to_xml).to eq result
+          end
         end
       end
     end
