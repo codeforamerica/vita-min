@@ -11,7 +11,7 @@
       <div class="spacing-below-15">
         <div><strong><%= t(".w2_for", employer_name: employer_name) %></strong></div>
         <div><strong><%= t(".wages_amount", wages_amount: wages_amount) %></strong></div>
-        <% if w2.valid? %>
+        <% if w2.valid? && w2.persisted? %>
           <div><i><%= t(".updated") %></i></div>
         <% end %>
       </div>
@@ -22,7 +22,7 @@
     </div>
   <% end %>
 
-  <% can_continue = @w2s_with_metadata.all? { |w2_info| w2_info[:w2].valid? } %>
+  <% can_continue = @w2s_with_metadata.all? { |w2_info| w2_info[:w2].valid? && w2_info[:w2].persisted? } %>
   <% if can_continue %>
     <%= link_to(next_path, class: "button button--primary button--wide") do %>
       <%= t('general.continue') %>
