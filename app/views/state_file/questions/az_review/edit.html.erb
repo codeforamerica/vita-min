@@ -57,111 +57,134 @@
     <div class="reveal__content">
       <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%=t(".fed_agi") %></p>
-        <p><%= number_to_currency(current_intake.direct_file_data.fed_agi) %></p>
+        <p><%#= number_to_currency(current_intake.direct_file_data.fed_agi) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_new_york_additions") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".total_arizona_additions") %></p>
         <%# Should be the sum of lines 20-23, but only line 21 is in scope %>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_21)) %></p>
+        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_21)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_new_york_subtractions") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_32)) %></p>
+        <p class="text--bold spacing-below-5"><%=t(".total_arizona_subtractions") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_32)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".ny_agi") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_33)) %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_33)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".standard_deduction") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_34)) %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_34)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_dependent_exemptions") %></p>
         <%# The PDF has a hard-coded $ and 000 around the number. We replicate that here by multiplying by 1,000. %>
-        <p><%= number_to_currency(
+        <p><%#= number_to_currency(
                  (current_intake.calculator.line_or_zero(:IT201_LINE_36) * 1_000).round
                ) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".taxable_income") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_37)) %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_37)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25 with-top-separator">
-        <p class="text--bold spacing-below-5"><%=t(".nys_tax") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_39)) %></p>
+        <p class="text--bold spacing-below-5"><%=t(".azs_tax") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_39)) %></p>
+        <p><%= 'TEst' %></p>
+      </div>
+
+      <!--
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%#=t(".nys_household_credit") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_40)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nys_household_credit") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_40)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".nyc_resident_tax") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_47A)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nyc_resident_tax") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_47A)) %></p>
-      </div>
-
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nyc_household_credit") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_48)) %></p>
-      </div>
+        <p class="text--bold spacing-below-5"><%#=t(".nyc_household_credit") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_48)) %></p>
+        <p><%= 'TEst' %></p>
+      </div>-->
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".sales_or_use_tax") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_59)) %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_59)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
+      <!--
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_ny_tax") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_62)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".total_ny_tax") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_62)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25 with-top-separator">
-        <p class="text--bold spacing-below-5"><%=t(".empire_state_child_credit") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_63)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".empire_state_child_credit") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_63)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nys_eic") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_65)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".nys_eic") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_65)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nyc_school_tax_credit_fixed") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_69)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".nyc_school_tax_credit_fixed") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_69)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nyc_school_tax_credit_rate_reduction") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_69A)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".nyc_school_tax_credit_rate_reduction") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_69A)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".nyc_eic") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_70)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".nyc_eic") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_70)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_nys_tax_withheld") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_72)) %></p>
+        <p class="text--bold spacing-below-5"><%#=t(".total_nys_tax_withheld") %></p>
+        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_72)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_nyc_tax_withheld") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_73)) %></p>
-      </div>
+        <p class="text--bold spacing-below-5"><%#=t(".total_nyc_tax_withheld") %></p>
+        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_73)) %></p>
+        <p><%= 'TEst' %></p>
+      </div>-->
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".total_payments") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_76)) %></p>
+        <p><%# = number_to_currency(current_intake.calculator.line_or_zero(:IT201_LINE_76)) %></p>
+        <p><%= 'TEst' %></p>
       </div>
     </div>
   </div>

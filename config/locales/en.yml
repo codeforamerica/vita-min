@@ -2023,6 +2023,17 @@ en:
           fed_agi: Federal adjusted gross income
           total_arizona_subtractions: Total Arizona subtractions
           total_dependent_exemptions: Total dependent exemptions
+          see_detailed_return: See detailed return information
+          total_arizona_additions: Total Arizona additions
+          ny_agi: New York adjusted gross income
+          standard_deduction: Standard deduction
+          taxable_income: Taxable income
+          azs_tax: AZS tax
+          nys_household_credit: NYS household credit
+          nyc_resident_tax: NYC resident tax
+          sales_or_use_tax: Sales or use tax
+          total_payments: Total payments
+
           #
           #
 #          empire_state_child_credit: Empire State child credit
