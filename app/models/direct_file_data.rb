@@ -685,11 +685,10 @@ class DirectFileData
       EmployeeSSN: 'EmployeeSSN',
       EmployerEIN: 'EmployerEIN',
       EmployerName: 'EmployerName BusinessNameLine1Txt',
-      EmployerStateIdNum: 'W2StateLocalTaxGrp W2StateTaxGrp EmployerStateIdNum',
+      EmployerStateIdNum: 'EmployerStateIdNum',
       AddressLine1Txt: 'EmployerUSAddress AddressLine1Txt',
       City: 'EmployerUSAddress CityNm',
       State: 'EmployerUSAddress StateAbbreviationCd',
-      StateAbbreviationCd: 'W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd',
       ZIP: 'EmployerUSAddress ZIPCd',
       WagesAmt: 'WagesAmt',
       AllocatedTipsAmt: 'AllocatedTipsAmt',
@@ -697,13 +696,12 @@ class DirectFileData
       NonqualifiedPlansAmt: 'NonqualifiedPlansAmt',
       RetirementPlanInd: 'RetirementPlanInd',
       ThirdPartySickPayInd: 'ThirdPartySickPayInd',
-      StateWagesAmt: 'W2StateLocalTaxGrp W2StateTaxGrp StateWagesAmt',
-      StateIncomeTaxAmt: 'W2StateLocalTaxGrp W2StateTaxGrp StateIncomeTaxAmt',
-      LocalWagesAndTipsAmt: 'W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt',
-      LocalIncomeTaxAmt: 'W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt',
-      LocalityNm: 'W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalityNm',
+      StateWagesAmt: 'W2StateTaxGrp StateWagesAmt',
+      StateIncomeTaxAmt: 'W2StateTaxGrp StateIncomeTaxAmt',
+      LocalWagesAndTipsAmt: 'W2LocalTaxGrp LocalWagesAndTipsAmt',
+      LocalIncomeTaxAmt: 'W2LocalTaxGrp LocalIncomeTaxAmt',
+      LocalityNm: 'W2LocalTaxGrp LocalityNm',
       WithholdingAmt: 'WithholdingAmt',
-      W2StateTaxGrp: 'W2StateLocalTaxGrp W2StateTaxGrp',
     }
 
     attr_reader :node
@@ -748,7 +746,6 @@ class DirectFileData
     end
 
     def EmployerStateIdNum=(value)
-      create_or_destroy_df_xml_node(__method__, value, after="StateAbbreviationCd")
       write_df_xml_value(__method__, value)
     end
 
@@ -781,15 +778,6 @@ class DirectFileData
     end
 
     def State=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def StateAbbreviationCd
-      df_xml_value(__method__)
-    end
-
-    def StateAbbreviationCd=(value)
-      create_or_destroy_df_xml_node(__method__, value)
       write_df_xml_value(__method__, value)
     end
 
@@ -872,7 +860,7 @@ class DirectFileData
     end
 
     def StateWagesAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value, after="EmployerStateIdNum")
+      create_or_destroy_df_xml_node(__method__, value)
       write_df_xml_value(__method__, value)
     end
 
@@ -881,7 +869,7 @@ class DirectFileData
     end
 
     def StateIncomeTaxAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value, after="StateWagesAmt")
+      create_or_destroy_df_xml_node(__method__, value)
       write_df_xml_value(__method__, value)
     end
 
@@ -899,7 +887,7 @@ class DirectFileData
     end
 
     def LocalIncomeTaxAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value, after="LocalWagesAndTipsAmt")
+      create_or_destroy_df_xml_node(__method__, value)
       write_df_xml_value(__method__, value) if value.present?
     end
 
@@ -908,7 +896,7 @@ class DirectFileData
     end
 
     def LocalityNm=(value)
-      create_or_destroy_df_xml_node(__method__, value, after="LocalIncomeTaxAmt")
+      create_or_destroy_df_xml_node(__method__, value)
       write_df_xml_value(__method__, value) if value.present?
     end
 
