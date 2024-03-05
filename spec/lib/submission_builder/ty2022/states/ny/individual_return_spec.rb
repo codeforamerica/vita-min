@@ -188,8 +188,9 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
           expect(w2_from_db.at("StateWagesAmt").text).to eq "2000"
         end
 
+        # TODO: test the case where there are W2s in various incomplete states
         xcontext "updating multiple w2s" do
-          let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
+          let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_bloombito_w2s_ny.xml")) }
           let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, w2_index: 0) }
           let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, w2_index: 1) }
 
