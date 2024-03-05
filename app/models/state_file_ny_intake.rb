@@ -108,9 +108,7 @@ class StateFileNyIntake < StateFileBaseIntake
     STATE_CODE => STATE_NAME
   }.freeze
   LOCALITIES = [
-    "NEW YORK CITY",
     "NY",
-    "NYC",
     "N Y",
     "NWY",
     "NW Y",
@@ -127,7 +125,8 @@ class StateFileNyIntake < StateFileBaseIntake
     "CITY OFNY",
     "CITYOFN Y",
     "CTY OF NY",
-    "MANHATTAN"
+    "MANHATTAN",
+    "NEW YORK CIT",
   ].freeze
 
   encrypts :account_number, :routing_number, :raw_direct_file_data
@@ -257,6 +256,12 @@ class StateFileNyIntake < StateFileBaseIntake
       nyc_residency: "part_year",
       nyc_maintained_home: "yes"
     }
+  end
+
+  def self.locality_nm_valid?(locality)
+    (LOCALITIES.detect do |loc|
+      locality.starts_with?(loc)
+    end).present?
   end
 
   private

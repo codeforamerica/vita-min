@@ -131,6 +131,10 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
+  def self.locality_nm_valid?(locality)
+    true
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial

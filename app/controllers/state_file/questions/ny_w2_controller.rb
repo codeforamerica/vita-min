@@ -52,10 +52,12 @@ module StateFile
       end
 
       def self.w2s_for_intake(intake)
-        self.invalid_w2s(intake).each_with_index.map do |_, i|
-          existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == i }
-          existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: i)
-        end
+        (intake.direct_file_data.w2s.each_with_index.map do |w2, index|
+          if invalid_w2?(intake, w2)
+            existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == index }
+            existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: index)
+          end
+        end).compact
       end
 
       def self.invalid_w2s(intake)
@@ -73,7 +75,7 @@ module StateFile
         return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
         return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
         return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
-        return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
+        return true if w2.LocalityNm.present? && !StateFileNyIntake.locality_nm_valid?(w2.LocalityNm)
 
         false
       end

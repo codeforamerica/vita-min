@@ -79,16 +79,16 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
-    it "requires local_wages_and_tips_amt to be present if local_income_tax_amt is present" do
+    it "requires local_income_tax_amt to be less than local_wages_and_tips_amt" do
       w2.local_wages_and_tips_amt = 0
       expect(w2).not_to be_valid
-      expect(w2.errors[:local_wages_and_tips_amt]).to be_present
+      expect(w2.errors[:local_income_tax_amt]).to be_present
     end
 
-    it "requires state_wages_amt to be present if state_income_tax_amt is present" do
+    it "requires state_income_tax_amt to be less than state_wages_amt" do
       w2.state_wages_amt = 0
       expect(w2).not_to be_valid
-      expect(w2.errors[:state_wages_amt]).to be_present
+      expect(w2.errors[:state_income_tax_amt]).to be_present
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
@@ -107,6 +107,17 @@ describe StateFileW2 do
       w2.employer_state_id_num = nil
       w2.state_wages_amt = 0
       w2.state_income_tax_amt = 0
+      expect(w2).to be_valid
+    end
+
+    it "rejects localities without the correct prefix" do
+      w2.locality_nm = "YONKERS"
+      expect(w2).not_to be_valid
+      expect(w2.errors[:locality_nm]).to be_present
+    end
+
+    it "permits localities prefixed with an approved value" do
+      w2.locality_nm = "NYC LOL JUST KIDDING ITS YONKERS"
       expect(w2).to be_valid
     end
 

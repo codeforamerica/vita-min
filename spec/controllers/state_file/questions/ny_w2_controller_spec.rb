@@ -187,6 +187,22 @@ RSpec.describe StateFile::Questions::NyW2Controller do
 
       # TODO: render_views and check that id in link is w2_index?
     end
+
+    context "with both valid and invalid W2s" do
+      let(:direct_file_xml) do
+        xml = super()
+        # Lets fix the first W2...
+        xml.at("StateWagesAmt").content = "600"
+        xml
+      end
+
+      it "filters correctly" do
+        get :index, params: { us_state: :ny }
+        w2s_list = assigns(:w2s)
+        expect(w2s_list.count).to eq 1
+        expect(w2s_list[0].w2_index).to eq 1
+      end
+    end
   end
 
   describe "#update" do
@@ -208,7 +224,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
             employer_state_id_num: "12345",
             state_wages_amt: 10005,
             state_income_tax_amt: 500,
-            local_wages_and_tips_amt: 20,
+            local_wages_and_tips_amt: 40,
             local_income_tax_amt: 30,
             locality_nm: "NYC"
           }
@@ -229,7 +245,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
           expect(w2.employer_state_id_num).to eq "12345"
           expect(w2.state_wages_amt).to eq 10005
           expect(w2.state_income_tax_amt).to eq 500
-          expect(w2.local_wages_and_tips_amt).to eq 20
+          expect(w2.local_wages_and_tips_amt).to eq 40
           expect(w2.local_income_tax_amt).to eq 30
           expect(w2.locality_nm).to eq "NYC"
 
@@ -252,7 +268,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
           expect(new_w2.employer_state_id_num).to eq "12345"
           expect(new_w2.state_wages_amt).to eq 10005
           expect(new_w2.state_income_tax_amt).to eq 500
-          expect(new_w2.local_wages_and_tips_amt).to eq 20
+          expect(new_w2.local_wages_and_tips_amt).to eq 40
           expect(new_w2.local_income_tax_amt).to eq 30
           expect(new_w2.locality_nm).to eq "NYC"
 
@@ -318,7 +334,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
         post :update, params: params
 
         expect(response).to render_template(:edit)
-        expect(response.body).to include "must be greater than or equal to 1"
+        expect(response.body).to include "Cannot be greater than State wages and tips."
       end
     end
   end
