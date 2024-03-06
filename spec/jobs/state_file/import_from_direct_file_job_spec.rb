@@ -37,6 +37,14 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.hashed_ssn).to eq expected_hashed_ssn
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
+
+      it "clears df_data_import_failed_at if there was a previous failure" do
+        intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
+        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
+        described_class.perform_now(authorization_code: auth_code, intake: intake)
+
+        expect(intake.df_data_import_failed_at).to eq nil
+      end
     end
 
     context "when the direct file xml is formed in a way that causes our code to error" do

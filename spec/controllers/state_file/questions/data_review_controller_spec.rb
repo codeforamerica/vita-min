@@ -32,7 +32,7 @@ RSpec.describe StateFile::Questions::DataReviewController do
 
     context "with federal data which we could not import successfully" do
       it "redirects to the offboard screen" do
-        intake.update(raw_direct_file_data: nil)
+        intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
         response = get :edit, params: { us_state: "az" }
         expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: "data_import_failed", us_state: "az"))
       end

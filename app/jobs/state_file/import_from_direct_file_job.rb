@@ -18,7 +18,17 @@ module StateFile
         intake.update(
           hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
         )
+
+        required_fields = [:raw_direct_file_data, :federal_submission_id, :federal_return_status, :hashed_ssn]
+        missing_fields = required_fields.select { |field| intake.send(field).blank? }
+        if missing_fields.any?
+          raise err, "Missing required fields: #{missing_fields.join(', ')}"
+        end
+
         intake.synchronize_df_dependents_to_database
+
+        # Clear this timestamp if it failed before but succeeded this time
+        intake.update(df_data_import_failed_at: nil)
       rescue => err
         Rails.logger.error(err)
         intake.update(df_data_import_failed_at: DateTime.now)
