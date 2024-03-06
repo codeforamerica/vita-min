@@ -213,7 +213,7 @@ class StateFileBaseIntake < ApplicationRecord
     case self.efile_submissions.last.current_state
     when 'accepted'
       'accepted'
-    when 'rejected'
+    when 'rejected', 'notified_of_rejection', 'waiting'
       'rejected'
     else
       'pending'

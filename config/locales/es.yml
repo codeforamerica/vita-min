@@ -2246,6 +2246,7 @@ es:
               <p>Además, entiendo y acepto que al utilizar un sistema informático y software para preparar y transmitir mi declaración de impuestos electrónicamente, he consentido a la divulgación a NYS de toda la información relacionada con la transmisión de mi declaración de impuestos de NYS electrónicamente. Si estoy pagando mis impuestos personales del estado de Nueva York adeudados o recibiendo un reembolso de impuestos mediante transferencia electrónica de fondos, certifico que el titular de la cuenta autoriza al Departamento de Impuestos de NYS y a sus agentes financieros designados a iniciar una transferencia electrónica de fondos desde la cuenta de la institución financiera indicada en la declaración electrónica de NYS 2023, y autoriza a la institución financiera a debitar la cantidad de esa cuenta (si se debe impuestos) o acreditar la cuenta con un depósito directo (si se debe un reembolso).</p>
               <p>Dado que Nueva York no admite Transacciones ACH Internacionales (IAT), atestiguo que la fuente de estos fondos se encuentra dentro de los Estados Unidos. Entiendo y acepto que puedo revocar esta autorización de pago comunicándome con el Departamento de Impuestos en no más de cinco (5) días hábiles antes de la fecha de pago.</p>
           primary_esign: He leído y acepto la certificación anterior
+          resubmit: Vuelva a enviar su declaración estatal
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
@@ -2461,12 +2462,18 @@ es:
             body_html: Desafortunadamente, ha habido un problema con la presentación de su declaración estatal que no se puede resolver con nuestra herramienta. <u>Chatee con nosotros</u> o envíenos un correo electrónico a help@fileyourstatetaxes.org para obtener orientación sobre los próximos pasos.
             next: "¿Qué puedo hacer a continuación?"
           contact_us: Contacte a nuestro equipo de expertos haciendo clic en "Chatea con nosotros".
+          edit_return: Edite su declaración estatal
           have_questions: "¿Tienes preguntas?"
-          its_unusual: Es poco común que tu declaración estatal sea rechazada después de que tu declaración federal haya sido aceptada. Nuestro equipo está investigando el problema para ver qué podemos hacer para ayudarte a solucionarlo. Te informaremos si necesitas hacer algo más.
+          next_steps:
+            can_edit:
+              body: Puede editar y volver a enviar su declaración estatal haciendo clic en el botón a continuación.
+              title: "¿Qué sigue?"
+            no_edit:
+              body_html: Desafortunadamente, ha habido un problema con la presentación de su declaración estatal que no se puede resolver con nuestra herramienta. <u>Chatea con nosotros</u> o envíanos un correo electrónico a help@fileyourstatetaxes.org para obtener orientación sobre los próximos pasos.
+              title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
-          whats_next: "¿Qué sigue?"
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
@@ -2498,6 +2505,7 @@ es:
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
           register_to_vote: Regístrate para votar.
           title: "¡Tu declaración de impuestos del estado de %{state_name} de 2023 ha sido enviada!"
+          title_resubmit: "¡Su declaración de impuestos estatales de %{state_name} de 2023 ya se volvió a presentar!"
       tax_refund:
         bank_details:
           account_number: Número de cuenta

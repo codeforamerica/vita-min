@@ -1,7 +1,7 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <p>
-    <%= render current_intake.return_status %>
+    <%= render @return_status %>
   </p>
 
   <% unless @error&.auto_cancel %>

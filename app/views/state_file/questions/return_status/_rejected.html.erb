@@ -41,3 +41,29 @@
   </section>
 <% end %>
 
+<% if @reject_description.present? %>
+  <section class="spacing-below-15">
+    <strong><%= t('.reject_desc') %></strong>
+    <%= @reject_description %>
+  </section>
+<% end %>
+
+<section class="spacing-below-15">
+  <% if @error&.auto_wait %>
+    <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
+    <%= t('.next_steps.can_edit.body') %>
+  <% else %>
+    <p class="spacing-below-5"><strong><%= t('.next_steps.no_edit.title') %></strong></p>
+    <%= t('.next_steps.no_edit.body_html') %>
+  <% end %>
+</section>
+
+<section>
+  <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+  <%= t('.contact_us') %>
+</section>
+
+<% if @error&.auto_wait %>
+  <% edit_return_path = params[:us_state] == 'az' ? az_questions_name_dob_path : ny_questions_name_dob_path %>
+  <%= link_to t('.edit_return'), edit_return_path, class: "button button--primary spacing-above-60" %>
+<% end %>
