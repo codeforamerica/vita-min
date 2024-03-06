@@ -1,0 +1,10 @@
+<% title = t("state_file.questions.spouse_state_id.edit.title_html") %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {
+    include_first_three_doc_num: true,
+    info_link: "https://dmv.ny.gov/id-card/sample-photo-documents"
+  } %>
+<% end %>
