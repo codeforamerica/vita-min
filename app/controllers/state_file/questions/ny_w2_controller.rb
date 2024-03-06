@@ -2,9 +2,10 @@ module StateFile
   module Questions
     class NyW2Controller < AuthenticatedQuestionsController
       before_action :load_w2s
+      before_action :load_w2, only: [:edit, :update]
 
       def self.show?(intake)
-        invalid_w2s(intake).any?
+        Flipper.enabled?(:w2_override) && invalid_w2s(intake).any?
       end
 
       def index
@@ -19,14 +20,9 @@ module StateFile
       end
 
       def edit
-        @w2 = @w2s[params[:id].to_i]
-        dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
-        @employer_name = dfw2.EmployerName
-        @wages_amt = dfw2.WagesAmt
       end
 
       def update
-        @w2 = @w2s[params[:id].to_i]
         @w2.assign_attributes(form_params)
 
         if @w2.valid?
@@ -51,11 +47,26 @@ module StateFile
         @w2s = self.class.w2s_for_intake(current_intake)
       end
 
+      def load_w2
+        w2_index = params[:id].to_i
+        @w2 = @w2s.detect { |w2| w2.w2_index == w2_index }
+        dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
+        @employer_name = dfw2.EmployerName
+        @wages_amt = dfw2.WagesAmt
+      end
+
+      def prev_path
+        return path_for_step(self.class) if ["update", "edit"].include?(action_name)
+        super
+      end
+
       def self.w2s_for_intake(intake)
-        self.invalid_w2s(intake).each_with_index.map do |_, i|
-          existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == i }
-          existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: i)
-        end
+        (intake.direct_file_data.w2s.each_with_index.map do |w2, index|
+          if invalid_w2?(intake, w2)
+            existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == index }
+            existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: index)
+          end
+        end).compact
       end
 
       def self.invalid_w2s(intake)
@@ -73,7 +84,7 @@ module StateFile
         return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
         return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
         return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
-        return true if w2.LocalityNm.present? && !StateFileNyIntake::LOCALITIES.include?(w2.LocalityNm)
+        return true if w2.LocalityNm.present? && !StateFileNyIntake.locality_nm_valid?(w2.LocalityNm.upcase)
 
         false
       end
