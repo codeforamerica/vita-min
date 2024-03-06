@@ -55,6 +55,11 @@ module StateFile
         @w2 = @w2s.detect { |w2| w2.w2_index == w2_index }
       end
 
+      def prev_path
+        return path_for_step(self.class) if action_name == "update"
+        super
+      end
+
       def self.w2s_for_intake(intake)
         (intake.direct_file_data.w2s.each_with_index.map do |w2, index|
           if invalid_w2?(intake, w2)
