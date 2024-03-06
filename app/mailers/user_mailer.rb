@@ -17,6 +17,17 @@ class UserMailer < ApplicationMailer
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo
 
+    @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
+      {
+        host: MultiTenantService.new(:gyr).host,
+        controller: "hub/outgoing_emails",
+        action: :unsubscribe_email,
+        locale: I18n.locale,
+        _recall: {},
+        email_address: @assigned_user.email
+      }
+    )
+
     mail(to: @assigned_user.email, subject: @subject)
   end
 end

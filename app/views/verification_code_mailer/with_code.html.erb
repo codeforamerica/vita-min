@@ -1,1 +1,2 @@
 <%= t("verification_code_mailer.with_code.body_html", service_name: @service_name, verification_code: @verification_code, locale: @locale) %>
+<%= auto_link(t("outgoing_email_mailer.user_message.unsubscribe", unsubscribe_link: @unsubscribe_link)) %>

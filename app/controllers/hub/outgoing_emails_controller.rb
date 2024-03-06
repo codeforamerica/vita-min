@@ -19,7 +19,7 @@ module Hub
 
       if matching_intakes.present?
         matching_intakes.each do |intake|
-          intake.update(email_notification_opt_in: 2)
+          intake.update(email_notification_opt_in: "no")
         end
       else
         flash[:alert] = "No record found"
@@ -31,10 +31,10 @@ module Hub
 
       if matching_intakes.present?
         matching_intakes.each do |intake|
-          intake.update(email_notification_opt_in: 1)
+          intake.update(email_notification_opt_in: "yes")
         end
 
-        flash[:notice] = I18n.t("state_file.notifications_settings.subscribe_email.flash")
+        flash[:notice] = I18n.t("hub.outgoing_emails.subscribe_email.flash")
         render :unsubscribe_email
       else
         flash[:alert] = "No record found"
@@ -50,7 +50,7 @@ module Hub
     def matching_intakes(email_address)
       return if email_address.blank?
 
-      @client.intake.where(email_address: email_address)
+      Intake.where(email_address: email_address)
     end
   end
 end

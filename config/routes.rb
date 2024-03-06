@@ -151,6 +151,8 @@ Rails.application.routes.draw do
       get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
       get "/relational-efin", to: "consent_pages#relational_efin"
       get "/global-carryforward", to: "consent_pages#global_carryforward"
+      get "/unsubscribe_email", to: "hub/outgoing_emails#unsubscribe_email", as: :unsubscribe_email
+      post "/subscribe_email", to: "hub/outgoing_emails#subscribe_email", as: :subscribe_email
 
       namespace :portal do
         root "portal#home"
@@ -197,9 +199,6 @@ Rails.application.routes.draw do
         constraints CanAccessDelayedJobWeb do
           mount DelayedJobWeb => "/delayed_job"
         end
-
-        get "/unsubscribe_email", to: "outgoing_emails#unsubscribe_email", as: :unsubscribe_email
-        post "/subscribe_email", to: "outgoing_emails#subscribe_email", as: :subscribe_email
 
         resources :metrics, only: [:index]
         resources :data_migrations, only: [:index] do

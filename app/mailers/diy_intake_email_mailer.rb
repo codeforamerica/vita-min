@@ -4,7 +4,16 @@ class DiyIntakeEmailMailer < ApplicationMailer
     @diy_intake = diy_intake
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo
-
+    @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
+      {
+        host: MultiTenantService.new(:gyr).host,
+        controller: "hub/outgoing_emails",
+        action: :unsubscribe_email,
+        locale: I18n.locale,
+        _recall: {},
+        email_address: diy_intake.email_address
+      }
+    )
     I18n.with_locale(diy_intake.locale) do
       mail(
         to: diy_intake.email_address,
