@@ -1890,6 +1890,9 @@ es:
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
           label: "¿Recibió ingresos de una propiedad de renta/alquiler, una granja o criptomoneda?"
+  outgoing_email_mailer:
+    user_message:
+      unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:

@@ -16,7 +16,7 @@ class OutgoingEmailMailer < ApplicationMailer
         action: :unsubscribe_email,
         locale: I18n.locale,
         _recall: {},
-        email_address: notification_email.to
+        email_address: outgoing_email.to
       }
     )
     @subject = outgoing_email.subject

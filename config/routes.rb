@@ -198,6 +198,9 @@ Rails.application.routes.draw do
           mount DelayedJobWeb => "/delayed_job"
         end
 
+        get "/unsubscribe_email", to: "outgoing_emails#unsubscribe_email", as: :unsubscribe_email
+        post "/subscribe_email", to: "outgoing_emails#subscribe_email", as: :subscribe_email
+
         resources :metrics, only: [:index]
         resources :data_migrations, only: [:index] do
           collection do

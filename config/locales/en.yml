@@ -1910,6 +1910,9 @@ en:
         title: Tell us about your filing status and income.
         vita_income_ineligible:
           label: Did you earn income from a rental property, a farm, or cryptocurrency?
+  outgoing_email_mailer:
+    user_message:
+      unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
