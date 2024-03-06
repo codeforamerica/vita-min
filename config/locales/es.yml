@@ -1907,6 +1907,8 @@ es:
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
+    general:
+      title: Presentación gratuita de impuestos estatales de AZ y Nueva York
     intake_logins:
       account_locked:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
@@ -2333,6 +2335,30 @@ es:
           helper_heading: "¿Cómo encuentro mi distrito escolar?"
           school_district_name: Nombre del Distrito Escolar
           title: Selecciona el distrito escolar donde vivías el 31 de diciembre de %{filing_year}
+      ny_w2:
+        edit:
+          box15_html: |
+            <strong>Casilla 15</strong>: Número de identificación estatal del empleador<br />
+            Si la casilla 15 está en blanco en su W-2, ingrese aquí el número del <strong>casilla b Número de identificación del empleador (EIN)</strong>.
+          box16_html: "<strong>Recuadro 16</strong>: Salarios estatales, propinas, etc."
+          box17_html: "<strong>Cuadro 17</strong>: Impuesto estatal sobre la renta"
+          box18_html: "<strong>Cuadro 18</strong>: Salarios locales, propinas, etc."
+          box19_html: "<strong>Casilla 19</strong>: Impuesto local sobre la renta"
+          box20_locality_name: "<strong>Cuadro 20</strong>: Nombre de la localidad"
+          instructions_1: Necesitamos un poco más de información sobre los impuestos estatales y locales en su W-2 de %{employer_name} para %{total_wages_amt}.
+          instructions_2: Si alguna de estas casillas está en blanco en su W-2, déjela en blanco aquí.
+          local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
+          local_wages_and_tips_amt_error: Por favor ingrese salarios y propinas locales
+          locality_nm_error: Escriba “NYC” si el nombre de la localidad en su W-2 es la ciudad de Nueva York o cualquiera de los cinco condados.
+          locality_nm_missing_error: Por favor seleccione el nombre de la localidad
+          state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
+          state_wages_amt_error: Por favor ingrese los salarios y propinas estatales.
+          w2s_error: Actualice todos los formularios W-2 enumerados anteriormente para continuar.
+        index:
+          title: Proporcione información fiscal estatal para los siguientes formularios W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
+          updated: Has actualizado este W-2
+          w2_for: 'W-2 para: %{employer_name}'
+          wages_amount: 'Monto total de salarios: $%{wages_amount}'
       nyc_residency:
         edit:
           full_year:

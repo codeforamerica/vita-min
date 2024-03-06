@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         next if controller_class.navigation_actions.length > 1
+        next if controller_class == StateFile::Questions::NyW2Controller
 
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
@@ -242,6 +243,7 @@ Rails.application.routes.draw do
           resources :efile_submissions, only: [:index, :show]  do
             get "show_xml", to: "efile_submissions#show_xml"
             get "show_df_xml", to: "efile_submissions#show_df_xml"
+            get "show_pdf", to: "efile_submissions#show_pdf"
             get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
           end
           resources :faq_categories, path: "faq" do
@@ -578,6 +580,7 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+        resources :ny_w2, only: [:index, :edit, :update], module: 'state_file/questions', path: 'questions/ny_w2'
       end
 
       scope ':us_state', as: 'us', constraints: { us_state: :us } do

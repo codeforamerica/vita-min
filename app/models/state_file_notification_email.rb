@@ -23,16 +23,14 @@ class StateFileNotificationEmail < ApplicationRecord
   validates_presence_of :to
   validates_presence_of :body
   validates_presence_of :subject
-  validate :not_unsubscribed
+  # validate :not_unsubscribed
 
   after_create_commit :deliver
 
   private
 
   def not_unsubscribed
-    matching_intakes = StateFileAzIntake.where(email_address: to, unsubscribed_from_email: true) +
-      StateFileNyIntake.where(email_address: to, unsubscribed_from_email: true)
-    if matching_intakes.present?
+    if self.data_source.unsubscribed_from_email?
       DatadogApi.increment("mailgun.state_file_notification_emails.not_sent_because_unsubscribed")
       errors.add(:id, "Matching intake(s) unsubscribed from email")
     end
