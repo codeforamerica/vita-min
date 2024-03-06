@@ -2,7 +2,7 @@ module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user, :current_state_file_intake
     rescue_from StandardError, with: :report_error
-    rescue_from UnauthorizedError, with: report_error
+    rescue_from ActionCable::Connection::Authorization::UnauthorizedError, with: report_error
 
     def connect; end
 
