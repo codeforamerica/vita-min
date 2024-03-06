@@ -614,8 +614,13 @@ class DirectFileData
   end
 
   def third_party_designee
+    df_xml_value(__method__)
   end
 
+  def third_party_designee=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'ThirdPartyDesigneeInd')
+    write_df_xml_value(__method__, value)
+  end
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
