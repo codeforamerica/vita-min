@@ -20,9 +20,6 @@ module StateFile
       end
 
       def edit
-        dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
-        @employer_name = dfw2.EmployerName
-        @wages_amt = dfw2.WagesAmt
       end
 
       def update
@@ -53,6 +50,9 @@ module StateFile
       def load_w2
         w2_index = params[:id].to_i
         @w2 = @w2s.detect { |w2| w2.w2_index == w2_index }
+        dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
+        @employer_name = dfw2.EmployerName
+        @wages_amt = dfw2.WagesAmt
       end
 
       def prev_path
