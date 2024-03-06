@@ -151,6 +151,8 @@ Rails.application.routes.draw do
       get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
       get "/relational-efin", to: "consent_pages#relational_efin"
       get "/global-carryforward", to: "consent_pages#global_carryforward"
+      get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
+      post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
 
       namespace :portal do
         root "portal#home"

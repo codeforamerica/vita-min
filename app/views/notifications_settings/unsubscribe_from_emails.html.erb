@@ -1,0 +1,16 @@
+<% content_for :page_title, t(".title") %>
+
+<section class="slab slab--white slab--not-padded question-layout">
+  <div class="grid">
+    <div class="grid__item one-half">
+      <h1 class="h2"><%= content_for(:page_title) %></h1>
+
+      <p>
+        <%= t(".mistake") %>
+        <%= link_to t(".link_text"), subscribe_to_emails_path(email_address: params[:email_address]), method: :post %>
+      </p>
+
+      <p><%= t(".help_text_html") %></p>
+    </div>
+  </div>
+</section>

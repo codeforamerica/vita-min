@@ -1675,6 +1675,14 @@ es:
   models:
     intake:
       your_spouse: Su cónyuge
+  notifications_settings:
+    subscribe_to_emails:
+      flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
+    unsubscribe_from_emails:
+      help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
+      link_text: Inscríbete nuevamente.
+      mistake: "¿Es esto un error?"
+      title: Ha optado por no recibir notificaciones por correo electrónico de GetYourRefund.
   number:
     currency:
       format:
@@ -1683,6 +1691,9 @@ es:
         precision: 0
         separator: "."
         unit: "$"
+  outgoing_email_mailer:
+    user_message:
+      unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
   portal:
     client_logins:
       account_locked:
