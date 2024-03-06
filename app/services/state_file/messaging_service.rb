@@ -23,7 +23,7 @@ module StateFile
     def send_message
       return nil if message_tracker.already_sent? && message.send_only_once?
 
-      send_email if @do_email
+      send_email if @do_email && !intake.unsubscribed_from_email?
       # send_sms if @do_sms # TODO: Eventually send SMS when fixed
 
       message_tracker.record(sent_messages.last.created_at) if sent_messages.any? # will this be recorded correctly with what we have on line 40
@@ -35,6 +35,7 @@ module StateFile
 
     def send_email
       return unless intake.email_address.present? && intake.email_address_verified_at.present?
+      return if intake.unsubscribed_from_email?
 
       if @message_instance.email_body.present?
         sent_message = StateFileNotificationEmail.create!(
