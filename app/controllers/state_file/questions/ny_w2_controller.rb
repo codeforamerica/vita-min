@@ -56,7 +56,7 @@ module StateFile
       end
 
       def prev_path
-        return path_for_step(self.class) if ["update", "edit"].include(action_name)
+        return path_for_step(self.class) if ["update", "edit"].include?(action_name)
         super
       end
 
