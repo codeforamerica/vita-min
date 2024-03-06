@@ -14,43 +14,10 @@ module Hub
       redirect_to hub_client_messages_path(client_id: @client, anchor: "last-item")
     end
 
-    def unsubscribe_email
-      matching_intakes = matching_intakes(params[:email_address])
-
-      if matching_intakes.present?
-        matching_intakes.each do |intake|
-          intake.update(email_notification_opt_in: "no")
-        end
-      else
-        flash[:alert] = "No record found"
-      end
-    end
-
-    def subscribe_email
-      matching_intakes = matching_intakes(params[:email_address])
-
-      if matching_intakes.present?
-        matching_intakes.each do |intake|
-          intake.update(email_notification_opt_in: "yes")
-        end
-
-        flash[:notice] = I18n.t("hub.outgoing_emails.subscribe_email.flash")
-        render :unsubscribe_email
-      else
-        flash[:alert] = "No record found"
-      end
-    end
-
     private
 
     def outgoing_email_params
       params.require(:outgoing_email).permit(:body, :attachment)
-    end
-
-    def matching_intakes(email_address)
-      return if email_address.blank?
-
-      Intake.where(email_address: email_address)
     end
   end
 end

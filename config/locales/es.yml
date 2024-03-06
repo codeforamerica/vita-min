@@ -1058,14 +1058,6 @@ es:
           <p>Una vez que responda, intentaremos conectarlo con %{to_phone_number}.</p>
 
           <p>No es necesario que permanezca en esta página para continuar la llamada.</p>
-    outgoing_emails:
-      subscribe_email:
-        flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
-      unsubscribe_email:
-        help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
-        link_text: Inscríbete nuevamente.
-        mistake: "¿Es esto un error?"
-        title: Ha optado por no recibir notificaciones por correo electrónico de GetYourRefund.
     recovery_rebate_credit_amount:
       amount_1: Pago de impacto económico 1 recibió
       amount_2: Pago de impacto económico 2 recibió
@@ -1683,6 +1675,14 @@ es:
   models:
     intake:
       your_spouse: Su cónyuge
+  notifications_settings:
+    subscribe_to_emails:
+      flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
+    unsubscribe_from_emails:
+      help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
+      link_text: Inscríbete nuevamente.
+      mistake: "¿Es esto un error?"
+      title: Ha optado por no recibir notificaciones por correo electrónico de GetYourRefund.
   number:
     currency:
       format:

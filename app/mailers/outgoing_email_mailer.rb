@@ -12,8 +12,8 @@ class OutgoingEmailMailer < ApplicationMailer
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
-        controller: "hub/outgoing_emails",
-        action: :unsubscribe_email,
+        controller: "notifications_settings",
+        action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
         email_address: outgoing_email.to
