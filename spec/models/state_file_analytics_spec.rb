@@ -2,14 +2,24 @@
 #
 # Table name: state_file_analytics
 #
-#  id                    :bigint           not null, primary key
-#  fed_eitc_amount       :integer
-#  filing_status         :integer
-#  record_type           :string           not null
-#  refund_or_owed_amount :integer
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  record_id             :bigint           not null
+#  id                        :bigint           not null, primary key
+#  dependent_tax_credit      :integer
+#  empire_state_child_credit :integer
+#  excise_credit             :integer
+#  family_income_tax_credit  :integer
+#  fed_eitc_amount           :integer
+#  filing_status             :integer
+#  household_fed_agi         :integer
+#  nyc_eitc                  :integer
+#  nyc_household_credit      :integer
+#  nyc_school_tax_credit     :integer
+#  nys_eitc                  :integer
+#  nys_household_credit      :integer
+#  record_type               :string           not null
+#  refund_or_owed_amount     :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  record_id                 :bigint           not null
 #
 # Indexes
 #
@@ -39,6 +49,27 @@ describe StateFileAnalytics do
       it "returns the calculated attributes" do
         expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
       end
+
+      it "returns calculated values for AZ intake attributes" do
+        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
+                                                         household_fed_agi: 120000,
+                                                         dependent_tax_credit: 0,
+                                                         excise_credit: 0,
+                                                         family_income_tax_credit: 0,
+                                                         )
+
+      end
+
+      it "returns only nil for NY intake attributes" do
+        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
+                                                         nys_eitc: nil,
+                                                         nyc_eitc: nil,
+                                                         empire_state_child_credit: nil,
+                                                         nyc_school_tax_credit: nil,
+                                                         nys_household_credit: nil,
+                                                         nyc_household_credit: nil,
+                                                         )
+      end
     end
 
     context "NY intake" do
@@ -46,6 +77,26 @@ describe StateFileAnalytics do
 
       it "returns the calculated attributes" do
         expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
+      end
+
+      it "returns the calculated attributes for NY intake attributes" do
+        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
+                                                         household_fed_agi: 32351,
+                                                         nys_eitc: 600,
+                                                         nyc_eitc: 300,
+                                                         empire_state_child_credit: 0,
+                                                         nyc_school_tax_credit: 125,
+                                                         nys_household_credit: 0,
+                                                         nyc_household_credit: 0,
+                                                       )
+      end
+
+      it "returns nil values for AZ intake attributes" do
+        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
+                                                         dependent_tax_credit: nil,
+                                                         excise_credit: nil,
+                                                         family_income_tax_credit: nil,
+                                                         )
       end
     end
   end

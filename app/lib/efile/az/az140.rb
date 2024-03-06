@@ -70,6 +70,14 @@ module Efile
         calculate_line_79 - calculate_line_80
       end
 
+      def analytics_attrs
+        {
+          dependent_tax_credit: line_or_zero(:AZ140_LINE_49),
+          family_income_tax_credit: line_or_zero(:AZ140_LINE_50),
+          excise_credit: line_or_zero(:AZ140_LINE_56)
+        }
+      end
+
       private
 
       def calculate_line_14
