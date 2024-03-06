@@ -21,7 +21,7 @@ class NotificationsSettingsController < ApplicationController
       end
 
       flash[:notice] = I18n.t("notifications_settings.subscribe_to_emails.flash")
-      render :unsubscribe_email
+      render :unsubscribe_from_emails
     else
       flash[:alert] = "No record found"
     end
