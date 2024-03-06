@@ -117,7 +117,7 @@ describe StateFileW2 do
     end
 
     it "permits localities prefixed with an approved value" do
-      w2.locality_nm = "NYC LOL JUST KIDDING ITS YONKERS"
+      w2.locality_nm = "NYC JK ITS YONKERS"
       expect(w2).to be_valid
     end
 
