@@ -11,16 +11,6 @@ class VerificationCodeMailer < ApplicationMailer
                else
                  I18n.t('messages.default_subject_with_service_name', service_name: @service_name, locale: @locale)
                end
-    @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
-      {
-        host: MultiTenantService.new(:gyr).host,
-        controller: "notifications_settings",
-        action: :unsubscribe_from_emails,
-        locale: I18n.locale,
-        _recall: {},
-        email_address: params[:to]
-      }
-    )
     mail(to: params[:to], subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
   end
 
