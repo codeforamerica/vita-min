@@ -54,11 +54,11 @@ can perform acceptance tests on this environment.
 A rough step by step process will look like:
 1. `git checkout staging`
 2. `git pull`
-2. `git checkout -b {my_new_feature#pivotal-hash1234}`
-3. `git cherry-pick {shah}`
-4. `git push`
-5. Open a PR based on staging branch
-6. Deploy the PR which will kick off the pipeline and deploy to Aptible staging
+3. `git checkout -b {my_new_feature#pivotal-hash1234}`
+4. `git cherry-pick {shah}`
+5. `git push`
+6. Open a PR based on staging branch
+7. Deploy the PR which will kick off the pipeline and deploy to Aptible staging
 
 Manual deployment currently don't seem to be working and is not urgent to fix,
 so for now stick to the process above.
