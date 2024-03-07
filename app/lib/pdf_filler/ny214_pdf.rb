@@ -29,7 +29,7 @@ module PdfFiller
         'Spouse\'s SSN' => @submission.data_source.spouse&.ssn,
         'Mailing address' => @submission.data_source.direct_file_data.mailing_street,
         'NY State county of residence' => @submission.data_source.residence_county,
-        'City, village or post office 1' => @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
+        'City, village or post office 1' => @submission.data_source.direct_file_data.mailing_city,
         'State 1' => @submission.data_source.mailing_state,
         'ZIPcode 1' => @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text&.slice(0, 5),
         'Country' => @submission.data_source.mailing_country,
