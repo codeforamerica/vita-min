@@ -2740,14 +2740,14 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de 6 dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará en 30 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíenos un correo electrónico a <a href="mailto:help@%{service_name}.org">help@%{service_name}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíenos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
         <p>Tu equipo de impuestos de %{service_name}.org</p>
       body_text: |
         ¡Hola!
 
         Tu código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en 30 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíenos un correo electrónico a help@%{service_name}.org
+        ¿Recibiste este código sin registrarte? Envíenos un correo electrónico a help@%{service_name_lower}.org
 
         Tu equipo de impuestos de %{service_name}.org
   verification_code_sms:
