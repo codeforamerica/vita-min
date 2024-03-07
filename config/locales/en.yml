@@ -2739,14 +2739,14 @@ en:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name}.org">help@%{service_name}.org</a></p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{host}.org">help@%{host}.org</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
         Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name}.org
+        Did you receive this code without signing up? Email us at help@%{host}.org
 
         Your tax team at %{service_name}.org
   verification_code_sms:
