@@ -57,11 +57,18 @@ A rough step by step process will look like:
 3. `git checkout -b {my_new_feature#pivotal-hash1234}`
 4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can also base your work entirely off staging and cherry to main once it's been accepted.
 5. `git push`
-6. Open a PR based on staging branch
-7. Merge the PR which will kick off the pipeline and deploy to Aptible staging
+6. Open a PR from the staging branch
+   6a. `git checkout staging`
+   6b. `git checkout -b {your_branch}`
+7. Merging the PR will kick off the pipeline and deploy to the Aptible staging environment.
 
-Manual deployment currently don't seem to be working and is not urgent to fix,
-so for now stick to the process above.
+Cherry Picking to main
+Once your PR has been merged and accepted in staging, you can cherry pick your commit from staging into main like:
+1. Find the shah of your commit by going to the Github UI or running `git log`
+2. `git checkout main`
+3. `git checkout {new_branch}`
+4. `git cherry-pick {shah}` # from step 1
+5. Open a PR on main with the code that was accepted on staging.
 
 ## To The Production Environment
 
