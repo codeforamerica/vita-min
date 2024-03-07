@@ -45,8 +45,14 @@
   <% if current_intake.ask_whether_incarcerated? %>
     <div id="incarcerated" class="blue-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".excise_credit") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
+
+        <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
+        <p><%=current_intake.ssn_no_employment_yes? ? t("general.affirmative") : t("general.negative") %></p>
+
+        <p class="text--bold spacing-below-5"><%=t(".household_excise_credit_claimed") %></p>
+        <p><%=current_intake.household_excise_credit_claimed_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <%= link_to t("general.edit"), StateFile::Questions::AzExciseCreditController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
