@@ -50,7 +50,7 @@ module SubmissionBuilder
                 if @submission.data_source.direct_file_data.mailing_street.present?
                   process_mailing_street(xml)
                 end
-                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city if @submission.data_source.direct_file_data.mailing_city.present?
+                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city.slice(0, 18) if @submission.data_source.direct_file_data.mailing_city.present?
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state if @submission.data_source.direct_file_data.mailing_state.present?
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.slice(0, 5) if @submission.data_source.direct_file_data.mailing_zip.present?
                 xml.COUNTY_CD @submission.data_source.county_code if @submission.data_source.county_code.present?
@@ -58,7 +58,7 @@ module SubmissionBuilder
                 if @submission.data_source.permanent_street.present?
                   process_permanent_street(xml)
                 end
-                xml.PERM_CTY_ADR @submission.data_source.permanent_city if @submission.data_source.permanent_city.present?
+                xml.PERM_CTY_ADR @submission.data_source.permanent_city.slice(0, 18) if @submission.data_source.permanent_city.present?
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?
                 xml.SCHOOL_CD @submission.data_source.school_district_number if @submission.data_source.school_district_number.present?
