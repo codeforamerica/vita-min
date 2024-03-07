@@ -20,7 +20,7 @@ class StateFileBaseIntake < ApplicationRecord
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
   scope :accessible_intakes, -> { all }
-  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  devise :timeoutable, :timeout_in => 15.days, :unlock_strategy => :time
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
