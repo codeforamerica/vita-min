@@ -44,9 +44,6 @@ RSpec.describe StateFile::Questions::AzReviewController do
 
         get :edit, params: { us_state: "az" }
         expect(response.body).to include I18n.t("state_file.questions.az_review.edit.was_incarcerated")
-        binding.pry
-
-        # expect(response.body).to include I18n.t("state_file.questions.az_review.edit.ssn_no_employment")
         expect(response.body).to include I18n.t("state_file.questions.az_review.edit.household_excise_credit_claimed")
       end
 
