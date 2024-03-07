@@ -9,14 +9,18 @@ module StateFile
       end
 
       def index
-        @w2s_with_metadata = @w2s.map do |w2|
-          dfw2 = w2.state_file_intake.direct_file_data.w2s[w2.w2_index]
-          {
-            w2: w2,
-            employer_name: dfw2.EmployerName,
-            wages_amount: dfw2.WagesAmt,
-          }
+        get_w2s_with_metadata
+      end
+
+      def create
+        # The below line triggers validation on all w2s...
+        @errors_present = @w2s.select { |w2| !w2.valid? }.present?
+        if @errors_present
+          get_w2s_with_metadata
+          render :index
+          return
         end
+        redirect_to next_path
       end
 
       def edit
@@ -41,6 +45,17 @@ module StateFile
         params.require(StateFileW2.name.underscore)
               .except(:state_file_intake_id, :state_file_intake_type)
               .permit(*StateFileW2.attribute_names)
+      end
+
+      def get_w2s_with_metadata
+        @w2s_with_metadata ||= @w2s.map do |w2|
+          dfw2 = w2.state_file_intake.direct_file_data.w2s[w2.w2_index]
+          {
+            w2: w2,
+            employer_name: dfw2.EmployerName,
+            wages_amount: dfw2.WagesAmt,
+          }
+        end
       end
 
       def load_w2s
