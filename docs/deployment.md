@@ -58,7 +58,7 @@ A rough step by step process will look like:
 4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can also base your work entirely off staging and cherry to main once it's been accepted.
 5. `git push`
 6. Open a PR based on staging branch
-7. Deploy the PR which will kick off the pipeline and deploy to Aptible staging
+7. Merge the PR which will kick off the pipeline and deploy to Aptible staging
 
 Manual deployment currently don't seem to be working and is not urgent to fix,
 so for now stick to the process above.
