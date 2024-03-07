@@ -70,6 +70,13 @@ class StateFileW2 < ApplicationRecord
     if local_income_tax_amt.present? && local_wages_and_tips_amt.present? && local_income_tax_amt > local_wages_and_tips_amt
       errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
     end
+    w2 = state_file_intake.direct_file_data.w2s[w2_index]
+    if state_wages_amt.present? && state_wages_amt > w2.WagesAmt
+      errors.add(:state_wages_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
+    end
+    if local_wages_and_tips_amt.present? && local_wages_and_tips_amt > w2.WagesAmt
+      errors.add(:local_wages_and_tips_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
+    end
   end
 
   def locality_nm_to_upper_case
