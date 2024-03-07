@@ -33,6 +33,7 @@ RSpec.describe Navigation::StateFileNyQuestionNavigation do
         StateFile::Questions::NySalesUseTaxController,
         StateFile::Questions::NyPrimaryStateIdController,
         StateFile::Questions::NySpouseStateIdController,
+        StateFile::Questions::NyThirdPartyDesigneeController,
         StateFile::Questions::UnemploymentController,
         StateFile::Questions::NyReviewController,
         StateFile::Questions::TaxesOwedController,

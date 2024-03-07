@@ -2338,10 +2338,10 @@ es:
       ny_third_party_designee:
         edit:
           reveal:
-            body_html: '<b>¿Qué puede discutir el Departamento de Impuestos y Finanzas de Nueva York con mi tercero designado? </b><br> Al seleccionar a un tercero designado, usted autoriza al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También autoriza a la persona designada a dar y recibir información confidencial del contribuyente relacionada con: <b><ul class="lista--viñetas"> <li>esta declaración, incluida la información faltante <li>cualquier aviso o factura que surja de esta presentación y que usted comparta con la persona designada (no se enviarán a la persona designada) <li>cualquier actividad de pago y cobro que surja de esta presentación, y <li>el estado de su devolución o reembolso. </ul></b>'
+            body_html: 'Al seleccionar a un tercero designado, usted autoriza al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También autoriza a la persona designada a dar y recibir información confidencial del contribuyente relacionada con: <br> <b><ul class="list--bulleted"> <li>esta declaración, incluida la información faltante <li>cualquier aviso o factura que surja de esta presentación que usted comparte con la persona designada (no se enviarán a la persona designada) <li>cualquier pago y actividad de cobro que surja de esta presentación, y <li>el estado de su declaración o reembolso. </ul></b>'
             title: "¿Qué puede discutir el Departamento de Impuestos y Finanzas de Nueva York con mi tercero designado?"
           subtitle: Al seleccionar Sí, usted convierte a esta persona en su tercero designado para su declaración estatal.
-          title_html: Parece que le dio permiso al IRS para discutir su declaración de impuestos federales con %{name}. <br> ¿Le gustaría permitir que esta misma persona analice su declaración de impuestos del estado de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
+          title_html: Parece que le dio permiso al IRS para discutir su declaración de impuestos federales con %{name}. <br><br> ¿Le gustaría permitir que esta misma persona analice su declaración de impuestos del estado de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
       ny_w2:
         edit:
           box15_html: |
