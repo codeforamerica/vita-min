@@ -51,7 +51,7 @@ Deploying to staging is the only way to test XML changes since the schemas aren'
 Our current process is to open a PR off the staging branch and merge it so Product
 can perform acceptance tests on this environment.
 
-A rough step by step process will look like:
+#### A rough step by step process will look like:
 1. `git checkout staging`
 2. `git pull`
 3. `git checkout -b {my_new_feature#pivotal-hash1234}`
@@ -62,7 +62,7 @@ A rough step by step process will look like:
    6b. `git checkout -b {your_branch}`
 7. Merging the PR will kick off the pipeline and deploy to the Aptible staging environment.
 
-Cherry Picking to main
+#### Cherry Picking to main
 Once your PR has been merged and accepted in staging, you can cherry pick your commit from staging into main like:
 1. Find the shah of your commit by going to the Github UI or running `git log`
 2. `git checkout main`
