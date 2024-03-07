@@ -9,6 +9,9 @@ module StateFile
       end
 
       def index
+        if @w2s.length == 1
+          redirect_to action: :edit, id: @w2s[0].w2_index
+        end
         get_w2s_with_metadata
       end
 
@@ -31,6 +34,7 @@ module StateFile
 
         if @w2.valid?
           @w2.save
+          redirect_to next_path and return if @w2s.length == 1
           redirect_to action: :index
         else
           render :edit
@@ -71,7 +75,9 @@ module StateFile
       end
 
       def prev_path
-        return path_for_step(self.class) if ["update", "edit"].include?(action_name)
+        if @w2s.length > 1 && ["update", "edit"].include?(action_name)
+          return path_for_step(self.class)
+        end
         super
       end
 
