@@ -7,7 +7,7 @@ module StateFile
         direct_file_json = IrsApiService.import_federal_data(authorization_code, intake.state_code)
 
         if direct_file_json.blank?
-          raise err, "Direct file data was not transferred for intake #{intake.state_code} #{intake.id}."
+          raise StandardError, "Direct file data was not transferred for intake #{intake.state_code} #{intake.id}."
         end
 
         intake.update(
@@ -22,7 +22,7 @@ module StateFile
         required_fields = [:raw_direct_file_data, :federal_submission_id, :federal_return_status, :hashed_ssn]
         missing_fields = required_fields.select { |field| intake.send(field).blank? }
         if missing_fields.any?
-          raise err, "Missing required fields: #{missing_fields.join(', ')}"
+          raise StandardError, "Missing required fields: #{missing_fields.join(', ')}"
         end
 
         intake.synchronize_df_dependents_to_database
@@ -32,6 +32,7 @@ module StateFile
       rescue => err
         Rails.logger.error(err)
         intake.update(df_data_import_failed_at: DateTime.now)
+        intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
       end
 
       DfDataTransferJobChannel.broadcast_job_complete(intake)

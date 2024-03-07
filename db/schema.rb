@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -710,6 +710,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
+  end
+
+  create_table "df_data_import_errors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "message"
+    t.bigint "state_file_intake_id"
+    t.string "state_file_intake_type"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_df_data_import_errors_on_state_file_intake"
   end
 
   create_table "diy_intakes", force: :cascade do |t|

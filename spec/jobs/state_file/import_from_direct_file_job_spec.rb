@@ -49,7 +49,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
     context "when the direct file xml is formed in a way that causes our code to error" do
       before do
-        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError
+        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError.new("Malformed data")
       end
 
       it "catches the error and persists it to the intake record" do
@@ -57,6 +57,8 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(intake.df_data_import_failed_at).to be_present
+        expect(intake.df_data_import_errors.count).to eq(1)
+        expect(intake.df_data_import_errors.first.message).to eq("Malformed data")
       end
     end
 
@@ -68,6 +70,8 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
         expect(intake.df_data_import_failed_at).to be_present
         expect(intake.raw_direct_file_data).to_not be_present
+        expect(intake.df_data_import_errors.count).to eq(1)
+        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake az 1.")
       end
     end
   end
