@@ -53,6 +53,7 @@ can perform acceptance tests on this environment.
 
 A rough step by step process will look like:
 1. `git checkout staging`
+2. `git pull`
 2. `git checkout -b {my_new_feature#pivotal-hash1234}`
 3. `git cherry-pick {shah}`
 4. `git push`
