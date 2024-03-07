@@ -43,7 +43,9 @@ RSpec.describe StateFile::Questions::AzReviewController do
       it "shows the incarcerated question" do
 
         get :edit, params: { us_state: "az" }
-        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.excise_credit")
+        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.was_incarcerated")
+        # expect(response.body).to include I18n.t("state_file.questions.az_review.edit.ssn_no_employment")
+        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.household_excise_credit_claimed")
       end
 
       it "does not show the incarcerated question" do
@@ -51,7 +53,9 @@ RSpec.describe StateFile::Questions::AzReviewController do
         sign_in intake
 
         get :edit, params: { us_state: "az" }
-        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.excise_credit")
+        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.was_incarcerated")
+        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.ssn_no_employment")
+        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.household_excise_credit_claimed")
       end
     end
   end
