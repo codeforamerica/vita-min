@@ -596,6 +596,7 @@ class FlowsController < ApplicationController
     def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
       common_attributes.merge(
         confirmed_permanent_address: "no",
+        confirm_third_party_designee: "unfilled",
         contact_preference: "text",
         eligibility_part_year_nyc_resident: "no",
         eligibility_withdrew_529: "no",
