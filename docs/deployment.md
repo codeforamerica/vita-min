@@ -47,7 +47,7 @@ environments.
 
 ### Deploying to Staging Directly
 
-Deploying to staging is the only way to test XML changes the schemas aren't on Heroku.
+Deploying to staging is the only way to test XML changes since the schemas aren't on Heroku.
 Our current process is to open a PR off the staging branch and merge it so Product
 can perform acceptance tests on this environment.
 
