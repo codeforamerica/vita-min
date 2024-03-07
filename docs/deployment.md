@@ -55,16 +55,16 @@ can perform acceptance tests on this environment.
 1. `git checkout staging`
 2. `git pull`
 3. `git checkout -b {my_new_feature#pivotal-hash1234}`
-4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can also base your work entirely off staging and cherry to main once it's been accepted.
+4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can also base your work entirely off staging and cherry-pick to main once it's been accepted.
 5. `git push`
 6. Open a PR from the staging branch
-   6a. `git checkout staging`
-   6b. `git checkout -b {your_branch}`
+   1. `git checkout staging`
+   2. `git checkout -b {your_branch}`
 7. Merging the PR will kick off the pipeline and deploy to the Aptible staging environment.
 
 #### Cherry Picking to main
 Once your PR has been merged and accepted in staging, you can cherry pick your commit from staging into main like:
-1. Find the shah of your commit by going to the Github UI or running `git log`
+1. Find the shah of your commit by going to the GitHub UI or running `git log`
 2. `git checkout main`
 3. `git checkout {new_branch}`
 4. `git cherry-pick {shah}` # from step 1
