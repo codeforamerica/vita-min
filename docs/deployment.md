@@ -55,7 +55,7 @@ A rough step by step process will look like:
 1. `git checkout staging`
 2. `git pull`
 3. `git checkout -b {my_new_feature#pivotal-hash1234}`
-4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can base your work entirely off staging and cherry to main once it's been accepted.
+4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can also base your work entirely off staging and cherry to main once it's been accepted.
 5. `git push`
 6. Open a PR based on staging branch
 7. Deploy the PR which will kick off the pipeline and deploy to Aptible staging
