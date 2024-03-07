@@ -125,23 +125,6 @@
         <p class="text--bold spacing-below-5"><%=t(".total_payments") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_59)) %></p>
       </div>
-
-      <% if current_intake.filing_status_mfj?  %>
-        <div class="spacing-below-25 with-top-separator">
-          <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
-          <p><%= current_intake.was_incarcerated.capitalize %></p>
-        </div>
-
-        <div class="spacing-below-25">
-          <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
-          <p><%= current_intake.ssn_no_employment.capitalize %></p>
-        </div>
-
-        <div class="spacing-below-25">
-          <p class="text--bold spacing-below-5"><%=t(".household_excise_credit_claimed") %></p>
-          <p><%= current_intake.household_excise_credit_claimed.capitalize %></p>
-        </div>
-      <% end %>
     </div>
   </div>
 
