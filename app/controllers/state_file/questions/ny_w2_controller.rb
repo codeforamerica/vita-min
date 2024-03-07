@@ -85,7 +85,9 @@ module StateFile
         return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
         return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
         return true if w2.LocalityNm.present? && !StateFileNyIntake.locality_nm_valid?(w2.LocalityNm.upcase)
-
+        return true if w2.EmployerStateIdNum.present? && w2.StateAbbreviationCd.blank?
+        return true if w2.StateIncomeTaxAmt > w2.StateWagesAmt
+        return true if w2.LocalIncomeTaxAmt > w2.LocalWagesAndTipsAmt
         false
       end
     end

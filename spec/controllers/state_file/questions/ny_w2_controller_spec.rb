@@ -164,6 +164,42 @@ RSpec.describe StateFile::Questions::NyW2Controller do
           expect(described_class.show?(intake)).to eq true
         end
       end
+
+      context "StateAbberviationCd is blank or missing" do
+        let(:direct_file_xml) do
+          xml = super()
+          xml.search("W2StateTaxGrp StateAbbreviationCd").each { |node| node.remove }
+          xml
+        end
+
+        it "returns true" do
+          expect(described_class.show?(intake)).to eq true
+        end
+      end
+
+      context "StateIncomeTaxAmt is greater than StateWagesAmt" do
+        let(:direct_file_xml) do
+          xml = super()
+          xml.at("StateIncomeTaxAmt").content = "9000"
+          xml
+        end
+
+        it "returns true" do
+          expect(described_class.show?(intake)).to eq true
+        end
+      end
+
+      context "LocalIncomeTaxAmt is greater than LocalWagesAndTipsAmt" do
+        let(:direct_file_xml) do
+          xml = super()
+          xml.at("LocalIncomeTaxAmt").content = "9000"
+          xml
+        end
+
+        it "returns true" do
+          expect(described_class.show?(intake)).to eq true
+        end
+      end
     end
   end
 

@@ -38,7 +38,7 @@ class StateFileW2 < ApplicationRecord
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/ }
+  validates :employer_state_id_num, format: { with: /\A(\d*)\z/ }, length: {maximum: 16}
   validates :state_wages_amt, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: -> { state_wages_amt.present? }
   validates :state_income_tax_amt, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amt.present? }
   validates :local_wages_and_tips_amt, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amt.present? }
@@ -80,7 +80,7 @@ class StateFileW2 < ApplicationRecord
 
   def state_tax_group_xml_node
     xml_template = Nokogiri::XML(STATE_TAX_GRP_TEMPLATE)
-    xml_template.at(:StateAbbreviationCd).content = "NY"
+    xml_template.at(:StateAbbreviationCd).content = employer_state_id_num.present? ? state_file_intake.state_code.upcase : ""
     xml_template.at(:EmployerStateIdNum).content = employer_state_id_num
     xml_template.at(:StateWagesAmt).content = state_wages_amt
     xml_template.at(:StateIncomeTaxAmt).content = state_income_tax_amt
