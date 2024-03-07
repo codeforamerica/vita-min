@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_043156) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1714,6 +1714,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_221246) do
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
+    t.integer "confirm_third_party_designee", default: 0, null: false
     t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false

@@ -34,6 +34,16 @@
     </div>
   </div>
 
+  <% if current_intake.confirm_third_party_designee_yes? %>
+    <div id="third-party-designee" class="blue-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".third_party_designee") %></p>
+        <p><%=current_intake.direct_file_data.third_party_designee_name %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::NyThirdPartyDesigneeController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <div id="details" class="reveal">
     <p><a href="#" class="reveal__link"><%= t('.see_detailed_return') %></a></p>
     <div class="reveal__content">
