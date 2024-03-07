@@ -297,3 +297,7 @@ CREATE view analytics.state_file_az_intakes AS
 CREATE view analytics.state_file_ny_intakes AS
     SELECT id, updated_at, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_lived_in_state, eligibility_out_of_state_income, eligibility_part_year_nyc_resident, eligibility_withdrew_529, eligibility_yonkers, hashed_ssn, nyc_maintained_home, nyc_residency, primary_birth_date, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, untaxed_out_of_state_purchases
     FROM public.state_file_ny_intakes;
+
+CREATE view analytics.state_file_w2s AS
+SELECT id, employer_state_id_num, local_income_tax_amt, local_wages_and_tips_amt, locality_nm, state_file_intake_type, state_income_tax_amt, state_wages_amt, w2_index, created_at, updated_at, state_file_intake_id
+FROM public.state_file_ny_intakes;
