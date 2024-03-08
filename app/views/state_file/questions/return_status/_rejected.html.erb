@@ -16,7 +16,7 @@
     </section>
   <% end %>
 
-  <% if @error.message.present? %>
+  <% if @error.message.present? || @error.description(I18n.locale).present? %>
     <section class="spacing-below-15">
       <strong><%= t('.reject_desc') %></strong>
       <%= @error.description(I18n.locale).present? ? @error.description(I18n.locale) : @error.message %>
@@ -48,9 +48,7 @@
     <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
     <%= t('.contact_us') %>
   </section>
-<% end %>
 
-<% if @error&.auto_wait %>
   <% edit_return_path = params[:us_state] == 'az' ? az_questions_name_dob_path : ny_questions_name_dob_path %>
   <%= link_to t('.edit_return'), edit_return_path, class: "button button--primary spacing-above-60" %>
 <% end %>
