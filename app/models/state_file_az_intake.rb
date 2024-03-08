@@ -172,6 +172,22 @@ class StateFileAzIntake < StateFileBaseIntake
     super
   end
 
+  def total_subtractions
+    lines = [:AZ140_LINE_20, :AZ140_LINE_21, :AZ140_LINE_22, :AZ140_LINE_23, :AZ140_LINE_24, :AZ140_LINE_25,
+             :AZ140_LINE_26, :AZ140_LINE_27, :AZ140_LINE_28, :AZ140_LINE_29, :AZ140_LINE_30, :AZ140_LINE_31,
+             :AZ140_LINE_32, :AZ140_LINE_33, :AZ140_LINE_34]
+    subtractions = 0
+    lines.each { |line| subtractions += self.calculator.line_or_zero(line) }
+    subtractions
+  end
+
+  def total_exemptions
+    lines = [:AZ140_LINE_38, :AZ140_LINE_39, :AZ140_LINE_40, :AZ140_LINE_41]
+    exemptions = 0
+    lines.each { |line| exemptions += self.calculator.line_or_zero(line) }
+    exemptions
+  end
+
   def requires_hoh_qualifying_person_name?
     filing_status == :head_of_household
   end

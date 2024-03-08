@@ -45,12 +45,88 @@
   <% if current_intake.ask_whether_incarcerated? %>
     <div id="incarcerated" class="blue-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".excise_credit") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
+
+        <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
+        <p><%=current_intake.ssn_no_employment_yes? ? t("general.affirmative") : t("general.negative") %></p>
+
+        <p class="text--bold spacing-below-5"><%=t(".household_excise_credit_claimed") %></p>
+        <p><%=current_intake.household_excise_credit_claimed_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <%= link_to t("general.edit"), StateFile::Questions::AzExciseCreditController.to_path_helper(us_state: "az", return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
   <% end %>
+
+  <div id="details" class="reveal">
+    <p><a href="#" class="reveal__link"><%= t('.see_detailed_return') %></a></p>
+    <div class="reveal__content">
+      <div class="spacing-below-25 with-top-separator">
+        <p class="text--bold spacing-below-5"><%=t(".fed_agi") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_12)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".total_arizona_subtractions") %></p>
+        <p><%= number_to_currency(current_intake.total_subtractions) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".total_exemptions") %></p>
+        <p><%= number_to_currency(current_intake.total_exemptions) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".az_agi") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_42)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".standard_deduction") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_43)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".incr_deduction_chrit_contributions") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_44)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".az_taxable_income") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_45)) %></p>
+      </div>
+
+      <div class="spacing-below-25 with-top-separator">
+        <p class="text--bold spacing-below-5"><%=t(".az_tax") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_46)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".dependent_tax_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_49)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".family_income_tax_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_50)) %></p>
+      </div>
+
+      <div class="spacing-below-25 with-top-separator">
+        <p class="text--bold spacing-below-5"><%=t(".az_tax_withheld") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_53)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".increased_excise_tax_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_56)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".total_payments") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_59)) %></p>
+      </div>
+    </div>
+  </div>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
