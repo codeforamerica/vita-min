@@ -2341,10 +2341,10 @@ en:
       ny_third_party_designee:
         edit:
           reveal:
-            body_html: "By selecting a third-party designee, you are authorizing NY Department of Taxation and Finance to discuss with the designee any questions related to this return. You are also authorizing the designee to give and receive confidential taxpayer information relating to: \n<br> \n<b><ul class=\"list--bulleted\"> \n  <li>this return, including missing information \n  <li>any notices or bills arising from this filing that you share with the designee (they will not be sent to the designee) \n  <li>any payments and collection activity arising from this filing, and \n  <li>the status of your return or refund. \n</ul></b>'\n"
+            body_html: 'By selecting a third-party designee, you are authorizing NY Department of Taxation and Finance to discuss with the designee any questions related to this return. You are also authorizing the designee to give and receive confidential taxpayer information relating to: <br> <b><ul class="list--bulleted">  <li>this return, including missing information  <li>any notices or bills arising from this filing that you share with the designee (they will not be sent to the designee)  <li>any payments and collection activity arising from this filing, and   <li>the status of your return or refund. </ul>'
             title: What is the NY Department of Taxation and Finance allowed to discuss with my third-party designee?
           subtitle: By selecting yes, you are making this person your third-party designee for your state return.
-          title_html: "It looks like you gave permission for the IRS to discuss your federal tax return with %{name}. \n<br><br> \nWould you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?\n"
+          title_html: It looks like you gave permission for the IRS to discuss your federal tax return with %{name}. <br><br> Would you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?
       ny_w2:
         edit:
           box15_html: |

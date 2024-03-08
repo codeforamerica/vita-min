@@ -113,7 +113,7 @@ module PdfFiller
           Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
         )
       end
-      if @submission.data_source.confirm_third_party_designee_yes?
+      if @submission.data_source.confirmed_third_party_designee_yes?
         answers.merge!(
           '3rd_party_box' => "yes",
           designee_name: claimed_attr_value('THRD_PRTY_NAME'),

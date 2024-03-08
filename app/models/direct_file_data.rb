@@ -56,7 +56,7 @@ class DirectFileData
     primary_claim_as_dependent: 'IRS1040 PrimaryClaimAsDependentInd',
     hoh_qualifying_person_name: 'IRS1040 QualifyingHOHNm',
     surviving_spouse: 'IRS1040 SurvivingSpouseInd',
-    third_party_designee: 'IRS1040 ThirdPartyDesigneeInd',
+    third_party_designee_ind: 'IRS1040 ThirdPartyDesigneeInd',
     third_party_designee_name: 'IRS1040 ThirdPartyDesigneeNm',
     third_party_designee_phone_number: 'IRS1040 ThirdPartyDesigneePhoneNum',
     third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
@@ -616,12 +616,12 @@ class DirectFileData
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
   end
 
-  def third_party_designee
+  def third_party_designee_ind
     df_xml_value(__method__)
   end
 
-  def third_party_designee=(value)
-    create_or_destroy_df_xml_node(__method__, true, 'ThirdPartyDesigneeInd')
+  def third_party_designee_ind=(value)
+    create_or_destroy_df_xml_node(__method__, false, 'ThirdPartyDesigneeInd')
     write_df_xml_value(__method__, value)
   end
 

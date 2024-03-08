@@ -6,8 +6,8 @@
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
 #  bank_name                          :string
-#  confirm_third_party_designee       :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
+#  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_sign_in_at                 :datetime

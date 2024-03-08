@@ -8,7 +8,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
       <%= f.cfa_radio_set(
-            :confirm_third_party_designee,
+            :confirmed_third_party_designee,
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
