@@ -1611,8 +1611,6 @@ en:
 
             Best,
             The FileYourStateTaxes team
-
-            If you would like to unsubscribe from emails, click here.
           subject: Welcome to FileYourStateTaxes
         sms: |
           Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
@@ -1695,6 +1693,14 @@ en:
   models:
     intake:
       your_spouse: Your spouse
+  notifications_settings:
+    subscribe_to_emails:
+      flash: You are successfully re-subscribed to email notifications.
+    unsubscribe_from_emails:
+      help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
+      link_text: Opt in again.
+      mistake: Is this a mistake?
+      title: You've opted out of email notifications from GetYourRefund.
   number:
     currency:
       format:
@@ -1703,6 +1709,9 @@ en:
         precision: 0
         separator: "."
         unit: "$"
+  outgoing_email_mailer:
+    user_message:
+      unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
   portal:
     client_logins:
       account_locked:
@@ -2013,13 +2022,29 @@ en:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
+          az_agi: Arizona adjusted gross income
+          az_tax: Arizona tax
+          az_tax_withheld: Arizona tax withheld
+          az_taxable_income: Arizona taxable income
           charitable_cash: Charitable contributions (Cash)
           charitable_contributions: Made charitable contributions
           charitable_noncash: Charitable contributions (Non-Cash)
-          excise_credit: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
+          dependent_tax_credit: Dependent tax credit
+          family_income_tax_credit: Family income tax credit
+          fed_agi: Federal adjusted gross income
+          household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
+          incr_deduction_chrit_contributions: Increased deduction for charitable contributions
+          increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
+          see_detailed_return: See detailed return information
+          ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
+          standard_deduction: Standard deduction
+          total_arizona_subtractions: Total Arizona subtractions
+          total_exemptions: Total Exemptions
+          total_payments: Total payments
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
+          was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
@@ -2231,6 +2256,7 @@ en:
               <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
           primary_esign: I have read the certification above and agree
+          resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
@@ -2437,12 +2463,18 @@ en:
           title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
           contact_us: Contact our team of Support Specialists by clicking chat with us.
+          edit_return: Edit your state return
           have_questions: Have questions?
-          its_unusual: It's unusual for your state return to be rejected after your federal return was accepted. Our team is looking into the issue to see what we can do to help fix the problem. We'll let you know if you need to take any additional next steps.
+          next_steps:
+            can_edit:
+              body: You can edit and resubmit your state return by clicking the button below.
+              title: What's next?
+            no_edit:
+              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
+              title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
-          whats_next: What's next?
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2474,6 +2506,7 @@ en:
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote.
           title: Your 2023 %{state_name} state tax return is now submitted!
+          title_resubmit: Your 2023 %{state_name} state tax return is now resubmitted!
       tax_refund:
         bank_details:
           account_number: Account Number
@@ -2590,7 +2623,7 @@ en:
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
         subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File will be broadly available to all eligible taxpayers by mid March 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
           Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
@@ -2747,14 +2780,14 @@ en:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
-        <p>If you did not initiate this request, please let us know.</p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
         Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
 
-        If you did not initiate this request, please let us know.
+        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
 
         Your tax team at %{service_name}.org
   verification_code_sms:

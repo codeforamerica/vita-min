@@ -4,7 +4,7 @@ RSpec.describe "efile errors" do
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }
-      let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123" }
+      let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123", service_type: :ctc }
 
       before { login_as current_user }
 

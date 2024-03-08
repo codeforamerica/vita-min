@@ -32,7 +32,7 @@ module StateFile
 
     def self.existing_attributes(intake)
       attributes = super
-      attributes.except(:routing_number, :account_number, :routing_number_confirmation, :account_number_confirmation)
+      attributes.except(:routing_number, :account_number, :routing_number_confirmation, :account_number_confirmation, :bank_name)
     end
 
     private

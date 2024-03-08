@@ -26,7 +26,6 @@
 #  federal_return_status              :string
 #  hashed_ssn                         :string
 #  household_cash_assistance          :integer
-#  household_fed_agi                  :integer
 #  household_ny_additions             :integer
 #  household_other_income             :integer
 #  household_own_assessments          :integer
@@ -85,6 +84,7 @@
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
+#  unfinished_intake_ids              :text             default([]), is an Array
 #  unsubscribed_from_email            :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  withdraw_amount                    :integer

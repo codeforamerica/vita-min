@@ -1675,6 +1675,14 @@ es:
   models:
     intake:
       your_spouse: Su cónyuge
+  notifications_settings:
+    subscribe_to_emails:
+      flash: Se volvió a suscribir correctamente a las notificaciones por correo electrónico.
+    unsubscribe_from_emails:
+      help_text_html: Si cambia de opinión y desea inscribirse más tarde, <a class="open-intercom">chatee con nosotros</a> o envíenos un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
+      link_text: Inscríbete nuevamente.
+      mistake: "¿Es esto un error?"
+      title: Ha optado por no recibir notificaciones por correo electrónico de GetYourRefund.
   number:
     currency:
       format:
@@ -1683,6 +1691,9 @@ es:
         precision: 0
         separator: "."
         unit: "$"
+  outgoing_email_mailer:
+    user_message:
+      unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
   portal:
     client_logins:
       account_locked:
@@ -1997,13 +2008,29 @@ es:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
           armed_forces_wages: Salario por servicio activo recibido como miembro de las Fuerzas Armadas de los Estados Unidos
+          az_agi: Arizona adjusted gross income
+          az_tax: Arizona tax
+          az_tax_withheld: Arizona tax withheld
+          az_taxable_income: Arizona taxable income
           charitable_cash: 'Donaciones caritativas (en efectivo) '
           charitable_contributions: Realizó contribuciones caritativas
           charitable_noncash: Donaciones caritativas (en especie)
-          excise_credit: Encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en 2023
+          dependent_tax_credit: Dependent tax credit
+          family_income_tax_credit: Family income tax credit
+          fed_agi: Federal adjusted gross income
+          household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
+          incr_deduction_chrit_contributions: Increased deduction for charitable contributions
+          increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Otros apellidos usados en los últimos cuatro años
+          see_detailed_return: See detailed return information
+          ssn_no_employment: You or your spouse have 'Not valid for employment' written on your Social Security Card
+          standard_deduction: Standard deduction
+          total_arizona_subtractions: Total Arizona subtractions
+          total_exemptions: Exenciones totales
+          total_payments: Total payments
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
+          was_incarcerated: You or your spouse were incarcerated in a county, state, or federal prison for at least 60 days in 2023
       az_senior_dependents:
         edit:
           assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"
@@ -2219,6 +2246,7 @@ es:
               <p>Además, entiendo y acepto que al utilizar un sistema informático y software para preparar y transmitir mi declaración de impuestos electrónicamente, he consentido a la divulgación a NYS de toda la información relacionada con la transmisión de mi declaración de impuestos de NYS electrónicamente. Si estoy pagando mis impuestos personales del estado de Nueva York adeudados o recibiendo un reembolso de impuestos mediante transferencia electrónica de fondos, certifico que el titular de la cuenta autoriza al Departamento de Impuestos de NYS y a sus agentes financieros designados a iniciar una transferencia electrónica de fondos desde la cuenta de la institución financiera indicada en la declaración electrónica de NYS 2023, y autoriza a la institución financiera a debitar la cantidad de esa cuenta (si se debe impuestos) o acreditar la cuenta con un depósito directo (si se debe un reembolso).</p>
               <p>Dado que Nueva York no admite Transacciones ACH Internacionales (IAT), atestiguo que la fuente de estos fondos se encuentra dentro de los Estados Unidos. Entiendo y acepto que puedo revocar esta autorización de pago comunicándome con el Departamento de Impuestos en no más de cinco (5) días hábiles antes de la fecha de pago.</p>
           primary_esign: He leído y acepto la certificación anterior
+          resubmit: Vuelva a enviar su declaración estatal
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
@@ -2439,12 +2467,18 @@ es:
           title: "¡Ha enviado su declaración de impuestos de %{state_name} de 2023! Actualmente se encuentra a la espera de ser aceptado para su procesamiento."
         rejected:
           contact_us: Contacte a nuestro equipo de expertos haciendo clic en "Chatea con nosotros".
+          edit_return: Edite su declaración estatal
           have_questions: "¿Tienes preguntas?"
-          its_unusual: Es poco común que tu declaración estatal sea rechazada después de que tu declaración federal haya sido aceptada. Nuestro equipo está investigando el problema para ver qué podemos hacer para ayudarte a solucionarlo. Te informaremos si necesitas hacer algo más.
+          next_steps:
+            can_edit:
+              body: Puede editar y volver a enviar su declaración estatal haciendo clic en el botón a continuación.
+              title: "¿Qué sigue?"
+            no_edit:
+              body_html: Desafortunadamente, ha habido un problema con la presentación de su declaración estatal que no se puede resolver con nuestra herramienta. <u>Chatea con nosotros</u> o envíanos un correo electrónico a help@fileyourstatetaxes.org para obtener orientación sobre los próximos pasos.
+              title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
-          whats_next: "¿Qué sigue?"
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
@@ -2476,6 +2510,7 @@ es:
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
           register_to_vote: Regístrate para votar.
           title: "¡Tu declaración de impuestos del estado de %{state_name} de 2023 ha sido enviada!"
+          title_resubmit: "¡Su declaración de impuestos estatales de %{state_name} de 2023 ya se volvió a presentar!"
       tax_refund:
         bank_details:
           account_number: Número de cuenta
@@ -2593,7 +2628,7 @@ es:
           <strong>Para obtener más información, consulte <a href=%{faq_link}>las preguntas frecuentes</a>.</strong>
         subheader_html: |
           <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarle a completar su declaración de impuestos estatales <strong>sin costo.</strong> <br/><br/>
-          Direct File del IRS estará ampliamente disponible para todos los contribuyentes elegibles a principios de marzo de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          IRS Direct File ahora está ampliamente disponible para todos los contribuyentes elegibles hasta el 15 de abril de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar su declaración federal, vaya a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
           ¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>.<br/>
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
@@ -2748,14 +2783,14 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de 6 dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará en 30 minutos.</p>
-        <p>Si no solicitaste esto, avísanos por favor.</p>
+        <p>¿Recibiste este código sin registrarte? Envíenos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
         <p>Tu equipo de impuestos de %{service_name}.org</p>
       body_text: |
         ¡Hola!
 
         Tu código de verificación de 6 dígitos para %{service_name} es: %{verification_code}. Este código expirará en 30 minutos.
 
-        Si no solicitaste esto, avísanos por favor.
+        ¿Recibiste este código sin registrarte? Envíenos un correo electrónico a help@%{service_name_lower}.org
 
         Tu equipo de impuestos de %{service_name}.org
   verification_code_sms:

@@ -20,6 +20,9 @@ class Ability
         cannot :manage, StateFileDependent
         cannot :manage, StateId
         cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
+        cannot :manage, EfileError do |error|
+          error.service_type == "state_file" || error.service_type == "unfilled"
+        end
       end
       unless user.email.include?("@codeforamerica.org")
         cannot :manage, :flipper_dashboard

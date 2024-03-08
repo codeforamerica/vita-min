@@ -308,6 +308,19 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
+    context "when permanent city is longer than 18 characters" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.permanent_city = 'Castleton on Hudson'
+      end
+      it 'truncates down to 18 characters' do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime PERM_CTY_ADR").text.length).to eq(18)
+        expect(xml.at("tiPrime PERM_CTY_ADR").text).to eq('Castleton on Hudso')
+      end
+    end
+
     context 'when zip code is longer than 5 chars' do
       let(:filing_status) { 'single' }
 
@@ -318,6 +331,19 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         expect(intake.direct_file_data.mailing_zip.length).to eq(9)
         expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text.length).to eq(5)
         expect(xml.at("tiPrime MAIL_ZIP_5_ADR").text).to eq('12345')
+      end
+    end
+
+    context 'when mailing_city is longer than 18 chars' do
+      let(:filing_status) { 'single' }
+
+      it 'truncates to 18 chars' do
+        allow_any_instance_of(DirectFileData).to receive(:mailing_city).and_return('Castleton on Hudson')
+        xml = described_class.build(submission).document
+        expect(intake.direct_file_data.mailing_city).to eq('Castleton on Hudson')
+        expect(intake.direct_file_data.mailing_city.length).to eq(19)
+        expect(xml.at("tiPrime MAIL_CITY_ADR").text.length).to eq(18)
+        expect(xml.at("tiPrime MAIL_CITY_ADR").text).to eq('Castleton on Hudso')
       end
     end
 

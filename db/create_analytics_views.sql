@@ -295,5 +295,5 @@ CREATE view analytics.state_file_az_intakes AS
     FROM public.state_file_az_intakes;
 
 CREATE view analytics.state_file_ny_intakes AS
-    SELECT id, updated_at, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_lived_in_state, eligibility_out_of_state_income, eligibility_part_year_nyc_resident, eligibility_withdrew_529, eligibility_yonkers, hashed_ssn, household_fed_agi, nyc_maintained_home, nyc_residency, primary_birth_date, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, untaxed_out_of_state_purchases
+    SELECT id, updated_at, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_lived_in_state, eligibility_out_of_state_income, eligibility_part_year_nyc_resident, eligibility_withdrew_529, eligibility_yonkers, hashed_ssn, nyc_maintained_home, nyc_residency, primary_birth_date, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, untaxed_out_of_state_purchases
     FROM public.state_file_ny_intakes;

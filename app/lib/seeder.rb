@@ -37,7 +37,8 @@ class Seeder
     ctc_org = VitaPartner.find_or_create_by!(name: "GetCTC.org", type: Organization::TYPE)
     VitaPartner.find_or_create_by!(name: "GetCTC.org (Site)", type: Site::TYPE, parent_organization: ctc_org)
 
-    DefaultErrorMessages.generate!
+    DefaultErrorMessages.generate!(service_type: :ctc)
+    DefaultErrorMessages.generate!(service_type: :state_file)
 
     koalas = Coalition.find_or_create_by(name: "Koala Koalition")
     Coalition.find_or_create_by(name: "Cola Coalition")

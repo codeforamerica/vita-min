@@ -630,6 +630,7 @@ class FlowsController < ApplicationController
         permanent_address_outside_ny: "no",
         message_tracker: {},
         locale: 'en',
+        unfinished_intake_ids: [],
       )
     end
 
@@ -657,6 +658,7 @@ class FlowsController < ApplicationController
         ssn_no_employment: "no",
         message_tracker: {},
         locale: 'en',
+        unfinished_intake_ids: [],
       )
     end
 

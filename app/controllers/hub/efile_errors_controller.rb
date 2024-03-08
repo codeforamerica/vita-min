@@ -1,10 +1,11 @@
 module Hub
   class EfileErrorsController < Hub::BaseController
+    before_action :require_admin
     load_and_authorize_resource
     layout "hub"
 
     def index
-      @efile_errors = @efile_errors.order(:source, :code)
+      @efile_errors = EfileError.where(service_type: :ctc).order(:source, :code)
     end
 
     def edit; end

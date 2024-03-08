@@ -103,6 +103,17 @@ module Efile
         line_or_zero(:IT201_LINE_76) - line_or_zero(:IT201_LINE_62)
       end
 
+      def analytics_attrs
+        {
+          nys_eitc: line_or_zero(:IT201_LINE_65),
+          nyc_eitc: line_or_zero(:IT201_LINE_70),
+          empire_state_child_credit: line_or_zero(:IT201_LINE_63),
+          nyc_school_tax_credit: line_or_zero(:IT201_LINE_69),
+          nys_household_credit: line_or_zero(:IT201_LINE_40),
+          nyc_household_credit: line_or_zero(:IT201_LINE_48)
+        }
+      end
+
       private
 
       def calculate_line_17

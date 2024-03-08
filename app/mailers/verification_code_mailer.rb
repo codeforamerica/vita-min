@@ -2,6 +2,7 @@ class VerificationCodeMailer < ApplicationMailer
   def with_code
     service = MultiTenantService.new(params[:service_type])
     @service_name = service.service_name
+    @service_name_lower = @service_name.downcase
     @service_type = service.service_type
     @locale = params[:locale]
     @verification_code = params[:verification_code]
