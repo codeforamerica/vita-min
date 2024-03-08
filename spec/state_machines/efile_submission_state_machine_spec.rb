@@ -193,8 +193,8 @@ describe EfileSubmissionStateMachine do
     end
 
     context "to failed" do
-      let(:submission) { create(:efile_submission, :queued) }
-      let(:efile_error) { create(:efile_error, code: "USPS", expose: true, auto_wait: false, auto_cancel: false) }
+      let(:submission) { create(:efile_submission, :queued, :ctc) }
+      let!(:efile_error) { create(:efile_error, code: "USPS", expose: true, auto_wait: false, auto_cancel: false, service_type: :ctc) }
 
       before do
         allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)

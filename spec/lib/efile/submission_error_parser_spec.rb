@@ -7,23 +7,25 @@ describe Efile::SubmissionErrorParser do
   describe '#persist_errors' do
     context "when only an error code is provided" do
       context "when a matching error does not already exist" do
-        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040" } }
+        let(:transition) { create :efile_submission_transition, :preparing, efile_submission: create(:efile_submission, :for_state), metadata: { error_code: "IRS-1040" } }
 
         it "creates a new EfileError object" do
-          Efile::SubmissionErrorParser.new(transition).persist_errors
-          expect(EfileError.count).to eq 1
+          expect{
+            Efile::SubmissionErrorParser.new(transition).persist_errors
+          }.to change(EfileError, :count).by(1)
           expect(transition.efile_errors.count).to eq 1
         end
       end
 
       context "when a matching error already exists" do
-        let!(:existing_error) { create(:efile_error, code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs") }
+        let!(:existing_error) { create(:efile_error, code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs", service_type: :state_file) }
 
-        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", message: "You have a different problem.", source: "irs" } }
+        let(:transition) { create :efile_submission_transition, :preparing, efile_submission: create(:efile_submission, :for_state), metadata: { error_code: "IRS-1040-PROBS", message: "You have a different problem.", source: "irs" } }
 
         it "does not create a new EfileError object, but associates the existing one with the transition, and does not update the message" do
-          Efile::SubmissionErrorParser.new(transition).persist_errors
-          expect(EfileError.count).to eq 1
+          expect{
+            Efile::SubmissionErrorParser.new(transition).persist_errors
+          }.to change(EfileError, :count).by(0)
           expect(transition.efile_errors.count).to eq 1
           expect(existing_error.message).to eq "You have a problem."
         end
@@ -32,14 +34,26 @@ describe Efile::SubmissionErrorParser do
 
     context "when a code and message and a source are provided" do
       context "when it matches an existing code/message/source" do
-        let!(:existing_error) { create(:efile_error, code: "IRS-1040-PROBS", message: "You have a problem.", source: "irs") }
+        let!(:existing_error) do
+          create(:efile_error,
+                 code: "IRS-1040-PROBS",
+                 message: "You have a problem.",
+                 source: "irs",
+                 service_type: :state_file)
+        end
 
-        let(:transition) { create :efile_submission_transition, :preparing, metadata: { error_code: "IRS-1040-PROBS", error_message: "You have a different problem now.", error_source: "irs" } }
+        let(:transition) do
+          create :efile_submission_transition, :preparing,
+                 efile_submission: create(:efile_submission, :for_state),
+                 metadata: { error_code: "IRS-1040-PROBS",
+                             error_message: "You have a different problem now.",
+                             error_source: "irs" }
+          end
 
         it "does not create a new EfileError object, but associates the existing one with the transition and updates its message" do
-          Efile::SubmissionErrorParser.new(transition).persist_errors
-          expect(EfileError.count).to eq 1
-          expect(transition.efile_errors.count).to eq 1
+          expect{
+            Efile::SubmissionErrorParser.new(transition).persist_errors
+          }.to change(EfileError, :count).by(0)
           expect(existing_error.reload.message).to eq "You have a different problem now."
         end
       end
@@ -58,6 +72,21 @@ describe Efile::SubmissionErrorParser do
           expect(transition.efile_errors.count).to eq 1
           expect(transition.efile_errors.first.message).to eq "You have a problem"
           expect(transition.efile_errors.first.source).to eq "internal"
+          expect(EfileError.last.service_type).to eq "ctc"
+        end
+      end
+
+      context "when the efile-submission data source is StateFileNyIntake" do
+        context "when a matching error does not already exist" do
+          let(:efile_submission) { create :efile_submission, :for_state }
+          let(:transition) { create :efile_submission_transition, :preparing, efile_submission: efile_submission, metadata: { error_code: "STATE-901", error_message: "Submission ID doesn't exist", error_source: "irs" } }
+
+          it "creates a new EfileError object with service_type state_file" do
+            Efile::SubmissionErrorParser.new(transition).persist_errors
+            expect(EfileError.count).to eq 1
+            expect(transition.efile_errors.count).to eq 1
+            expect(EfileError.last.service_type).to eq "state_file"
+          end
         end
       end
     end

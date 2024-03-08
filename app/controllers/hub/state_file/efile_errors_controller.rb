@@ -1,11 +1,10 @@
-module Hub
-  class EfileErrorsController < Hub::BaseController
-    before_action :require_admin
+module Hub::StateFile
+  class EfileErrorsController < Hub::StateFile::BaseController
     load_and_authorize_resource
     layout "hub"
 
     def index
-      @efile_errors = EfileError.where(service_type: :ctc).order(:source, :code)
+      @efile_errors = @efile_errors.where.not(service_type: "ctc").order(:source, :code)
     end
 
     def edit; end
@@ -18,7 +17,7 @@ module Hub
       else
         flash[:error] = "Could not update #{@efile_error.code}. Try again."
       end
-      redirect_to hub_efile_error_path(id: @efile_error.id)
+      redirect_to hub_state_file_efile_error_path(id: @efile_error.id)
     end
 
     def reprocess
@@ -31,7 +30,7 @@ module Hub
       else
         flash[:notice] = "Could not reprocess #{@efile_error.code}. Try again."
       end
-      redirect_to hub_efile_error_path(id: @efile_error.id)
+      redirect_to hub_state_file_efile_error_path(id: @efile_error.id)
     end
 
     def permitted_params
