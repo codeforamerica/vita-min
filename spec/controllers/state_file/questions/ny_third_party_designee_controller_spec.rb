@@ -10,7 +10,7 @@ RSpec.describe StateFile::Questions::NyThirdPartyDesigneeController do
   describe ".show?" do
     context "when the client has a third party designee indicator is false" do
       before do
-        intake.direct_file_data.third_party_designee = "false"
+        intake.direct_file_data.third_party_designee_ind = "false"
       end
       it "returns false" do
         expect(described_class.show?(intake)).to eq false
@@ -20,7 +20,7 @@ RSpec.describe StateFile::Questions::NyThirdPartyDesigneeController do
 
   context "when the client has a third party designee indicator is true" do
     before do
-      intake.direct_file_data.third_party_designee = "true"
+      intake.direct_file_data.third_party_designee_ind = "true"
     end
     it "returns true" do
       expect(described_class.show?(intake)).to eq true
