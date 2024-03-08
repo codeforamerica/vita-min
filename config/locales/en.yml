@@ -2256,6 +2256,7 @@ en:
               <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
           primary_esign: I have read the certification above and agree
+          resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
@@ -2453,16 +2454,19 @@ en:
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
-          auto_cancel:
-            body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
-            next: What can I do next?
           contact_us: Contact our team of Support Specialists by clicking chat with us.
+          edit_return: Edit your state return
           have_questions: Have questions?
-          its_unusual: It's unusual for your state return to be rejected after your federal return was accepted. Our team is looking into the issue to see what we can do to help fix the problem. We'll let you know if you need to take any additional next steps.
+          next_steps:
+            can_edit:
+              body: You can edit and resubmit your state return by clicking the button below.
+              title: What's next?
+            no_edit:
+              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
+              title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
-          whats_next: What's next?
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2494,6 +2498,7 @@ en:
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote.
           title: Your 2023 %{state_name} state tax return is now submitted!
+          title_resubmit: Your 2023 %{state_name} state tax return is now resubmitted!
       tax_refund:
         bank_details:
           account_number: Account Number

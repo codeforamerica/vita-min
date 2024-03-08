@@ -5,7 +5,8 @@ module StateFile
       before_action :redirect_if_no_submission
 
       def edit
-        @error = current_intake.efile_submissions.last.last_transition.efile_errors.take
+        @error = submission_error
+        @return_status = return_status
         @refund_url = refund_url
         @tax_payment_url = tax_payment_url
         @download_form_name = download_form_name
@@ -18,6 +19,25 @@ module StateFile
       end
 
       private
+
+      def submission_error
+        return nil unless return_status == 'rejected'
+        # in the case that its in the notified_of_rejection or waiting state
+        # we can't just grab the efile errors from the last transition
+        current_intake.latest_submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
+      end
+
+      def return_status
+        # return status for display
+        case current_intake.latest_submission.current_state
+        when 'accepted'
+          'accepted'
+        when 'rejected', 'notified_of_rejection', 'waiting'
+          'rejected'
+        else
+          'pending'
+        end
+      end
 
       def refund_url
         case params[:us_state]
@@ -78,8 +98,6 @@ module StateFile
           ''
         end
       end
-
-      private
 
       def card_postscript; end
 
