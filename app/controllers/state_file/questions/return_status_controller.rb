@@ -21,13 +21,22 @@ module StateFile
       private
 
       def submission_error
+        return nil unless return_status == 'rejected'
         # in the case that its in the notified_of_rejection or waiting state
         # we can't just grab the efile errors from the last transition
-        current_intake.efile_submissions.last&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
+        current_intake.latest_submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
       end
 
       def return_status
-        current_intake.return_status
+        # return status for display
+        case current_intake.latest_submission.current_state
+        when 'accepted'
+          'accepted'
+        when 'rejected', 'notified_of_rejection', 'waiting'
+          'rejected'
+        else
+          'pending'
+        end
       end
 
       def refund_url
@@ -89,8 +98,6 @@ module StateFile
           ''
         end
       end
-
-      private
 
       def card_postscript; end
 
