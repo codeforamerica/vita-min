@@ -10,7 +10,8 @@ module Efile
           # https://www.tax.ny.gov/forms/html-instructions/2023/it/it201i-2023.htm#tax-computation
           line1 = agi
           line2 = taxable_income
-          line3 = line2 * 0.055
+          adjuster = line_3_adjuster_for_filing_status(filing_status)
+          line3 = line2 * adjuster
           if line1 >= 157_650
             line9 = line3
           else
@@ -26,13 +27,22 @@ module Efile
           line9
         end
 
-        private
+        #private
 
         def schedules_for_filing_status(filing_status)
           case filing_status
           when :married_filing_jointly, :qualifying_widow then joint_filer_schedules
           when :single, :married_filing_separately then single_filer_schedules
           when :head_of_household then head_of_household_schedules
+          end
+        end
+
+        def line_3_adjuster_for_filing_status(filing_status)
+          # Worksheet 1, 7, 12
+          case filing_status
+          when :married_filing_jointly, :qualifying_widow then 0.055
+          when :single, :married_filing_separately then 0.06
+          when :head_of_household then 0.06
           end
         end
 
