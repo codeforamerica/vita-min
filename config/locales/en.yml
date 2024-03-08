@@ -2456,9 +2456,6 @@ en:
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
-          auto_cancel:
-            body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
-            next: What can I do next?
           contact_us: Contact our team of Support Specialists by clicking chat with us.
           edit_return: Edit your state return
           have_questions: Have questions?

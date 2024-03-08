@@ -24,23 +24,6 @@
   <% end %>
 <% end %>
 
-<% if @error.auto_cancel %>
-  <section class="spacing-below-15">
-    <p class="spacing-below-5"><strong><%= t('.auto_cancel.next') %></strong></p>
-    <%= t('.auto_cancel.body_html') %>
-  </section>
-<% else %>
-  <section class="spacing-below-15">
-    <p class="spacing-below-5"><strong><%= t('.whats_next') %></strong></p>
-    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.its_unusual') %>
-  </section>
-
-  <section>
-    <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-    <%= t('.contact_us') %>
-  </section>
-<% end %>
-
 <% if @reject_description.present? %>
   <section class="spacing-below-15">
     <strong><%= t('.reject_desc') %></strong>
@@ -48,20 +31,29 @@
   </section>
 <% end %>
 
-<section class="spacing-below-15">
-  <% if @error&.auto_wait %>
-    <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
-    <%= t('.next_steps.can_edit.body') %>
-  <% else %>
+<!--  <section class="spacing-below-15">-->
+<!--    <p class="spacing-below-5"><strong><%#= t('.whats_next') %></strong></p>-->
+<%#= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.its_unusual') %>
+<!--  </section>-->
+
+<% if @error.auto_cancel %>
+  <section class="spacing-below-15">
     <p class="spacing-below-5"><strong><%= t('.next_steps.no_edit.title') %></strong></p>
     <%= t('.next_steps.no_edit.body_html') %>
-  <% end %>
-</section>
+  </section>
+<% end %>
 
-<section>
-  <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-  <%= t('.contact_us') %>
-</section>
+<% if @error&.auto_wait %>
+  <section class="spacing-below-15">
+    <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
+    <%= @error.resolution(I18n.locale).present? && @error.expose ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
+  </section>
+
+  <section>
+    <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+    <%= t('.contact_us') %>
+  </section>
+<% end %>
 
 <% if @error&.auto_wait %>
   <% edit_return_path = params[:us_state] == 'az' ? az_questions_name_dob_path : ny_questions_name_dob_path %>
