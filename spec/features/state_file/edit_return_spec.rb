@@ -24,7 +24,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
            code: "STATE-901",
            severity: "Reject",
            source: "irs",
-           product_type: :state_file
+           service_type: :state_file
   }
   let(:raw_response) do
     "<Acknowledgement>\n
