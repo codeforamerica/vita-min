@@ -222,7 +222,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
-  forms:spec
+  forms:
     errors:
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
