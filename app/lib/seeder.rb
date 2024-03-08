@@ -1,6 +1,7 @@
 if Rails.env.production?
   # Avoid installing testing/time_helpers in production
   class Seeder; end
+
   return
 end
 
@@ -8,6 +9,24 @@ require 'active_support/testing/time_helpers'
 
 class Seeder
   include ActiveSupport::Testing::TimeHelpers
+
+  def run
+    return if Rails.env.production?
+
+    self.class.load_fraud_indicators
+
+    Flipper.enable(:eitc)
+
+    create_vita_partners
+
+    create_hub_users
+
+    create_gyr_intakes
+
+    create_ctc_intakes
+  end
+
+  private
 
   def self.load_fraud_indicators
     return unless File.exist?('config/fraud_indicators.key')
@@ -25,11 +44,78 @@ class Seeder
     end
   end
 
-  def run
-    self.class.load_fraud_indicators
+  def find_or_create_intake_and_client(intake_type, attributes)
+    attributes[:preferred_name] = attributes[:primary_first_name] if attributes[:preferred_name].blank?
+    attributes[:product_year] = Rails.configuration.product_year if attributes[:product_year].blank? && !intake_type.ancestors.include?(Archived::Intake2021)
 
-    Flipper.enable(:eitc)
+    attributes[:visitor_id] = SecureRandom.hex(26)
 
+    finder_columns = [:primary_first_name, :primary_last_name, :preferred_name]
+    finder_attributes = attributes.slice(*finder_columns)
+    if finder_attributes.blank?
+      raise "Seeder must provide at least one of (#{finder_columns.join(', ')}) when making an intake"
+    end
+
+    intake = intake_type.find_by(finder_attributes) || intake_type.new(finder_attributes)
+    return intake if intake.persisted?
+
+    client_attributes = attributes.delete(:client_attributes)
+    unless intake.client
+      intake.client = Client.new(client_attributes)
+    end
+
+    tax_return_attributes = attributes.delete(:tax_return_attributes)
+    dependent_attributes = attributes.delete(:dependent_attributes)
+    w2_attributes = attributes.delete(:w2_attributes)
+    intake.update!(attributes)
+
+    unless intake.tax_returns.present?
+      tax_return_attributes.each do |tax_year_attributes|
+        status = tax_year_attributes.delete(:current_state) || "intake_ready"
+        tax_return = intake.client.tax_returns.create(tax_year_attributes)
+        tax_return.transition_to!(status)
+      end
+    end
+
+    unless intake.dependents.present?
+      dependent_attributes&.each do |da|
+        intake.dependents.create!(da)
+      end
+    end
+
+    unless intake_type.ancestors.include?(Archived::Intake2021)
+      unless intake.w2s_including_incomplete.present?
+        w2_attributes&.each do |w2|
+          intake.w2s_including_incomplete.create!(w2)
+        end
+      end
+    end
+
+    intake
+  end
+
+  def attach_upload_to_document(document)
+    document.upload.attach(
+      io: File.open(Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")),
+      filename: "document_bundle.pdf"
+    ) unless document.upload.present?
+    document.save
+  end
+
+  def add_images_to_verification_attempt(verification_attempt)
+    verification_attempt.selfie.attach(
+      io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
+      filename: 'test.jpg',
+      content_type: 'image/jpeg'
+    ) unless verification_attempt.selfie.present?
+    verification_attempt.photo_identification.attach(
+      io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
+      filename: 'test.jpg',
+      content_type: 'image/jpeg'
+    ) unless verification_attempt.photo_identification.present?
+  end
+
+  def create_vita_partners
     VitaProvider.find_or_initialize_by(name: "Public Library of the Seed Data").update(irs_id: "12345", coordinates: Geometry.coords_to_point(lat: 37.781707, lon: -122.408363), details: "972 Mission St\nSan Francisco, CA 94103\nAsk for help at the front desk\nFull Service\n415-555-1212")
     national_org = VitaPartner.find_or_create_by!(name: "GYR National Organization", type: Organization::TYPE)
     national_org.update(allows_greeters: true, national_overflow_location: true)
@@ -75,7 +161,9 @@ class Seeder
       zip_code: "94016",
       vita_partner: first_site,
     )
+  end
 
+  def create_hub_users
     strong_shared_password = "vitavitavitavita"
 
     # organization lead user
@@ -137,7 +225,9 @@ class Seeder
     )
 
     greeter_user.update(role: GreeterRole.create) if greeter_user.role_type != GreeterRole::TYPE
+  end
 
+  def create_gyr_intakes
     intake = find_or_create_intake_and_client(
       Intake::GyrIntake,
       primary_first_name: "Captain",
@@ -257,6 +347,41 @@ class Seeder
       )
     end
 
+    find_or_create_intake_and_client(
+      Archived::Intake::GyrIntake2021,
+      primary_first_name: "ArchivedGyr2021",
+      primary_last_name: "Adams",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 75.years.ago,
+      primary_tin_type: 'ssn',
+      email_address: "archived2021@example.com",
+      email_address_verified_at: Time.current,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+    )
+
+    find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      product_year: 2022,
+      primary_first_name: "GyrPy2022",
+      primary_last_name: "Bingocard",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 75.years.ago,
+      primary_tin_type: 'ssn',
+      email_address: "archived2022@example.com",
+      email_address_verified_at: Time.current,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+    )
+
+    Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "America/Indianapolis", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "Mexico/Tijuana", activated_at: nil)
+    Fraud::Indicators::Timezone.create(name: "America/New_York", activated_at: DateTime.now)
+    Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
+    SearchIndexer.refresh_search_index
+  end
+
+  def create_ctc_intakes
     intake_for_verification_attempt_1 = find_or_create_intake_and_client(
       Intake::CtcIntake,
       primary_first_name: "VerifierOne",
@@ -292,13 +417,12 @@ class Seeder
     end
     bypass_attempt.transition_to(:pending)
 
-
     verifying_with_restricted_intake = find_or_create_intake_and_client(
-        Intake::CtcIntake,
-        primary_first_name: "RestrictedVerifier",
-        primary_last_name: "Smith",
-        primary_consented_to_service: "yes",
-        tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+      Intake::CtcIntake,
+      primary_first_name: "RestrictedVerifier",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
     verifying_with_restricted_intake.client.touch(:restricted_at)
@@ -461,109 +585,5 @@ class Seeder
         }
       ],
     )
-
-    find_or_create_intake_and_client(
-      Archived::Intake::GyrIntake2021,
-      primary_first_name: "ArchivedGyr2021",
-      primary_last_name: "Adams",
-      primary_consented_to_service: "yes",
-      primary_birth_date: 75.years.ago,
-      primary_tin_type: 'ssn',
-      email_address: "archived2021@example.com",
-      email_address_verified_at: Time.current,
-      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
-    )
-
-    find_or_create_intake_and_client(
-      Intake::GyrIntake,
-      product_year: 2022,
-      primary_first_name: "GyrPy2022",
-      primary_last_name: "Bingocard",
-      primary_consented_to_service: "yes",
-      primary_birth_date: 75.years.ago,
-      primary_tin_type: 'ssn',
-      email_address: "archived2022@example.com",
-      email_address_verified_at: Time.current,
-      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
-    )
-
-    Fraud::Indicators::Timezone.create(name: "America/Chicago", activated_at: DateTime.now)
-    Fraud::Indicators::Timezone.create(name: "America/Indiana/Indianapolis", activated_at: DateTime.now)
-    Fraud::Indicators::Timezone.create(name: "America/Indianapolis", activated_at: DateTime.now)
-    Fraud::Indicators::Timezone.create(name: "Mexico/Tijuana", activated_at: nil)
-    Fraud::Indicators::Timezone.create(name: "America/New_York", activated_at: DateTime.now)
-    Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
-    SearchIndexer.refresh_search_index
-  end
-
-  def find_or_create_intake_and_client(intake_type, attributes)
-    attributes[:preferred_name] = attributes[:primary_first_name] if attributes[:preferred_name].blank?
-    attributes[:product_year] = Rails.configuration.product_year if attributes[:product_year].blank? && !intake_type.ancestors.include?(Archived::Intake2021)
-
-    attributes[:visitor_id] = SecureRandom.hex(26)
-
-    finder_columns = [:primary_first_name, :primary_last_name, :preferred_name]
-    finder_attributes = attributes.slice(*finder_columns)
-    if finder_attributes.blank?
-      raise "Seeder must provide at least one of (#{finder_columns.join(', ')}) when making an intake"
-    end
-
-    intake = intake_type.find_by(finder_attributes) || intake_type.new(finder_attributes)
-    return intake if intake.persisted?
-
-    client_attributes = attributes.delete(:client_attributes)
-    unless intake.client
-      intake.client = Client.new(client_attributes)
-    end
-
-    tax_return_attributes = attributes.delete(:tax_return_attributes)
-    dependent_attributes = attributes.delete(:dependent_attributes)
-    w2_attributes = attributes.delete(:w2_attributes)
-    intake.update!(attributes)
-
-    unless intake.tax_returns.present?
-      tax_return_attributes.each do |tax_year_attributes|
-        status = tax_year_attributes.delete(:current_state) || "intake_ready"
-        tax_return = intake.client.tax_returns.create(tax_year_attributes)
-        tax_return.transition_to!(status)
-      end
-    end
-
-    unless intake.dependents.present?
-      dependent_attributes&.each do |da|
-        intake.dependents.create!(da)
-      end
-    end
-
-    unless intake_type.ancestors.include?(Archived::Intake2021)
-      unless intake.w2s_including_incomplete.present?
-        w2_attributes&.each do |w2|
-          intake.w2s_including_incomplete.create!(w2)
-        end
-      end
-    end
-
-    intake
-  end
-
-  def attach_upload_to_document(document)
-    document.upload.attach(
-      io: File.open(Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")),
-      filename: "document_bundle.pdf"
-    ) unless document.upload.present?
-    document.save
-  end
-
-  def add_images_to_verification_attempt(verification_attempt)
-    verification_attempt.selfie.attach(
-      io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
-      filename: 'test.jpg',
-      content_type: 'image/jpeg'
-    ) unless verification_attempt.selfie.present?
-    verification_attempt.photo_identification.attach(
-      io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")),
-      filename: 'test.jpg',
-      content_type: 'image/jpeg'
-    ) unless verification_attempt.photo_identification.present?
   end
 end
