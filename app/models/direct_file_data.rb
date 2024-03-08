@@ -621,7 +621,7 @@ class DirectFileData
   end
 
   def third_party_designee_ind=(value)
-    create_or_destroy_df_xml_node(__method__, false, 'ThirdPartyDesigneeInd')
+    create_or_destroy_df_xml_node(__method__, true, 'ThirdPartyDesigneeInd')
     write_df_xml_value(__method__, value)
   end
 
