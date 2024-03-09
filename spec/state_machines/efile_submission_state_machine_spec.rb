@@ -223,6 +223,27 @@ describe EfileSubmissionStateMachine do
           expect(ClientMessagingService).not_to have_received(:send_system_message_to_all_opted_in_contact_methods)
         end
       end
+
+      context "schedule job for still processing notice" do
+        context "for state filing" do
+          it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
+            fake_time = Time.now
+            submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
+            Timecop.freeze(fake_time) do
+              expect {
+                submission.transition_to!(:failed)
+              }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload, run_at: fake_time + 24.hours)
+            end
+          end
+        end
+
+        context "not for state filing" do
+          it "does not enqueue StateFile::SendStillProcessingNoticeJob" do
+            submission.transition_to!(:failed)
+            expect(StateFile::SendStillProcessingNoticeJob).not_to have_been_enqueued.with(submission)
+          end
+        end
+      end
     end
 
     context "to rejected" do
@@ -247,7 +268,6 @@ describe EfileSubmissionStateMachine do
         allow(after_transition_messaging_service)
           .to receive(:send_efile_submission_rejected_message)
         submission.transition_to!(:notified_of_rejection)
-
       end
     end
 

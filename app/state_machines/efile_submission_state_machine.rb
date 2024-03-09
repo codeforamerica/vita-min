@@ -132,6 +132,10 @@ class EfileSubmissionStateMachine
     if submission.is_for_federal_filing?
       send_mixpanel_event(submission, "ctc_efile_return_failed")
     end
+
+    if submission.is_for_state_filing?
+      StateFile::SendStillProcessingNoticeJob.perform_later(submission, run_at: 24.hours.from_now)
+    end
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|

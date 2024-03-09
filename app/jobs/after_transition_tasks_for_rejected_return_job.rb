@@ -32,8 +32,8 @@ class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
 
       if submission.is_for_state_filing?
         EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+        StateFile::SendStillProcessingNoticeJob.perform_later(submission, run_at: 24.hours.from_now)
       end
-
     end
   end
 
