@@ -1736,6 +1736,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.integer "confirmed_permanent_address", default: 0, null: false
+    t.integer "confirmed_third_party_designee", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
