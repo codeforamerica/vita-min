@@ -36,7 +36,8 @@ describe StateFileW2 do
         state_file_intake: intake,
         state_income_tax_amt: 600,
         state_wages_amt: 8000,
-        w2_index: 0
+        w2_index: 0,
+        wages_amt: 2100
       )
     }
 
