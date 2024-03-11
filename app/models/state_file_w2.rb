@@ -70,6 +70,9 @@ class StateFileW2 < ApplicationRecord
     if local_income_tax_amt.present? && local_wages_and_tips_amt.present? && local_income_tax_amt > local_wages_and_tips_amt
       errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
     end
+    if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt+)
+      #Inputs for State income tax (Box 17) + Local income tax (Box 19) cannot be greater than WagesAmt
+    # If StateIncomeTaxAmt + LocalIncomeTaxAmt > WagesAmt, then show error message: "Total income tax cannot be greater than [WagesAmt]."
   end
 
   def locality_nm_to_upper_case
@@ -87,6 +90,7 @@ class StateFileW2 < ApplicationRecord
     xml_template.at(:LocalWagesAndTipsAmt).content = local_wages_and_tips_amt
     xml_template.at(:LocalIncomeTaxAmt).content = local_income_tax_amt
     xml_template.at(:LocalityNm).content = locality_nm
+    xml_template.at(:WagesAmt).content = wages_amt
 
     result = xml_template.at(:W2StateTaxGrp)
     delete_blank_nodes(result)
