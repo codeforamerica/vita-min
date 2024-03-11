@@ -72,8 +72,8 @@ class StateFileW2 < ApplicationRecord
       errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
     end
     if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt + local_income_tax_amt > wages_amt)
-      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error"))
-      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error"))
+      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amt: wages_amt))
+      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amt: wages_amt))
     end
   end
 
