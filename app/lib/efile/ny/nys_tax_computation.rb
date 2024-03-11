@@ -29,7 +29,6 @@ module Efile
 
         def joint_filer_worksheets
           [
-            #
             WorksheetBottomBracket.new( 107_650,           161_550, 0.055), # worksheet 1
             WorksheetMidBracket.new(    161_550,           323_200,    333,    807), # worksheet 2
             WorksheetMidBracket.new(    323_200,         2_155_350,  1_140,  2_747), # worksheet 3
