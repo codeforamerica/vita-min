@@ -36,8 +36,7 @@ class StateFileW2 < ApplicationRecord
   XML
   belongs_to :state_file_intake, polymorphic: true
 
-  validates_numericality_of :w2_index, only_integer: true, message: I18n.t('errors.messages.whole_number')
-  validates :w2_index, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/ }, length: {maximum: 16}
   validates_numericality_of :state_wages_amt, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { state_wages_amt.present? }
