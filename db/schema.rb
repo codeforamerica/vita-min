@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_11_182225) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1840,7 +1840,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_11_182225) do
     t.integer "state_wages_amt"
     t.datetime "updated_at", null: false
     t.integer "w2_index"
-    t.integer "wages_amt"
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 

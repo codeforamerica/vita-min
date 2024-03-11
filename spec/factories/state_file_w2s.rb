@@ -11,7 +11,6 @@
 #  state_income_tax_amt     :integer
 #  state_wages_amt          :integer
 #  w2_index                 :integer
-#  wages_amt                :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  state_file_intake_id     :bigint

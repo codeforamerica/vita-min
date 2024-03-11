@@ -11,7 +11,6 @@
 #  state_income_tax_amt     :integer
 #  state_wages_amt          :integer
 #  w2_index                 :integer
-#  wages_amt                :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  state_file_intake_id     :bigint
@@ -21,6 +20,7 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
+
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML
   <W2StateTaxGrp>
@@ -71,9 +71,9 @@ class StateFileW2 < ApplicationRecord
     if local_income_tax_amt.present? && local_wages_and_tips_amt.present? && local_income_tax_amt > local_wages_and_tips_amt
       errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
     end
-    if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt + local_income_tax_amt > wages_amt)
-      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amt: wages_amt))
-      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amt: wages_amt))
+    if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt + local_income_tax_amt > state_file_intake.direct_file_data.w2s[w2_index].WagesAmt)
+      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amount: state_file_intake.direct_file_data.w2s[w2_index].WagesAmt))
+      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amount: state_file_intake.direct_file_data.w2s[w2_index].WagesAmt))
     end
   end
 
@@ -92,7 +92,6 @@ class StateFileW2 < ApplicationRecord
     xml_template.at(:LocalWagesAndTipsAmt).content = local_wages_and_tips_amt
     xml_template.at(:LocalIncomeTaxAmt).content = local_income_tax_amt
     xml_template.at(:LocalityNm).content = locality_nm
-    xml_template.at(:WagesAmt).content = wages_amt
 
     result = xml_template.at(:W2StateTaxGrp)
     delete_blank_nodes(result)
