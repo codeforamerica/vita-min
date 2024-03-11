@@ -584,6 +584,12 @@ $state-colors: (
       background-color: $state-color;
     }
   }
+
+  .loading-container {
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
 }
 
 .federal-info-controller-subform, .federal-info-controller-subform-section {
