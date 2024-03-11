@@ -103,5 +103,45 @@ RSpec.describe StateFile1099G do
       expect(state_file_1099.recipient_address_line1).to eq "123 Main St"
       expect(state_file_1099.recipient_address_line2).to eq nil
     end
+
+    context "non-integer number" do
+      let(:state_file_1099) { build(
+        :state_file1099_g,
+        intake: create(:state_file_ny_intake),
+        address_confirmation: 'no',
+        recipient_city: 'New York',
+        recipient_street_address: '123 Main St',
+        recipient_street_address_apartment: 'Apt E',
+        recipient_zip: '11102',
+        unemployment_compensation: '2.5',
+        federal_income_tax_withheld: '0',
+        state_income_tax_withheld: '0',
+        ) }
+
+      it "validates unemployment_compensation for a whole number" do
+        state_file_1099.valid?
+        expect(state_file_1099.errors[:unemployment_compensation]).to include "must be a whole number"
+      end
+    end
+
+    context "for wrong range" do
+      let(:state_file_1099) { build(
+        :state_file1099_g,
+        intake: create(:state_file_ny_intake),
+        address_confirmation: 'no',
+        recipient_city: 'New York',
+        recipient_street_address: '123 Main St',
+        recipient_street_address_apartment: 'Apt E',
+        recipient_zip: '11102',
+        unemployment_compensation: '0',
+        federal_income_tax_withheld: '0',
+        state_income_tax_withheld: '0',
+        ) }
+
+      it "validates unemployment_compensation" do
+        state_file_1099.valid?
+        expect(state_file_1099.errors[:unemployment_compensation]).to include "must be greater than or equal to 1"
+      end
+    end
   end
 end
