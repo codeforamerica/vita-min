@@ -20,7 +20,6 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
-
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML
   <W2StateTaxGrp>
