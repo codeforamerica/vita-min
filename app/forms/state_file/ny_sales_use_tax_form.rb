@@ -7,7 +7,7 @@ module StateFile
 
     validates :untaxed_out_of_state_purchases, presence: true
     validates :sales_use_tax_calculation_method, presence: true, if: -> { untaxed_out_of_state_purchases == "yes" }
-    validates_numericality_of :sales_use_tax, only_integer: true, message: I18n.t('errors.messages.whole_number')
+    validates_numericality_of :sales_use_tax, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { untaxed_out_of_state_purchases == "yes" }
     validates :sales_use_tax,
       presence: true,
       numericality: {
