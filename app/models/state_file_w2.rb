@@ -11,6 +11,7 @@
 #  state_income_tax_amt     :integer
 #  state_wages_amt          :integer
 #  w2_index                 :integer
+#  wages_amt                :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  state_file_intake_id     :bigint
@@ -70,9 +71,10 @@ class StateFileW2 < ApplicationRecord
     if local_income_tax_amt.present? && local_wages_and_tips_amt.present? && local_income_tax_amt > local_wages_and_tips_amt
       errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
     end
-    if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt+)
-      #Inputs for State income tax (Box 17) + Local income tax (Box 19) cannot be greater than WagesAmt
-    # If StateIncomeTaxAmt + LocalIncomeTaxAmt > WagesAmt, then show error message: "Total income tax cannot be greater than [WagesAmt]."
+    if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt + local_income_tax_amt > wages_amt)
+      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error"))
+      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error"))
+    end
   end
 
   def locality_nm_to_upper_case

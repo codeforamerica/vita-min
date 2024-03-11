@@ -2381,6 +2381,7 @@ en:
           locality_nm_missing_error: Please select locality name
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
+          wages_amt_error: Total income tax cannot be greater than %{wages_amount}
           w2s_error: Please update all of the W-2s listed above to continue.
         index:
           title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
