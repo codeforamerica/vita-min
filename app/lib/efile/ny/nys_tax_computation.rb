@@ -29,12 +29,12 @@ module Efile
 
         def joint_filer_worksheets
           [
-             WorksheetBottomBracket.new( 107_650,           161_550, 0.055), # worksheet 1
-             WorksheetMidBracket.new(    161_550,           323_200,    333,    807), # worksheet 2
-             WorksheetMidBracket.new(    323_200,         2_155_350,  1_140,  2_747), # worksheet 3
-             WorksheetMidBracket.new(    2_155_350,       5_000_000,  3_887, 60_350), # worksheet 4
-             WorksheetMidBracket.new(    5_000_000, Float::INFINITY, 64_237, 32_500), # worksheet 5
-             WorksheetTopBracket.new # worksheet 6
+            WorksheetBottomBracket.new( 107_650,           161_550, 0.055), # worksheet 1
+            WorksheetMidBracket.new(    161_550,           323_200,    333,    807), # worksheet 2
+            WorksheetMidBracket.new(    323_200,         2_155_350,  1_140,  2_747), # worksheet 3
+            WorksheetMidBracket.new(    2_155_350,       5_000_000,  3_887, 60_350), # worksheet 4
+            WorksheetMidBracket.new(    5_000_000, Float::INFINITY, 64_237, 32_500), # worksheet 5
+            WorksheetTopBracket.new # worksheet 6
           ]
         end
 
