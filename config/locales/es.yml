@@ -2338,6 +2338,7 @@ es:
           see_detailed_return: 'Ver información detallada de la declaración:'
           standard_deduction: Deducción estándar
           taxable_income: Ingreso gravable
+          third_party_designee: Designada de terceros
           total_dependent_exemptions: Total de exenciones por dependientes
           total_new_york_additions: Total de adiciones de Nueva York
           total_new_york_subtractions: Total de sustracciones de Nueva York
@@ -2363,6 +2364,13 @@ es:
           helper_heading: "¿Cómo encuentro mi distrito escolar?"
           school_district_name: Nombre del Distrito Escolar
           title: Selecciona el distrito escolar donde vivías el 31 de diciembre de %{filing_year}
+      ny_third_party_designee:
+        edit:
+          reveal:
+            body_html: 'Al seleccionar a un tercero designado, usted autoriza al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También autoriza a la persona designada a dar y recibir información confidencial del contribuyente relacionada con: <br> <b><ul class="list--bulleted">   <li>esta declaración, incluida la información faltante   <li>cualquier aviso o factura que surja de esta presentación que usted comparte con la persona designada (no se enviarán a la persona designada)  <li>cualquier pago y actividad de cobro que surja de esta presentación, y   <li>el estado de su declaración o reembolso. </ul>'
+            title: "¿Qué puede discutir el Departamento de Impuestos y Finanzas de Nueva York con mi tercero designado?"
+          subtitle: Al seleccionar Sí, usted convierte a esta persona en su tercero designado para su declaración estatal.
+          title_html: Parece que le dio permiso al IRS para discutir su declaración de impuestos federales con %{name}. <br><br> ¿Le gustaría permitir que esta misma persona analice su declaración de impuestos del estado de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
       ny_w2:
         edit:
           box15_html: |

@@ -7,6 +7,7 @@
 #  account_type                       :integer          default("unfilled"), not null
 #  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
+#  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_sign_in_at                 :datetime
@@ -145,6 +146,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_part_year_nyc_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_part_year_nyc_resident
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
+  enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
 
   before_save do
     save_nil_enums_with_unfilled
