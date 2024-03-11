@@ -2381,7 +2381,7 @@ es:
           locality_nm_missing_error: Por favor seleccione el nombre de la localidad
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Por favor ingrese los salarios y propinas estatales.
-          w2s_error: Actualice todos los formularios W-2 enumerados anteriormente para continuar.
+          w2s_error: Actualice los formularios W-2 antes de continuar.
         index:
           title: Proporcione información fiscal estatal para los siguientes formularios W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
           updated: Has actualizado este W-2

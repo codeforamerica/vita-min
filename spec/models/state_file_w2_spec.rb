@@ -23,21 +23,21 @@
 require "rails_helper"
 
 describe StateFileW2 do
+  let(:intake) { create :state_file_ny_intake }
+  let(:w2) {
+    create(:state_file_w2,
+      employer_state_id_num: "001245788",
+      local_income_tax_amt: 200,
+      local_wages_and_tips_amt: 8000,
+      locality_nm: "NYC",
+      state_file_intake: intake,
+      state_income_tax_amt: 600,
+      state_wages_amt: 8000,
+      w2_index: 0
+    )
+  }
 
   context "validation" do
-    let(:intake) { create :state_file_ny_intake }
-    let(:w2) {
-      create(:state_file_w2,
-        employer_state_id_num: "001245788",
-        local_income_tax_amt: 200,
-        local_wages_and_tips_amt: 8000,
-        locality_nm: "NYC",
-        state_file_intake: intake,
-        state_income_tax_amt: 600,
-        state_wages_amt: 8000,
-        w2_index: 0
-      )
-    }
 
     it "validates" do
       expect(w2).to be_valid
@@ -121,5 +121,27 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
+  end
+
+  describe "generating xml" do
+    it "Grabs the state code from the intake" do
+      xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+      expect(xml.at("StateAbbreviationCd").text).to eq "NY"
+    end
+
+    context "with an Arizona Intake" do
+      let(:intake) { create :state_file_az_intake }
+
+      it "Grabs the state code from the intake" do
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("StateAbbreviationCd").text).to eq "AZ"
+      end
+    end
+
+    it "does not emit a StateAbbreviationCd if there is no EmployerStateIdNum" do
+      w2.employer_state_id_num = ""
+      xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+      expect(xml.at("StateAbbreviationCd")).to be_nil
+    end
   end
 end
