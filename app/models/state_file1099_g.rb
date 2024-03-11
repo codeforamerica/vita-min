@@ -49,8 +49,10 @@ class StateFile1099G < ApplicationRecord
   validates :recipient_zip, zip_code: true
   validates_numericality_of :unemployment_compensation, only_integer: true, message: I18n.t('errors.messages.whole_number')
   validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1 }
-  validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
-  validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0, only_integer: true }
+  validates_numericality_of :federal_income_tax_withheld, only_integer: true, message: I18n.t('errors.messages.whole_number')
+  validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
+  validates_numericality_of :state_income_tax_withheld, only_integer: true, message: I18n.t('errors.messages.whole_number')
+  validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
 
   def update_conditional_attributes
     if address_confirmation_yes?
