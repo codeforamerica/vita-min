@@ -95,6 +95,7 @@ translation:
 ## Do not consider these keys missing:
 ignore_missing:
   - 'date.formats.medium'
+  - 'errors.*'
   - 'views.public_pages.faq.*'
   - 'devise.omniauth_callbacks.{failure,success}'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'

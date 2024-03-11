@@ -696,6 +696,7 @@ class DirectFileData
       NonqualifiedPlansAmt: 'NonqualifiedPlansAmt',
       RetirementPlanInd: 'RetirementPlanInd',
       ThirdPartySickPayInd: 'ThirdPartySickPayInd',
+      StateAbbreviationCd: 'W2StateTaxGrp StateAbbreviationCd',
       StateWagesAmt: 'W2StateTaxGrp StateWagesAmt',
       StateIncomeTaxAmt: 'W2StateTaxGrp StateIncomeTaxAmt',
       LocalWagesAndTipsAmt: 'W2LocalTaxGrp LocalWagesAndTipsAmt',
@@ -853,6 +854,15 @@ class DirectFileData
 
     def WithholdingAmt=(value)
       write_df_xml_value(__method__, value)
+    end
+
+    def StateAbbreviationCd
+      df_xml_value(__method__)
+    end
+
+    def StateAbbreviationCd=(value)
+      create_or_destroy_df_xml_node(__method__, value)
+      write_df_xml_value(__method__, value) if value.present?
     end
 
     def StateWagesAmt

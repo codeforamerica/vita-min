@@ -28,11 +28,12 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
       end
 
       it "avoids the crash and increments a datadog metric" do
-        expect { connect("/cable").current_user }.to raise_error(ActionCable::Connection::Authorization::UnauthorizedError)
+        expect { connect "/cable" }.not_to raise_error
+        expect(connection.current_user).to eq(nil)
 
         expect(@emit_point_params).to eq([
-                                           ["vita-min.dogapi.application_cable.uncaught_throw_warden_error", 1, {:tags=>["env:test"], :type=>"count"}]
-                                         ])
+          ["vita-min.dogapi.application_cable.uncaught_throw_warden_error", 1, {:tags=>["env:test"], :type=>"count"}]
+        ])
       end
     end
   end

@@ -40,11 +40,11 @@ module Efile
 
         def single_filer_worksheets
           [
-             WorksheetBottomBracket.new(   107_650,        215_400, 0.06), # worksheet 7
-             WorksheetMidBracket.new(      215_400,      1_077_550,    568,  1_831), # worksheet 8
-             WorksheetMidBracket.new(    1_077_550,      5_000_000,  2_399, 30_172), # worksheet 9
-             WorksheetMidBracket.new(   5_000_000, Float::INFINITY, 32_571, 32_500), # worksheet 10
-             WorksheetTopBracket.new # worksheet 11
+            WorksheetBottomBracket.new(   107_650,        215_400, 0.06), # worksheet 7
+            WorksheetMidBracket.new(      215_400,      1_077_550,    568,  1_831), # worksheet 8
+            WorksheetMidBracket.new(    1_077_550,      5_000_000,  2_399, 30_172), # worksheet 9
+            WorksheetMidBracket.new(   5_000_000, Float::INFINITY, 32_571, 32_500), # worksheet 10
+            WorksheetTopBracket.new # worksheet 11
           ]
         end
 
@@ -82,6 +82,12 @@ module Efile
         def initialize(floor, taxable_income_ceiling, rate)
           @rate = rate
           super(floor, taxable_income_ceiling)
+        end
+
+        def valid_for(agi, taxable_income)
+          agi_within_bracket = (floor < agi) && (agi <= AGI_TOP_BRACKET_THRESHOLD)
+          taxable_income_within_bracket = (taxable_income <= taxable_income_ceiling)
+          agi_within_bracket && taxable_income_within_bracket
         end
 
         def compute(agi, taxable_income, filing_status)

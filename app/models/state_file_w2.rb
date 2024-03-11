@@ -39,7 +39,7 @@ class StateFileW2 < ApplicationRecord
   validates_numericality_of :w2_index, only_integer: true, message: I18n.t('errors.messages.whole_number')
   validates :w2_index, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-  validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/ }
+  validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/ }, length: {maximum: 16}
   validates_numericality_of :state_wages_amt, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { state_wages_amt.present? }
   validates :state_wages_amt, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amt.present? }
   validates_numericality_of :state_income_tax_amt, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { state_income_tax_amt.present? }
@@ -75,6 +75,15 @@ class StateFileW2 < ApplicationRecord
     if local_income_tax_amt.present? && local_wages_and_tips_amt.present? && local_income_tax_amt > local_wages_and_tips_amt
       errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
     end
+    w2 = state_file_intake.direct_file_data.w2s[w2_index]
+    if w2.present?
+      if state_wages_amt.present? && state_wages_amt > w2.WagesAmt
+        errors.add(:state_wages_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
+      end
+      if local_wages_and_tips_amt.present? && local_wages_and_tips_amt > w2.WagesAmt
+        errors.add(:local_wages_and_tips_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
+      end
+    end
   end
 
   def locality_nm_to_upper_case
@@ -85,7 +94,7 @@ class StateFileW2 < ApplicationRecord
 
   def state_tax_group_xml_node
     xml_template = Nokogiri::XML(STATE_TAX_GRP_TEMPLATE)
-    xml_template.at(:StateAbbreviationCd).content = "NY"
+    xml_template.at(:StateAbbreviationCd).content = employer_state_id_num.present? ? state_file_intake.state_code.upcase : ""
     xml_template.at(:EmployerStateIdNum).content = employer_state_id_num
     xml_template.at(:StateWagesAmt).content = state_wages_amt
     xml_template.at(:StateIncomeTaxAmt).content = state_income_tax_amt
