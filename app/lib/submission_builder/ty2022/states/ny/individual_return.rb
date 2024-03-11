@@ -166,7 +166,10 @@ module SubmissionBuilder
             calculated_fields = tax_calculator.calculate
             receiving_213_credit = calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.direct_file_data.claimed_as_dependent?
             receiving_214_credit = calculated_fields[:IT214_LINE_33].present? && calculated_fields[:IT214_LINE_33] > 0
-            receiving_215_credit = calculated_fields[:IT215_LINE_1].present? && !calculated_fields[:IT215_LINE_2]
+            receiving_215_credit = calculated_fields[:IT215_LINE_1].present? &&
+                                   !calculated_fields[:IT215_LINE_2] &&
+                                    calculated_fields[:IT215_LINE_16] > 0 &&
+                                    calculated_fields[:IT215_LINE_27] > 0
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2022::States::Ny::Documents::RtnHeader,
