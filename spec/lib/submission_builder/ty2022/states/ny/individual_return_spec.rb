@@ -69,6 +69,8 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         dependent_nodes = xml.search("dependent")
         eic_dependent_nodes = dependent_nodes.select { |n| n.at("DEP_FORM_ID").text == "215" }
         expect(eic_dependent_nodes.length).to eq 3
+        expect(intake.tax_calculator.calculate[:IT215_LINE_16]).to be_positive # E_EITC_CR_AMT
+        expect(intake.tax_calculator.calculate[:IT215_LINE_27]).to be_positive # E_NYC_EITC_CR_AMT
       end
     end
 
@@ -82,6 +84,8 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       it 'does not include the IT215 document and EIC dependents' do
         xml = described_class.build(submission).document
         expect(xml.at('IT215')).not_to be_present
+        expect(intake.tax_calculator.calculate[:IT215_LINE_16]).to be_zero
+        expect(intake.tax_calculator.calculate[:IT215_LINE_27]).to be_zero
       end
     end
 
