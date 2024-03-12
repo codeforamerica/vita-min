@@ -61,6 +61,7 @@ class DirectFileData
     third_party_designee_phone_number: 'IRS1040 ThirdPartyDesigneePhoneNum',
     third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
+    non_resident_alien: 'IRS1040 NRALiteralCd'
   }.freeze
 
   def initialize(raw_xml)
@@ -646,6 +647,14 @@ class DirectFileData
   end
 
   def third_party_designee_pin=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def non_resident_alien
+    df_xml_value(__method__)
+  end
+
+  def non_resident_alien=(value)
     write_df_xml_value(__method__, value)
   end
 
