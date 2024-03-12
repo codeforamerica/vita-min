@@ -44,26 +44,26 @@ module SubmissionBuilder
               end
 
               xml.tiPrime do
-                xml.FIRST_NAME @submission.data_source.primary.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
-                xml.MI_NAME @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
-                xml.LAST_NAME @submission.data_source.primary.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
+                xml.FIRST_NAME @submission.data_source.primary.first_name&.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
+                xml.MI_NAME @submission.data_source.primary.middle_initial&.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
+                xml.LAST_NAME @submission.data_source.primary.last_name&.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
                 if @submission.data_source.direct_file_data.mailing_street.present?
                   process_mailing_street(xml)
                 end
-                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city.strip.gsub(/\s+/, ' ')[0, 18] if @submission.data_source.direct_file_data.mailing_city.present?
+                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city.slice(0, 18) if @submission.data_source.direct_file_data.mailing_city.present?
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_state.present?
-                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.strip.gsub(/\s+/, ' ')[0, 5] if @submission.data_source.direct_file_data.mailing_zip.present?
+                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.slice(0, 5) if @submission.data_source.direct_file_data.mailing_zip.present?
                 xml.COUNTY_CD @submission.data_source.county_code.strip.gsub(/\s+/, ' ') if @submission.data_source.county_code.present?
-                xml.COUNTY_NAME @submission.data_source.county_name.strip.gsub(/\s+/, ' ')[0, 20] if @submission.data_source.county_name.present?
+                xml.COUNTY_NAME @submission.data_source.county_name.slice(0, 20) if @submission.data_source.county_name.present?
                 if @submission.data_source.permanent_street.present?
                   process_permanent_street(xml)
                 end
-                xml.PERM_CTY_ADR @submission.data_source.permanent_city.strip.gsub(/\s+/, ' ')[0, 18] if @submission.data_source.permanent_city.present?
+                xml.PERM_CTY_ADR @submission.data_source.permanent_city.slice(0, 18) if @submission.data_source.permanent_city.present?
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?
                 xml.SCHOOL_CD @submission.data_source.school_district_number if @submission.data_source.school_district_number.present?
-                xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30) if @submission.data_source.school_district.present?
-                xml.PR_EMP_DESC @submission.data_source.direct_file_data..strip.gsub(/\s+/, ' ')[0, 24] if @submission.data_source.direct_file_data.primary_occupation.present?
+                xml.SCHOOL_NAME @submission.data_source.school_district.slice(0, 30) if @submission.data_source.school_district.present?
+                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation&.slice(0, 25) if @submission.data_source.direct_file_data.primary_occupation.present?
                 # We omit country name because we don't support out of country filers
                 #xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
@@ -75,7 +75,7 @@ module SubmissionBuilder
                   xml.LAST_NAME @submission.data_source.spouse.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.last_name.present?
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
                   xml.DCSD_DT @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.spouse_deceased?
-                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation.strip.gsub(/\s+/, ' ')[0, 24] if @submission.data_source.direct_file_data.spouse_occupation.present?
+                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation.slice(0, 25) if @submission.data_source.direct_file_data.spouse_occupation.present?
                 end
               elsif @submission.data_source.filing_status_mfs?
                 xml.tiSpouse do

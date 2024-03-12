@@ -51,7 +51,7 @@ module SubmissionBuilder
 
           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
-              xml.LNPriorYrs @submission.data_source.prior_last_names.strip.gsub(/\s+/, ' ')
+              xml.LNPriorYrs @submission.data_source.prior_last_names&.strip&.gsub(/\s+/, ' ')
               xml.FilingStatus filing_status
               if @submission.data_source.hoh_qualifying_person_name.present?
                 xml.QualChildDependentName do
