@@ -51,12 +51,12 @@ module SubmissionBuilder
 
           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
-              xml.LNPriorYrs @submission.data_source.prior_last_names
+              xml.LNPriorYrs @submission.data_source.prior_last_names.strip.gsub(/\s+/, ' ')
               xml.FilingStatus filing_status
               if @submission.data_source.hoh_qualifying_person_name.present?
                 xml.QualChildDependentName do
-                  xml.FirstName @submission.data_source.hoh_qualifying_person_name[:first_name]
-                  xml.LastName @submission.data_source.hoh_qualifying_person_name[:last_name]
+                  xml.FirstName @submission.data_source.hoh_qualifying_person_name[:first_name]&.strip&.gsub(/\s+/, ' ')
+                  xml.LastName @submission.data_source.hoh_qualifying_person_name[:last_name]&.strip&.gsub(/\s+/, ' ')
                 end
               end
               xml.Exemptions do
@@ -71,14 +71,14 @@ module SubmissionBuilder
                 @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.DependentDetails do
                     xml.Name do
-                      xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
-                      xml.LastName dependent.last_name
+                      xml.FirstName dependent.first_name&.strip&.gsub(/\s+/, ' ')
+                      xml.MiddleInitial dependent.middle_initial&.strip&.gsub(/\s+/, ' ') if dependent.middle_initial.present?
+                      xml.LastName dependent.last_name&.strip&.gsub(/\s+/, ' ')
                     end
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.RelationShip relationship_key(dependent.relationship)
+                    xml.RelationShip relationship_key(dependent.relationship)&.strip&.gsub(/\s+/, ' ')
                     xml.NumMonthsLived dependent.months_in_home
                     if dependent.under_17?
                       xml.DepUnder17 'X'
@@ -90,9 +90,9 @@ module SubmissionBuilder
                 @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.QualParentsAncestors do
                     xml.Name do
-                      xml.FirstName dependent.first_name
-                      xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
-                      xml.LastName dependent.last_name
+                      xml.FirstName dependent.first_name&.strip&.gsub(/\s+/, ' ')
+                      xml.MiddleInitial dependent.middle_initial&.strip&.gsub(/\s+/, ' ') if dependent.middle_initial.present?
+                      xml.LastName dependent.last_name&.strip&.gsub(/\s+/, ' ')
                     end
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')

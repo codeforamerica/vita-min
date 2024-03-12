@@ -79,17 +79,17 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, :IT201_LINE_78)
                 add_non_zero_claimed_value(xml, :RFND_AMT, :IT201_LINE_78B)
                 if @submission.data_source.confirmed_third_party_designee_yes?
-                  xml.THRD_PRTY_NAME claimed: intake.direct_file_data.third_party_designee_name
-                  xml.THRD_PRTY_PH_NMBR claimed: intake.direct_file_data.third_party_designee_phone_number
+                  xml.THRD_PRTY_NAME claimed: intake.direct_file_data.third_party_designee_name.strip.gsub(/\s+/, ' ')
+                  xml.THRD_PRTY_PH_NMBR claimed: intake.direct_file_data.third_party_designee_phone_number&.strip&.gsub(/\s+/, ' ')
                 end
                 xml.PR_SGN_IND claimed: 1
                 if @submission.data_source.spouse_esigned_yes?
                   xml.SP_SGN_IND claimed: 1
                 end
                 if intake.email_address.present?
-                  xml.TP_EMAIL_ADR claimed: intake.email_address
+                  xml.TP_EMAIL_ADR claimed: intake.email_address.strip.gsub(/\s+/, ' ')
                 elsif intake.direct_file_data.tax_payer_email.present?
-                  xml.TP_EMAIL_ADR claimed: intake.direct_file_data.tax_payer_email
+                  xml.TP_EMAIL_ADR claimed: intake.direct_file_data.tax_payer_email.strip.gsub(/\s+/, ' ')
                 end
                 if intake.direct_file_data.fed_adjustments_claimed.present?
                   xml.IT201FEDADJID do
@@ -105,10 +105,10 @@ module SubmissionBuilder
                   xml.IT201DepExmpInfo do
                     intake.dependents.each do |dependent|
                       xml.depInfo do
-                        xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name if dependent.first_name.present?
-                        xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial if dependent.middle_initial.present?
-                        xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name if dependent.last_name.present?
-                        xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") if dependent.relationship.present?
+                        xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name.strip.gsub(/\s+/, ' ') if dependent.first_name.present?
+                        xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
+                        xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
+                        xml.DEP_RELATION_DESC claimed: dependent.relationship.strip.gsub(/\s+/, ' ') if dependent.relationship.present?
                         xml.DEP_SSN_NMBR claimed: dependent.ssn if dependent.ssn.present?
                         xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
                       end

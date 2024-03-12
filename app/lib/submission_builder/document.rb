@@ -97,8 +97,8 @@ module SubmissionBuilder
       if mailing_street.length > 30
         process_long_mailing_street(xml, mailing_street)
       else
-        xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment if @submission.data_source.direct_file_data.mailing_apartment.present?
-        xml.MAIL_LN_2_ADR mailing_street
+        xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.MAIL_LN_2_ADR mailing_street.strip.gsub(/\s+/, ' ')
       end
     end
 
@@ -121,14 +121,14 @@ module SubmissionBuilder
         apartment = @submission.data_source.direct_file_data.mailing_apartment
         if apartment.length + excess_characters.length > 30
           truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
-          xml.MAIL_LN_1_ADR excess_characters + " " + truncated_apartment
+          xml.MAIL_LN_1_ADR excess_characters.strip.gsub(/\s+/, ' ') + " " + truncated_apartment.strip.gsub(/\s+/, ' ')
         else
-          xml.MAIL_LN_1_ADR excess_characters + " " + apartment
+          xml.MAIL_LN_1_ADR excess_characters.strip.gsub(/\s+/, ' ') + " " + apartment.strip.gsub(/\s+/, ' ')
         end
       else
-        xml.MAIL_LN_1_ADR excess_characters
+        xml.MAIL_LN_1_ADR excess_characters.strip.gsub(/\s+/, ' ')
       end
-      xml.MAIL_LN_2_ADR truncated_mailing_street
+      xml.MAIL_LN_2_ADR truncated_mailing_street.strip.gsub(/\s+/, ' ')
     end
 
     def process_permanent_street(xml)
@@ -139,8 +139,8 @@ module SubmissionBuilder
       if permanent_street.length > 30
         process_long_permanent_street(xml, permanent_street)
       else
-        xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment if @submission.data_source.permanent_apartment.present?
-        xml.PERM_LN_2_ADR permanent_street
+        xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.permanent_apartment.present?
+        xml.PERM_LN_2_ADR permanent_street.strip.gsub(/\s+/, ' ')
       end
     end
 
@@ -163,14 +163,14 @@ module SubmissionBuilder
         apartment = @submission.data_source.permanent_apartment
         if apartment.length + excess_characters.length > 30
           truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
-          xml.PERM_LN_1_ADR excess_characters + " " + truncated_apartment
+          xml.PERM_LN_1_ADR excess_characters.strip.gsub(/\s+/, ' ') + " " + truncated_apartment.strip.gsub(/\s+/, ' ')
         else
-          xml.PERM_LN_1_ADR excess_characters + " " + apartment
+          xml.PERM_LN_1_ADR excess_characters.strip.gsub(/\s+/, ' ') + " " + apartment.strip.gsub(/\s+/, ' ')
         end
       else
-        xml.PERM_LN_1_ADR excess_characters
+        xml.PERM_LN_1_ADR excess_characters.strip.gsub(/\s+/, ' ')
       end
-      xml.PERM_LN_2_ADR truncated_permanent_street
+      xml.PERM_LN_2_ADR truncated_permanent_street.strip.gsub(/\s+/, ' ')
     end
   end
 end
