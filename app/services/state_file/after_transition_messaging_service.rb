@@ -24,12 +24,18 @@ module StateFile
         message: message,
         body_args: body_args).send_message
 
-      # Survey Notification Email - need to wrap in a job sent 24 hours later
+      # Make a job wrapper that will send this in 24 hours
+      # send_survey_notification_message
+    end
+
+    def send_survey_notification_message
+      # Need to wrap in a job sent 24 hours later
       StateFile::MessagingService.new(
         intake: @intake,
         submission: @submission,
         message: StateFile::AutomatedMessage::SurveyNotification,
-        body_args: body_args).send_message
+        body_args: { survey_link: survey_link }
+      ).send_message
     end
 
     def send_efile_submission_rejected_message
@@ -56,6 +62,17 @@ module StateFile
         "https://www.aztaxes.gov/"
       else
         ""
+      end
+    end
+
+    def survey_link
+      case @intake.state_code
+      when 'ny'
+        'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu'
+      when 'az'
+        'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey'
+      else
+        ''
       end
     end
   end
