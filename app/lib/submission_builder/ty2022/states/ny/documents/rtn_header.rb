@@ -18,7 +18,7 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("rtnHeader") do |xml|
-                xml.COND_CODE_1_NMBR claimed: "07" if @submission.data_source.direct_file_data.non_resident_alien.present?
+                xml.COND_CODE_1_NMBR claimed: "07" if @submission.data_source.direct_file_data.non_resident_alien.present? && @submission.data_source.filing_status_mfs?
                 # xml.COND_CODE_2_NMBR
                 if @submission.data_source.confirmed_third_party_designee_yes?
                   xml.THRD_PRTY_DSGN_IND claimed: 1
