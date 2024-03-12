@@ -1522,7 +1522,17 @@ es:
     state_file:
       accepted_owe:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} aceptó tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no los pagaste mediante débito directo al presentar tu declaración.\n\nDescarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
+          body: |
+            Hola %{primary_first_name},
+            
+            ¡%{state_name} aceptó tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no los pagaste mediante débito directo al presentar tu declaración.
+            
+            Descarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+            
+            ¿Preguntas? Responde a este correo electrónico.
+            
+            Saludos, 
+            El equipo de FileYourStateTaxes
           subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
         sms: |
           Hola %{primary_first_name} - %{state_name} ha aceptado tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no has pagado mediante depósito directo o cheque.
