@@ -2745,7 +2745,7 @@ es:
         Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{url}">%{service_name}.org</a> para empezar el proceso de declarar sus impuestos.<br /><br />
 
         Estamos aquí para servirle,<br /><br />
-        
+
         Su equipo de impuestos de %{service_name}
       body_text: |
         Hola,
