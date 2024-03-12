@@ -2345,10 +2345,10 @@ es:
       ny_third_party_designee:
         edit:
           reveal:
-            body_html: ''
-            title: ''
-          subtitle: ''
-          title_html: ''
+            body_html: 'Al seleccionar a un tercero designado, usted autoriza al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También autoriza a la persona designada a dar y recibir información confidencial del contribuyente relacionada con: <br> <b><ul class="list--bulleted">   <li>esta declaración, incluida la información faltante   <li>cualquier aviso o factura que surja de esta presentación que usted comparte con la persona designada (no se enviarán a la persona designada)  <li>cualquier pago y actividad de cobro que surja de esta presentación, y   <li>el estado de su declaración o reembolso. </ul>'
+            title: "¿Qué puede discutir el Departamento de Impuestos y Finanzas de Nueva York con mi tercero designado?"
+          subtitle: Al seleccionar Sí, usted convierte a esta persona en su tercero designado para su declaración estatal.
+          title_html: Parece que le dio permiso al IRS para discutir su declaración de impuestos federales con %{name}. <br><br> ¿Le gustaría permitir que esta misma persona analice su declaración de impuestos del estado de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
       ny_w2:
         edit:
           box15_html: |
@@ -2738,12 +2738,15 @@ es:
   verification_code_mailer:
     no_match:
       body_html: |
-        <p>Hola,</p>
-        <p>Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
-        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
-        <p>Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{url}">%{service_name}.org</a> para empezar el proceso de declarar sus impuestos.</p>
-        <p>Estamos aquí para servirle,</p>
-        <p>Su equipo de impuestos de %{service_name}</p>
+        Hola,<br /><br />
+
+        Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.<br />
+        Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.<br />
+        Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{url}">%{service_name}.org</a> para empezar el proceso de declarar sus impuestos.<br /><br />
+
+        Estamos aquí para servirle,<br /><br />
+        
+        Su equipo de impuestos de %{service_name}
       body_text: |
         Hola,
 
@@ -4496,7 +4499,7 @@ es:
           major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
           minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
           privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
-          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
+          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
           sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
           sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
         title: Términos de código
