@@ -1579,6 +1579,23 @@ es:
             ¿Preguntas? Responde a este correo electrónico.
           subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
         sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.. \n\n¿Necesitas ayuda? Responde a este mensaje..\n"
+      survey_notification:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue?
+
+            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Sus comentarios sobre FileYourStateTaxes
+        sms: |
+          Hola %{primary_first_name} -¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+
+          Atentamente,
+          El equipo de FileYourStateTaxes
       welcome:
         email:
           body: |
