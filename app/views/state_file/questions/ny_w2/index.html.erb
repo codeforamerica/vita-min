@@ -20,7 +20,7 @@
         </div>
       </div>
       <div>
-        <%= link_to t("general.update"), StateFile::Questions::NyW2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index), class: "button--small button--inline-action" %>
+        <%= link_to t("general.update"), StateFile::Questions::W2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index), class: "button--small button--inline-action" %>
       </div>
     </div>
   <% end %>

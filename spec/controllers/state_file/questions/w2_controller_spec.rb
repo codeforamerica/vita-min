@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NyW2Controller do
+RSpec.describe StateFile::Questions::W2Controller do
   let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
   let(:direct_file_xml) { Nokogiri::XML(raw_direct_file_data) }
   let(:intake) do
@@ -301,7 +301,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
 
           # TODO: check other_w2 hasn't been updated? perhaps unnecessary test
 
-          expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index))
         end
       end
 
@@ -322,7 +322,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
           expect(new_w2.local_income_tax_amt).to eq 30
           expect(new_w2.locality_nm).to eq "NYC"
 
-          expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index))
         end
       end
 
