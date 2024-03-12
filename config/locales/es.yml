@@ -1524,13 +1524,13 @@ es:
         email:
           body: |
             Hola %{primary_first_name},
-            
+
             ¡%{state_name} aceptó tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no los pagaste mediante débito directo al presentar tu declaración.
-            
-            Descarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
-            
+
+            Descarga tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
             ¿Preguntas? Responde a este correo electrónico.
-            
+
             Saludos, 
             El equipo de FileYourStateTaxes
           subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
