@@ -89,8 +89,8 @@ es:
     file_yourself:
       edit:
         info:
-        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $79,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
-        - Para comenzar, necesitaremos recopilar información básica.
+          - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $79,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
+          - Para comenzar, necesitaremos recopilar información básica.
         received_1099:
           help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
           label: "¿Recibió un formulario de impuestos 1099?"
@@ -1046,8 +1046,8 @@ es:
         client_phone_number: Número de teléfono del cliente
         notice_html: Espere una llamada de <strong>%{receiving_number}</strong> cuando presione 'Llámalos ahora'.
         notice_list:
-        - Su número de teléfono permanecerá privado, no es accesible para el cliente.
-        - Siempre llamaremos desde este número; considere agregarlo a sus contactos.
+          - Su número de teléfono permanecerá privado, no es accesible para el cliente.
+          - Siempre llamaremos desde este número; considere agregarlo a sus contactos.
         title: Llamar al cliente
         your_phone_number: Su número de teléfono
       show:
@@ -1909,8 +1909,8 @@ es:
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
         02_list:
-        - Recibir un código de verificación de GetYourRefund
-        - Notificaciones sobre la declaración de impuestos
+          - Recibir un código de verificación de GetYourRefund
+          - Notificaciones sobre la declaración de impuestos
         03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
@@ -2878,8 +2878,8 @@ es:
           contact_ta: Contactar Defensores del Contribuyente
           contact_vita: Contactar un sitio de VITA
           content_html:
-          - Para comprobar el estado de su declaración de impuestos de %{current_tax_year}, puede iniciar sesión en su <a href='https://www.irs.gov/payments/your-online-account'>cuenta en línea del IRS</a>.
-          - Si necesita apoyo adicional, puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o el Servicio de Defensa del Contribuyente.
+            - Para comprobar el estado de su declaración de impuestos de %{current_tax_year}, puede iniciar sesión en su <a href='https://www.irs.gov/payments/your-online-account'>cuenta en línea del IRS</a>.
+            - Si necesita apoyo adicional, puede comunicarse con un sitio de Asistencia Voluntaria de Impuestos sobre la Renta (VITA) o el Servicio de Defensa del Contribuyente.
           title: Desafortunadamente, no puede usar GetCTC porque ya presentó una declaración de impuestos de %{current_tax_year}.
       portal:
         bank_account:
@@ -3038,8 +3038,8 @@ es:
             correct: Corregir la cantidad que recibí
             no_file: No necesito presentar una declaración de impuestos
           content:
-          - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió en 2021.
-          - Si está correcta, no recibirá ningún Crédito Tributario por Hijos, y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
+            - Usted indicó %{amount_received} para la cantidad total de los pagos adelantados del Crédito Tributario por Hijos que recibió en 2021.
+            - Si está correcta, no recibirá ningún Crédito Tributario por Hijos, y es probable que no tenga que terminar de presentar este formulario para presentar su declaración.
           title: Ya no hay más Crédito Tributario por Hijos para reclamar.
         advance_ctc_received:
           already_received: Cantidad que recibió
@@ -3065,15 +3065,15 @@ es:
             reveal:
               content_title: 'Si recibió una de estas cartas, ya ha radicado una planilla federal:'
               list_content:
-              - 12C
-              - CP21
-              - 131C
-              - 4883C
-              - 5071C
-              - 5447C
-              - 5747C
-              - 6330C
-              - 6331C
+                - 12C
+                - CP21
+                - 131C
+                - 4883C
+                - 5071C
+                - 5447C
+                - 5747C
+                - 6330C
+                - 6331C
               title: Recibí otra carta del IRS. ¿Significa que ya radiqué la planilla federal?
             title: "¿Radicó una planilla federal de %{current_tax_year} al IRS este año?"
           title: "¿Declaró este año los impuestos para %{current_tax_year}?"
@@ -3096,8 +3096,8 @@ es:
           help_text: El Crédito Tributario por Ingreso del Trabajo (EITC, por sus siglas en inglés) es un crédito tributario que puede darle hasta $6,700.
           info_box:
             list:
-            - Tenías un trabajo ganando dinero en %{current_tax_year}
-            - Cada persona en esta declaración tiene un SSN
+              - Tenías un trabajo ganando dinero en %{current_tax_year}
+              - Cada persona en esta declaración tiene un SSN
             title: 'Requisitos:'
           title: "¿Le gustaría reclamar más dinero compartiendo algún formulario W-2 de 2021?"
         confirm_bank_account:
@@ -3159,8 +3159,8 @@ es:
           child_claim_anyway:
             help_text:
               list:
-              - Quien haya vivido con %{name} durante más tiempo en %{current_tax_year} tiene derecho a reclamarlos.
-              - Si ambos pasaron el mismo tiempo viviendo con %{name} en %{current_tax_year}, el padre que ganó más dinero en %{current_tax_year} puede reclamar %{name}.
+                - Quien haya vivido con %{name} durante más tiempo en %{current_tax_year} tiene derecho a reclamarlos.
+                - Si ambos pasaron el mismo tiempo viviendo con %{name} en %{current_tax_year}, el padre que ganó más dinero en %{current_tax_year} puede reclamar %{name}.
               p1: Si usted y la otra persona que podría reclamar al dependiente son ambos sus padres legales...
               p2: Si usted es el padre legal de %{name} y la otra persona que podría reclamarlos no lo es, entonces puede reclamarlos.
             legal_parent_reveal:
@@ -3194,9 +3194,9 @@ es:
             reveal:
               body: Si su dependiente estuvo en un lugar temporal en 2021, seleccione el número de meses que su casa fue su dirección oficial.
               list:
-              - escuela
-              - centro médico
-              - centro de detención juvenil
+                - escuela
+                - centro médico
+                - centro de detención juvenil
               list_title: 'Algunos ejemplos de lugares temporales:'
               title: "¿Qué pasa si mi dependiente estuvo fuera durante una temporada en 2021?"
             select_options:
@@ -3215,31 +3215,31 @@ es:
           does_my_child_qualify_reveal:
             content:
               list_1:
-              - Su hijo de acogida/crianza debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
+                - Su hijo de acogida/crianza debe haber sido colocado con usted mediante un acuerdo formal con una agencia de acogida o una orden judicial.
               list_2:
-              - Si ha adoptado legalmente o está en proceso de adoptar legalmente a su hijo, seleccione 'hijo' o 'hija'
+                - Si ha adoptado legalmente o está en proceso de adoptar legalmente a su hijo, seleccione 'hijo' o 'hija'
               p1: "¿Quién cuenta como hijo de acogida/crianza?"
               p2: "¿Qué pasa si tengo un hijo adoptado?"
             title: "¿Mi niño califica?"
           does_not_qualify_ctc:
             conditions:
-            - La persona que intenta declarar podría haber nacido en %{filing_year}. Sólo puede declarar a  dependientes nacidos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
-            - La persona que intenta declarar podría ser demasiado mayor para ser su dependiente. Excepto en algunos casos específicos, su dependiente tiene que ser menor de 19 años, o menor de 24 si es estudiante.
-            - Es posible que la persona que intenta declarar no tenga la relación adecuada con usted para ser su dependiente. En la mayoría de los casos, su dependiente tiene que ser su hijo, nieto, sobrino o sobrina. En otros casos limitados, puede reclamar a otros familiares cercanos.
-            - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
-            - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
-            - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
+              - La persona que intenta declarar podría haber nacido en %{filing_year}. Sólo puede declarar a  dependientes nacidos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
+              - La persona que intenta declarar podría ser demasiado mayor para ser su dependiente. Excepto en algunos casos específicos, su dependiente tiene que ser menor de 19 años, o menor de 24 si es estudiante.
+              - Es posible que la persona que intenta declarar no tenga la relación adecuada con usted para ser su dependiente. En la mayoría de los casos, su dependiente tiene que ser su hijo, nieto, sobrino o sobrina. En otros casos limitados, puede reclamar a otros familiares cercanos.
+              - Es posible que la persona a la que intenta declarar no viva con usted suficiente tiempo durante el año. En la mayoría de los casos, su dependiente debe vivir con usted la mayor parte del año.
+              - Puede ser que la persona a la que intenta declarar sea económicamente independiente. En la mayoría de los casos, su dependiente no puede pagar sus propios gastos de subsistencia.
+              - Puede ser que la persona que intenta declarar sea dependiente de otra persona y no el suyo. Sólo un hogar puede declarar a un determinado dependiente.
             help_text: No guardamos a %{name} en su declaración de impuestos. Ellos no califican para ningún crédito tributario.
             puerto_rico:
               affirmative: Sí, agregar otro niño
               conditions:
-              - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final de %{current_tax_year}.
-              - La persona que intenta reclamar podría haber nacido en %{filing_year}. Solo puede reclamar hijos que estaban vivos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
-              - Es posible que la persona que está tratando de reclamar no tenga la relación correcta con usted para calificar para CTC. Debe ser su hijo, su hermano/a o un descendiente de uno de ellos.
-              - Es posible que la persona que está tratando de reclamar no vive con usted la mayor parte del año. En la mayoría de los casos, solo puede reclamar a los niños que viven con usted la mayor parte del año.
-              - La persona que está tratando de reclamar podría ser económicamente independiente. En la mayoría de los casos, solo puede reclamar a los niños si no pagan sus propios gastos de manutención.
-              - La persona que está tratando de reclamar podría ser el hijo de otra persona, no el suyo. Solo un hogar puede reclamar a un niño determinado.
-              - Es posible que la persona que está tratando de reclamar no tenga un Número de Seguro Social (SSN) válido. Para ser elegible para CTC, deben tener un Número de Seguro Social que sea válido para el empleo.
+                - La persona que está tratando de reclamar podría ser demasiado mayor para calificar para CTC. Deben tener 17 años o menos al final de %{current_tax_year}.
+                - La persona que intenta reclamar podría haber nacido en %{filing_year}. Solo puede reclamar hijos que estaban vivos en %{current_tax_year} en su declaración de impuestos de %{current_tax_year}.
+                - Es posible que la persona que está tratando de reclamar no tenga la relación correcta con usted para calificar para CTC. Debe ser su hijo, su hermano/a o un descendiente de uno de ellos.
+                - Es posible que la persona que está tratando de reclamar no vive con usted la mayor parte del año. En la mayoría de los casos, solo puede reclamar a los niños que viven con usted la mayor parte del año.
+                - La persona que está tratando de reclamar podría ser económicamente independiente. En la mayoría de los casos, solo puede reclamar a los niños si no pagan sus propios gastos de manutención.
+                - La persona que está tratando de reclamar podría ser el hijo de otra persona, no el suyo. Solo un hogar puede reclamar a un niño determinado.
+                - Es posible que la persona que está tratando de reclamar no tenga un Número de Seguro Social (SSN) válido. Para ser elegible para CTC, deben tener un Número de Seguro Social que sea válido para el empleo.
               help_text: No guardaremos %{name} en su planilla. No califica para el Crédito Tributario por Hijos.
               negative: No, continuar
               title: No puede reclamar el Crédito Tributario por Hijos por %{name}. ¿Le gustaría agregar a alguien más?
@@ -3330,13 +3330,13 @@ es:
           help_text2: Si presenta una declaración de impuestos completa, podría recibir beneficios en efectivo adicionales del Crédito Tributario por Ingreso del Trabajo, créditos fiscales estatales y más.
           help_text_eitc: Si tiene ingresos que se informan en un 1099-NEC o un 1099-K, debe presentar una declaración de impuestos completa.
           list_1_eitc:
-          - Crédito Tributario por Hijos
-          - 3er Pago de Estímulo
-          - Crédito Tributario por Ingreso del Trabajo
+            - Crédito Tributario por Hijos
+            - 3er Pago de Estímulo
+            - Crédito Tributario por Ingreso del Trabajo
           list_1_eitc_title: 'Puede presentar una declaración simplificada para reclamar:'
           list_2_eitc:
-          - Pago de estímulo 1 o 2
-          - Créditos fiscales estatales o pagos de estímulo estatales
+            - Pago de estímulo 1 o 2
+            - Créditos fiscales estatales o pagos de estímulo estatales
           list_2_eitc_title: 'No puede usar esta herramienta para reclamar:'
           puerto_rico:
             full_btn: Radicar una planilla de impuestos de Puerto Rico
@@ -3345,9 +3345,9 @@ es:
             title: Está radicando una planilla federal simplificada para reclamar solo su Crédito Tributario por Hijos.
           reveal:
             body_html:
-            - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
-            - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref"> sin cargo en GetYourRefund. </a>
+              - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
+              - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
+              - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref"> sin cargo en GetYourRefund. </a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
@@ -3381,48 +3381,48 @@ es:
           title: Para solicitar el Crédito Tributario por Hijos, debe agregar a las personas a su cargo (hijos o otras personas a las que mantiene económicamente)
           which_relationships_qualify_reveal:
             content:
-            - Hijo
-            - Hija
-            - Hijastro
-            - Hijo de acogida/crianza
-            - Sobrina
-            - Sobrino
-            - Nieto
-            - Medio hermano
-            - Media hermana
-            - Hermanastro
-            - Hermanastra
-            - Bisnieto
-            - Padre
-            - Padrastro
-            - Abuelo
-            - Tía
-            - Tío
-            - En leyes
-            - Otros descendientes de mis hermanos
-            - Otra relación no listada
+              - Hijo
+              - Hija
+              - Hijastro
+              - Hijo de acogida/crianza
+              - Sobrina
+              - Sobrino
+              - Nieto
+              - Medio hermano
+              - Media hermana
+              - Hermanastro
+              - Hermanastra
+              - Bisnieto
+              - Padre
+              - Padrastro
+              - Abuelo
+              - Tía
+              - Tío
+              - En leyes
+              - Otros descendientes de mis hermanos
+              - Otra relación no listada
             content_puerto_rico:
-            - Hijo
-            - Hija
-            - Hijastro
-            - Niño de acogida
-            - Sobrina
-            - Sobrino
-            - Nieto
-            - Medio hermano
-            - Media hermana
-            - Hermanastro
-            - Hermanastra
-            - Bisnieto
-            - Otros descendientes de mis hermanos
+              - Hijo
+              - Hija
+              - Hijastro
+              - Niño de acogida
+              - Sobrina
+              - Sobrino
+              - Nieto
+              - Medio hermano
+              - Media hermana
+              - Hermanastro
+              - Hermanastra
+              - Bisnieto
+              - Otros descendientes de mis hermanos
             title: "¿Qué relaciones califican?"
         head_of_household:
           claim_hoh: Declarar estado de Jefe de Familia, "HoH" por sus siglas en inglés.
           do_not_claim_hoh: No declarar estado de Jefe de Familia, "HoH" por sus siglas en inglés.
           eligibility_b_criteria_list:
-          - Un dependiente que sea su hijo, hermano o descendiente de uno de ellos; que viva con usted más de la mitad del año; que tenga menos de 19 años a finales de 2021, o menos de 24 y sea estudiante a tiempo completo, o que tenga una discapacidad permanente; que haya pagado menos de la mitad de sus propios gastos de manutención en 2021; y que no haya presentado la declaración conjuntamente con su cónyuge
-          - Un padre dependiente que gane menos de $4,300 y para el que usted cubra más de la mitad de sus gastos de manutención
-          - Otro familiar dependiente que viva con usted más de la mitad del año, que gane menos de $4,300 y para quien usted cubra más de la mitad de sus gastos de manutención
+            - Un dependiente que sea su hijo, hermano o descendiente de uno de ellos; que viva con usted más de la mitad del año; que tenga menos de 19 años a finales de 2021, o menos de 24 y sea estudiante a tiempo completo, o que tenga una discapacidad permanente; que haya pagado menos de la mitad de sus propios gastos de manutención en 2021; y que no haya presentado la declaración conjuntamente con su cónyuge
+            - Un padre dependiente que gane menos de $4,300 y para el que usted cubra más de la mitad de sus gastos de manutención
+            - Otro familiar dependiente que viva con usted más de la mitad del año, que gane menos de $4,300 y para quien usted cubra más de la mitad de sus gastos de manutención
           eligibility_list_a: a. No está casado
           eligibility_list_b: 'b. Tiene una o más de las siguientes características:'
           eligibility_list_c_html: "<strong>c. Usted paga al menos la mitad de los gastos de mantenimiento de la vivienda en la que vive esta persona dependiente</strong> - gastos que incluyen los impuestos sobre la propiedad, los intereses de la hipoteca, el alquiler/renta, los servicios públicos, el mantenimiento/reparaciones y los alimentos consumidos."
@@ -3436,43 +3436,43 @@ es:
             title: "¿Cómo puedo saber la fuente de mis ingresos?"
           list:
             one:
-            - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
-            - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
-            - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
+              - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
+              - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
+              - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
             other:
-            - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
-            - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
-            - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
+              - ganó menos de $400 en trabajo por contrato o ingresos de trabajo por cuenta propia
+              - no recibió el Crédito Tributario de Prima de Seguro Médico Adelantado
+              - no está obligado a presentar una declaración de impuestos completa por cualquier otra razón
           mainland_connection_reveal:
             content: Si su familia y sus pertenencias están ubicadas en cualquier de los 50 estados o en un país extranjero en lugar de Puerto Rico, o sus compromisos comunitarios son más fuertes en los 50 estados o en un país extranjero que en Puerto Rico, entonces no puede usar GetCTC como residente de Puerto Rico.
             title: "¿Qué significa tener una conexión más cercana con los Estados Unidos continentales que con Puerto Rico?"
           puerto_rico:
             list:
               one:
-              - ganó menos de %{standard_deduction} en ingresos totales
-              - ganó menos de $400 en ingresos de trabajo por cuenta propia
-              - no está obligado a radicar una planilla federal completa por cualquier otra razón
-              - todo su ingreso del trabajo vino de fuentes dentro de Puerto Rico
-              - usted vivió en Puerto Rico durante al menos la mitad del año (183 días)
-              - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
-              - no tuvo una “conexión más cercana” con ninguno de los 50 estados o con un país extranjero que la que tuvo con Puerto Rico
-              - no se mudó a Puerto Rico desde otro lugar, o se mudó de Puerto Rico a otro lugar
+                - ganó menos de %{standard_deduction} en ingresos totales
+                - ganó menos de $400 en ingresos de trabajo por cuenta propia
+                - no está obligado a radicar una planilla federal completa por cualquier otra razón
+                - todo su ingreso del trabajo vino de fuentes dentro de Puerto Rico
+                - usted vivió en Puerto Rico durante al menos la mitad del año (183 días)
+                - su lugar habitual de trabajo estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+                - no tuvo una “conexión más cercana” con ninguno de los 50 estados o con un país extranjero que la que tuvo con Puerto Rico
+                - no se mudó a Puerto Rico desde otro lugar, o se mudó de Puerto Rico a otro lugar
               other:
-              - usted y su cónyuge ganaron menos de %{standard_deduction} en ingresos totales
-              - usted y su cónyuge ganaron menos de $400 en ingresos de trabajo por cuenta propia
-              - usted y su cónyuge no están obligados a radicar una planilla federal completa por cualquier otra razón
-              - todos los ingresos del trabajo suyo y de su cónyuge vinieron de fuentes dentro de Puerto Rico
-              - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
-              - el lugar habitual de trabajo suyo y de su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
-              - usted y su cónyuge no tenían una “conexión más cercana” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
-              - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
+                - usted y su cónyuge ganaron menos de %{standard_deduction} en ingresos totales
+                - usted y su cónyuge ganaron menos de $400 en ingresos de trabajo por cuenta propia
+                - usted y su cónyuge no están obligados a radicar una planilla federal completa por cualquier otra razón
+                - todos los ingresos del trabajo suyo y de su cónyuge vinieron de fuentes dentro de Puerto Rico
+                - usted y su cónyuge vivieron en Puerto Rico durante al menos la mitad del año (183 días)
+                - el lugar habitual de trabajo suyo y de su cónyuge estaba en Puerto Rico. Si no tenía un lugar de trabajo regular, entonces su hogar principal estaba en Puerto Rico
+                - usted y su cónyuge no tenían una “conexión más cercana” con ninguno de los 50 estados o con un país extranjero que la que tenían con Puerto Rico
+                - usted y su cónyuge no se mudaron a Puerto Rico desde otro lugar, ni se mudaron de Puerto Rico a otro lugar
           self_employment_income_reveal:
             content:
               list_1:
-              - 1099 contrato de trabajo
-              - trabajo temporero
-              - conducir para Uber, Lyft o similar
-              - alquilar su casa
+                - 1099 contrato de trabajo
+                - trabajo temporero
+                - conducir para Uber, Lyft o similar
+                - alquilar su casa
               p1: Los ingresos del trabajo por cuenta propia generalmente son cualquier dinero que ganó de su propio negocio o, en algunos casos, trabajando a tiempo parcial para un empleador. Los ingresos del trabajo por cuenta propia se le informan en un 1099 en lugar de un W-2.
               p2: 'Si su empleador lo llama "contratista" en lugar de "empleado", sus ingresos de ese trabajo son ingresos por cuenta propia. Los ingresos del trabajo por cuenta propia podrían incluir:'
             title: "¿Qué se puede considerar como ingreso de un trabajo por cuenta propia?"
@@ -3488,12 +3488,12 @@ es:
             title: "¿Qué es el Crédito Tributario de Prima de Seguro Médico Adelantado, o Advanced Premium Tax Credit?"
         income_qualifier:
           list:
-          - salario
-          - salarios por hora
-          - dividendos y intereses
-          - propinas
-          - comisiones
-          - pagos por cuenta propia o por contrato
+            - salario
+            - salarios por hora
+            - dividendos y intereses
+            - propinas
+            - comisiones
+            - pagos por cuenta propia o por contrato
           subtitle: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           title:
             many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction}en %{current_tax_year}?"
@@ -3579,8 +3579,8 @@ es:
           add_dependents: Agregar más dependientes
           puerto_rico:
             subtitle:
-            - No recibirá el Crédito Tributario por Hijos. No ha agregado ningún dependiente elegible para el Crédito Tributario por Hijos, por lo que no podemos presentar una declaración en este momento.
-            - Si esto es un error, puede hacer clic en 'Agregar un niño'.
+              - No recibirá el Crédito Tributario por Hijos. No ha agregado ningún dependiente elegible para el Crédito Tributario por Hijos, por lo que no podemos presentar una declaración en este momento.
+              - Si esto es un error, puede hacer clic en 'Agregar un niño'.
             title: No recibirá el Crédito Tributario por Hijos.
           subtitle: Basado en sus respuestas no recibirá el Crédito Tributario por Hijos porque no tiene dependientes elegibles.
           title: No recibirá el Crédito Tributario por Hijos, pero podrá continuar cobrando otros pagos en efectivo.
@@ -3590,10 +3590,10 @@ es:
         non_w2_income:
           additional_income:
             list:
-            - ingresos de contratista
-            - ingresos por intereses
-            - ingresos por desempleo
-            - cualquier otro dinero que recibistes
+              - ingresos de contratista
+              - ingresos por intereses
+              - ingresos por desempleo
+              - cualquier otro dinero que recibistes
             list_title: 'Los ingresos adicionales incluyen:'
           title:
             many: "¿Usted y su cónyuge ganaron más de %{additional_income_amount} en ingresos adicionales?"
@@ -3604,7 +3604,7 @@ es:
             faq: Preguntas Frecuentes
             home: Ir a la página de inicio
           content:
-          - No enviaremos su información al IRS.
+            - No enviaremos su información al IRS.
           title: Ha decidido no presentar la declaración de impuestos.
         overview:
           help_text: Use nuestra herramienta sencilla electrónica para recibir su Crédito Tributario por Hijos y, si corresponde, su tercer pago de estímulo.
@@ -3629,12 +3629,12 @@ es:
         restrictions:
           cannot_use_ctc: No puedo usar GetCTC
           list:
-          - una investigación del IRS le ha reducido o rechazado previamente el CTC o el EITC y no ha presentado correctamente el Formulario 8862 desde la investigación
-          - tiene ingresos en propinas de un trabajo de servicio que no se informó a su empleador
-          - desea presentar el Formulario 8332 para reclamar a un niño que no vive con usted
-          - está reclamando un pariente calificado bajo un "acuerdo de manutención múltiple" según lo define el IRS
-          - no está reclamando ningún hijo para el Crédito Tributario por Hijos este año, pero recibió pagos por Adelantado del Crédito Tributario por Hijos en %{current_tax_year}
-          - compraste o vendiste criptomonedas en %{current_tax_year}
+            - una investigación del IRS le ha reducido o rechazado previamente el CTC o el EITC y no ha presentado correctamente el Formulario 8862 desde la investigación
+            - tiene ingresos en propinas de un trabajo de servicio que no se informó a su empleador
+            - desea presentar el Formulario 8332 para reclamar a un niño que no vive con usted
+            - está reclamando un pariente calificado bajo un "acuerdo de manutención múltiple" según lo define el IRS
+            - no está reclamando ningún hijo para el Crédito Tributario por Hijos este año, pero recibió pagos por Adelantado del Crédito Tributario por Hijos en %{current_tax_year}
+            - compraste o vendiste criptomonedas en %{current_tax_year}
           list_title: 'No puede usar GetCTC si:'
           multiple_support_agreement_reveal:
             content:
@@ -3714,15 +3714,15 @@ es:
           question: "¿Recibió esta cantidad?"
           reveal:
             content_html:
-            - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
-            - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="%{gyr_link}"> sin cargo en GetYourRefund. </a>
+              - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
+              - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
+              - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="%{gyr_link}"> sin cargo en GetYourRefund. </a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           third_stimulus: Estimamos que habrá recibido
           third_stimulus_details:
-          - en base a su estado civil y a sus dependientes.
-          - El tercer pago por estímulo se envió en marzo o abril de 2021 y fue de $1,400 por declarante adulto más $1,400 por dependiente de cualquier edad.
-          - Por ejemplo, un padre que cuida a dos niños habría recibido $4,200.
+            - en base a su estado civil y a sus dependientes.
+            - El tercer pago por estímulo se envió en marzo o abril de 2021 y fue de $1,400 por declarante adulto más $1,400 por dependiente de cualquier edad.
+            - Por ejemplo, un padre que cuida a dos niños habría recibido $4,200.
           this_amount: Recibí esta cantidad
           title: "¿Recibió un total de %{third_stimulus_amount} por su tercer pago de estímulo?"
         stimulus_received:
@@ -3749,26 +3749,26 @@ es:
             why_ineligible_reveal:
               content:
                 list:
-                - Ganó más de $400 en ingresos de trabajo por cuenta propia
-                - Ganaste algo de dinero de fuentes fuera de Puerto Rico, por ejemplo en uno de los 50 estados o en un país extranjero
-                - No vivió en Puerto Rico por más de la mitad de %{current_tax_year}
-                - 'Se mudó dentro o fuera de Puerto Rico durante %{current_tax_year} '
-                - Puede ser reclamado como dependiente por otra persona
-                - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
-                - Ganaste más de %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
-                - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de lo que era elegible para recibir.
+                  - Ganó más de $400 en ingresos de trabajo por cuenta propia
+                  - Ganaste algo de dinero de fuentes fuera de Puerto Rico, por ejemplo en uno de los 50 estados o en un país extranjero
+                  - No vivió en Puerto Rico por más de la mitad de %{current_tax_year}
+                  - 'Se mudó dentro o fuera de Puerto Rico durante %{current_tax_year} '
+                  - Puede ser reclamado como dependiente por otra persona
+                  - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
+                  - Ganaste más de %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
+                  - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de lo que era elegible para recibir.
           still_benefit: Todavía puede beneficiarse presentando una declaración de impuestos completa de forma gratuita a través de GetYourRefund.
           title: Desafortunadamente, no es elegible para usar GetCTC. ¡Pero aún así podemos ayudarle!
           visit_our_faq: Preguntas Frecuentes
           why_ineligible_reveal:
             content:
               list:
-              - Ganaste más del %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
-              - Ganó más de $400 en ingresos de trabajo por cuenta propia
-              - Puede ser reclamado como dependiente
-              - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
-              - No vivió en ninguno de los 50 estados o el Distrito de Columbia durante la mayor parte del %{current_tax_year}
-              - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
+                - Ganaste más del %{single_deduction} declarando individualmente o %{joint_deduction} declarando casado
+                - Ganó más de $400 en ingresos de trabajo por cuenta propia
+                - Puede ser reclamado como dependiente
+                - Usted (y su cónyuge, si corresponde) no tienen un SSN o ITIN válido
+                - No vivió en ninguno de los 50 estados o el Distrito de Columbia durante la mayor parte del %{current_tax_year}
+                - Recibió más pagos adelantados del Crédito Tributario por Hijos en %{current_tax_year} de los que era elegible para recibir.
               p: 'Algunas razones por las que podría no ser elegible para usar GetCTC son:'
             title: "¿Por qué no soy elegible?"
         verification:
@@ -3833,8 +3833,8 @@ es:
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:
-            - Las siguientes secciones de su W-2 probablemente estén en blanco. Deje esas casillas en blanco a continuación para que coincidan con su W-2.
-            - Para las Casillas 15-20, si su W-2 contiene información de varios estados, ingrese solo la información del primer estado.
+              - Las siguientes secciones de su W-2 probablemente estén en blanco. Deje esas casillas en blanco a continuación para que coincidan con su W-2.
+              - Para las Casillas 15-20, si su W-2 contiene información de varios estados, ingrese solo la información del primer estado.
             submit: Guarde este W-2
             title: Terminemos de ingresar la información del W-2 de %{name}.
           note_html: "<strong>Aviso:</strong> Si no incluye el formulario W-2, no recibirá el Crédito Tributario por Ingreso del Trabajo. Sin embargo, puede solicitar los demás créditos si están disponibles para usted."
@@ -3870,19 +3870,19 @@ es:
         compare_benefits:
           ctc:
             list:
-            - Pagos federales de estímulo
-            - Crédito Tributario por Hijos
+              - Pagos federales de estímulo
+              - Crédito Tributario por Hijos
             note_html: Si presenta la declaración con GetCTC, puede presentar una declaración enmendada más tarde para reclamar los créditos adicionales que habría recibido al presentarla con GetYourRefund. <u>Este proceso puede ser bastante difícil</u>, y es probable que necesite la ayuda de un profesional de impuestos.
             p1_html: 'Un hogar con un hijo menor de 6 años puede recibir un promedio de: <strong>7,500 dólares</strong>'
             p2_html: 'Un hogar sin hijos puede recibir un promedio de: <strong>3,200 dólares</strong>'
           gyr:
             list:
-            - Pagos federales de estímulo
-            - Crédito Tributario por Hijos
-            - Crédito tributario por ingresos del trabajo
-            - Crédito tributario por ingresos del trabajo de California
-            - Pagos de estímulo del Golden State
-            - 'Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)'
+              - Pagos federales de estímulo
+              - Crédito Tributario por Hijos
+              - Crédito tributario por ingresos del trabajo
+              - Crédito tributario por ingresos del trabajo de California
+              - Pagos de estímulo del Golden State
+              - 'Crédito Tributario por Hijos Jóvenes de California (en inglés: Young Child Tax Credit)'
             p1_html: 'Un hogar con un niño menor de 6 años puede recibir un promedio de: <strong>12,200 dólares</strong>'
             p2_html: 'Un hogar sin hijos puede recibir un promedio de de: <strong>4,300 dólares</strong>'
           title: Compare los beneficios
@@ -3893,12 +3893,12 @@ es:
         compare_required_info:
           ctc:
             list:
-            - Numeros de Seguro Social o de Identificación Personal (ITIN)
+              - Numeros de Seguro Social o de Identificación Personal (ITIN)
           gyr:
             list:
-            - Documentos de empleo
-            - "(W2’s, 1099’s, etc.)"
-            - Numeros de Seguro Social o de Identificación Personal (ITIN en inglés)
+              - Documentos de empleo
+              - "(W2’s, 1099’s, etc.)"
+              - Numeros de Seguro Social o de Identificación Personal (ITIN en inglés)
           helper_text: Los documentos son necesarios para cada miembro de la familia en su declaración de impuestos.
           title: Comparar la información requerida
         ctc: GetCTC
@@ -4044,58 +4044,58 @@ es:
         title: Recursos de extensión y navegador de GetCTC
       privacy_policy:
         01_intro:
-        - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Tributario Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
-        - Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al usar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que use para acceder a nuestros Servicios.
+          - GetCTC.org es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los hogares de ingresos bajos a moderados a acceder a los beneficios fiscales, como el Crédito Tributario Anticipado por Hijos (AdvCTC) y los Pagos por Impacto Económico a través de servicios accesibles de declaración de impuestos.
+          - Esta Política de privacidad describe cómo recopilamos, usamos, compartimos y protegemos su información personal. Al usar nuestros Servicios, usted acepta los términos de esta Política de privacidad. Este Aviso de privacidad se aplica independientemente del tipo de dispositivo que use para acceder a nuestros Servicios.
         02_questions_html: Si tiene preguntas, comentarios, o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a %{email_link}
         03_overview: Resumen
         04_info_we_collect: Información que recopilamos
         05_info_we_collect_details: 'Seguimos el principio de Minimización de Datos en la recopilación y uso de su información personal. Podemos obtener la siguiente información sobre usted, sus dependientes, o los miembros de su hogar:'
         06_info_we_collect_list:
-        - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
-        - Fecha de nacimiento
-        - Información demográfica, como la edad y estado marital
-        - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
-        - Fecha de nacimiento
-        - Información demográfica, como la edad y estado marital
-        - Características de las clasificaciones protegidas, como género, raza y etnia
-        - Información fiscal, como el número de seguro social o el número de identificación personal (ITIN en inglés)
-        - Identificación emitida por el estado, como el número de licencia de manejar
-        - Información financiera, como empleo, ingresos y fuentes de ingresos
-        - Datos bancarios para el depósito directo de reembolsos
-        - Datos sobre los dependientes
-        - Información sobre el hogar y sobre su cónyuge, si es que corresponde
-        - Información de su computadora o dispositivo, como dirección IP, sistema operativo, navegador, fecha y hora de visita, y datos de flujo de clics (el sitio web o dominio del que procede, las páginas que visita y los elementos sobre los que hace clic durante su sesión).
+          - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
+          - Fecha de nacimiento
+          - Información demográfica, como la edad y estado marital
+          - Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
+          - Fecha de nacimiento
+          - Información demográfica, como la edad y estado marital
+          - Características de las clasificaciones protegidas, como género, raza y etnia
+          - Información fiscal, como el número de seguro social o el número de identificación personal (ITIN en inglés)
+          - Identificación emitida por el estado, como el número de licencia de manejar
+          - Información financiera, como empleo, ingresos y fuentes de ingresos
+          - Datos bancarios para el depósito directo de reembolsos
+          - Datos sobre los dependientes
+          - Información sobre el hogar y sobre su cónyuge, si es que corresponde
+          - Información de su computadora o dispositivo, como dirección IP, sistema operativo, navegador, fecha y hora de visita, y datos de flujo de clics (el sitio web o dominio del que procede, las páginas que visita y los elementos sobre los que hace clic durante su sesión).
         07_info_required_by_irs: Recopilamos información según lo dispuesto por el IRS en el Procedimiento de Ingresos "Rev RP-21-24".
         '08_how_we_collect': La manera en que recopilamos su información
         '09_various_sources': Recopilamos su información de varias fuentes, como cuando usted o los miembros de su hogar
         10_various_sources_list:
-        - Visitan nuestro Sitio, llenan formularios en nuestro Sitio, o utilizan nuestros Servicios
-        - Nos proporciona sus documentos para usar nuestros Servicios
-        - Se comunica con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)
+          - Visitan nuestro Sitio, llenan formularios en nuestro Sitio, o utilizan nuestros Servicios
+          - Nos proporciona sus documentos para usar nuestros Servicios
+          - Se comunica con nosotros (por ejemplo a través de correo electrónico, chat, redes sociales o de otro tipo)
         11_third_parties: Es posible que también recopilemos su información de terceros como
         12_third_parties_list:
-        - Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite
-        - El Servicio de Rentas Internas ("IRS") u otras agencias gubernamentales relacionadas con nuestros Servicios
+          - Nuestros socios que le están ayudando con servicios de preparación de impuestos o cualquier otro programa de beneficios que usted solicite
+          - El Servicio de Rentas Internas ("IRS") u otras agencias gubernamentales relacionadas con nuestros Servicios
         13_using_information: El uso de información que recopilamos
         14_using_information_details: Utilizamos su información para propósitos de nuestra organización e intereses legítimos como, por ejemplo
         14_using_information_list:
-        - Para ayudarle a conectarse con los servicios gratuitos de preparación de impuestos o cualquier otro programa de beneficios que solicite
-        - Para completar los formularios requeridos para el uso de los Servicios o para la presentación de sus impuestos
-        - Para proporcionarle apoyo durante el proceso y comunicarnos con usted
-        - Para seguir y comprender cómo se utilizan el Sitio y nuestros Servicios
-        - Para mejorar la calidad o el alcance del Sitio o de nuestros Servicios
-        - Para sugerir otros servicios o programas de asistencia que puedan serle útiles
-        - Para la detección de fraude, su prevención, y propósitos de seguridad
-        - Para cumplir con los requisitos y obligaciones legales
-        - Para el estudio
+          - Para ayudarle a conectarse con los servicios gratuitos de preparación de impuestos o cualquier otro programa de beneficios que solicite
+          - Para completar los formularios requeridos para el uso de los Servicios o para la presentación de sus impuestos
+          - Para proporcionarle apoyo durante el proceso y comunicarnos con usted
+          - Para seguir y comprender cómo se utilizan el Sitio y nuestros Servicios
+          - Para mejorar la calidad o el alcance del Sitio o de nuestros Servicios
+          - Para sugerir otros servicios o programas de asistencia que puedan serle útiles
+          - Para la detección de fraude, su prevención, y propósitos de seguridad
+          - Para cumplir con los requisitos y obligaciones legales
+          - Para el estudio
         15_information_shared_with_others: Información compartida con terceros
         16_we_dont_sell: No vendemos su información personal.
         17_disclose_to_others_details: No compartimos información personal con terceros, excepto según lo dispuesto en esta Política de privacidad. Podemos revelar información a contratistas, organizaciones afiliadas y/o terceros no afiliados para proporcionarle los Servicios a usted, para llevar a cabo nuestra tarea o para ayudar con las actividades de nuestra organización. Por ejemplo, podemos compartir su información con
         18_disclose_to_others_list_html:
-        - Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos
-        - El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito Tributario por Hijos
-        - Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.
-        - Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas para utilizar su información personal sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros a %{email_link}.
+          - Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos
+          - El Servicio de Impuestos Internos (IRS) para ayudarle a presentar electrónicamente sus impuestos y/u otros formularios para tener derecho a los pagos del Crédito Tributario por Hijos
+          - Terceros para distribuir encuestas, grupos de discusión o para otros fines administrativos, analíticos y de marketing. Estas comunicaciones de terceros tienen por objeto mejorar el producto, conocer la experiencia y ponerle al día si ha solicitado actualizaciones.
+          - Code for America mantiene relaciones con terceros proveedores de programas y servicios que prestan servicios en nuestro nombre para ayudarnos en nuestras actividades comerciales. Estas empresas están autorizadas para utilizar su información personal sólo en la medida necesaria para prestarnos estos servicios, de acuerdo con instrucciones escritas. Podemos compartir su información con socios comerciales y otros terceros para que puedan ofrecerle ofertas o productos y servicios que creemos que pueden beneficiarle. Si no desea que compartamos su información personal con estas empresas, comuníquese con nosotros a %{email_link}.
         19_require_third_parties: Requerimos que nuestros terceros actúen a nombre nuestro para mantener su información personal segura, y no permitimos que estos terceros utilicen o compartan su información personal para ningún propósito que no sea proporcionar servicios a nombre nuestro.
         20_may_share_third_parties: Podemos compartir su información con terceros en situaciones especiales, como cuando lo requiere la ley, o cuando creemos que compartir dicha información ayudará a proteger la seguridad, propiedad o derechos de Code for America, las personas a las que servimos, nuestros asociados u otras personas.
         21_may_share_government: Podemos compartir información limitada, agregada o personal con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, los proveedores de servicios de preparación gratuita de impuestos y el Crédito Tributario por Hijos, con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos o a través del sitio web GetCTC.
@@ -4104,15 +4104,15 @@ es:
         24_your_choices_contact_methods: Correo postal, correo electrónico, y promociones
         25_to_update_prefs: Para actualizar sus preferencias o sus datos de contacto, puede
         26_to_update_prefs_list_html:
-        - Comunicarse con nosotros a través de %{email_link}, y solicitar que lo den de baja de los correos electrónicos de actualización de GetCTC.
-        - seguir las instrucciones proporcionadas para darse de baja de correos electrónicos o correos postales
-        - 'seleccionar el enlace para "darse de baja"--en inglés: unsubscribe--que se encuentra en nuestros correos electrónicos promocionales de Code for America'
+          - Comunicarse con nosotros a través de %{email_link}, y solicitar que lo den de baja de los correos electrónicos de actualización de GetCTC.
+          - seguir las instrucciones proporcionadas para darse de baja de correos electrónicos o correos postales
+          - 'seleccionar el enlace para "darse de baja"--en inglés: unsubscribe--que se encuentra en nuestros correos electrónicos promocionales de Code for America'
         27_unsubscribe_note: Favor de tener en cuenta que incluso si se da de baja de ofertas y actualizaciones de correo electrónico promocionales, aún así podremos comunicarnos con usted para fines operativos. Por ejemplo, podremos enviar comunicaciones con respecto a su estado de declaración de impuestos, recordatorios o alertarle de información adicional necesaria.
         28_cookies: Cookies
         29_cookies_details: Los cookies son pequeños archivos de texto que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxel (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos.
         30_cookies_list:
-        - Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos.
-        - Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.
+          - Utilizamos cookies y otras tecnologías como etiquetas de píxeles para recordar sus preferencias, mejorar su experiencia en línea y recopilar datos sobre cómo utiliza nuestros Sitios para mejorar la forma en que promovemos nuestro contenido, programas y eventos.
+          - Su uso de nuestros Sitios indica su consentimiento para dicho uso de cookies.
         31_cookies_default: La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de "Ayuda" en su navegador debe incluir una explicación de cómo hacerlo. La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si desea restringir o bloquear las cookies que establece nuestro Sitio, o cualquier otro sitio, puede hacerlo a través de la configuración de su navegador. La función de ayuda en su navegador debe incluir una explicación de cómo hacerlo. Asimismo, puede visitar www.aboutcookies.org, donde hallará información completa sobre cómo hacer esto en una amplia variedad de navegadores. Encontrará información general sobre los cookies y detalles sobre cómo eliminar los cookies de su computadora o dispositivo.
         32_sms: Mensajes SMS operativos (texto)
         33_sms_details_html: Puede darse de baja de los mensajes transaccionales enviando un mensaje de texto de STOP al 58750 en cualquier momento. Cuando recibamos su solicitud de cancelación, le enviaremos un último mensaje de texto para confirmar su cancelación. Consulte las <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">condiciones de GetYourRefund</a> para obtener más detalles e instrucciones para darse de baja de estos servicios. Los datos obtenidos a través del programa de códigos cortos no se compartirán con terceros para sus fines de marketing.
@@ -4122,44 +4122,44 @@ es:
         37_additional_services_details: Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.
         38_how_we_protect: Cómo protegemos su información
         39_how_we_protect_list:
-        - Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger su información tanto en línea como fuera de línea.
-        - Aun así, no se puede garantizar que ningún sistema sea 100% seguro. Si tiene alguna duda sobre la seguridad de su información personal, o si tiene motivos para creer que la información personal que tenemos sobre usted ya no está segura, comuníquese con nosotros inmediatamente de la manera descrita en este Aviso de Privacidad.
+          - Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger su información tanto en línea como fuera de línea.
+          - Aun así, no se puede garantizar que ningún sistema sea 100% seguro. Si tiene alguna duda sobre la seguridad de su información personal, o si tiene motivos para creer que la información personal que tenemos sobre usted ya no está segura, comuníquese con nosotros inmediatamente de la manera descrita en este Aviso de Privacidad.
         40_retention: Retención de Datos
         41_retention_list:
-        - 'Conservaremos su información durante el tiempo que sea necesario para: prestarle los Servicios, operar nuestro negocio de acuerdo con este Aviso, o demostrar el cumplimiento de las leyes y obligaciones legales.'
-        - Si ya no desea continuar con la solicitud de GetCTC y solicita que se elimine su información de nuestros Servicios antes de presentar la solicitud, eliminaremos o eliminaremos la información que le identifica en un plazo de 90 días a partir de la finalización de los Servicios, a menos que la ley nos obligue a conservar su información. En tal caso, sólo conservaremos su información durante el tiempo requerido por dicha ley.
+          - 'Conservaremos su información durante el tiempo que sea necesario para: prestarle los Servicios, operar nuestro negocio de acuerdo con este Aviso, o demostrar el cumplimiento de las leyes y obligaciones legales.'
+          - Si ya no desea continuar con la solicitud de GetCTC y solicita que se elimine su información de nuestros Servicios antes de presentar la solicitud, eliminaremos o eliminaremos la información que le identifica en un plazo de 90 días a partir de la finalización de los Servicios, a menos que la ley nos obligue a conservar su información. En tal caso, sólo conservaremos su información durante el tiempo requerido por dicha ley.
         42_children: Privacidad de menores
         43_children_details: No recopilamos información personal de forma intencionada de menores de 16 años no emancipados.
         44_changes: Cambios
         45_changes_summary: Es posible que modifiquemos esta Política de Privacidad de vez en cuando. Por favor, revise esta página con frecuencia para ver si hay actualizaciones, ya que su uso continuado de nuestros Servicios después de cualquier cambio en esta Política de Privacidad constituirá su aceptación de los cambios. En el caso de cambios sustanciales, se lo notificaremos por correo electrónico o por otros medios compatibles con la legislación aplicable.
         46_access_request: Solicitud de Acceso
         47_access_request_list_html:
-        - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, a solicitar la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
-        - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su utilización en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
+          - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, a solicitar la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
+          - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su utilización en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
         47_effective_date: Fecha de vigencia
         48_effective_date_info: Esta versión de la política entrará en vigor a partir del 22 de octubre de 2021.
         49_questions: Preguntas
         50_questions_list_html:
-        - Si tiene un problema de privacidad o de uso de datos sin resolver que no hayamos solucionado satisfactoriamente, favor de comunicarse con nuestro proveedor de resolución de disputas con sede en Estados Unidos (sin costo alguno) a <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
-        - 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
+          - Si tiene un problema de privacidad o de uso de datos sin resolver que no hayamos solucionado satisfactoriamente, favor de comunicarse con nuestro proveedor de resolución de disputas con sede en Estados Unidos (sin costo alguno) a <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
+          - 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
         51_do_our_best: Haremos todo lo posible para resolver el problema.
       puerto_rico:
         hero:
-        - Obtenga dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en el bolsillo de su familia. Si no está obligado a radicar una planilla federal con el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
-        - Este formulario en general tarda unos 15 minutos en completarse y no necesitará ningún documento fiscal.
+          - Obtenga dinero para cualquier niño que cuide, incluso si nunca antes ha presentado impuestos al IRS. Puede ser elegible para reclamar el Crédito Tributario por Hijos y poner dinero en el bolsillo de su familia. Si no está obligado a radicar una planilla federal con el IRS, puede usar esta herramienta de declaración de impuestos simplificada para obtener su dinero.
+          - Este formulario en general tarda unos 15 minutos en completarse y no necesitará ningún documento fiscal.
         title: "¡Puerto Rico, puede obtener el Crédito Tributario por Hijos para su familia!"
         what_is:
           body:
-          - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo, de hasta $3,600 por niño.
-          - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado con el IRS. Si aún no ha presentado una declaración federal con el IRS, ¡puede hacerlo fácilmente aquí!
+            - Este año, por primera vez, las familias en Puerto Rico pueden obtener el Crédito Tributario por Hijo, de hasta $3,600 por niño.
+            - Para reclamar su Crédito Tributario por Hijos, debe presentar un formulario simplificado con el IRS. Si aún no ha presentado una declaración federal con el IRS, ¡puede hacerlo fácilmente aquí!
           heading: "¡La mayoría de las familias en Puerto Rico pueden obtener miles de dólares del Crédito Tributario por Hijos radicando una planilla federal con el IRS!"
           how_much_reveal:
             body:
-            - El Crédito Tributario por Hijos para el año fiscal 2021 es $3,600 por niño menor de 6 años y $3,000 por niño de 6-17 años.
+              - El Crédito Tributario por Hijos para el año fiscal 2021 es $3,600 por niño menor de 6 años y $3,000 por niño de 6-17 años.
             title: "¿Cuánto recibiré?"
           qualify_reveal:
             body:
-            - Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
+              - Sus hijos probablemente califiquen si vivieron con usted durante la mayor parte de 2021, tenían menos de 18 años a fines de 2021 y no nacieron en 2022. GetCTC le guiará a través de algunas preguntas rápidas para asegurarse.
             title: "¿Califican mis niños?"
       puerto_rico_overview:
         cta: Está a punto de radicar una planilla federal. Usted es responsable de responder a las preguntas con la verdad y precisión a lo mejor de su capacidad.
@@ -4208,8 +4208,8 @@ es:
           heading_open: La mayoría de las familias pueden obtener miles de dólares del tercer pago de estímulo
           reveals:
             first_two_body_html:
-            - El IRS emitió tres tandas de pagos de estímulo durante la pandemia de COVID. Por lo general, las familias las recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede solicitar todo o parte del tercer pago de estímulo utilizando GetCTC.
-            - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">sin cargo en GetYourRefund.</a>
+              - El IRS emitió tres tandas de pagos de estímulo durante la pandemia de COVID. Por lo general, las familias las recibieron en abril de 2020, diciembre de 2020 y marzo de 2021. Puede solicitar todo o parte del tercer pago de estímulo utilizando GetCTC.
+              - Si usted no ha recibido ningún de su primer o segundo pago de estimulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">sin cargo en GetYourRefund.</a>
             first_two_title: "¿Qué pasa con los dos primeros pagos de estímulo?"
             how_much_ctc_body: El tercer pago de estímulo generalmente se emitió en marzo o abril de 2021 y tenía un valor de $1,400 por contribuyente adulto más $1,400 por dependiente elegible. Si recibió menos de lo que merecía en 2021, o no recibió ningún pago, puede reclamar su pago de estímulo faltante presentando una declaración de impuestos simple.
             how_much_ctc_title: "¿Cuánto recibiré del Crédito Tributario por Hijos?"
@@ -4525,9 +4525,9 @@ es:
         title: Términos de código
       stimulus:
         facts_html:
-        - ¡Cobre su pago de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
-        - Revisa el estado de tu pago de estímulo en <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Obtener mi pago website</a>
-        - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
+          - ¡Cobre su pago de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
+          - Revisa el estado de tu pago de estímulo en <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Obtener mi pago website</a>
+          - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
         file_with_help:
           header: Recoja su pago de estímulo de 2020 presentando su declaración de impuestos hoy mismo!
         heading: "¿Necesitas ayuda para conseguir tu pago de estímulo (también conocido como Pago de Impacto Económico)?"
@@ -4536,119 +4536,119 @@ es:
           eip:
             header: Preguntas frecuentes sobre el cheque de pago de impacto económico (estímulo)
             items:
-            - title: "¿El cheque del EIP afectará mis otros beneficios gubernamentales?"
-              content_html: No, los cheques del EIP se tratan como un crédito fiscal. Esto significa que su pago no afectará los beneficios que reciba ahora o en el futuro.
-            - title: Todavía necesito presentar una declaración de impuestos ¿Cuánto tiempo están disponibles los pagos por impacto económico?
-              content_html: Estos pagos seguirán estando disponibles mediante la presentación de una declaración de impuestos. Aunque la fecha límite oficial es el 17 de mayo, puede continuar presentando su solicitud hasta el 15 de octubre a través de GetYourRefund.org.
-            - title: "¿Si debo impuestos, o tengo un acuerdo de pago con el IRS, o tengo otras deudas federales o estatales, seguiré recibiendo el EIP?"
-              content_html: Si bien los pagos de estímulo realizados en 2020 estaban protegidos del embargo, no ocurre lo mismo con los pagos realizados a través de Créditos de recuperación de reembolso.
-            - title: "¿Qué pasa si estoy sobregirado en mi banco?"
-              content_html: |-
-                Si su banco o cooperativa de crédito ha tomado una parte de su EIP para cubrir el dinero que les debe, <a
-                  href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="consumer-advisory-protection-recommendations"
-                  data-track-attribute-position="eip-faq4">
-                la Oficina de Protección Financiera del Consumidor recomienda</a> llamarlos para preguntarles si están dispuestos a ser flexibles.
-            - title: "¿Qué pasa si alguien ofrece un pago más rápido?"
-              content_html: No haga clic en enlaces cuyos orígenes no esté 100% seguro. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Y no envíe dinero a alguien que no conoce. Mire las tarifas que se cobran si está pagando su servicio de preparación de impuestos o un préstamo de anticipación de reembolso al hacer que se deduzcan de su reembolso.
+              - title: "¿El cheque del EIP afectará mis otros beneficios gubernamentales?"
+                content_html: No, los cheques del EIP se tratan como un crédito fiscal. Esto significa que su pago no afectará los beneficios que reciba ahora o en el futuro.
+              - title: Todavía necesito presentar una declaración de impuestos ¿Cuánto tiempo están disponibles los pagos por impacto económico?
+                content_html: Estos pagos seguirán estando disponibles mediante la presentación de una declaración de impuestos. Aunque la fecha límite oficial es el 17 de mayo, puede continuar presentando su solicitud hasta el 15 de octubre a través de GetYourRefund.org.
+              - title: "¿Si debo impuestos, o tengo un acuerdo de pago con el IRS, o tengo otras deudas federales o estatales, seguiré recibiendo el EIP?"
+                content_html: Si bien los pagos de estímulo realizados en 2020 estaban protegidos del embargo, no ocurre lo mismo con los pagos realizados a través de Créditos de recuperación de reembolso.
+              - title: "¿Qué pasa si estoy sobregirado en mi banco?"
+                content_html: |-
+                  Si su banco o cooperativa de crédito ha tomado una parte de su EIP para cubrir el dinero que les debe, <a
+                    href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="consumer-advisory-protection-recommendations"
+                    data-track-attribute-position="eip-faq4">
+                  la Oficina de Protección Financiera del Consumidor recomienda</a> llamarlos para preguntarles si están dispuestos a ser flexibles.
+              - title: "¿Qué pasa si alguien ofrece un pago más rápido?"
+                content_html: No haga clic en enlaces cuyos orígenes no esté 100% seguro. Tenga cuidado con las estafas. Si parece demasiado bueno para ser verdad, probablemente lo sea. Y no envíe dinero a alguien que no conoce. Mire las tarifas que se cobran si está pagando su servicio de preparación de impuestos o un préstamo de anticipación de reembolso al hacer que se deduzcan de su reembolso.
           how_to_get_paid:
             header: "¿Cómo cobrar?"
             items:
-            - title: "¿Cómo puedo recibir mi cheque del Pago de Impacto Económico?"
-              content_html: Si el IRS aún no ha enviado su primera o segunda ronda de pagos de estímulo, o si recibió una cantidad incorrecta para cualquier de los dos pagos, tendrá que presentar una declaración de impuestos de 2020 para poder recibirlo.
-            - title: "¿Cómo puedo determinar si el IRS ha enviado mi pago de estímulo?"
-              content_html: |-
-                Si no está seguro de si el IRS ha enviado su tercer pago de estímulo o quiere comprobar el estado, puede buscar en el sitio web del IRS <a
-                  href="https://www.irs.gov/es/coronavirus/get-my-payment"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-get-my-payment"
-                  data-track-attribute-position="stimulus-how-faq2">
-                Obtener mi pago</a>. Para ver si ha recibido los anteriores pagos de estímulo, y qué cantidad, debe <a
-                  href="https://www.irs.gov/es/payments/view-your-tax-account"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-view-your-tax-account"
-                  data-track-attribute-position="stimulus-how-faq2">
-                ver o crear una cuenta en línea con el IRS</a>.
-            - title: "¿Qué pasa si hay problemas con los datos de mi cuenta bancaria?"
-              content_html: |-
-                Si el IRS no puede depositar en la cuenta que tiene registrada, le enviarán el pago por correo a la dirección que tiene registrada.   Si el correo es devuelto, la herramienta <a
-                  href="https://www.irs.gov/es/coronavirus/get-my-payment"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-get-my-payment"
-                  data-track-attribute-position="stimulus-how-faq3">
-                Obtener mi pago</a> mostrará un estado de "se necesita más información" y usted tendrá la oportunidad de proporcionar nueva información bancaria.
-            - title: "¿Qué pasa si no he declarado los impuestos federales?"
-              content_html: Le recomendamos que presente su declaración de impuestos para poder acceder a los Pagos por Impacto Económico y a cualquier crédito fiscal adicional al que pueda ser elegible. Puede presentar las declaraciones de 2018, 2019, 2020 y 2021 de manera gratuita con GetYourRefund.
-            - title: "¿Qué pasa si no tengo una cuenta bancaria?"
-              content_html: |-
-                Si no tiene una cuenta bancaria,  puede tardar hasta cinco meses en recibir su cheque del EIP por correo. Para recibir su pago rápidamente a través de un depósito directo, <a
-                  href="https://covidbanking.joinbankon.org/espanol.html"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-online-banking"
-                  data-track-attribute-position="stimulus-how-faq5">
-                regístrese en una cuenta bancaria en línea</a> y añada la información de su cuenta cuando presente su declaración. Si no quiere registrarse en una cuenta bancaria, puede vincular su tarjeta de débito prepagada o <a
-                  href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-cash-app"
-                  data-track-attribute-position="stimulus-how-faq5">
-                Cash App</a> en su lugar. Muchos de nuestros colaboradores de VITA también pueden inscribirlo en una tarjeta de débito prepagada cuando presente su declaración.
-            - title: "¿Y si me he mudado desde el año pasado?"
-              content_html: |-
-                La forma más fácil de actualizar su dirección es presentando su declaración de 2020 con la dirección correcta.  Si ya ha presentado la declaración con su antigua dirección, puede utilizar el sitio web de cambio de dirección del <a
-                  href="https://www.irs.gov/es/faqs/irs-procedures/address-changes"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-address-changes"
-                  data-track-attribute-position="stimulus-how-faq6">
-                IRS para actualizar su dirección</a>. Puede haber retrasos en la recepción de su EIP - podría tardar hasta cinco meses en recibir su cheque por correo.
+              - title: "¿Cómo puedo recibir mi cheque del Pago de Impacto Económico?"
+                content_html: Si el IRS aún no ha enviado su primera o segunda ronda de pagos de estímulo, o si recibió una cantidad incorrecta para cualquier de los dos pagos, tendrá que presentar una declaración de impuestos de 2020 para poder recibirlo.
+              - title: "¿Cómo puedo determinar si el IRS ha enviado mi pago de estímulo?"
+                content_html: |-
+                  Si no está seguro de si el IRS ha enviado su tercer pago de estímulo o quiere comprobar el estado, puede buscar en el sitio web del IRS <a
+                    href="https://www.irs.gov/es/coronavirus/get-my-payment"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-how-faq2">
+                  Obtener mi pago</a>. Para ver si ha recibido los anteriores pagos de estímulo, y qué cantidad, debe <a
+                    href="https://www.irs.gov/es/payments/view-your-tax-account"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-view-your-tax-account"
+                    data-track-attribute-position="stimulus-how-faq2">
+                  ver o crear una cuenta en línea con el IRS</a>.
+              - title: "¿Qué pasa si hay problemas con los datos de mi cuenta bancaria?"
+                content_html: |-
+                  Si el IRS no puede depositar en la cuenta que tiene registrada, le enviarán el pago por correo a la dirección que tiene registrada.   Si el correo es devuelto, la herramienta <a
+                    href="https://www.irs.gov/es/coronavirus/get-my-payment"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-how-faq3">
+                  Obtener mi pago</a> mostrará un estado de "se necesita más información" y usted tendrá la oportunidad de proporcionar nueva información bancaria.
+              - title: "¿Qué pasa si no he declarado los impuestos federales?"
+                content_html: Le recomendamos que presente su declaración de impuestos para poder acceder a los Pagos por Impacto Económico y a cualquier crédito fiscal adicional al que pueda ser elegible. Puede presentar las declaraciones de 2018, 2019, 2020 y 2021 de manera gratuita con GetYourRefund.
+              - title: "¿Qué pasa si no tengo una cuenta bancaria?"
+                content_html: |-
+                  Si no tiene una cuenta bancaria,  puede tardar hasta cinco meses en recibir su cheque del EIP por correo. Para recibir su pago rápidamente a través de un depósito directo, <a
+                    href="https://covidbanking.joinbankon.org/espanol.html"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-online-banking"
+                    data-track-attribute-position="stimulus-how-faq5">
+                  regístrese en una cuenta bancaria en línea</a> y añada la información de su cuenta cuando presente su declaración. Si no quiere registrarse en una cuenta bancaria, puede vincular su tarjeta de débito prepagada o <a
+                    href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-cash-app"
+                    data-track-attribute-position="stimulus-how-faq5">
+                  Cash App</a> en su lugar. Muchos de nuestros colaboradores de VITA también pueden inscribirlo en una tarjeta de débito prepagada cuando presente su declaración.
+              - title: "¿Y si me he mudado desde el año pasado?"
+                content_html: |-
+                  La forma más fácil de actualizar su dirección es presentando su declaración de 2020 con la dirección correcta.  Si ya ha presentado la declaración con su antigua dirección, puede utilizar el sitio web de cambio de dirección del <a
+                    href="https://www.irs.gov/es/faqs/irs-procedures/address-changes"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-address-changes"
+                    data-track-attribute-position="stimulus-how-faq6">
+                  IRS para actualizar su dirección</a>. Puede haber retrasos en la recepción de su EIP - podría tardar hasta cinco meses en recibir su cheque por correo.
         header: Obtener su pago de estímulo (EIP en Inglés)
         intro:
           common_questions: Sabemos que hay muchas preguntas en torno a los Pagos de Impacto Económico (EIP) y tenemos algunas respuestas. Hemos escogido algunas preguntas comunes para ayudarle.
           description:
-          - El gobierno federal ha comenzado a enviar la tercera ronda de pagos de impacto económico (EIPs en Inglés) a menudo llamada pago de estímulo). En esta ronda, los individuos pueden recibir hasta $1,400 por sí mismos ($2,800 por una pareja casada que se presenta conjuntamente) y $1,400 adicionales por cada dependiente.
-          - Si aún no ha recibido este pago o rondas de pagos anteriores, ¡no es demasiado tarde! Todavía puede reclamarlos en la declaración de impuestos de este año.
+            - El gobierno federal ha comenzado a enviar la tercera ronda de pagos de impacto económico (EIPs en Inglés) a menudo llamada pago de estímulo). En esta ronda, los individuos pueden recibir hasta $1,400 por sí mismos ($2,800 por una pareja casada que se presenta conjuntamente) y $1,400 adicionales por cada dependiente.
+            - Si aún no ha recibido este pago o rondas de pagos anteriores, ¡no es demasiado tarde! Todavía puede reclamarlos en la declaración de impuestos de este año.
           eligibility:
             header: "¿Quién es elegible?"
             info:
-            - Para la primera ronda, los contribuyentes elegibles recibieron un pago de impacto económico de hasta $1,200 para individuos o $2,400 para parejas casadas y hasta $500 por cada niño calificado menor de 17 años.  Para la segunda ronda, los contribuyentes elegibles recibieron un pago de impacto económico de hasta $600 para individuos o $1,200 para parejas casadas y hasta $600 por cada niño calificado.
-            - En cada ronda de pagos, los declarantes de impuestos con ingresos brutos ajustados de hasta $75,000 para individuos, hasta $112,500 para aquellos que se presentan como jefes de familia, y hasta $150,000 para parejas casadas que presentan declaraciones conjuntas reciben el pago completo. Para los declarantes con ingresos superiores a esas cantidades, el monto del pago se reduce gradualmente.
-            - En las dos primeras rondas de pagos, sólo los niños menores de 17 años podían ser reclamados por el pago de dependiente.  Otros dependientes no eran elegibles — y tampoco podían reclamar el EIP ellos mismos.  En la tercera ronda de pagos, todos los dependientes, incluidos los estudiantes universitarios y los dependientes adultos, pueden ser reclamados.  Además, como se describe a continuación, algunos niños en hogares de estatus de inmigración mixta que antes no eran elegibles, pueden recibir el tercer pago.
-            - 'El IRS realizó las dos primeras rondas de pagos basándose en la información que tenía de las declaraciones de impuestos de 2018 o 2019.  Si usted es elegible para un pago más grande basado en su información de 2020, puede reclamar este crédito cuando presente su declaración de 2020.  Por ejemplo:'
+              - Para la primera ronda, los contribuyentes elegibles recibieron un pago de impacto económico de hasta $1,200 para individuos o $2,400 para parejas casadas y hasta $500 por cada niño calificado menor de 17 años.  Para la segunda ronda, los contribuyentes elegibles recibieron un pago de impacto económico de hasta $600 para individuos o $1,200 para parejas casadas y hasta $600 por cada niño calificado.
+              - En cada ronda de pagos, los declarantes de impuestos con ingresos brutos ajustados de hasta $75,000 para individuos, hasta $112,500 para aquellos que se presentan como jefes de familia, y hasta $150,000 para parejas casadas que presentan declaraciones conjuntas reciben el pago completo. Para los declarantes con ingresos superiores a esas cantidades, el monto del pago se reduce gradualmente.
+              - En las dos primeras rondas de pagos, sólo los niños menores de 17 años podían ser reclamados por el pago de dependiente.  Otros dependientes no eran elegibles — y tampoco podían reclamar el EIP ellos mismos.  En la tercera ronda de pagos, todos los dependientes, incluidos los estudiantes universitarios y los dependientes adultos, pueden ser reclamados.  Además, como se describe a continuación, algunos niños en hogares de estatus de inmigración mixta que antes no eran elegibles, pueden recibir el tercer pago.
+              - 'El IRS realizó las dos primeras rondas de pagos basándose en la información que tenía de las declaraciones de impuestos de 2018 o 2019.  Si usted es elegible para un pago más grande basado en su información de 2020, puede reclamar este crédito cuando presente su declaración de 2020.  Por ejemplo:'
             info_last_html:
-            - Para reclamar este crédito, deberá informar cuánto recibió de los dos EIP en 2020. Sin embargo, no tendrá que pagar los pagos de estímulo que recibió si sus ingresos aumentaron en 2020 o el número de dependientes que afirmó bajó.  Deberá completar la <a href="https://www.irs.gov/es/node/39996">hoja de trabajo de crédito de reembolso de recuperación</a> para la línea 30 del formulario de impuestos 2020 1040. Podemos ayudarle con estos formularios si presenta su declaración a través de GetYourRefund.
-            - Si tiene ingresos del trabajo o dependientes, es posible que pueda acceder a créditos o beneficios fiscales adicionales al presentar o actualizar su información con el IRS. Comuníquese a través del chat para obtener más información.
+              - Para reclamar este crédito, deberá informar cuánto recibió de los dos EIP en 2020. Sin embargo, no tendrá que pagar los pagos de estímulo que recibió si sus ingresos aumentaron en 2020 o el número de dependientes que afirmó bajó.  Deberá completar la <a href="https://www.irs.gov/es/node/39996">hoja de trabajo de crédito de reembolso de recuperación</a> para la línea 30 del formulario de impuestos 2020 1040. Podemos ayudarle con estos formularios si presenta su declaración a través de GetYourRefund.
+              - Si tiene ingresos del trabajo o dependientes, es posible que pueda acceder a créditos o beneficios fiscales adicionales al presentar o actualizar su información con el IRS. Comuníquese a través del chat para obtener más información.
             list:
-            - Solo recibió un pago parcial debido a la eliminación gradual, pero perdió su trabajo debido a COVID-19 y sus ingresos fueron menores en 2020 que en 2019.
-            - Tuvo un nuevo bebé en 2020.
-            - Usted podría ser reclamado como dependiente de otra persona en 2019, pero no en 2020.
-            - No estaba obligado a presentar una declaración de impuestos en 2018 o 2019, y no cumplió con la fecha límite para utilizar el portal de no declarantes para reclamar los pagos.
+              - Solo recibió un pago parcial debido a la eliminación gradual, pero perdió su trabajo debido a COVID-19 y sus ingresos fueron menores en 2020 que en 2019.
+              - Tuvo un nuevo bebé en 2020.
+              - Usted podría ser reclamado como dependiente de otra persona en 2019, pero no en 2020.
+              - No estaba obligado a presentar una declaración de impuestos en 2018 o 2019, y no cumplió con la fecha límite para utilizar el portal de no declarantes para reclamar los pagos.
           irs_info_html: El Departamento del Tesoro y el Servicio de Impuestos Internos (IRS) publicará toda la información importante en %{irs_eip_link} tan pronto como esté disponible.
           last_updated: Actualizado el 6 de Abril de 2021
           mixed_status_eligibility:
             header: "¿Son elegibles las familias de estatus migratorio mixto?"
             info_html:
-            - Originalmente, las familias con estatus migratorio mixto no tenían derecho a la primera ronda de pagos. Sin embargo, ahora las familias con estatus mixto pueden solicitar tanto la primera como la segunda ronda de pagos en la declaración de impuestos de este año. Para la segunda ronda de pagos, si usted presenta la declaración conjuntamente con su cónyuge y sólo uno de ustedes tiene un número de seguro social válido, el cónyuge con el número de seguro social válido recibirá hasta 600 dólares y hasta 600 dólares por cualquier hijo que reúna los requisitos y tenga un número de seguro social. Sin embargo, el cónyuge que no tenga un número de seguro social válido no será elegible. Las mismas reglas ahora también se aplican para la primera ronda de pagos.
-            - |-
-              Para la tercera ronda de pagos, los declarantes que presenten sus impuestos con el Número de Identificación Personal (ITIN) pueden solicitar el EIP para sus dependientes que tengan números de seguro social. Puede obtener un ITIN presentando el <a
-                href="https://www.irs.gov/es/node/41556"
-                rel="noopener nofollow"
-                target="_blank"
-                data-track-click="stimulus-irs-i-7"
-                data-track-attribute-position="stimulus-mixed-eligible1">
-              formulario I-7</a> y la documentación requerida con su declaración de impuestos, o llevando el formulario y la documentación a un <a
-                href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
-                rel="noopener nofollow"
-                target="_blank"
-                data-track-click="stimulus-irs-certified-acceptance-agent"
-                data-track-attribute-position="stimulus-mixed-eligible2">
-              Agente de Aceptación Certificado</a>.
+              - Originalmente, las familias con estatus migratorio mixto no tenían derecho a la primera ronda de pagos. Sin embargo, ahora las familias con estatus mixto pueden solicitar tanto la primera como la segunda ronda de pagos en la declaración de impuestos de este año. Para la segunda ronda de pagos, si usted presenta la declaración conjuntamente con su cónyuge y sólo uno de ustedes tiene un número de seguro social válido, el cónyuge con el número de seguro social válido recibirá hasta 600 dólares y hasta 600 dólares por cualquier hijo que reúna los requisitos y tenga un número de seguro social. Sin embargo, el cónyuge que no tenga un número de seguro social válido no será elegible. Las mismas reglas ahora también se aplican para la primera ronda de pagos.
+              - |-
+                Para la tercera ronda de pagos, los declarantes que presenten sus impuestos con el Número de Identificación Personal (ITIN) pueden solicitar el EIP para sus dependientes que tengan números de seguro social. Puede obtener un ITIN presentando el <a
+                  href="https://www.irs.gov/es/node/41556"
+                  rel="noopener nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-i-7"
+                  data-track-attribute-position="stimulus-mixed-eligible1">
+                formulario I-7</a> y la documentación requerida con su declaración de impuestos, o llevando el formulario y la documentación a un <a
+                  href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
+                  rel="noopener nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-certified-acceptance-agent"
+                  data-track-attribute-position="stimulus-mixed-eligible2">
+                Agente de Aceptación Certificado</a>.
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
@@ -4684,8 +4684,8 @@ es:
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
         body_html:
-        - Si quiere trabajar con un preparador de impuestos, inténtelo de nuevo dentro de unos días en <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
-        - Si quiere presentar sus impuestos hoy, puede hacerlo por su cuenta con el software gratuito de declaración de impuestos de nuestro socio. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que le corresponden!
+          - Si quiere trabajar con un preparador de impuestos, inténtelo de nuevo dentro de unos días en <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
+          - Si quiere presentar sus impuestos hoy, puede hacerlo por su cuenta con el software gratuito de declaración de impuestos de nuestro socio. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que le corresponden!
         continue_to_diy: Continuar a File Myself--declarar yo mismo
         return_to_homepage: Regresar a la página principal
         title: "¡Lo sentimos! Los socios de preparación de impuestos de GetYourRefund están actualmente al límite de su capacidad."
@@ -5148,53 +5148,53 @@ es:
           header: Detalles
           intro: 'Este sitio utiliza un proceso 100% virtual de VITA / TCE: este método incluye interacciones no cara a cara con el contribuyente y cualquiera de los voluntarios de VITA / TCE durante la admisión, entrevista, preparación de la declaración, revisión de calidad y firma de la declaración de impuestos. Se le explicará al contribuyente el proceso completo y se requiere que dé su consentimiento para el proceso paso a paso utilizado por el sitio. Esto incluye los procedimientos virtuales para enviar los documentos requeridos (números de seguro social, formulario W-2 y otros documentos) a través de un sistema seguro para compartir archivos a un voluntario designado para su revisión.'
           sections:
-          - header: Resumen
-            content:
-            - Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA) es una <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">Programas de Impuestos Gratuitos Ofrecidos</a> que <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protege mis derechos civiles</a>.
-            - Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
-          - header: La obtención del acuerdo de consentimiento del contribuyente
-            content:
-            - Entiendo que seleccionar "Acepto" proporciona mi consentimiento para el proceso de preparación de impuestos de GetYourRefund.
-          - header: La realización del proceso de admisión (obtener todos los documentos)
-            content:
-            - 'Proceso de admisión: GetYourRefund coleccionará su información y documentación a través del proceso de admisión para preparar con precisión su declaración de impuestos. Todos los documentos seran guardados y asegurados en el sistema.'
-            - Entiendo que debo de proporcionar toda la información/documentación requerida para preparar una declaración de impuestos correcta.
-          - header: Validación de la autenticidad del contribuyente (revisión de identificación con foto y tarjetas de seguro social / ITINS)
-            content:
-            - Entiendo que este sitio recopila la información de identificación personal que proporciono (números de seguro social, Formulario W-2 y / o 1099, identificación con foto y otros documentos) para preparar y revisar mi declaración de impuestos. La identidad se valida mediante la revisión de una identificación con foto, prueba de número de seguro social o Número de Identificación Personal (ITIN) y una foto del contribuyente con su identificación.
-          - header: La realización de la entrevista con el (los) contribuyente (s)
-            content:
-            - Entiendo que debo participar en una entrevista de admisión por teléfono para que un sitio de VITA prepare mi declaración de impuestos.
-          - header: La preparación de la declaración de impuestos
-            content:
-            - 'Proceso de preparación de la declaración: GetYourRefund utilizará su información/documentación para completar una declaración de impuestos.'
-            - Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se comunicará conmigo hasta que la declaración esté lista.
-          - header: La realización de la revisión de calidad
-            content:
-            - Entiendo que debo participar en una Revisión de Calidad por teléfono para que un sitio VITA prepare mi declaración de impuestos.
-            - Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los nombres, números del Seguro Social, la dirección, la información bancaria, los ingresos y gastos sean correctos a mi entender.
-          - header: Compartir la declaración completa
-            content:
-            - 'Proceso de control de calidad: GetYourRefund le enviará su declaración para que la verifique antes de presentarla.'
-          - header: La firma de la declaración
-            content:
-            - Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por correo electrónico, después de completar la revisión de calidad para que un sitio de preparación de VITA pueda presentar mi declaración de impuestos en línea.
-            - Entiendo que mi pareja (si tengo) y yo somos responsables en última instancia de toda la información proporcionada a GetYourRefund.
-          - header: La presentación electrónica de la declaración de impuestos
-            content:
-            - Entiendo que GetYourRefund va a entregar mi declaración de impuestos al IRS electrónicamente.
-          - header: Solicitud Para Verificar la Precisión de su Declaración de Impuestos
-            content:
-            - Para asegurar que usted esta recibiendo servicio de alta calidad y una declaración de impuestos preparada correctamente en el sitio de voluntarios, los empleados del IRS hacen una selección aleatoria de los sitios de preparación gratuita de impuestos para revisión. Si se identifican errores el sitio hará las correcciones necesarias. El IRS no retiene ninguna información personal de su declaración de impuestos durante la revisión, y esta les permite dar una calificación a nuestros programas de preparación de impuestos VITA/TCE por preparar declaraciones de impuestos correctamente. Al dar su consentimiento a este servicio usted también da su consentimiento a que su declaración sea revisada por un empleado del IRS para verificar su precisión si el sitio que prepara esta declaración es elegido para revisión.
-          - header: Consentimiento virtual para la divulgación
-            content:
-            - Si acepta que su declaración de impuestos se prepare y sus documentos tributarios se tramiten de la manera anterior, su firma y/o acuerdo son obligatorios en este documento. Firmar este documento significa que usted está de acuerdo con los procedimientos indicados anteriormente para que le preparen una declaración de impuestos. (Si se trata de una declaración de casado con presentación conjunta, ambos cónyuges tienen que firmar y fechar este documento). Si opta por no firmar este formulario, es posible que no podamos preparar su declaración de impuestos mediante este proceso. Ya que preparamos su declaración de impuestos virtualmente, tenemos que obtener su consentimiento de que acepta este proceso.
-            - Si usted da su consentimiento para utilizar estos sistemas virtuales que no pertenecen al IRS para divulgar o utilizar su información sobre la declaración de impuestos, la ley federal puede que no proteja la información de su declaración de impuestos de un uso o distribución adicional en caso de que estos sistemas sean pirateados o violados sin nuestro conocimiento.
-            - Si usted acepta la divulgación de la información de su declaración de impuestos, su consentimiento es válido por la cantidad de tiempo que lo especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
-            - Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés) por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
-            - Mientras que el IRS es responsable de proveer los requisitos de supervisión a los programas de Asistencia Voluntaria con los Impuestos sobre los Ingresos (VITA, por sus siglas en inglés) y la Asesoría Tributaria para la Personas de Edad Avanzada (TCE, por sus siglas en inglés), estos sitios son operados por socios patrocinados por el IRS que gestionan los requisitos de las operaciones del sitio del IRS y las normas éticas de los voluntarios. Además, las ubicaciones de estos sitios pueden no estar en la propiedad federal.
-            - Al firmar más abajo, usted y su cónyuge (si aplica a su situación) aceptan participar en el proceso y dan su consentimiento a que GetYourRefund les ayude a preparar sus impuestos. Ustedes aceptan los términos de la política de privacidad en www.GetYourRefund.org/privacy.
-            - Este formulario de consentimiento reemplaza el formulario 14446 (SP) del IRS, consentimiento del contribuyente del VITA/TCE Virtual. Una copia copia de este consentimiento sera conservada, como lo exige el IRS.
+            - header: Resumen
+              content:
+                - Comprendo esta Asistencia Voluntaria al Contribuyente Tributario (VITA) es una <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">Programas de Impuestos Gratuitos Ofrecidos</a> que <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protege mis derechos civiles</a>.
+                - Entiendo que GetYourRefund.org es un sitio web dirigido por Code for America, una organización sin fines de lucro, que enviará mi información tributaria a un sitio de preparación de VITA.
+            - header: La obtención del acuerdo de consentimiento del contribuyente
+              content:
+                - Entiendo que seleccionar "Acepto" proporciona mi consentimiento para el proceso de preparación de impuestos de GetYourRefund.
+            - header: La realización del proceso de admisión (obtener todos los documentos)
+              content:
+                - 'Proceso de admisión: GetYourRefund coleccionará su información y documentación a través del proceso de admisión para preparar con precisión su declaración de impuestos. Todos los documentos seran guardados y asegurados en el sistema.'
+                - Entiendo que debo de proporcionar toda la información/documentación requerida para preparar una declaración de impuestos correcta.
+            - header: Validación de la autenticidad del contribuyente (revisión de identificación con foto y tarjetas de seguro social / ITINS)
+              content:
+                - Entiendo que este sitio recopila la información de identificación personal que proporciono (números de seguro social, Formulario W-2 y / o 1099, identificación con foto y otros documentos) para preparar y revisar mi declaración de impuestos. La identidad se valida mediante la revisión de una identificación con foto, prueba de número de seguro social o Número de Identificación Personal (ITIN) y una foto del contribuyente con su identificación.
+            - header: La realización de la entrevista con el (los) contribuyente (s)
+              content:
+                - Entiendo que debo participar en una entrevista de admisión por teléfono para que un sitio de VITA prepare mi declaración de impuestos.
+            - header: La preparación de la declaración de impuestos
+              content:
+                - 'Proceso de preparación de la declaración: GetYourRefund utilizará su información/documentación para completar una declaración de impuestos.'
+                - Entiendo que alguien podría comunicarse conmigo a través del medio que yo prefiera para obtener más información. Si el preparador tiene todo lo necesario para preparar la declaración, nadie se comunicará conmigo hasta que la declaración esté lista.
+            - header: La realización de la revisión de calidad
+              content:
+                - Entiendo que debo participar en una Revisión de Calidad por teléfono para que un sitio VITA prepare mi declaración de impuestos.
+                - Entiendo que tengo que revisar mi declaración de impuestos cuando esté lista para verificar que los nombres, números del Seguro Social, la dirección, la información bancaria, los ingresos y gastos sean correctos a mi entender.
+            - header: Compartir la declaración completa
+              content:
+                - 'Proceso de control de calidad: GetYourRefund le enviará su declaración para que la verifique antes de presentarla.'
+            - header: La firma de la declaración
+              content:
+                - Entiendo que tendré que firmar el formulario 8879 (SP), la autorización de firma electrónica del IRS para presentar la declaración por Internet, mediante una firma electrónica que enviaré por correo electrónico, después de completar la revisión de calidad para que un sitio de preparación de VITA pueda presentar mi declaración de impuestos en línea.
+                - Entiendo que mi pareja (si tengo) y yo somos responsables en última instancia de toda la información proporcionada a GetYourRefund.
+            - header: La presentación electrónica de la declaración de impuestos
+              content:
+                - Entiendo que GetYourRefund va a entregar mi declaración de impuestos al IRS electrónicamente.
+            - header: Solicitud Para Verificar la Precisión de su Declaración de Impuestos
+              content:
+                - Para asegurar que usted esta recibiendo servicio de alta calidad y una declaración de impuestos preparada correctamente en el sitio de voluntarios, los empleados del IRS hacen una selección aleatoria de los sitios de preparación gratuita de impuestos para revisión. Si se identifican errores el sitio hará las correcciones necesarias. El IRS no retiene ninguna información personal de su declaración de impuestos durante la revisión, y esta les permite dar una calificación a nuestros programas de preparación de impuestos VITA/TCE por preparar declaraciones de impuestos correctamente. Al dar su consentimiento a este servicio usted también da su consentimiento a que su declaración sea revisada por un empleado del IRS para verificar su precisión si el sitio que prepara esta declaración es elegido para revisión.
+            - header: Consentimiento virtual para la divulgación
+              content:
+                - Si acepta que su declaración de impuestos se prepare y sus documentos tributarios se tramiten de la manera anterior, su firma y/o acuerdo son obligatorios en este documento. Firmar este documento significa que usted está de acuerdo con los procedimientos indicados anteriormente para que le preparen una declaración de impuestos. (Si se trata de una declaración de casado con presentación conjunta, ambos cónyuges tienen que firmar y fechar este documento). Si opta por no firmar este formulario, es posible que no podamos preparar su declaración de impuestos mediante este proceso. Ya que preparamos su declaración de impuestos virtualmente, tenemos que obtener su consentimiento de que acepta este proceso.
+                - Si usted da su consentimiento para utilizar estos sistemas virtuales que no pertenecen al IRS para divulgar o utilizar su información sobre la declaración de impuestos, la ley federal puede que no proteja la información de su declaración de impuestos de un uso o distribución adicional en caso de que estos sistemas sean pirateados o violados sin nuestro conocimiento.
+                - Si usted acepta la divulgación de la información de su declaración de impuestos, su consentimiento es válido por la cantidad de tiempo que lo especifique. Si no especifica la duración de su consentimiento, su consentimiento es válido por un año a partir de la fecha de la firma.
+                - Si usted cree que la información de su declaración de impuestos ha sido divulgada o utilizada indebidamente de una manera no autorizada por la ley o sin su permiso, puede comunicarse con el Inspector General del Tesoro para la Administración Tributaria (TIGTA, por sus siglas en inglés) por teléfono al 1-800-366-4484 o por correo electrónico a complaints@tigta.treas.gov.
+                - Mientras que el IRS es responsable de proveer los requisitos de supervisión a los programas de Asistencia Voluntaria con los Impuestos sobre los Ingresos (VITA, por sus siglas en inglés) y la Asesoría Tributaria para la Personas de Edad Avanzada (TCE, por sus siglas en inglés), estos sitios son operados por socios patrocinados por el IRS que gestionan los requisitos de las operaciones del sitio del IRS y las normas éticas de los voluntarios. Además, las ubicaciones de estos sitios pueden no estar en la propiedad federal.
+                - Al firmar más abajo, usted y su cónyuge (si aplica a su situación) aceptan participar en el proceso y dan su consentimiento a que GetYourRefund les ayude a preparar sus impuestos. Ustedes aceptan los términos de la política de privacidad en www.GetYourRefund.org/privacy.
+                - Este formulario de consentimiento reemplaza el formulario 14446 (SP) del IRS, consentimiento del contribuyente del VITA/TCE Virtual. Una copia copia de este consentimiento sera conservada, como lo exige el IRS.
           site_process_header: El Proceso en el Sitio de GetYourRefund
         information_you_provide: Usted entiende que la información que proporciona en este sitio web (GetYourRefund.org) se envía a un sitio de preparación de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) para que un voluntario certificado por el Servicio de Rentas Internas (IRS, por sus siglas en inglés) revise su información, realice una entrevista de admisión por teléfono, prepare su declaración de impuestos y haga una revisión de calidad antes de presentarla.
         proceed_and_confirm: Al continuar, usted confirma que las siguientes declaraciones son verdaderas y completas hasta donde se sabe.
