@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>a196a6cf</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400001234</PrimarySSN>
+      <NameLine1Txt>TINA L&lt;FEY</NameLine1Txt>
+      <PrimaryNameControlTxt>FEY</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>30 Rockefeller plaza</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10112</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>30rock@hatemail.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">16496</WagesAmt>
+      <WagesSalariesAndTipsAmt>16496</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>722</TaxableInterestAmt>
+      <TotalIncomeAmt>17218</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>17218</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>3368</TaxableIncomeAmt>
+      <TaxAmt>338</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>338</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>338</TaxLessCreditsAmt>
+      <TotalTaxAmt>338</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1151</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1151</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt>32</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>32</RefundableCreditsAmt>
+      <TotalPaymentsAmt>1183</TotalPaymentsAmt>
+      <OverpaidAmt>845</OverpaidAmt>
+      <RefundAmt>845</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Writer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400001234</EmployeeSSN>
+      <EmployerEIN>161592810</EmployerEIN>
+      <EmployerNameControlTxt>SATU</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Saturday Night Live</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>123 Comedians Alley</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10111</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Tina L Fey</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>30 Rockefeller plaza</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10112</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>16496</WagesAmt>
+      <WithholdingAmt>1151</WithholdingAmt>
+      <SocialSecurityWagesAmt>17398</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1079</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>17398</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>252</MedicareTaxWithheldAmt>
+      <EmployersUseGrp>
+        <EmployersUseCd>D</EmployersUseCd>
+        <EmployersUseAmt>902</EmployersUseAmt>
+      </EmployersUseGrp>
+      <RetirementPlanInd>X</RetirementPlanInd>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>4565647</EmployerStateIdNum>
+          <StateWagesAmt>16496</StateWagesAmt>
+          <StateIncomeTaxAmt>374</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>16496</LocalWagesAndTipsAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
