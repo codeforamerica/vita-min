@@ -223,6 +223,7 @@ es:
     messages:
       blank: No puede estar en blanco.
       invalid: es invalido
+      whole_number: debe ser un numero entero
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.

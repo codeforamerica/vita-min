@@ -222,6 +222,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
+      whole_number: must be a whole number
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
