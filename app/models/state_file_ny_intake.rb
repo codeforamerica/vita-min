@@ -7,6 +7,7 @@
 #  account_type                       :integer          default("unfilled"), not null
 #  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
+#  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_sign_in_at                 :datetime
@@ -25,7 +26,6 @@
 #  federal_return_status              :string
 #  hashed_ssn                         :string
 #  household_cash_assistance          :integer
-#  household_fed_agi                  :integer
 #  household_ny_additions             :integer
 #  household_other_income             :integer
 #  household_own_assessments          :integer
@@ -84,6 +84,7 @@
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
+#  unfinished_intake_ids              :text             default([]), is an Array
 #  unsubscribed_from_email            :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
 #  withdraw_amount                    :integer
@@ -107,6 +108,27 @@ class StateFileNyIntake < StateFileBaseIntake
   STATE_CODE_AND_NAME = {
     STATE_CODE => STATE_NAME
   }.freeze
+  LOCALITIES = [
+    "NY",
+    "N Y",
+    "NWY",
+    "NW Y",
+    "NEWY",
+    "BRONX",
+    "BROOKLYN",
+    "CITYNY",
+    "STATEN",
+    "QUEENS",
+    "CITY NY",
+    "CITYN Y",
+    "CITYOFNY",
+    "CITYOF NY",
+    "CITY OFNY",
+    "CITYOFN Y",
+    "CTY OF NY",
+    "MANHATTAN",
+    "NEW YORK CIT",
+  ].freeze
 
   encrypts :account_number, :routing_number, :raw_direct_file_data
   
@@ -124,6 +146,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_part_year_nyc_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_part_year_nyc_resident
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
+  enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
 
   before_save do
     save_nil_enums_with_unfilled
@@ -235,6 +258,12 @@ class StateFileNyIntake < StateFileBaseIntake
       nyc_residency: "part_year",
       nyc_maintained_home: "yes"
     }
+  end
+
+  def self.locality_nm_valid?(locality)
+    (LOCALITIES.detect do |loc|
+      locality.starts_with?(loc)
+    end).present?
   end
 
   private

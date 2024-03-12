@@ -8,6 +8,10 @@ module Efile
         @intake = intake
         @filing_status = intake.filing_status.to_sym # single, married_filing_jointly, that's all we support for now
         @direct_file_data = intake.direct_file_data
+        intake.state_file_w2s.each do |w2|
+          dest_w2 = @direct_file_data.w2s[w2.w2_index]
+          dest_w2.node.at("W2StateLocalTaxGrp").inner_html = w2.state_tax_group_xml_node
+        end
         @eligibility_lived_in_state = intake.eligibility_lived_in_state
         @dependent_count = intake.dependents.length
 
@@ -97,6 +101,17 @@ module Efile
       def refund_or_owed_amount
         #refund if amount is positive, owed if amount is negative
         line_or_zero(:IT201_LINE_76) - line_or_zero(:IT201_LINE_62)
+      end
+
+      def analytics_attrs
+        {
+          nys_eitc: line_or_zero(:IT201_LINE_65),
+          nyc_eitc: line_or_zero(:IT201_LINE_70),
+          empire_state_child_credit: line_or_zero(:IT201_LINE_63),
+          nyc_school_tax_credit: line_or_zero(:IT201_LINE_69),
+          nys_household_credit: line_or_zero(:IT201_LINE_40),
+          nyc_household_credit: line_or_zero(:IT201_LINE_48)
+        }
       end
 
       private

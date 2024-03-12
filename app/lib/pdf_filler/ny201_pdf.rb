@@ -28,13 +28,13 @@ module PdfFiller
         TP_mail_address: @submission.data_source.direct_file_data.mailing_street,
         TP_mail_apt: @submission.data_source.direct_file_data.mailing_apartment,
         NYS_county_residence: @submission.data_source.county_name,
-        TP_mail_city: @xml_document.at('tiPrime MAIL_CITY_ADR')&.text,
+        TP_mail_city: @submission.data_source.direct_file_data.mailing_city,
         TP_mail_state: @xml_document.at('tiPrime MAIL_STATE_ADR')&.text,
         TP_mail_zip: @xml_document.at('tiPrime MAIL_ZIP_5_ADR')&.text&.slice(0, 5),
         TP_mail_country: 'United States',
         TP_home_address: @submission.data_source.permanent_street,
         TP_home_apt: @submission.data_source.permanent_apartment,
-        TP_home_city: @xml_document.at('tiPrime PERM_CTY_ADR')&.text,
+        TP_home_city: @submission.data_source.permanent_city,
         TP_home_zip: @xml_document.at('tiPrime PERM_ZIP_ADR')&.text,
         SD_name: @submission.data_source.school_district,
         SD_code: @xml_document.at('tiPrime SCHOOL_CD')&.text,
@@ -111,6 +111,15 @@ module PdfFiller
           Line83c_account_num: claimed_attr_value('BANK_ACCT_NMBR'),
           Line84_withdrawal_Date: claimed_attr_value('ELC_AUTH_EFCTV_DT'),
           Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
+        )
+      end
+      if @submission.data_source.confirmed_third_party_designee_yes?
+        answers.merge!(
+          '3rd_party_box' => "yes",
+          designee_name: claimed_attr_value('THRD_PRTY_NAME'),
+          designee_ac: @submission.data_source.direct_file_data.third_party_designee_phone_number[-10, 3],
+          designees_phone: third_party_designee_phone_number('THRD_PRTY_PH_NMBR'),
+          designee_pin: claimed_attr_value('THRD_PRTY_PIN_NMBR')
         )
       end
       if @submission.data_source.calculated_refund_or_owed_amount.positive?
@@ -191,6 +200,12 @@ module PdfFiller
 
     def phone_number(xml_field_1, xml_field_2)
       claimed_attr_value(xml_field_1).to_s + "-" + claimed_attr_value(xml_field_2).to_s
+    end
+
+    def third_party_designee_phone_number(xml_field)
+      last_four_digits = claimed_attr_value(xml_field)[-4, 4].to_s
+      three_before_last_four_digits = claimed_attr_value(xml_field)[-7, 3].to_s
+      three_before_last_four_digits + "-" + last_four_digits
     end
 
     def dependents_info(dependents)

@@ -13,6 +13,8 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
   has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
+  has_many :state_file_w2s, as: :state_file_intake, class_name: "StateFileW2", inverse_of: :state_file_intake, dependent: :destroy
+  has_many :df_data_import_errors, -> { order(created_at: :asc) }, as: :state_file_intake, class_name: "DfDataImportError", inverse_of: :state_file_intake, dependent: :destroy
   has_one :state_file_analytics, as: :record
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
@@ -130,6 +132,10 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
+  def self.locality_nm_valid?(locality)
+    true
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial
@@ -202,16 +208,8 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  # Any statuses besides an accepted/rejected can lead back to these terminal states via resubmission.
-  def return_status
-    case self.efile_submissions.last.current_state
-    when 'accepted'
-      'accepted'
-    when 'rejected'
-      'rejected'
-    else
-      'pending'
-    end
+  def latest_submission
+    self.efile_submissions&.last
   end
 
   def increment_failed_attempts

@@ -50,7 +50,7 @@ module SubmissionBuilder
                 if @submission.data_source.direct_file_data.mailing_street.present?
                   process_mailing_street(xml)
                 end
-                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city if @submission.data_source.direct_file_data.mailing_city.present?
+                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city.slice(0, 18) if @submission.data_source.direct_file_data.mailing_city.present?
                 xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state if @submission.data_source.direct_file_data.mailing_state.present?
                 xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.slice(0, 5) if @submission.data_source.direct_file_data.mailing_zip.present?
                 xml.COUNTY_CD @submission.data_source.county_code if @submission.data_source.county_code.present?
@@ -58,7 +58,7 @@ module SubmissionBuilder
                 if @submission.data_source.permanent_street.present?
                   process_permanent_street(xml)
                 end
-                xml.PERM_CTY_ADR @submission.data_source.permanent_city if @submission.data_source.permanent_city.present?
+                xml.PERM_CTY_ADR @submission.data_source.permanent_city.slice(0, 18) if @submission.data_source.permanent_city.present?
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?
                 xml.SCHOOL_CD @submission.data_source.school_district_number if @submission.data_source.school_district_number.present?
@@ -83,23 +83,24 @@ module SubmissionBuilder
                 end
               end
 
-              # These dependents are for NY IT-213
-              it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
+              if receiving_213_credit?
+                it_213_qualified_dependents = @submission.data_source.dependents.select(&:eligible_for_child_tax_credit)
 
-              it_213_qualified_dependents.each_with_index do |dependent, index|
-                xml.dependent do
-                  xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
-                  xml.DEP_SEQ_NMBR index+1
-                  xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
-                  xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
-                  xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
-                  xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
-                  xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
-                  xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
-                  xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
-                  xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
-                  xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                it_213_qualified_dependents.each_with_index do |dependent, index|
+                  xml.dependent do
+                    xml.DEP_SSN_NMBR dependent.ssn if dependent.ssn.present?
+                    xml.DEP_SEQ_NMBR index+1
+                    xml.DEP_DISAB_IND dependent.eic_disability_yes? ? 1 : 2
+                    xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
+                    xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
+                    xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
+                    xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
+                    xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
+                    xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
+                    xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
+                    xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
+                    xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
+                  end
                 end
               end
 
@@ -183,7 +184,7 @@ module SubmissionBuilder
                 include: receiving_213_credit
               },
               {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::It213,
+                xml: nil,
                 pdf: PdfFiller::Ny213AttPdf,
                 include: @submission.data_source.dependents.select(&:eligible_for_child_tax_credit).length > DEPENDENT_OVERFLOW_THRESHOLD,
                 kwargs: { dependent_offset: DEPENDENT_OVERFLOW_THRESHOLD }
@@ -200,12 +201,15 @@ module SubmissionBuilder
               }
             ]
 
-            @submission.data_source.direct_file_data.w2s.each do |w2|
+            @submission.data_source.direct_file_data.w2s.each_with_index do |w2, i|
+              intake = @submission.data_source
+              intake_w2 = intake.state_file_w2s.find {|w2| w2.w2_index == i } if intake.state_file_w2s.present?
+
               supported_docs << {
                 xml: SubmissionBuilder::Shared::ReturnW2,
                 pdf: PdfFiller::NyIt2Pdf,
                 include: true,
-                kwargs: { w2: w2 }
+                kwargs: { w2: w2, intake_w2: intake_w2 }
               }
             end
 

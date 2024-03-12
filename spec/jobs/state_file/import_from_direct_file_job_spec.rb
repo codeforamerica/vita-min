@@ -37,11 +37,19 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.hashed_ssn).to eq expected_hashed_ssn
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
+
+      it "clears df_data_import_failed_at if there was a previous failure" do
+        intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
+        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
+        described_class.perform_now(authorization_code: auth_code, intake: intake)
+
+        expect(intake.df_data_import_failed_at).to eq nil
+      end
     end
 
     context "when the direct file xml is formed in a way that causes our code to error" do
       before do
-        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError
+        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError.new("Malformed data")
       end
 
       it "catches the error and persists it to the intake record" do
@@ -49,6 +57,21 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(intake.df_data_import_failed_at).to be_present
+        expect(intake.df_data_import_errors.count).to eq(1)
+        expect(intake.df_data_import_errors.first.message).to eq("Malformed data")
+      end
+    end
+
+    context "when the direct file data is missing" do
+      let(:json_result) { nil }
+      it "marks the failure gracefully" do
+        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
+        described_class.perform_now(authorization_code: auth_code, intake: intake)
+
+        expect(intake.df_data_import_failed_at).to be_present
+        expect(intake.raw_direct_file_data).to_not be_present
+        expect(intake.df_data_import_errors.count).to eq(1)
+        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake az 1.")
       end
     end
   end

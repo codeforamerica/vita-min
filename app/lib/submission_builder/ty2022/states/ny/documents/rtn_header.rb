@@ -20,8 +20,10 @@ module SubmissionBuilder
               build_xml_doc("rtnHeader") do |xml|
                 # xml.COND_CODE_1_NMBR
                 # xml.COND_CODE_2_NMBR
-                # xml.THRD_PRTY_DSGN_IND
-                # xml.THRD_PRTY_PIN_NMBR
+                if @submission.data_source.confirmed_third_party_designee_yes?
+                  xml.THRD_PRTY_DSGN_IND claimed: 1
+                  xml.THRD_PRTY_PIN_NMBR claimed: @submission.data_source.direct_file_data.third_party_designee_pin if @submission.data_source.direct_file_data.third_party_designee_pin.present?
+                end
                 xml.EXT_TP_ID claimed: @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
                 xml.ABA_NMBR claimed: @submission.data_source.routing_number if @submission.data_source.routing_number.present?
                 xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-') if @submission.data_source.account_number.present?

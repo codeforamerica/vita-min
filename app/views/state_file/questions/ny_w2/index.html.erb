@@ -1,0 +1,39 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <% @w2s_with_metadata.each do |w2_info| %>
+    <% w2 = w2_info[:w2] %>
+    <% employer_name = w2_info[:employer_name] %>
+    <% wages_amount = w2_info[:wages_amount] %>
+    <div class="blue-group">
+      <div class="spacing-below-15">
+        <div><strong><%= t(".w2_for", employer_name: employer_name) %></strong></div>
+        <div><strong><%= t(".wages_amount", wages_amount: wages_amount) %></strong></div>
+        <% if w2.valid? && w2.persisted? %>
+          <div><i><%= t(".updated") %></i></div>
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to t("general.update"), StateFile::Questions::NyW2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index), class: "button--small button--inline-action" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% can_continue = @w2s_with_metadata.all? { |w2_info| w2_info[:w2].valid? && w2_info[:w2].persisted? } %>
+  <% if can_continue %>
+    <%= link_to(next_path, class: "button button--primary button--wide") do %>
+      <%= t('general.continue') %>
+    <% end %>
+  <% else %>
+    <button class="button button--primary button--disabled button--wide text--centered" disabled>
+      <%= t("general.continue") %>
+    </button>
+    <span class="text--error" id="state_file_w2_local_income_tax_amt__errors">
+      <i class="icon-warning"></i>
+      <%= I18n.t("state_file.questions.ny_w2.edit.w2s_error") %>
+    </span>
+  <% end %>
+<% end %>

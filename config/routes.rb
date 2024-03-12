@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         next if controller_class.navigation_actions.length > 1
+        next if controller_class == StateFile::Questions::NyW2Controller
 
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
@@ -150,6 +151,8 @@ Rails.application.routes.draw do
       get "/consent-to-disclose", to: "consent_pages#consent_to_disclose"
       get "/relational-efin", to: "consent_pages#relational_efin"
       get "/global-carryforward", to: "consent_pages#global_carryforward"
+      get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
+      post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
 
       namespace :portal do
         root "portal#home"
@@ -245,6 +248,11 @@ Rails.application.routes.draw do
             get "show_pdf", to: "efile_submissions#show_pdf"
             get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
           end
+
+          resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
+            patch "/reprocess", to: "efile_errors#reprocess", on: :member, as: :reprocess
+          end
+
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end
@@ -579,6 +587,7 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+        resources :ny_w2, only: [:index, :edit, :update], module: 'state_file/questions', path: 'questions/ny_w2'
       end
 
       scope ':us_state', as: 'us', constraints: { us_state: :us } do

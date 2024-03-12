@@ -75,6 +75,12 @@ module SubmissionBuilder
       true # Arizona and other future states we add will include the namespace tag
     end
 
+    def receiving_213_credit?
+      tax_calculator = @submission.data_source.tax_calculator
+      calculated_fields = tax_calculator.calculate
+      calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.direct_file_data.claimed_as_dependent?
+    end
+
     def add_non_zero_claimed_value(xml, elem_name, claimed)
       claimed_value = calculated_fields.fetch(claimed)
       if claimed_value.present? && claimed_value.to_i != 0

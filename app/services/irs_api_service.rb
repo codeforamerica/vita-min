@@ -74,18 +74,9 @@ class IrsApiService
     end
 
     unless response.header['SESSION-KEY']
-      puts "Could not find key in response, bailing out..."
-      puts response.body
+      Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
       return
     end
-
-    # File.write('sinatra_response.html', response.body)
-
-    # ap({
-    #      sk: Base64.decode64(response.header['SESSION-KEY']),
-    #      iv: Base64.decode64(response.header['INITIALIZATION-VECTOR']),
-    #      at: Base64.decode64(response.header['AUTHENTICATION-TAG']),
-    #    })
 
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
     decipher.decrypt
@@ -103,9 +94,6 @@ class IrsApiService
       decipher.auth_tag = auth_tag
     end
     plain = decipher.update(encrypted_tax_return_bytes) + decipher.final
-
-    # puts "Response Code: #{response.code}"
-    # puts "Response Body: #{plain}"
 
     decrypted_json = JSON.parse(plain)
     decrypted_json['xml'] = Nokogiri::XML(decrypted_json['xml']).to_xml

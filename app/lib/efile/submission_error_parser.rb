@@ -29,7 +29,7 @@ module Efile
       efile_submission = @transition.efile_submission
       metadata = @transition.metadata
 
-      attrs = { code: metadata["error_code"] }
+      attrs = { code: metadata["error_code"], service_type: error_service_type(efile_submission) }
       attrs[:source] = metadata["error_source"] if metadata["error_source"].present?
       efile_error = EfileError.find_or_create_by!(attrs)
 
@@ -48,7 +48,8 @@ module Efile
           code: error_group.at("RuleNum")&.text,
           category: error_group.at("ErrorCategoryCd")&.text,
           severity: error_group.at("SeverityCd")&.text,
-          source: "irs"
+          source: "irs",
+          service_type: error_service_type(@transition.efile_submission)
         )
         message = error_group.at("ErrorMessageTxt")&.text
         error.update(message: message) if message.present? && error.message != message
@@ -76,6 +77,16 @@ module Efile
 
     def self.persist_errors(*args)
       new(*args).persist_errors
+    end
+
+    private
+
+    def error_service_type(submission)
+      if submission.is_for_state_filing?
+        :state_file
+      elsif submission.is_for_federal_filing?
+        :ctc
+      end
     end
   end
 

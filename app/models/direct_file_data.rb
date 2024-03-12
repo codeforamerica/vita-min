@@ -56,6 +56,10 @@ class DirectFileData
     primary_claim_as_dependent: 'IRS1040 PrimaryClaimAsDependentInd',
     hoh_qualifying_person_name: 'IRS1040 QualifyingHOHNm',
     surviving_spouse: 'IRS1040 SurvivingSpouseInd',
+    third_party_designee_ind: 'IRS1040 ThirdPartyDesigneeInd',
+    third_party_designee_name: 'IRS1040 ThirdPartyDesigneeNm',
+    third_party_designee_phone_number: 'IRS1040 ThirdPartyDesigneePhoneNum',
+    third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
   }.freeze
 
@@ -612,6 +616,39 @@ class DirectFileData
     parsed_xml.css('QualifyingChildInformation').last.add_next_sibling(dd.to_s)
   end
 
+  def third_party_designee_ind
+    df_xml_value(__method__)
+  end
+
+  def third_party_designee_ind=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'ThirdPartyDesigneeInd')
+    write_df_xml_value(__method__, value)
+  end
+
+  def third_party_designee_name
+    df_xml_value(__method__)
+  end
+
+  def third_party_designee_name=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def third_party_designee_phone_number
+    df_xml_value(__method__)
+  end
+
+  def third_party_designee_phone_number=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def third_party_designee_pin
+    df_xml_value(__method__)
+  end
+
+  def third_party_designee_pin=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -685,6 +722,7 @@ class DirectFileData
       EmployeeSSN: 'EmployeeSSN',
       EmployerEIN: 'EmployerEIN',
       EmployerName: 'EmployerName BusinessNameLine1Txt',
+      EmployerStateIdNum: 'EmployerStateIdNum',
       AddressLine1Txt: 'EmployerUSAddress AddressLine1Txt',
       City: 'EmployerUSAddress CityNm',
       State: 'EmployerUSAddress StateAbbreviationCd',
@@ -737,6 +775,14 @@ class DirectFileData
     end
 
     def EmployerEIN=(value)
+      write_df_xml_value(__method__, value)
+    end
+
+    def EmployerStateIdNum
+      df_xml_value(__method__)
+    end
+
+    def EmployerStateIdNum=(value)
       write_df_xml_value(__method__, value)
     end
 

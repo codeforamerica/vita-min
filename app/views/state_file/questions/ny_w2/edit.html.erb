@@ -1,0 +1,33 @@
+<% content_for :card do %>
+  <h1 class="form-question"><%= t(".instructions_1", employer_name: @employer_name , total_wages_amt: number_to_currency(@wages_amt)) %></h1>
+  <h2 class="form-question"><%= t(".instructions_2") %></h2>
+  <%= form_with model: @w2, url: { action: :update }, method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <div class="blue-group">
+      <div class="form-question spacing-below-25">
+        <div class="text--bold spacing-below-15"><%=t("general.state") %></div>
+        <div><%=current_intake.state_name %></div>
+      </div>
+      <div class="form-question spacing-below-25">
+        <%= f.cfa_input_field(:employer_state_id_num, t(".box15_html"), classes: ["form-width--long"]) %>
+      </div>
+      <div class="form-question spacing-below-25">
+        <%= f.cfa_input_field(:state_wages_amt, t(".box16_html"), classes: ["form-width--long"]) %>
+      </div>
+      <div class="form-question spacing-below-25">
+        <%= f.cfa_input_field(:state_income_tax_amt, t(".box17_html"), classes: ["form-width--long"]) %>
+      </div>
+      <div class="form-question spacing-below-25">
+        <%= f.cfa_input_field(:local_wages_and_tips_amt, t(".box18_html"), classes: ["form-width--long"]) %>
+      </div>
+      <div class="form-question spacing-below-25">
+        <%= f.cfa_input_field(:local_income_tax_amt, t(".box19_html"), classes: ["form-width--long"]) %>
+      </div>
+      <div class="form-question spacing-below-25 ny-w2-locality-nm">
+        <%= f.cfa_input_field(:locality_nm, t(".box20_locality_name"), classes: ["form-width--long"]) %>
+      </div>
+      <button class="button button--primary button--wide" type="submit">
+        <%= t("general.continue") %>
+      </button>
+    </div>
+  <% end %>
+<% end %>

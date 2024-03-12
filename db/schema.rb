@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -712,6 +712,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
   end
 
+  create_table "df_data_import_errors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "message"
+    t.bigint "state_file_intake_id"
+    t.string "state_file_intake_type"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_df_data_import_errors_on_state_file_intake"
+  end
+
   create_table "diy_intakes", force: :cascade do |t|
     t.datetime "clicked_chat_with_us_at"
     t.datetime "created_at", null: false
@@ -783,8 +792,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.string "category"
     t.string "code"
     t.datetime "created_at", null: false
-    t.boolean "expose", default: true
+    t.boolean "expose", default: false
     t.text "message"
+    t.integer "service_type", default: 0, null: false
     t.string "severity"
     t.string "source"
     t.datetime "updated_at", null: false
@@ -1583,8 +1593,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
 
   create_table "state_file_analytics", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "dependent_tax_credit"
+    t.integer "empire_state_child_credit"
+    t.integer "excise_credit"
+    t.integer "family_income_tax_credit"
     t.integer "fed_eitc_amount"
     t.integer "filing_status"
+    t.integer "household_fed_agi"
+    t.integer "nyc_eitc"
+    t.integer "nyc_household_credit"
+    t.integer "nyc_school_tax_credit"
+    t.integer "nys_eitc"
+    t.integer "nys_household_credit"
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.integer "refund_or_owed_amount"
@@ -1652,6 +1672,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
@@ -1715,6 +1736,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.integer "confirmed_permanent_address", default: 0, null: false
+    t.integer "confirmed_third_party_designee", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1735,7 +1757,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.string "federal_submission_id"
     t.string "hashed_ssn"
     t.integer "household_cash_assistance"
-    t.integer "household_fed_agi"
     t.integer "household_ny_additions"
     t.integer "household_other_income"
     t.integer "household_own_assessments"
@@ -1797,6 +1818,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.string "spouse_middle_initial"
     t.string "spouse_signature"
     t.bigint "spouse_state_id_id"
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
@@ -1805,6 +1827,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
     t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_w2s", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "employer_state_id_num"
+    t.integer "local_income_tax_amt"
+    t.integer "local_wages_and_tips_amt"
+    t.string "locality_nm"
+    t.bigint "state_file_intake_id"
+    t.string "state_file_intake_type"
+    t.integer "state_income_tax_amt"
+    t.integer "state_wages_amt"
+    t.datetime "updated_at", null: false
+    t.integer "w2_index"
+    t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 
   create_table "state_ids", force: :cascade do |t|
@@ -2217,8 +2254,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_200557) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

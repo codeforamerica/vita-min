@@ -6,7 +6,7 @@ describe Hub::EfileErrorsController do
     it_behaves_like :an_action_for_admins_only , action: :index, method: :get
 
     context "as an authenticated user" do
-      let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123" }
+      let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123", service_type: :ctc }
 
       before do
         sign_in user
@@ -21,7 +21,7 @@ describe Hub::EfileErrorsController do
   end
 
   describe "#edit" do
-    let(:efile_error) { create :efile_error }
+    let(:efile_error) { create :efile_error, service_type: :ctc }
     let(:params) { { id: efile_error.id } }
 
     it_behaves_like :an_action_for_admins_only , action: :edit, method: :get
@@ -39,12 +39,13 @@ describe Hub::EfileErrorsController do
   end
 
   describe "#update" do
-    let(:efile_error) { create :efile_error }
+    let!(:efile_error) { create :efile_error, service_type: :ctc, expose: false }
     let(:params) do
       {
         id: efile_error.id,
         efile_error: {
-          expose: false,
+          expose: true,
+          service_type: :ctc,
           auto_cancel: true,
           auto_wait: true,
           description_en: "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>",
@@ -63,10 +64,10 @@ describe Hub::EfileErrorsController do
       end
 
       it "updates the object based on passed params" do
-        expect(efile_error.expose).to eq true
+        expect(efile_error.expose).to eq false
         put :update, params: params
         efile_error.reload
-        expect(efile_error.expose).to eq false
+        expect(efile_error.expose).to eq true
         expect(efile_error.auto_cancel).to eq true
         expect(efile_error.auto_wait).to eq true
         expect(efile_error.description_en.body).to be_an_instance_of ActionText::Content
@@ -85,8 +86,8 @@ describe Hub::EfileErrorsController do
       let(:cancelled_submission) { create :efile_submission, :cancelled }
       let(:failed_submission) { create :efile_submission, :failed }
 
-      let(:wait_efile_error) { create :efile_error, code: "WAIT-ME-123", auto_wait: true }
-      let(:cancel_efile_error) { create :efile_error, code: "CANCEL-ME-123", auto_cancel: true }
+      let(:wait_efile_error) { create :efile_error, code: "WAIT-ME-123", auto_wait: true, service_type: :ctc }
+      let(:cancel_efile_error) { create :efile_error, code: "CANCEL-ME-123", auto_cancel: true, service_type: :ctc }
 
       let(:params) do
         {
@@ -115,7 +116,7 @@ describe Hub::EfileErrorsController do
       end
 
       context "with no auto-transition on the error" do
-        let(:do_nothing_error) { create :efile_error, code: "NOTHING-ME-123", auto_cancel: false, auto_wait: false }
+        let(:do_nothing_error) { create :efile_error, code: "NOTHING-ME-123", auto_cancel: false, auto_wait: false, service_type: :ctc }
 
         let(:params) do
           {

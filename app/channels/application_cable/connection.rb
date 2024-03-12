@@ -8,10 +8,9 @@ module ApplicationCable
       @current_user ||= env['warden'].user
     rescue UncaughtThrowError => e
       raise unless e.tag == :warden
-
-      # 'uncaught throw :warden' is fired in certain circumstances, this here is to silence it
+      Rails.logger.warn ([e.message]+e.backtrace).join($/)
       DatadogApi.increment "application_cable.uncaught_throw_warden_error"
-      reject_unauthorized_connection
+      nil
     end
 
     def current_state_file_intake
