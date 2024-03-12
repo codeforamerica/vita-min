@@ -109,6 +109,7 @@ module StateFile
         return true if w2.EmployerStateIdNum.present? && w2.StateAbbreviationCd.blank?
         return true if w2.StateIncomeTaxAmt > w2.StateWagesAmt
         return true if w2.LocalIncomeTaxAmt > w2.LocalWagesAndTipsAmt
+        return true if w2.StateIncomeTaxAmt + w2.LocalIncomeTaxAmt > w2.WagesAmt
         false
       end
     end
