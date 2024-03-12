@@ -13,7 +13,6 @@
       <USAddress>
         <AddressLine1Txt>1 14th St</AddressLine1Txt>
         <CityNm>New York</CityNm>
-        <StateAbbreviationCd></StateAbbreviationCd>
         <ZIPCd>10014</ZIPCd>
       </USAddress>
       <PhoneNum>2125555555</PhoneNum>
