@@ -2391,6 +2391,7 @@ en:
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           w2s_error: Update W-2s before continuing.
+          wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
         index:
           title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
