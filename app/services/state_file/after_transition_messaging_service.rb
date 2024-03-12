@@ -28,14 +28,14 @@ module StateFile
     end
 
     def send_survey_notification_message
+      # binding.pry
       StateFile::MessagingService.new(
         intake: @intake,
         submission: @submission,
         message: StateFile::AutomatedMessage::SurveyNotification,
-        body_args: { survey_link: survey_link }
-      ).send_message
+        body_args: { survey_link: survey_link }).send_message
     end
-    handle_asynchronously :send_survey_notification_message, :run_at => Proc.new { 24.hours.from_now }
+    # handle_asynchronously :send_survey_notification_message, :run_at => Proc.new { 1.minutes.from_now }
 
     def send_efile_submission_rejected_message
       message = StateFile::AutomatedMessage::Rejected
