@@ -74,14 +74,29 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
-    context 'when claiming the federal EIC, but the E_EITC_CR_AMT OR E_NYC_EITC_CR_AMT are 0 or less' do
+    context 'when claiming the federal EIC, but the E_EITC_CR_AMT OR E_NYC_EITC_CR_AMT are 0 or more' do
+      let(:intake) { create(:state_file_zeus_intake) }
+      before do
+        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 10 # E_EITC_CR_AMT
+        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0 # E_NYC_EITC_CR_AMT
+      end
+
+      it 'does include the IT215 document and EIC dependents' do
+        xml = described_class.build(submission).document
+        expect(xml.at('IT215')).to be_present
+        expect(intake.tax_calculator.calculate[:IT215_LINE_16]).to be_positive
+        expect(intake.tax_calculator.calculate[:IT215_LINE_27]).to be_zero
+      end
+    end
+
+    context 'when claiming the federal EIC, but both E_EITC_CR_AMT AND E_NYC_EITC_CR_AMT are 0 or less' do
       let(:intake) { create(:state_file_zeus_intake) }
       before do
         allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 0 # E_EITC_CR_AMT
         allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0 # E_NYC_EITC_CR_AMT
       end
 
-      it 'does not include the IT215 document and EIC dependents' do
+      it 'does NOT include the IT215 document and EIC dependents' do
         xml = described_class.build(submission).document
         expect(xml.at('IT215')).not_to be_present
         expect(intake.tax_calculator.calculate[:IT215_LINE_16]).to be_zero
