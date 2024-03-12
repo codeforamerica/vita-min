@@ -1542,7 +1542,15 @@ es:
           ¿Preguntas? Responde a este mensaje.
       accepted_refund:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.\n\nDescarga tu declaración y verifica el estado de tu reembolso en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.
+
+            Descarga tu declaración y verifica el estado de tu reembolso en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Saludos,
+            El equipo de FileYourStateTaxes
           subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
         sms: |
           Hola %{primary_first_name} - ¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.
