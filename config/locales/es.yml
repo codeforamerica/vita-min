@@ -217,7 +217,7 @@ es:
       state:
         inclusion: Por favor, seleccione un estado.
       state_id_number:
-        empty: " Ingresa un número de identificación estatal válido."
+        empty: Ingresa un número de identificación estatal válido.
       state_of_residence:
         inclusion: Por favor, seleccione un estado de la lista.
     messages:
