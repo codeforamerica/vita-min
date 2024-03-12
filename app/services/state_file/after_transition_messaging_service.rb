@@ -35,7 +35,7 @@ module StateFile
         body_args: { survey_link: survey_link }
       ).send_message
     end
-    handle_asynchronously :send_survey_notification_message, :run_at => Proc.new { 2.hours.from_now }
+    handle_asynchronously :send_survey_notification_message, :run_at => Proc.new { 24.hours.from_now }
 
     def send_efile_submission_rejected_message
       message = StateFile::AutomatedMessage::Rejected
