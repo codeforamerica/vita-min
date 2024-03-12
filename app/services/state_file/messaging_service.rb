@@ -24,6 +24,9 @@ module StateFile
       return nil if message_tracker.already_sent? && message.send_only_once?
 
       send_email if @do_email && !intake.unsubscribed_from_email?
+      if intake.unsubscribed_from_email?
+        DatadogApi.increment("mailgun.state_file_notification_emails.not_sent_because_unsubscribed")
+      end
       # send_sms if @do_sms # TODO: Eventually send SMS when fixed
 
       message_tracker.record(sent_messages.last.created_at) if sent_messages.any? # will this be recorded correctly with what we have on line 40
