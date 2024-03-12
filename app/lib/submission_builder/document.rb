@@ -48,6 +48,7 @@ module SubmissionBuilder
     private
 
     COMMON_ADDRESS_ABBREV = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].freeze
+    ADDRESS_ABBREV_REGEX = /\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/
 
     def build_xml_doc(tag_name, **root_node_attributes)
       default_attributes = { 'xmlns:efile' => 'http://www.irs.gov/efile' }
@@ -102,12 +103,9 @@ module SubmissionBuilder
     end
 
     def process_long_mailing_street(xml, mailing_street)
-      key_found = COMMON_ADDRESS_ABBREV.any? do |key|
-        mailing_street.include?(key)
-      end
+      key_position = mailing_street.index(ADDRESS_ABBREV_REGEX)
 
-      if key_found
-        key_position = mailing_street.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
+      if key_position
         truncated_mailing_street = mailing_street[0, key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
       else
@@ -147,10 +145,9 @@ module SubmissionBuilder
     end
 
     def process_long_permanent_street(xml, street_address)
-      address_abbrev_regex = /\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/
+      key_position = street_address.index(ADDRESS_ABBREV_REGEX)
 
-      if street_address.match?(address_abbrev_regex)
-        key_position = street_address.index(address_abbrev_regex)
+      if key_position
         truncated_street_address = street_address[0, key_position].rstrip
         excess_characters = street_address[key_position..].lstrip
       else
