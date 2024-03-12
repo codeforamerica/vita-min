@@ -147,12 +147,10 @@ module SubmissionBuilder
     end
 
     def process_long_permanent_street(xml, street_address)
-      key_found = COMMON_ADDRESS_ABBREV.any? do |key|
-        street_address.include?(key)
-      end
+      address_abbrev_regex = /\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/
 
-      if key_found
-        key_position = street_address.index(/\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/)
+      if street_address.match?(address_abbrev_regex)
+        key_position = street_address.index(address_abbrev_regex)
         truncated_street_address = street_address[0, key_position].rstrip
         excess_characters = street_address[key_position..].lstrip
       else

@@ -308,6 +308,20 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
+    context "when permanent address is longer than 30 characters with a key word within a word" do
+      let(:intake) { create(:state_file_ny_intake) }
+      let(:filing_status) { 'single' }
+      before do
+        intake.permanent_street = '1416 White Plains Road 1st Floor'
+      end
+      it "ignores the keyword if inside another word" do
+        xml = described_class.build(submission).document
+        expect(xml.at("tiPrime PERM_LN_2_ADR").text.length).to be <= 30
+        expect(xml.at("tiPrime PERM_LN_2_ADR").text).to eq('1416 White Plains Road 1st')
+        expect(xml.at("tiPrime PERM_LN_1_ADR").text).to eq('Floor')
+      end
+    end
+
     context "when permanent city is longer than 18 characters" do
       let(:intake) { create(:state_file_ny_intake) }
       let(:filing_status) { 'single' }
