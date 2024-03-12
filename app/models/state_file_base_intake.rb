@@ -136,6 +136,10 @@ class StateFileBaseIntake < ApplicationRecord
     true
   end
 
+  def self.invalid_df_w2?(df_w2)
+    false
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial
