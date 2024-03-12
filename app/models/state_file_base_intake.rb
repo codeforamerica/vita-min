@@ -132,11 +132,22 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def self.locality_nm_valid?(locality)
-    true
+  def self.validate_locality_nm(locality_nm, errors)
   end
 
   def self.invalid_df_w2?(df_w2)
+    return true if df_w2.StateWagesAmt == 0
+    if df_w2.LocalityNm.blank?
+      return true if df_w2.LocalWagesAndTipsAmt != 0 || df_w2.LocalIncomeTaxAmt != 0
+    end
+    return true if df_w2.LocalIncomeTaxAmt != 0 && df_w2.LocalWagesAndTipsAmt == 0
+    return true if df_w2.StateIncomeTaxAmt != 0 && df_w2.StateWagesAmt == 0
+    return true if df_w2.StateWagesAmt != 0 && df_w2.EmployerStateIdNum.blank?
+    return true if df_w2.LocalityNm.present? && !locality_nm_valid?(df_w2.LocalityNm.upcase)
+    return true if df_w2.EmployerStateIdNum.present? && df_w2.StateAbbreviationCd.blank?
+    return true if df_w2.StateIncomeTaxAmt > df_w2.StateWagesAmt
+    return true if df_w2.LocalIncomeTaxAmt > df_w2.LocalWagesAndTipsAmt
+    return true if df_w2.StateIncomeTaxAmt + df_w2.LocalIncomeTaxAmt > df_w2.WagesAmt
     false
   end
 

@@ -56,9 +56,7 @@ class StateFileW2 < ApplicationRecord
 
   def locality_nm_validation
     return unless locality_nm.present?
-    unless state_file_intake_type.constantize.locality_nm_valid?(locality_nm)
-      errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
-    end
+    state_file_intake_type.constantize.validate_locality_nm(locality_nm, errors)
   end
 
   def validate_tax_amts

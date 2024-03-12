@@ -260,29 +260,17 @@ class StateFileNyIntake < StateFileBaseIntake
     }
   end
 
-  def self.locality_nm_valid?(locality)
-    (LOCALITIES.detect do |loc|
-      locality.starts_with?(loc)
-    end).present?
+  def self.validate_locality_nm(locality_nm, errors)
+    unless (LOCALITIES.detect { |loc| locality.starts_with?(loc) }).present?
+      errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
+    end
   end
 
   def self.invalid_df_w2?(df_w2)
-    return true if df_w2.StateWagesAmt == 0
     if intake.nyc_residency_full_year?
       return true if df_w2.LocalWagesAndTipsAmt == 0 || df_w2.LocalityNm.blank?
     end
-    if df_w2.LocalityNm.blank?
-      return true if df_w2.LocalWagesAndTipsAmt != 0 || df_w2.LocalIncomeTaxAmt != 0
-    end
-    return true if df_w2.LocalIncomeTaxAmt != 0 && df_w2.LocalWagesAndTipsAmt == 0
-    return true if df_w2.StateIncomeTaxAmt != 0 && df_w2.StateWagesAmt == 0
-    return true if df_w2.StateWagesAmt != 0 && df_w2.EmployerStateIdNum.blank?
-    return true if df_w2.LocalityNm.present? && !StateFileNyIntake.locality_nm_valid?(df_w2.LocalityNm.upcase)
-    return true if df_w2.EmployerStateIdNum.present? && df_w2.StateAbbreviationCd.blank?
-    return true if df_w2.StateIncomeTaxAmt > df_w2.StateWagesAmt
-    return true if df_w2.LocalIncomeTaxAmt > df_w2.LocalWagesAndTipsAmt
-    return true if df_w2.StateIncomeTaxAmt + df_w2.LocalIncomeTaxAmt > df_w2.WagesAmt
-    false
+    super
   end
 
   private
