@@ -23,6 +23,13 @@ module StateFile
         submission: @submission,
         message: message,
         body_args: body_args).send_message
+
+      # Survey Notification Email - need to wrap in a job sent 24 hours later
+      StateFile::MessagingService.new(
+        intake: @intake,
+        submission: @submission,
+        message: StateFile::AutomatedMessage::SurveyNotification,
+        body_args: body_args).send_message
     end
 
     def send_efile_submission_rejected_message
