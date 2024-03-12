@@ -2368,6 +2368,7 @@ es:
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           w2s_error: Actualiza los formularios W-2 antes de continuar.
+          wages_amt_error: El impuesto sobre la renta total no puede ser mayor que $%{wages_amount}
         index:
           title: Proporciona la información de impuestos estatales para los siguientes W-2. No te preocupes si tienes varios W-2 y no todos están listados abajo.
           updated: Has actualizado este W-2
