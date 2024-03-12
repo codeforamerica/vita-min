@@ -24,12 +24,10 @@ module StateFile
         message: message,
         body_args: body_args).send_message
 
-      # Make a job wrapper that will send this in 24 hours
-      # send_survey_notification_message
+      send_survey_notification_message
     end
 
     def send_survey_notification_message
-      # Need to wrap in a job sent 24 hours later
       StateFile::MessagingService.new(
         intake: @intake,
         submission: @submission,
@@ -37,6 +35,7 @@ module StateFile
         body_args: { survey_link: survey_link }
       ).send_message
     end
+    handle_asynchronously :send_survey_notification_message, :run_at => Proc.new { 2.hours.from_now }
 
     def send_efile_submission_rejected_message
       message = StateFile::AutomatedMessage::Rejected
