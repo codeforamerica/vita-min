@@ -51,12 +51,11 @@ class StateFileW2 < ApplicationRecord
   validates :employer_state_id_num, presence: true, if: -> { state_wages_amt.present? && state_wages_amt.positive? }
   validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/ }, if: -> { locality_nm.present? }
   validate :validate_tax_amts
-  validate :locality_nm_validation
+  validate :state_specific_validation
   before_validation :locality_nm_to_upper_case
 
-  def locality_nm_validation
-    return unless locality_nm.present?
-    state_file_intake_type.constantize.validate_locality_nm(locality_nm, errors)
+  def state_specific_validation
+    state_file_intake_type.constantize.validate_w2(self)
   end
 
   def validate_tax_amts
