@@ -44,9 +44,9 @@ module SubmissionBuilder
               end
 
               xml.tiPrime do
-                xml.FIRST_NAME @submission.data_source.primary.first_name&.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
-                xml.MI_NAME @submission.data_source.primary.middle_initial&.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
-                xml.LAST_NAME @submission.data_source.primary.last_name&.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
+                xml.FIRST_NAME @submission.data_source.primary.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
+                xml.MI_NAME @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
+                xml.LAST_NAME @submission.data_source.primary.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
                 if @submission.data_source.direct_file_data.mailing_street.present?
                   process_mailing_street(xml)
                 end
