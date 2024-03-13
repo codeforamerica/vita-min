@@ -315,9 +315,9 @@ describe StateFileAzIntake do
   describe "invalid_df_w2?" do
     let(:intake) { create :state_file_az_intake }
 
-    it 'does not validate locality names against known lists' do
+    it 'accepts any combination of alpphnumeric characters and spaces' do
       df_w2 = intake.direct_file_data.w2s[0]
-      df_w2.LocalityNm = "JUNO"
+      df_w2.LocalityNm = "ALPHANUMERIC CHARACTERS"
       expect(intake.invalid_df_w2?(df_w2)).to eq false
     end
 
