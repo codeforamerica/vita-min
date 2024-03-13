@@ -406,4 +406,23 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
     end
   end
+
+  context "with an intake from AZ" do
+    let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_bert_az.xml")) }
+    let(:direct_file_xml) do
+      doc = super()
+      # Bert paid more tax than his wages!
+      doc.at("StateIncomeTaxAmt").content = "9001"
+      doc
+    end
+    let(:intake) do
+      create :state_file_az_intake, raw_direct_file_data: direct_file_xml.to_xml
+    end
+
+    context "shows when there a w2 is sus" do
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+  end
 end

@@ -311,4 +311,20 @@ describe StateFileAzIntake do
       end
     end
   end
+
+  describe "invalid_df_w2?" do
+    let(:intake) { create :state_file_az_intake }
+
+    it 'does not validate locality names against known lists' do
+      df_w2 = intake.direct_file_data.w2s[0]
+      df_w2.LocalityNm = "JUNO"
+      expect(intake.invalid_df_w2?(df_w2)).to eq false
+    end
+
+    it 'validates that W2s do not show more tax paid than money earned' do
+      df_w2 = intake.direct_file_data.w2s[0]
+      df_w2.StateIncomeTaxAmt = df_w2.StateWagesAmt + 100
+      expect(intake.invalid_df_w2?(df_w2)).to eq true
+    end
+  end
 end
