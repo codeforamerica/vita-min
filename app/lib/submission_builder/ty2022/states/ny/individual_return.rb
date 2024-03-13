@@ -44,38 +44,38 @@ module SubmissionBuilder
               end
 
               xml.tiPrime do
-                xml.FIRST_NAME @submission.data_source.primary.first_name if @submission.data_source.primary.first_name.present?
-                xml.MI_NAME @submission.data_source.primary.middle_initial if @submission.data_source.primary.middle_initial.present?
-                xml.LAST_NAME @submission.data_source.primary.last_name if @submission.data_source.primary.last_name.present?
+                xml.FIRST_NAME @submission.data_source.primary.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
+                xml.MI_NAME @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
+                xml.LAST_NAME @submission.data_source.primary.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
                 if @submission.data_source.direct_file_data.mailing_street.present?
                   process_mailing_street(xml)
                 end
-                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city.slice(0, 18) if @submission.data_source.direct_file_data.mailing_city.present?
-                xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state if @submission.data_source.direct_file_data.mailing_state.present?
-                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.slice(0, 5) if @submission.data_source.direct_file_data.mailing_zip.present?
-                xml.COUNTY_CD @submission.data_source.county_code if @submission.data_source.county_code.present?
-                xml.COUNTY_NAME @submission.data_source.county_name&.truncate(20) if @submission.data_source.county_name.present?
+                xml.MAIL_CITY_ADR @submission.data_source.direct_file_data.mailing_city.gsub(/\s+/, ' ').slice(0, 18).strip if @submission.data_source.direct_file_data.mailing_city.present?
+                xml.MAIL_STATE_ADR @submission.data_source.direct_file_data.mailing_state.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_state.present?
+                xml.MAIL_ZIP_5_ADR @submission.data_source.direct_file_data.mailing_zip.gsub(/\s+/, ' ').slice(0, 5).strip if @submission.data_source.direct_file_data.mailing_zip.present?
+                xml.COUNTY_CD @submission.data_source.county_code.strip.gsub(/\s+/, ' ') if @submission.data_source.county_code.present?
+                xml.COUNTY_NAME @submission.data_source.county_name.gsub(/\s+/, ' ').slice(0, 20).strip if @submission.data_source.county_name.present?
                 if @submission.data_source.permanent_street.present?
                   process_permanent_street(xml)
                 end
-                xml.PERM_CTY_ADR @submission.data_source.permanent_city.slice(0, 18) if @submission.data_source.permanent_city.present?
+                xml.PERM_CTY_ADR @submission.data_source.permanent_city.gsub(/\s+/, ' ').slice(0, 18).strip if @submission.data_source.permanent_city.present?
                 xml.PERM_ST_ADR "NY"
                 xml.PERM_ZIP_ADR @submission.data_source.permanent_zip if @submission.data_source.permanent_zip.present?
                 xml.SCHOOL_CD @submission.data_source.school_district_number if @submission.data_source.school_district_number.present?
-                xml.SCHOOL_NAME @submission.data_source.school_district&.truncate(30) if @submission.data_source.school_district.present?
-                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation[0..24] if @submission.data_source.direct_file_data.primary_occupation.present?
+                xml.SCHOOL_NAME @submission.data_source.school_district.gsub(/\s+/, ' ').slice(0, 30).strip if @submission.data_source.school_district.present?
+                xml.PR_EMP_DESC @submission.data_source.direct_file_data.primary_occupation.gsub(/\s+/, ' ').slice(0, 25).strip if @submission.data_source.direct_file_data.primary_occupation.present?
                 # We omit country name because we don't support out of country filers
                 #xml.COUNTRY_NAME @submission.data_source.mailing_country
               end
 
               if @submission.data_source.filing_status_mfj?
                 xml.tiSpouse do
-                  xml.FIRST_NAME @submission.data_source.spouse.first_name if @submission.data_source.spouse.first_name.present?
-                  xml.MI_NAME @submission.data_source.spouse.middle_initial if @submission.data_source.spouse.middle_initial.present?
-                  xml.LAST_NAME @submission.data_source.spouse.last_name if @submission.data_source.spouse.last_name.present?
+                  xml.FIRST_NAME @submission.data_source.spouse.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.first_name.present?
+                  xml.MI_NAME @submission.data_source.spouse.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.middle_initial.present?
+                  xml.LAST_NAME @submission.data_source.spouse.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.last_name.present?
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
                   xml.DCSD_DT @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.spouse_deceased?
-                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation[0..24] if @submission.data_source.direct_file_data.spouse_occupation.present?
+                  xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation.gsub(/\s+/, ' ').slice(0, 25).strip if @submission.data_source.direct_file_data.spouse_occupation.present?
                 end
               elsif @submission.data_source.filing_status_mfs?
                 xml.tiSpouse do
@@ -94,9 +94,9 @@ module SubmissionBuilder
                     xml.DEP_FORM_ID 348 # 348 is the code for the IT-213 form
                     xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
                     xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
-                    xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
-                    xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
-                    xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
+                    xml.DEP_CHLD_LAST_NAME dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
+                    xml.DEP_CHLD_FRST_NAME dependent.first_name.strip.gsub(/\s+/, ' ') if dependent.first_name.present?
+                    xml.DEP_CHLD_MI_NAME dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
                     xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
                     xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
                     xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
@@ -116,10 +116,10 @@ module SubmissionBuilder
                   unless dependent.eic_student_unfilled?
                     xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
                   end
-                  xml.DEP_CHLD_LAST_NAME dependent.last_name if dependent.last_name.present?
-                  xml.DEP_CHLD_FRST_NAME dependent.first_name if dependent.first_name.present?
-                  xml.DEP_CHLD_MI_NAME dependent.middle_initial if dependent.middle_initial.present?
-                  xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
+                  xml.DEP_CHLD_LAST_NAME dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
+                  xml.DEP_CHLD_FRST_NAME dependent.first_name.strip.gsub(/\s+/, ' ') if dependent.first_name.present?
+                  xml.DEP_CHLD_MI_NAME dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
+                  xml.DEP_CHLD_SFX_NAME dependent.suffix.strip.gsub(/\s+/, ' ') if dependent.suffix.present?
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
                   xml.DOB_DT dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?
                 end

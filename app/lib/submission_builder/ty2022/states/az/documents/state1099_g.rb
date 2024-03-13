@@ -12,11 +12,11 @@ module SubmissionBuilder
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name && form1099g.payer_name != ''
                   xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+/, '').upcase[0..3] do
-                    xml.BusinessNameLine1Txt form1099g.payer_name[0..74]
+                    xml.BusinessNameLine1Txt form1099g.payer_name.gsub(/\s+/, ' ')&.slice(0, 75)&.strip
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt form1099g.payer_street_address[0..34]
-                    xml.CityNm form1099g.payer_city[0..21]
+                    xml.AddressLine1Txt form1099g.payer_street_address.gsub(/\s+/, ' ')&.slice(0, 35)&.strip
+                    xml.CityNm form1099g.payer_city.gsub(/\s+/, ' ')&.slice(0, 22)&.strip
                     xml.StateAbbreviationCd "AZ"
                     xml.ZIPCd form1099g.payer_zip
                   end
@@ -28,11 +28,11 @@ module SubmissionBuilder
                   form1099g.intake.spouse
                 end
                 xml.RecipientSSN recipient.ssn
-                xml.RecipientName recipient.full_name
+                xml.RecipientName recipient.full_name.gsub(/\s+/, ' ')&.strip
                 xml.RecipientUSAddress do
-                  xml.AddressLine1Txt form1099g.recipient_address_line1[0..34]
-                  xml.AddressLine2Txt form1099g.recipient_address_line2[0..34] if form1099g.recipient_address_line2.present?
-                  xml.CityNm form1099g.recipient_city[0..21]
+                  xml.AddressLine1Txt form1099g.recipient_address_line1.gsub(/\s+/, ' ')&.slice(0, 35)&.strip
+                  xml.AddressLine2Txt form1099g.recipient_address_line2.gsub(/\s+/, ' ')&.slice(0, 35)&.strip if form1099g.recipient_address_line2.present?
+                  xml.CityNm form1099g.recipient_city.gsub(/\s+/, ' ')&.slice(0, 22)&.strip
                   xml.StateAbbreviationCd "AZ"
                   xml.ZIPCd form1099g.recipient_zip
                 end
