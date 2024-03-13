@@ -16,6 +16,18 @@ describe StateFile::MessagingService do
       expect(intake.message_tracker).to include "messages.state_file.welcome"
       expect(efile_submission.message_tracker).to eq({})
     end
+
+    context "intake is unsubscribed from email" do
+      it "does not send the email" do
+        allow(DatadogApi).to receive(:increment)
+        intake.update(unsubscribed_from_email: true)
+
+        expect do
+          messaging_service.send_message
+        end.not_to change(StateFileNotificationEmail, :count)
+        expect(DatadogApi).to have_received(:increment).with("mailgun.state_file_notification_emails.not_sent_because_unsubscribed")
+      end
+    end
   end
 
   context "when message is an after_transition_notification" do
