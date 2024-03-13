@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>a196a6cf</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400001234</PrimarySSN>
+      <NameLine1Txt>CHUCK&lt;SCHUMER</NameLine1Txt>
+      <PrimaryNameControlTxt>SCHU</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 Prospect Park West</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </USAddress>
+      <PhoneNum>7185551234</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test311@test.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002 W20003" referenceDocumentName="IRSW2">108000</WagesAmt>
+      <WagesSalariesAndTipsAmt>108000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>108000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>108000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>15700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>15700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>92300</TaxableIncomeAmt>
+      <TaxAmt>15619</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>15619</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>15619</TaxLessCreditsAmt>
+      <TotalTaxAmt>15619</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>20600</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>20600</WithholdingTaxAmt>
+      <TotalPaymentsAmt>20600</TotalPaymentsAmt>
+      <OverpaidAmt>4981</OverpaidAmt>
+      <RefundAmt>4981</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Senator</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400001234</EmployeeSSN>
+      <EmployerEIN>001456789</EmployerEIN>
+      <EmployerNameControlTxt>STAT</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>State Code Is Missing Enterprises</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 W 9th St</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Chuck Schumer</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Prospect Park West</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>100000</WagesAmt>
+      <WithholdingAmt>20000</WithholdingAmt>
+      <SocialSecurityWagesAmt>100000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>10000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>100000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>5000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>100000</StateWagesAmt>
+          <StateIncomeTaxAmt>10000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>100000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>10000</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>400001234</EmployeeSSN>
+      <EmployerEIN>001455441</EmployerEIN>
+      <EmployerNameControlTxt>TOOM</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Too Much State Withholding</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 W 10th St</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Chuck Schumer</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Prospect Park West</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>5000</WagesAmt>
+      <WithholdingAmt>500</WithholdingAmt>
+      <SocialSecurityWagesAmt>5000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>400</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>5000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>5000</EmployerStateIdNum>
+          <StateWagesAmt>5000</StateWagesAmt>
+          <StateIncomeTaxAmt>8000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>5000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20003" documentName="IRSW2">
+      <EmployeeSSN>400001234</EmployeeSSN>
+      <EmployerEIN>001455665</EmployerEIN>
+      <EmployerNameControlTxt>TOOM</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Too Much Local Withholding</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 W 11th St</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Chuck Schumer</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Prospect Park West</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>3000</WagesAmt>
+      <WithholdingAmt>100</WithholdingAmt>
+      <SocialSecurityWagesAmt>3000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>90</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>3000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>80</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>3000</StateWagesAmt>
+          <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>3000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>4000</LocalIncomeTaxAmt>
+            <LocalityNm>NYC</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

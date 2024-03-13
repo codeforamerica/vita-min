@@ -113,6 +113,15 @@ module PdfFiller
           Line84_withdrawal_amount: claimed_attr_value('PYMT_AMT'),
         )
       end
+      if @submission.data_source.confirmed_third_party_designee_yes?
+        answers.merge!(
+          '3rd_party_box' => "yes",
+          designee_name: claimed_attr_value('THRD_PRTY_NAME'),
+          designee_ac: @submission.data_source.direct_file_data.third_party_designee_phone_number[-10, 3],
+          designees_phone: third_party_designee_phone_number('THRD_PRTY_PH_NMBR'),
+          designee_pin: claimed_attr_value('THRD_PRTY_PIN_NMBR')
+        )
+      end
       if @submission.data_source.calculated_refund_or_owed_amount.positive?
         answers[:Line78_refund] = xml_value_to_pdf_checkbox('Line78_refund', 'DIR_DEP_IND')
       end
@@ -191,6 +200,12 @@ module PdfFiller
 
     def phone_number(xml_field_1, xml_field_2)
       claimed_attr_value(xml_field_1).to_s + "-" + claimed_attr_value(xml_field_2).to_s
+    end
+
+    def third_party_designee_phone_number(xml_field)
+      last_four_digits = claimed_attr_value(xml_field)[-4, 4].to_s
+      three_before_last_four_digits = claimed_attr_value(xml_field)[-7, 3].to_s
+      three_before_last_four_digits + "-" + last_four_digits
     end
 
     def dependents_info(dependents)

@@ -222,6 +222,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
+      whole_number: must be a whole number
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
@@ -2356,6 +2357,7 @@ en:
           see_detailed_return: See detailed return information
           standard_deduction: Standard deduction
           taxable_income: Taxable income
+          third_party_designee: Third Party Designee
           total_dependent_exemptions: Total dependent exemptions
           total_new_york_additions: Total New York additions
           total_new_york_subtractions: Total New York subtractions
@@ -2380,6 +2382,13 @@ en:
           helper_heading: How do I find my school district?
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
+      ny_third_party_designee:
+        edit:
+          reveal:
+            body_html: 'By selecting a third-party designee, you are authorizing NY Department of Taxation and Finance to discuss with the designee any questions related to this return. You are also authorizing the designee to give and receive confidential taxpayer information relating to: <br> <b><ul class="list--bulleted">  <li>this return, including missing information  <li>any notices or bills arising from this filing that you share with the designee (they will not be sent to the designee)  <li>any payments and collection activity arising from this filing, and   <li>the status of your return or refund. </ul>'
+            title: What is the NY Department of Taxation and Finance allowed to discuss with my third-party designee?
+          subtitle: By selecting yes, you are making this person your third-party designee for your state return.
+          title_html: It looks like you gave permission for the IRS to discuss your federal tax return with %{name}.<br /><br /> Would you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?
       ny_w2:
         edit:
           box15_html: |
@@ -2398,7 +2407,8 @@ en:
           locality_nm_missing_error: Please select locality name
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          w2s_error: Please update all of the W-2s listed above to continue.
+          w2s_error: Update W-2s before continuing.
+          wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
         index:
           title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
@@ -2764,12 +2774,13 @@ en:
   verification_code_mailer:
     no_match:
       body_html: |
-        Hello,<br><br>
-        It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br>
-        You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br>
-        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.
-        <br><br>
-        We're here to help,<br><br>
+        Hello,<br /><br />
+
+        It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br />
+        You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br />
+        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.<br /><br />
+
+        We're here to help,<br /><br />
 
         Your tax team at %{service_name}
       body_text: |

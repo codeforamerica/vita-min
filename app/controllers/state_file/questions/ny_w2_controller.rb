@@ -9,14 +9,21 @@ module StateFile
       end
 
       def index
-        @w2s_with_metadata = @w2s.map do |w2|
-          dfw2 = w2.state_file_intake.direct_file_data.w2s[w2.w2_index]
-          {
-            w2: w2,
-            employer_name: dfw2.EmployerName,
-            wages_amount: dfw2.WagesAmt,
-          }
+        if @w2s.length == 1
+          redirect_to action: :edit, id: @w2s[0].w2_index
         end
+        get_w2s_with_metadata
+      end
+
+      def create
+        # The below line triggers validation on all w2s...
+        @errors_present = @w2s.select { |w2| !w2.valid? }.present?
+        if @errors_present
+          get_w2s_with_metadata
+          render :index
+          return
+        end
+        redirect_to next_path
       end
 
       def edit
@@ -27,6 +34,7 @@ module StateFile
 
         if @w2.valid?
           @w2.save
+          redirect_to next_path and return if @w2s.length == 1
           redirect_to action: :index
         else
           render :edit
@@ -43,6 +51,17 @@ module StateFile
               .permit(*StateFileW2.attribute_names)
       end
 
+      def get_w2s_with_metadata
+        @w2s_with_metadata ||= @w2s.map do |w2|
+          dfw2 = w2.state_file_intake.direct_file_data.w2s[w2.w2_index]
+          {
+            w2: w2,
+            employer_name: dfw2.EmployerName,
+            wages_amount: dfw2.WagesAmt,
+          }
+        end
+      end
+
       def load_w2s
         @w2s = self.class.w2s_for_intake(current_intake)
       end
@@ -56,7 +75,9 @@ module StateFile
       end
 
       def prev_path
-        return path_for_step(self.class) if ["update", "edit"].include?(action_name)
+        if @w2s.length > 1 && ["update", "edit"].include?(action_name)
+          return path_for_step(self.class)
+        end
         super
       end
 
@@ -85,7 +106,10 @@ module StateFile
         return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
         return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
         return true if w2.LocalityNm.present? && !StateFileNyIntake.locality_nm_valid?(w2.LocalityNm.upcase)
-
+        return true if w2.EmployerStateIdNum.present? && w2.StateAbbreviationCd.blank?
+        return true if w2.StateIncomeTaxAmt > w2.StateWagesAmt
+        return true if w2.LocalIncomeTaxAmt > w2.LocalWagesAndTipsAmt
+        return true if w2.StateIncomeTaxAmt + w2.LocalIncomeTaxAmt > w2.WagesAmt
         false
       end
     end

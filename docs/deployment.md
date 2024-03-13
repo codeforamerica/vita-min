@@ -47,18 +47,28 @@ environments.
 
 ### Deploying to Staging Directly
 
-1. Add git remote add `git remote add staging git@beta.aptible.com:vita-min-staging/vita-min-staging.git`
-2. If you have not set up ssh to aptible, add your key via [Aptible/ssh keys](https://dashboard.aptible.com/settings/protected/ssh) and paste your ssh `pbcopy < $HOME/.ssh/id_rsa.pub` (or other *.pub key)
-3. Push to staging which triggers a deploy, must push to main or won't deploy, use force flag if staging is not in sync with your branch `git push staging HEAD:main -f`
+Deploying to staging is the only way to test XML changes since the schemas aren't on Heroku.
+Our current process is to either open a PR off the staging branch and merge it or push directly to staging, so that Product
+can perform acceptance tests on this environment.
 
-At times, you will want to push code to Demo or Staging without going
-through the automated deploy process. Manual deployment should be limited
-to situations where a temporary solution is called for.
+#### A rough step by step process will look like:
+1. `git checkout staging`
+2. `git pull`
+3. `git checkout -b {my_new_feature#pivotal-hash1234}`
+4. `git cherry-pick {shah}` # This will be the shah for the commit on main if you have a PR there.  You can also base your work entirely off staging and cherry-pick to main once it's been accepted.
+5. `git push`
+6. Open a PR from the staging branch
+   1. `git checkout staging`
+   2. `git checkout -b {your_branch}`
+7. Merging the PR will kick off the pipeline and deploy to the Aptible staging environment.
 
-Good candidates:
-
-- pushing a spike for review by stakeholders
-- manually testing internals or integration with a 3rd party (e.g. Sentry)
+#### Cherry Picking to main
+Once your PR has been merged and accepted in staging, you can cherry pick your commit from staging into main like:
+1. Find the shah of your commit by going to the GitHub UI or running `git log`
+2. `git checkout main`
+3. `git checkout {new_branch}`
+4. `git cherry-pick {shah}` # from step 1
+5. Open a PR on main with the code that was accepted on staging.
 
 ## To The Production Environment
 
