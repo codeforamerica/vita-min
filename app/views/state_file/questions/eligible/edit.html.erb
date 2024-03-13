@@ -34,6 +34,10 @@
       <div class="with-top-separator">
         <p class="text--bold"><%=t('.want_to_claim_heading') %></p>
         <p><%=t('.want_to_claim_vita', state_name: state_name) %></p>
+        <p>
+          <% vita_link = params[:us_state] == "az" ? "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form" : "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form" %>
+          <a href="<%= vita_link %>" target="_blank" rel="noopener nofollow"><%= t('.vita_link') %></a>
+        </p>
         <p><%=t('.want_to_claim_learn_more_html', link: @faq_other_options_link) %></p>
       </div>
     </div>
