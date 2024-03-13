@@ -53,7 +53,7 @@ module SubmissionBuilder
                   xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.phone_number.delete(" ")[-7, 3]
                   xml.DGT4_PHONE_NMBR claimed: @submission.data_source.phone_number.delete(" ")[-4, 4]
                 elsif @submission.data_source.direct_file_data.phone_number&.present?
-                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number..delete(" ")[-10, 3]
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.delete(" ")[-10, 3]
                   xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.delete(" ")[-7, 3]
                   xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.delete(" ")[-4, 4]
                 elsif @submission.data_source.direct_file_data.cell_phone_number&.present?
