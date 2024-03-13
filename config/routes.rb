@@ -588,7 +588,7 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        # TODO: This can be deleted once no intake has w2 as the current step
+        # TODO: ny_w2 route can be deleted once no intake has w2 as the current step
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
       end
 
