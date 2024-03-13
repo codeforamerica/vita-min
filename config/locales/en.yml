@@ -2371,7 +2371,7 @@ en:
             body_html: 'By selecting a third-party designee, you are authorizing NY Department of Taxation and Finance to discuss with the designee any questions related to this return. You are also authorizing the designee to give and receive confidential taxpayer information relating to: <br> <b><ul class="list--bulleted">  <li>this return, including missing information  <li>any notices or bills arising from this filing that you share with the designee (they will not be sent to the designee)  <li>any payments and collection activity arising from this filing, and   <li>the status of your return or refund. </ul>'
             title: What is the NY Department of Taxation and Finance allowed to discuss with my third-party designee?
           subtitle: By selecting yes, you are making this person your third-party designee for your state return.
-          title_html: It looks like you gave permission for the IRS to discuss your federal tax return with %{name}. <br><br> Would you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?
+          title_html: It looks like you gave permission for the IRS to discuss your federal tax return with %{name}.<br /><br /> Would you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?
       ny_w2:
         edit:
           box15_html: |
@@ -2757,12 +2757,13 @@ en:
   verification_code_mailer:
     no_match:
       body_html: |
-        Hello,<br><br>
-        It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br>
-        You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br>
-        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.
-        <br><br>
-        We're here to help,<br><br>
+        Hello,<br /><br />
+
+        It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br />
+        You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br />
+        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.<br /><br />
+
+        We're here to help,<br /><br />
 
         Your tax team at %{service_name}
       body_text: |
