@@ -49,17 +49,17 @@ module SubmissionBuilder
                 # xml.PREP_ZIP_5_ADR
                 # xml.PREP_EIN_IND
                 if @submission.data_source.phone_number&.present?
-                  xml.AREACODE_NMBR claimed: @submission.data_source.phone_number.strip.gsub(/\s+/, ' ')[-10, 3]
-                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.phone_number.strip.gsub(/\s+/, ' ')[-7, 3]
-                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.phone_number.strip.gsub(/\s+/, ' ')[-4, 4]
+                  xml.AREACODE_NMBR claimed: @submission.data_source.phone_number.delete(" ")[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.phone_number.delete(" ")[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.phone_number.delete(" ")[-4, 4]
                 elsif @submission.data_source.direct_file_data.phone_number&.present?
-                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.strip.gsub(/\s+/, ' ')[-10, 3]
-                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.strip.gsub(/\s+/, ' ')[-7, 3]
-                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.strip.gsub(/\s+/, ' ')[-4, 4]
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.phone_number..delete(" ")[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.delete(" ")[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.phone_number.delete(" ")[-4, 4]
                 elsif @submission.data_source.direct_file_data.cell_phone_number&.present?
-                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number.strip.gsub(/\s+/, ' ')[-10, 3]
-                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number.strip.gsub(/\s+/, ' ')[-7, 3]
-                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number.strip.gsub(/\s+/, ' ')[-4, 4]
+                  xml.AREACODE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number.delete(" ")[-10, 3]
+                  xml.EXCHNG_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number.delete(" ")[-7, 3]
+                  xml.DGT4_PHONE_NMBR claimed: @submission.data_source.direct_file_data.cell_phone_number.delete(" ")[-4, 4]
                 end
                 # xml.DGT4_PHONE_NMBR
                 xml.FORM_TYPE claimed: "201"
