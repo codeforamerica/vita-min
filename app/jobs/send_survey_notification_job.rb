@@ -22,8 +22,4 @@ class SendSurveyNotificationJob < ApplicationJob
       ''
     end
   end
-
-  #       SendSurveyNotificationJob.set(
-  #         wait_until: 3.seconds.from_now
-  #       ).perform_later(intake, submission)
 end
