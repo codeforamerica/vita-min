@@ -24,14 +24,13 @@ module StateFile
         message: message,
         body_args: body_args).send_message
 
-      # binding.pry
       schedule_survey_notification_job
     end
 
     def schedule_survey_notification_job
       SendSurveyNotificationJob.set(
         wait_until: 23.hours.from_now
-      ).perform_later(intake, submission)
+      ).perform_later(@intake, @submission)
     end
 
     def send_efile_submission_rejected_message
