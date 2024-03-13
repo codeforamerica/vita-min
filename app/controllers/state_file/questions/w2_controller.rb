@@ -83,7 +83,7 @@ module StateFile
 
       def self.w2s_for_intake(intake)
         (intake.direct_file_data.w2s.each_with_index.map do |df_w2, index|
-          if intake.classinvalid_w2?(df_w2)
+          if intake.invalid_df_w2?(df_w2)
             existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == index }
             existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: index)
           end

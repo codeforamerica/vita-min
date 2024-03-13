@@ -265,17 +265,17 @@ class StateFileNyIntake < StateFileBaseIntake
     (LOCALITIES.detect { |loc| locality_nm.starts_with?(loc) }).present?
   end
 
-  def self.validate_w2(w2)
-    if w2.locality_nm.present? && !locality_nm_valid?(w2.locality_nm)
+  def validate_w2(w2)
+    if w2.locality_nm.present? && !self.class.locality_nm_valid?(w2.locality_nm)
       w2.errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
     end
   end
 
-  def self.invalid_df_w2?(df_w2)
-    if intake.nyc_residency_full_year?
+  def invalid_df_w2?(df_w2)
+    if nyc_residency_full_year?
       return true if df_w2.LocalWagesAndTipsAmt == 0 || df_w2.LocalityNm.blank?
     end
-    return true if df_w2.LocalityNm.present? && !locality_nm_valid?(df_w2.LocalityNm)
+    return true if df_w2.LocalityNm.present? && !self.class.locality_nm_valid?(df_w2.LocalityNm)
     super
   end
 

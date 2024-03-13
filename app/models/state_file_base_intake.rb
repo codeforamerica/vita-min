@@ -135,7 +135,7 @@ class StateFileBaseIntake < ApplicationRecord
   def validate_w2(w2)
   end
 
-  def self.invalid_df_w2?(df_w2)
+  def invalid_df_w2?(df_w2)
     return true if df_w2.StateWagesAmt == 0
     if df_w2.LocalityNm.blank?
       return true if df_w2.LocalWagesAndTipsAmt != 0 || df_w2.LocalIncomeTaxAmt != 0

@@ -55,7 +55,7 @@ class StateFileW2 < ApplicationRecord
   before_validation :locality_nm_to_upper_case
 
   def state_specific_validation
-    state_file_intake_type.constantize.validate_w2(self)
+    state_file_intake.validate_w2(self) if state_file_intake.present?
   end
 
   def validate_tax_amts

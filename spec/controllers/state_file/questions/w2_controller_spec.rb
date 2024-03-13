@@ -249,7 +249,7 @@ RSpec.describe StateFile::Questions::W2Controller do
 
       it "redirects to the edit page" do
         get :index, params: { us_state: :ny }
-        expect(response).to redirect_to "/en/ny/questions/ny_w2/0/edit"
+        expect(response).to redirect_to "/en/ny/questions/w2/0/edit"
       end
     end
 
