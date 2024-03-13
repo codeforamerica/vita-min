@@ -60,20 +60,17 @@ class ApplicationController < ActionController::Base
     self.class.name.include?("StateFile::") || request.domain&.include?("statefile") || request.domain&.include?("fileyourstatetaxes")
   end
 
-  def hide_state_file_intercom?
+  def hide_intercom?
     pages_to_hide_from = [
-      "StateFile::StateFilePagesController", #about_page, privacy_policy
-      "StateFile::FaqController"
+      ["StateFile::StateFilePagesController", "about_page"],
+      ["StateFile::StateFilePagesController", "privacy_policy"],
+      ["StateFile::FaqController", ""]
     ]
-    state_file? && pages_to_hide_from.include?(self.class.name)
-    # paths_to_hide = [
-    #   "/",
-    #   "/privacy-policy",
-    #   "/faq"
-    # ]
-    # state_file? && !paths_to_hide.any? { |path| request.path.include?(path)}
+    state_file? && pages_to_hide_from.any? do |controller, action|
+      self.class.name == controller && (action == "" || action_name == action)
+    end
   end
-  helper_method :hide_state_file_intercom?
+  helper_method :hide_intercom?
 
   def current_intake
     current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
