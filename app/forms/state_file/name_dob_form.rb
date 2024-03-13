@@ -6,8 +6,10 @@ module StateFile
 
     set_attributes_for :intake,
                        :primary_first_name,
+                       :primary_middle_initial,
                        :primary_last_name,
                        :spouse_first_name,
+                       :spouse_middle_initial,
                        :spouse_last_name,
                        :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year,
                        :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
@@ -27,8 +29,10 @@ module StateFile
     validate :primary_birth_date_is_valid_date
     validate :spouse_birth_date_is_valid_date, if: -> { @intake.ask_spouse_dob? }
     validates :primary_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: I18n.t('errors.attributes.first_name.invalid_format') }
+    validates :primary_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, allow_blank: true }
     validates :primary_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: I18n.t('errors.attributes.last_name.invalid_format') }
     validates :spouse_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: I18n.t('errors.attributes.first_name.invalid_format') }, if: -> { @intake.ask_spouse_name? }
+    validates :spouse_middle_initial,  length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, allow_blank: true }, if: -> { @intake.ask_spouse_name? }
     validates :spouse_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: I18n.t('errors.attributes.last_name.invalid_format') }, if: -> { @intake.ask_spouse_name? }
 
     def initialize(intake = nil, params = nil)
@@ -48,12 +52,14 @@ module StateFile
 
       attributes_to_update = {
         primary_first_name: primary_first_name,
+        primary_middle_initial: primary_middle_initial,
         primary_last_name: primary_last_name,
         dependents_attributes: formatted_dependents_attributes
       }
       if @intake.ask_spouse_name?
         attributes_to_update.merge!(
           spouse_first_name: spouse_first_name,
+          spouse_middle_initial: spouse_middle_initial,
           spouse_last_name: spouse_last_name,
         )
       end

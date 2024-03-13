@@ -2253,6 +2253,7 @@ es:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
           dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
           last_name: Apellido (Si tienes un sufijo, ingrésalo aquí junto con tu apellido. Por ejemplo, Smith, Jr)
+          middle_initial: Inicial del segundo nombre
           months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
           months_helper_description: Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones.
           months_helper_heading: "¿Cuáles meses debería contar?"

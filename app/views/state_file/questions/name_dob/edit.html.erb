@@ -14,6 +14,7 @@
         <%= t(".primary_name_dob", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
       </p>
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:primary_middle_initial, t(".middle_initial"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t(".last_name"), classes: ["form-width--long"]) %>
       <div class="date-select">
         <%= f.cfa_date_select(:primary_birth_date,
@@ -34,6 +35,7 @@
           <% end %>
         </p>
         <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:spouse_middle_initial, t(".middle_initial"), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:spouse_last_name, t(".spouse_last_name"), classes: ["form-width--long"]) %>
         <% if f.object.ask_spouse_dob? %>
             <div class="date-select">
