@@ -194,9 +194,16 @@ class EfileSubmissionStateMachine
 
   after_transition do |submission, transition|
     if submission.is_for_state_filing?
+      from_status = (
+        EfileSubmissionTransition
+          .where(efile_submission_id: transition.efile_submission_id)
+          .where.not(id: transition.id)
+          .last
+          &.to_state
+      )
       Rails.logger.info({
         event_type: "submission_transition",
-        from_status: EfileSubmissionTransition.where(efile_submission_id: transition.efile_submission_id).last&.to_state,
+        from_status: from_status,
         to_status: transition.to_state,
         state_code: submission.data_source.state_code,
         intake_id: submission.data_source_id,
