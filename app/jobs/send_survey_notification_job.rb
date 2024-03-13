@@ -4,7 +4,7 @@ class SendSurveyNotificationJob < ApplicationJob
       intake: intake,
       submission: submission,
       message: StateFile::AutomatedMessage::SurveyNotification,
-      body_args: { survey_link: survey_link }).send_message
+      body_args: { survey_link: survey_link(intake) }).send_message
   end
 
   def priority
@@ -12,8 +12,8 @@ class SendSurveyNotificationJob < ApplicationJob
   end
 
   private
-  def survey_link
-    case @intake.state_code
+  def survey_link(intake)
+    case intake.state_code
     when 'ny'
       'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu'
     when 'az'
@@ -23,6 +23,7 @@ class SendSurveyNotificationJob < ApplicationJob
     end
   end
 
-  # SendSurveyNotificationJob.set(wait_until: 15.seconds.from_now).perform_later
-  # SendSurveyNotificationJob.set(wait_until: 15.seconds.from_now).perform_later()
+  #       SendSurveyNotificationJob.set(
+  #         wait_until: 3.seconds.from_now
+  #       ).perform_later(intake, submission)
 end
