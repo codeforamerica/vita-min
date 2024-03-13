@@ -24,18 +24,17 @@ module StateFile
         message: message,
         body_args: body_args).send_message
 
-      send_survey_notification_message
+      schedule_survey_notification_job
     end
 
-    def send_survey_notification_message
-      # binding.pry
-      StateFile::MessagingService.new(
+    def schedule_survey_notification_job
+      SendSurveyNotificationJob.set(
+        wait_until: 23.hours.from_now
+      ).perform_later(
         intake: @intake,
-        submission: @submission,
-        message: StateFile::AutomatedMessage::SurveyNotification,
-        body_args: { survey_link: survey_link }).send_message
+        submission: @submission
+      )
     end
-    # handle_asynchronously :send_survey_notification_message, :run_at => Proc.new { 1.minutes.from_now }
 
     def send_efile_submission_rejected_message
       message = StateFile::AutomatedMessage::Rejected
@@ -61,17 +60,6 @@ module StateFile
         "https://www.aztaxes.gov/"
       else
         ""
-      end
-    end
-
-    def survey_link
-      case @intake.state_code
-      when 'ny'
-        'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu'
-      when 'az'
-        'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey'
-      else
-        ''
       end
     end
   end
