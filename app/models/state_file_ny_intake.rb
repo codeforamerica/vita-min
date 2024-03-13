@@ -265,7 +265,7 @@ class StateFileNyIntake < StateFileBaseIntake
     (LOCALITIES.detect { |loc| locality_nm.starts_with?(loc) }).present?
   end
 
-  def validate_w2(w2)
+  def validate_state_specific_w2_requirements(w2)
     if w2.locality_nm.present? && !self.class.locality_nm_valid?(w2.locality_nm)
       w2.errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
     end

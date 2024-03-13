@@ -132,7 +132,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_w2(w2)
+  def validate_state_specific_w2_requirements(w2)
   end
 
   def invalid_df_w2?(df_w2)
