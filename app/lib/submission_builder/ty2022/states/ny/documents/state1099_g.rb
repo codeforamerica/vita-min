@@ -31,7 +31,7 @@ module SubmissionBuilder
                 xml.RecipientName recipient.full_name.strip.gsub(/\s+/, ' ') if recipient.full_name.present?
                 xml.RecipientUSAddress do
                   xml.AddressLine1Txt form1099g.recipient_address_line1.gsub(/\s+/, ' ').slice(0, 35).strip if form1099g.recipient_address_line1.present?
-                  xml.AddressLine2Txt form1099g.recipient_address_line2.gsub(/\s+/, ' ').slice(0, 75).strip if form1099g.recipient_address_line2.present?
+                  xml.AddressLine2Txt form1099g.recipient_address_line2.gsub(/\s+/, ' ').slice(0, 35).strip if form1099g.recipient_address_line2.present?
                   xml.CityNm form1099g.recipient_city.gsub(/\s+/, ' ').slice(0, 22).strip if form1099g.recipient_city.present?
                   xml.StateAbbreviationCd "NY"
                   xml.ZIPCd form1099g.recipient_zip if form1099g.recipient_zip.present?
