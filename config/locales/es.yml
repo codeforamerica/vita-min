@@ -5200,12 +5200,8 @@ es:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
         additional_benefits: Beneficios adicionales
-        all_tax_credits: Todos los créditos tributarios
-        always_free: Todos los servicios son gratuitos para los hogares que cumplen los requisitos.
+        all_services: Todos los servicios brindan soporte por correo electrónico y están disponibles en inglés y español.
         chat_support: Asistencia por chat
-        child_tax_credit: Crédito Tributario por Hijos
-        credits_and_payments: Créditos y pagos
-        earned_income_tax_credit: Crédito tributario por ingresos del trabajo
         filing_years:
           title: 'Años en que se hicieron declaraciones:'
         id_documents:
@@ -5222,6 +5218,7 @@ es:
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Compatible con dispositivos móviles
         required_information: Información obligatoria
+        select_service_html: "<i>Seleccione la opción que le interese para obtener más información sobre la lista completa de requisitos.</i>"
         services:
           direct_file:
             cta: Elija archivo directo
@@ -5237,10 +5234,7 @@ es:
             service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
             service_name: GetYourRefund
             service_name_short: GYR
-        state_credits: Créditos tributarios estatales adicionales
         still_need_help: "¿Todavía necesita ayuda para elegir el mejor servicio?"
-        stimulus_payments: Pagos de estímulo
-        support_via_gyr: disponible a través de GetYourRefund
         tax_documents:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales

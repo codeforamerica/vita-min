@@ -4,7 +4,7 @@
       <h2 class="title spacing-above-0">
         <%= t("views.shared.service_comparison.title_html") %>
       </h2>
-      <p class="text--centered spacing-above-15"><%= t("views.shared.service_comparison.always_free") %></p>
+      <p class="text--centered spacing-above-15"><%= t("views.shared.service_comparison.all_services") %></p>
       <p class="text--centered spacing-below-35"><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers"%>.</p>
       <div class="comparison-component">
         <div class="service-set service-set--service-description">
@@ -287,7 +287,13 @@
             </div>
           </div>
         </div>
-
+        <div class="service-set">
+          <div class="service-set__header">
+          </div>
+          <div class="service-set__services spacing-above-15">
+           <%= t("views.shared.service_comparison.select_service_html") %>
+          </div>
+        </div>
       </div>
 
       <% if open_for_gyr_intake? %>
