@@ -10,10 +10,12 @@ RSpec.describe StateFile::NameDobForm do
       device_id: "ABC123",
       primary_first_name: "Taliesen",
       primary_last_name: "Testingson",
+      primary_middle_initial: "T",
       primary_birth_date_month: "3",
       primary_birth_date_day: "12",
       primary_birth_date_year: "1987",
       spouse_first_name: "Tiberius",
+      spouse_middle_initial: "I",
       spouse_last_name: "Testofferson",
       spouse_birth_date_month: "5",
       spouse_birth_date_day: "8",
@@ -130,6 +132,18 @@ RSpec.describe StateFile::NameDobForm do
         expect(form.dependents.second.errors).to include(:dob)
       end
     end
+
+    context "with an invalid middle initial" do
+      let(:intake) { create :state_file_ny_intake, filing_status: 'married_filing_jointly' }
+      let(:params) { { primary_middle_initial: "2", spouse_middle_initial: "TI" } }
+
+      it "is not valid and adds errors to middle initial fields" do
+        form = StateFile::NameDobForm.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors).to include :primary_middle_initial
+        expect(form.errors).to include :spouse_middle_initial
+      end
+    end
   end
 
   describe "#save" do
@@ -144,9 +158,11 @@ RSpec.describe StateFile::NameDobForm do
         intake.reload
         expect(intake.primary_birth_date).to eq Date.parse("March 12, 1987")
         expect(intake.primary_first_name).to eq "Taliesen"
+        expect(intake. primary_middle_initial).to eq "T"
         expect(intake.primary_last_name).to eq "Testingson"
         expect(intake.spouse_birth_date).to eq Date.parse("May 8, 1986")
         expect(intake.spouse_first_name).to eq "Tiberius"
+        expect(intake.spouse_middle_initial).to eq "I"
         expect(intake.spouse_last_name).to eq "Testofferson"
 
         first_dependent.reload
