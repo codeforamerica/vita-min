@@ -222,7 +222,7 @@ es:
     messages:
       blank: No puede estar en blanco.
       invalid: es invalido
-      whole_number: ""
+      whole_number: Debe ser un número entero
   forms:
     errors:
       at_least_one_year: "Por favor, elija al menos un año."
@@ -2309,6 +2309,7 @@ es:
           dependent_months_lived_label: "Número de meses que vivió contigo en %{year}"
           dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
           last_name: "Apellido (Si tienes un sufijo, ingrésalo aquí junto con tu apellido. Por ejemplo, Smith, Jr)"
+          middle_initial: Inicial del segundo nombre
           months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
           months_helper_description: "Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones."
           months_helper_heading: "¿Cuáles meses debería contar?"
@@ -2363,7 +2364,7 @@ es:
           see_detailed_return: "Ver información detallada de la declaración:"
           standard_deduction: Deducción estándar
           taxable_income: Ingreso gravable
-          third_party_designee: ""
+          third_party_designee: Designado por un tercero
           total_dependent_exemptions: Total de exenciones por dependientes
           total_new_york_additions: Total de adiciones de Nueva York
           total_new_york_subtractions: Total de sustracciones de Nueva York
@@ -2392,10 +2393,10 @@ es:
       ny_third_party_designee:
         edit:
           reveal:
-            body_html: ''
-            title: ""
-          subtitle: ""
-          title_html: ""
+            body_html: 'Al seleccionar un designado por un tercero, estás autorizando al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También estás autorizando al designado a dar y recibir información tributaria confidencial relacionada con: <br><b><ul class="list--bulleted"> <li>esta declaración, incluida información faltante <li>cualquier aviso o factura derivada de esta presentación que compartas con el designado (no se enviarán al designado) <li>cualquier pago y actividad de cobro derivada de esta presentación, y  <li>el estado de tu declaración o reembolso. </ul>'
+            title: "¿Qué puede discutir el Departamento de Impuestos de Nueva York con mi designado por terceros?"
+          subtitle: "Al seleccionar sí, estás designando a esta persona como tu representante para tu declaración estatal."
+          title_html: "Parece que diste permiso para que el IRS discuta tu declaración de impuestos federales con %{name}.<br /><br /> ¿Te gustaría permitir que esta misma persona discuta tu declaración de impuestos estatales de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?"
       ny_w2:
         edit:
           box15_html: |
@@ -2415,6 +2416,7 @@ es:
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           w2s_error: Actualiza los formularios W-2 antes de continuar.
+          wages_amt_error: "El impuesto sobre la renta total no puede ser mas de $%{wages_amount}"
         index:
           title: Proporciona la información de impuestos estatales para los siguientes W-2. No te preocupes si tienes varios W-2 y no todos están listados abajo.
           updated: Has actualizado este W-2
@@ -2785,12 +2787,15 @@ es:
   verification_code_mailer:
     no_match:
       body_html: |
-        <p>Hola,</p>
-        <p>Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
-        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
-        <p>Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{url}">%{service_name}.org</a> para empezar el proceso de declarar sus impuestos.</p>
-        <p>Estamos aquí para servirle,</p>
-        <p>Su equipo de impuestos de %{service_name}</p>
+        Hola, <br /><br />
+
+        Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.<br />
+        Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.<br />
+        Si aún no ha enviado su información de impuestos a %{service_name}, <a href="%{url}">visite %{service_name}.org</a> para empezar.<br /><br />
+
+        Estamos aquí para servirle,<br /><br />
+
+        Su equipo de impuestos de %{service_name}
       body_text: |
         Hola,
 
