@@ -2181,7 +2181,6 @@ es:
           nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
           title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
-          vita_link: Solicitar asistencia de un voluntario VITA
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.

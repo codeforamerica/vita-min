@@ -2213,7 +2213,6 @@ en:
           nys_hh_credit: NYS/NYC Household Credit
           title1: Good news, you can use this tool this year to file your state taxes.
           title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
-          vita_link: Get started with VITA now
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
