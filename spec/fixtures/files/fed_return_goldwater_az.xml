@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>edfae806</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>600006666</PrimarySSN>
+      <SpouseSSN>700001123</SpouseSSN>
+      <NameLine1Txt>BARRY &amp; BARRIETTA&lt;GOLDWATER</NameLine1Txt>
+      <PrimaryNameControlTxt>GOLD</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>GOLD</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </USAddress>
+      <PhoneNum>4805554321</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@test.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="7">
+    <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002 W20003 W20004 W20005 W20006" referenceDocumentName="IRSW2">81000</WagesAmt>
+      <WagesSalariesAndTipsAmt>81000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>81000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>81000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+      <TaxableIncomeAmt>51800</TaxableIncomeAmt>
+      <TaxAmt>5779</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>5779</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>5779</TaxLessCreditsAmt>
+      <TotalTaxAmt>5779</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>6000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>6000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>6000</TotalPaymentsAmt>
+      <OverpaidAmt>221</OverpaidAmt>
+      <RefundAmt>221</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Conservative Person</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Person</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>600006666</EmployeeSSN>
+      <EmployerEIN>001456768</EmployerEIN>
+      <EmployerNameControlTxt>WHOL</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Whole Page Missing</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Barry Goldwater</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>11000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>11000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>11000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>600006666</EmployeeSSN>
+      <EmployerEIN>001456731</EmployerEIN>
+      <EmployerNameControlTxt>JUST</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Just Local Missing</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Barry Goldwater</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>12000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>12000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>12000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>12000</StateWagesAmt>
+          <StateIncomeTaxAmt>800</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20003" documentName="IRSW2">
+      <EmployeeSSN>700001123</EmployeeSSN>
+      <EmployerEIN>001456545</EmployerEIN>
+      <EmployerNameControlTxt>CRAZ</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Crazy Locality Name</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>12 Yonkers Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Barrietta Goldwater</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>13000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>13000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>13000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>13000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>13000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>900</LocalIncomeTaxAmt>
+            <LocalityNm>what is a city</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20004" documentName="IRSW2">
+      <EmployeeSSN>700001123</EmployeeSSN>
+      <EmployerEIN>001456765</EmployerEIN>
+      <EmployerNameControlTxt>BLAN</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Blank State Code</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Code St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>84002</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Barrietta Goldwater</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>14000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>14000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>14000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>14000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20005" documentName="IRSW2">
+      <EmployeeSSN>600006666</EmployeeSSN>
+      <EmployerEIN>001445554</EmployerEIN>
+      <EmployerNameControlTxt>STAT</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>State ID Number Missing</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Number Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Barry Goldwater</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>15000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>15000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>15000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <StateWagesAmt>15000</StateWagesAmt>
+          <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20006" documentName="IRSW2">
+      <EmployeeSSN>700001123</EmployeeSSN>
+      <EmployerEIN>001555665</EmployerEIN>
+      <EmployerNameControlTxt>TOOM</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Too Much Withholding</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Money St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Barrietta Goldwater</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Arizona Street</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>16000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>16000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>900</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>16000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>1234567</EmployerStateIdNum>
+          <StateWagesAmt>16000</StateWagesAmt>
+          <StateIncomeTaxAmt>18000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
