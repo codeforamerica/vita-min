@@ -9,12 +9,13 @@ module Hub::StateFile
 
     def edit
       binding.pry
-      efile_submission_transition_errors = EfileSubmissionTransitionError.where(efile_error_id: @efile_error.id).pluck(:efile_submission_transition_id)
-      efile_submission_transitions =
-      submission = EfileSubmission.joins(:efile_submission_transition_)
-      efile_error
-      efile_submission_transition_error = EfileSubmissionTransitionError.where()
-      @correction_path_options_for_select = []
+      transition_ids = EfileSubmissionTransitionError.where(efile_error_id: @efile_error.id).pluck(:efile_submission_transition_id)
+      submission_ids = EfileSubmissionTransition.where(id: transition_ids).pluck(:efile_submission_id)
+      submission = EfileSubmission.find(submission_ids.last)
+      intake = submission.data_source
+      navigation = "Navigation::StateFile#{intake.state_code.titleize}Navigation".constantize
+      paths = navigation.controllers.map { |c| c.to_path_helper(locale: intake.locale)}
+      @correction_path_options_for_select = paths
     end
 
     def show; end
