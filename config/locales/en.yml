@@ -5037,7 +5037,7 @@ en:
           partner_review: Your tax preparer at %{partner_name} will review your information
           partner_timing: "%{partner_name} will reach out within 3 business days to talk about your taxes"
           review: Your tax preparer will review your information
-          timing: Your tax preparer will reach out within 3 business days to talk about your taxes
+          timing: Your tax preparer will reach out within 5 business days to talk about your taxes
         satisfaction_face:
           negative: Not good
           neutral: Ok
