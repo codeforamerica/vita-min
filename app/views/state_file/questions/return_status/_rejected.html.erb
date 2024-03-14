@@ -51,7 +51,7 @@
 
   <%
   # THIS MUST CHANGE
-  edit_return_path = params[:us_state] == 'az' ? az_questions_name_dob_path : ny_questions_name_dob_path
+  edit_return_path = @error.correction_path || @error.default_correction_path
   %>
   <%= link_to t('.edit_return'), edit_return_path, class: "button button--primary spacing-above-60" %>
 <% end %>

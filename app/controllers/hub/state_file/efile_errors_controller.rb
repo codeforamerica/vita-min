@@ -8,13 +8,18 @@ module Hub::StateFile
     end
 
     def edit
-      binding.pry
-      transition_ids = EfileSubmissionTransitionError.where(efile_error_id: @efile_error.id).pluck(:efile_submission_transition_id)
-      submission_ids = EfileSubmissionTransition.where(id: transition_ids).pluck(:efile_submission_id)
-      submission = EfileSubmission.find(submission_ids.last)
-      intake = submission.data_source
-      navigation = "Navigation::StateFile#{intake.state_code.titleize}Navigation".constantize
-      paths = navigation.controllers.map { |c| c.to_path_helper(locale: intake.locale)}
+      intake = @efile_error.data_source
+      navigation = "Navigation::StateFile#{intake.state_code.titleize}QuestionNavigation".constantize
+      controllers = navigation.controllers
+      start_index = controllers.index(StateFile::Questions::TermsAndConditionsController)
+      end_index = controllers.index(StateFile::Questions::EsignDeclarationController)
+      controllers = controllers[start_index..end_index]
+      paths = controllers.map do |c|
+        c.to_path_helper(action: c.navigation_actions.first, us_state: intake.state_code, locale: intake.locale || "en")
+      end
+      unless @efile_error.correction_path.present?
+        @efile_error.correction_path = @efile_error.default_correction_path
+      end
       @correction_path_options_for_select = paths
     end
 
@@ -43,7 +48,7 @@ module Hub::StateFile
     end
 
     def permitted_params
-      params.require(:efile_error).permit(:expose, :auto_cancel, :auto_wait, :description_en, :description_es, :resolution_en, :resolution_es)
+      params.require(:efile_error).permit(:expose, :auto_cancel, :auto_wait, :correction_path, :description_en, :description_es, :resolution_en, :resolution_es)
     end
   end
 end
