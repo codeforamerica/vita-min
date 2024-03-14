@@ -130,6 +130,28 @@ RSpec.describe StateFile::NameDobForm do
         expect(form.dependents.second.errors).to include(:dob)
       end
     end
+
+    context "with a valid middle initial" do
+      let(:intake) { build(:state_file_az_intake) }
+      let(:params) { { primary_middle_initial: "T", spouse_middle_initial: "I" } }
+
+      it "is valid" do
+        form = StateFile::NameDobForm.new(intake, params)
+        expect(form).to be_valid
+      end
+    end
+
+    context "with an invalid middle initial" do
+      let(:intake) { build(:state_file_az_intake) }
+      let(:params) { { primary_middle_initial: "2", spouse_middle_initial: "TI" } }
+
+      it "is not valid and adds errors to middle initial fields" do
+        form = StateFile::NameDobForm.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors).to include :primary_middle_initial
+        expect(form.errors).to include :spouse_middle_initial
+      end
+    end
   end
 
   describe "#save" do
