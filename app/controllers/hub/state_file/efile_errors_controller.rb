@@ -7,7 +7,15 @@ module Hub::StateFile
       @efile_errors = @efile_errors.where.not(service_type: "ctc").order(:source, :code)
     end
 
-    def edit; end
+    def edit
+      binding.pry
+      efile_submission_transition_errors = EfileSubmissionTransitionError.where(efile_error_id: @efile_error.id).pluck(:efile_submission_transition_id)
+      efile_submission_transitions =
+      submission = EfileSubmission.joins(:efile_submission_transition_)
+      efile_error
+      efile_submission_transition_error = EfileSubmissionTransitionError.where()
+      @correction_path_options_for_select = []
+    end
 
     def show; end
 

@@ -8,7 +8,10 @@
       <%= f.hub_checkbox :expose, "Exposed to client? (exposes reject code and description on return-status page)" %>
       <%= f.hub_checkbox :auto_cancel, "Auto-cancel?" %>
       <%= f.hub_checkbox :auto_wait, "Auto-wait? (shows terminal reject state on return-status page)" %>
-
+      <div>
+        <%= f.label "Correction Path" %><br />
+        <%= f.select :correction_path, @correction_path_options_for_select, include_blank: true, selected: @efile_error.correction_path %>
+      </div>
       <div class="spacing-above-25">
         <%= f.label :description_en, "Description [English] (overwrites default reject description on return-status page)", class: "h4" %>
         <%= f.rich_text_area :description_en %>

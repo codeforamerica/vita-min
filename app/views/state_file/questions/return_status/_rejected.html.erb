@@ -49,6 +49,9 @@
     <%= t('.contact_us') %>
   </section>
 
-  <% edit_return_path = params[:us_state] == 'az' ? az_questions_name_dob_path : ny_questions_name_dob_path %>
+  <%
+  # THIS MUST CHANGE
+  edit_return_path = params[:us_state] == 'az' ? az_questions_name_dob_path : ny_questions_name_dob_path
+  %>
   <%= link_to t('.edit_return'), edit_return_path, class: "button button--primary spacing-above-60" %>
 <% end %>
