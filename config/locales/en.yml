@@ -5168,12 +5168,18 @@ en:
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
+          direct_file: Most filers under $200,000
           diy: under $79,000
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance
+        mobile_friendly: Mobile-friendly
         required_information: Required information
         services:
+          direct_file:
+            cta: Choose Direct File
+            service_description: File quickly on your own directly with the IRS.
+            service_name: IRS Direct File
           diy:
             cta: Choose File Myself
             service_description: File quickly on your own for %{year}.
@@ -5191,6 +5197,14 @@ en:
         tax_documents:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
+        tax_payer_residency:
+          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, Wyoming.
+          diy: Available to residents of all states, Puerto Rico, and non-residents.
+          full_service_html: |
+            Available to residents of all states.<br>
+            <br>
+            Limited availability for non-residents and Puerto Rico residents
+          title: Tax Payer Residency
         time_to_file:
           diy: 45 minutes
           full_service: 2-3 weeks

@@ -5215,12 +5215,18 @@ es:
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
+          direct_file: La mayoría de los contribuyentes menores de $200,000
           diy: menos de $79,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
+        mobile_friendly: Compatible con dispositivos móviles
         required_information: Información obligatoria
         services:
+          direct_file:
+            cta: Elija archivo directo
+            service_description: Presente rápidamente por su cuenta directamente ante el IRS.
+            service_name: IRS Direct File
           diy:
             cta: Elegir declarar por cuenta propia
             service_description: Declare rápidamente por su cuenta para %{year}.
@@ -5238,6 +5244,11 @@ es:
         tax_documents:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
+        tax_payer_residency:
+          direct_file: Disponible para residentes de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming durante todo el año.
+          diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
+          full_service_html: Disponible para residentes de todos los estados.<br><br> Disponibilidad limitada para no residentes y residentes de Puerto Rico
+          title: Residencia del contribuyente
         time_to_file:
           diy: 45 minutos
           full_service: De 2 a 3 semanas
