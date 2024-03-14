@@ -4,16 +4,11 @@ module StateFile
     # to the review page rather than the usual next page in the flow
     extend ActiveSupport::Concern
 
-    private
-
     def review_step
-      case params[:us_state]
-      when 'az'
-        StateFile::Questions::AzReviewController
-      when 'ny'
-        StateFile::Questions::NyReviewController
-      end
+      "StateFile::Questions::#{current_intake.state_code.titleize}ReviewController".constantize
     end
+
+    private
 
     def next_step
       params[:return_to_review].nil? ? super : review_step

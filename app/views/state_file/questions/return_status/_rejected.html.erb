@@ -49,9 +49,6 @@
     <%= t('.contact_us') %>
   </section>
 
-  <%
-  # THIS MUST CHANGE
-  edit_return_path = @error.correction_path || @error.default_correction_path
-  %>
-  <%= link_to t('.edit_return'), edit_return_path, class: "button button--primary spacing-above-60" %>
+  <% edit_return_path = @error.correction_path || @error.default_correction_path %>
+  <%= link_to t('.edit_return'), "#{edit_return_path}?return_to_review=y", class: "button button--primary spacing-above-60" %>
 <% end %>

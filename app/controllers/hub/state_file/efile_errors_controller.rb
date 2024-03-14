@@ -10,10 +10,7 @@ module Hub::StateFile
     def edit
       intake = @efile_error.data_source
       navigation = "Navigation::StateFile#{intake.state_code.titleize}QuestionNavigation".constantize
-      controllers = navigation.controllers
-      start_index = controllers.index(StateFile::Questions::TermsAndConditionsController)
-      end_index = controllers.index(StateFile::Questions::EsignDeclarationController)
-      controllers = controllers[start_index..end_index]
+      controllers = navigation.controllers.filter {|c| c.method_defined? :review_step }
       paths = controllers.map do |c|
         c.to_path_helper(action: c.navigation_actions.first, us_state: intake.state_code, locale: intake.locale || "en")
       end
