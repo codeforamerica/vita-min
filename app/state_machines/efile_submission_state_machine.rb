@@ -185,7 +185,12 @@ class EfileSubmissionStateMachine
   
   after_transition(to: :resubmitted) do |submission, transition|
     @new_submission = submission.source_record.efile_submissions.create
-    @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
+
+    begin
+      @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
+    rescue Statesman::GuardFailedError
+      Rails.logger.error "Failed to transition EfileSubmission##{@new_submission.id} to :preparing"
+    end
   end
 
   after_transition(to: :cancelled) do |submission|
