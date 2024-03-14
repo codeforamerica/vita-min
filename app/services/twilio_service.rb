@@ -72,6 +72,14 @@ class TwilioService
     end
 
     def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil)
+      if outgoing_text_message.class == OutgoingMessageStatus
+        line_type = get_metadata(phone_number: to).dig("type")
+        if line_type == "landline"
+          outgoing_text_message.update!(delivery_status: "gyr_status_landline_not_sent")
+          return
+        end
+      end
+
       arguments = {
         messaging_service_sid: ENV['MESSAGING_SERVICE_SID'] || EnvironmentCredentials.dig(:twilio, :messaging_service_sid),
         to: to,

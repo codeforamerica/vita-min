@@ -274,10 +274,39 @@ describe TwilioService do
       expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.sent"
     end
 
+    context "when outgoing record type is OutgoingMessageStatus and phone number is a landline" do
+      before do
+        allow(described_class).to receive(:get_metadata).and_return({ "type" => "landline" })
+      end
+
+      it "does not send a text and updates the record's delivery_status" do
+        signup = create(:signup)
+        bulk_signup_message = create(:bulk_signup_message)
+        outgoing_message_status = create(:outgoing_message_status, parent: signup, message_type: bulk_signup_message.message_type)
+        described_class.send_text_message(
+          to: signup.phone_number,
+          body: bulk_signup_message.message,
+          status_callback: nil,
+          outgoing_text_message: outgoing_message_status
+        )
+
+        outgoing_message_status.reload
+        expect(fake_messages_resource).not_to have_received(:create)
+        expect(outgoing_message_status.delivery_status).to eq "gyr_status_landline_not_sent"
+      end
+    end
+
+    context "when outgoing record type is OutgoingMessageStatus and phone number is not active" do
+      it "does not send a text and updates the record's delivery_status" do
+      #  TODO
+      end
+    end
+
     context "when twilio doesn't want to send a message" do
       let(:outgoing_message_status) { create(:outgoing_message_status, message_type: :sms) }
 
       before do
+        allow(described_class).to receive(:get_metadata).and_return({ "type" => "mobile" })
         allow(fake_messages_resource).to receive(:create).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
       end
 
