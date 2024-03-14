@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class NyW2Controller < AuthenticatedQuestionsController
+      include ReturnToReviewConcern
       before_action :load_w2s
       before_action :load_w2, only: [:edit, :update]
 
@@ -34,7 +35,7 @@ module StateFile
 
         if @w2.valid?
           @w2.save
-          redirect_to next_path and return if @w2s.length == 1
+          redirect_to next_path and return if @w2s.length == 1 || params[:return_to_review].present?
           redirect_to action: :index
         else
           render :edit
