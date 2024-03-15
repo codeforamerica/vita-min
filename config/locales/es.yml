@@ -1554,7 +1554,7 @@ es:
           body: 'Hola
 
             '
-          subject: subject
+          subject: ¡No olvides <strong>terminar</strong> tu declaración de impuestos estatales!
         sms:
       issue_resolved:
         email:
