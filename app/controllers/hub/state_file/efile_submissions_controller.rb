@@ -48,11 +48,6 @@ module Hub
 
       private
 
-      def error_redirect
-        flash[:alert] = "There was a problem generating the tax return pdf."
-        redirect_back(fallback_location: request.referer)
-      end
-
       def load_efile_submissions
         @efile_submissions = @efile_submissions.for_state_filing
       end
