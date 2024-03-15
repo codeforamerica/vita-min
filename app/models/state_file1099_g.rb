@@ -53,6 +53,7 @@ class StateFile1099G < ApplicationRecord
   validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
   validates_numericality_of :state_income_tax_withheld, only_integer: true, message: I18n.t('errors.messages.whole_number')
   validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
+  validate :state_specific_validation
 
   def update_conditional_attributes
     if address_confirmation_yes?
@@ -77,5 +78,9 @@ class StateFile1099G < ApplicationRecord
 
   def recipient_address_line2
     "#{recipient_street_address_apartment}".strip if recipient_street_address_apartment
+  end
+
+  def state_specific_validation
+    intake.validate_state_specific_1099_g_requirements(self) if intake.present?
   end
 end

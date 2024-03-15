@@ -129,6 +129,10 @@ class StateFileNyIntake < StateFileBaseIntake
     "MANHATTAN",
     "NEW YORK CIT",
   ].freeze
+  VALID_TINS = [
+    "270293117",
+    "146013200"
+  ].freeze
 
   encrypts :account_number, :routing_number, :raw_direct_file_data
   
@@ -268,6 +272,12 @@ class StateFileNyIntake < StateFileBaseIntake
   def validate_state_specific_w2_requirements(w2)
     if w2.locality_nm.present? && !self.class.locality_nm_valid?(w2.locality_nm)
       w2.errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
+    end
+  end
+
+  def validate_state_specific_1099_g_requirements(state_file1099_g)
+    if state_file1099_g.payer_tin.present? && !VALID_TINS.include?(state_file1099_g.payer_tin)
+      state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin_ny_invalid", valid_tins: VALID_TINS.join(", ")))
     end
   end
 
