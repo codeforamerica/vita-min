@@ -5,7 +5,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     begin
       submission.generate_irs_submission_id!
     rescue StandardError => e
-      submission.transition_to!(:failed, error_code: 'IRS-ID-FAIL', raw_response: e.inspect)
+      submission.transition_to!(:failed, error_code: 'IRS-ID-FAIL', raw_response: e.inspect) unless Rails.env.heroku?
     end
 
     address_creation = submission.generate_verified_address
@@ -17,7 +17,7 @@ class BuildSubmissionBundleJob < ApplicationJob
     begin
       response = SubmissionBundle.build(submission)
     rescue StandardError => e
-      submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: e.inspect)
+      submission.transition_to!(:failed, error_code: 'BUNDLE-FAIL', raw_response: e.inspect) unless Rails.env.heroku?
       raise
     end
 
