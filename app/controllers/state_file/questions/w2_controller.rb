@@ -36,7 +36,7 @@ module StateFile
         if @w2.valid?
           @w2.save
           redirect_to next_path and return if @w2s.length == 1
-          redirect_to action: :index
+          redirect_to action: :index, return_to_review: params[:return_to_review]
         else
           render :edit
         end
@@ -77,7 +77,7 @@ module StateFile
 
       def prev_path
         if @w2s.length > 1 && ["update", "edit"].include?(action_name)
-          return path_for_step(self.class)
+          return self.class.to_path_helper(action: :index, us_state: params[:us_state], return_to_review: params[:return_to_review])
         end
         super
       end

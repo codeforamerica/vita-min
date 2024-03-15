@@ -13,5 +13,9 @@ module StateFile
     def next_step
       params[:return_to_review].nil? ? super : review_step
     end
+
+    def prev_step
+      params[:return_to_review].nil? ? super : review_step
+    end
   end
 end
