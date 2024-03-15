@@ -99,7 +99,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
       fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "New York", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "11102", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "270293117"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in 'state_file1099_g_unemployment_compensation', with: "123"
       fill_in 'state_file1099_g_federal_income_tax_withheld', with: "456"
@@ -107,6 +107,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file1099_g_state_income_tax_withheld', with: "789"
       click_on I18n.t("general.continue")
 
+      binding.pry
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
