@@ -150,6 +150,9 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def validate_state_specific_1099_g_requirements(state_file1099_g)
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial

@@ -179,6 +179,7 @@ en:
         invalid: 'Only letters, numbers, parentheses, hyphen, apostrophe, and # are accepted.'
       payer_tin:
         invalid: EIN must be a 9-digit number. Do not include a dash.
+      payer_tin_ny_invalid: "EIN must be one of: %{valid_tins}"
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
