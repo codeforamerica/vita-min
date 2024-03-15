@@ -20,7 +20,7 @@
         </div>
       </div>
       <div>
-        <%= link_to t("general.update"), StateFile::Questions::NyW2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index), class: "button--small button--inline-action" %>
+        <%= link_to t("general.update"), StateFile::Questions::W2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index), class: "button--small button--inline-action" %>
       </div>
     </div>
   <% end %>
@@ -30,7 +30,7 @@
     <% if @errors_present %>
       <span class="text--error" id="state_file_w2_local_income_tax_amt__errors">
         <i class="icon-warning"></i>
-        <%= I18n.t("state_file.questions.ny_w2.edit.w2s_error") %>
+        <%= I18n.t("state_file.questions.w2.edit.w2s_error") %>
       </span>
     <% end %>
   <% end %>

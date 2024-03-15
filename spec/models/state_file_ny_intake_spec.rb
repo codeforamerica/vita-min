@@ -377,4 +377,206 @@ describe StateFileNyIntake do
       expect(intake.disqualifying_df_data_reason).to eq :has_out_of_state_w2
     end
   end
+
+  describe ".invalid_df_w2?" do
+    let(:intake) { build :state_file_ny_intake }
+
+    let(:df_w2) do
+      DirectFileData::DfW2.new(
+        Nokogiri::XML(
+          File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml"))
+        ).at("IRSW2")
+      )
+    end
+
+    context "they have no issues with their fed xml w2s" do
+      it "returns false" do
+        expect(intake.invalid_df_w2?(df_w2)).to eq false
+      end
+    end
+
+    context "with a broken w2" do
+      context "StateWagesAmt is blank or missing" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.StateWagesAmt = ""
+          df_w2
+        end
+
+        it "returns true" do
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "LocalWagesAndTipsAmt is missing" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.LocalWagesAndTipsAmt = ""
+          df_w2.LocalIncomeTaxAmt = ""
+          df_w2
+        end
+
+        context "client indicated they were a full year NYC resident" do
+          it "returns true" do
+            intake.update(nyc_residency: :full_year)
+            expect(intake.invalid_df_w2?(df_w2)).to eq true
+          end
+        end
+
+        context "client was not an NYC resident" do
+          it "returns false" do
+            intake.update(nyc_residency: :none)
+            expect(intake.invalid_df_w2?(df_w2)).to eq false
+          end
+        end
+      end
+
+      context "client indicated they were an NYC resident on nyc-residency and LocalityNm is missing" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.LocalityNm = ""
+          df_w2
+        end
+
+        it "returns true" do
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "LocalityNm is blank" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.LocalityNm = ""
+          df_w2
+        end
+        before do
+          intake.update(nyc_residency: :none)
+        end
+
+        context "LocalWagesAndTipsAmt is present" do
+          let(:df_w2) do
+            df_w2 = super()
+            df_w2.LocalIncomeTaxAmt = ""
+            df_w2
+          end
+
+          it "returns true" do
+            expect(intake.invalid_df_w2?(df_w2)).to eq true
+          end
+        end
+
+        context "LocalIncomeTaxAmt is present" do
+          let(:df_w2) do
+            df_w2 = super()
+            df_w2.LocalWagesAndTipsAmt = ""
+            df_w2
+          end
+
+          it "returns true" do
+            expect(intake.invalid_df_w2?(df_w2)).to eq true
+          end
+        end
+
+        context "neither LocalWagesAndTipsAmt nor LocalIncomeTaxAmt is present" do
+          let(:df_w2) do
+            df_w2 = super()
+            df_w2.LocalWagesAndTipsAmt = ""
+            df_w2.LocalIncomeTaxAmt = ""
+            df_w2
+          end
+
+          it "returns false" do
+            expect(intake.invalid_df_w2?(df_w2)).to eq false
+          end
+        end
+      end
+
+      context "LocalIncomeTaxAmt is present but LocalWagesAndTipsAmt is not" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.LocalWagesAndTipsAmt = ""
+          df_w2
+        end
+
+        it "returns true" do
+          intake.update(nyc_residency: :none)
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "StateIncomeTaxAmt is present but StateWagesAmt is not" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.StateWagesAmt = ""
+          df_w2
+        end
+
+        it "returns true" do
+          intake.update(nyc_residency: :none)
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "StateWagesAmt is present but EmployerStateIdNum is not" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.EmployerStateIdNum = ""
+          df_w2
+        end
+
+        it "returns true" do
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "LocalityNm does not match one of the NY Pub 93 list of allowed values" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.LocalityNm = "Not New York"
+          df_w2
+        end
+
+        it "returns true" do
+          intake.update(nyc_residency: :none)
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "StateAbberviationCd is blank or missing" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.StateAbbreviationCd = ""
+          df_w2
+        end
+
+        it "returns true" do
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "StateIncomeTaxAmt is greater than StateWagesAmt" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.StateIncomeTaxAmt = "9000"
+          df_w2
+        end
+
+        it "returns true" do
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+
+      context "LocalIncomeTaxAmt is greater than LocalWagesAndTipsAmt" do
+        let(:df_w2) do
+          df_w2 = super()
+          df_w2.LocalIncomeTaxAmt = "9000"
+          df_w2
+        end
+
+        it "returns true" do
+          expect(intake.invalid_df_w2?(df_w2)).to eq true
+        end
+      end
+    end
+  end
 end

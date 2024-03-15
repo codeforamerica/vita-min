@@ -228,12 +228,15 @@ module SubmissionBuilder
               }
             ]
 
-            @submission.data_source.direct_file_data.w2s.each do |w2|
+            @submission.data_source.direct_file_data.w2s.each_with_index do |w2, i|
+              intake = @submission.data_source
+              intake_w2 = intake.state_file_w2s.find {|w2| w2.w2_index == i } if intake.state_file_w2s.present?
+
               supported_docs << {
                 xml: SubmissionBuilder::Shared::ReturnW2,
                 pdf: nil,
                 include: true,
-                kwargs: { w2: w2 }
+                kwargs: { w2: w2, intake_w2: intake_w2 }
               }
             end
 

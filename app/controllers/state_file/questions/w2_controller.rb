@@ -1,11 +1,11 @@
 module StateFile
   module Questions
-    class NyW2Controller < AuthenticatedQuestionsController
+    class W2Controller < AuthenticatedQuestionsController
       before_action :load_w2s
       before_action :load_w2, only: [:edit, :update]
 
       def self.show?(intake)
-        Flipper.enabled?(:w2_override) && invalid_w2s(intake).any?
+        Flipper.enabled?(:w2_override) && invalid_df_w2s(intake).any?
       end
 
       def index
@@ -82,36 +82,18 @@ module StateFile
       end
 
       def self.w2s_for_intake(intake)
-        (intake.direct_file_data.w2s.each_with_index.map do |w2, index|
-          if invalid_w2?(intake, w2)
+        (intake.direct_file_data.w2s.each_with_index.map do |df_w2, index|
+          if intake.invalid_df_w2?(df_w2)
             existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == index }
             existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: index)
           end
         end).compact
       end
 
-      def self.invalid_w2s(intake)
-        intake.direct_file_data.w2s.filter { |w2| invalid_w2?(intake, w2) }
+      def self.invalid_df_w2s(intake)
+        intake.direct_file_data.w2s.filter { |df_w2| intake.invalid_df_w2?(df_w2) }
       end
 
-      def self.invalid_w2?(intake, w2)
-        return true if w2.StateWagesAmt == 0
-        if intake.nyc_residency_full_year?
-          return true if w2.LocalWagesAndTipsAmt == 0 || w2.LocalityNm.blank?
-        end
-        if w2.LocalityNm.blank?
-          return true if w2.LocalWagesAndTipsAmt != 0 || w2.LocalIncomeTaxAmt != 0
-        end
-        return true if w2.LocalIncomeTaxAmt != 0 && w2.LocalWagesAndTipsAmt == 0
-        return true if w2.StateIncomeTaxAmt != 0 && w2.StateWagesAmt == 0
-        return true if w2.StateWagesAmt != 0 && w2.EmployerStateIdNum.blank?
-        return true if w2.LocalityNm.present? && !StateFileNyIntake.locality_nm_valid?(w2.LocalityNm.upcase)
-        return true if w2.EmployerStateIdNum.present? && w2.StateAbbreviationCd.blank?
-        return true if w2.StateIncomeTaxAmt > w2.StateWagesAmt
-        return true if w2.LocalIncomeTaxAmt > w2.LocalWagesAndTipsAmt
-        return true if w2.StateIncomeTaxAmt + w2.LocalIncomeTaxAmt > w2.WagesAmt
-        false
-      end
     end
   end
 end
