@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class W2Controller < AuthenticatedQuestionsController
+      include ReturnToReviewConcern
       before_action :load_w2s
       before_action :load_w2, only: [:edit, :update]
 
