@@ -107,7 +107,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file1099_g_state_income_tax_withheld', with: "789"
       click_on I18n.t("general.continue")
 
-      binding.pry
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
