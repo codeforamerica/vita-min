@@ -17,14 +17,14 @@ module StateFile
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info&.update!(attributes_for(:state_file_efile_device_info))
 
-      can_resubmit_states = ["rejected", "notified_of_rejection", "waiting", "investigating", "failed", "fraud_hold"]
+      can_resubmit_states = ["rejected", "notified_of_rejection", "waiting"]
       old_efile_submission = @intake.efile_submissions&.last
-      if old_efile_submission.present? && can_resubmit_states.include?(old_efile_submission.current_state)
+      if old_efile_submission.present?
         # the after_transitions :resubmission creates a new efile submission and transitions it to :preparing
-        old_efile_submission.transition_to!(:resubmitted)
+        old_efile_submission.transition_to!(:resubmitted) if can_resubmit_states.include?(old_efile_submission.current_state)
       else
         # Submits new return
-        new_efile_submission = EfileSubmission.create!(data_source: @intake,)
+        new_efile_submission = EfileSubmission.create!(data_source: @intake)
 
         begin
           new_efile_submission.transition_to(:preparing) # will start the process of submitting the return
