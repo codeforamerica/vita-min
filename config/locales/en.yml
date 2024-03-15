@@ -5192,7 +5192,7 @@ en:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         tax_payer_residency:
-          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, Wyoming.
+          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming.
           diy: Available to residents of all states, Puerto Rico, and non-residents.
           full_service_html: |
             Available to residents of all states.<br>
