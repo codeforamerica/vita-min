@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NyW2Controller do
+RSpec.describe StateFile::Questions::W2Controller do
   let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
   let(:direct_file_xml) { Nokogiri::XML(raw_direct_file_data) }
   let(:intake) do
@@ -23,176 +23,6 @@ RSpec.describe StateFile::Questions::NyW2Controller do
         let(:direct_file_xml) do
           xml = super()
           xml.at("StateWagesAmt").content = ""
-          xml
-        end
-
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "LocalWagesAndTipsAmt is missing" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("LocalWagesAndTipsAmt").content = ""
-          xml.at("LocalIncomeTaxAmt").content = ""
-          xml
-        end
-
-        context "client indicated they were a full year NYC resident" do
-          it "returns true" do
-            intake.update(nyc_residency: :full_year)
-            expect(described_class.show?(intake)).to eq true
-          end
-        end
-
-        context "client was not an NYC resident" do
-          it "returns false" do
-            intake.update(nyc_residency: :none)
-            expect(described_class.show?(intake)).to eq false
-          end
-        end
-      end
-
-      context "client indicated they were an NYC resident on nyc-residency and LocalityNm is missing" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("LocalityNm").content = ""
-          xml
-        end
-
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "LocalityNm is blank" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("LocalityNm").content = ""
-          xml
-        end
-        before do
-          intake.update(nyc_residency: :none)
-        end
-
-        context "LocalWagesAndTipsAmt is present" do
-          let(:direct_file_xml) do
-            xml = super()
-            xml.at("LocalIncomeTaxAmt").content = ""
-            xml
-          end
-
-          it "returns true" do
-            expect(described_class.show?(intake)).to eq true
-          end
-        end
-
-        context "LocalIncomeTaxAmt is present" do
-          let(:direct_file_xml) do
-            xml = super()
-            xml.at("LocalWagesAndTipsAmt").content = ""
-            xml
-          end
-
-          it "returns true" do
-            expect(described_class.show?(intake)).to eq true
-          end
-        end
-
-        context "neither LocalWagesAndTipsAmt nor LocalIncomeTaxAmt is present" do
-          let(:direct_file_xml) do
-            xml = super()
-            xml.at("LocalWagesAndTipsAmt").content = ""
-            xml.at("LocalIncomeTaxAmt").content = ""
-            xml
-          end
-
-          it "returns false" do
-            expect(described_class.show?(intake)).to eq false
-          end
-        end
-      end
-
-      context "LocalIncomeTaxAmt is present but LocalWagesAndTipsAmt is not" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("LocalWagesAndTipsAmt").content = ""
-          xml
-        end
-
-        it "returns true" do
-          intake.update(nyc_residency: :none)
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "StateIncomeTaxAmt is present but StateWagesAmt is not" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("StateWagesAmt").content = ""
-          xml
-        end
-
-        it "returns true" do
-          intake.update(nyc_residency: :none)
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "StateWagesAmt is present but EmployerStateIdNum is not" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("EmployerStateIdNum").content = ""
-          xml
-        end
-
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "LocalityNm does not match one of the NY Pub 93 list of allowed values" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("LocalityNm").content = "Not New York"
-          xml
-        end
-
-        it "returns true" do
-          intake.update(nyc_residency: :none)
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "StateAbberviationCd is blank or missing" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.search("W2StateTaxGrp StateAbbreviationCd").each { |node| node.remove }
-          xml
-        end
-
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "StateIncomeTaxAmt is greater than StateWagesAmt" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("StateIncomeTaxAmt").content = "9000"
-          xml
-        end
-
-        it "returns true" do
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
-
-      context "LocalIncomeTaxAmt is greater than LocalWagesAndTipsAmt" do
-        let(:direct_file_xml) do
-          xml = super()
-          xml.at("LocalIncomeTaxAmt").content = "9000"
           xml
         end
 
@@ -249,7 +79,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
 
       it "redirects to the edit page" do
         get :index, params: { us_state: :ny }
-        expect(response).to redirect_to "/en/ny/questions/ny_w2/0/edit"
+        expect(response).to redirect_to "/en/ny/questions/w2/0/edit"
       end
     end
 
@@ -301,7 +131,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
 
           # TODO: check other_w2 hasn't been updated? perhaps unnecessary test
 
-          expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index))
         end
       end
 
@@ -322,7 +152,7 @@ RSpec.describe StateFile::Questions::NyW2Controller do
           expect(new_w2.local_income_tax_amt).to eq 30
           expect(new_w2.locality_nm).to eq "NYC"
 
-          expect(response).to redirect_to(StateFile::Questions::NyW2Controller.to_path_helper(us_state: :ny, action: :index))
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index))
         end
       end
 
@@ -403,6 +233,25 @@ RSpec.describe StateFile::Questions::NyW2Controller do
 
         expect(response).to render_template(:edit)
         expect(response.body).to include "Cannot be greater than State wages and tips."
+      end
+    end
+  end
+
+  context "with an intake from AZ" do
+    let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_bert_az.xml")) }
+    let(:direct_file_xml) do
+      doc = super()
+      # Bert paid more tax than his wages!
+      doc.at("StateIncomeTaxAmt").content = "9001"
+      doc
+    end
+    let(:intake) do
+      create :state_file_az_intake, raw_direct_file_data: direct_file_xml.to_xml
+    end
+
+    context "shows when there a w2 is sus" do
+      it "returns false" do
+        expect(described_class.show?(intake)).to eq true
       end
     end
   end

@@ -47,32 +47,29 @@ class StateFileW2 < ApplicationRecord
   validates :local_wages_and_tips_amt, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amt.present? }
   validates_numericality_of :local_income_tax_amt, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { local_income_tax_amt.present? }
   validates :local_income_tax_amt, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_income_tax_amt.present? }
-  validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.ny_w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amt.present? && local_wages_and_tips_amt.positive? }
+  validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amt.present? && local_wages_and_tips_amt.positive? }
   validates :employer_state_id_num, presence: true, if: -> { state_wages_amt.present? && state_wages_amt.positive? }
   validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/ }, if: -> { locality_nm.present? }
   validate :validate_tax_amts
-  validate :locality_nm_validation
+  validate :state_specific_validation
   before_validation :locality_nm_to_upper_case
 
-  def locality_nm_validation
-    return unless locality_nm.present?
-    unless state_file_intake_type.constantize.locality_nm_valid?(locality_nm)
-      errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
-    end
+  def state_specific_validation
+    state_file_intake.validate_state_specific_w2_requirements(self) if state_file_intake.present?
   end
 
   def validate_tax_amts
     if (state_income_tax_amt || 0).positive? && (state_wages_amt || 0) <= 0
-      errors.add(:state_wages_amt, I18n.t("state_file.questions.ny_w2.edit.state_wages_amt_error"))
+      errors.add(:state_wages_amt, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
     if (local_income_tax_amt || 0).positive? && (local_wages_and_tips_amt || 0) <= 0
-      errors.add(:local_wages_and_tips_amt, I18n.t("state_file.questions.ny_w2.edit.local_wages_and_tips_amt_error"))
+      errors.add(:local_wages_and_tips_amt, I18n.t("state_file.questions.w2.edit.local_wages_and_tips_amt_error"))
     end
     if state_income_tax_amt.present? && state_wages_amt.present? && state_income_tax_amt > state_wages_amt
-      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.state_income_tax_amt_error"))
+      errors.add(:state_income_tax_amt, I18n.t("state_file.questions.w2.edit.state_income_tax_amt_error"))
     end
     if local_income_tax_amt.present? && local_wages_and_tips_amt.present? && local_income_tax_amt > local_wages_and_tips_amt
-      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.local_income_tax_amt_error"))
+      errors.add(:local_income_tax_amt, I18n.t("state_file.questions.w2.edit.local_income_tax_amt_error"))
     end
     w2 = state_file_intake.direct_file_data.w2s[w2_index]
     if w2.present?
@@ -83,8 +80,8 @@ class StateFileW2 < ApplicationRecord
         errors.add(:local_wages_and_tips_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
       end
       if state_income_tax_amt.present? && local_income_tax_amt.present? && (state_income_tax_amt + local_income_tax_amt > w2.WagesAmt)
-        errors.add(:local_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
-        errors.add(:state_income_tax_amt, I18n.t("state_file.questions.ny_w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+        errors.add(:local_income_tax_amt, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+        errors.add(:state_income_tax_amt, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
       end
     end
   end
