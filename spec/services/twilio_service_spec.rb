@@ -278,7 +278,6 @@ describe TwilioService do
       let(:outgoing_message_status) { create(:outgoing_message_status, message_type: :sms) }
 
       before do
-        # allow(described_class).to receive(:get_metadata).and_return({ "type" => "mobile" })
         allow(fake_messages_resource).to receive(:create).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
       end
 
