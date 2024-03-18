@@ -589,7 +589,7 @@ describe StateFileNyIntake do
       )
     end
 
-    it "rejects if the PayerTIN is a not one of the 2 known values" do
+    it "rejects if the PayerTIN is a not one of the known values" do
       state_file_1099.payer_tin = "123456789"
       intake.validate_state_specific_1099_g_requirements(state_file_1099)
       expect(state_file_1099.errors[:payer_tin]).to be_present
