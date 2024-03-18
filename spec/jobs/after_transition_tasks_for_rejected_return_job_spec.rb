@@ -66,28 +66,6 @@ describe AfterTransitionTasksForRejectedReturnJob do
         expect(resubmission.current_state).to eq("rejected")
       end
     end
-
-    context "schedule job for still processing notice" do
-      context "for state filing" do
-        it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
-          fake_time = Time.now
-          submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
-          Timecop.freeze(fake_time) do
-            expect {
-              AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
-            }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
-            expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
-          end
-        end
-      end
-
-      context "not for state filing" do
-        it "does not enqueue StateFile::SendStillProcessingNoticeJob" do
-          AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
-          expect(StateFile::SendStillProcessingNoticeJob).not_to have_been_enqueued.with(submission)
-        end
-      end
-    end
   end
 
   describe '#job_object_id' do

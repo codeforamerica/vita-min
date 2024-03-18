@@ -256,6 +256,28 @@ describe EfileSubmissionStateMachine do
 
         expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
       end
+
+      context "schedule job for still processing notice" do
+        context "for state filing" do
+          it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
+            fake_time = Time.now
+            submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
+            Timecop.freeze(fake_time) do
+              expect {
+                submission.transition_to!(:failed)
+              }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
+              expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
+            end
+          end
+        end
+
+        context "not for state filing" do
+          it "does not enqueue StateFile::SendStillProcessingNoticeJob" do
+            submission.transition_to!(:failed)
+            expect(StateFile::SendStillProcessingNoticeJob).not_to have_been_enqueued.with(submission)
+          end
+        end
+      end
     end
 
     context "to notified_of_rejection" do
