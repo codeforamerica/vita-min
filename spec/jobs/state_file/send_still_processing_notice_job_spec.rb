@@ -12,9 +12,11 @@ RSpec.describe StateFile::SendStillProcessingNoticeJob, type: :job do
               .and_return(after_transition_messaging_service)
       allow(after_transition_messaging_service)
         .to receive(:send_efile_submission_still_processing_message)
+      allow(after_transition_messaging_service)
+        .to receive(:send_efile_submission_rejected_message)
     end
 
-    context "client has still not been accepted or rejected" do
+    context "client has still not been accepted or notified of rejection" do
       it "sends the message" do
         described_class.perform_now(submission)
 
@@ -22,10 +24,10 @@ RSpec.describe StateFile::SendStillProcessingNoticeJob, type: :job do
       end
     end
 
-    context "client has been accepted or rejected" do
+    context "client has been accepted or notified of rejection" do
       context "the accepted/rejected submission is the same one passed into the job" do
         before do
-          submission.transition_to!(:accepted)
+          submission.transition_to!(:notified_of_rejection)
         end
 
         it "does not send the message" do
@@ -37,7 +39,7 @@ RSpec.describe StateFile::SendStillProcessingNoticeJob, type: :job do
 
       context "the accepted/rejected submission is a new one" do
         before do
-          create(:efile_submission, :rejected, data_source: intake)
+          create(:efile_submission, :accepted, data_source: intake)
         end
 
         it "does not send the message" do

@@ -142,6 +142,7 @@ class EfileSubmissionStateMachine
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+      StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
     end
   end
 
