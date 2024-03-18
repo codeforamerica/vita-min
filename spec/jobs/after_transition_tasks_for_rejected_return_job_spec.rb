@@ -75,7 +75,8 @@ describe AfterTransitionTasksForRejectedReturnJob do
           Timecop.freeze(fake_time) do
             expect {
               AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
-            }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload, run_at: fake_time + 24.hours)
+            }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
+            expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
           end
         end
       end
