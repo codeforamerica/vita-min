@@ -8,14 +8,18 @@ module Hub::StateFile
     end
 
     def edit
-      intake = @efile_error.data_source
-      navigation = "Navigation::StateFile#{intake.state_code.titleize}QuestionNavigation".constantize
-      controllers = navigation.controllers.filter {|c| c.method_defined? :review_step }
-      paths = controllers.map do |c|
-        c.to_path_helper(action: c.navigation_actions.first, us_state: intake.state_code, locale: intake.locale || "en")
+      paths = Set.new
+      StateFileBaseIntake::STATE_CODES.each do |state_code|
+        navigation = "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+        navigation.controllers.each do |controller|
+          paths << EfileError.controller_to_path(controller)
+        end
       end
+      paths = paths.to_a.sort
       unless @efile_error.correction_path.present?
-        @efile_error.correction_path = @efile_error.default_correction_path
+        @efile_error.correction_path = EfileError.controller_to_path(
+          EfileError.default_controller
+        )
       end
       @correction_path_options_for_select = paths
     end

@@ -49,18 +49,16 @@ class EfileError < ApplicationRecord
     end
   end
 
-  def data_source
-    # This feels insanely complex - maybe we need to set up has_many relations...
-    return @data_source if @data_source.present?
-    transition_ids = EfileSubmissionTransitionError.where(efile_error_id: id).pluck(:efile_submission_transition_id)
-    submission_ids = EfileSubmissionTransition.where(id: transition_ids).pluck(:efile_submission_id)
-    submission = EfileSubmission.find(submission_ids.last)
-    @data_source = submission.data_source
+  def self.path_to_controller(path)
+    "StateFile::Questions::#{path.gsub("-", "_").camelize}Controller".constantize
   end
 
-  def default_correction_path
-    data_source = self.data_source
-    c = StateFile::Questions::NameDobController
-    c.to_path_helper(action: c.navigation_actions.first, us_state: data_source.state_code, locale: data_source.locale || "en")
+  def self.controller_to_path(controller)
+    controller.name.split("::")[-1][0..-11].underscore.gsub("_", "-")
   end
+
+  def self.default_controller
+    StateFile::Questions::NameDobController
+  end
+
 end
