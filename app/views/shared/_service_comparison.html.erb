@@ -4,7 +4,7 @@
       <h2 class="title spacing-above-0">
         <%= t("views.shared.service_comparison.title_html") %>
       </h2>
-      <p class="text--centered spacing-above-15"><%= t("views.shared.service_comparison.always_free") %></p>
+      <p class="text--centered spacing-above-15"><%= t("views.shared.service_comparison.all_services") %></p>
       <p class="text--centered spacing-below-35"><%= t("views.shared.service_comparison.in_person") %> <%= link_to t("views.shared.service_comparison.in_person_link_text"), vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers"%>.</p>
       <div class="comparison-component">
         <div class="service-set service-set--service-description">
@@ -45,6 +45,19 @@
                 <%= link_to t("views.shared.service_comparison.services.diy.cta"), Diy::FileYourselfController.to_path_helper, class: "button", "data-track-click": "service-comparison-diy" %>
               </div>
             </div>
+            <div class="service direct-file">
+              <div>
+                <h2 class="service__service-name">
+                  <%= t("views.shared.service_comparison.services.direct_file.service_name") %>
+                </h2>
+              </div>
+              <div class="service__description">
+                <%= t("views.shared.service_comparison.services.direct_file.service_description") %>
+              </div>
+              <div class="service__cta">
+                <%= link_to t("views.shared.service_comparison.services.direct_file.cta"), "https://directfile.irs.gov/state" ,class: "button", "data-track-click": "service-comparison-direct-file"%>
+              </div>
+            </div>
           </div>
         </div>
         <div class="service-set service-set--mobile-only mobile-sticky-header">
@@ -56,6 +69,9 @@
             </div>
             <div class="service diy">
               <strong><%= t("views.shared.service_comparison.services.diy.service_name") %></strong>
+            </div>
+            <div class="service direct-file">
+              <strong><%= t("views.shared.service_comparison.services.direct_file.service_name") %></strong>
             </div>
           </div>
         </div>
@@ -74,6 +90,9 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.income_limit.diy") %>
             </div>
+            <div class="service direct-file">
+              <%= t("views.shared.service_comparison.income_limit.direct_file") %>
+            </div>
           </div>
         </div>
         <div class="service-set service-set--hr">
@@ -87,6 +106,9 @@
               <%= MultiTenantService.new(:gyr).filing_years.last %>-<%= MultiTenantService.new(:gyr).filing_years.first %>
             </div>
             <div class="service diy">
+              <%= MultiTenantService.new(:gyr).current_tax_year %>
+            </div>
+            <div class="service direct-file">
               <%= MultiTenantService.new(:gyr).current_tax_year %>
             </div>
           </div>
@@ -107,6 +129,9 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.time_to_file.diy") %>
             </div>
+            <div class="service direct-file">
+              <%= t("views.shared.service_comparison.time_to_file.diy") %>
+            </div>
           </div>
         </div>
         <div class="service-set">
@@ -118,6 +143,7 @@
           <div class="service-set__services service-set--mobile-excluded">
             <div class="service full-service"></div>
             <div class="service diy"></div>
+            <div class="service direct-file"></div>
           </div>
         </div>
         <div class="service-set">
@@ -133,12 +159,18 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.id_documents.diy") %>
             </div>
+            <div class="service direct-file">
+              <%= t("views.shared.service_comparison.id_documents.diy") %>
+            </div>
           </div>
         </div>
         <div class="service-set service-set--hr">
           <div class="service-set__header">
             <div class="service-set__title service-set__title--normal">
               <%= t("views.shared.service_comparison.tax_documents.title") %>
+            </div>
+            <div class="service-set__subtitle">
+              <%= t("views.shared.service_comparison.tax_documents.subtitle") %>
             </div>
             <div class="service-set__subtitle">
               <%= t("views.shared.service_comparison.tax_documents.subtitle") %>
@@ -151,80 +183,26 @@
             <div class="service diy">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
-          </div>
-        </div>
-        <div class="service-set">
-          <div class="service-set__header">
-            <div class="service-set__title">
-              <%= t("views.shared.service_comparison.credits_and_payments") %>
-            </div>
-          </div>
-          <div class="service-set__services">
-            <div class="service full-service">
-              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service diy">
-              <%= image_tag "icons/lots-of-cash.svg", alt:  t("views.shared.service_comparison.all_tax_credits"), class: "service-comparison--icon" %>
-            </div>
-          </div>
-        </div>
-        <div class="service-set">
-          <div class="service-set__header">
-            <div class="service-set__title service-set__title--normal">
-              <%= t("views.shared.service_comparison.child_tax_credit") %>
-            </div>
-          </div>
-          <div class="service-set__services">
-            <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-          </div>
-        </div>
-        <div class="service-set">
-          <div class="service-set__header">
-            <div class="service-set__title service-set__title--normal">
-              <%= t("views.shared.service_comparison.stimulus_payments") %>
-            </div>
-          </div>
-          <div class="service-set__services">
-            <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-          </div>
-        </div>
-        <div class="service-set">
-          <div class="service-set__header">
-            <div class="service-set__title service-set__title--normal">
-              <%= t("views.shared.service_comparison.earned_income_tax_credit") %>
-            </div>
-          </div>
-          <div class="service-set__services">
-            <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service diy">
+            <div class="service direct-file">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
         <div class="service-set service-set--hr">
           <div class="service-set__header">
-            <div class="service-set__title service-set__title--normal">
-              <%= t("views.shared.service_comparison.state_credits") %>
+            <div class="service-set__title">
+              <%= t("views.shared.service_comparison.tax_payer_residency.title") %>
             </div>
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+              <%= t("views.shared.service_comparison.tax_payer_residency.full_service_html") %>
             </div>
             <div class="service diy">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+              <%= t("views.shared.service_comparison.tax_payer_residency.diy") %>
+            </div>
+            <div class="service direct-file">
+              <%= t("views.shared.service_comparison.tax_payer_residency.direct_file") %>
             </div>
           </div>
         </div>
@@ -239,6 +217,8 @@
             </div>
             <div class="service diy">
             </div>
+            <div class="service direct-file">
+            </div>
           </div>
         </div>
         <div class="service-set">
@@ -251,11 +231,27 @@
             <div class="service full-service service--mobile-flex-start">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
-            <div class="service diy service--mobile-flex-start service--fixie-parent">
+            <div class="service diy">
+            </div>
+            <div class="service direct-file">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-              <div class="service-set__subtitle service-set__subtitle--fixie">
-                <%= t("views.shared.service_comparison.support_via_gyr") %>
-              </div>
+            </div>
+          </div>
+        </div>
+        <div class="service-set">
+          <div class="service-set__header">
+            <div class="service-set__title service-set__title--normal">
+              <%= t("views.shared.service_comparison.mobile_friendly") %>
+            </div>
+          </div>
+          <div class="service-set__services">
+            <div class="service full-service service--mobile-flex-start">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+            </div>
+            <div class="service diy">
+            </div>
+            <div class="service direct-file">
+              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
           </div>
         </div>
@@ -271,6 +267,8 @@
             </div>
             <div class="service diy">
             </div>
+            <div class="service direct-file">
+            </div>
           </div>
         </div>
         <div class="service-set">
@@ -285,9 +283,17 @@
             </div>
             <div class="service diy">
             </div>
+            <div class="service direct-file">
+            </div>
           </div>
         </div>
-
+        <div class="service-set">
+          <div class="service-set__header">
+          </div>
+          <div class="service-set__services spacing-above-15">
+           <%= t("views.shared.service_comparison.select_service_html") %>
+          </div>
+        </div>
       </div>
 
       <% if open_for_gyr_intake? %>
