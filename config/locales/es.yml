@@ -1552,8 +1552,6 @@ es:
       finish_return:
         email:
           body: |
-            ¡No olvides terminar tu declaración de impuestos estatales!
-
             Hola %{primary_first_name},
 
             Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril.
