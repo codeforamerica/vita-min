@@ -6,11 +6,11 @@ module StateFile::AutomatedMessage
     end
 
     def self.after_transition_notification?
-      true
+      false
     end
 
     def self.send_only_once?
-      true
+      false
     end
 
     def sms_body(**args)
