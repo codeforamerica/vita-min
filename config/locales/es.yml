@@ -2241,11 +2241,12 @@ es:
         edit:
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS."
+            built_with_html: "<strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible tanto en dispositivos móviles como de escritorio y tarda entre 10 y 15 minutos en completarse."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
+          help_text_html: <b>Lo que necesitarás para comenzar</b><br><ul class="list--bulleted"><li> Dirección de correo electrónico o número de teléfono<li> Licencia de conducir o identificación emitida por el estado<li> Si recibió beneficios por desempleo en 2023, necesitará el Formulario 1099-G<li> Ya debería haber presentado su declaración de impuestos federales de 2023 utilizando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> . (No necesita una copia de esta declaración, ya que se importará a esta herramienta).<li> Si elige recibir su reembolso o realizar un pago de impuestos electrónicamente, necesitará los números de cuenta y de ruta bancaria.</ul>
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Nueva York para integrarse con la herramienta Direct File del IRS."
+            built_with_html: "<strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible tanto en dispositivos móviles como de escritorio y tarda entre 10 y 15 minutos en completarse."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
       name_dob:
