@@ -19,9 +19,6 @@
         <%=t(".#{params[:us_state]}.supported_by") %>
       </div>
     </div>
-    <div class="blue-group spacing-below-60">
-      <%= t(".help_text_html") %>
-    </div>
 
     <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
       <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>

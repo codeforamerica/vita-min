@@ -2274,21 +2274,11 @@ en:
         edit:
           already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool."
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
-          help_text_html: |
-            <b>What you’ll need to get started</b>
-            <br>
-            <ul class="list--bulleted">
-              <li>Email address or phone number
-              <li>Driver’s license or state-issued ID
-              <li>If you received unemployment benefits in 2023, you’ll need Form 1099-G
-              <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
-              <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
-            </ul>
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
       name_dob:
