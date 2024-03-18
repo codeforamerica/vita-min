@@ -48,6 +48,24 @@ describe BulkAction::SendOneBulkSignupMessageJob do
         expect(outgoing_message_status.message_id).to eq 'twilio_sid'
         expect(outgoing_message_status.delivery_status).to eq nil
       end
+
+      context "when phone number is a landline" do
+        before do
+          allow(TwilioService).to receive(:get_metadata).and_return({ "type" => "landline" })
+          allow(DatadogApi).to receive(:increment)
+        end
+
+        it "does not send a text and updates the record's delivery_status" do
+          signup = create(:signup)
+          bulk_signup_message = create(:bulk_signup_message, message_type: "sms")
+          expect {
+            described_class.perform_now(signup, bulk_signup_message)
+          }.not_to change(BulkSignupMessageOutgoingMessageStatus, :count)
+
+          expect(TwilioService).not_to have_received(:send_text_message)
+          expect(DatadogApi).to have_received(:increment).with("twilio.outgoing_text_messages.bulk_signup_message_not_sent_landline")
+        end
+      end
     end
 
     context 'with email signup' do

@@ -2241,11 +2241,12 @@ es:
         edit:
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS."
+            built_with_html: "<strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible tanto en dispositivos móviles como de escritorio y tarda entre 10 y 15 minutos en completarse."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
+          help_text_html: <b>Lo que necesitarás para comenzar</b><br><ul class="list--bulleted"><li> Dirección de correo electrónico o número de teléfono<li> Licencia de conducir o identificación emitida por el estado<li> Si recibió beneficios por desempleo en 2023, necesitará el Formulario 1099-G<li> Ya debería haber presentado su declaración de impuestos federales de 2023 utilizando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> . (No necesita una copia de esta declaración, ya que se importará a esta herramienta).<li> Si elige recibir su reembolso o realizar un pago de impuestos electrónicamente, necesitará los números de cuenta y de ruta bancaria.</ul>
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Nueva York para integrarse con la herramienta Direct File del IRS."
+            built_with_html: "<strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible tanto en dispositivos móviles como de escritorio y tarda entre 10 y 15 minutos en completarse."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
       name_dob:
@@ -5080,7 +5081,7 @@ es:
           partner_review: Su asesor fiscal en %{partner_name} revisará su información
           partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para discutir sus impuestos"
           review: Su asesor fiscal revisará su información
-          timing: Su asesor fiscal se comunicará dentro de los 3 días hábiles para discutir sus impuestos.
+          timing: Su asesor fiscal se comunicará dentro de los 5 días hábiles para discutir sus impuestos.
         satisfaction_face:
           negative: Mala
           neutral: Buena
@@ -5202,12 +5203,8 @@ es:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
         additional_benefits: Beneficios adicionales
-        all_tax_credits: Todos los créditos tributarios
-        always_free: Todos los servicios son gratuitos para los hogares que cumplen los requisitos.
+        all_services: Todos los servicios brindan soporte por correo electrónico y están disponibles en inglés y español.
         chat_support: Asistencia por chat
-        child_tax_credit: Crédito Tributario por Hijos
-        credits_and_payments: Créditos y pagos
-        earned_income_tax_credit: Crédito tributario por ingresos del trabajo
         filing_years:
           title: 'Años en que se hicieron declaraciones:'
         id_documents:
@@ -5217,12 +5214,19 @@ es:
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
+          direct_file: La mayoría de los contribuyentes menores de $200,000
           diy: menos de $79,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
+        mobile_friendly: Compatible con dispositivos móviles
         required_information: Información obligatoria
+        select_service_html: "<i>Seleccione la opción que le interese para obtener más información sobre la lista completa de requisitos.</i>"
         services:
+          direct_file:
+            cta: Elija archivo directo
+            service_description: Presente rápidamente por su cuenta directamente ante el IRS.
+            service_name: IRS Direct File
           diy:
             cta: Elegir declarar por cuenta propia
             service_description: Declare rápidamente por su cuenta para %{year}.
@@ -5233,13 +5237,15 @@ es:
             service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
             service_name: GetYourRefund
             service_name_short: GYR
-        state_credits: Créditos tributarios estatales adicionales
         still_need_help: "¿Todavía necesita ayuda para elegir el mejor servicio?"
-        stimulus_payments: Pagos de estímulo
-        support_via_gyr: disponible a través de GetYourRefund
         tax_documents:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
+        tax_payer_residency:
+          direct_file: Disponible para residentes de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming durante todo el año.
+          diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
+          full_service_html: Disponible para residentes de todos los estados.<br><br> Disponibilidad limitada para no residentes y residentes de Puerto Rico
+          title: Residencia del contribuyente
         time_to_file:
           diy: 45 minutos
           full_service: De 2 a 3 semanas
