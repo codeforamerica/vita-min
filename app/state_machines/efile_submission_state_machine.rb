@@ -134,7 +134,7 @@ class EfileSubmissionStateMachine
     end
 
     if submission.is_for_state_filing?
-      StateFile::SendStillProcessingNoticeJob.perform_later(submission, run_at: 24.hours.from_now)
+      StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
     end
   end
 
