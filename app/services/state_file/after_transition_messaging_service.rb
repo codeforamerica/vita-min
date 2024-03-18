@@ -28,8 +28,10 @@ module StateFile
     end
 
     def schedule_survey_notification_job
+      # binding.pry
       SendSurveyNotificationJob.set(
-        wait_until: 23.hours.from_now
+        # wait_until: 23.hours.from_now
+        wait_until: 23.seconds.from_now
       ).perform_later(@intake, @submission)
     end
 
