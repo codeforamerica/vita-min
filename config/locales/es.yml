@@ -5081,7 +5081,7 @@ es:
           partner_review: Su asesor fiscal en %{partner_name} revisará su información
           partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para discutir sus impuestos"
           review: Su asesor fiscal revisará su información
-          timing: Su asesor fiscal se comunicará dentro de los 3 días hábiles para discutir sus impuestos.
+          timing: Su asesor fiscal se comunicará dentro de los 5 días hábiles para discutir sus impuestos.
         satisfaction_face:
           negative: Mala
           neutral: Buena
