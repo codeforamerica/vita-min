@@ -112,8 +112,14 @@ RSpec.describe StateFile::Questions::W2Controller do
 
       context "when the client got here from the review flow" do
         # can't use shared example here because it's written for the default update in QuestionsController
-        it "redirects to the review page" do
+        it "keeps the redirect parameter" do
           post :update, params: params.merge(return_to_review: "y")
+
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index, return_to_review: :y))
+        end
+
+        it "redirects to the review page" do
+          post :create, params: params.merge(return_to_review: "y")
 
           expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper(us_state: :ny, action: :edit))
         end
