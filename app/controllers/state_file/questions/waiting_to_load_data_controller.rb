@@ -6,7 +6,11 @@ module StateFile
 
       def edit
         raise ActionController::RoutingError, 'Not Found' unless params[:authorizationCode]
-        return redirect_to next_path if current_intake.raw_direct_file_data.present?
+        binding.pry
+        if current_intake.raw_direct_file_data.present?
+          current_intake.update_df_data_imported_at
+          return redirect_to next_path
+        end
 
         StateFile::ImportFromDirectFileJob.perform_later(authorization_code: params[:authorizationCode], intake: current_intake)
       end
