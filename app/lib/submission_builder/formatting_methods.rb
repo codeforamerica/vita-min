@@ -6,8 +6,8 @@ module SubmissionBuilder
       string.squish.first(length)&.strip
     end
 
-    def truncate(input, length)
-      input.gsub(/\s+/, ' ')&.slice(0, length)&.strip
+    def truncate(string, length)
+      string&.gsub(/\s+/, ' ')&.slice(0, length)&.strip
     end
 
     def datetime_type(datetime)
