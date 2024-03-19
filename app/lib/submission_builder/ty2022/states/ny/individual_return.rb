@@ -95,7 +95,7 @@ module SubmissionBuilder
                     xml.DEP_RELATION_DESC dependent.relationship.delete(" ") if dependent.relationship.present?
                     xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
                     xml.DEP_CHLD_LAST_NAME dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
-                    xml.DEP_CHLD_FRST_NAME dependent.first_name.strip.gsub(/\s+/, ' ') if dependent.first_name.present?
+                    xml.DEP_CHLD_FRST_NAME dependent.first_name.gsub(/\s+/, ' ').slice(0, 16).strip if dependent.first_name.present?
                     xml.DEP_CHLD_MI_NAME dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
                     xml.DEP_CHLD_SFX_NAME dependent.suffix if dependent.suffix.present?
                     xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
@@ -117,7 +117,7 @@ module SubmissionBuilder
                     xml.DEP_STUDENT_IND dependent.eic_student_yes? ? 1 : 2
                   end
                   xml.DEP_CHLD_LAST_NAME dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
-                  xml.DEP_CHLD_FRST_NAME dependent.first_name.strip.gsub(/\s+/, ' ') if dependent.first_name.present?
+                  xml.DEP_CHLD_FRST_NAME dependent.first_name.gsub(/\s+/, ' ').slice(0, 16).strip if dependent.first_name.present?
                   xml.DEP_CHLD_MI_NAME dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
                   xml.DEP_CHLD_SFX_NAME dependent.suffix.strip.gsub(/\s+/, ' ') if dependent.suffix.present?
                   xml.DEP_MNTH_LVD_NMBR dependent.months_in_home if dependent.months_in_home.present?
