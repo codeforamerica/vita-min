@@ -12,11 +12,11 @@ module SubmissionBuilder
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name && form1099g.payer_name != ''
                   xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+/, '').upcase[0..3] do
-                    xml.BusinessNameLine1Txt form1099g.payer_name.gsub(/\s+/, ' ')&.slice(0, 75)&.strip
+                    xml.BusinessNameLine1Txt truncate(form1099g, 75)
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt form1099g.payer_street_address.gsub(/\s+/, ' ')&.slice(0, 35)&.strip
-                    xml.CityNm form1099g.payer_city.gsub(/\s+/, ' ')&.slice(0, 22)&.strip
+                    xml.AddressLine1Txt truncate(form1099g.payer_street_address, 35)
+                    xml.CityNm truncate(form1099g.payer_city, 22)
                     xml.StateAbbreviationCd "AZ"
                     xml.ZIPCd form1099g.payer_zip
                   end
@@ -30,9 +30,9 @@ module SubmissionBuilder
                 xml.RecipientSSN recipient.ssn
                 xml.RecipientName recipient.full_name.gsub(/\s+/, ' ')&.strip
                 xml.RecipientUSAddress do
-                  xml.AddressLine1Txt form1099g.recipient_address_line1.gsub(/\s+/, ' ')&.slice(0, 35)&.strip
-                  xml.AddressLine2Txt form1099g.recipient_address_line2.gsub(/\s+/, ' ')&.slice(0, 35)&.strip if form1099g.recipient_address_line2.present?
-                  xml.CityNm form1099g.recipient_city.gsub(/\s+/, ' ')&.slice(0, 22)&.strip
+                  xml.AddressLine1Txt truncate(form1099g.recipient_address_line1, 35)
+                  xml.AddressLine2Txt truncate(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
+                  xml.CityNm truncate(form1099g.recipient_city, 22)
                   xml.StateAbbreviationCd "AZ"
                   xml.ZIPCd form1099g.recipient_zip
                 end
