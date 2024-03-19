@@ -25,6 +25,6 @@ namespace :efile do
   end
 
   task reminder_to_finish_state_return: :environment do
-    Efile::ReminderToFinishStateReturn.run
+    Efile::ReminderToFinishStateReturnService.run
   end
 end

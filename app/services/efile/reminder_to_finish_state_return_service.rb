@@ -1,5 +1,5 @@
 module Efile
-  class ReminderToFinishStateReturn
+  class ReminderToFinishStateReturnService
     def self.run
       time_range = (Time.now - 24.hours)..Time.now
       msg = StateFile::AutomatedMessage::FinishReturn
