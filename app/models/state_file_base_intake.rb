@@ -236,9 +236,4 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
   end
-
-  def update_df_data_imported_at
-    binding.pry
-    df_data_imported_at.update(Time.now)
-  end
 end
