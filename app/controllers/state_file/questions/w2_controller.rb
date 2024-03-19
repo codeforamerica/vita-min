@@ -16,8 +16,8 @@ module StateFile
       end
 
       def create
-        # The below line triggers validation on all w2s...
-        @errors_present = @w2s.select { |w2| !w2.valid? }.present?
+        # The below line must be a select to trigger validation on all w2s...
+        @errors_present = @w2s.select { |w2| !w2.persisted? || !w2.valid? }.present?
         if @errors_present
           get_w2s_with_metadata
           render :index
