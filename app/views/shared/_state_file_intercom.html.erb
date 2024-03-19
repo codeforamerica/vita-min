@@ -4,7 +4,7 @@
 </button>
 
 <script>
-    const hasIntake = <%= current_intake.present? %>;
+    const hasIntake = <%= current_intake&.id.present? %>;
     // https://developers.intercom.com/installing-intercom/docs/javascript-api-attributes-objects#section-data-attributes
     let intercomSettings = {
         app_id: "<%= Rails.configuration.intercom_app_id_statefile %>",
