@@ -163,19 +163,21 @@ class StateFileBaseIntake < ApplicationRecord
         @first_name = intake.primary_first_name
         @last_name = intake.primary_last_name
         @middle_initial = intake.primary_middle_initial
+        @suffix = intake.primary_suffix
         @birth_date = intake.primary_birth_date
         @ssn = intake.direct_file_data.primary_ssn
       else
         @first_name = intake.spouse_first_name
         @last_name = intake.spouse_last_name
         @middle_initial = intake.spouse_middle_initial
+        @suffix = intake.primary_suffix
         @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
         @ssn = intake.direct_file_data.spouse_ssn
       end
     end
 
     def full_name
-      [@first_name, @middle_initial, @last_name].map(&:presence).compact.join(' ')
+      [@first_name, @middle_initial, @last_name, @suffix].map(&:presence).compact.join(' ')
     end
 
     def first_name_and_middle_initial
