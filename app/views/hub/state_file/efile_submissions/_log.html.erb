@@ -12,11 +12,16 @@
 
           <% transition.efile_errors.each do |error| %>
             <div>
-              <strong><%= "#{error.code}" if error.code.present? %></strong>
+              <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                <%= link_to hub_state_file_efile_error_path(id: error.id) do %>
+                  <div class="label label--red"><%= error.code %></div>
+                <% end %>
+              </span>
               <%= error.message %>
             </div>
           <% end %>
 
+<!--          bring this out to partial? maybe should gather them by statuses? at least for transmitted and rejected-->
           <% if transition.to_state == "transmitted" %>
             <table>
               <tr>
@@ -47,6 +52,7 @@
             </table>
           <% end %>
 
+<!--          clean this up I think I can remove this-->
           <% if ["failed", "rejected"].include?(transition.to_state) && transition.metadata["raw_response"].present? && !transition.metadata["raw_response"].kind_of?(Array) %>
             <% xml = Nokogiri::XML(transition.metadata["raw_response"]) %>
             <% error_msg = xml.css("ErrorMessageTxt").text.strip %>
