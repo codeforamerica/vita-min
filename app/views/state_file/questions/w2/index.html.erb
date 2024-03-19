@@ -10,7 +10,7 @@
     <div class="blue-group">
       <div class="spacing-below-15">
         <div class="form-group-tight">
-          <div class="form-group<%= w2.errors.present? ? " form-group--error" : "" %>">
+          <div class="form-group<%= w2.errors.present? || (@errors_present && !w2.persisted?) ? " form-group--error" : "" %>">
             <div><strong><%= t(".w2_for", employer_name: employer_name) %></strong></div>
             <div><strong><%= t(".wages_amount", wages_amount: wages_amount) %></strong></div>
             <% if w2.persisted? %>
