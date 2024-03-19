@@ -2285,7 +2285,7 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This usually takes 3 minutes or less.
+          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
           title: Now, let’s complete your state tax return
       landing_page:
         edit:

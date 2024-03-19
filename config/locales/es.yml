@@ -2252,7 +2252,7 @@ es:
           from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
         edit:
           button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
-          description: 'Para ahorrar tiempo, transfiere tu declaración federal para completar partes de tu declaración estatal. Esto suele tomar 3 minutos o menos. '
+          description: Para ahorrar tiempo, transfiera su declaración federal para completar partes de su declaración estatal. Esta transferencia segura desde IRS Direct File suele tardar 3 minutos o menos.
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
