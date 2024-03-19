@@ -3,6 +3,14 @@ module BulkAction
     include Rails.application.routes.url_helpers
 
     def perform(signup, bulk_signup_message)
+      if bulk_signup_message.message_type == "sms"
+        line_type = TwilioService.get_metadata(phone_number: signup.phone_number)&.dig("type")
+        if line_type == "landline"
+          DatadogApi.increment("twilio.outgoing_text_messages.bulk_signup_message_not_sent_landline")
+          return
+        end
+      end
+
       outgoing_message_status = BulkSignupMessageOutgoingMessageStatus.create!(
         bulk_signup_message: bulk_signup_message,
         outgoing_message_status: OutgoingMessageStatus.new(parent: signup, message_type: bulk_signup_message.message_type)

@@ -11,7 +11,7 @@ RSpec.describe StateFile::Questions::W2Controller do
     sign_in intake
   end
 
-  describe ".show?" do
+  describe "#show?" do
     context "they have no issues with their fed xml w2s" do
       it "returns false" do
         expect(described_class.show?(intake)).to eq false
@@ -252,6 +252,30 @@ RSpec.describe StateFile::Questions::W2Controller do
     context "shows when there a w2 is sus" do
       it "returns false" do
         expect(described_class.show?(intake)).to eq true
+      end
+    end
+  end
+
+  describe "#create" do
+    context "with a sus but valid w2" do
+      let(:direct_file_xml) do
+        xml = super()
+        xml.at("StateWagesAmt").content = ""
+        xml
+      end
+
+      it "rerenders the index with errors if no override is persisted" do
+        post :create, params: { us_state: :ny, locale: :en }
+        expect(response).to render_template(:index)
+      end
+
+      context "with a persisted override" do
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+
+        it "redirects to the next path" do
+          post :create, params: { us_state: :ny, locale: :en }
+          expect(response).to redirect_to("/en/ny/questions/ny-sales-use-tax")
+        end
       end
     end
   end
