@@ -579,4 +579,20 @@ describe StateFileNyIntake do
       end
     end
   end
+
+  describe ".validate_state_specific_1099_g_requirements" do
+    let(:intake) { create :state_file_ny_intake, untaxed_out_of_state_purchases: "yes", sales_use_tax_calculation_method: "manual", sales_use_tax: "350" }
+    let(:state_file_1099) do
+      build(
+        :state_file1099_g,
+        intake: create(:state_file_ny_intake),
+      )
+    end
+
+    it "rejects if the PayerTIN is a not one of the known values" do
+      state_file_1099.payer_tin = "123456789"
+      intake.validate_state_specific_1099_g_requirements(state_file_1099)
+      expect(state_file_1099.errors[:payer_tin]).to be_present
+    end
+  end
 end

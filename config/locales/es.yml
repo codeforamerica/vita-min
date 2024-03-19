@@ -180,7 +180,7 @@ es:
         invalid: 'Solo se aceptan letras, números, paréntesis, guiones, apóstrofos y #.'
       payer_tin:
         invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guion.
-      payer_tin_ny_invalid: 'EIN debe ser una de: %{valid_tins}'
+      payer_tin_ny_invalid: El número ingresado no es un TIN aceptado por el estado de Nueva York.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -1566,8 +1566,25 @@ es:
           Hola %{primary_first_name},
 
           Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
-
           ¿Preguntas? Responde a este mensaje.
+          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
+      survey_notification:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue?
+
+            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Sus comentarios sobre FileYourStateTaxes
+        sms: |
+          Hola %{primary_first_name} -¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+
+          Atentamente,
+          El equipo de FileYourStateTaxes
       welcome:
         email:
           body: "Hola,\n\n¡Hemos creado exitosamente tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatal una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.\n\nTu ID de cliente es %{intake_id}. Esta es una pieza importante de información de tu cuenta que puedes necesitar al hablar con nuestro equipo de soporte. Por favor, haz un seguimiento de este número y no borres este mensaje.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -2236,7 +2253,7 @@ es:
           from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
         edit:
           button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
-          description: 'Para ahorrar tiempo, transfiere tu declaración federal para completar partes de tu declaración estatal. Esto suele tomar 3 minutos o menos. '
+          description: Para ahorrar tiempo, transfiera su declaración federal para completar partes de su declaración estatal. Esta transferencia segura desde IRS Direct File suele tardar 3 minutos o menos.
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:

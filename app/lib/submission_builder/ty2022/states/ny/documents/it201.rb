@@ -105,7 +105,7 @@ module SubmissionBuilder
                   xml.IT201DepExmpInfo do
                     intake.dependents.each do |dependent|
                       xml.depInfo do
-                        xml.DEP_CHLD_FRST_NAME claimed: dependent.first_name.strip.gsub(/\s+/, ' ') if dependent.first_name.present?
+                        xml.DEP_CHLD_FRST_NAME claimed: truncate(dependent.first_name, 16) if dependent.first_name.present?
                         xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
                         xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
                         xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") if dependent.relationship.present?

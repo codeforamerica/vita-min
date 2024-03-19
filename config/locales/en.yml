@@ -179,7 +179,7 @@ en:
         invalid: 'Only letters, numbers, parentheses, hyphen, apostrophe, and # are accepted.'
       payer_tin:
         invalid: EIN must be a 9-digit number. Do not include a dash.
-      payer_tin_ny_invalid: 'EIN must be one of: %{valid_tins}'
+      payer_tin_ny_invalid: The number entered is not an accepted TIN by New York State.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -1600,6 +1600,23 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      survey_notification:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went?
+
+            Take our 5 minute survey here: %{survey_link}
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Your feedback on FileYourStateTaxes
+        sms: |
+          Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+
+          Best,
+          The FileYourStateTaxes team
       welcome:
         email:
           body: |
@@ -2269,7 +2286,7 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This usually takes 3 minutes or less.
+          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
