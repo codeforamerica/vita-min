@@ -1599,6 +1599,23 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      survey_notification:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went?
+
+            Take our 5 minute survey here: %{survey_link}
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Your feedback on FileYourStateTaxes
+        sms: |
+          Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+
+          Best,
+          The FileYourStateTaxes team
       welcome:
         email:
           body: |
