@@ -22,7 +22,7 @@ if ! which gh > /dev/null; then
 fi
 
 # capture origin's given name
-origin_git_remote="$(git remote -v | grep 'github.com:codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')"
+origin_git_remote="$(git remote -v | grep 'codeforamerica/vita-min' | head -n1 | awk '{ print $1 }')"
 
 # get the latest tags and branches
 echo "Fetching from ${origin_git_remote}"
