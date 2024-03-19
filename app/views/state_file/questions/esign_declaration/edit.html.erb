@@ -17,7 +17,7 @@
         <%= f.submit(submission_btn_text, class: "button button--primary button--wide") %>
       <% else %>
         <button class="button button--primary button--wide text--centered button--disabled spacing-below-0" disabled type="submit">
-          <%= submission_btn_text %>
+          <%= t(".submit") %>
         </button>
         <p class="text--error spacing-above-5"><%= t(".already_submitted") %></p>
       <% end %>
