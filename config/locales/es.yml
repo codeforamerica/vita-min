@@ -180,6 +180,7 @@ es:
         invalid: 'Solo se aceptan letras, números, paréntesis, guiones, apóstrofos y #.'
       payer_tin:
         invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guion.
+      payer_tin_ny_invalid: El número ingresado no es un TIN aceptado por el estado de Nueva York.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:

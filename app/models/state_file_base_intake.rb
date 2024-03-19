@@ -150,6 +150,12 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def validate_state_specific_1099_g_requirements(state_file1099_g)
+    unless /\A\d{9}\z/.match(state_file1099_g.payer_tin)
+      state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin.invalid"))
+    end
+  end
+
   class Person
     attr_reader :first_name
     attr_reader :middle_initial
