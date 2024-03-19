@@ -32,7 +32,7 @@
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
       <DependentDetail>
-        <DependentFirstNm>Sparrow</DependentFirstNm>
+        <DependentFirstNm>Sparrow In The Sky</DependentFirstNm>
         <DependentLastNm>Pilot</DependentLastNm>
         <DependentNameControlTxt>PILO</DependentNameControlTxt>
         <DependentSSN>300000019</DependentSSN>
@@ -40,7 +40,7 @@
         <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
       </DependentDetail>
       <DependentDetail>
-        <DependentFirstNm>Penguin</DependentFirstNm>
+        <DependentFirstNm>Penguin In the Ocean</DependentFirstNm>
         <DependentLastNm>Pilot</DependentLastNm>
         <DependentNameControlTxt>PILO</DependentNameControlTxt>
         <DependentSSN>300000021</DependentSSN>
@@ -48,7 +48,7 @@
         <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
       </DependentDetail>
       <DependentDetail>
-        <DependentFirstNm>Crane</DependentFirstNm>
+        <DependentFirstNm>Crane Sitting On The Tree</DependentFirstNm>
         <DependentLastNm>Pilot</DependentLastNm>
         <DependentNameControlTxt>PILO</DependentNameControlTxt>
         <DependentSSN>300000020</DependentSSN>
