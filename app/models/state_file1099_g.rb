@@ -41,7 +41,6 @@ class StateFile1099G < ApplicationRecord
   validates :payer_street_address, :presence => {:message => I18n.t("errors.attributes.address.street_address.blank") }, format: { with: /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
   validates :payer_city, :presence => {:message => I18n.t("errors.attributes.address.city.blank")}, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}
   validates :payer_zip, zip_code: true
-  validates :payer_tin, format: { :with => /\A\d{9}\z/, :message => I18n.t("errors.attributes.payer_tin.invalid")}
   validates_presence_of :state_identification_number, :message => I18n.t("errors.attributes.state_id_number.empty")
   validates :recipient_street_address, presence: true, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
   validates :recipient_street_address_apartment, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}, allow_blank: true

@@ -276,7 +276,7 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
-    if state_file1099_g.payer_tin.present? && !VALID_TINS.include?(state_file1099_g.payer_tin)
+    unless VALID_TINS.include?(state_file1099_g.payer_tin)
       state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin_ny_invalid"))
     end
   end
