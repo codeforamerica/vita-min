@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_194733) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1629,6 +1629,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_imported_at"
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_married_filing_separately", default: 0, null: false
@@ -1745,6 +1746,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_imported_at"
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.integer "eligibility_part_year_nyc_resident", default: 0, null: false
