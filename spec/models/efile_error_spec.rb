@@ -32,4 +32,53 @@ describe 'EfileError' do
     controller = EfileError.path_to_controller("w2")
     expect(controller).to eq StateFile::Questions::W2Controller
   end
+
+  it 'returns the expected array of paths' do
+    expect(EfileError.paths).to eq [
+      "az-charitable-contributions",
+      "az-excise-credit",
+      "az-primary-state-id",
+      "az-prior-last-names",
+      "az-review",
+      "az-senior-dependents",
+      "az-spouse-state-id",
+      "az-state-credits",
+      "canceled-data-transfer",
+      "code-verified",
+      "contact-preference",
+      "data-review",
+      "data-transfer-offboarding",
+      "declined-terms-and-conditions",
+      "eligibility-offboarding",
+      "eligibility-out-of-state-income",
+      "eligibility-residence",
+      "eligible",
+      "email-address",
+      "esign-declaration",
+      "federal-info",
+      "initiate-data-transfer",
+      "landing-page",
+      "name-dob",
+      "ny-county",
+      "ny-eligibility-college-savings-withdrawal",
+      "ny-permanent-address",
+      "ny-primary-state-id",
+      "ny-review",
+      "ny-sales-use-tax",
+      "ny-school-district",
+      "ny-spouse-state-id",
+      "ny-third-party-designee",
+      "nyc-residency",
+      "phone-number",
+      "return-status",
+      "submission-confirmation",
+      "tax-refund",
+      "taxes-owed",
+      "terms-and-conditions",
+      "unemployment",
+      "verification-code",
+      "w2",
+      "waiting-to-load-data"
+    ]
+  end
 end

@@ -61,4 +61,15 @@ class EfileError < ApplicationRecord
     StateFile::Questions::NameDobController
   end
 
+  def self.paths
+    paths = Set.new
+    StateFileBaseIntake::STATE_CODES.each do |state_code|
+      navigation = "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+      navigation.controllers.each do |controller|
+        paths << EfileError.controller_to_path(controller)
+      end
+    end
+    paths.to_a.sort
+  end
+
 end

@@ -8,20 +8,12 @@ module Hub::StateFile
     end
 
     def edit
-      paths = Set.new
-      StateFileBaseIntake::STATE_CODES.each do |state_code|
-        navigation = "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
-        navigation.controllers.each do |controller|
-          paths << EfileError.controller_to_path(controller)
-        end
-      end
-      paths = paths.to_a.sort
+      @correction_path_options_for_select = EfileError.paths
       unless @efile_error.correction_path.present?
         @efile_error.correction_path = EfileError.controller_to_path(
           EfileError.default_controller
         )
       end
-      @correction_path_options_for_select = paths
     end
 
     def show; end
