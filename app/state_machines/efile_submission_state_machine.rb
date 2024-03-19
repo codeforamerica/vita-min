@@ -168,6 +168,7 @@ class EfileSubmissionStateMachine
         third_stimulus_amount: benefits.eip3_amount,
       })
     elsif submission.is_for_state_filing?
+      # binding.pry
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
       send_mixpanel_event(submission, "state_file_efile_return_accepted")
     end
