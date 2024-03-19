@@ -14,11 +14,11 @@
     };
     // avoid sending an empty string for user_id
     if (hasIntake) {
-        intercomSettings.user_id = "<%= "#{params[:us_state]}#{current_intake&.id}" %>";
+        intercomSettings.user_id = "<%= "#{current_intake&.state_code}#{current_intake&.id}" %>";
         intercomSettings.email = "<%= current_intake&.email_address %>"
         intercomSettings.name = "<%= "#{current_intake&.primary_first_name} #{current_intake&.primary_last_name}" %>";
         intercomSettings.state = "<%= params[:us_state]%>"
-        intercomSettings.user_hash = "<%= IntercomService.generate_statefile_user_hash("#{params[:us_state]}#{current_intake&.id}") %>"
+        intercomSettings.user_hash = "<%= IntercomService.generate_statefile_user_hash("#{current_intake&.state_code}#{current_intake&.id}") %>"
     }
     window.intercomSettings = intercomSettings;
 
