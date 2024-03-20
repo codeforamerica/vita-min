@@ -111,6 +111,9 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       context "when the client got here from the review flow" do
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1 }
+        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+
         # can't use shared example here because it's written for the default update in QuestionsController
         it "keeps the redirect parameter" do
           post :update, params: params.merge(return_to_review: "y")
