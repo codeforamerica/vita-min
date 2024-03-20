@@ -55,7 +55,7 @@ module SubmissionBuilder
               xml.FilingStatus filing_status
               if @submission.data_source.hoh_qualifying_person_name.present?
                 xml.QualChildDependentName do
-                  xml.FirstName @submission.data_source.hoh_qualifying_person_name[:first_name]&.strip&.gsub(/\s+/, ' ')
+                  xml.FirstName truncate(@submission.data_source.hoh_qualifying_person_name[:first_name], 16)
                   xml.LastName @submission.data_source.hoh_qualifying_person_name[:last_name]&.strip&.gsub(/\s+/, ' ')
                 end
               end
@@ -71,7 +71,7 @@ module SubmissionBuilder
                 @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.DependentDetails do
                     xml.Name do
-                      xml.FirstName dependent.first_name&.strip&.gsub(/\s+/, ' ')
+                      xml.FirstName truncate(dependent.first_name, 16)
                       xml.MiddleInitial dependent.middle_initial&.strip&.gsub(/\s+/, ' ') if dependent.middle_initial.present?
                       xml.LastName dependent.last_name&.strip&.gsub(/\s+/, ' ')
                     end
@@ -90,7 +90,7 @@ module SubmissionBuilder
                 @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.QualParentsAncestors do
                     xml.Name do
-                      xml.FirstName dependent.first_name&.strip&.gsub(/\s+/, ' ')
+                      xml.FirstName truncate(dependent.first_name, 16)
                       xml.MiddleInitial dependent.middle_initial&.strip&.gsub(/\s+/, ' ') if dependent.middle_initial.present?
                       xml.LastName dependent.last_name&.strip&.gsub(/\s+/, ' ')
                     end

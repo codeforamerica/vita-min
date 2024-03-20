@@ -180,6 +180,7 @@ es:
         invalid: 'Solo se aceptan letras, números, paréntesis, guiones, apóstrofos y #.'
       payer_tin:
         invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guion.
+      payer_tin_ny_invalid: El número ingresado no es un TIN aceptado por el estado de Nueva York.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -1567,7 +1568,19 @@ es:
 
           Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
           ¿Preguntas? Responde a este mensaje.
-          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name} fue rechazada. Acción necesaria.'
+      still_processing:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Notificación de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
+        sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento. ¿Necesitas ayuda? Responde a este mensaje.
       survey_notification:
         email:
           body: |

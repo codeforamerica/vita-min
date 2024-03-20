@@ -14,6 +14,7 @@ module Hub::StateFile
         [StateFile::AutomatedMessage::AcceptedOwe, {}],
         [StateFile::AutomatedMessage::Rejected, {}],
         [StateFile::AutomatedMessage::IssueResolved, {}],
+        [StateFile::AutomatedMessage::StillProcessing, {}],
       ]
 
       automated_messages_and_mailers = automated_messages.map do |m|
