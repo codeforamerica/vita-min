@@ -53,7 +53,7 @@ class StateFileDependent < ApplicationRecord
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :first_name, :last_name, :dob, on: :dob_form
   validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
-  validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }, on: :az_senior_form
+  validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
 
   def self.senior_cutoff_date
     # Deprecated: please use `#senior?` (this method used only in tests)
