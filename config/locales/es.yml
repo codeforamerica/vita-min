@@ -217,7 +217,7 @@ es:
       state:
         inclusion: Por favor, seleccione un estado.
       state_id_number:
-        empty: "Ingresa un número de identificación estatal válido."
+        empty: Ingresa un número de identificación estatal válido.
       state_of_residence:
         inclusion: Por favor, seleccione un estado de la lista.
     messages:
@@ -2621,7 +2621,7 @@ es:
           instructions_1: Necesitamos un poco más de información sobre la información de impuestos estatales y locales en tu W-2 de %{employer_name}por %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
-          local_wages_and_tips_amt_error: "Ingresa los salarios y propinas locales"
+          local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
