@@ -2295,7 +2295,7 @@ en:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dependent_name_dob: Please tell us your dependent’s date of birth
-          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith Jr)
+          last_name: Last name
           middle_initial: Middle initial
           months_helper_born_died: Select 12 months if the dependent was born or died during 2023.
           months_helper_description: Count any months the dependent lived in your home, as well as any months the dependent was temporarily absent due to being away at school, in a hospital or medical facility, or away on business or vacation.

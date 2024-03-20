@@ -20,7 +20,7 @@
             :primary_suffix,
             t(".suffix"),
             suffix_options_for_state_select,
-            prompt: t('general.select_prompt')) %>
+            prompt: t('general.select_prompt'), include_blank: true) %>
       <div class="date-select">
         <%= f.cfa_date_select(:primary_birth_date,
                               t('.your_dob'),
@@ -46,7 +46,7 @@
               :spouse_suffix,
               t(".suffix"),
               suffix_options_for_state_select,
-              prompt: t('general.select_prompt')) %>
+              prompt: t('general.select_prompt'), include_blank: true) %>
         <% if f.object.ask_spouse_dob? %>
             <div class="date-select">
               <%= f.cfa_date_select(:spouse_birth_date,
