@@ -23,4 +23,8 @@ namespace :efile do
     puts("End: Found #{EfileSubmission.in_state(:failed).count} failed submissions")
     exit
   end
+
+  task send_survey_notifications: :environment do
+    Efile::SendSurveyNotificationsService.new.run
+  end
 end
