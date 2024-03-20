@@ -13,7 +13,7 @@
   <% @invalid_df_w2s.each_with_index do |df_w2, index| %>
     <div id="w2s" class="blue-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".w2") %></p>
+        <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
         <p><%=df_w2.EmployerName %></p>
         <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, us_state: current_intake.state_code, id: index, return_to_review: "y"), class: "button--small" %>
       </div>

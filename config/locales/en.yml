@@ -2391,7 +2391,6 @@ en:
           total_nyc_tax_withheld: Total New York City tax withheld
           total_nys_tax_withheld: Total New York State tax withheld
           total_payments: Total payments
-          w2: W-2 State and Local Tax Information
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
@@ -2499,6 +2498,8 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+      review:
+        w2: W-2 State and Local Tax Information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
