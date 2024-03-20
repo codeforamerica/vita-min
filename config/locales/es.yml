@@ -2238,6 +2238,7 @@ es:
           title: Ingresa tu dirección de correo electrónico
       esign_declaration:
         edit:
+          already_submitted: Ya has enviado tu declaración.
           az:
             body_html: |
               <p>Bajo pena de perjurio, declaro que he revisado una copia de mi declaración electrónica de impuestos personales a las ganancias de Arizona, así como los anexos y declaraciones adjuntas, para el año que finaliza el 31 de diciembre de 2023 y la información es verdadera, correcta y completa a mi mejor conocimiento y creencia.</p>
