@@ -2391,6 +2391,7 @@ en:
           total_nyc_tax_withheld: Total New York City tax withheld
           total_nys_tax_withheld: Total New York State tax withheld
           total_payments: Total payments
+          w2: W-2 State and Local Tax Information
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)

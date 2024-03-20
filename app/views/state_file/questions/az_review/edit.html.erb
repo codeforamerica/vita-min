@@ -10,11 +10,12 @@
     </div>
   </div>
 
-  <% if @show_w2s %>
+  <% @invalid_df_w2s.each_with_index do |df_w2, index| %>
     <div id="w2s" class="blue-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5">W2</p>
-        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :index, us_state: "ny", return_to_review: "y"), class: "button--small" %>
+        <p class="text--bold spacing-below-5"><%=t(".w2") %></p>
+        <p><%=df_w2.EmployerName %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, us_state: current_intake.state_code, id: index, return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
   <% end %>

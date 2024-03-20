@@ -2357,6 +2357,7 @@ es:
           total_nyc_tax_withheld: Total retenido de impuestos municipales de la ciudad de Nueva York
           total_nys_tax_withheld: Total retenido de impuestos estatales de Nueva York
           total_payments: Total de pagos
+          w2: Información fiscal estatal y local W-2
       ny_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado. (Redondea al número entero más cercano.)
