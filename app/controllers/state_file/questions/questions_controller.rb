@@ -64,8 +64,12 @@ module StateFile
         step_for_next_path.to_path_helper(options)
       end
 
+      def prev_step
+        form_navigation.prev
+      end
+
       def prev_path
-        path_for_step(form_navigation.prev)
+        path_for_step(prev_step)
       end
 
       def path_for_step(step)

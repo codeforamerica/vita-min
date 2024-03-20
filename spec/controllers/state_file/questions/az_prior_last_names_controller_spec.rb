@@ -34,7 +34,6 @@ RSpec.describe StateFile::Questions::AzPriorLastNamesController do
       end
     end
 
-
     context "without device id information due to JS being disabled" do
       let(:device_id) { nil }
 
