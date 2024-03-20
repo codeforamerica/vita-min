@@ -3,6 +3,9 @@ require "rails_helper"
 describe Rack::Attack, type: :request do
   let(:limit) { 5 }
   let(:ip) { "1.2.3.4" }
+  before do
+    Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
+  end
 
   context "on a post to a login page" do
     it "throttles excessive requests by IP address" do
