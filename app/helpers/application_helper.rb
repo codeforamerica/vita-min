@@ -93,6 +93,10 @@ module ApplicationHelper
     ["I", "II", "III", "IV", "V", "Jr", "Sr"]
   end
 
+  def suffix_options_for_state_select
+    ["Jr", "Sr", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+  end
+
   def yes_no_unsure_options_for_select
     [
       ["", "unfilled"],

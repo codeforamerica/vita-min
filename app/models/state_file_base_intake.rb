@@ -154,6 +154,7 @@ class StateFileBaseIntake < ApplicationRecord
     attr_reader :first_name
     attr_reader :middle_initial
     attr_reader :last_name
+    attr_reader :suffix
     attr_reader :birth_date
     attr_reader :ssn
 
@@ -170,7 +171,7 @@ class StateFileBaseIntake < ApplicationRecord
         @first_name = intake.spouse_first_name
         @last_name = intake.spouse_last_name
         @middle_initial = intake.spouse_middle_initial
-        @suffix = intake.primary_suffix
+        @suffix = intake.spouse_suffix
         @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
         @ssn = intake.direct_file_data.spouse_ssn
       end

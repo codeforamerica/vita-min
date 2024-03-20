@@ -47,6 +47,7 @@ module SubmissionBuilder
                 xml.FIRST_NAME @submission.data_source.primary.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
                 xml.MI_NAME @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
                 xml.LAST_NAME @submission.data_source.primary.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
+                xml.SFX_NAME @submission.data_source.primary.suffix if @submission.data_source.primary.suffix.present?
                 if @submission.data_source.direct_file_data.mailing_street.present?
                   process_mailing_street(xml)
                 end
@@ -73,6 +74,7 @@ module SubmissionBuilder
                   xml.FIRST_NAME @submission.data_source.spouse.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.first_name.present?
                   xml.MI_NAME @submission.data_source.spouse.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.middle_initial.present?
                   xml.LAST_NAME @submission.data_source.spouse.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.last_name.present?
+                  xml.SFX_NAME @submission.data_source.spouse.suffix if @submission.data_source.spouse.suffix.present?
                   xml.SP_SSN_NMBR @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
                   xml.DCSD_DT @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.spouse_deceased?
                   xml.SP_EMP_DESC @submission.data_source.direct_file_data.spouse_occupation.gsub(/\s+/, ' ').slice(0, 25).strip if @submission.data_source.direct_file_data.spouse_occupation.present?

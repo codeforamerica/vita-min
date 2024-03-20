@@ -24,6 +24,7 @@ module SubmissionBuilder
                   xml.FirstName @submission.data_source.primary.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
                   xml.MiddleInitial @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
                   xml.LastName @submission.data_source.primary.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
+                  xml.NameSuffix @submission.data_source.primary.suffix if @submission.data_source.primary.suffix.present?
                 end
                 xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
                 xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
