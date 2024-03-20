@@ -541,6 +541,7 @@ en:
     sms_phone_number: Cell phone number
     sorry: We're sorry!
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
+    spread_the_word_html: Help a friend or family member file their taxes for free by letting them know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a>
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Start filing
@@ -2272,6 +2273,7 @@ en:
           title: Enter your email address
       esign_declaration:
         edit:
+          already_submitted: You have already submitted your return.
           az:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
