@@ -223,6 +223,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
+      only_letters: Only letters are accepted
       whole_number: must be a whole number
   forms:
     errors:
@@ -2638,6 +2639,7 @@ en:
           box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
           box19_html: "<strong>Box 19</strong>: Local income tax"
           box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          employer_state_id_error: EIN must be a number. Do not include a dash.
           instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           local_income_tax_amt_error: Cannot be greater than local wages and tips.

@@ -224,6 +224,7 @@ es:
     messages:
       blank: No puede estar en blanco.
       invalid: es invalido
+      only_letters: Sólo se aceptan cartas
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -2620,6 +2621,7 @@ es:
           box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
+          employer_state_id_error: El EIN debe ser un número. No incluya un guión.
           instructions_1: Necesitamos un poco más de información sobre la información de impuestos estatales y locales en tu W-2 de %{employer_name}por %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
