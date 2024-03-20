@@ -10,6 +10,15 @@
     </div>
   </div>
 
+  <% if @show_w2s %>
+    <div id="w2s" class="blue-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5">W2</p>
+        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :index, us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <div id="state-credits" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
