@@ -1600,6 +1600,19 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      still_processing:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
       survey_notification:
         email:
           body: |
@@ -2258,6 +2271,7 @@ en:
           title: Enter your email address
       esign_declaration:
         edit:
+          already_submitted: You have already submitted your return.
           az:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
