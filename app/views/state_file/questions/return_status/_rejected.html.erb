@@ -51,6 +51,7 @@
 
   <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller %>
   <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
+    action: edit_return_controller.navigation_actions.first,
     return_to_review: :y,
     us_state: current_intake.state_code
   ), class: "button button--primary spacing-above-60" %>
