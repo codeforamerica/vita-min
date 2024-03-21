@@ -1,4 +1,7 @@
 <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <% if params[:return_to_review].present? %>
+    <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+  <% end %>
   <div class="question-with-follow-up spacing-below-25">
     <div class="question-with-follow-up__question spacing-below-15">
       <div class="blue-group">
