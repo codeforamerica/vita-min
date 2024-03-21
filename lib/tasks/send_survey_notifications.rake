@@ -7,7 +7,6 @@ namespace :survey_notifications do
                                           .where("efile_submission_transitions.to_state = 'accepted'")
                                           .where.not("message_tracker #> '{messages.state_file.survey_notification}' IS NOT NULL")
 
-    binding.pry
     accepted_submissions.each_slice(BATCH_SIZE) do |batch|
       batch.each do |submission|
         puts "Sending survey notification to #{submission.id}"
