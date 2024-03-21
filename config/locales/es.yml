@@ -2375,7 +2375,7 @@ es:
           calculated_use_tax: Ingresa el impuesto de uso calculado. (Redondea al número entero más cercano.)
           enter_valid_dollar_amount: Ingresa una cantidad en dólares entre 0 y 1699.
           select_one: 'Selecciona una de las siguientes opciones:'
-          subtitle: Por ejemplo, compras en línea sin aplicar impuestos de venta.
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso.
           title:
             many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
             one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"

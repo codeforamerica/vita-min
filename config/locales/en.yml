@@ -2399,7 +2399,7 @@ en:
           calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
           enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
           select_one: 'Select one of the following:'
-          subtitle: For example, online purchases with no sales tax applied.
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
