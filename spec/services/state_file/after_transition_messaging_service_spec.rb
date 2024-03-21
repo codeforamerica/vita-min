@@ -117,4 +117,17 @@ describe StateFile::AfterTransitionMessagingService do
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message)
     end
   end
+
+  describe "#send_efile_submission_successful_submission_message" do
+    let(:message) { StateFile::AutomatedMessage::SuccessfulSubmission }
+
+    it "sends the successful submission message" do
+      expect do
+        messaging_service.send_efile_submission_successful_submission_message
+      end.to change(StateFileNotificationEmail, :count).by(1)
+
+      expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
+      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+    end
+  end
 end

@@ -1613,6 +1613,19 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
         sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+      successful_submission:
+        email:
+          body: |
+            Hi %{primary_first_name}, 
+
+            %{state_name} accepted your state tax return! 
+
+            Download your return and check your refund status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}/</a>.
+            
+            Best,
+            The FileYourStateTaxes team
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
+        sms: Hi %{primary_first_name} - You successfully submitted your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Reply to this text.
       survey_notification:
         email:
           body: |

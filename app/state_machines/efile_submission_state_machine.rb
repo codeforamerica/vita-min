@@ -47,6 +47,8 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
+    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message if submission.is_for_state_filing?
+
     submission.create_qualifying_dependents
     if submission.is_for_federal_filing?
       if submission.first_submission? && submission.intake.filing_jointly?

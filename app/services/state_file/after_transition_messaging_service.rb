@@ -53,6 +53,17 @@ module StateFile
       ).send_message
     end
 
+    def send_efile_submission_successful_submission_message
+      message = StateFile::AutomatedMessage::SuccessfulSubmission
+      body_args = { return_status_link: return_status_link }
+      StateFile::MessagingService.new(
+        intake: @intake,
+        submission: @submission,
+        message: message,
+        body_args: body_args
+      ).send_message
+    end
+
     private
 
     def return_status_link
