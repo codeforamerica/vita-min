@@ -1594,7 +1594,7 @@ es:
           resubmitted: Reenvió
           subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal aceptada'
           submitted: Envió
-        sms: Hola, %{primary_first_name} - ¡Enviaste exitosamente tu declaración de impuestos estatales de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en %{return_status_link}. ¿Necesitas ayuda? Responder a este texto.
+        sms: Hola, %{primary_first_name} - ¡%{submitted_or_resubmitted}  exitosamente tu declaración de impuestos estatales de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en %{return_status_link}. ¿Necesitas ayuda? Responder a este texto.
       survey_notification:
         email:
           body: |
