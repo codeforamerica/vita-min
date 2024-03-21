@@ -20,7 +20,7 @@
         <%= f.cfa_date_select(:primary_birth_date,
                               t('.your_dob'),
                               options: {
-                                start_year: Time.now.year,
+                                start_year: MultiTenantService.statefile.current_tax_year,
                                 end_year: 1900,
                               }) %>
       </div>
@@ -42,7 +42,7 @@
               <%= f.cfa_date_select(:spouse_birth_date,
                                     t('.spouse_dob'),
                                     options: {
-                                      start_year: Time.now.year,
+                                      start_year: MultiTenantService.statefile.current_tax_year,
                                       end_year: 1900,
                                     }) %>
             </div>
@@ -71,7 +71,7 @@
           <%= ff.cfa_date_select(:dob,
                                  t('general.date_of_birth'),
                                  options: {
-                                   start_year: Time.now.year,
+                                   start_year: MultiTenantService.statefile.current_tax_year,
                                    end_year: 1900,
                                  }) %>
         </div>
