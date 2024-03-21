@@ -12,6 +12,7 @@ namespace :survey_notifications do
       batch.each do |submission|
         intake = submission.data_source
         if intake.nil?
+          # This should only happen for non state_filing submissions which have been filtered out up top.
           puts "Skipping over submission #{submission.id} without an intake."
         else
           puts "Sending survey notification to #{submission.id}"
