@@ -2548,6 +2548,7 @@ en:
           direct_deposit: Direct deposit (fastest)
           mail: Mail my payment (slower)
           ny_title_html: Good news, you're getting a New York State tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
+          page_title: Good news, you're getting a tax refund. How would you like to receive your refund?
       taxes_owed:
         edit:
           page_title: You owe state taxes. How would you like to pay?
