@@ -185,6 +185,10 @@ class StateFileBaseIntake < ApplicationRecord
       [@first_name, @middle_initial].map(&:presence).compact.join(' ')
     end
 
+    def last_name_and_suffix
+      [@last_name, @suffix].map(&:presence).compact.join(' ')
+    end
+
     def has_itin?
       starts_with_9 = @ssn.start_with?('9')
       digits_4_and_5 = @ssn[3, 2].to_i
