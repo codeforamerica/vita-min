@@ -5,6 +5,7 @@ namespace :survey_notifications do
     BATCH_SIZE = 10
     accepted_submissions = EfileSubmission.joins(:efile_submission_transitions)
                                           .where("efile_submission_transitions.to_state = 'accepted'")
+                                          .where("efile_submissions.data_source_type = 'StateFileAzIntake' OR efile_submissions.data_source_type = 'StateFileNyIntake'")
                                           .where.not("message_tracker #> '{messages.state_file.survey_notification}' IS NOT NULL")
 
     accepted_submissions.each_slice(BATCH_SIZE) do |batch|
