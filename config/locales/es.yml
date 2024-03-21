@@ -89,7 +89,7 @@ es:
     file_yourself:
       edit:
         info:
-        - Presente sus impuestos en línea por su cuenta utilizando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $79,000 para declarar impuestos y cobrar los créditos fiscales que se le deben!
+        - Impuestos
         - Para comenzar, necesitaremos recopilar información básica.
         received_1099:
           help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
@@ -180,6 +180,7 @@ es:
         invalid: 'Solo se aceptan letras, números, paréntesis, guiones, apóstrofos y #.'
       payer_tin:
         invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guion.
+      payer_tin_ny_invalid: El número ingresado no es un TIN aceptado por el estado de Nueva York.
       phone_number:
         invalid: Por favor, ingrese un número de teléfono válido.
       phone_number_confirmation:
@@ -223,7 +224,8 @@ es:
     messages:
       blank: No puede estar en blanco.
       invalid: es invalido
-      whole_number: debe ser un numero entero
+      only_letters: Sólo se aceptan cartas
+      whole_number: Debe ser un número entero
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
@@ -541,6 +543,7 @@ es:
     sms_phone_number: Número de celular
     sorry: "¡Ay, no! ¡Lo sentimos!"
     spouse_last_four_ssn: Últimos 4 de SSN/ITIN de su cónyuge
+    spread_the_word_html: Ayude a un amigo o familiar a presentar sus impuestos de forma gratuita informándole sobre <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">Direct File del IRS</a>
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Empiece a declarar
@@ -1567,6 +1570,36 @@ es:
           Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
 
           ¿Preguntas? Responde a este mensaje.
+      still_processing:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Notificación de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
+        sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento. ¿Necesitas ayuda? Responde a este mensaje.
+      survey_notification:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue?
+
+            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Sus comentarios sobre FileYourStateTaxes
+        sms: |
+          Hola %{primary_first_name} -¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+
+          Atentamente,
+          El equipo de FileYourStateTaxes
       welcome:
         email:
           body: "Hola,\n\n¡Hemos creado exitosamente tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatal una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org.\n\nTu ID de cliente es %{intake_id}. Esta es una pieza importante de información de tu cuenta que puedes necesitar al hablar con nuestro equipo de soporte. Por favor, haz un seguimiento de este número y no borres este mensaje.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -2208,6 +2241,7 @@ es:
           title: Ingresa tu dirección de correo electrónico
       esign_declaration:
         edit:
+          already_submitted: Ya has enviado tu declaración.
           az:
             body_html: |
               <p>Bajo pena de perjurio, declaro que he revisado una copia de mi declaración electrónica de impuestos personales a las ganancias de Arizona, así como los anexos y declaraciones adjuntas, para el año que finaliza el 31 de diciembre de 2023 y la información es verdadera, correcta y completa a mi mejor conocimiento y creencia.</p>
@@ -2235,18 +2269,27 @@ es:
           from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
         edit:
           button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
-          description: 'Para ahorrar tiempo, transfiere tu declaración federal para completar partes de tu declaración estatal. Esto suele tomar 3 minutos o menos. '
+          description: Para ahorrar tiempo, transfiera su declaración federal para completar partes de su declaración estatal. Esta transferencia segura desde IRS Direct File suele tardar 3 minutos o menos.
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible tanto en dispositivos móviles como de escritorio y tarda entre 10 y 15 minutos en completarse."
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
-          help_text_html: <b>Lo que necesitarás para comenzar</b><br><ul class="list--bulleted"><li> Dirección de correo electrónico o número de teléfono<li> Licencia de conducir o identificación emitida por el estado<li> Si recibió beneficios por desempleo en 2023, necesitará el Formulario 1099-G<li> Ya debería haber presentado su declaración de impuestos federales de 2023 utilizando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> . (No necesita una copia de esta declaración, ya que se importará a esta herramienta).<li> Si elige recibir su reembolso o realizar un pago de impuestos electrónicamente, necesitará los números de cuenta y de ruta bancaria.</ul>
+          help_text_html: |
+            <b>Lo que necesitarás para comenzar</b>
+            <br>
+            <ul class="list--bulleted">
+            <li>Dirección de correo electrónico o número de teléfono
+            <li>Licencia de conducir o identificación emitida por el estado
+            <li>Si recibiste beneficios por desempleo en 2023, necesitarás el Formulario 1099-G
+            <li>Deberías haber presentado tu declaración de impuestos federales de 2023 usando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración, ya que se importará a esta herramienta).
+            <li>Si eliges recibir tu reembolso o hacer un pago de impuestos electrónicamente, necesitarás los números de ruta y de cuenta de tu banco.
+            </ul>
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible tanto en dispositivos móviles como de escritorio y tarda entre 10 y 15 minutos en completarse."
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el Estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
       name_dob:
@@ -2319,7 +2362,7 @@ es:
           see_detailed_return: 'Ver información detallada de la declaración:'
           standard_deduction: Deducción estándar
           taxable_income: Ingreso gravable
-          third_party_designee: ''
+          third_party_designee: Designado por un tercero
           total_dependent_exemptions: Total de exenciones por dependientes
           total_new_york_additions: Total de adiciones de Nueva York
           total_new_york_subtractions: Total de sustracciones de Nueva York
@@ -2348,10 +2391,10 @@ es:
       ny_third_party_designee:
         edit:
           reveal:
-            body_html: 'Al seleccionar a un tercero designado, usted autoriza al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También autoriza a la persona designada a dar y recibir información confidencial del contribuyente relacionada con: <br> <b><ul class="list--bulleted">   <li>esta declaración, incluida la información faltante   <li>cualquier aviso o factura que surja de esta presentación que usted comparte con la persona designada (no se enviarán a la persona designada)  <li>cualquier pago y actividad de cobro que surja de esta presentación, y   <li>el estado de su declaración o reembolso. </ul>'
-            title: "¿Qué puede discutir el Departamento de Impuestos y Finanzas de Nueva York con mi tercero designado?"
-          subtitle: Al seleccionar Sí, usted convierte a esta persona en su tercero designado para su declaración estatal.
-          title_html: Parece que le dio permiso al IRS para discutir su declaración de impuestos federales con %{name}. <br><br> ¿Le gustaría permitir que esta misma persona analice su declaración de impuestos del estado de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
+            body_html: 'Al seleccionar un designado por un tercero, estás autorizando al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También estás autorizando al designado a dar y recibir información tributaria confidencial relacionada con: <br><b><ul class="list--bulleted"> <li>esta declaración, incluida información faltante <li>cualquier aviso o factura derivada de esta presentación que compartas con el designado (no se enviarán al designado) <li>cualquier pago y actividad de cobro derivada de esta presentación, y  <li>el estado de tu declaración o reembolso. </ul>'
+            title: "¿Qué puede discutir el Departamento de Impuestos de Nueva York con mi designado por terceros?"
+          subtitle: Al seleccionar sí, estás designando a esta persona como tu representante para tu declaración estatal.
+          title_html: Parece que diste permiso para que el IRS discuta tu declaración de impuestos federales con %{name}.<br /><br /> ¿Te gustaría permitir que esta misma persona discuta tu declaración de impuestos estatales de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
       ny_w2:
         edit:
           locality_nm_error: Escribe "NYC" si el nombre de la localidad en tu W-2 es Nueva York o cualquiera de los cinco distritos.
@@ -2521,13 +2564,13 @@ es:
           removed: Eliminado el formulario 1099-G para %{name}
         edit:
           apartment: Número de apartamento/unidad
-          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal"
+          box_10b_html: "<strong>Box 10b</strong>, Número de identificación estatal"
           city: Ciudad
           confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
-          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal retenido (Redondea al número entero más cercano)"
-          had_box_11: "¿Tenías un monto listado por impuestos estatales (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido (Redondea al número entero más cercano)"
+          had_box_11: "¿Tenías un monto listado por impuestos estatales (Box 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
             Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
             Luego busca la información solicitada en las siguientes ubicaciones: </br>
@@ -2549,13 +2592,13 @@ es:
           recipient_myself: Para mí
           recipient_question: "¿Para quién es este formulario?"
           state: Estado
-          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, Impuesto estatal retenido (Redondea al número entero más cercano)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido (Redondea al número entero más cercano)"
           street_address: Dirección
           title:
             many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
             one: Parece que recibiste compensaciones por desempleo en %{year}
             other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo (Redondea al número entero más cercano)"
+          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo (Redondea al número entero más cercano)"
           zip_code: Código postal
         index:
           1099_label: 1099-G para %{name}
@@ -2565,20 +2608,21 @@ es:
           unemployment_compensation: 'Compensación por desempleo: $%{amount}'
       verification_code:
         edit:
-          action: Verificar el código
+          action: " Verificar el código"
           subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
           title: Ingresa el código para continuar
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
           box15_html: |
-            <strong>Casilla 15</strong>: Número de identificación del estado del empleador<br />
-            Si la Casilla 15 está en blanco en tu W-2, ingresa el número de la <strong>Casilla b Número de identificación del empleador (EIN)</strong> aquí en su lugar.
-          box16_html: "<strong>Casilla 16</strong>: Salarios estatales, propinas, etc."
-          box17_html: "<strong>Casilla 17</strong>: Impuesto sobre la renta estatal"
-          box18_html: "<strong>Casilla 18</strong>: Salarios locales, propinas, etc."
-          box19_html: "<strong>Casilla 19</strong>: Impuesto sobre la renta local"
-          box20_locality_name: "<strong>Casilla 20</strong>: Nombre de la localidad"
+            <strong>Box 15</strong>: Número de identificación del estado del empleador<br />
+            Si Box 15 está en blanco en tu W-2, ingresa el número de la <strong>Box b Número de identificación del empleador (EIN)</strong> aquí en su lugar.
+          box16_html: "<strong>Box 16</strong>: Salarios estatales, propinas, etc."
+          box17_html: "<strong>Box 17</strong>: Impuesto sobre la renta estatal"
+          box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
+          box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
+          box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
+          employer_state_id_error: El EIN debe ser un número. No incluya un guión.
           instructions_1: Necesitamos un poco más de información sobre la información de impuestos estatales y locales en tu W-2 de %{employer_name}por %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
@@ -2587,7 +2631,7 @@ es:
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           w2s_error: Actualiza los formularios W-2 antes de continuar.
-          wages_amt_error: El impuesto sobre la renta total no puede ser mayor que $%{wages_amount}
+          wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
         index:
           title: Proporciona la información de impuestos estatales para los siguientes W-2. No te preocupes si tienes varios W-2 y no todos están listados abajo.
           updated: Has actualizado este W-2
@@ -2626,9 +2670,9 @@ es:
         privacy_policy: Política de Privacidad
         state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
       login_options:
-        email_signin: Iniciar sesión con correo electrónico
+        email_signin: Iniciar sesión con email
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
-        phone_number_signin: Iniciar sesión con número de teléfono
+        phone_number_signin: Iniciar sesión con el teléfono
         title: Iniciar sesión en FileYourStateTaxes
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
@@ -2744,11 +2788,11 @@ es:
   verification_code_mailer:
     no_match:
       body_html: |
-        Hola,<br /><br />
+        Hola, <br /><br />
 
         Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.<br />
         Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.<br />
-        Si aún no ha enviado su información de impuestos a GetYourRefund, visite <a href="%{url}">%{service_name}.org</a> para empezar el proceso de declarar sus impuestos.<br /><br />
+        Si aún no ha enviado su información de impuestos a %{service_name}, <a href="%{url}">visite %{service_name}.org</a> para empezar.<br /><br />
 
         Estamos aquí para servirle,<br /><br />
 
@@ -3770,21 +3814,21 @@ es:
           done_adding: Termine de agregar los formularios W-2
           dont_add_w2: No quiero agregar mi W-2
           employee_info:
-            employee_city: 'Casilla e: City'
+            employee_city: 'Box e: City'
             employee_legal_name: 'Seleccione el nombre legal en el W2:'
-            employee_state: 'Casilla e: State'
-            employee_street_address: 'Casilla e: Employee street address or P.O. box'
-            employee_zip_code: 'Casilla e: Zip code'
+            employee_state: 'Box e: State'
+            employee_street_address: 'Box e: Employee street address or P.O. box'
+            employee_zip_code: 'Box e: Zip code'
             title:
               many: Comencemos ingresando información básica.
               one: Comencemos ingresando información básica para %{name}.
               other: Comencemos ingresando información básica.
           employer_info:
             add: Agregar un W-2
-            box_d_control_number: 'Casilla d: Control Number'
+            box_d_control_number: 'Box d: Control Number'
             employer_city: Ciudad
-            employer_ein: 'Casilla b: Employer Identification Number (EIN)'
-            employer_name: 'Casilla c: Employer Name'
+            employer_ein: 'Box b: Employer Identification Number (EIN)'
+            employer_name: 'Box c: Employer Name'
             employer_state: Estado
             employer_street_address: Dirección del empleador o apartado postal
             employer_zip_code: Código postal
@@ -3796,26 +3840,26 @@ es:
               other: Un W-2 es un formulario tributario oficial que le entrega su empleador. Ingrese todos sus formularios W-2 y los de su cónyuge para obtener el Crédito Tributario por Ingreso del Trabajo y evitar demoras.
             p2: El formulario que ingrese debe tener impreso el W-2 en la parte superior. De otra manera no será aceptado.
           misc_info:
-            box11_nonqualified_plans: 'Casilla 11: Nonqualified plans amount'
+            box11_nonqualified_plans: 'Box 11: Nonqualified plans amount'
             box12_error: debe proporcionar tanto el código como el valor
             box12_value_error: El valor debe ser numérico
-            box12a: 'Casilla 12a:'
-            box12b: 'Casilla 12b:'
-            box12c: 'Casilla 12c:'
-            box12d: 'Casilla 12d:'
-            box13: 'Casilla 13: Si está marcado en su W-2, seleccione la opción correspondiente a continuación'
+            box12a: 'Box 12a:'
+            box12b: 'Box 12b:'
+            box12c: 'Box 12c:'
+            box12d: 'Box 12d:'
+            box13: 'Box 13: Si está marcado en su W-2, seleccione la opción correspondiente a continuación'
             box13_retirement_plan: Plan de retiro
             box13_statutory_employee: Empleado estatutario
             box13_third_party_sick_pay: Pago por enfermedad de terceros
             box14_error: Debe proveer la descripción y la cantidad
-            box14_other: 'Casilla 14: Other'
+            box14_other: 'Box 14: Other'
             box15_error: Debe proveer el número de identificación del estado y del estado del empleador
-            box15_state: 'Casilla 15: State and Employer’s State ID number'
-            box16_state_wages: 'Casilla 16: State wages, tips, etc.'
-            box17_state_income_tax: 'Casilla 17: State income tax'
-            box18_local_wages: 'Casilla 18: Local wages, tips, etc.'
-            box19_local_income_tax: 'Casilla 19: Local income tax'
-            box20_locality_name: 'Casilla 20: Locality name'
+            box15_state: 'Box 15: State and Employer’s State ID number'
+            box16_state_wages: 'Box 16: State wages, tips, etc.'
+            box17_state_income_tax: 'Box 17: State income tax'
+            box18_local_wages: 'Box 18: Local wages, tips, etc.'
+            box19_local_income_tax: 'Box 19: Local income tax'
+            box20_locality_name: 'Box 20: Locality name'
             remove_this_w2: Eliminar este W-2
             requirement_title: 'Requisito:'
             requirements:
@@ -3836,19 +3880,19 @@ es:
           title: Confirme la información de su W-2.
           wages: Sueldo
           wages_info:
-            box10_dependent_care_benefits: 'Casilla 10: Dependent care benefits'
-            box3_social_security_wages: 'Casilla 3: Social security wages'
-            box4_social_security_tax_withheld: 'Casilla 4: Social Security tax withheld'
-            box5_medicare_wages_and_tip_amount: 'Casilla 5: Medicare wages and tips amount'
-            box6_medicare_tax_withheld: 'Casilla 6: Medicare tax withheld'
-            box7_social_security_tips_amount: 'Casilla 7: Social Security tips amount'
-            box8_allocated_tips: 'Casilla 8: Allocated tips'
-            federal_income_tax_withheld: 'Casilla 2: Federal Income Tax Withheld'
+            box10_dependent_care_benefits: 'Box 10: Dependent care benefits'
+            box3_social_security_wages: 'Box 3: Social security wages'
+            box4_social_security_tax_withheld: 'Box 4: Social Security tax withheld'
+            box5_medicare_wages_and_tip_amount: 'Box 5: Medicare wages and tips amount'
+            box6_medicare_tax_withheld: 'Box 6: Medicare tax withheld'
+            box7_social_security_tips_amount: 'Box 7: Social Security tips amount'
+            box8_allocated_tips: 'Box 8: Allocated tips'
+            federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
             info_box:
               requirement_description_html: Ingrese la información <strong>exactamente</strong> como aparece en su W-2. Si hay casillas en blanco en su W-2, déjelas también en blanco en las casillas a continuación.
               requirement_title: 'Requisito:'
             title: "¡Excelente! Ingrese todos los salarios, propinas e impuestos retenidos de %{name} de este W-2."
-            wages_amount: 'Casilla 1: Wages Amount'
+            wages_amount: 'Box 1: Wages Amount'
       shared:
         ssn_not_valid_for_employment: La tarjeta de Seguro Social de esta persona tiene escrito "No válido para el empleo". (Esto se ve raramente)
     ctc_pages:
@@ -4505,7 +4549,7 @@ es:
           major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
           minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
           privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
-          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
+          rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
           sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
           sms_confirmation: Cuando se suscriba al servicio, le enviaremos un mensaje SMS para confirmar su suscripción y le enviaremos un mensaje de texto con las actualizaciones de su declaración de impuestos.
         title: Términos de código
@@ -5082,7 +5126,7 @@ es:
           partner_review: Su asesor fiscal en %{partner_name} revisará su información
           partner_timing: "%{partner_name} se comunicará dentro de 3 días hábiles para discutir sus impuestos"
           review: Su asesor fiscal revisará su información
-          timing: Su asesor fiscal se comunicará dentro de los 5 días hábiles para discutir sus impuestos.
+          timing: Tu preparador de impuestos se pondrá en contacto en un plazo de 5 días hábiles para hablar sobre tus impuestos
         satisfaction_face:
           negative: Mala
           neutral: Buena
@@ -5204,7 +5248,7 @@ es:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
         additional_benefits: Beneficios adicionales
-        all_services: Todos los servicios brindan soporte por correo electrónico y están disponibles en inglés y español.
+        all_services: Todos los servicios ofrecen soporte por correo electrónico y están disponibles en Inglés y Español.
         chat_support: Asistencia por chat
         filing_years:
           title: 'Años en que se hicieron declaraciones:'
@@ -5215,18 +5259,18 @@ es:
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
-          direct_file: La mayoría de los contribuyentes menores de $200,000
+          direct_file: La mayoría de los declarantes que ganan menos de $200,000
           diy: menos de $79,000
           full_service: menos de $66,000
           title: 'Límite de ingresos:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
-        mobile_friendly: Compatible con dispositivos móviles
+        mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
-        select_service_html: "<i>Seleccione la opción que le interese para obtener más información sobre la lista completa de requisitos.</i>"
+        select_service_html: "<i>Selecciona la opción en la que estás interesado para obtener más información sobre la lista completa de requisitos.</i>"
         services:
           direct_file:
-            cta: Elija archivo directo
-            service_description: Presente rápidamente por su cuenta directamente ante el IRS.
+            cta: Selecciona Direct File
+            service_description: Presenta rápidamente tu declaración por tu cuenta directamente con el IRS.
             service_name: IRS Direct File
           diy:
             cta: Elegir declarar por cuenta propia
@@ -5243,10 +5287,13 @@ es:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         tax_payer_residency:
-          direct_file: Disponible para residentes de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming durante todo el año.
+          direct_file: Disponible para residentes de tiempo completo de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming.
           diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
-          full_service_html: Disponible para residentes de todos los estados.<br><br> Disponibilidad limitada para no residentes y residentes de Puerto Rico
-          title: Residencia del contribuyente
+          full_service_html: |
+            Disponible para residentes de todos los estados.<br>
+            <br>
+             Disponibilidad limitada para no residentes y residentes de Puerto Rico.
+          title: Residencia del Contribuyente
         time_to_file:
           diy: 45 minutos
           full_service: De 2 a 3 semanas

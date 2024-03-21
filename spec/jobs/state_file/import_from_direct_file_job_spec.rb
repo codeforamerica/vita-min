@@ -71,7 +71,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.df_data_import_failed_at).to be_present
         expect(intake.raw_direct_file_data).to_not be_present
         expect(intake.df_data_import_errors.count).to eq(1)
-        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake az 1.")
+        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake az #{intake.id}.")
       end
     end
   end

@@ -29,11 +29,6 @@ class AfterTransitionTasksForRejectedReturnJob < ApplicationJob
         end
         EfileSubmissionStateMachine.send_mixpanel_event(submission, "ctc_efile_return_rejected")
       end
-
-      if submission.is_for_state_filing?
-        EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
-      end
-
     end
   end
 

@@ -791,6 +791,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_172226) do
     t.boolean "auto_wait", default: false
     t.string "category"
     t.string "code"
+    t.string "correction_path"
     t.datetime "created_at", null: false
     t.boolean "expose", default: false
     t.text "message"

@@ -179,6 +179,7 @@ en:
         invalid: 'Only letters, numbers, parentheses, hyphen, apostrophe, and # are accepted.'
       payer_tin:
         invalid: EIN must be a 9-digit number. Do not include a dash.
+      payer_tin_ny_invalid: The number entered is not an accepted TIN by New York State.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -222,6 +223,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
+      only_letters: Only letters are accepted
       whole_number: must be a whole number
   forms:
     errors:
@@ -539,6 +541,7 @@ en:
     sms_phone_number: Cell phone number
     sorry: We're sorry!
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
+    spread_the_word_html: Help a friend or family member file their taxes for free by letting them know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a>
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Start filing
@@ -1599,6 +1602,36 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      still_processing:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+      survey_notification:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went?
+
+            Take our 5 minute survey here: %{survey_link}
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Your feedback on FileYourStateTaxes
+        sms: |
+          Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+
+          Best,
+          The FileYourStateTaxes team
       welcome:
         email:
           body: |
@@ -2240,6 +2273,7 @@ en:
           title: Enter your email address
       esign_declaration:
         edit:
+          already_submitted: You have already submitted your return.
           az:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
@@ -2268,7 +2302,7 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This usually takes 3 minutes or less.
+          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
@@ -2606,6 +2640,7 @@ en:
           box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
           box19_html: "<strong>Box 19</strong>: Local income tax"
           box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          employer_state_id_error: EIN must be a number. Do not include a dash.
           instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
