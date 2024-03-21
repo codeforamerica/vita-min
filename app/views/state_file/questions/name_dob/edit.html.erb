@@ -16,6 +16,11 @@
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_middle_initial, t(".middle_initial"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t(".last_name"), classes: ["form-width--long"]) %>
+      <%= f.vita_min_state_file_select(
+            :primary_suffix,
+            t(".suffix"),
+            suffix_options_for_state_select,
+            prompt: t('general.select_prompt'), include_blank: true) %>
       <div class="date-select">
         <%= f.cfa_date_select(:primary_birth_date,
                               t('.your_dob'),
@@ -37,6 +42,11 @@
         <%= f.cfa_input_field(:spouse_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:spouse_middle_initial, t(".middle_initial"), classes: ["form-width--long"]) %>
         <%= f.cfa_input_field(:spouse_last_name, t(".spouse_last_name"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_state_file_select(
+              :spouse_suffix,
+              t(".suffix"),
+              suffix_options_for_state_select,
+              prompt: t('general.select_prompt'), include_blank: true) %>
         <% if f.object.ask_spouse_dob? %>
             <div class="date-select">
               <%= f.cfa_date_select(:spouse_birth_date,

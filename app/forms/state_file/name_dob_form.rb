@@ -8,9 +8,11 @@ module StateFile
                        :primary_first_name,
                        :primary_middle_initial,
                        :primary_last_name,
+                       :primary_suffix,
                        :spouse_first_name,
                        :spouse_middle_initial,
                        :spouse_last_name,
+                       :spouse_suffix,
                        :primary_birth_date_month, :primary_birth_date_day, :primary_birth_date_year,
                        :spouse_birth_date_month, :spouse_birth_date_day, :spouse_birth_date_year
     set_attributes_for :state_file_efile_device_info, :device_id
@@ -54,6 +56,7 @@ module StateFile
         primary_first_name: primary_first_name,
         primary_middle_initial: primary_middle_initial,
         primary_last_name: primary_last_name,
+        primary_suffix: primary_suffix,
         dependents_attributes: formatted_dependents_attributes
       }
       if @intake.ask_spouse_name?
@@ -61,6 +64,7 @@ module StateFile
           spouse_first_name: spouse_first_name,
           spouse_middle_initial: spouse_middle_initial,
           spouse_last_name: spouse_last_name,
+          spouse_suffix: spouse_suffix,
         )
       end
       attributes_to_update[:primary_birth_date] = primary_birth_date
