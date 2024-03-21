@@ -16,10 +16,10 @@ module PdfFiller
     def hash_for_pdf
       answers = {
         "Your First Name and Initial" => @submission.data_source.primary.first_name_and_middle_initial,
-        "Your Last Name" => @submission.data_source.primary.last_name,
+        "Your Last Name" => @submission.data_source.primary.last_name_and_suffix,
         "Your SSN" => @submission.data_source.primary.ssn,
         "Spouse First Name and Initial" => @submission.data_source.spouse.first_name_and_middle_initial,
-        "Spouse Last Name" => @submission.data_source.spouse.last_name,
+        "Spouse Last Name" => @submission.data_source.spouse.last_name_and_suffix,
         "Spouse SSN" => @submission.data_source.spouse.ssn,
         "1 AZ AGI" => @xml_document.at('AZAdjGrossIncome')&.text,
         "2 Balance of Tax" => @xml_document.at("BalanceOfTaxDue")&.text,

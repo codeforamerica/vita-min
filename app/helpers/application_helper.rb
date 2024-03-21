@@ -94,7 +94,7 @@ module ApplicationHelper
   end
 
   def suffix_options_for_state_select
-    ["Jr", "Sr", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+    ["JR", "SR", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
   end
 
   def yes_no_unsure_options_for_select

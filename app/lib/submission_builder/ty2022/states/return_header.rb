@@ -35,6 +35,7 @@ module SubmissionBuilder
                     xml.FirstName @submission.data_source.spouse.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.first_name.present?
                     xml.MiddleInitial @submission.data_source.spouse.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.middle_initial.present?
                     xml.LastName @submission.data_source.spouse.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.last_name.present?
+                    xml.NameSuffix @submission.data_source.spouse.suffix if @submission.data_source.spouse.suffix.present?
                   end
                   xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
                   xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
