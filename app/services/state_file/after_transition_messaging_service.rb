@@ -55,7 +55,10 @@ module StateFile
 
     def send_efile_submission_successful_submission_message
       message = StateFile::AutomatedMessage::SuccessfulSubmission
-      body_args = { return_status_link: return_status_link }
+      submitted_key = @intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
+      submitted_or_resubmitted = I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: (@intake.locale || "en"))
+      body_args = { return_status_link: return_status_link, submitted_or_resubmitted: submitted_or_resubmitted }
+
       StateFile::MessagingService.new(
         intake: @intake,
         submission: @submission,
