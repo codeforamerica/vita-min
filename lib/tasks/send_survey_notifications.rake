@@ -9,13 +9,18 @@ namespace :survey_notifications do
 
     accepted_submissions.each_slice(BATCH_SIZE) do |batch|
       batch.each do |submission|
-        puts "Sending survey notification to #{submission.id}"
-        StateFile::MessagingService.new(
-          intake: submission.data_source,
-          submission: submission,
-          message: StateFile::AutomatedMessage::SurveyNotification,
-          body_args: { survey_link: survey_link(submission.data_source) }
-        ).send_message
+        intake = submission.data_source
+        if intake.nil?
+          puts "Skipping over submission #{submission.id} without an intake."
+        else
+          puts "Sending survey notification to #{submission.id}"
+          StateFile::MessagingService.new(
+            intake: intake,
+            submission: submission,
+            message: StateFile::AutomatedMessage::SurveyNotification,
+            body_args: { survey_link: survey_link(intake) }
+          ).send_message
+        end
       end
     end
   end
