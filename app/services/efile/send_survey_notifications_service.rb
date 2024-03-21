@@ -1,7 +1,7 @@
 module Efile
   class SendSurveyNotificationsService
     include StateFile::SurveyLinksConcern
-    BATCH_SIZE = 5
+    BATCH_SIZE = 10
 
     def run
       accepted_submissions = EfileSubmission.joins(:efile_submission_transitions)
