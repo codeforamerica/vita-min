@@ -44,7 +44,7 @@ describe StateFile::MessagingService do
     end
   end
 
-  context "when message is an finish_return" do
+  context "when message is of finish_return type" do
     let(:message) { StateFile::AutomatedMessage::FinishReturn }
     let!(:messaging_service) { described_class.new(message: message, intake: intake) }
 
