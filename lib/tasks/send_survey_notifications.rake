@@ -11,13 +11,12 @@ namespace :survey_notifications do
     accepted_submissions.each_slice(BATCH_SIZE) do |batch|
       batch.each do |submission|
         next unless submission.is_for_state_filing?
-        intake = submission.data_source
         puts "Sending survey notification to #{submission.id}"
         StateFile::MessagingService.new(
-          intake: intake,
+          intake: submission.data_source,
           submission: submission,
           message: StateFile::AutomatedMessage::SurveyNotification,
-          body_args: { survey_link: survey_link(intake) }
+          body_args: { survey_link: survey_link(submission.data_source) }
         ).send_message
       end
     end
