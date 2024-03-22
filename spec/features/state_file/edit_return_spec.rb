@@ -54,7 +54,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
   end
 
   before do
-    efile_submission.transition_to!(:notified_of_rejection, raw_response: raw_response)
+    efile_submission.transition_to!(:rejected, raw_response: raw_response)
     AfterTransitionTasksForRejectedReturnJob.perform_now(efile_submission, efile_submission.last_transition)
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
     allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn

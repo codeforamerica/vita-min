@@ -32,7 +32,7 @@ module StateFile
         case current_intake.latest_submission.current_state
         when 'accepted'
           'accepted'
-        when 'notified_of_rejection'
+        when 'notified_of_rejection', 'waiting'
           'rejected'
         else
           'pending'
