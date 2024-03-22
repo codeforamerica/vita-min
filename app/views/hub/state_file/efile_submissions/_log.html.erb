@@ -11,7 +11,7 @@
           <% end %>
 
           <% transition.efile_errors.each do |error| %>
-            <div>
+            <div class="spacing-below-10">
               <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
                 <%= link_to hub_state_file_efile_error_path(id: error.id) do %>
                   <div class="label label--red"><%= error.code %></div>
