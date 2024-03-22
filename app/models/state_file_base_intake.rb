@@ -37,6 +37,10 @@ class StateFileBaseIntake < ApplicationRecord
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
+  scope :without_raw_data_and_no_federal_submission, lambda {
+    where.not(raw_direct_file_data: nil)
+         .where(federal_submission_id: nil)
+  }
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
