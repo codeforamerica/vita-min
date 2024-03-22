@@ -73,6 +73,7 @@ gem 'jwt'
 gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
+gem 'rack-attack'
 
 # Use Flipper for feature flagging
 gem 'flipper'

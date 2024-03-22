@@ -65,6 +65,7 @@
 #  primary_last_name                  :string
 #  primary_middle_initial             :string
 #  primary_signature                  :string
+#  primary_suffix                     :string
 #  property_over_limit                :integer          default("unfilled"), not null
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
@@ -84,6 +85,7 @@
 #  spouse_last_name                   :string
 #  spouse_middle_initial              :string
 #  spouse_signature                   :string
+#  spouse_suffix                      :string
 #  unfinished_intake_ids              :text             default([]), is an Array
 #  unsubscribed_from_email            :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases     :integer          default("unfilled"), not null
@@ -270,8 +272,10 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def validate_state_specific_w2_requirements(w2)
-    if w2.locality_nm.present? && !self.class.locality_nm_valid?(w2.locality_nm)
-      w2.errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
+    unless w2.errors[:locality_nm].present?
+      if w2.locality_nm.present? && !self.class.locality_nm_valid?(w2.locality_nm)
+        w2.errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
+      end
     end
   end
 
