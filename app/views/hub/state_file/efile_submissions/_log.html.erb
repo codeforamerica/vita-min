@@ -1,6 +1,6 @@
-<% transmitted_transitions = transitions.select { |t| t.to_state == "transmitted" } %>
 <% if transitions.present? %>
-  <% transitions.each do |transition| %>
+  <% transitions&.each do |transition| %>
+    <% transmitted_transitions = transitions.select { |t| t.to_state == "transmitted" } %>
     <% unless transmitted_transitions.include?(transition) && transition != transmitted_transitions.first %>
       <li role="listitem">
         <div class="timestamp"><%= timestamp transition.created_at %></div>
@@ -21,45 +21,9 @@
             </div>
           <% end %>
 
-<!--          bring this out to partial? maybe should gather them by statuses? at least for transmitted and rejected-->
           <% if transition.to_state == "transmitted" %>
-            <table>
-              <tr>
-                <th>date</th>
-                <th>submission status</th>
-              </tr>
-              <% transmitted_transitions.each do |t| %>
-                <% if t.metadata["raw_response"].present? %>
-                  <% xml = Nokogiri::XML(t.metadata["raw_response"]) %>
-                  <tr>
-                    <td>
-                      <%= xml.css("SubmsnStatusAcknowledgementDt").text.strip %>
-                    </td>
-                    <td>
-                      <%= xml.css("SubmissionStatusTxt").text.strip %>
-                    </td>
-                  </tr>
-                <% elsif t.metadata["receipt"] %>
-                  <% xml = Nokogiri::XML(t.metadata["receipt"]) %>
-                  <tr>
-                    <td>
-                      <%= DateTime.parse(xml.css("SubmissionReceivedTs").text.strip).strftime("%Y-%m-%d %H:%M") %>
-                    </td>
-                    <td>Submission received</td>
-                  </tr>
-                <% end %>
-              <% end %>
-            </table>
+            <%= render 'log_transmitted', transmitted_transitions: transmitted_transitions %>
           <% end %>
-
-<!--          clean this up I think I can remove this-->
-          <% if ["failed", "rejected"].include?(transition.to_state) && transition.metadata["raw_response"].present? && !transition.metadata["raw_response"].kind_of?(Array) %>
-            <% xml = Nokogiri::XML(transition.metadata["raw_response"]) %>
-            <% error_msg = xml.css("ErrorMessageTxt").text.strip %>
-            <% if error_msg.present? %>
-              <p><strong>Error message:</strong> <%= error_msg %></p>
-            <% end %>
-        <% end %>
 
           <% if transition.metadata.present? %>
             <div class="accordion spacing-above-10">
