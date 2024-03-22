@@ -144,7 +144,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
-    AfterTransitionTasksForRejectedReturnJob.perform_now(submission, transition)
+    AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
       StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)

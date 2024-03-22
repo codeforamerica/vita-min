@@ -6,7 +6,7 @@
     <h2>Options</h2>
     <%= form_with model: @efile_error, method: :put, local: true, url: hub_state_file_efile_error_path, builder: VitaMinFormBuilder do |f| %>
       <div>
-        <span class="tooltip" data-position="right" title="will expose the error code & message and custom resolution (if present) on the /return-status page">
+        <span class="tooltip" data-position="right" title="will expose the error code & message and/or custom description & resolution on the /return-status page">
           <%= f.hub_checkbox :expose, "Exposed to client?" %>
         </span>
       </div>
