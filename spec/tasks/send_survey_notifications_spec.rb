@@ -7,7 +7,7 @@ describe 'send_survey_notifications rake task' do
   before(:all) do
     Rails.application.load_tasks
   end
-  it 'runs without error even when submission does not have an intake' do
+  it 'runs without error for all state-filing submissions' do
     Rake::Task['survey_notifications:send'].execute
   end
 end
