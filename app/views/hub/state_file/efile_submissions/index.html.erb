@@ -60,7 +60,7 @@
             <% errors = submission.last_transition&.efile_errors  %>
             <% errors = submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors if ['waiting', 'notified_of_rejection'].include?(submission.current_state) %>
             <% errors&.each do |error| %>
-                <span class="tooltip max-250 error-<%= error.id %>" data-position="left" title="<%= error.message %>">
+                <span class="tooltip max-250 error-<%= error.id %>" data-position="right" title="<%= error.message %>">
                   <%= link_to hub_state_file_efile_error_path(id: error.id) do %>
                     <div class="label label--red"><%= error.code %></div>
                   <% end %>
