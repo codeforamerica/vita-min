@@ -6,13 +6,13 @@
     <h2>Options</h2>
     <%= form_with model: @efile_error, method: :put, local: true, url: hub_state_file_efile_error_path, builder: VitaMinFormBuilder do |f| %>
       <div>
-        <span class="tooltip" data-position="right" title="will expose the error code & message and/or custom description & resolution on the /return-status page">
+        <span class="tooltip" data-position="right" title="will expose the error code, error-message/custom-description and custom-resolution (if present) on the /return-status page">
           <%= f.hub_checkbox :expose, "Exposed to client?" %>
         </span>
       </div>
 
       <div>
-        <span class="tooltip" data-position="right" title="will show 'what can I do next' text on /return-status page">
+        <span class="tooltip" data-position="right" title="shows 'what can I do next' or custom resolution text on /return-status page">
           <%= f.hub_checkbox :auto_cancel, "Auto-cancel?" %>
         </span>
       </div>
@@ -31,27 +31,25 @@
 
       <div class="spacing-above-25">
         <%= f.label :description_en, "English Description", class: "h4" %>
-        <p class="help-text">overwrites default reject description on <em>en/questions/return-status</em> page if exposed</p>
+        <p class="help-text">overwrites default English reject-description on <em>/return-status</em> if exposed</p>
         <%= f.rich_text_area :description_en %>
       </div>
 
       <div class="spacing-above-25">
         <%= f.label :description_es, "Spanish Description", class: "h4" %>
-        <p class="help-text">overwrites default reject description on <em>es/questions/return-status</em> page if exposed</p>
+        <p class="help-text">overwrites default Spanish reject-description on <em>/return-status</em> if exposed</p>
         <%= f.rich_text_area :description_es %>
       </div>
 
-
       <div class="spacing-above-25">
         <%= f.label :resolution_en, "English Resolution", class: "h4" %>
-        <p class="help-text">overwrites default 'what's next' message on <em>en/questions/return-status</em> page if exposed and auto-wait true</p>
+        <p class="help-text">overwrites default English next-steps message on <em>/return-status</em></p>
         <%= f.rich_text_area :resolution_en %>
       </div>
 
-
       <div class="spacing-above-25">
         <%= f.label :resolution_es, "Spanish Resolution", class: "h4" %>
-        <p class="help-text">overwrites default 'what's next' message on <em>en/questions/return-status</em> page if exposed and auto-wait true</p>
+        <p class="help-text">overwrites default Spanish next-steps message on <em>/return-status</em></p>
         <%= f.rich_text_area :resolution_es %>
       </div>
 
