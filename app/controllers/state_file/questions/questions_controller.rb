@@ -3,7 +3,8 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileControllerConcern
       before_action :redirect_if_no_intake
-      before_action :redirect_if_intake_mismatch
+      # Noopping this until Monday
+      # before_action :redirect_if_intake_mismatch
       helper_method :card_postscript
 
       # default layout for all state file questions
