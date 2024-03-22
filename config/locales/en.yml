@@ -486,6 +486,7 @@ en:
     none_of_these: None of these
     not_at_all: Not at all
     not_well: Not well
+    one_intake_at_a_time: It looks like you already have a state tax submission in progress. Please sign into your existing account to continue.
     online: Online
     oops: Oops!
     open: Open
