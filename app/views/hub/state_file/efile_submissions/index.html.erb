@@ -57,8 +57,11 @@
             <%= link_to submission.current_state.humanize(capitalize: false), hub_state_file_efile_submission_path(id: submission.id), class: "underline" %>
           </td>
           <td class="index-table__cell">
-            <% errors = submission.last_transition&.efile_errors  %>
-            <% errors = submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors if ['waiting', 'notified_of_rejection'].include?(submission.current_state) %>
+            <% errors = if ['waiting', 'notified_of_rejection'].include?(submission.current_state)
+                          submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors
+                        else
+                          submission.last_transition&.efile_errors
+                        end %>
             <% errors&.each do |error| %>
                 <span class="tooltip max-250 error-<%= error.id %>" data-position="right" title="<%= error.message %>">
                   <%= link_to hub_state_file_efile_error_path(id: error.id) do %>
