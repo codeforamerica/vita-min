@@ -3,8 +3,6 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileControllerConcern
       before_action :redirect_if_no_intake
-      # Noopping this until Monday
-      # before_action :redirect_if_intake_mismatch
       helper_method :card_postscript
 
       # default layout for all state file questions
@@ -50,15 +48,6 @@ module StateFile
         unless current_intake.present?
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
           redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: state_code)
-        end
-      end
-
-      def redirect_if_intake_mismatch
-        if params[:current_intake].present?
-          if current_intake&.persisted? && current_intake.to_global_id.to_s != params[:current_intake]
-            flash[:alert] = I18n.t("general.one_intake_at_a_time")
-            redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code)
-          end
         end
       end
 
