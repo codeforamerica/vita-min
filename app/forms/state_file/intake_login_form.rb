@@ -26,7 +26,7 @@ module StateFile
     end
 
     def parsed_ssn
-      ssn&.remove(/\D/)
+      ssn.remove(/\D/)
     end
   end
 end
