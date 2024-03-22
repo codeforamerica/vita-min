@@ -368,7 +368,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def submit(value, options = {})
     options[:data] ||= {}
     options[:data][:disable_with] = value
-    current_intake_input.html_safe + super(value, **options)
+    # No opping this until Monday
+    # current_intake_input.html_safe + super(value, **options)
+    super(value, **options)
   end
 
   def continue(value = I18n.t("general.continue"))
