@@ -2044,14 +2044,15 @@ es:
             other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
+          primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+          spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
-          was_incarcerated:
-            many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-            one: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-            other: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+        update:
+          page_changed_notice: "¡Lo sentimos, esta página ha cambiado! Por favor responda las preguntas otra vez."
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2837,6 +2838,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
+    must_enter_amount: Si alguien reclamó este crédito, debe ingresar el monto en un número entero.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
