@@ -2074,13 +2074,15 @@ en:
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
+          primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           ssn_no_employment_html:
             label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
-          was_incarcerated:
-            one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-            other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+        update:
+          page_changed_notice: Sorry, this page has changed! Please answer the questions again.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2837,6 +2839,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
+    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"

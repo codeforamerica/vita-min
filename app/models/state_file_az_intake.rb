@@ -30,6 +30,7 @@
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  hashed_ssn                            :string
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
+#  household_excise_credit_claimed_amt   :integer
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locale                                :string           default("en")
@@ -45,6 +46,7 @@
 #  primary_last_name                     :string
 #  primary_middle_initial                :string
 #  primary_suffix                        :string
+#  primary_was_incarcerated              :integer          default("unfilled"), not null
 #  prior_last_names                      :string
 #  raw_direct_file_data                  :text
 #  referrer                              :string
@@ -58,6 +60,7 @@
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
 #  spouse_suffix                         :string
+#  spouse_was_incarcerated               :integer          default("unfilled"), not null
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
@@ -89,6 +92,8 @@ class StateFileAzIntake < StateFileBaseIntake
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
+  enum primary_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_was_incarcerated
+  enum spouse_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_incarcerated
   enum ssn_no_employment: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ssn_no_employment
   enum household_excise_credit_claimed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_excise_credit_claimed
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
@@ -160,14 +165,38 @@ class StateFileAzIntake < StateFileBaseIntake
     }
   end
 
-  def ask_whether_incarcerated?
-    has_valid_ssn = primary.ssn.present? && !primary.has_itin?
-    has_valid_agi = direct_file_data.fed_agi <= (filing_status_mfj? || filing_status_hoh? ? 25_000 : 12_500)
-    has_valid_ssn && has_valid_agi
+  def disqualified_from_excise_credit_df?
+    agi_limit = if filing_status_mfj? || filing_status_hoh?
+                  25000
+                elsif filing_status_single? || filing_status_mfs?
+                  12500
+                end
+    agi_over_limit = direct_file_data.fed_agi > agi_limit
+    lacks_valid_ssn = primary.ssn.blank? || primary.has_itin?
+
+    agi_over_limit || lacks_valid_ssn
   end
 
-  def qualified_for_excise_credit?
-    was_incarcerated_no? && ssn_no_employment_no? && household_excise_credit_claimed_no?
+  def incarcerated_filer_count
+    count = 0
+    if use_old_incarcerated_column?
+      count += 2 if was_incarcerated_yes?
+    else
+      count += 1 if primary_was_incarcerated_yes?
+      count += 1 if spouse_was_incarcerated_yes?
+    end
+
+    count
+  end
+
+  def use_old_incarcerated_column?
+    !was_incarcerated_unfilled?
+  end
+
+  def disqualified_from_excise_credit_fyst?
+    all_filers_incarcerated = was_incarcerated_yes? || (primary_was_incarcerated_yes? && spouse_was_incarcerated_yes?)
+    whole_credit_already_claimed = use_old_incarcerated_column? && household_excise_credit_claimed_yes?
+    all_filers_incarcerated || whole_credit_already_claimed || ssn_no_employment_yes? || direct_file_data.claimed_as_dependent?
   end
 
   def filing_status
