@@ -1,10 +1,42 @@
 module StateFile
   class AzExciseCreditForm < QuestionsForm
-    set_attributes_for :intake, :was_incarcerated, :ssn_no_employment, :household_excise_credit_claimed
+    set_attributes_for :intake,
+                       :was_incarcerated,
+                       :primary_was_incarcerated,
+                       :spouse_was_incarcerated,
+                       :ssn_no_employment,
+                       :household_excise_credit_claimed,
+                       :household_excise_credit_claimed_amt
 
-    validates :was_incarcerated, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }
     validates :ssn_no_employment, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }
     validates :household_excise_credit_claimed, inclusion: { in: %w[yes no], message: I18n.t("errors.messages.blank") }
+    validate :credit_claimed
+    validate :incarcerated_columns
+
+    # TODO: stop accepting old column
+    def incarcerated_columns
+      if was_incarcerated.present?
+        return %w[yes no].include?(was_incarcerated)
+      else
+        if primary_was_incarcerated.blank? || !%w[yes no].include?(primary_was_incarcerated)
+          errors.add(:primary_was_incarcerated, I18n.t("errors.messages.blank"))
+        end
+
+        if intake.filing_status_mfj?
+          if spouse_was_incarcerated.blank? || !%w[yes no].include?(spouse_was_incarcerated)
+            errors.add(:spouse_was_incarcerated, I18n.t("errors.messages.blank"))
+          end
+        end
+      end
+    end
+
+    # TODO: replace with:
+    #  validates_presence_of :household_excise_credit_claimed_amt, if: :household_excise_credit_claimed
+    def credit_claimed
+      if was_incarcerated.blank? && household_excise_credit_claimed == "yes" && household_excise_credit_claimed_amt.blank?
+        errors.add(:household_excise_credit_claimed_amt, I18n.t("errors.messages.blank"))
+      end
+    end
 
     def save
       @intake.update(attributes_for(:intake))

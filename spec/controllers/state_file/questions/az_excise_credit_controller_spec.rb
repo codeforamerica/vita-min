@@ -129,6 +129,35 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
     end
   end
 
+  describe "#edit" do
+    render_views
+
+    context "single filer" do
+      it "shows fields for primary filer only" do
+        get :edit, params: { us_state: "az" }
+
+        # TODO: replace with i18n keys
+        expect(response.body).to have_text "Were you incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
+        expect(response.body).not_to have_text "Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
+      end
+    end
+
+    context "mfj filers" do
+      let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
+      before do
+        sign_in intake
+      end
+
+      it "shows fields for primary and spouse" do
+        get :edit, params: { us_state: "az" }
+
+        # TODO: replace with i18n keys
+        expect(response.body).to have_text "Were you incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
+        expect(response.body).to have_text "Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
+      end
+    end
+  end
+
   describe "#update" do
     # use the return_to_review_concern shared example if the page
     # should skip to the review page when the return_to_review param is present
@@ -138,9 +167,9 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
         {
           us_state: "az",
           state_file_az_excise_credit_form: {
-            was_incarcerated: "yes",
+            primary_was_incarcerated: "yes",
             ssn_no_employment: "yes",
-            household_excise_credit_claimed: "yes",
+            household_excise_credit_claimed: "no",
           }
         }
       end
