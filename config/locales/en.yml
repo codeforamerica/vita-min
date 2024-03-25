@@ -2550,9 +2550,10 @@ en:
           direct_deposit: Direct deposit (fastest)
           mail: Mail my payment (slower)
           ny_title_html: Good news, you're getting a New York State tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
+          page_title: Good news, you're getting a tax refund. How would you like to receive your refund?
       taxes_owed:
         edit:
-          page_title: You owe $%{owed_amount} in %{state_name} state taxes. How would you like to pay?
+          page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes. How would you like to pay?
