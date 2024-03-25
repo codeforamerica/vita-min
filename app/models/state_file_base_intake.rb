@@ -132,14 +132,35 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def self.locality_nm_valid?(locality)
-    true
+  def validate_state_specific_w2_requirements(w2)
+  end
+
+  def invalid_df_w2?(df_w2)
+    return true if df_w2.StateWagesAmt == 0
+    if df_w2.LocalityNm.blank?
+      return true if df_w2.LocalWagesAndTipsAmt != 0 || df_w2.LocalIncomeTaxAmt != 0
+    end
+    return true if df_w2.LocalIncomeTaxAmt != 0 && df_w2.LocalWagesAndTipsAmt == 0
+    return true if df_w2.StateIncomeTaxAmt != 0 && df_w2.StateWagesAmt == 0
+    return true if df_w2.StateWagesAmt != 0 && df_w2.EmployerStateIdNum.blank?
+    return true if df_w2.EmployerStateIdNum.present? && df_w2.StateAbbreviationCd.blank?
+    return true if df_w2.StateIncomeTaxAmt > df_w2.StateWagesAmt
+    return true if df_w2.LocalIncomeTaxAmt > df_w2.LocalWagesAndTipsAmt
+    return true if df_w2.StateIncomeTaxAmt + df_w2.LocalIncomeTaxAmt > df_w2.WagesAmt
+    false
+  end
+
+  def validate_state_specific_1099_g_requirements(state_file1099_g)
+    unless /\A\d{9}\z/.match(state_file1099_g.payer_tin)
+      state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin.invalid"))
+    end
   end
 
   class Person
     attr_reader :first_name
     attr_reader :middle_initial
     attr_reader :last_name
+    attr_reader :suffix
     attr_reader :birth_date
     attr_reader :ssn
 
@@ -149,23 +170,29 @@ class StateFileBaseIntake < ApplicationRecord
         @first_name = intake.primary_first_name
         @last_name = intake.primary_last_name
         @middle_initial = intake.primary_middle_initial
+        @suffix = intake.primary_suffix
         @birth_date = intake.primary_birth_date
         @ssn = intake.direct_file_data.primary_ssn
       else
         @first_name = intake.spouse_first_name
         @last_name = intake.spouse_last_name
         @middle_initial = intake.spouse_middle_initial
+        @suffix = intake.spouse_suffix
         @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
         @ssn = intake.direct_file_data.spouse_ssn
       end
     end
 
     def full_name
-      [@first_name, @middle_initial, @last_name].map(&:presence).compact.join(' ')
+      [@first_name, @middle_initial, @last_name, @suffix].map(&:presence).compact.join(' ')
     end
 
     def first_name_and_middle_initial
       [@first_name, @middle_initial].map(&:presence).compact.join(' ')
+    end
+
+    def last_name_and_suffix
+      [@last_name, @suffix].map(&:presence).compact.join(' ')
     end
 
     def has_itin?

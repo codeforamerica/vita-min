@@ -6,7 +6,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
-    Flipper.enable :sms_notifications
   end
 
   context "NY", :flow_explorer_screenshot, js: true do
@@ -19,15 +18,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_eligibility_screener(us_state: "ny")
 
-      step_through_initial_authentication(contact_preference: :text_message)
+      step_through_initial_authentication(contact_preference: :email)
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer
-
-      intake = StateFileNyIntake.last
-      intake = []
 
       # name dob page
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
@@ -99,7 +95,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
       fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "New York", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "11102", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "270293117"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in 'state_file1099_g_unemployment_compensation', with: "123"
       fill_in 'state_file1099_g_federal_income_tax_withheld', with: "456"

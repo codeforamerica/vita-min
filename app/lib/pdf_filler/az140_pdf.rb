@@ -16,10 +16,10 @@ module PdfFiller
     def hash_for_pdf
       answers = {
         "1a" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '),
-        "1b" => @xml_document.at('Primary TaxpayerName LastName')&.text,
+        "1b" => [@xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
         "1c" => @xml_document.at('Primary TaxpayerSSN')&.text,
         "1d" => spouse_first_name,
-        "1e" => @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        "1e" => [@xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
         "1f" => @xml_document.at('Secondary TaxpayerSSN')&.text,
         "2a" => @xml_document.at("USAddress AddressLine1Txt")&.text,
         "2c" => @xml_document.at("USPhone")&.text,

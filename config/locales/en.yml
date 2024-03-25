@@ -179,6 +179,7 @@ en:
         invalid: 'Only letters, numbers, parentheses, hyphen, apostrophe, and # are accepted.'
       payer_tin:
         invalid: EIN must be a 9-digit number. Do not include a dash.
+      payer_tin_ny_invalid: The number entered is not an accepted TIN by New York State.
       phone_number:
         invalid: Please enter a valid phone number.
       phone_number_confirmation:
@@ -222,6 +223,7 @@ en:
     messages:
       blank: Can't be blank.
       invalid: is invalid
+      only_letters: Only letters are accepted
       whole_number: must be a whole number
   forms:
     errors:
@@ -484,6 +486,7 @@ en:
     none_of_these: None of these
     not_at_all: Not at all
     not_well: Not well
+    one_intake_at_a_time: It looks like you already have a state tax submission in progress. Please sign into your existing account to continue.
     online: Online
     oops: Oops!
     open: Open
@@ -539,6 +542,7 @@ en:
     sms_phone_number: Cell phone number
     sorry: We're sorry!
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
+    spread_the_word_html: Help a friend or family member file their taxes for free by letting them know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a>
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Start filing
@@ -1617,6 +1621,36 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      still_processing:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+      survey_notification:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went?
+
+            Take our 5 minute survey here: %{survey_link}
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Your feedback on FileYourStateTaxes
+        sms: |
+          Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
+
+          Best,
+          The FileYourStateTaxes team
       welcome:
         email:
           body: |
@@ -2258,6 +2292,7 @@ en:
           title: Enter your email address
       esign_declaration:
         edit:
+          already_submitted: You have already submitted your return.
           az:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
@@ -2286,24 +2321,34 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This usually takes 3 minutes or less.
+          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
           already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
+          help_text_html: |
+            <b>What you’ll need to get started</b>
+            <br>
+            <ul class="list--bulleted">
+              <li>Email address or phone number
+              <li>Driver’s license or state-issued ID
+              <li>If you received unemployment benefits in 2023, you’ll need Form 1099-G
+              <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
+              <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
+            </ul>
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dependent_name_dob: Please tell us your dependent’s date of birth
-          last_name: Last name (If you have a suffix, enter it here with your last name. E.g. Smith Jr)
+          last_name: Last name
           middle_initial: Middle initial
           months_helper_born_died: Select 12 months if the dependent was born or died during 2023.
           months_helper_description: Count any months the dependent lived in your home, as well as any months the dependent was temporarily absent due to being away at school, in a hospital or medical facility, or away on business or vacation.
@@ -2313,6 +2358,7 @@ en:
           spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith Jr)
           spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
+          suffix: Suffix
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
@@ -2372,7 +2418,7 @@ en:
           calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
           enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
           select_one: 'Select one of the following:'
-          subtitle: For example, online purchases with no sales tax applied.
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
@@ -2393,29 +2439,7 @@ en:
           title_html: It looks like you gave permission for the IRS to discuss your federal tax return with %{name}.<br /><br /> Would you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?
       ny_w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Employer’s State ID number<br />
-            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
-          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
-          box17_html: "<strong>Box 17</strong>: State income tax"
-          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
-          box19_html: "<strong>Box 19</strong>: Local income tax"
-          box20_locality_name: "<strong>Box 20</strong>: Locality name"
-          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
-          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
-          local_income_tax_amt_error: Cannot be greater than local wages and tips.
-          local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_error: Please type in “NYC” if the locality name on your W-2 is New York City or any of the five boroughs.
-          locality_nm_missing_error: Please select locality name
-          state_income_tax_amt_error: Cannot be greater than State wages and tips.
-          state_wages_amt_error: Please enter State wages and tips
-          w2s_error: Update W-2s before continuing.
-          wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-        index:
-          title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
-          updated: You've updated this W-2
-          w2_for: 'W-2 for: %{employer_name}'
-          wages_amount: 'Total wages amount: $%{wages_amount}'
       nyc_residency:
         edit:
           full_year:
@@ -2625,6 +2649,31 @@ en:
           subtitle_html: We’ve sent your code to <strong>%{contact_info}</strong>.
           title: Enter the code to continue
           verification_code_label: Enter the 6-digit code
+      w2:
+        edit:
+          box15_html: |
+            <strong>Box 15</strong>: Employer’s State ID number<br />
+            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
+          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
+          box17_html: "<strong>Box 17</strong>: State income tax"
+          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
+          box19_html: "<strong>Box 19</strong>: Local income tax"
+          box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          employer_state_id_error: EIN must be a number. Do not include a dash.
+          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
+          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+          local_income_tax_amt_error: Cannot be greater than local wages and tips.
+          local_wages_and_tips_amt_error: Please enter local wages and tips
+          locality_nm_missing_error: Please select locality name
+          state_income_tax_amt_error: Cannot be greater than State wages and tips.
+          state_wages_amt_error: Please enter State wages and tips
+          w2s_error: Update W-2s before continuing.
+          wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
+        index:
+          title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
+          updated: You've updated this W-2
+          w2_for: 'W-2 for: %{employer_name}'
+          wages_amount: 'Total wages amount: $%{wages_amount}'
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
@@ -5055,7 +5104,7 @@ en:
           partner_review: Your tax preparer at %{partner_name} will review your information
           partner_timing: "%{partner_name} will reach out within 3 business days to talk about your taxes"
           review: Your tax preparer will review your information
-          timing: Your tax preparer will reach out within 3 business days to talk about your taxes
+          timing: Your tax preparer will reach out within 5 business days to talk about your taxes
         satisfaction_face:
           negative: Not good
           neutral: Ok
@@ -5171,12 +5220,8 @@ en:
         progress_text: 'Intake progress:'
       service_comparison:
         additional_benefits: Additional benefits
-        all_tax_credits: All tax credits
-        always_free: All services are free to households that qualify.
+        all_services: All services provide email support and are available in English and Spanish.
         chat_support: Chat support
-        child_tax_credit: Child Tax Credit
-        credits_and_payments: Credits and payments
-        earned_income_tax_credit: Earned Income Tax Credit
         filing_years:
           title: 'Filing years:'
         id_documents:
@@ -5186,12 +5231,19 @@ en:
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
+          direct_file: Most filers under $200,000
           diy: under $79,000
           full_service: under $66,000
           title: 'Income limit:'
         itin_assistance: ITIN application assistance
+        mobile_friendly: Mobile-friendly
         required_information: Required information
+        select_service_html: "<i>Please select the option you're interested in to learn more about the full list of requirements.</i>"
         services:
+          direct_file:
+            cta: Choose Direct File
+            service_description: File quickly on your own directly with the IRS.
+            service_name: IRS Direct File
           diy:
             cta: Choose File Myself
             service_description: File quickly on your own for %{year}.
@@ -5202,13 +5254,18 @@ en:
             service_description: File for multiple years with an IRS-certified tax preparer.
             service_name: GetYourRefund
             service_name_short: GYR
-        state_credits: Additional State Tax Credits
         still_need_help: Still need help selecting the best service?
-        stimulus_payments: Stimulus Payments
-        support_via_gyr: available through GetYourRefund
         tax_documents:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
+        tax_payer_residency:
+          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming.
+          diy: Available to residents of all states, Puerto Rico, and non-residents.
+          full_service_html: |
+            Available to residents of all states.<br>
+            <br>
+            Limited availability for non-residents and Puerto Rico residents
+          title: Tax Payer Residency
         time_to_file:
           diy: 45 minutes
           full_service: 2-3 weeks

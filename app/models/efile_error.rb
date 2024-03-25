@@ -2,18 +2,19 @@
 #
 # Table name: efile_errors
 #
-#  id           :bigint           not null, primary key
-#  auto_cancel  :boolean          default(FALSE)
-#  auto_wait    :boolean          default(FALSE)
-#  category     :string
-#  code         :string
-#  expose       :boolean          default(FALSE)
-#  message      :text
-#  service_type :integer          default("unfilled"), not null
-#  severity     :string
-#  source       :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :bigint           not null, primary key
+#  auto_cancel     :boolean          default(FALSE)
+#  auto_wait       :boolean          default(FALSE)
+#  category        :string
+#  code            :string
+#  correction_path :string
+#  expose          :boolean          default(FALSE)
+#  message         :text
+#  service_type    :integer          default("unfilled"), not null
+#  severity        :string
+#  source          :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 class EfileError < ApplicationRecord
   has_rich_text :description_en
@@ -47,4 +48,28 @@ class EfileError < ApplicationRecord
       resolution_es.present? ? resolution_es : resolution_en
     end
   end
+
+  def self.path_to_controller(path)
+    "StateFile::Questions::#{path.gsub("-", "_").camelize}Controller".constantize
+  end
+
+  def self.controller_to_path(controller)
+    controller.name.split("::")[-1][0..-11].underscore.gsub("_", "-")
+  end
+
+  def self.default_controller
+    StateFile::Questions::NameDobController
+  end
+
+  def self.paths
+    paths = Set.new
+    StateFileBaseIntake::STATE_CODES.each do |state_code|
+      navigation = "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+      navigation.controllers.each do |controller|
+        paths << EfileError.controller_to_path(controller)
+      end
+    end
+    paths.to_a.sort
+  end
+
 end

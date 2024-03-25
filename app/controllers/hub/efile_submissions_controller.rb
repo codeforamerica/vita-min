@@ -41,7 +41,7 @@ module Hub
 
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:failed, { initiated_by_id: current_user.id })
-      flash[:notice] = "Transition to failed (for testing purpose only)"
+      flash[:notice] = "Transitioned to failed (for testing purpose only)"
       redirect_after_action
     end
 
@@ -49,6 +49,15 @@ module Hub
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:cancelled, { initiated_by_id: current_user.id })
       flash[:notice] = "Submission cancelled, tax return marked 'Not filing'."
+      redirect_after_action
+    end
+
+    def reject
+      return if Rails.env.production?
+
+      authorize! :update, @efile_submission
+      @efile_submission.transition_to!(:rejected, error_code: EfileError.where(service_type: :state_file).last.code)
+      flash[:notice] = "Transitioned to rejected (for testing purpose only)"
       redirect_after_action
     end
 
