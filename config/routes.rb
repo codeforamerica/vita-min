@@ -579,6 +579,7 @@ Rails.application.routes.draw do
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
 
         match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+        match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
