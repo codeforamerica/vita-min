@@ -73,9 +73,6 @@ class StateFileW2 < ApplicationRecord
     end
     w2 = state_file_intake.direct_file_data.w2s[w2_index]
     if w2.present?
-      if state_wages_amt.present? && state_wages_amt > w2.WagesAmt
-        errors.add(:state_wages_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
-      end
       if local_wages_and_tips_amt.present? && local_wages_and_tips_amt > w2.WagesAmt
         errors.add(:local_wages_and_tips_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
       end
