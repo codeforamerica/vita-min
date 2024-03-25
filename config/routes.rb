@@ -211,6 +211,7 @@ Rails.application.routes.draw do
         resources :efile_submissions, path: "efile", only: [:index, :show] do
           patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
           patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
+          patch '/reject', to: 'efile_submissions#reject', on: :member, as: :reject
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/notify_of_rejection', to: 'efile_submissions#notify_of_rejection', on: :member, as: :notify_of_rejection

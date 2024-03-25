@@ -22,26 +22,26 @@
       <%= @error.description(I18n.locale).present? ? @error.description(I18n.locale) : @error.message %>
     </section>
   <% end %>
-<% end %>
 
-<% if @reject_description.present? %>
-  <section class="spacing-below-15">
-    <strong><%= t('.reject_desc') %></strong>
-    <%= @reject_description %>
-  </section>
+  <% if @error&.resolution(I18n.locale)&.present? && !(@error&.auto_cancel || @error&.auto_wait) %>
+    <section class="spacing-below-15">
+      <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
+      <%= @error.resolution(I18n.locale) %>
+    </section>
+  <% end %>
 <% end %>
 
 <% if @error&.auto_cancel %>
   <section class="spacing-below-15">
     <p class="spacing-below-5"><strong><%= t('.next_steps.no_edit.title') %></strong></p>
-    <%= t('.next_steps.no_edit.body_html') %>
+    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.no_edit.body_html') %>
   </section>
 <% end %>
 
 <% if @error&.auto_wait %>
   <section class="spacing-below-15">
     <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
-    <%= @error.resolution(I18n.locale).present? && @error.expose ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
+    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
   </section>
 
   <section>
