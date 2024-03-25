@@ -3,7 +3,7 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <div class="blue-group">
       <%= f.cfa_radio_set(
             :eligibility_withdrew_529,

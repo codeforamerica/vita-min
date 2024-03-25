@@ -1,7 +1,7 @@
 <% title = t(".title") %>
 <% content_for :page_title, title %>
 <% content_for :card do %>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <h1 class="h2" id="main-question"><%= title %></h1>
     <p><%= t(".subtitle_html", contact_info: @contact_info) %></p>
     <div class="blue-group">

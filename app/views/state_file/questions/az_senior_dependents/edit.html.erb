@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: QuestionsFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
         <div class="blue-group">
           <%= ff.cfa_radio_set(

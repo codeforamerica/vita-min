@@ -6,7 +6,7 @@
   <h1 class="h2"><%= title %></h1>
   <p class="subtitle"><%= t(".subtitle") %></p>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <div class="blue-group">
       <%= f.cfa_radio_set(
             :eligibility_lived_in_state,

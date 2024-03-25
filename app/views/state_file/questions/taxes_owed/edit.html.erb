@@ -4,7 +4,7 @@
     <%= t(".title_html", owed_amount: taxes_owed, state_name: state_name) %>
   </h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question blue-group">
         <%= f.cfa_radio_set(

@@ -3,7 +3,7 @@
 
 <% content_for :card do %>
   <h1 class="form-question"><%= title %></h1>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <p>The following information is about the residence that qualifies you for the credit</p>
     <%= f.cfa_input_field :ny_mailing_street, "street" %>

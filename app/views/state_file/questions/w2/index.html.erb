@@ -25,7 +25,7 @@
     </div>
   <% end %>
 
-  <%= form_with model: @w2, url: { action: :create }, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <%= form_with model: @w2, url: { action: :create }, method: :post, local: true, builder: QuestionsFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>

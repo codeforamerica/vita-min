@@ -5,7 +5,7 @@
 
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
-  <%= form_with model: @state_file1099_g, url: { action: @state_file1099_g.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <%= form_with model: @state_file1099_g, url: { action: @state_file1099_g.persisted? ? :update : :create }, local: true, builder: QuestionsFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>

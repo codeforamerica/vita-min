@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <div class="blue-group">
       <%= f.vita_min_state_file_select(
             :school_district_id ,

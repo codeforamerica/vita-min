@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <div class="blue-group">
     <%= f.cfa_input_field(:email_address, t(".email_address_label"), classes: ["form-width--long"]) %>
     </div>

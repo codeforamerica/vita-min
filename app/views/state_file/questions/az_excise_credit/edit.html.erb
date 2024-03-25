@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
     <div class="blue-group">
       <%= f.cfa_radio_set(:was_incarcerated, label_text: t(".was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year, count: current_intake.filer_count), collection: [
         { value: "yes", label: t("general.affirmative") },

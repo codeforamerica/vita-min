@@ -1,4 +1,4 @@
-<%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+<%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
   <% if params[:return_to_review].present? %>
     <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
   <% end %>
