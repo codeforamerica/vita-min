@@ -224,6 +224,7 @@ es:
     messages:
       blank: No puede estar en blanco.
       invalid: es invalido
+      only_letters: Sólo se aceptan cartas
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -487,6 +488,7 @@ es:
     none_of_these: Ninguno de éstos
     not_at_all: De ningún modo
     not_well: No muy bien
+    one_intake_at_a_time: Parece que ya tiene una presentación de impuestos estatales en progreso. Inicie sesión en su cuenta existente para continuar.
     online: Firma electrónica
     oops: "¡Oye!"
     open: Abrir
@@ -2295,7 +2297,7 @@ es:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
           dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
-          last_name: Apellido (Si tienes un sufijo, ingrésalo aquí junto con tu apellido. Por ejemplo, Smith, Jr)
+          last_name: Apellido
           middle_initial: Inicial del segundo nombre
           months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
           months_helper_description: Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones.
@@ -2305,6 +2307,7 @@ es:
           spouse_last_name: Apellido (Si tu cónyuge tiene un sufijo, ingrésalo aquí junto con su apellido. Por ejemplo, Smith, Jr)
           spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
           spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
+          suffix: Sufijo
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
           your_dob: Tu fecha de nacimiento
@@ -2373,7 +2376,7 @@ es:
           calculated_use_tax: Ingresa el impuesto de uso calculado. (Redondea al número entero más cercano.)
           enter_valid_dollar_amount: Ingresa una cantidad en dólares entre 0 y 1699.
           select_one: 'Selecciona una de las siguientes opciones:'
-          subtitle: Por ejemplo, compras en línea sin aplicar impuestos de venta.
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso.
           title:
             many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
             one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
@@ -2620,6 +2623,7 @@ es:
           box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
+          employer_state_id_error: El EIN debe ser un número. No incluya un guión.
           instructions_1: Necesitamos un poco más de información sobre la información de impuestos estatales y locales en tu W-2 de %{employer_name}por %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
@@ -2667,9 +2671,9 @@ es:
         privacy_policy: Política de Privacidad
         state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
       login_options:
-        email_signin: Iniciar sesión con correo electrónico
+        email_signin: Iniciar sesión con email
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
-        phone_number_signin: Iniciar sesión con número de teléfono
+        phone_number_signin: Iniciar sesión con el teléfono
         title: Iniciar sesión en FileYourStateTaxes
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.

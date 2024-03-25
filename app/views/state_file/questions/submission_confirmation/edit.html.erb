@@ -6,7 +6,11 @@
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
-  <%= image_tag("icons/check.svg", alt: "") %>
+  <div class='return-status'>
+    <p>
+      <%= image_tag("icons/check.svg", alt: "") %>
+    </p>
+  </div>
 
   <h1 class="h2"><%= title %></h1>
 

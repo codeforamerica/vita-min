@@ -7,7 +7,14 @@ module Hub::StateFile
       @efile_errors = @efile_errors.where.not(service_type: "ctc").order(:source, :code)
     end
 
-    def edit; end
+    def edit
+      @correction_path_options_for_select = EfileError.paths
+      unless @efile_error.correction_path.present?
+        @efile_error.correction_path = EfileError.controller_to_path(
+          EfileError.default_controller
+        )
+      end
+    end
 
     def show; end
 
@@ -34,7 +41,7 @@ module Hub::StateFile
     end
 
     def permitted_params
-      params.require(:efile_error).permit(:expose, :auto_cancel, :auto_wait, :description_en, :description_es, :resolution_en, :resolution_es)
+      params.require(:efile_error).permit(:expose, :auto_cancel, :auto_wait, :correction_path, :description_en, :description_es, :resolution_en, :resolution_es)
     end
   end
 end

@@ -38,7 +38,7 @@ class StateFileW2 < ApplicationRecord
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/ }, length: {maximum: 16}
+  validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
   validates_numericality_of :state_wages_amt, only_integer: true, message: :whole_number, if: -> { state_wages_amt.present? }
   validates :state_wages_amt, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amt.present? }
   validates_numericality_of :state_income_tax_amt, only_integer: true, message: :whole_number, if: -> { state_income_tax_amt.present? }
@@ -49,7 +49,7 @@ class StateFileW2 < ApplicationRecord
   validates :local_income_tax_amt, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_income_tax_amt.present? }
   validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amt.present? && local_wages_and_tips_amt.positive? }
   validates :employer_state_id_num, presence: true, if: -> { state_wages_amt.present? && state_wages_amt.positive? }
-  validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/ }, if: -> { locality_nm.present? }
+  validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/, message: :only_letters }, if: -> { locality_nm.present? }
   validate :validate_tax_amts
   validate :state_specific_validation
   before_validation :locality_nm_to_upper_case
@@ -73,9 +73,6 @@ class StateFileW2 < ApplicationRecord
     end
     w2 = state_file_intake.direct_file_data.w2s[w2_index]
     if w2.present?
-      if state_wages_amt.present? && state_wages_amt > w2.WagesAmt
-        errors.add(:state_wages_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
-      end
       if local_wages_and_tips_amt.present? && local_wages_and_tips_amt > w2.WagesAmt
         errors.add(:local_wages_and_tips_amt, I18n.t("errors.messages.less_than_or_equal_to", count: w2.WagesAmt))
       end

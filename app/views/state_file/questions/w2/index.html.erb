@@ -20,12 +20,15 @@
         </div>
       </div>
       <div>
-        <%= link_to t("general.update"), StateFile::Questions::W2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index), class: "button--small button--inline-action" %>
+        <%= link_to t("general.update"), StateFile::Questions::W2Controller.to_path_helper(us_state: params[:us_state], action: :edit, id: w2.w2_index, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
       </div>
     </div>
   <% end %>
 
   <%= form_with model: @w2, url: { action: :create }, method: :post, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
     <%= f.continue %>
     <% if @errors_present %>
       <span class="text--error" id="state_file_w2_local_income_tax_amt__errors">

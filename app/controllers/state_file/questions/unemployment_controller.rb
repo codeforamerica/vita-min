@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class UnemploymentController < AuthenticatedQuestionsController
+      include ReturnToReviewConcern
       include OtherOptionsLinksConcern
       before_action :load_faq_link, only: [:new, :edit]
 
@@ -34,12 +35,12 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_to action: :index
+          return redirect_to action: :index, return_to_review: params[:return_to_review]
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index
+          redirect_to action: :index, return_to_review: params[:return_to_review]
         else
           render :edit
         end
@@ -53,7 +54,7 @@ module StateFile
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index
+          redirect_to action: :index, return_to_review: params[:return_to_review]
         else
           render :new
         end
@@ -64,7 +65,7 @@ module StateFile
         if @state_file1099_g.destroy
           flash[:notice] = I18n.t("state_file.questions.unemployment.destroy.removed", name: @state_file1099_g.recipient_name)
         end
-        redirect_to action: :index
+        redirect_to action: :index, return_to_review: params[:return_to_review]
       end
 
       private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_172226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -791,6 +791,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.boolean "auto_wait", default: false
     t.string "category"
     t.string "code"
+    t.string "correction_path"
     t.datetime "created_at", null: false
     t.boolean "expose", default: false
     t.text "message"
@@ -1656,6 +1657,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.bigint "primary_state_id_id"
+    t.string "primary_suffix"
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
     t.string "referrer"
@@ -1669,6 +1671,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.bigint "spouse_state_id_id"
+    t.string "spouse_suffix"
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
@@ -1797,6 +1800,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "primary_middle_initial"
     t.string "primary_signature"
     t.bigint "primary_state_id_id"
+    t.string "primary_suffix"
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
@@ -1818,6 +1822,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_232948) do
     t.string "spouse_middle_initial"
     t.string "spouse_signature"
     t.bigint "spouse_state_id_id"
+    t.string "spouse_suffix"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false

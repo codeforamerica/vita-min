@@ -82,7 +82,6 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(response).to redirect_to "/en/ny/questions/w2/0/edit"
       end
     end
-
   end
 
   describe "#update" do
@@ -98,7 +97,7 @@ RSpec.describe StateFile::Questions::W2Controller do
     context "with valid params" do
       let(:params) do
         {
-          us_state: :ny,
+          us_state: "ny",
           id: 1,
           state_file_w2: {
             employer_state_id_num: "12345",
@@ -109,6 +108,24 @@ RSpec.describe StateFile::Questions::W2Controller do
             locality_nm: "NYC"
           }
         }
+      end
+
+      context "when the client got here from the review flow" do
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1 }
+        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+
+        # can't use shared example here because it's written for the default update in QuestionsController
+        it "keeps the redirect parameter" do
+          post :update, params: params.merge(return_to_review: "y")
+
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index, return_to_review: :y))
+        end
+
+        it "redirects to the review page" do
+          post :create, params: params.merge(return_to_review: "y")
+
+          expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper(us_state: :ny, action: :edit))
+        end
       end
 
       context "with existing w2" do
@@ -193,20 +210,24 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       context "with a single invalid w2" do
-
         let(:direct_file_xml) do
           xml = super()
           xml.at("IRSW2").remove
           xml
         end
-
         let(:params) do
           super().merge({id: 0})
         end
 
-        it "redirects to the edit page" do
+        it "redirects to the next page in the flow" do
           post :update, params: params
           expect(response).to redirect_to "/en/ny/questions/ny-sales-use-tax"
+        end
+
+        context "when the client got here from the review flow" do
+          it_behaves_like :return_to_review_concern do
+            let(:form_params) { params }
+          end
         end
       end
     end
