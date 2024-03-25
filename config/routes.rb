@@ -211,6 +211,7 @@ Rails.application.routes.draw do
         resources :efile_submissions, path: "efile", only: [:index, :show] do
           patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
           patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
+          patch '/reject', to: 'efile_submissions#reject', on: :member, as: :reject
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/notify_of_rejection', to: 'efile_submissions#notify_of_rejection', on: :member, as: :notify_of_rejection
@@ -579,6 +580,7 @@ Rails.application.routes.draw do
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
 
         match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+        match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 

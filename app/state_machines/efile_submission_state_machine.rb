@@ -30,7 +30,7 @@ class EfileSubmissionStateMachine
   transition from: :queued,                to: [:transmitted, :failed]
   transition from: :transmitted,           to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted, :notified_of_rejection]
   transition from: :ready_for_ack,         to: [:accepted, :rejected, :failed, :ready_for_ack, :notified_of_rejection]
-  transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :rejected]
   transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :notified_of_rejection]
   transition from: :notified_of_rejection, to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :investigating,         to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
@@ -44,6 +44,11 @@ class EfileSubmissionStateMachine
 
   guard_transition(to: :bundling) do |submission|
     submission.is_for_state_filing? || submission.fraud_score.present?
+  end
+
+  guard_transition(from: :failed, to: :rejected) do |_submission|
+    # we need this for testing since submissions will fail on bundle in heroku and staging
+    !Rails.env.production?
   end
 
   after_transition(to: :preparing) do |submission|
