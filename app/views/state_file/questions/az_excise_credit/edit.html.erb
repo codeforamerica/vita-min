@@ -29,10 +29,18 @@
     </div>
 
     <div class="blue-group">
-      <%= f.cfa_radio_set(:household_excise_credit_claimed, label_text: t(".household_excise_credit_html"), collection: [
-        { value: "yes", label: t("general.affirmative") },
-        { value: "no", label: t("general.negative") },
-      ]) %>
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <%= f.cfa_radio_set(:household_excise_credit_claimed, label_text: t(".household_excise_credit_html"), collection: [
+            { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#credit-amt" } },
+            { value: "no", label: t("general.negative") },
+          ]) %>
+        </div>
+
+        <div class="question-with-follow-up__follow-up" id="credit-amt">
+          <%= f.cfa_input_field(:household_excise_credit_claimed_amt, t(".household_excise_credit_claimed_amt"), classes: ["form-width--long"]) %>
+        </div>
+      </div>
     </div>
 
     <% if params[:return_to_review].present? %>
