@@ -1,7 +1,7 @@
 module SurveyMessages
   class GyrCompletionSurvey
     SENT_AT_COLUMN = :completion_survey_sent_at
-    RELEVANT_STATES = %w[file_accepted file_rejected file_not_filing file_mailed]
+    RELEVANT_STATES = %w[file_accepted file_mailed]
 
     def self.clients_to_survey(now)
       Client.includes(:intake, tax_returns: :tax_return_transitions)
@@ -32,7 +32,7 @@ module SurveyMessages
     end
 
     def self.survey_link(client)
-      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_8iUfPTODxeBNogK?ExternalDataReference=#{client.id}"
+      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0Gu4MGVVAM8p1NY?ExternalDataReference=#{client.id}"
     end
 
     def sms_body(**args)
