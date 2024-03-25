@@ -380,7 +380,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def current_intake_input
     # A hidden element containing the identified for the current_intake
     return "" unless @object.respond_to?(:intake) && @object.intake && @object.intake.id
-    @template.hidden_field_tag(:current_intake, @object.intake.to_global_id)
+    @template.hidden_field_tag(:current_intake, @object.intake.to_signed_global_id)
   end
 
 end

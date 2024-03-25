@@ -54,7 +54,7 @@ module StateFile
 
       def redirect_if_intake_mismatch
         if params[:current_intake].present?
-          if current_intake&.persisted? && current_intake.to_global_id.to_s != params[:current_intake]
+          if current_intake&.persisted? && current_intake.to_signed_global_id.to_s != params[:current_intake]
             flash[:alert] = I18n.t("general.one_intake_at_a_time")
             redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code)
           end
