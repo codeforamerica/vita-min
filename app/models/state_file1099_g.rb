@@ -37,7 +37,7 @@ class StateFile1099G < ApplicationRecord
   enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
-  validates :payer_name, :presence => {:message => I18n.t("errors.attributes.payer_name.blank") }, format: { with: /\A(([A-Za-z0-9#\\(\\)-]|&|'|\\s)*([A-Za-z0-9#\\(\\)-]|&))\z/.freeze, message: I18n.t("errors.attributes.payer_name.invalid")}
+  validates :payer_name, :presence => {:message => I18n.t("errors.attributes.payer_name.blank") }, format: { with: /\A([A-Za-z0-9#&'() -]*[A-Za-z0-9#&'()])?\z/.freeze, message: I18n.t("errors.attributes.payer_name.invalid")}
   validates :payer_street_address, :presence => {:message => I18n.t("errors.attributes.address.street_address.blank") }, format: { with: /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: I18n.t("errors.attributes.address.street_address.invalid")}
   validates :payer_city, :presence => {:message => I18n.t("errors.attributes.address.city.blank")}, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: I18n.t("errors.attributes.address.city.invalid")}
   validates :payer_zip, zip_code: true
