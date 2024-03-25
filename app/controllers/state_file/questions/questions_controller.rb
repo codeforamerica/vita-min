@@ -53,8 +53,11 @@ module StateFile
       end
 
       def redirect_if_intake_mismatch
-        if params[:current_intake].present?
-          if current_intake&.persisted? && current_intake.to_signed_global_id.to_s != params[:current_intake]
+        current_intake_id = params[:current_intake]
+        if current_intake_id.present?
+          signed_global_id = SignedGlobalID.parse(current_intake_id)
+          global_id_uri = signed_global_id.uri
+          if current_intake&.persisted? && current_intake.to_global_id.uri != global_id_uri
             flash[:alert] = I18n.t("general.one_intake_at_a_time")
             redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code)
           end
