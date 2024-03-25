@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_03_19_172226) do
-  create_schema "analytics"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
