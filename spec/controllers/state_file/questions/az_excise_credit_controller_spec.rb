@@ -136,9 +136,8 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
       it "shows fields for primary filer only" do
         get :edit, params: { us_state: "az" }
 
-        # TODO: replace with i18n keys
-        expect(response.body).to have_text "Were you incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
-        expect(response.body).not_to have_text "Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
+        expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
+        expect(response.body).not_to have_text I18n.t("state_file.questions.az_excise_credit.edit.spouse_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
       end
     end
 
@@ -151,9 +150,8 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
       it "shows fields for primary and spouse" do
         get :edit, params: { us_state: "az" }
 
-        # TODO: replace with i18n keys
-        expect(response.body).to have_text "Were you incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
-        expect(response.body).to have_text "Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in 2023?"
+        expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
+        expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.spouse_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
       end
     end
   end

@@ -4,6 +4,7 @@ RSpec.describe StateFile::AzExciseCreditForm do
   let!(:intake) { create :state_file_az_intake }
 
   describe "#valid?" do
+    # TODO: remove this once old column is removed
     context "TEMPORARY" do
       it "accepts old params" do
         form = described_class.new(intake, {
