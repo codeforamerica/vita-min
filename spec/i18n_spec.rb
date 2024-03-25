@@ -101,6 +101,8 @@ RSpec.describe I18n do
   end
 
   it "should not pass pre internationalized strings as messages" do
+    # creating a validation with a message that is pre-internationalized is a mistake.
+    # It means you can get English messages for Spanish users and vice versa
     invalid_file = Dir.glob('app/models/*.rb').detect do |f|
       File.open(f) do |file|
         file.find { |line| line.include?("message: I18n") || line.include?("message => I18n") }.present?
