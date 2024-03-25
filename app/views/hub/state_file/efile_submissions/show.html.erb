@@ -82,6 +82,16 @@
                         class: "button button--danger button--small") %>
           </div>
         <% end %>
+
+        <% if @efile_submission.can_transition_to?(:rejected) && !Rails.env.production? %>
+          <div style="margin-left: 10px">
+            <%= link_to("Rejected",
+                        reject_hub_efile_submission_path(id: @efile_submission.id),
+                        method: :patch,
+                        data: { confirm: "Are you sure you want to mark this tax return submission as 'Rejected'?" },
+                        class: "button button--danger button--small") %>
+          </div>
+        <% end %>
       </div>
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
