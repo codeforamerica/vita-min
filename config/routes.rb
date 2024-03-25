@@ -577,8 +577,6 @@ Rails.application.routes.draw do
         get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
-
-        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
@@ -601,6 +599,12 @@ Rails.application.routes.draw do
         resources :flows, only: [:index, :show] do
           post :generate, on: :collection
         end
+      end
+
+      # The weird URLs here are because of what we gave to DirectFile. Maybe we can fix this next season?
+      namespace :state_file, path: "state_file/questions" do
+        get "/pending-federal-return", to: "state_file_pages#pending_federal_return"
+        get "/pending_federal_return", to: "state_file_pages#pending_federal_return"
       end
     end
 

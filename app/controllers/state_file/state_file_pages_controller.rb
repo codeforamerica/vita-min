@@ -34,6 +34,8 @@ module StateFile
 
     def login_options; end
 
+    def pending_federal_return; end
+
     private
 
     def transfer_url(key, redirect_url)

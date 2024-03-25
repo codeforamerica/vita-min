@@ -2419,12 +2419,6 @@ es:
             one: Viví en la ciudad de Nueva York durante parte del año
             other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
-      pending_federal_return:
-        edit:
-          title_html: |
-            Lamentamos hacerte esperar. Tu declaración federal debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales.
-            <br/><br/>
-            Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada con un enlace para traerte de vuelta aquí.
       phone_number:
         edit:
           action: Enviar el código
@@ -2675,6 +2669,11 @@ es:
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
         phone_number_signin: Iniciar sesión con el teléfono
         title: Iniciar sesión en FileYourStateTaxes
+      pending_federal_return:
+        title_html: |
+          Lamentamos hacerte esperar. Tu declaración federal debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales.
+          <br/><br/>
+          Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada con un enlace para traerte de vuelta aquí.
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Ten en cuenta que para la información personal sobre ti que hemos obtenido o recibido para procesar en nombre de una entidad separada y no afiliada, que determinó los medios y fines del procesamiento, todas esas solicitudes deben hacerse directamente a esa entidad. Honraremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a tu información personal.

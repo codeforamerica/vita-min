@@ -2438,12 +2438,6 @@ en:
             one: I lived in New York City for some of the year
             other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
           title: 'Select your New York City residency status during %{year}:'
-      pending_federal_return:
-        edit:
-          title_html: |
-            We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
-            <br/><br/>
-            You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
       phone_number:
         edit:
           action: Send code
@@ -2693,6 +2687,11 @@ en:
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
         phone_number_signin: Sign in with phone number
         title: Sign in to FileYourStateTaxes
+      pending_federal_return:
+        title_html: |
+          We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
+          <br/><br/>
+          You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.

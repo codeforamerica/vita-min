@@ -1,0 +1,14 @@
+<% title = t(".title_html") %>
+<% content_for :page_title, title %>
+
+<section class="slab slab--white slab--not-padded question-layout">
+  <div class="grid">
+    <div class="grid__item one-half">
+      <h1 class="h2" id="main-question"><%= title %></h1>
+
+      <div class="big-illustration spacing-above-35">
+        <%= image_tag "state-file-big-logo.svg", alt: "" %>
+      </div>
+    </div>
+  </div>
+</section>
