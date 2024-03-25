@@ -44,7 +44,7 @@
   <%=
     link_to(
       "See page for pending federal return",
-      StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code),
+      StateFile::StateFilePagesController.to_path_helper(action: :pending_federal_return)
     )
   %>
 
