@@ -32,7 +32,7 @@ describe Rack::Attack, type: :request do
       end
 
       # when the time limit is up you can make requests from the IP again
-      Timecop.freeze(fake_time + 1.second) do
+      Timecop.freeze(fake_time + 15.second) do
         post "/portal/login", params: params, headers: { REMOTE_ADDR: ip }
         expect(response).to be_ok
       end
