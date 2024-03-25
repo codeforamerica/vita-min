@@ -2549,9 +2549,10 @@ es:
           direct_deposit: Depósito directo (más rápido)
           mail: Enviar mi pago por correo (más lento)
           ny_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Nueva York de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
+          page_title: Buenas noticias, recibirás un reembolso de impuestos. ¿Cómo te gustaría recibirlo?
       taxes_owed:
         edit:
-          page_title: Debes $%{owed_amount} en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
