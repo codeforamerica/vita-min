@@ -177,7 +177,7 @@ es:
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       payer_name:
         blank: Ingresa un nombre válido.
-        invalid: 'Solo se aceptan letras, números, paréntesis, apóstrofos y #.'
+        invalid: 'Solo se aceptan letras, números, paréntesis, guiones, apóstrofos y #.'
       payer_tin:
         invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guion.
       payer_tin_ny_invalid: El número ingresado no es un TIN aceptado por el estado de Nueva York.
