@@ -15,7 +15,7 @@ module SubmissionBuilder
                     xml.BusinessNameLine1Txt truncate(form1099g.payer_name.tr('-', ' '), 75)
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt truncate(form1099g.payer_street_address, 35) if form1099g.payer_street_address.present?
+                    xml.AddressLine1Txt truncate(form1099g.payer_street_address.tr('-', ' '), 35) if form1099g.payer_street_address.present?
                     xml.CityNm truncate(form1099g.payer_city, 22) if form1099g.payer_city.present?
                     xml.StateAbbreviationCd "NY"
                     xml.ZIPCd form1099g.payer_zip if form1099g.payer_zip.present?
