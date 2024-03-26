@@ -61,9 +61,6 @@ module StateFile
       end
 
       def set_last_completed_step
-        return unless %w[PUT POST].include?(request.method)
-        return unless response.status == 302
-        return unless response.headers["Location"].ends_with?(next_path)
         if should_set_last_completed?
           last_completed_step = self.class.to_path_helper({
             us_state: current_intake.state_code,
@@ -74,10 +71,13 @@ module StateFile
       end
 
       def should_set_last_completed?
+        return false unless %w[PUT POST].include?(request.method)
+        return false unless response.status == 302
+        return false unless response.headers["Location"].ends_with?(next_path)
         return true if current_intake.last_completed_step.blank?
-        completed_index = form_navigation.index_of_step(current_intake.last_completed_step)
-        current_index = form_navigation.index_of_step(self.class)
-        return completed_index < current_index
+        completed_index = question_navigator.index_of_step(current_intake.last_completed_step)
+        current_index = question_navigator.index_of_step(self.class)
+        completed_index < current_index
       end
 
       def next_step

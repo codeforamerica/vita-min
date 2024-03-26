@@ -15,7 +15,7 @@ module Navigation
       end
 
       def get_step(controller)
-        sections.lazy.map(&:steps).detect { |s| s.controller == controller }
+        sections.map(&:steps).flatten.detect { |s| s.controller == controller }
       end
 
       def number_of_steps
@@ -44,21 +44,21 @@ module Navigation
         }
       end
 
-      def can_execute_step?(controller, prev_completed_step)
-        return true if prev_completed_step.nil?
-        step = get_step(controller)
-        return !before?(step, prev_completed_step) if step.requires_completed.present?
+      def can_execute_step?(controller, last_completed_step)
+        return true if last_completed_step.nil?
+        step_ = get_step(controller)
         current_index = index_of_step(controller)
         return true if current_index.blank?
-        completed_index = index_of_step(prev_completed_step)
-        (current_index - 1) <= completed_index
-      end
-
-      def before?(a, b)
-        a = index_of_step(a)
-        b = index_of_step(b)
-        return false if a.nil? || b.nil?
-        a < b
+        require_completed_index = if step_.requires_completed.present?
+          index_of_step(step_.requires_completed)
+        else
+          current_index - 1
+        end
+        completed_index = index_of_step(last_completed_step)
+        if completed_index < require_completed_index
+          binding.pry
+        end
+        completed_index >= require_completed_index
       end
 
       def index_of_step(controller)
