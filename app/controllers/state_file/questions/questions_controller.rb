@@ -54,8 +54,8 @@ module StateFile
       end
 
       def check_last_completed_step
-        last_completed = self.class.navigation_actions.to_controller(current_intake.last_completed_step)
-        unless self.class.navigation_actions.can_execute_step?(self.class, last_completed)
+        last_completed = question_navigator.to_controller(current_intake.last_completed_step)
+        unless question_navigator.can_execute_step?(self.class, last_completed)
           redirect_to path_for_step(last_completed)
         end
       end
