@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_172226) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_26_144515) do
+  create_schema "analytics"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1642,6 +1644,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_172226) do
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
+    t.string "last_completed_step"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1768,6 +1771,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_172226) do
     t.integer "household_rent_amount"
     t.integer "household_rent_own", default: 0, null: false
     t.integer "household_ssi"
+    t.string "last_completed_step"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"

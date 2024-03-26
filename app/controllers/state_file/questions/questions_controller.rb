@@ -3,6 +3,8 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileControllerConcern
       before_action :redirect_if_no_intake
+      before_action :check_last_completed_step
+      after_action :set_last_completed_step
       helper_method :card_postscript
 
       # default layout for all state file questions
@@ -49,6 +51,33 @@ module StateFile
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
           redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: state_code)
         end
+      end
+
+      def check_last_completed_step
+        last_completed = self.class.navigation_actions.to_controller(current_intake.last_completed_step)
+        unless self.class.navigation_actions.can_execute_step?(self.class, last_completed)
+          redirect_to path_for_step(last_completed)
+        end
+      end
+
+      def set_last_completed_step
+        return unless %w[PUT POST].include?(request.method)
+        return unless response.status == 302
+        return unless response.headers["Location"].ends_with?(next_path)
+        if should_set_last_completed?
+          last_completed_step = self.class.to_path_helper({
+            us_state: current_intake.state_code,
+            action: self.class.navigation_actions.first
+          })
+          current_intake.update(last_completed_step: last_completed_step)
+        end
+      end
+
+      def should_set_last_completed?
+        return true if current_intake.last_completed_step.blank?
+        completed_index = form_navigation.index_of_step(current_intake.last_completed_step)
+        current_index = form_navigation.index_of_step(self.class)
+        return completed_index < current_index
       end
 
       def next_step
