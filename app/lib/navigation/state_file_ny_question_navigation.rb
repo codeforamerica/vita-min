@@ -47,12 +47,12 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController, true, StateFile::Questions::NyPrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NyReviewController, true, StateFile::Questions::NyPrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController, true, StateFile::Questions::NyPrimaryStateIdController),
-        Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController, true, StateFile::Questions::NyReviewController),
-        Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController, true, StateFile::Questions::NyReviewController), # creates EfileSubmission and transitions to preparing
+        Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController, true, StateFile::Questions::NyPrimaryStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController, true, StateFile::Questions::NyPrimaryStateIdController), # creates EfileSubmission and transitions to preparing
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
         Navigation::NavigationStep.new(StateFile::Questions::SubmissionConfirmationController),
-        Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController, true, StateFile::Questions::NyReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController, true, StateFile::Questions::EsignDeclarationController),
       ]),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze

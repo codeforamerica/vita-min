@@ -55,6 +55,7 @@ module Navigation
           current_index - 1
         end
         completed_index = index_of_step(last_completed_step)
+
         if completed_index < require_completed_index
           binding.pry
         end
