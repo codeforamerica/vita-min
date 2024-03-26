@@ -11,11 +11,11 @@ module SubmissionBuilder
 
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name && form1099g.payer_name != ''
-                  xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+/, '').upcase[0..3] do
-                    xml.BusinessNameLine1Txt truncate(form1099g.payer_name, 75)
+                  xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+|-/, '').upcase[0..3] do
+                    xml.BusinessNameLine1Txt truncate(form1099g.payer_name.tr('-', ' '), 75)
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt truncate(form1099g.payer_street_address, 35)
+                    xml.AddressLine1Txt truncate(form1099g.payer_street_address.tr('-', ' '), 35)
                     xml.CityNm truncate(form1099g.payer_city, 22)
                     xml.StateAbbreviationCd "AZ"
                     xml.ZIPCd form1099g.payer_zip
