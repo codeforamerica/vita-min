@@ -99,4 +99,15 @@ RSpec.describe I18n do
       @i18n.inconsistent_interpolations
     ).to be_empty, "#{@i18n.inconsistent_interpolations.leaves.count} i18n keys have inconsistent interpolations, run `i18n-tasks health` to show them"
   end
+
+  it "should not pass pre internationalized strings as messages" do
+    # creating a validation with a message that is pre-internationalized is a mistake.
+    # It means you can get English messages for Spanish users and vice versa
+    invalid_file = Dir.glob('app/models/*.rb').detect do |f|
+      File.open(f) do |file|
+        file.find { |line| line.include?("message: I18n") || line.include?("message => I18n") }.present?
+      end
+    end
+    expect(invalid_file).to be_nil
+  end
 end
