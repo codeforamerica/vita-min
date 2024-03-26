@@ -402,6 +402,17 @@ describe StateFileAzIntake do
     end
   end
 
+  # TODO: finish test
+  # describe 'incarcerated_filer_count' do
+  #   xcontext "TEMPORARY, accepts old was_incarcerated_column" do
+  #     context "primary or spouse was incarcerated" do
+  #       let(:intake) { create :state_file_az_intake, was_incarcerated: 'yes' }
+  #
+  #       it 'returns '
+  #     end
+  #   end
+  # end
+
   describe "invalid_df_w2?" do
     let(:intake) { create :state_file_az_intake }
 

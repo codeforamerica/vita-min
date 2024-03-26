@@ -170,6 +170,22 @@ class StateFileAzIntake < StateFileBaseIntake
     has_valid_ssn && has_valid_agi
   end
 
+  def incarcerated_filer_count
+    count ||= 0
+    if use_old_incarcerated_column?
+      count += 1 if was_incarcerated_yes?
+    else
+      count += 1 if primary_was_incarcerated_yes?
+      count += 1 if spouse_was_incarcerated_yes?
+    end
+
+    count
+  end
+
+  def use_old_incarcerated_column?
+    !was_incarcerated_unfilled?
+  end
+
   # maybe better to name this 'disqualified' and reverse the logic because income being too high can disqualify them too
   # could also add the income stuff to this method
   def qualified_for_excise_credit?

@@ -242,7 +242,8 @@ module Efile
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 12500
           end
 
-          wrksht_line_2 = filing_status_mfj? ? 2 : 1
+          number_of_filers = filing_status_mfj? ? 2 : 1
+          wrksht_line_2 = number_of_filers - @intake.incarcerated_filer_count
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
           return [wrksht_line_4, 100].min
         end
