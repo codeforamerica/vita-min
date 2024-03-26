@@ -6,7 +6,7 @@
 
   <p><%= t(".nyc_includes") %></p>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", data: { efile_security_information: true, form_name: "state_file_nyc_residency_form" }, builder: QuestionsFormBuilder do |f| %>
+  <%= questions_form model: @form, url: { action: :update }, local: true, method: "put", data: { efile_security_information: true, form_name: "state_file_nyc_residency_form" } do |f| %>
     <%= f.hidden_field(:device_id) %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">

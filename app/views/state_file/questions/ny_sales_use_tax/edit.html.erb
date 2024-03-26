@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle_html") %></p>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
+  <%= questions_form model: @form, url: { action: :update }, local: true, method: "put" do |f| %>
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
         <div class="blue-group">

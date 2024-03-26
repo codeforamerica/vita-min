@@ -5,7 +5,7 @@
     <%= t(".#{current_intake.state_code}_title_html", refund_amount: refund_amount) %>
   </h1>
 
-  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: QuestionsFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+  <%= questions_form model: @form, url: { action: :update }, method: :put, local: true, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="blue-group">

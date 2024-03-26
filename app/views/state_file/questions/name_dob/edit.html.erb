@@ -4,9 +4,9 @@
   <p><%= t('.title1') %></p>
   <p><%= t('.title2') %></p>
 
-  <%= form_with model: @form, url: { action: :update }, method: :put,
+  <%= questions_form model: @form, url: { action: :update }, method: :put,
                 data: { efile_security_information: true, form_name: "state_file_name_dob_form" },
-                local: true, builder: QuestionsFormBuilder, class: 'form-card' do |f| %>
+                local: true, class: 'form-card' do |f| %>
     <%= f.hidden_field(:device_id) %>
     </br>
     <div class="blue-group">

@@ -23,7 +23,7 @@
       <%= t(".help_text_html") %>
     </div>
 
-    <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
+    <%= questions_form model: @form, url: { action: :update }, local: true, method: "put" do |f| %>
       <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
     <% end %>
 

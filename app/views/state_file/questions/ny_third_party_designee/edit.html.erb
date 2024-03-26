@@ -5,7 +5,7 @@
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle") %></p>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
+  <%= questions_form model: @form, url: { action: :update }, local: true, method: "put" do |f| %>
     <div class="blue-group">
       <%= f.cfa_radio_set(
             :confirmed_third_party_designee,

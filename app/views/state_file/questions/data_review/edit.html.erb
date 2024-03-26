@@ -37,7 +37,7 @@
     <%= t(".complete_description") %>
     <%= image_tag("icons/check.svg", alt: "") %>
   </p>
-  <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_data_review_form" }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
+  <%= questions_form model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_data_review_form" }, local: true, method: "put" do |f| %>
     <%= f.hidden_field(:device_id) %>
     <%= f.continue %>
   <% end %>

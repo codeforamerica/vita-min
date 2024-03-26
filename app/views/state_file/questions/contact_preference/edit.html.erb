@@ -4,7 +4,7 @@
   <h1 class="h2" id="main-question"><%= title %></h1>
 
   <p><%= t(".subtitle") %></p>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: QuestionsFormBuilder do |f| %>
+  <%= questions_form model: @form, url: { action: :update }, local: true, method: "put" do |f| %>
     <div class="options-wrapper">
       <div class="yes-no-buttons">
         <%= f.hidden_field :locale, value: params['locale'] %>

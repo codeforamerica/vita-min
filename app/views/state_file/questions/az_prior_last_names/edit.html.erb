@@ -4,7 +4,7 @@
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle") %></p>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put",
+  <%= questions_form model: @form, url: { action: :update }, local: true, method: "put",
                 data: { efile_security_information: true, form_name: "state_file_az_prior_last_names_form" },
                 builder: QuestionsFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>
