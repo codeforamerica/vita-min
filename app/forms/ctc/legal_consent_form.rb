@@ -18,7 +18,7 @@ module Ctc
     before_validation :normalize_phone_numbers
 
     validates :phone_number, e164_phone: true
-    validates :agree_to_privacy_policy, acceptance: { accept: "1", message: I18n.t("views.ctc.questions.confirm_legal.error") }
+    validates :agree_to_privacy_policy, acceptance: { accept: "1", message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}
     validate :must_be_at_least_16_years_old
 
     before_validation do

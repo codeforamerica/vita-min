@@ -12,7 +12,7 @@ module Ctc
                        :timezone
     set_attributes_for :recaptcha, :recaptcha_score, :recaptcha_action
 
-    validates :consented_to_legal, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }
+    validates :consented_to_legal, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}
     validates_presence_of :device_id, :user_agent, :browser_language, :platform, :timezone_offset, :client_system_time, :ip_address, :timezone
 
     def save

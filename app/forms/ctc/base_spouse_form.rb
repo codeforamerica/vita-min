@@ -4,7 +4,7 @@ module Ctc
 
     validates :spouse_first_name, presence: true, legal_name: true
     validates :spouse_last_name, presence: true, legal_name: true
-    validates :spouse_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: I18n.t('validators.alpha'), allow_blank: true }
+    validates :spouse_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: ->(_object, _data) { I18n.t('validators.alpha') }, allow_blank: true }
     validate  :spouse_birth_date_is_valid_date
     validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && spouse_ssn.present? }
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" }
