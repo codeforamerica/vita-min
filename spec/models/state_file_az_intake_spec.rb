@@ -205,6 +205,58 @@ describe StateFileAzIntake do
     end
   end
 
+  describe "#qualified_for_excise_credit?" do
+    let(:intake) { build(:state_file_az_intake, ssn_no_employment: "no") }
+    let(:fake_df_data) { instance_double(DirectFileData) }
+    before do
+      allow(intake).to receive(:direct_file_data).and_return fake_df_data
+      allow(fake_df_data).to receive(:claimed_as_dependent?).and_return false
+    end
+
+    # TODO: remove when old column is ignored
+    context "has old column" do
+      it "returns true if not incarcerated" do
+        intake.update(was_incarcerated: "no")
+        expect(intake.qualified_for_excise_credit?).to eq true
+      end
+
+      it "returns false if incarcerated" do
+        intake.update(was_incarcerated: "yes")
+        expect(intake.qualified_for_excise_credit?).to eq false
+      end
+    end
+
+    context "has new columns" do
+      before do
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no")
+      end
+
+      it "returns true if neither filer was incarcerated" do
+        expect(intake.qualified_for_excise_credit?).to eq true
+      end
+
+      it "returns true if one filer incarcerated" do
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "yes")
+        expect(intake.qualified_for_excise_credit?).to eq true
+      end
+
+      it "returns false if both filers were incarcerated" do
+        intake.update(primary_was_incarcerated: "yes", spouse_was_incarcerated: "yes")
+        expect(intake.qualified_for_excise_credit?).to eq false
+      end
+
+      it "returns false if claimed as dependent" do
+        allow(fake_df_data).to receive(:claimed_as_dependent?).and_return true
+        expect(intake.qualified_for_excise_credit?).to eq false
+      end
+
+      it "returns false if ssn_no_employment is yes" do
+        intake.update(ssn_no_employment: "yes")
+        expect(intake.qualified_for_excise_credit?).to eq false
+      end
+    end
+  end
+
   describe 'federal_dependent_counts' do
     let(:intake) { create :state_file_az_intake }
 

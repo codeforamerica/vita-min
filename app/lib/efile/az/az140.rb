@@ -234,13 +234,14 @@ module Efile
 
 
       def calculate_line_56
-        if !@direct_file_data.claimed_as_dependent? && @intake.qualified_for_excise_credit? && @intake.ask_whether_incarcerated?
+        if @intake.qualified_for_excise_credit?
           # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
           if filing_status_mfj? || filing_status_hoh?
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 25000
           elsif filing_status_single? || filing_status_mfs?
             return 0 unless line_or_zero(:AZ140_LINE_12) <= 12500
           end
+
           wrksht_line_2 = filing_status_mfj? ? 2 : 1
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
           return [wrksht_line_4, 100].min

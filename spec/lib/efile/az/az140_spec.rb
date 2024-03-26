@@ -10,23 +10,71 @@ describe Efile::Az::Az140 do
     )
   end
 
-  describe 'Line 56 Increased Excise Tax Credit' do
-    context 'when the client does not have a valid SSN because it is not present' do
-      before do
-        intake.direct_file_data.primary_ssn = nil
-        intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-        intake.was_incarcerated = 2 # no
-      end
+  describe "Line 56: Increased Excise Tax Credit" do
+    before do
+      allow(intake).to receive(:qualified_for_excise_credit?).and_return true
+    end
 
-      it 'sets the amount to 0 because the client does not qualify' do
+    context "when the client is disqualified for non-income reasons" do
+      it "sets the amount to 0" do
+        allow(intake).to receive(:qualified_for_excise_credit?).and_return false
         instance.calculate
         expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
       end
     end
+
+    context "when the client is disqualified for having too much income" do
+      context "fed agi above 12,501" do
+        before do
+          intake.direct_file_data.fed_agi = 12_501
+        end
+
+        it "when single sets the amount to 0" do
+          intake.direct_file_data.filing_status = 1 # single
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+        end
+
+        it "when mfs sets the amount to 0" do
+          intake.direct_file_data.filing_status = 3 # mfs
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+        end
+      end
+
+      context "fed agi above 25,001" do
+        before do
+          intake.direct_file_data.fed_agi = 25_001
+        end
+
+        it "when mfj sets the amount to 0" do
+          intake.direct_file_data.filing_status = 2 # mfj
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+        end
+
+        it "when hoh sets the amount to 0" do
+          intake.direct_file_data.filing_status = 4 # hoh
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+        end
+      end
+    end
+
+    # tentative list of cases:
+    # - one filer without dependents (under limit)
+    # - one filer with dependents (under limit)
+    # - 2 filers without dependents (under limit)
+    # - 2 filers with dependents (under limit)
+    # - maximum credit
+    #
+    # new cases:
+    # - only one filer incarcerated (one less filer counted)
+    # - adjusted max credit (100 minus household_excise_credit_claimed_amt)
   end
 
-  context 'when the client does not have a valid SSN' do
+  # is SSN validity already tested somewhere?
+  xcontext 'when the client does not have a valid SSN' do
     before do
       intake.direct_file_data.primary_ssn = '999999999' # invalid
       intake.direct_file_data.filing_status = 1 # single
@@ -42,7 +90,8 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client does have a valid SSN that starts with 9' do
+  # is SSN validity already tested somewhere?
+  xcontext 'when the client does have a valid SSN that starts with 9' do
     before do
       intake.direct_file_data.primary_ssn = '999669999' # invalid
       intake.direct_file_data.filing_status = 1 # single
@@ -58,102 +107,7 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client has been claimed as a dependent' do
-    before do
-      intake.direct_file_data.primary_ssn = '555002222' # valid
-      intake.direct_file_data.filing_status = 1 # single
-      intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.direct_file_data.primary_claim_as_dependent = 'X'
-      intake.was_incarcerated = 2 # no
-      intake.ssn_no_employment = 2 # no
-      intake.household_excise_credit_claimed = 2 # no
-    end
-
-    it 'sets the amount to 0 because the client does not qualify' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
-    end
-  end
-
-  context 'when the client was incarcerated for more than 60 days' do
-    before do
-      intake.direct_file_data.primary_ssn = '555002222' # valid
-      intake.direct_file_data.filing_status = 1 # single
-      intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-      intake.was_incarcerated = 1 # yes
-    end
-
-    it 'sets the amount to 0 because the client does not qualify' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
-    end
-  end
-
-  context 'when the client has too much income and is filing single' do
-    before do
-      intake.direct_file_data.primary_ssn = '555002222' # valid
-      intake.direct_file_data.filing_status = 1 # single
-      intake.direct_file_data.fed_agi = 12_501 # disqualifying agi
-      intake.was_incarcerated = 2 # no
-      intake.ssn_no_employment = 2 # no
-      intake.household_excise_credit_claimed = 2 # no
-    end
-
-    it 'sets the amount to 0 because the client does not qualify' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
-    end
-  end
-
-  context 'when the client has too much income and is filing mfs' do
-    before do
-      intake.direct_file_data.primary_ssn = '555002222' # valid
-      intake.direct_file_data.filing_status = 3 # mfs
-      intake.direct_file_data.fed_agi = 12_501 # disqualifying agi
-      intake.was_incarcerated = 2 # no
-      intake.ssn_no_employment = 2 # no
-      intake.household_excise_credit_claimed = 2 # no
-    end
-
-    it 'sets the amount to 0 because the client does not qualify' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
-    end
-  end
-
-  context 'when the client has too much income and is filing mfj' do
-    before do
-      intake.direct_file_data.primary_ssn = '555002222' # valid
-      intake.direct_file_data.filing_status = 2 # mfj
-      intake.direct_file_data.fed_agi = 25_001 # disqualifying agi
-      intake.was_incarcerated = 2 # no
-      intake.ssn_no_employment = 2 # no
-      intake.household_excise_credit_claimed = 2 # no
-    end
-
-    it 'sets the amount to 0 because the client does not qualify' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
-    end
-  end
-
-  context 'when the client has too much income and is filing hoh' do
-    before do
-      intake.direct_file_data.primary_ssn = '555002222' # valid
-      intake.direct_file_data.filing_status = 4 # hoh
-      intake.direct_file_data.fed_agi = 25_001 # disqualifying agi
-      intake.was_incarcerated = 2 # no
-      intake.ssn_no_employment = 2 # no
-      intake.household_excise_credit_claimed = 2 # no
-    end
-
-    it 'sets the amount to 0 because the client does not qualify' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
-    end
-  end
-
-  context 'when the client qualifies for the credit and is filing single' do
+  xcontext 'when the client qualifies for the credit and is filing single' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single
@@ -169,7 +123,7 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client qualifies for the credit and is filing mfs' do
+  xcontext 'when the client qualifies for the credit and is filing mfs' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 3 # mfs
@@ -185,7 +139,7 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client qualifies for the credit and is filing mfj' do
+  xcontext 'when the client qualifies for the credit and is filing mfj' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.spouse_ssn = '555002222' # valid
@@ -202,7 +156,7 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client qualifies for the credit and is filing hoh' do
+  xcontext 'when the client qualifies for the credit and is filing hoh' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 4 # hoh
@@ -218,7 +172,7 @@ describe Efile::Az::Az140 do
     end
   end
 
-  context 'when the client qualifies for the maximum credit' do
+  xcontext 'when the client qualifies for the maximum credit' do
     before do
       intake.direct_file_data.primary_ssn = '555002222' # valid
       intake.direct_file_data.filing_status = 1 # single

@@ -170,8 +170,11 @@ class StateFileAzIntake < StateFileBaseIntake
     has_valid_ssn && has_valid_agi
   end
 
+  # maybe better to name this 'disqualified' and reverse the logic because income being too high can disqualify them too
+  # could also add the income stuff to this method
   def qualified_for_excise_credit?
-    was_incarcerated_no? && ssn_no_employment_no? && household_excise_credit_claimed_no?
+    at_least_one_not_incarcerated = was_incarcerated_no? || (primary_was_incarcerated_no? || spouse_was_incarcerated_no?)
+    at_least_one_not_incarcerated && ssn_no_employment_no? && !direct_file_data.claimed_as_dependent?
   end
 
   def filing_status
