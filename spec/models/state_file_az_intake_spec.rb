@@ -367,6 +367,39 @@ describe StateFileAzIntake do
         expect(intake.ask_whether_incarcerated?).to eq false
       end
     end
+
+    # TODO
+    xcontext 'when the client does not have a valid SSN' do
+      before do
+        intake.direct_file_data.primary_ssn = '999999999' # invalid
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.fed_agi = 12_500 # qualifying agi
+        intake.was_incarcerated = 2 # no
+        intake.ssn_no_employment = 2 # no
+        intake.household_excise_credit_claimed = 2 # no
+      end
+
+      it 'sets the amount to 0 because the client does not qualify' do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+      end
+    end
+
+    xcontext 'when the client does have a valid SSN that starts with 9' do
+      before do
+        intake.direct_file_data.primary_ssn = '999669999' # invalid
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.fed_agi = 12_500 # qualifying agi
+        intake.was_incarcerated = 2 # no
+        intake.ssn_no_employment = 2 # no
+        intake.household_excise_credit_claimed = 2 # no
+      end
+
+      it 'sets the credit to the correct amount' do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(50)
+      end
+    end
   end
 
   describe "invalid_df_w2?" do

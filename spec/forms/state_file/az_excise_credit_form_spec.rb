@@ -59,7 +59,7 @@ RSpec.describe StateFile::AzExciseCreditForm do
       end
     end
 
-    context "excise credit" do
+    context "excise credit claimed" do
       it "requires credit amount when credit claimed" do
         invalid_params = {
           primary_was_incarcerated: "yes",

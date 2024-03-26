@@ -174,6 +174,9 @@ class StateFileAzIntake < StateFileBaseIntake
   # could also add the income stuff to this method
   def qualified_for_excise_credit?
     at_least_one_not_incarcerated = was_incarcerated_no? || (primary_was_incarcerated_no? || spouse_was_incarcerated_no?)
+    # TODO: is household_excise_credit_claimed_amt.nil? a good enough proxy for having the old columns or do we need to check was_incarcerated
+    # add method that returns filled_out_old_page or something
+    # credit_not_claimed = household_excise_credit_claimed_no? || (household_excise_credit_claimed_yes? && household_excise_credit_claimed_amt.nil?)
     at_least_one_not_incarcerated && ssn_no_employment_no? && !direct_file_data.claimed_as_dependent?
   end
 
