@@ -5,7 +5,7 @@
   <h1 class="h2"><%= title %></h1>
   <h3>This page represents data that was imported from Direct File and does not exist in the real flow.</h3>
 
-  <%= questions_form model: @form, url: { action: :update }, local: true, method: "put", builder: StateFileQaFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: StateFileQaFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <% if @form.errors[:base].any? %>
       <div class="form-group form-group--error">
         <% @form.errors[:base].each do |error| %>
