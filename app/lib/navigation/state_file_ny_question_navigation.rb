@@ -11,7 +11,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityResidenceController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOutOfStateIncomeController),
         Navigation::NavigationStep.new(StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false, StateFile::Questions::EligibilityResidenceController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController, true, StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
