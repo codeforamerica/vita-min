@@ -177,7 +177,7 @@ es:
         too_short: La contraseña debe tener un mínimo de %{count} caracteres.
       payer_name:
         blank: Ingresa un nombre válido.
-        invalid: 'Solo se aceptan letras, números, paréntesis, guiones, apóstrofos y #.'
+        invalid: 'Solo se aceptan letras, números, paréntesis, apóstrofos y #.'
       payer_tin:
         invalid: El EIN debe ser un número de 9 dígitos. No incluyas un guion.
       payer_tin_ny_invalid: El número ingresado no es un TIN aceptado por el estado de Nueva York.
@@ -488,6 +488,7 @@ es:
     none_of_these: Ninguno de éstos
     not_at_all: De ningún modo
     not_well: No muy bien
+    one_intake_at_a_time: Parece que ya tiene una presentación de impuestos estatales en progreso. Inicie sesión en su cuenta existente para continuar.
     online: Firma electrónica
     oops: "¡Oye!"
     open: Abrir
@@ -2532,9 +2533,10 @@ es:
           direct_deposit: Depósito directo (más rápido)
           mail: Enviar mi pago por correo (más lento)
           ny_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Nueva York de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
+          page_title: Buenas noticias, recibirás un reembolso de impuestos. ¿Cómo te gustaría recibirlo?
       taxes_owed:
         edit:
-          page_title: Debes $%{owed_amount} en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?

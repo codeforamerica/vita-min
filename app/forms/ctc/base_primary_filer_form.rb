@@ -4,7 +4,7 @@ module Ctc
 
     validates :primary_first_name, presence: true, legal_name: true
     validates :primary_last_name, presence: true, legal_name: true
-    validates :primary_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: I18n.t('validators.alpha'), allow_blank: true }
+    validates :primary_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: ->(_object, _data) { I18n.t('validators.alpha') }, allow_blank: true }
     validate  :primary_birth_date_is_valid_date
     validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
     validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }

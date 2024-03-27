@@ -257,6 +257,31 @@ describe EfileSubmissionStateMachine do
         expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
       end
 
+      context "transition from failed" do
+        let(:submission) { create(:efile_submission, :failed) }
+
+        context "in prod" do
+          before do
+            allow(Rails.env).to receive(:production?).and_return(true)
+          end
+
+          it "raises an error" do
+            expect { submission.transition_to!(:rejected) }.to raise_error(Statesman::GuardFailedError)
+          end
+        end
+
+        context "in heroku" do
+          before do
+            allow(Rails.env).to receive(:heroku?).and_return(true)
+          end
+
+          it "succeeds in transitioning to rejected" do
+            submission.transition_to!(:rejected)
+            expect(submission.current_state).to eq "rejected"
+          end
+        end
+      end
+
       context "schedule job for still processing notice" do
         context "for state filing" do
           it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do

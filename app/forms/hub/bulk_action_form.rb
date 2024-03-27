@@ -13,7 +13,7 @@ module Hub
     validate :no_missing_message_locales
     validate :bulk_tax_return_update_present
     validates :message_body_en, :message_body_es,
-              length: { maximum: 900, message: I18n.t("hub.bulk_actions.bulk_action_form.errors.message_length") },
+              length: { maximum: 900, message: ->(_object, _data) { I18n.t("hub.bulk_actions.bulk_action_form.errors.message_length") }},
               allow_blank: true
 
     def initialize(tax_return_selection, *args, **attributes)

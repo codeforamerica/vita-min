@@ -84,8 +84,8 @@ module Hub
     validate :valid_primary_birth_date
     validate :valid_spouse_birth_date, if: -> { filing_status == "married_filing_jointly" }
 
-    validates :primary_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: I18n.t('validators.alpha'), allow_blank: true }
-    validates :spouse_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: I18n.t('validators.alpha'), allow_blank: true }
+    validates :primary_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: ->(_object, _data) { I18n.t('validators.alpha') }, allow_blank: true }
+    validates :spouse_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, message: ->(_object, _data) { I18n.t('validators.alpha') }, allow_blank: true }
 
     def initialize(client, params = {})
       @client = client

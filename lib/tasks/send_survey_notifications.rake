@@ -4,11 +4,13 @@ namespace :survey_notifications do
     include StateFile::SurveyLinksConcern
     BATCH_SIZE = 10
     accepted_submissions = EfileSubmission.joins(:efile_submission_transitions)
+                                          .for_state_filing
                                           .where("efile_submission_transitions.to_state = 'accepted'")
                                           .where.not("message_tracker #> '{messages.state_file.survey_notification}' IS NOT NULL")
 
     accepted_submissions.each_slice(BATCH_SIZE) do |batch|
       batch.each do |submission|
+        next unless submission.is_for_state_filing?
         puts "Sending survey notification to #{submission.id}"
         StateFile::MessagingService.new(
           intake: submission.data_source,
