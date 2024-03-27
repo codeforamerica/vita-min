@@ -4,6 +4,17 @@
 <% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
+  <script type="text/javascript">
+    /*
+    addEventListener("load", () => {
+      document.querySelector("button[type=submit]").addEventListener("click", (event) => {
+        setTimeout(() => {
+          event.target.disabled = true
+        }, 10)
+      })
+    })
+     */
+  </script>
   <h1 class="form-question"><%= @main_heading %></h1>
   <%= form_with model: @state_file1099_g, url: { action: @state_file1099_g.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <% if params[:return_to_review].present? %>
@@ -119,8 +130,6 @@
       </div>
     </div>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%= t("general.continue") %>
-    </button>
+    <%= f.submit t("general.continue"), :class => "button button--primary button--wide" %>
   <% end %>
 <% end %>
