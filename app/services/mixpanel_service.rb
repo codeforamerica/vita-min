@@ -19,7 +19,6 @@ class MixpanelService
         @consumer.send!(type, message)
       rescue StandardError => err
         Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
-        # Can we resend later?
       end
     end
 
