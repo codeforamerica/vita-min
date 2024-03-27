@@ -245,7 +245,11 @@ module Efile
           number_of_filers = filing_status_mfj? ? 2 : 1
           wrksht_line_2 = number_of_filers - @intake.incarcerated_filer_count
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
-          return [wrksht_line_4, 100].min
+
+          max_credit = @intake.household_excise_credit_claimed_yes? && @intake.household_excise_credit_claimed_amt.is_a?(Integer) ?
+                         100 - @intake.household_excise_credit_claimed_amt :
+                         100
+          return [wrksht_line_4, max_credit].min
         end
 
         0

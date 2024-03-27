@@ -351,67 +351,57 @@ describe StateFileAzIntake do
 
   end
 
-  describe 'ask_whether_incarcerated' do
+  describe "ask_whether_incarcerated" do
     let(:intake) { create :state_file_az_intake }
+    before do
+      intake.direct_file_data.fed_agi = 10000
+      intake.direct_file_data.primary_ssn = '123456789'
+    end
 
-    context "when should ask" do
-      it 'asks whether incarcerated' do
+    context "when fed agi is under limit for excise credit" do
+      it "returns true" do
         intake.direct_file_data.fed_agi = 10000
         expect(intake.ask_whether_incarcerated?).to eq true
       end
     end
 
-    context "when should not ask" do
-      it 'does not ask whether incarcerated' do
+    context "when fed agi is over limit for excise credit" do
+      it "returns false" do
         intake.direct_file_data.fed_agi = 20000
         expect(intake.ask_whether_incarcerated?).to eq false
       end
     end
 
-    # TODO
-    xcontext 'when the client does not have a valid SSN' do
-      before do
-        intake.direct_file_data.primary_ssn = '999999999' # invalid
-        intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-        intake.was_incarcerated = 2 # no
-        intake.ssn_no_employment = 2 # no
-        intake.household_excise_credit_claimed = 2 # no
-      end
-
-      it 'sets the amount to 0 because the client does not qualify' do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+    context "when client does not have a valid SSN" do
+      it "returns false" do
+        intake.direct_file_data.primary_ssn = '999669999'
+        expect(intake.ask_whether_incarcerated?).to eq false
       end
     end
 
-    xcontext 'when the client does have a valid SSN that starts with 9' do
-      before do
-        intake.direct_file_data.primary_ssn = '999669999' # invalid
-        intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-        intake.was_incarcerated = 2 # no
-        intake.ssn_no_employment = 2 # no
-        intake.household_excise_credit_claimed = 2 # no
-      end
-
-      it 'sets the credit to the correct amount' do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_56].value).to eq(50)
+    context "when client has a valid SSN" do
+      it "returns true" do
+        intake.direct_file_data.primary_ssn = '123456789'
+        expect(intake.ask_whether_incarcerated?).to eq true
       end
     end
   end
 
-  # TODO: finish test
-  # describe 'incarcerated_filer_count' do
-  #   xcontext "TEMPORARY, accepts old was_incarcerated_column" do
-  #     context "primary or spouse was incarcerated" do
-  #       let(:intake) { create :state_file_az_intake, was_incarcerated: 'yes' }
-  #
-  #       it 'returns '
-  #     end
-  #   end
-  # end
+  describe "incarcerated_filer_count" do
+    context "TEMPORARY, accepts old was_incarcerated_column" do
+      it "returns 2 when yes and 0 when no" do
+        expect(create(:state_file_az_intake, was_incarcerated: "yes").incarcerated_filer_count).to eq 2
+        expect(create(:state_file_az_intake, was_incarcerated: "no").incarcerated_filer_count).to eq 0
+      end
+    end
+
+    it "returns the number of filers who were incarcerated" do
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "no", spouse_was_incarcerated: "no").incarcerated_filer_count).to eq 0
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "yes", spouse_was_incarcerated: "no").incarcerated_filer_count).to eq 1
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "no", spouse_was_incarcerated: "yes").incarcerated_filer_count).to eq 1
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "yes", spouse_was_incarcerated: "yes").incarcerated_filer_count).to eq 2
+    end
+  end
 
   describe "invalid_df_w2?" do
     let(:intake) { create :state_file_az_intake }

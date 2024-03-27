@@ -147,6 +147,16 @@ describe Efile::Az::Az140 do
         expect(instance.lines[:AZ140_LINE_56].value).to eq(60) # (1 filer + 4 dependents) * 25 = 125 but max is 60
       end
     end
+
+    # TODO: [JH] i don't....understand this test? was copied from commit a674f6f
+    context "filing status is qualifying widow" do
+      it "sets the family income tax credit and excise credit to 0" do
+        intake.direct_file_data.filing_status = 5 # qualifying_widow
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_50].value).to eq(0)
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
+      end
+    end
   end
 
   context 'sets line 7c correctly' do
@@ -237,21 +247,6 @@ describe Efile::Az::Az140 do
       instance.calculate
       expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
       expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
-    end
-  end
-
-  # Family income tax credit and excise credit Lines 50, 56
-  # TODO move this up
-  xdescribe 'Family income tax credit and excise credit' do
-    let(:intake) { create(:state_file_az_johnny_intake) }
-    before do
-      intake.direct_file_data.filing_status = 5 # qualifying_widow
-    end
-
-    it 'sets the standard deduction correctly for QSS' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_50].value).to eq(0)
-      expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
     end
   end
 end

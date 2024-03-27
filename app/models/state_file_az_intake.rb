@@ -171,9 +171,9 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def incarcerated_filer_count
-    count ||= 0
+    count = 0
     if use_old_incarcerated_column?
-      count += 1 if was_incarcerated_yes?
+      count += 2 if was_incarcerated_yes?
     else
       count += 1 if primary_was_incarcerated_yes?
       count += 1 if spouse_was_incarcerated_yes?
