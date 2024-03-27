@@ -140,6 +140,21 @@ describe EfileSubmissionStateMachine do
           expect(submission.tax_return.current_state).to eq("file_fraud_hold")
         end
       end
+
+      context "for state file submissions" do
+        let(:submission) { create(:efile_submission, :new, :for_state) }
+        let(:messaging_service) { instance_double(StateFile::AfterTransitionMessagingService) }
+
+        before do
+          allow(StateFile::AfterTransitionMessagingService).to receive(:new).with(submission).and_return(messaging_service)
+          allow(messaging_service).to receive(:send_efile_submission_successful_submission_message)
+        end
+
+        it "sends a successful submission message" do
+          submission.transition_to!(:preparing)
+          expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
+        end
+      end
     end
 
     context "to bundling" do
