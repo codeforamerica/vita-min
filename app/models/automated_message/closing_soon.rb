@@ -9,6 +9,10 @@ module AutomatedMessage
       true
     end
 
+    def self.require_client_account?
+      true
+    end
+
     def sms_body(**args)
       I18n.t("messages.closing_soon.sms", **args)
     end
