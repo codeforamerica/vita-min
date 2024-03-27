@@ -2,9 +2,9 @@ module StateFile
   class AzStateCreditsForm < QuestionsForm
     set_attributes_for :intake, :tribal_member, :tribal_wages, :armed_forces_member, :armed_forces_wages
 
-    validates_numericality_of :tribal_wages, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { tribal_member == "yes" }
+    validates_numericality_of :tribal_wages, only_integer: true, message: :whole_number, if: -> { tribal_member == "yes" }
     validates :tribal_wages, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: 1 }, if: -> { tribal_member == "yes" }
-    validates_numericality_of :armed_forces_wages, only_integer: true, message: I18n.t('errors.messages.whole_number'), if: -> { armed_forces_member == "yes" }
+    validates_numericality_of :armed_forces_wages, only_integer: true, message: :whole_number, if: -> { armed_forces_member == "yes" }
     validates :armed_forces_wages, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: 1 }, if: -> { armed_forces_member == "yes" }
     validate :below_1040_amount, if: -> { tribal_wages.present? || armed_forces_wages.present? }
 

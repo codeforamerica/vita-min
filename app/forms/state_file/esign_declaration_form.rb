@@ -5,8 +5,8 @@ module StateFile
                        :primary_esigned,
                        :spouse_esigned
 
-    validates :primary_esigned, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }
-    validates :spouse_esigned, acceptance: { accept: 'yes', message: I18n.t("views.ctc.questions.confirm_legal.error") }, if: -> { @intake.ask_spouse_esign? }
+    validates :primary_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}
+    validates :spouse_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}, if: -> { @intake.ask_spouse_esign? }
 
     def save
       attrs = @intake.ask_spouse_esign? ? attributes_for(:intake) : attributes_for(:intake).except(:spouse_esigned)

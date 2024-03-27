@@ -5,7 +5,7 @@ module Ctc
     validates_presence_of :street_address
     validates_presence_of :city
     validates_presence_of :state
-    validates :urbanization, format: { with: /\A[A-Za-z0-9\- ]+\z/, message: I18n.t('validators.urbanization'), allow_blank: true }
+    validates :urbanization, format: { with: /\A[A-Za-z0-9\- ]+\z/, message: ->(_object, _data) { I18n.t('validators.urbanization') }, allow_blank: true }
     validates :zip_code, us_or_puerto_rico_zip_code: true
     validate :usps_valid_address
 
