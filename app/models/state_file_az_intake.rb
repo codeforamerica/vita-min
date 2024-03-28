@@ -190,7 +190,8 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def use_old_incarcerated_column?
-    !was_incarcerated_unfilled?
+    # TODO: remove once column ignored
+    !was_incarcerated_unfilled? && primary_was_incarcerated_unfilled?
   end
 
   def disqualified_from_excise_credit_fyst?
