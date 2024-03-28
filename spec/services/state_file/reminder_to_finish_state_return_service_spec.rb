@@ -5,6 +5,7 @@ describe StateFile::ReminderToFinishStateReturnService do
   describe ".run" do
     let(:message) { StateFile::AutomatedMessage::FinishReturn }
     let(:state_file_messaging_service) { StateFile::MessagingService.new(intake: intake, message: message) }
+    #
 
     before do
       allow(StateFile::MessagingService).to receive(:new).with(intake: intake, message: message).and_return(state_file_messaging_service)
