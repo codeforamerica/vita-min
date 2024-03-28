@@ -224,11 +224,16 @@ describe StateFileAzIntake do
         intake.update(was_incarcerated: "yes")
         expect(intake.qualified_for_excise_credit?).to eq false
       end
+
+      it "returns false if old incarcerated column filled out and credit claimed is yes" do
+        intake.update(was_incarcerated: "no", household_excise_credit_claimed: "yes")
+        expect(intake.qualified_for_excise_credit?).to eq false
+      end
     end
 
     context "has new columns" do
       before do
-        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no")
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no", household_excise_credit_claimed: "yes", household_excise_credit_claimed_amt: 50)
       end
 
       it "returns true if neither filer was incarcerated" do
