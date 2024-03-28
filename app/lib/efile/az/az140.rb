@@ -238,16 +238,14 @@ module Efile
           0
         else
           # TODO question: if they are filing with us does that automatically mean no AZ-140PTC?
-          # TODO question: if both filers were incarcerated but they have dependents can they get the credit?
-
           number_of_filers = filing_status_mfj? ? 2 : 1
           wrksht_line_2 = number_of_filers - @intake.incarcerated_filer_count
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
 
-          max_credit = @intake.household_excise_credit_claimed_yes? && @intake.household_excise_credit_claimed_amt.is_a?(Integer) ?
-                         100 - @intake.household_excise_credit_claimed_amt :
-                         100
-          return [wrksht_line_4, max_credit].min
+          max_credit = 100
+          max_credit -= @intake.household_excise_credit_claimed_amt if @intake.household_excise_credit_claimed_yes? && @intake.household_excise_credit_claimed_amt.is_a?(Integer)
+
+          [wrksht_line_4, max_credit].min
         end
       end
 
