@@ -1,0 +1,31 @@
+<div class="grid">
+  <div class="grid__item width-one-half">
+    <table class="fixed-width-table data-table">
+      <tr>
+        <th>Date</th>
+        <th>Sub-status</th>
+      </tr>
+      <% transmitted_transitions.each do |t| %>
+        <% if t.metadata["raw_response"].present? %>
+          <% xml = Nokogiri::XML(t.metadata["raw_response"]) %>
+          <tr>
+            <td>
+              <%= xml.css("SubmsnStatusAcknowledgementDt").text.strip %>
+            </td>
+            <td>
+              <%= xml.css("SubmissionStatusTxt").text.strip %>
+            </td>
+          </tr>
+        <% elsif t.metadata["receipt"] %>
+          <% xml = Nokogiri::XML(t.metadata["receipt"]) %>
+          <tr>
+            <td>
+              <%= DateTime.parse(xml.css("SubmissionReceivedTs").text.strip).strftime("%Y-%m-%d %H:%M") %>
+            </td>
+            <td>Submission received</td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

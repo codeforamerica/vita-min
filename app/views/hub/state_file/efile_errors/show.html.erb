@@ -19,6 +19,11 @@
       <%= image_tag @efile_error.auto_wait ? "icons/check.svg" : "icons/cancelled.svg", alt: @efile_error.auto_wait ? "yes" : "no" %>
     </div>
 
+    <div class="test-auto-wait spacing-below-25">
+      <h4 class="spacing-below-5">Correction Path</h4>
+      <%= @efile_error.correction_path.present? ? @efile_error.correction_path : "N/A" %>
+    </div>
+
     <h4 class="spacing-below-5">Description (English)</h4>
     <%= @efile_error.description_en.present? ? @efile_error.description_en : "N/A" %>
 

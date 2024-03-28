@@ -62,6 +62,66 @@ RSpec.describe StateFile::EsignDeclarationForm do
         expect(intake.submission_efile_device_info.device_id).to eq device_id
       end
     end
+
+    context "when they don't have an existing efile submission" do
+      it "creates a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(1)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
+      end
+    end
+
+    # in the case that a client is resubmitting their return
+    context "when they have an existing rejected efile submission" do
+      let!(:efile_submission) { create :efile_submission, :rejected, :for_state, data_source: intake }
+
+      it "creates a new efile submission and transitions old one to resubmitted" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(1)
+
+        expect(efile_submission.reload.current_state).to eq("resubmitted")
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
+      end
+    end
+
+    context "when they have an existing waiting efile submission" do
+      let!(:efile_submission) { create :efile_submission, :waiting, :for_state, data_source: intake }
+
+      it "creates a new efile submission and transitions old one to resubmitted" do
+        described_class.new(intake, params).save
+        expect(efile_submission.reload.current_state).to eq("resubmitted")
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
+      end
+    end
+
+    context "when they have an existing notified_of_rejection efile submission" do
+      let!(:efile_submission) { create :efile_submission, :notified_of_rejection, :for_state, data_source: intake }
+
+      it "creates a new efile submission and transitions old one to resubmitted" do
+        described_class.new(intake, params).save
+        expect(efile_submission.reload.current_state).to eq("resubmitted")
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
+      end
+    end
+
+    context "when they have an existing accepted efile submission" do
+      let!(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
+
+      it "does not create a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(0)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("accepted")
+      end
+    end
   end
 
   describe "#validations" do

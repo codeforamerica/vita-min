@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         next if controller_class.navigation_actions.length > 1
-        next if controller_class == StateFile::Questions::NyW2Controller
+        next if controller_class == StateFile::Questions::W2Controller
 
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
@@ -211,6 +211,7 @@ Rails.application.routes.draw do
         resources :efile_submissions, path: "efile", only: [:index, :show] do
           patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
           patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
+          patch '/reject', to: 'efile_submissions#reject', on: :member, as: :reject
           patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
           patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
           patch '/notify_of_rejection', to: 'efile_submissions#notify_of_rejection', on: :member, as: :notify_of_rejection
@@ -579,6 +580,7 @@ Rails.application.routes.draw do
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
 
         match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
@@ -587,7 +589,8 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        resources :ny_w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
+        # TODO: ny_w2 route can be deleted once no intake has w2 as the current step
+        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
       end
 
       scope ':us_state', as: 'us', constraints: { us_state: :us } do

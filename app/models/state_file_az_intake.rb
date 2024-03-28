@@ -44,6 +44,7 @@
 #  primary_first_name                    :string
 #  primary_last_name                     :string
 #  primary_middle_initial                :string
+#  primary_suffix                        :string
 #  prior_last_names                      :string
 #  raw_direct_file_data                  :text
 #  referrer                              :string
@@ -56,6 +57,7 @@
 #  spouse_first_name                     :string
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
+#  spouse_suffix                         :string
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer

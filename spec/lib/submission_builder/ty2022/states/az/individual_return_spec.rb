@@ -88,6 +88,29 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
           expect(xml.css('IRSW2').count).to eq 1
           expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
         end
+
+        context "when the intake has state_file_w2s" do
+          let!(:w2) {
+            create(
+              :state_file_w2,
+              state_file_intake: intake,
+              w2_index: 0,
+              employer_state_id_num: "00123",
+              state_income_tax_amt: "700",
+              state_wages_amt: "2000",
+              )
+          }
+
+          it "prioritises state_file_w2s over w2s from the direct file xml, correctly updates & creates & deletes nodes" do
+            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+            expect(xml.css('IRSW2').count).to eq 1
+            w2_from_xml = xml.css('IRSW2')[0]
+            expect(w2_from_xml.at("EmployerStateIdNum").text).to eq "00123"
+            expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq "700"
+            expect(w2_from_xml.at("StateWagesAmt").text).to eq "2000"
+          end
+        end
+
       end
     end
 

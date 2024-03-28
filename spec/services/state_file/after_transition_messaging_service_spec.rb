@@ -10,6 +10,7 @@ describe StateFile::AfterTransitionMessagingService do
 
   before do
     allow(StateFile::MessagingService).to receive(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args).and_return(sf_messaging_service)
+    allow(StateFile::MessagingService).to receive(:new).with(intake: intake, submission: efile_submission, message: message).and_return(sf_messaging_service)
   end
 
   describe "#send_efile_submission_accepted_message" do
@@ -41,7 +42,12 @@ describe StateFile::AfterTransitionMessagingService do
 
         expect(efile_submission.message_tracker).to include "messages.state_file.accepted_refund"
 
-        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+        expect(StateFile::MessagingService).to have_received(:new).with(
+          intake: intake,
+          submission: efile_submission,
+          message: message,
+          body_args: body_args
+        )
       end
     end
 
@@ -70,6 +76,22 @@ describe StateFile::AfterTransitionMessagingService do
     end
   end
 
+  describe '#schedule_survey_notification_job' do
+    it 'enqueues SendSurveyNotificationJob' do
+      # Freeze time
+      frozen_time = Time.now
+      Timecop.freeze(frozen_time)
+
+      expect(SendSurveyNotificationJob).to receive(:set).with(wait_until: (frozen_time + 23.hours)).and_return(SendSurveyNotificationJob)
+      expect(SendSurveyNotificationJob).to receive(:perform_later).with(intake, efile_submission)
+
+      messaging_service.schedule_survey_notification_job
+
+      # Unfreeze time
+      Timecop.return
+    end
+  end
+
   describe "#send_efile_submission_rejected_message" do
     let(:message) { StateFile::AutomatedMessage::Rejected }
 
@@ -79,8 +101,20 @@ describe StateFile::AfterTransitionMessagingService do
       end.to change(StateFileNotificationEmail, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.rejected"
-
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+    end
+  end
+
+  describe "#send_efile_submission_still_processing_message" do
+    let(:message) { StateFile::AutomatedMessage::StillProcessing }
+
+    it "sends the accepted refund" do
+      expect do
+        messaging_service.send_efile_submission_still_processing_message
+      end.to change(StateFileNotificationEmail, :count).by(1)
+
+      expect(efile_submission.message_tracker).to include "messages.state_file.still_processing"
+      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message)
     end
   end
 end

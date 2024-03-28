@@ -30,7 +30,7 @@ class EfileSubmissionStateMachine
   transition from: :queued,                to: [:transmitted, :failed]
   transition from: :transmitted,           to: [:accepted, :rejected, :failed, :ready_for_ack, :transmitted, :notified_of_rejection]
   transition from: :ready_for_ack,         to: [:accepted, :rejected, :failed, :ready_for_ack, :notified_of_rejection]
-  transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
+  transition from: :failed,                to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :rejected]
   transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :notified_of_rejection]
   transition from: :notified_of_rejection, to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :investigating,         to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
@@ -44,6 +44,11 @@ class EfileSubmissionStateMachine
 
   guard_transition(to: :bundling) do |submission|
     submission.is_for_state_filing? || submission.fraud_score.present?
+  end
+
+  guard_transition(from: :failed, to: :rejected) do |_submission|
+    # we need this for testing since submissions will fail on bundle in heroku and staging
+    !Rails.env.production?
   end
 
   after_transition(to: :preparing) do |submission|
@@ -132,12 +137,17 @@ class EfileSubmissionStateMachine
     if submission.is_for_federal_filing?
       send_mixpanel_event(submission, "ctc_efile_return_failed")
     end
+
+    if submission.is_for_state_filing?
+      StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
+    end
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+      StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
     end
   end
 
@@ -185,7 +195,12 @@ class EfileSubmissionStateMachine
   
   after_transition(to: :resubmitted) do |submission, transition|
     @new_submission = submission.source_record.efile_submissions.create
-    @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
+
+    begin
+      @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
+    rescue Statesman::GuardFailedError
+      Rails.logger.error "Failed to transition EfileSubmission##{@new_submission.id} to :preparing"
+    end
   end
 
   after_transition(to: :cancelled) do |submission|
@@ -194,9 +209,16 @@ class EfileSubmissionStateMachine
 
   after_transition do |submission, transition|
     if submission.is_for_state_filing?
+      from_status = (
+        EfileSubmissionTransition
+          .where(efile_submission_id: transition.efile_submission_id)
+          .where.not(id: transition.id)
+          .last
+          &.to_state
+      )
       Rails.logger.info({
         event_type: "submission_transition",
-        from_status: EfileSubmissionTransition.where(efile_submission_id: transition.efile_submission_id).last&.to_state,
+        from_status: from_status,
         to_status: transition.to_state,
         state_code: submission.data_source.state_code,
         intake_id: submission.data_source_id,
