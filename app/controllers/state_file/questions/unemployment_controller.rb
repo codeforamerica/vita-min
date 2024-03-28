@@ -42,6 +42,8 @@ module StateFile
           @state_file1099_g.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
+          # This makes the address visible
+          @state_file1099_g.address_confirmation = "no"
           render :edit
         end
       end
@@ -56,6 +58,8 @@ module StateFile
           @state_file1099_g.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
+          # This makes the address visible
+          @state_file1099_g.address_confirmation = "no"
           render :new
         end
       end
