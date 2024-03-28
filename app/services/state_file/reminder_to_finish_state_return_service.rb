@@ -1,4 +1,4 @@
-module Efile
+module StateFile
   class ReminderToFinishStateReturnService
     def self.run
       cutoff_time = 23.hours + 50.minutes
