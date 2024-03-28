@@ -1000,11 +1000,15 @@ es:
         email_form:
           label: Enviar un correo electrónico
           submit: Enviar
+        email_opted_out: El cliente ha optado por no recibir correos electrónicos.
         no_email_address: No se encontró la dirección de correo electrónico de este cliente.
+        no_email_and_opt_out: El cliente no proporcionó una dirección de correo electrónico y optó por no recibir correos electrónicos.
+        no_sms_and_opt_out: El cliente no proporcionó un número de teléfono SMS y optó por no recibir mensajes de texto.
         no_sms_number: El cliente no ha proporcionado un número de teléfono SMS.
-        no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital.
+        no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital y/o ha optado por no participar.
         preference_intro: "%{preferred_name} ha optado por contactar por:"
         response_not_needed: Marcar como "Respuesta no necesaria"
+        sms_opted_out: El cliente ha optado por no recibir mensajes de texto.
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar

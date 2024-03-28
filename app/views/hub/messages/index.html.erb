@@ -32,9 +32,9 @@
       <% end %>
 
       <hr/>
-      <div class="communication-preferences">
-        <% unless @client&.intake.email_address.present? || @client&.intake.sms_phone_number.present? %>
-          <%= t(".no_way_to_communicate") %>
+      <div class="communication-preferences spacing-below-25">
+        <% unless (@client&.intake.email_address.present? && @client&.intake.email_notification_opt_in_yes?) || (@client&.intake.sms_phone_number.present? && @client&.intake.sms_notification_opt_in_yes?) %>
+          <em><%= t(".no_way_to_communicate") %></em>
         <% else %>
           <%= t(".preference_intro", preferred_name: @client.preferred_name) %>
           <ul class="with-bullets">
@@ -49,7 +49,7 @@
       </div>
 
       <% if @client.editable? %>
-        <% if @client&.intake.sms_phone_number.present? && @client&.intake.sms_notification_opt_in_yes?%>
+        <% if @client&.intake.sms_phone_number.present? && @client&.intake.sms_notification_opt_in_yes? %>
           <div class="single-input-form no-form-group-padding">
             <%= form_with model: @client.outgoing_text_messages.build, url: hub_client_outgoing_text_messages_path(client: @client), local: true, builder: VitaMinFormBuilder, method: "post", html: {class: 'text-message-form'} do |f| %>
               <%= f.cfa_textarea :body, t(".text_message_form.label"), options: { spellcheck: true }, classes: ["text-message-body"] %>
@@ -64,7 +64,13 @@
             <% end %>
           </div>
         <% else %>
-          <p><%= t(".no_sms_number") %></p>
+          <% if !@client&.intake.sms_phone_number.present? && !@client&.intake.sms_notification_opt_in_yes? %>
+            <p><%= t(".no_sms_and_opt_out") %></p>
+          <% elsif !@client&.intake.sms_phone_number.present? %>
+            <p><%= t(".no_sms_number") %></p>
+          <% elsif !@client&.intake.sms_notification_opt_in_yes? %>
+            <p><%= t(".sms_opted_out") %></p>
+          <% end %>
         <% end %>
 
         <% if @client&.intake.email_address.present? && @client&.intake.email_notification_opt_in_yes? %>
@@ -85,7 +91,13 @@
             <% end %>
           </div>
         <% else %>
-          <p><%= t(".no_email_address") %></p>
+          <% if !@client&.intake.email_address.present? && !@client&.intake.email_notification_opt_in_yes? %>
+            <p><%= t(".no_email_and_opt_out") %></p>
+          <% elsif !@client&.intake.email_address.present? %>
+            <p><%= t(".no_email_address") %></p>
+          <% elsif !@client&.intake.email_notification_opt_in_yes? %>
+            <p><%= t(".email_opted_out") %></p>
+          <% end %>
         <% end %>
       <% end %>
     </div>
