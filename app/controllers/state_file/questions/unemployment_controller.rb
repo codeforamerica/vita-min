@@ -47,7 +47,7 @@ module StateFile
       end
 
       def create
-        @state_file1099_g = current_intake.state_file1099_gs.build(state_file1099_params)
+        @state_file1099_g = StateFile1099G.build(state_file1099_params.merge(intake: current_intake))
         if @state_file1099_g.had_box_11_no?
           return redirect_to next_path
         end
