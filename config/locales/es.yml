@@ -2457,6 +2457,7 @@ es:
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
+          pdf_error: Encontramos un problema al generar su declaración de impuestos en formato PDF. Para obtener ayuda, comuníquese con el servicio de atención al cliente de FileYourStateTaxes.
           register_to_vote: Regístrate para votar.
           title: Tu declaración de impuestos del estado de %{state_name} para el año 2023 ha sido aceptada
           track_your_payment_html: Puedes hacerle seguimiento a tu pago <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">aquí.</a>
