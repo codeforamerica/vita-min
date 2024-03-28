@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <p><%= t(".nyc_includes") %></p>
+  <p><%= t(".nyc_includes_html") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", data: { efile_security_information: true, form_name: "state_file_nyc_residency_form" }, builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>

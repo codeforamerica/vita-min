@@ -2433,7 +2433,7 @@ en:
           none:
             one: I <strong>did not</strong> live in New York City at all in %{year}
             other: My spouse and I <strong>did not</strong> live in New York City at all in %{year}
-          nyc_includes: New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+          nyc_includes_html: "<strong>Note:</strong> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island."
           part_year:
             one: I lived in New York City for <strong>some of the year</strong>
             other: My spouse and I lived in New York City for <strong>some of the year</strong>, or we lived in New York City for different amounts of time.
