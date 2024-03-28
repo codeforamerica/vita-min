@@ -13,7 +13,8 @@ module StateFile
         intake.update(
           raw_direct_file_data: direct_file_json['xml'],
           federal_submission_id: direct_file_json['submissionId'],
-          federal_return_status: direct_file_json['status']
+          federal_return_status: direct_file_json['status'],
+          df_data_imported_at: Time.now
         )
         intake.update(
           hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)

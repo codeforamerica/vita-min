@@ -43,4 +43,18 @@ describe StateFile::MessagingService do
       expect(intake.message_tracker).to eq({})
     end
   end
+
+  context "when message is of finish_return type" do
+    let(:message) { StateFile::AutomatedMessage::FinishReturn }
+    let!(:messaging_service) { described_class.new(message: message, intake: intake) }
+
+    it "records the messages in the intake message tracker" do
+      expect do
+        messaging_service.send_message
+      end.to change(StateFileNotificationEmail, :count).by(1)
+
+      expect(intake.message_tracker).to include "messages.state_file.finish_return"
+    end
+  end
+
 end
