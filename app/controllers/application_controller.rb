@@ -253,6 +253,7 @@ class ApplicationController < ActionController::Base
   end
 
   def send_mixpanel_validation_error(errors, additional_data = {})
+    # We can differentiate apps here based on their controller
     invalid_field_flags = errors.attribute_names.map { |key| ["invalid_#{key}".to_sym, true] }.to_h
 
     MixpanelService.send_event(

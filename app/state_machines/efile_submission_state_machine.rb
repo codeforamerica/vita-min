@@ -229,6 +229,7 @@ class EfileSubmissionStateMachine
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
     intake = efile_submission.is_for_state_filing? ? efile_submission.data_source : efile_submission.client.intake
+    # Could inject here...
     MixpanelService.send_event(
       distinct_id: intake.visitor_id,
       event_name: event_name,

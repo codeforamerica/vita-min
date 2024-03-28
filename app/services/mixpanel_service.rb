@@ -168,6 +168,7 @@ class MixpanelService
     # @param [Enumerable(Object)] objs objects for which data will be created
     # @param [Enumerable(String)] path_exclusions: (optional, default []) strings to be stripped form paths
     def data_from(objs, path_exclusions: [])
+      # Could inject here...
       return {} unless objs
 
       obj_list = objs.is_a?(Enumerable) ? objs : [objs]
@@ -285,6 +286,7 @@ class MixpanelService
     end
 
     def data_from_tax_return(tax_return)
+      # Could inject here
       {
         year: tax_return.year.to_s,
         certification_level: tax_return.certification_level,
