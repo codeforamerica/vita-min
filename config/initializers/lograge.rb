@@ -15,7 +15,7 @@ Rails.application.configure do
   config.lograge.custom_options = lambda do |event|
     {
       params: event.payload[:params]&.reject { |k| %w(controller action).include? k },
-      request_details: event.payload[:request_details].merge(host: event.payload[:request].host),
+      request_details: event.payload[:request_details],
       level: event.payload[:level],
     }
   end
