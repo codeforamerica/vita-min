@@ -70,7 +70,7 @@ RSpec.describe Questions::MailingAddressController do
         post :update, params: params
 
         expect(response.body).to include("Can't be blank.")
-        expect(response.body).to include("Please enter a valid 5-digit zip code plus optional 4 or 7 digits.")
+        expect(response.body).to include("Please enter a valid 5-digit zip code.")
       end
     end
   end

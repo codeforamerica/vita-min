@@ -8,7 +8,12 @@ class ZipCodeValidator < ActiveModel::EachValidator
 
   def validate_each(record, attr_name, value)
     unless value =~ ZIP_CODE_REGEX && @zip_code_lengths.include?(value.length) && ZipCodes.has_key?(value[0,5])
-      record.errors.add(attr_name, I18n.t("validators.zip_code_with_optional_extra_digits"))
+      if @zip_code_lengths == [5]
+        msg = "validators.zip"
+      else
+        msg = "validators.zip_code_with_optional_extra_digits"
+      end
+      record.errors.add(attr_name, I18n.t(msg))
     end
   end
 end

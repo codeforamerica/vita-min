@@ -85,7 +85,7 @@ RSpec.describe StateFile::NyPermanentAddressForm do
         it "is invalid" do
           expect(form.valid?).to eq false
 
-          expect(form.errors[:permanent_zip]).to include "Please enter a valid 5-digit zip code plus optional 4 or 7 digits."
+          expect(form.errors[:permanent_zip]).to include "Please enter a valid 5-digit zip code."
         end
       end
 
