@@ -1,7 +1,7 @@
 module StateFile
   class ReminderToFinishStateReturnService
     def self.run
-      cutoff_time_ago = (23.hours + 50.minutes).ago
+      cutoff_time_ago = 12.hours.ago
       batch_size = 10
       intakes_with_no_submission = StateFileAzIntake.where("df_data_imported_at < ?", cutoff_time_ago)
                                                     .left_joins(:efile_submissions)
