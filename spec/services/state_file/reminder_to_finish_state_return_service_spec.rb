@@ -24,7 +24,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake with df transfer from less than 24 minutes ago" do
+    context "when there is an incomplete intake with df transfer from less than 12 hours ago" do
       let(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: (11.hours + 59.minutes).ago
