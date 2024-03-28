@@ -1,9 +1,7 @@
 module StateFile
   class ReminderToFinishStateReturnService
     def self.run
-      cutoff_time = 23.hours + 50.minutes
-      cutoff_time_ago = cutoff_time.ago
-      msg = StateFile::AutomatedMessage::FinishReturn
+      cutoff_time_ago = (23.hours + 50.minutes).ago
       batch_size = 10
       intakes_with_no_submission = StateFileAzIntake.where("df_data_imported_at < ?", cutoff_time_ago)
                                                     .left_joins(:efile_submissions)
@@ -17,7 +15,7 @@ module StateFile
 
       intakes_with_no_submission.each_slice(batch_size) do |batch|
         batch.each do |intake|
-          StateFile::MessagingService.new(message: msg, intake: intake).send_message
+          StateFile::MessagingService.new(message: StateFile::AutomatedMessage::FinishReturn, intake: intake).send_message
         end
       end
     end
