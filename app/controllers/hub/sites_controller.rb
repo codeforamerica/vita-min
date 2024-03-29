@@ -29,6 +29,8 @@ module Hub
         flash[:notice] = I18n.t("general.changes_saved")
         redirect_to edit_hub_site_path(id: @site.id)
       else
+        @routing_form = ZipCodeRoutingForm.new(@site)
+        @source_params_form = SourceParamsForm.new(@site)
         @show_unique_links = true
         flash.now[:alert] = I18n.t("general.error.form_failed")
         render :edit
