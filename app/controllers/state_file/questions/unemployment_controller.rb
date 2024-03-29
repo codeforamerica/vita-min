@@ -56,7 +56,6 @@ module StateFile
           @state_file1099_g.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
-          binding.pry
           render :new
         end
       end
