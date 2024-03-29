@@ -7,9 +7,11 @@
   <div class="landing-page-content">
     <h1 class="h1"><%= title %></h1>
 
-    <h2 class="h2">
-      <%= t(".#{params[:us_state]}.built_with_html") %>
-    </h2>
+    <% unless @user_name.present? %>
+      <h2 class="h2">
+        <%= t(".#{params[:us_state]}.built_with_html") %>
+      </h2>
+    <% end %>
 
     <div class="partner-logo-wrapper spacing-below-35">
       <div class="partner-logo-image">
@@ -19,28 +21,30 @@
         <%=t(".#{params[:us_state]}.supported_by") %>
       </div>
     </div>
-    <div class="blue-group spacing-below-60">
-      <%= t(".help_text_html") %>
-    </div>
 
-    <%= form_with model: @form, url: { action: :create }, local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
-      <h2 class="h2"><%= t(".already_existing") %></h2>
-      <%= f.submit t("general.sign_in"), class: "button button--primary button--wide", id: "firstCta" %>
+    <% if @user_name.present? %>
+      <h2 class="h2"><%= t(".welcome_back", user_name: @user_name) %></h2>
+      <h2 class="h2"><%= t(".continue", state_name: @state_name) %></h2>
+      <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code), class: "button button--primary button--wide", id: "firstCta" do %>
+        <%= t("general.sign_in") %>
+      <% end %>
+      <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
+        <h2 class="h2"><%= t(".not_you_html",
+          new_state_return_url: "javascript:document.querySelector('#start-again-form').submit()",
+          state_name: @state_name,
+          user_name: @user_name
+        )%></h2>
+      <% end %>
+    <% else %>
+      <div class="blue-group spacing-below-60">
+        <%= t(".help_text_html") %>
+      </div>
+      <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
+        <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
+      <% end %>
+      <h2 class="h2">
+        <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])) %>
+      </h2>
     <% end %>
-
-    <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-      <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])) %>
-      <h2 class="h2"><%= t(".already_active") %></h2>
-      <%= f.submit t("general.continue"), class: "button button--primary button--wide", id: "firstCta" %>
-    <% end %>
-
-    <%= form_with model: @form, url: { action: :create }, local: true, method: "put" do |f| %>
-      <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
-    <% end %>
-
-    <h2 class="h2">
-      <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])) %>
-    </h2>
-
   </div>
 <% end %>
