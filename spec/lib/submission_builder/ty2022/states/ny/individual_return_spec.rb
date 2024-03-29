@@ -47,6 +47,16 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       end
     end
 
+    context "when married-filing-separately (mfs) and no spouse SSN or ITIN present" do
+      # NRA (non-resident alien) case
+      let(:intake) { create(:state_file_ny_intake, :mfs_incomplete_spouse) }
+
+      it "includes COND_CODE_1_NMBR in the rtnHeader" do
+        xml = described_class.build(submission).document
+        expect(xml.at("rtnHeader COND_CODE_1_NMBR").attribute('claimed').value).to eq("07")
+      end
+    end
+
     context "with long employment description" do
       let(:intake) { create(:state_file_ny_intake, :mfj_with_complete_spouse) }
 
