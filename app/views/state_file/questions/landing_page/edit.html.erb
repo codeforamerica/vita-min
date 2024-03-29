@@ -23,11 +23,18 @@
       <%= t(".help_text_html") %>
     </div>
 
-    <%= form_with model: @form, url: { action: :create }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-      <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
+    <%= form_with model: @form, url: { action: :create }, local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
+      <h2 class="h2"><%= t(".already_existing") %></h2>
+      <%= f.submit t("general.sign_in"), class: "button button--primary button--wide", id: "firstCta" %>
     <% end %>
 
     <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+      <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])) %>
+      <h2 class="h2"><%= t(".already_active") %></h2>
+      <%= f.submit t("general.continue"), class: "button button--primary button--wide", id: "firstCta" %>
+    <% end %>
+
+    <%= form_with model: @form, url: { action: :create }, local: true, method: "put" do |f| %>
       <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
     <% end %>
 
