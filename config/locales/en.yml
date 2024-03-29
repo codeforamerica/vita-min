@@ -2307,15 +2307,12 @@ en:
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
-          welcome_back: Welcome back %{user_name}!
-          continue: To continue filing your %{state_name} State return, please sign in below
-          not_you_html: Not %{user_name}? <a href="%{new_state_return_url}">Click here to start a new %{state_name} State return.
-          already_existing: It looks like you already started filing a state return for %{name}.
           already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
+          continue: To continue filing your %{state_name} State return, please sign in below
           help_text_html: |
             <b>What you’ll need to get started</b>
             <br>
@@ -2326,11 +2323,12 @@ en:
               <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
               <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
             </ul>
+          not_you_html: Not %{user_name}? <a href="%{new_state_return_url}">Click here to start a new %{state_name} State return.
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
-          start_again_html: Start again on a <a href="%{new_state_return_url}">New State Return</a>
+          welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
