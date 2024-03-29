@@ -11,11 +11,7 @@ module StateFile
       private
 
       def error_redirect
-        flash[:alert] = I18n.t("state_file.questions.return_status.accepted.pdf_error")
-        redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(
-          us_state: current_intake.state_code,
-          action: :edit
-        )
+        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])
       end
     end
   end

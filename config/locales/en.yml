@@ -2476,7 +2476,6 @@ en:
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
-          pdf_error: We encountered a problem generating your tax return pdf. For assistance, please reach out to FileYourStateTaxes client support.
           register_to_vote: Register to vote.
           title: Your 2023 %{state_name} state tax return is accepted
           track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
