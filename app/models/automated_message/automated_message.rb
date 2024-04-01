@@ -8,7 +8,7 @@ module AutomatedMessage
 
     def self.require_client_account?
       false
-      end
+    end
 
   end
 end
