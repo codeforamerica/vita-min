@@ -1583,6 +1583,24 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      finish_return:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15.
+
+            Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Don't forget to finish your state tax return!
+        sms: |
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+
+          Need help? Reply to this text.
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"

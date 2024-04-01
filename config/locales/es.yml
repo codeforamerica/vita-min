@@ -1557,6 +1557,24 @@ es:
           Descarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}
 
           ¿Necesitas ayuda? Responde a este mensaje.
+      finish_return:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril.
+
+            Completa la tuya ahora, ve a <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: "¡No olvides terminar tu declaración de impuestos estatales!"
+        sms: |
+          Hola %{primary_first_name} - Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril. Completa la tuya ahora, ve a <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>
+
+          ¿Necesitas ayuda? Responde a este mensaje.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
