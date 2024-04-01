@@ -43,14 +43,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose I18n.t("state_file.questions.nyc_residency.edit.none", count: 1, year: 2023)
+      choose "I did not live in New York City at all in 2023"
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.ineligible_reason.nyc_maintained_home")
       click_on "Go back"
       expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose I18n.t("state_file.questions.nyc_residency.edit.full_year", count: 1, year: 2023)
+      choose "I lived in New York City all year in 2023"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title")
