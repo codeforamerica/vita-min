@@ -1584,6 +1584,21 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
         sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento. ¿Necesitas ayuda? Responde a este mensaje.
+      successful_submission:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{submitted_or_resubmitted} exitosamente su declaración de impuestos del estado de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responder a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          resubmitted: Reenvió
+          subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal aceptada'
+          submitted: Envió
+        sms: Hola, %{primary_first_name} - ¡%{submitted_or_resubmitted}  exitosamente tu declaración de impuestos estatales de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en %{return_status_link}. ¿Necesitas ayuda? Responder a este texto.
       survey_notification:
         email:
           body: |
@@ -2483,6 +2498,8 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+      review:
+        w2: Información fiscal estatal y local W-2
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.

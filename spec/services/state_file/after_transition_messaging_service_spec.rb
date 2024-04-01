@@ -117,4 +117,35 @@ describe StateFile::AfterTransitionMessagingService do
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message)
     end
   end
+
+  describe "#send_efile_submission_successful_submission_message" do
+    let(:message) { StateFile::AutomatedMessage::SuccessfulSubmission }
+
+    context "intake has only one submission" do
+      let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/az/questions/return-status", submitted_or_resubmitted: "submitted"} }
+
+      it "sends the successful submission message" do
+        expect do
+          messaging_service.send_efile_submission_successful_submission_message
+        end.to change(StateFileNotificationEmail, :count).by(1)
+
+        expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
+        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+      end
+    end
+
+    context "intake has more than one submission" do
+      let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/az/questions/return-status", submitted_or_resubmitted: "resubmitted"} }
+      let!(:second_efile_submission) { create :efile_submission, :for_state, data_source: intake }
+
+      it "sends the successful submission message" do
+        expect do
+          messaging_service.send_efile_submission_successful_submission_message
+        end.to change(StateFileNotificationEmail, :count).by(1)
+
+        expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
+        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+      end
+    end
+  end
 end

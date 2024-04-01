@@ -14,7 +14,7 @@
         <AddressLine1Txt>170 E 77 St</AddressLine1Txt>
         <CityNm>New York</CityNm>
         <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>10021</ZIPCd>
+        <ZIPCd>100211234</ZIPCd>
       </USAddress>
       <PhoneNum>5815556666</PhoneNum>
     </Filer>
@@ -138,14 +138,14 @@
         <AddressLine1Txt>One Plus One Drive</AddressLine1Txt>
         <CityNm>Napoleon</CityNm>
         <StateAbbreviationCd>MI</StateAbbreviationCd>
-        <ZIPCd>49261</ZIPCd>
+        <ZIPCd>492611234</ZIPCd>
       </EmployerUSAddress>
       <EmployeeNm>Khaled Khan</EmployeeNm>
       <EmployeeUSAddress>
         <AddressLine1Txt>170 E 77 St</AddressLine1Txt>
         <CityNm>New York</CityNm>
         <StateAbbreviationCd>NY</StateAbbreviationCd>
-        <ZIPCd>10021</ZIPCd>
+        <ZIPCd>100211234</ZIPCd>
       </EmployeeUSAddress>
       <WagesAmt>67550</WagesAmt>
       <WithholdingAmt>6300</WithholdingAmt>
