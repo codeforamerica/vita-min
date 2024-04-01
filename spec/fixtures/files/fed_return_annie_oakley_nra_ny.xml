@@ -28,7 +28,6 @@
   <ReturnData documentCnt="4">
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
-      <NRALiteralCd>NRA</NRALiteralCd>
       <SpouseNm>Frank Butler</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
