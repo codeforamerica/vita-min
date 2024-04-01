@@ -2421,22 +2421,22 @@ es:
       nyc_residency:
         edit:
           full_year:
-            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante todo el %{year}
-            one: Viví en la ciudad de Nueva York durante todo el %{year}
-            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante todo el %{year}
+            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York <strong>durante todo</strong> el %{year}
+            one: Viví en la ciudad de Nueva York durante <strong>todo el</strong> %{year}
+            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante <strong>todo el</strong> %{year}
           maintained_home:
             many: "¿Tú o tu cónyuge mantuvieron un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
             one: "¿Mantuviste un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
             other: "¿Tú o tu cónyuge mantuvieron un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
           none:
-            many: Mi cónyuge y yo no vivimos en la ciudad de Nueva York en absoluto en el %{year}
-            one: No viví en la ciudad de Nueva York en absoluto en el %{year}
-            other: Mi cónyuge y yo no vivimos en la ciudad de Nueva York en absoluto en el %{year}
-          nyc_includes_html: La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island.
+            many: Mi cónyuge y yo no vivimos en la ciudad de Nueva York <strong>en absoluto</strong> en el %{year}
+            one: No viví en la ciudad de Nueva York <strong>en absoluto</strong> en el %{year}
+            other: Mi cónyuge y yo no vivimos en la ciudad de Nueva York <strong>en absoluto</strong> en el %{year}
+          nyc_includes_html: "<strong>Nota:</strong> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
           part_year:
-            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
-            one: Viví en la ciudad de Nueva York durante parte del año
-            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
+            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York <strong>durante parte del año</strong>, o vivimos en la ciudad de Nueva York durante diferentes períodos.
+            one: Viví en la ciudad de Nueva York <strong>durante parte del año</strong>
+            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York <strong>durante parte del año</strong>, o vivimos en la ciudad de Nueva York durante diferentes períodos.
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:
