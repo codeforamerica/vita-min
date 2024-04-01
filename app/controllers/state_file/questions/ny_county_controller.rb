@@ -5,6 +5,12 @@ module StateFile
     class NyCountyController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
+      def edit
+        @filing_year = Rails.configuration.statefile_current_tax_year
+        @nyc_residency = current_intake.nyc_residency
+        super
+      end
+
       private
 
       def next_path

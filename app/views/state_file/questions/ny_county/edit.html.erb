@@ -1,11 +1,17 @@
-<% title = t(".title", filing_year: Rails.configuration.statefile_current_tax_year  ) %>
-<% content_for :page_title, title %>
+<%
+title = t(".title", filing_year: @filing_year )
+content_for :page_title, title
+%>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
+  <p><%= t(".nyc_residency_#{@nyc_residency}_html", filing_year: @filing_year) %></p>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
+      <p class="warning" id="nyc_residency_full_year_warning" style="display:none"><%= t(".nyc_residency_full_year_warning") %></p>
+      <p class="warning" id="nyc_residency_none_warning" style="display:none"><%= t(".nyc_residency_none_warning") %></p>
       <%= f.vita_min_state_file_select(:residence_county , t(".county"), NySchoolDistricts.county_labels, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
 
@@ -14,4 +20,37 @@
     <% end %>
     <%= f.continue %>
   <% end %>
+
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      const nycCounties = [
+          "Bronx",
+          "Kings (Brooklyn)",
+          "Manhattan (see New York)",
+          "New York (Manhattan)",
+          "Queens",
+          "Richmond (Staten Isand)"
+      ]
+      const nycResidency = <%= @nyc_residency == "full_year" %>
+
+      function displayWarnings(){
+          const value = document.querySelector("#state_file_ny_county_form_residence_county").value
+          const inNyc = nycCounties.includes(value)
+          const fullYearWarning = document.querySelector("#nyc_residency_full_year_warning")
+          const noneWarning = document.querySelector("#nyc_residency_none_warning")
+          if (nycResidency === inNyc) {
+              fullYearWarning.style.display = noneWarning.style.display = "none"
+          } else if (nycResidency) {
+              fullYearWarning.style.display  = "block"
+              noneWarning.style.display = "none"
+          } else {
+              fullYearWarning.style.display  = "none"
+              noneWarning.style.display = "block"
+          }
+      }
+
+      document.querySelector("#state_file_ny_county_form_residence_county").addEventListener("change", displayWarnings)
+      displayWarnings()
+    })
+  </script>
 <% end %>
