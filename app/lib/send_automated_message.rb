@@ -18,7 +18,7 @@ class SendAutomatedMessage
   end
 
   def send_messages
-    return nil if @client.nil? && message.require_client_account?
+    return nil if @client.consented_to_service_at.nil? && message.require_client_account?
     return nil if message_tracker.already_sent? && message.send_only_once?
 
     send_email if @do_email
