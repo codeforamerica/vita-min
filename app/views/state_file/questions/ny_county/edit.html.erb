@@ -3,6 +3,41 @@ title = t(".title", filing_year: @filing_year )
 content_for :page_title, title
 %>
 
+<% content_for :script do %>
+  <script>
+      window.addEventListener("load", () => {
+          const nycCounties = [
+              "Bronx",
+              "Kings (Brooklyn)",
+              "Manhattan (see New York)",
+              "New York (Manhattan)",
+              "Queens",
+              "Richmond (Staten Isand)"
+          ]
+          const nycResidency = <%= @nyc_residency == "full_year" %>
+
+          function displayWarnings(){
+              const value = document.querySelector("#state_file_ny_county_form_residence_county").value
+              const inNyc = nycCounties.includes(value)
+              const fullYearWarning = document.querySelector("#nyc_residency_full_year_warning")
+              const noneWarning = document.querySelector("#nyc_residency_none_warning")
+              if (nycResidency === inNyc) {
+                  fullYearWarning.style.display = noneWarning.style.display = "none"
+              } else if (nycResidency) {
+                  fullYearWarning.style.display  = "block"
+                  noneWarning.style.display = "none"
+              } else {
+                  fullYearWarning.style.display  = "none"
+                  noneWarning.style.display = "block"
+              }
+          }
+
+          document.querySelector("#state_file_ny_county_form_residence_county").addEventListener("change", displayWarnings)
+          displayWarnings()
+      })
+  </script>
+<% end %>
+
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
@@ -20,37 +55,4 @@ content_for :page_title, title
     <% end %>
     <%= f.continue %>
   <% end %>
-
-  <script type="text/javascript">
-    window.addEventListener("load", () => {
-      const nycCounties = [
-          "Bronx",
-          "Kings (Brooklyn)",
-          "Manhattan (see New York)",
-          "New York (Manhattan)",
-          "Queens",
-          "Richmond (Staten Isand)"
-      ]
-      const nycResidency = <%= @nyc_residency == "full_year" %>
-
-      function displayWarnings(){
-          const value = document.querySelector("#state_file_ny_county_form_residence_county").value
-          const inNyc = nycCounties.includes(value)
-          const fullYearWarning = document.querySelector("#nyc_residency_full_year_warning")
-          const noneWarning = document.querySelector("#nyc_residency_none_warning")
-          if (nycResidency === inNyc) {
-              fullYearWarning.style.display = noneWarning.style.display = "none"
-          } else if (nycResidency) {
-              fullYearWarning.style.display  = "block"
-              noneWarning.style.display = "none"
-          } else {
-              fullYearWarning.style.display  = "none"
-              noneWarning.style.display = "block"
-          }
-      }
-
-      document.querySelector("#state_file_ny_county_form_residence_county").addEventListener("change", displayWarnings)
-      displayWarnings()
-    })
-  </script>
 <% end %>
