@@ -2361,11 +2361,11 @@ en:
               <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
             </ul>
           not_you: Not %{user_name}?
-          start_new: Click here to start a new %{state_name} State return.
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
+          start_new: Click here to start a new %{state_name} State return.
           welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
