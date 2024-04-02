@@ -18,7 +18,7 @@ class SendAutomatedMessage
   end
 
   def send_messages
-    return nil if @client.consented_to_service_at.nil? && message.require_client_account?
+    return nil if client_without_account? && message.require_client_account?
     return nil if message_tracker.already_sent? && message.send_only_once?
 
     send_email if @do_email
@@ -64,5 +64,10 @@ class SendAutomatedMessage
       sent_message = ClientMessagingService.send_system_text_message(**sms_args)
       sent_messages << sent_message if sent_message.present?
     end
+  end
+
+  def client_without_account?
+    login_service = ClientLoginService.new(:gyr)
+    !login_service.can_login_by_email_verification?(@client.email_address) && !login_service.can_login_by_sms_verification?(@client.sms_phone_number)
   end
 end
