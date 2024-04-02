@@ -5,6 +5,37 @@ module Hub
       before_action :load_efile_submissions, only: [:index]
 
       def index
+        EfileSubmission.joins(<<~SQL
+          INNER JOIN (
+            SELECT state_file_az_intakes.id, state_file_az_intakes.email_address FROM state_file_az_intakes WHERE efile_submissions.data_source_type = 'StateFileAzIntake' AND state_file_az_intakes.id = efile_submissions.data_source_id
+            UNION
+            SELECT state_file_ny_intakes.id, state_file_ny_intakes.email_address FROM state_file_ny_intakes WHERE efile_submissions.data_source_type = 'StateFileNyIntake' AND state_file_ny_intakes.id = efile_submissions.data_source_id
+          ) as datasource
+        SQL
+        ).paginate(page: 1, per_page: 30)
+
+        EfileSubmission.connection.query(<<~SQL
+          SELECT "efile_submissions"."id", "efile_submissions"."claimed_eitc", "efile_submissions"."created_at", "efile_submissions"."data_source_id", "efile_submissions"."data_source_type", "efile_submissions"."irs_submission_id", "efile_submissions"."last_checked_for_ack_at", "efile_submissions"."tax_return_id", "efile_submissions"."updated_at", "efile_submissions"."message_tracker" FROM "efile_submissions" INNER JOIN (
+            SELECT state_file_az_intakes.id, 'StateFileAzIntake' as ds_type, state_file_az_intakes.email_address FROM state_file_az_intakes WHERE state_file_az_intakes.id = efile_submissions.data_source_id
+            UNION
+            SELECT state_file_ny_intakes.id, 'StateFileNyIntake' as ds_type, state_file_ny_intakes.email_address FROM state_file_ny_intakes WHERE efile_submissions.data_source_type = 'StateFileNyIntake' AND state_file_ny_intakes.id = efile_submissions.data_source_id
+          ) as data_source ON efile_submissions.data_source_id = data_source.id AND efile_submission.data_source_type = data_source.ds_type
+          SQL
+        )
+
+
+        #EfileSubmission.joins(<<~SQL
+        #  LEFT OUTER JOIN state_file_az_intakes ON efile_submissions.data_source_id = state_file_az_intakes.id AND efile_submissions.data_source_type = 'StateFileAzIntake'
+        #  LEFT OUTER JOIN state_file_ny_intakes ON efile_submissions.data_source_id = state_file_ny_intakes.id AND efile_submissions.data_source_type = 'StateFileNyIntake'
+        #SQL
+        #).where(<<~SQL
+        #  (state_file_az_intakes.id IS NOT NULL OR state_file_ny_intakes.id IS NOT NULL)
+        #SQL
+        #).paginate(page: 1, per_page: 30)
+
+        if params[:search]
+          @efile_submissions = @efile_submissions
+        end
         @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)
         @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
       end
