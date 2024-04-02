@@ -2327,7 +2327,8 @@ es:
             <li>Deberías haber presentado tu declaración de impuestos federales de 2023 usando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración, ya que se importará a esta herramienta).
             <li>Si eliges recibir tu reembolso o hacer un pago de impuestos electrónicamente, necesitarás los números de ruta y de cuenta de tu banco.
             </ul>
-          not_you_html: ¿No es %{user_name}? <a href="%{new_state_return_url}">Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+          not_you: ¿No es %{user_name}?
+          start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el Estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Nueva York

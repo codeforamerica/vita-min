@@ -29,11 +29,10 @@
         <%= t("general.sign_in") %>
       <% end %>
       <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
-        <h2 class="h2"><%= t(".not_you_html",
-          new_state_return_url: "javascript:document.querySelector('#start-again-form').submit()",
-          state_name: @state_name,
-          user_name: @user_name
-        )%></h2>
+        <h2 class="h2">
+          <%= t(".not_you", user_name: @user_name) %>
+          <%=f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
+        </h2>
       <% end %>
     <% else %>
       <div class="blue-group spacing-below-60">

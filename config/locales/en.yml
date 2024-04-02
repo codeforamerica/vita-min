@@ -2360,7 +2360,8 @@ en:
               <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
               <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
             </ul>
-          not_you_html: Not %{user_name}? <a href="%{new_state_return_url}">Click here to start a new %{state_name} State return.
+          not_you: Not %{user_name}?
+          start_new: Click here to start a new %{state_name} State return.
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by New York State
