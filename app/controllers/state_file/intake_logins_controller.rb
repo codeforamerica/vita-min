@@ -115,7 +115,7 @@ module StateFile
         # This can be removed once we are sure nobody has current_step set to landing_page
         if controller == StateFile::Questions::LandingPageController
           navigation = "Navigation::StateFile#{intake.state_code.titleize}QuestionNavigation".constantize
-          controller = navigation.next(controller)
+          controller = navigation::FLOW[1]
         end
         to_path = controller.to_path_helper(
           action: controller.navigation_actions.first,
