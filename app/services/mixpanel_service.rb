@@ -7,6 +7,9 @@ require "singleton"
 # the singleton can be referenced using `MixpanelService.instance`
 #
 class MixpanelService
+  MAX_ATTEMPTS = 3
+  RETRY_DELAY = 30
+
   include Singleton
 
   def initialize
@@ -15,11 +18,7 @@ class MixpanelService
 
     @consumer = Mixpanel::Consumer.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      Concurrent::Future.execute do
-        @consumer.send!(type, message)
-      rescue StandardError => err
-        Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
-      end
+      send_event_to_mixpanel(type, message)
     end
 
     # silence local SSL errors
@@ -370,6 +369,19 @@ class MixpanelService
 
       year = intake.is_ctc? ? MultiTenantService.new(:ctc).current_tax_year : intake.most_recent_filing_year
       year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
+    end
+
+    def send_event_to_mixpanel(type, message, num_attempts = 0, delay = 0)
+      task = Concurrent::ScheduledTask.new(delay) do
+        @consumer.send!(type, message)
+      rescue StandardError => err
+        if num_attempts >= MAX_ATTEMPTS
+          Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
+        else
+          send_event_to_mixpanel(type, message, num_attempts + 1, RETRY_DELAY)
+        end
+      end
+      task.execute
     end
   end
 end
