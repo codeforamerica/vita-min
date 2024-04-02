@@ -44,7 +44,7 @@ module StateFileIntakeHelper
 
       perform_enqueued_jobs
       sms = FakeTwilioClient.messages.last
-      code = sms.body.to_s.match(/\s(\d{6})[.]/)[1]
+      code = sms.body.to_s.match(/(\d{6})[.]/)[1]
     when :email
       click_on "Email me a code"
 
