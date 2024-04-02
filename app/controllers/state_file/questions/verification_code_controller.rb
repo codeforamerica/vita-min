@@ -66,7 +66,7 @@ module StateFile
           contact_info, @form.verification_code
         )
         @form.intake = existing_intake
-        intake.destroy
+        intake.destroy unless intake.id == existing_intake.id
         sign_in existing_intake
         redirect_to IntakeLoginsController.to_path_helper(
           action: :edit,
