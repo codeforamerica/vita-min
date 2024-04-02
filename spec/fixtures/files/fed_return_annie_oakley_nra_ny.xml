@@ -8,7 +8,6 @@
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
       <PrimarySSN>900500016</PrimarySSN>
-      <SpouseSSN>600000014</SpouseSSN>
       <NameLine1Txt>ANNIE&lt;OAKLEY&lt;&amp; FRANK BUTLER</NameLine1Txt>
       <PrimaryNameControlTxt>OAKL</PrimaryNameControlTxt>
       <SpouseNameControlTxt>BUTL</SpouseNameControlTxt>
@@ -29,7 +28,6 @@
   <ReturnData documentCnt="4">
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
-      <NRALiteralCd>NRA</NRALiteralCd>
       <SpouseNm>Frank Butler</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>

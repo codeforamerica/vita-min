@@ -1000,11 +1000,15 @@ es:
         email_form:
           label: Enviar un correo electrónico
           submit: Enviar
+        email_opted_out: El cliente ha optado por no recibir correos electrónicos.
         no_email_address: No se encontró la dirección de correo electrónico de este cliente.
+        no_email_and_opt_out: El cliente no proporcionó una dirección de correo electrónico y optó por no recibir correos electrónicos.
+        no_sms_and_opt_out: El cliente no proporcionó un número de teléfono SMS y optó por no recibir mensajes de texto.
         no_sms_number: El cliente no ha proporcionado un número de teléfono SMS.
-        no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital.
+        no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital y/o ha optado por no participar.
         preference_intro: "%{preferred_name} ha optado por contactar por:"
         response_not_needed: Marcar como "Respuesta no necesaria"
+        sms_opted_out: El cliente ha optado por no recibir mensajes de texto.
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
@@ -1553,6 +1557,24 @@ es:
           Descarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}
 
           ¿Necesitas ayuda? Responde a este mensaje.
+      finish_return:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril.
+
+            Completa la tuya ahora, ve a <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: "¡No olvides terminar tu declaración de impuestos estatales!"
+        sms: |
+          Hola %{primary_first_name} - Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril. Completa la tuya ahora, ve a <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>
+
+          ¿Necesitas ayuda? Responde a este mensaje.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -1584,6 +1606,21 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
         sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento. ¿Necesitas ayuda? Responde a este mensaje.
+      successful_submission:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{submitted_or_resubmitted} exitosamente su declaración de impuestos del estado de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responder a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          resubmitted: Reenvió
+          subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal aceptada'
+          submitted: Envió
+        sms: Hola, %{primary_first_name} - ¡%{submitted_or_resubmitted}  exitosamente tu declaración de impuestos estatales de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en %{return_status_link}. ¿Necesitas ayuda? Responder a este texto.
       survey_notification:
         email:
           body: |
@@ -2486,6 +2523,8 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+      review:
+        w2: Información fiscal estatal y local W-2
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.

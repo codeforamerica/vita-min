@@ -991,11 +991,15 @@ en:
         email_form:
           label: Send an email
           submit: Send
+        email_opted_out: Client has opted out of emails.
         no_email_address: Client has not provided an email address.
+        no_email_and_opt_out: Client has not provided an email address and opted out of emails.
+        no_sms_and_opt_out: Client has not provided an SMS phone number and opted out of text messages.
         no_sms_number: Client has not provided an SMS phone number.
-        no_way_to_communicate: Client has not provided contact info for digital communication.
+        no_way_to_communicate: Client has not provided contact info for digital communication and/or has opted-out.
         preference_intro: "%{preferred_name} has opted in to contact by:"
         response_not_needed: Mark as "Response not needed"
+        sms_opted_out: Client has opted out of text messages.
         text_message_form:
           label: Send a text message
           submit: Send
@@ -1579,6 +1583,24 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      finish_return:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15.
+
+            Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Don't forget to finish your state tax return!
+        sms: |
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+
+          Need help? Reply to this text.
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
@@ -1616,6 +1638,21 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
         sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+      successful_submission:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          resubmitted: resubmitted
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          submitted: submitted
+        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Reply to this text.
       survey_notification:
         email:
           body: |
@@ -2505,6 +2542,8 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+      review:
+        w2: W-2 state and local tax information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.

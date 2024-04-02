@@ -15,6 +15,7 @@
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
 #  df_data_import_failed_at           :datetime
+#  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
 #  eligibility_part_year_nyc_resident :integer          default("unfilled"), not null
@@ -141,6 +142,25 @@ FactoryBot.define do
         filing_status { 'married_filing_jointly' }
         spouse_ssn { "123456789" }
         spouse_occupation { "123456789" }
+      end
+
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_first_name { "Spousel" }
+      spouse_last_name { "Testerson" }
+      spouse_middle_initial { "T" }
+
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn
+        intake.direct_file_data.spouse_occupation = evaluator.spouse_occupation
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
+
+    trait :mfs_incomplete_spouse do
+      transient do
+        filing_status { 'married_filing_separately' }
+        spouse_ssn { "" }
+        spouse_occupation { "Lawyer" }
       end
 
       spouse_birth_date { Date.new(1990, 1, 1) }

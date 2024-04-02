@@ -11,8 +11,7 @@ module StateFile
       private
 
       def error_redirect
-        flash[:alert] = "We encountered a problem generating your tax return pdf. For assistance, please reach out to FileYourStateTaxes client support."
-        redirect_back(fallback_location: request.referer)
+        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])
       end
     end
   end
