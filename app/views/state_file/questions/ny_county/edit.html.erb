@@ -14,16 +14,16 @@ content_for :page_title, title
               "Queens",
               "Richmond (Staten Isand)"
           ]
-          const nycResidency = <%= @nyc_residency == "full_year" %>
+          const nycResidencyFullYear = <%= @nyc_residency == "full_year" %>
 
           function displayWarnings(){
               const value = document.querySelector("#state_file_ny_county_form_residence_county").value
-              const inNyc = nycCounties.includes(value)
+              const selectedNycCounty = nycCounties.includes(value)
               const fullYearWarning = document.querySelector("#nyc_residency_full_year_warning")
               const noneWarning = document.querySelector("#nyc_residency_none_warning")
-              if (nycResidency === inNyc) {
+              if (nycResidencyFullYear === selectedNycCounty) {
                   fullYearWarning.style.display = noneWarning.style.display = "none"
-              } else if (nycResidency) {
+              } else if (nycResidencyFullYear) {
                   fullYearWarning.style.display  = "block"
                   noneWarning.style.display = "none"
               } else {
