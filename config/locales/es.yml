@@ -2316,6 +2316,7 @@ es:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
+          continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
           help_text_html: |
             <b>Lo que necesitarás para comenzar</b>
             <br>
@@ -2326,10 +2327,13 @@ es:
             <li>Deberías haber presentado tu declaración de impuestos federales de 2023 usando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración, ya que se importará a esta herramienta).
             <li>Si eliges recibir tu reembolso o hacer un pago de impuestos electrónicamente, necesitarás los números de ruta y de cuenta de tu banco.
             </ul>
+          not_you: "¿No es %{user_name}?"
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el Estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
+          start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+          welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
@@ -2341,7 +2345,6 @@ es:
           months_helper_heading: "¿Cuáles meses debería contar?"
           primary_name_dob: Tu nombre (como aparece en tu tarjeta de Seguro Social o tu carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento
           spouse_dob: Fecha de nacimiento de tu cónyuge
-          spouse_last_name: Apellido (Si tu cónyuge tiene un sufijo, ingrésalo aquí junto con su apellido. Por ejemplo, Smith, Jr)
           spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
           spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
           suffix: Sufijo

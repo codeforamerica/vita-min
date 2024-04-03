@@ -57,7 +57,7 @@ module StateFileIntakeHelper
 
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
-      code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+      code = mail.html_part.body.to_s.match(/(\d{6})[.]/)[1]
     end
 
     fill_in "Enter the 6-digit code", with: code
