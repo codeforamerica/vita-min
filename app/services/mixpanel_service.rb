@@ -51,7 +51,7 @@ class MixpanelService
 
   private
 
-  def send_event_to_mixpanel(type, message, num_attempts = 0, delay = 0)
+  def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0)
     task = Concurrent::ScheduledTask.new(delay) do
       @consumer.send!(type, message)
     rescue StandardError => err
