@@ -181,7 +181,7 @@ describe EfileSubmissionStateMachine do
 
       context "state file intakes" do
         before do
-          submission.update(data_source: create(:state_file_az_intake, state_file_analytics: StateFileAnalytics.create))
+          submission.update(data_source: create(:state_file_az_intake))
         end
 
         it "updates state file analytics record with submission data" do
