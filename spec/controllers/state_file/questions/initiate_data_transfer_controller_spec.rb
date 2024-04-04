@@ -29,24 +29,24 @@ RSpec.describe StateFile::Questions::InitiateDataTransferController do
       end
     end
 
-    context "it has a link to data_transfer when irs_df_transfer_link returns a link" do
+    context "it has a link to initiate_data_transfer when irs_df_transfer_link returns a link" do
       render_views
 
-      it "has a link to the data_transfer action (which redirects to the right data transfer link)" do
+      it "has a link to the initiate_data_transfer action (which redirects to the right data transfer link)" do
         df_link = "https://fake-df-transfer.gov"
         allow(subject).to receive(:irs_df_transfer_link).and_return(df_link)
         get :edit, params: { us_state: 'ny' }
 
-        expect(response.body).to have_link(href: described_class.to_path_helper(action: :data_transfer, us_state: 'ny'))
+        expect(response.body).to have_link(href: described_class.to_path_helper(action: :initiate_data_transfer, us_state: 'ny'))
       end
     end
   end
 
-  describe "#data_transfer" do
+  describe "#initiate_data_transfer" do
     it "increments the count of clicks on data transfer and redirects to direct file" do
       df_link = "https://fake-df-transfer.gov"
       allow(subject).to receive(:irs_df_transfer_link).and_return(df_link)
-      get :data_transfer, params: { us_state: 'ny' }
+      get :initiate_data_transfer, params: { us_state: 'ny' }
 
       expect(state_file_analytics.reload.initiate_df_data_transfer_clicks).to eq 1
       expect(response).to redirect_to df_link

@@ -7,12 +7,12 @@
 
 <% if @irs_df_transfer_link_present %>
   <% if Rails.env.production? %>
-    <%= link_to StateFile::Questions::InitiateDataTransferController.to_path_helper(action: :data_transfer, us_state: current_intake.state_code), class: "button button--primary button--icon", id: "firstCta" do %>
+    <%= link_to StateFile::Questions::InitiateDataTransferController.to_path_helper(action: :initiate_data_transfer, us_state: current_intake.state_code), class: "button button--primary button--icon", id: "firstCta" do %>
       <%= image_tag("icons/link-white.svg", alt: "") %>
       <%= t(".from_irs") %>
     <% end %>
   <% else %>
-    <%= link_to StateFile::Questions::InitiateDataTransferController.to_path_helper(action: :data_transfer, us_state: current_intake.state_code), class: "button button--icon text--small button--full-width", id: "firstCta" do %>
+    <%= link_to StateFile::Questions::InitiateDataTransferController.to_path_helper(action: :initiate_data_transfer, us_state: current_intake.state_code), class: "button button--icon text--small button--full-width", id: "firstCta" do %>
       <%= t(".from_irs_testing") %>
     <% end %>
   <% end %>

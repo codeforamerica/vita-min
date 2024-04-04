@@ -11,7 +11,7 @@ module StateFile
         @irs_df_transfer_link_present = irs_df_transfer_link.present?
       end
 
-      def data_transfer
+      def initiate_data_transfer
         current_intake.state_file_analytics.update(
           initiate_df_data_transfer_clicks: current_intake.state_file_analytics.initiate_df_data_transfer_clicks + 1
         )
