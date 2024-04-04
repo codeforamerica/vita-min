@@ -34,7 +34,6 @@ class IncomingEmail < ApplicationRecord
   has_many :documents, as: :contact_record
 
   after_create { InteractionTrackingService.record_incoming_interaction(client) }
-  after_create { enable_email_opt_in }
 
   def body
     stripped_text.present? ? [stripped_text, stripped_signature].map(&:presence).compact.join("\n") : body_plain
@@ -42,14 +41,5 @@ class IncomingEmail < ApplicationRecord
 
   def datetime
     received_at
-  end
-
-  def enable_email_opt_in
-    if Rails.env == 'demo' && (to == 'hello@mg-demo.getyourrefund-testing.org' || to == 'support@mg-demo.getyourrefund-testing.org')
-      self.client.intake.update(email_notification_opt_in: "yes")
-    end
-    if to == 'hello@getyourrefund.org' || to == 'support@getyourrefund.org'
-      self.client.intake.update(email_notification_opt_in: "yes")
-    end
   end
 end
