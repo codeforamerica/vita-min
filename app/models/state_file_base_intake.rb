@@ -267,4 +267,8 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
   end
+
+  def self.is_fyst_email?(email)
+    # TODO
+  end
 end

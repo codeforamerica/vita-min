@@ -13,7 +13,9 @@ class MailgunWebhooksController < ActionController::Base
     sender_email_address = parse_valid_email_address(from: params["from"], sender: params["sender"])
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email_address })
     client_count = clients.count
-    if client_count.zero?
+    if sender_email_address.is_FYST?
+      # Create incoming EMail for FYST
+    elsif client_count.zero?
       archived_intake = most_recent_intake(sender_email_address)
       if archived_intake.present?
         locale = archived_intake.locale || "en"
