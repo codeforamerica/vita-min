@@ -380,6 +380,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       <div
           class="warning warning-for-select"
           data-warning-for-select="#{element_id}"
+          style="display:none"
           data-permitted='#{permitted_values.to_json}'
         >
         #{msg}
