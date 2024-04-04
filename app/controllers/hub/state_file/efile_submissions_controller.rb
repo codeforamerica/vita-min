@@ -5,14 +5,13 @@ module Hub
       before_action :load_efile_submissions, only: [:index]
 
       def index
-        @efile_submissions = EfileSubmission.joins(<<~SQL
-          INNER JOIN (
-            SELECT state_file_az_intakes.id as intake_id, 'StateFileAzIntake' as ds_type, state_file_az_intakes.email_address FROM state_file_az_intakes
-            UNION
-            SELECT state_file_ny_intakes.id as intake_id, 'StateFileNyIntake' as ds_type, state_file_ny_intakes.email_address FROM state_file_ny_intakes
-          ) data_source ON data_source.ds_type = efile_submissions.data_source_type and data_source.ds_type = efile_submissions.data_source_type
-        SQL
-        )
+
+        join_sql = StateFileBaseIntake::STATE_CODES.map do |state_code|
+          "SELECT state_file_#{state_code}_intakes.id as intake_id, 'StateFile#{state_code.to_s.titleize}Intake' as ds_type, '#{state_code}' as data_source_state_code, state_file_#{state_code}_intakes.email_address FROM state_file_#{state_code}_intakes"
+        end
+        join_sql = "INNER JOIN (#{join_sql.join(" UNION ")}) data_source ON data_source.ds_type = efile_submissions.data_source_type and data_source.ds_type = efile_submissions.data_source_type"
+        @efile_submissions = EfileSubmission.joins(join_sql).select("efile_submissions.*, data_source.*")
+
         search = params[:search]
         if search.present?
           @efile_submissions = @efile_submissions.where("email_address LIKE ? OR irs_submission_id LIKE ?", "%#{search}%", "%#{search}%")
@@ -20,8 +19,10 @@ module Hub
             @efile_submissions = @efile_submissions.where("id LIKE ? OR intake_id LIKE ?", search, search)
           end
         end
-        @efile_submissions = @efile_submissions.reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)
+
+        @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)
         @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
+
       end
 
       def show
