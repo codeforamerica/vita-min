@@ -31,7 +31,6 @@
 #
 class StateFileAnalytics < ApplicationRecord
   belongs_to :record, polymorphic: true
-  # before_create :calculated_attrs
 
   def calculated_attrs
     attributes = {
@@ -41,6 +40,5 @@ class StateFileAnalytics < ApplicationRecord
       household_fed_agi: record.direct_file_data.fed_agi
     }
     attributes.merge!(record.calculator&.analytics_attrs || {})
-    assign_attributes(attributes)
   end
 end
