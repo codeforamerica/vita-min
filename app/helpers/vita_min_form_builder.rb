@@ -374,4 +374,16 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def continue(value = I18n.t("general.continue"))
     submit(value, class: "button button--primary button--wide")
   end
+
+  def warning_for_select(element_id, permitted_values, msg)
+    return <<~HTML.html_safe
+      <div
+          class="warning warning-for-select"
+          data-select="#{element_id}"
+          data-permitted='#{permitted_values.to_json}'
+        >
+        #{msg}
+      </div>
+    HTML
+  end
 end
