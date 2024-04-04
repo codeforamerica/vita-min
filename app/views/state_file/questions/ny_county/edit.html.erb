@@ -1,45 +1,17 @@
 <%
 title = t(".title", filing_year: @filing_year )
+nyc_counties = [
+  "Bronx",
+  "Kings (Brooklyn)",
+  "Manhattan (see New York)",
+  "New York (Manhattan)",
+  "Queens",
+  "Richmond (Staten Isand)"
+]
+nyc_residency_full_year = @nyc_residency == :full_year
+permitted_counties = NySchoolDistricts.county_labels.filter { |c| nyc_counties.include?(c) == nyc_residency_full_year }
 content_for :page_title, title
 %>
-
-<% content_for :script do %>
-  <script>
-      window.addEventListener("load", () => {
-          const nycCounties = [
-              "Bronx",
-              "Kings (Brooklyn)",
-              "Manhattan (see New York)",
-              "New York (Manhattan)",
-              "Queens",
-              "Richmond (Staten Isand)"
-          ]
-          const nycResidencyFullYear = <%= @nyc_residency == "full_year" %>
-
-          function displayWarnings(){
-              const select = document.querySelector("#state_file_ny_county_form_residence_county")
-              const selectedNycCounty = nycCounties.includes(select.value)
-              const fullYearWarning = document.querySelector("#nyc_residency_full_year_warning")
-              const noneWarning = document.querySelector("#nyc_residency_none_warning")
-              if (nycResidencyFullYear === selectedNycCounty) {
-                  fullYearWarning.style.display = noneWarning.style.display = "none"
-                  select.classList.remove("input-warning");
-              } else if (nycResidencyFullYear) {
-                  fullYearWarning.style.display  = "block"
-                  noneWarning.style.display = "none"
-                  select.classList.add("input-warning")
-              } else {
-                  fullYearWarning.style.display  = "none"
-                  noneWarning.style.display = "block"
-                  select.classList.add("input-warning")
-              }
-          }
-
-          document.querySelector("#state_file_ny_county_form_residence_county").addEventListener("change", displayWarnings)
-          displayWarnings()
-      })
-  </script>
-<% end %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
@@ -48,8 +20,13 @@ content_for :page_title, title
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
-      <p class="warning" id="nyc_residency_full_year_warning" style="display:none"><%= t(".nyc_residency_full_year_warning") %></p>
-      <p class="warning" id="nyc_residency_none_warning" style="display:none"><%= t(".nyc_residency_none_warning") %></p>
+      <p
+        class="warning"
+        data-select="state_file_ny_county_form_residence_county"
+        data-permitted='<%= permitted_counties.to_json %>'
+      >
+        <%= t(".nyc_residency_#{@nyc_residency}_warning") %>
+      </p>
       <%= f.vita_min_state_file_select(:residence_county , t(".county"), NySchoolDistricts.county_labels, label_class: 'form-label--bold', prompt: t('general.select_prompt'), "data-warning": true ) %>
     </div>
 
