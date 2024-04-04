@@ -121,6 +121,11 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
+    it "permits local_wages_and_tips_amt to be greater than w2.wagesAmt" do
+      w2.local_wages_and_tips_amt = 1000000
+      expect(w2).to be_valid
+    end
+
   end
 
   describe "generating xml" do
