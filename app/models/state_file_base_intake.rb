@@ -268,7 +268,11 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def self.is_fyst_email?(email)
-    # TODO
+  def self.is_state_file_email?(email)
+    STATE_INTAKE_CLASS_NAMES.each do |state|
+      class_object = state.constantize
+      return true if class_object.where(email_address: email).length.positive?
+    end
+    false
   end
 end
