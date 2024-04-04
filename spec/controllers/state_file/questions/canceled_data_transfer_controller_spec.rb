@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe StateFile::Questions::CanceledDataTransferController do
   let(:intake) { create :state_file_az_intake }
-  let!(:state_file_analytics) { StateFileAnalytics.create(record: intake) }
   before do
     sign_in intake
   end
@@ -10,6 +9,7 @@ RSpec.describe StateFile::Questions::CanceledDataTransferController do
   describe "#edit" do
     context "when the client visits this page" do
       it "increments the counter" do
+        state_file_analytics = intake.state_file_analytics
         state_file_analytics.update(canceled_data_transfer_count: 1)
 
         expect {

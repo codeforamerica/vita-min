@@ -32,7 +32,7 @@ RSpec.describe StateFile::Questions::NameDobController do
   end
 
   describe "#edit" do
-    let!(:state_file_analytics) { StateFileAnalytics.create(record: intake) }
+    let(:state_file_analytics) { intake.state_file_analytics }
 
     context "when it is the client's first visit to this page" do
       it "saves the timestamp for the first visit" do
