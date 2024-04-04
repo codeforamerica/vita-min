@@ -45,9 +45,6 @@ class IncomingEmail < ApplicationRecord
   end
 
   def enable_email_opt_in
-    if Rails.env == 'demo' && (to == 'hello@mg-demo.getyourrefund-testing.org' || to == 'support@mg-demo.getyourrefund-testing.org')
-      self.client.intake.update(email_notification_opt_in: "yes")
-    end
     if to == 'hello@getyourrefund.org' || to == 'support@getyourrefund.org'
       self.client.intake.update(email_notification_opt_in: "yes")
     end
