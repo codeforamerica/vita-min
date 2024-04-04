@@ -9,10 +9,10 @@ export default function WarningForSelectComponent() {
             const value = selectElement.value;
             if (permittedValues.includes(value)) {
                 selectElement.classList.add("input-warning");
-                warningElement.style.display = "block";
+                $(warningElement).show('fast');
             } else {
                 selectElement.classList.remove("input-warning");
-                warningElement.style.display = "none";
+                $(warningElement).hide('fast');
             }
         }
         selectElement.addEventListener("change", render);
