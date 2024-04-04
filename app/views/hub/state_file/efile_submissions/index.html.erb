@@ -3,7 +3,13 @@
     <div class="efile-state-counts" style="display: flex;">
       <%= render "state_counts", efile_submission_state_counts: @efile_submission_state_counts %>
     </div>
-    <div class="slab slab--not-padded spacing-above-25">
+    <div class="slab slab--not-padded spacing-above-25 state-file-submissions">
+      <div class="search-container">
+        <%= form_tag hub_state_file_efile_submissions_path, method: "get", class: "hub-searchbar" do %>
+          <input type="text" class="hub-searchbar__input" id="search" name="search" <%= tag.attributes value: params[:search] %>>
+          <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
+        <% end %>
+      </div>
       <div class="pagination-wrapper">
         <div class="count-wrapper">
           <div>
@@ -73,8 +79,8 @@
           <td class="index-table__cell">
             <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
           </td>
-          <td class="index-table__cell"><%= submission.data_source.state_name %></td>
-          <td class="index-table__cell"><%= submission.data_source.email_address %></td>
+          <td class="index-table__cell"><%= StateFileBaseIntake::STATE_CODE_AND_NAMES[submission.data_source_state_code] %></td>
+          <td class="index-table__cell"><%= submission.email_address %></td>
         </tr>
       <% end %>
       </tbody>
