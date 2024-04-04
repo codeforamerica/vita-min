@@ -184,25 +184,12 @@ describe EfileSubmissionStateMachine do
           submission.update(data_source: create(:state_file_az_intake))
         end
 
-        it "creates a record to store the analytics data" do
-          expect {
-            submission.transition_to(:transmitted)
-          }.to change(StateFileAnalytics, :count).by 1
+        it "updates state file analytics record with submission data" do
+          submission.transition_to(:transmitted)
 
           expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
           expect(submission.data_source.state_file_analytics.filing_status).to eq 1
           expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
-        end
-
-        context "when state is already transmitted" do
-          let(:submission) { create(:efile_submission, :queued) }
-          before { submission.transition_to(:transmitted) }
-
-          it "sucessfully transitions to transmitted" do
-            expect {
-              submission.transition_to(:transmitted)
-            }.not_to change(StateFileAnalytics, :count)
-          end
         end
       end
     end
