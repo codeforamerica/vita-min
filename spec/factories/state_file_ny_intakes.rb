@@ -124,6 +124,7 @@ FactoryBot.define do
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
     nyc_residency { 'full_year' }
+    state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
