@@ -379,7 +379,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     return <<~HTML.html_safe
       <div
           class="warning warning-for-select"
-          data-select="#{element_id}"
+          data-warning-for-select="#{element_id}"
           data-permitted='#{permitted_values.to_json}'
         >
         #{msg}

@@ -1,8 +1,8 @@
 
 export default function SelectWarningComponent() {
-    const warningElements = document.querySelectorAll("[data-select]");
+    const warningElements = document.querySelectorAll("[data-warning-for-select]");
     warningElements.forEach((warningElement) => {
-        const selectElement = document.getElementById(warningElement.dataset.select);
+        const selectElement = document.getElementById(warningElement.dataset.warningForSelect);
         const permittedValues = JSON.parse(warningElement.dataset.permitted);
 
         function render() {
