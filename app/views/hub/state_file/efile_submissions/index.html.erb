@@ -4,17 +4,17 @@
       <%= render "state_counts", efile_submission_state_counts: @efile_submission_state_counts %>
     </div>
     <div class="slab slab--not-padded spacing-above-25 state-file-submissions">
+      <div class="search-container">
+        <%= form_tag hub_state_file_efile_submissions_path, method: "get", class: "hub-searchbar" do %>
+          <input type="text" class="hub-searchbar__input" id="search" name="search" <%= tag.attributes value: params[:search] %>>
+          <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
+        <% end %>
+      </div>
       <div class="pagination-wrapper">
         <div class="count-wrapper">
           <div>
             <%= page_entries_info @efile_submissions %>
           </div>
-        </div>
-        <div class="search-container">
-          <%= form_tag hub_state_file_efile_submissions_path, method: "get", class: "hub-searchbar" do %>
-            <input type="text" class="hub-searchbar__input" id="search" name="search" <%= tag.attributes value: params[:search] %>>
-            <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
-          <% end %>
         </div>
         <div>
           <%= will_paginate(

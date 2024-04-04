@@ -672,14 +672,10 @@ $state-colors: (
 .state-file-submissions {
   .pagination-wrapper {
     align-items: center;
-
-    .search-container {
-      flex-grow: 1;
-      padding: 0 3.0rem;
-
-      .hub-searchbar__input{
-        flex-grow: 1;
-      }
+  }
+  .search-container {
+    padding-bottom: 2rem;
+    .hub-searchbar__input{
     }
   }
 }
