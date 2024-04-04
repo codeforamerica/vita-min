@@ -24,6 +24,10 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
     step_through_df_data_transfer
+
+    intake = StateFileNyIntake.last
+    expect(intake.state_file_analytics.initiate_df_data_transfer_clicks).to eq 1
+
     expect(page).to have_text "Your federal tax return is now transferred."
   end
 end

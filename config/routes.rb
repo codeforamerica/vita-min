@@ -568,6 +568,7 @@ Rails.application.routes.draw do
         resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
         get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
+        get "/data-transfer", to: "state_file/questions/initiate_data_transfer#data_transfer"
       end
 
       scope ':us_state', constraints: { us_state: /az|ny|us/i } do

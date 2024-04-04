@@ -2,24 +2,28 @@
 #
 # Table name: state_file_analytics
 #
-#  id                        :bigint           not null, primary key
-#  dependent_tax_credit      :integer
-#  empire_state_child_credit :integer
-#  excise_credit             :integer
-#  family_income_tax_credit  :integer
-#  fed_eitc_amount           :integer
-#  filing_status             :integer
-#  household_fed_agi         :integer
-#  nyc_eitc                  :integer
-#  nyc_household_credit      :integer
-#  nyc_school_tax_credit     :integer
-#  nys_eitc                  :integer
-#  nys_household_credit      :integer
-#  record_type               :string           not null
-#  refund_or_owed_amount     :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  record_id                 :bigint           not null
+#  id                                    :bigint           not null, primary key
+#  canceled_data_transfer_count          :integer          default(0)
+#  dependent_tax_credit                  :integer
+#  empire_state_child_credit             :integer
+#  excise_credit                         :integer
+#  family_income_tax_credit              :integer
+#  fed_eitc_amount                       :integer
+#  filing_status                         :integer
+#  household_fed_agi                     :integer
+#  initiate_data_transfer_first_visit_at :datetime
+#  initiate_df_data_transfer_clicks      :integer          default(0)
+#  name_dob_first_visit_at               :datetime
+#  nyc_eitc                              :integer
+#  nyc_household_credit                  :integer
+#  nyc_school_tax_credit                 :integer
+#  nys_eitc                              :integer
+#  nys_household_credit                  :integer
+#  record_type                           :string           not null
+#  refund_or_owed_amount                 :integer
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  record_id                             :bigint           not null
 #
 # Indexes
 #
@@ -27,7 +31,7 @@
 #
 class StateFileAnalytics < ApplicationRecord
   belongs_to :record, polymorphic: true
-  before_create :calculated_attrs
+  # before_create :calculated_attrs
 
   def calculated_attrs
     attributes = {
