@@ -27,4 +27,21 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe 'is_state_file_email?' do
+    let!(:email) { 'email@test.com' }
+    let!(:intake) { create :state_file_az_intake, email_address: email }
+
+    context 'when is a FYST email' do
+      it 'returns true' do
+        expect(StateFileBaseIntake.is_state_file_email?(email)).to eq true
+      end
+    end
+
+    context 'when is NOT a FYST email' do
+      it 'returns false' do
+        expect(StateFileBaseIntake.is_state_file_email?('another_email@test.com')).to eq false
+      end
+    end
+  end
 end
