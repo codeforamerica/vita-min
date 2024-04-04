@@ -268,11 +268,12 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def self.is_state_file_email?(email)
+  def self.opted_out_state_file_intakes(email)
+    state_intakes = []
     STATE_INTAKE_CLASS_NAMES.each do |state|
       class_object = state.constantize
-      return true if class_object.where(email_address: email).length.positive?
+      state_intakes += class_object.where(email_address: email).where(unsubscribed_from_email: true)
     end
-    false
+    state_intakes
   end
 end

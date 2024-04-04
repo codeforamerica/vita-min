@@ -1,6 +1,7 @@
 class MailgunWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
   before_action :authenticate_mailgun_request
+  before_action :re_optin_when_client_replies, only: :create_incoming_email
 
   REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
 
@@ -13,9 +14,7 @@ class MailgunWebhooksController < ActionController::Base
     sender_email_address = parse_valid_email_address(from: params["from"], sender: params["sender"])
     clients = Client.joins(:intake).where(intakes: { email_address: sender_email_address })
     client_count = clients.count
-    if sender_email_address.is_FYST?
-      # Create incoming EMail for FYST
-    elsif client_count.zero?
+    if client_count.zero?
       archived_intake = most_recent_intake(sender_email_address)
       if archived_intake.present?
         locale = archived_intake.locale || "en"
@@ -159,6 +158,16 @@ class MailgunWebhooksController < ActionController::Base
   end
 
   private
+
+  def re_optin_when_client_replies
+    sender_email_address = parse_valid_email_address(from: params["from"], sender: params["sender"])
+    opted_out_state_intakes = StateFileBaseIntake.opted_out_state_file_intakes(sender_email_address)
+    unless opted_out_state_intakes.empty?
+      opted_out_state_intakes.each do |intake|
+        intake.update(unsubscribed_from_email: false)
+      end
+    end
+  end
 
   def parse_valid_email_address(from:, sender:)
     if REGEX_FROM_ENVELOPE.match?(from)
