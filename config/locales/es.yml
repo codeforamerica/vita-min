@@ -1721,6 +1721,16 @@ es:
         Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
         Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
     verification_code_subject_with_service_name: Código de seis dígitos de %{service_name}
+    welcome:
+      email:
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          ¡Gracias por crear una cuenta con GetYourRefund! Su ID de cliente es <<Client.ClientId>>. Esta es una información importante de la cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Mantenga un registro de este número y no elimine este mensaje.
+
+          Puede verificar su progreso y agregar documentos adicionales aquí: <<Client.LoginLink>>
+        subject: 'Bienvenido a GetYourRefund: ID de cliente'
+      sms: 'Hola <<Client.PreferredName>>, Te has registrado en GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje. Si tiene alguna pregunta, responda a este mensaje.'
   models:
     intake:
       your_spouse: Su cónyuge

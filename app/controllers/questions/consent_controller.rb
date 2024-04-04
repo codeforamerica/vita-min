@@ -3,6 +3,7 @@ module Questions
     include AnonymousIntakeConcern
     layout "intake"
     before_action :check_required_attributes
+    before_action :send_welcome_message, only: [:edit]
 
     def illustration_path; end
 
@@ -49,6 +50,16 @@ module Questions
       if current_intake.primary_ssn.blank?
         redirect_to Questions::TriagePersonalInfoController.to_path_helper
       end
+    end
+
+    def send_welcome_message
+      @client = current_intake.client
+
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: current_intake.client,
+        message: AutomatedMessage::Welcome,
+        locale: I18n.locale
+      )
     end
   end
 end
