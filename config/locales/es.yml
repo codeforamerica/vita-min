@@ -2329,9 +2329,9 @@ es:
       ny_county:
         edit:
           county: Condado
-          nyc_residency_full_year_html: En la página anterior, nos dijo que <strong>no</strong> vivía en la ciudad de Nueva York en %{filing_year}.
+          nyc_residency_full_year_html: En la página anterior, nos dijo que vivió en la ciudad de Nueva York <strong>todo el año</strong> en %{filing_year}.
           nyc_residency_full_year_warning: El condado que seleccionó se encuentra fuera de la ciudad de Nueva York. Seleccione un condado dentro de la ciudad de Nueva York o utilice el botón Atrás del navegador para cambiar su respuesta de residencia en la ciudad de Nueva York.
-          nyc_residency_none_html: En la página anterior, nos dijo que no vivió en la ciudad de Nueva York <strong>todo el año</strong> en %{filing_year}.
+          nyc_residency_none_html: En la página anterior, nos dijo que <strong>no</strong> vivía en la ciudad de Nueva York en %{filing_year}.
           nyc_residency_none_warning: El condado que seleccionó está en la ciudad de Nueva York. Seleccione un condado fuera de la ciudad de Nueva York o utilice el botón Atrás del navegador para cambiar su respuesta de residencia en la ciudad de Nueva York.
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
       ny_eligibility_college_savings_withdrawal:

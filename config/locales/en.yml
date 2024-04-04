@@ -2362,9 +2362,9 @@ en:
       ny_county:
         edit:
           county: County
-          nyc_residency_full_year_html: On the previous page, you told us you <strong>did not</strong> live in New York City in %{filing_year}.
+          nyc_residency_full_year_html: On the previous page, you told us you lived in New York City <strong>all year</strong> in %{filing_year}.
           nyc_residency_full_year_warning: The county you selected is outside New York City. Please select a county inside of New York City or click on the "Go Back" button to change your New York City residency answer.
-          nyc_residency_none_html: On the previous page, you told us you did not live in New York City <strong>all year</strong> in %{filing_year}.
+          nyc_residency_none_html: On the previous page, you told us you <strong>did not</strong> live in New York City in %{filing_year}.
           nyc_residency_none_warning: The county you selected is in New York City. Please select a county outside of New York City or click on the "Go Back" button to change your New York City residency answer.
           title: Select the county where you lived on December 31, %{filing_year}
       ny_eligibility_college_savings_withdrawal:
