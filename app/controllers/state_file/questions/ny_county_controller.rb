@@ -7,7 +7,7 @@ module StateFile
     "Manhattan (see New York)",
     "New York (Manhattan)",
     "Queens",
-    "Richmond (Staten Isand)"
+    "Richmond (Staten Island)"
   ].freeze
 
   module Questions
