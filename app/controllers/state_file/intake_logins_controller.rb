@@ -112,6 +112,11 @@ module StateFile
       to_path = session.delete(:after_state_file_intake_login_path)
       unless to_path
         controller = intake.controller_for_current_step
+        # This can be removed once we are sure nobody has current_step set to landing_page
+        navigation = "Navigation::StateFile#{intake.state_code.titleize}QuestionNavigation".constantize
+        if navigation::FLOW.index(controller) < navigation::FLOW.index(StateFile::Questions::TermsAndConditionsController)
+          controller = StateFile::Questions::TermsAndConditionsController
+        end
         to_path = controller.to_path_helper(
           action: controller.navigation_actions.first,
           us_state: intake.state_code

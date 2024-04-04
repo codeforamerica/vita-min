@@ -75,4 +75,49 @@ describe IncomingEmail do
       let(:subject) { build(:incoming_email) }
     end
   end
+
+  context 'enable_email_opt_in' do
+    let(:intake) { create :intake, email_notification_opt_in: 'no' }
+    let(:client) { intake.client }
+    let(:subject) {
+      build(
+        :incoming_email,
+        stripped_text: nil,
+        stripped_signature: nil,
+        body_plain: "I love sending emails to websites",
+        client_id: client.id,
+        to: 'hello@getyourrefund.org',
+      )
+    }
+
+    it 'updates email_notification_opt_in to yes with correct incoming_email' do
+      expect(intake.email_notification_opt_in).to eq('no')
+      subject.save
+      expect(intake.reload.email_notification_opt_in).to eq('yes')
+    end
+  end
+
+  context 'enable_email_opt_in on demo' do
+    let(:intake) { create :intake, email_notification_opt_in: 'no' }
+    let(:client) { intake.client }
+    let(:subject) {
+      build(
+        :incoming_email,
+        stripped_text: nil,
+        stripped_signature: nil,
+        body_plain: "I love sending emails to websites",
+        client_id: client.id,
+        to: 'hello@mg-demo.getyourrefund-testing.org',
+        )
+    }
+    before do
+      allow(Rails).to receive(:env).and_return('demo')
+    end
+
+    it 'updates email_notification_opt_in to yes with correct incoming_email' do
+      expect(intake.email_notification_opt_in).to eq('no')
+      subject.save
+      expect(intake.reload.email_notification_opt_in).to eq('yes')
+    end
+  end
 end
