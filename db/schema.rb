@@ -9,7 +9,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_194733) do
+
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1592,6 +1593,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_194733) do
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
+    t.integer "canceled_data_transfer_count", default: 0
     t.datetime "created_at", null: false
     t.integer "dependent_tax_credit"
     t.integer "empire_state_child_credit"
@@ -1600,6 +1602,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_194733) do
     t.integer "fed_eitc_amount"
     t.integer "filing_status"
     t.integer "household_fed_agi"
+    t.datetime "initiate_data_transfer_first_visit_at"
+    t.integer "initiate_df_data_transfer_clicks", default: 0
+    t.datetime "name_dob_first_visit_at"
     t.integer "nyc_eitc"
     t.integer "nyc_household_credit"
     t.integer "nyc_school_tax_credit"
