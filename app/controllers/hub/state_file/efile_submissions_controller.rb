@@ -14,10 +14,13 @@ module Hub
 
         search = params[:search]
         if search.present?
-          @efile_submissions = @efile_submissions.where("email_address LIKE ? OR irs_submission_id LIKE ?", "%#{search}%", "%#{search}%")
+          query = "email_address LIKE ? OR irs_submission_id LIKE ?"
+          query_args = ["%#{search}%", "%#{search}%"]
           if search.to_i.to_s == search
-            @efile_submissions = @efile_submissions.where("id=? OR intake_id=?", search.to_i, search.to_i)
+            query << " OR id=? OR intake_id=?"
+            query_args.concat [search.to_i, search.to_i]
           end
+          @efile_submissions = @efile_submissions.where(query, *query_args)
         end
 
         @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)

@@ -79,7 +79,7 @@
           <td class="index-table__cell">
             <%= submission.irs_submission_id.present? ? link_to(submission.irs_submission_id, hub_state_file_efile_submission_path(id: submission.id)) : "" %>
           </td>
-          <td class="index-table__cell"><%= StateFileBaseIntake::STATE_CODE_AND_NAMES[submission.data_source_state_code] %></td>
+          <td class="index-table__cell"><%= submission.data_source_state_code %><%=submission.data_source_id %></td>
           <td class="index-table__cell"><%= submission.email_address %></td>
         </tr>
       <% end %>
