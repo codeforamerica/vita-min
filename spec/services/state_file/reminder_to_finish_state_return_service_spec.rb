@@ -12,7 +12,7 @@ describe StateFile::ReminderToFinishStateReturnService do
     end
 
     context 'when there is a started intake from more than 12 hours ago' do
-      let!(:intake) { create :state_file_az_intake, created_at: (12.hours + 1.minute).ago }
+      let!(:intake) { create :state_file_az_intake, created_at: (12.hours + 1.minute).ago, email_address: 'rkreyhsig@codeforamerica.org' }
 
       it 'sends a message to the email associated with the intake' do
         StateFile::ReminderToFinishStateReturnService.run
@@ -22,7 +22,7 @@ describe StateFile::ReminderToFinishStateReturnService do
     end
 
     context 'when there is a started intake from less than 12 hours ago' do
-      let(:intake) { create :state_file_az_intake, created_at: (11.hours + 59.minutes).ago }
+      let(:intake) { create :state_file_az_intake, created_at: (11.hours + 59.minutes).ago, email_address: 'rkreyhsig@codeforamerica.org' }
       it 'does not send a message to the email associated with the intake' do
         StateFile::ReminderToFinishStateReturnService.run
         expect(StateFile::MessagingService).to_not have_received(:new)
