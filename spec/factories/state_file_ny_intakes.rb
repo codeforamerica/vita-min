@@ -15,6 +15,7 @@
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
 #  df_data_import_failed_at           :datetime
+#  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
 #  eligibility_part_year_nyc_resident :integer          default("unfilled"), not null
@@ -123,6 +124,7 @@ FactoryBot.define do
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
     nyc_residency { 'full_year' }
+    state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

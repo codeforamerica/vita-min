@@ -631,6 +631,7 @@ class FlowsController < ApplicationController
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
+        df_data_imported_at: 2.hours.ago,
       )
     end
 
@@ -659,6 +660,7 @@ class FlowsController < ApplicationController
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
+        df_data_imported_at: 2.hours.ago,
       )
     end
 

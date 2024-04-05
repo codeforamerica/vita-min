@@ -18,6 +18,7 @@
 #  current_step                          :string
 #  date_electronic_withdrawal            :date
 #  df_data_import_failed_at              :datetime
+#  df_data_imported_at                   :datetime
 #  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
 #  eligibility_lived_in_state            :integer          default("unfilled"), not null
 #  eligibility_married_filing_separately :integer          default("unfilled"), not null
@@ -89,6 +90,7 @@ FactoryBot.define do
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
+    state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

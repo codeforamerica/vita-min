@@ -59,7 +59,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the off season banner" do
         visit "/"
 
-        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by October 9th in order to file by the deadline."
+        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by April 1st in order to file by the deadline."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end
@@ -81,14 +81,14 @@ RSpec.feature "Visit home page" do
       scenario "shows the banner with closing date and document submission deadline" do
         visit "/"
 
-        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by October 9th in order to file by the deadline."
+        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by April 1st in order to file by the deadline."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
 
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text "No podemos aceptar nuevos clientes después de 1 de octubre. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de 9 de octubre para presentarla antes de la fecha límite."
+        expect(page).to have_text "No podemos aceptar nuevos clientes después de 1 de octubre. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de 1 de abril para presentarla antes de la fecha límite."
       end
     end
   end

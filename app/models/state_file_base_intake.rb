@@ -15,7 +15,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
   has_many :state_file_w2s, as: :state_file_intake, class_name: "StateFileW2", inverse_of: :state_file_intake, dependent: :destroy
   has_many :df_data_import_errors, -> { order(created_at: :asc) }, as: :state_file_intake, class_name: "DfDataImportError", inverse_of: :state_file_intake, dependent: :destroy
-  has_one :state_file_analytics, as: :record
+  has_one :state_file_analytics, as: :record, dependent: :destroy
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
@@ -37,6 +37,10 @@ class StateFileBaseIntake < ApplicationRecord
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
+  scope :with_df_data_and_no_federal_submission, lambda {
+    where.not(raw_direct_file_data: nil)
+         .where(federal_submission_id: nil)
+  }
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)

@@ -991,11 +991,15 @@ en:
         email_form:
           label: Send an email
           submit: Send
+        email_opted_out: Client has opted out of emails.
         no_email_address: Client has not provided an email address.
+        no_email_and_opt_out: Client has not provided an email address and opted out of emails.
+        no_sms_and_opt_out: Client has not provided an SMS phone number and opted out of text messages.
         no_sms_number: Client has not provided an SMS phone number.
-        no_way_to_communicate: Client has not provided contact info for digital communication.
+        no_way_to_communicate: Client has not provided contact info for digital communication and/or has opted-out.
         preference_intro: "%{preferred_name} has opted in to contact by:"
         response_not_needed: Mark as "Response not needed"
+        sms_opted_out: Client has opted out of text messages.
         text_message_form:
           label: Send a text message
           submit: Send
@@ -1579,6 +1583,24 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+      finish_return:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15.
+
+            Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Don't forget to finish your state tax return!
+        sms: |
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+
+          Need help? Reply to this text.
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
@@ -2327,6 +2349,7 @@ en:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
+          continue: To continue filing your %{state_name} State return, please sign in below
           help_text_html: |
             <b>What you’ll need to get started</b>
             <br>
@@ -2337,10 +2360,13 @@ en:
               <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
               <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
             </ul>
+          not_you: Not %{user_name}?
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
+          start_new: Click here to start a new %{state_name} State return.
+          welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2352,7 +2378,6 @@ en:
           months_helper_heading: Which months should I count?
           primary_name_dob: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_dob: Your spouse's date of birth
-          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith Jr)
           spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           suffix: Suffix
