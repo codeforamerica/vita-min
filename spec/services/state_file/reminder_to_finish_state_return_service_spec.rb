@@ -11,7 +11,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       allow(state_file_messaging_service).to receive(:send_message)
     end
 
-    context "when there is a started intake from more than 12 hours ago" do
+    context 'when there is a started intake from more than 12 hours ago' do
       let!(:intake) { create :state_file_az_intake, created_at: (12.hours + 1.minute).ago }
 
       it 'sends a message to the email associated with the intake' do
