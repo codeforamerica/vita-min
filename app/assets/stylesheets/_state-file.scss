@@ -412,9 +412,32 @@
     }
   }
 
-  .landing-page-content {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .landing-page-outer {
+    .question-wrapper {
+      max-width: none;
+    }
+
+    .landing-page-container {
+      display: flex;
+
+      .landing-page-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        max-width: 570px;
+        min-width: 570px;
+      }
+
+      .logo {
+        display: none;
+      }
+
+      @media screen and (max-width: $tablet-up) {
+
+        .logo {
+          display: block;
+        }
+      }
+    }
   }
 
   .partner-logo-wrapper {
