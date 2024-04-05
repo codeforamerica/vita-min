@@ -30,4 +30,29 @@ RSpec.describe StateFile::Questions::NameDobController do
       end
     end
   end
+
+  describe "#edit" do
+    let(:state_file_analytics) { intake.state_file_analytics }
+
+    context "when it is the client's first visit to this page" do
+      it "saves the timestamp for the first visit" do
+        expect {
+          get :edit, params: { us_state: 'az' }
+          state_file_analytics.reload
+        }.to change(state_file_analytics, :name_dob_first_visit_at)
+
+        expect(state_file_analytics.name_dob_first_visit_at).to be_within(1.second).of(DateTime.now)
+      end
+    end
+
+    context "when it is not the client's first visit to the page" do
+      it "does nothing" do
+        state_file_analytics.update(name_dob_first_visit_at: 1.day.ago)
+        expect {
+          get :edit, params: { us_state: 'az' }
+          state_file_analytics.reload
+        }.not_to change(state_file_analytics, :name_dob_first_visit_at)
+      end
+    end
+  end
 end

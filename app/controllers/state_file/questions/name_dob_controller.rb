@@ -3,6 +3,13 @@ module StateFile
     class NameDobController < AuthenticatedQuestionsController
       include ReturnToReviewConcern
 
+      def edit
+        if current_intake.state_file_analytics.name_dob_first_visit_at.nil?
+          current_intake.state_file_analytics.update!(name_dob_first_visit_at: DateTime.now)
+        end
+        super
+      end
+
       private
 
       def form_params

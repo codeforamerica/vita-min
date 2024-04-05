@@ -93,6 +93,7 @@ FactoryBot.define do
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
+    state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
