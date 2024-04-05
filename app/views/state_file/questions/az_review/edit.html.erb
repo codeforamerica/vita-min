@@ -10,6 +10,16 @@
     </div>
   </div>
 
+  <% @invalid_w2s.each do |w2| %>
+    <div id="w2s" class="blue-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
+        <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, us_state: current_intake.state_code, id: w2.w2_index, return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <div id="state-credits" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
@@ -42,7 +52,7 @@
     </div>
   </div>
 
-  <% if current_intake.ask_whether_incarcerated? %>
+  <% unless current_intake.disqualified_from_excise_credit_df? %>
     <div id="incarcerated" class="blue-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>

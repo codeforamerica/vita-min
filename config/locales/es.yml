@@ -1000,11 +1000,15 @@ es:
         email_form:
           label: Enviar un correo electrónico
           submit: Enviar
+        email_opted_out: El cliente ha optado por no recibir correos electrónicos.
         no_email_address: No se encontró la dirección de correo electrónico de este cliente.
+        no_email_and_opt_out: El cliente no proporcionó una dirección de correo electrónico y optó por no recibir correos electrónicos.
+        no_sms_and_opt_out: El cliente no proporcionó un número de teléfono SMS y optó por no recibir mensajes de texto.
         no_sms_number: El cliente no ha proporcionado un número de teléfono SMS.
-        no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital.
+        no_way_to_communicate: El cliente no ha proporcionado información de contacto para la comunicación digital y/o ha optado por no participar.
         preference_intro: "%{preferred_name} ha optado por contactar por:"
         response_not_needed: Marcar como "Respuesta no necesaria"
+        sms_opted_out: El cliente ha optado por no recibir mensajes de texto.
         text_message_form:
           label: Enviar un mensaje de texto
           submit: Enviar
@@ -1602,6 +1606,21 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
         sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento. ¿Necesitas ayuda? Responde a este mensaje.
+      successful_submission:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            ¡%{submitted_or_resubmitted} exitosamente su declaración de impuestos del estado de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responder a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          resubmitted: Reenvió
+          subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal aceptada'
+          submitted: Envió
+        sms: Hola, %{primary_first_name} - ¡%{submitted_or_resubmitted}  exitosamente tu declaración de impuestos estatales de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en %{return_status_link}. ¿Necesitas ayuda? Responder a este texto.
       survey_notification:
         email:
           body: |
@@ -2015,14 +2034,15 @@ es:
             other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
+          primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+          spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
-          was_incarcerated:
-            many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-            one: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-            other: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+        update:
+          page_changed_notice: "¡Lo sentimos, esta página ha cambiado! Por favor responda las preguntas otra vez."
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2297,6 +2317,7 @@ es:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
+          continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
           help_text_html: |
             <b>Lo que necesitarás para comenzar</b>
             <br>
@@ -2307,10 +2328,13 @@ es:
             <li>Deberías haber presentado tu declaración de impuestos federales de 2023 usando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración, ya que se importará a esta herramienta).
             <li>Si eliges recibir tu reembolso o hacer un pago de impuestos electrónicamente, necesitarás los números de ruta y de cuenta de tu banco.
             </ul>
+          not_you: "¿No es %{user_name}?"
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el Estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
+          start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+          welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
@@ -2322,7 +2346,6 @@ es:
           months_helper_heading: "¿Cuáles meses debería contar?"
           primary_name_dob: Tu nombre (como aparece en tu tarjeta de Seguro Social o tu carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento
           spouse_dob: Fecha de nacimiento de tu cónyuge
-          spouse_last_name: Apellido (Si tu cónyuge tiene un sufijo, ingrésalo aquí junto con su apellido. Por ejemplo, Smith, Jr)
           spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
           spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
           suffix: Sufijo
@@ -2501,6 +2524,8 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+      review:
+        w2: Información fiscal estatal y local W-2
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
@@ -2795,6 +2820,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
+    must_enter_amount: Si alguien reclamó este crédito, debe ingresar el monto en un número entero.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"

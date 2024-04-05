@@ -22,4 +22,19 @@ RSpec.describe StateFile::Questions::LandingPageController do
       end
     end
   end
+
+  describe "#edit" do
+    let(:intake) { create :state_file_ny_intake }
+    before do
+      sign_in intake
+    end
+
+    it "does not set the current_step" do
+      get :edit, params: { us_state: :ny }
+      expect(response).to be_ok
+      expect(StateFileNyIntake.last.current_step).to be_nil
+    end
+
+
+  end
 end

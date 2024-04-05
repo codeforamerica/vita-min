@@ -115,10 +115,10 @@ RSpec.describe StateFile::Questions::W2Controller do
         let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
 
         # can't use shared example here because it's written for the default update in QuestionsController
-        it "keeps the redirect parameter" do
+        it "redirects to the review page" do
           post :update, params: params.merge(return_to_review: "y")
 
-          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index, return_to_review: :y))
+          expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper(us_state: :ny, action: :edit))
         end
 
         it "redirects to the review page" do

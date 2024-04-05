@@ -5,7 +5,6 @@ describe StateFile::ReminderToFinishStateReturnService do
   describe ".run" do
     let(:message) { StateFile::AutomatedMessage::FinishReturn }
     let(:state_file_messaging_service) { StateFile::MessagingService.new(intake: intake, message: message) }
-    #
 
     before do
       allow(StateFile::MessagingService).to receive(:new).with(intake: intake, message: message).and_return(state_file_messaging_service)
@@ -25,7 +24,11 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
+<<<<<<< HEAD
     context "when there is an incomplete intake with df transfer from less than 24 minutes ago" do
+=======
+    context "when there is an incomplete intake with df transfer from less than 12 hours ago" do
+>>>>>>> 56698f659dd65c7fd0e8e1ca1a4d3df2386a7df8
       let(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: (11.hours + 59.minutes).ago
@@ -36,4 +39,8 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
   end
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> 56698f659dd65c7fd0e8e1ca1a4d3df2386a7df8

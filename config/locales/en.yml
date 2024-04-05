@@ -991,11 +991,15 @@ en:
         email_form:
           label: Send an email
           submit: Send
+        email_opted_out: Client has opted out of emails.
         no_email_address: Client has not provided an email address.
+        no_email_and_opt_out: Client has not provided an email address and opted out of emails.
+        no_sms_and_opt_out: Client has not provided an SMS phone number and opted out of text messages.
         no_sms_number: Client has not provided an SMS phone number.
-        no_way_to_communicate: Client has not provided contact info for digital communication.
+        no_way_to_communicate: Client has not provided contact info for digital communication and/or has opted-out.
         preference_intro: "%{preferred_name} has opted in to contact by:"
         response_not_needed: Mark as "Response not needed"
+        sms_opted_out: Client has opted out of text messages.
         text_message_form:
           label: Send a text message
           submit: Send
@@ -1634,6 +1638,21 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
         sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+      successful_submission:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          resubmitted: resubmitted
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          submitted: submitted
+        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Reply to this text.
       survey_notification:
         email:
           body: |
@@ -2055,13 +2074,15 @@ en:
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
+          primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           ssn_no_employment_html:
             label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
-          was_incarcerated:
-            one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-            other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+        update:
+          page_changed_notice: Sorry, this page has changed! Please answer the questions again.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2330,6 +2351,7 @@ en:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
+          continue: To continue filing your %{state_name} State return, please sign in below
           help_text_html: |
             <b>What you’ll need to get started</b>
             <br>
@@ -2340,10 +2362,13 @@ en:
               <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
               <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
             </ul>
+          not_you: Not %{user_name}?
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
+          start_new: Click here to start a new %{state_name} State return.
+          welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2355,7 +2380,6 @@ en:
           months_helper_heading: Which months should I count?
           primary_name_dob: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_dob: Your spouse's date of birth
-          spouse_last_name: Last name (If your spouse has a suffix, enter it here with their last name. E.g. Smith Jr)
           spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
           spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
           suffix: Suffix
@@ -2520,6 +2544,8 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+      review:
+        w2: W-2 state and local tax information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2813,6 +2839,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
+    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"

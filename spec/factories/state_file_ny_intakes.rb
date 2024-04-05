@@ -156,6 +156,25 @@ FactoryBot.define do
       end
     end
 
+    trait :mfs_incomplete_spouse do
+      transient do
+        filing_status { 'married_filing_separately' }
+        spouse_ssn { "" }
+        spouse_occupation { "Lawyer" }
+      end
+
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_first_name { "Spousel" }
+      spouse_last_name { "Testerson" }
+      spouse_middle_initial { "T" }
+
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn
+        intake.direct_file_data.spouse_occupation = evaluator.spouse_occupation
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
+
     factory :state_file_ny_owed_intake do
       nyc_residency { 'none' }
       after(:build) do |intake, evaluator|

@@ -7,5 +7,5 @@
 15 20 * * * bundle exec rake not_ready_reminders:remind
 */5 * * * * bundle exec rake worker_heartbeat:perform
 */10 * * * * bundle exec rake efile:poll_and_get_acknowledgments
-## This runs this cron every day at 1PM EDT/5PM UTC (17:00)
+# This runs this cron every day at 1PM EDT/5PM UTC (17:00)
 0 17 * * * bundle exec rake state_file:reminder_to_finish_state_return
