@@ -15,7 +15,7 @@ module StateFile
         current_intake.state_file_analytics.update(
           initiate_df_data_transfer_clicks: current_intake.state_file_analytics.initiate_df_data_transfer_clicks + 1
         )
-        redirect_to irs_df_transfer_link, allow_other_host: true
+        redirect_to irs_df_transfer_link.to_s, allow_other_host: true
       end
 
       private
