@@ -3,7 +3,6 @@ module Questions
     include AnonymousIntakeConcern
     layout "intake"
     before_action :check_required_attributes
-    before_action :send_welcome_message, only: [:edit]
 
     def illustration_path; end
 
@@ -24,6 +23,8 @@ module Questions
       end
 
       GenerateRequiredConsentPdfJob.perform_later(current_intake)
+
+      send_welcome_message
 
       # client has not yet been routed, or was previously determined to have been at capacity
       if current_intake.client.routing_method.blank? || current_intake.client.routing_method_at_capacity?
