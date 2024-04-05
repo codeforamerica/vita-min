@@ -423,8 +423,6 @@
       .landing-page-content {
         padding-left: 1rem;
         padding-right: 1rem;
-        max-width: 570px;
-        min-width: 570px;
       }
 
       .logo {
@@ -435,6 +433,11 @@
 
         .logo {
           display: block;
+        }
+
+        .landing-page-content {
+          max-width: 570px;
+          min-width: 570px;
         }
       }
     }
