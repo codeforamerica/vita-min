@@ -24,6 +24,7 @@ module StateFile
           referrer: session[:referrer]
         )
         intake.save
+        intake.create_state_file_analytics!
         sign_in intake
         redirect_to next_path
       end

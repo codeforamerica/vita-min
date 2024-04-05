@@ -10,6 +10,9 @@ module StateFile
       end
 
       def edit
+        current_intake.state_file_analytics.update!(
+          canceled_data_transfer_count: current_intake.state_file_analytics.canceled_data_transfer_count + 1
+        )
         @fake_data_transfer_link = fake_data_transfer_link
         @irs_df_transfer_link = irs_df_transfer_link
         @go_back_link = case current_intake.state_code

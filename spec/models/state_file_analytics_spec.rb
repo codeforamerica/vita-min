@@ -2,24 +2,28 @@
 #
 # Table name: state_file_analytics
 #
-#  id                        :bigint           not null, primary key
-#  dependent_tax_credit      :integer
-#  empire_state_child_credit :integer
-#  excise_credit             :integer
-#  family_income_tax_credit  :integer
-#  fed_eitc_amount           :integer
-#  filing_status             :integer
-#  household_fed_agi         :integer
-#  nyc_eitc                  :integer
-#  nyc_household_credit      :integer
-#  nyc_school_tax_credit     :integer
-#  nys_eitc                  :integer
-#  nys_household_credit      :integer
-#  record_type               :string           not null
-#  refund_or_owed_amount     :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  record_id                 :bigint           not null
+#  id                                    :bigint           not null, primary key
+#  canceled_data_transfer_count          :integer          default(0)
+#  dependent_tax_credit                  :integer
+#  empire_state_child_credit             :integer
+#  excise_credit                         :integer
+#  family_income_tax_credit              :integer
+#  fed_eitc_amount                       :integer
+#  filing_status                         :integer
+#  household_fed_agi                     :integer
+#  initiate_data_transfer_first_visit_at :datetime
+#  initiate_df_data_transfer_clicks      :integer          default(0)
+#  name_dob_first_visit_at               :datetime
+#  nyc_eitc                              :integer
+#  nyc_household_credit                  :integer
+#  nyc_school_tax_credit                 :integer
+#  nys_eitc                              :integer
+#  nys_household_credit                  :integer
+#  record_type                           :string           not null
+#  refund_or_owed_amount                 :integer
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  record_id                             :bigint           not null
 #
 # Indexes
 #
@@ -47,28 +51,30 @@ describe StateFileAnalytics do
       let(:intake) { create :state_file_az_intake }
 
       it "returns the calculated attributes" do
-        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.calculated_attrs.symbolize_keys).to include(expected_attributes)
       end
 
       it "returns calculated values for AZ intake attributes" do
-        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
-                                                         household_fed_agi: 120000,
-                                                         dependent_tax_credit: 0,
-                                                         excise_credit: 0,
-                                                         family_income_tax_credit: 0,
-                                                         )
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.calculated_attrs.symbolize_keys).to include(
+                                                household_fed_agi: 120000,
+                                                dependent_tax_credit: 0,
+                                                excise_credit: 0,
+                                                family_income_tax_credit: 0,
+                                              )
 
       end
 
       it "returns only nil for NY intake attributes" do
-        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
-                                                         nys_eitc: nil,
-                                                         nyc_eitc: nil,
-                                                         empire_state_child_credit: nil,
-                                                         nyc_school_tax_credit: nil,
-                                                         nys_household_credit: nil,
-                                                         nyc_household_credit: nil,
-                                                         )
+        analytics = StateFileAnalytics.create(record: intake)
+        attr_keys = analytics.calculated_attrs.symbolize_keys.keys
+        expect(attr_keys).not_to include(:nys_eitc)
+        expect(attr_keys).not_to include(:nyc_eitc)
+        expect(attr_keys).not_to include(:empire_state_child_credit)
+        expect(attr_keys).not_to include(:nyc_school_tax_credit)
+        expect(attr_keys).not_to include(:nys_household_credit)
+        expect(attr_keys).not_to include(:nyc_household_credit)
       end
     end
 
@@ -76,27 +82,29 @@ describe StateFileAnalytics do
       let(:intake) { create :state_file_ny_intake }
 
       it "returns the calculated attributes" do
-        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(expected_attributes)
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.calculated_attrs.symbolize_keys).to include(expected_attributes)
       end
 
       it "returns the calculated attributes for NY intake attributes" do
-        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
-                                                         household_fed_agi: 32351,
-                                                         nys_eitc: 600,
-                                                         nyc_eitc: 300,
-                                                         empire_state_child_credit: 0,
-                                                         nyc_school_tax_credit: 125,
-                                                         nys_household_credit: 0,
-                                                         nyc_household_credit: 0,
-                                                       )
+        analytics = StateFileAnalytics.create(record: intake)
+        expect(analytics.calculated_attrs.symbolize_keys).to include(
+                                                household_fed_agi: 32351,
+                                                nys_eitc: 600,
+                                                nyc_eitc: 300,
+                                                empire_state_child_credit: 0,
+                                                nyc_school_tax_credit: 125,
+                                                nys_household_credit: 0,
+                                                nyc_household_credit: 0,
+                                              )
       end
 
-      it "returns nil values for AZ intake attributes" do
-        expect(StateFileAnalytics.create(record: intake).attributes.symbolize_keys).to include(
-                                                         dependent_tax_credit: nil,
-                                                         excise_credit: nil,
-                                                         family_income_tax_credit: nil,
-                                                         )
+      it "does not return values for AZ intake attributes" do
+        analytics = StateFileAnalytics.create(record: intake)
+        attr_keys = analytics.calculated_attrs.symbolize_keys.keys
+        expect(attr_keys).not_to include(:dependent_tax_credit)
+        expect(attr_keys).not_to include(:excise_credit)
+        expect(attr_keys).not_to include(:family_income_tax_credit)
       end
     end
   end
