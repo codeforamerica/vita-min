@@ -179,11 +179,6 @@
     line-height: 2.4rem;
   }
 
-  .question-wrapper {
-    margin: 0 auto;
-    max-width: 658px;
-  }
-
   .blue-group {
     padding: 2rem;
     margin-bottom: 2rem;
@@ -412,37 +407,6 @@
     }
   }
 
-  .landing-page-outer {
-    .question-wrapper {
-      max-width: none;
-    }
-
-    .landing-page-container {
-      display: flex;
-
-      .landing-page-content {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-
-      .logo {
-        display: none;
-      }
-
-      @media screen and (max-width: $tablet-up) {
-
-        .logo {
-          display: block;
-        }
-
-        .landing-page-content {
-          max-width: 570px;
-          min-width: 570px;
-        }
-      }
-    }
-  }
-
   .partner-logo-wrapper {
     display: flex;
     align-items: center;
@@ -639,6 +603,28 @@
     text-decoration: none;
   }
 
+  @media screen and (min-width: $tablet-up) {
+    .question-layout .question-wrapper {
+        margin: 0 auto;
+        max-width: 658px;
+    }
+    .question-layout.landing-page-outer .question-wrapper {
+      max-width: none;
+
+      .landing-page-container {
+        display: flex;
+        .fyst-home-image {
+          width: 273px;
+          height: 250px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $tablet-up) {
+    .landing-page-container .fyst-home-image {
+      display: none
+    }
+  }
 }
 
 $state-colors: (
