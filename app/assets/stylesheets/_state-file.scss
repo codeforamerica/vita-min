@@ -611,8 +611,12 @@
     .question-layout.landing-page-outer .question-wrapper {
       max-width: none;
 
-      .landing-page-container {
+      main {
         display: flex;
+        justify-content: space-between;
+        .landing-page-content {
+          max-width: 570px;
+        }
         .fyst-home-image {
           width: 273px;
           height: 250px;
