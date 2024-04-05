@@ -376,15 +376,11 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def warning_for_select(element_id, permitted_values, msg)
-    return <<~HTML.html_safe
-      <div
-          class="warning warning-for-select"
-          data-warning-for-select="#{element_id}"
-          style="display:none"
-          data-permitted='#{permitted_values.to_json}'
-        >
-        #{msg}
-      </div>
-    HTML
+    @template.content_tag(:div, msg,
+      class: "warning warning-for-select",
+      "data-warning-for-select": element_id,
+      style: "display:none",
+      "data-permitted": permitted_values.to_json
+    )
   end
 end
