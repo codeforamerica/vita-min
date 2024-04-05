@@ -27,7 +27,7 @@ module StateFile
       def next_path
         options = { us_state: params[:us_state], action: :edit }
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
-        NySchoolDistrictController.to_path_helper(options)
+        NyPermanentAddressController.to_path_helper(options)
       end
     end
   end

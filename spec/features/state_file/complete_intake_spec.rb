@@ -53,6 +53,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose "I lived in New York City all year in 2023"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      select("Nassau", from: "County")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title")
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
@@ -66,10 +70,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t("state_file.questions.ny_permanent_address.edit.apartment_number_label"), with: "B"
       fill_in I18n.t("state_file.questions.ny_permanent_address.edit.city_label"), with: "New York"
       fill_in I18n.t("state_file.questions.ny_permanent_address.edit.zip_label"), with: "11102"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
-      select("Nassau", from: "County")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
@@ -114,7 +114,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
