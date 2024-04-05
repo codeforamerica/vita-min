@@ -41,6 +41,9 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+  scope :created_intake_but_no_federal_submission, lambda {
+    where(federal_submission_id: nil)
+  }
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)

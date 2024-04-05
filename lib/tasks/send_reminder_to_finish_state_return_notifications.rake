@@ -4,8 +4,8 @@ namespace :reminder_to_finish do
     BATCH_SIZE = 10
 
     msg = StateFile::AutomatedMessage::FinishReturn
-    intakes = StateFileAzIntake.with_df_data_and_no_federal_submission
-    intakes += StateFileNyIntake.with_df_data_and_no_federal_submission
+    intakes = StateFileAzIntake.created_intake_but_no_federal_submission
+    intakes += StateFileNyIntake.created_intake_but_no_federal_submission
 
     intakes.each_slice(BATCH_SIZE) do |batch|
       batch.each do |intake|
