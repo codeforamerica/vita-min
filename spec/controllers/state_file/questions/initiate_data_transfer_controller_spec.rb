@@ -44,12 +44,13 @@ RSpec.describe StateFile::Questions::InitiateDataTransferController do
 
   describe "#initiate_data_transfer" do
     it "increments the count of clicks on data transfer and redirects to direct file" do
-      df_link = "https://fake-df-transfer.gov"
+      df_link = URI.parse("https://fake-df-transfer.gov")
       allow(subject).to receive(:irs_df_transfer_link).and_return(df_link)
+      allow(subject).to receive(:redirect_to)
       get :initiate_data_transfer, params: { us_state: 'ny' }
 
       expect(state_file_analytics.reload.initiate_df_data_transfer_clicks).to eq 1
-      expect(response).to redirect_to df_link
+      expect(subject).to have_received(:redirect_to).with(df_link.to_s, allow_other_host: true)
     end
   end
 end
