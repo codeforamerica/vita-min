@@ -605,9 +605,18 @@
 
   @media screen and (min-width: $tablet-up) {
     .question-layout .question-wrapper {
+      margin: 0 auto;
+      max-width: 658px;
+
+      .checkbox {
+        width: 100%;
+      }
+
+      .button {
         margin: 0 auto;
-        max-width: 658px;
+      }
     }
+
     .question-layout.landing-page-outer .question-wrapper {
       max-width: none;
 
@@ -622,6 +631,11 @@
           height: 250px;
         }
       }
+    }
+
+    .esign-declaration-outer .text--error {
+      margin: 0 auto;
+      text-align: center;
     }
   }
   @media screen and (max-width: $tablet-up) {
