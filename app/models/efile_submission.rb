@@ -33,8 +33,6 @@ class EfileSubmission < ApplicationRecord
   has_one_attached :submission_bundle
   validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
 
-  STATE_INTAKE_CLASS_NAMES = [StateFileAzIntake, StateFileNyIntake].map(&:to_s).freeze
-
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
     initial_state: EfileSubmissionStateMachine.initial_state,
