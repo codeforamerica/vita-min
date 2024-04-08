@@ -113,9 +113,7 @@ class EfileSubmissionStateMachine
       # NOTE: a submission can have multiple successive :transmitted states, each with different
       # response XML
       analytics = submission.data_source.state_file_analytics
-      if analytics.blank?
-        submission.data_source.create_state_file_analytics!
-      end
+      analytics&.update(analytics.calculated_attrs)
     end
   end
 

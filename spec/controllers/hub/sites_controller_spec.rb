@@ -163,6 +163,7 @@ RSpec.describe Hub::SitesController, type: :controller do
       end
 
       context "when the site object is not valid" do
+        render_views
         before do
           allow_any_instance_of(VitaPartner).to receive(:update).and_return false
         end
