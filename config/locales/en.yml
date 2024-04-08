@@ -1762,6 +1762,16 @@ en:
         Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
         If you have questions or would like more information about this decision, please contact hello@getctc.org.
     verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
+    welcome:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thank you for creating an account with GetYourRefund! Your Client ID is <<Client.ClientId>>. This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
+
+          You can check your progress and add additional documents here: <<Client.LoginLink>>
+        subject: 'Welcome to GetYourRefund: Client ID'
+      sms: 'Hello <<Client.PreferredName>>, You''ve signed up with GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message.'
   models:
     intake:
       your_spouse: Your spouse
