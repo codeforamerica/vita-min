@@ -687,3 +687,14 @@ $state-colors: (
     border-bottom-right-radius: 8px;
   }
 }
+
+.state-file-submissions {
+  .pagination-wrapper {
+    align-items: center;
+  }
+  .search-container {
+    padding-bottom: 2rem;
+    .hub-searchbar__input{
+    }
+  }
+}
