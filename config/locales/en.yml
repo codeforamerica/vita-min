@@ -2340,7 +2340,11 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
+          description_html: |
+            <p>First, <strong>make sure your federal return is accepted.</strong></p>
+            <p><strong>How do I know if it’s accepted?</strong></p>
+            <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
+            <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
@@ -2351,12 +2355,12 @@ en:
             title: File your Arizona state taxes for free
           continue: To continue filing your %{state_name} State return, please sign in below
           help_text_html: |
-            <b>What you’ll need:</b>
-            <br>
+            <strong>What you’ll need:</strong>
+            <br />
             <ul class="list--bulleted">
-              <li>An accepted 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
               <li>Email address or phone number</li>
-              <li>>Driver’s license or state-issued ID</li>
+              <li>Driver’s license or state-issued ID</li>
               <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
             </ul>
