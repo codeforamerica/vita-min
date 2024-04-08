@@ -21,7 +21,7 @@ RSpec.describe StateFile::Questions::NyCountyController do
       context "with return_to_review param set" do
         it "navigates to the district page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "ny_permanent_address", action: :edit, us_state: "ny", return_to_review: 'y')
+          expect(response).to redirect_to(controller: "ny_school_district", action: :edit, us_state: "ny", return_to_review: 'y')
         end
       end
 
