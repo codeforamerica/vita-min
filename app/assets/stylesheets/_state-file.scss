@@ -179,6 +179,20 @@
     line-height: 2.4rem;
   }
 
+  .warning {
+    border: 2px solid #FFAE00;
+    background: #FFF2D1;
+    padding: 1rem;
+  }
+
+  .blue-group {
+    .select {
+      select.input-warning {
+        border: 2px solid #FFAE00;
+      }
+    }
+  }
+
   .blue-group {
     padding: 2rem;
     margin-bottom: 2rem;
