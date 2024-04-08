@@ -2317,29 +2317,33 @@ es:
           from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
         edit:
           button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
-          description: Para ahorrar tiempo, transfiera su declaración federal para completar partes de su declaración estatal. Esta transferencia segura desde IRS Direct File suele tardar 3 minutos o menos.
+          description_html: |
+            <p>Primero, <strong>asegúrate de que tu declaración federal haya sido aceptada.</strong></p>
+            <p><strong>¿Cómo sé si fue aceptada?</strong></p>
+            <p>Recibirás dos correos electrónicos del IRS: uno por una declaración enviada y otro por una declaración aceptada. Revisa tu correo electrónico para ver si recibiste uno de aceptación.</p>
+            <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
           continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
           help_text_html: |
-            <b>Lo que necesitarás para comenzar</b>
-            <br>
+            <strong>Lo que necesitarás para comenzar</strong>
+            <br />
             <ul class="list--bulleted">
-            <li>Dirección de correo electrónico o número de teléfono
-            <li>Licencia de conducir o identificación emitida por el estado
-            <li>Si recibiste beneficios por desempleo en 2023, necesitarás el Formulario 1099-G
-            <li>Deberías haber presentado tu declaración de impuestos federales de 2023 usando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración, ya que se importará a esta herramienta).
-            <li>Si eliges recibir tu reembolso o hacer un pago de impuestos electrónicamente, necesitarás los números de ruta y de cuenta de tu banco.
+              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+              <li>Dirección de correo electrónico o número de teléfono.</li>
+              <li>Licencia de conducir o identificación emitida por el estado.</li>
+              <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
+              <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
             </ul>
           not_you: "¿No es %{user_name}?"
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el Estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
           start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
