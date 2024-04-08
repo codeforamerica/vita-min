@@ -375,6 +375,15 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     submit(value, class: "button button--primary button--wide")
   end
 
+  def warning_for_date(object_name, min_date, msg)
+    @template.content_tag(:div, msg,
+      class: "warning warning-for-date",
+      "data-warning-for-date": object_name,
+      style: "display:none",
+      "data-min-date": min_date.strftime("%Y-%m-%d")
+    )
+  end
+
   def warning_for_select(element_id, permitted_values, msg)
     @template.content_tag(:div, msg,
       class: "warning warning-for-select",

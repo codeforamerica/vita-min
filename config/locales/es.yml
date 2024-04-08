@@ -2336,6 +2336,7 @@ es:
           welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:
+          dependent_dob_warning: Según su declaración federal, esta persona tenía menos de 17 años a finales de 2023. Verifique nuevamente su fecha de nacimiento.
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
           dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
           last_name: Apellido

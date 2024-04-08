@@ -17,6 +17,7 @@ import { initServiceComparisonComponent } from "../lib/service_comparison_compon
 import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
 import { fetchStateFileEfileStateCounts } from "../lib/fetch_statefile_efile_state_counts";
 import ClientMenuComponent from "../components/ClientMenuComponent";
+import WarningForDateComponent from "../components/WarningForDateComponent";
 import WarningForSelectComponent from "../components/WarningForSelectComponent";
 import MixpanelEventTracking from "../lib/mixpanel_event_tracking";
 import IntercomBehavior from "../lib/intercom_behavior";
@@ -28,6 +29,7 @@ const Listeners =  (function(){
                 MixpanelEventTracking.listenForTrackedClicks();
                 const { controllerAction } = document.querySelector("#mixpanelData")?.dataset || {};
                 ClientMenuComponent();
+                WarningForDateComponent();
                 WarningForSelectComponent();
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
