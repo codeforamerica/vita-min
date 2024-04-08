@@ -614,8 +614,21 @@
 
       .button {
         display: block;
-        max-width: 45rem;
+        min-width: 15rem;
+        max-width: 25rem;
         margin: 0 auto;
+      }
+    }
+
+    .options-wrapper .yes-no-buttons {
+      display: flex;
+      justify-content: center;
+
+      .button {
+        margin: 0 2rem;
+        display: block;
+        min-width: 25rem;
+        max-width: 25rem;
       }
     }
 
@@ -632,6 +645,21 @@
           width: 273px;
           height: 250px;
         }
+      }
+    }
+
+    .initiate-data-transfer-outer .question-wrapper a.button {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+
+    .esign-declaration-outer, .return-status-outer, .submission-confirmation-outer {
+
+      .question-wrapper .button--primary {
+        min-width: 40rem;
+        max-width: 40rem;
+        width: 40rem;
       }
     }
 
