@@ -655,6 +655,8 @@ class FlowsController < ApplicationController
         tribal_member: "yes",
         tribal_wages: 100,
         was_incarcerated: "no",
+        primary_was_incarcerated: "no",
+        spouse_was_incarcerated: "no",
         household_excise_credit_claimed: "no",
         ssn_no_employment: "no",
         message_tracker: {},

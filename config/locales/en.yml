@@ -2401,6 +2401,10 @@ en:
       ny_county:
         edit:
           county: County
+          nyc_residency_full_year_html: On the previous page, you told us you lived in New York City <strong>all year</strong> in %{filing_year}.
+          nyc_residency_full_year_warning: The county you selected is outside New York City. Please select a county inside of New York City or click on the "Go Back" button to change your New York City residency answer.
+          nyc_residency_none_html: On the previous page, you told us you <strong>did not</strong> live in New York City in %{filing_year}.
+          nyc_residency_none_warning: The county you selected is in New York City. Please select a county outside of New York City or click on the "Go Back" button to change your New York City residency answer.
           title: Select the county where you lived on December 31, %{filing_year}
       ny_eligibility_college_savings_withdrawal:
         edit:
@@ -2479,18 +2483,18 @@ en:
       nyc_residency:
         edit:
           full_year:
-            one: I lived in New York City all year in %{year}
-            other: My spouse and I lived in New York City all year in %{year}
+            one: I lived in New York City <strong>all year</strong> in %{year}
+            other: My spouse and I lived in New York City <strong>all year</strong> in %{year}
           maintained_home:
             one: Did you maintain a home in New York City at any time during %{year}?
             other: Did you or your spouse maintain a home in New York City at any time during %{year}?
           none:
-            one: I did not live in New York City at all in %{year}
-            other: My spouse and I did not live in New York City at all in %{year}
-          nyc_includes: New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+            one: I <strong>did not</strong> live in New York City at all in %{year}
+            other: My spouse and I <strong>did not</strong> live in New York City at all in %{year}
+          nyc_includes_html: "<strong>Note:</strong> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island."
           part_year:
-            one: I lived in New York City for some of the year
-            other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
+            one: I lived in New York City for <strong>some of the year</strong>
+            other: My spouse and I lived in New York City for <strong>some of the year</strong>, or we lived in New York City for different amounts of time.
           title: 'Select your New York City residency status during %{year}:'
       pending_federal_return:
         edit:

@@ -11,6 +11,8 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
+  create_schema "analytics"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1647,6 +1649,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
+    t.integer "household_excise_credit_claimed_amt"
+    t.string "last_completed_step"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1663,6 +1667,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "primary_middle_initial"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
+    t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
     t.string "referrer"
@@ -1677,6 +1682,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "spouse_middle_initial"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "spouse_was_incarcerated", default: 0, null: false
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
@@ -1774,6 +1780,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "household_rent_amount"
     t.integer "household_rent_own", default: 0, null: false
     t.integer "household_ssi"
+    t.string "last_completed_step"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
