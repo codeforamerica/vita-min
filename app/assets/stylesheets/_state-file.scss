@@ -405,6 +405,11 @@
         }
       }
     }
+
+    #state_file_taxes_owed_form_account_type_checking:after,
+    #state_file_taxes_owed_form_account_type_savings:after {
+      top: 0;
+    }
   }
 
   .landing-page-content {
