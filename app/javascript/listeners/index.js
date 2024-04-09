@@ -34,7 +34,7 @@ const Listeners =  (function(){
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
-                if (controllerAction === "Hub::Users::InvitationsController#edit") {
+                if (controllerAction == "Hub::Users::InvitationsController#edit") {
                     helpers.setDefaultTimezone();
                 }
 
