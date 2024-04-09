@@ -201,7 +201,7 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
+      - run: git push --force git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
     parallelism: 1
 workflows:
   version: 2
