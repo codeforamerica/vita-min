@@ -28,7 +28,6 @@ module StateFile
       end
 
       def edit
-        load_w2
         dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
         @w2.attributes = {
           employer_state_id_num: dfw2.EmployerStateIdNum,
