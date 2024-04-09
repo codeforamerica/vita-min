@@ -23,9 +23,9 @@
             prompt: t('general.select_prompt'), include_blank: true) %>
       <div class="form-group">
         <% if @over_65 %>
-          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, nil, t(".primary_dob_over_65_warning")) %>
+          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", nil, MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, t(".primary_dob_over_65_warning")) %>
         <% else %>
-          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", nil, MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, t(".primary_dob_under_65_warning")) %>
+          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, nil, t(".primary_dob_under_65_warning")) %>
         <% end %>
       </div>
       <div class="date-select">
