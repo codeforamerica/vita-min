@@ -67,7 +67,7 @@ class SendAutomatedMessage
   end
 
   def client_without_account?
-    return true if @client.nil? || !Intake::GyrIntake.accessible_intakes.find(@client.intake).present?
+    return true if @client.nil? || @client.intake.nil? || !Intake::GyrIntake.accessible_intakes.find(@client.intake).present?
 
     login_service = ClientLoginService.new(:gyr)
     !login_service.can_login_by_email_verification?(@client.email_address) && !login_service.can_login_by_sms_verification?(@client.sms_phone_number)
