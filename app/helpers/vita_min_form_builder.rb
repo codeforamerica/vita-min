@@ -375,12 +375,13 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     submit(value, class: "button button--primary button--wide")
   end
 
-  def warning_for_date(object_name, min_date, year, msg)
+  def warning_for_date(object_name, min_date, max_date, year, msg)
     @template.content_tag(:div, msg,
       class: "warning warning-for-date",
       "data-warning-for-date": object_name,
       style: "display:none",
       "data-min-date": min_date && min_date.strftime("%Y-%m-%d"),
+      "data-max-date": max_date && max_date.strftime("%Y-%m-%d"),
       "data-required-year": year
     )
   end

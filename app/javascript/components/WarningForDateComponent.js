@@ -2,7 +2,8 @@
 export default function WarningForDateComponent() {
     const warningElements = document.querySelectorAll("[data-warning-for-date]");
     warningElements.forEach((warningElement) => {
-        let { minDate, warningForDate, requiredYear } = warningElement.dataset;
+        let { maxDate, minDate, warningForDate, requiredYear } = warningElement.dataset;
+        maxDate = new Date(maxDate);
         minDate = new Date(minDate);
         const fields = ["year", "month", "day"].map((f) => {
             return document.querySelector(`[name="${warningForDate.replace("year", f)}"]`);
@@ -16,7 +17,16 @@ export default function WarningForDateComponent() {
             const date = new Date(...fields.map((s) => {
                 return parseInt(s.value);
             }))
-            return date.getTime() < minDate.getTime();
+            if (!date.getTime()) {
+                return false;
+            }
+            if (minDate.getTime() && date.getTime() < minDate.getTime()) {
+                return true;
+            }
+            if (maxDate.getTime() && date.getTime() > maxDate.getTime()) {
+                return true;
+            }
+            return false;
         }
         function render(){
             $(warningElement)[show() ? "show" : "hide"]("slow");

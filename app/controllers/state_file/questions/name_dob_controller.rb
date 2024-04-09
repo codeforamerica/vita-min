@@ -4,6 +4,7 @@ module StateFile
       include ReturnToReviewConcern
 
       def edit
+        @over_65 = current_intake.direct_file_data.node.at("Primary65OrOlderInd")&.content == "X"
         if current_intake.state_file_analytics.name_dob_first_visit_at.nil?
           current_intake.state_file_analytics.update!(name_dob_first_visit_at: DateTime.now)
         end

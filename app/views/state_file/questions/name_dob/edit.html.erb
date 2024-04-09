@@ -22,10 +22,13 @@
             suffix_options_for_state_select,
             prompt: t('general.select_prompt'), include_blank: true) %>
       <div class="form-group">
-        <%= f.warning_for_date("#{f.object_name}[primary_birth_date]", nil, 2000, t(".dependent_dob_year_warning")) %>
+        <% if @over_65 %>
+          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, nil, t(".primary_dob_over_65_warning")) %>
+        <% else %>
+          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", nil, MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, t(".primary_dob_under_65_warning")) %>
+        <% end %>
       </div>
       <div class="date-select">
-        <%= f.object_name %>
         <%= f.cfa_date_select(:primary_birth_date,
                               t('.your_dob'),
                               options: {
@@ -84,11 +87,11 @@
         <% child_birth_yr = current_intake.direct_file_data.eitc_eligible_dependents[ff.object.ssn]&.at("ChildBirthYr")&.content %>
         <% if child_birth_yr.present? && current_intake.state_code == "ny" %>
           <div class="form-group">
-            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", nil, child_birth_yr, t(".dependent_dob_year_warning")) %>
+            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", nil, nil, child_birth_yr, t(".dependent_dob_year_warning")) %>
           </div>
         <% elsif ff.object.ctc_qualifying %>
           <div class="form-group">
-            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(17), nil, t(".dependent_dob_under_17_warning")) %>
+            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(17), nil, nil, t(".dependent_dob_under_17_warning")) %>
           </div>
         <% end %>
 
