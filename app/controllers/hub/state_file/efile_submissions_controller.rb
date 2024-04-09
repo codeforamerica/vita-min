@@ -16,7 +16,7 @@ module Hub
         if search.present?
           query = "email_address LIKE ? OR irs_submission_id LIKE ?"
           query_args = ["%#{search}%", "%#{search}%"]
-          if search.to_i.to_s == search && search.to_i.abs < (2 ** 23)
+          if search.to_i.to_s == search && search.to_i.abs < (2 ** 32)
             query << " OR id=? OR intake_id=?"
             query_args.concat [search.to_i, search.to_i]
           end
