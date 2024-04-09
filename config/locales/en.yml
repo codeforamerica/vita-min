@@ -2369,7 +2369,8 @@ en:
           welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
-          dependent_dob_warning: According to your federal return, this person was less than 17 years old at the end of 2023. Please double check their date of birth.
+          dependent_dob_under_17_warning: According to your federal return, this person was less than 17 years old at the end of 2023. Please double check their date of birth.
+          dependent_dob_year_warning: You entered a different birth year for this person on your federal return. Please double check their date of birth.
           dependent_months_lived_label: Number of months they lived with you in %{year}
           dependent_name_dob: Please tell us your dependent’s date of birth
           last_name: Last name
