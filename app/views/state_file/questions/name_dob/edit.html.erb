@@ -21,7 +21,11 @@
             t(".suffix"),
             suffix_options_for_state_select,
             prompt: t('general.select_prompt'), include_blank: true) %>
+      <div class="form-group">
+        <%= f.warning_for_date("#{f.object_name}[primary_birth_date]", nil, 2000, t(".dependent_dob_year_warning")) %>
+      </div>
       <div class="date-select">
+        <%= f.object_name %>
         <%= f.cfa_date_select(:primary_birth_date,
                               t('.your_dob'),
                               options: {
@@ -80,7 +84,7 @@
         <% child_birth_yr = current_intake.direct_file_data.eitc_eligible_dependents[ff.object.ssn]&.at("ChildBirthYr")&.content %>
         <% if child_birth_yr.present? && current_intake.state_code == "ny" %>
           <div class="form-group">
-            <%= ff.warning_for_date(ff.object_name, nil, child_birth_yr, t(".dependent_dob_year_warning")) %>
+            <%= ff.warning_for_date("#{ff.object_name}", nil, child_birth_yr, t(".dependent_dob_year_warning")) %>
           </div>
         <% elsif ff.object.ctc_qualifying %>
           <div class="form-group">
