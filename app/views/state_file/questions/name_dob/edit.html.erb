@@ -22,10 +22,10 @@
             suffix_options_for_state_select,
             prompt: t('general.select_prompt'), include_blank: true) %>
       <div class="form-group">
-        <% if @over_65 %>
-          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", nil, MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, t(".primary_dob_over_65_warning")) %>
+        <% if @primary_over_65 %>
+          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", nil, @sixty_five_years_ago, nil, t(".primary_dob_over_65_warning", filing_year: @filing_year)) %>
         <% else %>
-          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(65), nil, nil, t(".primary_dob_under_65_warning")) %>
+          <%= f.warning_for_date("#{f.object_name}[primary_birth_date_year]", @sixty_five_years_ago, nil, nil, t(".primary_dob_under_65_warning", filing_year: @filing_year)) %>
         <% end %>
       </div>
       <div class="date-select">
@@ -55,6 +55,13 @@
               suffix_options_for_state_select,
               prompt: t('general.select_prompt'), include_blank: true) %>
         <% if f.object.ask_spouse_dob? %>
+          <div class="form-group">
+            <% if @spouse_over_65 %>
+              <%= f.warning_for_date("#{f.object_name}[spouse_birth_date_year]", nil, @sixty_five_years_ago, nil, t(".spouse_dob_over_65_warning", filing_year: @filing_year)) %>
+            <% else %>
+              <%= f.warning_for_date("#{f.object_name}[spouse_birth_date_year]", @sixty_five_years_ago, nil, nil, t(".spouse_dob_under_65_warning", filing_year: @filing_year)) %>
+            <% end %>
+          </div>
             <div class="date-select">
               <%= f.cfa_date_select(:spouse_birth_date,
                                     t('.spouse_dob'),

@@ -2359,8 +2359,12 @@ es:
           months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
           months_helper_description: Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones.
           months_helper_heading: "¿Cuáles meses debería contar?"
+          primary_dob_over_65_warning: Según su declaración federal, tenía al menos 65 años a finales de %{filing_year}. Verifique nuevamente su fecha de nacimiento.
+          primary_dob_under_65_warning: Según su declaración federal, tenía menos de 65 años a finales de %{filing_year}. Verifique nuevamente su fecha de nacimiento.
           primary_name_dob: Tu nombre (como aparece en tu tarjeta de Seguro Social o tu carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento
           spouse_dob: Fecha de nacimiento de tu cónyuge
+          spouse_dob_over_65_warning: Según su declaración federal, su cónyuge tenía al menos 65 años a finales de %{filing_year}. Verifique nuevamente su fecha de nacimiento.
+          spouse_dob_under_65_warning: Según su declaración federal, su cónyuge tenía menos de 65 años a finales de %{filing_year}. Verifique dos veces su fecha de nacimiento.
           spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
           spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
           suffix: Sufijo
