@@ -107,11 +107,18 @@ RSpec.describe MailgunWebhooksController do
           let!(:state_intake) { create :state_file_az_intake, email_address: email, unsubscribed_from_email: true }
           let!(:another_intake) { create :state_file_az_intake, email_address: 'another-email@test.gov', unsubscribed_from_email: true }
 
-          xit 'reopt-in statefile-intake based on email' do
+          it 'reopt-in statefile-intake based on email' do
             params['sender'] = email
             post :create_incoming_email, params: params
             state_intake.reload
             expect(state_intake.unsubscribed_from_email).to be_falsey
+          end
+
+          it 'does NOT reopt-in statefile-intake based on a slighlty different email version' do
+            params['sender'] = 'email+01@test.com'
+            post :create_incoming_email, params: params
+            state_intake.reload
+            expect(state_intake.unsubscribed_from_email).to be_truthy
           end
 
           it 'does NOT reopt-in for state-file intakes without an associated incoming email' do
