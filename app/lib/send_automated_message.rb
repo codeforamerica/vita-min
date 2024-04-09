@@ -67,6 +67,7 @@ class SendAutomatedMessage
   end
 
   def client_without_account?
+    return true if @client.nil? || @client.intake.nil?
     return true unless Intake::GyrIntake.accessible_intakes.exists?(@client.intake.id)
 
     login_service = ClientLoginService.new(:gyr)
