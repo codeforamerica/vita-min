@@ -28,15 +28,16 @@ module StateFile
       end
 
       def edit
+        load_w2
         dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
-        @w2 = StateFileW2.new(
+        @w2.attributes = {
           employer_state_id_num: dfw2.EmployerStateIdNum,
           state_wages_amt: dfw2.StateWagesAmt,
           state_income_tax_amt: dfw2.StateIncomeTaxAmt,
           local_wages_and_tips_amt: dfw2.LocalWagesAndTipsAmt,
           local_income_tax_amt: dfw2.LocalIncomeTaxAmt,
           locality_nm: dfw2.LocalityNm,
-          )
+        }
       end
 
       def update
