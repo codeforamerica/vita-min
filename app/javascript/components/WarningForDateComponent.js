@@ -5,7 +5,7 @@ export default function WarningForDateComponent() {
         let { minDate, warningForDate, requiredYear } = warningElement.dataset;
         minDate = new Date(minDate);
         const fields = ["year", "month", "day"].map((f) => {
-            return document.querySelector(`[name="${warningForDate}[dob_${f}]"]`);
+            return document.querySelector(`[name="${warningForDate.replace("year", f)}"]`);
         });
 
         function show(){

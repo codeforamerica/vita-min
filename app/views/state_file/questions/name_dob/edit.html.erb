@@ -84,11 +84,11 @@
         <% child_birth_yr = current_intake.direct_file_data.eitc_eligible_dependents[ff.object.ssn]&.at("ChildBirthYr")&.content %>
         <% if child_birth_yr.present? && current_intake.state_code == "ny" %>
           <div class="form-group">
-            <%= ff.warning_for_date("#{ff.object_name}", nil, child_birth_yr, t(".dependent_dob_year_warning")) %>
+            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", nil, child_birth_yr, t(".dependent_dob_year_warning")) %>
           </div>
         <% elsif ff.object.ctc_qualifying %>
           <div class="form-group">
-            <%= ff.warning_for_date(ff.object_name, MultiTenantService.statefile.end_of_current_tax_year.years_ago(17), nil, t(".dependent_dob_under_17_warning")) %>
+            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(17), nil, t(".dependent_dob_under_17_warning")) %>
           </div>
         <% end %>
 
