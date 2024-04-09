@@ -426,11 +426,6 @@
     }
   }
 
-  .landing-page-content {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
   .partner-logo-wrapper {
     display: flex;
     align-items: center;
@@ -469,7 +464,7 @@
     p { text-align: center; }
     img { height: 80px; width: 80px;}
   }
-  
+
   .info-link {
     font-size: 1.6rem;
     color: black;
@@ -627,6 +622,76 @@
     text-decoration: none;
   }
 
+  @media screen and (min-width: $tablet-up) {
+    .question-layout .question-wrapper {
+      margin: 0 auto;
+      max-width: 658px;
+
+      .checkbox {
+        width: 100%;
+      }
+
+      .button {
+        display: block;
+        min-width: 15rem;
+        max-width: 25rem;
+        margin: 0 auto;
+      }
+    }
+
+    .options-wrapper .yes-no-buttons {
+      display: flex;
+      justify-content: center;
+
+      .button {
+        margin: 0 2rem;
+        display: block;
+        min-width: 25rem;
+        max-width: 25rem;
+      }
+    }
+
+    .question-layout.landing-page-outer .question-wrapper {
+      max-width: none;
+
+      main {
+        display: flex;
+        justify-content: space-between;
+        .landing-page-content {
+          max-width: 570px;
+        }
+        .fyst-home-image {
+          width: 273px;
+          height: 250px;
+        }
+      }
+    }
+
+    .initiate-data-transfer-outer .question-wrapper a.button {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+
+    .esign-declaration-outer, .return-status-outer, .submission-confirmation-outer {
+
+      .question-wrapper .button--primary {
+        min-width: 40rem;
+        max-width: 40rem;
+        width: 40rem;
+      }
+    }
+
+    .esign-declaration-outer .text--error {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: $tablet-up) {
+    .landing-page-container .fyst-home-image {
+      display: none
+    }
+  }
 }
 
 $state-colors: (
