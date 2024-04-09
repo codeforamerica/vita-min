@@ -419,6 +419,11 @@
         }
       }
     }
+
+    #state_file_taxes_owed_form_account_type_checking:after,
+    #state_file_taxes_owed_form_account_type_savings:after {
+      top: 0;
+    }
   }
 
   .landing-page-content {
@@ -680,5 +685,16 @@ $state-colors: (
     border-color: black;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+}
+
+.state-file-submissions {
+  .pagination-wrapper {
+    align-items: center;
+  }
+  .search-container {
+    padding-bottom: 2rem;
+    .hub-searchbar__input{
+    }
   }
 }

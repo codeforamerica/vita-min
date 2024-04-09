@@ -706,4 +706,17 @@ describe EfileSubmission do
       end
     end
   end
+
+  describe '#is_for_state_filing?' do
+    let(:state_efile_submission) { create :efile_submission, :for_state }
+    let(:non_state_efile_submission) { create :efile_submission }
+
+    it 'returns true for state submission' do
+      expect(state_efile_submission.is_for_state_filing?).to eq true
+    end
+
+    it 'returns false for non-state submission' do
+      expect(non_state_efile_submission.is_for_state_filing?).to eq false
+    end
+  end
 end

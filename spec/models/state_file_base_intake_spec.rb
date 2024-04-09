@@ -27,4 +27,21 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe '.opted_out_state_file_intakes' do
+    let!(:email) { 'email@test.com' }
+    let!(:intake) { create :state_file_az_intake, email_address: email, unsubscribed_from_email: true }
+
+    context 'when is a FYST email' do
+      it 'returns the intakes' do
+        expect(StateFileBaseIntake.opted_out_state_file_intakes(email).length).to eq 1
+      end
+    end
+
+    context 'when is NOT a FYST email' do
+      it 'returns empty' do
+        expect(StateFileBaseIntake.opted_out_state_file_intakes('another_email@test.com')).to be_empty
+      end
+    end
+  end
 end
