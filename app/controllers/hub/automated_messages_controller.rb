@@ -35,6 +35,7 @@ module Hub
         [AutomatedMessage::IntercomForwarding, {}],
         [AutomatedMessage::UnmonitoredReplies, { support_email: Rails.configuration.email_from[:support][:gyr] }],
         [AutomatedMessage::InProgress, {}],
+        [AutomatedMessage::Welcome, {}],
       ]
 
       automated_messages_and_mailers = automated_messages.map do |m|

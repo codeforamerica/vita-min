@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <p><%= t(".nyc_includes") %></p>
+  <p><%= t(".nyc_includes_html") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", data: { efile_security_information: true, form_name: "state_file_nyc_residency_form" }, builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>
@@ -12,9 +12,9 @@
       <div class="question-with-follow-up__question">
         <div class="blue-group">
           <%= f.cfa_radio_set(:nyc_residency, label_text: title, collection: [
-            { value: :full_year, label: t(".full_year", count: current_intake.filer_count, year: current_tax_year) },
             { value: :none, label: t(".none", count: current_intake.filer_count, year: current_tax_year),  input_html: { "data-follow-up": "#nyc-maintained-home" } },
             { value: :part_year, label: t(".part_year", count: current_intake.filer_count, year: current_tax_year) },
+            { value: :full_year, label: t(".full_year", count: current_intake.filer_count, year: current_tax_year) },
           ], legend_class: "sr-only") %>
         </div>
       </div>

@@ -1721,6 +1721,16 @@ es:
         Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
         Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
     verification_code_subject_with_service_name: Código de seis dígitos de %{service_name}
+    welcome:
+      email:
+        body: |
+          Hola <<Client.PreferredName>>,
+
+          ¡Gracias por crear una cuenta con GetYourRefund! Su ID de cliente es <<Client.ClientId>>. Esta es una información importante de la cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Mantenga un registro de este número y no elimine este mensaje.
+
+          Puede verificar su progreso y agregar documentos adicionales aquí: <<Client.LoginLink>>
+        subject: 'Bienvenido a GetYourRefund: ID de cliente'
+      sms: 'Hola <<Client.PreferredName>>, Te has registrado en GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Mantenga un registro de este número y no elimine este mensaje. Si tiene alguna pregunta, responda a este mensaje.'
   models:
     intake:
       your_spouse: Su cónyuge
@@ -2307,29 +2317,33 @@ es:
           from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
         edit:
           button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
-          description: Para ahorrar tiempo, transfiera su declaración federal para completar partes de su declaración estatal. Esta transferencia segura desde IRS Direct File suele tardar 3 minutos o menos.
+          description_html: |
+            <p>Primero, <strong>asegúrate de que tu declaración federal haya sido aceptada.</strong></p>
+            <p><strong>¿Cómo sé si fue aceptada?</strong></p>
+            <p>Recibirás dos correos electrónicos del IRS: uno por una declaración enviada y otro por una declaración aceptada. Revisa tu correo electrónico para ver si recibiste uno de aceptación.</p>
+            <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
           continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
           help_text_html: |
-            <b>Lo que necesitarás para comenzar</b>
-            <br>
+            <strong>Lo que necesitarás para comenzar</strong>
+            <br />
             <ul class="list--bulleted">
-            <li>Dirección de correo electrónico o número de teléfono
-            <li>Licencia de conducir o identificación emitida por el estado
-            <li>Si recibiste beneficios por desempleo en 2023, necesitarás el Formulario 1099-G
-            <li>Deberías haber presentado tu declaración de impuestos federales de 2023 usando <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración, ya que se importará a esta herramienta).
-            <li>Si eliges recibir tu reembolso o hacer un pago de impuestos electrónicamente, necesitarás los números de ruta y de cuenta de tu banco.
+              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+              <li>Dirección de correo electrónico o número de teléfono.</li>
+              <li>Licencia de conducir o identificación emitida por el estado.</li>
+              <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
+              <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
             </ul>
           not_you: "¿No es %{user_name}?"
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el Estado de Nueva York para integrarse con la herramienta Direct File del IRS. Está disponible en dispositivos móviles y de escritorio, y tarda aproximadamente de 10 a 15 minutos en completarse."
+            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
           start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
@@ -2354,6 +2368,10 @@ es:
       ny_county:
         edit:
           county: Condado
+          nyc_residency_full_year_html: En la página anterior, nos dijo que vivió en la ciudad de Nueva York <strong>todo el año</strong> en %{filing_year}.
+          nyc_residency_full_year_warning: El condado que seleccionó se encuentra fuera de la ciudad de Nueva York. Seleccione un condado dentro de la ciudad de Nueva York o utilice el botón Atrás del navegador para cambiar su respuesta de residencia en la ciudad de Nueva York.
+          nyc_residency_none_html: En la página anterior, nos dijo que <strong>no</strong> vivía en la ciudad de Nueva York en %{filing_year}.
+          nyc_residency_none_warning: El condado que seleccionó está en la ciudad de Nueva York. Seleccione un condado fuera de la ciudad de Nueva York o utilice el botón Atrás del navegador para cambiar su respuesta de residencia en la ciudad de Nueva York.
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
       ny_eligibility_college_savings_withdrawal:
         edit:
@@ -2442,22 +2460,22 @@ es:
       nyc_residency:
         edit:
           full_year:
-            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante todo el %{year}
-            one: Viví en la ciudad de Nueva York durante todo el %{year}
-            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante todo el %{year}
+            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York <strong>durante todo</strong> el %{year}
+            one: Viví en la ciudad de Nueva York durante <strong>todo el</strong> %{year}
+            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante <strong>todo el</strong> %{year}
           maintained_home:
             many: "¿Tú o tu cónyuge mantuvieron un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
             one: "¿Mantuviste un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
             other: "¿Tú o tu cónyuge mantuvieron un hogar en la ciudad de Nueva York en algún momento durante el %{year}?"
           none:
-            many: Mi cónyuge y yo no vivimos en la ciudad de Nueva York en absoluto en el %{year}
-            one: No viví en la ciudad de Nueva York en absoluto en el %{year}
-            other: Mi cónyuge y yo no vivimos en la ciudad de Nueva York en absoluto en el %{year}
-          nyc_includes: La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island.
+            many: Mi cónyuge y yo no vivimos en la ciudad de Nueva York <strong>en absoluto</strong> en el %{year}
+            one: No viví en la ciudad de Nueva York <strong>en absoluto</strong> en el %{year}
+            other: Mi cónyuge y yo no vivimos en la ciudad de Nueva York <strong>en absoluto</strong> en el %{year}
+          nyc_includes_html: "<strong>Nota:</strong> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
           part_year:
-            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
-            one: Viví en la ciudad de Nueva York durante parte del año
-            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York durante parte del año, o vivimos en la ciudad de Nueva York durante diferentes períodos.
+            many: Mi cónyuge y yo vivimos en la ciudad de Nueva York <strong>durante parte del año</strong>, o vivimos en la ciudad de Nueva York durante diferentes períodos.
+            one: Viví en la ciudad de Nueva York <strong>durante parte del año</strong>
+            other: Mi cónyuge y yo vivimos en la ciudad de Nueva York <strong>durante parte del año</strong>, o vivimos en la ciudad de Nueva York durante diferentes períodos.
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:

@@ -102,6 +102,26 @@ RSpec.describe MailgunWebhooksController do
           end
         end
 
+        context 'with an opted-out state-file intake' do
+          let(:email) { 'email@test.com' }
+          let!(:state_intake) { create :state_file_az_intake, email_address: email, unsubscribed_from_email: true }
+          let!(:another_intake) { create :state_file_az_intake, email_address: 'another-email@test.gov', unsubscribed_from_email: true }
+
+          xit 'reopt-in statefile-intake based on email' do
+            params['sender'] = email
+            post :create_incoming_email, params: params
+            state_intake.reload
+            expect(state_intake.unsubscribed_from_email).to be_falsey
+          end
+
+          it 'does NOT reopt-in for state-file intakes without an associated incoming email' do
+            params['sender'] = email
+            post :create_incoming_email, params: params
+            another_intake.reload
+            expect(another_intake.unsubscribed_from_email).to be_truthy
+          end
+        end
+
         it "sends a metric to Datadog" do
           post :create_incoming_email, params: params
 
@@ -375,10 +395,9 @@ RSpec.describe MailgunWebhooksController do
         context "with attachments" do
           it "stores them on each client" do
             expect do
-              post :create_incoming_email, params: params.update({
-                                                                   "attachment-count": 1,
-                                                                   "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/files/document_bundle.pdf", "application/pdf"),
-                                                                 })
+              post :create_incoming_email, params: params.update(
+                { "attachment-count": 1, "attachment-1" => Rack::Test::UploadedFile.new("spec/fixtures/files/document_bundle.pdf", "application/pdf"),}
+              )
             end.to change(Document, :count).by(2)
 
             documents = Document.where(client: [client1, client2])

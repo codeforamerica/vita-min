@@ -1762,6 +1762,16 @@ en:
         Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
         If you have questions or would like more information about this decision, please contact hello@getctc.org.
     verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
+    welcome:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thank you for creating an account with GetYourRefund! Your Client ID is <<Client.ClientId>>. This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
+
+          You can check your progress and add additional documents here: <<Client.LoginLink>>
+        subject: 'Welcome to GetYourRefund: Client ID'
+      sms: 'Hello <<Client.PreferredName>>, You''ve signed up with GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message.'
   models:
     intake:
       your_spouse: Your spouse
@@ -2340,29 +2350,33 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
+          description_html: |
+            <p>First, <strong>make sure your federal return is accepted.</strong></p>
+            <p><strong>How do I know if it’s accepted?</strong></p>
+            <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
+            <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
           already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
           continue: To continue filing your %{state_name} State return, please sign in below
           help_text_html: |
-            <b>What you’ll need to get started</b>
-            <br>
+            <strong>What you’ll need:</strong>
+            <br />
             <ul class="list--bulleted">
-              <li>Email address or phone number
-              <li>Driver’s license or state-issued ID
-              <li>If you received unemployment benefits in 2023, you’ll need Form 1099-G
-              <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
-              <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>Email address or phone number</li>
+              <li>Driver’s license or state-issued ID</li>
+              <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
             </ul>
           not_you: Not %{user_name}?
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
             supported_by: Supported by New York State
             title: File your New York State taxes for free
           start_new: Click here to start a new %{state_name} State return.
@@ -2387,6 +2401,10 @@ en:
       ny_county:
         edit:
           county: County
+          nyc_residency_full_year_html: On the previous page, you told us you lived in New York City <strong>all year</strong> in %{filing_year}.
+          nyc_residency_full_year_warning: The county you selected is outside New York City. Please select a county inside of New York City or click on the "Go Back" button to change your New York City residency answer.
+          nyc_residency_none_html: On the previous page, you told us you <strong>did not</strong> live in New York City in %{filing_year}.
+          nyc_residency_none_warning: The county you selected is in New York City. Please select a county outside of New York City or click on the "Go Back" button to change your New York City residency answer.
           title: Select the county where you lived on December 31, %{filing_year}
       ny_eligibility_college_savings_withdrawal:
         edit:
@@ -2465,18 +2483,18 @@ en:
       nyc_residency:
         edit:
           full_year:
-            one: I lived in New York City all year in %{year}
-            other: My spouse and I lived in New York City all year in %{year}
+            one: I lived in New York City <strong>all year</strong> in %{year}
+            other: My spouse and I lived in New York City <strong>all year</strong> in %{year}
           maintained_home:
             one: Did you maintain a home in New York City at any time during %{year}?
             other: Did you or your spouse maintain a home in New York City at any time during %{year}?
           none:
-            one: I did not live in New York City at all in %{year}
-            other: My spouse and I did not live in New York City at all in %{year}
-          nyc_includes: New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+            one: I <strong>did not</strong> live in New York City at all in %{year}
+            other: My spouse and I <strong>did not</strong> live in New York City at all in %{year}
+          nyc_includes_html: "<strong>Note:</strong> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island."
           part_year:
-            one: I lived in New York City for some of the year
-            other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
+            one: I lived in New York City for <strong>some of the year</strong>
+            other: My spouse and I lived in New York City for <strong>some of the year</strong>, or we lived in New York City for different amounts of time.
           title: 'Select your New York City residency status during %{year}:'
       pending_federal_return:
         edit:
