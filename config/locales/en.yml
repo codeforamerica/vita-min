@@ -224,6 +224,7 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
+      round_to_whole_number: round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
