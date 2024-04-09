@@ -2687,7 +2687,7 @@ en:
           box19_html: "<strong>Box 19</strong>: Local income tax"
           box20_locality_name: "<strong>Box 20</strong>: Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
+          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
@@ -2697,7 +2697,7 @@ en:
           w2s_error: Update W-2s before continuing.
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
         index:
-          title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
+          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
           w2_for: 'W-2 for: %{employer_name}'
           wages_amount: 'Total wages amount: $%{wages_amount}'
