@@ -225,6 +225,7 @@ es:
       blank: No puede estar en blanco.
       invalid: es invalido
       only_letters: Sólo se aceptan cartas
+      round_to_whole_number: redondea al número entero más próximo
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -2685,7 +2686,7 @@ es:
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
           employer_state_id_error: El EIN debe ser un número. No incluya un guión.
-          instructions_1: Necesitamos un poco más de información sobre la información de impuestos estatales y locales en tu W-2 de %{employer_name}por %{total_wages_amt}.
+          instructions_1: Revise la información a continuación y asegúrese de que coincida con los impuestos estatales y locales en su W-2 de %{employer_name} a %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
@@ -2695,7 +2696,7 @@ es:
           w2s_error: Actualiza los formularios W-2 antes de continuar.
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
         index:
-          title: Proporciona la información de impuestos estatales para los siguientes W-2. No te preocupes si tienes varios W-2 y no todos están listados abajo.
+          title: Notamos algunas discrepancias con la información del W-2 que ingresó en la herramienta Direct File para los siguientes W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
           updated: Has actualizado este W-2
           w2_for: 'W-2 para: %{employer_name}'
           wages_amount: 'Cantidad total de salarios: $%{wages_amount}'
