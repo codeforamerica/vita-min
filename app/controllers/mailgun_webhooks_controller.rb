@@ -3,6 +3,7 @@ class MailgunWebhooksController < ActionController::Base
   before_action :authenticate_mailgun_request
   # This work is ongoing for https://www.pivotaltracker.com/story/show/187187633
   # before_action :re_optin_when_client_replies, only: :create_incoming_email
+  #
 
   REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
 
