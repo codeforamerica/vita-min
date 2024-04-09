@@ -28,15 +28,6 @@ module StateFile
       end
 
       def edit
-        dfw2 = @w2.state_file_intake.direct_file_data.w2s[@w2.w2_index]
-        @w2.attributes = {
-          employer_state_id_num: dfw2.EmployerStateIdNum,
-          state_wages_amt: dfw2.StateWagesAmt,
-          state_income_tax_amt: dfw2.StateIncomeTaxAmt,
-          local_wages_and_tips_amt: dfw2.LocalWagesAndTipsAmt,
-          local_income_tax_amt: dfw2.LocalIncomeTaxAmt,
-          locality_nm: dfw2.LocalityNm,
-        }
       end
 
       def update
@@ -95,7 +86,20 @@ module StateFile
         (intake.direct_file_data.w2s.each_with_index.map do |df_w2, index|
           if intake.invalid_df_w2?(df_w2)
             existing_record = intake.state_file_w2s.find { |intake_w2| intake_w2.w2_index == index }
-            existing_record.present? ? existing_record : StateFileW2.new(state_file_intake: intake, w2_index: index)
+            if existing_record.present?
+              existing_record
+            else
+              StateFileW2.new(
+                state_file_intake: intake,
+                w2_index: index,
+                employer_state_id_num: df_w2.EmployerStateIdNum,
+                state_wages_amt: df_w2.StateWagesAmt,
+                state_income_tax_amt: df_w2.StateIncomeTaxAmt,
+                local_wages_and_tips_amt: df_w2.LocalWagesAndTipsAmt,
+                local_income_tax_amt: df_w2.LocalIncomeTaxAmt,
+                locality_nm: df_w2.LocalityNm
+              )
+            end
           end
         end).compact
       end
