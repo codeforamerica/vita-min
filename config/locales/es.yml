@@ -2349,6 +2349,7 @@ es:
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
           start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+          title_closed: Nuestro servicio gratuito de presentación de impuestos %{state_name} está cerrado por temporada
           welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:

@@ -2383,6 +2383,7 @@ en:
             supported_by: Supported by New York State
             title: File your New York State taxes for free
           start_new: Click here to start a new %{state_name} State return.
+          title_closed: Our free %{state_name} tax filing service is closed for the season
           welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:

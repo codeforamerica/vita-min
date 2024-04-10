@@ -6,6 +6,7 @@ module StateFile
 
       def edit
         @state_name = StateFileBaseIntake::STATE_CODE_AND_NAMES[params[:us_state]]
+        @closed = app_time.after?(Rails.configuration.state_file_services_closed)
         if current_intake.present?
           if current_intake.primary_first_name.present?
             @user_name = current_intake.primary_first_name
