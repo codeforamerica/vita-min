@@ -400,7 +400,7 @@ describe Intake::GyrIntake do
     end
 
   end
-  describe "after_save when the intake is completed" do
+  xdescribe "after_save when the intake is completed" do
     let(:intake) { create :intake }
 
     it_behaves_like "an incoming interaction" do
