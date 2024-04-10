@@ -6,7 +6,6 @@ module StateFile
     def run
       cutoff_time_ago = HOURS_AGO.hours.ago
       intakes_to_notify = []
-      #  Is there a better way of doing this filtering? DB query seems tricky
       ApplicationRecord::STATE_INTAKE_CLASS_NAMES.map do |base_class|
         class_object = base_class.constantize
         intakes_to_notify += class_object.left_joins(:efile_submissions)
@@ -24,6 +23,7 @@ module StateFile
             send_notification(intake)
             next
           end
+          #  Is there a better way of doing this filtering? DB query seems tricky
           if ActiveSupport::TimeZone['UTC'].parse(msg_tracker_last_reminder) > cutoff_time_ago
             # We've sent the reminder notification less than the cutoff time ago, so don't re-send
             next
