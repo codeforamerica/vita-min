@@ -3,15 +3,18 @@ module StateFile
     BATCH_SIZE = 10
     HOURS_AGO = 24
 
-    def self.run
+    def run
       cutoff_time_ago = HOURS_AGO.hours.ago
       intakes_to_notify = []
       #  Is there a better way of doing this filtering? DB query seems tricky
       ApplicationRecord::STATE_INTAKE_CLASS_NAMES.map do |base_class|
         class_object = base_class.constantize
-        intakes_to_notify += class_object.where("#{base_class.underscore.pluralize}.created_at < ?", cutoff_time_ago)
-                                        .where.not(email_address: nil).where.not(email_address_verified_at: nil)
-                                        .where(unsubscribed_from_email: false)
+        intakes_to_notify += class_object.left_joins(:efile_submissions)
+                                         .where(efile_submissions: { id: nil })
+                                         .where("#{base_class.underscore.pluralize}.created_at < ?", cutoff_time_ago)
+                                         .where.not(email_address: nil).where.not(email_address_verified_at: nil)
+                                         .where(unsubscribed_from_email: false)
+                                         .where.not("#{base_class.underscore.pluralize}.message_tracker #> '{messages.state_file.pre_deadline_reminder}' IS NOT NULL")
       end
 
       intakes_to_notify.each_slice(BATCH_SIZE) do |batch|
