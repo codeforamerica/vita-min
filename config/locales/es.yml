@@ -4479,6 +4479,7 @@ es:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
         header: Declare sus impuestos sin costo. ¡Es sencillo!
+        open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en 2024. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.
