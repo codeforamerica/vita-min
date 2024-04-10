@@ -12,6 +12,7 @@ RSpec.feature "View state-file efile submissions page in hub" do
     it "shows efile submission status, submission ids, data source type and id" do
       visit hub_state_file_efile_submissions_path
 
+      puts page.body
       expect(page).to have_content(efile_submission.id)
       expect(page).to have_content(efile_submission.current_state.humanize(capitalize: false))
       expect(page).to have_content(efile_submission.irs_submission_id)
