@@ -2725,6 +2725,10 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
     state_file_pages:
       about_page:
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          <strong><em>We're closed for the tax season. Unfortunately, you cannot file your state return with us this year.</em></strong><br /><br />
+          Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
         header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
         section1_html: |
           <strong>How does it work?</strong>
@@ -2737,9 +2741,10 @@ en:
             <li>E-file your return for free!</li>
           </ol>
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
-        subheader_1_html: <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong>
-        subheader_2_html: IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong>
-        subheader_3_html: Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.
+        subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
+          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:

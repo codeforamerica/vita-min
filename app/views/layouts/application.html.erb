@@ -110,7 +110,9 @@
     <% if hide_intercom? %>
       <div></div>
      <% elsif state_file? %>
-      <%= render("shared/state_file_intercom")%>
+      <% unless app_time.after?(Rails.configuration.state_file_services_closed)  %>
+        <%= render("shared/state_file_intercom")%>
+      <% end %>
     <% else %>
       <%= render("shared/intercom", isHub: hub?) unless (hub? || Routes::CtcDomain.new.matches?(request)) %>
     <% end %>

@@ -4,17 +4,22 @@
   <div class="fyst-home-content">
     <h1 class="h1 strong"><%= title %></h1>
 
-    <div>
-      <%= t(".subheader_1_html") %><br /><br />
-      <% if open_for_state_file_intake? %>
-        <%= t(".subheader_2_html") %><br /><br />
-      <% end %>
-      <%= t(".subheader_3_html", login_path: login_options_path(us_state: 'us')) %><br />
-    </div><br>
+    <% if open_for_state_file_intake? %>
+      <div>
+        <%= t(".subheader_html", login_path: login_options_path(us_state: 'us')) %>
+      </div><br />
 
-    <div class="blue-group spacing-below-15 spacing-above-15">
-      <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
-    </div>
+      <div class="blue-group spacing-below-15 spacing-above-15">
+        <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
+      </div>
+    <% else %>
+      <div>
+        <%= t(".closed_subheader_html") %>
+        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: "us"), class: "button button--primary button--wide", id: "firstCta" do %>
+          <%= t("general.sign_in") %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image' %>
 </div>
