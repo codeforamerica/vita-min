@@ -5,7 +5,11 @@
     <h1 class="h1 strong"><%= title %></h1>
 
     <div>
-      <%= t(".subheader_html", login_path: login_options_path(us_state: 'us')) %>
+      <%= t(".subheader_1_html") %><br /><br />
+      <% unless @intakes_closed %>
+        <%= t(".subheader_2_html") %><br /><br />
+      <% end %>
+      <%= t(".subheader_3_html", login_path: login_options_path(us_state: 'us')) %><br />
     </div><br>
 
     <div class="blue-group spacing-below-15 spacing-above-15">

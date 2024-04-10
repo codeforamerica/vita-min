@@ -19,7 +19,9 @@ module StateFile
 
     def data_import_failed; end
 
-    def about_page; end
+    def about_page
+      @intakes_closed = DateTime.now >= DateTime.new(2024, 4, 15, 19, 0, 0)
+    end
 
     def privacy_policy; end
 
