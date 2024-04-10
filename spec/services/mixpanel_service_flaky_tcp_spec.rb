@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe MixpanelService do
   before do
-    allow(Rails.env).to receive(:development?).and_return(false)
     allow(Rails.application.credentials).to receive(:dig).and_return("mock-mixpanel-token")
   end
 
