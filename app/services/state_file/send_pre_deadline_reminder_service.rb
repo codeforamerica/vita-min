@@ -1,5 +1,5 @@
 module StateFile
-  class PreDeadlineReminderService
+  class SendPreDeadlineReminderService
     BATCH_SIZE = 10
     HOURS_AGO = 24
 
