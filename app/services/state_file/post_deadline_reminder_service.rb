@@ -20,8 +20,7 @@ module StateFile
       intakes_to_notify.each_slice(BATCH_SIZE) do |batch|
         batch.each do |intake|
           StateFile::MessagingService.new(
-            #message: StateFile::AutomatedMessage::FinishReturn,
-            message: StateFile::AutomatedMessage::FinishReturn,
+            message: StateFile::AutomatedMessage::PostDeadlineReminder,
             intake: intake
           ).send_message
         end
