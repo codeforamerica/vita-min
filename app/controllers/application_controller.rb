@@ -337,6 +337,9 @@ class ApplicationController < ActionController::Base
     if app_time <= Rails.configuration.tax_deadline && open_for_gyr_intake?
       # after open intake, before tax_deadline
       :open_intake
+    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_intake)
+      # after tax_deadline, before end_of_intake
+      :open_intake_post_tax_deadline
     elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
       # after tax_deadline, before end_of_in_progress_intake
       :in_progress_intake_only
