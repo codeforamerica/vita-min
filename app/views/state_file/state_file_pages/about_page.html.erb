@@ -6,7 +6,7 @@
 
     <div>
       <%= t(".subheader_1_html") %><br /><br />
-      <% unless @intakes_closed %>
+      <% if open_for_state_file_intake? %>
         <%= t(".subheader_2_html") %><br /><br />
       <% end %>
       <%= t(".subheader_3_html", login_path: login_options_path(us_state: 'us')) %><br />
