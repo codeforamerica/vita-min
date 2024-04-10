@@ -1583,6 +1583,24 @@ es:
           Hola, ¡Gracias por usar FileYourStateTaxes! Todos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, inicia sesión aquí: %{login_link}
 
           ¿Preguntas? Responde a este mensaje.
+      post_deadline_reminder:
+        email:
+          body: |
+            Hola %{primary_first_name},
+            
+            Aún no has presentado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tu declaración de impuestos estatales antes del 15 de abril para evitar multas por presentación tardía en %{state_name}.
+            
+            Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.
+            
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+            
+            Saludos,
+            El equipo de FileYourStateTaxes
+          subject: ¡No olvides terminar tu declaración de impuestos estatales antes del 15 de abril!
+        sms: |
+          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.
+  
+          ¿Necesitas ayuda? Responde a este mensaje de texto.
       rejected:
         email:
           body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
