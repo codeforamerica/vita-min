@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe StateFile::IntakeLoginsController, type: :controller do
+  around do |example|
+    Timecop.freeze(Rails.configuration.state_file_end_of_in_progress_intakes + 1.day) do
+      example.run
+    end
+  end
+
   let(:intake) do
     create(
       :state_file_az_intake,
