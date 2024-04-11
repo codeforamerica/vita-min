@@ -8,7 +8,20 @@
     <h1 class="h1"><%= title %></h1>
 
     <% if @closed %>
-
+      <h2 class="h2">
+        <%= t(".#{params[:us_state]}.closed_html") %>
+      </h2>
+      <div class="partner-logo-wrapper spacing-below-35">
+        <div class="partner-logo-image">
+          <%= image_tag state_image_path, alt: "#{state_name} state logo", class: "" %>
+        </div>
+        <div class="partner-logo-text text--body text--bold">
+          <%=t(".#{params[:us_state]}.supported_by") %>
+        </div>
+      </div>
+      <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code), class: "button button--primary button--wide", id: "firstCta" do %>
+        <%= t(".download_your_record") %>
+      <% end %>
     <% else %>
       <% unless @user_name.present? %>
         <h2 class="h2">

@@ -6,10 +6,14 @@
 
     <% if app_time.before?(Rails.configuration.state_file_services_closed) %>
       <div>
-        <%= t(".subheader_html", login_path: login_options_path(us_state: 'us')) %>
-      </div><br />
+        <p><%= t(".subheader_1_html", login_path: login_options_path(us_state: 'us')) %></p>
+        <% if app_time.before?(Rails.configuration.state_file_end_of_intake) %>
+          <p><%= t(".subheader_2_html", login_path: login_options_path(us_state: 'us')) %></p>
+        <% end %>
+        <p><%= t(".subheader_3_html", login_path: login_options_path(us_state: 'us')) %></p>
+      </div>
 
-      <div class="blue-group spacing-below-15 spacing-above-15">
+      <div class="blue-group spacing-below-15 spacing-above-35">
         <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
       </div>
     <% else %>
