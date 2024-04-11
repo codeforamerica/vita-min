@@ -19,7 +19,7 @@
           <%=t(".#{params[:us_state]}.supported_by") %>
         </div>
       </div>
-      <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code), class: "button button--primary button--wide", id: "firstCta" do %>
+      <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state]), class: "button button--primary button--wide", id: "firstCta" do %>
         <%= t(".download_your_record") %>
       <% end %>
     <% else %>
