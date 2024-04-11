@@ -1588,14 +1588,15 @@ es:
         email:
           body: |
             Hola %{primary_first_name},
-            Aún no has presentado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tu declaración de impuestos estatales antes del 15 de abril para evitar multas por presentación tardía en %{state_name}.
+            Aún no has presentado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencieron el 15 de abril. Asegúrate de presentar tu declaración de impuestos estatales antes del 15 de abril para evitar multas por presentación tardía en %{state_name}.
+            FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
             Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.
             ¿Necesitas ayuda? Responde a este correo electrónico.
             Saludos,
             El equipo de FileYourStateTaxes
-          subject: "¡No olvides terminar tu declaración de impuestos estatales antes del 15 de abril!"
+          subject: "¡No olvides terminar de presentar tu declaración de impuestos estatales lo antes posible!"
         sms: |
-          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.
+          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
           ¿Necesitas ayuda? Responde a este mensaje de texto.
       rejected:
         email:
