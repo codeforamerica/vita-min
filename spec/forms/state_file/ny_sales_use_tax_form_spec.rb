@@ -14,7 +14,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
         create :state_file_ny_intake,
                untaxed_out_of_state_purchases: "yes",
                sales_use_tax_calculation_method: "manual",
-               sales_use_tax: 1800
+               sales_use_tax: "1800"
       end
 
       let(:params) do
@@ -163,7 +163,7 @@ RSpec.describe StateFile::NySalesUseTaxForm do
       let(:valid_params) do
         { untaxed_out_of_state_purchases: "yes",
           sales_use_tax_calculation_method: "manual",
-          sales_use_tax: 1699 }
+          sales_use_tax: "1699" }
       end
 
       it "saves values" do

@@ -3,7 +3,7 @@
   <p class="text--small"><%= t(".foreign_accounts") %></p>
   <div class="form-group-tight">
     <% if owe_taxes %>
-      <%= form.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+      <%= form.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long round-dollar-amount"]) %>
       <div class="date-select">
         <% year = MultiTenantService.new(:statefile).current_tax_year + 1 %>
         <%= form.cfa_date_select(

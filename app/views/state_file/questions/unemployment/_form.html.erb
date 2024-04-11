@@ -105,10 +105,10 @@
         <div class="blue-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.money_boxes_label') %></p>
           <div class="form-group-tight">
-            <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation_html'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.unemployment.edit.federal_income_tax_withheld_html'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation_html'), classes: ["form-width--long round-dollar-amount"]) %>
+            <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.unemployment.edit.federal_income_tax_withheld_html'), classes: ["form-width--long round-dollar-amount"]) %>
             <%= f.cfa_input_field(:state_identification_number, t('state_file.questions.unemployment.edit.box_10b_html'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.unemployment.edit.state_income_tax_withheld_html'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.unemployment.edit.state_income_tax_withheld_html'), classes: ["form-width--long round-dollar-amount"]) %>
           </div>
         </div>
 

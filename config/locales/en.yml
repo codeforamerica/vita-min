@@ -2068,8 +2068,8 @@ en:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)'
+          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (We will round this number to the nearest dollar for you. Note: you may be asked to provide receipts for donations over $250.)'
+          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (we will round this number to the nearest dollar for you.)'
           learn_more_content_html: |
             Charitable contributions include <strong>cash</strong> and <strong>non-cash</strong> donations to qualifying organizations.<br><br>
             Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">here</a> to see if an organization qualifies.<br><br>
@@ -2159,7 +2159,7 @@ en:
           tribal_wages_label:
             one: How much did you earn while living and working on your tribe’s reservation?
             other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
-          wages_tip: Enter amount earned (round to the nearest whole number.)
+          wages_tip: Enter amount earned (we will round this number to the nearest dollar for you.)
       canceled_data_transfer:
         edit:
           faq: Visit our FAQ
@@ -2458,7 +2458,7 @@ en:
           total_payments: Total payments
       ny_sales_use_tax:
         edit:
-          calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
+          calculated_use_tax: Enter calculated use tax. (We will round this number to the nearest dollar for you.)
           enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
           select_one: 'Select one of the following:'
           subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
@@ -2607,7 +2607,7 @@ en:
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
-          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. Round to the nearest whole number.)
+          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. We will round this number to the nearest dollar for you.)
         edit:
           az_title_html: Good news, you're getting a Arizona state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
           direct_deposit: Direct deposit (fastest)
@@ -2653,7 +2653,7 @@ en:
           confirm_address_html: Please confirm <strong>your mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
           confirm_address_no: No, I need to edit
           confirm_address_yes: Yes, that's the address
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld (Round to the nearest whole number.)"
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld (we will round this number to the nearest dollar for you.)"
           had_box_11: Did you have an amount listed for state income tax (Box 11) on your unemployment compensation (Form 1099-G)?
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
@@ -2676,12 +2676,12 @@ en:
           recipient_myself: Myself
           recipient_question: Who is this form for?
           state: State
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld (Round to the nearest whole number.)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld (we will round this number to the nearest dollar for you.)"
           street_address: Street Address
           title:
             one: It looks like you received unemployment benefits in %{year}
             other: It looks like you or your spouse received unemployment benefits in %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation (Round to the nearest whole number.)"
+          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation (we will round this number to the nearest dollar for you.)"
           zip_code: Zip code
         index:
           1099_label: 1099-G for %{name}

@@ -2027,8 +2027,8 @@ es:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más cercano. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500. (redondea al número entero más cercano)'
+          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondearemos este número al dólar más cercano para usted. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
+          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500. (redondearemos este número al dólar más cercano para usted)'
           learn_more_content_html: |
             Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
             Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
@@ -2126,7 +2126,7 @@ es:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
+          wages_tip: Ingresa la cantidad que recibiste (redondearemos este número al dólar más cercano para usted).
       canceled_data_transfer:
         edit:
           faq: Visita nuestras Preguntas Frecuentes (FAQ)
@@ -2433,7 +2433,7 @@ es:
           total_payments: Total de pagos
       ny_sales_use_tax:
         edit:
-          calculated_use_tax: Ingresa el impuesto de uso calculado. (Redondea al número entero más cercano.)
+          calculated_use_tax: Ingresa el impuesto de uso calculado. (Redondearemos este número al dólar más cercano para usted.)
           enter_valid_dollar_amount: Ingresa una cantidad en dólares entre 0 y 1699.
           select_one: 'Selecciona una de las siguientes opciones:'
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso.
@@ -2587,7 +2587,7 @@ es:
           disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria (routing number)
-          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondea al número entero más cercano)"
+          withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondearemos este número al dólar más cercano para usted)"
         edit:
           az_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Arizona de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
           direct_deposit: Depósito directo (más rápido)
@@ -2633,7 +2633,7 @@ es:
           confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido (Redondea al número entero más cercano)"
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido (redondearemos este número al dólar más cercano para usted)"
           had_box_11: "¿Tenías un monto listado por impuestos estatales (Box 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
             Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
@@ -2656,13 +2656,13 @@ es:
           recipient_myself: Para mí
           recipient_question: "¿Para quién es este formulario?"
           state: Estado
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido (Redondea al número entero más cercano)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido (redondearemos este número al dólar más cercano para usted)"
           street_address: Dirección
           title:
             many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
             one: Parece que recibiste compensaciones por desempleo en %{year}
             other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo (Redondea al número entero más cercano)"
+          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo (redondearemos este número al dólar más cercano para usted)"
           zip_code: Código postal
         index:
           1099_label: 1099-G para %{name}
