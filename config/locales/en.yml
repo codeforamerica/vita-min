@@ -2550,9 +2550,6 @@ en:
           ny_benefits: Apply for New York benefits.
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           register_to_vote: Register to vote.
-          thank_you_html: |
-            Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.<br /><br />
-            Filed your state taxes with us? You can download a copy of your state return until December 31, 2024.
           title: Your 2023 %{state_name} state tax return is accepted
           track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
         edit:
@@ -2578,6 +2575,9 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+        thank_you_html: |
+          Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.<br /><br />
+          Filed your state taxes with us? You can download a copy of your state return until December 31, 2024.
       review:
         w2: W-2 state and local tax information
       shared:

@@ -62,7 +62,7 @@
     <%= t("state_file.questions.return_status.accepted.download_title", state_name: States.name_for_key(params[:us_state].upcase)) %>
   </h1>
   <p>
-    <%= t("state_file.questions.return_status.accepted.thank_you_html", state_name: States.name_for_key(params[:us_state].upcase)) %>
+    <%= t("state_file.questions.return_status.thank_you_html", state_name: States.name_for_key(params[:us_state].upcase)) %>
   </p>
   <p><a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a></p>
   <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
