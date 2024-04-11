@@ -17,12 +17,12 @@ module StateFile
                                          .where(unsubscribed_from_email: false)
                                          .where("#{base_class.underscore.pluralize}.message_tracker #> '{messages.state_file.post_deadline_reminder}' IS NULL")
                                          .select do |intake|
-                                          if intake.message_tracker.present? && intake.message_tracker["messages.state_file.finish_return"]
-                                            finish_return_date = Date.parse(intake.message_tracker["messages.state_file.finish_return"])
-                                            finish_return_date < cutoff_time_ago
-                                          else
-                                            true
-                                          end
+          if intake.message_tracker.present? && intake.message_tracker["messages.state_file.finish_return"]
+            finish_return_date = Date.parse(intake.message_tracker["messages.state_file.finish_return"])
+            finish_return_date < cutoff_time_ago
+          else
+            true
+          end
         end
       end
 
