@@ -222,6 +222,7 @@ en:
         inclusion: Please select a state from the list.
     messages:
       blank: Can't be blank.
+      greater_than_or_equal_to: must be greater than or equal to %{count}
       invalid: is invalid
       only_letters: Only letters are accepted
       round_to_whole_number: round to the nearest whole number
