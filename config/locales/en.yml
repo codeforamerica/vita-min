@@ -2030,8 +2030,8 @@ en:
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
         title: Code verified! Authentication needed to continue.
       enter_verification_code:
-        code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
         code_sent_to_closed_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
         enter_6_digit_code: Enter the 6-digit code
         title: Enter the code to continue
         verify: Verify code
