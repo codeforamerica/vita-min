@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class ReturnStatusController < AuthenticatedQuestionsController
+      include StateFile::SurveyLinksConcern
       before_action :redirect_if_from_efile
       before_action :redirect_if_no_submission
       skip_before_action :redirect_if_in_progress_intakes_ended
@@ -13,6 +14,7 @@ module StateFile
         @download_form_name = download_form_name
         @mail_voucher_address = mail_voucher_address
         @voucher_path = voucher_path
+        @survey_link = survey_link(current_intake)
       end
 
       def prev_path

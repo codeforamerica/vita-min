@@ -2522,11 +2522,15 @@ es:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Verifica el estado</a> de tu reembolso.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
+          download_title: Descargue una copia de su declaración de impuestos estatales de %{state_name} de 2023 hasta el 31 de diciembre de 2024
           download_voucher: Descargar formulario de comprobante de pago
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
           register_to_vote: Regístrate para votar.
+          thank_you_html: |
+            Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.<br /><br />
+            ¿Presentó sus impuestos estatales con nosotros? Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.
           title: Tu declaración de impuestos del estado de %{state_name} para el año 2023 ha sido aceptada
           track_your_payment_html: Puedes hacerle seguimiento a tu pago <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">aquí.</a>
         edit:
