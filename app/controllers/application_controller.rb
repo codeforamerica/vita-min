@@ -340,7 +340,7 @@ class ApplicationController < ActionController::Base
     elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_intake)
       # after tax_deadline, before end_of_intake
       :open_intake_post_tax_deadline
-    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
+    elsif app_time.between?(Rails.configuration.end_of_intake, Rails.configuration.end_of_in_progress_intake)
       # after tax_deadline, before end_of_in_progress_intake
       :in_progress_intake_only
     elsif app_time.between?(Rails.configuration.end_of_in_progress_intake, Rails.configuration.end_of_login)
