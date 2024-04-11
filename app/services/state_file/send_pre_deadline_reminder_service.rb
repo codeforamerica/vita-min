@@ -6,7 +6,7 @@ module StateFile
     def run
       cutoff_time_ago = HOURS_AGO.hours.ago
       intakes_to_notify = []
-      ApplicationRecord::STATE_INTAKE_CLASS_NAMES.map do |base_class|
+      ApplicationRecord::STATE_INTAKE_CLASS_NAMES.each do |base_class|
         class_object = base_class.constantize
         intakes_to_notify += class_object.left_joins(:efile_submissions)
                                          .where(efile_submissions: { id: nil })
