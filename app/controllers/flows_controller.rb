@@ -654,9 +654,9 @@ class FlowsController < ApplicationController
         prior_last_names: "Jordan, Pippen, Rodman",
         tribal_member: "yes",
         tribal_wages: 100,
-        was_incarcerated: "no",
         primary_was_incarcerated: "no",
         spouse_was_incarcerated: "no",
+        was_incarcerated: "no", # TODO: remove when column is ignored
         household_excise_credit_claimed: "no",
         ssn_no_employment: "no",
         message_tracker: {},

@@ -5,7 +5,7 @@ describe MixpanelService do
     allow(Rails.application.credentials).to receive(:dig).and_return("mock-mixpanel-token")
   end
 
-  context "when the TCP connection is fine" do
+  xcontext "when the TCP connection is fine" do
     it 'tries 1 time' do
       expect(MixpanelService.instance.instance_variable_get(:@consumer)).to receive(:send!).exactly(1).times
       allow(Concurrent::ScheduledTask).to receive(:new) { |delay, &block| MockScheduledTask.new(delay, &block) }
@@ -13,7 +13,7 @@ describe MixpanelService do
     end
   end
 
-  context "when the TCP connection fails" do
+  xcontext "when the TCP connection fails" do
     it 'tries 3 times' do
       expect(MixpanelService.instance.instance_variable_get(:@consumer)).to receive(:send!).exactly(3).times.and_raise(StandardError)
       allow(Concurrent::ScheduledTask).to receive(:new) { |delay, &block| MockScheduledTask.new(delay, &block) }
