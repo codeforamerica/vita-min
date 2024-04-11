@@ -6,56 +6,54 @@ describe 'state_file:pre_deadline_reminder' do
     Rails.application.load_tasks
   end
 
-  let!(:az_intake) { create :state_file_az_intake, email_address: 'test@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
-  let!(:ny_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
-  let!(:submitted_intake) {
-    create :state_file_ny_intake,
-           email_address: 'test+01@example.com',
-           email_address_verified_at: 1.minute.ago,
-           federal_submission_id: '1234567890123456test'
-  }
+  context 'Sends the notification to all state-filing' do
+    let!(:az_intake) { create :state_file_az_intake, email_address: 'test@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
+    let!(:ny_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
+    let!(:submitted_intake) {
+      create :state_file_ny_intake,
+             email_address: 'test+01@example.com',
+             email_address_verified_at: 1.minute.ago,
+             federal_submission_id: '1234567890123456test'
+    }
 
-  it 'runs without error for all state-filing intakes without submissions & without reminders' do
-    messaging_service = spy('StateFile::MessagingService')
-    allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
+    it 'intakes without submissions & without reminders' do
+      messaging_service = spy('StateFile::MessagingService')
+      allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
 
-    Rake::Task['state_file:pre_deadline_reminder'].execute
+      Rake::Task['state_file:pre_deadline_reminder'].execute
 
-    expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
+      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
+    end
   end
 
-  context 'Sends the notification to' do
+  context 'Sends the notification to intakes that have' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-             email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
     }
 
     before do
       allow_any_instance_of(StateFileNyIntake).to receive(:message_tracker).and_return((Time.now - 25.hours).utc.to_s)
     end
 
-    it 'intakes that have the reminder_notification sent more than 24 hours ago' do
+    it 'the reminder_notification sent more than 24 hours ago' do
       messaging_service = spy('StateFile::MessagingService')
       allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
 
       Rake::Task['state_file:pre_deadline_reminder'].execute
 
-      expect(StateFile::MessagingService).to have_received(:new).exactly(3).times
+      expect(StateFile::MessagingService).to have_received(:new).exactly(1).times
     end
   end
-
 
   context 'Does NOT send the notification to' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-             email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
     }
 
     before do
       allow_any_instance_of(StateFileAzIntake).to receive(:message_tracker).and_return(
-        { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s }
-      )
-      allow_any_instance_of(StateFileNyIntake).to receive(:message_tracker).and_return(
         { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s }
       )
     end
