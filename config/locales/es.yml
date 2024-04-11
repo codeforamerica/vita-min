@@ -1990,6 +1990,7 @@ es:
         title: Código verificado. Se necesita autenticación para continuar.
       enter_verification_code:
         code_sent_to_html: Te enviamos tu código a %{contact_info}. Si no recibiste un código y necesitas ayuda para volver a suscribirte, chatea con nosotros.
+        code_sent_to_closed_html: Hemos enviado su código a %{contact_info}. Si no recibió un código y necesita ayuda para volver a suscribirse, envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         enter_6_digit_code: Ingresa el código de 6 dígitos
         title: Ingresa el código para continuar
         verify: Verificar el código
