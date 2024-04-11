@@ -32,7 +32,9 @@ module StateFile
       redirect_to action: :about_page
     end
 
-    def login_options; end
+    def login_options
+      @sign_in_closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
+    end
 
     private
 

@@ -110,7 +110,7 @@
     <% if hide_intercom? %>
       <div></div>
      <% elsif state_file? %>
-      <% unless app_time.after?(Rails.configuration.state_file_services_closed)  %>
+      <% unless app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)  %>
         <%= render("shared/state_file_intercom")%>
       <% end %>
     <% else %>

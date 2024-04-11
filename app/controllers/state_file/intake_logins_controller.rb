@@ -103,7 +103,7 @@ module StateFile
       # (Should return an array of 1 id)
       unfinished_logged_in_intake_id = session.dig("warden.user.state_file_#{params[:us_state]}_intake.key", 0)
 
-      if app_time.after?(Rails.configuration.state_file_services_closed)
+      if app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
         if intake.efile_submissions.empty?
           redirect_to StateFile::StateFilePagesController.to_path_helper(action: :about_page)
           return

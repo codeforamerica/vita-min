@@ -4,10 +4,10 @@
   <div class="fyst-home-content">
     <h1 class="h1 strong"><%= title %></h1>
 
-    <% if app_time.before?(Rails.configuration.state_file_services_closed) %>
+    <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
       <div>
         <p><%= t(".subheader_1_html", login_path: login_options_path(us_state: 'us')) %></p>
-        <% if app_time.before?(Rails.configuration.state_file_end_of_intake) %>
+        <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
           <p><%= t(".subheader_2_html", login_path: login_options_path(us_state: 'us')) %></p>
         <% end %>
         <p><%= t(".subheader_3_html", login_path: login_options_path(us_state: 'us')) %></p>
