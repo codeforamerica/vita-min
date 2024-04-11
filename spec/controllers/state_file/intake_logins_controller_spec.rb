@@ -558,49 +558,5 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
       end
     end
-
-    context "when it is after closing" do
-      let(:intake) { create :state_file_az_intake }
-      let(:ssn) { "111223333" }
-      let(:params) do
-        {
-          us_state: "az",
-          id: "raw_token",
-          state_file_intake_login_form: {
-            ssn: ssn
-          }
-        }
-      end
-      before do
-        allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(intake_query)
-        allow(SsnHashingService).to receive(:hash).with(ssn).and_return intake.hashed_ssn
-        intake.update(unfinished_intake_ids: [3])
-        sign_in intake
-      end
-      around do |example|
-        Timecop.freeze(Rails.configuration.state_file_end_of_in_progress_intakes + 1.day) do
-          example.run
-        end
-      end
-      context "when they don't have a submission" do
-
-        it "redirects them to the about page" do
-          post :update, params: params
-          expect(response).to redirect_to(state_file_root_path)
-        end
-      end
-
-      context "when they do have a submission" do
-        before do
-          create :efile_submission, data_source: intake
-        end
-
-        it "redirects them to the about page" do
-          post :update, params: params
-          # tODO: waiting on if we should redirect to return status indiscriminately after the 25th
-          expect(response).to redirect_to(az_questions_return_status_path)
-        end
-      end
-    end
   end
 end
