@@ -1,7 +1,8 @@
 class MailgunWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
   before_action :authenticate_mailgun_request
-  before_action :re_optin_when_client_replies, only: :create_incoming_email
+  # Disabling this until https://www.pivotaltracker.com/n/projects/2409240/stories/187407168 is completed
+  # before_action :re_optin_when_client_replies, only: :create_incoming_email
 
   REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
 
