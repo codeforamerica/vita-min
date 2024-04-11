@@ -3,6 +3,7 @@ module StateFile
     class LandingPageController < QuestionsController
       skip_before_action :redirect_if_no_intake
       skip_before_action :set_current_step
+      skip_before_action :redirect_if_in_progress_intakes_ended
 
       def edit
         @state_name = StateFileBaseIntake::STATE_CODE_AND_NAMES[params[:us_state]]

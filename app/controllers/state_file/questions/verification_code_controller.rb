@@ -33,8 +33,6 @@ module StateFile
           existing_intake = get_existing_intake(intake)
           if existing_intake.present?
             redirect_into_login(intake, existing_intake) and return
-          elsif app_time.after?(Rails.configuration.state_file_end_of_new_intakes)
-            redirect_to StateFile::StateFilePagesController.to_path_helper(action: :about_page) and return
           end
           @form.save
           after_update_success
