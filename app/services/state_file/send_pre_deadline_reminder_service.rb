@@ -3,7 +3,7 @@ module StateFile
     BATCH_SIZE = 10
     HOURS_AGO = 24
 
-    def run
+    def self.run
       cutoff_time_ago = HOURS_AGO.hours.ago
       intakes_to_notify = []
 
