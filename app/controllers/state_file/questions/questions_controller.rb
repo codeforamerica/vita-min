@@ -57,7 +57,7 @@ module StateFile
           if current_intake.efile_submissions.empty?
             redirect_to root_path
           else
-            redirect_to StateFile::ReturnStatusController.to_path_helper(action: :edit, us_state: state_code)
+            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: state_code)
           end
         end
       end
