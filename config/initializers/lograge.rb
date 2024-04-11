@@ -11,6 +11,9 @@ Rails.application.configure do
   # Log to the same place as Rails logs
   config.lograge.logger = Rails.logger
 
+  # Let's not log the healthcheck (and maybe other things, eventually)
+  config.lograge.ignore_actions = ['PublicPagesController#healthcheck']
+
   # This is useful if you want to log query parameters
   config.lograge.custom_options = lambda do |event|
     {
