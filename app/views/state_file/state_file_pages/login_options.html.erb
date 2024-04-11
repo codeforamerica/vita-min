@@ -1,4 +1,4 @@
-<% content_for :page_title, t(@sign_in_closed ? ".title_sign_in_closed" : ".title") %>
+<% content_for :page_title, @sign_in_closed ? t(".title_sign_in_closed") : t(".title") %>
 <h1 class="h2"><%= content_for(:page_title) %></h1>
 
 <% unless @sign_in_closed %>
