@@ -2556,9 +2556,7 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
-        thank_you_html: |
-          Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.<br /><br />
-          ¿Presentó sus impuestos estatales con nosotros? Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.
+        thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         w2: Información fiscal estatal y local W-2
       shared:

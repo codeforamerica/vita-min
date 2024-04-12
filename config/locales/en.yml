@@ -2576,9 +2576,7 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
-        thank_you_html: |
-          Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.<br /><br />
-          Filed your state taxes with us? You can download a copy of your state return until December 31, 2024.
+        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         w2: W-2 state and local tax information
       shared:
