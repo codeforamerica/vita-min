@@ -5,7 +5,7 @@
     <%= yield :form_question %>
   <% end %>
 
-  <section class="slab question-layout">
+  <section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
     <div class="grid">
       <div class="grid__item question-wrapper">
         <%= yield :notices %>

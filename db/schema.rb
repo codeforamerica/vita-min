@@ -1650,7 +1650,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
     t.integer "household_excise_credit_claimed_amt"
-    t.string "last_completed_step"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1780,7 +1779,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "household_rent_amount"
     t.integer "household_rent_own", default: 0, null: false
     t.integer "household_ssi"
-    t.string "last_completed_step"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -2272,6 +2270,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
+  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

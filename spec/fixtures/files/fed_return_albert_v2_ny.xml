@@ -51,7 +51,7 @@
       <DepositorAccountNum>234523452345</DepositorAccountNum>
       <OwedAmt>0</OwedAmt>
       <ThirdPartyDesigneeInd>true</ThirdPartyDesigneeInd>
-      <ThirdPartyDesigneeNm>Desig Nee</ThirdPartyDesigneeNm>
+      <ThirdPartyDesigneeNm>Third Party Desig Nee Very Very Long Name</ThirdPartyDesigneeNm>
       <ThirdPartyDesigneePhoneNum>7185554321</ThirdPartyDesigneePhoneNum>
       <ThirdPartyDesigneePIN>25252</ThirdPartyDesigneePIN>
       <PrimaryOccupationTxt>Inventor</PrimaryOccupationTxt>

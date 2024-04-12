@@ -39,20 +39,33 @@
 <% end %>
 
 <% if @error&.auto_wait %>
-  <section class="spacing-below-15">
-    <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
-    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
-  </section>
+  <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+    <section class="spacing-below-15">
+      <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
+      <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
+    </section>
+  <% end %>
 
-  <section>
-    <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-    <%= t('.contact_us') %>
-  </section>
+  <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+    <section>
+      <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+      <%= t('.contact_us') %>
+    </section>
 
-  <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller %>
-  <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
-    action: edit_return_controller.navigation_actions.first,
-    return_to_review: :y,
-    us_state: current_intake.state_code
-  ), class: "button button--primary spacing-above-60" %>
+    <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller %>
+    <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
+      action: edit_return_controller.navigation_actions.first,
+      return_to_review: :y,
+      us_state: current_intake.state_code
+    ), class: "button button--primary button--wide spacing-above-60" %>
+  <% end %>
+<% end %>
+
+<% if app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+  <h1 class="h2">
+    <%= t("state_file.questions.return_status.accepted.download_title", state_name: States.name_for_key(params[:us_state].upcase)) %>
+  </h1>
+  <p><%= t("state_file.questions.return_status.thank_you_html", state_name: States.name_for_key(params[:us_state].upcase)) %></p>
+  <p><a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a></p>
+  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.questions.return_status.accepted.register_to_vote') %></a></p>
 <% end %>

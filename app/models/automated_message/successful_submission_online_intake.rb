@@ -4,24 +4,16 @@ module AutomatedMessage
       'messages.successful_submission_online_intake'.freeze
     end
 
-    def sms_body(**args)
-      I18n.t("messages.successful_submission_online_intake.sms", **args.merge(docs_day_params))
+    def sms_body(locale: nil, body_args: {})
+      I18n.t("messages.successful_submission_online_intake.sms", locale: locale, **body_args)
     end
 
-    def email_subject(**args)
-      I18n.t("messages.successful_submission_online_intake.email.subject", **args)
+    def email_subject(locale: nil, body_args: {})
+      I18n.t("messages.successful_submission_online_intake.email.subject", locale: locale, **body_args)
     end
 
-    def email_body(**args)
-      I18n.t("messages.successful_submission_online_intake.email.body", **args.merge(docs_day_params))
-    end
-
-    private
-
-    def docs_day_params
-      {
-        end_of_docs_date: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: I18n.locale)
-      }
+    def email_body(locale: nil, body_args: {})
+      I18n.t("messages.successful_submission_online_intake.email.body", locale: locale, **body_args)
     end
   end
 end

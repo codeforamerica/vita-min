@@ -234,19 +234,19 @@ module Efile
 
 
       def calculate_line_56
-        if !@direct_file_data.claimed_as_dependent? && @intake.qualified_for_excise_credit? && @intake.ask_whether_incarcerated?
-          # todo question: if they are filing with us does that automatically mean no AZ-140PTC?
-          if filing_status_mfj? || filing_status_hoh?
-            return 0 unless line_or_zero(:AZ140_LINE_12) <= 25000
-          elsif filing_status_single? || filing_status_mfs?
-            return 0 unless line_or_zero(:AZ140_LINE_12) <= 12500
-          end
-          wrksht_line_2 = filing_status_mfj? ? 2 : 1
+        if @intake.disqualified_from_excise_credit_df? || @intake.disqualified_from_excise_credit_fyst?
+          0
+        else
+          # TODO question: if they are filing with us does that automatically mean no AZ-140PTC?
+          number_of_filers = filing_status_mfj? ? 2 : 1
+          wrksht_line_2 = number_of_filers - @intake.incarcerated_filer_count
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
-          return [wrksht_line_4, 100].min
-        end
 
-        0
+          max_credit = 100
+          max_credit -= @intake.household_excise_credit_claimed_amt if @intake.household_excise_credit_claimed_yes? && @intake.household_excise_credit_claimed_amt.is_a?(Integer)
+
+          [wrksht_line_4, max_credit].min
+        end
       end
 
       def calculate_line_59

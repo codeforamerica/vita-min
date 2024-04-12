@@ -46,26 +46,27 @@ RSpec.feature "Visit home page" do
     end
 
     before do
-      allow(Rails.configuration).to receive(:start_of_open_intake).and_return(DateTime.new(2023, 1, 31))
-      allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2023, 4, 18))
-      allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2023, 10, 1))
-      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(DateTime.new(2023, 10, 16))
-      allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2023, 10, 23))
+      allow(Rails.configuration).to receive(:start_of_open_intake).and_return(DateTime.new(2024, 1, 31))
+      allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2024, 4, 15))
+      allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2024, 10, 1))
+      allow(Rails.configuration).to receive(:end_of_docs).and_return(DateTime.new(2024, 10, 8))
+      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(DateTime.new(2024, 10, 16))
+      allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2024, 10, 23))
     end
 
     context "when closed for new intakes" do
-      let(:current_time) { DateTime.new(2023, 10, 2) }
+      let(:current_time) { DateTime.new(2024, 10, 2) }
 
       scenario "shows the off season banner" do
         visit "/"
 
-        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by April 1st in order to file by the deadline."
+        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by October 8th in order to file by the deadline."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end
 
     context "when open for filing and before the tax deadline" do
-      let(:current_time) { DateTime.new(2023, 4, 1) }
+      let(:current_time) { DateTime.new(2024, 4, 1) }
 
       scenario "shows the document deadline banner" do
         visit "/"
@@ -76,19 +77,19 @@ RSpec.feature "Visit home page" do
     end
 
     context "when open for filing and after the deadline" do
-      let(:current_time) { DateTime.new(2023, 4, 20) }
+      let(:current_time) { DateTime.new(2024, 4, 20) }
 
-      scenario "shows the banner with closing date and document submission deadline" do
+      scenario "shows the open_intake_post_tax_deadline_banner banner" do
         visit "/"
 
-        expect(page).to have_text "We are unable to accept new clients after October 1st. If your return is in progress, log in and submit your documents by April 1st in order to file by the deadline."
+        expect(page).to have_text "Get started with GetYourRefund by October 1st if you want to file with us in 2024. If your return is in progress, sign in and submit your documents by October 8th"
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
 
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text "No podemos aceptar nuevos clientes después de 1 de octubre. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de 1 de abril para presentarla antes de la fecha límite."
+        expect(page).to have_text "Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2024. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del 8 de octubre."
       end
     end
   end
