@@ -1397,7 +1397,7 @@ RSpec.describe ApplicationController do
     end
 
     context "after end of intake" do
-      let(:fake_time) { Rails.configuration.state_file_end_of_intake + 1.minute }
+      let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes + 1.minute }
 
       it "returns false" do
         Timecop.freeze(fake_time) do

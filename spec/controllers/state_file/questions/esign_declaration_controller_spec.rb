@@ -30,6 +30,31 @@ RSpec.describe StateFile::Questions::EsignDeclarationController do
       expect(efile_info.device_id).to eq nil
       expect(efile_info.intake).to eq intake
     end
+
+    context "when it is after closing" do
+      around do |example|
+        Timecop.freeze(Rails.configuration.state_file_end_of_in_progress_intakes + 1.day) do
+          example.run
+        end
+      end
+
+      context "when there is a submission" do
+        before do
+          create :efile_submission, data_source: intake
+        end
+        it "redirects them to the return status page" do
+          get :edit, params: { us_state: :ny }
+          expect(response).to redirect_to(ny_questions_return_status_path(us_state: "ny"))
+        end
+      end
+
+      context "when there no submission" do
+        it "redirects them to the return about page" do
+          get :edit, params: { us_state: :ny }
+          expect(response).to redirect_to(root_path)
+        end
+      end
+    end
   end
 
   describe "#update" do

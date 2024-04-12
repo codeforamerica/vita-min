@@ -31,7 +31,6 @@
 #  hashed_ssn                            :string
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  household_excise_credit_claimed_amt   :integer
-#  last_completed_step                   :string
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locale                                :string           default("en")

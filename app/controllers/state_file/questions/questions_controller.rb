@@ -3,6 +3,7 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileControllerConcern
       before_action :redirect_if_no_intake
+      before_action :redirect_if_in_progress_intakes_ended
       helper_method :card_postscript
 
       # default layout for all state file questions
@@ -48,6 +49,16 @@ module StateFile
         unless current_intake.present?
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
           redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: state_code)
+        end
+      end
+
+      def redirect_if_in_progress_intakes_ended
+        if app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
+          if current_intake.efile_submissions.empty?
+            redirect_to root_path
+          else
+            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: state_code)
+          end
         end
       end
 

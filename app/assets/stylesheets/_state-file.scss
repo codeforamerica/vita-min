@@ -673,13 +673,10 @@
       max-width: 100%;
     }
 
-    .esign-declaration-outer, .return-status-outer, .submission-confirmation-outer {
-
-      .question-wrapper .button--primary {
-        min-width: 40rem;
-        max-width: 40rem;
-        width: 40rem;
-      }
+    .question-layout .question-wrapper .button--primary.button--wide {
+      min-width: 40rem;
+      max-width: 40rem;
+      width: 40rem;
     }
 
     .esign-declaration-outer .text--error {
