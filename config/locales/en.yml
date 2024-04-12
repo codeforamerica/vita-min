@@ -1612,10 +1612,10 @@ en:
           Questions? Reply to this text.
       post_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state  tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
+          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nFileYourStateTaxes will be closing its services for the year on April 25. \n\nGo to fileyourstatetaxes.org/en/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
           subject: Make sure to finish filing your state taxes as soon as possible.
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
           Need help? Reply to this text.
       pre_deadline_reminder:
         email:
