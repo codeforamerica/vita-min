@@ -1605,6 +1605,23 @@ es:
         sms: |
           Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/en/us/login-options para terminarlos ahora.
           ¿Necesitas ayuda? Responde a este mensaje de texto.
+      reject_resolution_reminder:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Como recordatorio, tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar cargos por presentación tardía del estado de %{state_name}.
+
+            Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+
+            Si deseas cancelar la suscripción a correos electrónicos, haz clic aquí.
+          subject: "¡Toma acción en tu declaración estatal de %{state_name} rechazada!"
+        sms: Hola %{primary_first_name} - Te queremos recordar que tu declaración de impuestos estatales de %{state_name} fue rechazada. Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}. Asegúrate de tomar acción lo más pronto posible para evitar cargos por presentación tardía. Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril. ¿Preguntas? Responde a este mensaje.
       rejected:
         email:
           body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
