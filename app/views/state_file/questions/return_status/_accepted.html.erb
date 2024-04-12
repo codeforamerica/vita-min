@@ -8,51 +8,62 @@
   <%= t("state_file.questions.return_status.accepted.title", state_name: States.name_for_key(params[:us_state].upcase)) %>
 </h1>
 
-<% refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount %>
-<% if refund_or_owed_amount.positive? %>
-  <p><%= t('.check_your_refund_html', refund_url: @refund_url) %></p>
-<% elsif refund_or_owed_amount.negative? %>
-  <p>
-    <%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
-    <%= t('.track_your_payment_html') if params[:us_state] == 'ny' %>
-  </p>
-<% end %>
-
-<p>
-  <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
-</p>
-
-<p><%= t('general.spread_the_word_html') %></p>
-
-<div class="blue-group">
-  <p>
-    <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
-  </p>
-
-  <p>
-    <%= t('.include_payment') %>
-    (<%= @download_form_name %>)
-  </p>
-
-  <div>
-    <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
-  </div>
-
-  <hr class="spacing-above-25 spacing-below-25">
-
-  <% if params[:us_state] == 'az' %>
+<% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+  <% refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount %>
+  <% if refund_or_owed_amount.positive? %>
+    <p><%= t('.check_your_refund_html', refund_url: @refund_url) %></p>
+  <% elsif refund_or_owed_amount.negative? %>
     <p>
-      <%= t('.check_payable') %>
+      <%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
+      <%= t('.track_your_payment_html') if params[:us_state] == 'ny' %>
     </p>
-
-    <hr class="spacing-above-25 spacing-below-25">
   <% end %>
 
   <p>
-    <%= t('.mail_voucher_and_payment') %>
+    <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
   </p>
 
-  <strong>
-    <%= @mail_voucher_address %>
-  </strong>
-</div>
+  <p><%= t('general.spread_the_word_html') %></p>
+
+  <div class="blue-group">
+    <p>
+      <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
+    </p>
+
+    <p>
+      <%= t('.include_payment') %>
+      (<%= @download_form_name %>)
+    </p>
+
+    <div>
+      <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
+    </div>
+
+    <hr class="spacing-above-25 spacing-below-25">
+
+    <% if params[:us_state] == 'az' %>
+      <p>
+        <%= t('.check_payable') %>
+      </p>
+
+      <hr class="spacing-above-25 spacing-below-25">
+    <% end %>
+
+    <p>
+      <%= t('.mail_voucher_and_payment') %>
+    </p>
+
+    <strong>
+      <%= @mail_voucher_address %>
+    </strong>
+  </div>
+<% else %>
+  <h1 class="h2">
+    <%= t("state_file.questions.return_status.accepted.download_title", state_name: States.name_for_key(params[:us_state].upcase)) %>
+  </h1>
+  <p>
+    <%= t("state_file.questions.return_status.thank_you_html", state_name: States.name_for_key(params[:us_state].upcase)) %>
+  </p>
+  <p><a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a></p>
+  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
+<% end %>

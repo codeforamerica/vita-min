@@ -2003,6 +2003,7 @@ es:
         ssn_label: Ingresa tu número de Seguro Social o ITIN. Por ejemplo, 123-45-6789.
         title: Código verificado. Se necesita autenticación para continuar.
       enter_verification_code:
+        code_sent_to_closed_html: Hemos enviado su código a %{contact_info}. Si no recibió un código y necesita ayuda para volver a suscribirse, envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         code_sent_to_html: Te enviamos tu código a %{contact_info}. Si no recibiste un código y necesitas ayuda para volver a suscribirte, chatea con nosotros.
         enter_6_digit_code: Ingresa el código de 6 dígitos
         title: Ingresa el código para continuar
@@ -2341,12 +2342,17 @@ es:
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
+          already_filed_html: "¿Ya presentó tus impuestos estatales con nosotros? <strong>Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.</strong>"
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
+              Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
           continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
+          download_your_record: Descargue tu registro
           help_text_html: |
             <strong>Lo que necesitarás para comenzar</strong>
             <br />
@@ -2360,9 +2366,13 @@ es:
           not_you: "¿No es %{user_name}?"
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
+              Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
           start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+          title_closed: Nuestro servicio gratuito de presentación de impuestos %{state_name} está cerrado por temporada
           welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:
@@ -2527,7 +2537,9 @@ es:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Verifica el estado</a> de tu reembolso.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
+          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de 2023 hasta el 31 de diciembre de 2024
           download_voucher: Descargar formulario de comprobante de pago
+          feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
@@ -2540,6 +2552,7 @@ es:
           show_xml: Mostrar XML
         pending:
           more_than_two_days: Si han pasado más de 2 días desde que presentaste tus impuestos estatales, ponte en contacto con nuestro equipo haciendo clic en "chatea con nosotros".
+          more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año 2023, y está esperando ser aceptada.
@@ -2557,6 +2570,7 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+        thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         w2: Información fiscal estatal y local W-2
       shared:
@@ -2720,6 +2734,10 @@ es:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
     state_file_pages:
       about_page:
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
+          <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
+          ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes de Arizona y Nueva York utilizando IRS Direct File
         section1_html: |
           <strong>¿Cómo funciona?</strong>
@@ -2732,10 +2750,9 @@ es:
           <li>¡Presenta tu declaración electrónicamente sin costo!</li>
           </ol>
           <strong>Para aprender más, consulta las <a href=%{faq_link}>preguntas frecuentes</a>.</strong>
-        subheader_html: |
-          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
-          El IRS Direct File ahora está ampliamente disponible para todos los contribuyentes elegibles hasta el 15 de abril de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar tu declaración federal, ve a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a></strong><br/><br/>
-          ¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>.<br/>
+        subheader_1_html: "<strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong>"
+        subheader_2_html: El IRS Direct File ahora está ampliamente disponible para todos los contribuyentes elegibles hasta el 15 de abril de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar tu declaración federal, ve a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a></strong>
+        subheader_3_html: "¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>."
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -2752,6 +2769,7 @@ es:
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
         phone_number_signin: Iniciar sesión con el teléfono
         title: Iniciar sesión en FileYourStateTaxes
+        title_sign_in_closed: Inicie sesión para descargar una copia de tu declaración de impuestos estatales.
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Ten en cuenta que para la información personal sobre ti que hemos obtenido o recibido para procesar en nombre de una entidad separada y no afiliada, que determinó los medios y fines del procesamiento, todas esas solicitudes deben hacerse directamente a esa entidad. Honraremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a tu información personal.

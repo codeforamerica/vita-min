@@ -5,13 +5,11 @@ module Hub
       before_action :load_efile_submissions, only: [:index]
 
       def index
-
         join_sql = StateFileBaseIntake::STATE_CODES.map do |state_code|
           "SELECT state_file_#{state_code}_intakes.id as intake_id, 'StateFile#{state_code.to_s.titleize}Intake' as ds_type, '#{state_code}' as data_source_state_code, state_file_#{state_code}_intakes.email_address FROM state_file_#{state_code}_intakes"
         end
-        join_sql = "INNER JOIN (#{join_sql.join(" UNION ")}) data_source ON efile_submissions.id = data_source.intake_id and efile_submissions.data_source_type = data_source.ds_type"
+        join_sql = "INNER JOIN (#{join_sql.join(" UNION ")}) data_source ON efile_submissions.data_source_id = data_source.intake_id and efile_submissions.data_source_type = data_source.ds_type"
         @efile_submissions = EfileSubmission.joins(join_sql).select("efile_submissions.*, data_source.*")
-
         search = params[:search]
         if search.present?
           query = "email_address LIKE ? OR irs_submission_id LIKE ?"

@@ -1,7 +1,9 @@
-<% content_for :page_title, t(".title") %>
+<% content_for :page_title, @sign_in_closed ? t(".title_sign_in_closed") : t(".title") %>
 <h1 class="h2"><%= content_for(:page_title) %></h1>
 
-<p><%= t(".help_text_html", link: root_path) %></p>
+<% unless @sign_in_closed %>
+  <p><%= t(".help_text_html", link: root_path) %></p>
+<% end %>
 
 <% if Flipper.enabled?(:sms_notifications) %>
 <p>

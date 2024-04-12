@@ -79,7 +79,7 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, :IT201_LINE_78)
                 add_non_zero_claimed_value(xml, :RFND_AMT, :IT201_LINE_78B)
                 if @submission.data_source.confirmed_third_party_designee_yes?
-                  xml.THRD_PRTY_NAME claimed: intake.direct_file_data.third_party_designee_name.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.third_party_designee_name.present?
+                  xml.THRD_PRTY_NAME claimed: truncate(intake.direct_file_data.third_party_designee_name, 29) if @submission.data_source.direct_file_data.third_party_designee_name.present?
                   xml.THRD_PRTY_PH_NMBR claimed: intake.direct_file_data.third_party_designee_phone_number.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.third_party_designee_phone_number.present?
                 end
                 xml.PR_SGN_IND claimed: 1
