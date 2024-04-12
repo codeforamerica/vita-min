@@ -10,3 +10,6 @@
 0 17 * * * bundle exec rake state_file:reminder_to_finish_state_return
 0 21 13 4 * bundle exec rake state_file:pre_deadline_reminder
 0 21 16 4 * bundle exec rake state_file:post_deadline_reminder
+0 21 13 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
+0 21 22 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
+45 18 11 4 * bundle exec rake send_reject_resolution_reminder_notifications:send

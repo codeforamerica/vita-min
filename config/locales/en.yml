@@ -1624,6 +1624,23 @@ en:
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now.
           Need help? Reply to this text.
+      reject_resolution_reminder:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            As a reminder,  %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Make sure to take action on your rejected return as soon as possible in order to avoid late filing fees from  %{state_name} state.
+
+            FileYourStateTaxes will be closing its services for the year on April 25.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+
+            If you would like to unsubscribe from emails, click here.
+          subject: Take action on your rejected %{state_name} state return.
+        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Reply to this text.
       rejected:
         email:
           body: |
