@@ -224,6 +224,7 @@ en:
       blank: Can't be blank.
       greater_than_or_equal_to: must be greater than or equal to %{count}
       invalid: is invalid
+      less_than_or_equal_to: must be less than or equal to %{count}
       only_letters: Only letters are accepted
       round_to_whole_number: round to the nearest whole number
       whole_number: must be a whole number
