@@ -1596,7 +1596,7 @@ es:
             El equipo de FileYourStateTaxes
           subject: "¡No olvides terminar de presentar tu declaración de impuestos estatales lo antes posible!"
         sms: |
-          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
+          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
           ¿Necesitas ayuda? Responde a este mensaje de texto.
       pre_deadline_reminder:
         email:
