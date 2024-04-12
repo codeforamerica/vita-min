@@ -25,7 +25,7 @@ class SendRejectResolutionReminderNotificationJob < ApplicationJob
       submission.efile_submission_transitions.map(&:to_state)
     end.uniq
 
-    last_state = intake.efile_submissions.last.efile_submission_transitions.last.to_state
+    last_state = intake.efile_submissions.last.current_state
     in_progress_states = ["preparing", "bundling", "queued", "transmitted", "ready_for_ack"]
     return false if transition_states.include?("accepted") || in_progress_states.include?(last_state)
 
