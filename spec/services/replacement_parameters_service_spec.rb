@@ -360,7 +360,7 @@ describe ReplacementParametersService do
 
     context "successfully submitted email" do
       context "in english" do
-        let(:body) {AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.email_body }
+        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.email_body(locale: "en", body_args: {end_of_docs_date: "October 8th"}) }
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -370,8 +370,9 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.email_body(locale: locale)}
+        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.email_body(locale: locale, body_args: {end_of_docs_date: "8 de octubre"})}
         let(:locale) { "es" }
+
         it "replaces the replacement strings in the template" do
           result = subject.process
           expect(result).to include "Hola #{client.preferred_name}"
@@ -382,7 +383,7 @@ describe ReplacementParametersService do
 
     context "successfully submitted text message" do
       context "in english" do
-        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.sms_body(locale: "en") }
+        let(:body) { AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.sms_body(locale: "en", body_args: {end_of_docs_date: "October 8th"})}
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -392,7 +393,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: "es") }
+        let(:body) { I18n.t("messages.successful_submission_drop_off.sms", locale: locale, body_args: {end_of_docs_date: "8 de octubre"})}
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process

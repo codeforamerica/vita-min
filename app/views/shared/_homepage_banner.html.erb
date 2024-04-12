@@ -3,12 +3,18 @@
   <div class="slab slab--banner">
     <div class="grid">
       <div class="grid__item">
+        <% end_of_intake = Rails.configuration.end_of_intake %>
+        <% end_of_doc_submission = Rails.configuration.end_of_docs %>
+
         <% case banner %>
         <% when :open_intake %>
           <%= t('views.shared.document_deadline_warning.body_html') %>
+        <% when :open_intake_post_tax_deadline %>
+          <%= t('views.public_pages.home.open_intake_post_tax_deadline_banner',
+                end_of_intake: I18n.l(end_of_intake.to_date, format: :medium, locale: locale),
+                end_of_docs: I18n.l(end_of_doc_submission.to_date, format: :medium, locale: locale)
+              ) %>
         <% when :in_progress_intake_only %>
-          <% end_of_intake = Rails.configuration.end_of_intake %>
-          <% end_of_doc_submission = Rails.configuration.end_of_docs %>
           <%= t("views.shared.environment_warning.off_season_filing",
                 end_of_intake_date: I18n.l(end_of_intake.to_date, format: :medium, locale: locale),
                 end_of_docs_date: I18n.l(end_of_doc_submission.to_date, format: :medium, locale: locale)) %>

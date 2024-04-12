@@ -1216,7 +1216,7 @@ RSpec.describe ApplicationController do
 
     context "after tax deadline and before end-of-in-progress-intakes" do
       before do
-        allow(Rails.application.config).to receive(:tax_deadline).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_intake).and_return(past)
         allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(future)
       end
 
@@ -1240,6 +1240,7 @@ RSpec.describe ApplicationController do
     context "after end of login" do
       before do
         allow(Rails.application.config).to receive(:end_of_intake).and_return(past)
+        allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(past)
         allow(Rails.application.config).to receive(:end_of_login).and_return(past)
       end
 
