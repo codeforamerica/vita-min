@@ -23,7 +23,7 @@ describe 'reminder_to_finish:state_return_notifications' do
     expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
   end
 
-  it "doesn't send the notification to an intake that has NOT been submitted" do
+  it 'doesn\'t send the notification to an intake that has NOT been submitted' do
     expect(StateFileNyIntake.where.not(federal_submission_id: nil).count).to eq(1)
   end
 end
