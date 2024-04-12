@@ -19,8 +19,9 @@ module AutomatedMessage
     private
 
     def docs_day_params
+      doc_date = app_time.before?(Rails.configuration.tax_deadline) ? DateTime.parse('2024-04-01') : Rails.configuration.end_of_docs.to_date
       {
-        end_of_docs_date: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: I18n.locale)
+        end_of_docs_date: I18n.l(doc_date, format: :medium, locale: I18n.locale)
       }
     end
   end
