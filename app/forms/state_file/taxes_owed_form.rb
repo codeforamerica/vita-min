@@ -15,7 +15,7 @@ module StateFile
     with_options unless: -> { payment_or_deposit_type == "mail" } do
       validate :date_electronic_withdrawal_is_valid_date
       validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? }
-      validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
+      validates :withdraw_amount, numericality: { greater_than: 0, message: ->(_object, _data) { I18n.t('errors.messages.greater_than_or_equal_to', count: 0)} }
       validate :withdraw_amount_higher_than_owed?
     end
 

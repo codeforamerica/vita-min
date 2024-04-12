@@ -85,13 +85,13 @@ RSpec.describe StateFile1099G do
     end
     it "validates federal_income_tax_withheld" do
       state_file_1099.federal_income_tax_withheld = nil
-      expect(state_file_1099.save).to eq false
+      expect(state_file_1099.save).to eq true
       state_file_1099.federal_income_tax_withheld = '-1'
       expect(state_file_1099.save).to eq false
     end
     it "validates state_income_tax_withheld" do
       state_file_1099.state_income_tax_withheld = nil
-      expect(state_file_1099.save).to eq false
+      expect(state_file_1099.save).to eq true
       state_file_1099.state_income_tax_withheld = '-1'
       expect(state_file_1099.save).to eq false
     end
@@ -141,6 +141,8 @@ RSpec.describe StateFile1099G do
       it "validates unemployment_compensation" do
         state_file_1099.valid?
         expect(state_file_1099.errors[:unemployment_compensation]).to include "must be greater than or equal to 1"
+        expect(state_file_1099.errors[:federal_income_tax_withheld]).to be_empty
+        expect(state_file_1099.errors[:state_income_tax_withheld]).to be_empty
       end
     end
   end

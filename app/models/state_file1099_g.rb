@@ -46,12 +46,12 @@ class StateFile1099G < ApplicationRecord
   validates :recipient_street_address_apartment, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}, allow_blank: true
   validates :recipient_city, presence: true, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
   validates :recipient_zip, zip_code: { zip_code_lengths: [5, 9, 12].freeze }
-  validates_numericality_of :unemployment_compensation, only_integer: true, message: :whole_number
-  validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1 }
-  validates_numericality_of :federal_income_tax_withheld, only_integer: true, message: :whole_number
-  validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
-  validates_numericality_of :state_income_tax_withheld, only_integer: true, message: :whole_number
-  validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
+  validates_numericality_of :unemployment_compensation, only_integer: true, message: :whole_number, if: -> { unemployment_compensation.present? }
+  validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1, message: ->(_object, _data) { I18n.t('errors.messages.greater_than_or_equal_to', count: 1)} }
+  validates_numericality_of :federal_income_tax_withheld, only_integer: true, message: :whole_number, if: -> { federal_income_tax_withheld.present? }
+  validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}, allow_blank: true
+  validates_numericality_of :state_income_tax_withheld, only_integer: true, message: :whole_number, if: -> { state_income_tax_withheld.present? }
+  validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}, allow_blank: true
   validate :state_specific_validation
 
   def update_conditional_attributes
