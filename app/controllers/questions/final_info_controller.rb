@@ -30,7 +30,7 @@ module Questions
         client: current_intake.client,
         message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
         locale: I18n.locale,
-        body_args: { end_of_docs_date: I18n.l(doc_date, format: :medium, locale: I18n.locale, default: "%-m/%-d/%Y") }
+        body_args: { end_of_docs_date: I18n.l(doc_date, format: :medium, locale: I18n.locale, default: "%B %-d") }
       )
     end
   end
