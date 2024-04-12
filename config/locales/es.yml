@@ -1618,8 +1618,6 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-
-            Si deseas cancelar la suscripción a correos electrónicos, haz clic aquí.
           subject: "¡Toma acción en tu declaración estatal de %{state_name} rechazada!"
         sms: Hola %{primary_first_name} - Te queremos recordar que tu declaración de impuestos estatales de %{state_name} fue rechazada. Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}. Asegúrate de tomar acción lo más pronto posible para evitar cargos por presentación tardía. Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril. ¿Preguntas? Responde a este mensaje.
       rejected:
