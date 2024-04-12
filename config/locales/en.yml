@@ -1637,8 +1637,6 @@ en:
 
             Best,
             The FileYourStateTaxes team
-
-            If you would like to unsubscribe from emails, click here.
           subject: Take action on your rejected %{state_name} state return.
         sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Reply to this text.
       rejected:
