@@ -30,6 +30,7 @@
 #  has_prior_last_names                  :integer          default("unfilled"), not null
 #  hashed_ssn                            :string
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
+#  household_excise_credit_claimed_amt   :integer
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locale                                :string           default("en")
@@ -45,6 +46,7 @@
 #  primary_last_name                     :string
 #  primary_middle_initial                :string
 #  primary_suffix                        :string
+#  primary_was_incarcerated              :integer          default("unfilled"), not null
 #  prior_last_names                      :string
 #  raw_direct_file_data                  :text
 #  referrer                              :string
@@ -58,6 +60,7 @@
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
 #  spouse_suffix                         :string
+#  spouse_was_incarcerated               :integer          default("unfilled"), not null
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer

@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <% if current_intake.ask_whether_incarcerated? %>
+  <% unless current_intake.disqualified_from_excise_credit_df? %>
     <div id="incarcerated" class="blue-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>

@@ -106,6 +106,8 @@ Rails.application.configure do
 
   # StateFile
   config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
+  config.state_file_end_of_new_intakes = Time.find_zone('America/New_York').parse('2038-04-15 23:59:59')
+  config.state_file_end_of_in_progress_intakes = Time.find_zone('America/New_York').parse('2038-04-25 23:59:59')
 
   config.active_record.encryption.primary_key = 'test'
   config.active_record.encryption.deterministic_key = 'test'

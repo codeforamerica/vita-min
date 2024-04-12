@@ -224,6 +224,7 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
+      round_to_whole_number: round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
@@ -1762,6 +1763,16 @@ en:
         Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
         If you have questions or would like more information about this decision, please contact hello@getctc.org.
     verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
+    welcome:
+      email:
+        body: |
+          Hello <<Client.PreferredName>>,
+
+          Thank you for creating an account with GetYourRefund! Your Client ID is <<Client.ClientId>>. This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
+
+          You can check your progress and add additional documents here: <<Client.LoginLink>>
+        subject: 'Welcome to GetYourRefund: Client ID'
+      sms: 'Hello <<Client.PreferredName>>, You''ve signed up with GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message.'
   models:
     intake:
       your_spouse: Your spouse
@@ -2019,6 +2030,7 @@ en:
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
         title: Code verified! Authentication needed to continue.
       enter_verification_code:
+        code_sent_to_closed_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
         enter_6_digit_code: Enter the 6-digit code
         title: Enter the code to continue
@@ -2074,13 +2086,15 @@ en:
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
+          primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           ssn_no_employment_html:
             label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
-          was_incarcerated:
-            one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-            other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+        update:
+          page_changed_notice: Sorry, this page has changed! Please answer the questions again.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2340,32 +2354,45 @@ en:
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
           button_help_text: Don’t worry, you'll return here after you transfer your data
-          description: To save time, transfer your federal return to fill in parts of your state return. This secure transfer from IRS Direct File usually takes 3 minutes or less.
+          description_html: |
+            <p>First, <strong>make sure your federal return is accepted.</strong></p>
+            <p><strong>How do I know if it’s accepted?</strong></p>
+            <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
+            <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
+          already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
           already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
+              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
           continue: To continue filing your %{state_name} State return, please sign in below
+          download_your_record: Download Your Record
           help_text_html: |
-            <b>What you’ll need to get started</b>
-            <br>
+            <strong>What you’ll need:</strong>
+            <br />
             <ul class="list--bulleted">
-              <li>Email address or phone number
-              <li>Driver’s license or state-issued ID
-              <li>If you received unemployment benefits in 2023, you’ll need Form 1099-G
-              <li>You should have already filed your 2023 federal tax return using <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return, as it will be imported to this tool.)
-              <li>If you choose to receive your refund or make a tax payment electronically, you’ll need your bank routing and account numbers
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>Email address or phone number</li>
+              <li>Driver’s license or state-issued ID</li>
+              <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
             </ul>
           not_you: Not %{user_name}?
           ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool. It is available on both mobile and desktop devices, and takes about 10 to 15 minutes to complete."
+            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
+              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
             supported_by: Supported by New York State
             title: File your New York State taxes for free
           start_new: Click here to start a new %{state_name} State return.
+          title_closed: Our free %{state_name} tax filing service is closed for the season
           welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
@@ -2387,6 +2414,10 @@ en:
       ny_county:
         edit:
           county: County
+          nyc_residency_full_year_html: On the previous page, you told us you lived in New York City <strong>all year</strong> in %{filing_year}.
+          nyc_residency_full_year_warning: The county you selected is outside New York City. Please select a county inside of New York City or click on the "Go Back" button to change your New York City residency answer.
+          nyc_residency_none_html: On the previous page, you told us you <strong>did not</strong> live in New York City in %{filing_year}.
+          nyc_residency_none_warning: The county you selected is in New York City. Please select a county outside of New York City or click on the "Go Back" button to change your New York City residency answer.
           title: Select the county where you lived on December 31, %{filing_year}
       ny_eligibility_college_savings_withdrawal:
         edit:
@@ -2465,18 +2496,18 @@ en:
       nyc_residency:
         edit:
           full_year:
-            one: I lived in New York City all year in %{year}
-            other: My spouse and I lived in New York City all year in %{year}
+            one: I lived in New York City <strong>all year</strong> in %{year}
+            other: My spouse and I lived in New York City <strong>all year</strong> in %{year}
           maintained_home:
             one: Did you maintain a home in New York City at any time during %{year}?
             other: Did you or your spouse maintain a home in New York City at any time during %{year}?
           none:
-            one: I did not live in New York City at all in %{year}
-            other: My spouse and I did not live in New York City at all in %{year}
-          nyc_includes: New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+            one: I <strong>did not</strong> live in New York City at all in %{year}
+            other: My spouse and I <strong>did not</strong> live in New York City at all in %{year}
+          nyc_includes_html: "<strong>Note:</strong> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island."
           part_year:
-            one: I lived in New York City for some of the year
-            other: My spouse and I lived in New York City for some of the year, or we lived in New York City for different amounts of time.
+            one: I lived in New York City for <strong>some of the year</strong>
+            other: My spouse and I lived in New York City for <strong>some of the year</strong>, or we lived in New York City for different amounts of time.
           title: 'Select your New York City residency status during %{year}:'
       pending_federal_return:
         edit:
@@ -2512,7 +2543,9 @@ en:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
+          download_title: Download a copy of your 2023 %{state_name} state tax return until December 31, 2024
           download_voucher: Download payment voucher form
+          feedback: We value your feedback—let us know what you think of this tool.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
@@ -2525,6 +2558,7 @@ en:
           show_xml: Show XML
         pending:
           more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
+          more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: You'll receive an email update when your state tax return is accepted.
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
@@ -2542,6 +2576,9 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+        thank_you_html: |
+          Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.<br /><br />
+          Filed your state taxes with us? You can download a copy of your state return until December 31, 2024.
       review:
         w2: W-2 state and local tax information
       shared:
@@ -2685,7 +2722,7 @@ en:
           box19_html: "<strong>Box 19</strong>: Local income tax"
           box20_locality_name: "<strong>Box 20</strong>: Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
+          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
@@ -2695,7 +2732,7 @@ en:
           w2s_error: Update W-2s before continuing.
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
         index:
-          title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
+          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
           w2_for: 'W-2 for: %{employer_name}'
           wages_amount: 'Total wages amount: $%{wages_amount}'
@@ -2704,6 +2741,10 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
     state_file_pages:
       about_page:
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
+          Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
         header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
         section1_html: |
           <strong>How does it work?</strong>
@@ -2716,10 +2757,9 @@ en:
             <li>E-file your return for free!</li>
           </ol>
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
-        subheader_html: |
-          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
-          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
+        subheader_1_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong>"
+        subheader_2_html: IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong>
+        subheader_3_html: Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -2736,6 +2776,7 @@ en:
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
         phone_number_signin: Sign in with phone number
         title: Sign in to FileYourStateTaxes
+        title_sign_in_closed: Sign in to download a copy of your state tax return.
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
@@ -2837,6 +2878,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
+    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"

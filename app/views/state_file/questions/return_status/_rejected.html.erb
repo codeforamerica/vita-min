@@ -39,20 +39,26 @@
 <% end %>
 
 <% if @error&.auto_wait %>
-  <section class="spacing-below-15">
-    <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
-    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
-  </section>
+  <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+    <section class="spacing-below-15">
+      <p class="spacing-below-5"><strong><%= t('.next_steps.can_edit.title') %></strong></p>
+      <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.can_edit.body') %>
+    </section>
+  <% end %>
 
-  <section>
-    <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-    <%= t('.contact_us') %>
-  </section>
+  <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+    <section>
+      <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+      <%= t('.contact_us') %>
+    </section>
+  <% end %>
 
-  <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller %>
-  <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
-    action: edit_return_controller.navigation_actions.first,
-    return_to_review: :y,
-    us_state: current_intake.state_code
-  ), class: "button button--primary spacing-above-60" %>
+  <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+    <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller %>
+    <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
+      action: edit_return_controller.navigation_actions.first,
+      return_to_review: :y,
+      us_state: current_intake.state_code
+    ), class: "button button--primary button--wide spacing-above-60" %>
+  <% end %>
 <% end %>

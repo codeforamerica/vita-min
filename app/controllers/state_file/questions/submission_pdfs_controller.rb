@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class SubmissionPdfsController < QuestionsController
+      skip_before_action :redirect_if_in_progress_intakes_ended
+
       def show
         @submission = current_intake.efile_submissions.find_by(id: params[:id])
         error_redirect and return unless @submission.present?

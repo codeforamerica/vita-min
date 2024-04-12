@@ -3,9 +3,11 @@ module StateFile
     class LandingPageController < QuestionsController
       skip_before_action :redirect_if_no_intake
       skip_before_action :set_current_step
+      skip_before_action :redirect_if_in_progress_intakes_ended
 
       def edit
         @state_name = StateFileBaseIntake::STATE_CODE_AND_NAMES[params[:us_state]]
+        @closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
         if current_intake.present?
           if current_intake.primary_first_name.present?
             @user_name = current_intake.primary_first_name

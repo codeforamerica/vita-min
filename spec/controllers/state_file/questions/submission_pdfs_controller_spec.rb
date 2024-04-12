@@ -36,6 +36,18 @@ RSpec.describe StateFile::Questions::SubmissionPdfsController do
         tempfile.write(response.body)
         expect(filled_in_values(tempfile.path)).to match(a_hash_including("1a" => "Jerry L"))
       end
+
+      context "when it is after closing" do
+        around do |example|
+          Timecop.freeze(Rails.configuration.state_file_end_of_in_progress_intakes + 1.day) do
+            example.run
+          end
+        end
+        it "does not redirect them to the about page" do
+          get :show, params: { us_state: "az", id: efile_submission.id }
+          expect(response).not_to have_http_status(:redirect)
+        end
+      end
     end
   end
 end

@@ -5,7 +5,13 @@
     <div class="form-card__content">
       <h1 class="h2"><%= content_for :page_title %></h1>
 
-      <p class="spacing-below-15"><%= t(".code_sent_to_html", contact_info: @verification_code_form.formatted_contact_info) %></p>
+      <p class="spacing-below-15">
+        <% if app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+          <%= t(".code_sent_to_closed_html", contact_info: @verification_code_form.formatted_contact_info) %>
+        <% else %>
+          <%= t(".code_sent_to_html", contact_info: @verification_code_form.formatted_contact_info) %>
+        <% end %>
+      </p>
       <%= f.hidden_field(:contact_info) %>
       <div class="blue-group">
         <%= f.cfa_input_field(:verification_code, t(".enter_6_digit_code"), classes: ["form-width--long"]) %>

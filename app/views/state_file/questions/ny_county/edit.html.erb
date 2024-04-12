@@ -1,12 +1,17 @@
-<% title = t(".title", filing_year: Rails.configuration.statefile_current_tax_year  ) %>
-<% content_for :page_title, title %>
+<%
+title = t(".title", filing_year: @filing_year )
+content_for :page_title, title
+%>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
+  <p><%= t(".nyc_residency_#{@nyc_residency}_html", filing_year: @filing_year) %></p>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
-      <%= f.vita_min_state_file_select(:residence_county , t(".county"), NySchoolDistricts.county_labels, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+      <%= f.warning_for_select("state_file_ny_county_form_residence_county", @permitted_counties, t(".nyc_residency_#{@nyc_residency}_warning")) %>
+      <%= f.vita_min_state_file_select(:residence_county , t(".county"), NySchoolDistricts.county_labels, label_class: 'form-label--bold', prompt: t('general.select_prompt') ) %>
     </div>
 
     <% if params[:return_to_review].present? %>

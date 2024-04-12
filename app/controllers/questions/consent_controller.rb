@@ -24,6 +24,8 @@ module Questions
 
       GenerateRequiredConsentPdfJob.perform_later(current_intake)
 
+      send_welcome_message
+
       # client has not yet been routed, or was previously determined to have been at capacity
       if current_intake.client.routing_method.blank? || current_intake.client.routing_method_at_capacity?
         routing_service = PartnerRoutingService.new(
@@ -49,6 +51,16 @@ module Questions
       if current_intake.primary_ssn.blank?
         redirect_to Questions::TriagePersonalInfoController.to_path_helper
       end
+    end
+
+    def send_welcome_message
+      @client = current_intake.client
+
+      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
+        client: current_intake.client,
+        message: AutomatedMessage::Welcome,
+        locale: I18n.locale
+      )
     end
   end
 end
