@@ -14,4 +14,9 @@ namespace :state_file do
     return unless DateTime.now.year == 2024
     StateFile::SendPostDeadlineReminderService.run
   end
+
+  task send_reminder_apology_message: :environment do
+    return unless DateTime.now.year == 2024
+    StateFile::SendReminderApologyService.run
+  end
 end
