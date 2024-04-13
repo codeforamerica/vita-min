@@ -17,6 +17,8 @@ namespace :state_file do
 
   task send_reminder_apology_message: :environment do
     return unless DateTime.now.year == 2024
+    return if ENV["DO_NOT_SEND_APOLOGY_EMAIL"].present?
+
     StateFile::SendReminderApologyService.run
   end
 end
