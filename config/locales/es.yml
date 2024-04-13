@@ -1623,6 +1623,20 @@ es:
           Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
 
           ¿Preguntas? Responde a este mensaje.
+      reminder_apology:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Debido a un error, algunos usuarios de FileYourStateTaxes que ya enviaron sus declaraciones de impuestos estatales recibieron un mensaje hoy recordándoles que la fecha límite de declarar es el 15 de abril.
+
+            Si has recibido una noticia diciendo que tu declaración fue aceptada, puedes ignorar el mensaje recordatorio que recibiste hoy. Puedes confirmar el estatus de tu declaración visitando fileyourstatetaxes.org/es/us/login-options e ingresando a tu cuenta.
+
+            Nos disculpamos sinceramente por la confusión y el estrés que esto haya causado.
+
+            Gracias,
+            FileYourStateTaxes
+          subject: Favor de ignorar el mensaje recordatorio de FileYourStateTaxes
       still_processing:
         email:
           body: |
