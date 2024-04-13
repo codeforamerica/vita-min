@@ -1655,6 +1655,20 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      reminder_apology:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Due to an error, some FileYourStateTaxes users who had already completed their state tax returns received an email earlier today reminding them to file by April 15.
+
+            If you have received a notification that your state return was accepted, you may disregard the reminder email you may have received earlier today. You can confirm your return status by visiting fileyourstatetaxes.org/en/us/login-options and logging into your account.
+
+            We sincerely apologize for the confusion and the stress this may have caused.
+
+            Thanks,
+            FileYourStateTaxes
+          subject: Please disregard previous message from FileYourStateTaxes
       still_processing:
         email:
           body: |
