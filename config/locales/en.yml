@@ -1718,6 +1718,17 @@ en:
           Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
 
           Need help? Reply to this text. Text "STOP" to unsubscribe.
+      reminder_apology:
+        email:
+          subject: "Please disregard previous message from FileYourStateTaxes"
+          body: |
+            Hi %{primary_first_name},
+            
+            Due to an error, some FileYourStateTaxes users who had already completed their state tax returns received an email earlier today indicating they had not yet filed. 
+            If you already received a notification that your state return was accepted, you may disregard the email you received earlier. You can confirm your return status by visiting fileyourstatetaxes.org/en/us/login-options and logging into your account. 
+            We sincerely apologize for the confusion and the stress this may have caused. 
+            
+            Thanks, FileYourStateTaxes
     successful_submission_drop_off:
       email:
         body: |
