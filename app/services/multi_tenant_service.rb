@@ -82,17 +82,21 @@ class MultiTenantService
     Rails.configuration.email_from[:noreply][service_type_or_parent]
   end
 
+  def gyr_noreply_email
+    Rails.configuration.email_from[:noreply][:gyr]
+  end
+
   def support_email
     Rails.configuration.email_from[:support][service_type]
   end
 
-  def delivery_method_options
+  def delivery_method_options(fake_gyr: false)
     if service_type == :ctc && EnvironmentCredentials.dig(:mailgun, :ctc_api_key)
       {
         api_key: EnvironmentCredentials.dig(:mailgun, :ctc_api_key),
         domain: EnvironmentCredentials.dig(:mailgun, :ctc_domain)
       }
-    elsif service_type == :statefile && EnvironmentCredentials.dig(:mailgun, :statefile_api_key)
+    elsif service_type == :statefile && EnvironmentCredentials.dig(:mailgun, :statefile_api_key) && !fake_gyr
       {
         api_key: EnvironmentCredentials.dig(:mailgun, :statefile_api_key),
         domain: EnvironmentCredentials.dig(:mailgun, :statefile_domain)
