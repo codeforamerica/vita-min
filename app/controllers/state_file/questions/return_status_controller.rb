@@ -26,11 +26,10 @@ module StateFile
 
       def submission_to_show
         is_az_intake = current_intake.is_a?(StateFileAzIntake)
-        latest_submission_is_cancelled = current_intake.latest_submission&.efile_submission_transitions&.last&.to_state == "cancelled"
         latest_submission_has_901_error = current_intake.latest_submission&.efile_submission_transitions&.where(to_state: "rejected")&.last&.efile_errors&.pluck(:code)&.include?("901")
         accepted_submissions = current_intake.efile_submissions.filter { |submission| submission.in_state?(:accepted) }
 
-        if is_az_intake && latest_submission_is_cancelled && latest_submission_has_901_error && accepted_submissions.present?
+        if is_az_intake && latest_submission_has_901_error && accepted_submissions.present?
           accepted_submissions.last
         else
           current_intake.latest_submission
