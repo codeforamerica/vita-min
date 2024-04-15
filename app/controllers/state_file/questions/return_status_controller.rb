@@ -7,6 +7,7 @@ module StateFile
       skip_before_action :redirect_if_in_progress_intakes_ended
 
       def edit
+        @submission_to_show = submission_to_show
         @error = submission_error
         @return_status = return_status
         @refund_url = refund_url
@@ -23,16 +24,31 @@ module StateFile
 
       private
 
+      def submission_to_show
+        if current_intake.is_a?(StateFileAzIntake)
+          accepted_submissions = current_intake.efile_submissions.filter { |submission| submission.in_state?(:accepted) }
+          latest_submission_has_901_error = current_intake.latest_submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.pluck(:code)&.include?("901")
+
+          if latest_submission_has_901_error && accepted_submissions.present?
+            accepted_submissions.last
+          else
+            current_intake.latest_submission
+          end
+        else
+          current_intake.latest_submission
+        end
+      end
+
       def submission_error
         return nil unless return_status == 'rejected'
         # in the case that its in the notified_of_rejection or waiting state
         # we can't just grab the efile errors from the last transition
-        current_intake.latest_submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
+        submission_to_show&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
       end
 
       def return_status
         # return status for display
-        case current_intake.latest_submission.current_state
+        case submission_to_show.current_state
         when 'accepted'
           'accepted'
         when 'notified_of_rejection', 'waiting'
@@ -118,7 +134,6 @@ module StateFile
           redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code)
         end
       end
-
     end
   end
 end
