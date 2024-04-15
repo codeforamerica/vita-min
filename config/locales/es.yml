@@ -1094,7 +1094,7 @@ es:
 
         Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
 
-        Puede verificar el estado de su reembolso federal en línea en sitio del IRS' ¿Dónde está mi reembolso?: https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp
+        Puede verificar el estado de su reembolso federal en línea en sitio del IRS' ¿Dónde está mi reembolso?: https://sa.www4.irs.gov/irfof/lang/es/irfofgetstatus.jsp
 
         Gracias por confiar en GetYourRefund con sus impuestos <<TaxReturn.TaxYear>>.
 
@@ -1593,10 +1593,10 @@ es:
           ¿Necesitas ayuda? Responde a este mensaje de texto.
       pre_deadline_reminder:
         email:
-          body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/en/us/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
+          body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
           subject: "¡No olvides terminar tu declaración de impuestos estatales antes del 15 de abril!"
         sms: |
-          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/en/us/login-options para terminarlos ahora.
+          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.
           ¿Necesitas ayuda? Responde a este mensaje de texto.
       reject_resolution_reminder:
         email:
@@ -3503,7 +3503,7 @@ es:
             body_html:
             - El IRS emitió tres rondas de pagos de estímulo durante la pandemia del COVID. Usualmente se recibieron en abril de 2020, diciembre de 2020, y marzo de 2021.
             - Solo puede reclamar el tercer pago de estímulo utilizando GetCTC.
-            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref"> sin cargo en GetYourRefund. </a>
+            - Si se saltó alguno de los primeros o segundos pagos de estímulo, debe presentar una declaración de impuestos de 2020 para reclamarlos. Puede declarar <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/es/diy/file_yourself?source=gctc_ref"> sin cargo en GetYourRefund. </a>
             title: "¿Cómo puedo conseguir más información sobre los dos primeros pagos de estímulo?"
           simplified_btn: Continuar con la declaración simplificada
           title: En este momento está presentando una declaración de impuestos simplificada para solicitar su Crédito Tributario por Hijos y el tercer pago de estímulo.
@@ -4559,7 +4559,7 @@ es:
         info: Estamos encantados de ayudarlo con sus impuestos, pero necesitamos verificar su identidad antes. La verificación de identidad es importante porque nos permite asegurarnos de que su información está protegida. Si no está de acuerdo con esto, a continuación tiene información sobre otras opciones gratuitas para presentar su declaración.
         title: "¡Veamos cómo podemos ayudarlo!"
       page_not_found:
-        info_html: La página a la que intenta acceder no está disponible. Si llegó aquí a través de un enlace de invitación de usuario, restablezca su contraseña <a href="https://getyourrefund.org/en/hub/password/new">aquí</a>.
+        info_html: La página a la que intenta acceder no está disponible. Si llegó aquí a través de un enlace de invitación de usuario, restablezca su contraseña <a href="https://getyourrefund.org/es/hub/password/new">aquí</a>.
         let_us_know_html: Si llegó aquí a través de un enlace, haga clic en el botón "Ayuda"/"Chat" en la parte inferior derecha, o envíenos un correo electrónico a %{email_link}para avisarnos.
         title: Lo sentimos, no encontramos la página que busca.
       privacy_policy:
