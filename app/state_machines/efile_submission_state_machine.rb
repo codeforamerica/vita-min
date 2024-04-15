@@ -34,7 +34,7 @@ class EfileSubmissionStateMachine
   transition from: :rejected,              to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold, :notified_of_rejection]
   transition from: :notified_of_rejection, to: [:resubmitted, :cancelled, :investigating, :waiting, :fraud_hold]
   transition from: :investigating,         to: [:resubmitted, :cancelled, :waiting, :fraud_hold]
-  transition from: :waiting,               to: [:resubmitted, :cancelled, :investigating, :fraud_hold]
+  transition from: :waiting,               to: [:resubmitted, :cancelled, :investigating, :fraud_hold, :notified_of_rejection]
   transition from: :fraud_hold,            to: [:investigating, :resubmitted, :waiting, :cancelled]
   transition from: :cancelled,             to: [:investigating, :waiting]
 
