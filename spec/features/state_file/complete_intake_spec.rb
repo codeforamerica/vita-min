@@ -83,8 +83,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
-      select_cfa_date "state_file_ny_primary_state_id_form_issue_date", Time.now - 4.year
-      select_cfa_date "state_file_ny_primary_state_id_form_expiration_date", Time.now + 4.year
+      select_cfa_date "state_file_ny_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
+      select_cfa_date "state_file_ny_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
       select("New York", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       fill_in "For New York IDs: First three characters of the document number (located on the back of your ID)", with: "ABC"
       click_on I18n.t("general.continue")
@@ -230,8 +230,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
-      select_cfa_date "state_file_az_primary_state_id_form_issue_date", Time.now - 4.year
-      select_cfa_date "state_file_az_primary_state_id_form_expiration_date", Time.now + 4.year
+      select_cfa_date "state_file_az_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
+      select_cfa_date "state_file_az_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
       select("Arizona", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 

@@ -308,16 +308,29 @@ describe EfileSubmissionStateMachine do
     end
 
     context "to notified_of_rejection" do
-      let(:submission) { create(:efile_submission, :rejected) }
+      let!(:submission) { create(:efile_submission, :rejected, :for_state) }
+      let!(:other_submisssion) { create(:efile_submission, :waiting, :for_state) }
+      let(:after_transition_messaging_service) { StateFile::AfterTransitionMessagingService.new(submission)}
 
-      it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
-        after_transition_messaging_service = instance_double(StateFile::AfterTransitionMessagingService)
-        allow(StateFile::AfterTransitionMessagingService)
-          .to receive(:new)
-          .and_return(after_transition_messaging_service)
-        allow(after_transition_messaging_service)
-          .to receive(:send_efile_submission_rejected_message)
-        submission.transition_to!(:notified_of_rejection)
+      before do
+        allow(StateFile::AfterTransitionMessagingService).to receive(:new).with(submission).and_return(after_transition_messaging_service)
+        allow(after_transition_messaging_service).to receive(:send_efile_submission_rejected_message)
+      end
+
+      context "currently in rejected state" do
+        it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+          submission.transition_to!(:notified_of_rejection)
+          expect(StateFile::AfterTransitionMessagingService).to have_received(:new).with(submission)
+        end
+      end
+
+      context "currently in waiting state" do
+        let!(:submission) { create(:efile_submission, :waiting, :for_state) }
+
+        it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+          submission.transition_to!(:notified_of_rejection)
+          expect(StateFile::AfterTransitionMessagingService).to have_received(:new).with(submission)
+        end
       end
     end
 
