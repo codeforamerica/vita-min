@@ -117,8 +117,8 @@ describe StateFileAzIntake do
         expect {
           intake.update(armed_forces_member: nil, account_type: nil, spouse_esigned_at: nil)
         }.to change(intake, :armed_forces_member).to("unfilled")
-        .and change(intake, :account_type).to("unfilled")
         .and change(intake, :spouse_esigned_at).to(nil)
+        expect(intake.account_type).to eq "unfilled"
       end
     end
   end

@@ -280,7 +280,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def sanitize_bank_details
-    if [:mail, :unfilled].include?((payment_or_deposit_type || "").to_sym)
+    if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
       self.bank_name = nil
       self.routing_number = nil
