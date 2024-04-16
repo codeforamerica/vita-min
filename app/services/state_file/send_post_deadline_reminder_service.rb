@@ -4,7 +4,7 @@ module StateFile
     HOURS_AGO = 24
 
     def self.run
-      cutoff_time_ago = HOURS_AGO.hours.ago
+      cutoff_time_ago = 24.hours.ago
       intakes_to_notify = []
 
       # TODO: run in development to view the sql run here
@@ -13,7 +13,7 @@ module StateFile
         intakes_to_notify += class_object.left_joins(:efile_submissions)
                                          .where(efile_submissions: { id: nil })
                                          .where.not(email_address: nil)
-                                         .where.not(email_address_verified_at: nil)
+                                         # .where.not(email_address_verified_at: nil)
                                          .where(unsubscribed_from_email: false)
                                          .where("#{base_class.underscore.pluralize}.message_tracker #> '{messages.state_file.post_deadline_reminder}' IS NULL")
                                          .select do |intake|
@@ -39,7 +39,11 @@ module StateFile
 
       intakes_without_matching_accepted_intake = intakes_to_notify.reject do |intake|
         accepted_intakes.any? { |accepted_intake|
-          intake.email_address.casecmp(accepted_intake.email_address).zero?
+          if accepted_intake.email_address.nil?
+            false
+          else
+            intake.email_address.casecmp(accepted_intake&.email_address).zero?
+          end
         }
       end
 
