@@ -35,6 +35,20 @@ module StateFile
       attributes.except(:routing_number, :account_number, :routing_number_confirmation, :account_number_confirmation, :bank_name)
     end
 
+    def attributes_for(intake)
+      attributes = super
+      if (payment_or_deposit_type || "").to_sym != :direct_deposit
+        attributes.merge(
+          routing_number: "",
+          account_number: "",
+          routing_number_confirmation: "",
+          account_number_confirmation: "",
+          bank_name: ""
+        )
+      end
+      attributes
+    end
+
     private
 
     def bank_numbers_not_equal
