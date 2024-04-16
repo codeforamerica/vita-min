@@ -30,7 +30,7 @@ module StateFile
           StateFile::MessagingService.new(
             message: StateFile::AutomatedMessage::PostDeadlineReminder,
             intake: intake
-          ).send_message
+          ).send_message(false)
         end
       end
     end
