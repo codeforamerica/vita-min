@@ -10,7 +10,8 @@ module StateFile::AutomatedMessage
     end
 
     def self.send_only_once?
-      true
+      # true
+      false
     end
 
     def email_subject(**args)
