@@ -37,7 +37,7 @@ module StateFile
     private
 
     def date_electronic_withdrawal
-      parse_date_params(Time.now.year, Time.now.month, Time.now.day)
+      Time.now.in_time_zone('Eastern Time (US & Canada)').to_date
     end
 
     def date_electronic_withdrawal_is_valid_date

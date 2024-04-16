@@ -29,7 +29,7 @@ module SubmissionBuilder
                 xml.RoutingTransitNumber @submission.data_source.routing_number.strip.gsub(/\s+/, ' ') if @submission.data_source.routing_number.present?
                 xml.BankAccountNumber @submission.data_source.account_number.strip.gsub(/\s+/, ' ') if @submission.data_source.account_number.present?
                 xml.PaymentAmount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
-                # xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) if @submission.data_source.date_electronic_withdrawal.present?
+                xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) if @submission.data_source.date_electronic_withdrawal.present?
                 xml.NotIATTransaction 'X'
               end
             end
