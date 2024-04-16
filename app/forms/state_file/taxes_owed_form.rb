@@ -13,8 +13,8 @@ module StateFile
     set_attributes_for :date, :date_electronic_withdrawal_month, :date_electronic_withdrawal_year, :date_electronic_withdrawal_day
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
-      validate :date_electronic_withdrawal_is_valid_date
-      validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? }
+      # validate :date_electronic_withdrawal_is_valid_date
+      # validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? }
       validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
       validate :withdraw_amount_higher_than_owed?
     end
@@ -37,11 +37,11 @@ module StateFile
     private
 
     def date_electronic_withdrawal
-      parse_date_params(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day)
+      parse_date_params(Time.now.year, Time.now.month, Time.now.day)
     end
 
     def date_electronic_withdrawal_is_valid_date
-      valid_text_date(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day, :date_electronic_withdrawal)
+      valid_text_date(Time.now.year.to_s, Time.now.month.to_s, Time.now.day.to_s, :date_electronic_withdrawal)
     end
 
     def withdraw_amount_higher_than_owed?

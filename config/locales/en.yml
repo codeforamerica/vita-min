@@ -2665,6 +2665,7 @@ en:
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. Round to the nearest whole number.)
+          after-deadline-default-withdrawl-info: Because you are submitting your return on or after April 15, 2024, the state will withdraw your payment as soon as they process your return.
         edit:
           az_title_html: Good news, you're getting a Arizona state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
           direct_deposit: Direct deposit (fastest)

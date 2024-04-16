@@ -30,7 +30,7 @@ module SubmissionBuilder
                 if @submission.data_source.account_type.present? && ACCOUNT_TYPES[@submission.data_source.account_type.to_sym] != 0
                   xml.ACCT_TYPE_CD claimed: ACCOUNT_TYPES[@submission.data_source.account_type.to_sym]
                 end
-                xml.ELC_AUTH_EFCTV_DT claimed: @submission.data_source.date_electronic_withdrawal if @submission.data_source.date_electronic_withdrawal.present?
+                # xml.ELC_AUTH_EFCTV_DT claimed: @submission.data_source.date_electronic_withdrawal if @submission.data_source.date_electronic_withdrawal.present?
                 xml.PYMT_AMT claimed: @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
                 xml.ACH_IND claimed: @submission.data_source.ach_debit_transaction? ? 1 : 2
                 xml.RFND_OWE_IND claimed: REFUND_OR_OWE_TYPES[@submission.data_source.refund_or_owe_taxes_type]
