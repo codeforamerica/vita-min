@@ -24,15 +24,31 @@ module StateFile
 
       private
 
-      def submission_to_show
-        is_az_intake = current_intake.is_a?(StateFileAzIntake)
-        latest_submission_has_901_error = current_intake.latest_submission&.efile_submission_transitions&.where(to_state: "rejected")&.last&.efile_errors&.pluck(:code)&.include?("901")
-        accepted_submissions = current_intake.efile_submissions.filter { |submission| submission.in_state?(:accepted) }
+      # def submission_to_show
+      #   is_az_intake = current_intake.is_a?(StateFileAzIntake)
+      #   latest_submission_has_901_error = current_intake.latest_submission&.efile_submission_transitions&.where(to_state: "rejected")&.last&.efile_errors&.pluck(:code)&.include?("901")
+      #   accepted_submissions = current_intake.efile_submissions.filter { |submission| submission.in_state?(:accepted) }
 
-        if is_az_intake && latest_submission_has_901_error && accepted_submissions.present?
-          accepted_submissions.last
+      #   if is_az_intake && latest_submission_has_901_error && accepted_submissions.present?
+      #     accepted_submissions.last
+      #   else
+      #     current_intake.latest_submission
+      #   end
+      # end
+
+      def submission_to_show
+        # many submissions rules:
+        # find all submissions from all intakes that share the current_intake's hashed_ssn
+        # from that list of submissions:
+        #   any accepted? show first (earliest created_at) accepted
+        #   all rejected? show most recent rejection
+        intakes = current_intake.class.where(hashed_ssn: current_intake.hashed_ssn).includes(:efile_submissions)
+        accepted_submissions = intakes.flat_map(&:efile_submissions).filter { |submission| submission.in_state?(:accepted) }
+        # accepted_submissions = current_intake.efile_submissions.order(created_at: :desc).filter { |submission| submission.in_state?(:accepted) }
+        if accepted_submissions.present? # we have at least 1 acceptance
+          accepted_submissions.last # efile_submissions are order(created_at: :asc) by default
         else
-          current_intake.latest_submission
+          current_intake.latest_submission # no accepted -- fall back to most recent
         end
       end
 
