@@ -41,6 +41,8 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+  before_save :save_nil_enums_with_unfilled
+  before_save :sanitize_bank_details
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
@@ -275,5 +277,16 @@ class StateFileBaseIntake < ApplicationRecord
       state_intakes += class_object.where(email_address: email).where(unsubscribed_from_email: true)
     end
     state_intakes
+  end
+
+  def sanitize_bank_details
+    if [:mail, :unfilled].include?((payment_or_deposit_type || "").to_sym)
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
+    end
   end
 end
