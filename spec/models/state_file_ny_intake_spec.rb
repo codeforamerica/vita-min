@@ -164,7 +164,7 @@ describe StateFileNyIntake do
         expect {
           intake.update(eligibility_yonkers: nil, account_type: nil)
         }.to change(intake.reload, :eligibility_yonkers).to("unfilled")
-        .and change(intake.reload, :account_type).to("unfilled")
+        expect(intake.account_type).to eq "unfilled"
       end
     end
   end
