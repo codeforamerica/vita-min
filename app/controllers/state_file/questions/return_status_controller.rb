@@ -30,8 +30,14 @@ module StateFile
         # from that list of submissions:
         #   any accepted? show first (earliest created_at) accepted
         #   all rejected? show most recent rejection
-        intakes = current_intake.class.where(hashed_ssn: current_intake.hashed_ssn).includes(:efile_submissions)
-        accepted_submissions = intakes.flat_map(&:efile_submissions).filter { |submission| submission.in_state?(:accepted) }
+        intakes = current_intake
+          .class
+          .where(hashed_ssn: current_intake.hashed_ssn, email_address: current_intake.email_address)
+          .includes(:efile_submissions)
+        accepted_submissions = intakes
+          .flat_map(&:efile_submissions)
+          .filter { |submission| submission.in_state?(:accepted) }
+
         if accepted_submissions.present? # we have at least 1 acceptance
           accepted_submissions.last # efile_submissions are order(created_at: :asc) by default
         else
