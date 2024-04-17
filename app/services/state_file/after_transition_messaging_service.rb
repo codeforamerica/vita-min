@@ -22,7 +22,7 @@ module StateFile
         intake: @intake,
         submission: @submission,
         message: message,
-        body_args: body_args).send_message(false)
+        body_args: body_args).send_message(require_verification: false)
 
       schedule_survey_notification_job
     end
@@ -41,7 +41,7 @@ module StateFile
         submission: @submission,
         message: message,
         body_args: body_args
-      ).send_message(false)
+      ).send_message(require_verification: false)
     end
 
     def send_efile_submission_still_processing_message

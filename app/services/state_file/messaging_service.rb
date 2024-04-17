@@ -20,10 +20,10 @@ module StateFile
       @message_tracker ||= MessageTracker.new(data_source: data_source, message: message)
     end
 
-    def send_message(use_verification=true)
+    def send_message(require_verification: true)
       return nil if message_tracker.already_sent? && message.send_only_once?
 
-      send_email(use_verification) if @do_email && !intake.unsubscribed_from_email?
+      send_email(require_verification: require_verification) if @do_email && !intake.unsubscribed_from_email?
       if intake.unsubscribed_from_email?
         DatadogApi.increment("mailgun.state_file_notification_emails.not_sent_because_unsubscribed")
       end
@@ -36,10 +36,10 @@ module StateFile
 
     private
 
-    def send_email(use_verification=true)
+    def send_email(require_verification: true)
       email_verified = intake.email_address_verified_at.present? || matching_intakes_has_email_verified_at?(intake)
       return if intake.email_address.nil?
-      return if use_verification && !email_verified
+      return if require_verification && !email_verified
       return if intake.unsubscribed_from_email?
 
       if @message_instance.email_body.present?
