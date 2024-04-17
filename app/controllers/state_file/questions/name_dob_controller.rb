@@ -7,6 +7,8 @@ module StateFile
         if current_intake.state_file_analytics.name_dob_first_visit_at.nil?
           current_intake.state_file_analytics.update!(name_dob_first_visit_at: DateTime.now)
         end
+        @primary_last_name = current_intake.direct_file_data.primary_last_name_control
+        @spouse_last_name = current_intake.direct_file_data.spouse_last_name_control if current_intake.filing_status_mfj?
         super
       end
 

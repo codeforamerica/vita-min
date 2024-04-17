@@ -6,8 +6,10 @@ class DirectFileData
     filing_status: 'IRS1040 IndividualReturnFilingStatusCd',
     primary_ssn: 'ReturnHeader Filer PrimarySSN',
     primary_occupation: 'IRS1040 PrimaryOccupationTxt',
+    primary_last_name_control: 'IRS1040 PrimaryNameControlTxt',
     spouse_ssn: 'ReturnHeader Filer SpouseSSN',
     spouse_occupation: 'IRS1040 SpouseOccupationTxt',
+    spouse_last_name_control: 'IRS1040 SpouseNameControlTxt',
     mailing_city: 'ReturnHeader Filer USAddress CityNm',
     mailing_street: 'ReturnHeader Filer USAddress AddressLine1Txt',
     mailing_apartment: 'ReturnHeader Filer USAddress AddressLine2Txt',
@@ -124,6 +126,14 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
+  def primary_last_name_control
+    df_xml_value(__method__)
+  end
+
+  def primary_last_name_control=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def spouse_ssn
     df_xml_value(__method__)
   end
@@ -146,6 +156,14 @@ class DirectFileData
     if value.present?
       write_df_xml_value(__method__, value)
     end
+  end
+
+  def spouse_last_name_control
+    df_xml_value(__method__)
+  end
+
+  def spouse_last_name_control=(value)
+    write_df_xml_value(__method__, value)
   end
 
   def surviving_spouse

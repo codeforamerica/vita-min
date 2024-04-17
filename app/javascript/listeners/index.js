@@ -18,6 +18,7 @@ import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
 import { fetchStateFileEfileStateCounts } from "../lib/fetch_statefile_efile_state_counts";
 import ClientMenuComponent from "../components/ClientMenuComponent";
 import WarningForSelectComponent from "../components/WarningForSelectComponent";
+import WarningForTextInputComponent from "../components/WarningForTextInputComponent";
 import MixpanelEventTracking from "../lib/mixpanel_event_tracking";
 import IntercomBehavior from "../lib/intercom_behavior";
 const Listeners =  (function(){
@@ -29,6 +30,7 @@ const Listeners =  (function(){
                 const { controllerAction } = document.querySelector("#mixpanelData")?.dataset || {};
                 ClientMenuComponent();
                 WarningForSelectComponent();
+                WarningForTextInputComponent();
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
 
