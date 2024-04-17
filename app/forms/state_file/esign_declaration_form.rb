@@ -48,6 +48,7 @@ module StateFile
         .joins(:efile_submission_transitions)
         .where(efile_submission_transitions: { to_state: :accepted })
         .where(table_name => { hashed_ssn: intake.hashed_ssn })
+        .where.not(efile_submissions: {id: intake.id})
     end
   end
 end
