@@ -122,6 +122,24 @@ RSpec.describe StateFile::EsignDeclarationForm do
         expect(intake.reload.efile_submissions.last.current_state).to eq("accepted")
       end
     end
+
+    context "when there is already an accepted submission in a different account with the same SSN" do
+      let!(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
+      before do
+        #binding.pry
+        intake = create :state_file_az_intake
+        submission = EfileSubmission.create(data_source: intake)
+        EfileSubmissionTransition.create(to_state: :accepted, efile_submission: submission, most_recent: true, sort_key: 1)
+      end
+      it "does not create a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(0)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("accepted")
+      end
+    end
   end
 
   describe "#validations" do

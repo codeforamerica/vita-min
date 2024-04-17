@@ -17,6 +17,8 @@ module StateFile
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info&.update!(attributes_for(:state_file_efile_device_info))
 
+      return if accepted_submissions_with_same_ssn(@intake).any?
+
       old_efile_submission = @intake.efile_submissions&.last
       if old_efile_submission.present?
         # the after_transitions :resubmission creates a new efile submission and transitions it to :preparing
@@ -31,6 +33,16 @@ module StateFile
           Rails.logger.error "Failed to transition EfileSubmission##{new_efile_submission.id} to :preparing"
         end
       end
+    end
+
+    def accepted_submissions_with_same_ssn(intake)
+      table_name = intake.class.table_name
+      class_name = intake.class.name
+      EfileSubmission
+        .joins("INNER JOIN #{table_name} ON efile_submissions.data_source_type='#{class_name}' AND efile_submissions.data_source_id = #{table_name}.id")
+        .joins(:efile_submission_transitions)
+        .where(efile_submission_transitions: { to_state: :accepted })
+        .where(table_name => { hashed_ssn: intake.hashed_ssn })
     end
   end
 end
