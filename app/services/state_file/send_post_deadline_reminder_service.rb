@@ -37,7 +37,7 @@ module StateFile
           end
         end.select do |intake|
           # New criteria - gonna see if any associated intakes have submissions
-          intake_ids = intake_ids_by_email[intake.email_address] + (intake_ids_by_hashed_ssn[intake.hashed_ssn] || [])
+          intake_ids = (intake_ids_by_email[intake.email_address] || []) + (intake_ids_by_hashed_ssn[intake.hashed_ssn] || [])
           intake_ids = intake_ids.to_set
           (intake_ids.length == 1) || EfileSubmission.where(data_source_id: intake_ids, data_source_type: base_class).none?
         end
