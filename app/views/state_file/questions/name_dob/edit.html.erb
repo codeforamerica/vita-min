@@ -98,7 +98,7 @@
           </div>
         <% elsif ff.object.ctc_qualifying %>
           <div class="form-group">
-            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", MultiTenantService.statefile.end_of_current_tax_year.years_ago(17), nil, nil, t(".dependent_dob_under_17_warning")) %>
+            <%= ff.warning_for_date("#{ff.object_name}[dob_year]", @seventeen_years_ago, nil, nil, t(".dependent_dob_under_17_warning")) %>
           </div>
         <% end %>
 
