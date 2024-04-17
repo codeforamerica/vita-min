@@ -17,9 +17,11 @@ module StateFile
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info&.update!(attributes_for(:state_file_efile_device_info))
 
-      if accepted_submissions_with_same_ssn(@intake).any?
-        Rails.logger.warn "#{@intake.state_code}#{@intake.id} was not submitted because there is already an accepted submission for that ssn"
-        return
+      unless Flipper.enabled?(:allow_duplicate_submissions)
+        if accepted_submissions_with_same_ssn(@intake).any?
+          Rails.logger.warn "#{@intake.state_code}#{@intake.id} was not submitted because there is already an accepted submission for that ssn"
+          return
+        end
       end
 
       old_efile_submission = @intake.efile_submissions&.last

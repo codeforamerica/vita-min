@@ -10,6 +10,7 @@ end
 begin
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.enable :w2_override unless Flipper.exist?(:w2_override)
+  Flipper.disable :allow_duplicate_submissions unless Flipper.exist?(:allow_duplicate_submissions)
 rescue
   # make sure we can still run rake tasks before table has been created
   nil
