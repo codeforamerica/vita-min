@@ -12,7 +12,9 @@ module StateFile
     end
 
     def intake_to_log_in(matching_intakes)
-      with_accepted_submissions = matching_intakes.filter { |intake| intake.latest_submission&.in_state?(:accepted) }
+      with_accepted_submissions = matching_intakes.filter do |intake|
+        intake.efile_submissions.any? { |submission| submission.in_state?(:accepted) }
+      end
       if with_accepted_submissions.present?
         with_accepted_submissions.first
       else

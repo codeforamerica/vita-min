@@ -467,6 +467,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             context "when one intake has an accepted submission and one does not" do
               it "logs in the accepted intake" do
                 create(:efile_submission, :accepted, :for_state, data_source: second_intake)
+                create(:efile_submission, :rejected, :for_state, data_source: second_intake)
 
                 post :update, params: params
 
