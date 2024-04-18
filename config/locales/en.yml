@@ -2366,6 +2366,16 @@ en:
           action: Send code
           email_address_label: Your email address (use an email you can access)
           title: Enter your email address
+      email_sign_up:
+        create:
+          action: Verify code
+          subtitle_html: We’ve sent your code to <strong>%{contact_info}</strong>.
+          title: Enter the code to continue
+          verification_code_label: Enter the 6-digit code
+        edit:
+          action: Send code
+          email_address_label: Your email address (use an email you can access)
+          title: Enter your email address
       esign_declaration:
         edit:
           already_submitted: You have already submitted your return.

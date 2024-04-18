@@ -27,7 +27,7 @@ class DocumentUploadGenerator < Rails::Generators::Base
 
   def generate_document_view
     template "document_upload_view.template",
-      "app/views/documents/#{controller_prefix.underscore}/edit.html.erb"
+      "app/views/documents/#{controller_prefix.underscore}/create.html.erb"
   end
 
   # "W-2" => "FormW2"

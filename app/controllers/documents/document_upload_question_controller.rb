@@ -31,7 +31,7 @@ module Documents
         redirect_to action: :edit
       else
         track_validation_error
-        render :edit
+        render :create
       end
     end
 

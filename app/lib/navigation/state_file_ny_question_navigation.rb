@@ -17,8 +17,9 @@ module Navigation
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
         Navigation::NavigationStep.new(StateFile::Questions::ContactPreferenceController),
         Navigation::NavigationStep.new(StateFile::Questions::PhoneNumberController),
-        Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
-        Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
+        Navigation::NavigationStep.new(StateFile::Questions::EmailSignUpController),
+        #Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
+        #Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
         Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [

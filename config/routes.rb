@@ -583,6 +583,7 @@ Rails.application.routes.draw do
         match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
         match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
+        resources :email_sign_up, only: [:edit, :create, :update], module: 'state_file/questions', path: 'questions/email-sign-up'
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do
@@ -591,8 +592,6 @@ Rails.application.routes.draw do
 
       scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
         scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        # TODO: ny_w2 route can be deleted once no intake has w2 as the current step
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
       end
 
       scope ':us_state', as: 'us', constraints: { us_state: :us } do

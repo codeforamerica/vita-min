@@ -1,0 +1,13 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.hidden_field :email_address %>
+    <h1 class="h2" id="main-question"><%= title %></h1>
+    <p><%= t(".subtitle_html", contact_info: @form.email_address) %></p>
+    <div class="blue-group">
+      <%= f.cfa_input_field(:verification_code, t(".verification_code_label"), classes: ["form-width--long"]) %>
+    </div>
+    <%= f.submit t(".action"), class: "button button--primary button--wide spacing-below-15"%>
+  <% end %>
+<% end %>
