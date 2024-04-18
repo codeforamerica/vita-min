@@ -2,6 +2,10 @@ module StateFile
   module Questions
     class EmailSignUpController < QuestionsController
 
+      def self.show?(intake)
+        intake.contact_preference == "email"
+      end
+
       def edit
         # Show the email address form
         super
@@ -26,7 +30,7 @@ module StateFile
           intake = current_intake
           existing_intake = get_existing_intake(intake)
           if existing_intake.present?
-            redirect_into_login(@form.email_address, intake, existing_intake)
+            redirect_into_login(@form.contact_info, intake, existing_intake)
             return
           end
           @form.save
@@ -58,9 +62,9 @@ module StateFile
         search.first
       end
 
-      def redirect_into_login(email_address, intake, existing_intake)
+      def redirect_into_login(contact_info, intake, existing_intake)
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(
-          email_address, @form.verification_code
+          @form.contact_info, @form.verification_code
         )
         @form.intake = existing_intake
         intake.destroy unless intake.id == existing_intake.id

@@ -584,6 +584,7 @@ Rails.application.routes.draw do
         match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
         resources :email_sign_up, only: [:edit, :create, :update], module: 'state_file/questions', path: 'questions/email-sign-up'
+        resources :phone_number_sign_up, only: [:edit, :create, :update], module: 'state_file/questions', path: 'questions/phone-number-sign-up'
       end
 
       scope ':us_state', as: 'az', constraints: { us_state: :az } do

@@ -3,12 +3,13 @@
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :create }, local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
-    <%= f.cfa_input_field(:email_address, t(".email_address_label"), classes: ["form-width--long"]) %>
+      <%= f.cfa_input_field(:phone_number, t(".phone_number_label"), classes: ["form-width--long"]) %>
     </div>
 
     <%= f.submit t(".action"), class: "button button--primary button--wide spacing-below-15" %>
   <% end %>
+
   <%= render 'state_file/questions/shared/verification_shortcut' %>
 <% end %>

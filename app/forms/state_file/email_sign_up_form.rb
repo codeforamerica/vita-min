@@ -10,6 +10,10 @@ module StateFile
       @intake.update(attributes_for(:intake))
     end
 
+    def contact_info
+      email_address
+    end
+
     def verification_code_valid?
       hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(email_address, verification_code)
       # Magic codes provide a way of bypassing security in a development context.
