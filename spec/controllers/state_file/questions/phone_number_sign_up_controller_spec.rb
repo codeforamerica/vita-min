@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StateFile::Questions::PhoneNumberController do
+RSpec.describe StateFile::Questions::PhoneNumberSignUpController do
   describe ".show?" do
     context "when contact preference is text message" do
       it "returns true" do

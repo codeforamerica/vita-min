@@ -18,9 +18,9 @@ module StateFile
         )
       end
 
-      def get_existing_intake(intake)
+      def get_existing_intake(intake, contact_info)
         search = intake.class.where.not(id: intake.id)
-        search = search.where(phone_number: intake.phone_number)
+        search = search.where(phone_number: contact_info)
         search.first
       end
 

@@ -28,7 +28,7 @@ module StateFile
         @form = initialized_update_form
         if @form.valid? && @form.verification_code_valid?
           intake = current_intake
-          existing_intake = get_existing_intake(intake)
+          existing_intake = get_existing_intake(intake, @form.contact_info)
           if existing_intake.present?
             redirect_into_login(@form.contact_info, intake, existing_intake)
             return
@@ -56,9 +56,9 @@ module StateFile
         )
       end
 
-      def get_existing_intake(intake)
+      def get_existing_intake(intake, contact_info)
         search = intake.class.where.not(id: intake.id)
-        search = search.where(email_address: intake.email_address)
+        search = search.where(email_address: contact_info)
         search.first
       end
 
