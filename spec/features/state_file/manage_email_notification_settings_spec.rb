@@ -25,6 +25,9 @@ RSpec.feature "Unsubscribing from email", active_job: true do
     email = ActionMailer::Base.deliveries.last
 
     html = Nokogiri::HTML(email.html_part.body.to_s)
+    puts "====== TRACE 001 ======="
+    puts html
+    puts "====== TRACE 002 ======="
     target_link = html.at("a:contains('here')")
     visit target_link["href"]
 
