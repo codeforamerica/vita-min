@@ -1586,8 +1586,18 @@ es:
           ¿Preguntas? Responde a este mensaje.
       post_deadline_reminder:
         email:
-          body: "Hola %{primary_first_name},\n\nNotamos que todavía no has enviado tu declaración de impuestos estatales con la cuenta asociada a este correo electrónico. Si enviaste tu declaración estatal de otra manera, o la enviaste con otro correo electrónico, puedes ignorar este mensaje.\n\nEste es un recordatorio que la fecha límite para enviar tu declaración estatal fue el 15 de abril, pero aún no es demasiado tarde para presentarla. Visita a https://www.fileyourstatetaxes.org/es/us/login-options para verificar el estado de tu declaración o completarla ahora. Debes enviar tu declaración tan pronto como posible para evitar cargos de presentaciones tardías de %{state_name}. Nuestros servicios cerrarán el 25 de abril. Después de esa fecha, ya no podrás presentar tu declaración a través de FileYourStateTaxes.\n\n¿Preguntas? Responde a este correo electrónico.\n\nAtentamente,\nEl equipo de FileYourStateTaxes"
-          subject: "Recordatorio final: FileYourStateTaxes cerrará el 25 de abril."
+          body: |-
+            Hola %{primary_first_name},
+
+            Notamos que todavía no has enviado tu declaración de impuestos estatales con la cuenta asociada a este correo electrónico. Si enviaste tu declaración estatal de otra manera, o la enviaste con otro correo electrónico, puedes ignorar este mensaje.
+
+            Este es un recordatorio que la fecha límite para enviar tu declaración estatal fue el 15 de abril, pero aún no es demasiado tarde para presentarla. Visita a https://www.fileyourstatetaxes.org/es/us/login-options para verificar el estado de tu declaración o completarla ahora. Debes enviar tu declaración tan pronto como posible para evitar cargos de presentaciones tardías de %{state_name}. Nuestros servicios cerrarán el 25 de abril. Después de esa fecha, ya no podrás presentar tu declaración a través de FileYourStateTaxes.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
         sms: |
           Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
           ¿Necesitas ayuda? Responde a este mensaje de texto.
