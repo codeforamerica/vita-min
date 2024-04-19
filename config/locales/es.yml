@@ -2328,7 +2328,12 @@ es:
           subtractions_225_military: Pago por combate militar
           subtractions_225_native_american: Exclusión de ingresos para Nativos Americanos
           subtractions_225_student_loan: Premios por condonación de préstamos estudiantiles
-      email_address:
+      email_sign_up:
+        create:
+          action: Verificar el código
+          subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
+          title: Ingresa el código para continuar
+          verification_code_label: Ingresa el código de 6 dígitos
         edit:
           action: Enviar el código
           email_address_label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
@@ -2538,7 +2543,12 @@ es:
             Lamentamos hacerte esperar. Tu declaración federal debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales.
             <br/><br/>
             Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada con un enlace para traerte de vuelta aquí.
-      phone_number:
+      phone_number_sign_up:
+        create:
+          action: Verificar el código
+          subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
+          title: Ingresa el código para continuar
+          verification_code_label: Ingresa el código de 6 dígitos
         edit:
           action: Enviar el código
           phone_number_label: Tu número de teléfono
@@ -2727,12 +2737,6 @@ es:
           delete_confirmation: "¿Estás seguro de que quieres eliminar este formulario 1099-G?"
           lets_review: "¡Excelente! Gracias por compartir esa información. Revisémosla."
           unemployment_compensation: 'Compensación por desempleo: $%{amount}'
-      verification_code:
-        edit:
-          action: " Verificar el código"
-          subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
-          title: Ingresa el código para continuar
-          verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
           box15_html: |

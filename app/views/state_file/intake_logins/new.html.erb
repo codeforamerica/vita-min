@@ -7,7 +7,7 @@
     <div class="blue-group">
       <%= f.cfa_input_field(@contact_method.to_sym, t(".#{@contact_method}.label"), classes: ["form-width--long"]) %>
     </div>
-    <%= f.submit t("state_file.questions.email_address.edit.action"), class: "button button--primary button--wide spacing-below-15" %>
+    <%= f.submit t("state_file.questions.email_sign_up.edit.action"), class: "button button--primary button--wide spacing-below-15" %>
   <% end %>
   <%= render 'state_file/questions/shared/verification_shortcut' %>
 <% end %>

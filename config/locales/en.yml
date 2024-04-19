@@ -2361,11 +2361,6 @@ en:
           subtractions_225_military: Military combat pay
           subtractions_225_native_american: Native American Income Exclusion
           subtractions_225_student_loan: Student loan forgiveness award
-      email_address:
-        edit:
-          action: Send code
-          email_address_label: Your email address (use an email you can access)
-          title: Enter your email address
       email_sign_up:
         create:
           action: Verify code
@@ -2376,16 +2371,6 @@ en:
           action: Send code
           email_address_label: Your email address (use an email you can access)
           title: Enter your email address
-      phone_number_sign_up:
-        create:
-          action: Verify code
-          subtitle_html: We’ve sent your code to <strong>%{contact_info}</strong>.
-          title: Enter the code to continue
-          verification_code_label: Enter the 6-digit code
-        edit:
-          action: Send code
-          phone_number_label: Your phone number
-          title: Enter your phone number
       esign_declaration:
         edit:
           already_submitted: You have already submitted your return.
@@ -2578,7 +2563,12 @@ en:
             We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
             <br/><br/>
             You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
-      phone_number:
+      phone_number_sign_up:
+        create:
+          action: Verify code
+          subtitle_html: We’ve sent your code to <strong>%{contact_info}</strong>.
+          title: Enter the code to continue
+          verification_code_label: Enter the 6-digit code
         edit:
           action: Send code
           phone_number_label: Your phone number
@@ -2766,12 +2756,6 @@ en:
           delete_confirmation: Are you sure you want to delete this 1099-G?
           lets_review: Great! Thanks for sharing that information. Let’s review.
           unemployment_compensation: 'Unemployment compensation: $%{amount}'
-      verification_code:
-        edit:
-          action: Verify code
-          subtitle_html: We’ve sent your code to <strong>%{contact_info}</strong>.
-          title: Enter the code to continue
-          verification_code_label: Enter the 6-digit code
       w2:
         edit:
           box15_html: |
