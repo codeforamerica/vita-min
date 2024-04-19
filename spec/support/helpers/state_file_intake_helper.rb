@@ -38,8 +38,7 @@ module StateFileIntakeHelper
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
 
-
-      expect(page).to have_text I18n.t("state_file.questions.phone_number_sign_up.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.phone_number_sign_up.create.title")
       expect(page).to have_text "We’ve sent your code to (415) 333-4444."
 
       perform_enqueued_jobs
