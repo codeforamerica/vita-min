@@ -39,7 +39,7 @@ module StateFileIntakeHelper
       click_on "Send code"
 
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.phone_number_sign_up.edit.title")
       expect(page).to have_text "We’ve sent your code to (415) 333-4444."
 
       perform_enqueued_jobs
@@ -49,10 +49,10 @@ module StateFileIntakeHelper
       click_on "Email me a code"
 
       expect(page).to have_text "Enter your email address"
-      fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
+      fill_in I18n.t("state_file.questions.email_sign_up.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.email_sign_up.create.title")
       expect(page).to have_text "We’ve sent your code to someone@example.com."
 
       perform_enqueued_jobs

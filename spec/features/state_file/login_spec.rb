@@ -34,7 +34,7 @@ RSpec.feature "Logging in with an existing account" do
     expect(page).to have_text "Sign in with your phone number"
     fill_in "Your phone number", with: phone_number
     perform_enqueued_jobs do
-      click_on I18n.t("state_file.questions.email_address.edit.action")
+      click_on I18n.t("state_file.questions.email_sign_up.edit.action")
     end
 
     expect(TwilioService).to have_received(:send_text_message).with(
@@ -62,7 +62,7 @@ RSpec.feature "Logging in with an existing account" do
     expect(page).to have_text "Sign in with your email address"
     fill_in I18n.t("state_file.intake_logins.new.email_address.label"), with: email_address
     perform_enqueued_jobs do
-      click_on I18n.t("state_file.questions.email_address.edit.action")
+      click_on I18n.t("state_file.questions.email_sign_up.edit.action")
     end
 
     mail = ActionMailer::Base.deliveries.last

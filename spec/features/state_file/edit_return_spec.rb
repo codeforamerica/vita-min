@@ -70,7 +70,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     expect(page).to have_text "Sign in with your email address"
     fill_in I18n.t("state_file.intake_logins.new.email_address.label"), with: email_address
     perform_enqueued_jobs do
-      click_on I18n.t("state_file.questions.email_address.edit.action")
+      click_on I18n.t("state_file.questions.email_sign_up.edit.action")
     end
 
     mail = ActionMailer::Base.deliveries.last
