@@ -1612,8 +1612,8 @@ en:
           Questions? Reply to this text.
       post_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes were due by April 15. Make sure to submit your state tax return as soon as possible in order to avoid late filing fees from %{state_name}. \n\nFileYourStateTaxes will be closing its services for the year on April 25. \n\nGo to https://www.fileyourstatetaxes.org/es/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
-          subject: Make sure to finish filing your state taxes as soon as possible.
+          body: "Hi %{primary_first_name},\n\nWe noticed that you have not submitted a state tax return yet with the account associated with this email address. If you submitted your state return another way, or you submitted your return under a different email address, you can disregard this message.\n\nThis is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/us/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from [STATE NAME]. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team"
+          subject: "Final Reminder: FileYourStateTaxes closes April 25."
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
           Need help? Reply to this text.
