@@ -40,7 +40,7 @@
   <% if owe_taxes && !before_withdrawal_date_deadline? %>
     <p>
       <%= t(".after_deadline_default_withdrawal_info",
-             with_drawal_deadline_date: I18n.l(withdrawal_date_deadline.to_date, format: :medium, locale: locale),
+             withdrawal_deadline_date: I18n.l(withdrawal_date_deadline.to_date, format: :medium, locale: locale),
              with_drawal_deadline_year: withdrawal_date_deadline.year) %>
     </p>
   <% end %>
