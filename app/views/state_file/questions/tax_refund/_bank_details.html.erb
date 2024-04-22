@@ -3,13 +3,16 @@
   <p class="text--small"><%= t(".foreign_accounts") %></p>
   <div class="form-group-tight">
     <% if owe_taxes %>
+      <%= form.hidden_field :app_time, value: app_time %>
       <%= form.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
       <% if before_withdrawal_date_deadline? %>
         <div class="date-select">
           <% year = MultiTenantService.new(:statefile).current_tax_year + 1 %>
           <%= form.cfa_date_select(
                 :date_electronic_withdrawal,
-                t(".date_withdraw_text"),
+                t(".date_withdraw_text",
+                  withdrawal_deadline_date: I18n.l(withdrawal_date_deadline.to_date, format: :medium, locale: locale),
+                  with_drawal_deadline_year: withdrawal_date_deadline.year),
                 options: {
                   start_year: year,
                   end_year: year,

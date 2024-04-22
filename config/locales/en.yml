@@ -258,7 +258,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date on or before April 15, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before April 15, %{year}
   general:
     NA: N/A
     about: About
@@ -2671,6 +2671,7 @@ en:
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
