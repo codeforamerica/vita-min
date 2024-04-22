@@ -75,6 +75,27 @@ RSpec.describe StateFile::Questions::EmailSignUpController do
       )
     end
 
+    context "when the magic verification code is enabled" do
+      before do
+        allow(Rails.configuration).to receive(:allow_magic_verification_code).and_return(true)
+      end
+      let(:request_params) do
+        result = super()
+        result[:state_file_email_sign_up_form][:verification_code] = "000000"
+        result
+      end
+
+      it "will accept the magic verification code as valid" do
+        put :update, params: request_params
+        expect(response).to redirect_to(
+          StateFile::Questions::CodeVerifiedController.to_path_helper(
+            action: :edit,
+            us_state: "az"
+          )
+        )
+      end
+    end
+
     context "with an intake matching an existing intake" do
       before do
         create(:state_file_az_intake,
