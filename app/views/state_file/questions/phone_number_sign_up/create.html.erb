@@ -4,7 +4,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field :phone_number %>
     <h1 class="h2" id="main-question"><%= title %></h1>
-    <p><%= t(".subtitle_html", contact_info: @form.phone_number) %></p>
+    <p><%= t(".subtitle_html", contact_info: PhoneParser.formatted_phone_number(@form.phone_number)) %></p>
     <div class="blue-group">
       <%= f.cfa_input_field(:verification_code, t(".verification_code_label"), classes: ["form-width--long"]) %>
     </div>

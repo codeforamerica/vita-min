@@ -11,7 +11,7 @@ module StateFile
     end
 
     def contact_info
-      phone_number
+      PhoneParser.formatted_phone_number(phone_number)
     end
 
     def normalize_phone_number
