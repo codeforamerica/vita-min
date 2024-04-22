@@ -26,6 +26,6 @@ class YesNoQuestionGenerator < Rails::Generators::NamedBase
 
   def generate_question_view
     template "yes_no_question_view.template",
-             "app/views/questions/#{name.underscore}/create.html.erb"
+             "app/views/questions/#{name.underscore}/edit.html.erb"
   end
 end
