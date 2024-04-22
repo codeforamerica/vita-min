@@ -91,7 +91,7 @@ class StateFileAzIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
-  enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
+  enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated # TODO: remove this and add was_incarcerated to ignored_columns
   enum primary_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_was_incarcerated
   enum spouse_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_incarcerated
   enum ssn_no_employment: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ssn_no_employment
@@ -189,8 +189,8 @@ class StateFileAzIntake < StateFileBaseIntake
     count
   end
 
+  # TODO: remove once column ignored
   def use_old_incarcerated_column?
-    # TODO: remove once column ignored
     !was_incarcerated_unfilled? && primary_was_incarcerated_unfilled?
   end
 
