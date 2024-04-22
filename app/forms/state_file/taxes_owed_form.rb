@@ -10,11 +10,15 @@ module StateFile
                        :withdraw_amount
 
     set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation
-    set_attributes_for :date, :date_electronic_withdrawal_month, :date_electronic_withdrawal_year, :date_electronic_withdrawal_day
+    set_attributes_for :date,
+                       :date_electronic_withdrawal_month,
+                       :date_electronic_withdrawal_year,
+                       :date_electronic_withdrawal_day,
+                       :post_deadline_withdrawal_date
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
-      # validate :date_electronic_withdrawal_is_valid_date
-      # validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? }
+      validate :date_electronic_withdrawal_is_valid_date
+      validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? && !post_deadline_withdrawal_date.present? }
       validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
       validate :withdraw_amount_higher_than_owed?
     end
@@ -37,11 +41,22 @@ module StateFile
     private
 
     def date_electronic_withdrawal
-      Time.now.in_time_zone('Eastern Time (US & Canada)').to_date
+      if post_deadline_withdrawal_date.present?
+        post_deadline_withdrawal_date
+      else
+        parse_date_params(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day)
+      end
     end
 
     def date_electronic_withdrawal_is_valid_date
-      valid_text_date(Time.now.year.to_s, Time.now.month.to_s, Time.now.day.to_s, :date_electronic_withdrawal)
+      if post_deadline_withdrawal_date.present?
+        Date.parse(post_deadline_withdrawal_date)
+      else
+        valid_text_date(date_electronic_withdrawal_year,
+                        date_electronic_withdrawal_month,
+                        date_electronic_withdrawal_day,
+                        :date_electronic_withdrawal)
+      end
     end
 
     def withdraw_amount_higher_than_owed?
@@ -55,13 +70,9 @@ module StateFile
     end
 
     def withdrawal_date_before_deadline
-      unless date_electronic_withdrawal.between?(DateTime.current.to_date, withdrawal_date_deadline)
+      unless date_electronic_withdrawal.between?(DateTime.current.to_date, withdrawal_date_deadline) || post_deadline_withdrawal_date.present?
         self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline", year: withdrawal_date_deadline.year))
       end
-    end
-
-    def withdrawal_date_deadline
-      DateTime.parse("April 15th, #{MultiTenantService.new(:statefile).current_tax_year + 1}")
     end
   end
 end

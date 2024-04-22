@@ -34,7 +34,6 @@ module StateFile
       end
       helper_method :pay_mail_online_text
 
-
       private
 
       def card_postscript; end

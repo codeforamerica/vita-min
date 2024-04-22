@@ -2647,7 +2647,7 @@ es:
       tax_refund:
         bank_details:
           account_number: Número de cuenta
-          after-deadline-default-withdrawl-info: Debido al hecho de que estás enviando tu declaración el 15 de abril o después, el estado retirará tu pago tan pronto como se procese tu declaración.
+          after_deadline_default_withdrawal_info: Debido al hecho de que estás enviando tu declaración el %{with_drawal_deadline_date}, %{with_drawal_deadline_year} o después, el estado retirará tu pago tan pronto como se procese tu declaración.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
