@@ -7,7 +7,7 @@ module StateFile
     validates :phone_number, e164_phone: true
 
     def save
-      @intake.update(attributes_for(:intake))
+      @intake.update(attributes_for(:intake).merge(phone_number_verified_at: DateTime.now))
     end
 
     def contact_info

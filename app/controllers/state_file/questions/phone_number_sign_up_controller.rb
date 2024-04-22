@@ -24,6 +24,17 @@ module StateFile
         search.first
       end
 
+      def after_update_success
+        messaging_service = StateFile::MessagingService.new(
+          message: StateFile::AutomatedMessage::Welcome,
+          intake: current_intake,
+          sms: true,
+          email: false,
+          body_args: {intake_id: current_intake.id}
+        )
+        messaging_service.send_message
+      end
+
     end
   end
 end

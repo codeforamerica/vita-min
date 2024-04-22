@@ -7,7 +7,7 @@ module StateFile
     validates :email_address, presence: true
 
     def save
-      @intake.update(attributes_for(:intake))
+      @intake.update(attributes_for(:intake).merge(email_address_verified_at: DateTime.now))
     end
 
     def contact_info

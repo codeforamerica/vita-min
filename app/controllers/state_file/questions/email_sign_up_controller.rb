@@ -79,6 +79,17 @@ module StateFile
           redirect_to(next_path)
         end
       end
+
+      def after_update_success
+        messaging_service = StateFile::MessagingService.new(
+          message: StateFile::AutomatedMessage::Welcome,
+          intake: current_intake,
+          sms: false,
+          email: true,
+          body_args: {intake_id: current_intake.id}
+        )
+        messaging_service.send_message
+      end
     end
   end
 end
