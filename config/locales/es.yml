@@ -1727,7 +1727,7 @@ es:
           ¡Estamos aquí para ayudarle!
           Su equipo fiscal en GetYourRefund
         subject: 'GetYourRefund: ¡Ha enviado correctamente su información fiscal!'
-      sms: 'Hola <<Cliente.PreferredName>>, Su información fiscal se envió correctamente a GetYourRefund. Su ID de cliente es <<Client.ClientID>>. Su especialista en impuestos revisará su información, se comunicará con usted y programará una llamada telefónica requerida antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.'
+      sms: 'Hola <<Client.PreferredName>>, Su información fiscal se envió correctamente a GetYourRefund. Su ID de cliente es <<Client.ClientID>>. Su especialista en impuestos revisará su información, se comunicará con usted y programará una llamada telefónica requerida antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.'
     surveys:
       completion:
         email:
