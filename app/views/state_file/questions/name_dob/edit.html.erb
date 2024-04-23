@@ -13,6 +13,7 @@
       <p>
         <%= t(".primary_name_dob", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
       </p>
+      <%= f.warning_for_text_input("state_file_name_dob_form_primary_first_name", @primary_first_name, t(".primary_name_error")) %>
       <%= f.cfa_input_field(:primary_first_name, t("general.first_name"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_middle_initial, t(".middle_initial"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:primary_last_name, t(".last_name"), classes: ["form-width--long"]) %>

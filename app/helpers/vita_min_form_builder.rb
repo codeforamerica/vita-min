@@ -383,4 +383,13 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       "data-permitted": permitted_values.to_json
     )
   end
+
+  def warning_for_text_input(element_id, permitted_text, msg)
+    @template.content_tag(:div, msg,
+                          class: "warning warning-for-text-input",
+                          "data-warning-for-text-input": element_id,
+                          style: "display:none",
+                          "data-permitted": permitted_text.to_json
+    )
+  end
 end
