@@ -1475,7 +1475,7 @@ es:
       sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     in_progress:
       email:
-        body: |+
+        body: |
           Hola <<Client.PreferredName>>,
 
           Nos dimos cuenta de que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe donde se quedó aquí <<Client.LoginLink>>.
@@ -1486,13 +1486,9 @@ es:
 
           ¡Estamos aquí para ayudarle!
           Su Equipo de Asistencia de Preparación de Impuestos en GetYourRefund
-
-        subject: 'Bienvenido a GetYourRefund: ID de Cliente'
+        subject: 'GetYourRefund: Tienes un envío en curso'
       sms:
-        body: |
-          Hola <<Client.PreferredName>> No ha terminado de llenar la información que necesitamos para preparar sus impuestos en GetYourRefund. Continúe donde se quedó aquí <<Client.LoginLink>>. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje. Si tiene alguna pregunta, responda a este mensaje.
-
-          Su equipo fiscal en GetYourRefund
+        body: Hola <<Client.PreferredName>>, no has completado de proporcionar la información que necesitamos para preparar tus impuestos en GetYourRefund. Continúe donde lo dejó aquí <<Client.LoginLink>>. Su ID de cliente es <<Client.ClientId>>. Si tiene alguna pregunta, responda a este mensaje.
     intercom_forwarding:
       email:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
@@ -1720,7 +1716,7 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>  Este es un dato importante de su cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Por favor, no pierda de vista este número y no borre este mensaje.
+          ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>
 
           Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}.
 
@@ -1730,11 +1726,9 @@ es:
 
           ¡Estamos aquí para ayudarle!
           Su equipo fiscal en GetYourRefund
-        subject: 'Bienvenido a GetYourRefund: ID de cliente'
+        subject: 'GetYourRefund: ¡Ha enviado correctamente su información fiscal!'
       sms: |
-        Hola <<Client.PreferredName>>, Su información fiscal ha sido enviada correctamente a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje.
-        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.
-        Su equipo fiscal en GetYourRefund
+        Hola <<Cliente.PreferredName>>, Su información fiscal se envió correctamente a GetYourRefund. Su ID de cliente es <<Client.ClientID>>. Su especialista en impuestos revisará su información, se comunicará con usted y programará una llamada telefónica requerida antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.
     surveys:
       completion:
         email:

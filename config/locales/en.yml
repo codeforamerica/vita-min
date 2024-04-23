@@ -1506,12 +1506,9 @@ en:
 
           We're here to help!
           Your Tax Team at GetYourRefund
-        subject: 'Welcome to GetYourRefund: Client ID'
+        subject: 'GetYourRefund: You have a submission in progress'
       sms:
-        body: |
-          Hello <<Client.PreferredName>> you haven't completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message.
-
-          Your tax team at GetYourRefund
+        body: Hello <<Client.PreferredName>> you haven''t completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
@@ -1762,7 +1759,7 @@ en:
         body: |
           Hello <<Client.PreferredName>>,
 
-          Your tax information has been successfully submitted! <strong>Your Client ID is <<Client.ClientId>>.</strong> This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
+          Your tax information has been successfully submitted! <strong>Your Client ID is <<Client.ClientId>>.</strong>
 
           Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}.
 
@@ -1772,11 +1769,9 @@ en:
 
           We’re here to help!
           Your tax team at GetYourRefund
-        subject: 'Welcome to GetYourRefund: Client ID'
+        subject: 'GetYourRefund: You have successfully submitted your tax information!'
       sms: |
-        Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
-        Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
-        Your tax team at GetYourRefund
+        Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. Your client ID is <<Client.ClientID>>. Your tax specialist will review your information and reach out and schedule a required phone call before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
     surveys:
       completion:
         email:
