@@ -4850,7 +4850,6 @@ en:
         body: We're sorry we're experiencing a high volume of clients right now. We can offer a free alternative option below to help you file your taxes today!
         continue_to_diy: Continue to File Myself
         file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
-        return_to_homepage: Return to homepage
         title: Wow, it looks like we are at capacity right now.
         warning_html: "<b>A friendly reminder that the filing deadline is April 15th.</b> We recommend filing as soon as possible."
       backtaxes:

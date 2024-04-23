@@ -4853,7 +4853,6 @@ es:
         body: Lamentamos que estemos experimentando un gran volumen de clientes en este momento. ¡Podemos ofrecerle una opción alternativa gratuita a continuación para ayudarlo a presentar sus impuestos hoy!
         continue_to_diy: Continuar a File Myself--declarar yo mismo
         file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
-        return_to_homepage: Regresar a la página principal
         title: Vaya, parece que estamos al límite de capacidad en este momento.
         warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el 15 de abril.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
