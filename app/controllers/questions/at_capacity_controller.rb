@@ -4,6 +4,7 @@ module Questions
     layout "application"
 
     def self.show?(intake)
+      true
       intake.client.routing_method_at_capacity?
     end
 

@@ -4847,12 +4847,12 @@ en:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
-        body_html:
-        - If you want to work with a tax preparer, try again in a few days at <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
-        - If you want to file your taxes today, you can file on your own with our partner's free tax filing software. This is our quickest option to file your taxes and collect the tax credits you are owed!
+        body: We're sorry we're experiencing a high volume of clients right now. We can offer a free alternative option below to help you file your taxes today!
         continue_to_diy: Continue to File Myself
+        file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
         return_to_homepage: Return to homepage
-        title: We're sorry! GetYourRefund's tax preparation partners are currently at capacity.
+        title: Wow, it looks like we are at capacity right now.
+        warning_html: "<b>A friendly reminder that the filing deadline is April 15th.</b> We recommend filing as soon as possible."
       backtaxes:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?

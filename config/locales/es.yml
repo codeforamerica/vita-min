@@ -4850,12 +4850,12 @@ es:
           one: "¿Reportó una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
-        body_html:
-        - Si quiere trabajar con un preparador de impuestos, inténtelo de nuevo dentro de unos días en <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
-        - Si quiere presentar sus impuestos hoy, puede hacerlo por su cuenta con el software gratuito de declaración de impuestos de nuestro socio. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que le corresponden!
+        body: Lamentamos que estemos experimentando un gran volumen de clientes en este momento. ¡Podemos ofrecerle una opción alternativa gratuita a continuación para ayudarlo a presentar sus impuestos hoy!
         continue_to_diy: Continuar a File Myself--declarar yo mismo
+        file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
         return_to_homepage: Regresar a la página principal
-        title: "¡Lo sentimos! Los socios de preparación de impuestos de GetYourRefund están actualmente al límite de su capacidad."
+        title: Vaya, parece que estamos al límite de capacidad en este momento.
+        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el 15 de abril.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
