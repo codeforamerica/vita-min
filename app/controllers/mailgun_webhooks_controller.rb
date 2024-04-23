@@ -163,9 +163,17 @@ class MailgunWebhooksController < ActionController::Base
   def re_optin_when_client_replies
     sender_email_address = parse_valid_email_address(from: params["from"], sender: params["sender"])
     opted_out_state_intakes = StateFileBaseIntake.opted_out_state_file_intakes(sender_email_address)
+    opted_out_gyr_intakes = Intake::GyrIntake.opted_out_gyr_intakes(sender_email_address)
+
     unless opted_out_state_intakes.empty?
       opted_out_state_intakes.each do |intake|
         intake.update(unsubscribed_from_email: false)
+      end
+    end
+
+    unless opted_out_gyr_intakes.empty?
+      opted_out_gyr_intakes.each do |intake|
+        intake.update(email_notification_opt_in: 'yes')
       end
     end
   end
