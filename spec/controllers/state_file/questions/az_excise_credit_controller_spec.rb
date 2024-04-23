@@ -129,6 +129,33 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
     end
   end
 
+  describe "#edit" do
+    render_views
+
+    context "single filer" do
+      it "shows fields for primary filer only" do
+        get :edit, params: { us_state: "az" }
+
+        expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
+        expect(response.body).not_to have_text I18n.t("state_file.questions.az_excise_credit.edit.spouse_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
+      end
+    end
+
+    context "mfj filers" do
+      let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
+      before do
+        sign_in intake
+      end
+
+      it "shows fields for primary and spouse" do
+        get :edit, params: { us_state: "az" }
+
+        expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
+        expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.spouse_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
+      end
+    end
+  end
+
   describe "#update" do
     # use the return_to_review_concern shared example if the page
     # should skip to the review page when the return_to_review param is present
@@ -138,11 +165,26 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
         {
           us_state: "az",
           state_file_az_excise_credit_form: {
+            primary_was_incarcerated: "yes",
+            ssn_no_employment: "yes",
+            household_excise_credit_claimed: "no",
+          }
+        }
+      end
+    end
+
+    context "handling people who had the old page open when we deployed" do
+      it "rerenders the page when the params are the old ones" do
+        post :update, params: {
+          us_state: "az",
+          state_file_az_excise_credit_form: {
             was_incarcerated: "yes",
             ssn_no_employment: "yes",
             household_excise_credit_claimed: "yes",
           }
         }
+
+        expect(response).to render_template :edit
       end
     end
   end

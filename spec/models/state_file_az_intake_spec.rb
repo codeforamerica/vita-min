@@ -31,7 +31,6 @@
 #  hashed_ssn                            :string
 #  household_excise_credit_claimed       :integer          default("unfilled"), not null
 #  household_excise_credit_claimed_amt   :integer
-#  last_completed_step                   :string
 #  last_sign_in_at                       :datetime
 #  last_sign_in_ip                       :inet
 #  locale                                :string           default("en")
@@ -47,7 +46,7 @@
 #  primary_last_name                     :string
 #  primary_middle_initial                :string
 #  primary_suffix                        :string
-#  primary_was_incarcerated              :integer          default(0), not null
+#  primary_was_incarcerated              :integer          default("unfilled"), not null
 #  prior_last_names                      :string
 #  raw_direct_file_data                  :text
 #  referrer                              :string
@@ -61,7 +60,7 @@
 #  spouse_last_name                      :string
 #  spouse_middle_initial                 :string
 #  spouse_suffix                         :string
-#  spouse_was_incarcerated               :integer          default(0), not null
+#  spouse_was_incarcerated               :integer          default("unfilled"), not null
 #  ssn_no_employment                     :integer          default("unfilled"), not null
 #  tribal_member                         :integer          default("unfilled"), not null
 #  tribal_wages                          :integer
@@ -207,6 +206,63 @@ describe StateFileAzIntake do
     end
   end
 
+  describe "#disqualified_from_excise_credit_fyst?" do
+    let(:intake) { build(:state_file_az_intake, ssn_no_employment: "no") }
+    let(:fake_df_data) { instance_double(DirectFileData) }
+    before do
+      allow(intake).to receive(:direct_file_data).and_return fake_df_data
+      allow(fake_df_data).to receive(:claimed_as_dependent?).and_return false
+    end
+
+    # TODO: remove when old column is ignored
+    context "has old column" do
+      it "returns false if not incarcerated" do
+        intake.update(was_incarcerated: "no")
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq false
+      end
+
+      it "returns true if incarcerated" do
+        intake.update(was_incarcerated: "yes")
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq true
+      end
+
+      it "returns true if old incarcerated column filled out and credit claimed is yes" do
+        intake.update(was_incarcerated: "no", household_excise_credit_claimed: "yes")
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq true
+      end
+    end
+
+    context "has new columns" do
+      before do
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no", household_excise_credit_claimed: "yes", household_excise_credit_claimed_amt: 50)
+      end
+
+      it "returns false if neither filer was incarcerated" do
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq false
+      end
+
+      it "returns false if only one filer incarcerated" do
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "yes")
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq false
+      end
+
+      it "returns true if both filers were incarcerated" do
+        intake.update(primary_was_incarcerated: "yes", spouse_was_incarcerated: "yes")
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq true
+      end
+
+      it "returns true if claimed as dependent" do
+        allow(fake_df_data).to receive(:claimed_as_dependent?).and_return true
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq true
+      end
+
+      it "returns true if ssn_no_employment is yes" do
+        intake.update(ssn_no_employment: "yes")
+        expect(intake.disqualified_from_excise_credit_fyst?).to eq true
+      end
+    end
+  end
+
   describe 'federal_dependent_counts' do
     let(:intake) { create :state_file_az_intake }
 
@@ -301,21 +357,55 @@ describe StateFileAzIntake do
 
   end
 
-  describe 'ask_whether_incarcerated' do
+  describe "disqualified_from_excise_credit_df?" do
     let(:intake) { create :state_file_az_intake }
+    before do
+      intake.direct_file_data.fed_agi = 10000
+      intake.direct_file_data.primary_ssn = '123456789'
+    end
 
-    context "when should ask" do
-      it 'asks whether incarcerated' do
+    context "when fed agi is under limit for excise credit" do
+      it "they are not disqualified" do
         intake.direct_file_data.fed_agi = 10000
-        expect(intake.ask_whether_incarcerated?).to eq true
+        expect(intake.disqualified_from_excise_credit_df?).to eq false
       end
     end
 
-    context "when should not ask" do
-      it 'does not ask whether incarcerated' do
+    context "when fed agi is over limit for excise credit" do
+      it "they are disqualified" do
         intake.direct_file_data.fed_agi = 20000
-        expect(intake.ask_whether_incarcerated?).to eq false
+        expect(intake.disqualified_from_excise_credit_df?).to eq true
       end
+    end
+
+    context "when client does not have a valid SSN" do
+      it "they are disqualified" do
+        intake.direct_file_data.primary_ssn = '912555678'
+        expect(intake.disqualified_from_excise_credit_df?).to eq true
+      end
+    end
+
+    context "when client has a valid SSN" do
+      it "they are not disqualified" do
+        intake.direct_file_data.primary_ssn = '123456789'
+        expect(intake.disqualified_from_excise_credit_df?).to eq false
+      end
+    end
+  end
+
+  describe "incarcerated_filer_count" do
+    context "TEMPORARY, accepts old was_incarcerated_column" do
+      it "returns 2 when yes and 0 when no" do
+        expect(create(:state_file_az_intake, was_incarcerated: "yes").incarcerated_filer_count).to eq 2
+        expect(create(:state_file_az_intake, was_incarcerated: "no").incarcerated_filer_count).to eq 0
+      end
+    end
+
+    it "returns the number of filers who were incarcerated" do
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "no", spouse_was_incarcerated: "no").incarcerated_filer_count).to eq 0
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "yes", spouse_was_incarcerated: "no").incarcerated_filer_count).to eq 1
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "no", spouse_was_incarcerated: "yes").incarcerated_filer_count).to eq 1
+      expect(create(:state_file_az_intake, primary_was_incarcerated: "yes", spouse_was_incarcerated: "yes").incarcerated_filer_count).to eq 2
     end
   end
 

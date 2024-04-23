@@ -36,24 +36,52 @@ RSpec.describe Questions::FinalInfoController do
           end
 
           context "with english locale" do
-            it "sends a success email in the correct language" do
-              post :update, params: params
-              expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-                client: client,
-                message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
-                locale: :en
-              )
+            let(:fake_time) { Rails.configuration.tax_deadline + 1.minute }
+
+            context "after the tax deadline" do
+              it "sends a success email with the October 8th date" do
+                Timecop.freeze(fake_time) do
+                  post :update, params: params
+                end
+                expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                  client: client,
+                  message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
+                  locale: :en,
+                  body_args: { end_of_docs_date: "October 8th"}
+                )
+              end
+            end
+
+            context "before the tax deadline" do
+              let(:fake_time) { Rails.configuration.tax_deadline - 1.minute }
+
+              it "sends a success email with the April 1st date" do
+                Timecop.freeze(fake_time) do
+                  post :update, params: params
+                end
+                expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
+                  client: client,
+                  message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
+                  locale: :en,
+                  body_args: { end_of_docs_date: "April 1"}
+                )
+              end
             end
           end
 
           context "with spanish locale" do
+            let(:fake_time) { Rails.configuration.tax_deadline + 1.minute }
+
             it "sends a success email in the correct language" do
-              post :update, params: params.merge(locale: "es")
+              Timecop.freeze(fake_time) do
+                post :update, params: params.merge(locale: "es")
+              end
 
               expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
                 client: client,
                 message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
-                locale: :es
+                locale: :es,
+                body_args: { end_of_docs_date: "8 de octubre"}
               )
             end
           end

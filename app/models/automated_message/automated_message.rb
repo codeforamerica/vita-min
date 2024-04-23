@@ -5,5 +5,10 @@ module AutomatedMessage
     def self.send_only_once?
       false
     end
+
+    def self.require_client_account?
+      false
+    end
+
   end
 end

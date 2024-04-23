@@ -8,3 +8,5 @@
 */5 * * * * bundle exec rake worker_heartbeat:perform
 */10 * * * * bundle exec rake efile:poll_and_get_acknowledgments
 0 17 * * * bundle exec rake state_file:reminder_to_finish_state_return
+0 19 23 4 * bundle exec rake state_file:post_deadline_reminder
+0 21 23 4 * bundle exec rake send_reject_resolution_reminder_notifications:send

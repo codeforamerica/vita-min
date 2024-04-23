@@ -225,6 +225,7 @@ es:
       blank: No puede estar en blanco.
       invalid: es invalido
       only_letters: Sólo se aceptan cartas
+      round_to_whole_number: redondea al número entero más próximo
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -1583,6 +1584,45 @@ es:
           Hola, ¡Gracias por usar FileYourStateTaxes! Todos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, inicia sesión aquí: %{login_link}
 
           ¿Preguntas? Responde a este mensaje.
+      post_deadline_reminder:
+        email:
+          body: |-
+            Hola %{primary_first_name},
+
+            Notamos que todavía no has enviado tu declaración de impuestos estatales con la cuenta asociada a este correo electrónico. Si enviaste tu declaración estatal de otra manera, o la enviaste con otro correo electrónico, puedes ignorar este mensaje.
+
+            Este es un recordatorio que la fecha límite para enviar tu declaración estatal fue el 15 de abril, pero aún no es demasiado tarde para presentarla. Visita a https://www.fileyourstatetaxes.org/es/us/login-options para verificar el estado de tu declaración o completarla ahora. Debes enviar tu declaración tan pronto como posible para evitar cargos de presentaciones tardías de %{state_name}. Nuestros servicios cerrarán el 25 de abril. Después de esa fecha, ya no podrás presentar tu declaración a través de FileYourStateTaxes.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
+        sms: |
+          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
+          ¿Necesitas ayuda? Responde a este mensaje de texto.
+      pre_deadline_reminder:
+        email:
+          body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/en/us/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
+          subject: "¡No olvides terminar tu declaración de impuestos estatales antes del 15 de abril!"
+        sms: |
+          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/en/us/login-options para terminarlos ahora.
+          ¿Necesitas ayuda? Responde a este mensaje de texto.
+      reject_resolution_reminder:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Como recordatorio, tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar cargos por presentación tardía del estado de %{state_name}.
+
+            Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: "¡Toma acción en tu declaración estatal de %{state_name} rechazada!"
+        sms: Hola %{primary_first_name} - Te queremos recordar que tu declaración de impuestos estatales de %{state_name} fue rechazada. Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}. Asegúrate de tomar acción lo más pronto posible para evitar cargos por presentación tardía. Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril. ¿Preguntas? Responde a este mensaje.
       rejected:
         email:
           body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -1593,6 +1633,20 @@ es:
           Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
 
           ¿Preguntas? Responde a este mensaje.
+      reminder_apology:
+        email:
+          body: |
+            Hola %{primary_first_name},
+
+            Debido a un error, algunos usuarios de FileYourStateTaxes que ya enviaron sus declaraciones de impuestos estatales recibieron un mensaje hoy recordándoles que la fecha límite de declarar es el 15 de abril.
+
+            Si has recibido una noticia diciendo que tu declaración fue aceptada, puedes ignorar el mensaje recordatorio que hayas recibido hoy. Puedes confirmar el estatus de tu declaración visitando fileyourstatetaxes.org/es/us/login-options e ingresando a tu cuenta.
+
+            Nos disculpamos sinceramente por la confusión y el estrés que esto haya causado.
+
+            Gracias,
+            FileYourStateTaxes
+          subject: Favor de ignorar el mensaje recordatorio de FileYourStateTaxes
       still_processing:
         email:
           body: |
@@ -1988,6 +2042,7 @@ es:
         ssn_label: Ingresa tu número de Seguro Social o ITIN. Por ejemplo, 123-45-6789.
         title: Código verificado. Se necesita autenticación para continuar.
       enter_verification_code:
+        code_sent_to_closed_html: Hemos enviado su código a %{contact_info}. Si no recibió un código y necesita ayuda para volver a suscribirse, envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         code_sent_to_html: Te enviamos tu código a %{contact_info}. Si no recibiste un código y necesitas ayuda para volver a suscribirte, chatea con nosotros.
         enter_6_digit_code: Ingresa el código de 6 dígitos
         title: Ingresa el código para continuar
@@ -2044,14 +2099,15 @@ es:
             other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
+          primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+          spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
-          was_incarcerated:
-            many: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-            one: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-            other: "¿Tú o tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
+        update:
+          page_changed_notice: "¡Lo sentimos, esta página ha cambiado! Por favor responda las preguntas otra vez."
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2325,12 +2381,17 @@ es:
           title: Ahora completemos tu declaración de impuestos estatales
       landing_page:
         edit:
+          already_filed_html: "¿Ya presentó tus impuestos estatales con nosotros? <strong>Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.</strong>"
           already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
+              Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
             supported_by: Respaldada por el estado de Arizona
             title: Presenta tus impuestos estatales de Arizona sin costo
           continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
+          download_your_record: Descargue tu registro
           help_text_html: |
             <strong>Lo que necesitarás para comenzar</strong>
             <br />
@@ -2344,9 +2405,13 @@ es:
           not_you: "¿No es %{user_name}?"
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
+              Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
             supported_by: Respaldada por el estado de Nueva York
             title: Presenta tus impuestos Estatales de Nueva York sin costo
           start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+          title_closed: Nuestro servicio gratuito de presentación de impuestos %{state_name} está cerrado por temporada
           welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:
@@ -2517,7 +2582,9 @@ es:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Verifica el estado</a> de tu reembolso.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
+          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de 2023 hasta el 31 de diciembre de 2024
           download_voucher: Descargar formulario de comprobante de pago
+          feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
@@ -2530,6 +2597,7 @@ es:
           show_xml: Mostrar XML
         pending:
           more_than_two_days: Si han pasado más de 2 días desde que presentaste tus impuestos estatales, ponte en contacto con nuestro equipo haciendo clic en "chatea con nosotros".
+          more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año 2023, y está esperando ser aceptada.
@@ -2547,6 +2615,7 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+        thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         w2: Información fiscal estatal y local W-2
       shared:
@@ -2584,10 +2653,10 @@ es:
       tax_refund:
         bank_details:
           account_number: Número de cuenta
+          after-deadline-default-withdrawl-info: Debido al hecho de que estás enviando tu declaración el 15 de abril o después, el estado retirará tu pago tan pronto como se procese tu declaración.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el dia del 15 de abril de 2024):"
           disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria (routing number)
@@ -2691,7 +2760,7 @@ es:
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
           employer_state_id_error: El EIN debe ser un número. No incluya un guión.
-          instructions_1: Necesitamos un poco más de información sobre la información de impuestos estatales y locales en tu W-2 de %{employer_name}por %{total_wages_amt}.
+          instructions_1: Revise la información a continuación y asegúrese de que coincida con los impuestos estatales y locales en su W-2 de %{employer_name} a %{total_wages_amt}.
           instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
@@ -2701,7 +2770,7 @@ es:
           w2s_error: Actualiza los formularios W-2 antes de continuar.
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
         index:
-          title: Proporciona la información de impuestos estatales para los siguientes W-2. No te preocupes si tienes varios W-2 y no todos están listados abajo.
+          title: Notamos algunas discrepancias con la información del W-2 que ingresó en la herramienta Direct File para los siguientes W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
           updated: Has actualizado este W-2
           w2_for: 'W-2 para: %{employer_name}'
           wages_amount: 'Cantidad total de salarios: $%{wages_amount}'
@@ -2710,6 +2779,10 @@ es:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
     state_file_pages:
       about_page:
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
+          <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
+          ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes de Arizona y Nueva York utilizando IRS Direct File
         section1_html: |
           <strong>¿Cómo funciona?</strong>
@@ -2722,10 +2795,9 @@ es:
           <li>¡Presenta tu declaración electrónicamente sin costo!</li>
           </ol>
           <strong>Para aprender más, consulta las <a href=%{faq_link}>preguntas frecuentes</a>.</strong>
-        subheader_html: |
-          <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
-          El IRS Direct File ahora está ampliamente disponible para todos los contribuyentes elegibles hasta el 15 de abril de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar tu declaración federal, ve a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a></strong><br/><br/>
-          ¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>.<br/>
+        subheader_1_html: "<strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong>"
+        subheader_2_html: El IRS Direct File ahora está ampliamente disponible para todos los contribuyentes elegibles hasta el 15 de abril de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar tu declaración federal, ve a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a></strong>
+        subheader_3_html: "¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>."
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -2742,6 +2814,7 @@ es:
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
         phone_number_signin: Iniciar sesión con el teléfono
         title: Iniciar sesión en FileYourStateTaxes
+        title_sign_in_closed: Inicie sesión para descargar una copia de tu declaración de impuestos estatales.
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Ten en cuenta que para la información personal sobre ti que hemos obtenido o recibido para procesar en nombre de una entidad separada y no afiliada, que determinó los medios y fines del procesamiento, todas esas solicitudes deben hacerse directamente a esa entidad. Honraremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a tu información personal.
@@ -2843,6 +2916,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
+    must_enter_amount: Si alguien reclamó este crédito, debe ingresar el monto en un número entero.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
@@ -4484,6 +4558,7 @@ es:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
         header: Declare sus impuestos sin costo. ¡Es sencillo!
+        open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en 2024. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.

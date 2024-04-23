@@ -90,9 +90,9 @@ module VitaMin
     # GetYourRefund
     config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 12:00:00')
     config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-31 09:59:59')
-    config.tax_deadline = Time.find_zone('America/New_York').parse('2024-04-18 23:59:59')
+    config.tax_deadline = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
     config.end_of_intake = Time.find_zone('America/New_York').parse('2024-10-01 23:59:59')
-    config.end_of_docs = Time.find_zone('America/New_York').parse('2024-4-01 23:59:59')
+    config.end_of_docs = Time.find_zone('America/New_York').parse('2024-10-08 23:59:59')
     config.end_of_in_progress_intake = Time.find_zone('America/New_York').parse('2024-10-16 23:59:59')
     config.end_of_login = Time.find_zone('America/New_York').parse('2024-10-23 23:59:00')
 
@@ -107,7 +107,8 @@ module VitaMin
 
     # StateFile
     config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-08 09:00:00')
-    config.state_file_end_of_intake = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
+    config.state_file_end_of_new_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-15 23:59:59')
+    config.state_file_end_of_in_progress_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-25 23:59:59')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)

@@ -224,6 +224,7 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
+      round_to_whole_number: round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
@@ -1358,9 +1359,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 9th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 9th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 9th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 9th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -1609,6 +1610,45 @@ en:
           Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
 
           Questions? Reply to this text.
+      post_deadline_reminder:
+        email:
+          body: |-
+            Hi %{primary_first_name},
+
+            We noticed that you have not submitted a state tax return yet with the account associated with this email address. If you submitted your state return another way, or you submitted your return under a different email address, you can disregard this message.
+
+            This is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/us/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from %{state_name}. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
+        sms: |
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
+          Need help? Reply to this text.
+      pre_deadline_reminder:
+        email:
+          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
+          subject: Don't forget to finish your state tax return by April 15!
+        sms: |
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now.
+          Need help? Reply to this text.
+      reject_resolution_reminder:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            As a reminder,  %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Make sure to take action on your rejected return as soon as possible in order to avoid late filing fees from  %{state_name} state.
+
+            FileYourStateTaxes will be closing its services for the year on April 25.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Take action on your rejected %{state_name} state return.
+        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Reply to this text.
       rejected:
         email:
           body: |
@@ -1625,6 +1665,20 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Reply to this text.
+      reminder_apology:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Due to an error, some FileYourStateTaxes users who had already completed their state tax returns received an email earlier today reminding them to file by April 15.
+
+            If you have received a notification that your state return was accepted, you may disregard the reminder email you may have received earlier today. You can confirm your return status by visiting fileyourstatetaxes.org/en/us/login-options and logging into your account.
+
+            We sincerely apologize for the confusion and the stress this may have caused.
+
+            Thanks,
+            FileYourStateTaxes
+          subject: Please disregard previous message from FileYourStateTaxes
       still_processing:
         email:
           body: |
@@ -2029,6 +2083,7 @@ en:
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
         title: Code verified! Authentication needed to continue.
       enter_verification_code:
+        code_sent_to_closed_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
         enter_6_digit_code: Enter the 6-digit code
         title: Enter the code to continue
@@ -2084,13 +2139,15 @@ en:
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
       az_excise_credit:
         edit:
+          household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
+          primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           ssn_no_employment_html:
             label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
-          was_incarcerated:
-            one: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-            other: Were you or your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+        update:
+          page_changed_notice: Sorry, this page has changed! Please answer the questions again.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2358,12 +2415,17 @@ en:
           title: Now, let’s complete your state tax return
       landing_page:
         edit:
+          already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
           already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
           az:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
+              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
             supported_by: Supported by the state of Arizona
             title: File your Arizona state taxes for free
           continue: To continue filing your %{state_name} State return, please sign in below
+          download_your_record: Download Your Record
           help_text_html: |
             <strong>What you’ll need:</strong>
             <br />
@@ -2377,9 +2439,13 @@ en:
           not_you: Not %{user_name}?
           ny:
             built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+            closed_html: |
+              <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
+              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
             supported_by: Supported by New York State
             title: File your New York State taxes for free
           start_new: Click here to start a new %{state_name} State return.
+          title_closed: Our free %{state_name} tax filing service is closed for the season
           welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
@@ -2536,7 +2602,9 @@ en:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
+          download_title: Download a copy of your 2023 %{state_name} state tax return until December 31, 2024
           download_voucher: Download payment voucher form
+          feedback: We value your feedback—let us know what you think of this tool.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
@@ -2549,6 +2617,7 @@ en:
           show_xml: Show XML
         pending:
           more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
+          more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: You'll receive an email update when your state tax return is accepted.
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
@@ -2566,6 +2635,7 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         w2: W-2 state and local tax information
       shared:
@@ -2603,10 +2673,10 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
+          after-deadline-default-withdrawl-info: Because you are submitting your return on or after April 15, 2024, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before April 15, 2024):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
@@ -2709,7 +2779,7 @@ en:
           box19_html: "<strong>Box 19</strong>: Local income tax"
           box20_locality_name: "<strong>Box 20</strong>: Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: We need a little more information about the state and local tax information on your W-2 from %{employer_name} for %{total_wages_amt}.
+          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
@@ -2719,7 +2789,7 @@ en:
           w2s_error: Update W-2s before continuing.
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
         index:
-          title: Please provide state tax information for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
+          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
           w2_for: 'W-2 for: %{employer_name}'
           wages_amount: 'Total wages amount: $%{wages_amount}'
@@ -2728,6 +2798,10 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
     state_file_pages:
       about_page:
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
+          Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
         header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
         section1_html: |
           <strong>How does it work?</strong>
@@ -2740,10 +2814,9 @@ en:
             <li>E-file your return for free!</li>
           </ol>
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
-        subheader_html: |
-          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong><br/><br/>
-          Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.<br/>
+        subheader_1_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong>"
+        subheader_2_html: IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong>
+        subheader_3_html: Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -2760,6 +2833,7 @@ en:
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
         phone_number_signin: Sign in with phone number
         title: Sign in to FileYourStateTaxes
+        title_sign_in_closed: Sign in to download a copy of your state tax return.
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
@@ -2861,6 +2935,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
+    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"
@@ -4491,6 +4566,7 @@ en:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
         header: Free tax filing, made simple.
+        open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in 2024. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: Committed to keeping your information secure.

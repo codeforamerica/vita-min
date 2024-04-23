@@ -337,7 +337,10 @@ class ApplicationController < ActionController::Base
     if app_time <= Rails.configuration.tax_deadline && open_for_gyr_intake?
       # after open intake, before tax_deadline
       :open_intake
-    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
+    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_intake)
+      # after tax_deadline, before end_of_intake
+      :open_intake_post_tax_deadline
+    elsif app_time.between?(Rails.configuration.end_of_intake, Rails.configuration.end_of_in_progress_intake)
       # after tax_deadline, before end_of_in_progress_intake
       :in_progress_intake_only
     elsif app_time.between?(Rails.configuration.end_of_in_progress_intake, Rails.configuration.end_of_login)
@@ -401,7 +404,7 @@ class ApplicationController < ActionController::Base
   helper_method :open_for_ctc_read_write?
 
   def open_for_state_file_intake?
-    app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_intake)
+    app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_in_progress_intakes)
   end
   helper_method :open_for_state_file_intake?
 
