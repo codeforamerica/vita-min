@@ -55,6 +55,12 @@
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.negative") %></span>
         <% end %>
       </div>
+      <%= f.cfa_textarea(
+            :feedback,
+            content_for(:form_question),
+            help_text: t("views.questions.feedback.body"),
+            options: { rows: '5' }
+          ) %>
     <% end %>
   <% end %>
 <% end %>

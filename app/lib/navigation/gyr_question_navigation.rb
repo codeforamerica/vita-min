@@ -152,7 +152,6 @@ module Navigation
 
       Questions::FinalInfoController, # generate and replace the "Preliminary" 13614-C with "Original 13614-C.pdf"
       Questions::SuccessfullySubmittedController,
-      Questions::FeedbackController,
 
       # Optional Demographic Questions
       Questions::DemographicQuestionsController,

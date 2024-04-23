@@ -1,4 +1,4 @@
-class FeedbackForm < QuestionsForm
+class SuccessfullySubmittedForm < QuestionsForm
   set_attributes_for :intake, :feedback
 
   def save
