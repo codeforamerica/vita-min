@@ -17,13 +17,20 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     ).intake
   end
   let(:ctc_ssn) { "123-45-6788" }
+  let!(:organization_router) { double }
   let!(:original_ctc_intake) do
     create :ctc_intake, primary_consented_to_service: "yes", primary_ssn: ctc_ssn
   end
 
+  before do
+    allow(PartnerRoutingService).to receive(:new).and_return organization_router
+    allow(organization_router).to receive(:determine_partner).and_return nil
+    allow(organization_router).to receive(:routing_method).and_return :from_zip_code
+  end
+
   scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do
     visit personal_info_questions_path
-    fill_out_personal_information(name: "Dupe", zip_code: "20121")
+    fill_out_personal_information(name: "Dupe", zip_code: "83012")
 
     fill_in I18n.t("attributes.primary_ssn"), with: gyr_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: gyr_ssn
@@ -58,7 +65,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
 
   scenario "returning client with CTC intake with matching SSN does not see duplicate guard" do
     visit personal_info_questions_path
-    fill_out_personal_information(name: "Dupe", zip_code: "20121")
+    fill_out_personal_information(name: "Dupe", zip_code: "83012")
 
     fill_in I18n.t("attributes.primary_ssn"), with: ctc_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: ctc_ssn

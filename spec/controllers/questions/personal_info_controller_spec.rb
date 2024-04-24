@@ -22,10 +22,15 @@ RSpec.describe Questions::PersonalInfoController do
         }
       end
 
+      let!(:organization_router) { double }
+
       before do
         session[:source] = "source_from_session"
         session[:referrer] = "referrer_from_session"
         cookies.encrypted[:visitor_id] = "some_visitor_id"
+        allow(PartnerRoutingService).to receive(:new).and_return organization_router
+        allow(organization_router).to receive(:determine_partner).and_return nil
+        allow(organization_router).to receive(:routing_method).and_return :from_zip_code
       end
 
       context "with correct params and not at capacity" do
