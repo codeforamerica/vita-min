@@ -2106,8 +2106,6 @@ es:
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
-        update:
-          page_changed_notice: "¡Lo sentimos, esta página ha cambiado! Por favor responda las preguntas otra vez."
       az_prior_last_names:
         edit:
           prior_last_names_label:

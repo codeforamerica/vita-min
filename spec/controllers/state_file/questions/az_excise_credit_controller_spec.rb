@@ -172,20 +172,5 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
         }
       end
     end
-
-    context "handling people who had the old page open when we deployed" do
-      it "rerenders the page when the params are the old ones" do
-        post :update, params: {
-          us_state: "az",
-          state_file_az_excise_credit_form: {
-            was_incarcerated: "yes",
-            ssn_no_employment: "yes",
-            household_excise_credit_claimed: "yes",
-          }
-        }
-
-        expect(response).to render_template :edit
-      end
-    end
   end
 end
