@@ -362,6 +362,8 @@ class Seeder
       ],
     )
 
+    create_efile_security_info(eitc_under_twenty_four_qc.client) if eitc_under_twenty_four_qc.client.efile_security_informations.none?
+
     if eitc_under_twenty_four_qc.client.efile_submissions.none?
       eitc_under_twenty_four_qc_efile_submission = eitc_under_twenty_four_qc.client.tax_returns.last.efile_submissions.create
       eitc_under_twenty_four_qc_efile_submission.transition_to!(:preparing)
@@ -572,5 +574,22 @@ class Seeder
       filename: 'test.jpg',
       content_type: 'image/jpeg'
     ) unless verification_attempt.photo_identification.present?
+  end
+
+  def create_efile_security_info(client)
+    return unless client.efile_security_informations.count < 2
+
+    efile_security_info_params = {
+      device_id: "AA" * 20,
+      user_agent: "Mozilla/5.0 (iPhone)",
+      browser_language: "en-US",
+      platform: "iPhone",
+      timezone_offset: "+300",
+      ip_address: "72.34.67.178",
+      recaptcha_score: 0.9e0,
+      timezone: "America/New_York",
+      client_system_time: DateTime.now
+    }
+    client.efile_security_informations.create(efile_security_info_params)
   end
 end
