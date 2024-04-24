@@ -56,7 +56,6 @@
     <div id="incarcerated" class="blue-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
-        <!-- TODO: was_incarcerated is deprecated; replace this with a check for primary_was_incarcerated and spouse_was_incarcerated if applicable -->
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
 
         <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
