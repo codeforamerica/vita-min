@@ -1,7 +1,6 @@
 class MailgunWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
   before_action :authenticate_mailgun_request
-  # Disabling this until https://www.pivotaltracker.com/n/projects/2409240/stories/187407168 is completed
   before_action :re_optin_when_client_replies, only: :create_incoming_email
 
   REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
@@ -165,16 +164,12 @@ class MailgunWebhooksController < ActionController::Base
     opted_out_state_intakes = StateFileBaseIntake.opted_out_state_file_intakes(sender_email_address)
     opted_out_gyr_intakes = Intake::GyrIntake.opted_out_gyr_intakes(sender_email_address)
 
-    unless opted_out_state_intakes.empty?
-      opted_out_state_intakes.each do |intake|
-        intake.update(unsubscribed_from_email: false)
-      end
+    opted_out_state_intakes.each do |intake|
+      intake.update(unsubscribed_from_email: false)
     end
 
-    unless opted_out_gyr_intakes.empty?
-      opted_out_gyr_intakes.each do |intake|
-        intake.update(email_notification_opt_in: 'yes')
-      end
+    opted_out_gyr_intakes.each do |intake|
+      intake.update(email_notification_opt_in: 'yes')
     end
   end
 
