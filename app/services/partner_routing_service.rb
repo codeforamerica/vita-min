@@ -1,7 +1,6 @@
 class PartnerRoutingService
   attr_accessor :routing_method
   TESTING_AT_CAPACITY_ZIP_CODE = "83011"
-  TESTING_NOT_AT_CAPACITY_ZIP_CODE = "83012"
 
   def initialize(intake: nil, source_param: nil, zip_code: nil)
     @source_param = source_param
