@@ -391,12 +391,17 @@ class ApplicationController < ActionController::Base
   helper_method :open_for_eitc_intake?
 
   def open_for_ctc_login?
-    return false if app_time >= Rails.configuration.ctc_end_of_login
+    app_time <= Rails.configuration.ctc_end_of_login
+  end
+  helper_method :open_for_ctc_login?
+
+  def open_for_ctc_in_progress_intake?
+    return false if app_time >= Rails.configuration.ctc_end_of_in_progress_intake
 
     return true if app_time >= Rails.configuration.ctc_full_launch
     app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
   end
-  helper_method :open_for_ctc_login?
+  helper_method :open_for_ctc_in_progress_intake?
 
   def open_for_ctc_read_write?
     app_time <= Rails.configuration.ctc_end_of_read_write

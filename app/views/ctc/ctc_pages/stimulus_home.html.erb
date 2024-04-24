@@ -31,7 +31,7 @@
           <% end %>
         </div>
 
-        <% if open_for_ctc_login? %>
+        <% if open_for_ctc_in_progress_intake? %>
           <div class="spacing-below-60">
             <strong><%= link_to t('views.ctc_pages.home.portal_sign_in_link'), new_ctc_portal_client_login_path, class: "link link--subtle" %></strong>
           </div>

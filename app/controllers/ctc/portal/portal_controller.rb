@@ -1,6 +1,7 @@
 class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
   include RecaptchaScoreConcern
   before_action :load_current_submission
+  before_action :load_current_intake
   before_action :ensure_current_submission, except: [:home]
   before_action :redirect_if_identity_verification_needed, only: [:home]
   skip_before_action :redirect_if_read_only, only: [:home]
@@ -9,7 +10,7 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
     if @submission.nil?
       @status = "intake_in_progress"
       @exposed_error = nil
-      @current_step = current_client.intake.current_step
+      @current_step = @intake.current_step
       @pdf1040 = nil
     else
       latest_transition = @submission.last_client_accessible_transition
@@ -26,13 +27,13 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
       .where('created_at > ?', @submission.created_at)
       .where(type: [SystemNote::CtcPortalAction, SystemNote::CtcPortalUpdate].map(&:to_s))
       .any?
-    direct_deposit_missing_bank_account = current_client.intake.refund_payment_method_direct_deposit? && !current_client.intake.bank_account.present?
-    @submit_enabled = intake_updated_since_last_submission && !direct_deposit_missing_bank_account && !current_client.intake.benefits_eligibility.disqualified_for_simplified_filing?
-    @benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: current_client.intake.default_tax_return, dependents: current_client.intake.dependents)
+    direct_deposit_missing_bank_account = @intake.refund_payment_method_direct_deposit? && !@intake.bank_account.present?
+    @submit_enabled = intake_updated_since_last_submission && !direct_deposit_missing_bank_account && !@intake.benefits_eligibility.disqualified_for_simplified_filing?
+    @benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: @intake.default_tax_return, dependents: @intake.dependents)
   end
 
   def resubmit
-    return redirect_to Ctc::Questions::UseGyrController.to_path_helper if current_client.intake.benefits_eligibility.disqualified_for_simplified_filing?
+    return redirect_to Ctc::Questions::UseGyrController.to_path_helper if @intake.benefits_eligibility.disqualified_for_simplified_filing?
 
     if @submission.can_transition_to?(:resubmitted)
       unless current_client.efile_security_informations.create(efile_security_params).persisted?
@@ -83,6 +84,15 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
 
   def load_current_submission
     @submission = current_client.efile_submissions.order(created_at: :asc).last
+  end
+
+  def load_current_intake
+    if current_client.intake.nil?
+      @intake = Archived::Intake2021.find_by(client_id: current_client.id)
+      @archived = true if @intake
+    else
+      @intake = current_client.intake
+    end
   end
 
   def redirect_if_identity_verification_needed

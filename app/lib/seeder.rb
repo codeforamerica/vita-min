@@ -263,8 +263,10 @@ class Seeder
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
-      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+      tax_return_attributes: [{ year: 2022, current_state: "intake_ready", filing_status: "single" }],
     )
+
+    create_efile_security_info(intake_for_verification_attempt_1.client) if intake_for_verification_attempt_1.client.efile_security_informations.none?
 
     va1_client = intake_for_verification_attempt_1.client
     efile_submission = va1_client.efile_submissions.last || va1_client.tax_returns.last.efile_submissions.create
@@ -357,6 +359,8 @@ class Seeder
         }
       ],
     )
+
+    create_efile_security_info(eitc_under_twenty_four_qc.client) if eitc_under_twenty_four_qc.client.efile_security_informations.none?
 
     if eitc_under_twenty_four_qc.client.efile_submissions.none?
       eitc_under_twenty_four_qc_efile_submission = eitc_under_twenty_four_qc.client.tax_returns.last.efile_submissions.create
@@ -475,6 +479,27 @@ class Seeder
       tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
     )
 
+    archived_ctc_intake = find_or_create_intake_and_client(
+      Archived::Intake::CtcIntake2021,
+      primary_first_name: "ArchivedCtc2021",
+      primary_last_name: "Artichoke",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 40.years.ago,
+      primary_tin_type: 'ssn',
+      email_address: "archivedctc2021@example.com",
+      email_address_verified_at: Time.current,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }]
+      )
+
+    if archived_ctc_intake.client.efile_submissions.none?
+      archived_ctc_intake.client.tax_returns.last.efile_submissions.create
+    end
+
+    archived_ctc_1040_doc = Document.find_or_initialize_by(display_name: "1040", document_type: "Form 1040", client: archived_ctc_intake.client, tax_return: archived_ctc_intake.client.tax_returns.last)
+    attach_upload_to_document(archived_ctc_1040_doc)
+
+
+
     find_or_create_intake_and_client(
       Intake::GyrIntake,
       product_year: 2022,
@@ -566,5 +591,20 @@ class Seeder
       filename: 'test.jpg',
       content_type: 'image/jpeg'
     ) unless verification_attempt.photo_identification.present?
+  end
+
+  def create_efile_security_info(client)
+    efile_security_info_params = {
+      device_id: "AA" * 20,
+      user_agent: "Mozilla/5.0 (iPhone)",
+      browser_language: "en-US",
+      platform: "iPhone",
+      timezone_offset: "+300",
+      ip_address: "72.34.67.178",
+      recaptcha_score: 0.9e0,
+      timezone: "America/New_York",
+      client_system_time: DateTime.now
+    }
+    client.efile_security_informations.create(efile_security_info_params)
   end
 end

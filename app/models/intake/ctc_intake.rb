@@ -345,8 +345,7 @@ class Intake::CtcIntake < Intake
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)
     navigator_verified = where.not(navigator_has_verified_client_identity: nil)
-    last_year_of_ctc = 2022
-    sms_verified.or(email_verified).or(navigator_verified).where(product_year: last_year_of_ctc)
+    sms_verified.or(email_verified).or(navigator_verified)
   end
   has_one :bank_account, inverse_of: :intake, foreign_key: :intake_id, dependent: :destroy
   belongs_to :primary_drivers_license, class_name: "DriversLicense", optional: true

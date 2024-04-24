@@ -7,6 +7,13 @@ class Ctc::Portal::SubmissionPdfsController < Ctc::Portal::BaseAuthenticatedCont
     error_redirect and return unless @submission.present?
 
     @document = current_client.documents.find_by(tax_return_id: @submission.tax_return_id, document_type: DocumentTypes::Form1040.key)
+
+    if current_client.intake.nil? && Archived::Intake2021.find_by(client_id: current_client.id).present?
+      # if its an archived 2021 client don't try to regenerate their pdf b/c the submission builder will be outdated
+      send_data @document.upload.blob.download, filename: @document.display_name, disposition: 'inline'
+      return
+    end
+
     if @submission.present? && !@document.present?
       begin
         @document = CreateSubmissionPdfJob.perform_now(@submission.id)

@@ -3,82 +3,90 @@
   <div class="question-layout">
     <div class="question-wrapper">
       <h1 class="h2"><%= t("views.ctc.portal.home.title") %></h1>
-      <div class="review-box">
-        <div class="review-box__title">
-          <h2><%= t("views.ctc.portal.home.current_status") %></h2>
-        </div>
-        <div class="review-box__body">
-          <div class="review-box__status-wrapper spacing-below-25">
-            <%= image_tag submission_status_icon(@status) %>
-            <%= t("views.ctc.portal.home.status.#{@status}.label") %>
+      <% if @current_year_return %>
+        <div class="review-box">
+          <div class="review-box__title">
+            <h2><%= t("views.ctc.portal.home.current_status") %></h2>
           </div>
+          <div class="review-box__body">
+            <div class="review-box__status-wrapper spacing-below-25">
+              <%= image_tag submission_status_icon(@status) %>
+              <%= t("views.ctc.portal.home.status.#{@status}.label") %>
+            </div>
 
-          <% if @exposed_error.present? %>
-            <h3><%= @status == "failure" ? t("views.ctc.portal.home.failure_title") : t("views.ctc.portal.home.rejection_title") %></h3>
+            <% if @exposed_error.present? %>
+              <h3><%= @status == "failure" ? t("views.ctc.portal.home.failure_title") : t("views.ctc.portal.home.rejection_title") %></h3>
 
-            <div class="text--small">
-              <div class="text--semibold">
-                <%= @exposed_error.code %>
-              </div>
-              <div>
-                <% if locale == :en && @exposed_error.description_en.present? %>
-                  <%= @exposed_error.description_en %>
-                <% elsif locale == :es && @exposed_error.description_es.present? %>
-                  <%= @exposed_error.description_es %>
-                <% else %>
-                  <%= @exposed_error.message %>
+              <div class="text--small">
+                <div class="text--semibold">
+                  <%= @exposed_error.code %>
+                </div>
+                <div>
+                  <% if locale == :en && @exposed_error.description_en.present? %>
+                    <%= @exposed_error.description_en %>
+                  <% elsif locale == :es && @exposed_error.description_es.present? %>
+                    <%= @exposed_error.description_es %>
+                  <% else %>
+                    <%= @exposed_error.message %>
+                  <% end %>
+                </div>
+                <% if @exposed_error.dependent.present? %>
+                  <%= link_to "#{@exposed_error.dependent.full_name} #{ssn_mask(@exposed_error.dependent.ssn)}", edit_ctc_portal_dependent_path(id: @exposed_error.dependent.id), class: "text--black" %>
                 <% end %>
               </div>
-              <% if @exposed_error.dependent.present? %>
-                <%= link_to "#{@exposed_error.dependent.full_name} #{ssn_mask(@exposed_error.dependent.ssn)}", edit_ctc_portal_dependent_path(id: @exposed_error.dependent.id), class: "text--black" %>
-              <% end %>
-            </div>
 
-            <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
-            <div class="text--small">
-              <% if locale == :en && @exposed_error.resolution_en.present? %>
-                <%= @exposed_error.resolution_en %>
-              <% elsif locale == :es && @exposed_error.resolution_es.present? %>
-                <%= @exposed_error.resolution_es %>
-              <% elsif @submission.current_state == "cancelled" %>
-                <!--
-                  the client-facing status is rejected, but need to display a special message for cancelled returns
-                  to indicate that there's no actionable next steps for the client.
-                -->
-                <%= t("views.ctc.portal.home.status.cancelled.message") %>
-              <% else %>
-                <%= t("views.ctc.portal.home.default_next_steps") %>
-              <% end %>
-            </div>
+              <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
+              <div class="text--small">
+                <% if locale == :en && @exposed_error.resolution_en.present? %>
+                  <%= @exposed_error.resolution_en %>
+                <% elsif locale == :es && @exposed_error.resolution_es.present? %>
+                  <%= @exposed_error.resolution_es %>
+                <% elsif @submission.current_state == "cancelled" %>
+                  <!--
+                    the client-facing status is rejected, but need to display a special message for cancelled returns
+                    to indicate that there's no actionable next steps for the client.
+                  -->
+                  <%= t("views.ctc.portal.home.status.cancelled.message") %>
+                <% else %>
+                  <%= t("views.ctc.portal.home.default_next_steps") %>
+                <% end %>
+              </div>
 
-            <% if open_for_ctc_read_write? %>
-              <div class="review-box__cta-button-container spacing-above-35">
-                <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--full-width button--primary spacing-below-0" %>
+              <% if open_for_ctc_read_write? %>
+                <div class="review-box__cta-button-container spacing-above-35">
+                  <%= link_to t("views.ctc.portal.home.correct_info"), ctc_portal_edit_info_path, class: "button button--full-width button--primary spacing-below-0" %>
+                </div>
+              <% end %>
+            <% else %>
+              <%= t("views.ctc.portal.home.status.#{@status}.message") %>
+            <% end %>
+
+            <% if @submission&.accepted_as_imperfect_return? %>
+              <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
+              <div class="text--small">
+                <%= I18n.t("views.ctc.portal.home.imperfect_return_indicator_text") %>
               </div>
             <% end %>
-          <% else %>
-            <%= t("views.ctc.portal.home.status.#{@status}.message") %>
-          <% end %>
-
-          <% if @submission&.accepted_as_imperfect_return? %>
-            <h3><%= t("views.ctc.portal.home.next_step_title") %></h3>
-            <div class="text--small">
-              <%= I18n.t("views.ctc.portal.home.imperfect_return_indicator_text") %>
-            </div>
+          </div>
+        </div>
+        <div class="spacing-above-35">
+          <% if open_for_ctc_read_write? %>
+            <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
           <% end %>
         </div>
-      </div>
-      <div class="spacing-above-35">
-        <% if open_for_ctc_read_write? %>
-          <%= link_to t('views.ctc.portal.home.contact_us'), new_ctc_portal_message_path, class: "button button--full-width" %>
+        <% if open_for_ctc_read_write? && @current_step %>
+          <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
         <% end %>
-      </div>
-      <% if open_for_ctc_read_write? && @current_step %>
-        <%= link_to t("views.ctc.portal.home.complete_form"), @current_step, class: "button button--full-width spacing-below-0" %>
-      <% end %>
-      <% if @submission.present? %>
-        <%= link_to filename_ctc_portal_submission_pdf_path(id: @submission.id, filename: @submission.pdf_bundle_filename), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
-          <%= t("views.ctc.portal.home.download_tax_return") %>
+        <% if @submission.present? %>
+          <%= link_to filename_ctc_portal_submission_pdf_path(id: @submission.id, filename: @submission.pdf_bundle_filename), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
+            <%= t("views.ctc.portal.home.download_tax_return") %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if @submission.present? %>
+          <%= link_to filename_ctc_portal_submission_pdf_path(id: @submission.id, filename: @submission.pdf_bundle_filename), target: "_blank", rel: "no_opener", class: "button button--full-width" do %>
+            <%= t("views.ctc.portal.home.download_tax_return") %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

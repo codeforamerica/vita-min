@@ -15,7 +15,8 @@ module Portal
       # Sends verification code
       @form = request_login_form_class.new(request_client_login_params)
       if @form.valid?
-        RequestVerificationCodeForLoginJob.perform_later(
+        #TODO: change back to perform_later
+        RequestVerificationCodeForLoginJob.perform_now(
           email_address: @form.email_address,
           phone_number: @form.sms_phone_number,
           visitor_id: visitor_id,

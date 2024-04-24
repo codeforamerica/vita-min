@@ -35,6 +35,15 @@ class ClientLoginService
     end
     phone_numbers = TextMessageAccessToken.lookup(raw_token).pluck(:sms_phone_number)
     phone_intake_matches = intake_class.accessible_intakes.where(sms_phone_number: phone_numbers)
+
+    if intake_class.name == "Intake::CtcIntake"
+      archived_email_intake_matches = Archived::Intake::CtcIntake2021.where(spouse_email_address: emails).or(Archived::Intake::CtcIntake2021.where(email_address: emails))
+      archived_phone_intake_matches = Archived::Intake::CtcIntake2021.accessible_intakes.where(sms_phone_number: phone_numbers)
+      archived_intake_matches = archived_email_intake_matches.or(archived_phone_intake_matches)
+
+      return archived_intake_matches.to_a + email_intake_matches.or(phone_intake_matches).to_a
+    end
+
     email_intake_matches.or(phone_intake_matches)
   end
 
@@ -48,7 +57,8 @@ class ClientLoginService
       if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
         intakes = intakes.or(service_class.accessible_intakes.where(spouse_email_address: email_address))
       end
-      intakes.exists?
+      intakes = intakes.to_a + Archived::Intake::CtcIntake2021.where(spouse_email_address: email_address).or(Archived::Intake::CtcIntake2021.where(email_address: email_address)).to_a if service_class == Intake::CtcIntake
+      intakes.present?
     end
     service_class.present?
   end
@@ -57,6 +67,7 @@ class ClientLoginService
     service_class = @intake_classes.detect do |service_class|
       intakes = service_class.accessible_intakes
       intakes = (
+        # make same changes here for archived clients
         if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
           intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes")
         else

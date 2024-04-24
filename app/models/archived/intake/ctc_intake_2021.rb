@@ -274,6 +274,15 @@ class Archived::Intake::CtcIntake2021 < Archived::Intake2021
   has_one :bank_account, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::BankAccount2021', foreign_key: 'archived_intakes_2021_id'
   accepts_nested_attributes_for :bank_account
 
+  scope :accessible_intakes, -> do
+    sms_verified = where.not(sms_phone_number_verified_at: nil)
+    email_verified = where.not(email_address_verified_at: nil)
+    navigator_verified = where.not(navigator_has_verified_client_identity: nil)
+
+    verified = sms_verified.or(email_verified).or(navigator_verified)
+    verified.where(primary_consented_to_service: "yes")
+  end
+
   before_validation do
     attributes_to_change = self.changes_to_save.keys
     name_attributes = ["primary_first_name", "primary_last_name", "spouse_first_name", "spouse_last_name"]
