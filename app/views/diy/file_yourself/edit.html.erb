@@ -21,7 +21,7 @@
               <%= f.cfa_input_field(:preferred_first_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
             <% end %>
             <%= f.cfa_input_field(:email_address, t("general.email"), classes: ["form-width--long"]) %>
-            <%= f.cfa_select(
+            <%#= f.cfa_select(
                   :received_1099,
                   t(".received_1099.label"),
                   [
