@@ -3075,49 +3075,8 @@ es:
           w2s_shared: W-2 compartidos
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
-          complete_form: Complete el formulario CTC
           contact_us: Contáctenos
-          correct_info: Corregir mi información
-          current_status: 'Estado actual de la declaración de impuestos:'
-          default_next_steps: Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
           download_tax_return: Descargar mi declaración de impuestos
-          failure_title: 'Motivo de este fracaso:'
-          imperfect_return_indicator_text: |
-            El IRS aceptó su declaración, incluida una solicitud para actualizar uno más de los nombres legales de sus dependientes en sus registros.
-            El IRS estima que le tomará de 4 a 8 semanas procesar su declaración. También puede recibir una carta confirmando su solicitud para actualizar el nombre legal del dependiente.
-          next_step_title: 'Próximos pasos:'
-          rejection_title: 'Motivo de este rechazo:'
-          status:
-            accepted:
-              label: Aceptada
-              message: El IRS aceptó su declaración de impuestos. Recibirá un pago en 4 o más semanas.
-            bundling:
-              label: Declaración electrónica
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
-            cancelled:
-              label: Cancelado
-              message: Ya no intentaremos presentar electrónicamente esta declaración al IRS. Para continuar, utilice los recursos que aparecen a continuación para enviar por correo su declaración al IRS.
-            failed:
-              label: Error de envío
-              message: Nuestro equipo está investigando un error técnico con su declaración. Una vez que resolvamos este error, volveremos a enviar su declaración. Espere una actualización dentro de los 3 días hábiles.
-            fraud_hold:
-              label: Se está revisando la presentación de la identificación, o en inglés, ID
-              message: Gracias por enviar su identificación. Estamos revisando su solicitud. Puede esperar una respuesta en un plazo de 5 días.
-            intake_in_progress:
-              label: Necesitamos más información
-              message: Necesitamos más información para poder presentar su declaración.
-            new:
-              label: Declaración electrónica
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
-            preparing:
-              label: Declaración electrónica
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
-            rejected:
-              label: Rechazada
-              message: Nuestro equipo está investigando un error técnico con su declaración. Una vez que resolvamos este error, volveremos a enviar su declaración. Espere una actualización dentro de los 3 días hábiles.
-            transmitted:
-              label: Tramitados electrónicamente
-              message: Su declaración ha sido presentada al IRS. En el plazo de una semana sabrá si su declaración ha sido aceptada.
           title: "¡Gracias por presentar su declaración con GetCTC!"
         mailing_address:
           title: Edita tu dirección
