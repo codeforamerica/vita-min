@@ -530,7 +530,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Please save this number for your records and future reference.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
-      click_on "Great!"
+      click_on "Continue"
     end
   end
 end
