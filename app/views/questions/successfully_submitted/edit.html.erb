@@ -45,17 +45,17 @@
         <label class="radio-button positive">
           <%= image_tag("questions/csat/positive.svg", alt: "") %>
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.positive") %></span>
-          <%= f.radio_button :click, name: "#{f.object_name}[satisfaction_face]", value: "positive", "aria-describedby": "survey-question" %>
+          <%= f.radio_button :satisfaction_face, :positive %>
         </label>
         <label class="radio-button neutral">
           <%= image_tag("questions/csat/neutral.svg", alt: "") %>
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.neutral") %></span>
-          <%= f.radio_button :click, name: "#{f.object_name}[satisfaction_face]", value: "neutral", "aria-describedby": "survey-question"%>
+          <%= f.radio_button :satisfaction_face, :neutral %>
         </label>
         <label class="radio-button negative">
           <%= image_tag("questions/csat/negative.svg", alt: "") %>
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.negative") %></span>
-          <%= f.radio_button :click, name: "#{f.object_name}[satisfaction_face]", value: "negative", "aria-describedby": "survey-question"%>
+          <%= f.radio_button :satisfaction_face, :negative %>
         </label>
       </div>
       <div class="spacing-above-60">

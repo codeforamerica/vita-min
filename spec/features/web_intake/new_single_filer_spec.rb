@@ -422,11 +422,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
-      fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
-      click_on "Great!"
-
-      #expect(intake.reload.current_step).to end_with("/questions/feedback")
-      #click_on "Continue"
+      choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
+      fill_in "successfully_submitted_form_feedback", with: "I am the single filer. I file alone."
+      click_on "Continue"
 
       # Demographic questions
       expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
