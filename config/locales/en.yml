@@ -4957,7 +4957,6 @@ en:
           other: Have you or your spouse ever owned a home?
       feedback:
         body: We appreciate any additional feedback you have to better serve clients in the future!
-        title: Thank you for sharing your experience.
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
         title: Are you filing joint taxes with your spouse?
