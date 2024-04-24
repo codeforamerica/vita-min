@@ -3,58 +3,43 @@
     display: flex;
     justify-content: space-between;
     max-width: 32rem;
-  }
 
-  .button {
-    font-size: 1.6rem;
-    border: 1px solid #A0A0A0;
-    border-radius: 2px;
-    padding: 1rem;
-    text-align: center;
-    margin: 0;
-    min-height: 9rem;
-    width: 9rem;
-    font-weight: normal;
+    label.radio-button {
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.6rem;
+      border: 1px solid #A0A0A0;
+      border-radius: 2px;
+      padding: 1rem;
+      text-align: center;
+      margin: 0;
+      min-height: 11rem;
+      width: 9rem;
+      font-weight: normal;
 
-    &:active {
-      border: 1px solid black;
+      input[type=radio] {
+        top: 7.5rem;
+        left: 3.4rem;
+      }
     }
 
-    img {
-      display: block;
-      margin: 0 auto;
+    label.radio-button.positive{
+      &:hover, &.selected, &.is-selected {
+        background-color: $color-green-money;
+      }
     }
 
-    span {
-      display: block;
-      margin-top: 0.5rem;
+    label.radio-button.neutral{
+      &:hover, &.selected, &.is-selected {
+        background-color: $color-orange-medium;
+      }
     }
-  }
 
-  .positive {
-    &:hover {
-      background-color: $color-green-money;
-    }
-    &.selected {
-      background-color: $color-green-money;
-    }
-  }
-
-  .neutral {
-    &:hover {
-      background-color: $color-orange-medium;
-    }
-    &.selected {
-      background-color: $color-orange-medium;
-    }
-  }
-
-  .negative {
-    &:hover {
-      background-color: $color-red-medium;
-    }
-    &.selected {
-      background-color: $color-red-medium;
+    label.radio-button.negative{
+      &:hover, &.selected, &.is-selected {
+        background-color: $color-red-medium;
+      }
     }
   }
 }
