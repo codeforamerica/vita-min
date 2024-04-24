@@ -7,6 +7,10 @@ module DfXmlCrudMethods
     # Given a key path Root1 Root2 Leaf,
     #   if 'value' is truthy, creates the entire path <Root1><Root2><Leaf> if it doesn't exist
     #   if 'value' is falsey, destroys the <Leaf> node but not <Root1><Root2> (yet?)
+    # Does not currently handle adding sibling non-leaf nodes perfectly
+    #   for example, given source xml <Root1> <Leaf1>value</Leaf1> </Root1> and a path of 'Root1 Root2 Leaf2' with after = Leaf1
+    #   you would want <Root1> <Root2><Leaf2/></Root2> <Leaf1>value</Leaf1> </Root1>
+    #   but as written it generates <Root1> <Root2><Leaf2/></Root2> <Leaf1>value</Leaf1> <Leaf2/> </Root1>
     selector = setter_symbol_to_selector(key)
     if value.present? && !node.at(selector).present?
       node_names = selector.split(' ')
