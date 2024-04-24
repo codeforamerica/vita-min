@@ -17,7 +17,7 @@ module Navigation
 
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
-      Questions::AtCapacityController,
+      Questions::AtCapacityController, # possible off-boarding when at capacity
       Questions::SsnItinController,
       Questions::BacktaxesController,
       Questions::StartWithCurrentYearController,

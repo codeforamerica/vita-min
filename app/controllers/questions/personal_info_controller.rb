@@ -34,13 +34,13 @@ module Questions
       session[:intake_id] = new_intake.id
       new_intake.set_navigator(session[:navigator])
 
-      if current_intake.client.routing_method.blank? || current_intake.client.routing_method_at_capacity?
+      if new_intake.client.routing_method.blank? || new_intake.client.routing_method_at_capacity?
         routing_service = PartnerRoutingService.new(
-          intake: current_intake,
-          source_param: current_intake.source,
-          zip_code: current_intake.zip_code,
+          intake: new_intake,
+          source_param: new_intake.source,
+          zip_code: new_intake.zip_code,
           )
-        current_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
+        new_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
       end
     end
 

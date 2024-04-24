@@ -28,6 +28,13 @@ RSpec.describe Questions::PersonalInfoController do
         cookies.encrypted[:visitor_id] = "some_visitor_id"
       end
 
+      context "with correct params and not at capacity" do
+        it "directs to ssn page" do
+          post :update, params: params
+          expect(response).to redirect_to Questions::SsnItinController.to_path_helper
+        end
+      end
+
       context "without an intake in the session" do
         it "creates new intake and associated client" do
           expect {
@@ -75,6 +82,34 @@ RSpec.describe Questions::PersonalInfoController do
           intake = Intake.last
 
           expect(intake.with_unhoused_navigator?).to be_truthy
+        end
+      end
+
+      context "routing the client when routing service returns nil and routing_method is at_capacity" do
+        let!(:organization_router) { double }
+
+        before do
+          allow(PartnerRoutingService).to receive(:new).and_return organization_router
+          allow(organization_router).to receive(:determine_partner).and_return nil
+          allow(organization_router).to receive(:routing_method).and_return :at_capacity
+        end
+
+        it "saves routing method to at capacity, does not set a vita partner, does not create tax returns" do
+          post :update, params: params
+
+          intake = Intake.last
+          expect(intake.client.routing_method).to eq("at_capacity")
+          expect(intake.client.vita_partner).to eq nil
+          expect(PartnerRoutingService).to have_received(:new).with(
+            {
+              intake: intake,
+              source_param: intake.source,
+              zip_code: "80309"
+            }
+          )
+          expect(organization_router).to have_received(:determine_partner)
+          expect(intake.tax_returns.count).to eq 0
+          expect(response).to redirect_to Questions::AtCapacityController.to_path_helper
         end
       end
 

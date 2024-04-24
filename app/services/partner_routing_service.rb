@@ -14,8 +14,8 @@ class PartnerRoutingService
     unless Rails.env.production?
       if @zip_code.to_s == TESTING_AT_CAPACITY_ZIP_CODE
         @routing_method = :at_capacity
-        return
       end
+      return
     end
 
     from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
