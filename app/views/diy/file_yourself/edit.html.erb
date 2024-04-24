@@ -21,16 +21,6 @@
               <%= f.cfa_input_field(:preferred_first_name, t("views.questions.personal_info.preferred_name"), classes: ["form-width--long"]) %>
             <% end %>
             <%= f.cfa_input_field(:email_address, t("general.email"), classes: ["form-width--long"]) %>
-            <%#= f.cfa_select(
-                  :received_1099,
-                  t(".received_1099.label"),
-                  [
-                    [I18n.t("general.affirmative"), "yes"],
-                    [I18n.t("general.negative"), "no"],
-                  ],
-                  help_text: t(".received_1099.help_text"),
-                  include_blank: true,
-                ) %>
             <% unless DiyIntake.should_carry_over_params_from?(current_intake) %>
               <%= f.cfa_select(
                     :filing_frequency,
