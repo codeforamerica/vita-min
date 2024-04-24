@@ -422,7 +422,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
-      binding.pry
       fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
       click_on "Great!"
 

@@ -41,7 +41,7 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
       context "with valid params" do
         let(:params) do
           {
-            satisfaction_face_form: {
+            successfully_submitted_form: {
               satisfaction_face: "negative",
               feedback: "This whole website seems like a simulation. Is it real?"
             }
