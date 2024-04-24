@@ -263,6 +263,7 @@ class Seeder
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
@@ -281,6 +282,7 @@ class Seeder
       primary_first_name: "VerifierTwo",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
     va2_client = intake_for_verification_attempt_2.client
@@ -299,6 +301,7 @@ class Seeder
         primary_first_name: "RestrictedVerifier",
         primary_last_name: "Smith",
         primary_consented_to_service: "yes",
+        product_year: 2022,
         tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
@@ -321,6 +324,7 @@ class Seeder
       primary_tin_type: 'ssn',
       email_address: "yfong+EitcUnderTwentyFourQC@codeforamerica.org",
       email_address_verified_at: Time.current,
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "single" }],
       dependent_attributes: [
         {
@@ -382,6 +386,7 @@ class Seeder
       primary_tin_type: 'ssn',
       email_address: "yfong+EitcMFJQC@codeforamerica.org",
       email_address_verified_at: Time.current,
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "married_filing_jointly" }],
       dependent_attributes: [
         {
@@ -433,6 +438,7 @@ class Seeder
 
     find_or_create_intake_and_client(
       Intake::CtcIntake,
+      product_year: 2022,
       primary_first_name: "EitcNoQC",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",

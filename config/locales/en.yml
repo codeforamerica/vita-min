@@ -3099,7 +3099,7 @@ en:
           correct_info: Correct my information
           current_status: 'Current tax return status:'
           default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
-          download_tax_return: Download my tax return
+          download_tax_return: Download my 2022 tax return
           failure_title: 'Reason for this failure:'
           imperfect_return_indicator_text: |
             Your return was accepted by the IRS, including a request to update one more more of your dependents' legal names in their records.
