@@ -1,5 +1,5 @@
 module SubmissionBuilder
-  module Ty2022 # TODO: this was actually Ty2023
+  module Ty2022
     module States
       class ReturnHeader < SubmissionBuilder::Document
         include SubmissionBuilder::FormattingMethods
