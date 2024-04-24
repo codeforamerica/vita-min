@@ -1,0 +1,17 @@
+- [ ] Link to pivotal/JIRA issue
+- [ ] What was done?
+    - Explain the implementation goals being solved or the feature with the reviewer in mind
+    - Mention any relevant issues or technical gotchas
+    - Alternatives considered
+- [ ] How to test?
+    - Describe the testing approach taken to verify the changes, including:
+        - Unit/integration/manual tests
+        - Test data used
+    - Specify any relevant testing environments used (e.g., development, staging, demo, Heroku).
+    - Risk Assessment
+        - Risks or side effects associated with the changes and how they were mitigated.
+        - Highlight areas that may need extra attention during code review or testing.
+        - Paste SQL queries or output where relevant
+ - [ ] Screenshots (for visual change)
+    - Before | After    
+    
