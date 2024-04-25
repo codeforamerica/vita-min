@@ -1,9 +1,10 @@
 ## Link to pivotal/JIRA issue
-- [ ] What was done?
+    -
+## What was done?
     - Explain the implementation goals being solved or the feature with the reviewer in mind
     - Mention any relevant issues or insights to be shared with the reviewer.
     - Alternatives considered
-- [ ] How to test?
+## How to test?
     - Describe the testing approach taken to verify the changes, including:
         - Unit/integration/manual tests
         - Test data used
@@ -12,6 +13,6 @@
         - Risks or side effects associated with the changes and how they were mitigated.
         - Highlight areas that may need extra attention during code review or testing.
         - Paste SQL queries or output where relevant
- - [ ] Screenshots (for visual change)
-    - Before | After    
+## Screenshots (for visual change)
+    - Before | After 
     
