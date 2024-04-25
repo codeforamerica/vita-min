@@ -5,6 +5,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
   context "when there are no partners with capacity" do
     before do
       routing_service_double = instance_double(PartnerRoutingService)
+      
       allow(routing_service_double).to receive(:routing_method).and_return :at_capacity
       allow(routing_service_double).to receive(:determine_partner).and_return nil
       allow(PartnerRoutingService).to receive(:new).and_return routing_service_double
