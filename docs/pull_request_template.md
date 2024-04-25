@@ -1,7 +1,7 @@
 - [ ] Link to pivotal/JIRA issue
 - [ ] What was done?
     - Explain the implementation goals being solved or the feature with the reviewer in mind
-    - Mention any relevant issues or technical gotchas
+    - Mention any relevant issues or insights to be shared with the reviewer.
     - Alternatives considered
 - [ ] How to test?
     - Describe the testing approach taken to verify the changes, including:
