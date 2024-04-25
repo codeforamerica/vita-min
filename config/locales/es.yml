@@ -4918,7 +4918,6 @@ es:
           other: "¿Alguna vez ha sido usted o su cónyuge dueño de una casa?"
       feedback:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
-        title: Gracias por compartir su experiencia.
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"
