@@ -22,6 +22,9 @@
         top: 7.5rem;
         left: 3.4rem;
       }
+      input[type='radio']:checked:before {
+        margin-left: -5.5px;
+      }
     }
 
     label.radio-button.positive{
