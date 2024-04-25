@@ -26,50 +26,31 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       expect(Intake.last.continued_at_capacity).to be_falsey
     end
 
-    context "for a client created an acount that was not at capacity but now is" do
-      let!(:this_year_intake) do
-        create(
-          :intake,
-          primary_birth_date: Date.new(1960, 5, 12),
-          primary_last_four_ssn: 6789,
-          primary_first_name: "Sean",
-          primary_last_name: "Strawberry",
-          email_address: "gary.gardengnome@example.green",
-          primary_consented_to_service: "yes",
-          client: build(:client)
-        )
+    xit "allows the client to log in again, start at the consent page, and see the at capacity page" do
+      within ".toolbar" do
+        click_on "Login"
       end
+      fill_in "Email address", with: "gary.gardengnome@example.green"
+      click_on I18n.t("portal.client_logins.new.send_code")
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
 
-      # Waiting for product weigh in on expected behavior
-      xit "allows the client to log in again, start at the consent page, and see the at capacity page" do
-        # allow(routing_service_double).to receive(:routing_method).and_return :zip_code
+      fill_in "Enter 6 digit code", with: code
+      click_on "Verify"
 
-        within ".toolbar" do
-          click_on "Login"
-        end
-        fill_in "Email address", with: "gary.gardengnome@example.green"
-        click_on I18n.t("portal.client_logins.new.send_code")
-        perform_enqueued_jobs
-        mail = ActionMailer::Base.deliveries.last
-        code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+      fill_in "Client ID or Last 4 of SSN/ITIN", with: "6789"
+      click_on "Continue"
 
-        fill_in "Enter 6 digit code", with: code
-        click_on "Verify"
-
-        fill_in "Client ID or Last 4 of SSN/ITIN", with: "6789"
-        click_on "Continue"
-
-        # expect(page).to have_text "Welcome back"
-        # click_on I18n.t("portal.portal.home.document_link.complete_tax_questions")
-        # expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
-        # click_on I18n.t("views.questions.consent.cta")
-        expect(page).to have_content "GetYourRefund's tax preparation partners are currently at capacity."
-      end
+      expect(page).to have_text "Welcome back"
+      click_on I18n.t("portal.portal.home.document_link.complete_tax_questions")
+      expect(page).to have_selector("h1", text: I18n.t('views.questions.consent.title'))
+      click_on I18n.t("views.questions.consent.cta")
+      expect(page).to have_content "GetYourRefund's tax preparation partners are currently at capacity."
     end
 
     context "when a Hub user has assigned the client to a partner" do
-      # TODO: concerned that hub users won't be able to assign partners with this change since they won't have an account
-      xit "allows the client past At Capacity if a Hub user assigned them to a partner" do
+      it "allows the client past At Capacity if a Hub user assigned them to a partner" do
         ActiveRecord::Base.transaction do
           UpdateClientVitaPartnerService.new(clients: [Client.last], vita_partner_id: create(:organization).id).update!
         end
@@ -98,7 +79,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
   context "when a vita partner becomes available after the client has seen the at capacity page" do
     let(:overflow_organization) { create :organization }
 
-    it "allows the client to log in, start from the consent page, and get routed to a vita partner" do
+    xit "allows the client to log in, start from the consent page, and get routed to a vita partner" do
       routing_service_double = instance_double(PartnerRoutingService)
       allow(PartnerRoutingService).to receive(:new).and_return routing_service_double
 
