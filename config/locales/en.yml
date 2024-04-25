@@ -3086,49 +3086,8 @@ en:
           w2s_shared: W-2s shared
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
         home:
-          complete_form: Complete CTC form
           contact_us: Contact us
-          correct_info: Correct my information
-          current_status: 'Current tax return status:'
-          default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
-          download_tax_return: Download my tax return
-          failure_title: 'Reason for this failure:'
-          imperfect_return_indicator_text: |
-            Your return was accepted by the IRS, including a request to update one more more of your dependents' legal names in their records.
-            The IRS estimates that it will take 4-8 weeks to process your return. You may also receive a letter confirming your request to update the dependent's legal name.
-          next_step_title: 'Next steps:'
-          rejection_title: 'Reason for this rejection:'
-          status:
-            accepted:
-              label: Accepted
-              message: Your return has been accepted by the IRS. You should receive a payment in 4 or more weeks.
-            bundling:
-              label: Electronically filing
-              message: We are preparing your return. We'll continue to update you on the status of your submission.
-            cancelled:
-              label: Cancelled
-              message: We will no longer attempt to efile this return with the IRS. To continue, use the resources below to mail your return to the IRS.
-            failed:
-              label: Submission error
-              message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
-            fraud_hold:
-              label: Reviewing ID Submission
-              message: Thank you for submitting your ID. We are currently reviewing your submission. You can expect a response within 5 days.
-            intake_in_progress:
-              label: More information needed
-              message: We need more information from you before we can file your return.
-            new:
-              label: Electronically filing
-              message: We are preparing your return. We'll continue to update you on the status of your submission.
-            preparing:
-              label: Electronically filing
-              message: We are preparing your return. We'll continue to update you on the status of your submission.
-            rejected:
-              label: Rejected
-              message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
-            transmitted:
-              label: Electronically filed
-              message: Your return has been submitted to the IRS. You will know within one week if your return has been accepted.
+          download_tax_return: Download my 2022 tax return
           title: Thank you for filing with GetCTC!
         mailing_address:
           title: Edit your address
