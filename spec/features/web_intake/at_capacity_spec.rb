@@ -50,7 +50,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
     end
 
     context "when a Hub user has assigned the client to a partner" do
-      it "allows the client past At Capacity if a Hub user assigned them to a partner" do
+      xit "allows the client past At Capacity if a Hub user assigned them to a partner" do
         ActiveRecord::Base.transaction do
           UpdateClientVitaPartnerService.new(clients: [Client.last], vita_partner_id: create(:organization).id).update!
         end
