@@ -22,7 +22,6 @@ module GyrEfiler
       submission.retry_send_submission
       return
     rescue Efile::GyrEfilerService::Error => e
-      #
       # For most errors, transition to failed and raise the error for Sentry.
       #
       # However, if the IRS says our submission ID is not globally unique, we assume the IRS already received it.
