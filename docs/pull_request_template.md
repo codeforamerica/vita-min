@@ -12,7 +12,6 @@
     - Risk Assessment
         - Risks or side effects associated with the changes and how they were mitigated.
         - Highlight areas that may need extra attention during code review or testing.
-        - Paste SQL queries or output where relevant
-## Screenshots (for visual change)
+        - Paste SQL queries or output where relevant
+## Screenshots (for visual changes)
     - Before | After 
-    
