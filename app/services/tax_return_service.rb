@@ -1,7 +1,10 @@
 class TaxReturnService
   def self.handle_state_change(form)
     action_list = []
-    form.tax_return.transition_to!(form.status, initiated_by_user_id: form.current_user.id)
+    tax_return = form.tax_return
+    tax_return.with_lock do
+      tax_return.transition_to!(form.status, initiated_by_user_id: form.current_user.id)
+    end
     action_list << I18n.t("hub.clients.update_take_action.flash_message.status")
     SystemNote::StatusChange.generate!(initiated_by: form.current_user, tax_return: form.tax_return)
     if form.message_body.present?
