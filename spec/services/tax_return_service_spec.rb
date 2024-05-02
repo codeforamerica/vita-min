@@ -184,9 +184,35 @@ describe TaxReturnService do
           tax_return_transition_states.each do |state|
             form_params.update(status: state)
             TaxReturnService.handle_state_change(form)
-            binding.pry
+            # binding.pry
           end
         end.not_to raise_error(Statesman::TransitionConflictError)
+      end
+
+      it 'raises an error' do
+        # Freeze time to ensure both requests are processed simultaneously
+        frozen_time = Time.now
+        Timecop.freeze(frozen_time)
+
+        # Use threads to simulate two simultaneous requests
+        threads = []
+        #tax_return_transition_states.each do |state|
+        2.times do |index|
+          threads << Thread.new do
+            # form_params.update(status: state).reload
+            # tax_return.tax_return_transitions[-2].update(most_recent: true)
+            tax_return.tax_return_transitions[-1].update(most_recent: true)
+            TaxReturnService.handle_state_change(form)
+            #binding.pry
+          end
+        end
+
+        # Wait for all threads to finish
+        threads.each(&:join)
+
+        # Unfreeze time
+        Timecop.return
+
       end
 
       # TODO - add scenario where timecop where lock prevents update?
@@ -194,3 +220,12 @@ describe TaxReturnService do
     end
   end
 end
+
+# threads << Thread.new do
+#   expect do
+#     form.update(status: state)
+#     TaxReturnService.handle_state_change(form)
+#     binding.pry
+#     # tax_return.tax_return_transitions
+#   end.not_to raise_error(Statesman::TransitionConflictError)
+# end
