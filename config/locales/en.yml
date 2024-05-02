@@ -2769,7 +2769,7 @@ en:
           instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
-          locality_nm_missing_error: Please select locality name
+          locality_nm_missing_error: Please enter locality name
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           w2s_error: Update W-2s before continuing.
