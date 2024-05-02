@@ -170,5 +170,27 @@ describe TaxReturnService do
         end.not_to change(Note, :count)
       end
     end
+
+    context 'when there are multiple requests; the lock prevents race conditions' do
+      let(:form_params) {
+        { tax_return_id: tax_return.id, internal_note_body: " \n", status: 'intake_in_progress' }
+      }
+      let(:tax_return_transition_states) {
+        [:intake_ready, :intake_reviewing, :intake_ready_for_call, :intake_info_requested, :intake_greeter_info_requested]
+      }
+
+      it 'does NOT raise an error' do
+        expect do
+          tax_return_transition_states.each do |state|
+            form_params.update(status: state)
+            TaxReturnService.handle_state_change(form)
+            binding.pry
+          end
+        end.not_to raise_error(Statesman::TransitionConflictError)
+      end
+
+      # TODO - add scenario where timecop where lock prevents update?
+      # What if we mock that most_recent is true for another transition?
+    end
   end
 end
