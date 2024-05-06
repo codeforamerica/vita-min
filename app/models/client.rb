@@ -103,6 +103,7 @@ class Client < ApplicationRecord
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
+  # SOME TRASH HERE
 
   def self.sortable_intake_attributes
     [:created_at, :state_of_residence] + delegated_intake_attributes
