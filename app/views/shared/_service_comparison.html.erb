@@ -45,19 +45,21 @@
                 <%= link_to t("views.shared.service_comparison.services.diy.cta"), Diy::FileYourselfController.to_path_helper, class: "button", "data-track-click": "service-comparison-diy" %>
               </div>
             </div>
-            <div class="service direct-file">
-              <div>
-                <h2 class="service__service-name">
-                  <%= t("views.shared.service_comparison.services.direct_file.service_name") %>
-                </h2>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <div>
+                  <h2 class="service__service-name">
+                    <%= t("views.shared.service_comparison.services.direct_file.service_name") %>
+                  </h2>
+                </div>
+                <div class="service__description">
+                  <%= t("views.shared.service_comparison.services.direct_file.service_description") %>
+                </div>
+                <div class="service__cta">
+                  <%= link_to t("views.shared.service_comparison.services.direct_file.cta"), "https://directfile.irs.gov/state" ,class: "button", "data-track-click": "service-comparison-direct-file"%>
+                </div>
               </div>
-              <div class="service__description">
-                <%= t("views.shared.service_comparison.services.direct_file.service_description") %>
-              </div>
-              <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.direct_file.cta"), "https://directfile.irs.gov/state" ,class: "button", "data-track-click": "service-comparison-direct-file"%>
-              </div>
-            </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set service-set--mobile-only mobile-sticky-header">
@@ -70,9 +72,11 @@
             <div class="service diy">
               <strong><%= t("views.shared.service_comparison.services.diy.service_name") %></strong>
             </div>
-            <div class="service direct-file">
-              <strong><%= t("views.shared.service_comparison.services.direct_file.service_name") %></strong>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <strong><%= t("views.shared.service_comparison.services.direct_file.service_name") %></strong>
+              </div>
+            <% end %>
           </div>
         </div>
 
@@ -90,9 +94,11 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.income_limit.diy") %>
             </div>
-            <div class="service direct-file">
-              <%= t("views.shared.service_comparison.income_limit.direct_file") %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= t("views.shared.service_comparison.income_limit.direct_file") %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set service-set--hr">
@@ -108,9 +114,11 @@
             <div class="service diy">
               <%= MultiTenantService.new(:gyr).current_tax_year %>
             </div>
-            <div class="service direct-file">
-              <%= MultiTenantService.new(:gyr).current_tax_year %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= MultiTenantService.new(:gyr).current_tax_year %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set service-set--hr">
@@ -129,9 +137,11 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.time_to_file.diy") %>
             </div>
-            <div class="service direct-file">
-              <%= t("views.shared.service_comparison.time_to_file.diy") %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= t("views.shared.service_comparison.time_to_file.diy") %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -143,7 +153,9 @@
           <div class="service-set__services service-set--mobile-excluded">
             <div class="service full-service"></div>
             <div class="service diy"></div>
-            <div class="service direct-file"></div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file"></div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -159,9 +171,11 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.id_documents.diy") %>
             </div>
-            <div class="service direct-file">
-              <%= t("views.shared.service_comparison.id_documents.diy") %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= t("views.shared.service_comparison.id_documents.diy") %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set service-set--hr">
@@ -172,9 +186,11 @@
             <div class="service-set__subtitle">
               <%= t("views.shared.service_comparison.tax_documents.subtitle") %>
             </div>
-            <div class="service-set__subtitle">
-              <%= t("views.shared.service_comparison.tax_documents.subtitle") %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service-set__subtitle">
+                <%= t("views.shared.service_comparison.tax_documents.subtitle") %>
+              </div>
+            <% end %>
           </div>
           <div class="service-set__services">
             <div class="service full-service">
@@ -183,9 +199,11 @@
             <div class="service diy">
               <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
             </div>
-            <div class="service direct-file">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set service-set--hr">
@@ -201,9 +219,11 @@
             <div class="service diy">
               <%= t("views.shared.service_comparison.tax_payer_residency.diy") %>
             </div>
-            <div class="service direct-file">
-              <%= t("views.shared.service_comparison.tax_payer_residency.direct_file") %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= t("views.shared.service_comparison.tax_payer_residency.direct_file") %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -217,8 +237,10 @@
             </div>
             <div class="service diy">
             </div>
-            <div class="service direct-file">
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -233,9 +255,11 @@
             </div>
             <div class="service diy">
             </div>
-            <div class="service direct-file">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -250,9 +274,11 @@
             </div>
             <div class="service diy">
             </div>
-            <div class="service direct-file">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+                <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -267,8 +293,10 @@
             </div>
             <div class="service diy">
             </div>
-            <div class="service direct-file">
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
@@ -283,8 +311,10 @@
             </div>
             <div class="service diy">
             </div>
-            <div class="service direct-file">
-            </div>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <div class="service direct-file">
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="service-set">
