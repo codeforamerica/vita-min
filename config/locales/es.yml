@@ -91,9 +91,6 @@ es:
         info:
         - Impuestos
         - Para comenzar, necesitaremos recopilar información básica.
-        received_1099:
-          help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
-          label: "¿Recibió un formulario de impuestos 1099?"
         title: "¡Declare aquí sus impuestos usted mismo!"
   documents:
     documents_help:
