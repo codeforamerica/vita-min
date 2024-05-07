@@ -103,7 +103,7 @@ module VitaMin
     config.eitc_full_launch = Time.find_zone("America/New_York").parse("2022-10-11 09:00:00")
     config.ctc_end_of_intake = Time.find_zone("America/New_York").parse("2022-11-16 23:59:00")
     config.ctc_end_of_read_write = Time.find_zone("America/New_York").parse("2022-11-19 23:59:00")
-    config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2023-12-31 23:59:00")
+    config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2024-12-31 23:59:00")
 
     # StateFile
     config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-08 09:00:00')
