@@ -41,8 +41,9 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
       context "with valid params" do
         let(:params) do
           {
-            satisfaction_face_form: {
-              satisfaction_face: "negative"
+            successfully_submitted_form: {
+              satisfaction_face: "negative",
+              feedback: "This whole website seems like a simulation. Is it real?"
             }
           }
         end
@@ -57,6 +58,7 @@ RSpec.describe Questions::SuccessfullySubmittedController, type: :controller do
           post :update, params: params
 
           expect(MixpanelService).to have_received(:send_event).with(hash_including(subject: intake, event_name: "question_answered"))
+          expect(intake.reload.feedback).to eq "This whole website seems like a simulation. Is it real?"
         end
       end
     end
