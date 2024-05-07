@@ -17,6 +17,7 @@ module Navigation
 
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
+      Questions::AtCapacityController, # possible off-boarding when at capacity
       Questions::SsnItinController,
       Questions::BacktaxesController,
       Questions::StartWithCurrentYearController,
@@ -37,7 +38,6 @@ module Navigation
                                     # generate a "Preliminary" 13614-C signed by the primary
                                     # Routes client to a vita partner, if route-able
                                     # creates TaxReturn records for backtaxes years
-      Questions::AtCapacityController,
       Questions::OptionalConsentController, # generate a "Preliminary" 13614-C with signed f15080 (vita disclosure pdf)
       Questions::ChatWithUsController, # This and all later controllers require a client to be signed in.,
       # Primary filer personal information
