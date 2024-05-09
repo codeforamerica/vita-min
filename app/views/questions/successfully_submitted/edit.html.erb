@@ -42,19 +42,31 @@
     <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "satisfaction_face_form" } do |f| %>
       <h2 class="h3" id="survey-question"><%= t("views.questions.successfully_submitted.satisfaction_face.question") %></h2>
       <div class="face-container">
-        <%= f.button :submit, name: "#{f.object_name}[satisfaction_face]", value: "positive", class: "button positive", "aria-describedby": "survey-question" do %>
+        <label class="radio-button positive">
           <%= image_tag("questions/csat/positive.svg", alt: "") %>
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.positive") %></span>
-        <% end %>
-        <%= f.button :submit, name: "#{f.object_name}[satisfaction_face]", value: "neutral", class: "button neutral", "aria-describedby": "survey-question" do %>
+          <%= f.radio_button :satisfaction_face, :positive %>
+        </label>
+        <label class="radio-button neutral">
           <%= image_tag("questions/csat/neutral.svg", alt: "") %>
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.neutral") %></span>
-        <% end %>
-        <%= f.button :submit, name: "#{f.object_name}[satisfaction_face]", value: "negative", class: "button negative", "aria-describedby": "survey-question" do %>
+          <%= f.radio_button :satisfaction_face, :neutral %>
+        </label>
+        <label class="radio-button negative">
           <%= image_tag("questions/csat/negative.svg", alt: "") %>
           <span><%= t("views.questions.successfully_submitted.satisfaction_face.negative") %></span>
-        <% end %>
+          <%= f.radio_button :satisfaction_face, :negative %>
+        </label>
       </div>
+      <div class="spacing-above-60">
+      <%= f.cfa_textarea(
+            :feedback,
+            "",
+            help_text: t("views.questions.feedback.body"),
+            options: { rows: '5' }
+          ) %>
+      </div>
+      <%= f.continue %>
     <% end %>
   <% end %>
 <% end %>

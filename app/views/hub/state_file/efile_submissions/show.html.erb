@@ -62,7 +62,7 @@
             %>
           </div>
         <% end %>
-        <% if @efile_submission.in_state?(:rejected) %>
+        <% if @efile_submission.in_state?(:rejected) || @efile_submission.in_state?(:waiting) %>
           <div style="margin-left: 10px;">
             <%= button_to("Notify of Rejection",
                           notify_of_rejection_hub_efile_submission_path(id: @efile_submission.id),

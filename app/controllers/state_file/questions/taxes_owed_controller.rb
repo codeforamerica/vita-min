@@ -4,6 +4,7 @@ module StateFile
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.negative? # what happens if zero?
       end
+
       def taxes_owed
         current_intake.calculated_refund_or_owed_amount.abs
       end

@@ -548,10 +548,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_text("Client ID number: #{intake.client_id}")
       expect(page).to have_text("Please save this number for your records and future reference.")
     end
-    click_on "Great!"
-
-    expect(intake.reload.current_step).to end_with("/questions/feedback")
-    fill_in "Thank you for sharing your experience.", with: "I am a joint filer. I file with my spouse."
+    choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
+    fill_in "successfully_submitted_form_feedback", with: "I am a joint filer. I file with my spouse."
     click_on "Continue"
 
     # Demographic Questions

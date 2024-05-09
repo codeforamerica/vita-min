@@ -453,6 +453,38 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             end
           end
 
+          context "when there are multiple intakes with a matching ssn" do
+            let(:second_intake) do
+              create(
+                :state_file_az_intake,
+                email_address: "client@example.com",
+                phone_number: "+15105551234",
+                hashed_ssn: "hashed_ssn"
+              )
+            end
+            let(:intake_query) { StateFileAzIntake.where(hashed_ssn: "hashed_ssn") }
+
+            context "when one intake has an accepted submission and one does not" do
+              it "logs in the accepted intake" do
+                create(:efile_submission, :accepted, :for_state, data_source: second_intake)
+                create(:efile_submission, :rejected, :for_state, data_source: second_intake)
+
+                post :update, params: params
+
+                expect(subject.current_state_file_az_intake).to eq(second_intake)
+                expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+                expect(session["warden.user.state_file_az_intake.key"].first.first).to eq second_intake.id
+              end
+            end
+
+            it "otherwise picks the first one" do
+              post :update, params: params
+
+              expect(subject.current_state_file_az_intake).to eq(intake)
+              expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
+            end
+          end
+
           context "when they were trying to access a protected page" do
             let(:original_path) { "/questions/fake-page?test=1234" }
 

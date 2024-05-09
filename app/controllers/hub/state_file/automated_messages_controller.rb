@@ -17,6 +17,7 @@ module Hub::StateFile
         [StateFile::AutomatedMessage::StillProcessing, {}],
         [StateFile::AutomatedMessage::SuccessfulSubmission, {}],
         [StateFile::AutomatedMessage::RejectResolutionReminder, {}],
+        [StateFile::AutomatedMessage::PostDeadlineReminder, {}],
       ]
 
       automated_messages_and_mailers = automated_messages.map do |m|
