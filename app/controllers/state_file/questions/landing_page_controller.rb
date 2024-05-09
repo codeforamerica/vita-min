@@ -6,6 +6,7 @@ module StateFile
       skip_before_action :redirect_if_in_progress_intakes_ended
 
       def edit
+        raise StandardError.new("Foobar")
         @state_name = StateFileBaseIntake::STATE_CODE_AND_NAMES[params[:us_state]]
         @closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
         if current_intake.present?

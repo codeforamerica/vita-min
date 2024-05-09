@@ -47,7 +47,17 @@ class PublicPagesController < ApplicationController
 
   def internal_server_error
     respond_to do |format|
-      format.html { render 'public_pages/internal_server_error', status: 500  }
+      format.html do
+        original_params = Rails.application.routes.recognize_path request.original_url
+        @error_image = (
+          if original_params[:controller].starts_with? "state_file/"
+            "state-file-server-error.svg"
+          else
+            "server-error.svg"
+          end
+        )
+        render 'public_pages/internal_server_error', status: 500
+      end
       format.any { head 500 }
     end
   end
