@@ -89,9 +89,10 @@ module StateFile
 
     def service_type
       case params[:us_state]
-      when "az" then :statefile_az
-      when "ny" then :statefile_ny
-      when "us" then :statefile
+      when "us"
+        :statefile
+      else
+        "statefile_#{params[:us_state]}".to_sym
       end
     end
 
