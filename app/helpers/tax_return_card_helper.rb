@@ -7,7 +7,7 @@ module TaxReturnCardHelper
 
     if ask_for_answers
       current_step = intake.current_step
-      if intake.client.routing_method_at_capacity?
+      if intake.client.present? && intake.client.routing_method_at_capacity?
         # check if the appropriate partner is still at capacity
         routing_service = PartnerRoutingService.new(
           intake: intake,
