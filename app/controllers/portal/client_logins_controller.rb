@@ -31,7 +31,6 @@ module Portal
     end
 
     def check_verification_code
-      raise StandardError.new("doh")
       params = check_verification_code_params
       if params[:contact_info].blank?
         head :bad_request
