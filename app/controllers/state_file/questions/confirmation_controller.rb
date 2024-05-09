@@ -3,12 +3,7 @@ module StateFile
     class ConfirmationController < QuestionsController
       def show_xml
         submission = EfileSubmission.where(data_source: current_intake).first
-        builder_response = case params[:us_state]
-                           when "ny"
-                             SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission)
-                           when "az"
-                             SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
-                           end
+        builder_response = current_intake.builder_class.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end
 

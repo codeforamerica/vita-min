@@ -46,6 +46,10 @@ class StateFileBaseIntake < ApplicationRecord
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
 
+  def builder_class
+    "SubmissionBuilder::Ty2022::States::#{state_code.capitalize}::IndividualReturn".constantize
+  end
+
   def synchronize_df_dependents_to_database
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build

@@ -35,8 +35,7 @@ module Hub
         return nil if acts_like_production?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
-        builder_class = "SubmissionBuilder::Ty2022::States::#{submission.data_source.state_code.capitalize}::IndividualReturn".constantize
-        builder_response = builder_class.build(submission)
+        builder_response = submission.data_source.builder_class.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end
 
