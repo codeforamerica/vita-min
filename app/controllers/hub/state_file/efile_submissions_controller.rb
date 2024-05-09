@@ -35,12 +35,8 @@ module Hub
         return nil if acts_like_production?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
-        builder_response = case submission.data_source.state_code
-                           when "ny"
-                             SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission)
-                           when "az"
-                             SubmissionBuilder::Ty2022::States::Az::IndividualReturn.build(submission)
-                           end
+        builder_class = "SubmissionBuilder::Ty2022::States::#{submission.data_source.state_code.capitalize}::IndividualReturn".constantize
+        builder_response = builder_class.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end
 
