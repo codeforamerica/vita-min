@@ -189,6 +189,29 @@ class StateFileNyIntake < StateFileBaseIntake
     "https://www.tax.ny.gov/pay/"
   end
 
+  def refund_url
+    'https://www.tax.ny.gov/pit/file/refund.htm'
+  end
+
+  def tax_payment_url
+    'Tax.NY.gov'
+  end
+
+  def download_form_name
+    'Form IT-201-V'
+  end
+
+  def mail_voucher_address
+    "NYS Personal Income Tax<br/>"\
+    "Processing Center<br/>"\
+    "Box 4124<br/>"\
+    "Binghamton, NY 13902-4124".html_safe
+  end
+
+  def voucher_path
+    '/pdfs/it201v_1223.pdf'
+  end
+
   def county_name
     district&.county_name
   end

@@ -128,6 +128,28 @@ class StateFileAzIntake < StateFileBaseIntake
     "https://www.aztaxes.gov/"
   end
 
+  def refund_url
+    'https://aztaxes.gov/home/checkrefund'
+  end
+
+  def tax_payment_url
+    'AZTaxes.gov'
+  end
+
+  def download_form_name
+    'Form AZ-140V'
+  end
+
+  def mail_voucher_address
+    "Arizona Department of Revenue<br/>"\
+    "PO Box 29085<br/>"\
+    "Phoenix, AZ 85038-9085".html_safe
+  end
+
+  def voucher_path
+    '/pdfs/AZ-140V.pdf'
+  end
+
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
       year: MultiTenantService.statefile.current_tax_year,
