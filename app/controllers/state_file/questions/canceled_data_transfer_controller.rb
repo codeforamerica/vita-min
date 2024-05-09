@@ -15,12 +15,7 @@ module StateFile
         )
         @fake_data_transfer_link = fake_data_transfer_link
         @irs_df_transfer_link = irs_df_transfer_link
-        @go_back_link = case current_intake.state_code
-                        when "ny"
-                          ny_questions_initiate_data_transfer_path
-                        when "az"
-                          az_questions_initiate_data_transfer_path
-                        end
+        @go_back_link = StateFile::Questions::InitiateDataTransferController.to_path_helper(action: :initiate_data_transfer, us_state: current_intake.state_code)
       end
 
       def illustration_path
