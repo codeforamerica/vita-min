@@ -55,18 +55,11 @@ module StateFile
     
     def matching_intakes_has_email_verified_at?(intake)
       return if intake.email_address.nil? || intake.hashed_ssn.nil?
-      matching_intakes = case intake.state_code
-                         when "az"
-                           StateFileAzIntake
-                             .where(email_address: intake.email_address, hashed_ssn: intake.hashed_ssn)
-                             .where.not(email_address_verified_at: nil)
-                         when "ny"
-                           StateFileNyIntake
-                             .where(email_address: intake.email_address, hashed_ssn: intake.hashed_ssn)
-                             .where.not(email_address_verified_at: nil)
-                         else
-                           return false
-                         end
+
+      # when we use intake.state_code, we should have a way to check that it's a valid/active us state
+      intake_model = MultiTenantService.new("statefile_#{intake.state_code}").intake_model
+      matching_intakes = intake_model.send(:where, email_address: intake.email_address, hashed_ssn: intake.hashed_ssn)
+                                     .send(:where).send(:not, email_address_verified_at: nil)
       
       matching_intakes.present?
     end
