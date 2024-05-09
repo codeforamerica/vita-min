@@ -185,6 +185,10 @@ class StateFileNyIntake < StateFileBaseIntake
     STATE_NAME
   end
 
+  def pay_taxes_link
+    "https://www.tax.ny.gov/pay/"
+  end
+
   def county_name
     district&.county_name
   end

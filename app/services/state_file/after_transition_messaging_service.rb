@@ -5,7 +5,7 @@ module StateFile
     def initialize(efile_submission)
       @intake = efile_submission.data_source
       @submission = efile_submission
-      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless %w[StateFileAzIntake StateFileNyIntake].include?(@intake.class.name)
+      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless ApplicationRecord::STATE_INTAKE_CLASS_NAMES.include?(@intake.class.name)
     end
 
     def send_efile_submission_accepted_message
@@ -15,7 +15,7 @@ module StateFile
         body_args = { return_status_link: return_status_link }
       when :owe
         message = StateFile::AutomatedMessage::AcceptedOwe
-        body_args = { state_pay_taxes_link: state_pay_taxes_link, return_status_link: return_status_link }
+        body_args = { state_pay_taxes_link: @intake.pay_taxes_link, return_status_link: return_status_link }
       end
 
       StateFile::MessagingService.new(
@@ -71,17 +71,6 @@ module StateFile
 
     def return_status_link
       url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: @intake.state_code)
-    end
-
-    def state_pay_taxes_link
-      case @intake.state_code
-      when "ny"
-        "https://www.tax.ny.gov/pay/"
-      when 'az'
-        "https://www.aztaxes.gov/"
-      else
-        ""
-      end
     end
   end
 end

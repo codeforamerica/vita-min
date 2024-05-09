@@ -124,6 +124,10 @@ class StateFileAzIntake < StateFileBaseIntake
     STATE_NAME
   end
 
+  def pay_taxes_link
+    "https://www.aztaxes.gov/"
+  end
+
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
       year: MultiTenantService.statefile.current_tax_year,
