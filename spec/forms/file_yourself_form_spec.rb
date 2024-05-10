@@ -6,7 +6,6 @@ RSpec.describe FileYourselfForm do
     {
       email_address: "example@example.com",
       preferred_first_name: "Robot",
-      received_1099: "yes",
       filing_frequency: "some_years",
     }
   end
@@ -35,7 +34,6 @@ RSpec.describe FileYourselfForm do
             diy_intake: {
               email_address: "not an email address",
               preferred_first_name: "Robot",
-              received_1099: "yes",
               filing_frequency: "some_years",
             }
           }
@@ -55,7 +53,6 @@ RSpec.describe FileYourselfForm do
             diy_intake: {
               email_address: nil,
               preferred_first_name: nil,
-              received_1099: nil,
               filing_frequency: nil,
             }
           }
@@ -67,7 +64,6 @@ RSpec.describe FileYourselfForm do
           expect(form).not_to be_valid
           expect(form.errors[:email_address]).to be_present
           expect(form.errors[:preferred_first_name]).to be_present
-          expect(form.errors[:received_1099]).to be_present
           expect(form.errors[:filing_frequency]).to be_present
         end
       end
@@ -82,7 +78,6 @@ RSpec.describe FileYourselfForm do
       diy_intake.reload
       expect(diy_intake.email_address).to eq "example@example.com"
       expect(diy_intake.preferred_first_name).to eq "Robot"
-      expect(diy_intake.received_1099).to eq "yes"
       expect(diy_intake.filing_frequency).to eq "some_years"
       expect(diy_intake.source).to eq "source"
       expect(diy_intake.referrer).to eq "referrer"

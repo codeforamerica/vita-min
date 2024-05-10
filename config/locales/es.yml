@@ -91,9 +91,6 @@ es:
         info:
         - Impuestos
         - Para comenzar, necesitaremos recopilar información básica.
-        received_1099:
-          help_text: Si trabajaba por cuenta propia o trabajaba como contratista independiente, es posible que haya recibido un formulario 1099.
-          label: "¿Recibió un formulario de impuestos 1099?"
         title: "¡Declare aquí sus impuestos usted mismo!"
   documents:
     documents_help:
@@ -1475,7 +1472,7 @@ es:
       sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     in_progress:
       email:
-        body: |+
+        body: |
           Hola <<Client.PreferredName>>,
 
           Nos dimos cuenta de que no ha terminado de proporcionar la información que necesitamos para preparar sus impuestos. Continúe donde se quedó aquí <<Client.LoginLink>>.
@@ -1486,13 +1483,9 @@ es:
 
           ¡Estamos aquí para ayudarle!
           Su Equipo de Asistencia de Preparación de Impuestos en GetYourRefund
-
-        subject: 'Bienvenido a GetYourRefund: ID de Cliente'
+        subject: 'GetYourRefund: Tienes un envío en curso'
       sms:
-        body: |
-          Hola <<Client.PreferredName>> No ha terminado de llenar la información que necesitamos para preparar sus impuestos en GetYourRefund. Continúe donde se quedó aquí <<Client.LoginLink>>. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje. Si tiene alguna pregunta, responda a este mensaje.
-
-          Su equipo fiscal en GetYourRefund
+        body: Hola <<Client.PreferredName>>, no has completado de proporcionar la información que necesitamos para preparar tus impuestos en GetYourRefund. Continúe donde lo dejó aquí <<Client.LoginLink>>. Su ID de cliente es <<Client.ClientId>>. Si tiene alguna pregunta, responda a este mensaje.
     intercom_forwarding:
       email:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
@@ -1586,8 +1579,18 @@ es:
           ¿Preguntas? Responde a este mensaje.
       post_deadline_reminder:
         email:
-          body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencieron el 15 de abril. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por presentación tardía de %{state_name}.\n\nFileYourStateTaxes cerrará sus servicios para el año el 25 de abril.\n\nVe a https://www.fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. \n\n¿Necesitas ayuda? Responde a este correo electrónico. \n\nSaludos, \n\nEl equipo de FileYourStateTaxes"
-          subject: "¡No olvides terminar de presentar tu declaración de impuestos estatales lo antes posible!"
+          body: |-
+            Hola %{primary_first_name},
+
+            Notamos que todavía no has enviado tu declaración de impuestos estatales con la cuenta asociada a este correo electrónico. Si enviaste tu declaración estatal de otra manera, o la enviaste con otro correo electrónico, puedes ignorar este mensaje.
+
+            Este es un recordatorio que la fecha límite para enviar tu declaración estatal fue el 15 de abril, pero aún no es demasiado tarde para presentarla. Visita a https://www.fileyourstatetaxes.org/es/us/login-options para verificar el estado de tu declaración o completarla ahora. Debes enviar tu declaración tan pronto como posible para evitar cargos de presentaciones tardías de %{state_name}. Nuestros servicios cerrarán el 25 de abril. Después de esa fecha, ya no podrás presentar tu declaración a través de FileYourStateTaxes.
+
+            ¿Preguntas? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
         sms: |
           Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por presentación tardía. Ve a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora. FileYourStateTaxes cerrará sus servicios para el año el 25 de abril.
           ¿Necesitas ayuda? Responde a este mensaje de texto.
@@ -1710,7 +1713,7 @@ es:
         body: |
           Hola <<Client.PreferredName>>,
 
-          ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>  Este es un dato importante de su cuenta que puede ayudarle cuando hable con nuestros representantes de chat y cuando inicie sesión en su cuenta. Por favor, no pierda de vista este número y no borre este mensaje.
+          ¡Su información fiscal ha sido enviada con éxito! <strong>Su ID de cliente es <<Client.ClientId>>.</strong>
 
           Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}.
 
@@ -1720,11 +1723,8 @@ es:
 
           ¡Estamos aquí para ayudarle!
           Su equipo fiscal en GetYourRefund
-        subject: 'Bienvenido a GetYourRefund: ID de cliente'
-      sms: |
-        Hola <<Client.PreferredName>>, Su información fiscal ha sido enviada correctamente a GetYourRefund. IMPORTANTE: Su ID de cliente es <<Client.ClientId>>. Por favor, no pierda de vista este número y no borre este mensaje.
-        Su especialista en impuestos revisará su información y se comunicará con usted si necesita información adicional antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Revise su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.
-        Su equipo fiscal en GetYourRefund
+        subject: 'GetYourRefund: ¡Ha enviado correctamente su información fiscal!'
+      sms: 'Hola <<Client.PreferredName>>, Su información fiscal se envió correctamente a GetYourRefund. Su ID de cliente es <<Client.ClientID>>. Su especialista en impuestos revisará su información, se comunicará con usted y programará una llamada telefónica requerida antes de preparar sus impuestos. Para presentar la solicitud antes de la fecha límite, necesitamos todos los documentos requeridos antes del %{end_of_docs_date}. Verifique su progreso y agregue documentos adicionales aquí: <<Client.LoginLink>>. Si tiene alguna pregunta, responda a este mensaje.'
     surveys:
       completion:
         email:
@@ -2096,8 +2096,6 @@ es:
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
-        update:
-          page_changed_notice: "¡Lo sentimos, esta página ha cambiado! Por favor responda las preguntas otra vez."
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2637,10 +2635,10 @@ es:
       tax_refund:
         bank_details:
           account_number: Número de cuenta
+          after-deadline-default-withdrawl-info: Debido al hecho de que estás enviando tu declaración el 15 de abril o después, el estado retirará tu pago tan pronto como se procese tu declaración.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el dia del 15 de abril de 2024):"
           disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria (routing number)
@@ -3065,49 +3063,8 @@ es:
           w2s_shared: W-2 compartidos
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
-          complete_form: Complete el formulario CTC
           contact_us: Contáctenos
-          correct_info: Corregir mi información
-          current_status: 'Estado actual de la declaración de impuestos:'
-          default_next_steps: Por favor, envíenos un mensaje con preguntas o correcciones utilizando el botón "Contáctenos" que aparece a continuación.
           download_tax_return: Descargar mi declaración de impuestos
-          failure_title: 'Motivo de este fracaso:'
-          imperfect_return_indicator_text: |
-            El IRS aceptó su declaración, incluida una solicitud para actualizar uno más de los nombres legales de sus dependientes en sus registros.
-            El IRS estima que le tomará de 4 a 8 semanas procesar su declaración. También puede recibir una carta confirmando su solicitud para actualizar el nombre legal del dependiente.
-          next_step_title: 'Próximos pasos:'
-          rejection_title: 'Motivo de este rechazo:'
-          status:
-            accepted:
-              label: Aceptada
-              message: El IRS aceptó su declaración de impuestos. Recibirá un pago en 4 o más semanas.
-            bundling:
-              label: Declaración electrónica
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
-            cancelled:
-              label: Cancelado
-              message: Ya no intentaremos presentar electrónicamente esta declaración al IRS. Para continuar, utilice los recursos que aparecen a continuación para enviar por correo su declaración al IRS.
-            failed:
-              label: Error de envío
-              message: Nuestro equipo está investigando un error técnico con su declaración. Una vez que resolvamos este error, volveremos a enviar su declaración. Espere una actualización dentro de los 3 días hábiles.
-            fraud_hold:
-              label: Se está revisando la presentación de la identificación, o en inglés, ID
-              message: Gracias por enviar su identificación. Estamos revisando su solicitud. Puede esperar una respuesta en un plazo de 5 días.
-            intake_in_progress:
-              label: Necesitamos más información
-              message: Necesitamos más información para poder presentar su declaración.
-            new:
-              label: Declaración electrónica
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
-            preparing:
-              label: Declaración electrónica
-              message: Estamos preparando su declaración. Seguiremos informándole sobre el estado de su presentación.
-            rejected:
-              label: Rechazada
-              message: Nuestro equipo está investigando un error técnico con su declaración. Una vez que resolvamos este error, volveremos a enviar su declaración. Espere una actualización dentro de los 3 días hábiles.
-            transmitted:
-              label: Tramitados electrónicamente
-              message: Su declaración ha sido presentada al IRS. En el plazo de una semana sabrá si su declaración ha sido aceptada.
           title: "¡Gracias por presentar su declaración con GetCTC!"
         mailing_address:
           title: Edita tu dirección
@@ -4840,12 +4797,11 @@ es:
           one: "¿Reportó una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
-        body_html:
-        - Si quiere trabajar con un preparador de impuestos, inténtelo de nuevo dentro de unos días en <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
-        - Si quiere presentar sus impuestos hoy, puede hacerlo por su cuenta con el software gratuito de declaración de impuestos de nuestro socio. ¡Esta es nuestra opción más rápida para presentar sus impuestos y cobrar los créditos fiscales que le corresponden!
+        body: Lamentamos que estemos experimentando un gran volumen de clientes en este momento. ¡Podemos ofrecerle una opción alternativa gratuita a continuación para ayudarlo a presentar sus impuestos hoy!
         continue_to_diy: Continuar a File Myself--declarar yo mismo
-        return_to_homepage: Regresar a la página principal
-        title: "¡Lo sentimos! Los socios de preparación de impuestos de GetYourRefund están actualmente al límite de su capacidad."
+        file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
+        title: Vaya, parece que estamos al límite de capacidad en este momento.
+        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el 15 de abril.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
@@ -4958,7 +4914,6 @@ es:
           other: "¿Alguna vez ha sido usted o su cónyuge dueño de una casa?"
       feedback:
         body: Apreciamos cualquier comentario adicional que tenga para servir mejor a nuestros clientes en el futuro.
-        title: Gracias por compartir su experiencia.
       filing_joint:
         help_text: Generalmente, declarar sus impuestos juntos es más beneficioso para su reembolso. Su cónyuge necesitará verificar su identidad y firmar la declaración de impuestos final.
         title: "¿Está declarando sus impuestos con su cónyuge?"

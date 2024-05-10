@@ -306,8 +306,6 @@
 #
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (matching_previous_year_intake_id => intakes.id)
-#  fk_rails_...  (primary_drivers_license_id => drivers_licenses.id)
-#  fk_rails_...  (spouse_drivers_license_id => drivers_licenses.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::GyrIntake < Intake
@@ -547,5 +545,9 @@ class Intake::GyrIntake < Intake
 
   def filing_jointly?
     filing_joint_yes?
+  end
+
+  def self.opted_out_gyr_intakes(email)
+    Intake::GyrIntake.where(email_address: email).where(email_notification_opt_in: 'no')
   end
 end

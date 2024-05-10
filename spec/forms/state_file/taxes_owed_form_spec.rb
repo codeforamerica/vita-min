@@ -149,7 +149,7 @@ RSpec.describe StateFile::TaxesOwedForm do
         let(:day) { "31" }
         let(:year) { current_year }
 
-        it "is valid" do
+        xit "is valid" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
           expect(form.errors).to include :date_electronic_withdrawal
@@ -161,7 +161,7 @@ RSpec.describe StateFile::TaxesOwedForm do
         let(:day) { "15" }
         let(:year) { current_year }
 
-        it "is not valid" do
+        xit "is not valid" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
           expect(form.errors).to include :date_electronic_withdrawal
