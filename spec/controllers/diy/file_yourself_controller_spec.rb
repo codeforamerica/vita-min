@@ -16,7 +16,6 @@ RSpec.describe Diy::FileYourselfController do
           file_yourself_form: {
             email_address: "example@example.com",
             preferred_first_name: "Robot",
-            received_1099: "yes",
             filing_frequency: "some_years",
           }
         }
@@ -57,7 +56,6 @@ RSpec.describe Diy::FileYourselfController do
           existing_diy_intake.reload
           expect(existing_diy_intake.email_address).to eq "example@example.com"
           expect(existing_diy_intake.preferred_first_name).to eq "Robot"
-          expect(existing_diy_intake.received_1099).to eq "yes"
           expect(existing_diy_intake.filing_frequency).to eq "some_years"
 
           expect(existing_diy_intake.source).to eq "existing_source"
@@ -80,7 +78,6 @@ RSpec.describe Diy::FileYourselfController do
           file_yourself_form: {
             email_address: nil,
             preferred_first_name: "Robot",
-            received_1099: "yes",
             filing_frequency: "some_years",
           }
         }

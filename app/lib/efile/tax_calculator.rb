@@ -19,6 +19,7 @@ module Efile
         if value_fn.is_a?(Symbol)
           value_fn = method(value_fn_or_data_source)
         end
+        # TODO: replace .source with parser gem for more concise explanation of calculations
         source_description = value_fn.source.strip_heredoc if @value_access_tracker.include_source
       end
       value, accesses = @value_access_tracker.with_tracking { value_fn.call }
