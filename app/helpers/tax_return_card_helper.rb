@@ -7,8 +7,15 @@ module TaxReturnCardHelper
 
     if ask_for_answers
       current_step = intake.current_step
-      if current_step.in?(Questions::AtCapacityController.all_localized_paths)
-        current_step = Questions::ConsentController.to_path_helper
+      if intake.client&.routing_method_at_capacity?
+        # check if the appropriate partner is still at capacity
+        PartnerRoutingService.update_intake_partner(intake)
+
+        if intake.client.routing_method_at_capacity?
+          current_step = Questions::AtCapacityController.to_path_helper
+        else
+          current_step = Questions::ConsentController.to_path_helper
+        end
       end
     end
 
