@@ -74,6 +74,7 @@ gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
+gem 'sendgrid-ruby'
 
 # Use Flipper for feature flagging
 gem 'flipper'

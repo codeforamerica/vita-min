@@ -590,6 +590,7 @@ GEM
     ruby-vips (2.2.0)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
+    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     safe_shell (1.1.0)
     sanitize (6.1.0)
@@ -614,6 +615,8 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
+    sendgrid-ruby (6.7.0)
+      ruby_http_client (~> 3.4)
     sentry-delayed_job (5.13.0)
       delayed_job (>= 4.0)
       sentry-ruby (~> 5.13.0)
@@ -800,6 +803,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   scenic
   selenium-webdriver
+  sendgrid-ruby
   sentry-delayed_job
   sentry-rails
   sentry-ruby
