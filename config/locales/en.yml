@@ -1723,7 +1723,7 @@ en:
           body: |
             Welcome!
 
-            We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org/en.
+            We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
 
             Your Client ID is %{intake_id}. This is an important piece of account information that you may need when talking to our support team. Please keep track of this number and do not delete this message.
 
