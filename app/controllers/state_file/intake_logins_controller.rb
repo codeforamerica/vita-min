@@ -73,9 +73,9 @@ module StateFile
     def increment_failed_attempts_on_login_records
       contact_info = params[:portal_verification_code_form][:contact_info]
       intake_classes = client_login_service.intake_classes
-      @records = intake_classes.map do |intake_class|
+      @records = intake_classes.flat_map do |intake_class|
         intake_class.where(email_address: contact_info).or(intake_class.where(phone_number: contact_info))
-      end.flatten
+      end
       @records.map(&:increment_failed_attempts)
     end
 
