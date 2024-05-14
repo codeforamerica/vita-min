@@ -58,7 +58,7 @@ RSpec.describe PublicPagesController do
         end
       end
 
-      context "when the app is not open for intake" do
+      context "when the app is not open for gyr intake" do
         before do
           allow(subject).to receive(:open_for_gyr_intake?).and_return(false)
         end
@@ -68,6 +68,19 @@ RSpec.describe PublicPagesController do
 
           expect(response.body).not_to include I18n.t('general.get_started')
           expect(response.body).not_to include question_path(:id => Navigation::GyrQuestionNavigation.first)
+        end
+      end
+
+      context "when the app is not open for state file intakes" do
+        let(:past) { 1.day.ago }
+        before do
+          allow(Rails.application.config).to receive(:state_file_end_of_in_progress_intakes).and_return(past)
+        end
+
+        it "hides link to direct file" do
+          get :home
+
+          expect(response.body).not_to include I18n.t('views.shared.service_comparison.services.direct_file.cta')
         end
       end
     end

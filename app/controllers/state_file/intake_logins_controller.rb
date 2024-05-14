@@ -96,7 +96,7 @@ module StateFile
     end
 
     def sign_in_and_redirect
-      intake = @records.take
+      intake = @form.intake_to_log_in(@records)
 
       # Note: for god knows what reason, you cannot reference "current_state_file_#{state_code}_intake" or the new intake will fail to log in,
       # or at least in the test it seems to fail. Couldn't think of a better solution than grabbing the id from the session even though it looks terrible.

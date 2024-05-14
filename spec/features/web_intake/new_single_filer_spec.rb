@@ -422,10 +422,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
-      click_on "Great!"
-
-      expect(intake.reload.current_step).to end_with("/questions/feedback")
-      fill_in "Thank you for sharing your experience.", with: "I am the single filer. I file alone."
+      choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
+      fill_in "successfully_submitted_form_feedback", with: "I am the single filer. I file alone."
       click_on "Continue"
 
       # Demographic questions
@@ -532,7 +530,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Please save this number for your records and future reference.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
-      click_on "Great!"
+      click_on "Continue"
     end
   end
 end
