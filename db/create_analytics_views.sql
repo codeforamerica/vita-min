@@ -291,11 +291,11 @@ CREATE view analytics.state_file_dependents AS
     FROM public.state_file_dependents;
 
 CREATE view analytics.state_file_az_intakes AS
-    SELECT id, updated_at, armed_forces_member, charitable_contributions, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_529_for_non_qual_expense, eligibility_lived_in_state, eligibility_married_filing_separately, eligibility_out_of_state_income, hashed_ssn, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, tribal_member, was_incarcerated
+    SELECT id, updated_at, armed_forces_member, charitable_contributions, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_529_for_non_qual_expense, eligibility_lived_in_state, eligibility_married_filing_separately, eligibility_out_of_state_income, hashed_ssn, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, tribal_member, unsubscribed_from_email, was_incarcerated
     FROM public.state_file_az_intakes;
 
 CREATE view analytics.state_file_ny_intakes AS
-    SELECT id, updated_at, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_lived_in_state, eligibility_out_of_state_income, eligibility_part_year_nyc_resident, eligibility_withdrew_529, eligibility_yonkers, hashed_ssn, nyc_maintained_home, nyc_residency, primary_birth_date, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, untaxed_out_of_state_purchases
+    SELECT id, updated_at, consented_to_terms_and_conditions, contact_preference, created_at, current_step, eligibility_lived_in_state, eligibility_out_of_state_income, eligibility_part_year_nyc_resident, eligibility_withdrew_529, eligibility_yonkers, hashed_ssn, nyc_maintained_home, nyc_residency, primary_birth_date, primary_esigned_at, primary_state_id_id, raw_direct_file_data, routing_number, sign_in_count, spouse_state_id_id, unsubscribed_from_email, untaxed_out_of_state_purchases
     FROM public.state_file_ny_intakes;
 
 CREATE view analytics.state_file_w2s AS
