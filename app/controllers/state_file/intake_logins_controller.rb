@@ -76,6 +76,7 @@ module StateFile
       @records = intake_classes.flat_map do |intake_class|
         intake_class.where(email_address: contact_info).or(intake_class.where(phone_number: contact_info))
       end
+
       @records.map(&:increment_failed_attempts)
     end
 
