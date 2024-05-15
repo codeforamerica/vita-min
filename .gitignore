@@ -71,5 +71,3 @@ df_api/*.crt
 df_api/*.srl
 df_api/*.key
 df_api/*.txt
-sendgrid.env
-sendgrid.env

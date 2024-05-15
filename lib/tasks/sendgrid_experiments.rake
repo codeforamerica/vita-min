@@ -11,7 +11,7 @@ namespace :sendgrid do
     content = SendGrid::Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
     mail = SendGrid::Mail.new(from, subject, to, content)
 
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    sg = SendGrid::API.new(api_key: EnvironmentCredentials.dig(:sendgrid_api_key))
     response = sg.client.mail._('send').post(request_body: mail.to_json)
     puts response.status_code
     puts response.body
@@ -35,7 +35,7 @@ namespace :sendgrid do
     mail.add_personalization(personalization)
     mail.template_id = 'd-069315ea3d33402280a088d3534c8a9b'
 
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    sg = SendGrid::API.new(api_key: EnvironmentCredentials.dig(:sendgrid_api_key))
     begin
       response = sg.client.mail._("send").post(request_body: mail.to_json)
     rescue Exception => e
@@ -55,7 +55,7 @@ namespace :sendgrid do
       "tax_submission_site_display_name": "fileyourstatetaxes.org",
       "url_parameter": "fyst"
     }
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    sg = SendGrid::API.new(api_key: EnvironmentCredentials.dig(:sendgrid_api_key))
     template_id = "d-069315ea3d33402280a088d3534c8a9b"
     response = sg.client.templates._(template_id).get()
     puts response.status_code
