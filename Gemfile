@@ -75,6 +75,7 @@ gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
 gem 'sendgrid-ruby'
+gem 'ruby-handlebars'
 
 # Use Flipper for feature flagging
 gem 'flipper'
