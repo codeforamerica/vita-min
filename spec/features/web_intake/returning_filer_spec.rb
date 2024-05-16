@@ -37,7 +37,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     click_on I18n.t('general.continue')
 
     # backtaxes
-    check "2021"
+    check Rails.configuration.gyr_current_tax_year - 2
     click_on I18n.t('general.continue')
 
     # start with current year
@@ -72,7 +72,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     click_on I18n.t('general.continue')
 
     # backtaxes
-    check "2021"
+    check Rails.configuration.gyr_current_tax_year - 2
     click_on I18n.t('general.continue')
 
     # start with current year
