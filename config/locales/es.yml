@@ -19,7 +19,7 @@ es:
     dependents_controller:
       removed_dependent: Eliminó %{full_name}.
     public_pages:
-      inactive_unique_link_notice: La URL única no está en uso.
+      inactive_unique_link_notice: %{partner_name} actualmente no acepta clientes a través de esta URL única. ¡Aún puedes comenzar con otro equipo de impuestos a continuación!
       partner_welcome_notice: "¡Gracias por visitarnos a través de %{partner_name}!"
     tax_returns_controller:
       errors:
