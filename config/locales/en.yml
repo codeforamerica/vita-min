@@ -520,6 +520,7 @@ en:
     role: Role
     routing: Routing
     save: Save
+    save_and_exit: Save & Exit
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     select_file: Select file

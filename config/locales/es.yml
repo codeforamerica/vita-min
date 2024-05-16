@@ -522,6 +522,7 @@ es:
     role: Rol
     routing: Enrutamiento
     save: Guardar
+    save_and_exit: Guardar la salida
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     select_file: Seleccionar archivo
