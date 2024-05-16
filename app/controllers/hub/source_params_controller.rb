@@ -16,6 +16,14 @@ module Hub
       end
     end
 
+    def update
+      @source_param = SourceParameter.find(params[:id])
+      @source_param.update(active: params[:source_parameter][:active] == "1")
+      respond_to do |format|
+        format.js
+      end
+    end
+
     def destroy
       @source_param = SourceParameter.find(params[:id])
 
