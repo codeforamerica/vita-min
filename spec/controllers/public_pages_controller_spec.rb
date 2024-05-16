@@ -191,7 +191,7 @@ RSpec.describe PublicPagesController do
       it "redirects to home" do
         get :home, params: { source: source_parameter.code }
         expect(response).to redirect_to :root
-        expect(flash[:notice]).to eq "Unique URL is not in use."
+        expect(flash[:notice]).to eq "Oregano Organization is currently not accepting clients via this unique url. You can still get started with another tax team below!"
       end
 
       it "does not set the used_unique_link cookie" do
