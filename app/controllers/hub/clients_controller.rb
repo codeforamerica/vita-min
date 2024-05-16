@@ -131,7 +131,7 @@ module Hub
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = "Changes saved"
-        redirect_to edit_13614c_form_page1_hub_client_path(@client)
+        redirect_to hub_client_path(id: @client.id)
       else
         flash[:alert] = I18n.t("forms.errors.general")
         render :edit_13614c_form_page1
@@ -145,7 +145,7 @@ module Hub
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = I18n.t("general.changes_saved")
-        redirect_to edit_13614c_form_page2_hub_client_path(@client)
+        redirect_to hub_client_path(id: @client.id)
       end
     end
 
@@ -157,7 +157,7 @@ module Hub
         @client.intake.update(demographic_questions_hub_edit: true)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = I18n.t("general.changes_saved")
-        redirect_to edit_13614c_form_page3_hub_client_path(@client)
+        redirect_to hub_client_path(id: @client.id)
       end
     end
 
