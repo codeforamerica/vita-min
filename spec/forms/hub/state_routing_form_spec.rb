@@ -46,6 +46,32 @@ RSpec.describe Hub::StateRoutingForm do
         expect(organization_1_state_routing_fraction.reload.routing_fraction).to eq 0.6
         expect(organization_2_state_routing_fraction.reload.routing_fraction).to eq 0.4
       end
+
+      context "when routing fractions don't cleanly convert from ints to floats and back" do
+        let(:params) do
+          {
+            state_routing_fraction_attributes: {
+              organization_1.id => {
+                state_routing_target_id: coalition_1_state_routing_target.id,
+                routing_percentage: 29
+              },
+              organization_2.id => {
+                state_routing_target_id: coalition_1_state_routing_target.id,
+                routing_percentage: 71
+              }
+            }
+          }
+        end
+
+        it "still retains the entered values" do
+          form = Hub::StateRoutingForm.new(params)
+          form.save
+
+          expect(organization_1_state_routing_fraction.routing_percentage).to eq 29
+          expect(organization_2_state_routing_fraction.routing_percentage).to eq 71
+        end
+
+      end
     end
 
     context "when new routing fractions are added" do
