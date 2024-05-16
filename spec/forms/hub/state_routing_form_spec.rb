@@ -22,22 +22,22 @@ RSpec.describe Hub::StateRoutingForm do
     )
   }
 
+  def routing_params(partner_routing_percentages)
+    {
+      state_routing_fraction_attributes: partner_routing_percentages.to_h do |partner, percentage|
+        [partner.id,
+         {
+          state_routing_target_id: coalition_1_state_routing_target.id,
+          routing_percentage: percentage
+         }
+        ]
+      end
+    }
+  end
+
   describe "#save" do
     context "when no new routing fractions are added" do
-      let(:params) do
-        {
-          state_routing_fraction_attributes: {
-            organization_1.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 60
-            },
-            organization_2.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 40
-            }
-          }
-        }
-      end
+      let(:params) { routing_params({organization_1 => 60, organization_2 => 40}) }
 
       it "updates the existing state routing fraction objects" do
         form = Hub::StateRoutingForm.new(params)
@@ -48,20 +48,7 @@ RSpec.describe Hub::StateRoutingForm do
       end
 
       context "when routing fractions don't cleanly convert from ints to floats and back" do
-        let(:params) do
-          {
-            state_routing_fraction_attributes: {
-              organization_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 29
-              },
-              organization_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 71
-              }
-            }
-          }
-        end
+        let(:params) { routing_params({organization_1 => 29, organization_2 => 71}) }
 
         it "still retains the entered values" do
           form = Hub::StateRoutingForm.new(params)
@@ -76,24 +63,9 @@ RSpec.describe Hub::StateRoutingForm do
 
     context "when new routing fractions are added" do
       let(:organization_3) { create :organization }
-      let(:params) do
-        {
-          state_routing_fraction_attributes: {
-            organization_1.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 50
-            },
-            organization_2.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 0
-            },
-            organization_3.id => {
-              state_routing_target_id: coalition_1_state_routing_target.id,
-              routing_percentage: 50
-            }
-          }
-        }
-      end
+      let(:params) { routing_params({ organization_1 => 50,
+                                      organization_2 => 0,
+                                      organization_3 => 50}) }
 
       it "creates new state routing fraction objects" do
         expect {
@@ -112,20 +84,7 @@ RSpec.describe Hub::StateRoutingForm do
   describe "#valid?" do
     context "percentages must add up to 100" do
       context "when proposed values add up to less than to 100%" do
-        let(:params) do
-          {
-            state_routing_fraction_attributes: {
-              organization_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 40
-              },
-              organization_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 40
-              }
-            }
-          }
-        end
+        let(:params) { routing_params({organization_1 => 40, organization_2 => 40}) }
 
         it "adds an error" do
           form = Hub::StateRoutingForm.new(params)
@@ -135,20 +94,7 @@ RSpec.describe Hub::StateRoutingForm do
       end
 
       context "when proposed values add up to more than to 100%" do
-        let(:params) do
-          {
-            state_routing_fraction_attributes: {
-              organization_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 60
-              },
-              organization_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 70
-              }
-            }
-          }
-        end
+        let(:params) { routing_params({organization_1 => 60, organization_2 => 70}) }
 
         it "adds an error" do
           form = Hub::StateRoutingForm.new(params)
@@ -158,20 +104,7 @@ RSpec.describe Hub::StateRoutingForm do
       end
 
       context "when proposed values add up to exactly 100%" do
-        let(:params) do
-          {
-            state_routing_fraction_attributes: {
-              organization_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 60
-              },
-              organization_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 40
-              }
-            }
-          }
-        end
+        let(:params) { routing_params({organization_1 => 60, organization_2 => 40}) }
 
         it "is valid" do
           form = Hub::StateRoutingForm.new(params)
@@ -185,24 +118,9 @@ RSpec.describe Hub::StateRoutingForm do
       let!(:site_2) { create :site, parent_organization: organization_1 }
 
       context "when there are routing fractions for an organization and its child site(s)" do
-        let(:params) do
-          {
-            state_routing_fraction_attributes: {
-              organization_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 30
-              },
-              site_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 30
-              },
-              organization_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 40
-              }
-            }
-          }
-        end
+        let(:params) { routing_params({ organization_1 => 30,
+                                        site_1 => 30,
+                                        organization_2 => 40}) }
 
         it "adds an error" do
           form = Hub::StateRoutingForm.new(params)
@@ -212,24 +130,9 @@ RSpec.describe Hub::StateRoutingForm do
       end
 
       context "when routing fractions are for only an organization's child sites" do
-        let(:params) do
-          {
-            state_routing_fraction_attributes: {
-              site_1.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 30
-              },
-              site_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 30
-              },
-              organization_2.id => {
-                state_routing_target_id: coalition_1_state_routing_target.id,
-                routing_percentage: 40
-              }
-            }
-          }
-        end
+        let(:params) { routing_params({ site_1 => 30,
+                                        site_2 => 30,
+                                        organization_2 => 40}) }
 
         it "is valid" do
           form = Hub::StateRoutingForm.new(params)
