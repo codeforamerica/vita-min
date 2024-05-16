@@ -15,10 +15,14 @@ class PublicPagesController < ApplicationController
 
     # redirect to home hiding original source param
     if params[:source].present?
-      vita_partner = SourceParameter.find_vita_partner_by_code(params[:source])
-      if vita_partner.present?
-        flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: vita_partner.name)
-        cookies[:used_unique_link] = { value: "yes", expiration: 1.year.from_now.utc }
+      source_parameter = SourceParameter.find_by(code: params[:source]&.downcase)
+      if source_parameter.present?
+        if source_parameter.active?
+          flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: source_parameter.vita_partner.name)
+          cookies[:used_unique_link] = { value: "yes", expiration: 1.year.from_now.utc }
+        else
+          flash[:notice] = I18n.t("controllers.public_pages.inactive_unique_link_notice", partner_name: source_parameter.vita_partner.name)
+        end
       end
       redirect_to root_path and return
     end

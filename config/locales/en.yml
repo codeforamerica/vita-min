@@ -19,6 +19,7 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     public_pages:
+      inactive_unique_link_notice: Unique URL is not in use.
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
     tax_returns_controller:
       errors:

@@ -184,6 +184,21 @@ RSpec.describe PublicPagesController do
         expect(cookies[:used_unique_link]).to be_nil
       end
     end
+
+    context "when there is an inactive matching source parameter" do
+      let(:source_parameter) { create :source_parameter, active: false, vita_partner: (create :organization, name: "Oregano Organization") }
+
+      it "redirects to home" do
+        get :home, params: { source: source_parameter.code }
+        expect(response).to redirect_to :root
+        expect(flash[:notice]).to eq "Unique URL is not in use."
+      end
+
+      it "does not set the used_unique_link cookie" do
+        get :home, params: { source: source_parameter.code }
+        expect(cookies[:used_unique_link]).to be_nil
+      end
+    end
   end
 
   describe "#privacy_policy" do
