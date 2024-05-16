@@ -96,12 +96,6 @@ RSpec.describe "a user editing a clients 13614c form" do
         expect(page).to have_text "Changes saved"
       end
 
-      expect(page).to have_text I18n.t("hub.clients.show.basic_info")
-      expect(page).to have_selector(".field-display", text: "Legal Name: Emily Cauliflower")
-      within ".client-profile" do
-        click_on "Edit 13614-C"
-      end
-
       expect(page).to have_text "Part I – Your Personal Information"
       expect(page).to have_field('First Name', with: 'Emily')
       expect(find_field("hub_update13614c_form_page1[primary_birth_date_year]").value).to eq "1999"
@@ -241,7 +235,7 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       click_on I18n.t("general.save")
 
-      expect(page).to have_text I18n.t("hub.clients.show.basic_info")
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
       expect(page).to have_text I18n.t("general.changes_saved")
 
       intake = client.intake.reload
@@ -341,7 +335,7 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       click_on I18n.t("general.save")
 
-      expect(page).to have_text I18n.t("hub.clients.show.basic_info")
+      expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
       expect(page).to have_text I18n.t("general.changes_saved")
 
       intake = client.intake.reload
