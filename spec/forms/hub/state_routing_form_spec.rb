@@ -67,8 +67,8 @@ RSpec.describe Hub::StateRoutingForm do
           form = Hub::StateRoutingForm.new(params)
           form.save
 
-          expect(organization_1_state_routing_fraction.routing_percentage).to eq 29
-          expect(organization_2_state_routing_fraction.routing_percentage).to eq 71
+          expect(organization_1_state_routing_fraction.reload.routing_percentage).to eq 29
+          expect(organization_2_state_routing_fraction.reload.routing_percentage).to eq 71
         end
 
       end
