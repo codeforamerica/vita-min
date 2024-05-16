@@ -93,7 +93,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
+    check "2021"
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -119,7 +119,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
+    check "2021"
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -147,7 +147,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
+    check "2021"
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -181,7 +181,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-      check "2020"
+      check "2021"
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
