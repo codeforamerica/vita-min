@@ -37,7 +37,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
     current_tax_year = MultiTenantService.new(:gyr).current_tax_year
     check "#{current_tax_year}"
-    check "#{current_tax_year - 3}"
+    check "#{current_tax_year - 2}"
     click_on "Continue"
 
     # Start with current year
@@ -105,7 +105,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on I18n.t("views.questions.consent.cta")
 
     # create tax returns only after client has consented
-    expect(intake.client.tax_returns.pluck(:year).sort).to eq [MultiTenantService.new(:gyr).current_tax_year - 3, current_tax_year]
+    expect(intake.client.tax_returns.pluck(:year).sort).to eq [MultiTenantService.new(:gyr).current_tax_year - 2, current_tax_year]
 
     # Optional consent form
     expect(page).to have_selector("h1", text: I18n.t('views.questions.optional_consent.title'))
