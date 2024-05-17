@@ -522,6 +522,7 @@ es:
     role: Rol
     routing: Enrutamiento
     save: Guardar
+    save_and_exit: Guardar la salida
     search: Búsqueda
     security_html: Su información está segura y la información que proporcione será tratada de acuerdo con nuestro %{privacy_link}.
     select_file: Seleccionar archivo
@@ -795,7 +796,7 @@ es:
         part_3_title: Parte III - Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
         part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)?
         part_5_title: 'Parte V - Eventos de la vida: el año pasado, ¿usted (o su cónyuge)'
-        title: 13614-C
+        title: 13614-C página 2
       edit_13614c_form_page3:
         additional_info_title: Información Adicional y Preguntas Relacionadas con la Preparación de su Declaración
         fields:
@@ -819,7 +820,7 @@ es:
           q7_register_to_vote: "¿Registrarse/registrado para votar?"
           q8_speak_and_understand_english: "¿Puede llevar una conversación en inglés, y tanto entenderlo como hablarlo?"
           q9_read_english: "¿Puede leer un periódico o un libro en inglés?"
-        title: 13614-C
+        title: 13614-C página 3
       edit_take_action:
         blank_no_internal_note: Si está en blanco, no se agrega ninguna nota interna.
         blank_no_message_sent: Si está en blanco, no se envía ningún mensaje al cliente.
