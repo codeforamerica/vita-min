@@ -65,8 +65,7 @@ class PartnerRoutingService
   def vita_partner_from_source_param
     return unless @source_param.present?
 
-    source_param_downcase = @source_param.downcase
-    vita_partner = SourceParameter.includes(:vita_partner).where(active: true).find_by(code: source_param_downcase)&.vita_partner
+    vita_partner = SourceParameter.find_vita_partner_by_code(@source_param.downcase)
 
     if vita_partner.present?
       @routing_method = :source_param
