@@ -17,7 +17,7 @@ class PublicPagesController < ApplicationController
     if params[:source].present?
       source_parameter = SourceParameter.find_by(code: params[:source]&.downcase)
       if source_parameter.present?
-        if source_parameter.active?
+        if source_parameter.active? && source_parameter.vita_partner.present?
           flash[:notice] = I18n.t("controllers.public_pages.partner_welcome_notice", partner_name: source_parameter.vita_partner.name)
           cookies[:used_unique_link] = { value: "yes", expiration: 1.year.from_now.utc }
         else
