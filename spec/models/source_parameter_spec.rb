@@ -25,7 +25,6 @@ RSpec.describe SourceParameter, type: :model do
   it { should validate_presence_of(:code) }
 
   describe ".find_vita_partner_by_code" do
-    # make sure this tests both inactive and active cases
     let(:vita_partner) { create :organization, name: "Oregano Organization" }
     let!(:source_parameter) { create :source_parameter, code: "oregorg", vita_partner: vita_partner }
 
