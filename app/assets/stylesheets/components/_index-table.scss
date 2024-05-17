@@ -3,10 +3,6 @@ index-table is for displaying tabular information in the hub views.
 It expects to be the primary content of the given page (full width).
 */
 
-.scrollable-table-wrapper {
-  overflow-x: scroll;
-}
-
 .index-table {
   // table resets
   border-collapse: collapse;
