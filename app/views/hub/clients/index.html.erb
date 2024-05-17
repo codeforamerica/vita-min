@@ -25,7 +25,7 @@
       <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
     </div>
   </section>
-  <%= render "paginator" %>
+  <%= render "hub/clients/paginator" %>
   <section class="scrollable-table-wrapper">
     <% if @clients.present? %>
       <table class="index-table client-table">
@@ -157,7 +157,7 @@
     <% end %>
   </section>
 
-  <%= render "paginator" %>
+  <%= render "hub/clients/paginator" %>
 
   <div class="sticky-action-footer">
     <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
