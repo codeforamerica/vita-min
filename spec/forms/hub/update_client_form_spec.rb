@@ -13,7 +13,8 @@ RSpec.describe Hub::UpdateClientForm do
              primary_ssn: "123456789",
              primary_tin_type: "ssn",
              spouse_tin_type: "itin",
-             need_itin_help: itin_applicant
+             need_itin_help: itin_applicant,
+             signature_method: "online"
     }
     let!(:client) { Hub::ClientsController::HubClientPresenter.new(create :client, intake: intake) }
     let(:form_attributes) do
@@ -51,6 +52,7 @@ RSpec.describe Hub::UpdateClientForm do
         interview_timing_preference: intake.interview_timing_preference,
         timezone: intake.timezone,
         state_of_residence: intake.state_of_residence,
+        signature_method: intake.signature_method,
         dependents_attributes: {
               "0" => {
                   id: intake.dependents.first.id,
@@ -246,7 +248,8 @@ RSpec.describe Hub::UpdateClientForm do
              primary_ssn: "123456789",
              primary_tin_type: "ssn",
              spouse_tin_type: "itin",
-             timezone: "America/Chicago"
+             timezone: "America/Chicago",
+             signature_method: "in_person"
     }
     let!(:client) {
       create :client, intake: intake
@@ -257,6 +260,7 @@ RSpec.describe Hub::UpdateClientForm do
       expect(form.spouse_ssn).to eq "912345678"
       expect(form.primary_ssn).to eq "123456789"
       expect(form.timezone).to eq "America/Chicago"
+      expect(form.signature_method).to eq "in_person"
     end
   end
 end

@@ -33,6 +33,7 @@ module Hub
                        :interview_timing_preference,
                        :timezone,
                        :state_of_residence,
+                       :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
@@ -50,6 +51,8 @@ module Hub
     validates_confirmation_of :spouse_ssn, if: -> { filing_joint == "yes" }
     validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes" }
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
+
+    validates :signature_method, inclusion: { in: Intake.signature_methods.keys }
 
     attr_accessor :client
 
