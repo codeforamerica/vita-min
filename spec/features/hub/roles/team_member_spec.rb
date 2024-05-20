@@ -6,7 +6,7 @@ RSpec.feature "Team member role" do
     let(:user) { create :team_member_user, role: create(:team_member_role, sites: [vita_partner]) }
     # TODO: create a factory for users that will show up on the client list (consented, etc)
     # TODO: also, there should be an easier way to create a client that will not fail the edit form validations (currently this looks like create(:intake, :with_contact_info, :filled_out, state_of_residence: "CA"))
-    let!(:hester_intake) { build(:intake, :filled_out, :with_contact_info, preferred_name: "Hester Horseradish", primary_consented_to_service: "yes", state_of_residence: "CA", signature_method: "online") }
+    let!(:hester_intake) { build(:intake, :filled_out, :with_contact_info, preferred_name: "Hester Horseradish", primary_consented_to_service: "yes", state_of_residence: "CA") }
     let!(:hester_visible) {
       create :client,
              vita_partner: vita_partner,
