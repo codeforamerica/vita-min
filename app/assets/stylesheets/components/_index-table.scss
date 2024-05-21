@@ -7,14 +7,14 @@ main {
   width: fit-content;
 }
 
-.slab.slab--padded {
+.left-buttons, .clients-index .pagination-wrapper>div {
   position: sticky;
-  left: 0;
-  width: fit-content;
+  left: 2.5rem;
 }
 
-.count-wrapper {
-  padding-left: 2rem;
+.right-buttons, .clients-index .count-wrapper {
+  position: sticky;
+  right: 2.5rem;
 }
 
 .scrollable-table-wrapper {

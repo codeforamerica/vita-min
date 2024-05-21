@@ -5,8 +5,9 @@
   <% end %>
 <% end %>
 <% content_for :card do %>
+  <div class="clients-index">
   <section class="slab clients-header">
-    <div>
+    <div class="left-buttons">
       <h1> <%= @page_title %> </h1>
       <% unless @hide_filters %>
         <div class="text--no-wrap quick-filters">
@@ -21,7 +22,7 @@
       </div>
       <% end %>
     </div>
-    <div class="text--no-wrap">
+    <div class="text--no-wrap right-buttons">
       <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
     </div>
   </section>
@@ -180,5 +181,6 @@
         <% end %>
       </div>
     </section>
+  </div>
   </div>
 <% end %>
