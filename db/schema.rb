@@ -1689,6 +1689,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
+    t.index ["email_address"], name: "index_state_file_az_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_az_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_az_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_az_intakes_on_spouse_state_id_id"
@@ -1838,6 +1839,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.index ["email_address"], name: "index_state_file_ny_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"

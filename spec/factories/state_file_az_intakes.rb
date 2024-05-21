@@ -77,6 +77,7 @@
 #
 # Indexes
 #
+#  index_state_file_az_intakes_on_email_address        (email_address)
 #  index_state_file_az_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)

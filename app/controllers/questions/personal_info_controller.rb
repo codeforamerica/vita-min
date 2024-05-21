@@ -35,12 +35,7 @@ module Questions
       new_intake.set_navigator(session[:navigator])
 
       if new_intake.client.routing_method.blank? || new_intake.client.routing_method_at_capacity?
-        routing_service = PartnerRoutingService.new(
-          intake: new_intake,
-          source_param: new_intake.source,
-          zip_code: new_intake.zip_code,
-          )
-        new_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
+        PartnerRoutingService.update_intake_partner(new_intake)
       end
     end
 
