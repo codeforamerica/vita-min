@@ -3,22 +3,24 @@ index-table is for displaying tabular information in the hub views.
 It expects to be the primary content of the given page (full width).
 */
 
-main {
-  width: fit-content;
-}
+.assigned-clients-outer, .clients-outer {
+  main {
+    width: fit-content;
+  }
 
-.left-buttons, .clients-index .pagination-wrapper>div {
-  position: sticky;
-  left: 2.5rem;
-}
+  .left-buttons, .clients-index .pagination-wrapper > div {
+    position: sticky;
+    left: 2.5rem;
+  }
 
-.right-buttons, .clients-index .count-wrapper {
-  position: sticky;
-  right: 2.5rem;
-}
+  .right-buttons, .clients-index .count-wrapper {
+    position: sticky;
+    right: 2.5rem;
+  }
 
-.scrollable-table-wrapper {
-  width: fit-content;
+  .scrollable-table-wrapper {
+    width: fit-content;
+  }
 }
 
 .index-table {
