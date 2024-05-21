@@ -3,6 +3,12 @@
   border-top: 1px solid $color-grey-medium;
   padding: $s15 3rem;
   text-align: right;
+  .button {
+    margin: 0;
+  }
+}
+
+.assigned-clients-outer, .clients-outer .take-action-box {
   height: 71px;
 
   .take-action-box-inner {
@@ -10,9 +16,5 @@
     align-items: center;
     position: sticky;
     right: 3rem;
-  }
-
-  .button {
-    margin: 0;
   }
 }
