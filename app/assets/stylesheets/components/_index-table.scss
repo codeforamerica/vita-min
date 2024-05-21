@@ -3,17 +3,17 @@ index-table is for displaying tabular information in the hub views.
 It expects to be the primary content of the given page (full width).
 */
 
-.assigned-clients-outer, .clients-outer {
-  main {
+.assigned-clients-page-body, .clients-page-body {
+  main, .flash-alerts .grid {
     width: fit-content;
   }
 
-  .sticky-left, .clients-index .pagination-wrapper > div {
+  .sticky-left, .pagination-wrapper > div, .flash-alerts .grid {
     position: sticky;
     left: 2.5rem;
   }
 
-  .sticky-right, .clients-index .count-wrapper {
+  .sticky-right, .count-wrapper {
     position: sticky;
     right: 2.5rem;
   }

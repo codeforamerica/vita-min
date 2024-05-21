@@ -8,10 +8,8 @@
   }
 }
 
-.assigned-clients-outer, .clients-outer .take-action-box {
-  height: 71px;
-
-  .take-action-box-inner {
+.assigned-clients-page-body, .clients-page-body {
+  .take-action-box .take-action-box-inner {
     display: flex;
     align-items: center;
     position: sticky;
