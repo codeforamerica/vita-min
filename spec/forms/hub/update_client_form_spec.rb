@@ -234,6 +234,37 @@ RSpec.describe Hub::UpdateClientForm do
         expect(form.dependents.map { |d| d.errors.attribute_names }).to match_array([[], [:last_name]])
       end
     end
+
+    context "with a change to the signature method" do
+      let(:form_attributes) do
+        super().update(signature_method: "in_person")
+      end
+
+      context "with a non drop off intake" do
+        it "ignores changes to the signature type" do
+          form = described_class.new(client, form_attributes)
+          expect(form).to be_valid
+          form.save
+          intake.reload
+          expect(intake.signature_method).to eq "online"
+        end
+      end
+
+      context "with a drop off intake" do
+        before do
+          tax_return = build :tax_return, year: DateTime.now.year, service_type: :drop_off, filing_status: :single, client_id: client.id
+          tax_return.save
+        end
+
+        it "updates the signature type" do
+          form = described_class.new(client, form_attributes)
+          expect(form).to be_valid
+          form.save
+          intake.reload
+          expect(intake.signature_method).to eq "in_person"
+        end
+      end
+    end
   end
 
   describe ".from_client" do

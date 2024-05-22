@@ -19,7 +19,9 @@
 
             <%= render "shared/client_spouse_info_fields", f: f %>
 
-            <%= render "shared/tax_info", f: f %>
+            <% if @client.intake.drop_off? %>
+              <%= render "shared/tax_info", f: f %>
+            <% end %>
 
             <div class="hub-form__row">
               <button class="button button--cta" type="submit">
