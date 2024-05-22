@@ -19,6 +19,7 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     public_pages:
+      inactive_unique_link_notice: "%{partner_name} is currently not accepting clients via this unique url. You can still get started with another tax team below!"
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
     tax_returns_controller:
       errors:
@@ -255,7 +256,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date on or before April 15, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before April 15, %{year}
   general:
     NA: N/A
     about: About
@@ -2657,10 +2658,11 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after-deadline-default-withdrawl-info: Because you are submitting your return on or after April 15, 2024, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
