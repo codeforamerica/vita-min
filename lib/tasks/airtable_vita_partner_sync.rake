@@ -11,7 +11,7 @@ namespace :airtable_vita_partner_sync do
     puts "--"
     puts table.all.first.fields.keys
     puts "--"
-    puts table.all.map { |org| "#{org['VITA Partner ID (Hub)']} - #{org['Organization Name']}" }
+    puts table.all.map { |org| "#{org['Organization Name']} - #{org['Language offerings']}" }
 
   end
 end
