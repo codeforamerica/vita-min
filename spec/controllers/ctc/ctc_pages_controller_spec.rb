@@ -70,20 +70,6 @@ describe Ctc::CtcPagesController do
     end
   end
 
-  # California benefits page was turned off on 5/25/22, but we were asked to keep code
-  # in case of relaunch of relationship later this year.
-  xdescribe "#california_benefits" do
-    context "source is present" do
-      let(:params) { { source: 'claim' } }
-
-      it "saves the source in the session" do
-        get :california_benefits, params: params
-
-        expect(session[:source]).to eq "claim"
-      end
-    end
-  end
-
   describe "#navigators" do
     render_views
 

@@ -262,13 +262,6 @@ describe Document do
     let(:document) { build :document }
     let(:object) { document }
 
-    xcontext "when client is the uploader" do
-      it_behaves_like "an incoming interaction" do
-        let(:client) { create :client }
-        let(:subject) { build :document, client: client, uploaded_by: client }
-      end
-    end
-
     context "when an user is the uploader" do
       it_behaves_like "an internal interaction" do
         let(:subject) { build :document, uploaded_by: (create :user) }

@@ -555,16 +555,6 @@ RSpec.describe PdfFiller::F13614cPdf do
               )
             end
 
-            xit "includes extra dependent information in the additional comments field" do
-              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
-                if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-                Other income types: garden gnoming
-                Additional Dependents:
-                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: ////
-                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
-              COMMENT
-            end
-
             context "when there is no additional_info or final_info present" do
               before do
                 intake.update(additional_info: nil, final_info: nil)
