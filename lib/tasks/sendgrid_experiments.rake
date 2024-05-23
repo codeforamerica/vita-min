@@ -49,8 +49,12 @@ namespace :sendgrid do
 
   task template_preview: [:environment] do
     template_fields = {
-      "name": "Mike from Rake",
-      "tax_due_date": "April 15",
+      "english": false,
+      "spanish": true,
+      "name": "Mike",
+      "client_id": "163",
+      "english_tax_due_date": "April 15",
+      "spanish_tax_due_date": "15 abril",
       "tax_submission_site_url": "https://fileyourstatetaxes.org",
       "tax_submission_site_display_name": "fileyourstatetaxes.org",
       "url_parameter": "fyst"
