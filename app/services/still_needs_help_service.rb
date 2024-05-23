@@ -14,7 +14,9 @@ class StillNeedsHelpService
     ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
       client: client,
       locale: client.intake.locale,
-      message: AutomatedMessage::ClosingSoon.new
+      message: AutomatedMessage::ClosingSoon.new,
+      body_args: { end_of_docs_date: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: client.intake.locale),
+                   end_of_in_progress_intake_date: I18n.l(Rails.configuration.end_of_in_progress_intake.to_date, format: :medium, locale: client.intake.locale) }
     )
   end
 

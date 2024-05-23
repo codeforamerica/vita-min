@@ -13,16 +13,16 @@ module AutomatedMessage
       true
     end
 
-    def sms_body(**args)
-      I18n.t("messages.closing_soon.sms", **args)
+    def sms_body(locale: nil, body_args: {})
+      I18n.t("messages.closing_soon.sms", locale: locale, **body_args)
     end
 
-    def email_subject(**args)
-      I18n.t("messages.closing_soon.email.subject", **args)
+    def email_subject(locale: nil, body_args: {})
+      I18n.t("messages.closing_soon.email.subject", locale: locale, **body_args)
     end
 
-    def email_body(**args)
-      I18n.t("messages.closing_soon.email.body", **args)
+    def email_body(locale: nil, body_args: {})
+      I18n.t("messages.closing_soon.email.body", locale: locale, **body_args)
     end
   end
 end

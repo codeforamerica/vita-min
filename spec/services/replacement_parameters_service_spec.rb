@@ -494,6 +494,47 @@ describe ReplacementParametersService do
         end
       end
     end
+
+    context "closing soon email" do
+      context "in english" do
+        let(:body) { AutomatedMessage::ClosingSoon.new.email_body(locale: "en", body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 16th"})}
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "http://test.host/en/portal/login"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { AutomatedMessage::ClosingSoon.new.email_body(locale: locale, body_args: {end_of_docs_date: "8 de octubre", end_of_in_progress_intake_date: "16 de octubre"})}
+        let(:locale) { "es" }
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "http://test.host/es/portal/login"
+        end
+      end
+    end
+
+    context "closing soon text message" do
+      context "in english" do
+        let(:body) { AutomatedMessage::ClosingSoon.new.sms_body(locale: "en", body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 16th"})}
+
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "http://test.host/en/portal/login"
+        end
+      end
+
+      context "in spanish" do
+        let(:body) { I18n.t("messages.closing_soon.sms", locale: locale, body_args: {end_of_docs_date: "8 de octubre", end_of_in_progress_intake_date: "16 de octubre"})}
+        let(:locale) { "es" }
+        it "replaces the replacement strings in the template" do
+          result = subject.process
+          expect(result).to include "http://test.host/es/portal/login"
+        end
+      end
+    end
   end
 
   context "handling percent signs in emails" do
