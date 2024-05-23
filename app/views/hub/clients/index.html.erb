@@ -6,7 +6,7 @@
 <% end %>
 <% content_for :card do %>
   <section class="slab clients-header">
-    <div>
+    <div class="sticky-left">
       <h1> <%= @page_title %> </h1>
       <% unless @hide_filters %>
         <div class="text--no-wrap quick-filters">
@@ -21,35 +21,13 @@
       </div>
       <% end %>
     </div>
-    <div class="text--no-wrap">
+    <div class="text--no-wrap sticky-right">
       <%= link_to t("general.add_client"), new_hub_client_path, class: "button" %>
     </div>
   </section>
-  <section class="slab slab--padded">
-    <div class="pagination-wrapper">
-      <div class="count-wrapper">
-        <% if @client_index_help_text.present? %>
-          <p class="text--help"><%= @client_index_help_text %></p>
-        <% end %>
-        <% if @missing_results_message.present? %>
-          <p class="text--help access-warning"><%= @missing_results_message %></p>
-        <% end %>
-        <div>
-          <%= page_entries_info @clients, model: "client" %>
-        </div>
-      </div>
-      <div>
-        <%= will_paginate(
-              @clients,
-              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
-              next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
-              inner_window: 1,
-              outer_window: 1,
-              param_name: "page",
-            ) %>
-      </div>
-    </div>
-  </section>
+
+  <%= render "hub/clients/paginator" %>
+
   <section class="scrollable-table-wrapper">
     <% if @clients.present? %>
       <table class="index-table client-table">
@@ -180,22 +158,27 @@
       </div>
     <% end %>
   </section>
+
+  <%= render "hub/clients/paginator" %>
+
   <div class="sticky-action-footer">
     <section class="take-action-box bulk-action-footer" id="take-action-footer" style="display: none;">
-      <span id="take-action-all-returns" class="hidden">
-         <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
-              <% @client_sorter&.filters&.each do |key, value| %>
-                <%= form.hidden_field(key, value: value, id: "#{key}_bulk") %>
-              <% end %>
-              <button type="submit" name="create_tax_return_selection[action_type]" value="all-filtered-clients" class="button--link">
-                <%= t(".take_action_on_all_html", count: @tax_return_count) %>
-              </button>
-         <% end %>
-      </span>
-      <span class="bulk-action-count"><%= t('hub.clients.bulk_action.count_html', count: 0) %></span>
-      <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder, html: { id: 'take-action-form' }) do |f| %>
-        <%= f.submit t("general.take_action"), class: "button button--primary" %>
-      <% end %>
+      <div class="take-action-box-inner">
+        <span id="take-action-all-returns" class="hidden">
+           <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder) do |form| %>
+                <% @client_sorter&.filters&.each do |key, value| %>
+                  <%= form.hidden_field(key, value: value, id: "#{key}_bulk") %>
+                <% end %>
+                <button type="submit" name="create_tax_return_selection[action_type]" value="all-filtered-clients" class="button--link">
+                  <%= t(".take_action_on_all_html", count: @tax_return_count) %>
+                </button>
+           <% end %>
+        </span>
+        <span class="bulk-action-count"><%= t('hub.clients.bulk_action.count_html', count: 0) %></span>
+        <%= form_with(url: new_hub_tax_return_selection_path, local: true, method: :get, builder: VitaMinFormBuilder, html: { id: 'take-action-form' }) do |f| %>
+          <%= f.submit t("general.take_action"), class: "button button--primary" %>
+        <% end %>
+      </div>
     </section>
   </div>
 <% end %>

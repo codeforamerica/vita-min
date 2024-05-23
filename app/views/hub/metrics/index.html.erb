@@ -49,7 +49,7 @@
       </tr>
       <% @organizations.each do |organization| %>
         <tbody class="index-table__body org-metrics" data-js-vita-partner-name="<%= organization.name %>">
-        <%= render 'breach_row', type: 'org', id: organization.id, name: organization.name %>
+        <%= render 'breach_row', organization: organization, type: 'org', id: organization.id, name: organization.name %>
         <% if organization.child_sites.present? %>
           <!--           Add a row for the organization to track org-level breaches.-->
           <%= render 'breach_row', type: 'site', id: organization.id, name: organization.name %>
