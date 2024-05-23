@@ -5,14 +5,14 @@
       <div class="grid__item">
         <% end_of_intake = Rails.configuration.end_of_intake %>
         <% end_of_doc_submission = Rails.configuration.end_of_docs %>
-        <% first_end_of_doc_submission = Rails.configuration.first_end_of_docs %>
+        <% doc_submission_deadline = Rails.configuration.doc_submission_deadline %>
         <% tax_deadline = Rails.configuration.tax_deadline %>
         <% start_of_open_date = Rails.configuration.start_of_open_intake %>
 
         <% case banner %>
         <% when :open_intake %>
           <%= t('views.shared.document_deadline_warning.body_html',
-                end_of_docs: I18n.l(first_end_of_doc_submission.to_date, format: :medium, locale: locale),
+                doc_submission_deadline: I18n.l(doc_submission_deadline.to_date, format: :medium, locale: locale),
                 tax_deadline: I18n.l(tax_deadline.to_date, format: :medium, locale: locale)) %>
         <% when :open_intake_post_tax_deadline %>
           <%= t('views.public_pages.home.open_intake_post_tax_deadline_banner',
@@ -27,7 +27,7 @@
           <strong><%= t('views.public_pages.home.closed_open_for_login_banner_html') %></strong>
         <% when :off_season %>
           <strong><%= t('views.public_pages.home.closed_banner',
-                        start_of_open: I18n.l(start_of_open_date.to_date, format: :medium, locale: locale)) %></strong>
+                        start_of_open_intake: I18n.l(start_of_open_date.to_date, format: :medium, locale: locale)) %></strong>
         <% end %>
       </div>
     </div>

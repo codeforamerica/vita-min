@@ -4494,7 +4494,7 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closed_banner: GetYourRefund reabrirá sus servicios el {start_of_open}.
+        closed_banner: GetYourRefund reabrirá sus servicios el {start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
@@ -5316,7 +5316,7 @@ es:
         add_dependent: Agregar dependiente
         remove: Eliminado
       document_deadline_warning:
-        body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{end_of_docs} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
+        body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
       environment_warning:
         banner: 'Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite  '
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
