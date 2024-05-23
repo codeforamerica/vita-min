@@ -13,7 +13,8 @@ RSpec.describe Hub::UpdateClientForm do
              primary_ssn: "123456789",
              primary_tin_type: "ssn",
              spouse_tin_type: "itin",
-             need_itin_help: itin_applicant
+             need_itin_help: itin_applicant,
+             signature_method: "online"
     }
     let!(:client) { Hub::ClientsController::HubClientPresenter.new(create :client, intake: intake) }
     let(:form_attributes) do
@@ -51,6 +52,7 @@ RSpec.describe Hub::UpdateClientForm do
         interview_timing_preference: intake.interview_timing_preference,
         timezone: intake.timezone,
         state_of_residence: intake.state_of_residence,
+        signature_method: intake.signature_method,
         dependents_attributes: {
               "0" => {
                   id: intake.dependents.first.id,
@@ -232,6 +234,37 @@ RSpec.describe Hub::UpdateClientForm do
         expect(form.dependents.map { |d| d.errors.attribute_names }).to match_array([[], [:last_name]])
       end
     end
+
+    context "with a change to the signature method" do
+      let(:form_attributes) do
+        super().update(signature_method: "in_person")
+      end
+
+      context "with a non drop off intake" do
+        it "ignores changes to the signature type" do
+          form = described_class.new(client, form_attributes)
+          expect(form).to be_valid
+          form.save
+          intake.reload
+          expect(intake.signature_method).to eq "online"
+        end
+      end
+
+      context "with a drop off intake" do
+        before do
+          tax_return = build :tax_return, year: DateTime.now.year, service_type: :drop_off, filing_status: :single, client_id: client.id
+          tax_return.save
+        end
+
+        it "updates the signature type" do
+          form = described_class.new(client, form_attributes)
+          expect(form).to be_valid
+          form.save
+          intake.reload
+          expect(intake.signature_method).to eq "in_person"
+        end
+      end
+    end
   end
 
   describe ".from_client" do
@@ -246,7 +279,8 @@ RSpec.describe Hub::UpdateClientForm do
              primary_ssn: "123456789",
              primary_tin_type: "ssn",
              spouse_tin_type: "itin",
-             timezone: "America/Chicago"
+             timezone: "America/Chicago",
+             signature_method: "in_person"
     }
     let!(:client) {
       create :client, intake: intake
@@ -257,6 +291,7 @@ RSpec.describe Hub::UpdateClientForm do
       expect(form.spouse_ssn).to eq "912345678"
       expect(form.primary_ssn).to eq "123456789"
       expect(form.timezone).to eq "America/Chicago"
+      expect(form.signature_method).to eq "in_person"
     end
   end
 end
