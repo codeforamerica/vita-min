@@ -7,6 +7,7 @@
         <% end_of_doc_submission = Rails.configuration.end_of_docs %>
         <% first_end_of_doc_submission = Rails.configuration.first_end_of_docs %>
         <% tax_deadline = Rails.configuration.tax_deadline %>
+        <% start_of_open_date = Rails.configuration.start_of_open_intake %>
 
         <% case banner %>
         <% when :open_intake %>
@@ -25,7 +26,8 @@
         <% when :login_only %>
           <strong><%= t('views.public_pages.home.closed_open_for_login_banner_html') %></strong>
         <% when :off_season %>
-          <strong><%= t('views.public_pages.home.closed_banner') %></strong>
+          <strong><%= t('views.public_pages.home.closed_banner',
+                        start_of_open: I18n.l(start_of_open_date.to_date, format: :medium, locale: locale)) %></strong>
         <% end %>
       </div>
     </div>
