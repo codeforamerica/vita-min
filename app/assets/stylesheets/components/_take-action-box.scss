@@ -7,3 +7,12 @@
     margin: 0;
   }
 }
+
+.assigned-clients-page-body, .clients-page-body {
+  .take-action-box .take-action-box-inner {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    right: 3rem;
+  }
+}
