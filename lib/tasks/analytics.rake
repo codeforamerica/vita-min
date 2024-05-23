@@ -1,5 +1,7 @@
 # Overview
 #
+# `analytics` schema is no longer used by data science. The read_only_role is the only thing used now.
+#
 # We create an `analytics` schema with SQL VIEWs that contain anonymized data.
 # This keeps them separate from "production" data, which lives in the
 # `public` schema.
@@ -17,7 +19,6 @@ namespace :analytics do
   end
 
   task create_views: :environment do |_task|
-    ActiveRecord::Base.connection.execute(File.read("db/create_analytics_views.sql"))
     # Complex SQL for CREATE USER IF NOT EXISTS, so that the GRANT commands work
     ["metabase", "read_only_role"].each do |role|
       create_role = <<~SQL
@@ -37,13 +38,11 @@ namespace :analytics do
 
     # Reset schema permissions
     ActiveRecord::Base.connection.execute('REVOKE ALL ON SCHEMA "analytics" FROM "metabase";')
-    ActiveRecord::Base.connection.execute('GRANT USAGE ON SCHEMA "analytics" TO "metabase";')
     ActiveRecord::Base.connection.execute('REVOKE ALL ON SCHEMA "public" FROM "read_only_role";')
     ActiveRecord::Base.connection.execute('GRANT USAGE ON SCHEMA "public" TO "read_only_role";')
 
     # Reset table access permissions
     ActiveRecord::Base.connection.execute('REVOKE ALL ON ALL TABLES IN SCHEMA "analytics" FROM "metabase";')
-    ActiveRecord::Base.connection.execute('GRANT SELECT ON ALL TABLES IN SCHEMA "analytics" TO "metabase";')
     ActiveRecord::Base.connection.execute('REVOKE ALL ON ALL TABLES IN SCHEMA "public" FROM "read_only_role";')
     ActiveRecord::Base.connection.execute('GRANT SELECT ON ALL TABLES IN SCHEMA "public" TO "read_only_role";')
   end
