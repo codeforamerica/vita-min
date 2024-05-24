@@ -148,7 +148,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            File.join(Rails.root, "vendor", "us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd")
           end
 
           def attached_documents

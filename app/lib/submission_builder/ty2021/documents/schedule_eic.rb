@@ -4,7 +4,7 @@ module SubmissionBuilder
       # The XML schema calls it EIC, the product calls it EITC, and the pdf calls it SEI
       class ScheduleEic < SubmissionBuilder::Document
         def schema_file
-          File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040ScheduleEIC", "IRS1040ScheduleEIC.xsd")
+          SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040ScheduleEIC", "IRS1040ScheduleEIC.xsd")
         end
 
         def document

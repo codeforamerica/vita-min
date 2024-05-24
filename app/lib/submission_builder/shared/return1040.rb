@@ -27,7 +27,8 @@ module SubmissionBuilder
       end
 
       def schema_file
-        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
+        # TODO: Update for heroku...
+            SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
       end
     end
   end
