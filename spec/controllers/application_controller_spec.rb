@@ -1408,6 +1408,27 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#withdrawal_date_deadline" do
+    let(:state) { "ny" }
+    before { @params = { us_state: state } }
+
+    context "for a New York return" do
+      it "returns the NY withdrawal date deadline" do
+        get :index, params: @params
+        expect(subject.withdrawal_date_deadline).to eq Rails.configuration.state_file_withdrawal_date_deadline_ny
+      end
+    end
+
+    context "for an Arizona return" do
+      let(:state) { "az" }
+
+      it "returns the AZ withdrawal date deadline" do
+        get :index, params: @params
+        expect(subject.withdrawal_date_deadline).to eq Rails.configuration.state_file_end_of_new_intakes
+      end
+    end
+  end
+
   context "when receiving invalid requests from robots" do
     before do
       allow(DatadogApi).to receive(:increment)

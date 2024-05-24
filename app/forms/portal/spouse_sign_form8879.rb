@@ -14,7 +14,7 @@ module Portal
 
       begin
         @tax_return.sign_spouse!(ip)
-      rescue ::AlreadySignedError, ::FailedToSignReturnError
+      rescue ::AlreadySignedError, ::FailedToSignReturnError, CombinePDF::ParsingError
         errors.add(:transaction_failed)
         false
       end

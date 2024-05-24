@@ -108,6 +108,7 @@ module VitaMin
     # StateFile
     config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-08 09:00:00')
     config.state_file_end_of_new_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-15 23:59:59')
+    config.state_file_withdrawal_date_deadline_ny = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
     config.state_file_end_of_in_progress_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-25 23:59:59')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
