@@ -44,7 +44,7 @@
 
 </head>
 
-<body class="admin honeycrisp-compact hub <%= controller_name.gsub("_", "-") %>-page-body">
+<body class="admin honeycrisp-compact hub <%= controller_name.gsub("_", "-") %>-<%= action_name.gsub("_", "-") %>-page-body">
 <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content') %></a>
 
 <div class="columns">
