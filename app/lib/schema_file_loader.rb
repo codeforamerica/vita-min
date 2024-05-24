@@ -26,6 +26,7 @@ class SchemaFileLoader
     end
 
     def download_and_unzip_schemas_from_s3(dest_dir)
+      prepare_directories(dest_dir)
       download_schemas_from_s3(dest_dir)
       unzip_schemas(dest_dir)
     end
@@ -33,14 +34,14 @@ class SchemaFileLoader
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
       EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
-        download_path = Rails.root.join(dest_dir, download_folder, filename)
+        download_path = File.join(dest_dir, download_folder, filename)
         # If the file already exists, do not re-download.
         next if File.exist?(download_path)
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
           key: filename,
-        )
+          )
       end
     end
 
@@ -56,17 +57,19 @@ class SchemaFileLoader
       Aws::Credentials.new(
         Rails.application.credentials.dig(:aws, :access_key_id),
         Rails.application.credentials.dig(:aws, :secret_access_key),
-      )
+        )
     end
 
-    def unzip_schemas(dest_dir)
+    def prepare_directories(dest_dir)
       [File.join(dest_dir, 'irs', 'unpacked'), File.join(dest_dir, 'us_states', 'unpacked')].each do |unpack_path|
         FileUtils.rm_rf(unpack_path)
         FileUtils.mkdir_p(unpack_path)
       end
+    end
 
+    def unzip_schemas(dest_dir)
       EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
-        download_path = Rails.root.join(dest_dir, download_folder, filename)
+        download_path = File.join(Rails.root, dest_dir, download_folder, filename)
         Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
           # A zip file like AZIndividual2022v1.1.zip will either contain files like AZIndividual2022v1.1/AZIndividual/etc
           # *or* just AZIndividual. Here we normalize by always trying to unzip in such a way that results in a unique
@@ -76,7 +79,7 @@ class SchemaFileLoader
           if download_folder == 'us_states' && !zip_file.first.name.start_with?(zip_filename)
             path_parts << zip_filename
           end
-          unpack_path = Rails.root.join(*path_parts)
+          unpack_path = File.join(*path_parts)
           FileUtils.mkdir_p(unpack_path)
 
           Dir.chdir(unpack_path) do
