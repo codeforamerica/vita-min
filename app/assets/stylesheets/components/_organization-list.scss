@@ -15,5 +15,11 @@
         color: $color-grey-medium !important;
       }
     }
+    .link {
+      flex-grow: 1
+    }
+    .toggle-switch {
+      margin: 0.5rem 1rem;
+    }
   }
 }

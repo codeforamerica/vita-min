@@ -974,6 +974,7 @@ RSpec.describe Hub::ClientsController do
                        used_itin_certifying_acceptance_agent: "false",
                        was_blind: "no",
                        spouse_was_blind: "no",
+                       signature_method: "online",
                      }
                    }
     }
