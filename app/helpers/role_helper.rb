@@ -86,6 +86,8 @@ module RoleHelper
   end
 
   def user_group(user)
+    return if user.role.nil?
+
     if user.role_type == OrganizationLeadRole::TYPE
       user.role.organization.name
     elsif user.role_type == CoalitionLeadRole::TYPE
