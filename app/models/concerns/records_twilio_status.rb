@@ -7,7 +7,7 @@ module RecordsTwilioStatus
       old_index = TwilioService::ORDERED_STATUSES.index(old_status)
       new_index = TwilioService::ORDERED_STATUSES.index(new_status)
 
-      if new_index > old_index
+      if new_status == "twilio_error" || new_index > old_index
         update(self.class.status_column => new_status, error_code: error_code)
       end
     end
