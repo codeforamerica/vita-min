@@ -28,7 +28,7 @@ class OutboundCall < ApplicationRecord
 
   after_create { InteractionTrackingService.record_user_initiated_outgoing_interaction(client) }
   after_save do
-    if saved_change_to_twilio_status? && self.twilio_status == "completed"
+    if saved_change_to_twilio_status? && delivered?
       InteractionTrackingService.update_last_outgoing_communication_at(client)
     end
   end
@@ -45,5 +45,9 @@ class OutboundCall < ApplicationRecord
 
   def to
     PhoneParser.formatted_phone_number(to_phone_number)
+  end
+
+  def delivered?
+    self.twilio_status == "completed"
   end
 end

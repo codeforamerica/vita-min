@@ -42,7 +42,7 @@ class OutgoingTextMessage < ApplicationRecord
   after_create :deliver, :broadcast
   after_create { |msg| InteractionTrackingService.record_user_initiated_outgoing_interaction(client) if msg.user.present? }
   after_save do
-    if saved_change_to_twilio_status? && self.twilio_status == "completed"
+    if saved_change_to_twilio_status? && self.delivered?
       InteractionTrackingService.update_last_outgoing_communication_at(client)
     end
   end
@@ -70,5 +70,9 @@ class OutgoingTextMessage < ApplicationRecord
 
   def broadcast
     ClientChannel.broadcast_contact_record(self)
+  end
+
+  def delivered?
+    self.twilio_status == "delivered"
   end
 end
