@@ -42,6 +42,10 @@ RSpec.describe OutgoingTextMessage, type: :model do
       let(:subject) { build :outgoing_text_message, twilio_status: "delivered" }
     end
 
+    it_behaves_like "an undelivered interaction" do
+      let(:subject) { build :outgoing_text_message }
+    end
+
     context "for an automated message with no user" do
       let(:client) { create :client, first_unanswered_incoming_interaction_at: 4.business_days.ago }
       let(:message) { build :outgoing_text_message, client: client, user: nil }
