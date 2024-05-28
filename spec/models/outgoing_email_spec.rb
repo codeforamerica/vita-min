@@ -39,7 +39,7 @@ RSpec.describe OutgoingEmail, type: :model do
     end
 
     it_behaves_like "an outgoing interaction" do
-      let(:subject) { build :outgoing_text_message }
+      let(:subject) { build :outgoing_text_message, twilio_status: "delivered"  }
     end
 
     context "for an automated email with no user" do

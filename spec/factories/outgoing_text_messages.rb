@@ -31,6 +31,5 @@ FactoryBot.define do
     user
     body { "wyd" }
     to_phone_number { "+14155552345" }
-    # twilio_status { "delivered" }
   end
 end

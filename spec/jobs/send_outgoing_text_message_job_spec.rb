@@ -10,7 +10,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
     let(:error_code) { nil }
     let(:status_code) { nil }
     let(:fake_twilio_message) { double(Twilio::REST::Api::V2010::AccountContext::MessageInstance, sid: "123", status: "sent", error_code: error_code) }
-    let(:outgoing_text_message) { create(:outgoing_text_message, body: "body", client: client, user: user, to_phone_number: "+15855551212") }
+    let(:outgoing_text_message) { create(:outgoing_text_message, body: "body", client: client, user: user, to_phone_number: "+15855551212" ) }
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
 
     context "when Twilio does not raise an exception" do
@@ -23,7 +23,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
 
         outgoing_text_message.reload
         expect(outgoing_text_message.twilio_sid).to eq "123"
-        expect(outgoing_text_message.twilio_status).to eq "delivered"
+        expect(outgoing_text_message.twilio_status).to eq "sent"
         expect(outgoing_text_message.sent_at).to eq fake_time
       end
 
