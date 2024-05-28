@@ -23,7 +23,7 @@ RSpec.describe SendOutgoingTextMessageJob, type: :job do
 
         outgoing_text_message.reload
         expect(outgoing_text_message.twilio_sid).to eq "123"
-        expect(outgoing_text_message.twilio_status).to eq "sent"
+        expect(outgoing_text_message.twilio_status).to eq "delivered"
         expect(outgoing_text_message.sent_at).to eq fake_time
       end
 
