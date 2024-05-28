@@ -27,7 +27,11 @@ class OutboundCall < ApplicationRecord
   validates :from_phone_number, :to_phone_number, e164_phone: true, presence: true
 
   after_create { InteractionTrackingService.record_user_initiated_outgoing_interaction(client) }
-  after_create { InteractionTrackingService.update_last_outgoing_communication_at(client) }
+  after_save do
+    if saved_change_to_twilio_status? && self.twilio_status == "completed"
+      InteractionTrackingService.update_last_outgoing_communication_at(client)
+    end
+  end
 
   # twilio_status, twilio_sid, and call_duration are set by responses from twilio
   # twilio_status is set to "queued" on creation of the twilio call which triggers a call to the from_phone_number
