@@ -19,7 +19,7 @@ namespace :outgoing_messages do
   def backfill_twilio_statuses(limit: 1000)
     twilio_client = TwilioService.client
     OutgoingTextMessage
-      .where(twilio_status: OutgoingTextMessage::IN_PROGRESS_TWILIO_STATUSES)
+      .where(twilio_status: TwilioService::IN_PROGRESS_TWILIO_STATUSES)
       .where(created_at: ...4.hours.ago).order(created_at: :desc).limit(limit).each do |outgoing_text_message|
 
       current_status = nil
