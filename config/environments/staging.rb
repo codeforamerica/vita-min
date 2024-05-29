@@ -7,7 +7,7 @@ Rails.application.configure do
   config.statefile_url = "https://staging.fileyourstatetaxes.org"
   config.gyr_url = "https://staging.getyourrefund.org"
   gyr_email_from_domain = "mg-staging.getyourrefund-testing.org"
-  ctc_email_from_domain = "getctc.org"
+  ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"
   statefile_email_from_domain = "mg-staging.fileyourstatetaxes.org"
   config.email_from = {
     default: {
