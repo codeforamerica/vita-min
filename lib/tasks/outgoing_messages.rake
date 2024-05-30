@@ -1,7 +1,7 @@
 namespace :outgoing_messages do
   def backfill_mailgun_statuses
     # The global API key, not the same as EnvironmentCredentials.dig(:mailgun, :api_key)
-    mg_client = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
+    mg_client = Mailgun::Client.new(ENV['MAILGUN_API_KEY'] || EnvironmentCredentials.dig(:mailgun, :api_key))
     OutgoingEmail
       .where(mailgun_status: 'sending')
       .where.not(message_id: nil)
