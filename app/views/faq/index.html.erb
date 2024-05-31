@@ -15,11 +15,12 @@
       <% slice_size = [(@faq_categories.size / 2.0).round, 1].max %>
       <% @faq_categories.each_slice(slice_size).to_a.each do |column| %>
         <div class="grid__item width-one-half">
-          <% column.each do |faq_category| %>
-            <% next if faq_category.faq_items.size.zero? %>
+          <% column.each do |faq_category|
+            category_items = @faq_items.filter { |faq_item| faq_item.faq_category_id == faq_category.id }
+            next if category_items.size.zero? %>
             <div class="faq-section faq-section-<%= faq_category.slug.dasherize %> spacing-below-60">
               <h2 class="h3 spacing-below-15"><%= faq_category.name(I18n.locale) %></h2>
-              <% faq_category.faq_items.first(3).each do |faq_item| %>
+              <% category_items.first(3).each do |faq_item| %>
                 <p>
                   <%= link_to faq_item.question(I18n.locale),
                   faq_question_path(section_key: faq_category.slug, question_key: faq_item.slug) %>

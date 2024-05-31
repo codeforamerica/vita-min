@@ -2,14 +2,20 @@ class FaqController < ApplicationController
   skip_before_action :check_maintenance_mode
 
   def index
+    @search = params[:search] || ""
     @faq_categories = FaqCategory.where(product_type: :gyr)
+    @faq_items = @search.present? ? FaqItem.send(:"search_#{locale}", @search) : FaqItem.all
+    @faq_items = @faq_items.joins(:faq_category).where(faq_categories: { product_type: :gyr})
   end
 
   def section_index
     # validate that it is actually good, 404 if not
 
     @section_key = params[:section_key]
+    @search = params[:search] || ""
     @faq_category = FaqCategory.find_by(slug: @section_key)
+    @faq_items = @search.present? ? FaqItem.send(:"search_#{locale}", @search) : FaqItem.all
+    @faq_items = @faq_items.where(faq_category_id: @faq_category.id)
 
     raise ActionController::RoutingError.new('Not found') unless @faq_category
   end
