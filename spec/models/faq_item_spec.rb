@@ -2,18 +2,16 @@
 #
 # Table name: faq_items
 #
-#  id                 :bigint           not null, primary key
-#  answer_en          :text
-#  answer_es          :text
-#  position           :integer
-#  question_en        :text
-#  question_es        :text
-#  searchable_data_en :tsvector
-#  searchable_data_es :tsvector
-#  slug               :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  faq_category_id    :bigint           not null
+#  id              :bigint           not null, primary key
+#  answer_en       :text
+#  answer_es       :text
+#  position        :integer
+#  question_en     :text
+#  question_es     :text
+#  slug            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  faq_category_id :bigint           not null
 #
 # Indexes
 #
