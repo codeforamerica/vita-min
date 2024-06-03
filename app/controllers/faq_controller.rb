@@ -4,8 +4,7 @@ class FaqController < ApplicationController
   def index
     @search = params[:search] || ""
     @faq_categories = FaqCategory.where(product_type: :gyr)
-    @faq_items = @search.present? ? FaqItem.send(:"search_#{locale}", @search) : FaqItem.all
-    @faq_items = @faq_items.joins(:faq_category).where(faq_categories: { product_type: :gyr})
+    @faq_items = faq_items.joins(:faq_category).where(faq_categories: { product_type: :gyr})
   end
 
   def section_index
@@ -14,8 +13,7 @@ class FaqController < ApplicationController
     @section_key = params[:section_key]
     @search = params[:search] || ""
     @faq_category = FaqCategory.find_by(slug: @section_key)
-    @faq_items = @search.present? ? FaqItem.send(:"search_#{locale}", @search) : FaqItem.all
-    @faq_items = @faq_items.where(faq_category_id: @faq_category.id)
+    @faq_items = faq_items.where(faq_category_id: @faq_category.id)
 
     raise ActionController::RoutingError.new('Not found') unless @faq_category
   end
@@ -45,5 +43,13 @@ class FaqController < ApplicationController
 
   def include_analytics?
     true
+  end
+
+  def faq_items
+    search_locale = locale&.to_sym
+    if @search.present? && I18n.available_locales.include?(search_locale)
+      return FaqItem.send(:"search_#{search_locale}", @search)
+    end
+    FaqItem.all
   end
 end
