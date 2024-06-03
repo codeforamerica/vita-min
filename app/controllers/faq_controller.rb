@@ -13,9 +13,8 @@ class FaqController < ApplicationController
     @section_key = params[:section_key]
     @search = params[:search] || ""
     @faq_category = FaqCategory.find_by(slug: @section_key)
-    @faq_items = faq_items.where(faq_category_id: @faq_category.id)
-
     raise ActionController::RoutingError.new('Not found') unless @faq_category
+    @faq_items = faq_items.where(faq_category_id: @faq_category.id)
   end
 
   def show
