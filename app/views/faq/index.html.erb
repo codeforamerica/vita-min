@@ -11,6 +11,12 @@
 
     <div class="grid">
       <h1 class="h2"><%= t('views.public_pages.faq.title') %></h1>
+      <div class="spacing-below-25">
+        <%= form_tag faq_path, method: "get", class: "hub-searchbar" do %>
+          <%= text_field_tag :search, @search, class: "hub-searchbar__input" %>
+          <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
+        <% end %>
+      </div>
 
       <% slice_size = [(@faq_categories.size / 2.0).round, 1].max %>
       <% @faq_categories.each_slice(slice_size).to_a.each do |column| %>
