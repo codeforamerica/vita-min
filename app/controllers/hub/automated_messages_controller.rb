@@ -10,39 +10,24 @@ module Hub
     private
 
     def messages_preview
-      automated_messages = [
-        [AutomatedMessage::SuccessfulSubmissionDropOff, {}],
-        [AutomatedMessage::SuccessfulSubmissionOnlineIntake, {}],
-        [SurveyMessages::GyrCompletionSurvey, { survey_link: "https://fakecodeforamerica.co1.qualtrics.com" }],
-        [SurveyMessages::CtcExperienceSurvey, { survey_link: "https://fakecodeforamerica.co1.qualtrics.com" }],
-        [AutomatedMessage::DocumentsReminderLink, { body_args: { doc_type: "ID" } }],
-        [AutomatedMessage::EfileAcceptance, {}],
-        [AutomatedMessage::EfilePreparing, {}],
-        [AutomatedMessage::EfileRejected, {}],
-        [AutomatedMessage::EfileRejectedAndCancelled, {}],
-        [AutomatedMessage::EfileFailed, {}],
-        [AutomatedMessage::CtcGettingStarted, {}],
-        [AutomatedMessage::ClosingSoon, {}],
-        [AutomatedMessage::SaveCtcLetter, { body_args: { service_name: MultiTenantService.new(:ctc).service_name } }],
-        [AutomatedMessage::ContactInfoChange, {}],
-        [AutomatedMessage::FirstNotReadyReminder, {}],
-        [AutomatedMessage::SecondNotReadyReminder, {}],
-        [AutomatedMessage::InformOfFraudHold, {}],
-        [AutomatedMessage::NewPhotosRequested, {}],
-        [AutomatedMessage::VerificationAttemptDenied, {}],
-        [AutomatedMessage::Ctc2022OpenMessage, {}],
-        [AutomatedMessage::PuertoRicoOpenMessage, {}],
-        [AutomatedMessage::IntercomForwarding, {}],
-        [AutomatedMessage::UnmonitoredReplies, { support_email: Rails.configuration.email_from[:support][:gyr] }],
-        [AutomatedMessage::InProgress, {}],
-        [AutomatedMessage::Welcome, {}],
-      ]
+      Rails.application.eager_load!
+      message_classes = AutomatedMessage::AutomatedMessage.descendants + [SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey]
 
-      automated_messages_and_mailers = automated_messages.map do |m|
-        message = m[0].new
+      # TODO: These were not being used in the previous implementation of this code, so either figure out how to use them or delete them
+      #   The issue is that different message classes take their args differently,
+      message_params = {
+        SurveyMessages::GyrCompletionSurvey => { survey_link: "https://fakecodeforamerica.co1.qualtrics.com" },
+        SurveyMessages::CtcExperienceSurvey => { survey_link: "https://fakecodeforamerica.co1.qualtrics.com" },
+        AutomatedMessage::DocumentsReminderLink => { body_args: { doc_type: "ID" } },
+        AutomatedMessage::SaveCtcLetter => { body_args: { service_name: MultiTenantService.new(:ctc).service_name } },
+        AutomatedMessage::UnmonitoredReplies => { support_email: Rails.configuration.email_from[:support][:gyr] },
+      }
+
+      automated_messages_and_mailers = message_classes.to_h do |klass|
+        message = klass.new
         replaced_body = message.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
         email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: message.email_subject, client: Client.new(intake: Intake::GyrIntake.new))
-        [m[0], OutgoingEmailMailer.user_message(outgoing_email: email)]
+        [klass, OutgoingEmailMailer.user_message(outgoing_email: email)]
       end.to_h
 
       emails = {
