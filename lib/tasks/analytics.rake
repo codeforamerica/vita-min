@@ -3,7 +3,7 @@
 # The `analytics` schema with SQL views that contain anonymized data is no longer used by data science
 # and can be considered deprecated. Instead, the `read_only_role` is given direct access
 # to the required tables. At some point soon we should delete the analytics schema and the code
-# below. This does however raise questions about passing non anonymized data do metabase (as the
+# below. This does however raise questions about passing non anonymized data to metabase (as the
 # read only role has access to non-anonymized data.)
 #
 #
