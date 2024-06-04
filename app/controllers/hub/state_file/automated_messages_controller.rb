@@ -11,7 +11,6 @@ module Hub::StateFile
       Rails.application.eager_load!
       message_classes = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       message_classes.to_h do |klass|
-        # TODO: make all AutomatedMessage methods class rather than instance methods
         replaced_body = klass.new.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
         email = StateFileNotificationEmail.new(to: "example@example.com",
                                                body: replaced_body,

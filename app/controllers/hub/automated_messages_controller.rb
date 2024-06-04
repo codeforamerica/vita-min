@@ -14,9 +14,8 @@ module Hub
       message_classes = AutomatedMessage::AutomatedMessage.descendants + [SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey]
 
       automated_messages_and_mailers = message_classes.to_h do |klass|
-        message = klass.new
-        replaced_body = message.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
-        email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: message.email_subject, client: Client.new(intake: Intake::GyrIntake.new))
+        replaced_body = klass.new.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
+        email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: klass.new.email_subject, client: Client.new(intake: Intake::GyrIntake.new))
         [klass, OutgoingEmailMailer.user_message(outgoing_email: email)]
       end.to_h
 
