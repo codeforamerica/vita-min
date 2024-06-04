@@ -74,7 +74,7 @@ jobs:
 
       - name: Create database
         if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku addons:create heroku-postgresql:mini --app ${{ env.HEROKU_APP_NAME }}
+        run: heroku addons:create heroku-postgresql:essential-0 --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
         if: github.event.action != 'closed'
@@ -92,6 +92,10 @@ jobs:
       - name: Push to Heroku
         if: github.event.action != 'closed'
         run: git push heroku ${{ github.head_ref }}:main --force
+
+      - name: Wait for deploy to finish
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: heroku pg:wait --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Setup database
         if: github.event.action == 'opened' || github.event.action == 'reopened'
