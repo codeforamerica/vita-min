@@ -33,7 +33,7 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
+      SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
         download_path = File.join(dest_dir, download_folder, filename)
         # If the file already exists, do not re-download.
         next if File.exist?(download_path)
@@ -72,7 +72,7 @@ class SchemaFileLoader
         File.join(Rails.root, dest_dir, download_folder, filename)
       end
       download_files.filter do |download_file|
-        !File.exist?(download_path)
+        !File.exist?(download_file)
       end
     end
 
