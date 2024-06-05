@@ -45,7 +45,11 @@ class OutgoingEmail < ApplicationRecord
   # Use `after_create_commit` so that the attachment is fully saved to S3 before delivering it
   after_create_commit :deliver, :broadcast
   after_create_commit { |msg| InteractionTrackingService.record_user_initiated_outgoing_interaction(client) if msg.user.present? }
-  after_create_commit { InteractionTrackingService.update_last_outgoing_communication_at(client) }
+  after_save do
+    if saved_change_to_mailgun_status? && delivered?
+      InteractionTrackingService.update_last_outgoing_communication_at(client)
+    end
+  end
 
   # has_one_attached needs to be called after defining any callbacks that access attachments, like :deliver; see https://github.com/rails/rails/issues/37304
   has_one_attached :attachment
@@ -69,5 +73,9 @@ class OutgoingEmail < ApplicationRecord
 
   def broadcast
     ClientChannel.broadcast_contact_record(self)
+  end
+
+  def delivered?
+    self.mailgun_status == "delivered"
   end
 end
