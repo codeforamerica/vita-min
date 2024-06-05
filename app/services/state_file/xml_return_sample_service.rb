@@ -43,7 +43,7 @@ module StateFile
     def load_samples
       return if @_samples.present?
 
-      Dir.glob("spec/fixtures/files/fed_return_*.xml").each do |path|
+      Dir.glob("spec/fixtures/**/fed_return_*.xml").each do |path|
         sample = SampleXml.new(path)
         @_samples.push(sample)
         @_sample_lookup[sample.key] = sample
