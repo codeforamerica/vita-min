@@ -67,9 +67,19 @@ class SchemaFileLoader
       end
     end
 
+    def get_missing_downloads(dest_dir)
+      download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder)|
+        File.join(Rails.root, dest_dir, download_folder, filename)
+      end
+      download_files.filter do |download_file|
+        !File.exist?(download_path)
+      end
+    end
+
     def unzip_schemas(dest_dir)
       EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
         download_path = File.join(Rails.root, dest_dir, download_folder, filename)
+        next unless File.exist?(download_path)
         Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
           # A zip file like AZIndividual2022v1.1.zip will either contain files like AZIndividual2022v1.1/AZIndividual/etc
           # *or* just AZIndividual. Here we normalize by always trying to unzip in such a way that results in a unique
