@@ -4804,7 +4804,7 @@ es:
         continue_to_diy: Continuar a File Myself--declarar yo mismo
         file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
         title: Vaya, parece que estamos al límite de capacidad en este momento.
-        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el {tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
+        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el %{tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
