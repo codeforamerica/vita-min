@@ -15,6 +15,7 @@ class SchemaFileLoader
 
   class << self
     def load_file(*path)
+      puts "TRACE:SchemaFileLoader:load_file:#{path}"
       # First we check the vendor directory - if the file is there use it (Non heroku cases)
       file = File.join(Rails.root, "vendor", *path)
       return file if File.exist?(file)
@@ -32,6 +33,7 @@ class SchemaFileLoader
     end
 
     def download_schemas_from_s3(dest_dir)
+      puts "TRACE:SchemaFileLoader:download_schemas_from_s3"
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
       SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
         download_path = File.join(dest_dir, download_folder, filename)
@@ -61,6 +63,7 @@ class SchemaFileLoader
     end
 
     def prepare_directories(dest_dir)
+      puts "TRACE:SchemaFileLoader:prepare_directories"
       [File.join(dest_dir, 'irs', 'unpacked'), File.join(dest_dir, 'us_states', 'unpacked')].each do |unpack_path|
         FileUtils.rm_rf(unpack_path)
         FileUtils.mkdir_p(unpack_path)
@@ -77,6 +80,7 @@ class SchemaFileLoader
     end
 
     def unzip_schemas(dest_dir)
+      puts "TRACE:SchemaFileLoader:unzip_schemas:#{dest_dir}"
       EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
         download_path = File.join(Rails.root, dest_dir, download_folder, filename)
         next unless File.exist?(download_path)
