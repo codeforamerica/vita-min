@@ -31,10 +31,11 @@ describe SchemaFileLoader do
 
     context "without AWS_ACCESS_KEY_ID in ENV" do
       it "uses the rails credentials" do
+        stub_const("ENV", {})
         expect(Rails.application.credentials).to receive(:dig).with(:aws, :access_key_id).and_return "mock-aws-access-key-id"
         expect(Rails.application.credentials).to receive(:dig).with(:aws, :secret_access_key).and_return "mock-aws-secret-access-key"
         credentials = SchemaFileLoader.s3_credentials
-        expect(credentials.access_key_id).to be_present
+        expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
       end
     end
   end
