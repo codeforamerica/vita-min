@@ -22,6 +22,7 @@ class SchemaFileLoader
       # Next we check the tmp directory in case we already downloaded the file
       file = File.join(Rails.root, "tmp", *path)
       download_and_unzip_schemas_from_s3(File.join(Rails.root, "tmp")) unless File.exist?(file)
+
       file
     end
 
@@ -35,8 +36,9 @@ class SchemaFileLoader
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
       SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
         download_path = File.join(dest_dir, download_folder, filename)
-        # If the file already exists, do not re-download.
-        next if File.exist?(download_path)
+
+        next if File.exist?(download_path) # If the file already exists, do not re-download.
+
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
@@ -47,7 +49,7 @@ class SchemaFileLoader
 
     def s3_credentials
       # On Circle CI, get AWS credentials from environment.
-      # In staging, demo, and prod environment, get credentials from Rails credentials.
+      # In staging, demo, heroku, and prod environment, get credentials from Rails credentials.
       #
       # In development, download the file manually from S3. This allows us to avoid storing any AWS credentials in the development secrets.
       if ENV["AWS_ACCESS_KEY_ID"].present?
