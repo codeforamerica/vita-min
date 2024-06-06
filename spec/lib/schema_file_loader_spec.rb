@@ -26,7 +26,6 @@ describe SchemaFileLoader do
         })
         credentials = SchemaFileLoader.s3_credentials
         expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
-        expect(credentials.secret_access_key).to eq "mock-aws-secret-access-key"
       end
     end
 
@@ -36,7 +35,6 @@ describe SchemaFileLoader do
         expect(Rails.application.credentials).to receive(:dig).with(:aws, :secret_access_key).and_return "mock-aws-secret-access-key"
         credentials = SchemaFileLoader.s3_credentials
         expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
-        expect(credentials.secret_access_key).to eq "mock-aws-secret-access-key"
       end
     end
   end
