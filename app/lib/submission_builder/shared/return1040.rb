@@ -27,8 +27,7 @@ module SubmissionBuilder
       end
 
       def schema_file
-        # TODO: Update for heroku...
-            SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
+        SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
       end
     end
   end

@@ -3,8 +3,7 @@ module SubmissionBuilder
     include SubmissionBuilder::FormattingMethods
 
     def schema_file
-      # TODO: Update for heroku...
-            SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "Common", "efileAttachments.xsd")
+      SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "Common", "efileAttachments.xsd")
     end
 
     def document
