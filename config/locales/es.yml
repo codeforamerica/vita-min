@@ -19,6 +19,7 @@ es:
     dependents_controller:
       removed_dependent: Eliminó %{full_name}.
     public_pages:
+      inactive_unique_link_notice: "%{partner_name} actualmente no acepta clientes a través de esta URL única. ¡Aún puedes comenzar con otro equipo de impuestos a continuación!"
       partner_welcome_notice: "¡Gracias por visitarnos a través de %{partner_name}!"
     tax_returns_controller:
       errors:
@@ -256,7 +257,7 @@ es:
         is_hsa: es HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Ingresa una cantidad menor o igual a %{owed_amount}
-        withdrawal_date_deadline: Introduce una fecha en o antes del 15 de Abril, %{year}
+        withdrawal_date_deadline: Ingrese una fecha entre hoy y el 15 de abril de %{year} o antes
   general:
     NA: N/A
     about: Acerca de nosotros
@@ -1877,7 +1878,7 @@ es:
         title: "¡Genial! Le hablaremos en junio."
         upload_additional_documents: Subir documentos adicionales
       edit:
-        help_text: Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre; de lo contrario, no podremos preparar su declaración de impuestos.
+        help_text: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_closing}. Necesitamos todos los documentos requeridos antes del %{docs_deadline}; de lo contrario, no podremos preparar su declaración de impuestos.
         not_interested: No, no estoy interesado
         still_needs_help: Sí, todavía necesito ayuda
         title: "¿Todavía le interesa declarar sus impuestos con nosotros?"
@@ -1889,7 +1890,7 @@ es:
         survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: Gracias por usar GetYourRefund.
       upload_documents:
-        help_text: Si tiene documentos adicionales que necesita subir, por favor use el botón a continuación. Necesitamos todos sus documentos antes del 8 de octubre.
+        help_text: Si tiene documentos adicionales que necesita subir, por favor use el botón a continuación. Necesitamos todos sus documentos antes del %{docs_deadline}.
         no_additional_documents: No tengo documentos adicionales.
         title: "!Excelente! Si tiene documentos adicionales, favor de subirlos a continuación."
         upload_additional_documents: Subir documentos adicionales
@@ -2636,10 +2637,11 @@ es:
       tax_refund:
         bank_details:
           account_number: Número de cuenta
-          after-deadline-default-withdrawl-info: Debido al hecho de que estás enviando tu declaración el 15 de abril o después, el estado retirará tu pago tan pronto como se procese tu declaración.
+          after_deadline_default_withdrawal_info: Debido al hecho de que estás enviando tu declaración el %{withdrawal_deadline_date} de %{with_drawal_deadline_year} o después, el estado retirará tu pago tan pronto como se procese tu declaración.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el dia del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria (routing number)
@@ -4802,7 +4804,7 @@ es:
         continue_to_diy: Continuar a File Myself--declarar yo mismo
         file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
         title: Vaya, parece que estamos al límite de capacidad en este momento.
-        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el 15 de abril.</b> Recomendamos presentar la solicitud lo antes posible."
+        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el %{tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"

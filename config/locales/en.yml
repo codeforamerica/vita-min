@@ -19,6 +19,7 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     public_pages:
+      inactive_unique_link_notice: "%{partner_name} is currently not accepting clients via this unique url. You can still get started with another tax team below!"
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
     tax_returns_controller:
       errors:
@@ -255,7 +256,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date on or before April 15, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before April 15, %{year}
   general:
     NA: N/A
     about: About
@@ -1919,7 +1920,7 @@ en:
         title: Great! We'll chat with you in June.
         upload_additional_documents: Upload additional documents
       edit:
-        help_text: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes.
+        help_text: We are closing GetYourRefund for the tax season on %{end_of_closing}. We will need all required documentation by %{docs_deadline}; otherwise, we will not be able to prepare your taxes.
         not_interested: No, I'm not interested
         still_needs_help: Yes, I still need help
         title: Are you still interested in filing your taxes with us?
@@ -1931,7 +1932,7 @@ en:
         survey_question: How was your experience with GetYourRefund?
         title: Thank you for using GetYourRefund.
       upload_documents:
-        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by October 8th.
+        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by %{docs_deadline}.
         no_additional_documents: I have no additional documents
         title: Great! If you have additional documents, please upload them below.
         upload_additional_documents: Upload additional documents
@@ -2657,10 +2658,11 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after-deadline-default-withdrawl-info: Because you are submitting your return on or after April 15, 2024, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
@@ -4800,7 +4802,7 @@ en:
         continue_to_diy: Continue to File Myself
         file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
         title: Wow, it looks like we are at capacity right now.
-        warning_html: "<b>A friendly reminder that the filing deadline is April 15th.</b> We recommend filing as soon as possible."
+        warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?

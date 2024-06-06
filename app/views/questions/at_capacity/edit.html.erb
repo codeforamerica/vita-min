@@ -16,7 +16,7 @@
         </div>
 
         <div class="notice--warning">
-          <p><%= t("views.questions.at_capacity.warning_html") %></p>
+          <p><%= t("views.questions.at_capacity.warning_html", tax_deadline: I18n.l(Rails.configuration.tax_deadline.to_date, format: :medium, locale: locale)) %></p>
         </div>
 
         <div class="offboarding--help-text text--bold">

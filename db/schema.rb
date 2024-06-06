@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_16_154446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1560,6 +1560,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
   end
 
   create_table "source_parameters", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
