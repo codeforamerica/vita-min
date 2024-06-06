@@ -38,7 +38,8 @@ describe StillNeedsHelpService do
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with({
                                                                                                                      client: client,
                                                                                                                      locale: "en",
-                                                                                                                     message: AutomatedMessage::ClosingSoon
+                                                                                                                     message: AutomatedMessage::ClosingSoon,
+                                                                                                                     body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 16th"}
                                                                                                                  })
     end
 
