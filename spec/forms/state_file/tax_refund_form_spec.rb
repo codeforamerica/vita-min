@@ -4,7 +4,13 @@ RSpec.describe StateFile::TaxRefundForm do
   let!(:intake) { create :state_file_ny_intake, payment_or_deposit_type: "unfilled" }
   let(:valid_params) do
     {
-      payment_or_deposit_type: "mail"
+      payment_or_deposit_type: "mail",
+      routing_number: "019456124",
+      routing_number_confirmation: "019456124",
+      account_number: "12345",
+      account_number_confirmation: "12345",
+      account_type: "checking",
+      bank_name: "Bank official",
     }
   end
 
@@ -18,20 +24,15 @@ RSpec.describe StateFile::TaxRefundForm do
         intake.reload
         expect(intake.payment_or_deposit_type).to eq "mail"
         expect(intake.account_type).to eq "unfilled"
+        expect(intake.account_number).to be_nil
+        expect(intake.routing_number).to be_nil
+        expect(intake.bank_name).to be_nil
       end
     end
 
     context "when params valid and payment type is deposit" do
       let(:valid_params) do
-        {
-          payment_or_deposit_type: "direct_deposit",
-          routing_number: "019456124",
-          routing_number_confirmation: "019456124",
-          account_number: "12345",
-          account_number_confirmation: "12345",
-          account_type: "checking",
-          bank_name: "Bank official",
-        }
+        super().merge(payment_or_deposit_type: "direct_deposit")
       end
 
       it "updates the intake" do
@@ -45,6 +46,31 @@ RSpec.describe StateFile::TaxRefundForm do
         expect(intake.routing_number).to eq "019456124"
         expect(intake.account_number).to eq "12345"
         expect(intake.bank_name).to eq "Bank official"
+      end
+
+      context "when overwriting an existing intake" do
+        let!(:intake) do
+          create(
+            :state_file_ny_intake,
+            payment_or_deposit_type: "mail",
+            routing_number: "019456124",
+            account_number: "12345",
+            account_type: "checking",
+            bank_name: "Bank official"
+          )
+        end
+        it "updates the intake" do
+          form = described_class.new(intake, valid_params.merge(payment_or_deposit_type: "mail"))
+          expect(form).to be_valid
+          form.save
+
+          intake.reload
+          expect(intake.payment_or_deposit_type).to eq "mail"
+          expect(intake.account_type).to eq "unfilled"
+          expect(intake.account_number).to be_nil
+          expect(intake.routing_number).to be_nil
+          expect(intake.bank_name).to be_nil
+        end
       end
     end
 

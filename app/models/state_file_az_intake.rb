@@ -104,19 +104,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
 
-  before_save do
-    save_nil_enums_with_unfilled
-
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
-    end
-  end
-
   def state_code
     STATE_CODE
   end
