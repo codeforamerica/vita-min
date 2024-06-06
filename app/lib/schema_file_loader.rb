@@ -72,7 +72,7 @@ class SchemaFileLoader
 
     def get_missing_downloads(dest_dir)
       download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder)|
-        File.join(Rails.root, dest_dir, download_folder, filename)
+        File.join(dest_dir, download_folder, filename)
       end
       download_files.filter do |download_file|
         !File.exist?(download_file)
@@ -82,7 +82,7 @@ class SchemaFileLoader
     def unzip_schemas(dest_dir)
       puts "TRACE:SchemaFileLoader:unzip_schemas:start:#{dest_dir}"
       EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
-        download_path = File.join(Rails.root, dest_dir, download_folder, filename)
+        download_path = File.join(dest_dir, download_folder, filename)
         unless File.exist?(download_path)
           puts "TRACE:SchemaFileLoader:unzip_schemas:not_exist:#{download_path}"
           next
