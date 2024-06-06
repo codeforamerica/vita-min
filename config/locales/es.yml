@@ -1878,7 +1878,7 @@ es:
         title: "¡Genial! Le hablaremos en junio."
         upload_additional_documents: Subir documentos adicionales
       edit:
-        help_text: Cerramos la temporada de impuestos de GetYourRefund el 15 de octubre. Necesitamos todos los documentos requeridos antes del 8 de octubre; de lo contrario, no podremos preparar su declaración de impuestos.
+        help_text: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_closing}. Necesitamos todos los documentos requeridos antes del %{docs_deadline}; de lo contrario, no podremos preparar su declaración de impuestos.
         not_interested: No, no estoy interesado
         still_needs_help: Sí, todavía necesito ayuda
         title: "¿Todavía le interesa declarar sus impuestos con nosotros?"
@@ -1890,7 +1890,7 @@ es:
         survey_question: "¿Cómo fue su experiencia con GetYourRefund?"
         title: Gracias por usar GetYourRefund.
       upload_documents:
-        help_text: Si tiene documentos adicionales que necesita subir, por favor use el botón a continuación. Necesitamos todos sus documentos antes del 8 de octubre.
+        help_text: Si tiene documentos adicionales que necesita subir, por favor use el botón a continuación. Necesitamos todos sus documentos antes del %{docs_deadline}.
         no_additional_documents: No tengo documentos adicionales.
         title: "!Excelente! Si tiene documentos adicionales, favor de subirlos a continuación."
         upload_additional_documents: Subir documentos adicionales
@@ -4804,7 +4804,7 @@ es:
         continue_to_diy: Continuar a File Myself--declarar yo mismo
         file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
         title: Vaya, parece que estamos al límite de capacidad en este momento.
-        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el 15 de abril.</b> Recomendamos presentar la solicitud lo antes posible."
+        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el %{tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
