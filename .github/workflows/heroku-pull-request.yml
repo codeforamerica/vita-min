@@ -76,6 +76,10 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku addons:create heroku-postgresql:essential-0 --app ${{ env.HEROKU_APP_NAME }}
 
+      - name: Create scheduler
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: heroku addons:create scheduler:standard --app ${{ env.HEROKU_APP_NAME }}
+
       - name: Add Heroku remote
         if: github.event.action != 'closed'
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
@@ -109,9 +113,9 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
 
-      - name: Start the cron process
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
-        run: heroku ps:scale cron=1 --app=${{ env.HEROKU_APP_NAME }}
+      #- name: Start the cron process
+      #  if: github.event.action == 'opened' || github.event.action == 'reopened'
+      #  run: heroku ps:scale cron=1 --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Get heroku generated url
         if: github.event.action == 'opened' || github.event.action == 'reopened'
