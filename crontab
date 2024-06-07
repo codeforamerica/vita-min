@@ -1,13 +1,1 @@
-#0 0 * * 0 bundle exec rake vita_providers:scrape_vita_providers
-#* * * * * bundle exec rake search:refresh
-#0 2 * * * bundle exec rake cleanup:remove_unconsented_clients
-#* * * * * bundle exec rake stats:track_metrics
-#*/5 * * * * bundle exec rake client_status_updates:send_completion_surveys
-#*/20 * * * * bundle exec rake client_status_updates:send_client_in_progress_automated_messages
-#15 20 * * * bundle exec rake not_ready_reminders:remind
-#*/5 * * * * bundle exec rake worker_heartbeat:perform
-#*/10 * * * * bundle exec rake efile:poll_and_get_acknowledgments
-#0 17 * * * bundle exec rake state_file:reminder_to_finish_state_return
-#0 19 23 4 * bundle exec rake state_file:post_deadline_reminder
-#0 21 23 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
 * * * * * bundle exec rake heroku:test_cron
