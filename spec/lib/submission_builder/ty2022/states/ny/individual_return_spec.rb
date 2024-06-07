@@ -150,7 +150,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     end
 
     context "when getting a refund to a personal checking account" do
-      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, routing_number: "011234567", account_number: "123456789", account_type: 1) }
+      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, payment_or_deposit_type: "direct_deposit",  routing_number: "011234567", account_number: "123456789", account_type: 1) }
       let(:filing_status) { 'single' }
 
       it 'generates XML from the database models' do
