@@ -25,14 +25,10 @@ require 'rails_helper'
 
 describe OutboundCall do
   it_behaves_like "a user-initiated outgoing interaction" do
-    let(:subject) { build(:outbound_call, twilio_status: "delivered") }
+    let(:subject) { build(:outbound_call) }
   end
 
   it_behaves_like "an outgoing interaction" do
-    let(:subject) { build :outbound_call, twilio_status: "delivered" }
-  end
-
-  it_behaves_like "an undelivered interaction" do
-    let(:subject) { build :outbound_call }
+    let(:subject) { build :outgoing_text_message }
   end
 end
