@@ -11,9 +11,10 @@ Rails.application.configure do
   config.ctc_url = "https://#{ctc_hostname}"
   config.statefile_url = "https://#{state_file_hostname}"
   config.gyr_url = "https://#{gyr_hostname}"
-  gyr_email_from_domain = "mg-staging.getyourrefund-testing.org"
+
   ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"
-  statefile_email_from_domain = "mg-staging.fileyourstatetaxes.org"
+  gyr_email_from_domain = "mg-demo.getyourrefund-testing.org"
+  statefile_email_from_domain = "mg-demo-statefile.getyourrefund-testing.org"
   config.email_from = {
     default: {
       ctc: "hello@#{ctc_email_from_domain}",

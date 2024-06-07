@@ -49,10 +49,3 @@ shared_examples_for "an outgoing interaction" do
     end
   end
 end
-
-shared_examples_for "an undelivered interaction" do
-  it "does not update the associated client" do
-    expect { subject.save }
-      .not_to change(subject.client, :last_outgoing_communication_at)
-  end
-end
