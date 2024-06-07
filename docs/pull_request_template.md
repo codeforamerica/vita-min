@@ -1,7 +1,7 @@
 ## Link to pivotal/JIRA issue
 - e.g. https://codeforamerica.atlassian.net/browse/ABCD-123
 ## Is PM acceptance required?
-- [ ] Yes - don't merge until issue is accepted!
+- [ ] Yes - don't merge until JIRA issue is accepted!
 - [ ] No - merge after code review approval
 ## What was done?
 - Explain the implementation goals being solved or the feature with the reviewer in mind
