@@ -48,6 +48,6 @@ class OutboundCall < ApplicationRecord
   end
 
   def delivered?
-    self.twilio_status == "delivered"
+    self.twilio_status == "completed"
   end
 end

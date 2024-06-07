@@ -73,6 +73,6 @@ class OutgoingTextMessage < ApplicationRecord
   end
 
   def delivered?
-    self.twilio_status == "delivered"
+    ["delivered", "sent"].include?(self.twilio_status)
   end
 end
