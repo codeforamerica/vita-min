@@ -109,6 +109,10 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
 
+      - name: Start the cron process
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: heroku ps:scale cron=1 --app=${{ env.HEROKU_APP_NAME }}
+
       - name: Get heroku generated url
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: echo "HEROKU_URL=$(heroku apps:info -s --app ${{ env.HEROKU_APP_NAME }} | grep web_url | cut -d= -f2)" >> $GITHUB_ENV

@@ -125,4 +125,9 @@ namespace :heroku do
     Rake::Task['db:schema:load'].invoke
     Rake::Task['db:seed'].invoke
   end
+
+  desc 'Heroku test cron task'
+  task test_cron: :environment do
+    puts "Time brings all things to pass!"
+  end
 end
