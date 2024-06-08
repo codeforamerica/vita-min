@@ -12,9 +12,16 @@ module StateFile
       return render "public_pages/page_not_found", status: 404 if Rails.env.production?
 
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
-      @xml_samples = XmlReturnSampleService.new.samples.map do |sample|
-        [sample.label, transfer_url(sample.key, params[:redirect])]
-      end.sort
+      @xml_samples = []
+      tax_year = Rails.configuration.statefile_current_tax_year
+      us_state = current_intake.state_code.to_sym
+      samples_by_state = XmlReturnSampleService.new.samples[tax_year]
+      # TODO: get rid of this to_sym when we use symbols everywhere for state codes
+      @xml_samples = samples_by_state[us_state].map do |filename|
+        key = XmlReturnSampleService.key(tax_year, us_state, filename)
+        label = XmlReturnSampleService.label(filename)
+        [label, transfer_url(key, params[:redirect])]
+      end
       render layout: nil
     end
 
