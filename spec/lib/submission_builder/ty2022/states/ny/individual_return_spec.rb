@@ -185,7 +185,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
       context "when the intake has state_file_w2s" do
         context "create, update, delete nodes" do
-          let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
+          let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/state_file/fed_return_xmls/2023/ny/batman.xml")) }
           let(:direct_file_xml) do
             xml = Nokogiri::XML(raw_direct_file_data)
             xml.search("IRSW2").each_with_index do |w2, i|
@@ -233,7 +233,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
         end
 
         context "updating multiple w2s" do
-          let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_bloombito_w2s_ny.xml")) }
+          let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/state_file/fed_return_xmls/2023/ny/bloombito_w2s.xml")) }
           let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, w2_index: 0) }
           let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, w2_index: 1) }
           let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, w2_index: 2) }
@@ -241,7 +241,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
 
           it "updates the correct tags" do
             generated_document = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml, &:noblanks)
-            fixture_document = Nokogiri::XML(File.read(Rails.root.join("spec/fixtures/files/overwritten_w2s_fed_return_bloombito_w2s_ny.xml")), &:noblanks)
+            fixture_document = Nokogiri::XML(File.read(Rails.root.join("spec/fixtures/state_file/fed_return_xmls/2023/ny/overwritten_w2s_bloombito_w2s.xml")), &:noblanks)
 
             expect(generated_document.css('IRSW2').count).to eq 4
             expect(generated_document.css('IRSW2')[0].to_xml).to eq fixture_document.css('IRSW2')[0].to_xml

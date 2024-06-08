@@ -315,7 +315,7 @@ describe DirectFileData do
 
   describe '#dependents' do
     context "when there are dependents in the xml" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_five_dependents_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/five_dependents.xml')) }
       it 'returns an array of DirectFileData::Dependent objects' do
 
         expect(described_class.new(xml).dependents.count).to eq(5)
@@ -325,7 +325,7 @@ describe DirectFileData do
     end
 
     context "when there are no dependents in the xml" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_javier_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/javier.xml')) }
       it 'returns blank array' do
 
         expect(described_class.new(xml).dependents).to eq []
@@ -333,7 +333,7 @@ describe DirectFileData do
     end
 
     context "when there are CTC dependents in the xml" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/zeus_8_deps.xml')) }
       it 'sets ctc_qualifying on those dependents' do
 
         expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying }.length).to eq(3)
@@ -343,7 +343,7 @@ describe DirectFileData do
     end
 
     context "when there are EIC dependents in the xml" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/zeus_8_deps.xml')) }
       it 'sets eic_qualifying on those dependents' do
         dependents = described_class.new(xml).dependents
         expect(dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
@@ -355,7 +355,7 @@ describe DirectFileData do
     end
 
     context "when there is a eic dependent with a disability" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_robert_mfj_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/robert_mfj.xml')) }
 
       it "sets eic_disability on those dependents" do
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
@@ -364,7 +364,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in AZ, the months_in_home is not populated" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_johnny_mfj_8_deps_az.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/az/johnny_mfj_8_deps.xml')) }
 
       it 'sets the months_in_home to nil' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
@@ -372,7 +372,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in NY, the months_in_home IS populated" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_matthew_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/matthew.xml')) }
 
       it 'sets the months_in_home' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
@@ -380,14 +380,14 @@ describe DirectFileData do
     end
 
     context 'when there are dependents with missing tags' do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_batman_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/batman.xml')) }
       it 'still sets the dependents' do
         expect(described_class.new(xml).dependents.length).to eq(1)
       end
     end
 
     context 'when there are dependents with missing eic tags' do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_depdropping_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/zeus_depdropping.xml')) }
       it 'returns the correct array of DirectFileData::Dependent objects' do
         expect(described_class.new(xml).dependents.count).to eq(8)
         expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
@@ -400,7 +400,7 @@ describe DirectFileData do
   end
 
   describe '#determine_eic_attribute' do
-    let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_depdropping_ny.xml')) }
+    let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/zeus_depdropping.xml')) }
     it 'returns yes for true' do
       expect(described_class.new(xml).determine_eic_attribute('true')).to eq('yes')
       expect(described_class.new(xml).determine_eic_attribute('false')).to eq('no')
@@ -410,14 +410,14 @@ describe DirectFileData do
 
   describe '#surviving_spouse?' do
     context "when federal XML SurvivingSpouseInd has a value of 'X'" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_deceased_spouse_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/deceased_spouse.xml')) }
       it 'returns true' do
         expect(described_class.new(xml).spouse_deceased?).to eq(true)
       end
     end
 
     context "when federal XML SurvivingSpouseInd node not present" do
-      let(:xml) { File.read(Rails.root.join('spec/fixtures/files/fed_return_john_jane_no_eic_ny.xml')) }
+      let(:xml) { File.read(Rails.root.join('spec/fixtures/state_file/fed_return_xmls/2023/ny/john_jane_no_eic.xml')) }
       it 'returns false' do
         expect(described_class.new(xml).spouse_deceased?).to eq(false)
       end
