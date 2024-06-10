@@ -17,6 +17,7 @@
   if (isClient) {
       intercomSettings.user_id = "<%= current_client&.id %>"
       intercomSettings.user_hash = "<%= IntercomService.generate_user_hash(current_client&.id) %>"
+      intercomSettings.hub_link = "<%= hub_client_url(id: current_client&.id) %>"
   }
   const hubStyles = {
       action_color: "#757575",
