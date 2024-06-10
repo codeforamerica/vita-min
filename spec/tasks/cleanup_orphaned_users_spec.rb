@@ -6,7 +6,7 @@ describe "cleanup_orphaned_users:find_orphaned_users" do
   around { |example| capture_output { example.run } }
 
   before(:all) do
-    Rails.application.load_tasks if Rake::Task.tasks.empty?
+    Rails.application.load_tasks
   end
 
   let!(:team_member_user) { create :team_member_user }
@@ -33,7 +33,7 @@ describe "cleanup_orphaned_users:replace_user_associations_and_delete_old_user" 
   around { |example| capture_output { example.run } }
 
   before(:all) do
-    Rails.application.load_tasks if Rake::Task.tasks.empty?
+    Rails.application.load_tasks
   end
 
   let!(:team_member_user) { create :team_member_user }

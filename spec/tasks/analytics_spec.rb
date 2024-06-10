@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'creating database views' do
   before(:all) do
-    Rails.application.load_tasks if Rake::Task.tasks.empty?
+    Rails.application.load_tasks
   end
 
   it 'runs without error' do
