@@ -3,8 +3,8 @@ require 'rails_helper'
 require 'database_cleaner'
 
 describe 'state_file:pre_deadline_reminder' do
-  before(:all) do
-    Rails.application.load_tasks if Rake::Task.tasks.empty?
+  before(:suite) do
+    Rails.application.load_tasks
   end
 
   context 'Sends the notification to all state-filing' do
