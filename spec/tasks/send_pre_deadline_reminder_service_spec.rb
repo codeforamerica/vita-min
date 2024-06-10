@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 require 'rails_helper'
+require 'database_cleaner'
 
 describe 'state_file:pre_deadline_reminder' do
-  before(:each) do
-    Rails.application.load_tasks
-    Rake::Task['state_file:pre_deadline_reminder'].reenable
-  end
-
-  after(:each) do
-    RSpec::Mocks.space.reset_all
+  before(:all) do
+    Rails.application.load_tasks if Rake::Task.tasks.empty?
   end
 
   context 'Sends the notification to all state-filing' do
@@ -17,21 +13,20 @@ describe 'state_file:pre_deadline_reminder' do
     let!(:submitted_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago }
     let!(:efile_submission) { create :efile_submission, :for_state, data_source: submitted_intake }
 
-
     it 'intakes without submissions & without reminders' do
       messaging_service = spy('StateFile::MessagingService')
       allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
 
       Rake::Task['state_file:pre_deadline_reminder'].execute
 
-      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times #this line is flaky, got it 4 times instead of 2
+      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times # this line is flaky, got it 4 times instead of 2
     end
   end
 
   context 'Sends the notification to intakes that have' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+             email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
     }
 
     before do
@@ -51,7 +46,7 @@ describe 'state_file:pre_deadline_reminder' do
   context 'Does NOT send the notification to' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+             email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
     }
 
     before do

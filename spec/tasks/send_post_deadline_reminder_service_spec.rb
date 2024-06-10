@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 describe 'state_file:post_deadline_reminder' do
-  before(:context) do
-    Rails.application.load_tasks
+  before(:all) do
+    Rails.application.load_tasks if Rake::Task.tasks.empty?
   end
 
   context 'Sends the notification to all state-filing' do
