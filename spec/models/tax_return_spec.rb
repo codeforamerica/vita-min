@@ -54,6 +54,7 @@ describe TaxReturn do
 
   describe "touch behavior" do
     context "when the tax return is updated" do
+      # expected `Client#updated_at` to have changed, but is still 2024-06-05 22:09:57.604270000 +0000
       it_behaves_like "an internal interaction" do
         let(:subject) { create :gyr_tax_return }
       end

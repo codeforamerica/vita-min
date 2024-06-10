@@ -95,7 +95,7 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[1].at("PersonLastNm").text).to eq "Kiwi"
     expect(dependent_nodes[1].at("IdentityProtectionPIN").text).to eq "123456"
     expect(dependent_nodes[1].at("QualifyingChildSSN").text).to eq "123001235"
-    expect(dependent_nodes[1].at("ChildBirthYr").text).to eq submission.intake.dependents.second.birth_date.year.to_s
+    expect(dependent_nodes[1].at("ChildBirthYr").text).to eq submission.intake.dependents.second.birth_date.year.to_s #expected 2004 got 2014
     expect(dependent_nodes[1].at("ChildIsAStudentUnder24Ind").text).to eq "false"
     expect(dependent_nodes[1].at("ChildPermanentlyDisabledInd").text).to eq "true"
     expect(dependent_nodes[1].at("ChildRelationshipCd").text).to eq "SON"
