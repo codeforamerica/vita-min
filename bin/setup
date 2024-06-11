@@ -55,7 +55,7 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Preparing database =="
   system! "bin/rails db:prepare"
-  system! "bin/rails parallel:create"
+  system! "bundle exec flatware fan rake db:test:prepare"
 
   puts "\n== Set up database records for development =="
   system! "bin/rails db:seed"

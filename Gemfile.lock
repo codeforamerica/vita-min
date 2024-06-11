@@ -250,6 +250,11 @@ GEM
     fix-db-schema-conflicts (3.1.1)
       rubocop (>= 0.38.0)
     flamegraph (0.9.5)
+    flatware (2.3.2)
+      thor (< 2.0)
+    flatware-rspec (2.3.2)
+      flatware (= 2.3.2)
+      rspec (>= 3.6)
     flipper (1.0.0)
       brow (~> 0.4.1)
       concurrent-ruby (< 2)
@@ -747,6 +752,7 @@ DEPENDENCIES
   factory_bot_rails
   fix-db-schema-conflicts
   flamegraph
+  flatware-rspec
   flipper
   flipper-active_record
   flipper-ui
