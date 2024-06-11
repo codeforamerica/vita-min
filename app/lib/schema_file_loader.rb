@@ -2,8 +2,8 @@
 
 class SchemaFileLoader
 
-  BUCKET = "vita-min-irs-e-file-schema-prod"
-  REGION = "us-east-1"
+  BUCKET = "vita-min-irs-e-file-schema-prod".freeze
+  REGION = "us-east-1".freeze
   EFILE_SCHEMAS_FILENAMES = [
     ["efile1040x_2020v5.1.zip", "irs"],
     ["efile1040x_2021v5.2.zip", "irs"],
