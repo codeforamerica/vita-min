@@ -75,6 +75,10 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
   end
 
   it "includes the correct nodes in the XML" do
+    puts "first (should be keeley): #{submission.intake.dependents.first.first_name}"
+    puts "second (should be karen): #{submission.intake.dependents.second.first_name}"
+    puts "third (should be kevin): #{submission.intake.dependents.third.first_name}"
+
     xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
     dependent_nodes = xml.search("QualifyingChildInformation")
     expect(dependent_nodes.length).to eq 3
