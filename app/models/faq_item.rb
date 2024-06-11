@@ -60,8 +60,8 @@ class FaqItem < ApplicationRecord
   end
 
   def update_searchable_attrs
-    en = question_en + " " + answer_en.to_plain_text
-    es = question_es + " " + answer_es.to_plain_text
+    en = question_en + " " + answer_en.to_plain_text + " " + faq_category.name_en
+    es = question_es + " " + answer_es.to_plain_text + " " + faq_category.name_es
     FaqItem.where(id: id).update_all(["searchable_data_en=to_tsvector('simple', ?), searchable_data_es=to_tsvector('simple', ?)", en, es])
   end
 end
