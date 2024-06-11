@@ -5,10 +5,6 @@ describe "cleanup_orphaned_users:find_orphaned_users" do
 
   around { |example| capture_output { example.run } }
 
-  before(:all) do
-    Rails.application.load_tasks
-  end
-
   let!(:team_member_user) { create :team_member_user }
   let!(:admin_user) { create :admin_user }
 
@@ -22,7 +18,7 @@ describe "cleanup_orphaned_users:find_orphaned_users" do
     it "it finds users without roles" do
       expect {
         task.invoke
-      }.to output(/These users have no roles: \[#{admin_user.id}, #{team_member_user.id}]/).to_stdout
+      }.to output(/These users have no roles: \[#{admin_user.id}, #{team_member_user.id}\]/).to_stdout
     end
   end
 end
@@ -31,10 +27,6 @@ describe "cleanup_orphaned_users:replace_user_associations_and_delete_old_user" 
   include_context "rake"
 
   around { |example| capture_output { example.run } }
-
-  before(:all) do
-    Rails.application.load_tasks
-  end
 
   let!(:team_member_user) { create :team_member_user }
   let!(:admin_user) { create :admin_user }

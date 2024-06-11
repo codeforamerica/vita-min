@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe 'reminder_to_finish:state_return_notifications' do
   before(:all) do
-    Rails.application.load_tasks
+    Rake.application.rake_require "tasks/send_reminder_to_finish_state_return_notifications"
   end
 
   let!(:az_intake) { create :state_file_az_intake, email_address: "test@example.com", email_address_verified_at: 1.minute.ago }
