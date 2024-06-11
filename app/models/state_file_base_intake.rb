@@ -1,10 +1,4 @@
 class StateFileBaseIntake < ApplicationRecord
-  STATE_CODE_AND_NAMES = {
-    'az' => 'Arizona',
-    'ny' => 'New York'
-  }.freeze
-  STATE_CODES = STATE_CODE_AND_NAMES.keys
-
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true

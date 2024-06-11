@@ -11,11 +11,18 @@ module StateFile
     private
 
     def state_name
-      States.name_for_key(state_abbr)
+      unless StateFile::StateInformationService::ACTIVE_STATES.include?(state_param)
+        raise StandardError, state_param
+      end
+      States.name_for_key(state_param&.upcase)
     end
 
-    def state_abbr
-      state_param&.upcase
+    # TODO consolidate this with state_param
+    def state_code
+      unless StateFile::StateInformationService::ACTIVE_STATES.include?(state_param)
+        raise StandardError, state_param
+      end
+      state_param
     end
 
     def state_param

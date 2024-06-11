@@ -85,9 +85,6 @@
 class StateFileAzIntake < StateFileBaseIntake
   STATE_CODE = 'az'.freeze
   STATE_NAME = 'Arizona'.freeze
-  STATE_CODE_AND_NAME = {
-    STATE_CODE => STATE_NAME
-  }.freeze
 
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
