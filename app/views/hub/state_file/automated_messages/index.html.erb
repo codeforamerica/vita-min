@@ -13,10 +13,10 @@
               <%= message_class.respond_to?(:name) ? message_class.name.capitalize() : message_class %>
             </h1>
             <% @locales.each do |locale| %>
-              <% email = render_message(message_class, locale) %>
+              <% email = email_message(message_class, locale) %>
               <div class="client-messages-container client-messages__email with-padding-med" style="background: #FFF;">
                 <div style="display: flex;">
-                  <div class="email__subject" style="flex-grow: 1;"><%= message_class.new.email_subject(locale: locale) %></div>
+                  <div class="email__subject" style="flex-grow: 1;"><%= email.subject %></div>
                   <div><%= I18n.t("general.language_options.#{locale}") %></div>
                 </div>
                 <div style="display: flex;">
@@ -26,7 +26,7 @@
                   <% if message_class.respond_to?(:new) and message_class.new.respond_to?(:sms_body) %>
                     <div class="with-padding-med" style="display: inline-block; width: 35%; margin-right: 8px;">
                       <div class="client-messages__sms">
-                        <div style="white-space: pre-line;"><%= message_class.new.sms_body(locale: locale) %></div>
+                        <div style="white-space: pre-line;"><%= sms_body(message_class, locale) %></div>
                       </div>
                     </div>
                   <% end %>
