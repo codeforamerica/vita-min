@@ -80,7 +80,7 @@ commands:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
+      - run: bundle exec rake db:create db:schema:load parallel:create parallel:prepare
   setup_test_db:
     description: "Setup test database"
     steps:
