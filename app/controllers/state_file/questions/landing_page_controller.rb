@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class LandingPageController < QuestionsController
-      include StateFile::StateFileControllerConcern
       skip_before_action :redirect_if_no_intake
       skip_before_action :set_current_step
       skip_before_action :redirect_if_in_progress_intakes_ended

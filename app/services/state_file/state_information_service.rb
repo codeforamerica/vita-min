@@ -4,6 +4,10 @@ module StateFile
 
     class << self
       def state_name(state_code)
+        unless ACTIVE_STATES.include?(state_code)
+          raise StandardError, state_code
+        end
+
         States.name_for_key(state_code.upcase)
       end
 
