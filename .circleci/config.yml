@@ -146,14 +146,14 @@ jobs:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
       - run: RAILS_ENV=test bin/shakapacker
       - run:
-          command: bundle exec parallel_rspec -n 12 || touch /tmp/re-run
+          command: bundle exec turbo_tests || touch /tmp/re-run
           environment:
             EAGER_LOAD: 1
             RAILS_CACHE_CLASSES: 1
             PYTHON: /usr/bin/python3
       - run:
           command: |
-            if [ -f /tmp/re-run ] ; then TEST_FILE_PREFIX=retry_ EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec parallel_rspec -n 12 -- --only-failures -- ; fi
+            if [ -f /tmp/re-run ] ; then TEST_FILE_PREFIX=retry_ EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests -- --only-failures -- ; fi
           environment:
             PYTHON: /usr/bin/python3
       - store_test_results:
