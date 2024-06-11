@@ -16,7 +16,7 @@ describe SchemaFileLoader do
     ]
   end
 
-  context "s3_credentials" do
+  context "#s3_credentials" do
 
     context "AWS_ACCESS_KEY_ID in ENV" do
       it "uses the environment variables" do
@@ -40,7 +40,7 @@ describe SchemaFileLoader do
     end
   end
 
-  context "prepare_directories" do
+  context "#prepare_directories" do
     it "removes and recreates directories" do
       expect(FileUtils).to receive(:rm_rf).with("testy/irs/unpacked")
       expect(FileUtils).to receive(:mkdir_p).with("testy/irs/unpacked")
@@ -50,7 +50,7 @@ describe SchemaFileLoader do
     end
   end
 
-  context "download_schemas_from_s3" do
+  context "#download_schemas_from_s3" do
     it "downloads all schemas from S3" do
       stub_const("ENV", {
         "AWS_ACCESS_KEY_ID" => "mock-aws-access-key-id",
@@ -67,7 +67,7 @@ describe SchemaFileLoader do
     end
   end
 
-  context "get_missing_downloads" do
+  context "#get_missing_downloads" do
     it "gets missing downloads" do
       expect(SchemaFileLoader.get_missing_downloads("testy")).
         to eq [
