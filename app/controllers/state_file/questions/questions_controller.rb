@@ -20,7 +20,7 @@ module StateFile
       private
 
       def current_intake
-        state_code = question_navigator.intake_class::STATE_CODE
+        state_code = question_navigator.intake_class.state_code
         send("current_state_file_#{state_code}_intake")
       end
 

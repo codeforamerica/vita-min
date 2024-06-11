@@ -38,6 +38,15 @@ class StateFileBaseIntake < ApplicationRecord
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
 
+  def self.state_code
+    self::STATE_CODE
+  end
+  delegate :state_code, to: :class
+
+  def state_name
+    StateFile::StateInformationService.state_name(state_code)
+  end
+
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end

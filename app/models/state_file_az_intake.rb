@@ -84,7 +84,6 @@
 #
 class StateFileAzIntake < StateFileBaseIntake
   STATE_CODE = 'az'.freeze
-  STATE_NAME = 'Arizona'.freeze
 
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
@@ -100,14 +99,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
-
-  def state_code
-    STATE_CODE
-  end
-
-  def state_name
-    STATE_NAME
-  end
 
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
