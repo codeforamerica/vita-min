@@ -216,6 +216,16 @@ describe PartnerRoutingService do
           expect(subject.routing_method).to eq :at_capacity
         end
       end
+
+      context "when source param is inactive" do
+        subject { PartnerRoutingService.new(source_param: code) }
+        before { SourceParameter.last.update(active: false) }
+
+        it "returns nil" do
+          expect(subject.determine_partner).to be_nil
+          expect(subject.routing_method).to eq :at_capacity
+        end
+      end
     end
 
     context "when source param is not provided" do

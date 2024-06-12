@@ -15,13 +15,17 @@
 #
 # Indexes
 #
-#  index_faq_items_on_faq_category_id  (faq_category_id)
+#  index_faq_items_on_faq_category_id     (faq_category_id)
+#  index_faq_items_on_searchable_data_en  (searchable_data_en) USING gin
+#  index_faq_items_on_searchable_data_es  (searchable_data_es) USING gin
 #
 # Foreign Keys
 #
 #  fk_rails_...  (faq_category_id => faq_categories.id)
 #
 class FaqItem < ApplicationRecord
+  include PgSearch::Model
+  self.ignored_columns = %w(searchable_data_en searchable_data_es)
   belongs_to :faq_category
   acts_as_list scope: :faq_category
   # skip paper_trial on :touch events which will create update events for skipped attributes (in this case slug)
@@ -31,6 +35,11 @@ class FaqItem < ApplicationRecord
 
   has_rich_text :answer_en
   has_rich_text :answer_es
+
+  pg_search_scope :search_en, against: [:answer_en, :question_en], using: { tsearch: { prefix: true, tsvector_column: 'searchable_data_en', dictionary: 'simple' } }
+  pg_search_scope :search_es, against: [:answer_es, :question_es], using: { tsearch: { prefix: true, tsvector_column: 'searchable_data_es', dictionary: 'simple' } }
+
+  after_save :update_searchable_attrs
 
   def question(locale)
     case locale
@@ -48,5 +57,11 @@ class FaqItem < ApplicationRecord
     when :es
       answer_es.present? ? answer_es : answer_en
     end
+  end
+
+  def update_searchable_attrs
+    en = question_en + " " + answer_en.to_plain_text + " " + faq_category.name_en
+    es = question_es + " " + answer_es.to_plain_text + " " + faq_category.name_es
+    FaqItem.where(id: id).update_all(["searchable_data_en=to_tsvector('simple', ?), searchable_data_es=to_tsvector('simple', ?)", en, es])
   end
 end

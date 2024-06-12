@@ -326,7 +326,7 @@ Rails.application.routes.draw do
         end
 
         resources :zip_codes, only: [:create, :destroy]
-        resources :source_params, only: [:create, :destroy]
+        resources :source_params, only: [:create, :update, :destroy]
 
         resources :tax_returns, only: [] do
           patch "update_certification", to: "tax_returns/certifications#update", on: :member

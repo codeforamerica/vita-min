@@ -288,6 +288,10 @@
     }
   }
 
+  .checkbox.is-selected{
+    background: $color-state-file-blue-box;
+  }
+
   .bulleted ul {
     padding-left: 3rem;
     list-style: disc;

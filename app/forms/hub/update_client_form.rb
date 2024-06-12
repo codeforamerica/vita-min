@@ -33,6 +33,7 @@ module Hub
                        :interview_timing_preference,
                        :timezone,
                        :state_of_residence,
+                       :signature_method,
                        :with_general_navigator,
                        :with_incarcerated_navigator,
                        :with_limited_english_navigator,
@@ -50,6 +51,8 @@ module Hub
     validates_confirmation_of :spouse_ssn, if: -> { filing_joint == "yes" }
     validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes" }
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
+
+    validates :signature_method, inclusion: { in: Intake.signature_methods.keys }, if: -> { @client.intake.drop_off? }
 
     attr_accessor :client
 
@@ -75,8 +78,10 @@ module Hub
 
     def save
       return false unless valid?
-
-      @client.intake.update(attributes_for(:intake).merge(dependents_attributes: formatted_dependents_attributes))
+      attrs = attributes_for(:intake)
+      attrs = attrs.merge(dependents_attributes: formatted_dependents_attributes)
+      attrs.delete(:signature_method) unless @client.intake.drop_off?
+      @client.intake.update(attrs)
     end
   end
 end

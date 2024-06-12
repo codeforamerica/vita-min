@@ -7,10 +7,19 @@ module Hub
       @form = form_class.new(@vita_partner, permitted_params)
       if @form.valid?
         @form.save!
+        @form.code = nil
         @success_message = I18n.t("hub.source_params.success", code: @form.code, name: @vita_partner.name)
       else
         flash.now[:alert] = @form.error_summary
       end
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def update
+      @source_param = SourceParameter.find(params[:id])
+      @source_param.update(active: params[:source_parameter][:active] == "1")
       respond_to do |format|
         format.js
       end

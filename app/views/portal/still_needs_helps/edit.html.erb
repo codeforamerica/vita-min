@@ -10,7 +10,10 @@
           </div>
           <h1 class="h2 spacing-above-0"><%= t(".title") %></h1>
 
-          <p class="help-text"><%= t(".help_text") %></p>
+          <% docs_deadline = I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: locale) %>
+          <% end_of_closing = I18n.l(Rails.configuration.end_of_closing.to_date, format: :medium, locale: locale) %>
+
+          <p class="help-text"><%= t(".help_text", docs_deadline: docs_deadline, end_of_closing: end_of_closing) %></p>
 
           <%= form_with(url: portal_update_still_needs_help_path, local: true, method: :put, builder: VitaMinFormBuilder) do |f| %>
             <%= f.button name: "still_needs_help", value: "yes", class: "button button--primary button--wide" do %>

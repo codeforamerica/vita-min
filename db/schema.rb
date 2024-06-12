@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_164754) do
+  create_schema "analytics"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -947,9 +949,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
     t.integer "position"
     t.text "question_en"
     t.text "question_es"
+    t.tsvector "searchable_data_en"
+    t.tsvector "searchable_data_es"
     t.string "slug"
     t.datetime "updated_at", null: false
     t.index ["faq_category_id"], name: "index_faq_items_on_faq_category_id"
+    t.index ["searchable_data_en"], name: "index_faq_items_on_searchable_data_en", using: :gin
+    t.index ["searchable_data_es"], name: "index_faq_items_on_searchable_data_es", using: :gin
   end
 
   create_table "faq_question_group_items", force: :cascade do |t|
@@ -1560,6 +1566,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_180539) do
   end
 
   create_table "source_parameters", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

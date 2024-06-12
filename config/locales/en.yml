@@ -19,6 +19,7 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     public_pages:
+      inactive_unique_link_notice: "%{partner_name} is currently not accepting clients via this unique url. You can still get started with another tax team below!"
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
     tax_returns_controller:
       errors:
@@ -255,7 +256,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date on or before April 15, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before April 15, %{year}
   general:
     NA: N/A
     about: About
@@ -520,6 +521,7 @@ en:
     role: Role
     routing: Routing
     save: Save
+    save_and_exit: Save & Exit
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     select_file: Select file
@@ -786,7 +788,7 @@ en:
         part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
         part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
         part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
-        title: 13614-C
+        title: 13614-C page 2
       edit_13614c_form_page3:
         additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
         fields:
@@ -810,7 +812,7 @@ en:
           q7_register_to_vote: Register to vote?
           q8_speak_and_understand_english: Can carry on a conversation in English, both understanding & speaking?
           q9_read_english: Can read a newspaper or book in English?
-        title: 13614-C
+        title: 13614-C page 3
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
@@ -1356,9 +1358,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -1918,7 +1920,7 @@ en:
         title: Great! We'll chat with you in June.
         upload_additional_documents: Upload additional documents
       edit:
-        help_text: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes.
+        help_text: We are closing GetYourRefund for the tax season on %{end_of_closing}. We will need all required documentation by %{docs_deadline}; otherwise, we will not be able to prepare your taxes.
         not_interested: No, I'm not interested
         still_needs_help: Yes, I still need help
         title: Are you still interested in filing your taxes with us?
@@ -1930,7 +1932,7 @@ en:
         survey_question: How was your experience with GetYourRefund?
         title: Thank you for using GetYourRefund.
       upload_documents:
-        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by October 8th.
+        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by %{docs_deadline}.
         no_additional_documents: I have no additional documents
         title: Great! If you have additional documents, please upload them below.
         upload_additional_documents: Upload additional documents
@@ -2656,10 +2658,11 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after-deadline-default-withdrawl-info: Because you are submitting your return on or after April 15, 2024, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
@@ -4502,7 +4505,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closed_banner: GetYourRefund will reopen January 31.
+        closed_banner: GetYourRefund will reopen {start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ
@@ -4799,7 +4802,7 @@ en:
         continue_to_diy: Continue to File Myself
         file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
         title: Wow, it looks like we are at capacity right now.
-        warning_html: "<b>A friendly reminder that the filing deadline is April 15th.</b> We recommend filing as soon as possible."
+        warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
@@ -5270,7 +5273,7 @@ en:
         add_dependent: Add dependent
         remove: Remove
       document_deadline_warning:
-        body_html: "<strong>Reminder: You must submit your documents by April 1 in order to meet the federal income tax filing deadline of April 15. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
+        body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
