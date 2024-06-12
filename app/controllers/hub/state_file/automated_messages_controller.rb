@@ -17,9 +17,16 @@ module Hub::StateFile
       Rails.application.eager_load!
       @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       @locales = [:en, :es]
+      @intake = GlobalID::Locator.locate params[:intake_gid]
+
     end
 
     private
+
+    def message_params
+      return MESSAGE_PARAMS unless @intake.present?
+
+    end
 
     def email_message(message_class, locale)
       replaced_body = message_class.new.email_body(
