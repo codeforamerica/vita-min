@@ -26,7 +26,7 @@
                   <% if message_class.respond_to?(:new) and message_class.new.respond_to?(:sms_body) %>
                     <div class="with-padding-med" style="display: inline-block; width: 35%; margin-right: 8px;">
                       <div class="client-messages__sms">
-                        <div style="white-space: pre-line;"><%= sms_body(message_class, locale) %></div>
+                        <div style="white-space: pre-line; overflow-x: auto;"><%= sms_body(message_class, locale) %></div>
                       </div>
                     </div>
                   <% end %>

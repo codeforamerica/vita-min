@@ -24,7 +24,7 @@ module Hub::StateFile
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
       {
         primary_first_name: intake.primary_first_name,
-        intake_id: intake.id,
+        intake_id: intake.id || "CLIENT_ID",
         survey_link: survey_link(intake),
         submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
         state_name: intake.state_name,
