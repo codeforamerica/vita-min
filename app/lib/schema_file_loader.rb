@@ -63,7 +63,9 @@ class SchemaFileLoader
     end
 
     def prepare_directories(dest_dir)
-      [File.join(dest_dir, 'irs', 'unpacked'), File.join(dest_dir, 'us_states', 'unpacked')].each do |unpack_path|
+      download_folders = EFILE_SCHEMAS_FILENAMES.map { |n| n[1] }.to_set
+      download_folders.each do |download_folder|
+        unpack_path = File.join(dest_dir, download_folder, 'unpacked')
         FileUtils.rm_rf(unpack_path)
         FileUtils.mkdir_p(unpack_path)
       end
