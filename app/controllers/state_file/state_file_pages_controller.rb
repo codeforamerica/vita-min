@@ -46,7 +46,7 @@ module StateFile
 
     def current_intake
       @current_intake ||= (
-        StateFile::StateInformationService::ACTIVE_STATES
+        StateFile::StateInformationService.active_states
           .lazy
           .map{|c| send("current_state_file_#{c}_intake".to_sym) }
           .find(&:itself)

@@ -39,7 +39,7 @@ class StateFileBaseIntake < ApplicationRecord
   before_save :sanitize_bank_details
 
   def self.state_code
-    self::STATE_CODE
+    StateFile::StateInformationService.state_code_from_intake_class(self)
   end
   delegate :state_code, to: :class
 

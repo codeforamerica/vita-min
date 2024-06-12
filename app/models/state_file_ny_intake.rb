@@ -107,7 +107,6 @@
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
-  STATE_CODE = 'ny'.freeze
   LOCALITIES = [
     "NY",
     "N Y",
