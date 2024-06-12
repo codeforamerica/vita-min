@@ -75,10 +75,6 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
   end
 
   it "includes the correct nodes in the XML" do
-    puts "first (should be keeley): #{submission.intake.dependents.first.first_name}"
-    puts "second (should be karen): #{submission.intake.dependents.second.first_name}"
-    puts "third (should be kevin): #{submission.intake.dependents.third.first_name}"
-
     xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
     dependent_nodes = xml.search("QualifyingChildInformation")
     expect(dependent_nodes.length).to eq 3
@@ -99,7 +95,7 @@ describe SubmissionBuilder::Ty2021::Documents::ScheduleEic do
     expect(dependent_nodes[1].at("PersonLastNm").text).to eq "Kiwi"
     expect(dependent_nodes[1].at("IdentityProtectionPIN").text).to eq "123456"
     expect(dependent_nodes[1].at("QualifyingChildSSN").text).to eq "123001235"
-    expect(dependent_nodes[1].at("ChildBirthYr").text).to eq submission.intake.dependents.second.birth_date.year.to_s #expected 2004 got 2014
+    expect(dependent_nodes[1].at("ChildBirthYr").text).to eq submission.intake.dependents.second.birth_date.year.to_s
     expect(dependent_nodes[1].at("ChildIsAStudentUnder24Ind").text).to eq "false"
     expect(dependent_nodes[1].at("ChildPermanentlyDisabledInd").text).to eq "true"
     expect(dependent_nodes[1].at("ChildRelationshipCd").text).to eq "SON"

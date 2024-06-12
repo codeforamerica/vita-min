@@ -25,7 +25,7 @@ describe 'state_file:pre_deadline_reminder' do
   context 'Sends the notification to intakes that have' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-             email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
     }
 
     before do
@@ -45,7 +45,7 @@ describe 'state_file:pre_deadline_reminder' do
   context 'Does NOT send the notification to' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-             email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
     }
 
     before do

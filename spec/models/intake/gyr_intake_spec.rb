@@ -411,14 +411,6 @@ describe Intake::GyrIntake do
     it_behaves_like "an internal interaction" do
       let(:subject) { create :intake, completed_at: Time.now }
     end
-    #failing b/c updated_at hasn't changed
-
-    # it "updates the associated client" do
-    #   expect { subject.save }
-    #     .to change(subject.client, :last_internal_or_outgoing_interaction_at)
-    #     .and not_change(subject.client, :last_incoming_interaction_at)
-    #     .and change(subject.client, :updated_at)
-    # end
   end
 
   describe "#probable_previous_year_intake" do
