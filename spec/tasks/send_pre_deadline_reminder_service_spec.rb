@@ -18,7 +18,7 @@ describe 'state_file:pre_deadline_reminder' do
 
       Rake::Task['state_file:pre_deadline_reminder'].execute
 
-      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times # this line is flaky, got it 4 times instead of 2
+      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
     end
   end
 
@@ -38,7 +38,7 @@ describe 'state_file:pre_deadline_reminder' do
 
       Rake::Task['state_file:pre_deadline_reminder'].execute
 
-      expect(StateFile::MessagingService).to have_received(:new).exactly(1).times # flaky, got 2 instead
+      expect(StateFile::MessagingService).to have_received(:new).exactly(1).times
     end
   end
 

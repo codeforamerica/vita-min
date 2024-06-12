@@ -4,6 +4,7 @@ describe Rack::Attack, type: :request do
   let(:limit) { 5 }
   let(:ip) { "1.2.3.4" }
   before do
+    Rack::Attack.enabled = true
     Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
   end
 
