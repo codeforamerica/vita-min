@@ -1,15 +1,6 @@
 module Hub::StateFile
   class AutomatedMessagesController < Hub::StateFile::BaseController
-    MESSAGE_PARAMS = {
-      primary_first_name: "Cornelius",
-      intake_id: 1234,
-      survey_link: "/survey_link",
-      submitted_or_resubmitted: true,
-      state_name: "East Dakota",
-      return_status_link: "/return_status",
-      login_link: "/login",
-      state_pay_taxes_link: "/pay_taxes",
-    }.freeze
+    include StateFile::SurveyLinksConcern
     helper_method :email_message
     helper_method :sms_body
 
@@ -24,16 +15,31 @@ module Hub::StateFile
     private
 
     def message_params
-      return MESSAGE_PARAMS unless @intake.present?
-
+      intake = @intake || StateFileAzIntake.new(
+        locale: "en",
+        primary_first_name: "Cornelius"
+      )
+      state_code = intake.state_code
+      locale = intake.locale || "en"
+      submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
+      {
+        primary_first_name: intake.primary_first_name,
+        intake_id: intake.id,
+        survey_link: survey_link(intake),
+        submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
+        state_name: intake.state_name,
+        return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(state_code, locale),
+        login_link: SendIssueResolvedMessageJob.login_link,
+        state_pay_taxes_link: StateFile::AfterTransitionMessagingService.state_pay_taxes_link(state_code),
+      }
     end
 
     def email_message(message_class, locale)
       replaced_body = message_class.new.email_body(
-        **{locale: locale}.update(MESSAGE_PARAMS)
+        **{locale: locale}.update(message_params)
       ).gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
       subject = message_class.new.email_subject(
-        **{locale: locale}.update(MESSAGE_PARAMS)
+        **{locale: locale}.update(message_params)
       )
       email = StateFileNotificationEmail.new(to: "example@example.com",
                                              body: replaced_body,
@@ -47,7 +53,7 @@ module Hub::StateFile
 
     def sms_body(message_class, locale)
       message_class.new.sms_body(
-        **{locale: locale}.update(MESSAGE_PARAMS)
+        **{locale: locale}.update(message_params)
       )
     end
   end

@@ -13,11 +13,14 @@ class SendRejectResolutionReminderNotificationJob < ApplicationJob
     PRIORITY_LOW
   end
 
+  def self.return_status_link(state_code, locale)
+    Rails.application.routes.url_helpers.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: state_code, locale: locale)
+  end
+
   private
 
   def return_status_link(intake)
-    locale = intake.locale || "en"
-    Rails.application.routes.url_helpers.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: intake.state_code, locale: locale)
+    self.class.return_status_link(intake.state_code, intake.locale || "en")
   end
 
   def notified_of_rejected_and_not_accepted(intake)
