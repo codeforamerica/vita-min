@@ -80,12 +80,12 @@ commands:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:prepare parallel:prepare
+      - run: bundle exec rake db:create db:schema:load parallel:create parallel:prepare
   setup_test_db:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:prepare
+      - run: bundle exec rake db:create db:schema:load
   setup_webdriver:
     description: Install Ruby webdriver
     steps:
