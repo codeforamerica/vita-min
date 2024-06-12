@@ -1,8 +1,5 @@
 require "rails_helper"
 
-# TODO: .new is only needed if we are testing instance access instead of table access.
-#   Consider removing .new in specs below unless necessary
-
 describe SchemaFileLoader do
 
   it "all required schema files are present" do
