@@ -13,7 +13,7 @@ if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
   # it prevents running the full test suite which can take 10 minutes
   # we will want to adjust this list, and put more files into modules
   # to make them easier to separate
-  EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec flatware rspec \
+  EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests \
       spec/features/state_file \
       spec/controllers/state_file \
       spec/forms/state_file \
@@ -41,7 +41,7 @@ if [[ -n "$1" ]] && [[ $1 == "state_file" ]]; then
       spec/i18n_spec.rb
 else
   # Full test suite
-  EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec flatware rspec || { echo "Not running JS tests due to rspec failure." ; exit 1; }
+  EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec turbo_tests || { echo "Not running JS tests due to rspec failure." ; exit 1; }
 yarn jest
 fi
 

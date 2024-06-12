@@ -136,7 +136,6 @@ group :test do
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
   gem 'percy-capybara'
-  gem 'flatware-rspec', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
