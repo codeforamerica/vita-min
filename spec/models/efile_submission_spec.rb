@@ -37,9 +37,9 @@ describe EfileSubmission do
   context "generating an irs_submission_id" do
     context "adhering to IRS format" do
       around do |example|
-        Timecop.freeze(Date.new(2022, 1, 1))
-        example.run
-        Timecop.return
+        Timecop.freeze(Date.new(2022, 1, 1)) do
+          example.run
+        end
       end
 
       let(:submission) { create(:efile_submission, :ctc) }

@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe "a user editing a clients 13614c form" do
   around do |example|
-    Timecop.freeze(DateTime.strptime('2021-03-04 5:10 PST', '%F %R %Z'))
-    example.run
-    Timecop.return
+    Timecop.freeze(DateTime.strptime('2021-03-04 5:10 PST', '%F %R %Z')) do
+      example.run
+    end
   end
 
   context "as an admin user" do
