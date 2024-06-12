@@ -7,6 +7,7 @@ module StateFile
       helper_method :current_tax_year, :state_name, :state_code
     end
 
+    # TODO idea: state_code could prioritize getting the code from the current intake and if there isn't one, default to the params
     def state_code
       state_from_params = params[:us_state]
       unless StateFile::StateInformationService.active_states.include?(state_from_params)
