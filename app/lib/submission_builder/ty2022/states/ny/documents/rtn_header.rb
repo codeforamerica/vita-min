@@ -74,13 +74,15 @@ module SubmissionBuilder
                 # xml.FREE_FIL_IND
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND
-                xml.BNK_ACCT_ACH_IND claimed: 2 #only personal banking accounts supported not business
+                if @submission.data_source.payment_or_deposit_type == "direct_deposit"
+                  xml.BNK_ACCT_ACH_IND claimed: 2 # only personal banking accounts supported not business
+                end
                 if @submission.data_source.calculated_refund_or_owed_amount.positive?
                   xml.PAPER_CHK_RFND_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 2 : 1
                   xml.DIR_DEP_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
-                else
-                  xml.PAPER_CHK_RFND_IND claimed: 2
-                  xml.DIR_DEP_IND claimed: 2
+                else # no refund
+                  xml.PAPER_CHK_RFND_IND claimed: 2 # no refund check
+                  xml.DIR_DEP_IND claimed: 2 # no direct deposit refund
                 end
                 # xml.ITIN_MSMTCH_IND
                 # xml.IMPRFCT_RTN_IND
