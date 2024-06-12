@@ -19,6 +19,7 @@ development:
 test:
   <<: *local_default
   database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] %>
+  pool: 10
 
 production:
   <<: *deploy_default

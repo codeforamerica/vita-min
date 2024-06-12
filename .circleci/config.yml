@@ -80,7 +80,7 @@ commands:
     description: "Setup test database"
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:create db:schema:load parallel:create parallel:prepare
+      - run: bundle exec rake db:create db:schema:load parallel:create[12] parallel:prepare[12]
   setup_test_db:
     description: "Setup test database"
     steps:
@@ -146,14 +146,14 @@ jobs:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
       - run: RAILS_ENV=test bin/shakapacker
       - run:
-          command: bundle exec parallel_rspec || touch /tmp/re-run
+          command: bundle exec parallel_rspec -n 12 || touch /tmp/re-run
           environment:
             EAGER_LOAD: 1
             RAILS_CACHE_CLASSES: 1
             PYTHON: /usr/bin/python3
       - run:
           command: |
-            if [ -f /tmp/re-run ] ; then TEST_FILE_PREFIX=retry_ EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec parallel_rspec -- --only-failures -- ; fi
+            if [ -f /tmp/re-run ] ; then TEST_FILE_PREFIX=retry_ EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec parallel_rspec -n 12 -- --only-failures -- ; fi
           environment:
             PYTHON: /usr/bin/python3
       - store_test_results:
