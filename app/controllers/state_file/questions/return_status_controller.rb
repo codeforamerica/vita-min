@@ -119,7 +119,7 @@ module StateFile
 
       def redirect_if_no_submission
         if current_intake.efile_submissions.empty?
-          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: state_code)
+          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: current_state_code)
         end
       end
 
@@ -128,7 +128,7 @@ module StateFile
         # here when the federal return was not yet approved.
         # We have alerted them, and once they have updated their URL we can probably remove this
         if params[:ref_location] == "df_authorize_state"
-          redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code)
+          redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_state_code)
         end
       end
     end

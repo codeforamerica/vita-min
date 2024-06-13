@@ -56,7 +56,7 @@
     <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
       action: edit_return_controller.navigation_actions.first,
       return_to_review: :y,
-      us_state: current_intake.state_code
+      us_state: current_state_code
     ), class: "button button--primary button--wide spacing-above-60" %>
   <% end %>
 <% end %>

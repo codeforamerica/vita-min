@@ -3,7 +3,7 @@ module StateFile
     class QuestionsController < ::Questions::QuestionsController
       before_action :redirect_if_no_intake
       before_action :redirect_if_in_progress_intakes_ended
-      helper_method :card_postscript, :current_tax_year, :state_name, :state_code
+      helper_method :card_postscript, :current_tax_year, :state_name, :current_state_code
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -16,16 +16,20 @@ module StateFile
         end
       end
 
-      def state_code
-        state_from_params = params[:us_state]
-        unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
-          raise StandardError, state_from_params
+      def current_state_code
+        if current_intake
+          current_intake.state_code
+        else
+          state_from_params = params[:us_state]
+          unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
+            raise StandardError, state_from_params
+          end
+          state_from_params
         end
-        state_from_params
       end
 
       def state_name
-        StateFile::StateInformationService.state_name(state_code)
+        StateFile::StateInformationService.state_name(current_state_code)
       end
 
       def current_tax_year
@@ -35,19 +39,19 @@ module StateFile
       private
 
       def current_intake
-        state_code = question_navigator.intake_class.state_code
-        send("current_state_file_#{state_code}_intake")
+        state_code_from_navigator = question_navigator.intake_class.state_code
+        send("current_state_file_#{state_code_from_navigator}_intake")
       end
 
       def question_navigator
-        @navigator ||= "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+        @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize
       end
       helper_method :question_navigator
 
       def redirect_if_no_intake
         unless current_intake.present?
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: state_code)
+          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)
         end
       end
 
@@ -56,7 +60,7 @@ module StateFile
           if current_intake.efile_submissions.empty?
             redirect_to root_path
           else
-            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: state_code)
+            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: current_state_code)
           end
         end
       end

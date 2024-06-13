@@ -1,7 +1,7 @@
-<% @state_code_names.each do |state_code, state_name| %>
+<% @state_code_names.each do |_state_code, state_name| %>
   <% title = t('.title', state: state_name) %>
   <h1 class="h2"><%= title %></h1>
   <div class="spacing-below-35 spacing-above-35">
-    <%= render 'state_file/state_file_pages/state_taxpayers', state: state_code %>
+    <%= render 'state_file/state_file_pages/state_taxpayers', state: _state_code %>
   </div>
 <% end %>
