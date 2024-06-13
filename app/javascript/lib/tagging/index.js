@@ -63,7 +63,11 @@ export function initMultiSelectVitaPartner() {
     });
 
     input.addEventListener("change", (event) => {
-        document.querySelector("#vita_partners").value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id))
+        let { value } = event.target
+        if (value) {
+            value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id))
+        }
+        document.querySelector("#vita_partners").value = value
     })
 }
 
