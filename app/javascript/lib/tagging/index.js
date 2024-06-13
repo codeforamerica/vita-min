@@ -61,6 +61,10 @@ export function initMultiSelectVitaPartner() {
             },
         }
     });
+
+    input.addEventListener("change", (event) => {
+        document.querySelector("#vita_partners").value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id))
+    })
 }
 
 export function initSelectVitaPartner() {
