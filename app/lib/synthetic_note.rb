@@ -26,7 +26,12 @@ class SyntheticNote
   end
 
   def self.from_client_documents(client)
-    grouped = client.documents.order(created_at: :asc).where(uploaded_by: client).group_by { |doc| doc.created_at.beginning_of_day }
+    # The over-specific where clause is necessary because the actual "client" object we receive here can be a
+    # HubClientPresenter, which breaks the usual ActiveRecord polymorphic lookup, which would allow for
+    # where(uploaded_by: client/user) to automatically enforce that the polymorphic uploaded_by_type must have the same
+    # type as the argument, resulting in a lookup only by ID. This was resulting in a test that broken when a client and
+    # user with the same ID had both uploaded documents, causing both of their documents to be found by this method.
+    grouped = client.documents.order(created_at: :asc).where(uploaded_by_id: client.id, uploaded_by_type: Client.name).group_by { |doc| doc.created_at.beginning_of_day }
     grouped.map do |_, values|
       # Use most recent Document created_at as note created_at
       SyntheticNote.new(
