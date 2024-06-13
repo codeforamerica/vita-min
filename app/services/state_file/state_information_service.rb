@@ -2,7 +2,7 @@ module StateFile
   class StateInformationService
     class << self
       def active_state_codes
-        STATE_INFO.keys.map(&:to_s)
+        STATES_INFO.keys.map(&:to_s)
       end
 
       def state_name(state_code)
@@ -10,7 +10,7 @@ module StateFile
           raise StandardError, state_code
         end
 
-        STATE_INFO[state_code.to_sym][:name]
+        STATES_INFO[state_code.to_sym][:name]
       end
 
       def state_code_to_name_map
@@ -18,8 +18,8 @@ module StateFile
       end
 
       def state_code_from_intake_class(klass)
-        state_code, _ = STATE_INFO.find do |_,v|
-          v[:intake_class] == klass
+        state_code, _ = STATES_INFO.find do |_, state_info|
+          state_info[:intake_class] == klass
         end
         state_code.to_s
       end
@@ -27,7 +27,7 @@ module StateFile
 
     private
 
-    STATE_INFO = {
+    STATES_INFO = {
       az: {
         intake_class: StateFileAzIntake,
         name: "Arizona",
