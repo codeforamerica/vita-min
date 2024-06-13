@@ -2,13 +2,10 @@ class StateFile::FaqController < ApplicationController
   layout "state_file"
 
   def index
-    @state_code_names = case params[:us_state]
-                        when 'us'
-                          StateFileBaseIntake::STATE_CODE_AND_NAMES
-                        when 'ny'
-                          StateFileNyIntake::STATE_CODE_AND_NAME
-                        when 'az'
-                          StateFileAzIntake::STATE_CODE_AND_NAME
+    @state_code_names = if params[:us_state] == 'us'
+                          StateFile::StateInformationService.state_code_to_name_map
+                        else
+                          StateFile::StateInformationService.state_code_to_name_map.slice(params[:us_state])
                         end
   end
 
