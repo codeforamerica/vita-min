@@ -1,10 +1,9 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
-      include StateFile::StateFileControllerConcern
       before_action :redirect_if_no_intake
       before_action :redirect_if_in_progress_intakes_ended
-      helper_method :card_postscript
+      helper_method :card_postscript, :current_tax_year, :state_name, :state_code
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -15,6 +14,23 @@ module StateFile
         else
           request.remote_ip
         end
+      end
+
+      # TODO idea: state_code could prioritize getting the code from the current intake and if there isn't one, default to the params
+      def state_code
+        state_from_params = params[:us_state]
+        unless StateFile::StateInformationService.active_states.include?(state_from_params)
+          raise StandardError, state_from_params
+        end
+        state_from_params
+      end
+
+      def state_name
+        StateFile::StateInformationService.state_name(state_code)
+      end
+
+      def current_tax_year
+        MultiTenantService.new(:statefile).current_tax_year
       end
 
       private
