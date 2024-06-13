@@ -133,7 +133,7 @@ describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
     end
 
     context "new df xml" do
-      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: File.read(Rails.root.join('spec', 'fixtures', 'files', 'fed_return_superman_az.xml')))}
+      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'az', 'superman.xml')))}
 
       it "does not error" do
         # xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)

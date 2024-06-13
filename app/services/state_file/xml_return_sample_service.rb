@@ -13,6 +13,7 @@ module StateFile
         '2023_az_robin_v2.xml' => '1016422024028ate001q',
         '2023_az_superman_v2.xml' => '1016422024025ate000b'
       }
+      @old_sample = "app/controllers/state_file/questions/df_return_sample.xml"
     end
 
     def samples
@@ -57,13 +58,11 @@ module StateFile
           end
         end
       end
-
-      # TODO: decide where to put this, since it doesn't follow our path structure yet
-      #   Probably just move it into 2023/ny
-      # @_samples[2023][:ny]['df_return_sample.xml'] = "app/controllers/state_file/questions/df_return_sample.xml"
     end
 
     def path(key)
+      return @old_sample if key == "abcdefg"
+
       tax_year, us_state, filename = key.split("_", 3)
       File.join(BASE_PATH, tax_year.to_s, us_state.to_s, filename)
     end

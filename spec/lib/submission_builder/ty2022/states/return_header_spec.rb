@@ -31,7 +31,7 @@ describe SubmissionBuilder::Ty2022::States::ReturnHeader do
             filing_status: "married_filing_jointly",
             spouse_first_name: "Spouse",
             spouse_birth_date: spouse_birth_date,
-            raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("robert_mfj_ny")
+            raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("2023_ny_robert_mfj.xml")
           )
         }
 

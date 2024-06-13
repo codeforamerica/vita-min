@@ -4,7 +4,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
     let(:xml_result) do
-      File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents_ny.xml"))
+      File.read(Rails.root.join("spec/fixtures/state_file/fed_return_xmls/2023/ny/five_dependents.xml"))
     end
     let(:json_result) do
       {
