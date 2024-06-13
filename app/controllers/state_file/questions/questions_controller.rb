@@ -20,11 +20,7 @@ module StateFile
         if current_intake
           current_intake.state_code
         else
-          state_from_params = params[:us_state]
-          unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
-            raise StandardError, state_from_params
-          end
-          state_from_params
+          state_code_from_params
         end
       end
 
@@ -43,8 +39,16 @@ module StateFile
         send("current_state_file_#{state_code_from_navigator}_intake")
       end
 
+      def state_code_from_params
+        state_from_params = params[:us_state]
+        unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
+          raise StandardError, state_from_params
+        end
+        state_from_params
+      end
+
       def question_navigator
-        @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize
+        @navigator ||= "Navigation::StateFile#{state_code_from_params.titleize}QuestionNavigation".constantize
       end
       helper_method :question_navigator
 
