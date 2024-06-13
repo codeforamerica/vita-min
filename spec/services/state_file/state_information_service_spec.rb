@@ -1,9 +1,9 @@
 require "rails_helper"
 
 describe StateFile::StateInformationService do
-  describe ".active_states" do
+  describe ".active_state_codes" do
     it "returns the list of state codes as strings" do
-      expect(described_class.active_states).to match_array ["az", "ny"]
+      expect(described_class.active_state_codes).to match_array ["az", "ny"]
     end
   end
 

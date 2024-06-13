@@ -5,7 +5,7 @@ module Hub
       before_action :load_efile_submissions, only: [:index]
 
       def index
-        join_sql = ::StateFile::StateInformationService.active_states.map do |state_code|
+        join_sql = ::StateFile::StateInformationService.active_state_codes.map do |state_code|
           "SELECT state_file_#{state_code}_intakes.id as intake_id, 'StateFile#{state_code.to_s.titleize}Intake' as ds_type, '#{state_code}' as data_source_state_code, state_file_#{state_code}_intakes.email_address FROM state_file_#{state_code}_intakes"
         end
         join_sql = "INNER JOIN (#{join_sql.join(" UNION ")}) data_source ON efile_submissions.data_source_id = data_source.intake_id and efile_submissions.data_source_type = data_source.ds_type"

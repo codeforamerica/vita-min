@@ -1,24 +1,20 @@
 module StateFile
   class StateInformationService
     class << self
-      def active_states # TODO thinking this could also be called `active_state_codes` or just `state_codes`?
+      def active_state_codes
         STATE_INFO.keys.map(&:to_s)
       end
 
       def state_name(state_code)
-        unless active_states.include?(state_code)
+        unless active_state_codes.include?(state_code)
           raise StandardError, state_code
         end
 
-        States.name_for_key(state_code.upcase)
+        STATE_INFO[state_code.to_sym][:name]
       end
 
       def state_code_to_name_map
-        active_states.reduce({}) do |acc, state_code|
-          state_name = state_name(state_code)
-          acc[state_code] = state_name if state_name
-          acc
-        end
+        active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
       end
 
       def state_code_from_intake_class(klass)
@@ -34,9 +30,11 @@ module StateFile
     STATE_INFO = {
       az: {
         intake_class: StateFileAzIntake,
+        name: "Arizona",
       },
       ny: {
         intake_class: StateFileNyIntake,
+        name: "New York",
       }
     }
   end

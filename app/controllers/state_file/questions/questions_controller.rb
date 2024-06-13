@@ -19,7 +19,7 @@ module StateFile
       # TODO idea: state_code could prioritize getting the code from the current intake and if there isn't one, default to the params
       def state_code
         state_from_params = params[:us_state]
-        unless StateFile::StateInformationService.active_states.include?(state_from_params)
+        unless StateFile::StateInformationService.active_state_codes.include?(state_from_params)
           raise StandardError, state_from_params
         end
         state_from_params

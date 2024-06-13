@@ -15,7 +15,7 @@ module StateFile
       end
 
       def update
-        StateFile::StateInformationService.active_states.each do |state_code|
+        StateFile::StateInformationService.active_state_codes.each do |state_code|
           intake = send("current_state_file_#{state_code}_intake")
           sign_out intake if intake
         end
