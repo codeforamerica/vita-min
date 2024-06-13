@@ -75,7 +75,7 @@ module StateFile
 
       def next_path
         step_for_next_path = next_step
-        options = { us_state: params[:us_state], action: step_for_next_path.navigation_actions.first }
+        options = { us_state: current_state_code, action: step_for_next_path.navigation_actions.first }
         if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
@@ -92,7 +92,7 @@ module StateFile
 
       def path_for_step(step)
         return unless step
-        options = { us_state: params[:us_state], action: step.navigation_actions.first }
+        options = { us_state: current_state_code, action: step.navigation_actions.first }
         if step.resource_name
           options[:id] = step.model_for_show_check(self)&.id
         end

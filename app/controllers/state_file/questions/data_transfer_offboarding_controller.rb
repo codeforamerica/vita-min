@@ -15,7 +15,7 @@ module StateFile
         if key.present?
           I18n.t(
             "state_file.questions.data_transfer_offboarding.edit.ineligible_reason.#{key}",
-            state: States.name_for_key(params[:us_state].upcase)
+            state: state_name
           )
         end
       end

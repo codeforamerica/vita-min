@@ -17,7 +17,7 @@
           ) %>
     </div>
 
-    <% if params[:us_state] == "ny" %>
+    <% if current_state_code == "ny" %>
       <div class="blue-group">
         <%= f.cfa_radio_set(
               :eligibility_yonkers,
@@ -30,7 +30,7 @@
       </div>
     <% end %>
 
-    <% if params[:us_state] == "az" %>
+    <% if current_state_code == "az" %>
       <div class="blue-group">
         <%= f.cfa_radio_set(
               :eligibility_married_filing_separately,

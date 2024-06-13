@@ -56,7 +56,7 @@ module StateFile
       end
 
       def refund_url
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           'https://www.tax.ny.gov/pit/file/refund.htm'
         when 'az'
@@ -67,7 +67,7 @@ module StateFile
       end
 
       def tax_payment_url
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           'Tax.NY.gov'
         when 'az'
@@ -78,7 +78,7 @@ module StateFile
       end
 
       def download_form_name
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           'Form IT-201-V'
         when 'az'
@@ -89,7 +89,7 @@ module StateFile
       end
 
       def mail_voucher_address
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           "NYS Personal Income Tax<br/>"\
           "Processing Center<br/>"\
@@ -105,7 +105,7 @@ module StateFile
       end
 
       def voucher_path
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           '/pdfs/it201v_1223.pdf'
         when 'az'

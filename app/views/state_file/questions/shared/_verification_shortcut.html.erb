@@ -2,7 +2,7 @@
   <%=
     link_to(
         "I'm on a #{Rails.env} environment, skip this",
-        StateFile::Questions::CodeVerifiedController.to_path_helper(us_state: params[:us_state]),
+        StateFile::Questions::CodeVerifiedController.to_path_helper(us_state: current_state_code),
         class: 'dev-button'
     )
   %>

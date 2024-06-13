@@ -44,6 +44,7 @@ module StateFile
       uri.to_s
     end
 
+    # TODO compare this to StateFile::Questions::QuestionsController's current_intake. which do we like better? consolidate.
     def current_intake
       @current_intake ||= (
         StateFile::StateInformationService.active_state_codes

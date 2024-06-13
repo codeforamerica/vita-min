@@ -5,7 +5,7 @@
 </div>
 
 <h1 class="h2">
-  <%= t("state_file.questions.return_status.accepted.title", state_name: States.name_for_key(params[:us_state].upcase)) %>
+  <%= t("state_file.questions.return_status.accepted.title", state_name: States.name_for_key(current_state_code.upcase)) %>
 </h1>
 
 <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
@@ -15,7 +15,7 @@
   <% elsif refund_or_owed_amount.negative? %>
     <p>
       <%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
-      <%= t('.track_your_payment_html') if params[:us_state] == 'ny' %>
+      <%= t('.track_your_payment_html') if current_state_code == 'ny' %>
     </p>
   <% end %>
 
@@ -41,7 +41,7 @@
 
     <hr class="spacing-above-25 spacing-below-25">
 
-    <% if params[:us_state] == 'az' %>
+    <% if current_state_code == 'az' %>
       <p>
         <%= t('.check_payable') %>
       </p>
@@ -59,10 +59,10 @@
   </div>
 <% else %>
   <h1 class="h2">
-    <%= t("state_file.questions.return_status.accepted.download_title", state_name: States.name_for_key(params[:us_state].upcase)) %>
+    <%= t("state_file.questions.return_status.accepted.download_title", state_name: States.name_for_key(current_state_code.upcase)) %>
   </h1>
   <p>
-    <%= t("state_file.questions.return_status.thank_you_html", state_name: States.name_for_key(params[:us_state].upcase)) %>
+    <%= t("state_file.questions.return_status.thank_you_html", state_name: States.name_for_key(current_state_code.upcase)) %>
   </p>
   <p><a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a></p>
   <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>

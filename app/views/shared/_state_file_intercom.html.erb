@@ -17,7 +17,7 @@
         intercomSettings.user_id = "<%= "#{current_intake&.state_code}#{current_intake&.id}" %>"; // TODO would like to replace this with current_state_code but that's only available in state file questions pages and this shows up on other pages. maybe we can/should move current_state_code somewhere where it's available to all state file controllers
         intercomSettings.email = "<%= current_intake&.email_address %>"
         intercomSettings.name = "<%= "#{current_intake&.primary_first_name} #{current_intake&.primary_last_name}" %>";
-        intercomSettings.state = "<%= params[:us_state]%>"
+        intercomSettings.state = "<%= params[:us_state]%>" // ditto line 17
         intercomSettings.user_hash = "<%= IntercomService.generate_statefile_user_hash("#{current_intake&.state_code}#{current_intake&.id}") %>" // ditto line 17
     }
     window.intercomSettings = intercomSettings;
