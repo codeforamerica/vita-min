@@ -96,7 +96,8 @@ class ClientSorter
     end
 
     if @filters[:vita_partners].present?
-      # We only care about the ids here...
+      # For backwards compatibility for users in the middle of a search while this is deployed,
+      # we support both hash and number (In future only number will be needed)
       ids = JSON.parse(@filters[:vita_partners]).map do |vita_partner|
         vita_partner.instance_of?(Hash) ? vita_partner["id"] : vita_partner
       end

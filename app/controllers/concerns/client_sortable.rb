@@ -30,6 +30,7 @@ module ClientSortable
   end
 
   def vita_partners_for_tagify
+    # This yields the vita partners in a format that the tagify js library can understand
     vita_partners = @client_sorter.active_filters[:vita_partners]
     return if vita_partners.blank?
     vita_partners = JSON.parse(vita_partners)
