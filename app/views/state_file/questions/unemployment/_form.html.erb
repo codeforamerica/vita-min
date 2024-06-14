@@ -1,5 +1,4 @@
 <% @main_heading = t("state_file.questions.unemployment.edit.title", count: current_intake.filer_count, year: MultiTenantService.statefile.current_tax_year) %>
-<% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
 <% content_for :page_title, @main_heading %>
 
@@ -38,7 +37,7 @@
           </div>
           <div class="form-group">
             <p class="form-question"><strong><%= t('state_file.questions.unemployment.edit.state') %></strong></p>
-            <p class="form-question"><%= state_full_name %></p>
+            <p class="form-question"><%= state_name %></p>
           </div>
           <div class="spacing-above-25">
             <p class="text--small">
@@ -72,7 +71,7 @@
                 <% if current_intake.direct_file_data.mailing_apartment.present? %>
                   <div><%= current_intake.direct_file_data.mailing_apartment %></div>
                 <% end %>
-                <div><%= current_intake.direct_file_data.mailing_city %>, <%= state_full_name %>
+                <div><%= current_intake.direct_file_data.mailing_city %>, <%= state_name %>
                   <%= current_intake.direct_file_data.mailing_zip %></div>
               </div>
               <div>
@@ -95,7 +94,7 @@
                 <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_street_address_apartment, t('state_file.questions.unemployment.edit.apartment'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:unfillable, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"], options: { value: state_full_name, disabled: true }) %>
+                <%= f.cfa_input_field(:unfillable, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"], options: { value: state_name, disabled: true }) %>
                 <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
               </div>
             </div>

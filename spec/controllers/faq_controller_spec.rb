@@ -28,6 +28,14 @@ RSpec.describe FaqController do
       expect(assigns(:faq_categories).to_a).to eq([first_category, faq_category, last_category])
       expect(assigns(:faq_categories)[1].faq_items).to eq([first_item, faq_item, last_item])
     end
+
+    it "filters categories and items based upon the search filter" do
+      get :index, params: { search: "chicken" }
+
+      expect(response.body).to have_text faq_category.name_en
+      expect(response.body).to have_text first_item.question_en
+      expect(response.body).not_to have_text faq_item.question_en
+    end
   end
 
   describe "#section_index" do

@@ -599,4 +599,19 @@ describe StateFileNyIntake do
       expect(state_file_1099.errors[:payer_tin]).to be_present
     end
   end
+
+  describe "state_code" do
+    context ".state_code" do
+      it "finds the right state code from the state information service" do
+        expect(described_class.state_code).to eq "ny"
+      end
+    end
+
+    context "#state_code" do
+      it "delegates to the instance method from the class method" do
+        intake = create(:state_file_ny_intake)
+        expect(intake.state_code).to eq "ny"
+      end
+    end
+  end
 end

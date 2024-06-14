@@ -1595,7 +1595,7 @@ en:
             The FileYourStateTaxes team
           subject: Don't forget to finish your state tax return!
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to fileyourstatetaxes.org to finish them now.
 
           Need help? Reply to this text.
       issue_resolved:

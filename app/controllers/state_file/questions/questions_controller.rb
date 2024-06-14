@@ -1,10 +1,9 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
-      include StateFile::StateFileControllerConcern
       before_action :redirect_if_no_intake
       before_action :redirect_if_in_progress_intakes_ended
-      helper_method :card_postscript
+      helper_method :card_postscript, :current_tax_year, :state_name, :state_code
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -17,10 +16,26 @@ module StateFile
         end
       end
 
+      def state_code
+        state_from_params = params[:us_state]
+        unless StateFile::StateInformationService.active_state_codes.include?(state_from_params)
+          raise StandardError, state_from_params
+        end
+        state_from_params
+      end
+
+      def state_name
+        StateFile::StateInformationService.state_name(state_code)
+      end
+
+      def current_tax_year
+        MultiTenantService.new(:statefile).current_tax_year
+      end
+
       private
 
       def current_intake
-        state_code = question_navigator.intake_class::STATE_CODE
+        state_code = question_navigator.intake_class.state_code
         send("current_state_file_#{state_code}_intake")
       end
 
@@ -28,22 +43,6 @@ module StateFile
         @navigator ||= "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
       end
       helper_method :question_navigator
-
-      def state_code
-        state_code_ = params[:us_state].downcase
-        unless StateFileBaseIntake::STATE_CODES.include?(state_code_)
-          raise StandardError, state_code_
-        end
-        state_code_
-      end
-
-      def state_name
-        state_code_ = params[:us_state]
-        unless StateFileBaseIntake::STATE_CODES.include?(state_code_)
-          raise StandardError, state_code_
-        end
-        States.name_for_key(state_code_.upcase)
-      end
 
       def redirect_if_no_intake
         unless current_intake.present?

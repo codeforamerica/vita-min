@@ -107,11 +107,6 @@
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
-  STATE_CODE = 'ny'.freeze
-  STATE_NAME = 'New York'.freeze
-  STATE_CODE_AND_NAME = {
-    STATE_CODE => STATE_NAME
-  }.freeze
   LOCALITIES = [
     "NY",
     "N Y",
@@ -167,14 +162,6 @@ class StateFileNyIntake < StateFileBaseIntake
       self.sales_use_tax = calculate_sales_use_tax
     end
 
-  end
-
-  def state_code
-    STATE_CODE
-  end
-
-  def state_name
-    STATE_NAME
   end
 
   def county_name

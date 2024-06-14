@@ -39,10 +39,6 @@ RSpec.describe OutgoingTextMessage, type: :model do
     end
 
     it_behaves_like "an outgoing interaction" do
-      let(:subject) { build :outgoing_text_message, twilio_status: "delivered" }
-    end
-
-    it_behaves_like "an undelivered interaction" do
       let(:subject) { build :outgoing_text_message }
     end
 

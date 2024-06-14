@@ -2,15 +2,14 @@ require 'rails_helper'
 
 describe SLABreachService do
   describe "#breach_threshold_date" do
-    after do
-      Timecop.return
+    around do |example|
+      Timecop.freeze(t) do
+        example.run
+      end
     end
 
     context "running on a 2/11/21, Thursday at 10:05 UTC (2:05am PST)" do
-      before do
-        t = Time.utc(2021, 2, 11, 10, 5, 0)
-        Timecop.freeze(t)
-      end
+      let(:t) { Time.utc(2021, 2, 11, 10, 5, 0) }
 
       it "time is 2/4/21, previous Wednesday at 10:05am UTC (2:05am PST)" do
         expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 3, 10, 5, 0)
@@ -18,10 +17,7 @@ describe SLABreachService do
     end
 
     context "running on a Thursday at 6:05pm UTC (10:05am PST)" do
-      before do
-        t = Time.utc(2021, 2, 11, 18, 5, 0)
-        Timecop.freeze(t)
-      end
+      let(:t) { Time.utc(2021, 2, 11, 18, 5, 0) }
 
       it "time is previous Wednesday at 6:05pm  UTC" do
         expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 3, 18, 5, 0)
@@ -29,10 +25,7 @@ describe SLABreachService do
     end
 
     context "running on a Wednesday at 10:05am UTC" do
-      before do
-        t = Time.utc(2021, 2, 10, 10, 5, 0)
-        Timecop.freeze(t)
-      end
+      let(:t) { Time.utc(2021, 2, 10, 10, 5, 0) }
 
       it "time is previous Tuesday at 10:05 am UTC" do
         expect(subject.breach_threshold_date).to eq Time.utc(2021, 2, 2, 10, 5)
@@ -40,14 +33,10 @@ describe SLABreachService do
     end
 
     context "running on a Wednesday at 6:05pm UTC" do
-      before do
-        t = Time.utc(2021, 2, 10, 18, 5, 0)
-        Timecop.freeze(t)
-      end
+      let(:t) { Time.utc(2021, 2, 10, 18, 5, 0) }
 
       it "time is previous Tuesday at 6:05pm UTC" do
         expect(described_class.new.breach_threshold_date).to eq Time.utc(2021, 2, 2, 18, 5)
-
       end
     end
   end
@@ -72,12 +61,10 @@ describe SLABreachService do
 
   describe '.generate_report' do
     let(:t) { Time.utc(2021, 2, 5, 10, 5) }
-    before do
-      Timecop.freeze(t)
-    end
-
-    after do
-      Timecop.return
+    around do |example|
+      Timecop.freeze(t) do
+        example.run
+      end
     end
 
     context "without any breaches" do
