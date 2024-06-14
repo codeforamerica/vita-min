@@ -8,6 +8,12 @@ RSpec.describe StateFile::Questions::QuestionsController do
       expect(subject.state_code).to eq "az"
     end
 
+    it "accepts us as a state code" do
+      controller.params[:us_state] = "us"
+
+      expect(subject.state_code).to eq "us"
+    end
+
     it "raises an error when the state code is invalid" do
       controller.params[:us_state] = "na"
 
