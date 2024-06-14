@@ -5,17 +5,21 @@ namespace :setup do
 
   VENDOR_DIR = "vendor"
 
+  def vendor_dir
+    File.join(Rails.root, VENDOR_DIR)
+  end
+
   # These Rake tasks download IRS e-file schemas from S3.
   # We avoid storing them in the repo because the IRS asked us nicely to
   # try to limit distribution.
   task download_efile_schemas: :environment do |_task|
-    SchemaFileLoader.prepare_directories(VENDOR_DIR)
-    SchemaFileLoader.download_schemas_from_s3(VENDOR_DIR)
+    SchemaFileLoader.prepare_directories(vendor_dir)
+    SchemaFileLoader.download_schemas_from_s3(vendor_dir)
   end
 
   task unzip_efile_schemas: :environment do |_task|
-    SchemaFileLoader.unzip_schemas(VENDOR_DIR)
-    missing_files = SchemaFileLoader.get_missing_downloads(VENDOR_DIR)
+    SchemaFileLoader.unzip_schemas(vendor_dir)
+    missing_files = SchemaFileLoader.get_missing_downloads(vendor_dir)
     if missing_files.present?
       message = <<~MESSAGE
         Download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
