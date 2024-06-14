@@ -1,6 +1,6 @@
 module StateFile
   class XmlReturnSampleService
-    def initialize(tax_year: nil)
+    def initialize
       @_samples = {}
       @_submission_id_lookup = {
         '2023_ny_rudy_v2.xml' => '1016422024027ate001k',
@@ -21,16 +21,20 @@ module StateFile
       @_samples
     end
 
-    def self.key(tax_year, us_state, filename)
-      "#{tax_year}_#{us_state}_#{filename}"
+    def self.key(us_state, sample_name)
+      "#{us_state}_#{sample_name}"
     end
 
-    def self.label(filename)
-      filename.gsub(".xml", "").humanize
+    def self.label(sample_name)
+      sample_name.humanize
     end
 
     def lookup_submission_id(key)
       @_submission_id_lookup[key] || '12345202201011234570'
+    end
+
+    def include?(key)
+      path(key).present?
     end
 
     def read(key)
@@ -43,28 +47,29 @@ module StateFile
 
     private
 
-    BASE_PATH = "spec/fixtures/state_file/fed_return_xmls/"
+    BASE_PATH = "spec/fixtures/state_file/fed_return_xmls/".freeze
+    TAX_YEAR = Rails.configuration.statefile_current_tax_year.to_s.freeze
 
     def load_samples
       return if @_samples.present?
 
-      UsStateConfigService.active_states_by_year.each do |tax_year, active_us_states|
-        @_samples[tax_year] = {}
-        active_us_states.each do |us_state|
-          @_samples[tax_year][us_state] = []
-          xml_path_glob = File.join(BASE_PATH, tax_year.to_s, us_state.to_s, '*.xml')
-          Dir.glob(xml_path_glob).each do |xml_path|
-            @_samples[tax_year][us_state].push(File.basename(xml_path))
-          end
+      StateFile::StateInformationService.active_state_codes.each do |us_state|
+        @_samples[us_state] = []
+        xml_path_glob = File.join(BASE_PATH, TAX_YEAR, us_state, '*.xml')
+        Dir.glob(xml_path_glob).each do |xml_path|
+          @_samples[us_state].push(File.basename(xml_path, ".xml"))
         end
       end
     end
 
     def path(key)
+      load_samples
       return @old_sample if key == "abcdefg"
 
-      tax_year, us_state, filename = key.split("_", 3)
-      File.join(BASE_PATH, tax_year.to_s, us_state.to_s, filename)
+      us_state, sample_name = key.split("_", 2)
+      if @_samples[us_state].include? sample_name
+        File.join(BASE_PATH, TAX_YEAR, us_state, "#{sample_name}.xml")
+      end
     end
   end
 end

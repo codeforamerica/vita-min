@@ -13,13 +13,10 @@ module StateFile
 
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
       @xml_samples = []
-      tax_year = Rails.configuration.statefile_current_tax_year
-      # TODO: get rid of this to_sym when we use symbols everywhere for state codes
-      us_state = current_intake.state_code.to_sym
-      samples = XmlReturnSampleService.new.samples[tax_year][us_state]
-      @xml_samples = samples.map do |filename|
-        key = XmlReturnSampleService.key(tax_year, us_state, filename)
-        label = XmlReturnSampleService.label(filename)
+      us_state = current_intake.state_code
+      @xml_samples = XmlReturnSampleService.new.samples[us_state].map do |sample_name|
+        key = XmlReturnSampleService.key(us_state, sample_name)
+        label = XmlReturnSampleService.label(sample_name)
         [label, transfer_url(key, params[:redirect])]
       end
       render layout: nil
