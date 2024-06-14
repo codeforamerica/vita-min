@@ -35,7 +35,11 @@ module ClientSortable
     return if vita_partners.blank?
     vita_partners = JSON.parse(vita_partners)
     result = vita_partners.map do |id|
-      id = id[:id] if id.instance_of?(Hash)
+
+      # This will only be applicable for a short while after the deploy to production, when we
+      # may still have cookies defined in the old more verbose format. After a few
+      id = id["id"] if id.instance_of?(Hash)
+
       vita_partner = @vita_partners.find { |p| p.id == id }
       {
         id: vita_partner.id,
