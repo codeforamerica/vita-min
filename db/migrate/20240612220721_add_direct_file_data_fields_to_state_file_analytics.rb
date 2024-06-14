@@ -15,13 +15,17 @@ class AddDirectFileDataFieldsToStateFileAnalytics < ActiveRecord::Migration[7.1]
       #    use the logic from the model at the time of the db update.
       #  * The data in raw_direct_file_data is encrypted, so we need rails to decrypt it
       #
-      StateFileAnalytics.find_each do |analytics|
-        next unless analytics.record.raw_direct_file_data.present?
-        direct_file_data = analytics.record.direct_file_data
-        analytics.update(
-          fed_refund_amt: direct_file_data.fed_refund_amt,
-          zip_code: direct_file_data.mailing_zip
-        )
+      StateFileAnalytics.find_in_batches(batch_size: 100) do |batch|
+        ActiveRecord::Base.transaction do
+          batch.each do |analytics|
+            next unless analytics.record.raw_direct_file_data.present?
+            direct_file_data = analytics.record.direct_file_data
+            analytics.update(
+              fed_refund_amt: direct_file_data.fed_refund_amt,
+              zip_code: direct_file_data.mailing_zip
+            )
+          end
+        end
       end
     rescue Exception => e
       puts e
