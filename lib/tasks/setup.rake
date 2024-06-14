@@ -3,19 +3,19 @@ require 'zip'
 namespace :setup do
   desc "Download and/or unpack some dependencies for vita-min"
 
-  VENDOR = "vendor"
+  VENDOR_DIR = "vendor"
 
   # These Rake tasks download IRS e-file schemas from S3.
   # We avoid storing them in the repo because the IRS asked us nicely to
   # try to limit distribution.
   task download_efile_schemas: :environment do |_task|
-    SchemaFileLoader.prepare_directories(VENDOR)
-    SchemaFileLoader.download_schemas_from_s3(VENDOR)
+    SchemaFileLoader.prepare_directories(VENDOR_DIR)
+    SchemaFileLoader.download_schemas_from_s3(VENDOR_DIR)
   end
 
   task unzip_efile_schemas: :environment do |_task|
-    SchemaFileLoader.unzip_schemas(VENDOR)
-    missing_files = SchemaFileLoader.get_missing_downloads(VENDOR)
+    SchemaFileLoader.unzip_schemas(VENDOR_DIR)
+    missing_files = SchemaFileLoader.get_missing_downloads(VENDOR_DIR)
     if missing_files.present?
       message = <<~MESSAGE
         Download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
