@@ -34,15 +34,11 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.each do |(filename, download_folder)|
-        download_path = File.join(dest_dir, download_folder, filename)
-
-        next if File.exist?(download_path) # If the file already exists, do not re-download.
-
+      get_missing_downloads(dest_dir).each do |download_path|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
-          key: filename,
+          key: File.basename(download_path),
           )
       end
     end
