@@ -18,7 +18,7 @@ module StateFile
 
       def state_code
         state_from_params = params[:us_state]
-        unless StateFile::StateInformationService.active_state_codes.include?(state_from_params)
+        unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
           raise StandardError, state_from_params
         end
         state_from_params
