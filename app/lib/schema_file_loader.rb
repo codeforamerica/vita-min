@@ -87,7 +87,7 @@ class SchemaFileLoader
         Zip::File.open_buffer(File.open(download_path, "rb")) do |zip_file|
           # A zip file like AZIndividual2022v1.1.zip will either contain files like AZIndividual2022v1.1/AZIndividual/etc
           # *or* just AZIndividual. Here we normalize by always trying to unzip in such a way that results in a unique
-          # folder for every unzip
+          # folder for every schema version
           path_parts = [dest_dir, download_folder, 'unpacked']
           zip_filename = File.basename(zip_file.name, '.zip')
           if download_folder == 'us_states' && !zip_file.first.name.start_with?(zip_filename)
