@@ -35,8 +35,10 @@ module StateFile
       private
 
       def current_intake
-        state_code_from_navigator = question_navigator.intake_class.state_code
-        send("current_state_file_#{state_code_from_navigator}_intake")
+        StateFile::StateInformationService.active_state_codes
+                                          .lazy
+                                          .map{ |c| send("current_state_file_#{c}_intake".to_sym) }
+                                          .find(&:itself)
       end
 
       def state_code_from_params
