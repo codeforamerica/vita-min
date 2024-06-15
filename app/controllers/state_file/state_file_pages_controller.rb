@@ -12,12 +12,10 @@ module StateFile
       return render "public_pages/page_not_found", status: 404 if Rails.env.production?
 
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
-      @xml_samples = []
       us_state = current_intake.state_code
       @xml_samples = XmlReturnSampleService.new.samples[us_state].map do |sample_name|
-        key = XmlReturnSampleService.key(us_state, sample_name)
-        label = XmlReturnSampleService.label(sample_name)
-        [label, transfer_url(key, params[:redirect])]
+        [XmlReturnSampleService.label(sample_name),
+         transfer_url(XmlReturnSampleService.key(us_state, sample_name), params[:redirect])]
       end
       render layout: nil
     end

@@ -3,22 +3,17 @@ module StateFile
     def initialize
       @_samples = {}
       @_submission_id_lookup = {
-        '2023_ny_rudy_v2.xml' => '1016422024027ate001k',
-        '2023_ny_javier.xml' => '1016422024018atw000x',
-        '2023_ny_matthew_v2.xml' => '1016422024026atw001u',
-        '2023_ny_khaled.xml' => '1016422024009at0000z',
-        '2023_ny_ivy_414h.xml' => '1016422024025atw000h',
-        '2023_az_leslie_qss_v2.xml' => '1016422024026atw001h',
-        '2023_az_donald_v2.xml' => '1016422024027atw0020',
-        '2023_az_robin_v2.xml' => '1016422024028ate001q',
-        '2023_az_superman_v2.xml' => '1016422024025ate000b'
+        'ny_rudy_v2' => '1016422024027ate001k',
+        'ny_javier' => '1016422024018atw000x',
+        'ny_matthew_v2' => '1016422024026atw001u',
+        'ny_khaled' => '1016422024009at0000z',
+        'ny_ivy_414h' => '1016422024025atw000h',
+        'az_leslie_qss_v2' => '1016422024026atw001h',
+        'az_donald_v2' => '1016422024027atw0020',
+        'az_robin_v2' => '1016422024028ate001q',
+        'az_superman_v2' => '1016422024025ate000b'
       }
       @old_sample = "app/controllers/state_file/questions/df_return_sample.xml"
-    end
-
-    def samples
-      load_samples
-      @_samples
     end
 
     def self.key(us_state, sample_name)
@@ -38,7 +33,7 @@ module StateFile
     end
 
     def read(key)
-      File.read(path(key))
+      File.read(path(key)) if include?(key)
     end
 
     def old_sample
@@ -49,6 +44,11 @@ module StateFile
 
     BASE_PATH = "spec/fixtures/state_file/fed_return_xmls/".freeze
     TAX_YEAR = Rails.configuration.statefile_current_tax_year.to_s.freeze
+
+    def samples
+      load_samples
+      @_samples
+    end
 
     def load_samples
       return if @_samples.present?
