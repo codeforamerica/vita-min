@@ -16,6 +16,11 @@ module StateFile
       @old_sample = "app/controllers/state_file/questions/df_return_sample.xml"
     end
 
+    def samples
+      load_samples
+      @_samples
+    end
+
     def self.key(us_state, sample_name)
       "#{us_state}_#{sample_name}"
     end
@@ -44,11 +49,6 @@ module StateFile
 
     BASE_PATH = "spec/fixtures/state_file/fed_return_xmls/".freeze
     TAX_YEAR = Rails.configuration.statefile_current_tax_year.to_s.freeze
-
-    def samples
-      load_samples
-      @_samples
-    end
 
     def load_samples
       return if @_samples.present?
