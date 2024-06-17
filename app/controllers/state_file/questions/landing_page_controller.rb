@@ -15,10 +15,7 @@ module StateFile
       end
 
       def update
-        StateFile::StateInformationService.active_state_codes.each do |_state_code|
-          intake = send("current_state_file_#{_state_code}_intake")
-          sign_out intake if intake
-        end
+        sign_out current_intake if current_intake
         intake = question_navigator.intake_class.new(
           visitor_id: cookies.encrypted[:visitor_id],
           source: session[:source],
