@@ -8,6 +8,12 @@ describe 'state_file:pre_deadline_reminder' do
     Rake.application.rake_require "tasks/state_file"
   end
 
+  around do |example|
+    Timecop.freeze(DateTime.parse("2-12-2024")) do
+      example.run
+    end
+  end
+
   context 'Sends the notification to all state-filing' do
     let!(:az_intake) { create :state_file_az_intake, email_address: 'test@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
     let!(:ny_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
