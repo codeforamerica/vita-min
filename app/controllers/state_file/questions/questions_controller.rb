@@ -50,7 +50,7 @@ module StateFile
       end
 
       def question_navigator
-        @navigator ||= "Navigation::StateFile#{state_code_from_params.titleize}QuestionNavigation".constantize
+        @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize
       end
       helper_method :question_navigator
 
