@@ -1,5 +1,5 @@
-<% state_image_path = params[:us_state] == "ny" ? "partner-logos/nygov-logo.svg" : "partner-logos/azgov-logo.svg" %>
-<% title = @closed ? t(".title_closed", state_name: @state_name) : t(".#{params[:us_state]}.title") %>
+<% state_image_path = "partner-logos/#{state_code}gov-logo.svg" %>
+<% title = @closed ? t(".title_closed", state_name: state_name) : t(".#{params[:us_state]}.title") %>
 
 <% content_for :page_title, title %>
 
@@ -43,14 +43,14 @@
 
       <% if @user_name.present? %>
         <h2 class="h2"><%= t(".welcome_back", user_name: @user_name) %></h2>
-        <h2 class="h2"><%= t(".continue", state_name: @state_name) %></h2>
+        <h2 class="h2"><%= t(".continue", state_name: state_name) %></h2>
         <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_intake.state_code), class: "button button--primary button--wide", id: "firstCta" do %>
           <%= t("general.sign_in") %>
         <% end %>
         <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
           <h2 class="h2">
             <%= t(".not_you", user_name: @user_name) %>
-            <%=f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
+            <%=f.submit t(".start_new", state_name: state_name), class: "button--link" %>
           </h2>
         <% end %>
       <% else %>

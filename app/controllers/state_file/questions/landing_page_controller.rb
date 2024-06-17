@@ -6,7 +6,6 @@ module StateFile
       skip_before_action :redirect_if_in_progress_intakes_ended
 
       def edit
-        @state_name = StateFileBaseIntake::STATE_CODE_AND_NAMES[params[:us_state]]
         @closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
         if current_intake.present?
           if current_intake.primary_first_name.present?
@@ -16,7 +15,7 @@ module StateFile
       end
 
       def update
-        StateFileBaseIntake::STATE_CODES.each do |state_code|
+        StateFile::StateInformationService.active_state_codes.each do |state_code|
           intake = send("current_state_file_#{state_code}_intake")
           sign_out intake if intake
         end

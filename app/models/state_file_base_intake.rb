@@ -1,10 +1,4 @@
 class StateFileBaseIntake < ApplicationRecord
-  STATE_CODE_AND_NAMES = {
-    'az' => 'Arizona',
-    'ny' => 'New York'
-  }.freeze
-  STATE_CODES = STATE_CODE_AND_NAMES.keys
-
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true
@@ -43,6 +37,15 @@ class StateFileBaseIntake < ApplicationRecord
   }
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
+
+  def self.state_code
+    StateFile::StateInformationService.state_code_from_intake_class(self)
+  end
+  delegate :state_code, to: :class
+
+  def state_name
+    StateFile::StateInformationService.state_name(state_code)
+  end
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
