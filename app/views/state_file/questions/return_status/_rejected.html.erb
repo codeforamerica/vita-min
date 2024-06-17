@@ -5,7 +5,7 @@
 </div>
 
 <h1 class="h2">
-  <%= t("state_file.questions.return_status.rejected.title", state_name: States.name_for_key(current_state_code.upcase)) %>
+  <%= t("state_file.questions.return_status.rejected.title", state_name: current_state_name) %>
 </h1>
 
 <% if @error&.expose %>
@@ -63,9 +63,9 @@
 
 <% if app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
   <h1 class="h2">
-    <%= t("state_file.questions.return_status.accepted.download_title", state_name: States.name_for_key(current_state_code.upcase)) %>
+    <%= t("state_file.questions.return_status.accepted.download_title", state_name: current_state_name) %>
   </h1>
-  <p><%= t("state_file.questions.return_status.thank_you_html", state_name: States.name_for_key(current_state_code.upcase)) %></p>
+  <p><%= t("state_file.questions.return_status.thank_you_html", state_name: current_state_name) %></p>
   <p><a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a></p>
   <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.questions.return_status.accepted.register_to_vote') %></a></p>
 <% end %>

@@ -20,12 +20,12 @@ RSpec.describe StateFile::Questions::QuestionsController do
     end
   end
 
-  describe "#state_name" do
+  describe "#current_state_name" do
     it "returns the state name from the information service based on current_state_code" do
       allow(subject).to receive(:current_state_code).and_return "az"
       allow(StateFile::StateInformationService).to receive(:state_name).with("az").and_return "Arizona"
 
-      expect(subject.state_name).to eq "Arizona"
+      expect(subject.current_state_name).to eq "Arizona"
     end
   end
 end

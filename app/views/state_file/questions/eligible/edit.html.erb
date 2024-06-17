@@ -33,7 +33,7 @@
       <% end %>
       <div class="with-top-separator">
         <p class="text--bold"><%=t('.want_to_claim_heading') %></p>
-        <p><%=t('.want_to_claim_vita', state_name: state_name) %></p>
+        <p><%=t('.want_to_claim_vita', state_name: current_state_name) %></p>
         <p>
           <a href="<%= @vita_link %>" target="_blank" rel="noopener nofollow"><%= t('state_file.questions.eligibility_offboarding.other_options.vita_link') %></a>
         </p>

@@ -16,7 +16,7 @@ module StateFile
         if key.present?
           I18n.t(
             "state_file.questions.eligibility_offboarding.edit.ineligible_reason.#{key}",
-            state: state_name
+            state: current_state_name
           )
         end
       end

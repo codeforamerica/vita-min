@@ -1,7 +1,7 @@
 <% if current_intake.efile_submissions.count > 1 %>
-  <% title = t('.title_resubmit', state_name: state_name) %>
+  <% title = t('.title_resubmit', state_name: current_state_name) %>
 <% else %>
-  <% title = t('.title', state_name: state_name) %>
+  <% title = t('.title', state_name: current_state_name) %>
 <% end %>
 
 <% content_for :page_title, title %>

@@ -3,7 +3,7 @@ module StateFile
     extend ActiveSupport::Concern
 
     included do
-      helper_method :current_intake, :current_state_code, :state_name, :current_tax_year
+      helper_method :current_intake, :current_state_code, :current_state_name, :current_tax_year
     end
 
     def current_intake
@@ -21,7 +21,7 @@ module StateFile
       end
     end
 
-    def state_name
+    def current_state_name
       StateFile::StateInformationService.state_name(current_state_code)
     end
 
