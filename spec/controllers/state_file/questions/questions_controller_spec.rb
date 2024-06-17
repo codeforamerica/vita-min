@@ -12,24 +12,10 @@ RSpec.describe StateFile::Questions::QuestionsController do
     end
 
     context "when there is no logged in intake" do
-      it "returns the state code from the params if valid" do
+      it "returns the state code from the params" do
         controller.params[:us_state] = "az"
 
         expect(subject.current_state_code).to eq "az"
-      end
-
-      it "accepts us as a state code" do
-        controller.params[:us_state] = "us"
-
-        expect(subject.current_state_code).to eq "us"
-      end
-
-      it "raises an error when the state code is invalid" do
-        controller.params[:us_state] = "na"
-
-        expect do
-          subject.current_state_code
-        end.to raise_error(StandardError, "na")
       end
     end
   end

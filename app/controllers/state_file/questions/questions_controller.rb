@@ -20,7 +20,7 @@ module StateFile
         if current_intake
           current_intake.state_code
         else
-          state_code_from_params
+          params[:us_state]
         end
       end
 
@@ -39,14 +39,6 @@ module StateFile
                                           .lazy
                                           .map{ |c| send("current_state_file_#{c}_intake".to_sym) }
                                           .find(&:itself)
-      end
-
-      def state_code_from_params
-        state_from_params = params[:us_state]
-        unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
-          raise StandardError, state_from_params
-        end
-        state_from_params
       end
 
       def question_navigator
