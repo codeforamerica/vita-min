@@ -1,9 +1,9 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
-      before_action :redirect_if_no_intake
-      before_action :redirect_if_in_progress_intakes_ended
-      helper_method :card_postscript, :current_tax_year, :state_name, :current_state_code
+      include StateFile::StateFileControllerConcern
+      before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended
+      helper_method :card_postscript
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -16,30 +16,7 @@ module StateFile
         end
       end
 
-      def current_state_code
-        if current_intake
-          current_intake.state_code
-        else
-          params[:us_state]
-        end
-      end
-
-      def state_name
-        StateFile::StateInformationService.state_name(current_state_code)
-      end
-
-      def current_tax_year
-        MultiTenantService.new(:statefile).current_tax_year
-      end
-
       private
-
-      def current_intake
-        StateFile::StateInformationService.active_state_codes
-                                          .lazy
-                                          .map{ |c| send("current_state_file_#{c}_intake".to_sym) }
-                                          .find(&:itself)
-      end
 
       def question_navigator
         @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize

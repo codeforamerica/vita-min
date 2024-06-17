@@ -34,7 +34,7 @@
   <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
   <% if current_intake %>
     <div class="with-padding-med">
-      Your session has this intake: <b><%= current_intake.state_code %> <%= current_intake.id %></b> <!--see _state_file_intercom.html.erb line 17-->
+      Your session has this intake: <b><%= current_state_code %> <%= current_intake.id %></b>
       <%= button_to "Clear", StateFile::StateFilePagesController.to_path_helper(action: :clear_session) %>
     </div>
   <% end %>
