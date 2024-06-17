@@ -1471,6 +1471,105 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#before_withdrawal_date_deadline?" do
+    let(:state) { "ny" }
+    before { @params = { us_state: state } }
+
+    context "ny intake" do
+      context "before withdrawal deadline for ny" do
+        let(:fake_time) { Rails.configuration.state_file_withdrawal_date_deadline_ny - 1.minute }
+
+        it "returns true" do
+          get :index, params: @params
+
+          Timecop.freeze(fake_time) do
+            expect(subject.before_withdrawal_date_deadline?).to eq true
+          end
+        end
+      end
+
+      context "after withdrawal deadline for ny" do
+        let(:fake_time) { Rails.configuration.state_file_withdrawal_date_deadline_ny + 1.minute }
+
+        it "returns false" do
+          get :index, params: @params
+
+          Timecop.freeze(fake_time) do
+            expect(subject.before_withdrawal_date_deadline?).to eq false
+          end
+        end
+      end
+
+      context "before withdrawal deadline for az" do
+        let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes - 1.minute }
+
+        it "returns false" do
+          get :index, params: @params
+
+          Timecop.freeze(fake_time) do
+            expect(subject.before_withdrawal_date_deadline?).to eq false
+          end
+        end
+      end
+    end
+
+    context "az intake" do
+      let(:state) { "az" }
+      context "before withdrawal deadline for az" do
+        let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes - 1.minute }
+
+        it "returns true" do
+          get :index, params: @params
+
+          Timecop.freeze(fake_time) do
+            expect(subject.before_withdrawal_date_deadline?).to eq true
+          end
+        end
+      end
+
+      context "after withdrawal deadline for az" do
+        let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes + 1.minute }
+
+
+        it "returns false" do
+          get :index, params: @params
+
+          Timecop.freeze(fake_time) do
+            expect(subject.before_withdrawal_date_deadline?).to eq false
+          end
+        end
+      end
+    end
+  end
+
+  describe "#post_deadline_withdrawal_date" do
+    let(:state) { "ny" }
+    before { @params = { us_state: state } }
+    let(:fake_time) { Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00') }
+
+    context "ny app" do
+      it "returns the current time in EST timezone" do
+        get :index, params: @params
+
+        Timecop.freeze(fake_time) do
+          expect(subject.post_deadline_withdrawal_date).to eq DateTime.parse('2001-01-01 3:00 EST')
+        end
+      end
+    end
+
+    context "az app" do
+      let(:state) { "az" }
+
+      it "returns the current time in MST timezone" do
+        get :index, params: @params
+
+        Timecop.freeze(fake_time) do
+          expect(subject.post_deadline_withdrawal_date).to eq DateTime.parse('2001-01-01 1:00 MST')
+        end
+      end
+    end
+  end
+
   context "when receiving invalid requests from robots" do
     before do
       allow(DatadogApi).to receive(:increment)
