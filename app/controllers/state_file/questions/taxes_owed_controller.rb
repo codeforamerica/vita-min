@@ -11,33 +11,18 @@ module StateFile
       helper_method :taxes_owed
 
       def pay_mail_online_link
-        case current_state_code
-        when "ny"
-          'https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm'
-        when 'az'
-          'https://azdor.gov/making-payments-late-payments-and-filing-extensions'
-        else
-          ''
-        end
+        StateFile::StateInformationService.pay_mail_online_link(current_state_code)
       end
       helper_method :pay_mail_online_link
 
       def pay_mail_online_text
-        case current_state_code
-        when "ny"
-          'Tax.NY.gov'
-        when 'az'
-          'AZTaxes.gov'
-        else
-          ''
-        end
+        StateFile::StateInformationService.tax_payment_url(current_state_code)
       end
       helper_method :pay_mail_online_text
 
       private
 
       def card_postscript; end
-
     end
   end
 end

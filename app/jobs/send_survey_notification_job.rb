@@ -1,11 +1,10 @@
 class SendSurveyNotificationJob < ApplicationJob
-  include StateFile::SurveyLinksConcern
   def perform(intake, submission)
     StateFile::MessagingService.new(
       intake: intake,
       submission: submission,
       message: StateFile::AutomatedMessage::SurveyNotification,
-      body_args: { survey_link: survey_link(intake) }
+      body_args: { survey_link: StateFile::StateInformationService.survey_link(intake.state_code) } # TODO: test?
     ).send_message
   end
 

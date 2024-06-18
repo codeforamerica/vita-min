@@ -1,7 +1,6 @@
 namespace :survey_notifications do
   desc 'Send survey notifications to all accepted returns prior to our shipping this feature'
   task 'send' => :environment do
-    include StateFile::SurveyLinksConcern
     BATCH_SIZE = 10
     accepted_submissions = EfileSubmission.joins(:efile_submission_transitions)
                                           .for_state_filing
@@ -16,7 +15,7 @@ namespace :survey_notifications do
           intake: submission.data_source,
           submission: submission,
           message: StateFile::AutomatedMessage::SurveyNotification,
-          body_args: { survey_link: survey_link(submission.data_source) }
+          body_args: { survey_link: StateFile::StateInformationService.survey_link(submission.data_source.state_code) } # TODO: test?
         ).send_message
       end
     end
