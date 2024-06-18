@@ -1,6 +1,10 @@
 module ClientSortable
   extend ActiveSupport::Concern
 
+  def self.included(base)
+    base.helper_method :vita_partners_for_tagify
+  end
+
   private
 
   def setup_sortable_client
@@ -23,5 +27,27 @@ module ClientSortable
     return {} unless filter_cookie_name.present?
 
     cookies[filter_cookie_name] ? HashWithIndifferentAccess.new(JSON.parse(cookies[filter_cookie_name])) : {}
+  end
+
+  def vita_partners_for_tagify
+    # This returns the vita partners in a format that the tagify js library can understand
+    vita_partners = @client_sorter.active_filters[:vita_partners]
+    return if vita_partners.blank?
+    vita_partners = JSON.parse(vita_partners)
+    result = vita_partners.map do |id|
+
+      # This will only be applicable for a short while after the deploy to production, when we
+      # may still have cookies defined in the old more verbose format. After a few
+      id = id["id"] if id.instance_of?(Hash)
+
+      vita_partner = @vita_partners.find { |p| p.id == id }
+      {
+        id: vita_partner.id,
+        name: vita_partner.name,
+        parentName: vita_partner.parent_organization&.name,
+        value: vita_partner.id
+      }
+    end
+    result.to_json
   end
 end
