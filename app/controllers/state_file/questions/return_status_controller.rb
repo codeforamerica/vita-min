@@ -56,7 +56,7 @@ module StateFile
       end
 
       def refund_url
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           'https://www.tax.ny.gov/pit/file/refund.htm'
         when 'az'
@@ -67,7 +67,7 @@ module StateFile
       end
 
       def tax_payment_url
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           'Tax.NY.gov'
         when 'az'
@@ -78,7 +78,7 @@ module StateFile
       end
 
       def download_form_name
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           'Form IT-201-V'
         when 'az'
@@ -89,7 +89,7 @@ module StateFile
       end
 
       def mail_voucher_address
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           "NYS Personal Income Tax<br/>"\
           "Processing Center<br/>"\
@@ -105,7 +105,7 @@ module StateFile
       end
 
       def voucher_path
-        case params[:us_state]
+        case current_state_code
         when 'ny'
           '/pdfs/it201v_1223.pdf'
         when 'az'
@@ -119,7 +119,7 @@ module StateFile
 
       def redirect_if_no_submission
         if current_intake.efile_submissions.empty?
-          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: state_code)
+          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: current_state_code)
         end
       end
 
@@ -128,7 +128,7 @@ module StateFile
         # here when the federal return was not yet approved.
         # We have alerted them, and once they have updated their URL we can probably remove this
         if params[:ref_location] == "df_authorize_state"
-          redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code)
+          redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_state_code)
         end
       end
     end

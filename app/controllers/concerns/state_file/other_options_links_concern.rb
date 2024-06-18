@@ -5,7 +5,7 @@ module StateFile
     extend ActiveSupport::Concern
 
     def vita_link
-      case params[:us_state]
+      case current_state_code
       when 'ny'
         'https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form'
       when 'az'
@@ -14,9 +14,9 @@ module StateFile
     end
 
     def faq_state_filing_options_link
-      product_type = FaqCategory.state_to_product_type(params[:us_state])
+      product_type = FaqCategory.state_to_product_type(current_state_code)
       if FaqCategory.where(slug: "other_state_filing_options", product_type: product_type).present?
-        state_faq_section_path(section_key: "other_state_filing_options", us_state: params[:us_state])
+        state_faq_section_path(section_key: "other_state_filing_options", us_state: current_state_code)
       else
         state_faq_path
       end

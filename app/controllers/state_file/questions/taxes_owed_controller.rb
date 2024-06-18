@@ -11,7 +11,7 @@ module StateFile
       helper_method :taxes_owed
 
       def pay_mail_online_link
-        case params[:us_state]
+        case current_state_code
         when "ny"
           'https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm'
         when 'az'
@@ -23,7 +23,7 @@ module StateFile
       helper_method :pay_mail_online_link
 
       def pay_mail_online_text
-        case params[:us_state]
+        case current_state_code
         when "ny"
           'Tax.NY.gov'
         when 'az'

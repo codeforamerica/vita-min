@@ -63,8 +63,8 @@ class EfileError < ApplicationRecord
 
   def self.paths
     paths = Set.new
-    StateFile::StateInformationService.active_state_codes.each do |state_code|
-      navigation = "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+    StateFile::StateInformationService.active_state_codes.each do |_state_code|
+      navigation = "Navigation::StateFile#{_state_code.titleize}QuestionNavigation".constantize
       navigation.controllers.each do |controller|
         paths << EfileError.controller_to_path(controller)
       end
