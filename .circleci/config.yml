@@ -144,7 +144,7 @@ jobs:
       - setup_webdriver
       - restore_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
-      - run: RAILS_ENV=test bin/shakapacker-dev-server
+      - run: RAILS_ENV=test bin/shakapacker
       - run:
           command: bundle exec parallel_rspec -n 12 || touch /tmp/re-run
           environment:
