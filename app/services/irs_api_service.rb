@@ -13,12 +13,10 @@ class IrsApiService
   def self.import_federal_data(authorization_code, _state_code)
     unless Rails.env.production?
       xml_return_sample_service = StateFile::XmlReturnSampleService.new
-      matching_fake_xml_sample = xml_return_sample_service.lookup(authorization_code)
-      fake_submission_id = xml_return_sample_service.lookup_submission_id(authorization_code)
-      if matching_fake_xml_sample
+      if xml_return_sample_service.include?(authorization_code)
         return {
-          'xml' => matching_fake_xml_sample.read,
-          'submissionId' => fake_submission_id,
+          'xml' => xml_return_sample_service.read(authorization_code),
+          'submissionId' => xml_return_sample_service.lookup_submission_id(authorization_code),
           'status' => "accepted"
         }
       end

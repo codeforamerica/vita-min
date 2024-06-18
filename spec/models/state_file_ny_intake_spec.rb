@@ -387,9 +387,7 @@ describe StateFileNyIntake do
 
     let(:df_w2) do
       DirectFileData::DfW2.new(
-        Nokogiri::XML(
-          File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml"))
-        ).at("IRSW2")
+        Nokogiri::XML(StateFile::XmlReturnSampleService.new.read('ny_batman')).at("IRSW2")
       )
     end
 

@@ -208,7 +208,7 @@ FactoryBot.define do
 
     factory :state_file_zeus_intake do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_zeus_8_deps_ny.xml')) }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('ny_zeus_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
@@ -230,7 +230,7 @@ FactoryBot.define do
 
     factory :state_file_taylor_intake do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_taylor_hoh_3deps_ny.xml')) }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('ny_taylor_hoh_3deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database

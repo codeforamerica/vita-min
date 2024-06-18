@@ -3,7 +3,7 @@ require "rails_helper"
 describe StateFileBaseIntake do
   describe "#synchronize_df_dependents_to_database" do
     it "reads in dependents and adds all of them to the database" do
-      xml = File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents_ny.xml"))
+      xml = StateFile::XmlReturnSampleService.new.read('ny_five_dependents')
       intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
       expect(intake.dependents).to be_blank
       intake.synchronize_df_dependents_to_database

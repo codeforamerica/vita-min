@@ -23,7 +23,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-    step_through_df_data_transfer
+    step_through_df_data_transfer("Transfer Javier")
 
     xml_before = StateFileNyIntake.last.raw_direct_file_data.strip
 

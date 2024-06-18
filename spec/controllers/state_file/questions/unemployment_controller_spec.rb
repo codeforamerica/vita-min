@@ -8,17 +8,17 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
   describe ".show?" do
     it "is true for a return with unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("unemployment_az")
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("az_unemployment")
       expect(described_class.show?(intake)).to be_truthy
     end
 
     it "is false for a return that did not have unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("single_w2_ny")
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("ny_single_w2")
       expect(described_class.show?(intake)).to be_falsey
     end
 
     it "is false for a return that has a zero unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("educator_deduction_ny")
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("ny_educator_deduction")
       expect(described_class.show?(intake)).to be_falsey
     end
   end
