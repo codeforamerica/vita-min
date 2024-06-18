@@ -1,5 +1,6 @@
 module StateFile
   class StateFilePagesController < ApplicationController
+    include StateFile::StateFileControllerConcern
     layout "state_file"
     before_action :redirect_state_file_in_off_season, except: [:coming_soon]
 
@@ -42,15 +43,6 @@ module StateFile
       uri = URI(redirect_url)
       uri.query = { authorizationCode: key }.to_query
       uri.to_s
-    end
-
-    def current_intake
-      @current_intake ||= (
-        StateFile::StateInformationService.active_state_codes
-          .lazy
-          .map{|c| send("current_state_file_#{c}_intake".to_sym) }
-          .find(&:itself)
-      )
     end
   end
 end

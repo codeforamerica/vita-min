@@ -13,7 +13,7 @@ module StateFile
       private
 
       def error_redirect
-        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: params[:us_state])
+        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)
       end
     end
   end

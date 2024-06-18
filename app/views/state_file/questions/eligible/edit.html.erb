@@ -6,7 +6,7 @@
   <h2 class="h2"><%= t(".title2_html") %></h2>
 
   <div class="blue-group">
-      <% if params[:us_state] == "az" %>
+      <% if current_state_code == "az" %>
         <ul class="list--bulleted">
           <li><%= t(".increased_deduction") %></li>
           <li><a href="https://azdor.gov/individuals/income-tax-filing-assistance/deductions-and-exemptions" target="_blank" rel="noopener nofollow"><%= t(".dependent_credit") %></a></li>
@@ -26,14 +26,14 @@
   <div class="reveal">
     <p><a href="#" class="reveal__link"><%= t('.not_supported') %></a></p>
     <div class="reveal__content">
-      <% if params[:us_state] == "az" %>
+      <% if current_state_code == "az" %>
         <%= render partial: "state_file/questions/eligible/az_unsupported" %>
-      <% elsif params[:us_state] == "ny" %>
+      <% elsif current_state_code == "ny" %>
         <%= render partial: "state_file/questions/eligible/ny_unsupported" %>
       <% end %>
       <div class="with-top-separator">
         <p class="text--bold"><%=t('.want_to_claim_heading') %></p>
-        <p><%=t('.want_to_claim_vita', state_name: state_name) %></p>
+        <p><%=t('.want_to_claim_vita', state_name: current_state_name) %></p>
         <p>
           <a href="<%= @vita_link %>" target="_blank" rel="noopener nofollow"><%= t('state_file.questions.eligibility_offboarding.other_options.vita_link') %></a>
         </p>

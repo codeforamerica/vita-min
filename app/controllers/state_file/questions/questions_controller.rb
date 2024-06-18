@@ -1,9 +1,9 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
-      before_action :redirect_if_no_intake
-      before_action :redirect_if_in_progress_intakes_ended
-      helper_method :card_postscript, :current_tax_year, :state_name, :state_code
+      include StateFile::StateFileControllerConcern
+      before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended
+      helper_method :card_postscript
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -16,38 +16,17 @@ module StateFile
         end
       end
 
-      def state_code
-        state_from_params = params[:us_state]
-        unless StateFile::StateInformationService.active_state_codes.append("us").include?(state_from_params)
-          raise StandardError, state_from_params
-        end
-        state_from_params
-      end
-
-      def state_name
-        StateFile::StateInformationService.state_name(state_code)
-      end
-
-      def current_tax_year
-        MultiTenantService.new(:statefile).current_tax_year
-      end
-
       private
 
-      def current_intake
-        state_code = question_navigator.intake_class.state_code
-        send("current_state_file_#{state_code}_intake")
-      end
-
       def question_navigator
-        @navigator ||= "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+        @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize
       end
       helper_method :question_navigator
 
       def redirect_if_no_intake
         unless current_intake.present?
           flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: state_code)
+          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)
         end
       end
 
@@ -56,7 +35,7 @@ module StateFile
           if current_intake.efile_submissions.empty?
             redirect_to root_path
           else
-            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: state_code)
+            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: current_state_code)
           end
         end
       end
@@ -67,7 +46,7 @@ module StateFile
 
       def next_path
         step_for_next_path = next_step
-        options = { us_state: params[:us_state], action: step_for_next_path.navigation_actions.first }
+        options = { us_state: current_state_code, action: step_for_next_path.navigation_actions.first }
         if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
@@ -84,7 +63,7 @@ module StateFile
 
       def path_for_step(step)
         return unless step
-        options = { us_state: params[:us_state], action: step.navigation_actions.first }
+        options = { us_state: current_state_code, action: step.navigation_actions.first }
         if step.resource_name
           options[:id] = step.model_for_show_check(self)&.id
         end
