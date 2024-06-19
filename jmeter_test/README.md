@@ -19,6 +19,6 @@ point. (dev or staging).
 
 ### Examples
 
-* `jmeter_test -t fyst_az_standard_usage` : Run `fyst_az_standard_usage` plan against dev
-* `jmeter_test -t fyst_az_standard_usage -e staging` : Run `fyst_az_standard_usage` plan against staging
-* `jmeter_test -t fyst_az_standard_usage -g` : Open `fyst_az_standard_usage` plan in GUI
+* `jmeter_test -t fyst_az_5_minute_stress_test` : Run `fyst_az_5_minute_stress_test` plan against dev
+* `jmeter_test -t fyst_az_5_minute_stress_test -e staging` : Run `fyst_az_5_minute_stress_test` plan against staging
+* `jmeter_test -t fyst_az_5_minute_stress_test -g` : Open `fyst_az_5_minute_stress_test` plan in GUI
