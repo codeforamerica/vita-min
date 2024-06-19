@@ -5,8 +5,6 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Define Test Id">
@@ -19,7 +17,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname=" Users Reading the FAQ">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname=" Users Reading the FAQ" enabled="true">
         <intProp name="ThreadGroup.num_threads">5</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <longProp name="ThreadGroup.duration">300</longProp>
@@ -245,7 +243,7 @@ Connect to 5s</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Inelligible Users">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Inelligible Users" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <longProp name="ThreadGroup.duration">300</longProp>
@@ -587,7 +585,7 @@ Connect to 5s</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Non Finishing Users">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Non Finishing Users" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <longProp name="ThreadGroup.duration">300</longProp>
@@ -1113,7 +1111,7 @@ Connect to 5s</stringProp>
           </HtmlExtractor>
           <hashTree/>
         </hashTree>
-        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname=" Repeat Until Code Verified">
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname=" Repeat Until Code Verified" enabled="true">
           <stringProp name="WhileController.condition">${__javaScript(vars.get(&quot;page_title&quot;).indexOf(&quot;verified&quot;)&lt;0)}</stringProp>
         </WhileController>
         <hashTree>
@@ -1527,7 +1525,7 @@ Connect to 5s</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Users Completing Submission">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Users Completing Submission" enabled="true">
         <intProp name="ThreadGroup.num_threads">2</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <longProp name="ThreadGroup.duration">300</longProp>
@@ -1540,7 +1538,7 @@ Connect to 5s</stringProp>
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Define User Number">
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Define User Number" enabled="true">
           <stringProp name="CounterConfig.start"></stringProp>
           <stringProp name="CounterConfig.end"></stringProp>
           <stringProp name="CounterConfig.incr"></stringProp>
@@ -1922,7 +1920,7 @@ Connect to 5s</stringProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Contact Preference to Email Address">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Contact Preference to Email Address" enabled="true">
           <stringProp name="HTTPSampler.path">/en/az/questions/contact-preference</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -1984,13 +1982,13 @@ Connect to 5s</stringProp>
           </HtmlExtractor>
           <hashTree/>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Wait1S">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Wait1S" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Email Address to Verification Code">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Email Address to Verification Code" enabled="true">
           <stringProp name="HTTPSampler.path">/en/az/questions/email-address</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2053,17 +2051,17 @@ Connect to 5s</stringProp>
           </HtmlExtractor>
           <hashTree/>
         </hashTree>
-        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname=" Repeat Until Code Verified">
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname=" Repeat Until Code Verified" enabled="true">
           <stringProp name="WhileController.condition">${__javaScript(vars.get(&quot;page_title&quot;).indexOf(&quot;verified&quot;)&lt;0)}</stringProp>
         </WhileController>
         <hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Wait5S">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Wait5S" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">5000</stringProp>
           </TestAction>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Verification Code to Code Verified">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Verification Code to Code Verified" enabled="true">
             <stringProp name="HTTPSampler.path">/en/az/questions/verification-code</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2103,7 +2101,7 @@ Connect to 5s</stringProp>
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="Get page title">
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="Get page title" enabled="true">
               <stringProp name="HtmlExtractor.refname">page_title</stringProp>
               <stringProp name="HtmlExtractor.expr">meta[property=&quot;og:title&quot;]</stringProp>
               <stringProp name="HtmlExtractor.attribute">content</stringProp>
@@ -2231,11 +2229,11 @@ Connect to 5s</stringProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="Repeat while data loading">
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="Repeat while data loading" enabled="true">
           <stringProp name="WhileController.condition">${__javaScript(vars.get(&quot;page_title&quot;).indexOf(&quot;transferred&quot;)&lt;0)}</stringProp>
         </WhileController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Waiting to Load Data">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Waiting to Load Data" enabled="true">
             <stringProp name="HTTPSampler.path">/en/az/questions/waiting-to-load-data?authorizationCode=az_bert</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -2246,7 +2244,7 @@ Connect to 5s</stringProp>
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="Get page title">
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="Get page title" enabled="true">
               <stringProp name="HtmlExtractor.refname">page_title</stringProp>
               <stringProp name="HtmlExtractor.expr">meta[property=&quot;og:title&quot;]</stringProp>
               <stringProp name="HtmlExtractor.attribute">content</stringProp>
@@ -2256,7 +2254,7 @@ Connect to 5s</stringProp>
               <stringProp name="HtmlExtractor.extractor_impl"></stringProp>
             </HtmlExtractor>
             <hashTree/>
-            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="Get CSRF Token">
+            <HtmlExtractor guiclass="HtmlExtractorGui" testclass="HtmlExtractor" testname="Get CSRF Token" enabled="true">
               <stringProp name="HtmlExtractor.refname">authenticity_token</stringProp>
               <stringProp name="HtmlExtractor.expr">input[name=authenticity_token]</stringProp>
               <stringProp name="HtmlExtractor.attribute">value</stringProp>
@@ -3433,7 +3431,7 @@ Connect to 5s</stringProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Download Submission">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Download Submission" enabled="true">
           <stringProp name="HTTPSampler.path">${submission_download_url}</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -3481,7 +3479,7 @@ Connect to 5s</stringProp>
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph">
+      <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -3518,7 +3516,7 @@ Connect to 5s</stringProp>
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
