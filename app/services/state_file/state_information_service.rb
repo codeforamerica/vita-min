@@ -14,11 +14,11 @@ module StateFile
         :voucher_path,
       ].each do |attribute|
         define_method(attribute) do |state_code|
-          unless active_state_codes.include?(state_code)
-            raise StandardError, "No state code '#{state_code}'"
-          end
+          raise StandardError, "No state code '#{state_code}'" if !active_state_codes.include?(state_code)
 
-          STATES_INFO[state_code.to_sym][attribute]
+          value = STATES_INFO[state_code.to_sym][attribute]
+          raise StandardError, "State '#{state_code}' does not have '#{attribute}'" if !value
+          value
         end
       end
 
