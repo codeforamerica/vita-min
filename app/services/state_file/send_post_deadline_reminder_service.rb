@@ -5,7 +5,7 @@ module StateFile
 
     def self.run
       cutoff_time_ago = HOURS_AGO.hours.ago
-      intakes_to_notify = ApplicationRecord::STATE_INTAKE_CLASS_NAMES.map do |base_class|
+      intakes_to_notify = StateFile::StateInformationService.state_intake_class_names.map do |base_class|
         class_object = base_class.constantize
 
         # First we get all intake ids by email address

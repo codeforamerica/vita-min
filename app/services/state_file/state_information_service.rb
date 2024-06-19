@@ -26,6 +26,14 @@ module StateFile
         STATES_INFO.keys.map(&:to_s)
       end
 
+      def state_intake_classes
+        STATES_INFO.map { |_, attrs| attrs[:intake_class] }
+      end
+      
+      def state_intake_class_names
+        state_intake_class_names
+      end
+
       def state_code_to_name_map
         active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
       end
