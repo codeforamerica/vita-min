@@ -1,38 +1,29 @@
 module StateFile
   class StateInformationService
     class << self
+      [
+        :download_form_name,
+        :mail_voucher_address,
+        :pay_mail_online_link,
+        :pay_mail_online_text,
+        :refund_url,
+        :state_name,
+        :survey_link,
+        :tax_payment_url,
+        :vita_link,
+        :voucher_path,
+      ].each do |attribute|
+        define_method(attribute) do |state_code|
+          unless active_state_codes.include?(state_code)
+            raise StandardError, "No state code '#{state_code}'"
+          end
+
+          STATES_INFO[state_code.to_sym][attribute]
+        end
+      end
+
       def active_state_codes
         STATES_INFO.keys.map(&:to_s)
-      end
-
-      def download_form_name(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:download_form_name]
-      end
-
-      def mail_voucher_address(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:mail_voucher_address]
-      end
-
-      def pay_mail_online_link(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:pay_mail_online_link]
-      end
-
-      def pay_mail_online_text(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:pay_mail_online_text]
-      end
-
-      def refund_url(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:refund_url]
-      end
-
-      def state_name(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:name]
       end
 
       def state_code_to_name_map
@@ -45,40 +36,14 @@ module StateFile
         end
         state_code.to_s
       end
-
-      def survey_link(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:survey_link]
-      end
-
-      def tax_payment_url(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:tax_payment_url]
-      end
-
-      def vita_link(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:vita_link]
-      end
-
-      def voucher_path(state_code)
-        validate_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:voucher_path]
-      end
     end
 
     private
 
-    def self.validate_state_code(state_code)
-      unless active_state_codes.include?(state_code)
-        raise StandardError, "No state code '#{state_code}'"
-      end
-    end
-
     STATES_INFO = {
       az: {
         intake_class: StateFileAzIntake,
-        name: "Arizona",
+        state_name: "Arizona",
         refund_url: "https://aztaxes.gov/home/checkrefund",
         tax_payment_url: 'AZTaxes.gov',
         download_form_name: 'Form AZ-140V',
@@ -92,7 +57,7 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
-        name: "New York",
+        state_name: "New York",
         refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
         tax_payment_url: 'Tax.NY.gov',
         download_form_name: 'Form IT-201-V',
