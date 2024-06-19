@@ -54,9 +54,5 @@ module Navigation
       ]),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
-
-    def self.intake_class
-      StateFileAzIntake
-    end
   end
 end

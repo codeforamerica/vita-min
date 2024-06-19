@@ -84,4 +84,10 @@ describe StateFile::StateInformationService do
       expect(described_class.survey_link("az")).to eq 'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey'
     end
   end
+
+  describe ".intake_class" do
+    it "returns the intake class" do
+      expect(described_class.intake_class("az")).to eq StateFileAzIntake
+    end
+  end
 end

@@ -3,9 +3,9 @@ module StateFile
     class << self
       [
         :download_form_name,
+        :intake_class,
         :mail_voucher_address,
         :pay_mail_online_link,
-        :pay_mail_online_text,
         :refund_url,
         :state_name,
         :survey_link,
