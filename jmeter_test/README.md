@@ -17,8 +17,12 @@ point. (dev or staging).
 
 `jmeter_test -t <TEST_PLAN> <-e <ENVIRONMENT>> <-g>`
 
-### Examples
+## Examples
 
 * `jmeter_test/jmeter_test -t fyst_az_5_minute_stress_test` : Run `fyst_az_5_minute_stress_test` plan against dev
 * `jmeter_test/jmeter_test -t fyst_az_5_minute_stress_test -e staging` : Run `fyst_az_5_minute_stress_test` plan against staging
 * `jmeter_test/jmeter_test -t fyst_az_5_minute_stress_test -g` : Open `fyst_az_5_minute_stress_test` plan in GUI
+
+
+## Running in AWS
+
