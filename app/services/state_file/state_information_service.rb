@@ -31,7 +31,7 @@ module StateFile
       end
       
       def state_intake_class_names
-        state_intake_class_names
+        state_intake_classes.map(&:to_s).freeze
       end
 
       def state_code_to_name_map
