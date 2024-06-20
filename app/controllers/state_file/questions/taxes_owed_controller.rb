@@ -10,18 +10,6 @@ module StateFile
       end
       helper_method :taxes_owed
 
-      # TODO: remove helper method and call service from view?
-      def pay_mail_online_link
-        StateFile::StateInformationService.pay_mail_online_link(current_state_code)
-      end
-      helper_method :pay_mail_online_link
-
-      # TODO: remove helper method and call service from view?
-      def pay_mail_online_text
-        StateFile::StateInformationService.tax_payment_url(current_state_code)
-      end
-      helper_method :pay_mail_online_text
-
       private
 
       def card_postscript; end
