@@ -7,7 +7,7 @@
       <div class="grid__item width-one-whole">
         <div style="display: flex; align-items: center;">
           <h1 style="flex-grow: 1;"><%= @main_heading %></h1>
-          <% StateFileBaseIntake::STATE_CODE_AND_NAMES.each do |state_code, state_name| %>
+          <% StateFile::StateInformationService.state_code_to_name_map.each do |state_code, state_name| %>
             <%= link_to url_for(us_state: state_code), style: "margin-left: 1rem;" do %>
               <%= state_name %>
             <% end %>
@@ -56,14 +56,16 @@
       function resizeIFrameToFitContent( iFrame ) {
           iFrame.height = iFrame.contentWindow.document.body.scrollHeight + 20;
       }
-      document.querySelectorAll('iframe').forEach((iframe) => {
-          if (iframe.contentDocument.readyState === 'complete') {
-              resizeIFrameToFitContent(iframe);
-          } else {
-              iframe.onload = function () {
+      window.addEventListener("load", () => {
+          document.querySelectorAll('iframe').forEach((iframe) => {
+              if (iframe.contentDocument.readyState === 'complete') {
                   resizeIFrameToFitContent(iframe);
+              } else {
+                  iframe.onload = function () {
+                      resizeIFrameToFitContent(iframe);
+                  }
               }
-          }
+          });
       });
   </script>
 <% end %>

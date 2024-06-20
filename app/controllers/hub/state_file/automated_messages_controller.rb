@@ -8,7 +8,7 @@ module Hub::StateFile
       Rails.application.eager_load!
       @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       @locales = [:en, :es]
-      @us_state = StateFileBaseIntake::STATE_CODES.include?(params[:us_state]) ? params[:us_state] : "az"
+      @us_state = StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : "az"
       get_intake
     end
 
