@@ -9,16 +9,21 @@ module Hub::StateFile
       @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       @locales = [:en, :es]
       @intake = GlobalID::Locator.locate params[:intake_gid]
-
+      @us_state = StateFileBaseIntake::STATE_CODES.include?(params[:us_state]) ? params[:us_state] : "az"
     end
 
     private
 
-    def message_params
-      intake = @intake || StateFileAzIntake.new(
+    def intake
+      return @intake if @intake.present?
+      state_class = "StateFile#{@us_state.titleize}Intake".constantize
+      @intake = state_class.new(
         locale: "en",
         primary_first_name: "Cornelius"
       )
+    end
+
+    def message_params
       state_code = intake.state_code
       locale = intake.locale || "en"
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"

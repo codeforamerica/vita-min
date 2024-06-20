@@ -5,7 +5,14 @@
   <div class="slab">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h1><%= @main_heading %></h1>
+        <div style="display: flex; align-items: center;">
+          <h1 style="flex-grow: 1;"><%= @main_heading %></h1>
+          <% StateFileBaseIntake::STATE_CODE_AND_NAMES.each do |state_code, state_name| %>
+            <%= link_to url_for(us_state: state_code), style: "margin-left: 1rem;" do %>
+              <%= state_name %>
+            <% end %>
+          <% end %>
+        </div>
 
         <% @messages.each do |message_class| %>
           <div class="client-messages-container client-messages__email with-padding-med" style="background: #F7F7F7;">
