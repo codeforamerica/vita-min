@@ -205,7 +205,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         it "throws an error" do
           expect {
             post :update, params: params
-          }.to raise_error
+          }.to raise_error(NoMethodError)
         end
       end
 
