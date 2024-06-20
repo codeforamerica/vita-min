@@ -1,15 +1,9 @@
 module StateFile
   module Questions
     class EligibilityOffboardingController < QuestionsController
+      include OtherOptionsLinksConcern
       before_action :set_prev_path, only: [:edit]
       helper_method :ineligible_reason
-      include OtherOptionsLinksConcern
-
-      def edit
-        @learn_more_link = faq_state_filing_options_link
-        @vita_link = vita_link
-        super
-      end
 
       def ineligible_reason
         key = current_intake.disqualifying_eligibility_answer

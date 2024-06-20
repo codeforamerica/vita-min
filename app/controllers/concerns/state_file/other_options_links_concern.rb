@@ -4,6 +4,15 @@ module StateFile
     # VITA Google Form on the offboarding pages or the other state filing options on the FAQ
     extend ActiveSupport::Concern
 
+    included do
+      before_action :load_links, only: :edit
+    end
+
+    def load_links
+      @vita_link = vita_link
+      @faq_other_options_link = faq_state_filing_options_link
+    end
+
     def vita_link
       case current_state_code
       when 'ny'

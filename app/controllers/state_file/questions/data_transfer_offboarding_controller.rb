@@ -1,14 +1,8 @@
 module StateFile
   module Questions
     class DataTransferOffboardingController < StateFile::Questions::QuestionsController
-      helper_method :ineligible_reason
       include OtherOptionsLinksConcern
-
-      def edit
-        super
-        @learn_more_link = faq_state_filing_options_link
-        @vita_link = vita_link
-      end
+      helper_method :ineligible_reason
 
       def ineligible_reason
         key = current_intake.disqualifying_df_data_reason
