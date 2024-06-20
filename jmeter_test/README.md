@@ -26,8 +26,12 @@ point. (dev or staging).
 
 ## Running in AWS
 
-Originally I considered running in Lambda, but I actually think that Fargate / ECS is easier,
-and use SLS for deployment (It will be simpler than TFM and I am more familiar with it.)
+This will create a docker image that can be deployed to Fargate / ECS using serverless.
+
+ * Download docker from https://docker.com
+ * From `jmeter_tests/` Create an image with `docker build -t jmeter_test .`
+ * Make sure your local AWS settings are in place.
+ * Deploy with `sls deploy`
 
 ### References
 
