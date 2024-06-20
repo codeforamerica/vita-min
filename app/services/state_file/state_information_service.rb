@@ -53,30 +53,30 @@ module StateFile
         intake_class: StateFileAzIntake,
         state_name: "Arizona",
         refund_url: "https://aztaxes.gov/home/checkrefund",
-        tax_payment_url: 'AZTaxes.gov',
-        download_form_name: 'Form AZ-140V',
+        tax_payment_url: "AZTaxes.gov",
+        download_form_name: "Form AZ-140V",
         mail_voucher_address: "Arizona Department of Revenue<br/>"\
           "PO Box 29085<br/>"\
           "Phoenix, AZ 85038-9085".html_safe,
-        pay_mail_online_link: 'https://azdor.gov/making-payments-late-payments-and-filing-extensions',
-        vita_link: 'https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form',
-        voucher_path: '/pdfs/AZ-140V.pdf',
-        survey_link: 'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey',
+        pay_mail_online_link: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
+        vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
+        voucher_path: "/pdfs/AZ-140V.pdf",
+        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
       },
       ny: {
         intake_class: StateFileNyIntake,
         state_name: "New York",
         refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
-        tax_payment_url: 'Tax.NY.gov',
-        download_form_name: 'Form IT-201-V',
+        tax_payment_url: "Tax.NY.gov",
+        download_form_name: "Form IT-201-V",
         mail_voucher_address: "NYS Personal Income Tax<br/>"\
           "Processing Center<br/>"\
           "Box 4124<br/>"\
           "Binghamton, NY 13902-4124".html_safe,
-        pay_mail_online_link: 'https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm',
-        vita_link: 'https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form',
-        voucher_path: '/pdfs/it201v_1223.pdf',
-        survey_link: 'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu',
+        pay_mail_online_link: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
+        vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
+        voucher_path: "/pdfs/it201v_1223.pdf",
+        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
       }
     }
   end

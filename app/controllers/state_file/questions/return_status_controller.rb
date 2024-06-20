@@ -14,7 +14,7 @@ module StateFile
         @download_form_name = StateFile::StateInformationService.download_form_name(current_state_code)
         @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
         @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
-        @survey_link = StateFile::StateInformationService.survey_link(current_state_code) # TODO: test? (lines 12-17)
+        @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
       end
 
       def prev_path
