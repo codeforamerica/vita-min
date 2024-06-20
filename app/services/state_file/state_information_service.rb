@@ -16,9 +16,7 @@ module StateFile
         define_method(attribute) do |state_code|
           raise StandardError, "No state code '#{state_code}'" if !active_state_codes.include?(state_code)
 
-          value = STATES_INFO[state_code.to_sym][attribute]
-          raise StandardError, "State '#{state_code}' does not have '#{attribute}'" if !value
-          value
+          STATES_INFO[state_code.to_sym][attribute]
         end
       end
 
