@@ -15,7 +15,7 @@ namespace :survey_notifications do
           intake: submission.data_source,
           submission: submission,
           message: StateFile::AutomatedMessage::SurveyNotification,
-          body_args: { survey_link: StateFile::StateInformationService.survey_link(submission.data_source.state_code) } # TODO: test?
+          body_args: { survey_link: StateFile::StateInformationService.survey_link(submission.data_source.state_code) }
         ).send_message
       end
     end
