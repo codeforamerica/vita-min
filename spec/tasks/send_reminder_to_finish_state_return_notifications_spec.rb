@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 describe 'reminder_to_finish:state_return_notifications' do
-  before(:context) do
-    Rails.application.load_tasks
+  before(:all) do
+    Rake.application.rake_require "tasks/send_reminder_to_finish_state_return_notifications"
   end
 
   let!(:az_intake) { create :state_file_az_intake, email_address: "test@example.com", email_address_verified_at: 1.minute.ago }
@@ -15,7 +15,7 @@ describe 'reminder_to_finish:state_return_notifications' do
            federal_submission_id: "1234567890123456test"
   }
 
-  it 'runs without error for all state-filing intakes without submissions' do
+  it 'runs without error for all state-filing intakes with direct file data and without submission ids' do
     messaging_service = spy('StateFile::MessagingService')
     allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
 

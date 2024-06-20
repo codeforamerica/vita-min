@@ -55,6 +55,10 @@ RSpec.configure do |config|
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
   config.filter_run_when_matching :focus
 
+  config.before(:each) do
+    Rack::Attack.enabled = false
+  end
+
 =begin
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:

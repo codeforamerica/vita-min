@@ -431,6 +431,7 @@ class ApplicationController < ActionController::Base
   helper_method :before_withdrawal_date_deadline?
 
   def post_deadline_withdrawal_date
+    # after the tax deadline we automatically set the bank withdrawal date to be the current day
     if params[:us_state] == 'ny'
       app_time.in_time_zone('America/New_York')
     else

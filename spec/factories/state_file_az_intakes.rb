@@ -148,7 +148,7 @@ FactoryBot.define do
 
     factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { File.read(Rails.root.join('spec/fixtures/files/fed_return_johnny_mfj_8_deps_az.xml')) }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database

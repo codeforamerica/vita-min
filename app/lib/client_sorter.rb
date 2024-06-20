@@ -96,7 +96,11 @@ class ClientSorter
     end
 
     if @filters[:vita_partners].present?
-      ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
+      # For backwards compatibility for users in the middle of a search while this is deployed,
+      # we support both hash and number (In future only number will be needed)
+      ids = JSON.parse(@filters[:vita_partners]).map do |vita_partner|
+        vita_partner.instance_of?(Hash) ? vita_partner["id"] : vita_partner
+      end
       clients = clients.where(vita_partner_id: ids)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?

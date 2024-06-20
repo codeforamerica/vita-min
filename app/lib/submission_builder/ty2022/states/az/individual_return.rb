@@ -199,7 +199,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            File.join(Rails.root, "vendor", "us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd")
           end
 
           def attached_documents

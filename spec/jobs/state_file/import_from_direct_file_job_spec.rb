@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
-    let(:xml_result) do
-      File.read(Rails.root.join("spec/fixtures/files/fed_return_five_dependents_ny.xml"))
-    end
+    let(:xml_result) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
     let(:json_result) do
       {
         "xml" => xml_result,

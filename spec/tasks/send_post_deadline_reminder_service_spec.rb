@@ -2,8 +2,14 @@
 require 'rails_helper'
 
 describe 'state_file:post_deadline_reminder' do
-  before(:context) do
-    Rails.application.load_tasks
+  before(:all) do
+    Rake.application.rake_require "tasks/state_file"
+  end
+
+  around do |example|
+    Timecop.freeze(DateTime.parse("2-12-2024")) do
+      example.run
+    end
   end
 
   context 'Sends the notification to all state-filing' do

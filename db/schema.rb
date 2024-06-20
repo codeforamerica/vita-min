@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_164754) do
-  create_schema "analytics"
-
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_220721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1607,6 +1605,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_164754) do
     t.integer "excise_credit"
     t.integer "family_income_tax_credit"
     t.integer "fed_eitc_amount"
+    t.integer "fed_refund_amt"
     t.integer "filing_status"
     t.integer "household_fed_agi"
     t.datetime "initiate_data_transfer_first_visit_at"
@@ -1621,6 +1620,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_164754) do
     t.string "record_type", null: false
     t.integer "refund_or_owed_amount"
     t.datetime "updated_at", null: false
+    t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
   end
 

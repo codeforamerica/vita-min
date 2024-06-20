@@ -40,9 +40,9 @@ RSpec.feature "Visit home page" do
     let(:current_time) { nil }
 
     around do |example|
-      Timecop.freeze(current_time)
-      example.run
-      Timecop.return
+      Timecop.freeze(current_time) do
+        example.run
+      end
     end
 
     before do

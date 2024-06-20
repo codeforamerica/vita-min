@@ -387,9 +387,7 @@ describe StateFileNyIntake do
 
     let(:df_w2) do
       DirectFileData::DfW2.new(
-        Nokogiri::XML(
-          File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml"))
-        ).at("IRSW2")
+        Nokogiri::XML(StateFile::XmlReturnSampleService.new.read('ny_batman')).at("IRSW2")
       )
     end
 
@@ -597,6 +595,21 @@ describe StateFileNyIntake do
       state_file_1099.payer_tin = "123456789"
       intake.validate_state_specific_1099_g_requirements(state_file_1099)
       expect(state_file_1099.errors[:payer_tin]).to be_present
+    end
+  end
+
+  describe "state_code" do
+    context ".state_code" do
+      it "finds the right state code from the state information service" do
+        expect(described_class.state_code).to eq "ny"
+      end
+    end
+
+    context "#state_code" do
+      it "delegates to the instance method from the class method" do
+        intake = create(:state_file_ny_intake)
+        expect(intake.state_code).to eq "ny"
+      end
     end
   end
 end

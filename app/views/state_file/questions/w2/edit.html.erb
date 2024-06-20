@@ -8,7 +8,7 @@
     <div class="blue-group">
       <div class="form-question spacing-below-25">
         <div class="text--bold spacing-below-15"><%=t("general.state") %></div>
-        <div><%=current_intake.state_name %></div>
+        <div><%= current_state_name %></div>
       </div>
       <div class="form-question spacing-below-25">
         <%= f.cfa_input_field(:employer_state_id_num, t(".box15_html"), classes: ["form-width--long"]) %>

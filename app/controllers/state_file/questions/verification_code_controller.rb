@@ -71,7 +71,7 @@ module StateFile
         redirect_to IntakeLoginsController.to_path_helper(
           action: :edit,
           id: hashed_verification_code,
-          us_state: params[:us_state]
+          us_state: current_state_code
         )
       end
     end
