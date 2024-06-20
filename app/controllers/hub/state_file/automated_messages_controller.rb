@@ -8,15 +8,20 @@ module Hub::StateFile
       Rails.application.eager_load!
       @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       @locales = [:en, :es]
-      @intake = GlobalID::Locator.locate params[:intake_gid]
       @us_state = StateFileBaseIntake::STATE_CODES.include?(params[:us_state]) ? params[:us_state] : "az"
+      get_intake
     end
 
     private
 
-    def intake
+    def get_intake
       return @intake if @intake.present?
       state_class = "StateFile#{@us_state.titleize}Intake".constantize
+      if params[:intake_id].present?
+        @intake = state_class.find_by_id(params[:intake_id])
+        return @intake if @intake.present?
+        flash[:alert] = "Unknown Intake"
+      end
       @intake = state_class.new(
         locale: "en",
         primary_first_name: "Cornelius"
@@ -24,6 +29,7 @@ module Hub::StateFile
     end
 
     def message_params
+      intake = get_intake
       state_code = intake.state_code
       locale = intake.locale || "en"
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"

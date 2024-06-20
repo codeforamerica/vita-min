@@ -12,6 +12,10 @@
               <%= state_name %>
             <% end %>
           <% end %>
+          <%= form_tag "", method: :get do %>
+            <%= hidden_field_tag(:us_state, @intake.state_code) %>
+            <%= text_field_tag(:intake_id, params[:intake_id], placeholder: "Intake Id", style: "margin-left: 1rem;") %>
+          <% end %>
         </div>
 
         <% @messages.each do |message_class| %>
