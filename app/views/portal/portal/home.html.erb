@@ -14,8 +14,9 @@
 
   <% if @tax_returns.present? %>
     <% @tax_returns.each_with_index do |tax_return, index| %>
-      <%= render "tax_return_card", tax_return: tax_return %>
-
+      <div class="spacing-below-25">
+        <%= render "tax_return_card", tax_return: tax_return %>
+      </div>
     <% end %>
   <% end %>
 <% end %>
