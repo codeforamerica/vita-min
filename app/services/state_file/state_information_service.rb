@@ -46,7 +46,7 @@ module StateFile
 
     private
 
-    STATES_INFO = {
+    STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
         state_name: "Arizona",
@@ -76,6 +76,6 @@ module StateFile
         voucher_path: "/pdfs/it201v_1223.pdf",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
       }
-    }
+    })
   end
 end
