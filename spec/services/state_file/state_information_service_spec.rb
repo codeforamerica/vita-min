@@ -35,9 +35,9 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".refund_url" do
+  describe ".tax_refund_url" do
     it "returns the refund url" do
-      expect(described_class.refund_url("az")).to eq 'https://aztaxes.gov/home/checkrefund'
+      expect(described_class.tax_refund_url("az")).to eq 'https://aztaxes.gov/home/checkrefund'
     end
   end
 
@@ -47,9 +47,9 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".download_form_name" do
+  describe ".primary_tax_form_name" do
     it "returns the name of the form to download" do
-      expect(described_class.download_form_name("az")).to eq 'Form AZ-140V'
+      expect(described_class.primary_tax_form_name("az")).to eq 'Form AZ-140V'
     end
   end
 
@@ -67,9 +67,9 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".pay_mail_online_link" do
+  describe ".tax_payment_info_url" do
     it "returns the link" do
-      expect(described_class.pay_mail_online_link("az")).to eq 'https://azdor.gov/making-payments-late-payments-and-filing-extensions'
+      expect(described_class.tax_payment_info_url("az")).to eq 'https://azdor.gov/making-payments-late-payments-and-filing-extensions'
     end
   end
 

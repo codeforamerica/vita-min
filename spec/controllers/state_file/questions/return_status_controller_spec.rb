@@ -9,9 +9,9 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         create(:efile_submission, :notified_of_rejection, :for_state, data_source: az_intake)
         get :edit, params: { us_state: "az" }
 
-        expect(assigns(:refund_url)).to eq "https://aztaxes.gov/home/checkrefund"
+        expect(assigns(:tax_refund_url)).to eq "https://aztaxes.gov/home/checkrefund"
         expect(assigns(:tax_payment_url)).to eq "AZTaxes.gov"
-        expect(assigns(:download_form_name)).to eq "Form AZ-140V"
+        expect(assigns(:primary_tax_form_name)).to eq "Form AZ-140V"
         expect(assigns(:mail_voucher_address)).to eq "Arizona Department of Revenue<br/>"\
           "PO Box 29085<br/>"\
           "Phoenix, AZ 85038-9085"

@@ -12,8 +12,8 @@
           collection: [
             { value: :direct_deposit, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
             { value: :mail, label: t(".pay_mail_online_html",
-                                               pay_mail_online_link: StateFile::StateInformationService.pay_mail_online_link(current_state_code),
-                                               pay_mail_online_text: StateFile::StateInformationService.tax_payment_url(current_state_code),
+                                               tax_payment_info_url: StateFile::StateInformationService.tax_payment_info_url(current_state_code),
+                                               tax_payment_info_text: StateFile::StateInformationService.tax_payment_url(current_state_code),
                                                ) },
           ]
         ) %>

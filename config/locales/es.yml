@@ -2564,7 +2564,7 @@ es:
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
-          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Verifica el estado</a> de tu reembolso.
+          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Verifica el estado</a> de tu reembolso.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
           download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de 2023 hasta el 31 de diciembre de 2024
           download_voucher: Descargar formulario de comprobante de pago
@@ -2656,7 +2656,7 @@ es:
         edit:
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
-          pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
+          pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
       terms_and_conditions:
         edit:
