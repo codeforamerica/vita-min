@@ -215,7 +215,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    if StateFile::StateInformationService.state_intake_class_names.include?(data_source_type)
+    if is_for_state_filing?
       return SubmissionBuilder::StateManifest
     end
 
