@@ -23,7 +23,7 @@ module PdfFiller
       if dependent_offset.nil?
         dependent_offset = builder::DEPENDENT_OVERFLOW_THRESHOLD
       end
-      @xml_document = builder.document
+      @xml_document = builder.new(submission).document
       @dependent_offset = dependent_offset
     end
 
