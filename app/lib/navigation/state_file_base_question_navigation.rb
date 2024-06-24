@@ -18,9 +18,7 @@ module Navigation
       end
 
       def number_of_steps
-        sections.count do |section|
-          section.increment_step?
-        end
+        sections.count(&:increment_step?)
       end
 
       def get_progress(controller)
