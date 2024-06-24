@@ -47,10 +47,6 @@ module StateFile
         STATES_INFO[state_code][:intake_class]
       end
 
-      def intake_class_names
-        intake_classes.map(&:name)
-      end
-
       def submission_builder_from_intake_class(klass)
         state_info = STATES_INFO.values.find { |s| s[:intake_class] == klass }
         state_info[:submission_builder] if state_info.present?

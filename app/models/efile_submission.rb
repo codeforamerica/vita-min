@@ -88,7 +88,7 @@ class EfileSubmission < ApplicationRecord
       )
       WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
       AND (
-        efile_submissions.data_source_type IN ('#{StateFile::StateInformationService.intake_class_names.join("','")}')
+        efile_submissions.data_source_type IN ('#{StateFile::StateInformationService.state_intake_class_names.join("','")}')
       )
       GROUP BY to_state
     SQL
