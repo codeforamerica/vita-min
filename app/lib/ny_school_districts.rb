@@ -26,7 +26,7 @@ class NySchoolDistricts
       unless @districts_by_id.present?
         @districts_by_id = {}
         @districts_by_county_label = {}
-        csv_file_path = Rails.root.join("app/lib/efile/ny/school_districts.csv")
+        csv_file_path = Rails.root.join("app/lib/state_file/ny/efile/school_districts.csv")
         CSV.foreach(csv_file_path, headers: true) do |row|
           district = SchoolDistrict.new(row)
           @districts_by_id[district.id] = district
