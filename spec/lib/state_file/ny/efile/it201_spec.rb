@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Efile::Ny::It201 do
+describe StateFile::Ny::Efile::It201 do
   let(:intake) { create(:state_file_ny_intake) }
   let!(:dependent) { intake.dependents.create(dob: 7.years.ago) }
   let(:instance) do

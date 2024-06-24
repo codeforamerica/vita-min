@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Efile::Ny::NycEicRateTable do
+describe StateFile::Ny::Efile::NycEicRateTable do
   describe ".find_row" do
     it "returns the correct row" do
       result = described_class.find_row(2_333)

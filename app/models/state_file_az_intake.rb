@@ -99,7 +99,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
 
   def tax_calculator(include_source: false)
-    Efile::Az::Az140.new(
+    StateFile::Az::Efile::Az140.new(
       year: MultiTenantService.statefile.current_tax_year,
       intake: self,
       include_source: include_source

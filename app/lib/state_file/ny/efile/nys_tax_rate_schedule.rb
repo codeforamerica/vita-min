@@ -1,5 +1,6 @@
-module Efile
+module StateFile
   module Ny
+    module Efile
     class NysTaxRateSchedule
       # Implements the NYS Tax Rate Schedule, as documented in the IT-201 instructions
       # https://www.tax.ny.gov/forms/html-instructions/2023/it/it201i-2023.htm#nys-tax-rate-schedule

@@ -1,5 +1,4 @@
-module Efile
-  module Ny
+module StateFile
     class Constants
       def self.import(filename)
         # To compute this JSON, copy the JS function (call it f) that generates it into a Chrome console, then run

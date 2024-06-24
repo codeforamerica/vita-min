@@ -87,8 +87,8 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     context 'when claiming the federal EIC, but the E_EITC_CR_AMT OR E_NYC_EITC_CR_AMT are 0 or more' do
       let(:intake) { create(:state_file_zeus_intake) }
       before do
-        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 10 # E_EITC_CR_AMT
-        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0 # E_NYC_EITC_CR_AMT
+        allow_any_instance_of(StateFile::Ny::Efile::It215).to receive(:calculate_line_16).and_return 10 # E_EITC_CR_AMT
+        allow_any_instance_of(StateFile::Ny::Efile::It215).to receive(:calculate_line_27).and_return 0 # E_NYC_EITC_CR_AMT
       end
 
       it 'does include the IT215 document and EIC dependents' do
@@ -102,8 +102,8 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
     context 'when claiming the federal EIC, but both E_EITC_CR_AMT AND E_NYC_EITC_CR_AMT are 0 or less' do
       let(:intake) { create(:state_file_zeus_intake) }
       before do
-        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 0 # E_EITC_CR_AMT
-        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0 # E_NYC_EITC_CR_AMT
+        allow_any_instance_of(StateFile::Ny::Efile::It215).to receive(:calculate_line_16).and_return 0 # E_EITC_CR_AMT
+        allow_any_instance_of(StateFile::Ny::Efile::It215).to receive(:calculate_line_27).and_return 0 # E_NYC_EITC_CR_AMT
       end
 
       it 'does NOT include the IT215 document and EIC dependents' do
@@ -118,12 +118,12 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:intake) { create(:state_file_ny_intake) }
 
       before do
-        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_16).and_return 0
-        allow_any_instance_of(Efile::Ny::It215).to receive(:calculate_line_27).and_return 0
-        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_63).and_return 0
-        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_65).and_return 0
-        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69).and_return 0
-        allow_any_instance_of(Efile::Ny::It201).to receive(:calculate_line_69a).and_return 0
+        allow_any_instance_of(StateFile::Ny::Efile::It215).to receive(:calculate_line_16).and_return 0
+        allow_any_instance_of(StateFile::Ny::Efile::It215).to receive(:calculate_line_27).and_return 0
+        allow_any_instance_of(StateFile::Ny::Efile::It201).to receive(:calculate_line_63).and_return 0
+        allow_any_instance_of(StateFile::Ny::Efile::It201).to receive(:calculate_line_65).and_return 0
+        allow_any_instance_of(StateFile::Ny::Efile::It201).to receive(:calculate_line_69).and_return 0
+        allow_any_instance_of(StateFile::Ny::Efile::It201).to receive(:calculate_line_69a).and_return 0
       end
 
       it "omits the tag from the xml" do
