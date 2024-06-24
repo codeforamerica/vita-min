@@ -79,10 +79,12 @@ class Ability
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
     cannot :index, EfileSubmission unless user.admin? || user.client_success?
-    cannot :manage, StateFileAzIntake
-    cannot :manage, StateFileNyIntake
+    StateFile::StateInformationService.intake_classes.each do |intake_class|
+      cannot :manage, intake_class
+    end
     cannot :manage, StateFile1099G
     cannot :manage, StateFileDependent
+    cannot :manage, StateFileW2
     cannot :manage, StateId
 
     if user.role_type == CoalitionLeadRole::TYPE
