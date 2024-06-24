@@ -222,10 +222,8 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    if data_source&.class == StateFileNyIntake
-      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-    elsif data_source&.class == StateFileAzIntake
-      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
+    if is_for_state_filing?
+      return SubmissionBuilder::StateFile.from_state_code(data_source.state_code)
     end
 
     case tax_year
