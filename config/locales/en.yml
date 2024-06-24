@@ -2585,7 +2585,7 @@ en:
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
-          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
+          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check on the status</a> of your refund.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_title: Download a copy of your 2023 %{state_name} state tax return until December 31, 2024
           download_voucher: Download payment voucher form
@@ -2677,7 +2677,7 @@ en:
         edit:
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
-          pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
+          pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes. How would you like to pay?
       terms_and_conditions:
         edit:

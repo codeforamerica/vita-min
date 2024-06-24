@@ -11,7 +11,7 @@
 <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
   <% refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount %>
   <% if refund_or_owed_amount.positive? %>
-    <p><%= t('.check_your_refund_html', refund_url: @refund_url) %></p>
+    <p><%= t('.check_your_refund_html', tax_refund_url: @tax_refund_url) %></p>
   <% elsif refund_or_owed_amount.negative? %>
     <p>
       <%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %>
@@ -32,7 +32,7 @@
 
     <p>
       <%= t('.include_payment') %>
-      (<%= @download_form_name %>)
+      (<%= @primary_tax_form_name %>)
     </p>
 
     <div>

@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class ReturnStatusController < AuthenticatedQuestionsController
-      include StateFile::SurveyLinksConcern
       before_action :redirect_if_from_efile
       before_action :redirect_if_no_submission
       skip_before_action :redirect_if_in_progress_intakes_ended
@@ -10,12 +9,12 @@ module StateFile
         @submission_to_show = submission_to_show
         @error = submission_error
         @return_status = return_status
-        @refund_url = refund_url
-        @tax_payment_url = tax_payment_url
-        @download_form_name = download_form_name
-        @mail_voucher_address = mail_voucher_address
-        @voucher_path = voucher_path
-        @survey_link = survey_link(current_intake)
+        @tax_refund_url = StateFile::StateInformationService.tax_refund_url(current_state_code)
+        @tax_payment_url = StateFile::StateInformationService.tax_payment_url(current_state_code)
+        @primary_tax_form_name = StateFile::StateInformationService.primary_tax_form_name(current_state_code)
+        @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
+        @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
+        @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
       end
 
       def prev_path
@@ -52,66 +51,6 @@ module StateFile
           'rejected'
         else
           'pending'
-        end
-      end
-
-      def refund_url
-        case current_state_code
-        when 'ny'
-          'https://www.tax.ny.gov/pit/file/refund.htm'
-        when 'az'
-          'https://aztaxes.gov/home/checkrefund'
-        else
-          ''
-        end
-      end
-
-      def tax_payment_url
-        case current_state_code
-        when 'ny'
-          'Tax.NY.gov'
-        when 'az'
-          'AZTaxes.gov'
-        else
-          ''
-        end
-      end
-
-      def download_form_name
-        case current_state_code
-        when 'ny'
-          'Form IT-201-V'
-        when 'az'
-          'Form AZ-140V'
-        else
-          ''
-        end
-      end
-
-      def mail_voucher_address
-        case current_state_code
-        when 'ny'
-          "NYS Personal Income Tax<br/>"\
-          "Processing Center<br/>"\
-          "Box 4124<br/>"\
-          "Binghamton, NY 13902-4124".html_safe
-        when 'az'
-          "Arizona Department of Revenue<br/>"\
-          "PO Box 29085<br/>"\
-          "Phoenix, AZ 85038-9085".html_safe
-        else
-          ''
-        end
-      end
-
-      def voucher_path
-        case current_state_code
-        when 'ny'
-          '/pdfs/it201v_1223.pdf'
-        when 'az'
-          '/pdfs/AZ-140V.pdf'
-        else
-          ''
         end
       end
 
