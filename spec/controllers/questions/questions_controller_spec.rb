@@ -47,12 +47,12 @@ RSpec.describe Questions::QuestionsController do
 
   describe "#prev_path" do
     before do
-      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
+      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:current_controller).and_return Gyr::Questions::AdoptedChildController.new
       allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return nil
       stub_const("Navigation::GyrQuestionNavigation::FLOW",
                  [
                      Questions::HadDependentsController,
-                     Questions::AdoptedChildController,
+                     Gyr::Questions::AdoptedChildController,
                      Questions::FinalInfoController,
                  ]
       )
@@ -67,11 +67,11 @@ RSpec.describe Questions::QuestionsController do
     let!(:current_intake) { double(Intake) }
 
     before do
-      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:current_controller).and_return Questions::AdoptedChildController.new
-      allow_any_instance_of(Questions::AdoptedChildController).to receive(:current_intake).and_return current_intake
+      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:current_controller).and_return Gyr::Questions::AdoptedChildController.new
+      allow_any_instance_of(Gyr::Questions::AdoptedChildController).to receive(:current_intake).and_return current_intake
       stub_const("Navigation::GyrQuestionNavigation::FLOW",
                  [
-                     Questions::AdoptedChildController,
+                   Gyr::Questions::AdoptedChildController,
                      Questions::FinalInfoController,
                  ]
       )

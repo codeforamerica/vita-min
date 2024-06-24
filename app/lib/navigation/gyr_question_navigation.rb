@@ -80,7 +80,7 @@ module Navigation
 
       # Dependent related questions
       Questions::DependentCareController,
-      Questions::AdoptedChildController,
+      Gyr::Questions::AdoptedChildController,
 
       # Student questions
       Questions::StudentController,
