@@ -14,11 +14,13 @@ class Ability
       # All admins who are also state file
       can :manage, :all
       unless user.state_file_admin?
+        StateFile::StateInformationService.intake_classes.each do |intake_class|
+          cannot :manage, intake_class
+        end
         # Enumerate classes here...
-        cannot :manage, StateFileAzIntake
-        cannot :manage, StateFileNyIntake
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
+        cannot :manage, StateFileW2
         cannot :manage, StateId
         cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
         cannot :manage, EfileError do |error|
