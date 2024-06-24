@@ -14,6 +14,7 @@ class Ability
       # All admins who are also state file
       can :manage, :all
       unless user.state_file_admin?
+        # Enumerate classes here...
         cannot :manage, StateFileAzIntake
         cannot :manage, StateFileNyIntake
         cannot :manage, StateFile1099G

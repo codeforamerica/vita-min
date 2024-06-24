@@ -23,6 +23,10 @@ module StateFile
         end
         state_code.to_s
       end
+
+      def intake_classes
+        STATES_INFO.map { |_, state_info| state_info[:intake_class] }
+      end
     end
 
     private
