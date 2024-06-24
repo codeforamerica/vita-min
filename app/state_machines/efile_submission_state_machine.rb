@@ -77,11 +77,11 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :bundling) do |submission|
     # Only sends if efile preparing message has never been sent bc
-    # AutomatedMessage::EfilePreparing has send_only_once set to true
+    # StateFile::AutomatedMessage::EfilePreparing has send_only_once set to true
     if submission.is_for_federal_filing?
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: submission.client,
-        message: AutomatedMessage::EfilePreparing,
+        message: StateFile::AutomatedMessage::EfilePreparing,
       )
       submission.tax_return.transition_to!(:file_ready_to_file)
     end
@@ -128,7 +128,7 @@ class EfileSubmissionStateMachine
       if transition.efile_errors.any?(&:expose) && submission.is_for_federal_filing?
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
-          message: AutomatedMessage::EfileFailed,
+          message: StateFile::AutomatedMessage::EfileFailed,
         )
       end
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
@@ -164,7 +164,7 @@ class EfileSubmissionStateMachine
       tax_return = submission.tax_return
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: client,
-        message: AutomatedMessage::EfileAcceptance,
+        message: StateFile::AutomatedMessage::EfileAcceptance,
       )
       tax_return.transition_to(:file_accepted)
 

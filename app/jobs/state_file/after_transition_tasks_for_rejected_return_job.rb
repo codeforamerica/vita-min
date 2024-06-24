@@ -41,9 +41,9 @@ module StateFile
 
     def message_class_for_state(state)
       return if state == 'resubmitted'
-      return AutomatedMessage::EfileRejectedAndCancelled if state == 'cancelled'
+      return StateFile::AutomatedMessage::EfileRejectedAndCancelled if state == 'cancelled'
 
-      AutomatedMessage::EfileRejected
+      StateFile::AutomatedMessage::EfileRejected
     end
   end
 end

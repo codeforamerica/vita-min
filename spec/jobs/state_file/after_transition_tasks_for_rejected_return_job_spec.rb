@@ -18,7 +18,7 @@ describe StateFile::AfterTransitionTasksForRejectedReturnJob do
       expect(submission.tax_return.reload.current_state).to eq("file_rejected")
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
         client: submission.client.reload,
-        message: AutomatedMessage::EfileRejected,
+        message: StateFile::AutomatedMessage::EfileRejected,
         locale: submission.client.intake.locale
       )
     end
@@ -42,7 +42,7 @@ describe StateFile::AfterTransitionTasksForRejectedReturnJob do
         expect(submission.current_state).to eq("cancelled")
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).once.with(
           client: submission.client.reload,
-          message: AutomatedMessage::EfileRejectedAndCancelled,
+          message: StateFile::AutomatedMessage::EfileRejectedAndCancelled,
           locale: submission.client.intake.locale
         )
       end

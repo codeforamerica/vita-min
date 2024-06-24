@@ -92,7 +92,7 @@ describe EfileSubmissionStateMachine do
           submission.transition_to!(:preparing)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: submission.client.reload,
-            message: AutomatedMessage::EfilePreparing,
+            message: StateFile::AutomatedMessage::EfilePreparing,
           )
         end
       end
@@ -164,7 +164,7 @@ describe EfileSubmissionStateMachine do
         submission.transition_to!(:bundling)
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,
-          message: AutomatedMessage::EfilePreparing,
+          message: StateFile::AutomatedMessage::EfilePreparing,
         )
         expect(submission.tax_return.current_state).to eq("file_ready_to_file")
 
@@ -212,7 +212,7 @@ describe EfileSubmissionStateMachine do
           submission.transition_to!(:failed, error_code: efile_error.code)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: submission.client.reload,
-            message: AutomatedMessage::EfileFailed,
+            message: StateFile::AutomatedMessage::EfileFailed,
           )
         end
       end
@@ -372,7 +372,7 @@ describe EfileSubmissionStateMachine do
         submission.transition_to!(:accepted)
         expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
           client: submission.client.reload,
-          message: AutomatedMessage::EfileAcceptance,
+          message: StateFile::AutomatedMessage::EfileAcceptance,
         )
       end
 
