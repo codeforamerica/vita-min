@@ -5,7 +5,7 @@ module StateFile
 
     def self.run
       cutoff_time_ago = HOURS_AGO.hours.ago
-      intakes_to_notify = StateFile::StateInformationService.intake_classes.each do |class_object|
+      intakes_to_notify = StateFile::StateInformationService.intake_classes.map do |class_object|
 
         # First we get all intake ids by email address
         intake_ids_by_email = class_object.select(:id, :email_address).where.not(email_address: nil).each_with_object({}) do |intake, result|
