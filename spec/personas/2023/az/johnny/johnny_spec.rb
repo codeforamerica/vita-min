@@ -104,33 +104,6 @@ FactoryBot.define do
   end
 end
 
-def traverse_with_xpaths(base_node, ignore_list, xpath_root="", &block)
-  return if ignore_list.include?(base_node.name)
-  base_xpath = "#{xpath_root}/#{base_node.name}"
-  base_node.element_children.each do |child_node|
-    child_xpath = "#{base_xpath}/#{child_node.name}"
-    if child_node.children.count == 1 && !ignore_list.include?(child_node.name)
-      yield child_xpath, child_node
-    end
-    traverse_with_xpaths(child_node, ignore_list, base_xpath, &block)
-  end
-end
-
-def expect_xml_is_subset(subset_xml, superset_xml, ignore_list)
-  traverse_with_xpaths(subset_xml.root, ignore_list) do |xpath, node|
-    subset_xml_node_value = "#{xpath}:#{node.text}"
-    superset_xml_node_value = "#{xpath}:#{superset_xml.css(node.css_path).text}"
-    missing_xpath_error_message = "#{xpath} is not present in superset_xml" if superset_xml.at_xpath(xpath).nil?
-    expect(missing_xpath_error_message).to be_nil
-    expect(superset_xml_node_value).to eq subset_xml_node_value
-  end
-end
-
-def expect_xml_matches(xml1, xml2, ignore_list)
-  expect_xml_is_subset(xml1, xml2, ignore_list)
-  expect_xml_is_subset(xml2, xml1, ignore_list)
-end
-
 describe 'johnny' do
   let(:intake) { create :johnny }
   let(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
@@ -167,7 +140,8 @@ describe 'johnny' do
           approved_xml.remove_namespaces!
 
           ignore_list = ['IPAddress', 'IPTs', 'DeviceId', 'TotActiveTimePrepSubmissionTs', 'TotalPreparationSubmissionTs', 'ReturnTs']
-          expect_xml_matches(generated_xml, approved_xml, ignore_list)
+          expect(generated_xml).to match_xml(approved_xml, ignore_list)
+          # expect_xml_matches(generated_xml, approved_xml, ignore_list)
         end
       end
     end
