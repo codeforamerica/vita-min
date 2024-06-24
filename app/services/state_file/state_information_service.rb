@@ -24,6 +24,14 @@ module StateFile
         state_code.to_s
       end
 
+      def intake_class_from_state_code(state_code)
+        STATES_INFO[state_code][:intake_class]
+      end
+
+      def navigation_from_state_code(state_code)
+        STATES_INFO[state_code][:navigation]
+      end
+
       def intake_classes
         STATES_INFO.map { |_, state_info| state_info[:intake_class] }
       end
@@ -35,10 +43,12 @@ module StateFile
       az: {
         intake_class: StateFileAzIntake,
         name: "Arizona",
+        navigation: Navigation::StateFileAzQuestionNavigation
       },
       ny: {
         intake_class: StateFileNyIntake,
         name: "New York",
+        navigation: Navigation::StateFileNyQuestionNavigation
       }
     }
   end

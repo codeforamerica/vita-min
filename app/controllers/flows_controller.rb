@@ -111,21 +111,17 @@ class FlowsController < ApplicationController
           controller_list: Navigation::DiyNavigation::FLOW,
           form: nil
         )
-      # Can we enumerated codes here?
-      when :state_file_az
-        FlowParams.new(
-          controller: controller,
-          reference_object: controller.current_intake&.is_a?(StateFileAzIntake) ? controller.current_intake : nil,
-          controller_list: Navigation::StateFileAzQuestionNavigation::FLOW,
-          form: SampleStateFileIntakeGenerator.new('az').form
-        )
-      when :state_file_ny
-        FlowParams.new(
-          controller: controller,
-          reference_object: controller.current_intake&.is_a?(StateFileNyIntake) ? controller.current_intake : nil,
-          controller_list: Navigation::StateFileNyQuestionNavigation::FLOW,
-          form: SampleStateFileIntakeGenerator.new('ny').form
-        )
+      else
+        if type.to_s.starts_with?('state_file_')
+          state_code = type.to_s.split('_').last
+          intake_class = StateFile::StateInformationService.intake_class_from_state_code(state_code)
+          FlowParams.new(
+            controller: controller,
+            reference_object: controller.current_intake&.is_a?(intake_class) ? controller.current_intake : nil,
+            controller_list: StateFile::StateInformationService.navigation_from_state_code(state_code),
+            form: SampleStateFileIntakeGenerator.new(state_code).form
+          )
+        end
       end
     end
 
@@ -684,20 +680,14 @@ class FlowsController < ApplicationController
 
     def generate_state_file_intake(params)
       _type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
-      first_name = params[:flows_controller_sample_intake_form][:first_name]
-      last_name = params[:flows_controller_sample_intake_form][:last_name]
 
-      if @us_state == 'ny'
-        intake = StateFileNyIntake.create(self.class.ny_attributes(
-          first_name: first_name,
-          last_name: last_name
-        ))
-      elsif @us_state == 'az'
-        intake = StateFileAzIntake.create(self.class.az_attributes(
-          first_name: first_name,
-          last_name: last_name
-        ))
-      end
+      attributes = self.class.send("#{@us_state}_attributes".to_sym, {
+        first_name: params[:flows_controller_sample_intake_form][:first_name],
+        last_name: params[:flows_controller_sample_intake_form][:last_name]
+      })
+      intake_class = intake_class_from_state_code(@us_state)
+      intake = intake_class.create(attributes)
+
       generate_efile_device_info(intake)
 
       intake
