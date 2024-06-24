@@ -114,7 +114,7 @@ class FlowsController < ApplicationController
       else
         if type.to_s.starts_with?('state_file_')
           state_code = type.to_s.split('_').last
-          intake_class = StateFile::StateInformationService.intake_class_from_state_code(state_code)
+          intake_class = StateFile::StateInformationService.intake_class(state_code)
           FlowParams.new(
             controller: controller,
             reference_object: controller.current_intake&.is_a?(intake_class) ? controller.current_intake : nil,
@@ -684,7 +684,7 @@ class FlowsController < ApplicationController
         first_name: params[:flows_controller_sample_intake_form][:first_name],
         last_name: params[:flows_controller_sample_intake_form][:last_name]
       )
-      intake_class = StateFile::StateInformationService.intake_class_from_state_code(@us_state)
+      intake_class = StateFile::StateInformationService.intake_class(@us_state)
       intake = intake_class.create(attributes)
 
       generate_efile_device_info(intake)

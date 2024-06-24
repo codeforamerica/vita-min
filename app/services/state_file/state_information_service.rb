@@ -42,10 +42,6 @@ module StateFile
         end
         state_code.to_s
       end
-
-      def intake_class_from_state_code(state_code)
-        STATES_INFO[state_code][:intake_class]
-      end
     end
 
     private
