@@ -275,8 +275,7 @@ class StateFileBaseIntake < ApplicationRecord
 
   def self.opted_out_state_file_intakes(email)
     state_intakes = []
-    STATE_INTAKE_CLASS_NAMES.each do |state|
-      class_object = state.constantize
+    StateFile::StateInformationService.intake_classes.each do |class_object|
       state_intakes += class_object.where(email_address: email).where(unsubscribed_from_email: true)
     end
     state_intakes

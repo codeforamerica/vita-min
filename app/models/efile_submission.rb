@@ -44,7 +44,7 @@ class EfileSubmission < ApplicationRecord
   }
 
   scope :for_state_filing, lambda {
-    where(data_source_type: STATE_INTAKE_CLASS_NAMES)
+    where(data_source_type: StateFile::StateInformationService.intake_classes.map(&:name))
   }
 
   default_scope { order(id: :asc) }
@@ -101,7 +101,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def is_for_state_filing?
-    data_source_type.in?(STATE_INTAKE_CLASS_NAMES)
+    data_source_type.in?(StateFile::StateInformationService.intake_classes.map(&:name))
   end
 
   # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
@@ -215,7 +215,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    if STATE_INTAKE_CLASS_NAMES.include?(data_source_type)
+    if StateFile::StateInformationService.intake_classes.map(&:name).include?(data_source_type)
       return SubmissionBuilder::StateManifest
     end
 

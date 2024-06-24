@@ -7,8 +7,7 @@ module StateFile
       cutoff_time_ago = HOURS_AGO.hours.ago
       intakes_to_notify = []
 
-      ApplicationRecord::STATE_INTAKE_CLASS_NAMES.each do |base_class|
-        class_object = base_class.constantize
+      StateFile::StateInformationService.intake_classes.each do |class_object|
         intakes_to_notify += class_object.left_joins(:efile_submissions)
                                          .where(efile_submissions: { id: nil })
                                          .where.not(email_address: nil)
