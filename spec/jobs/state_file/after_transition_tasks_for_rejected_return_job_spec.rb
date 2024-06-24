@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe AfterTransitionTasksForRejectedReturnJob do
+describe StateFile::AfterTransitionTasksForRejectedReturnJob do
   describe '.perform' do
     let(:submission) { create(:efile_submission, :transmitted, :ctc) }
     let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: auto_wait, auto_cancel: auto_cancel, service_type: :ctc) }
@@ -13,7 +13,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
     end
 
     it "updates the tax return status and sends a message" do
-      AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+      StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
       expect(submission.tax_return.reload.current_state).to eq("file_rejected")
       expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
@@ -26,7 +26,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
     context "when the error is auto-wait" do
       let(:auto_wait) { true }
       it "updates the tax status and submission status" do
-        AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+        StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
         expect(submission.tax_return.reload.current_state).to eq("file_hold")
         expect(submission.current_state).to eq("waiting")
@@ -36,7 +36,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
     context "when the error is auto-cancel" do
       let(:auto_cancel) { true }
       it "updates the tax status and submission status and uses custom rejection message" do
-        AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+        StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
         expect(submission.tax_return.reload.current_state).to eq("file_not_filing")
         expect(submission.current_state).to eq("cancelled")
@@ -54,7 +54,7 @@ describe AfterTransitionTasksForRejectedReturnJob do
       end
 
       it "transitions to resubmitted exactly once" do
-        AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+        StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
         expect(EfileSubmission.count).to eq(2)
         expect(submission.current_state).to eq("resubmitted")

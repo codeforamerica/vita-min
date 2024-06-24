@@ -82,10 +82,10 @@ describe EfileSubmissionStateMachine do
       end
 
       context "without blocking fraud characteristics" do
-        it "enqueues a BuildSubmissionBundleJob" do
+        it "enqueues a StateFile::BuildSubmissionBundleJob" do
           expect {
             submission.transition_to!(:preparing)
-          }.to have_enqueued_job(BuildSubmissionBundleJob)
+          }.to have_enqueued_job(StateFile::BuildSubmissionBundleJob)
         end
 
         it "updates the tax return status" do
@@ -253,10 +253,10 @@ describe EfileSubmissionStateMachine do
       let(:submission) { create(:efile_submission, :transmitted) }
       let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
 
-      it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+      it "enqueues an StateFile::AfterTransitionTasksForRejectedReturnJob" do
         submission.transition_to!(:rejected, error_code: efile_error.code)
 
-        expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
+        expect(StateFile::AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
       end
 
       context "transition from failed" do
@@ -318,7 +318,7 @@ describe EfileSubmissionStateMachine do
       end
 
       context "currently in rejected state" do
-        it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+        it "enqueues an StateFile::AfterTransitionTasksForRejectedReturnJob" do
           submission.transition_to!(:notified_of_rejection)
           expect(StateFile::AfterTransitionMessagingService).to have_received(:new).with(submission)
         end
@@ -327,7 +327,7 @@ describe EfileSubmissionStateMachine do
       context "currently in waiting state" do
         let!(:submission) { create(:efile_submission, :waiting, :for_state) }
 
-        it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+        it "enqueues an StateFile::AfterTransitionTasksForRejectedReturnJob" do
           submission.transition_to!(:notified_of_rejection)
           expect(StateFile::AfterTransitionMessagingService).to have_received(:new).with(submission)
         end

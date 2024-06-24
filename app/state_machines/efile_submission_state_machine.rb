@@ -71,7 +71,7 @@ class EfileSubmissionStateMachine
     end
 
     if submission.is_for_federal_filing?
-      CreateSubmissionPdfJob.perform_later(submission.id)
+      StateFile::CreateSubmissionPdfJob.perform_later(submission.id)
     end
   end
 
@@ -86,11 +86,11 @@ class EfileSubmissionStateMachine
       submission.tax_return.transition_to!(:file_ready_to_file)
     end
 
-    BuildSubmissionBundleJob.perform_later(submission.id)
+    StateFile::BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
   after_transition(to: :queued) do |submission|
-    GyrEfiler::SendSubmissionJob.perform_later(submission)
+    StateFile::SendSubmissionJob.perform_later(submission)
   end
 
   after_transition(to: :fraud_hold) do |submission|
@@ -144,7 +144,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
-    AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
+    StateFile::AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
       StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
