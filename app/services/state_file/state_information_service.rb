@@ -16,7 +16,7 @@ module StateFile
         define_method(attribute) do |state_code|
           raise StandardError, "No state code '#{state_code}'" if !active_state_codes.include?(state_code)
 
-          STATES_INFO[state_code.to_sym][attribute]
+          STATES_INFO[state_code][attribute]
         end
       end
 
@@ -37,7 +37,7 @@ module StateFile
           raise StandardError, state_code
         end
 
-        STATES_INFO[state_code.to_sym][:name]
+        STATES_INFO[state_code][:state_name]
       end
 
       def state_code_to_name_map
@@ -52,11 +52,11 @@ module StateFile
       end
 
       def intake_class_from_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:intake_class]
+        STATES_INFO[state_code][:intake_class]
       end
 
       def navigation_from_state_code(state_code)
-        STATES_INFO[state_code.to_sym][:navigation]
+        STATES_INFO[state_code][:navigation]
       end
 
       def intake_classes
@@ -68,7 +68,6 @@ module StateFile
       end
 
       def submission_builder_from_intake_class(klass)
-        #zzz
         state_info = STATES_INFO.values.find { |s| s[:intake_class] == klass }
         state_info[:submission_builder] if state_info.present?
       end
@@ -108,6 +107,6 @@ module StateFile
         voucher_path: "/pdfs/it201v_1223.pdf",
         navigation: Navigation::StateFileNyQuestionNavigation,
       }
-    })
+    }).with_indifferent_access
   end
 end

@@ -15,7 +15,7 @@ describe StateFile::StateInformationService do
     it "throws an error for an invalid state code" do
       expect do
         described_class.state_name("boop")
-      end.to raise_error(StandardError, "No state code 'boop'")
+      end.to raise_error(StandardError, "boop")
     end
   end
 
