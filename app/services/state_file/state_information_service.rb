@@ -46,11 +46,6 @@ module StateFile
       def intake_class_from_state_code(state_code)
         STATES_INFO[state_code][:intake_class]
       end
-
-      def submission_builder_from_intake_class(klass)
-        state_info = STATES_INFO.values.find { |s| s[:intake_class] == klass }
-        state_info[:submission_builder] if state_info.present?
-      end
     end
 
     private
