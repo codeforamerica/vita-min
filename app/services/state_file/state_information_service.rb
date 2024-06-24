@@ -32,14 +32,6 @@ module StateFile
         state_intake_classes.map(&:to_s).freeze
       end
 
-      def state_name(state_code)
-        unless active_state_codes.include?(state_code)
-          raise StandardError, state_code
-        end
-
-        STATES_INFO[state_code][:state_name]
-      end
-
       def state_code_to_name_map
         active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
       end
