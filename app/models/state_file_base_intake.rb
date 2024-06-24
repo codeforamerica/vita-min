@@ -274,11 +274,9 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def self.opted_out_state_file_intakes(email)
-    state_intakes = []
-    StateFile::StateInformationService.intake_classes.each do |class_object|
-      state_intakes += class_object.where(email_address: email).where(unsubscribed_from_email: true)
-    end
-    state_intakes
+    StateFile::StateInformationService.state_intake_classes.map do |klass|
+      klass.where(email_address: email).where(unsubscribed_from_email: true)
+    end.inject([], :+)
   end
 
   def sanitize_bank_details

@@ -33,7 +33,7 @@ module StateFile
 
     def matching_intakes(email_address)
       return if email_address.blank?
-      StateFile::StateInformationService.intake_classes.map { |intake_class| intake_class.where(email_address: email_address) }.inject([], :+)
+      StateFile::StateInformationService.state_intake_classes.map { |klass| klass.where(email_address: email_address) }.inject([], :+)
     end
   end
 end

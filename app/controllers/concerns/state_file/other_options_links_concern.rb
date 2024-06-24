@@ -14,12 +14,7 @@ module StateFile
     end
 
     def vita_link
-      case current_state_code
-      when 'ny'
-        'https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form'
-      when 'az'
-        'https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form'
-      end
+      StateFile::StateInformationService.vita_link(current_state_code)
     end
 
     def faq_state_filing_options_link

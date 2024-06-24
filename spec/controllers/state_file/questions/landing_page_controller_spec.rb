@@ -46,6 +46,5 @@ RSpec.describe StateFile::Questions::LandingPageController do
         expect(response).not_to have_http_status(:redirect)
       end
     end
-
   end
 end

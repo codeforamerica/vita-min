@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe StateFile::ReminderToFinishStateReturnService do
-
   describe ".run" do
     let(:message) { StateFile::AutomatedMessage::FinishReturn }
     let(:state_file_messaging_service) { StateFile::MessagingService.new(intake: intake, message: message) }
