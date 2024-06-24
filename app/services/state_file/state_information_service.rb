@@ -25,11 +25,11 @@ module StateFile
       end
 
       def intake_class_from_state_code(state_code)
-        STATES_INFO[state_code][:intake_class]
+        STATES_INFO[state_code.to_sym][:intake_class]
       end
 
       def navigation_from_state_code(state_code)
-        STATES_INFO[state_code][:navigation]
+        STATES_INFO[state_code.to_sym][:navigation]
       end
 
       def intake_classes

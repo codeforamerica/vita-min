@@ -118,7 +118,7 @@ class FlowsController < ApplicationController
           FlowParams.new(
             controller: controller,
             reference_object: controller.current_intake&.is_a?(intake_class) ? controller.current_intake : nil,
-            controller_list: StateFile::StateInformationService.navigation_from_state_code(state_code),
+            controller_list: StateFile::StateInformationService.navigation_from_state_code(state_code)::FLOW,
             form: SampleStateFileIntakeGenerator.new(state_code).form
           )
         end
@@ -680,12 +680,11 @@ class FlowsController < ApplicationController
 
     def generate_state_file_intake(params)
       _type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
-
-      attributes = self.class.send("#{@us_state}_attributes".to_sym, {
+      attributes = self.class.send("#{@us_state}_attributes",
         first_name: params[:flows_controller_sample_intake_form][:first_name],
         last_name: params[:flows_controller_sample_intake_form][:last_name]
-      })
-      intake_class = intake_class_from_state_code(@us_state)
+      )
+      intake_class = StateFile::StateInformationService.intake_class_from_state_code(@us_state)
       intake = intake_class.create(attributes)
 
       generate_efile_device_info(intake)
