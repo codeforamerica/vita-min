@@ -7,7 +7,7 @@ module StateFile
       cutoff_time_ago = HOURS_AGO.hours.ago
       intakes_to_notify = []
 
-      StateFile::StateInformationService.intake_classes.each do |class_object|
+      StateFile::StateInformationService.state_intake_classes.each do |class_object|
         intakes_to_notify += class_object.left_joins(:efile_submissions)
                                          .where(efile_submissions: { id: nil })
                                          .where.not(email_address: nil)

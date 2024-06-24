@@ -14,7 +14,7 @@ class Ability
       # All admins who are also state file
       can :manage, :all
       unless user.state_file_admin?
-        StateFile::StateInformationService.intake_classes.each do |intake_class|
+        StateFile::StateInformationService.state_intake_classes.each do |intake_class|
           cannot :manage, intake_class
         end
         # Enumerate classes here...
@@ -79,7 +79,7 @@ class Ability
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
     cannot :index, EfileSubmission unless user.admin? || user.client_success?
-    StateFile::StateInformationService.intake_classes.each do |intake_class|
+    StateFile::StateInformationService.state_intake_classes.each do |intake_class|
       cannot :manage, intake_class
     end
     cannot :manage, StateFile1099G
