@@ -36,7 +36,6 @@ module StateFile
         return if params[:us_state]
 
         if session[:state_file_intake].present?
-          # TODO: I dunno if this is more understandable than a full enumeration
           state_code = StateFile::StateInformationService.state_code_from_intake_class(current_intake)
           redirect_link = send("#{state_code}_questions_canceled_data_transfer_path".to_sym, us_state: state_code)
         else          # TODO: is there something else we should do if they have no intake in the session?
