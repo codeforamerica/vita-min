@@ -13,7 +13,7 @@ module StateFile
                                          .where.not(email_address: nil)
                                          .where.not(email_address_verified_at: nil)
                                          .where(unsubscribed_from_email: false)
-                                         .where("#{base_class.underscore.pluralize}.message_tracker #> '{messages.state_file.pre_deadline_reminder}' IS NULL")
+                                         .where("#{class_object.name.underscore.pluralize}.message_tracker #> '{messages.state_file.pre_deadline_reminder}' IS NULL")
                                          .select do |intake|
                                             if intake.message_tracker.present? && intake.message_tracker["messages.state_file.finish_return"]
                                               finish_return_msg_sent_time = Time.parse(intake.message_tracker["messages.state_file.finish_return"])
