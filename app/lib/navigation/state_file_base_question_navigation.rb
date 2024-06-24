@@ -1,11 +1,14 @@
 module Navigation
-  module StateFileBaseQuestionNavigationMixin
+  class StateFileBaseQuestionNavigation
+    class << self
 
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
+      def navigation_class_from_state_code(state_code)
+        unless StateFile::StateInformationService::STATES_INFO.key?(state_code)
+          raise StandardError state_code
+        end
+        "Navigation::StateFile#{state_code.to_s.titleize}QuestionNavigation".constantize
+      end
 
-    module ClassMethods
       def sections
         const_get(:SECTIONS)
       end

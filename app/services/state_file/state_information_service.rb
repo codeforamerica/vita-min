@@ -55,10 +55,6 @@ module StateFile
         STATES_INFO[state_code][:intake_class]
       end
 
-      def navigation_from_state_code(state_code)
-        STATES_INFO[state_code][:navigation]
-      end
-
       def intake_classes
         STATES_INFO.map { |_, state_info| state_info[:intake_class] }
       end
@@ -89,7 +85,6 @@ module StateFile
         tax_refund_url: "https://aztaxes.gov/home/checkrefund",
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
         voucher_path: "/pdfs/AZ-140V.pdf",
-        navigation: Navigation::StateFileAzQuestionNavigation,
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -105,7 +100,6 @@ module StateFile
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_path: "/pdfs/it201v_1223.pdf",
-        navigation: Navigation::StateFileNyQuestionNavigation,
       }
     }).with_indifferent_access
   end
