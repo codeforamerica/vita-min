@@ -222,8 +222,11 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    submission_builder = StateFile::StateInformationService.submission_builder_from_intake_class(data_source&.class)
-    return submission_builder if submission_builder.present?
+    if data_source&.class == StateFileNyIntake
+      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
+    elsif data_source&.class == StateFileAzIntake
+      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
+    end
 
     case tax_year
     when 2020
