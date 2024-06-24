@@ -74,23 +74,24 @@ FactoryBot.define do
 
     charitable_contributions { "no" }
 
-    # TODO: put in drivers licenses here
-    primary_state_id { create :state_id,
-                              id_type: 'driver_license',
-                              id_number: '123456',
-                              state: 'AZ',
-                              issue_date: Date.new(2020, 1, 1),
-                              expiration_date: Date.new(2027, 1, 1),
-                              first_three_doc_num: nil
+    primary_state_id {
+      create :state_id,
+             id_type: 'driver_license',
+             id_number: '123456',
+             state: 'AZ',
+             issue_date: Date.new(2020, 1, 1),
+             expiration_date: Date.new(2027, 1, 1),
+             first_three_doc_num: nil
     }
 
-    spouse_state_id { create :state_id,
-                             id_type: 'dmv_bmv',
-                             id_number: '654321',
-                             state: 'MN',
-                             issue_date: Date.new(2021, 1, 1),
-                             expiration_date: Date.new(2028, 1, 1),
-                             first_three_doc_num: nil
+    spouse_state_id {
+      create :state_id,
+             id_type: 'dmv_bmv',
+             id_number: '654321',
+             state: 'MN',
+             issue_date: Date.new(2021, 1, 1),
+             expiration_date: Date.new(2028, 1, 1),
+             first_three_doc_num: nil
     }
 
     payment_or_deposit_type { "direct_deposit" }
@@ -108,7 +109,7 @@ def all_xpaths(xml, xpath_root, ignore_list, &block)
   xml.element_children.each do |node|
     xpath = "#{xpath_root}/#{node.name}"
     if node.children.count == 1 && !ignore_list.include?(node.name)
-      yield xpath, node.text
+      yield xpath, node.css_path, node.text
     end
     all_xpaths(node, xpath, ignore_list, &block)
   end
@@ -149,14 +150,13 @@ describe 'johnny' do
           approved_xml = Nokogiri::XML(File.open(approved_submission_bundle_file_path))
           approved_xml.remove_namespaces!
           ignore_list = ['IPAddress', 'IPTs', 'DeviceId', 'TotActiveTimePrepSubmissionTs', 'TotalPreparationSubmissionTs', 'ReturnTs']
-          all_xpaths(generated_xml.root, "/#{generated_xml.root.name}", ignore_list) do |xpath, text|
-            generated_xml_node_value = "#{xpath}:#{text}"
-            approved_xml_node_value = "#{xpath}:#{approved_xml.xpath(xpath).text}"
+          all_xpaths(generated_xml.root, "/#{generated_xml.root.name}", ignore_list) do |xpath, css_path, node_text|
+            generated_xml_node_value = "#{xpath}:#{node_text}"
+            approved_xml_node_value = "#{xpath}:#{approved_xml.css(css_path).text}"
             expect(approved_xml_node_value).to eq generated_xml_node_value
           end
         end
       end
     end
   end
-
 end
