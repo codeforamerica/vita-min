@@ -35,6 +35,15 @@ module StateFile
       def intake_classes
         STATES_INFO.map { |_, state_info| state_info[:intake_class] }
       end
+
+      def intake_class_names
+        intake_classes.map(&:name)
+      end
+
+      def submission_builder_from_intake_class(klass)
+        state_info = STATES_INFO.values.find { |s| s[:intake_class] == klass }
+        state_info[:submission_builder] if state_info.present?
+      end
     end
 
     private
@@ -43,12 +52,14 @@ module StateFile
       az: {
         intake_class: StateFileAzIntake,
         name: "Arizona",
-        navigation: Navigation::StateFileAzQuestionNavigation
+        navigation: Navigation::StateFileAzQuestionNavigation,
+        submission_builder: SubmissionBuilder::Ty2022::States::Az::IndividualReturn
       },
       ny: {
         intake_class: StateFileNyIntake,
         name: "New York",
-        navigation: Navigation::StateFileNyQuestionNavigation
+        navigation: Navigation::StateFileNyQuestionNavigation,
+        submission_builder: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
       }
     }
   end

@@ -88,8 +88,7 @@ class EfileSubmission < ApplicationRecord
       )
       WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
       AND (
-        efile_submissions.data_source_type = 'StateFileAzIntake'
-        OR efile_submissions.data_source_type = 'StateFileNyIntake'
+        efile_submissions.data_source_type IN ('#{StateFile::StateInformationService.intake_class_names.join("','")}')
       )
       GROUP BY to_state
     SQL
@@ -223,11 +222,8 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    if data_source&.class == StateFileNyIntake
-      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-    elsif data_source&.class == StateFileAzIntake
-      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
-    end
+    submission_builder = StateFile::StateInformationService.submission_builder_from_intake_class(data_source&.class)
+    return submission_builder if submission_builder.present?
 
     case tax_year
     when 2020
