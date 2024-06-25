@@ -16,7 +16,7 @@ module StateFile
           @eligibility_lived_in_state = intake.eligibility_lived_in_state
           @dependent_count = intake.dependents.length
 
-          @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
+          @value_access_tracker = ::Efile::ValueAccessTracker.new(include_source: include_source)
           @lines = HashWithIndifferentAccess.new
 
           @it213 = StateFile::Ny::Efile::It213.new(
