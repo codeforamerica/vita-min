@@ -4,6 +4,7 @@ module StateFile
       [
         :intake_class,
         :mail_voucher_address,
+        :pay_taxes_link,
         :primary_tax_form_name,
         :state_name,
         :survey_link,
@@ -52,6 +53,7 @@ module StateFile
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
+        pay_taxes_link: "https://www.aztaxes.gov/",
         primary_tax_form_name: "Form AZ-140V",
         state_name: "Arizona",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
@@ -67,6 +69,7 @@ module StateFile
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
+        pay_taxes_link: "https://www.tax.ny.gov/pay/",
         primary_tax_form_name: "Form IT-201-V",
         state_name: "New York",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",

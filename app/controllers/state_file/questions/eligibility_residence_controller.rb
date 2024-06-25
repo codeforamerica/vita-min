@@ -4,12 +4,7 @@ module StateFile
       include EligibilityOffboardingConcern
 
       def form_class
-        case current_state_code
-        when 'az'
-          StateFile::AzEligibilityResidenceForm
-        when 'ny'
-          StateFile::NyEligibilityResidenceForm
-        end
+        "StateFile::#{current_state_code.capitalize}EligibilityResidenceForm".constantize
       end
 
       def form_name
