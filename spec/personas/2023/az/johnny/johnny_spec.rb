@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 FactoryBot.define do
-  # TODO: Make a script that prints out a factory script for an intake so that we can run it on demo to make a test
   factory :johnny, class: StateFileAzIntake do
     raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
     primary_first_name { "Johnny" }
@@ -141,7 +140,6 @@ describe 'johnny' do
 
           ignore_list = ['IPAddress', 'IPTs', 'DeviceId', 'TotActiveTimePrepSubmissionTs', 'TotalPreparationSubmissionTs', 'ReturnTs']
           expect(generated_xml).to match_xml(approved_xml, ignore_list)
-          # expect_xml_matches(generated_xml, approved_xml, ignore_list)
         end
       end
     end
