@@ -11,6 +11,8 @@ require "percy/capybara"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
+FactoryBot.definition_file_paths << File.expand_path('../spec/factories', __FILE__)
+
 # Set CHROME=true to run specs with a visible Chrome window
 if ENV.fetch("CHROME", false)
   Capybara.javascript_driver = :selenium_chrome
