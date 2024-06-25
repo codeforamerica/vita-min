@@ -14,9 +14,11 @@ module StateFile
         :voucher_path,
       ].each do |attribute|
         define_method(attribute) do |state_code|
-          raise StandardError, "No state code '#{state_code}'" if !active_state_codes.include?(state_code)
+          unless active_state_codes.include?(state_code)
+            raise InvalidStateCodeError, state_code
+          end
 
-          STATES_INFO[state_code.to_sym][attribute]
+          STATES_INFO[state_code][attribute]
         end
       end
 
@@ -27,20 +29,13 @@ module StateFile
       def state_intake_classes
         STATES_INFO.map { |_, attrs| attrs[:intake_class] }
       end
-      
+
       def state_intake_class_names
         state_intake_classes.map(&:to_s).freeze
       end
 
       def state_code_to_name_map
         active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
-      end
-
-      def state_code_from_intake_class(klass)
-        state_code, _ = STATES_INFO.find do |_, state_info|
-          state_info[:intake_class] == klass
-        end
-        state_code.to_s
       end
     end
 
@@ -76,6 +71,6 @@ module StateFile
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_path: "/pdfs/it201v_1223.pdf",
       }
-    })
+    }).with_indifferent_access
   end
 end

@@ -1,7 +1,6 @@
 module Navigation
-  class StateFileNyQuestionNavigation
+  class StateFileNyQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
-    include Navigation::StateFileBaseQuestionNavigationMixin
 
     SECTIONS = [
       Navigation::NavigationSection.new(nil, [
