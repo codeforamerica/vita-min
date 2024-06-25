@@ -5,7 +5,7 @@ module StateFile
     def initialize(efile_submission)
       @intake = efile_submission.data_source
       @submission = efile_submission
-      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless %w[StateFileAzIntake StateFileNyIntake].include?(@intake.class.name)
+      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless StateFile::StateInformationService.state_intake_classes.include?(@intake.class)
     end
 
     def send_efile_submission_accepted_message

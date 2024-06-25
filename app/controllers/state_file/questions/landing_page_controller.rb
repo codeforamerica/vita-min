@@ -16,7 +16,7 @@ module StateFile
 
       def update
         sign_out current_intake if current_intake
-        intake = question_navigator.intake_class.new(
+        intake = StateInformationService.intake_class(current_state_code).new(
           visitor_id: cookies.encrypted[:visitor_id],
           source: session[:source],
           referrer: session[:referrer]
