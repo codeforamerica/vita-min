@@ -26,15 +26,20 @@ point. (dev or staging).
 
 ## Running in AWS
 
-This will create a docker image that can be deployed to Fargate / ECS using serverless.
+Running JMeter from a developer machine is possible, though 
+This will create a docker image that can be deployed to Fargate / ECS.
 
  * Download docker from https://docker.com
- * From `jmeter_tests/` Create an image with `docker build -t jmeter_test .`
- * Make sure your local AWS settings are in place.
- * Deploy with `sls deploy`
+ * Cd into the `jmeter_tests/` directory, and create an image with `docker build -t jmeter_test .`
+ * Make sure your local AWS config (in $HOME/.aws) contains your credentials for AWS.
+ * Create a Repository in Amazon Elastic Container Registry (ECR). I created `tim-jmeter-test` in https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1
+ * Push your docker image to your Repository. (Click "View Push commands" at https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1)
+ * Create a fargate cluster at https://us-east-1.console.aws.amazon.com/ecs/v2/clusters?region=us-east-1 (I created `tim-jmeter-test`)
+ * Create a task to run your docker image on your cluster. For "Compute Options", I chose "Launch Type" with "FARGATE".
+   My application type was "Task", and "jmeter-test" was the "Family". For "Networking", I chose the "tax-benefits-dashboards-vpc" with all subnets.
+   I chose the "default" and "VPN Security Group" Security Groups. I enabled a public IP.
 
 ### References
 
  * https://www.linkedin.com/pulse/running-jmeter-test-aws-ecs-anees-mohammed/
- * https://www.serverless.com/plugins/serverless-fargate
 
