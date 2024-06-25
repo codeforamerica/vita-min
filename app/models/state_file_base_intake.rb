@@ -39,8 +39,8 @@ class StateFileBaseIntake < ApplicationRecord
   before_save :sanitize_bank_details
 
   def self.state_code
-    state_code, _ = StateFile::StateInformationService.STATES_INFO.find do |_, state_info|
-      state_info[:intake_class] == klass
+    state_code, _ = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
+      state_info[:intake_class] == self
     end
     state_code.to_s
   end
