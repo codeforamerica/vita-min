@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :johnny, class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
+  factory "johnny", class: StateFileAzIntake do
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_johnny_mfj_8_deps") }
     primary_first_name { "Johnny" }
     primary_middle_initial { "L" }
     primary_last_name { "Rose" }
