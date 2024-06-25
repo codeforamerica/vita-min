@@ -29,12 +29,6 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".state_code_from_intake_class" do
-    it "returns the corresponding state code string given an intake class" do
-      expect(described_class.state_code_from_intake_class(StateFileAzIntake)).to eq "az"
-    end
-  end
-
   describe ".tax_refund_url" do
     it "returns the refund url" do
       expect(described_class.tax_refund_url("az")).to eq 'https://aztaxes.gov/home/checkrefund'

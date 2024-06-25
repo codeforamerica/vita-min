@@ -37,13 +37,6 @@ module StateFile
       def state_code_to_name_map
         active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
       end
-
-      def state_code_from_intake_class(klass)
-        state_code, _ = STATES_INFO.find do |_, state_info|
-          state_info[:intake_class] == klass
-        end
-        state_code.to_s
-      end
     end
 
     private
