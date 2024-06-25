@@ -3,50 +3,30 @@ module StateFile
     extend ActiveSupport::Concern
 
     included do
-      helper_method(
-        :current_tax_year, :filer_count, :state_name, :state_abbr, :ny?, :az?, :state_param
-      )
+      helper_method :current_intake, :current_state_code, :current_state_name, :current_tax_year
     end
 
-    private
-
-    def state_name
-      States.name_for_key(state_abbr)
+    def current_intake
+      StateFile::StateInformationService.active_state_codes
+                                        .lazy
+                                        .map{ |c| send("current_state_file_#{c}_intake".to_sym) }
+                                        .find(&:itself)
     end
 
-    def state_abbr
-      state_param&.upcase
-    end
-
-    def state_param
-      params[:us_state]
-    end
-
-    def ny?
-      state_param == "ny"
-    end
-
-    def az?
-      state_param == "az"
-    end
-
-    def service_type
-      case state_param
-      when "az" then :statefile_az
-      when "ny" then :statefile_ny
+    def current_state_code
+      if current_intake
+        current_intake.state_code
+      else
+        params[:us_state]
       end
     end
 
-    def tenant_service
-      MultiTenantService.new(service_type)
+    def current_state_name
+      StateFile::StateInformationService.state_name(current_state_code)
     end
 
     def current_tax_year
-      tenant_service.current_tax_year
-    end
-
-    def filer_count
-      current_intake&.filer_count
+      MultiTenantService.new(:statefile).current_tax_year
     end
   end
 end

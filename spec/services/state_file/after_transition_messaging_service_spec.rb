@@ -77,18 +77,14 @@ describe StateFile::AfterTransitionMessagingService do
   end
 
   describe '#schedule_survey_notification_job' do
-    it 'enqueues SendSurveyNotificationJob' do
-      # Freeze time
+    it 'enqueues StateFile::SendSurveyNotificationJob' do
       frozen_time = Time.now
-      Timecop.freeze(frozen_time)
+      Timecop.freeze(frozen_time) do
+        expect(StateFile::SendSurveyNotificationJob).to receive(:set).with(wait_until: (frozen_time + 23.hours)).and_return(StateFile::SendSurveyNotificationJob)
+        expect(StateFile::SendSurveyNotificationJob).to receive(:perform_later).with(intake, efile_submission)
 
-      expect(SendSurveyNotificationJob).to receive(:set).with(wait_until: (frozen_time + 23.hours)).and_return(SendSurveyNotificationJob)
-      expect(SendSurveyNotificationJob).to receive(:perform_later).with(intake, efile_submission)
-
-      messaging_service.schedule_survey_notification_job
-
-      # Unfreeze time
-      Timecop.return
+        messaging_service.schedule_survey_notification_job
+      end
     end
   end
 

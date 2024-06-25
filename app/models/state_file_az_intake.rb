@@ -77,20 +77,16 @@
 #
 # Indexes
 #
+#  index_state_file_az_intakes_on_email_address        (email_address)
 #  index_state_file_az_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  STATE_CODE = 'az'.freeze
-  STATE_NAME = 'Arizona'.freeze
-  STATE_CODE_AND_NAME = {
-    STATE_CODE => STATE_NAME
-  }.freeze
-
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
+  # TODO: decide what to do with was_incarcerated column; see if data science wants to keep the historic data
   enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
   enum primary_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_was_incarcerated
   enum spouse_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_incarcerated
@@ -101,27 +97,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
-
-  before_save do
-    save_nil_enums_with_unfilled
-
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
-    end
-  end
-
-  def state_code
-    STATE_CODE
-  end
-
-  def state_name
-    STATE_NAME
-  end
 
   def tax_calculator(include_source: false)
     Efile::Az::Az140.new(
@@ -189,8 +164,8 @@ class StateFileAzIntake < StateFileBaseIntake
     count
   end
 
+  # TODO: remove once column ignored
   def use_old_incarcerated_column?
-    # TODO: remove once column ignored
     !was_incarcerated_unfilled? && primary_was_incarcerated_unfilled?
   end
 

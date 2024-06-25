@@ -33,6 +33,10 @@ module Questions
       new_intake = @form.intake
       session[:intake_id] = new_intake.id
       new_intake.set_navigator(session[:navigator])
+
+      if new_intake.client.routing_method.blank? || new_intake.client.routing_method_at_capacity?
+        PartnerRoutingService.update_intake_partner(new_intake)
+      end
     end
 
     def form_params

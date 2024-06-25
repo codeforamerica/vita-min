@@ -1,5 +1,4 @@
 <% title = t(".title") %>
-<% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
@@ -10,7 +9,7 @@
     <div class="blue-group">
       <%= f.cfa_radio_set(
             :eligibility_lived_in_state,
-            label_text: t(".lived_in_state_html", state: state_full_name),
+            label_text: t(".lived_in_state_html", state: current_state_name),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
@@ -18,7 +17,7 @@
           ) %>
     </div>
 
-    <% if params[:us_state] == "ny" %>
+    <% if current_state_code == "ny" %>
       <div class="blue-group">
         <%= f.cfa_radio_set(
               :eligibility_yonkers,
@@ -31,7 +30,7 @@
       </div>
     <% end %>
 
-    <% if params[:us_state] == "az" %>
+    <% if current_state_code == "az" %>
       <div class="blue-group">
         <%= f.cfa_radio_set(
               :eligibility_married_filing_separately,

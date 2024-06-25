@@ -40,9 +40,9 @@ RSpec.feature "Visit home page" do
     let(:current_time) { nil }
 
     around do |example|
-      Timecop.freeze(current_time)
-      example.run
-      Timecop.return
+      Timecop.freeze(current_time) do
+        example.run
+      end
     end
 
     before do
@@ -71,7 +71,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the document deadline banner" do
         visit "/"
 
-        expect(page).to have_text "Reminder: You must submit your documents by April 1 in order to meet the federal income tax filing deadline of April 15. You can submit your taxes after the deadline without penalty if you don't owe. If you aren't sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
+        expect(page).to have_text "Reminder: You must submit your documents by April 1st in order to meet the federal income tax filing deadline of April 15th. You can submit your taxes after the deadline without penalty if you don't owe. If you aren't sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end

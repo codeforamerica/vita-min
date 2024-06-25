@@ -742,9 +742,9 @@ RSpec.describe Hub::ClientsController do
           let!(:recently_contacted_client) { create :client_with_intake_and_return, preferred_name: "Recenty", vita_partner: organization, last_outgoing_communication_at: 2.hours.ago }
 
           around do |example|
-            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0))
-            example.run
-            Timecop.return
+            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0)) do
+              example.run
+            end
           end
 
           it "can filter to only clients who are approaching SLA" do
@@ -778,9 +778,9 @@ RSpec.describe Hub::ClientsController do
       context "SLA columns" do
         render_views
         around do |example|
-          Timecop.freeze(DateTime.new(2021, 12, 21, 8))
-          example.run
-          Timecop.return
+          Timecop.freeze(DateTime.new(2021, 12, 21, 8)) do
+            example.run
+          end
         end
 
         context "last contact" do
@@ -974,6 +974,7 @@ RSpec.describe Hub::ClientsController do
                        used_itin_certifying_acceptance_agent: "false",
                        was_blind: "no",
                        spouse_was_blind: "no",
+                       signature_method: "online",
                      }
                    }
     }
@@ -1639,6 +1640,7 @@ RSpec.describe Hub::ClientsController do
       let(:params) {
         {
           id: client.id,
+          commit: I18n.t('general.save'),
           hub_update13614c_form_page1: {
             primary_first_name: "Updated",
             primary_last_name: "Name",
@@ -1689,7 +1691,7 @@ RSpec.describe Hub::ClientsController do
           sign_in user
         end
 
-        it "updates the clients intake with the 13614c page 1 data, creates a system note, and regenerates the pdf" do
+        it "updates the clients intake with the 13614c page 1 data, creates a system note, and regenerates the pdf when client clicks Save" do
           expect do
             put :update_13614c_form_page1, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
@@ -1713,6 +1715,18 @@ RSpec.describe Hub::ClientsController do
                                                        })
 
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
+        end
+
+        it "updates the clients intake with the 13614c page 1 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page1, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.primary.first_name).to eq "Updated"
         end
 
         context "with invalid params" do
@@ -1795,6 +1809,7 @@ RSpec.describe Hub::ClientsController do
       let(:params) {
         {
           id: client.id,
+          commit: I18n.t('general.save'),
           hub_update13614c_form_page2: {
             job_count: "3",
             had_wages: "yes",
@@ -1854,7 +1869,7 @@ RSpec.describe Hub::ClientsController do
           sign_in user
         end
 
-        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when a client presses Save" do
           expect do
             put :update_13614c_form_page2, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
@@ -1915,6 +1930,18 @@ RSpec.describe Hub::ClientsController do
                                                        })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
+
+        it "updates the clients intake with the 13614c page 2 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page2, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.job_count).to eq 3
+        end
       end
     end
 
@@ -1922,6 +1949,7 @@ RSpec.describe Hub::ClientsController do
       let(:params) {
         {
           id: client.id,
+          commit: I18n.t('general.save'),
           hub_update13614c_form_page3: {
             preferred_written_language: "Greek",
             receive_written_communication: intake.receive_written_communication,
@@ -1965,7 +1993,7 @@ RSpec.describe Hub::ClientsController do
           sign_in user
         end
 
-        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when clients press Save" do
           expect do
             put :update_13614c_form_page3, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
@@ -1980,6 +2008,18 @@ RSpec.describe Hub::ClientsController do
           expect(system_note.user).to eq(user)
           expect(system_note.data['changes']).to match({ "preferred_written_language" => [intake.preferred_written_language, "Greek"] })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
+        end
+
+        it "updates the clients intake with the 13614c page 3 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page3, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.preferred_written_language).to eq "Greek"
         end
       end
     end

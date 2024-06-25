@@ -3,7 +3,7 @@ module StateFile
     class ConfirmationController < QuestionsController
       def show_xml
         submission = EfileSubmission.where(data_source: current_intake).first
-        builder_response = case params[:us_state]
+        builder_response = case current_state_code
                            when "ny"
                              SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.build(submission)
                            when "az"

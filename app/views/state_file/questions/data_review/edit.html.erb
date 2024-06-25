@@ -31,7 +31,7 @@
   </p>
 
   <strong>
-    <%= t(".state_tax_withheld_title", name: current_intake.state_name) %>
+    <%= t(".state_tax_withheld_title", name: current_state_name) %>
   </strong>
   <p>
     <%= t(".complete_description") %>
@@ -46,7 +46,7 @@
     <%=
       link_to(
         "I'm on a #{Rails.env} environment, let me edit the response XML",
-        StateFile::Questions::FederalInfoController.to_path_helper(us_state: params[:us_state]),
+        StateFile::Questions::FederalInfoController.to_path_helper(us_state: current_state_code),
         class: 'dev-button',
         id: 'visit_federal_info_controller'
       )

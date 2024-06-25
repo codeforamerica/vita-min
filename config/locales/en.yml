@@ -19,6 +19,7 @@ en:
     dependents_controller:
       removed_dependent: Removed %{full_name}.
     public_pages:
+      inactive_unique_link_notice: "%{partner_name} is currently not accepting clients via this unique url. You can still get started with another tax team below!"
       partner_welcome_notice: Thanks for visiting via %{partner_name}!
     tax_returns_controller:
       errors:
@@ -90,9 +91,6 @@ en:
         info:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $79,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
-        received_1099:
-          help_text: If you were self employed or worked as an independent contractor, you may have gotten a 1099 form.
-          label: Did you receive a 1099 tax form?
         title: File taxes on your own
   documents:
     documents_help:
@@ -258,7 +256,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date on or before April 15, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before April 15, %{year}
   general:
     NA: N/A
     about: About
@@ -523,6 +521,7 @@ en:
     role: Role
     routing: Routing
     save: Save
+    save_and_exit: Save & Exit
     search: Search
     security_html: Your information is secure and the information you provide will be handled in accordance with our %{privacy_link}.
     select_file: Select file
@@ -789,7 +788,7 @@ en:
         part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
         part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
         part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
-        title: 13614-C
+        title: 13614-C page 2
       edit_13614c_form_page3:
         additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
         fields:
@@ -813,7 +812,7 @@ en:
           q7_register_to_vote: Register to vote?
           q8_speak_and_understand_english: Can carry on a conversation in English, both understanding & speaking?
           q9_read_english: Can read a newspaper or book in English?
-        title: 13614-C
+        title: 13614-C page 3
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
         blank_no_message_sent: If blank, no message is sent to the client.
@@ -1359,9 +1358,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on October 16th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes. Please login and respond by October 8th. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -1506,12 +1505,9 @@ en:
 
           We're here to help!
           Your Tax Team at GetYourRefund
-        subject: 'Welcome to GetYourRefund: Client ID'
+        subject: 'GetYourRefund: You have a submission in progress'
       sms:
-        body: |
-          Hello <<Client.PreferredName>> you haven't completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message.
-
-          Your tax team at GetYourRefund
+        body: Hello <<Client.PreferredName>> you haven''t completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
@@ -1599,7 +1595,7 @@ en:
             The FileYourStateTaxes team
           subject: Don't forget to finish your state tax return!
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to fileyourstatetaxes.org to finish them now.
 
           Need help? Reply to this text.
       issue_resolved:
@@ -1612,8 +1608,18 @@ en:
           Questions? Reply to this text.
       post_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes were due by April 15. Make sure to submit your state tax return as soon as possible in order to avoid late filing fees from %{state_name}. \n\nFileYourStateTaxes will be closing its services for the year on April 25. \n\nGo to https://www.fileyourstatetaxes.org/es/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
-          subject: Make sure to finish filing your state taxes as soon as possible.
+          body: |-
+            Hi %{primary_first_name},
+
+            We noticed that you have not submitted a state tax return yet with the account associated with this email address. If you submitted your state return another way, or you submitted your return under a different email address, you can disregard this message.
+
+            This is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/us/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from %{state_name}. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
           Need help? Reply to this text.
@@ -1752,7 +1758,7 @@ en:
         body: |
           Hello <<Client.PreferredName>>,
 
-          Your tax information has been successfully submitted! <strong>Your Client ID is <<Client.ClientId>>.</strong> This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
+          Your tax information has been successfully submitted! <strong>Your Client ID is <<Client.ClientId>>.</strong>
 
           Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}.
 
@@ -1762,11 +1768,8 @@ en:
 
           We’re here to help!
           Your tax team at GetYourRefund
-        subject: 'Welcome to GetYourRefund: Client ID'
-      sms: |
-        Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message.
-        Your tax specialist will review your information and reach out if additional information is needed before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.
-        Your tax team at GetYourRefund
+        subject: 'GetYourRefund: You have successfully submitted your tax information!'
+      sms: 'Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. Your client ID is <<Client.ClientID>>. Your tax specialist will review your information and reach out and schedule a required phone call before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.'
     surveys:
       completion:
         email:
@@ -1917,7 +1920,7 @@ en:
         title: Great! We'll chat with you in June.
         upload_additional_documents: Upload additional documents
       edit:
-        help_text: We are closing GetYourRefund for the tax season on October 15th. We will need all required documentation by October 8th; otherwise, we will not be able to prepare your taxes.
+        help_text: We are closing GetYourRefund for the tax season on %{end_of_closing}. We will need all required documentation by %{docs_deadline}; otherwise, we will not be able to prepare your taxes.
         not_interested: No, I'm not interested
         still_needs_help: Yes, I still need help
         title: Are you still interested in filing your taxes with us?
@@ -1929,7 +1932,7 @@ en:
         survey_question: How was your experience with GetYourRefund?
         title: Thank you for using GetYourRefund.
       upload_documents:
-        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by October 8th.
+        help_text: If you have any additional documents that you need to upload, please use the button below. We need all of your documents by %{docs_deadline}.
         no_additional_documents: I have no additional documents
         title: Great! If you have additional documents, please upload them below.
         upload_additional_documents: Upload additional documents
@@ -2136,8 +2139,6 @@ en:
           ssn_no_employment_html:
             label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
-        update:
-          page_changed_notice: Sorry, this page has changed! Please answer the questions again.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2584,7 +2585,7 @@ en:
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
-          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{refund_url}">Check on the status</a> of your refund.
+          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check on the status</a> of your refund.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_title: Download a copy of your 2023 %{state_name} state tax return until December 31, 2024
           download_voucher: Download payment voucher form
@@ -2657,10 +2658,11 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after-deadline-default-withdrawl-info: Because you are submitting your return on or after April 15, 2024, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
@@ -2675,7 +2677,7 @@ en:
         edit:
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
-          pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{pay_mail_online_link}">%{pay_mail_online_text}</a>
+          pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes. How would you like to pay?
       terms_and_conditions:
         edit:
@@ -3084,49 +3086,8 @@ en:
           w2s_shared: W-2s shared
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
         home:
-          complete_form: Complete CTC form
           contact_us: Contact us
-          correct_info: Correct my information
-          current_status: 'Current tax return status:'
-          default_next_steps: Please send us a message with questions or corrections using the "Contact Us" button below.
-          download_tax_return: Download my tax return
-          failure_title: 'Reason for this failure:'
-          imperfect_return_indicator_text: |
-            Your return was accepted by the IRS, including a request to update one more more of your dependents' legal names in their records.
-            The IRS estimates that it will take 4-8 weeks to process your return. You may also receive a letter confirming your request to update the dependent's legal name.
-          next_step_title: 'Next steps:'
-          rejection_title: 'Reason for this rejection:'
-          status:
-            accepted:
-              label: Accepted
-              message: Your return has been accepted by the IRS. You should receive a payment in 4 or more weeks.
-            bundling:
-              label: Electronically filing
-              message: We are preparing your return. We'll continue to update you on the status of your submission.
-            cancelled:
-              label: Cancelled
-              message: We will no longer attempt to efile this return with the IRS. To continue, use the resources below to mail your return to the IRS.
-            failed:
-              label: Submission error
-              message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
-            fraud_hold:
-              label: Reviewing ID Submission
-              message: Thank you for submitting your ID. We are currently reviewing your submission. You can expect a response within 5 days.
-            intake_in_progress:
-              label: More information needed
-              message: We need more information from you before we can file your return.
-            new:
-              label: Electronically filing
-              message: We are preparing your return. We'll continue to update you on the status of your submission.
-            preparing:
-              label: Electronically filing
-              message: We are preparing your return. We'll continue to update you on the status of your submission.
-            rejected:
-              label: Rejected
-              message: Our team is investigating a technical error with your return. Once we resolve this error, we'll resubmit your return. Please expect an update within 3 business days.
-            transmitted:
-              label: Electronically filed
-              message: Your return has been submitted to the IRS. You will know within one week if your return has been accepted.
+          download_tax_return: Download my 2022 tax return
           title: Thank you for filing with GetCTC!
         mailing_address:
           title: Edit your address
@@ -4544,7 +4505,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closed_banner: GetYourRefund will reopen January 31.
+        closed_banner: GetYourRefund will reopen {start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ
@@ -4837,12 +4798,11 @@ en:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
-        body_html:
-        - If you want to work with a tax preparer, try again in a few days at <a href="https://www.getyourrefund.org">www.GetYourRefund.org</a>.
-        - If you want to file your taxes today, you can file on your own with our partner's free tax filing software. This is our quickest option to file your taxes and collect the tax credits you are owed!
+        body: We're sorry we're experiencing a high volume of clients right now. We can offer a free alternative option below to help you file your taxes today!
         continue_to_diy: Continue to File Myself
-        return_to_homepage: Return to homepage
-        title: We're sorry! GetYourRefund's tax preparation partners are currently at capacity.
+        file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
+        title: Wow, it looks like we are at capacity right now.
+        warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
@@ -4947,7 +4907,6 @@ en:
           other: Have you or your spouse ever owned a home?
       feedback:
         body: We appreciate any additional feedback you have to better serve clients in the future!
-        title: Thank you for sharing your experience.
       filing_joint:
         help_text: Usually, filing joint taxes is more beneficial for your return. Your spouse will need to verify their identity and sign your final tax return.
         title: Are you filing joint taxes with your spouse?
@@ -5314,7 +5273,7 @@ en:
         add_dependent: Add dependent
         remove: Remove
       document_deadline_warning:
-        body_html: "<strong>Reminder: You must submit your documents by April 1 in order to meet the federal income tax filing deadline of April 15. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
+        body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.

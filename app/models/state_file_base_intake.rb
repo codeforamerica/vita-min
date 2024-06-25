@@ -1,10 +1,4 @@
 class StateFileBaseIntake < ApplicationRecord
-  STATE_CODE_AND_NAMES = {
-    'az' => 'Arizona',
-    'ny' => 'New York'
-  }.freeze
-  STATE_CODES = STATE_CODE_AND_NAMES.keys
-
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true
@@ -41,6 +35,20 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+  before_save :save_nil_enums_with_unfilled
+  before_save :sanitize_bank_details
+
+  def self.state_code
+    state_code, _ = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
+      state_info[:intake_class] == self
+    end
+    state_code.to_s
+  end
+  delegate :state_code, to: :class
+
+  def state_name
+    StateFile::StateInformationService.state_name(state_code)
+  end
 
   def direct_file_data
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
@@ -269,11 +277,19 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def self.opted_out_state_file_intakes(email)
-    state_intakes = []
-    STATE_INTAKE_CLASS_NAMES.each do |state|
-      class_object = state.constantize
-      state_intakes += class_object.where(email_address: email).where(unsubscribed_from_email: true)
+    StateFile::StateInformationService.state_intake_classes.map do |klass|
+      klass.where(email_address: email).where(unsubscribed_from_email: true)
+    end.inject([], :+)
+  end
+
+  def sanitize_bank_details
+    if (payment_or_deposit_type || "").to_sym != :direct_deposit
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
     end
-    state_intakes
   end
 end

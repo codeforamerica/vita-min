@@ -1,5 +1,6 @@
 module StateFile
   class StateFilePagesController < ApplicationController
+    include StateFile::StateFileControllerConcern
     layout "state_file"
     before_action :redirect_state_file_in_off_season, except: [:coming_soon]
 
@@ -11,9 +12,11 @@ module StateFile
       return render "public_pages/page_not_found", status: 404 if Rails.env.production?
 
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
-      @xml_samples = XmlReturnSampleService.new.samples.map do |sample|
-        [sample.label, transfer_url(sample.key, params[:redirect])]
-      end.sort
+      us_state = current_intake.state_code
+      @xml_samples = XmlReturnSampleService.new.samples[us_state].map do |sample_name|
+        [XmlReturnSampleService.label(sample_name),
+         transfer_url(XmlReturnSampleService.key(us_state, sample_name), params[:redirect])]
+      end
       render layout: nil
     end
 
@@ -42,15 +45,6 @@ module StateFile
       uri = URI(redirect_url)
       uri.query = { authorizationCode: key }.to_query
       uri.to_s
-    end
-
-    def current_intake
-      @current_intake ||= (
-        StateFileBaseIntake::STATE_CODES
-          .lazy
-          .map{|c| send("current_state_file_#{c}_intake".to_sym) }
-          .find(&:itself)
-      )
     end
   end
 end

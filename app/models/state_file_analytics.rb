@@ -9,6 +9,7 @@
 #  excise_credit                         :integer
 #  family_income_tax_credit              :integer
 #  fed_eitc_amount                       :integer
+#  fed_refund_amt                        :integer
 #  filing_status                         :integer
 #  household_fed_agi                     :integer
 #  initiate_data_transfer_first_visit_at :datetime
@@ -21,6 +22,7 @@
 #  nys_household_credit                  :integer
 #  record_type                           :string           not null
 #  refund_or_owed_amount                 :integer
+#  zip_code                              :string
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  record_id                             :bigint           not null
@@ -36,8 +38,10 @@ class StateFileAnalytics < ApplicationRecord
     attributes = {
       fed_eitc_amount: record.direct_file_data.fed_eic,
       filing_status: record.direct_file_data.filing_status,
-      refund_or_owed_amount: record.calculated_refund_or_owed_amount,
-      household_fed_agi: record.direct_file_data.fed_agi
+      fed_refund_amt: record.direct_file_data.fed_refund_amt, # federal amount
+      refund_or_owed_amount: record.calculated_refund_or_owed_amount, # state amount
+      household_fed_agi: record.direct_file_data.fed_agi,
+      zip_code: record.direct_file_data.mailing_zip
     }
     attributes.merge!(record.calculator&.analytics_attrs || {})
   end

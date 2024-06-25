@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::W2Controller do
-  let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml")) }
+  let(:raw_direct_file_data) { StateFile::XmlReturnSampleService.new.read('ny_batman') }
   let(:direct_file_xml) { Nokogiri::XML(raw_direct_file_data) }
   let(:intake) do
     create :state_file_ny_intake, raw_direct_file_data: direct_file_xml.to_xml
@@ -205,7 +205,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         it "throws an error" do
           expect {
             post :update, params: params
-          }.to raise_error
+          }.to raise_error(NoMethodError)
         end
       end
 
@@ -259,7 +259,7 @@ RSpec.describe StateFile::Questions::W2Controller do
   end
 
   context "with an intake from AZ" do
-    let(:raw_direct_file_data) { File.read(Rails.root.join("spec/fixtures/files/fed_return_bert_az.xml")) }
+    let(:raw_direct_file_data) { StateFile::XmlReturnSampleService.new.read('az_bert') }
     let(:direct_file_xml) do
       doc = super()
       # Bert paid more tax than his wages!

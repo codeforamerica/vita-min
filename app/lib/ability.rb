@@ -14,10 +14,13 @@ class Ability
       # All admins who are also state file
       can :manage, :all
       unless user.state_file_admin?
-        cannot :manage, StateFileAzIntake
-        cannot :manage, StateFileNyIntake
+        StateFile::StateInformationService.state_intake_classes.each do |intake_class|
+          cannot :manage, intake_class
+        end
+        # Enumerate classes here...
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
+        cannot :manage, StateFileW2
         cannot :manage, StateId
         cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
         cannot :manage, EfileError do |error|
@@ -76,10 +79,12 @@ class Ability
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
     cannot :index, EfileSubmission unless user.admin? || user.client_success?
-    cannot :manage, StateFileAzIntake
-    cannot :manage, StateFileNyIntake
+    StateFile::StateInformationService.state_intake_classes.each do |intake_class|
+      cannot :manage, intake_class
+    end
     cannot :manage, StateFile1099G
     cannot :manage, StateFileDependent
+    cannot :manage, StateFileW2
     cannot :manage, StateId
 
     if user.role_type == CoalitionLeadRole::TYPE

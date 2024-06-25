@@ -37,9 +37,9 @@ describe EfileSubmission do
   context "generating an irs_submission_id" do
     context "adhering to IRS format" do
       around do |example|
-        Timecop.freeze(Date.new(2022, 1, 1))
-        example.run
-        Timecop.return
+        Timecop.freeze(Date.new(2022, 1, 1)) do
+          example.run
+        end
       end
 
       let(:submission) { create(:efile_submission, :ctc) }
@@ -717,6 +717,16 @@ describe EfileSubmission do
 
     it 'returns false for non-state submission' do
       expect(non_state_efile_submission.is_for_state_filing?).to eq false
+    end
+  end
+
+  describe "#manifest_class" do
+    let(:state_efile_submission) { create :efile_submission, :for_state }
+    let(:non_state_efile_submission) { create :efile_submission }
+
+    it "returns the right class" do
+      expect(state_efile_submission.manifest_class).to eq SubmissionBuilder::StateManifest
+      expect(non_state_efile_submission.manifest_class).to eq SubmissionBuilder::FederalManifest
     end
   end
 end

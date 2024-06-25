@@ -42,7 +42,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     screenshot_after do
       # Ask about backtaxes
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{current_tax_year - 3}"
+      check "#{current_tax_year - 2}"
       check "#{current_tax_year}"
     end
     click_on "Continue"
@@ -119,7 +119,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "I agree"
     # create tax returns only after client has consented
-    expect(intake.client.tax_returns.map(&:year)).to match_array [MultiTenantService.new(:gyr).current_tax_year - 3, current_tax_year]
+    expect(intake.client.tax_returns.map(&:year)).to match_array [MultiTenantService.new(:gyr).current_tax_year - 2, current_tax_year]
     expect(intake.reload.client.tax_returns.pluck(:current_state)).to eq ["intake_in_progress", "intake_in_progress"]
 
     screenshot_after do
@@ -548,10 +548,8 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_text("Client ID number: #{intake.client_id}")
       expect(page).to have_text("Please save this number for your records and future reference.")
     end
-    click_on "Great!"
-
-    expect(intake.reload.current_step).to end_with("/questions/feedback")
-    fill_in "Thank you for sharing your experience.", with: "I am a joint filer. I file with my spouse."
+    choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
+    fill_in "successfully_submitted_form_feedback", with: "I am a joint filer. I file with my spouse."
     click_on "Continue"
 
     # Demographic Questions

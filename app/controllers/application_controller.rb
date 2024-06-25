@@ -413,6 +413,33 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
+  def withdrawal_date_deadline
+    case params[:us_state]
+    when 'ny'
+      Rails.configuration.state_file_withdrawal_date_deadline_ny
+    else
+      # Arizona's withdrawal date deadline is the same as the end-new-intakes date which is set in PDT,
+      # if this was during daylight-savings, it would be different except in the Navajo Nation
+      Rails.configuration.state_file_end_of_new_intakes
+    end
+  end
+  helper_method :withdrawal_date_deadline
+
+  def before_withdrawal_date_deadline?
+    app_time < withdrawal_date_deadline
+  end
+  helper_method :before_withdrawal_date_deadline?
+
+  def post_deadline_withdrawal_date
+    # after the tax deadline we automatically set the bank withdrawal date to be the current day
+    if params[:us_state] == 'ny'
+      app_time.in_time_zone('America/New_York')
+    else
+      app_time.in_time_zone('America/Phoenix')
+    end
+  end
+  helper_method :post_deadline_withdrawal_date
+
   private
 
   def locale

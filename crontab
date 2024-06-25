@@ -8,10 +8,6 @@
 */5 * * * * bundle exec rake worker_heartbeat:perform
 */10 * * * * bundle exec rake efile:poll_and_get_acknowledgments
 0 17 * * * bundle exec rake state_file:reminder_to_finish_state_return
-0 21 13 4 * bundle exec rake state_file:pre_deadline_reminder
-0 21 17 4 * bundle exec rake state_file:post_deadline_reminder
-0 21 22 4 * bundle exec rake state_file:post_deadline_reminder
-0 21 13 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
+0 19 23 4 * bundle exec rake state_file:post_deadline_reminder
 0 21 23 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
-40 19 12 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
-0 11 14 4 * bundle exec rake state_file:send_reminder_apology_message
+0 21 27 10 * bundle exec rake users:suspend_non_admins

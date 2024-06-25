@@ -27,6 +27,7 @@ class DirectFileData
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
+    fed_refund_amt: 'IRS1040 RefundAmt',
     fed_puerto_rico_income_exclusion_amount: "IRS1040 ExcldSect933PuertoRicoIncmAmt",
     total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt',
     fed_irs_1040_nr: 'IRS1040NR',
@@ -506,6 +507,10 @@ class DirectFileData
   end
 
   def fed_eic
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_refund_amt
     df_xml_value(__method__)&.to_i || 0
   end
 
@@ -1033,6 +1038,7 @@ class DirectFileData
       :fed_taxable_ssb,
       :fed_ssb,
       :fed_eic,
+      :fed_refund_amt,
       :fed_ctc,
       :fed_qualify_child,
       :fed_puerto_rico_income_exclusion_amount,

@@ -1,11 +1,11 @@
-<p><%= t(".other_option", state_name: state_name) %></p>
+<p><%= t(".other_option", state_name: current_state_name) %></p>
 
 <div class="reveal">
   <p><a href="#" class="reveal__link"><%= t('.learn_more_reveal.title') %></a></p>
   <div class="reveal__content">
-    <p><%= t('.learn_more_reveal.p1', state_name: state_name) %></p>
+    <p><%= t('.learn_more_reveal.p1', state_name: current_state_name) %></p>
     <p><%= t('.learn_more_reveal.p2') %></p>
-    <p><%= t('.learn_more_here_html', link: @learn_more_link) %></p>
+    <p><%= t('.learn_more_here_html', link: @faq_other_options_link) %></p>
   </div>
 </div>
 
@@ -19,7 +19,7 @@
       <li><%= t('.other_options_reveal.list.list3') %></li>
     </ul>
     <p><%= t('.other_options_reveal.fees') %></p>
-    <p><%= t('.learn_more_here_html', link: @learn_more_link) %></p>
+    <p><%= t('.learn_more_here_html', link: @faq_other_options_link) %></p>
   </div>
 </div>
 

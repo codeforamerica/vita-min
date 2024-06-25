@@ -93,7 +93,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
+    check (Rails.configuration.gyr_current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -119,7 +119,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
+    check (Rails.configuration.gyr_current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -147,7 +147,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-    check "2020"
+    check (Rails.configuration.gyr_current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -181,7 +181,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-      check "2020"
+      check (Rails.configuration.gyr_current_tax_year - 2).to_s
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
@@ -210,23 +210,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       fill_out_personal_information(zip_code: "28806")
 
       expect(Intake.last.source).to eq nil
-
-
-      fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
-      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
-      click_on I18n.t('general.continue')
-
-      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
-      check "2020"
-      click_on I18n.t('general.continue')
-
-      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
-      click_on I18n.t('general.continue')
-
-      fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
-      click_on I18n.t('general.continue')
-
-      fill_out_notification_preferences(fill_out_optional_consent: false)
 
       expect(page.html).to have_text I18n.t('views.questions.at_capacity.title')
     end

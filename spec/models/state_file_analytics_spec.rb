@@ -9,6 +9,7 @@
 #  excise_credit                         :integer
 #  family_income_tax_credit              :integer
 #  fed_eitc_amount                       :integer
+#  fed_refund_amt                        :integer
 #  filing_status                         :integer
 #  household_fed_agi                     :integer
 #  initiate_data_transfer_first_visit_at :datetime
@@ -21,6 +22,7 @@
 #  nys_household_credit                  :integer
 #  record_type                           :string           not null
 #  refund_or_owed_amount                 :integer
+#  zip_code                              :string
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  record_id                             :bigint           not null
@@ -43,7 +45,9 @@ describe StateFileAnalytics do
       {
         fed_eitc_amount: 2000,
         filing_status: 2,
-        refund_or_owed_amount: 100
+        fed_refund_amt: 3955,
+        refund_or_owed_amount: 100,
+        zip_code: "10128"
       }
     }
 

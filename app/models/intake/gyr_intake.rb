@@ -546,4 +546,8 @@ class Intake::GyrIntake < Intake
   def filing_jointly?
     filing_joint_yes?
   end
+
+  def self.opted_out_gyr_intakes(email)
+    Intake::GyrIntake.where(email_address: email).where(email_notification_opt_in: 'no')
+  end
 end
