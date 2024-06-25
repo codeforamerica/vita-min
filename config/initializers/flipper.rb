@@ -10,6 +10,7 @@ end
 begin
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.enable :w2_override unless Flipper.exist?(:w2_override)
+  Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
 rescue
   # make sure we can still run rake tasks before table has been created
   nil
