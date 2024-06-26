@@ -1,7 +1,6 @@
 module Navigation
   class StateFileBaseQuestionNavigation
     class << self
-
       def sections
         const_get(:SECTIONS)
       end
