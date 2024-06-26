@@ -13,7 +13,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="test_id" elementType="Argument">
             <stringProp name="Argument.name">test_id</stringProp>
-            <stringProp name="Argument.value">${__time(yyMMddHHmmss)}</stringProp>
+            <stringProp name="Argument.value">${__time(yyMMddHHmmss)}_${__Random(0000,9999)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -1541,9 +1541,9 @@ Connect to 5s</stringProp>
       </ThreadGroup>
       <hashTree>
         <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Define User Number" enabled="true">
-          <stringProp name="CounterConfig.start"></stringProp>
+          <stringProp name="CounterConfig.start">1</stringProp>
           <stringProp name="CounterConfig.end"></stringProp>
-          <stringProp name="CounterConfig.incr"></stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
           <stringProp name="CounterConfig.name">user_number</stringProp>
           <stringProp name="CounterConfig.format"></stringProp>
           <boolProp name="CounterConfig.per_user">false</boolProp>
