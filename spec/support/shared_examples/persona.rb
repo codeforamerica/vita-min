@@ -1,29 +1,25 @@
 shared_examples :persona do
   let(:approved_output_path) { 'spec/personas/approved_output' }
-  let(:approved_pdf_path) { "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return.pdf" }
-  let(:approved_submission_bundle_path) { "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return_xmls" }
   let(:intake) { create persona_name }
-
   let(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
-  let!(:initial_efile_device_info) { create :state_file_efile_device_info, :filled, :initial_creation, updated_at: Time.now - 1.minute, intake: intake }
-  let!(:submission_efile_device_info) { create :state_file_efile_device_info, :filled, :submission, intake: intake }
-
-  let(:generated_pdf) { efile_submission.generate_filing_pdf }
-  let(:generated_pdf_fields) { PdfForms.new.get_fields(generated_pdf) }
-  let(:generated_pdf_fields_hash) { generated_pdf_fields.to_h { |field| [field.name, field.value] } }
-  let(:generated_submission_bundle) { SubmissionBundle.new(efile_submission) }
-
-  let(:approved_pdf_fields) { PdfForms.new.get_fields(File.open(approved_pdf_path)) }
-  let(:approved_pdf_fields_hash) { approved_pdf_fields.to_h { |field| [field.name, field.value] } }
 
   it 'generates identical filing PDF to approved output' do
-    expect(approved_pdf_fields_hash).to match(generated_pdf_fields_hash)
+    generated_pdf = efile_submission.generate_filing_pdf
+    generated_pdf_hash = PdfForms.new.get_fields(generated_pdf).to_h { |field| [field.name, field.value] }
+    approved_pdf_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return.pdf"
+    approved_pdf_hash = PdfForms.new.get_fields(File.open(approved_pdf_path)).to_h { |field| [field.name, field.value] }
+    expect(generated_pdf_hash).to match(approved_pdf_hash)
   end
 
   it 'generates identical submission bundle to approved output' do
+    create(:state_file_efile_device_info, :filled, :initial_creation, intake: intake, updated_at: Time.now - 1.minute)
+    create(:state_file_efile_device_info, :filled, :submission, intake: intake)
     efile_submission.update(irs_submission_id: submission_id)
-    response = generated_submission_bundle.build
-    expect(response.valid?).to be_truthy
+    response = SubmissionBundle.new(efile_submission).build
+    expect(response.errors).to be_empty
+    expect(response.valid?).to be true
+
+    approved_submission_bundle_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return_xmls"
     efile_submission.submission_bundle.open do |submission_bundle|
       Zip::File.open(submission_bundle.path) do |zipfile|
         zipfile.entries.each do |submission_bundle_file|
@@ -35,7 +31,7 @@ shared_examples :persona do
           approved_xml = Nokogiri::XML(File.open(approved_submission_bundle_file_path))
           approved_xml.remove_namespaces!
 
-          ignore_list = ['IPAddress', 'IPTs', 'DeviceId', 'TotActiveTimePrepSubmissionTs', 'TotalPreparationSubmissionTs', 'ReturnTs']
+          ignore_list = %w[IPAddress IPTs DeviceId TotActiveTimePrepSubmissionTs TotalPreparationSubmissionTs ReturnTs]
           expect(generated_xml).to match_xml(approved_xml, ignore_list)
         end
       end
