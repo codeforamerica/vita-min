@@ -1,7 +1,7 @@
 <% content_for :page_title, t(".page_title") %>
 <% content_for :card do %>
   <h1 class="h2">
-    <%= t(".title_html", owed_amount: taxes_owed, state_name: state_name) %>
+    <%= t(".title_html", owed_amount: taxes_owed, state_name: current_state_name) %>
   </h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>

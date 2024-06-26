@@ -113,7 +113,7 @@ module VitaMin
     config.state_file_withdrawal_date_deadline_ny = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
     config.state_file_end_of_in_progress_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-25 23:59:59')
 
-    config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku?)
+    config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
 
     config.intercom_app_id = "rird6gz6"
