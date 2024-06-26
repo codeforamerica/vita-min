@@ -35,7 +35,7 @@ module Hub
         return nil if acts_like_production?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
-        builder = SubmissionBuilder::StateFile.from_state_code(submission.data_source.state_code)
+        builder = StateFile::StateInformationService.submission_builder_class(submission.data_source.state_code)
         builder_response = builder.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end

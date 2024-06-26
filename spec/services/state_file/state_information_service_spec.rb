@@ -15,7 +15,7 @@ describe StateFile::StateInformationService do
     it "throws an error for an invalid state code" do
       expect do
         described_class.state_name("boop")
-      end.to raise_error(StandardError, "No state code 'boop'")
+      end.to raise_error(InvalidStateCodeError, "Invalid state code: boop")
     end
   end
 
@@ -26,12 +26,6 @@ describe StateFile::StateInformationService do
         "ny" => "New York",
       }
       expect(described_class.state_code_to_name_map).to eq result
-    end
-  end
-
-  describe ".state_code_from_intake_class" do
-    it "returns the corresponding state code string given an intake class" do
-      expect(described_class.state_code_from_intake_class(StateFileAzIntake)).to eq "az"
     end
   end
 

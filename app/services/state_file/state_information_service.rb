@@ -3,6 +3,8 @@ module StateFile
     class << self
       [
         :intake_class,
+        :navigation_class,
+        :submission_builder_class,
         :mail_voucher_address,
         :pay_taxes_link,
         :primary_tax_form_name,
@@ -15,7 +17,9 @@ module StateFile
         :voucher_path,
       ].each do |attribute|
         define_method(attribute) do |state_code|
-          raise StandardError, "No state code '#{state_code}'" if !active_state_codes.include?(state_code)
+          unless STATES_INFO.key?(state_code)
+            raise InvalidStateCodeError, state_code
+          end
 
           STATES_INFO[state_code][attribute]
         end
@@ -36,13 +40,6 @@ module StateFile
       def state_code_to_name_map
         active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
       end
-
-      def state_code_from_intake_class(klass)
-        state_code, _ = STATES_INFO.find do |_, state_info|
-          state_info[:intake_class] == klass
-        end
-        state_code.to_s
-      end
     end
 
     private
@@ -50,6 +47,8 @@ module StateFile
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
+        navigation_class: Navigation::StateFileAzQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
@@ -65,6 +64,8 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
+        navigation_class: Navigation::StateFileNyQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
