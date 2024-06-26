@@ -16,7 +16,7 @@ module StateFile
         :voucher_path,
       ].each do |attribute|
         define_method(attribute) do |state_code|
-          unless active_state_codes.include?(state_code)
+          unless STATES_INFO.key?(state_code)
             raise InvalidStateCodeError, state_code
           end
 
