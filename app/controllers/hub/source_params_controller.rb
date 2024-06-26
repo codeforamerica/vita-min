@@ -7,6 +7,7 @@ module Hub
       @form = form_class.new(@vita_partner, permitted_params)
       if @form.valid?
         @form.save!
+        @form.code = nil
         @success_message = I18n.t("hub.source_params.success", code: @form.code, name: @vita_partner.name)
       else
         flash.now[:alert] = @form.error_summary

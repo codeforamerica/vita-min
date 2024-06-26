@@ -107,11 +107,6 @@
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
-  STATE_CODE = 'ny'.freeze
-  STATE_NAME = 'New York'.freeze
-  STATE_CODE_AND_NAME = {
-    STATE_CODE => STATE_NAME
-  }.freeze
   LOCALITIES = [
     "NY",
     "N Y",
@@ -157,7 +152,6 @@ class StateFileNyIntake < StateFileBaseIntake
   enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
 
   before_save do
-    save_nil_enums_with_unfilled
 
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
       self.sales_use_tax_calculation_method = "unfilled"
@@ -168,22 +162,6 @@ class StateFileNyIntake < StateFileBaseIntake
       self.sales_use_tax = calculate_sales_use_tax
     end
 
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
-    end
-  end
-
-  def state_code
-    STATE_CODE
-  end
-
-  def state_name
-    STATE_NAME
   end
 
   def county_name

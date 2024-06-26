@@ -8,7 +8,7 @@ module SubmissionBuilder
       include SubmissionBuilder::BusinessLogicMethods
 
       def schema_file
-        File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
+        SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "ReturnHeader1040x.xsd")
       end
 
       def document

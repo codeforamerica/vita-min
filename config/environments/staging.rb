@@ -4,11 +4,11 @@ Rails.application.configure do
   config.active_storage.service = :s3_staging
 
   config.ctc_url = "https://ctc.staging.getyourrefund.org"
-  config.statefile_url = "https://staging.fileyourstatetaxes.org"
   config.gyr_url = "https://staging.getyourrefund.org"
-  ctc_email_from_domain = "getctc.org"
-  gyr_email_from_domain = "getyourrefund.org"
-  statefile_email_from_domain = "fileyourstatetaxes.org"
+  config.statefile_url = "https://staging.fileyourstatetaxes.org"
+  gyr_email_from_domain = "mg-demo.getyourrefund-testing.org"
+  ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"
+  statefile_email_from_domain = "mg-demo-statefile.getyourrefund-testing.org"
   config.email_from = {
     default: {
       ctc: "hello@#{ctc_email_from_domain}",

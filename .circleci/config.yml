@@ -235,13 +235,13 @@ workflows:
           filters:
             branches:
               only: release
-  daily:
-    triggers:
-      - schedule:
-          cron: "19 0 * * *"
-          filters:
-            branches:
-              only:
-                - main
-    jobs:
-      - flow_explorer_screenshots
+  # daily:
+  #   triggers:
+  #     - schedule:
+  #         cron: "19 0 * * *"
+  #         filters:
+  #           branches:
+  #             only:
+  #               - main
+  #   jobs:
+  #    - flow_explorer_screenshots

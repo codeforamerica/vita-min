@@ -742,9 +742,9 @@ RSpec.describe Hub::ClientsController do
           let!(:recently_contacted_client) { create :client_with_intake_and_return, preferred_name: "Recenty", vita_partner: organization, last_outgoing_communication_at: 2.hours.ago }
 
           around do |example|
-            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0))
-            example.run
-            Timecop.return
+            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0)) do
+              example.run
+            end
           end
 
           it "can filter to only clients who are approaching SLA" do
@@ -778,9 +778,9 @@ RSpec.describe Hub::ClientsController do
       context "SLA columns" do
         render_views
         around do |example|
-          Timecop.freeze(DateTime.new(2021, 12, 21, 8))
-          example.run
-          Timecop.return
+          Timecop.freeze(DateTime.new(2021, 12, 21, 8)) do
+            example.run
+          end
         end
 
         context "last contact" do

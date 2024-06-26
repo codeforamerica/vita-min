@@ -63,7 +63,7 @@ module StateFile
     def schema_compliant
       return true if skip_schema_validation
 
-      schema_file = File.join(Rails.root, "vendor", "irs", "unpacked", "2023v5.0", "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
+      schema_file = SchemaFileLoader.load_file("irs", "unpacked", "2023v5.0", "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
       xsd = Nokogiri::XML::Schema(File.open(schema_file))
       xml = Nokogiri::XML(intake.direct_file_data.to_s)
       xml_errors = xsd.validate(xml)

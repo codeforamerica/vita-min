@@ -10,22 +10,20 @@ class IrsApiService
     StateFile::XmlReturnSampleService.new.old_sample
   end
 
-  def self.import_federal_data(authorization_code, state_code)
+  def self.import_federal_data(authorization_code, _state_code)
     unless Rails.env.production?
       xml_return_sample_service = StateFile::XmlReturnSampleService.new
-      matching_fake_xml_sample = xml_return_sample_service.lookup(authorization_code)
-      fake_submission_id = xml_return_sample_service.lookup_submission_id(authorization_code)
-      if matching_fake_xml_sample
+      if xml_return_sample_service.include?(authorization_code)
         return {
-          'xml' => matching_fake_xml_sample.read,
-          'submissionId' => fake_submission_id,
+          'xml' => xml_return_sample_service.read(authorization_code),
+          'submissionId' => xml_return_sample_service.lookup_submission_id(authorization_code),
           'status' => "accepted"
         }
       end
     end
 
-    account_id = EnvironmentCredentials.dig('statefile', state_code, "account_id")
-    cert_finder = CertificateFinder.new(server_url, state_code)
+    account_id = EnvironmentCredentials.dig('statefile', _state_code, "account_id")
+    cert_finder = CertificateFinder.new(server_url, _state_code)
 
     claim = {
       "iss": account_id.to_s, # State identifier provided by the IRS
@@ -107,9 +105,9 @@ class IrsApiService
     attr_reader :server_url
     attr_reader :state_code
 
-    def initialize(server_url, state_code)
+    def initialize(server_url, _state_code)
       @server_url = server_url
-      @state_code = state_code
+      @state_code = _state_code
     end
 
     def self.certs_dir

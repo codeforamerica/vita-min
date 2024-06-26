@@ -5,7 +5,7 @@ module SubmissionBuilder
         include SubmissionBuilder::FormattingMethods
 
         def schema_file
-          File.join(Rails.root, "vendor", "irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
+          SchemaFileLoader.load_file("irs", "unpacked", "2020v5.1", "IndividualIncomeTax", "Ind1040", "IRS1040", "IRS1040.xsd")
         end
 
         def dependent_xml(xml, dependent)

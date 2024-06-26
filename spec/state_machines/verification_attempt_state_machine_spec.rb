@@ -46,9 +46,9 @@ describe VerificationAttemptStateMachine do
       let(:job_double) { double }
 
       around do |example|
-        Timecop.freeze(Date.new(2021, 1, 1))
-        example.run
-        Timecop.return
+        Timecop.freeze(Date.new(2021, 1, 1)) do
+          example.run
+        end
       end
 
       before do

@@ -118,8 +118,8 @@ describe StateFileAzIntake do
         expect {
           intake.update(armed_forces_member: nil, account_type: nil, spouse_esigned_at: nil)
         }.to change(intake, :armed_forces_member).to("unfilled")
-        .and change(intake, :account_type).to("unfilled")
         .and change(intake, :spouse_esigned_at).to(nil)
+        expect(intake.account_type).to eq "unfilled"
       end
     end
   end
@@ -423,6 +423,21 @@ describe StateFileAzIntake do
       df_w2 = intake.direct_file_data.w2s[0]
       df_w2.StateIncomeTaxAmt = df_w2.StateWagesAmt + 100
       expect(intake.invalid_df_w2?(df_w2)).to eq true
+    end
+  end
+
+  describe "state_code" do
+    context ".state_code" do
+      it "finds the right state code from the state information service" do
+        expect(described_class.state_code).to eq "az"
+      end
+    end
+
+    context "#state_code" do
+      it "delegates to the instance method from the class method" do
+        intake = create(:state_file_az_intake)
+        expect(intake.state_code).to eq "az"
+      end
     end
   end
 end

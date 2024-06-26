@@ -4,7 +4,7 @@ module StateFile
       include EligibilityOffboardingConcern
 
       def form_class
-        case params[:us_state]
+        case current_state_code
         when 'az'
           StateFile::AzEligibilityOutOfStateIncomeForm
         when 'ny'

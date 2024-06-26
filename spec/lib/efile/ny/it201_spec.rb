@@ -809,7 +809,7 @@ describe Efile::Ny::It201 do
   describe "calculate IT-215" do
     describe '#calculate_line_12' do
       context "when federal EIC is not present" do
-        let(:intake) { create :state_file_ny_intake, raw_direct_file_data: File.read(Rails.root.join("spec/fixtures/files/fed_return_unemployment_az.xml")) }
+        let(:intake) { create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('az_unemployment') }
 
         it "treats EIC as zero" do
           expect(instance.calculate[:IT215_LINE_12]).to eq(0)

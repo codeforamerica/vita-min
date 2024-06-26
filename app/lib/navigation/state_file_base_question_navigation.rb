@@ -1,11 +1,14 @@
 module Navigation
-  module StateFileBaseQuestionNavigationMixin
+  class StateFileBaseQuestionNavigation
+    class << self
 
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
+      def navigation_class_from_state_code(state_code)
+        unless StateFile::StateInformationService::STATES_INFO.key?(state_code)
+          raise InvalidStateCodeError, state_code
+        end
+        "Navigation::StateFile#{state_code.to_s.titleize}QuestionNavigation".constantize
+      end
 
-    module ClassMethods
       def sections
         const_get(:SECTIONS)
       end
@@ -15,9 +18,7 @@ module Navigation
       end
 
       def number_of_steps
-        sections.count do |section|
-          section.increment_step?
-        end
+        sections.count(&:increment_step?)
       end
 
       def get_progress(controller)

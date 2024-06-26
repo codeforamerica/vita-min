@@ -15,7 +15,9 @@
 #
 # Indexes
 #
-#  index_faq_items_on_faq_category_id  (faq_category_id)
+#  index_faq_items_on_faq_category_id     (faq_category_id)
+#  index_faq_items_on_searchable_data_en  (searchable_data_en) USING gin
+#  index_faq_items_on_searchable_data_es  (searchable_data_es) USING gin
 #
 # Foreign Keys
 #
