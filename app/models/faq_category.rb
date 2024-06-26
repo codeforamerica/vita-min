@@ -43,6 +43,6 @@ class FaqCategory < ApplicationRecord
   end
 
   def self.state_to_product_type(state)
-    "state_file_#{state}" if StateFile::StateInformationService.STATES_INFO.key?(state)
+    "state_file_#{state}" if StateFile::StateInformationService::STATES_INFO.key?(state)
   end
 end
