@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe StateFile::ReminderToFinishStateReturnService do
-
   describe ".run" do
     let(:message) { StateFile::AutomatedMessage::FinishReturn }
     let(:state_file_messaging_service) { StateFile::MessagingService.new(intake: intake, message: message) }
@@ -29,6 +28,16 @@ describe StateFile::ReminderToFinishStateReturnService do
         create :state_file_az_intake,
                df_data_imported_at: (11.hours + 59.minutes).ago
       end
+      it "does not send a message to the email associated with the intake" do
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to_not have_received(:new)
+      end
+    end
+
+    context "when there is an intake that has been submitted" do
+      let!(:intake) { create :state_file_az_intake, df_data_imported_at: 12.hours.ago }
+      let!(:submission) { create :efile_submission, :for_state, data_source: intake }
+
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
         expect(StateFile::MessagingService).to_not have_received(:new)

@@ -719,4 +719,14 @@ describe EfileSubmission do
       expect(non_state_efile_submission.is_for_state_filing?).to eq false
     end
   end
+
+  describe "#manifest_class" do
+    let(:state_efile_submission) { create :efile_submission, :for_state }
+    let(:non_state_efile_submission) { create :efile_submission }
+
+    it "returns the right class" do
+      expect(state_efile_submission.manifest_class).to eq SubmissionBuilder::StateManifest
+      expect(non_state_efile_submission.manifest_class).to eq SubmissionBuilder::FederalManifest
+    end
+  end
 end

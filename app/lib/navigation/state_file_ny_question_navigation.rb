@@ -1,7 +1,6 @@
 module Navigation
-  class StateFileNyQuestionNavigation
+  class StateFileNyQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
-    include Navigation::StateFileBaseQuestionNavigationMixin
 
     SECTIONS = [
       Navigation::NavigationSection.new(nil, [
@@ -56,9 +55,5 @@ module Navigation
       ]),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
-
-    def self.intake_class
-      StateFileNyIntake
-    end
   end
 end

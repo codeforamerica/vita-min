@@ -15,7 +15,7 @@ describe StateFile::StateInformationService do
     it "throws an error for an invalid state code" do
       expect do
         described_class.state_name("boop")
-      end.to raise_error(StandardError, "boop")
+      end.to raise_error(InvalidStateCodeError, "Invalid state code: boop")
     end
   end
 
@@ -29,9 +29,59 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".state_code_from_intake_class" do
-    it "returns the corresponding state code string given an intake class" do
-      expect(described_class.state_code_from_intake_class(StateFileAzIntake)).to eq "az"
+  describe ".tax_refund_url" do
+    it "returns the refund url" do
+      expect(described_class.tax_refund_url("az")).to eq 'https://aztaxes.gov/home/checkrefund'
+    end
+  end
+
+  describe ".tax_payment_url" do
+    it "returns the tax payment url" do
+      expect(described_class.tax_payment_url("az")).to eq 'AZTaxes.gov'
+    end
+  end
+
+  describe ".primary_tax_form_name" do
+    it "returns the name of the form to download" do
+      expect(described_class.primary_tax_form_name("az")).to eq 'Form AZ-140V'
+    end
+  end
+
+  describe ".mail_voucher_address" do
+    it "returns the mail voucher address" do
+      expect(described_class.mail_voucher_address("az")).to eq "Arizona Department of Revenue<br/>"\
+          "PO Box 29085<br/>"\
+          "Phoenix, AZ 85038-9085".html_safe
+    end
+  end
+
+  describe ".voucher_path" do
+    it "returns the voucher path" do
+      expect(described_class.voucher_path("az")).to eq '/pdfs/AZ-140V.pdf'
+    end
+  end
+
+  describe ".tax_payment_info_url" do
+    it "returns the link" do
+      expect(described_class.tax_payment_info_url("az")).to eq 'https://azdor.gov/making-payments-late-payments-and-filing-extensions'
+    end
+  end
+
+  describe ".vita_link" do
+    it "returns the link to the airtable" do
+      expect(described_class.vita_link("az")).to eq 'https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form'
+    end
+  end
+
+  describe ".survey_link" do
+    it "returns the survey link" do
+      expect(described_class.survey_link("az")).to eq 'https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey'
+    end
+  end
+
+  describe ".intake_class" do
+    it "returns the intake class" do
+      expect(described_class.intake_class("az")).to eq StateFileAzIntake
     end
   end
 end
