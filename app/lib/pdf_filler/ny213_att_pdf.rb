@@ -19,7 +19,7 @@ module PdfFiller
     def initialize(submission, dependent_offset: nil)
       @submission = submission
       @intake = submission.data_source
-      builder = SubmissionBuilder::StateFile.from_state_code(:ny)
+      builder = StateFile::StateInformationService.submission_builder_class(:ny)
       if dependent_offset.nil?
         dependent_offset = builder::DEPENDENT_OVERFLOW_THRESHOLD
       end

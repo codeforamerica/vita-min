@@ -223,7 +223,7 @@ class EfileSubmission < ApplicationRecord
 
   def bundle_class
     if is_for_state_filing?
-      return SubmissionBuilder::StateFile.from_state_code(data_source.state_code)
+      return StateFile::StateInformationService.submission_builder_class(data_source.state_code)
     end
 
     case tax_year

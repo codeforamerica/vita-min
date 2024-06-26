@@ -1,14 +1,6 @@
 module Navigation
   class StateFileBaseQuestionNavigation
     class << self
-
-      def navigation_class_from_state_code(state_code)
-        unless StateFile::StateInformationService::STATES_INFO.key?(state_code)
-          raise InvalidStateCodeError, state_code
-        end
-        "Navigation::StateFile#{state_code.to_s.titleize}QuestionNavigation".constantize
-      end
-
       def sections
         const_get(:SECTIONS)
       end

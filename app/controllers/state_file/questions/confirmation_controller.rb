@@ -3,7 +3,7 @@ module StateFile
     class ConfirmationController < QuestionsController
       def show_xml
         submission = EfileSubmission.where(data_source: current_intake).first
-        builder = SubmissionBuilder::StateFile.from_state_code(current_state_code)
+        builder = StateFile::StateInformationService.submission_builder_class(current_state_code)
         builder_response = builder.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
       end

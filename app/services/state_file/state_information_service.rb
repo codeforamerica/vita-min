@@ -3,6 +3,8 @@ module StateFile
     class << self
       [
         :intake_class,
+        :navigation_class,
+        :submission_builder_class,
         :mail_voucher_address,
         :primary_tax_form_name,
         :state_name,
@@ -44,6 +46,8 @@ module StateFile
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
+        navigation_class: Navigation::StateFileAzQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
@@ -58,6 +62,8 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
+        navigation_class: Navigation::StateFileNyQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \

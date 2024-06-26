@@ -10,7 +10,7 @@ module PdfFiller
       @submission = submission
 
       # Most PDF fields are grabbed right off the XML
-      builder = SubmissionBuilder::StateFile.from_state_code(:az)
+      builder = StateFile::StateInformationService.submission_builder_class(:az)
       @xml_document = builder.new(submission).document
     end
 
