@@ -1,5 +1,5 @@
 FROM alpine:3.10
-MAINTAINER Anees tofarrell@codeforamerica.org
+MAINTAINER tofarr tofarrell@codeforamerica.org
 
 # Install packages
 #RUN apk update && \
