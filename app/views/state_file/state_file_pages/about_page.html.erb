@@ -32,6 +32,7 @@
 <section>
   <%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
   <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
+  <%= link_to "Start Test WA", Navigation::StateFileWaQuestionNavigation::FLOW.first.to_path_helper(us_state: "wa"), class: "button" %>
   <% if current_intake %>
     <div class="with-padding-med">
       Your session has this intake: <b><%= current_state_code %> <%= current_intake.id %></b>

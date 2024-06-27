@@ -1,7 +1,7 @@
 class MultiTenantService
   attr_accessor :service_type
 
-  SERVICE_TYPES = [:gyr, :ctc, :statefile, :statefile_az, :statefile_ny]
+  SERVICE_TYPES = [:gyr, :ctc, :statefile, :statefile_az, :statefile_ny, :statefile_wa]
 
   def initialize(service_type)
     @service_type = service_type.to_sym
@@ -60,6 +60,7 @@ class MultiTenantService
     when :ctc then Intake::CtcIntake
     when :gyr then Intake::GyrIntake
     when :statefile_az then StateFileAzIntake
+    when :statefile_wa then StateFileWaIntake
     when :statefile_ny then StateFileNyIntake
     when :statefile
       raise StandardError, "No intake model for generic 'statefile' service type"

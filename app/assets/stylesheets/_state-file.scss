@@ -73,6 +73,23 @@
   }
 }
 
+// Color overrides for WA
+// TODO: can we do the same automatic override like on line 720?
+.state-file-html-bg--wa {
+  background-color: $color-wa-orange;
+  .state-file {
+    .main-header {
+      background-color: $color-wa-orange;
+    }
+    .client-menu-closer {
+      background-color: $color-wa-orange;
+    }
+    .client-menu {
+      background-color: $color-wa-orange;
+    }
+  }
+}
+
 .state-file {
   font-family: $font-state-file;
   font-size: 1.6rem;
@@ -697,7 +714,8 @@
 
 $state-colors: (
   ny: $color-ny-blue,
-  az: $color-az-grey
+  az: $color-az-grey,
+  wa: $color-wa-orange
 );
 
 @each $state_key, $state-color in $state-colors {
