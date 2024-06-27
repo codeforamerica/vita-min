@@ -217,6 +217,8 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def disqualifying_eligibility_answer
+    return
+
     disqualifying_eligibility_rules.each do |col, value|
       return col if self.public_send(col) == value
     end
@@ -283,6 +285,8 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def sanitize_bank_details
+    return if payment_or_deposit_type_unfilled?
+
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
       self.bank_name = nil

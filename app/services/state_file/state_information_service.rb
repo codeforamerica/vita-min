@@ -76,6 +76,10 @@ module StateFile
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_path: "/pdfs/it201v_1223.pdf",
+      },
+      wa: {
+        intake_class: StateFileWaIntake,
+        navigation_class: Navigation::StateFileWaQuestionNavigation,
       }
     }).with_indifferent_access
   end
