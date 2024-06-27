@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   include MockTwilio
-  #WARNING: The convert command is deprecated in IMv7, use "magick"
 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
