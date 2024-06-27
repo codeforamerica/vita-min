@@ -157,14 +157,14 @@ RSpec.describe StateFile::EsignDeclarationForm do
       end
     end
 
-    context "when there is already an queued submission in a different account with the same SSN" do
+    context "when there is already an queued and failed submission in a different account with the same SSN" do
       before do
         other_intake = create :state_file_az_intake
         submission = EfileSubmission.create(data_source: other_intake)
         EfileSubmissionTransition.create(to_state: :queued, efile_submission: submission, most_recent: false, sort_key: 1)
         EfileSubmissionTransition.create(to_state: :failed, efile_submission: submission, most_recent: true, sort_key: 2)
       end
-      it "does not create a new efile submission" do
+      it "creates a new efile submission" do
         form = described_class.new(intake, params)
         expect(form).to be_valid
         expect {
