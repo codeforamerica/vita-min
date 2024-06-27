@@ -115,7 +115,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
 
       it "does not create a new efile submission" do
         form = described_class.new(intake, params)
-        expect(form).to be_valid
+        expect(form).not_to be_valid
         expect {
           form.save
         }.to change(intake.efile_submissions, :count).by(0)
@@ -124,24 +124,56 @@ RSpec.describe StateFile::EsignDeclarationForm do
     end
 
     context "when there is already an accepted submission in a different account with the same SSN" do
-      let!(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
+      let!(:other_intake) { create :state_file_az_intake }
+      let!(:submission) { EfileSubmission.create(data_source: other_intake) }
+      before do
+        EfileSubmissionTransition.create(to_state: :accepted, efile_submission: submission, most_recent: true, sort_key: 1)
+      end
+      it "does not create a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(0)
+        expect(submission.reload.current_state).to eq("accepted")
+      end
+    end
+
+    context "when there is already an queued submission in a different account with the same SSN" do
+      let!(:efile_submission) { create :efile_submission, :queued, :for_state, data_source: intake }
       before do
         other_intake = create :state_file_az_intake
         submission = EfileSubmission.create(data_source: other_intake)
-        EfileSubmissionTransition.create(to_state: :accepted, efile_submission: submission, most_recent: true, sort_key: 1)
+        EfileSubmissionTransition.create(to_state: :queued, efile_submission: submission, most_recent: true, sort_key: 1)
+      end
+      it "does not create a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(0)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("queued")
+      end
+    end
+
+    context "when there is already an queued submission in a different account with the same SSN" do
+      before do
+        other_intake = create :state_file_az_intake
+        submission = EfileSubmission.create(data_source: other_intake)
+        EfileSubmissionTransition.create(to_state: :queued, efile_submission: submission, most_recent: false, sort_key: 1)
+        EfileSubmissionTransition.create(to_state: :failed, efile_submission: submission, most_recent: true, sort_key: 2)
       end
       it "does not create a new efile submission" do
         form = described_class.new(intake, params)
         expect(form).to be_valid
         expect {
           form.save
-        }.to change(intake.efile_submissions, :count).by(0)
-        expect(intake.reload.efile_submissions.last.current_state).to eq("accepted")
+        }.to change(intake.efile_submissions, :count).by(1)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
       end
     end
 
     context "when there is already a non-accepted submission in a different account with the same SSN" do
-      #let!(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
       before do
         other_intake = create :state_file_az_intake
         submission = EfileSubmission.create(data_source: other_intake)
