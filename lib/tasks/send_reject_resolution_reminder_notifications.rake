@@ -2,7 +2,7 @@ namespace :send_reject_resolution_reminder_notifications do
   desc 'Send reject resolution reminder notifications'
   task 'send' => :environment do
     intakes_to_send_message_to.each do |intake|
-      SendRejectResolutionReminderNotificationJob.perform_later(intake)
+      StateFile::SendRejectResolutionReminderNotificationJob.perform_later(intake)
     end
   end
 
