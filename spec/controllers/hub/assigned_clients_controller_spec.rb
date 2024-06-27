@@ -42,6 +42,16 @@ RSpec.describe Hub::AssignedClientsController do
           end
         end
 
+        context "last contact filter" do
+          render_views
+
+          it "filters the Assigned Clients page" do
+            get :index
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("a.button--quick-filter").attr("href")).to include hub_assigned_clients_path
+          end
+        end
+
         context "filtering by status" do
           it "filters in with matching tax return (intake_ready)" do
             get :index, params: { status: "intake_ready" }
