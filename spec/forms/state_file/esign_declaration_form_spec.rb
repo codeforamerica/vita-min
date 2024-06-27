@@ -9,6 +9,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
       device_id: device_id,
     }
   end
+  before { Flipper.enable(:prevent_duplicate_accepted_statefile_submissions) }
 
   describe "#save" do
     context "when has agreed to esign in arizona" do
