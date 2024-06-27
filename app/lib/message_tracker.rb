@@ -9,15 +9,19 @@ class MessageTracker
   def sent_at
     return nil unless already_sent?
 
-    DateTime.parse(data_source&.message_tracker[message_name])
+    DateTime.parse(data_source.message_tracker[message_name])
   end
 
   def already_sent?
-    data_source&.message_tracker[message_name].present?
+    return false
+
+    data_source.message_tracker[message_name].present?
   end
 
   def record(datetime)
-    data_source&.message_tracker[message_name] = datetime.to_s
+    MessageTracker.new
+
+    data_source.message_tracker[message_name] = datetime.to_s
     data_source.save
   end
 end
