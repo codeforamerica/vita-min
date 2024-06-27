@@ -47,13 +47,11 @@ module StateFile
     end
 
     def already_submitted?
-      current_state = @intake.efile_submissions.last&.current_state
-      if ["rejected", "notified_of_rejection", "waiting", nil].exclude?(current_state)
-        return true
-      end
       unless Flipper.enabled?(:allow_duplicate_submissions)
-        return accepted_submissions_with_same_ssn(@intake).any?
+        return true if accepted_submissions_with_same_ssn(@intake).any?
       end
+      current_state = @intake.efile_submissions.last&.current_state
+      return true if ["rejected", "notified_of_rejection", "waiting", nil].exclude?(current_state)
       false
     end
 
