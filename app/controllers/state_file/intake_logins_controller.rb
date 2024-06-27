@@ -28,9 +28,9 @@ module StateFile
     def edit
       # Displays verify SSN form
       @form = IntakeLoginForm.new(possible_intakes: @records)
-      if @records.all? { |intake| intake.hashed_ssn.nil? }
+      # if @records.all? { |intake| intake.hashed_ssn.nil? }
         sign_in_and_redirect
-      end
+      # end
     end
 
     def update
@@ -87,10 +87,12 @@ module StateFile
       params.require(:state_file_request_intake_login_form).permit(:email_address, :sms_phone_number)
     end
 
+    # TODO: refactor multitenant service
     def service_type
       case params[:us_state]
       when "az" then :statefile_az
       when "ny" then :statefile_ny
+      when "wa" then :statefile_wa
       when "us" then :statefile
       end
     end

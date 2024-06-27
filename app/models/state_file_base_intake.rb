@@ -181,9 +181,9 @@ class StateFileBaseIntake < ApplicationRecord
       if primary_or_spouse == :primary
         @first_name = intake.primary_first_name
         @last_name = intake.primary_last_name
-        @middle_initial = intake.primary_middle_initial
-        @suffix = intake.primary_suffix
-        @birth_date = intake.primary_birth_date
+        # @middle_initial = intake.primary_middle_initial
+        # @suffix = intake.primary_suffix
+        # @birth_date = intake.primary_birth_date
         @ssn = intake.direct_file_data.primary_ssn
       else
         @first_name = intake.spouse_first_name

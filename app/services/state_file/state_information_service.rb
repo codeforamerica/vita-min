@@ -80,6 +80,7 @@ module StateFile
       wa: {
         intake_class: StateFileWaIntake,
         navigation_class: Navigation::StateFileWaQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Wa::IndividualReturn,
       }
     }).with_indifferent_access
   end

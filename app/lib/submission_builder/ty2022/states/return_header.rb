@@ -22,26 +22,26 @@ module SubmissionBuilder
               xml.Primary do
                 xml.TaxpayerName do
                   xml.FirstName @submission.data_source.primary.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.first_name.present?
-                  xml.MiddleInitial @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
+                  # xml.MiddleInitial @submission.data_source.primary.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.middle_initial.present?
                   xml.LastName @submission.data_source.primary.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.primary.last_name.present?
-                  xml.NameSuffix @submission.data_source.primary.suffix if @submission.data_source.primary.suffix.present?
+                  # xml.NameSuffix @submission.data_source.primary.suffix if @submission.data_source.primary.suffix.present?
                 end
                 xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
                 xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
               end
-              if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present?
-                xml.Secondary do
-                  xml.TaxpayerName do
-                    xml.FirstName @submission.data_source.spouse.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.first_name.present?
-                    xml.MiddleInitial @submission.data_source.spouse.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.middle_initial.present?
-                    xml.LastName @submission.data_source.spouse.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.last_name.present?
-                    xml.NameSuffix @submission.data_source.spouse.suffix if @submission.data_source.spouse.suffix.present?
-                  end
-                  xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
-                  xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
-                  xml.DateOfDeath @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.direct_file_data.spouse_date_of_death.present?
-                end
-              end
+              # if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present?
+              #   xml.Secondary do
+              #     xml.TaxpayerName do
+              #       xml.FirstName @submission.data_source.spouse.first_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.first_name.present?
+              #       xml.MiddleInitial @submission.data_source.spouse.middle_initial.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.middle_initial.present?
+              #       xml.LastName @submission.data_source.spouse.last_name.strip.gsub(/\s+/, ' ') if @submission.data_source.spouse.last_name.present?
+              #       xml.NameSuffix @submission.data_source.spouse.suffix if @submission.data_source.spouse.suffix.present?
+              #     end
+              #     xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
+              #     xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
+              #     xml.DateOfDeath @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.direct_file_data.spouse_date_of_death.present?
+              #   end
+              # end
               xml.USAddress do |xml|
                 xml.AddressLine1Txt @submission.data_source.direct_file_data.mailing_street.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_street.present?
                 xml.AddressLine2Txt @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_apartment.present?

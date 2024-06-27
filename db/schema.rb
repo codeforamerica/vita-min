@@ -1869,7 +1869,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_222401) do
 
   create_table "state_file_wa_intakes", force: :cascade do |t|
     t.integer "account_type", default: 0, null: false
-    t.date "birth_date"
     t.string "city"
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
@@ -1882,6 +1881,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_222401) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
+    t.integer "filing_status"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1889,6 +1889,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_222401) do
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
     t.integer "primary_esigned", default: 0, null: false
     t.string "primary_first_name"
     t.string "primary_last_name"
