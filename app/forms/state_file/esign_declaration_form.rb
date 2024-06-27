@@ -58,8 +58,7 @@ module StateFile
         return true if accepted_submissions_with_same_ssn(@intake).any?
       end
       current_state = @intake.efile_submissions.last&.current_state
-      return true if ["rejected", "notified_of_rejection", "waiting", nil].exclude?(current_state)
-      false
+      ["rejected", "notified_of_rejection", "waiting", nil].exclude?(current_state)
     end
 
     def validate_intake_already_submitted
