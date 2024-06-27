@@ -7,8 +7,10 @@ module StateFile
 
     validates :primary_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}
     validates :spouse_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}, if: -> { @intake.ask_spouse_esign? }
+    validate :validate_already_submitted
 
     def save
+      return false unless valid?
       attrs = @intake.ask_spouse_esign? ? attributes_for(:intake) : attributes_for(:intake).except(:spouse_esigned)
       @intake.update!(attrs)
       @intake.touch(:primary_esigned_at) if @intake.primary_esigned_yes?
@@ -16,13 +18,6 @@ module StateFile
 
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info&.update!(attributes_for(:state_file_efile_device_info))
-
-      unless Flipper.enabled?(:allow_duplicate_submissions)
-        if accepted_submissions_with_same_ssn(@intake).any?
-          Rails.logger.warn "#{@intake.state_code}#{@intake.id} was not submitted because there is already an accepted submission for that ssn"
-          return
-        end
-      end
 
       old_efile_submission = @intake.efile_submissions&.last
       if old_efile_submission.present?
@@ -49,6 +44,23 @@ module StateFile
         .where(efile_submission_transitions: { to_state: :accepted })
         .where(table_name => { hashed_ssn: intake.hashed_ssn })
         .where.not(efile_submissions: {id: intake.id})
+    end
+
+    def already_submitted?
+      current_state = @intake.efile_submissions.last&.current_state
+      if ["rejected", "notified_of_rejection", "waiting", nil].exclude?(current_state)
+        return true
+      end
+      unless Flipper.enabled?(:allow_duplicate_submissions)
+        return accepted_submissions_with_same_ssn(@intake).any?
+      end
+      false
+    end
+
+    def validate_already_submitted
+      if already_submitted?
+        self.errors[:base] << I18n.t("state_file.questions.esign_declaration.edit.already_submitted")
+      end
     end
   end
 end
