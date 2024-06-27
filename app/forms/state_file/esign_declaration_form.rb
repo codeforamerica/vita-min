@@ -54,7 +54,7 @@ module StateFile
     end
 
     def intake_already_submitted?
-      if Flipper.enabled(:prevent_duplicate_accepted_statefile_submissions)
+      if Flipper.enabled?(:prevent_duplicate_accepted_statefile_submissions)
         return true if accepted_submissions_with_same_ssn(@intake).any?
       end
       current_state = @intake.efile_submissions.last&.current_state
