@@ -6,7 +6,7 @@ module StateFile
       before_action :load_w2, only: [:edit, :update]
 
       def self.show?(intake)
-        Flipper.enabled?(:w2_override) && invalid_df_w2s(intake).any?
+        invalid_df_w2s(intake).any?
       end
 
       def index
