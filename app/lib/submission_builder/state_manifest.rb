@@ -13,7 +13,7 @@ module SubmissionBuilder
         xml.SubmissionId @submission.irs_submission_id
         xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr data_source.tax_return_year
-        xml.GovernmentCd "#{@submission.bundle_class.state_abbreviation}ST"
+        xml.GovernmentCd "#{@submission.data_source.state_code.upcase}ST"
         xml.StateSubmissionTyp StateFile::StateInformationService.return_type(@submission.data_source.state_code)
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN data_source.primary.ssn
