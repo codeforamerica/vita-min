@@ -1,8 +1,8 @@
 require "rails_helper"
 
-describe StateFile::Questions::TaxesOwedController do
+describe StateFile::Questions::CodeVerifiedController do
 
-  let(:intake) { create :state_file_az_owed_intake}
+  let(:intake) { create :state_file_az_refund_intake}
   before do
     sign_in intake
   end
@@ -12,8 +12,7 @@ describe StateFile::Questions::TaxesOwedController do
     it 'succeeds' do
       get :edit, params: { us_state: "az" }
       expect(response).to be_successful
-      expect(response_html).to have_text "You owe"
-      expect(response_html).to have_text "Bank name"
+      expect(response_html).to have_text "Code verified!"
     end
   end
 end
