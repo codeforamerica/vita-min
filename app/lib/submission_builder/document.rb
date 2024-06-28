@@ -28,7 +28,8 @@ module SubmissionBuilder
     end
 
     def schema_file
-      raise "Child classes of SubmissionBuilder::Base must define a schema_file method."
+      file_path = StateFile::StateInformationService.schema_file_path(@submission.data_source.state_code)
+      SchemaFileLoader.load_file(*file_path)
     end
 
     def build
