@@ -6,13 +6,13 @@ module StateFile
         :navigation_class,
         :submission_builder_class,
         :mail_voucher_address,
-        :primary_tax_form_name,
         :state_name,
         :survey_link,
         :tax_payment_info_url,
         :tax_payment_url,
         :tax_refund_url,
         :vita_link,
+        :voucher_form_name,
         :voucher_path,
       ].each do |attribute|
         define_method(attribute) do |state_code|
@@ -51,13 +51,13 @@ module StateFile
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
-        primary_tax_form_name: "Form AZ-140V",
         state_name: "Arizona",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
         tax_payment_url: "AZTaxes.gov",
         tax_refund_url: "https://aztaxes.gov/home/checkrefund",
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
+        voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
       },
       ny: {
@@ -68,13 +68,13 @@ module StateFile
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
-        primary_tax_form_name: "Form IT-201-V",
         state_name: "New York",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_payment_url: "Tax.NY.gov",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
+        voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
       }
     }).with_indifferent_access
