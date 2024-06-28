@@ -22,10 +22,6 @@ module SubmissionBuilder
             "NY"
           end
 
-          def self.return_type
-            "IT201"
-          end
-
           def pdf_documents
             included_documents.map { |item| item if item.pdf }.compact
           end

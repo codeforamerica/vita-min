@@ -17,7 +17,7 @@ module SubmissionBuilder
               xml.OriginatorTypeCd "OnlineFiler"
             end
             xml.SoftwareId EnvironmentCredentials.irs(:sin)
-            xml.ReturnType "#{@submission.bundle_class.return_type}" if @submission.bundle_class.return_type.present?
+            xml.ReturnType StateFile::StateInformationService.return_type(@submission.data_source.state_code)
             xml.Filer do
               xml.Primary do
                 xml.TaxpayerName do

@@ -14,7 +14,7 @@ module SubmissionBuilder
         xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr data_source.tax_return_year
         xml.GovernmentCd "#{@submission.bundle_class.state_abbreviation}ST"
-        xml.StateSubmissionTyp @submission.bundle_class.return_type
+        xml.StateSubmissionTyp StateFile::StateInformationService.return_type(@submission.data_source.state_code)
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN data_source.primary.ssn
         xml.PrimaryNameControlTxt name_control_type(data_source.primary.last_name)
