@@ -35,10 +35,6 @@ module SubmissionBuilder
             document
           end
 
-          def self.state_abbreviation
-            "AZ"
-          end
-
           def pdf_documents
             included_documents.map { |item| item if item.pdf }.compact
           end
