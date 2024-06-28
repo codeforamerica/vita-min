@@ -11,7 +11,7 @@ module StateFile
         @return_status = return_status
         @tax_refund_url = StateFile::StateInformationService.tax_refund_url(current_state_code)
         @tax_payment_url = StateFile::StateInformationService.tax_payment_url(current_state_code)
-        @primary_tax_form_name = StateFile::StateInformationService.primary_tax_form_name(current_state_code)
+        @voucher_form_name = StateFile::StateInformationService.voucher_form_name(current_state_code)
         @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
         @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
         @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
