@@ -42,5 +42,15 @@ describe SubmissionBuilder::Ty2022::States::ReturnHeader do
         end
       end
     end
+
+    context "misc other attributes" do
+      let(:intake) { create :state_file_az_intake }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+
+      it "generates xml with the right values" do
+        doc = SubmissionBuilder::Ty2022::States::ReturnHeader.new(submission).document
+        expect(doc.at("ReturnType").text).to eq "Form140"
+      end
+    end
   end
 end

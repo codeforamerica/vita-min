@@ -15,7 +15,7 @@ describe StateFile::StateInformationService do
     it "throws an error for an invalid state code" do
       expect do
         described_class.state_name("boop")
-      end.to raise_error(StandardError, "No state code 'boop'")
+      end.to raise_error(InvalidStateCodeError, "Invalid state code: boop")
     end
   end
 
@@ -26,12 +26,6 @@ describe StateFile::StateInformationService do
         "ny" => "New York",
       }
       expect(described_class.state_code_to_name_map).to eq result
-    end
-  end
-
-  describe ".state_code_from_intake_class" do
-    it "returns the corresponding state code string given an intake class" do
-      expect(described_class.state_code_from_intake_class(StateFileAzIntake)).to eq "az"
     end
   end
 
@@ -47,9 +41,9 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".primary_tax_form_name" do
-    it "returns the name of the form to download" do
-      expect(described_class.primary_tax_form_name("az")).to eq 'Form AZ-140V'
+  describe ".voucher_form_name" do
+    it "returns the name of the voucher form" do
+      expect(described_class.voucher_form_name("az")).to eq 'Form AZ-140V'
     end
   end
 
@@ -88,6 +82,12 @@ describe StateFile::StateInformationService do
   describe ".intake_class" do
     it "returns the intake class" do
       expect(described_class.intake_class("az")).to eq StateFileAzIntake
+    end
+  end
+
+  describe ".return_type" do
+    it "returns the string that goes in ReturnType in the return header and StateSubmissionTyp in the state manifest" do
+      expect(described_class.return_type("az")).to eq "Form140"
     end
   end
 end

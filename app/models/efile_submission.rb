@@ -88,8 +88,7 @@ class EfileSubmission < ApplicationRecord
       )
       WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
       AND (
-        efile_submissions.data_source_type = 'StateFileAzIntake'
-        OR efile_submissions.data_source_type = 'StateFileNyIntake'
+        efile_submissions.data_source_type IN ('#{StateFile::StateInformationService.state_intake_class_names.join("','")}')
       )
       GROUP BY to_state
     SQL
@@ -223,10 +222,8 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    if data_source&.class == StateFileNyIntake
-      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-    elsif data_source&.class == StateFileAzIntake
-      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
+    if is_for_state_filing?
+      return StateFile::StateInformationService.submission_builder_class(data_source.state_code)
     end
 
     case tax_year
@@ -271,7 +268,7 @@ class EfileSubmission < ApplicationRecord
         age ** 1.25
       end
     retry_wait = backoff + SecureRandom.rand(30)
-    GyrEfiler::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
+    StateFile::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
   end
 
   def create_qualifying_dependents

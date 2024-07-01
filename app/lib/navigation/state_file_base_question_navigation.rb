@@ -1,11 +1,6 @@
 module Navigation
-  module StateFileBaseQuestionNavigationMixin
-
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
-
-    module ClassMethods
+  class StateFileBaseQuestionNavigation
+    class << self
       def sections
         const_get(:SECTIONS)
       end
@@ -15,9 +10,7 @@ module Navigation
       end
 
       def number_of_steps
-        sections.count do |section|
-          section.increment_step?
-        end
+        sections.count(&:increment_step?)
       end
 
       def get_progress(controller)

@@ -5,8 +5,7 @@ module StateFile
 
     def self.run
       cutoff_time_ago = HOURS_AGO.hours.ago
-      intakes_to_notify = StateFile::StateInformationService.state_intake_class_names.map do |base_class|
-        class_object = base_class.constantize
+      intakes_to_notify = StateFile::StateInformationService.state_intake_classes.map do |class_object|
 
         # First we get all intake ids by email address
         intake_ids_by_email = class_object.select(:id, :email_address).where.not(email_address: nil).each_with_object({}) do |intake, result|
@@ -27,7 +26,7 @@ module StateFile
                     .where.not(email_address: nil)
                     .where.not(email_address_verified_at: nil)
                     .where(unsubscribed_from_email: false)
-                    .where("#{base_class.underscore.pluralize}.message_tracker #> '{messages.state_file.post_deadline_reminder}' IS NULL")
+                    .where("#{class_object.name.underscore.pluralize}.message_tracker #> '{messages.state_file.post_deadline_reminder}' IS NULL")
                     .select do |intake|
           if intake.message_tracker.present? && intake.message_tracker["messages.state_file.finish_return"]
             finish_return_msg_sent_time = Time.parse(intake.message_tracker["messages.state_file.finish_return"])
@@ -39,7 +38,7 @@ module StateFile
           # New criteria - gonna see if any associated intakes have submissions
           intake_ids = (intake_ids_by_email[intake.email_address] || []) + (intake_ids_by_hashed_ssn[intake.hashed_ssn] || [])
           intake_ids = intake_ids.to_set
-          (intake_ids.length == 1) || EfileSubmission.where(data_source_id: intake_ids, data_source_type: base_class).none?
+          (intake_ids.length == 1) || EfileSubmission.where(data_source_id: intake_ids, data_source_type: class_object.name).none?
         end
       end.flatten
 

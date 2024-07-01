@@ -10,7 +10,8 @@ module PdfFiller
       @submission = submission
 
       # Most PDF fields are grabbed right off the XML
-      @xml_document = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission).document
+      builder = StateFile::StateInformationService.submission_builder_class(:ny)
+      @xml_document = builder.new(submission).document
       @calculator = submission.data_source.tax_calculator
       @calculator.calculate
     end

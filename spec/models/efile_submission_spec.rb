@@ -159,10 +159,10 @@ describe EfileSubmission do
       context "after transition to" do
         let(:submission) { create(:efile_submission, :new) }
 
-        it "queues a BuildSubmissionBundleJob" do
+        it "queues a StateFile::BuildSubmissionBundleJob" do
           expect do
             submission.transition_to!(:preparing)
-          end.to have_enqueued_job(BuildSubmissionBundleJob).with(submission.id)
+          end.to have_enqueued_job(StateFile::BuildSubmissionBundleJob).with(submission.id)
         end
       end
     end
@@ -194,7 +194,7 @@ describe EfileSubmission do
         it "queues a GyrEfilerSendSubmissionJob" do
           expect do
             submission.transition_to!(:queued)
-          end.to have_enqueued_job(GyrEfiler::SendSubmissionJob).with(submission)
+          end.to have_enqueued_job(StateFile::SendSubmissionJob).with(submission)
         end
       end
     end
@@ -312,10 +312,10 @@ describe EfileSubmission do
         let(:submission) { create(:efile_submission, :transmitted) }
         let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
 
-        it "enqueues an AfterTransitionTasksForRejectedReturnJob" do
+        it "enqueues an StateFile::AfterTransitionTasksForRejectedReturnJob" do
           submission.transition_to!(:rejected, error_code: efile_error.code)
 
-          expect(AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
+          expect(StateFile::AfterTransitionTasksForRejectedReturnJob).to have_been_enqueued.with(submission, submission.last_transition)
         end
       end
     end
@@ -656,7 +656,7 @@ describe EfileSubmission do
 
           expect {
             submission.retry_send_submission
-          }.to have_enqueued_job(GyrEfiler::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+          }.to have_enqueued_job(StateFile::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
         end
       end
     end
@@ -671,7 +671,7 @@ describe EfileSubmission do
 
           expect {
             submission.retry_send_submission
-          }.to have_enqueued_job(GyrEfiler::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+          }.to have_enqueued_job(StateFile::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
         end
       end
     end
@@ -685,7 +685,7 @@ describe EfileSubmission do
 
           expect {
             submission.retry_send_submission
-          }.not_to have_enqueued_job(GyrEfiler::SendSubmissionJob)
+          }.not_to have_enqueued_job(StateFile::SendSubmissionJob)
           expect(submission.current_state).to eq("failed")
         end
       end
@@ -700,7 +700,7 @@ describe EfileSubmission do
 
             expect {
               submission.retry_send_submission
-            }.to have_enqueued_job(GyrEfiler::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+            }.to have_enqueued_job(StateFile::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
           end
         end
       end

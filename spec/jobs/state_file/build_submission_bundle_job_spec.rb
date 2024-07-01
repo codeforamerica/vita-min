@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe BuildSubmissionBundleJob do
+describe StateFile::BuildSubmissionBundleJob do
   describe '.perform' do
     let(:submission) { create :efile_submission, :bundling, :ctc }
     let(:address_valid?) { true }

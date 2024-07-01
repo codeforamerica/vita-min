@@ -1,4 +1,4 @@
-module GyrEfiler
+module StateFile
   class SendSubmissionJob < ApplicationJob
     def perform(submission)
       Efile::GyrEfilerService.with_lock(ActiveRecord::Base.connection) do |lock_acquired|
