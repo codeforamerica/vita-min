@@ -84,4 +84,10 @@ describe StateFile::StateInformationService do
       expect(described_class.intake_class("az")).to eq StateFileAzIntake
     end
   end
+
+  describe ".schema_file_path" do
+    it "returns the file path starting from us_states/ in vendor/" do
+      expect(described_class.schema_file_path("az")).to eq ["us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd"]
+    end
+  end
 end

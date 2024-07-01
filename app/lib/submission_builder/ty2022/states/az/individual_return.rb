@@ -198,10 +198,6 @@ module SubmissionBuilder
             ).document.at("*")
           end
 
-          def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd")
-          end
-
           def attached_documents
             @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
           end

@@ -147,10 +147,6 @@ module SubmissionBuilder
             SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
           end
 
-          def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd")
-          end
-
           def attached_documents
             @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
           end

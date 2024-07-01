@@ -3,11 +3,12 @@ module StateFile
     class << self
       [
         :intake_class,
-        :navigation_class,
-        :submission_builder_class,
         :mail_voucher_address,
+        :navigation_class,
         :primary_tax_form_name,
         :state_name,
+        :schema_file_path,
+        :submission_builder_class,
         :survey_link,
         :tax_payment_info_url,
         :tax_payment_url,
@@ -46,13 +47,14 @@ module StateFile
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
-        navigation_class: Navigation::StateFileAzQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
+        navigation_class: Navigation::StateFileAzQuestionNavigation,
         primary_tax_form_name: "Form AZ-140V",
         state_name: "Arizona",
+        schema_file_path: ["us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd"],
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
         tax_payment_url: "AZTaxes.gov",
@@ -62,14 +64,15 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
-        navigation_class: Navigation::StateFileNyQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
+        navigation_class: Navigation::StateFileNyQuestionNavigation,
         primary_tax_form_name: "Form IT-201-V",
         state_name: "New York",
+        schema_file_path: ["us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd"],
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_payment_url: "Tax.NY.gov",
