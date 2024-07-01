@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe CreateSubmissionPdfJob do
+describe StateFile::CreateSubmissionPdfJob do
   describe ".perform" do
     let(:submission) { create :efile_submission, :preparing, :ctc }
     let(:submission_double) { double }

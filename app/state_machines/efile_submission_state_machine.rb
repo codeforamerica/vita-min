@@ -71,26 +71,26 @@ class EfileSubmissionStateMachine
     end
 
     if submission.is_for_federal_filing?
-      CreateSubmissionPdfJob.perform_later(submission.id)
+      StateFile::CreateSubmissionPdfJob.perform_later(submission.id)
     end
   end
 
   after_transition(to: :bundling) do |submission|
     # Only sends if efile preparing message has never been sent bc
-    # AutomatedMessage::EfilePreparing has send_only_once set to true
+    # StateFile::AutomatedMessage::EfilePreparing has send_only_once set to true
     if submission.is_for_federal_filing?
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: submission.client,
-        message: AutomatedMessage::EfilePreparing,
+        message: StateFile::AutomatedMessage::EfilePreparing,
       )
       submission.tax_return.transition_to!(:file_ready_to_file)
     end
 
-    BuildSubmissionBundleJob.perform_later(submission.id)
+    StateFile::BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
   after_transition(to: :queued) do |submission|
-    GyrEfiler::SendSubmissionJob.perform_later(submission)
+    StateFile::SendSubmissionJob.perform_later(submission)
   end
 
   after_transition(to: :fraud_hold) do |submission|
@@ -128,7 +128,7 @@ class EfileSubmissionStateMachine
       if transition.efile_errors.any?(&:expose) && submission.is_for_federal_filing?
         ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
           client: submission.client,
-          message: AutomatedMessage::EfileFailed,
+          message: StateFile::AutomatedMessage::EfileFailed,
         )
       end
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
@@ -144,7 +144,7 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
-    AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
+    StateFile::AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
     if submission.is_for_state_filing?
       EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
       StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
@@ -164,7 +164,7 @@ class EfileSubmissionStateMachine
       tax_return = submission.tax_return
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: client,
-        message: AutomatedMessage::EfileAcceptance,
+        message: StateFile::AutomatedMessage::EfileAcceptance,
       )
       tax_return.transition_to(:file_accepted)
 
