@@ -36,6 +36,8 @@ describe 'EfileError' do
   it 'returns the expected array of paths' do
     expect(EfileError.paths).to eq [
       "az-charitable-contributions",
+      "az-eligibility-out-of-state-income",
+      "az-eligibility-residence",
       "az-excise-credit",
       "az-primary-state-id",
       "az-prior-last-names",
@@ -50,8 +52,6 @@ describe 'EfileError' do
       "data-transfer-offboarding",
       "declined-terms-and-conditions",
       "eligibility-offboarding",
-      "eligibility-out-of-state-income",
-      "eligibility-residence",
       "eligible",
       "email-address",
       "esign-declaration",
@@ -61,6 +61,8 @@ describe 'EfileError' do
       "name-dob",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
+      "ny-eligibility-out-of-state-income",
+      "ny-eligibility-residence",
       "ny-permanent-address",
       "ny-primary-state-id",
       "ny-review",
