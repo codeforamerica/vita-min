@@ -1,6 +1,6 @@
 module StateFileIntakeHelper
   def step_through_eligibility_screener(us_state:)
-    expect(page).to have_text I18n.t("state_file.questions.eligibility_residence.edit.title")
+    expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
     case us_state
     when "ny"
       choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
@@ -93,18 +93,8 @@ module StateFileIntakeHelper
     # e.g. if we introduced a new 'received_railroad_benefits' enum, and the feature test
     # fills it out, it should be included in the params used by SampleStateFileIntakeGenerator
 
-    intake = {}
-    flow_explorer_params = {}
-
-    case us_state
-    when 'az'
-      intake = StateFileAzIntake.last
-      flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.az_attributes
-    when 'ny'
-      intake = StateFileNyIntake.last
-      flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.ny_attributes
-    end
-
+    intake = StateFile::StateInformationService.intake_class(us_state).last
+    flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.send("#{us_state}_attributes")
     intake_attribute_keys = intake.attributes.select { |_k, v| v }.keys - %w[id primary_state_id_id]
     flow_explorer_generated_intake_keys = flow_explorer_params.keys.map(&:to_s)
     missing_keys = intake_attribute_keys - flow_explorer_generated_intake_keys

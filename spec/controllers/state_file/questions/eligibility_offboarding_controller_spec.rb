@@ -24,7 +24,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
     context "with offboarded_from set in the session" do
       render_views
       let(:offboarded_from_path) do
-        StateFile::Questions::EligibilityResidenceController.to_path_helper(
+        StateFile::Questions::AzEligibilityResidenceController.to_path_helper(
           action: :edit, us_state: params[:us_state]
         )
       end

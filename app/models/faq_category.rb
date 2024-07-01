@@ -43,11 +43,6 @@ class FaqCategory < ApplicationRecord
   end
 
   def self.state_to_product_type(state)
-    case state
-    when 'az'
-      'state_file_az'
-    when 'ny'
-      'state_file_ny'
-    end
+    "state_file_#{state}" if StateFile::StateInformationService::STATES_INFO.key?(state)
   end
 end
