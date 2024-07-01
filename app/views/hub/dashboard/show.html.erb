@@ -1,0 +1,26 @@
+<% content_for :page_title, I18n.t("hub.dashboard.show.title") %>
+<% content_for :card do %>
+  <section class="slab">
+    <h1><%= I18n.t("hub.dashboard.show.title") %></h1>
+    <div class="grid">
+      <div class="grid__item width-one-half">
+        <div class="spacing-below-15">
+          <select name="status"
+                  class="select__element"
+                  onchange="location.href=event.target.value">
+            <% @vita_partners.each do |vita_partner| %>
+              <option value="<%=vita_partner.id%>"<%= vita_partner.id == @vita_partner.id ? " selected" : ""%>><%= vita_partner.name %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="card">TODO:Implement</div>
+        <div class="card">TODO:Implement</div>
+        <div class="card">TODO:Implement</div>
+      </div>
+      <div class="grid__item width-one-half">
+        <div class="card">TODO:Implement</div>
+        <div class="card">TODO:Implement</div>
+      </div>
+    </div>
+  </section>
+<% end %>
