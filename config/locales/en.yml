@@ -959,6 +959,9 @@ en:
         assign_to_label: Assign to
         save_and_add: Save and add another
         title: Add a new CTC client
+    dashboard:
+      show:
+        title: Dashboard
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
