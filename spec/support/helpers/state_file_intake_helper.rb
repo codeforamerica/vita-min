@@ -1,6 +1,6 @@
 module StateFileIntakeHelper
   def step_through_eligibility_screener(us_state:)
-    expect(page).to have_text I18n.t("state_file.questions.eligibility_residence.edit.title")
+    expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
     case us_state
     when "ny"
       choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
