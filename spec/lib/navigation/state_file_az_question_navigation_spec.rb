@@ -6,7 +6,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
       expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq([
         StateFile::Questions::LandingPageController, # creates state_intake (StartIntakeConcern)
         StateFile::Questions::EligibilityResidenceController,
-        StateFile::Questions::EligibilityOutOfStateIncomeController,
+        StateFile::Questions::AzEligibilityOutOfStateIncomeController,
         StateFile::Questions::EligibilityOffboardingController,
         StateFile::Questions::EligibleController,
         StateFile::Questions::ContactPreferenceController,
