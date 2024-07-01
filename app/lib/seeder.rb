@@ -516,7 +516,6 @@ class Seeder
 
     if state_file_arizona_intake.efile_submissions.none?
       efile_submission = EfileSubmission.find_or_create_by!(
-        irs_submission_id: "9999992021199yrv4rab",
         data_source: state_file_arizona_intake,
       )
       efile_submission.transition_to!(:preparing)
