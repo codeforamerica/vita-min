@@ -13,13 +13,23 @@
             <% end %>
           </select>
         </div>
-        <div class="card">TODO:Implement</div>
-        <div class="card">TODO:Implement</div>
-        <div class="card">TODO:Implement</div>
+        <div class="card">
+          <%= render "hub/dashboard/service_level_agreements_notifications" %>
+        </div>
+        <div class="card">
+          <%= render "hub/dashboard/capacity" %>
+        </div>
+        <div class="card">
+          <%= render "hub/dashboard/returns_by_status" %>
+        </div>
       </div>
       <div class="grid__item width-one-half">
-        <div class="card">TODO:Implement</div>
-        <div class="card">TODO:Implement</div>
+        <div class="card">
+          <%= render "hub/dashboard/action_required_flagged_clients" %>
+        </div>
+        <div class="card">
+          <%= render "hub/dashboard/resources" %>
+        </div>
       </div>
     </div>
   </section>
