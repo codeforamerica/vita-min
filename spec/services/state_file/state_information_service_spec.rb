@@ -41,9 +41,9 @@ describe StateFile::StateInformationService do
     end
   end
 
-  describe ".primary_tax_form_name" do
-    it "returns the name of the form to download" do
-      expect(described_class.primary_tax_form_name("az")).to eq 'Form AZ-140V'
+  describe ".voucher_form_name" do
+    it "returns the name of the voucher form" do
+      expect(described_class.voucher_form_name("az")).to eq 'Form AZ-140V'
     end
   end
 
@@ -82,6 +82,12 @@ describe StateFile::StateInformationService do
   describe ".intake_class" do
     it "returns the intake class" do
       expect(described_class.intake_class("az")).to eq StateFileAzIntake
+    end
+  end
+
+  describe ".return_type" do
+    it "returns the string that goes in ReturnType in the return header and StateSubmissionTyp in the state manifest" do
+      expect(described_class.return_type("az")).to eq "Form140"
     end
   end
 end

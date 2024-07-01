@@ -11,7 +11,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
 
         expect(assigns(:tax_refund_url)).to eq "https://aztaxes.gov/home/checkrefund"
         expect(assigns(:tax_payment_url)).to eq "AZTaxes.gov"
-        expect(assigns(:primary_tax_form_name)).to eq "Form AZ-140V"
+        expect(assigns(:voucher_form_name)).to eq "Form AZ-140V"
         expect(assigns(:mail_voucher_address)).to eq "Arizona Department of Revenue<br/>"\
           "PO Box 29085<br/>"\
           "Phoenix, AZ 85038-9085"

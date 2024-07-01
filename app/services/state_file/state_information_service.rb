@@ -7,13 +7,14 @@ module StateFile
         :submission_builder_class,
         :mail_voucher_address,
         :pay_taxes_link,
-        :primary_tax_form_name,
+        :return_type,
         :state_name,
         :survey_link,
         :tax_payment_info_url,
         :tax_payment_url,
         :tax_refund_url,
         :vita_link,
+        :voucher_form_name,
         :voucher_path,
       ].each do |attribute|
         define_method(attribute) do |state_code|
@@ -60,6 +61,7 @@ module StateFile
         tax_payment_url: "AZTaxes.gov",
         tax_refund_url: "https://aztaxes.gov/home/checkrefund",
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
+        voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
       },
       ny: {
@@ -70,14 +72,14 @@ module StateFile
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
-        pay_taxes_link: "https://www.tax.ny.gov/pay/",
-        primary_tax_form_name: "Form IT-201-V",
+        return_type: "IT201",
         state_name: "New York",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_payment_url: "Tax.NY.gov",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
+        voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
       }
     }).with_indifferent_access

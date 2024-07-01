@@ -35,14 +35,6 @@ module SubmissionBuilder
             document
           end
 
-          def self.state_abbreviation
-            "AZ"
-          end
-
-          def self.return_type
-            "Form140"
-          end
-
           def pdf_documents
             included_documents.map { |item| item if item.pdf }.compact
           end
