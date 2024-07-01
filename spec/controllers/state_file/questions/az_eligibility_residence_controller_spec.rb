@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StateFile::Questions::EligibilityResidenceController do
+RSpec.describe StateFile::Questions::AzEligibilityResidenceController do
   describe "#update" do
     # use the eligibility_offboarding_concern shared example if the page
     # should redirect to the state file eligibility offboarding page
@@ -9,7 +9,7 @@ RSpec.describe StateFile::Questions::EligibilityResidenceController do
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_ny_intake do
       let(:eligible_params) do
         {
-          us_state: "ny",
+          us_state: "az",
           state_file_ny_eligibility_residence_form: {
             eligibility_lived_in_state: "yes",
             eligibility_yonkers: "no",
@@ -19,7 +19,7 @@ RSpec.describe StateFile::Questions::EligibilityResidenceController do
 
       let(:ineligible_params) do
         {
-          us_state: "ny",
+          us_state: "az",
           state_file_ny_eligibility_residence_form: {
             eligibility_lived_in_state: "yes",
             eligibility_yonkers: "yes",
