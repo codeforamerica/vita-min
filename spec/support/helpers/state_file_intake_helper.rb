@@ -95,7 +95,6 @@ module StateFileIntakeHelper
 
     intake = StateFile::StateInformationService.intake_class(us_state).last
     flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.send("#{us_state}_attributes")
-
     intake_attribute_keys = intake.attributes.select { |_k, v| v }.keys - %w[id primary_state_id_id]
     flow_explorer_generated_intake_keys = flow_explorer_params.keys.map(&:to_s)
     missing_keys = intake_attribute_keys - flow_explorer_generated_intake_keys
