@@ -93,7 +93,7 @@ module StateFileIntakeHelper
     # e.g. if we introduced a new 'received_railroad_benefits' enum, and the feature test
     # fills it out, it should be included in the params used by SampleStateFileIntakeGenerator
 
-    intake = StateFile::StateInformationService.intake_class(us_state)
+    intake = StateFile::StateInformationService.intake_class(us_state).last
     flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.send("#{us_state}_attributes")
 
     intake_attribute_keys = intake.attributes.select { |_k, v| v }.keys - %w[id primary_state_id_id]
