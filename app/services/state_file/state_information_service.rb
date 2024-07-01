@@ -54,7 +54,7 @@ module StateFile
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
         pay_taxes_link: "https://www.aztaxes.gov/",
-        primary_tax_form_name: "Form AZ-140V",
+        return_type: "Form140",
         state_name: "Arizona",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
@@ -72,6 +72,7 @@ module StateFile
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
+        pay_taxes_link: "https://www.tax.ny.gov/pay/",
         return_type: "IT201",
         state_name: "New York",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
