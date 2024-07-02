@@ -1,6 +1,5 @@
 module Hub::StateFile
   class AutomatedMessagesController < Hub::StateFile::BaseController
-    include StateFile::SurveyLinksConcern
     helper_method :email_message
     helper_method :sms_body
 
