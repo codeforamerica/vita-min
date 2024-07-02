@@ -99,4 +99,65 @@ FactoryBot.define do
 
     federal_submission_id { "12345202201011234570" }
   end
+
+  factory "leslie", class: StateFileAzIntake do
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_leslie_qss_v2") }
+    primary_first_name { "LESLIE" }
+    primary_last_name { "KNOPE" }
+    primary_birth_date { "1955-12-12" }
+
+    after(:create) do |intake|
+      intake.synchronize_df_dependents_to_database
+
+      intake.dependents.where(first_name: "April").first.update(
+        dob: Date.new(2019, 8, 8),
+        relationship: "DAUGHTER",
+        months_in_home: 12
+      )
+      intake.dependents.reload
+    end
+
+    after(:create) do |intake|
+      create(
+        :state_file1099_g,
+        intake: intake,
+        payer_name: "ARIZONA DEPARTMENT OF ECONOMIC SECURITY",
+        payer_tin: "270293117",
+        payer_street_address: "568 BREWER CIRCLE",
+        payer_city: "PHOENIX",
+        payer_zip: "85034",
+        recipient: "primary",
+        recipient_street_address: "321 ANDY STREET",
+        recipient_city: "PHOENIX",
+        recipient_zip: "85034",
+        unemployment_compensation: 10000,
+        federal_income_tax_withheld: 10,
+        state_identification_number: "123456",
+        state_income_tax_withheld: 10,
+        )
+    end
+
+    has_prior_last_names { "no" }
+
+    tribal_member { "no" }
+
+    armed_forces_member { "yes" }
+    armed_forces_wages { 5000 }
+
+    charitable_contributions { "no" }
+
+    primary_state_id {
+      create :state_id,
+             id_type: 'no_id',
+             id_number: nil,
+             state: nil,
+             issue_date: nil,
+             expiration_date: nil,
+             first_three_doc_num: nil
+    }
+
+    payment_or_deposit_type { "mail" }
+
+    federal_submission_id { "1016422024026atw001h" }
+  end
 end

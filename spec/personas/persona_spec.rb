@@ -10,6 +10,11 @@ describe "personas" do
         let(:submission_id) { "1234562024165nly30yy" }
         it_behaves_like :persona
       end
+      context "leslie" do
+        let(:persona_name) { "leslie" }
+        let(:submission_id) { "12345620241830jo1lnk" }
+        it_behaves_like :persona
+      end
     end
     context "ny" do
       let(:state_code) { :ny }
