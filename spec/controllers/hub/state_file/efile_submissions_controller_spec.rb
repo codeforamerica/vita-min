@@ -53,7 +53,7 @@ describe Hub::StateFile::EfileSubmissionsController do
         get :show_xml, params: params
         expect(response).to be_successful
         xml = Nokogiri::XML(response.body)
-        expect(xml.at("ReturnState Filer Primary LastName").text).to eq "Yorker"
+        expect(xml.at("ReturnState Filer Primary LastName").text).to eq intake.primary_last_name
       end
     end
   end
