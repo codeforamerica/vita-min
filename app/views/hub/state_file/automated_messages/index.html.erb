@@ -8,7 +8,7 @@
         <div style="display: flex; align-items: center;">
           <h1 style="flex-grow: 1;"><%= @main_heading %></h1>
           <% StateFile::StateInformationService.state_code_to_name_map.each do |state_code, state_name| %>
-            <%= link_to url_for(us_state: state_code), style: "margin-left: 1rem;" do %>
+            <%= link_to url_for(us_state: state_code), style: "margin-left: 1rem;#{@us_state == state_code ? "font-weight: bold;" : ""}" do %>
               <%= state_name %>
             <% end %>
           <% end %>
