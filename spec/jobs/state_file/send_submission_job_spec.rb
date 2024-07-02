@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GyrEfiler::SendSubmissionJob, type: :job do
+RSpec.describe StateFile::SendSubmissionJob, type: :job do
   before do
     allow(Rails.application.config).to receive(:efile_environment).and_return("test")
   end

@@ -113,8 +113,8 @@ class ClientSorter
     overlapping_keys.any?
   end
 
-  def filtering_only_by?(filter_values)
-    @filters.select { |_k, v| v.present? } == filter_values.transform_values { |v| v.to_s }
+  def filtering_only_by?(filter_values, ignore: [])
+    @filters.except(*ignore).select { |_k, v| v.present? } == filter_values.transform_values { |v| v.to_s }
   end
 
   private

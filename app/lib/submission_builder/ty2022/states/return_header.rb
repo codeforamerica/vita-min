@@ -7,7 +7,7 @@ module SubmissionBuilder
 
         def document
           build_xml_doc("ReturnHeaderState") do |xml|
-            xml.Jurisdiction "#{@submission.bundle_class.state_abbreviation}ST" if @submission.bundle_class.state_abbreviation.present?
+            xml.Jurisdiction "#{@submission.data_source.state_code.upcase}ST"
             xml.ReturnTs datetime_type(@submission.created_at) if @submission.created_at.present?
             xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
             xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
@@ -17,7 +17,7 @@ module SubmissionBuilder
               xml.OriginatorTypeCd "OnlineFiler"
             end
             xml.SoftwareId EnvironmentCredentials.irs(:sin)
-            xml.ReturnType "#{@submission.bundle_class.return_type}" if @submission.bundle_class.return_type.present?
+            xml.ReturnType StateFile::StateInformationService.return_type(@submission.data_source.state_code)
             xml.Filer do
               xml.Primary do
                 xml.TaxpayerName do
@@ -46,7 +46,7 @@ module SubmissionBuilder
                 xml.AddressLine1Txt @submission.data_source.direct_file_data.mailing_street.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_street.present?
                 xml.AddressLine2Txt @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_apartment.present?
                 xml.CityNm @submission.data_source.direct_file_data.mailing_city.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_city.present?
-                xml.StateAbbreviationCd @submission.bundle_class.state_abbreviation if @submission.bundle_class.state_abbreviation.present?
+                xml.StateAbbreviationCd @submission.data_source.state_code.upcase
                 xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
               end
             end

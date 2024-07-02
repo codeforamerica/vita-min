@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SendRejectResolutionReminderNotificationJob, type: :job do
+RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :job do
   describe "#perform" do
     let(:intake) {
       create :state_file_az_intake,
