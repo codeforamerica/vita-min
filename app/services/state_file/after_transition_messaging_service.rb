@@ -67,14 +67,8 @@ module StateFile
       ).send_message
     end
 
-    private
-
-    def return_status_link
-      url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: @intake.state_code)
-    end
-
-    def state_pay_taxes_link
-      case @intake.state_code
+    def self.state_pay_taxes_link(state_code)
+      case state_code
       when "ny"
         "https://www.tax.ny.gov/pay/"
       when 'az'
@@ -82,6 +76,16 @@ module StateFile
       else
         ""
       end
+    end
+
+    private
+
+    def return_status_link
+      url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: @intake.state_code)
+    end
+
+    def state_pay_taxes_link
+      self.class.state_pay_taxes_link(@intake.state_code)
     end
   end
 end
