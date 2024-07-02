@@ -3,6 +3,7 @@ module StateFile
     class << self
       [
         :intake_class,
+        :calculator_class,
         :navigation_class,
         :submission_builder_class,
         :mail_voucher_address,
@@ -47,6 +48,7 @@ module StateFile
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
+        calculator_class: Efile::Az::Az140,
         navigation_class: Navigation::StateFileAzQuestionNavigation,
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
@@ -64,6 +66,7 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
+        calculator_class: Efile::Ny::It201,
         navigation_class: Navigation::StateFileNyQuestionNavigation,
         submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
