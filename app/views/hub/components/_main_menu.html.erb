@@ -11,7 +11,7 @@
         </div>
 
         <% if current_user %>
-          <% if Flipper.enabled?(:hub_dashboard) %>
+          <% if Flipper.enabled?(:hub_dashboard) && (current_user.site_coordinator? || current_user.coalition_lead? || current_user.org_lead?) %>
             <%= render "hub/components/menu_item",
                        link: hub_dashboard_index_path,
                        item_label: "Dashboard",
