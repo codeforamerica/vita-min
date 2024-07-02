@@ -1,7 +1,7 @@
 <% content_for :page_title, t(".page_title") %>
 <% content_for :card do %>
   <h1 class="h2">
-    <%= t(".title_html", owed_amount: taxes_owed, state_name: state_name) %>
+    <%= t(".title_html", owed_amount: taxes_owed, state_name: current_state_name) %>
   </h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
@@ -12,8 +12,8 @@
           collection: [
             { value: :direct_deposit, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
             { value: :mail, label: t(".pay_mail_online_html",
-                                               pay_mail_online_link: pay_mail_online_link,
-                                               pay_mail_online_text: pay_mail_online_text,
+                                               tax_payment_info_url: StateFile::StateInformationService.tax_payment_info_url(current_state_code),
+                                               tax_payment_info_text: StateFile::StateInformationService.tax_payment_url(current_state_code),
                                                ) },
           ]
         ) %>

@@ -747,6 +747,16 @@ RSpec.describe Hub::ClientsController do
             end
           end
 
+          context "with page contents" do
+            render_views
+
+            it "filters the All Clients page" do
+              get :index
+              html = Nokogiri::HTML.parse(response.body)
+              expect(html.at_css("a.button--quick-filter").attr("href")).to include hub_clients_path
+            end
+          end
+
           it "can filter to only clients who are approaching SLA" do
             get :index, params: { last_contact: "approaching_sla" }
             expect(assigns(:clients).map(&:preferred_name)).to eq [approaching_sla_client].map(&:preferred_name)

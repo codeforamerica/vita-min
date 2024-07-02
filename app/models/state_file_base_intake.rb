@@ -39,7 +39,10 @@ class StateFileBaseIntake < ApplicationRecord
   before_save :sanitize_bank_details
 
   def self.state_code
-    StateFile::StateInformationService.state_code_from_intake_class(self)
+    state_code, _ = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
+      state_info[:intake_class] == self
+    end
+    state_code.to_s
   end
   delegate :state_code, to: :class
 
@@ -274,12 +277,9 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def self.opted_out_state_file_intakes(email)
-    state_intakes = []
-    STATE_INTAKE_CLASS_NAMES.each do |state|
-      class_object = state.constantize
-      state_intakes += class_object.where(email_address: email).where(unsubscribed_from_email: true)
-    end
-    state_intakes
+    StateFile::StateInformationService.state_intake_classes.map do |klass|
+      klass.where(email_address: email).where(unsubscribed_from_email: true)
+    end.inject([], :+)
   end
 
   def sanitize_bank_details

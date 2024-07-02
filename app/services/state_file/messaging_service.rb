@@ -55,19 +55,10 @@ module StateFile
     
     def matching_intakes_has_email_verified_at?(intake)
       return if intake.email_address.nil? || intake.hashed_ssn.nil?
-      matching_intakes = case intake.state_code
-                         when "az"
-                           StateFileAzIntake
-                             .where(email_address: intake.email_address, hashed_ssn: intake.hashed_ssn)
-                             .where.not(email_address_verified_at: nil)
-                         when "ny"
-                           StateFileNyIntake
-                             .where(email_address: intake.email_address, hashed_ssn: intake.hashed_ssn)
-                             .where.not(email_address_verified_at: nil)
-                         else
-                           return false
-                         end
-      
+
+      intake_class = StateFile::StateInformationService.intake_class(intake.state_code)
+      matching_intakes = intake_class.where(email_address: intake.email_address, hashed_ssn: intake.hashed_ssn)
+                                     .where.not(email_address_verified_at: nil)
       matching_intakes.present?
     end
 

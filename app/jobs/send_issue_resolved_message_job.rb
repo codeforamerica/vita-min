@@ -7,7 +7,7 @@ class SendIssueResolvedMessageJob < ApplicationJob
   end
 
   def send_message(intake)
-    return unless %w[StateFileAzIntake StateFileNyIntake].include?(intake.class.name)
+    return unless StateFile::StateInformationService.state_intake_classes.include?(intake.class)
 
     message = StateFile::MessagingService.new(
       intake: intake,

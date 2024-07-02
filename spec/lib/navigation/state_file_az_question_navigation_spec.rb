@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Navigation::StateFileAzQuestionNavigation do
-
   describe "Flow" do
     it "Flow has not changed" do
       expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq([
