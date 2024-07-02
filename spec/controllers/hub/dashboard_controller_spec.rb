@@ -5,7 +5,7 @@ RSpec.describe Hub::DashboardController do
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#index" do
-    #it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
+    it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "with an authorized user" do
       before { sign_in user }
@@ -19,7 +19,6 @@ RSpec.describe Hub::DashboardController do
   end
 
   describe "#show" do
-    #it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with an authorized user" do
       before { sign_in user }
