@@ -7,8 +7,14 @@ describe StateFile::StateInformationService do
     end
   end
 
+  describe ".calculator_class" do
+    it "returns the tax calculator class" do
+      expect(described_class.calculator_class("az")).to eq Efile::Az::Az140
+    end
+  end
+
   describe ".state_name" do
-    it "returns the name of the state from states.yml" do
+    it "returns the name of the state" do
       expect(described_class.state_name("az")).to eq "Arizona"
     end
 
