@@ -5,3 +5,16 @@
 @import "variables";
 @import "components/MainMenu";
 @import "components/take-action-box";
+
+.dashboard-show-page-body{
+  .card{
+    border: 1px solid #757575;
+  }
+  select.select__element{
+    border: 1px solid #CFC5BF;
+    border-radius: 5px;
+    background-image: image-url('dropdown.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+}
