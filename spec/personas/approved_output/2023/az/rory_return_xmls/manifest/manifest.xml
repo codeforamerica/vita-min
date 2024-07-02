@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateSubmissionManifest xmlns:efile="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile">
+  <SubmissionId>12345620241840effzlq</SubmissionId>
+  <EFIN>123456</EFIN>
+  <TaxYr>2023</TaxYr>
+  <GovernmentCd>AZST</GovernmentCd>
+  <StateSubmissionTyp>Form140</StateSubmissionTyp>
+  <SubmissionCategoryCd>IND</SubmissionCategoryCd>
+  <PrimarySSN>400000009</PrimarySSN>
+  <PrimaryNameControlTxt>GILM</PrimaryNameControlTxt>
+  <IRSSubmissionId>12345202201011234570</IRSSubmissionId>
+</StateSubmissionManifest>

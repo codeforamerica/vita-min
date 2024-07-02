@@ -243,4 +243,33 @@ FactoryBot.define do
 
     federal_submission_id { "12345202201011234570" }
   end
+
+  factory "rory", class: StateFileAzIntake do
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_rory_claimedasdep_v2") }
+    primary_first_name { "RORY" }
+    primary_last_name { "GILMORE" }
+    primary_birth_date { "2002-02-03" }
+
+    has_prior_last_names { "no" }
+
+    tribal_member { "no" }
+
+    armed_forces_member { "no" }
+
+    charitable_contributions { "no" }
+
+    primary_state_id {
+      create :state_id,
+             id_type: 'no_id',
+             id_number: nil,
+             state: nil,
+             issue_date: nil,
+             expiration_date: nil,
+             first_three_doc_num: nil
+    }
+
+    payment_or_deposit_type { "mail" }
+
+    federal_submission_id { "12345202201011234570" }
+  end
 end

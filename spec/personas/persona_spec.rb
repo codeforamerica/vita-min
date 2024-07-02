@@ -24,6 +24,12 @@ describe "personas" do
         let(:submission_id) { "1234562024183bsoh6yt" }
         it_behaves_like :persona
       end
+
+      context "rory" do
+        let(:persona_name) { "rory" }
+        let(:submission_id) { "12345620241840effzlq" }
+        it_behaves_like :persona
+      end
     end
 
     context "ny" do
