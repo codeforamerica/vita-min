@@ -35,7 +35,7 @@ module Hub::StateFile
       {
         primary_first_name: intake.primary_first_name,
         intake_id: intake.id || "CLIENT_ID",
-        survey_link: survey_link(intake),
+        survey_link: StateFile::StateInformationService.survey_link(intake.state_code),
         submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
         state_name: intake.state_name,
         return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(state_code, locale),
