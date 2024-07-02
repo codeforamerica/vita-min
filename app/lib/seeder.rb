@@ -503,25 +503,6 @@ class Seeder
     Fraud::Indicators::Timezone.create(name: "America/New_York", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
     SearchIndexer.refresh_search_index
-
-    state_file_arizona_intake = StateFileAzIntake.find_or_create_by!(
-      primary_first_name: "Ari",
-      primary_last_name: "Zona",
-      consented_to_terms_and_conditions: "yes",
-      primary_birth_date: 35.years.ago,
-      email_address: "ari.zona@example.com",
-      federal_submission_id: "12345202201011232170",
-      email_address_verified_at: Time.current
-    )
-
-    if state_file_arizona_intake.efile_submissions.none?
-      efile_submission = EfileSubmission.find_or_create_by!(
-        data_source: state_file_arizona_intake,
-      )
-      efile_submission.transition_to!(:preparing)
-      efile_submission.transition_to!(:queued)
-      efile_submission.transition_to!(:transmitted)
-    end
   end
 
   def find_or_create_intake_and_client(intake_type, attributes)
