@@ -3,7 +3,7 @@ module SubmissionBuilder
   module Ty2022
     module States
       module Ny
-        class IndividualReturn < SubmissionBuilder::Document
+        class IndividualReturn < StateReturn
           DEPENDENT_OVERFLOW_THRESHOLD = 6
 
           def document

@@ -50,26 +50,6 @@ module SubmissionBuilder
     COMMON_ADDRESS_ABBREV = ["bldg", "bsmt", "dept", "fl", "frnt", "hngr", "key", "lbby", "lot", "lowr", "ofc", "ph", "pier", "rear", "rm", "side", "slip", "spc", "ste", "suite", "stop", "trlr", "unit", "uppr", "Bldg", "Bsmt", "Dept", "Fl", "Frnt", "Hngr", "Key", "Lbby", "Lot", "Lowr", "Ofc", "Ph", "Pier", "Rear", "Rm", "Side", "Slip", "Spc", "Ste", "Suite", "Stop", "Trlr", "Unit", "Uppr", "APT", "BLDG", "BSMT", "DEPT", "FL", "FRNT", "HNGR", "KEY", "LBBY", "LOT", "LOWR", "OFC", "PH", "PIER", "REAR", "RM", "SIDE", "SLIP", "SPC", "STE", "SUITE", "STOP", "TRLR", "UNIT", "UPPR"].freeze
     ADDRESS_ABBREV_REGEX = /\b(?:#{Regexp.union(COMMON_ADDRESS_ABBREV)})\b/
 
-    def authentication_header
-      SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
-    end
-
-    def return_header
-      SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
-    end
-
-    def attached_documents
-      @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
-    end
-
-    def xml_documents
-      included_documents.map { |item| item if item.xml }.compact
-    end
-
-    def included_documents
-      supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
-    end
-
     def build_xml_doc(tag_name, **root_node_attributes)
       default_attributes = { 'xmlns:efile' => 'http://www.irs.gov/efile' }
       return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
