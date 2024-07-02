@@ -58,6 +58,7 @@ FactoryBot.define do
         needed_assistance: "yes",
         passed_away: "no"
       )
+
       intake.dependents.reload
     end
 
@@ -114,6 +115,7 @@ FactoryBot.define do
         relationship: "DAUGHTER",
         months_in_home: 12
       )
+
       intake.dependents.reload
     end
 
@@ -159,5 +161,86 @@ FactoryBot.define do
     payment_or_deposit_type { "mail" }
 
     federal_submission_id { "1016422024026atw001h" }
+  end
+
+  factory "martha", class: StateFileAzIntake do
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_martha_v2") }
+    primary_first_name { "MARTHA" }
+    primary_last_name { "WASHINGTON" }
+    primary_birth_date { "1980-01-01" }
+
+    spouse_first_name { "GEORGE" }
+    spouse_last_name { "WASHINGTON" }
+    spouse_birth_date { "1981-02-02" }
+
+    after(:create) do |intake|
+      intake.synchronize_df_dependents_to_database
+
+      intake.dependents.where(first_name: "Nelly").first.update(
+        dob: Date.new(2004, 6, 6),
+        relationship: "NEPHEW",
+        months_in_home: 12
+      )
+
+      intake.dependents.where(first_name: "Martha").first.update(
+        dob: Date.new(2008, 4, 4),
+        relationship: "DAUGHTER",
+        months_in_home: 12
+      )
+
+      intake.dependents.where(first_name: "Frances").first.update(
+        dob: Date.new(2002, 5, 5),
+        relationship: "NEPHEW",
+        months_in_home: 12
+      )
+
+      intake.dependents.where(first_name: "John").first.update(
+        dob: Date.new(2022, 3, 3),
+        relationship: "GRANDCHILD",
+        months_in_home: 12
+      )
+
+      intake.dependents.reload
+    end
+
+    has_prior_last_names { "no" }
+
+    tribal_member { "no" }
+
+    armed_forces_member { "no" }
+
+    charitable_contributions { "yes" }
+    charitable_cash { 100 }
+    charitable_noncash { 100 }
+
+    primary_state_id {
+      create :state_id,
+             id_type: 'no_id',
+             id_number: nil,
+             state: nil,
+             issue_date: nil,
+             expiration_date: nil,
+             first_three_doc_num: nil
+    }
+    spouse_state_id {
+      create :state_id,
+             id_type: 'no_id',
+             id_number: nil,
+             state: nil,
+             issue_date: nil,
+             expiration_date: nil,
+             first_three_doc_num: nil
+    }
+
+    payment_or_deposit_type { "direct_deposit" }
+    bank_name { "canvas credit union" }
+    account_type { "savings" }
+    routing_number { "302075830" }
+    account_number { "123456" }
+
+    date_electronic_withdrawal { "2024-04-15" }
+    withdraw_amount { 356 }
+
+    federal_submission_id { "12345202201011234570" }
   end
 end
