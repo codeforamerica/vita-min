@@ -19,7 +19,7 @@ module Hub::StateFile
       if params[:intake_id].present?
         @intake = state_class.find_by_id(params[:intake_id])
         return @intake if @intake.present?
-        flash[:alert] = "Unknown Intake"
+        flash.now.alert = "Unknown Intake"
       end
       @intake = state_class.new(
         locale: "en",
