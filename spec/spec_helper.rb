@@ -59,7 +59,7 @@ RSpec.configure do |config|
     begin
       Rack::Attack.enabled = false
     rescue
-      # RackAttack not loaded - probably running a single test
+      puts "RackAttack not loaded - are you running a single test?"
     end
   end
 
