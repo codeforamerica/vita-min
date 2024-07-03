@@ -5,25 +5,3 @@
 @import "variables";
 @import "components/MainMenu";
 @import "components/take-action-box";
-
-.intake-transition-index-page-body {
-  .pagination-header {
-    display: flex;
-    align-items: center;
-  }
-  .page-entries-info {
-    flex-grow: 1;
-  }
-  .paginator {
-    flex-grow: 0;
-    .pagination {
-      display: flex;
-      padding: 0;
-      gap: 1rem;
-
-      a, > em.current, span, span.previous_page, span.next_page {
-        margin: 0;
-      }
-    }
-  }
-}

@@ -21,7 +21,6 @@ module Hub
           [Hub::StateFile::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
           [Hub::StateFile::AutomatedMessagesController.to_path_helper(action: :index), "Automated Messages"],
           [Hub::StateFile::EfileErrorsController.to_path_helper(action: :index), "Efile Errors"],
-          [Hub::StateFile::IntakeTransitionController.to_path_helper(action: :index), "Intake Transitions"],
         ]
       end
       @deprecated_actions = [
