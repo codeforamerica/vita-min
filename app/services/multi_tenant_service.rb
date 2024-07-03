@@ -122,7 +122,7 @@ class MultiTenantService
     if service_type_or_parent == :ctc || service_type_or_parent == :state_file
       [current_tax_year]
     else
-      ((current_tax_year - 3)..current_tax_year).to_a.reverse.freeze
+      ((current_tax_year - 2)..current_tax_year).to_a.reverse.freeze
     end
   end
 

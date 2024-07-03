@@ -1011,4 +1011,31 @@ describe Client do
       end
     end
   end
+
+  describe "#has_return_for_every_current_filing_year" do
+    let(:client) { create(:client, intake: (build :intake)) }
+
+    context "client has no tax returns" do
+      it "returns false" do
+        expect(client.has_return_for_every_current_filing_year?).to be false
+      end
+    end
+
+    context "client has one tax return" do
+      it "returns false" do
+        create :gyr_tax_return, client: client
+        expect(client.has_return_for_every_current_filing_year?).to be false
+      end
+    end
+
+    context "client has tax returns for every current filing year" do
+      it "returns true" do
+        MultiTenantService.new(:gyr).filing_years.each do |year|
+          create :tax_return, client: client, year: year
+        end
+        expect(client.has_return_for_every_current_filing_year?).to be true
+      end
+    end
+
+  end
 end

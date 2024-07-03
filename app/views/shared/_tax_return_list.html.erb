@@ -58,7 +58,7 @@
       <% end %>
     </li>
   <% end %>
-  <% if tax_return_creatable && client.tax_returns.pluck(:year).sort != MultiTenantService.new(:gyr).filing_years.sort %>
+  <% if tax_return_creatable && !client.has_return_for_every_current_filing_year? %>
     <%= link_to t("views.shared.tax_return_list.add_tax_year"), new_hub_client_tax_return_path(client_id: client.id), class: "button button--small" %>
   <% end %>
 </ul>

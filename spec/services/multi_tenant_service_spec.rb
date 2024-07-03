@@ -71,7 +71,7 @@ describe MultiTenantService do
 
     it "returns just the current year for ctc and 4 years for gyr" do
       expect(described_class.new(:ctc).filing_years).to eq [2017]
-      expect(described_class.new(:gyr).filing_years).to eq [2018, 2017, 2016, 2015]
+      expect(described_class.new(:gyr).filing_years).to eq [2018, 2017, 2016]
     end
   end
 
