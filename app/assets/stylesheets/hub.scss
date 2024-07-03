@@ -37,8 +37,17 @@
 .tab-bar__tab,
 .tab-bar {
   border-color: #9c9898;
+  border-radius: 5px;
 }
 
 .tab-bar__tab {
   border-bottom-width: 0;
+}
+
+.urgent-wrapper i.urgent {
+  background: #d10300;
+}
+
+.text--red-bold {
+  color: #d10300;
 }
