@@ -40,7 +40,7 @@ module Hub::StateFile
         state_name: intake.state_name,
         return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(state_code, locale),
         login_link: SendIssueResolvedMessageJob.login_link,
-        state_pay_taxes_link: StateFile::AfterTransitionMessagingService.state_pay_taxes_link(state_code),
+        state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(state_code),
       }
     end
 
