@@ -61,6 +61,16 @@ module Hub
       redirect_after_action
     end
 
+    def transition
+      return if Rails.env.production?
+
+      authorize! :update, @efile_submission
+      state = params[:state]
+      @efile_submission.transition_to!(state)
+      flash[:notice] = "Transitioned to #{state} (for testing purpose only)"
+      redirect_after_action
+    end
+
     def investigate
       authorize! :update, @efile_submission
       @efile_submission.transition_to!(:investigating, { initiated_by_id: current_user.id })

@@ -93,6 +93,21 @@
           </div>
         <% end %>
       </div>
+
+      <div style="display: flex;">
+        <% EfileSubmissionStateMachine.states.each do |state| %>
+          <% if @efile_submission.can_transition_to?(state) %>
+          <div style="margin-left: 10px; gap: 1rem;">
+            <%= link_to(state.titleize,
+                        transition_hub_efile_submission_path(id: @efile_submission.id, state: state),
+                        method: :patch,
+                        data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
+                        class: "button button--#{state.titleize} button--small") %>
+          </div>
+          <% end %>
+        <% end %>
+      </div>
+
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
         <ul role="list" class="logs">

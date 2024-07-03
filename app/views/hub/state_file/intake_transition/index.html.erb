@@ -22,14 +22,36 @@
     <table class="index-table spacing-above-25">
       <thead class="index-table__head">
         <tr class="index-table__row">
-          <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+          <th scope="col" class="index-table__header sortable">
             ID
           </th>
-          <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
-            Status
+          <th scope="col" class="index-table__header sortable">
+            Email
+          </th>
+          <th scope="col" class="index-table__header sortable">
+            Current Status
+          </th>
+          <th scope="col" class="index-table__header sortable">
+            &nbsp;
           </th>
         </tr>
       </thead>
+      <tbody>
+      <% @intakes.each do |intake| %>
+        <tr class="index-table__row">
+          <td class="index-table__cell status">
+            <%= intake.id %>
+          </td>
+          <td class="index-table__cell status">
+            <%= intake.email_address %>
+          </td>
+          <td class="index-table__cell status">
+            <%= intake.efile_submissions.last&.efile_submission_transitions&.where(most_recent: true)&.last&.to_state %>
+          </td>
+          <td class="index-table__cell status">
+          </td>
+      <% end %>
+      </tbody>
     </table>
   </div>
 <% end %>
