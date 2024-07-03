@@ -5,3 +5,40 @@
 @import "variables";
 @import "components/MainMenu";
 @import "components/take-action-box";
+
+.honeycrisp-compact .button--cta,
+.honeycrisp-compact .pagination > span.disabled + em,
+.label {
+  background: #142b5e;
+}
+
+.honeycrisp-compact .button--cta:hover{
+  background: #0d368f;
+}
+
+.flash--notice{
+  background: #c3d2f0;
+}
+
+.empty-clients {
+  background: #fcdcd9;
+}
+
+.honeycrisp-compact .select__element,
+.filter-form .tagify .tagify__input,
+.honeycrisp-compact input.text-input,
+.honeycrisp-compact .pagination > span.disabled + em,
+.honeycrisp-compact .pagination > a,
+.honeycrisp-compact .button,
+.index-table__head,
+.index-table__header--sticky:before,
+.index-table__row:first-of-type .index-table__row-header--sticky::before,
+.tab-bar__tab.is-selected,
+.tab-bar__tab,
+.tab-bar {
+  border-color: #9c9898;
+}
+
+.tab-bar__tab {
+  border-bottom-width: 0;
+}

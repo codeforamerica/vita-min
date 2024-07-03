@@ -1,7 +1,9 @@
 .main-menu {
   min-height: 100%;
   z-index: 1000;
-  background: #2D2E2F;
+  background-image: image_url("menu_bg.png");
+  background-color: #092869;
+  background-repeat: no-repeat;
   color: white;
   position: relative;
   width: 250px;
