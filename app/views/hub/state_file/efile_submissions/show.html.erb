@@ -44,7 +44,7 @@
           <% if @efile_submission.can_transition_to?(:failed) %>
             <div style="margin-left: 10px">
               <%= link_to("Failed",
-                          failed_hub_efile_submission_path(id: @efile_submission.id),
+                          transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: :failed),
                           method: :patch,
                           data: { confirm: "Are you sure you want to mark this tax return submission as 'Failed'?" },
                           class: "button button--danger button--small") %>
@@ -54,9 +54,8 @@
         <% if @efile_submission.can_transition_to?(:resubmitted) %>
           <div style="margin-left: 10px;">
             <%= button_to("Resubmit",
-                          resubmit_hub_efile_submission_path(id: @efile_submission.id),
+                          transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: :resubmitted),
                           method: :patch,
-                          # disabled: @efile_submission.intake.refund_payment_method_direct_deposit? && !@efile_submission.intake.bank_account.present?,
                           data: { confirm: "Have you updated the necessary information?" },
                           class: "button button--small button--teal button--no-margin")
             %>
@@ -65,7 +64,7 @@
         <% if @efile_submission.in_state?(:rejected) || @efile_submission.in_state?(:waiting) %>
           <div style="margin-left: 10px;">
             <%= button_to("Notify of Rejection",
-                          notify_of_rejection_hub_efile_submission_path(id: @efile_submission.id),
+                          transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: :notified_of_rejection),
                           method: :patch,
                           data: { confirm: "Are you sure you want to notify the filer?" },
                           class: "button button--small button--teal button--no-margin")
@@ -76,7 +75,7 @@
         <% if @efile_submission.can_transition_to?(:cancelled) %>
           <div style="margin-left: 10px">
             <%= link_to("Do not file",
-                        cancel_hub_efile_submission_path(id: @efile_submission.id),
+                        transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: :cancelled),
                         method: :patch,
                         data: { confirm: "Are you sure you want to mark this tax return submission as 'Not filing'?" },
                         class: "button button--danger button--small") %>
@@ -86,7 +85,7 @@
         <% if @efile_submission.can_transition_to?(:rejected) && !Rails.env.production? %>
           <div style="margin-left: 10px">
             <%= link_to("Rejected",
-                        reject_hub_efile_submission_path(id: @efile_submission.id),
+                        transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: :rejected),
                         method: :patch,
                         data: { confirm: "Are you sure you want to mark this tax return submission as 'Rejected'?" },
                         class: "button button--danger button--small") %>
@@ -95,16 +94,14 @@
       </div>
 
       <div style="display: flex;">
-        <% EfileSubmissionStateMachine.states.each do |state| %>
-          <% if @efile_submission.can_transition_to?(state) %>
+        <% @valid_transitions.each do |state| %>
           <div style="margin-left: 10px; gap: 1rem;">
             <%= link_to(state.titleize,
-                        transition_hub_efile_submission_path(id: @efile_submission.id, state: state),
+                        transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: state),
                         method: :patch,
                         data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
                         class: "button button--#{state.titleize} button--small") %>
           </div>
-          <% end %>
         <% end %>
       </div>
 

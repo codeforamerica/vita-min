@@ -22,59 +22,20 @@ module Hub
       redirect_to hub_client_path(id: @client.id) and return unless @tax_returns.joins(:efile_submissions).size.nonzero?
     end
 
-    def resubmit
-      authorize! :update, @efile_submission
-      @efile_submission.transition_to!(:resubmitted, { initiated_by_id: current_user.id })
-      flash[:notice] = "Resubmission initiated."
-      redirect_after_action
-    end
-
-    def notify_of_rejection
-      authorize! :update, @efile_submission
-      @efile_submission.transition_to!(:notified_of_rejection, { initiated_by_id: current_user.id })
-      flash[:notice] = "Filer Notified."
-      redirect_after_action
-    end
-
-    def failed
-      return if acts_like_production?
+    def transition_to
+      to_state = params[:to_state]
+      if %w[failed rejected].include?(to_state) && acts_like_production?
+        flash[:error] = "Transition to #{to_state} failed"
+        redirect_after_action
+        return
+      end
 
       authorize! :update, @efile_submission
-      @efile_submission.transition_to!(:failed, { initiated_by_id: current_user.id })
-      flash[:notice] = "Transitioned to failed (for testing purpose only)"
-      redirect_after_action
-    end
-
-    def cancel
-      authorize! :update, @efile_submission
-      @efile_submission.transition_to!(:cancelled, { initiated_by_id: current_user.id })
-      flash[:notice] = "Submission cancelled, tax return marked 'Not filing'."
-      redirect_after_action
-    end
-
-    def reject
-      return if Rails.env.production?
-
-      authorize! :update, @efile_submission
-      @efile_submission.transition_to!(:rejected, error_code: EfileError.where(service_type: :state_file).last.code)
-      flash[:notice] = "Transitioned to rejected (for testing purpose only)"
-      redirect_after_action
-    end
-
-    def transition
-      return if Rails.env.production?
-
-      authorize! :update, @efile_submission
-      state = params[:state]
-      @efile_submission.transition_to!(state)
-      flash[:notice] = "Transitioned to #{state} (for testing purpose only)"
-      redirect_after_action
-    end
-
-    def investigate
-      authorize! :update, @efile_submission
-      @efile_submission.transition_to!(:investigating, { initiated_by_id: current_user.id })
-      flash[:notice] = "Good luck on your investigation!"
+      if @efile_submission.transition_to!(to_state, { initiated_by_id: current_user.id })
+        flash[:notice] = "Transitioned to #{to_state}"
+      else
+        flash[:error] = "Transition to #{to_state} failed"
+      end
       redirect_after_action
     end
 

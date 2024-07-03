@@ -29,6 +29,10 @@ module Hub
       def show
         @efile_submissions_same_intake = EfileSubmission.where(data_source: @efile_submission.data_source).where.not(id: @efile_submission.id)
         authorize! :read, @efile_submissions_same_intake
+        @valid_transitions = EfileSubmissionStateMachine.states.filter do |state|
+          next if %w[failed rejected].include?(state) && acts_like_production?
+          @efile_submission.can_transition_to?(state)
+        end
       end
 
       def show_xml
