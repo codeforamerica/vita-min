@@ -16,8 +16,14 @@
   background: #0d368f;
 }
 
-.flash--notice{
+.flash--notice,{
   background: #c3d2f0;
+}
+
+.tagify__dropdown__item {
+  &--active {
+    background: #c3d2f0 !important;
+  }
 }
 
 .empty-clients {
