@@ -41,9 +41,16 @@
 .index-table__row:first-of-type .index-table__row-header--sticky::before,
 .tab-bar__tab.is-selected,
 .tab-bar__tab,
-.tab-bar {
+.tab-bar,
+.honeycrisp-compact .button.button--quick-filter,
+.filter-form .tagify tag {
   border-color: #9c9898;
   border-radius: 5px;
+}
+
+.filter-form .tagify tag {
+  border-width: 1px;
+  border-style: solid;
 }
 
 .tab-bar__tab {
