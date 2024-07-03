@@ -258,6 +258,7 @@ Rails.application.routes.draw do
             resources :faq_items
           end
           resources :automated_messages, only: [:index]
+          resources :intake_transition, only: [:index, :update]
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]

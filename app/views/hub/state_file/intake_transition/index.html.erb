@@ -1,0 +1,35 @@
+<% @main_heading = "StateFile Transition Intakes" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <h2>Intake Transitions</h2>
+    <div class="pagination-header">
+      <div class="paginator">
+        <%= will_paginate(
+              @intakes,
+              previous_label: "<i class=\"icon icon-keyboard_arrow_left\"></i><span class=\"hide-on-mobile\">Previous</span>",
+              next_label: "<span class=\"hide-on-mobile\">Next</span><i class=\"icon icon-keyboard_arrow_right\"></i>",
+              inner_window: 1,
+              outer_window: 1,
+              param_name: "page",
+              ) %>
+      </div>
+      <div class="page-entries-info">
+        <%= page_entries_info @intakes %>
+      </div>
+    </div>
+    <table class="index-table spacing-above-25">
+      <thead class="index-table__head">
+        <tr class="index-table__row">
+          <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+            ID
+          </th>
+          <th scope="col" style="width: 12.5rem" class="index-table__header sortable">
+            Status
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+<% end %>
