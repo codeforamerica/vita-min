@@ -1,6 +1,8 @@
 shared_examples :persona do
   let(:approved_output_path) { 'spec/personas/approved_output' }
-  let(:intake) { create persona_name }
+
+  # fake fed submission id will be ignored in comparison
+  let(:intake) { create persona_name, federal_submission_id: "1016422024018atw000x" }
   let(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
 
   it 'generates identical filing PDF to approved output' do
@@ -32,7 +34,7 @@ shared_examples :persona do
           approved_xml.remove_namespaces!
 
           ignore_list = %w[IPAddress IPTs DeviceId TotActiveTimePrepSubmissionTs TotalPreparationSubmissionTs ReturnTs
-                           SubmissionId]
+                           SubmissionId IRSSubmissionId]
           expect(generated_xml).to match_xml(approved_xml, ignore_list)
         end
       end

@@ -97,8 +97,6 @@ FactoryBot.define do
     account_type { "checking" }
     routing_number { "302075830" }
     account_number { "123456" }
-
-    federal_submission_id { "12345202201011234570" }
   end
 
   factory "leslie", class: StateFileAzIntake do
@@ -159,8 +157,6 @@ FactoryBot.define do
     }
 
     payment_or_deposit_type { "mail" }
-
-    federal_submission_id { "1016422024026atw001h" }
   end
 
   factory "martha", class: StateFileAzIntake do
@@ -240,8 +236,6 @@ FactoryBot.define do
 
     date_electronic_withdrawal { "2024-04-15" }
     withdraw_amount { 356 }
-
-    federal_submission_id { "12345202201011234570" }
   end
 
   factory "rory", class: StateFileAzIntake do
@@ -269,7 +263,5 @@ FactoryBot.define do
     }
 
     payment_or_deposit_type { "mail" }
-
-    federal_submission_id { "12345202201011234570" }
   end
 end

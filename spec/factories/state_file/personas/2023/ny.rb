@@ -51,7 +51,5 @@ FactoryBot.define do
 
     primary_esigned { "yes" }
     primary_esigned_at { "2024-07-3" }
-
-    federal_submission_id { "1016422024018atw000x" }
   end
 end
