@@ -1,15 +1,16 @@
-def match_xml(expected, ignore_list)
-  MatchXml.new(expected, ignore_list)
+def match_xml(expected, node_ignore_list, attr_ignore_list)
+  MatchXml.new(expected, node_ignore_list, attr_ignore_list)
 end
 
 class MatchXml
-  def initialize(expected, ignore_list)
-    @ignore_list = ignore_list
-    @expected = MatchXml.xml_to_hash(expected, @ignore_list)
+  def initialize(expected, node_ignore_list, attr_ignore_list)
+    @node_ignore_list = node_ignore_list
+    @attr_ignore_list = attr_ignore_list
+    @expected = MatchXml.xml_to_hash(expected, @node_ignore_list, @attr_ignore_list)
   end
 
   def matches?(actual)
-    @actual = MatchXml.xml_to_hash(actual, @ignore_list)
+    @actual = MatchXml.xml_to_hash(actual, @node_ignore_list, @attr_ignore_list)
     RSpec::Matchers::BuiltIn::Include.new(@expected).matches?(@actual)
   end
 
@@ -18,21 +19,27 @@ class MatchXml
   end
 
   class << self
-    def traverse_elements(base_node, ignore_list, &block)
-      return to_enum(:traverse_elements, base_node, ignore_list) unless block_given?
-      return if ignore_list.include?(base_node.name)
-      if base_node.elements.count == 0
-        yield base_node
-      end
+    def traverse_elements(base_node, node_ignore_list, &block)
+      return to_enum(:traverse_elements, base_node, node_ignore_list) unless block_given?
+      return if node_ignore_list.include?(base_node.name)
+      yield base_node
       base_node.elements.each do |child_node|
-        traverse_elements(child_node, ignore_list, &block)
+        traverse_elements(child_node, node_ignore_list, &block)
       end
     end
 
-    def xml_to_hash(xml, ignore_list)
-      traverse_elements(xml, ignore_list).flat_map do |e|
-        [[e.css_path, e.text]] +
-        e.map { |attr_name, attr_value| ["#{e.css_path}:#{attr_name}", attr_value] }
+    def xml_to_hash(xml, node_ignore_list, attr_ignore_list)
+      traverse_elements(xml, node_ignore_list).flat_map do |e|
+        pairs = []
+        if e.elements.count == 0
+          pairs.append([e.css_path, e.text])
+        end
+        e.each do |attr_name, attr_value|
+          unless attr_ignore_list.include? attr_name
+            pairs.append(["#{e.css_path}:#{attr_name}", attr_value])
+          end
+        end
+        pairs
       end.to_h
     end
   end

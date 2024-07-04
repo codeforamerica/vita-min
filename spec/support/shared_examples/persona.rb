@@ -35,8 +35,9 @@ shared_examples :persona do
           approved_xml = Nokogiri::XML(File.open(approved_submission_bundle_file_path))
           approved_xml.remove_namespaces!
 
-          ignore_list = %w[TransmissionDetail ReturnTs SubmissionId IRSSubmissionId]
-          expect(generated_xml).to match_xml(approved_xml, ignore_list)
+          node_ignore_list = %w[TransmissionDetail ReturnTs SubmissionId IRSSubmissionId]
+          attr_ignore_list = %w[documentId]
+          expect(generated_xml).to match_xml(approved_xml, node_ignore_list, attr_ignore_list)
         end
       end
     end
