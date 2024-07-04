@@ -21,8 +21,8 @@ class MatchXml
     def traverse_elements(base_node, ignore_list, &block)
       return to_enum(:traverse_elements, base_node, ignore_list) unless block_given?
       return if ignore_list.include?(base_node.name)
-      base_node.element_children.each do |child_node|
-        if child_node.children.count == 1 && !ignore_list.include?(child_node.name)
+      base_node.elements.each do |child_node|
+        if child_node.elements.count == 0 && !ignore_list.include?(child_node.name)
           yield child_node
         end
         traverse_elements(child_node, ignore_list, &block)
