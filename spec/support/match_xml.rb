@@ -30,7 +30,10 @@ class MatchXml
     end
 
     def xml_to_hash(xml, ignore_list)
-      traverse_elements(xml, ignore_list).to_h { |e| [e.css_path, e.text] }
+      traverse_elements(xml, ignore_list).flat_map do |e|
+        [[e.css_path, e.text]] +
+        e.map { |attr_name, attr_value| ["#{e.css_path}:#{attr_name}", attr_value] }
+      end.to_h
     end
   end
 end
