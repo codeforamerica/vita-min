@@ -8,8 +8,10 @@ shared_examples :persona do
   it 'generates identical filing PDF to approved output' do
     generated_pdf = efile_submission.generate_filing_pdf
     generated_pdf_hash = PdfForms.new.get_fields(generated_pdf).to_h { |field| [field.name, field.value] }
+
     approved_pdf_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return.pdf"
     approved_pdf_hash = PdfForms.new.get_fields(File.open(approved_pdf_path)).to_h { |field| [field.name, field.value] }
+
     expect(generated_pdf_hash).to match(approved_pdf_hash)
   end
 
