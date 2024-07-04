@@ -16,7 +16,7 @@ shared_examples :persona do
   end
 
   it 'generates identical submission bundle to approved output' do
-    create(:state_file_efile_device_info, :filled, :initial_creation, intake: intake, updated_at: Time.now - 1.minute)
+    create(:state_file_efile_device_info, :filled, :initial_creation, intake: intake)
     create(:state_file_efile_device_info, :filled, :submission, intake: intake)
     efile_submission.generate_irs_submission_id!
     response = SubmissionBundle.new(efile_submission).build
@@ -35,8 +35,7 @@ shared_examples :persona do
           approved_xml = Nokogiri::XML(File.open(approved_submission_bundle_file_path))
           approved_xml.remove_namespaces!
 
-          ignore_list = %w[IPAddress IPTs DeviceId TotActiveTimePrepSubmissionTs TotalPreparationSubmissionTs ReturnTs
-                           SubmissionId IRSSubmissionId]
+          ignore_list = %w[TransmissionDetail ReturnTs SubmissionId IRSSubmissionId]
           expect(generated_xml).to match_xml(approved_xml, ignore_list)
         end
       end
