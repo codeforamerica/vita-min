@@ -257,7 +257,9 @@ Rails.application.routes.draw do
           resources :faq_categories, path: "faq" do
             resources :faq_items
           end
-          resources :automated_messages, only: [:index]
+          resources :automated_messages, only: [:index] do
+            post "/send-notification", to: "automated_messages#send_notification", on: :collection, as: :send_notification
+          end
         end
 
         resources :assigned_clients, path: "assigned", only: [:index]

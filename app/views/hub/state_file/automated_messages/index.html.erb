@@ -20,9 +20,31 @@
 
         <% @messages.each do |message_class| %>
           <div class="client-messages-container client-messages__email with-padding-med" style="background: #F7F7F7;">
-            <h1>
-              <%= message_class.respond_to?(:name) ? message_class.name.capitalize() : message_class %>
-            </h1>
+            <div style="display:flex;">
+              <div style="flex-grow:1;">
+                <h1>
+                  <%= message_class.name %>
+                </h1>
+              </div>
+              <% if @intake.id.present? %>
+                <div>
+                  <%= form_tag send_notification_hub_state_file_automated_messages_path(format: :js), remote: true do %>
+                    <%= hidden_field_tag :message_class, message_class.name %>
+                    <%= hidden_field_tag(:us_state, @intake.state_code) %>
+                    <%= hidden_field_tag :intake_id, @intake.id %>
+                    <%= submit_tag "Send Email", class: "button button--cta" %>
+                  <% end %>
+                </div>
+                <div>
+                  <%= form_tag send_notification_hub_state_file_automated_messages_path(format: :js), remote: true do %>
+                    <%= hidden_field_tag :message_class, message_class.name %>
+                    <%= hidden_field_tag(:us_state, @intake.state_code) %>
+                    <%= hidden_field_tag :intake_id, @intake.id %>
+                    <%= submit_tag "Send SMS", class: "button button--cta" %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
             <% @locales.each do |locale| %>
               <% email = email_message(message_class, locale) %>
               <div class="client-messages-container client-messages__email with-padding-med" style="background: #FFF;">

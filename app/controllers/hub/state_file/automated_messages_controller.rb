@@ -11,6 +11,14 @@ module Hub::StateFile
       get_intake
     end
 
+    def send_notification
+      puts "TRACE:send_notification"
+      #redirect_to :index
+      respond_to do |format|
+        format.js
+      end
+    end
+
     private
 
     def get_intake
