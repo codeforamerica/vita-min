@@ -146,16 +146,6 @@ FactoryBot.define do
 
     charitable_contributions { "no" }
 
-    primary_state_id {
-      create :state_id,
-             id_type: 'no_id',
-             id_number: nil,
-             state: nil,
-             issue_date: nil,
-             expiration_date: nil,
-             first_three_doc_num: nil
-    }
-
     payment_or_deposit_type { "mail" }
   end
 
@@ -209,25 +199,6 @@ FactoryBot.define do
     charitable_cash { 100 }
     charitable_noncash { 100 }
 
-    primary_state_id {
-      create :state_id,
-             id_type: 'no_id',
-             id_number: nil,
-             state: nil,
-             issue_date: nil,
-             expiration_date: nil,
-             first_three_doc_num: nil
-    }
-    spouse_state_id {
-      create :state_id,
-             id_type: 'no_id',
-             id_number: nil,
-             state: nil,
-             issue_date: nil,
-             expiration_date: nil,
-             first_three_doc_num: nil
-    }
-
     payment_or_deposit_type { "direct_deposit" }
     bank_name { "canvas credit union" }
     account_type { "savings" }
@@ -251,16 +222,6 @@ FactoryBot.define do
     armed_forces_member { "no" }
 
     charitable_contributions { "no" }
-
-    primary_state_id {
-      create :state_id,
-             id_type: 'no_id',
-             id_number: nil,
-             state: nil,
-             issue_date: nil,
-             expiration_date: nil,
-             first_three_doc_num: nil
-    }
 
     payment_or_deposit_type { "mail" }
   end
