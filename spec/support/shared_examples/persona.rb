@@ -31,9 +31,7 @@ shared_examples :persona do
           expect(File.exist?(approved_submission_bundle_file_path)).to be_truthy
 
           generated_xml = Nokogiri::XML(submission_bundle_file.get_input_stream.read)
-          generated_xml.remove_namespaces!
           approved_xml = Nokogiri::XML(File.open(approved_submission_bundle_file_path))
-          approved_xml.remove_namespaces!
 
           ignore_list = %w[TransmissionDetail ReturnTs SubmissionId IRSSubmissionId]
           expect(generated_xml).to match_xml(approved_xml, ignore_list)
