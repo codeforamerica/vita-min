@@ -20,8 +20,7 @@ shared_examples :persona do
     create(:state_file_efile_device_info, :filled, :submission, intake: intake)
     efile_submission.generate_irs_submission_id!
     response = SubmissionBundle.new(efile_submission).build
-    expect(response.errors).to be_empty
-    expect(response.valid?).to be true
+    expect(response.valid?).to be(true), response.errors.join("\n")
 
     approved_submission_bundle_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return_xmls"
     efile_submission.submission_bundle.open do |submission_bundle|
