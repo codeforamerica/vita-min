@@ -5,11 +5,11 @@ end
 class MatchXml
   def initialize(expected, ignore_list)
     @ignore_list = ignore_list
-    @expected = MatchXml.xml_to_css_path_hash(expected, @ignore_list)
+    @expected = MatchXml.xml_to_hash(expected, @ignore_list)
   end
 
   def matches?(actual)
-    @actual = MatchXml.xml_to_css_path_hash(actual, @ignore_list)
+    @actual = MatchXml.xml_to_hash(actual, @ignore_list)
     RSpec::Matchers::BuiltIn::Include.new(@expected).matches?(@actual)
   end
 
@@ -29,7 +29,7 @@ class MatchXml
       end
     end
 
-    def xml_to_css_path_hash(xml, ignore_list)
+    def xml_to_hash(xml, ignore_list)
       traverse_elements(xml, ignore_list).to_h { |e| [e.css_path, e.text] }
     end
   end
