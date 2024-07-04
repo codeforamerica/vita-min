@@ -1,5 +1,5 @@
 shared_examples :persona do
-  let(:approved_output_path) { 'spec/personas/approved_output' }
+  let(:approved_output_path) { 'spec/fixtures/state_file/persona_approved_outputs' }
 
   # fake federal submission id will be ignored in comparison
   let(:intake) { create persona_name, federal_submission_id: "1016422024018atw000x" }
