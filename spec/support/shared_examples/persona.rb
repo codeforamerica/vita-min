@@ -26,9 +26,16 @@ shared_examples :persona do
     approved_submission_bundle_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return_xmls"
     efile_submission.submission_bundle.open do |submission_bundle|
       Zip::File.open(submission_bundle.path) do |zipfile|
+
+        generated_files = zipfile.entries.map { |entry| entry.name }
+        Dir.glob(File.join(approved_submission_bundle_path, "/**/*.xml")).each do |approved_xml_file_path|
+          approved_xml = File.join(*Pathname(approved_xml_file_path).each_filename.to_a[-2..-1])
+          expect(generated_files).to include approved_xml
+        end
+
         zipfile.entries.each do |submission_bundle_file|
           approved_submission_bundle_file_path = File.join(approved_submission_bundle_path, submission_bundle_file.name)
-          expect(File.exist?(approved_submission_bundle_file_path)).to be_truthy
+          expect(File.exist?(approved_submission_bundle_file_path)).to be true
 
           generated_xml = Nokogiri::XML(submission_bundle_file.get_input_stream.read)
           generated_xml.remove_namespaces!
