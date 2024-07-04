@@ -1,33 +1,33 @@
 FactoryBot.define do
-  factory "414h_test", class: StateFileNyIntake do
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("ny_414h_test") }
-    primary_first_name { "Javier" }
+  factory "javier", class: StateFileNyIntake do
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("ny_javier") }
+    primary_first_name { "JAVIER" }
     primary_middle_initial { "D" }
-    primary_last_name { "Jimenez" }
+    primary_last_name { "JIMENEZ" }
     primary_birth_date { "1968-01-25" }
 
     nyc_maintained_home { "no" }
     nyc_residency { "none" }
     occupied_residence { "unfilled" }
 
-    residence_county { "Westchester" }
+    residence_county { "Greene" }
 
-    school_district { "Pleasantville" }
-    school_district_id { 988 }
-    school_district_number { 504 }
+    school_district { "Greenville" }
+    school_district_id { 299 }
+    school_district_number { 240 }
 
-    permanent_city { "Pleasantville" }
-    permanent_street { "123 Main St" }
-    permanent_zip { "10572" }
+    permanent_city { "GREENVILLE" }
+    permanent_street { "121 MAPLE AVE" }
+    permanent_zip { "12083" }
 
     after(:create) do |intake|
       create(
         :state_file1099_g,
         intake: intake,
-        payer_name: "New York State Dept of Labor",
+        payer_name: "NEW YORK STATE DEPT OF LABOR",
         payer_tin: "270293117",
-        payer_street_address: "Payment Unit Building 12 1099-G PO Box 621",
-        payer_city: "Albany",
+        payer_street_address: "PAYMENT UNIT BLDG 12",
+        payer_city: "ALBANY",
         payer_zip: "12201",
         recipient: "primary",
         recipient_street_address: "123 Main St",
@@ -47,11 +47,11 @@ FactoryBot.define do
     account_number { "99990000001011" }
 
     date_electronic_withdrawal { "2024-04-15" }
-    withdraw_amount { 67 }
+    withdraw_amount { 163 }
 
     primary_esigned { "yes" }
-    primary_esigned_at { "2024-06-25 21:17:06.557058000 +0000" }
+    primary_esigned_at { "2024-07-3" }
 
-    federal_submission_id { "12345202201011234570" }
+    federal_submission_id { "1016422024018atw000x" }
   end
 end

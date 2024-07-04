@@ -36,8 +36,8 @@ describe "personas" do
       let(:state_code) { :ny }
 
       context "javier" do
-        let(:persona_name) { "414h_test" }
-        let(:submission_id) { "1234562024177c2kg88t" }
+        let(:persona_name) { "javier" }
+        let(:submission_id) { "1234562024184x9ykeg7" }
         it_behaves_like :persona
       end
     end
