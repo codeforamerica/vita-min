@@ -1,7 +1,7 @@
 shared_examples :persona do
   let(:approved_output_path) { 'spec/personas/approved_output' }
 
-  # fake fed submission id will be ignored in comparison
+  # fake federal submission id will be ignored in comparison
   let(:intake) { create persona_name, federal_submission_id: "1016422024018atw000x" }
   let(:efile_submission) { create :efile_submission, :accepted, :for_state, data_source: intake }
 

@@ -32,6 +32,8 @@ class MatchXml
       traverse_elements(xml, node_ignore_list).flat_map do |e|
         pairs = []
         if e.elements.count == 0
+          # We use css_path as a key because it includes the full node hierarchy AND will differentiate between
+          # nodes with identical paths, e.g. elements in a list, by appending ":nth-of-type(N)"
           pairs.append([e.css_path, e.text])
         end
         e.each do |attr_name, attr_value|
