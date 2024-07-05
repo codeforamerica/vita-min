@@ -26,21 +26,13 @@
                   <%= message_class.name %>
                 </h1>
               </div>
-              <% if @intake.id.present? %>
+              <% if @intake.contact_preference.present? && @intake.contact_preference != "unfilled" %>
                 <div>
                   <%= form_tag send_notification_hub_state_file_automated_messages_path(format: :js), remote: true do %>
-                    <%= hidden_field_tag :message_class, message_class.name %>
+                    <%= hidden_field_tag :message, message_class.name %>
                     <%= hidden_field_tag(:us_state, @intake.state_code) %>
                     <%= hidden_field_tag :intake_id, @intake.id %>
-                    <%= submit_tag "Send Email", class: "button button--cta" %>
-                  <% end %>
-                </div>
-                <div>
-                  <%= form_tag send_notification_hub_state_file_automated_messages_path(format: :js), remote: true do %>
-                    <%= hidden_field_tag :message_class, message_class.name %>
-                    <%= hidden_field_tag(:us_state, @intake.state_code) %>
-                    <%= hidden_field_tag :intake_id, @intake.id %>
-                    <%= submit_tag "Send SMS", class: "button button--cta" %>
+                    <%= submit_tag "Send #{@intake.contact_preference.capitalize} (#{@intake.locale || :en})", class: "button button--cta" %>
                   <% end %>
                 </div>
               <% end %>

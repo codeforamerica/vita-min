@@ -12,8 +12,19 @@ module Hub::StateFile
     end
 
     def send_notification
-      puts "TRACE:send_notification"
-      #redirect_to :index
+
+      Rails.application.eager_load!
+      message = params[:message]
+      message_classes = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
+      message_class = message_classes.find { |c| c.name == message }
+      @us_state = StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : "az"
+      StateFile::MessagingService.new(
+        intake: get_intake,
+        submission: get_intake.efile_submissions.last,
+        message: message_class,
+        body_args: message_params
+      ).send_message(require_verification: false)
+
       respond_to do |format|
         format.js
       end
