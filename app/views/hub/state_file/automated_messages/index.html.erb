@@ -7,14 +7,11 @@
       <div class="grid__item width-one-whole">
         <div style="display: flex; align-items: center;">
           <h1 style="flex-grow: 1;"><%= @main_heading %></h1>
-          <% StateFile::StateInformationService.state_code_to_name_map.each do |state_code, state_name| %>
-            <%= link_to url_for(us_state: state_code), style: "margin-left: 1rem;#{@us_state == state_code ? "font-weight: bold;" : ""}" do %>
-              <%= state_name %>
-            <% end %>
-          <% end %>
+          <div>
+            (<%= @intake.state_name %>, <%= @intake.locale.to_s %>, <%= @intake.email_address || @intake.phone_number %>)
+          </div>
           <%= form_tag "", method: :get do %>
-            <%= hidden_field_tag(:us_state, @intake.state_code) %>
-            <%= text_field_tag(:intake_id, params[:intake_id], placeholder: "Intake Id", style: "margin-left: 1rem;") %>
+            <%= text_field_tag(:intake, params[:intake], placeholder: "Intake Id", style: "margin-left: 1rem;") %>
           <% end %>
         </div>
 
@@ -30,9 +27,8 @@
                 <div>
                   <%= form_tag send_notification_hub_state_file_automated_messages_path(format: :js), remote: true do %>
                     <%= hidden_field_tag :message, message_class.name %>
-                    <%= hidden_field_tag(:us_state, @intake.state_code) %>
-                    <%= hidden_field_tag :intake_id, @intake.id %>
-                    <%= submit_tag "Send #{@intake.contact_preference.capitalize} (#{@intake.locale || :en})", class: "button button--cta" %>
+                    <%= hidden_field_tag(:intake, "#{@intake.state_code}#{@intake.id}") %>
+                    <%= submit_tag "Send #{@intake.contact_preference.capitalize}", class: "button button--cta" %>
                   <% end %>
                 </div>
               <% end %>

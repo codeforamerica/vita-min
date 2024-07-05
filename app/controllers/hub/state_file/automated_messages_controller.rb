@@ -7,7 +7,6 @@ module Hub::StateFile
       Rails.application.eager_load!
       @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       @locales = [:en, :es]
-      @us_state = StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : "az"
       get_intake
     end
 
@@ -17,7 +16,6 @@ module Hub::StateFile
       message = params[:message]
       message_classes = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
       message_class = message_classes.find { |c| c.name == message }
-      @us_state = StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : "az"
       StateFile::MessagingService.new(
         intake: get_intake,
         submission: get_intake.efile_submissions.last,
@@ -32,15 +30,34 @@ module Hub::StateFile
 
     private
 
+    def get_state_code
+      active_state_codes = StateFile::StateInformationService.active_state_codes
+      intake = params[:intake]
+      if intake.present?
+        state_code = intake[0..1].downcase
+        return state_code if active_state_codes.include?(state_code)
+      end
+      active_state_codes.first
+    end
+
     def get_intake
       return @intake if @intake.present?
-      state_class = "StateFile#{@us_state.titleize}Intake".constantize
-      if params[:intake_id].present?
-        @intake = state_class.find_by_id(params[:intake_id])
+      active_state_codes = StateFile::StateInformationService.active_state_codes
+      intake = params[:intake]
+      if intake.present?
+        state_code = intake[0..1].downcase
+        intake_id = intake[2..].to_i
+        unless active_state_codes.include?(state_code)
+          state_code = active_state_codes.first
+          intake_id = intake
+        end
+        intake_class = StateFile::StateInformationService.intake_class(state_code)
+        @intake = intake_class.find_by_id(intake_id)
         return @intake if @intake.present?
         flash.now.alert = "Unknown Intake"
       end
-      @intake = state_class.new(
+      intake_class = StateFile::StateInformationService.intake_class(active_state_codes.first)
+      @intake = intake_class.new(
         locale: "en",
         primary_first_name: "Cornelius"
       )
