@@ -1,0 +1,45 @@
+name: vita-min
+
+# TODO: debug why db service does not start if rails service is not commented out
+
+services:
+  db:
+    container_name: db
+    image: postgis/postgis:13-3.4
+    # image: postgres:13
+    user: postgres
+    ports:
+      - 5432:5432
+    # volumes:
+    #   - database:/var/lib/postgresql/data
+    command: postgres -h localhost -p 5432
+    environment:
+      POSTGRES_DB: vita-min_development
+      POSTGRES_HOST_AUTH_METHOD: trust
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
+  rails:
+    container_name: rails
+    image: ruby:3.2.2
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+        restart: true
+    links:
+      - db
+    environment:
+      RAILS_ENV: development
+    # command: dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bundle exec rails s -b 0.0.0.0 -p 3000 -e development"
+# volumes:
+#   database:
