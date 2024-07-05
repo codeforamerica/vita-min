@@ -16,9 +16,11 @@
         <div class="card">
           <%= render "hub/dashboard/service_level_agreements_notifications" %>
         </div>
-        <div class="card">
-          <%= render "hub/dashboard/capacity" %>
-        </div>
+        <% if current_user.org_lead? || current_user.coalition_lead? %>
+          <div class="card">
+            <%= render "hub/dashboard/capacity" %>
+          </div>
+        <% end %>
         <div class="card">
           <%= render "hub/dashboard/returns_by_status" %>
         </div>
