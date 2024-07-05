@@ -12,6 +12,16 @@ deploy_default: &deploy_default
 development:
   <<: *local_default
   database: vita-min_development
+  host: db
+  # url: postgres://localhost:5432
+  username: postgres
+  port: 5432
+  password:
+
+# docker_compose:
+#   <<: *local_default
+#   database: vita-min_development
+#   host: db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
