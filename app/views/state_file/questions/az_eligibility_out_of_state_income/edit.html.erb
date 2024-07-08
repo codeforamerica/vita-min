@@ -1,0 +1,45 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="blue-group">
+      <%= f.cfa_radio_set(
+            :eligibility_out_of_state_income,
+            label_text: t(".out_of_state_income_html"),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+
+    <div class="blue-group">
+      <%= f.cfa_radio_set(
+            :eligibility_529_for_non_qual_expense,
+            label_text: t(".used_529_for_non_qual_expense_html"),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__link"><%= t('.expenses_helper_heading') %></a></p>
+      <div class="reveal__content">
+        <p><%= t('.expenses_helper_qualifying_description') %></p>
+        <p><%= t('.expenses_helper_nonqualifying_description') %></p>
+
+        <p class="text--bold"><%= t('.expenses_helper_no_if') %></p>
+        <ul>
+          <li><%= t('.expenses_helper_no_qualifying') %></li>
+          <li><%= t('.expenses_helper_no_nothing_withdrawn') %></li>
+        </ul>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

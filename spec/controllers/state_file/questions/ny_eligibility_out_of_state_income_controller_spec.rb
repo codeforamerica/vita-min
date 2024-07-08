@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StateFile::Questions::EligibilityResidenceController do
+RSpec.describe StateFile::Questions::NyEligibilityOutOfStateIncomeController do
   describe "#update" do
     # use the eligibility_offboarding_concern shared example if the page
     # should redirect to the state file eligibility offboarding page
@@ -10,9 +10,9 @@ RSpec.describe StateFile::Questions::EligibilityResidenceController do
       let(:eligible_params) do
         {
           us_state: "ny",
-          state_file_ny_eligibility_residence_form: {
-            eligibility_lived_in_state: "yes",
-            eligibility_yonkers: "no",
+          state_file_ny_eligibility_out_of_state_income_form: {
+            eligibility_out_of_state_income: "no",
+            eligibility_part_year_nyc_resident: "no",
           }
         }
       end
@@ -20,9 +20,9 @@ RSpec.describe StateFile::Questions::EligibilityResidenceController do
       let(:ineligible_params) do
         {
           us_state: "ny",
-          state_file_ny_eligibility_residence_form: {
-            eligibility_lived_in_state: "yes",
-            eligibility_yonkers: "yes",
+          state_file_ny_eligibility_out_of_state_income_form: {
+            eligibility_out_of_state_income: "yes",
+            eligibility_part_year_nyc_resident: "yes",
           }
         }
       end
