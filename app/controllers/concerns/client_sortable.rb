@@ -41,6 +41,7 @@ module ClientSortable
       id = id["id"] if id.instance_of?(Hash)
 
       vita_partner = @vita_partners.find { |p| p.id == id }
+      next unless vita_partner.present?
       {
         id: vita_partner.id,
         name: vita_partner.name,
@@ -48,6 +49,6 @@ module ClientSortable
         value: vita_partner.id
       }
     end
-    result.to_json
+    result.compact.to_json
   end
 end

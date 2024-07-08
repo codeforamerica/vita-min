@@ -90,4 +90,10 @@ describe StateFile::StateInformationService do
       expect(described_class.return_type("az")).to eq "Form140"
     end
   end
+
+  describe ".pay_taxes_link" do
+    it "returns the pay taxes link" do
+      expect(described_class.pay_taxes_link("az")).to eq "https://www.aztaxes.gov/"
+    end
+  end
 end
