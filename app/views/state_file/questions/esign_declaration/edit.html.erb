@@ -13,13 +13,13 @@
       <% end %>
 
       <% submission_btn_text = current_intake.efile_submissions.count > 0 ? t(".resubmit") : t(".submit") %>
-      <% if current_intake.efile_submissions.count == 0 || (current_intake.efile_submissions.count > 0 && ["rejected", "notified_of_rejection", "waiting"].include?(current_intake.efile_submissions.last.current_state)) %>
-        <%= f.submit(submission_btn_text, class: "button button--primary button--wide") %>
-      <% else %>
+      <% if @form.intake_already_submitted? %>
         <button class="button button--primary button--wide text--centered button--disabled spacing-below-0" disabled type="submit">
           <%= t(".submit") %>
         </button>
         <p class="text--error spacing-above-5"><%= t(".already_submitted") %></p>
+      <% else %>
+        <%= f.submit(submission_btn_text, class: "button button--primary button--wide") %>
       <% end %>
     </div>
   <% end %>
