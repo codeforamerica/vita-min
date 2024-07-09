@@ -2,6 +2,10 @@ local_default: &local_default
   adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
   timeout: 5000
+  host: <%= ENV.fetch("RAILS_DB_HOST") %>
+  username: <%= ENV.fetch("RAILS_DB_USERNAME") %>
+  port: <%= ENV.fetch("RAILS_DB_PORT") %>
+  password: <%= ENV.fetch("RAILS_DB_PASSWORD") %>
 
 deploy_default: &deploy_default
   adapter: postgis
@@ -12,16 +16,6 @@ deploy_default: &deploy_default
 development:
   <<: *local_default
   database: vita-min_development
-  host: db
-  # url: postgres://localhost:5432
-  username: postgres
-  port: 5432
-  password:
-
-# docker_compose:
-#   <<: *local_default
-#   database: vita-min_development
-#   host: db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+bin/rails db:create
+bin/rails db:schema:load
+bin/rails db:seed
+
+# These two aren't possible to do without permissions
+# bin/rails bin/rails setup:unzip_efile_schemas
+# bin/rails setup:download_gyr_efiler
+
+# Add IRS e-file schemas, which are not in the git repo
+# bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
+
+# Collect assets. This approach is not fully production-ready, but
+# will help you experiment with Aptible Deploy before bothering with assets.
+# Review http://go.aptible.com/assets for production-ready advice.
+bundle exec rake assets:precompile
+
+if [ -f /app/tmp/pids/server.pid ]; then
+  rm /app/tmp/pids/server.pid
+fi 
+
+# Does this work or do we need to start with foreman instead per the docs?
+# dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bundle exec rails s -b 0.0.0.0 -p 3000 -e development"
+bundle exec rails s -b 0.0.0.0 -p 3000

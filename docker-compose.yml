@@ -1,26 +1,46 @@
 name: vita-min
 
-# TODO: debug why db service does not start if rails service is not commented out
+# TODO: debug why db service does not start before rails service
+# For now, db must be manually started before rails
 
 services:
   db:
     container_name: db
-    image: postgis/postgis:13-3.4
-    # image: postgres:13
+    image: postgis/postgis:13-3.4-alpine
     user: postgres
     ports:
       - 5432:5432
-    # volumes:
-    #   - database:/var/lib/postgresql/data
-    command: postgres -h localhost -p 5432
+    volumes:
+      - database:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: vita-min_development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
       retries: 5
       timeout: 10s
+  pgadmin:
+    container_name: pgadmin
+    image: chorss/docker-pgadmin4
+    ports:
+      - 5050:5050
+    depends_on:
+      - db
+  jobs:
+    container_name: jobs
+    image: ruby:3.2.2
+    volumes:
+      - ./:/app
+    command: bin/rails jobs:work
+    depends_on:
+      - rails
+    environment:
+      - RAILS_DB_HOST=db
+      - RAILS_DB_USERNAME=postgres
+      - RAILS_DB_PORT=5432
+      - RAILS_DB_PASSWORD=password
   rails:
     container_name: rails
     image: ruby:3.2.2
@@ -28,18 +48,18 @@ services:
       context: .
       dockerfile: Dockerfile.local
     volumes:
-      - .:/app
+      - ./:/app
     ports:
       - 3000:3000
     depends_on:
-      db:
-        condition: service_healthy
-        required: true
-        restart: true
+      - db
     links:
       - db
     environment:
-      RAILS_ENV: development
-    # command: dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bundle exec rails s -b 0.0.0.0 -p 3000 -e development"
-# volumes:
-#   database:
+      - "RAILS_ENV=${RAILS_ENV:-development}"
+      - RAILS_DB_HOST=db
+      - RAILS_DB_USERNAME=postgres
+      - RAILS_DB_PORT=5432
+      - RAILS_DB_PASSWORD=password
+volumes:
+  database:
