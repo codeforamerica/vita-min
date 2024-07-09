@@ -23,12 +23,6 @@ module Hub
           [Hub::StateFile::EfileErrorsController.to_path_helper(action: :index), "Efile Errors"],
         ]
       end
-      @deprecated_actions = [
-        [hub_verification_attempts_path, "Client Verification"],
-        [hub_fraud_indicators_path, "Fraud Indicators"],
-        [hub_efile_submissions_path, "E-file Dashboard"],
-        [hub_efile_errors_path, "E-file Errors"],
-      ]
     end
   end
 end
