@@ -63,6 +63,23 @@ module Hub
         respond_to :js
       end
 
+      def transition_to
+        to_state = params[:to_state]
+        if %w[failed rejected].include?(to_state) && acts_like_production?
+          flash[:error] = "Transition to #{to_state} failed"
+          redirect_to hub_state_file_efile_submission_path(id: @efile_submission.id)
+          return
+        end
+
+        authorize! :update, @efile_submission
+        if @efile_submission.transition_to!(to_state, { initiated_by_id: current_user.id })
+          flash[:notice] = "Transitioned to #{to_state}"
+        else
+          flash[:error] = "Transition to #{to_state} failed"
+        end
+        redirect_to hub_state_file_efile_submission_path(id: @efile_submission.id)
+      end
+
       private
 
       def error_redirect
