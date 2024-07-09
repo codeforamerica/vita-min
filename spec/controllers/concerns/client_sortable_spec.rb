@@ -89,5 +89,21 @@ RSpec.describe ClientSortable, type: :controller do
         expect(subject.send(:vita_partners_for_tagify)).to eq vita_partners
       end
     end
+
+    context "with filters to which the user does not have access" do
+      let(:params) do
+        {
+          vita_partners: [-1, orgs.first.id, -2].to_json
+        }
+      end
+      it "returns a filters in tagify format" do
+        subject.send(:setup_sortable_client)
+        org = orgs.first
+        expected = [
+          {id: org.id, name: org.name, parentName: nil, value: org.id}
+        ].to_json
+        expect(subject.send(:vita_partners_for_tagify)).to eq expected
+      end
+    end
   end
 end

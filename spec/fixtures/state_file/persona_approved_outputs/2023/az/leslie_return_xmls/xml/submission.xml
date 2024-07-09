@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<efile:ReturnState xmlns:efile="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile" stateSchemaVersion="AZIndividual2023v1.0">
+  <AuthenticationHeader xmlns="http://www.irs.gov/efile">
+    <FilingLicenseTypeCd>O</FilingLicenseTypeCd>
+    <FinancialResolution>
+      <Submission>
+        <RefundProductCIPCdSubmit>0</RefundProductCIPCdSubmit>
+        <NoUBADisbursementCdSubmit>3</NoUBADisbursementCdSubmit>
+        <NoFinancialProduct>X</NoFinancialProduct>
+      </Submission>
+    </FinancialResolution>
+    <PrimDrvrLcnsOrStateIssdIdGrp>
+      <DoNotHaveDrvrLcnsOrStIssdId>X</DoNotHaveDrvrLcnsOrStIssdId>
+    </PrimDrvrLcnsOrStateIssdIdGrp>
+    <TransmissionDetail>
+      <InitialCreation>
+        <IPAddress>
+          <IPv4AddressTxt>64.252.70.105</IPv4AddressTxt>
+        </IPAddress>
+        <IPTs>2024-07-01T22:06:15+00:00</IPTs>
+        <DeviceId>85E8B5C15E6B551936A61B2BC7D3077B801E77FC</DeviceId>
+        <DeviceTypeCd>Browser-based</DeviceTypeCd>
+      </InitialCreation>
+      <Submission>
+        <IPAddress>
+          <IPv4AddressTxt>64.252.73.88</IPv4AddressTxt>
+        </IPAddress>
+        <IPTs>2024-07-01T22:12:02+00:00</IPTs>
+        <DeviceId>85E8B5C15E6B551936A61B2BC7D3077B801E77FC</DeviceId>
+        <DeviceTypeCd>Browser-based</DeviceTypeCd>
+      </Submission>
+      <TotActiveTimePrepSubmissionTs>9</TotActiveTimePrepSubmissionTs>
+      <TotalPreparationSubmissionTs>9</TotalPreparationSubmissionTs>
+    </TransmissionDetail>
+  </AuthenticationHeader>
+  <ReturnHeaderState xmlns="http://www.irs.gov/efile">
+    <Jurisdiction>AZST</Jurisdiction>
+    <ReturnTs>2024-07-01T22:12:02+00:00</ReturnTs>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <TaxYr>2023</TaxYr>
+    <OriginatorGrp>
+      <EFIN>123456</EFIN>
+      <OriginatorTypeCd>OnlineFiler</OriginatorTypeCd>
+    </OriginatorGrp>
+    <SoftwareId>11111111</SoftwareId>
+    <ReturnType>Form140</ReturnType>
+    <Filer>
+      <Primary>
+        <TaxpayerName>
+          <FirstName>LESLIE</FirstName>
+          <LastName>KNOPE</LastName>
+        </TaxpayerName>
+        <TaxpayerSSN>400000007</TaxpayerSSN>
+        <DateOfBirth>1955-12-12</DateOfBirth>
+      </Primary>
+      <USAddress>
+        <AddressLine1Txt>3756 supercalifragilistic roadway</AddressLine1Txt>
+        <CityNm>Tucson</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85705</ZIPCd>
+      </USAddress>
+    </Filer>
+  </ReturnHeaderState>
+  <ReturnDataState>
+    <Form140 xmlns="http://www.irs.gov/efile">
+      <LNPriorYrs/>
+      <FilingStatus>HeadHousehold</FilingStatus>
+      <QualChildDependentName>
+        <FirstName>April</FirstName>
+        <LastName>Ludgate</LastName>
+      </QualChildDependentName>
+      <Exemptions>
+        <AgeExemp>1</AgeExemp>
+        <VisionExemp>1</VisionExemp>
+        <DependentsUnder17>1</DependentsUnder17>
+        <Dependents17AndOlder>0</Dependents17AndOlder>
+        <QualifyingParentsAncestors>0</QualifyingParentsAncestors>
+      </Exemptions>
+      <SupplementPageAttached>X</SupplementPageAttached>
+      <Dependents>
+        <DependentDetails>
+          <Name>
+            <FirstName>April</FirstName>
+            <LastName>Ludgate</LastName>
+          </Name>
+          <DependentSSN>300000014</DependentSSN>
+          <RelationShip>CHILD</RelationShip>
+          <NumMonthsLived>12</NumMonthsLived>
+          <DepUnder17>X</DepUnder17>
+        </DependentDetails>
+      </Dependents>
+      <Additions>
+        <FedAdjGrossIncome>41910</FedAdjGrossIncome>
+        <ModFedAdjGrossInc>41910</ModFedAdjGrossInc>
+      </Additions>
+      <AzAdjSubtotal>41910</AzAdjSubtotal>
+      <Subtractions>
+        <USSSRailRoadBnft>11810</USSSRailRoadBnft>
+        <WageAmIndian>0</WageAmIndian>
+        <CompNtnlGrdArmdFrcs>5000</CompNtnlGrdArmdFrcs>
+      </Subtractions>
+      <TotalSubtractions>25100</TotalSubtractions>
+      <Subtotal>25100</Subtotal>
+      <AzSubtrAmts>
+        <ExemAmtAge65OrOver>2100</ExemAmtAge65OrOver>
+        <ExemAmtBlind>1500</ExemAmtBlind>
+        <ExemAmtParentsAncestors>0</ExemAmtParentsAncestors>
+      </AzSubtrAmts>
+      <AZAdjGrossIncome>21500</AZAdjGrossIncome>
+      <DeductionAmt>
+        <DeductionTypeIndc>Standard</DeductionTypeIndc>
+        <AZDeductions>20800</AZDeductions>
+        <AZTaxableInc>700</AZTaxableInc>
+        <ComputedTax>18</ComputedTax>
+        <SubTotal>18</SubTotal>
+        <DepTaxCredit>100</DepTaxCredit>
+        <FamilyIncomeTaxCredit>0</FamilyIncomeTaxCredit>
+        <BalanceOfTaxDue>0</BalanceOfTaxDue>
+      </DeductionAmt>
+      <TotalPaymentAndCredits>
+        <AzIncTaxWithheld>30</AzIncTaxWithheld>
+        <IncrExciseTaxCr>0</IncrExciseTaxCr>
+      </TotalPaymentAndCredits>
+      <TotalPayments>30</TotalPayments>
+      <TaxDueOrOverpayment>
+        <OverPaymentGrp>
+          <OverPaymentOfTax>30</OverPaymentOfTax>
+          <OverPaymentApplied>0</OverPaymentApplied>
+          <OverPaymentBalance>30</OverPaymentBalance>
+        </OverPaymentGrp>
+      </TaxDueOrOverpayment>
+      <RefundAmt>30</RefundAmt>
+    </Form140>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000007</EmployeeSSN>
+      <EmployerEIN>001245768</EmployerEIN>
+      <EmployerNameControlTxt>BENW</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Ben Wyatt Campaign</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Elm court</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Leslie Knope</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>321 Creek drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>15</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>400000007</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>CITY</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>City of Pawnee</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Elm court</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Leslie Knope</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>321 Creek drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>100</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>5</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <State1099G xmlns="http://www.irs.gov/efile" documentId="State1099G-197">
+      <PayerName payerNameControl="ARIZ">
+        <BusinessNameLine1Txt>ARIZONA DEPARTMENT OF ECONOMIC SECURITY</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>568 BREWER CIRCLE</AddressLine1Txt>
+        <CityNm>PHOENIX</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>270293117</PayerEIN>
+      <RecipientSSN>400000007</RecipientSSN>
+      <RecipientName>LESLIE KNOPE</RecipientName>
+      <RecipientUSAddress>
+        <AddressLine1Txt>321 ANDY STREET</AddressLine1Txt>
+        <CityNm>PHOENIX</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
+      </RecipientUSAddress>
+      <UnemploymentCompensation>10000</UnemploymentCompensation>
+      <FederalTaxWithheld>10</FederalTaxWithheld>
+      <State1099GStateLocalTaxGrp>
+        <StateTaxWithheldAmt>10</StateTaxWithheldAmt>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <PayerStateIdNumber>123456</PayerStateIdNumber>
+      </State1099GStateLocalTaxGrp>
+    </State1099G>
+  </ReturnDataState>
+</efile:ReturnState>
