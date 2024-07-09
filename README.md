@@ -189,6 +189,16 @@ rails jobs:work
 bin/shakapacker-dev-server
 ```
 
+## Alternate setup + run the server instructions with docker compose
+
+1. Make sure you have `development.key` and `test.key` in `config/credentials`. Ask a teammate if you need access.
+1. Unpack the state schema files into `vendor/us_states`
+1. Run `docker compose up`. This will start the database, pgadmin, jobs, and rails app containers.
+
+### Run tests in a docker container
+1. Set the rails env to test and restart the rails container: `RAILS_ENV=test docker compose up rails`
+1. Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails bin/test`
+
 ## Development 💻
 
 In development, you'll need to manually start the delayed_job worker using the following command:

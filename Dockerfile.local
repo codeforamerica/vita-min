@@ -17,9 +17,9 @@ RUN apt-get update \
 #  && apt-get -y install imagemagick nodejs \
 #  && rm -rf /var/lib/apt/lists/*
 
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
-    SUPERCRONIC=supercronic-linux-amd64 \
-    SUPERCRONIC_SHA1SUM=5ddf8ea26b56d4a7ff6faecdd8966610d5cb9d85
+# ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
+#     SUPERCRONIC=supercronic-linux-amd64 \
+#     SUPERCRONIC_SHA1SUM=5ddf8ea26b56d4a7ff6faecdd8966610d5cb9d85
 
 # Is this necessary in dev?
 # RUN curl -fsSLO "$SUPERCRONIC_URL" \
@@ -28,21 +28,21 @@ ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.
 #  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
 #  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-ADD ./vendor/pdftk /app/vendor/pdftk
-RUN /app/vendor/pdftk/install
+# ADD ./vendor/pdftk /app/vendor/pdftk
+# RUN /app/vendor/pdftk/install
 
 # gyr-efiler requires Java 8. Download Java 8 and provide a variable for the Ruby app.
-ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
-    OPENJDK_SHA1SUM=55848001c21214d30ca1362bace8613ce9733516
-RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
- && echo "${OPENJDK_SHA1SUM}  /tmp/openjdk.tar.gz" | sha1sum -c - \
- && cd /opt && tar xf /tmp/openjdk.tar.gz \
- && rm -f /tmp/openjdk.tar.gz
-ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
+# ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
+#     OPENJDK_SHA1SUM=55848001c21214d30ca1362bace8613ce9733516
+# RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
+#  && echo "${OPENJDK_SHA1SUM}  /tmp/openjdk.tar.gz" | sha1sum -c - \
+#  && cd /opt && tar xf /tmp/openjdk.tar.gz \
+#  && rm -f /tmp/openjdk.tar.gz
+# ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
 
 # Taken from setup script and config.yml
 # Also https://github.com/jwilder/dockerize
-ENV DOCKERIZE_VERSION v0.7.0
+ENV DOCKERIZE_VERSION=v0.7.0
 RUN wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin
 
 WORKDIR /app
@@ -51,25 +51,9 @@ RUN NODE_ENV=production yarn install --frozen-lockfile
 ADD .ruby-version Gemfile Gemfile.lock /app/
 
 RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
-    && bundle install
+    && bundle install --with development test
 
 ADD . /app
-
-RUN bin/rails db:prepare parallel:create
-RUN bin/rails db:seed
-# TODO: why isn't schema load in the setup script?
-# RUN bin/rails db:schema:load
-# These two aren't possible to do without permissions
-# RUN bin/rails bin/rails setup:unzip_efile_schemas
-# RUN bin/rails setup:download_gyr_efiler
-
-# Add IRS e-file schemas, which are not in the git repo
-# RUN bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
-
-# Collect assets. This approach is not fully production-ready, but
-# will help you experiment with Aptible Deploy before bothering with assets.
-# Review http://go.aptible.com/assets for production-ready advice.
-RUN bundle exec rake assets:precompile
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
