@@ -3,7 +3,9 @@ module SubmissionBuilder
     module States
       class StateReturn < SubmissionBuilder::Document
         def document
-          @document = build_xml_doc(build_xml_doc_tag, stateSchemaVersion: state_schema_version)
+          @document = state_schema_version.present? ?
+                        build_xml_doc(build_xml_doc_tag, stateSchemaVersion: state_schema_version) :
+                        build_xml_doc(build_xml_doc_tag)
           build_headers
           build_main_document
           build_documents
