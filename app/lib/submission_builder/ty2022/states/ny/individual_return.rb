@@ -6,23 +6,15 @@ module SubmissionBuilder
         class IndividualReturn < StateReturn
           DEPENDENT_OVERFLOW_THRESHOLD = 6
 
-          def document
-            document = build_xml_doc('ReturnState')
-            document.at("ReturnState").add_child(authentication_header)
-            document.at("ReturnState").add_child(return_header)
-            document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
-            document.at("ReturnDataState").add_child(documents_wrapper)
-            attached_documents.each do |attached|
-              document.at('forms').add_child(document_fragment(attached))
-            end
-            document
-          end
-
-          def pdf_documents
-            included_documents.map { |item| item if item.pdf }.compact
-          end
-
           private
+
+          def attached_documents_parent_tag
+            'forms'
+          end
+
+          def build_xml_doc_tag
+            "ReturnState"
+          end
 
           def documents_wrapper
             xml_doc = build_xml_doc("processBO") do |xml|
@@ -127,12 +119,16 @@ module SubmissionBuilder
             xml_doc.at('*')
           end
 
-          def document_fragment(document)
-            document[:xml_class].build(@submission, validate: false, kwargs: document[:kwargs]).document.at("*")
-          end
-
           def schema_file
             SchemaFileLoader.load_file("us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd")
+          end
+
+          def w2_pdf
+            PdfFiller::NyIt2Pdf
+          end
+
+          def form1099g_builder
+            SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G
           end
 
           def supported_documents
@@ -177,26 +173,8 @@ module SubmissionBuilder
               }
             ]
 
-            @submission.data_source.direct_file_data.w2s.each_with_index do |w2, i|
-              intake = @submission.data_source
-              intake_w2 = intake.state_file_w2s.find {|w2| w2.w2_index == i } if intake.state_file_w2s.present?
-
-              supported_docs << {
-                xml: SubmissionBuilder::Shared::ReturnW2,
-                pdf: PdfFiller::NyIt2Pdf,
-                include: true,
-                kwargs: { w2: w2, intake_w2: intake_w2 }
-              }
-            end
-
-            @submission.data_source.state_file1099_gs.each do |form1099g|
-              supported_docs << {
-                xml: SubmissionBuilder::Ty2022::States::Ny::Documents::State1099G,
-                pdf: nil,
-                include: true,
-                kwargs: { form1099g: form1099g }
-              }
-            end
+            supported_docs += combined_w2s
+            supported_docs += form1099gs
 
             supported_docs << {
               xml: nil,
