@@ -1,7 +1,0 @@
-<% efile_submission_state_counts ||= {} %>
-<% (EfileSubmissionStateMachine.states - %w[new resubmitted ready_to_resubmit]).each do |state| %>
-  <div class="metric-box">
-    <div class="status <%= state %>"><%= efile_submission_state_counts[state] || "-" %></div>
-    <div class="status <%= state %>"><%= link_to state, Hub::EfileSubmissionsController.to_path_helper(action: :index, status: state), class: 'link--subtle', style: "color: inherit;" %></div>
-  </div>
-<% end %>

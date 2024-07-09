@@ -44,4 +44,11 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe "#tax_calculator" do
+    it "returns an instance of the calculator class from the information service" do
+      intake = create(:state_file_az_intake)
+      expect(intake.tax_calculator).to be_an_instance_of(Efile::Az::Az140)
+    end
+  end
 end

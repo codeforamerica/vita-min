@@ -3,7 +3,7 @@ module SubmissionBuilder
   module Ty2022
     module States
       module Ny
-        class IndividualReturn < SubmissionBuilder::Document
+        class IndividualReturn < StateReturn
           DEPENDENT_OVERFLOW_THRESHOLD = 6
 
           def document
@@ -131,28 +131,8 @@ module SubmissionBuilder
             document[:xml_class].build(@submission, validate: false, kwargs: document[:kwargs]).document.at("*")
           end
 
-          def authentication_header
-            SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
-          end
-
-          def return_header
-            SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
-          end
-
           def schema_file
             SchemaFileLoader.load_file("us_states", "unpacked", "NYSIndividual2023V4.0", "Common", "NysReturnState.xsd")
-          end
-
-          def attached_documents
-            @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
-          end
-
-          def xml_documents
-            included_documents.map { |item| item if item.xml }.compact
-          end
-
-          def included_documents
-            supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
           end
 
           def supported_documents

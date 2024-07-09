@@ -3,9 +3,11 @@ module StateFile
     class << self
       [
         :intake_class,
+        :calculator_class,
         :navigation_class,
         :submission_builder_class,
         :mail_voucher_address,
+        :pay_taxes_link,
         :return_type,
         :state_name,
         :survey_link,
@@ -47,11 +49,13 @@ module StateFile
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
+        calculator_class: Efile::Az::Az140,
         navigation_class: Navigation::StateFileAzQuestionNavigation,
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
+        pay_taxes_link: "https://www.aztaxes.gov/",
         return_type: "Form140",
         state_name: "Arizona",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
@@ -64,12 +68,14 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
+        calculator_class: Efile::Ny::It201,
         navigation_class: Navigation::StateFileNyQuestionNavigation,
         submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
+        pay_taxes_link: "https://www.tax.ny.gov/pay/",
         return_type: "IT201",
         state_name: "New York",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",

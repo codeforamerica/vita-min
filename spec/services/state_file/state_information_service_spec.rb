@@ -7,8 +7,14 @@ describe StateFile::StateInformationService do
     end
   end
 
+  describe ".calculator_class" do
+    it "returns the tax calculator class" do
+      expect(described_class.calculator_class("az")).to eq Efile::Az::Az140
+    end
+  end
+
   describe ".state_name" do
-    it "returns the name of the state from states.yml" do
+    it "returns the name of the state" do
       expect(described_class.state_name("az")).to eq "Arizona"
     end
 
@@ -88,6 +94,12 @@ describe StateFile::StateInformationService do
   describe ".return_type" do
     it "returns the string that goes in ReturnType in the return header and StateSubmissionTyp in the state manifest" do
       expect(described_class.return_type("az")).to eq "Form140"
+    end
+  end
+
+  describe ".pay_taxes_link" do
+    it "returns the pay taxes link" do
+      expect(described_class.pay_taxes_link("az")).to eq "https://www.aztaxes.gov/"
     end
   end
 end

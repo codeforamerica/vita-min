@@ -82,7 +82,7 @@
           </div>
         <% end %>
 
-        <% if @efile_submission.can_transition_to?(:rejected) && !Rails.env.production? %>
+        <% if @efile_submission.can_transition_to?(:rejected) && !acts_like_production? %>
           <div style="margin-left: 10px">
             <%= link_to("Rejected",
                         transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: :rejected),
@@ -93,17 +93,22 @@
         <% end %>
       </div>
 
-      <div style="display: flex;">
-        <% @valid_transitions.each do |state| %>
-          <div style="margin-left: 10px; gap: 1rem;">
-            <%= link_to(state.titleize,
-                        transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: state),
-                        method: :patch,
-                        data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
-                        class: "button button--#{state.titleize} button--small") %>
-          </div>
-        <% end %>
-      </div>
+      <% unless acts_like_production? %>
+        <div class="transition-to">
+          <h4 class="spacing-below-10">Transition to State</h4>
+          <div style="display: flex;">
+          <% @valid_transitions.each do |state| %>
+            <div style="margin-left: 10px; gap: 1rem;">
+              <%= link_to(state.titleize,
+                          transition_to_hub_efile_submission_path(id: @efile_submission.id, to_state: state),
+                          method: :patch,
+                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
+                          class: "button button--#{state.titleize} button--small") %>
+            </div>
+          <% end %>
+          </div>div>
+        </div>
+      <% end %>
 
       <div class="log-wrapper">
         <h4 class="spacing-below-10">Status Logs</h4>
