@@ -9,7 +9,10 @@
                   class="select__element"
                   onchange="location.href='../'+event.target.value">
             <% @filter_options.each do |option| %>
-              <option value="<%=option.class::TYPE%>/<%=option.id%>"<%= option.class::TYPE == @selected_type && option.id == @selected_id ? " selected" : ""%>>
+              <option
+                value="<%=option.class::TYPE%>/<%=option.id%>"
+                <%= option.class::TYPE == @selected_type && option.id == @selected_id ? "selected" : ""%>
+              >
                 <% if option.class == Organization && option.coalition_id.present? %>&emsp;<% end %>
                 <%= option.name %>
               </option>
