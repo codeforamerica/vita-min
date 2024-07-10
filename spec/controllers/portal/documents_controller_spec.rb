@@ -4,7 +4,7 @@ describe Portal::DocumentsController do
   let(:params) { { id: document.id } }
   let(:client) { create :client }
   let(:document) { create :document, client: client }
-  let(:rspec_transient_url) { "https://fake-gyr-demo.s3.amazonaws.com/data.csv?sig=whatever&expires=whatever" }
+  let(:rspec_transient_url) { "https://some-fake-s3-bucket-url.com/document.pdf?sig=whatever&expires=whatever" }
 
   describe "#show" do
     it_behaves_like :a_get_action_for_authenticated_clients_only, action: :show

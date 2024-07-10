@@ -301,7 +301,7 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with a signed in user" do
-      let(:rspec_document_transient_url) { "https://fake-gyr-demo.s3.amazonaws.com/document.pdf?sig=whatever&expires=whatever" }
+      let(:rspec_document_transient_url) { "https://some-fake-s3-bucket-url.com/document.pdf?sig=whatever&expires=whatever" }
       before do
         sign_in(user)
         allow(subject).to receive(:transient_storage_url).and_return(rspec_document_transient_url)

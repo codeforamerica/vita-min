@@ -9,7 +9,7 @@ RSpec.describe FilesConcern, type: :controller do
   let(:attachment) { double }
 
   describe "#transient_storage_url" do
-    let(:rspec_redirect_url) { "https://fake-gyr-demo.s3.amazonaws.com/file.png?sig=whatever&expires=whatever" }
+    let(:rspec_redirect_url) { "https://some-fake-s3-bucket-url.com/document.pdf?sig=whatever&expires=whatever" }
 
     before do
       allow(attachment).to receive(:url).and_return(rspec_redirect_url)
