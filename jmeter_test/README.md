@@ -26,8 +26,9 @@ point. (dev or staging).
 
 ## Running in AWS
 
-Running JMeter from a developer machine is possible, though 
-This will create a docker image that can be deployed to Fargate / ECS.
+While running JMeter from a local developer machine is possible (and necessary for developing test plans), testing production-like environments must be done within AWS to not trigger anti-DDOS protections.
+
+Use these instructions to create a docker image that can be deployed to Fargate / ECS for testing production-like environments.
 
  * Download docker from https://docker.com
  * Cd into the `jmeter_tests/` directory, and create an image with `docker build -t jmeter_test .`
