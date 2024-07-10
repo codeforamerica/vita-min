@@ -1,12 +1,6 @@
 FROM alpine:3.10
 MAINTAINER tofarr tofarrell@codeforamerica.org
 
-# Install packages
-#RUN apk update && \
-#    apk add ca-certificates wget python python-dev py-pip && \
-#    update-ca-certificates && \
-#    pip install --upgrade --user awscli
-
 # Setting environment variables
 ENV JMETER_HOME /opt/apache-jmeter-5.6.3
 ENV JMETER_BIN	${JMETER_HOME}/bin
