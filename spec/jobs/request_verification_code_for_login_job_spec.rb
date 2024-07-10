@@ -154,7 +154,8 @@ describe RequestVerificationCodeForLoginJob do
             email_address: "client@example.com",
             visitor_id: "87h2897gh2",
             locale: "es",
-            service_type: :statefile_az
+            service_type: :statefile,
+            state_code: "az"
           }
         end
         let(:mailer_double) { double }
@@ -208,7 +209,8 @@ describe RequestVerificationCodeForLoginJob do
             phone_number: "+15125551234",
             visitor_id: "87h2897gh2",
             locale: "en",
-            service_type: :statefile_az
+            service_type: :statefile,
+            state_code: "az"
           }
         end
         before do

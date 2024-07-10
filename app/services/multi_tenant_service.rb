@@ -1,14 +1,14 @@
 class MultiTenantService
   attr_accessor :service_type
 
-  SERVICE_TYPES = [:gyr, :ctc, :statefile, :statefile_az, :statefile_ny]
+  SERVICE_TYPES = [:gyr, :ctc, :statefile]
 
   def initialize(service_type)
     @service_type = service_type.to_sym
     raise(ArgumentError, "Unsupported service_type: #{service_type}") unless SERVICE_TYPES.include? @service_type
   end
 
-  def url(locale: :en)
+  def url(locale: :en, state_code: nil)
     options_for_path_helper = {
       full_url: true,
       host: host,
@@ -18,15 +18,18 @@ class MultiTenantService
     case service_type
     when :ctc then [Rails.configuration.ctc_url, locale].compact.join("/")
     when :gyr then [Rails.configuration.gyr_url, locale].compact.join("/")
-    when :statefile then [Rails.configuration.statefile_url, locale].compact.join("/")
-    when :statefile_az then Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az", **options_for_path_helper)
-    when :statefile_ny then Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny", **options_for_path_helper)
+    when :statefile
+      if state_code.present?
+        StateFile::StateInformationService.navigation_class(state_code)::FLOW.first.to_path_helper(us_state: state_code, **options_for_path_helper)
+      else
+        [Rails.configuration.statefile_url, locale].compact.join("/")
+      end
     end
   end
 
   def host
     base =
-      case service_type_or_parent
+      case service_type
       when :ctc
         Rails.configuration.ctc_url
       when :gyr
@@ -45,29 +48,17 @@ class MultiTenantService
     end
   end
 
-  def service_type_or_parent
-    case service_type
-    when :ctc then :ctc
-    when :gyr then :gyr
-    when :statefile then :statefile
-    when :statefile_az then :statefile
-    when :statefile_ny then :statefile
-    end
-  end
-
   def intake_model
     case service_type
     when :ctc then Intake::CtcIntake
     when :gyr then Intake::GyrIntake
-    when :statefile_az then StateFileAzIntake
-    when :statefile_ny then StateFileNyIntake
     when :statefile
-      raise StandardError, "No intake model for generic 'statefile' service type"
+      raise StandardError, "Get intake model from StateFile::StateInformationService for statefile"
     end
   end
 
   def email_logo
-    case service_type_or_parent
+    case service_type
     when :ctc then File.read(Rails.root.join('app/assets/images/get-ctc-logo.png'))
     when :gyr then File.read(Rails.root.join('app/assets/images/logo.png'))
     when :statefile then File.read(Rails.root.join('app/assets/images/FYST_email_logo.png'))
@@ -75,11 +66,11 @@ class MultiTenantService
   end
 
   def default_email
-    Rails.configuration.email_from[:default][service_type_or_parent]
+    Rails.configuration.email_from[:default][service_type]
   end
 
   def noreply_email
-    Rails.configuration.email_from[:noreply][service_type_or_parent]
+    Rails.configuration.email_from[:noreply][service_type]
   end
 
   def support_email
@@ -103,7 +94,7 @@ class MultiTenantService
   end
 
   def current_tax_year
-    case service_type_or_parent
+    case service_type
     when :ctc then Rails.configuration.ctc_current_tax_year
     when :gyr then Rails.configuration.gyr_current_tax_year
     when :statefile then Rails.configuration.statefile_current_tax_year
@@ -119,7 +110,7 @@ class MultiTenantService
   end
 
   def filing_years
-    if service_type_or_parent == :ctc || service_type_or_parent == :state_file
+    if service_type == :ctc || service_type == :state_file
       [current_tax_year]
     else
       ((current_tax_year - 3)..current_tax_year).to_a.reverse.freeze
