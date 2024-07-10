@@ -26,10 +26,4 @@ COPY entrypoint.sh $TESTDIR
 COPY jmeter_test $TESTDIR
 RUN mkdir -p ${TESTDIR}results
 
-# Not working
-#ENTRYPOINT ["./jmeter_test.sh -t fyst_az_5_minute_stress_test -e staging"]
-
-# Working
-#ENTRYPOINT ["ls"]
-
 ENTRYPOINT ["./entrypoint.sh"]
