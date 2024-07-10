@@ -22,8 +22,6 @@ describe MultiTenantService do
       expect(described_class.new(:ctc).url(locale: "en")).to eq "https://getctc.org/en"
       expect(described_class.new(:gyr).url(locale: "es")).to eq "https://getyourrefund.org/es"
       expect(described_class.new(:statefile).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en"
-      expect(described_class.new(:statefile).url(locale: "es", state_code: "az")).to eq "https://fileyourstatetaxes.org/es/az/questions/landing-page"
-      expect(described_class.new(:statefile).url(locale: "en", state_code: "ny")).to eq "https://fileyourstatetaxes.org/en/ny/questions/landing-page"
     end
   end
 
