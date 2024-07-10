@@ -301,16 +301,16 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :show
 
     context "with a signed in user" do
-      let(:document_transient_url) { "https://gyr-demo.s3.amazonaws.com/document.pdf?sig=whatever&expires=whatever" }
+      let(:rspec_document_transient_url) { "https://fake-gyr-demo.s3.amazonaws.com/document.pdf?sig=whatever&expires=whatever" }
       before do
         sign_in(user)
-        allow(subject).to receive(:transient_storage_url).and_return(document_transient_url)
+        allow(subject).to receive(:transient_storage_url).and_return(rspec_document_transient_url)
       end
 
       it "shows the document" do
         get :show, params: params
 
-        expect(response).to redirect_to(document_transient_url)
+        expect(response).to redirect_to(rspec_document_transient_url)
         expect(subject).to have_received(:transient_storage_url).with(document.upload.blob)
       end
 
