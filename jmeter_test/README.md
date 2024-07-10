@@ -32,14 +32,40 @@ This will create a docker image that can be deployed to Fargate / ECS.
  * Download docker from https://docker.com
  * Cd into the `jmeter_tests/` directory, and create an image with `docker build -t jmeter_test .`
  * Make sure your local AWS config (in $HOME/.aws) contains your credentials for AWS.
- * Create a Repository in Amazon Elastic Container Registry (ECR). I created `tim-jmeter-test` in https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1
+ * Create a Repository in Amazon Elastic Container Registry (ECR). I created `vita-jmeter-test` in https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1
  * Push your docker image to your Repository. (Click "View Push commands" at https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1)
- * Create a fargate cluster at https://us-east-1.console.aws.amazon.com/ecs/v2/clusters?region=us-east-1 (I created `tim-jmeter-test`)
+ * Create a fargate cluster at https://us-east-1.console.aws.amazon.com/ecs/v2/clusters?region=us-east-1 (I created `vita-jmeter-test`)
  * Create a task to run your docker image on your cluster. For "Compute Options", I chose "Launch Type" with "FARGATE".
    My application type was "Task", and "jmeter-test" was the "Family". For "Networking", I chose the "tax-benefits-dashboards-vpc" with all subnets.
    I chose the "default" and "VPN Security Group" Security Groups. I enabled a public IP.
 
-### References
+### Retrieving Results
+
+There are 2 main sources for test result data:
+* Datadog will contain logs from rails (Query times, total duration as measured server side), but it does not include 
+  details of any https requests that were rejected before reaching rails. (Possibly by nginx)
+* Cloudtrail for the cluster includes a summary of request times, successes and failures, but not in depth info on what
+  rails was doing at the time of the failure.
+
+In order to get a full picture of the test results, we need to combine both sets of data. One way of doing this was
+to exporting results for the appropriate timeframe and service from datadog into a CSV and from there into a 
+spreadsheet. Results were grouped by url, with the number of requests, minimum time, maximum time, average time 
+and total time.
+
+This was then combined with the output from cloudwatch for the each of the tasks, given the JMeter summary of how many
+requests failed in that same timeframe.
+
+Insights were based on these values.
+
+### Cleaning up when finished
+
+* Delete the cluster `vita-jmeter-test` at https://us-east-1.console.aws.amazon.com/ecs/v2/clusters/vita-jmeter-test/services?region=us-east-1
+* Delete the repository `vita-jmeter-test` at https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1
+* Deregister task definitions `jmeter-test` at https://us-east-1.console.aws.amazon.com/ecs/v2/task-definitions?region=us-east-1
+* Delete the namespace `vita-jmeter-test` at https://us-east-1.console.aws.amazon.com/cloudmap/home/namespaces?region=us-east-1
+
+
+## References
 
  * https://www.linkedin.com/pulse/running-jmeter-test-aws-ecs-anees-mohammed/
 
