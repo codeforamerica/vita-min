@@ -1,19 +1,37 @@
 module Hub
   class DashboardController < Hub::BaseController
     layout "hub"
-    before_action :load_vita_partners, only: [:index, :show]
+    before_action :load_presenters, only: [:index, :show]
     before_action :require_dashboard_user
 
     def index
-      redirect_to action: :show, id: @vita_partners.first.id
+      coalition = @presenter.coalitions.first
+      if coalition.present?
+        redirect_to action: :show, type: Coalition::TYPE, id: coalition.id
+        return
+      end
+      organization = @presenter.organizations.first
+      redirect_to action: :show, type: Organization::TYPE, id: organization.id
     end
 
     def show
+      @selected_type = params[:type]
       @selected_id = params[:id].to_i
-      @vita_partner = @vita_partners.find { |vita_partner| vita_partner.id == @selected_id }
+      @selected = (
+        if @selected_type == Organization::TYPE
+          @presenter.organizations.find { |organization| organization.id == @selected_id }
+        else
+          @presenter.coalitions.find { |coalition| coalition.id == @selected_id }
+        end
+      )
+      @filter_options = get_filter_options
     end
 
     private
+
+    def load_presenters
+      @presenter = Hub::OrganizationsPresenter.new(current_ability)
+    end
 
     def require_dashboard_user
       is_dashboard_user = (
@@ -33,6 +51,22 @@ module Hub
           end
         end
       end
+    end
+
+    def get_filter_options
+      filter_options = []
+      @presenter.coalitions.each { |coalition|
+        filter_options << coalition
+        @presenter.organizations_in_coalition(coalition).each do |organization|
+          filter_options << organization
+        end
+      }
+      @presenter.organizations.filter do |organization|
+        if organization.coalition_id.nil?
+          filter_options << organization
+        end
+      end
+      filter_options
     end
   end
 end

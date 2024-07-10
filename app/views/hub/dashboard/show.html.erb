@@ -7,16 +7,18 @@
         <div class="spacing-below-15">
           <select name="status"
                   class="select__element"
-                  onchange="location.href=event.target.value">
-            <% @vita_partners.each do |vita_partner| %>
-              <option value="<%=vita_partner.id%>"<%= vita_partner.id == @vita_partner.id ? " selected" : ""%>><%= vita_partner.name %></option>
+                  onchange="location.href='../'+event.target.value">
+            <% @filter_options.each do |option| %>
+              <option value="<%=option.class::TYPE%>/<%=option.id%>"<%= option.class::TYPE == @selected_type && option.id == @selected_id ? " selected" : ""%>><%= option.name %></option>
             <% end %>
           </select>
         </div>
-        <div class="card">
-          <%= render "hub/dashboard/service_level_agreements_notifications" %>
-        </div>
-        <% if current_user.org_lead? || current_user.coalition_lead? %>
+        <% if @selected_type == Organization::TYPE %>
+          <div class="card">
+            <%= render "hub/dashboard/service_level_agreements_notifications" %>
+          </div>
+        <% end %>
+        <% if @selected_type == Coalition::TYPE %>
           <div class="card">
             <%= render "hub/dashboard/capacity" %>
           </div>
