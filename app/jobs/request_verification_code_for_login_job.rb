@@ -34,7 +34,17 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           service_type: multi_tenant_service.service_type
         )
       else
-        url = multi_tenant_service.url(locale: locale, state_code: state_code)
+        url = if service_type == :statefile && state_code.present?
+                StateFile::StateInformationService.navigation_class(state_code)::FLOW.first.to_path_helper(
+                  us_state: state_code,
+                  full_url: true,
+                  host: URI(Rails.configuration.statefile_url).hostname,
+                  locale: locale,
+                  protocol: "https"
+                )
+              else
+                multi_tenant_service.url(locale: locale)
+              end
         body = case service_type
                when :ctc
                  I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale)

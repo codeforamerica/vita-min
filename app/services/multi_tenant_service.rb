@@ -8,22 +8,11 @@ class MultiTenantService
     raise(ArgumentError, "Unsupported service_type: #{service_type}") unless SERVICE_TYPES.include? @service_type
   end
 
-  def url(locale: :en, state_code: nil)
-    options_for_path_helper = {
-      full_url: true,
-      host: host,
-      locale: locale,
-      protocol: "https"
-    }
+  def url(locale: :en)
     case service_type
     when :ctc then [Rails.configuration.ctc_url, locale].compact.join("/")
     when :gyr then [Rails.configuration.gyr_url, locale].compact.join("/")
-    when :statefile
-      if state_code.present?
-        StateFile::StateInformationService.navigation_class(state_code)::FLOW.first.to_path_helper(us_state: state_code, **options_for_path_helper)
-      else
-        [Rails.configuration.statefile_url, locale].compact.join("/")
-      end
+    when :statefile then [Rails.configuration.statefile_url, locale].compact.join("/")
     end
   end
 
