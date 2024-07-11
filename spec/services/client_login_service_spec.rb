@@ -8,7 +8,7 @@ describe ClientLoginService do
     end
 
     context "for state file" do
-      subject { described_class.new(:statefile_az) }
+      subject { described_class.new(:statefile) }
 
       it "returns intake" do
         expect(subject.login_records_for_token("token")).to eq "intakes"
@@ -45,7 +45,7 @@ describe ClientLoginService do
 
     context "for state file" do
       context "with AZ intakes" do
-        subject { described_class.new(:statefile_az) }
+        subject { described_class.new(:statefile) }
 
         it "returns the intake with matching phone number" do
           create :text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212"
@@ -65,7 +65,7 @@ describe ClientLoginService do
       end
 
       context "with NY intakes" do
-        subject { described_class.new(:statefile_ny) }
+        subject { described_class.new(:statefile) }
 
         it "returns the intake with matching phone number" do
           create :text_message_access_token, token: "hashed_token", sms_phone_number: "+16505551212"
@@ -299,8 +299,8 @@ describe ClientLoginService do
   describe ".can_login_by_sms_verification? statefile service types" do
     let(:phone_number) { "+16505551212" }
 
-    context ":statefile_az" do
-      subject { described_class.new(:statefile_az) }
+    context "when matching az intake exists" do
+      subject { described_class.new(:statefile) }
       let!(:intake) { create :state_file_az_intake_after_transfer, phone_number: phone_number }
 
       it "returns true" do
@@ -308,8 +308,8 @@ describe ClientLoginService do
       end
     end
 
-    context ":statefile_ny" do
-      subject { described_class.new(:statefile_ny) }
+    context "when matching ny intake exists" do
+      subject { described_class.new(:statefile) }
       let!(:intake) { create :state_file_ny_intake_after_transfer, phone_number: phone_number }
 
       it "returns true" do
