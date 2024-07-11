@@ -15,7 +15,9 @@
           </select>
         </div>
         <%= render "hub/dashboard/service_level_agreements_notifications" %>
-        <%= render "hub/dashboard/capacity" %>
+        <% if [Coalition, Organization].include?(@selected.class) %>
+          <%= render "hub/dashboard/capacity" %>
+        <% end %>
         <%= render "hub/dashboard/returns_by_status" %>
       </div>
       <div class="grid__item width-one-half">
