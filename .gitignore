@@ -71,3 +71,6 @@ df_api/*.crt
 df_api/*.srl
 df_api/*.key
 df_api/*.txt
+
+jmeter_test/results/*
+jmeter_test/jmeter.log
