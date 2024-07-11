@@ -11,9 +11,10 @@ RSpec.describe Hub::DashboardController do
       before { sign_in user }
       render_views
 
-      it "responds with ok" do
+      it "redirects to the show page for the first available model" do
         get :index
-        expect(response).to redirect_to "/en/hub/dashboard/#{VitaPartner.last.id}"
+        model = VitaPartner.first
+        expect(response).to redirect_to "/en/hub/dashboard/#{model.class.name.downcase}/#{model.id}"
       end
     end
   end
@@ -24,9 +25,13 @@ RSpec.describe Hub::DashboardController do
       before { sign_in user }
       render_views
 
-      it "responds with ok" do
-        get :show, params: { id: VitaPartner.last.id }
+      it "sets instance variables and responds with ok" do
+        model = VitaPartner.first
+        get :show, params: { id: model.id, type: model.class.name.downcase }
         expect(response).to be_ok
+        expect(assigns(:selected_value)).to eq "organization/#{model.id}"
+        expect(assigns(:filter_options).length).to eq 1
+        expect(assigns(:filter_options)[0].model).to eq model
       end
     end
   end
