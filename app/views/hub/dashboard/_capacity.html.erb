@@ -1,4 +1,37 @@
 <div class="card">
   <h2>Capacity</h2>
-  <p>TODO: Implement</p>
+  <table cellpadding="0" cellspacing="0" style="width:100%;">
+    <thead>
+      <tr>
+        <th style="font-weight:normal;color:#757575;text-align:left;padding:12px 0;">Organization Name</th>
+        <th style="font-weight:normal;color:#757575;text-align:left;padding:12px 0;">Current Capacity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @capacity.each do |capacity| %>
+        <tr>
+          <td style="border-bottom:1px solid #BEBEBE;padding:12px 0;"><%= capacity.name %></td>
+          <td style="border-bottom:1px solid #BEBEBE;font-weight:bold;padding:12px 0;">51/<%=capacity.capacity_limit %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td style="border-bottom:1px solid #BEBEBE;padding:12px 0;">Branches, Inc</td>
+        <td style="border-bottom:1px solid #BEBEBE;font-weight:bold;padding:12px 0;">51/50</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #BEBEBE;padding:12px 0;">Tax Florida</td>
+        <td style="border-bottom:1px solid #BEBEBE;font-weight:bold;padding:12px 0;">50/50</td>
+      </tr>
+      <tr>
+        <td style="padding:12px 0;">Goodwill Miami Metro</td>
+        <td style="font-weight:bold;padding:12px 0;">49/50</td>
+      </tr>
+    </tbody>
+  </table>
+  <% if @selected.instance_of? Coalition %>
+    <div style="display:flex; justify-content: flex-end; gap: 20px;">
+      <div>3 of 9</div>
+      <a href="#">View All</a>
+    </div>
+  <% end %>
 </div>

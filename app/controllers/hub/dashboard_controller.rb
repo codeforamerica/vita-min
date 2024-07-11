@@ -13,6 +13,7 @@ module Hub
       @selected_value = "#{params[:type]}/#{params[:id]}"
       selected_option = @filter_options.find{ |option| option.value == @selected_value }
       @selected = selected_option.model
+      load_capacity
     end
 
     private
@@ -92,5 +93,13 @@ module Hub
 
     DashboardFilterOption = Struct.new(:value, :model, :children, :has_parent)
 
+    def load_capacity
+      return if @selected.instance_of? Site
+      if @selected.instance_of? Coalition
+        @capacity = @selected.organizations
+      elsif @selected.instance_of? Organization
+        @capacity = [@selected]
+      end
+    end
   end
 end
