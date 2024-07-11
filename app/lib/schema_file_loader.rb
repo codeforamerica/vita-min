@@ -97,7 +97,11 @@ class SchemaFileLoader
               raise StandardError.new("Unsafe filename; exiting") unless entry.name_safe?
 
               FileUtils.mkdir_p(File.dirname(entry.name))
-              entry.extract
+
+              # The block is used to decide whether to proceed with extraction
+              # when we see the path already exists. By saying 'true' we proceed
+              # with overwriting the extracted files.
+              entry.extract { true }
             end
           end
         end
