@@ -20,7 +20,8 @@ module Portal
           phone_number: @form.sms_phone_number,
           visitor_id: visitor_id,
           locale: I18n.locale,
-          service_type: service_type
+          service_type: service_type,
+          state_code: state_code
         )
 
         @verification_code_form = Portal::VerificationCodeForm.new(contact_info: @form.email_address.present? ? @form.email_address : @form.sms_phone_number)
@@ -125,6 +126,8 @@ module Portal
     def service_type
       :gyr
     end
+
+    def state_code; end
 
     def redirect_locked_clients
       redirect_to account_locked_portal_client_logins_path if @records.map(&:access_locked?).any?

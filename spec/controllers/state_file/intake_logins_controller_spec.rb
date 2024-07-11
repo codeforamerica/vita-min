@@ -81,7 +81,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             phone_number: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :statefile_az
+            service_type: :statefile,
+            state_code: "az"
           )
 
           expect(response).to be_ok
@@ -106,7 +107,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             email_address: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :statefile_az
+            service_type: :statefile,
+            state_code: "az"
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)

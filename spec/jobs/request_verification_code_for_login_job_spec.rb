@@ -154,7 +154,8 @@ describe RequestVerificationCodeForLoginJob do
             email_address: "client@example.com",
             visitor_id: "87h2897gh2",
             locale: "es",
-            service_type: :statefile_az
+            service_type: :statefile,
+            state_code: "az"
           }
         end
         let(:mailer_double) { double }
@@ -171,7 +172,7 @@ describe RequestVerificationCodeForLoginJob do
 
           it "requests a code from EmailVerificationCodeService" do
             described_class.perform_now(**params)
-            expect(EmailVerificationCodeService).to have_received(:request_code).with(a_hash_including(**params, service_type: :statefile))
+            expect(EmailVerificationCodeService).to have_received(:request_code).with(a_hash_including(params.except(:state_code)))
           end
         end
 
@@ -181,7 +182,7 @@ describe RequestVerificationCodeForLoginJob do
               email_address: "client@example.com",
               visitor_id: "87h2897gh2",
               locale: "es",
-              service_type: :statefile_ny
+              service_type: :statefile
             }
           end
 
@@ -208,7 +209,8 @@ describe RequestVerificationCodeForLoginJob do
             phone_number: "+15125551234",
             visitor_id: "87h2897gh2",
             locale: "en",
-            service_type: :statefile_az
+            service_type: :statefile,
+            state_code: "az"
           }
         end
         before do
@@ -223,9 +225,7 @@ describe RequestVerificationCodeForLoginJob do
 
           it "requests a code from TextMessageVerificationCodeService" do
             described_class.perform_now(**params)
-            expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(
-                                                                                              **params, service_type: :statefile
-                                                                                            ))
+            expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(params.except(:state_code)))
           end
         end
 

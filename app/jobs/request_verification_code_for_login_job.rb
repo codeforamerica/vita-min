@@ -5,7 +5,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
     PRIORITY_HIGH - 1 # Subtracting one to push to the top of the queue
   end
 
-  def perform(email_address: nil, phone_number: nil, locale:, visitor_id:, service_type:)
+  def perform(email_address: nil, phone_number: nil, locale:, visitor_id:, service_type:, state_code: nil)
     client_login_service = ClientLoginService.new(service_type)
     multi_tenant_service = MultiTenantService.new(service_type)
     if email_address.present?
@@ -14,13 +14,13 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           email_address: email_address,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type_or_parent
+          service_type: multi_tenant_service.service_type
         )
       else
         VerificationCodeMailer.no_match_found(
           to: email_address,
           locale: locale,
-          service_type: multi_tenant_service.service_type_or_parent,
+          service_type: multi_tenant_service.service_type
         ).deliver_now
       end
     end
@@ -31,16 +31,26 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           phone_number: phone_number,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type_or_parent
+          service_type: multi_tenant_service.service_type
         )
       else
-        url = multi_tenant_service.url(locale: locale)
+        url = if service_type == :statefile && state_code.present?
+                StateFile::StateInformationService.navigation_class(state_code)::FLOW.first.to_path_helper(
+                  us_state: state_code,
+                  full_url: true,
+                  host: URI(Rails.configuration.statefile_url).hostname,
+                  locale: locale,
+                  protocol: "https"
+                )
+              else
+                multi_tenant_service.url(locale: locale)
+              end
         body = case service_type
                when :ctc
                  I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale)
                when :gyr
                  I18n.t("verification_code_sms.no_match_gyr", url: url, locale: locale)
-               when :statefile_az, :statefile_ny
+               when :statefile
                  I18n.t("state_file.intake_logins.no_match_sms", url: url, locale: locale)
                end
         TwilioService.send_text_message(
