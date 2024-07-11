@@ -41,7 +41,7 @@ class IrsApiService
     http = Net::HTTP.new(server_url.host, server_url.port)
     http.use_ssl = true
 
-    if server_url.host.include?('irs.gov')
+    if is_host_irs?
       # Just cert and key are required
       http.cert = cert_finder.client_cert
       http.key = cert_finder.client_key
@@ -123,7 +123,7 @@ class IrsApiService
     end
 
     def client_cert_bytes
-      if server_url.host.include?('irs.gov')
+      if is_host_irs?
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "cert_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.crt'))
@@ -135,12 +135,16 @@ class IrsApiService
     end
 
     def client_key_bytes
-      if server_url.host.include?('irs.gov')
+      if is_host_irs?
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.key'))
       end
     end
+  end
+
+  def is_host_irs?
+    server_url.host.ends_with?('irs.gov')
   end
 
   def self.server_url
