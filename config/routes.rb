@@ -310,6 +310,10 @@ Rails.application.routes.draw do
         end
         resources :ctc_clients, only: [:edit, :update]
 
+        resources :dashboard, only: [:index] do
+          get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
+        end
+
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
 
         resources :bulk_client_messages, path: "bulk-client-messages", only: [:show]

@@ -1,0 +1,32 @@
+<% content_for :page_title, I18n.t("hub.dashboard.show.title") %>
+<% content_for :card do %>
+  <section class="slab">
+    <h1><%= I18n.t("hub.dashboard.show.title") %></h1>
+    <div class="grid">
+      <div class="grid__item width-one-half">
+        <div class="spacing-below-15">
+          <select name="status" class="select__element" onchange="location.href='../'+event.target.value">
+            <% @filter_options.each do |option| %>
+              <option value="<%=option.value%>" <%= option.value == @selected_value ? "selected" : ""%>>
+                <% if option.has_parent %>&emsp;<% end %>
+                <%= option.model.name %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        <%= render "hub/dashboard/service_level_agreements_notifications" %>
+        <% if [Coalition, Organization].include?(@selected.class) %>
+          <%= render "hub/dashboard/capacity" %>
+        <% end %>
+        <%= render "hub/dashboard/returns_by_status" %>
+      </div>
+      <div class="grid__item width-one-half">
+        <%= render "hub/dashboard/action_required_flagged_clients" %>
+        <% if [Organization, Site].include?(@selected.class) %>
+          <%= render "hub/dashboard/team_assignment" %>
+        <% end %>
+        <%= render "hub/dashboard/resources" %>
+      </div>
+    </div>
+  </section>
+<% end %>

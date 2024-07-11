@@ -968,6 +968,9 @@ es:
         assign_to_label: Asignado a
         save_and_add: Guardar y agregar otro
         title: Agregar un nuevo cliente
+    dashboard:
+      show:
+        title: Panel
     documents:
       confirm:
         text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
