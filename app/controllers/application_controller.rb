@@ -374,6 +374,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_gyr_logged_in_clients?
 
+  def open_for_diy?
+    app_time <= Rails.configuration.end_of_in_progress_intake
+  end
+
   def open_for_ctc_intake?
     return false if app_time >= Rails.configuration.ctc_end_of_intake
     return true if app_time >= Rails.configuration.ctc_full_launch
