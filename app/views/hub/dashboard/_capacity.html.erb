@@ -1,10 +1,10 @@
 <div class="card capacity">
-  <h2>Capacity</h2>
+  <h2><%= I18n.t("hub.dashboard.show.capacity") %></h2>
   <table>
     <thead>
       <tr>
-        <th>Organization Name</th>
-        <th>Current Capacity</th>
+        <th><%= I18n.t("hub.dashboard.show.org_name") %></th>
+        <th><%= I18n.t("hub.dashboard.show.current_capacity") %></th>
       </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
   <% if @selected.instance_of? Coalition %>
     <div class="paging">
       <div><%= @capacity.length %> of <%= capacity_count %></div>
-      <%= link_to "View All", hub_organizations_path  %>
+      <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_organizations_path  %>
     </div>
   <% end %>
 </div>

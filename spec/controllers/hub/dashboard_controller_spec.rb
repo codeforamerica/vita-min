@@ -33,6 +33,18 @@ RSpec.describe Hub::DashboardController do
         expect(assigns(:filter_options).length).to eq 1
         expect(assigns(:filter_options)[0].model).to eq model
       end
+
+      it "shows the capacity panel" do
+        model = VitaPartner.first
+        get :show, params: { id: model.id, type: model.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.capacity')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.org_name')
+        expect(response.body).to have_text "Organization 4"
+        # Count instances of substring - note: string.count doesn't do this!
+        expect(response.body.scan(/organization-link/).length).to eq(1)
+      end
     end
   end
 end
+
+
