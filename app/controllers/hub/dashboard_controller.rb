@@ -3,6 +3,8 @@ module Hub
     layout "hub"
     before_action :require_dashboard_user
     before_action :load_filter_options, only: [:index, :show]
+    helper_method :capacity_class
+    helper_method :capacity_count
 
     def index
       model = @filter_options.first.model
@@ -96,9 +98,29 @@ module Hub
     def load_capacity
       return if @selected.instance_of? Site
       if @selected.instance_of? Coalition
-        @capacity = @selected.organizations
-      elsif @selected.instance_of? Organization
+        @capacity = @selected.organizations.filter(&:capacity_limit)
+      elsif @selected.instance_of?(Organization) && @selected.capacity_limit
         @capacity = [@selected]
+      end
+    end
+
+    def capacity_class(organization)
+      if organization.active_client_count > (organization.capacity_limit || 0)
+        "over-capacity"
+      elsif organization.active_client_count < (organization.capacity_limit || 0)
+        "under-capacity"
+      else
+        "at-capacity"
+      end
+    end
+
+    def capacity_count
+      if @selected.instance_of? Coalition
+        @selected.organizations.count(&:capacity_limit)
+      elsif @selected.instance_of?(Organization) && @selected.capacity_limit
+        1
+      else
+        0
       end
     end
   end

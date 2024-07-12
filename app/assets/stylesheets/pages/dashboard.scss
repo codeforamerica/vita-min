@@ -10,4 +10,60 @@
     background-repeat: no-repeat;
     background-position: right 10px center;
   }
+
+  .capacity {
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+
+      tr th {
+        font-weight: normal;
+        color: #757575;
+        text-align: left;
+        padding: 12px 0;
+      }
+
+      tr {
+        border-bottom: 1px solid #BEBEBE;
+        td {
+          padding: 12px 0;
+        }
+        td:last-child {
+          font-weight: bold;
+        }
+      }
+
+      tr:last-child {
+        border-bottom: none;
+      }
+
+      .organization-link {
+        color: #000;
+        text-decoration: none;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+      }
+
+      .under-capacity {
+        color: #07866C;
+      }
+
+      .at-capacity {
+      }
+
+      .over-capacity {
+        color: #D73D02;
+      }
+    }
+  }
+
+  .paging {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
 }

@@ -15,7 +15,7 @@
           </select>
         </div>
         <%= render "hub/dashboard/service_level_agreements_notifications" %>
-        <% if @capacity %>
+        <% if @capacity.present? %>
           <%= render "hub/dashboard/capacity" %>
         <% end %>
         <%= render "hub/dashboard/returns_by_status" %>
