@@ -39,7 +39,7 @@ RSpec.describe Hub::DashboardController do
         get :show, params: { id: model.id, type: model.class.name.downcase }
         expect(response.body).to have_text I18n.t('hub.dashboard.show.capacity')
         expect(response.body).to have_text I18n.t('hub.dashboard.show.org_name')
-        expect(response.body).to have_text "Organization 4"
+        expect(response.body).to have_text Organization.first.name
         # Count instances of substring - note: string.count doesn't do this!
         expect(response.body.scan(/organization-link/).length).to eq(1)
       end
