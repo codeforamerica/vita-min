@@ -97,6 +97,11 @@
         border: 1px solid #000;
       }
 
+      &.intake .bar{background: #C6F9EC;}
+      &.prep .bar{background: #C2C2FF;}
+      &.review .bar{background: #89DDEF;}
+      &.file .bar{background: #B2B2B2;}
+
       .bar-label{
         font-weight: bold;
       }

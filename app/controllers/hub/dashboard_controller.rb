@@ -16,6 +16,7 @@ module Hub
       selected_option = @filter_options.find{ |option| option.value == @selected_value }
       @selected = selected_option.model
       load_capacity
+      load_returns_by_status
     end
 
     private
@@ -123,5 +124,28 @@ module Hub
         0
       end
     end
+
+    def load_returns_by_status
+      stage = params[:stage]
+      available_states = TaxReturnStateMachine.available_states_for(role_type: current_user.role_type)
+      returns_by_status = (
+        if stage
+          available_states.find {|state| state[0] == stage }[1].map do |state|
+            value = rand 128
+            DashboardCapacity.new(state[0], value, 0)
+          end
+        else
+          available_states.map do |state|
+            value = rand 128
+            DashboardCapacity.new(state[0], value, 0)
+          end
+        end
+      )
+      sum = returns_by_status.sum(&:value)
+      returns_by_status.each { |r| r.percentage = (r.value.to_f * 100 / sum).round }
+      @returns_by_status = returns_by_status
+    end
+
+    DashboardCapacity = Struct.new(:code, :value, :percentage)
   end
 end

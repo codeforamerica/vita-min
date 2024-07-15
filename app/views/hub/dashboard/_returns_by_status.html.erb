@@ -6,6 +6,9 @@
   </div>
   <select class="select__element">
     <option><%= I18n.t("hub.dashboard.show.filter_by_stage") %></option>
+    <% TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).each do |stage| %>
+      <option value="<%=stage[0]%>"><%= I18n.t("hub.tax_returns.stage.#{stage[0]}") %></option>
+    <% end %>
   </select>
   <table style="border-collapse: collapse;">
     <thead>
@@ -15,42 +18,19 @@
     </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><a href="#">Intake</a></td>
-        <td>
-          <div class="bar-container">
-            <div class="bar" style="width:59%; background: #C6F9EC;"></div>
-            <div class="bar-label">85</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><a href="#">Tax Prep</a></td>
-        <td>
-          <div class="bar-container">
-            <div class="bar" style="width:100%; background: #C2C2FF;"></div>
-            <div class="bar-label">145</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><a href="#">QR</a></td>
-        <td>
-          <div class="bar-container">
-            <div class="bar" style="width:93%; background: #89DDEF;"></div>
-            <div class="bar-label">130</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><a href="#">Intake</a></td>
-        <td>
-          <div class="bar-container">
-            <div class="bar" style="width:62%; background: #B2B2B2;"></div>
-            <div class="bar-label">90</div>
-          </div>
-        </td>
-      </tr>
+      <% @returns_by_status.each do |status| %>
+        <tr>
+          <td>
+            <%= link_to I18n.t("hub.tax_returns.stage.#{status.code}"), hub_clients_path(status: status.code) %>
+          </td>
+          <td>
+            <div class="bar-container <%= status.code %>">
+              <div class="bar" style="width:<%= status.percentage %>%;"></div>
+              <div class="bar-label"><%= status.value %></div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
