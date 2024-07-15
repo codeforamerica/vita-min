@@ -518,6 +518,7 @@ en:
     return_home: Return to home
     return_search: Return to search
     return_to_homepage: Return to homepage
+    returns: Returns
     role: Role
     routing: Routing
     save: Save
@@ -964,7 +965,9 @@ en:
         capacity: Capacity
         current_capacity: Current Capacity
         org_name: Organization Name
+        returns_by_status: Returns by Status
         title: Dashboard
+        total_number_of_returns: Total number of returns
         view_all: View All
     documents:
       confirm:

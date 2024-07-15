@@ -520,6 +520,7 @@ es:
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     return_to_homepage: Regresar a la página principal
+    returns: Devoluciones
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -973,7 +974,9 @@ es:
         capacity: Capacidad
         current_capacity: Capacidad actual
         org_name: Nombre de la Organización
+        returns_by_status: Devoluciones por estado
         title: Panel
+        total_number_of_returns: Número total de devoluciones
         view_all: Ver todo
     documents:
       confirm:
