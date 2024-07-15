@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @capacity.each do |organization| %>
+      <% @capacity[..3].each do |organization| %>
         <tr>
           <td>
             <%= link_to "#{organization.name}",
