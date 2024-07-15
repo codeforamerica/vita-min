@@ -3,7 +3,7 @@ module Hub
     layout "hub"
     before_action :require_dashboard_user
     before_action :load_filter_options, only: [:index, :show]
-    helper_method :capacity_class
+    helper_method :capacity_css_class
     helper_method :capacity_count
 
     def index
@@ -104,7 +104,7 @@ module Hub
       end
     end
 
-    def capacity_class(organization)
+    def capacity_css_class(organization)
       if organization.active_client_count > (organization.capacity_limit || 0)
         "over-capacity"
       elsif organization.active_client_count < (organization.capacity_limit || 0)
