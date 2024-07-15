@@ -98,7 +98,7 @@ module Hub
     def load_capacity
       return if @selected.instance_of? Site
       if @selected.instance_of? Coalition
-        @capacity = @selected.organizations.filter(&:capacity_limit)
+        @capacity = @selected.organizations.filter(&:capacity_limit).load_async
       elsif @selected.instance_of?(Organization) && @selected.capacity_limit
         @capacity = [@selected]
       end
