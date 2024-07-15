@@ -1,13 +1,13 @@
-<div class="card">
+<div class="card returns-by-status">
   <h2>Returns by Status</h2>
   <div style="display:flex;align-items:center;gap:20px;padding-bottom: 20px;">
     <div style="font-size:24px;">455</div>
-    <div>Total number of returns</div>
+    <div><%= I18n.t("hub.dashboard.show.total_number_of_returns") %></div>
   </div>
   <select class="select__element">
-    <option>Filter by Stage</option>
+    <option><%= I18n.t("hub.dashboard.show.filter_by_stage") %></option>
   </select>
-  <table>
+  <table style="border-collapse: collapse;">
     <thead>
     <tr>
       <th><%= I18n.t("general.status") %></th>
@@ -15,7 +15,42 @@
     </tr>
     </thead>
     <tbody>
-
+      <tr>
+        <td><a href="#">Intake</a></td>
+        <td>
+          <div class="bar-container">
+            <div class="bar" style="width:59%; background: #C6F9EC;"></div>
+            <div class="bar-label">85</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><a href="#">Tax Prep</a></td>
+        <td>
+          <div class="bar-container">
+            <div class="bar" style="width:100%; background: #C2C2FF;"></div>
+            <div class="bar-label">145</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><a href="#">QR</a></td>
+        <td>
+          <div class="bar-container">
+            <div class="bar" style="width:93%; background: #89DDEF;"></div>
+            <div class="bar-label">130</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><a href="#">Intake</a></td>
+        <td>
+          <div class="bar-container">
+            <div class="bar" style="width:62%; background: #B2B2B2;"></div>
+            <div class="bar-label">90</div>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

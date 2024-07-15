@@ -964,6 +964,7 @@ en:
       show:
         capacity: Capacity
         current_capacity: Current Capacity
+        filter_by_stage: Filter by Stage
         org_name: Organization Name
         returns_by_status: Returns by Status
         title: Dashboard

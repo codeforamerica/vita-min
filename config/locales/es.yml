@@ -973,6 +973,7 @@ es:
       show:
         capacity: Capacidad
         current_capacity: Capacidad actual
+        filter_by_stage: Filtrar por etapa
         org_name: Nombre de la Organización
         returns_by_status: Devoluciones por estado
         title: Panel

@@ -61,6 +61,48 @@
     }
   }
 
+  .returns-by-status {
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+
+      tr th {
+        font-weight: normal;
+        color: #757575;
+        text-align: left;
+        padding: 14px 0 0 0;
+        white-space: nowrap;
+      }
+
+      th:last-child{
+        width: 100%;
+      }
+
+      td {
+        white-space: nowrap;
+      }
+
+      tbody tr td {
+        padding-top: 14px;
+      }
+    }
+
+    .bar-container {
+      display: flex;
+      gap: 10px;
+
+      .bar {
+        height: 19px;
+        border: 1px solid #000;
+      }
+
+      .bar-label{
+        font-weight: bold;
+      }
+    }
+  }
+
   .paging {
     display: flex;
     justify-content: flex-end;
