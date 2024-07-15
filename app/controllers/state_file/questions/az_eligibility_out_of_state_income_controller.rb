@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzEligibilityOutOfStateIncomeController < QuestionsController
+    class AzEligibilityOutOfStateIncomeController < AuthenticatedQuestionsController
       include EligibilityOffboardingConcern
     end
   end

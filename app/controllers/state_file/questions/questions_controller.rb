@@ -2,6 +2,7 @@ module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileControllerConcern
+      include StateFile::AuthenticatedStateFileIntakeConcern
       before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended
       helper_method :card_postscript
 
@@ -46,7 +47,7 @@ module StateFile
 
       def next_path
         step_for_next_path = next_step
-        options = { us_state: current_state_code, action: step_for_next_path.navigation_actions.first }
+        options = { us_state: current_intake.state_code, action: step_for_next_path.navigation_actions.first }
         if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end

@@ -567,42 +567,38 @@ Rails.application.routes.draw do
         end
       end
 
-      scope ':us_state', constraints: { us_state: /az|ny/i } do
-        resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
-        resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
-        resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-        get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
-        get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+      resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
+      resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
+      resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+      get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
+      get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+
+      resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
+        put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+        get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
       end
+      get "login-options", to: "state_file/state_file_pages#login_options"
+      get "/faq", to: "state_file/faq#index", as: :state_faq
+
+      match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+      match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+      resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
+
+      scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
+      scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
+
+      match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
+      match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
 
       scope ':us_state', constraints: { us_state: /az|ny|us/i } do
-        resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
-          put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
-          get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
-        end
-        get "login-options", to: "state_file/state_file_pages#login_options"
-        get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
-
-        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-        match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
-      scope ':us_state', as: 'az', constraints: { us_state: :az } do
-        scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
+      scope ':us_state', constraints: { us_state: /az|ny/i } do
+        get "/landing-page", to: "state_file/landing_page#edit", as: :state_landing_page
+        put "/landing-page", to: "state_file/landing_page#update"
       end
 
-      scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
-        scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        # TODO: ny_w2 route can be deleted once no intake has w2 as the current step
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
-      end
-
-      scope ':us_state', as: 'us', constraints: { us_state: :us } do
-        match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
-        match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
-      end
 
       unless Rails.env.production?
         resources :flows, only: [:index, :show] do

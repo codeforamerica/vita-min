@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class PhoneNumberController < QuestionsController
+    class PhoneNumberController < AuthenticatedQuestionsController
       def self.show?(intake)
         intake.contact_preference == "text"
       end

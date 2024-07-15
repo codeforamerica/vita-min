@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class VerificationCodeController < QuestionsController
+    class VerificationCodeController < AuthenticatedQuestionsController
       def edit
         # TODO: Sending a code here feels icky. By convention, edit should not trigger mutations
         case current_intake.contact_preference

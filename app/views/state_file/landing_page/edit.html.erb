@@ -1,5 +1,5 @@
-<% state_image_path = "partner-logos/#{current_state_code}gov-logo.svg" %>
-<% title = @closed ? t(".title_closed", state_name: current_state_name) : t(".#{current_state_code}.title") %>
+<% state_image_path = "partner-logos/#{@state_code}gov-logo.svg" %>
+<% title = @closed ? t(".title_closed", state_name: @state_name) : t(".#{@state_code}.title") %>
 
 <% content_for :page_title, title %>
 
@@ -9,48 +9,48 @@
 
     <% if @closed %>
       <h2 class="h2">
-        <%= t(".#{current_state_code}.closed_html") %>
+        <%= t(".#{@state_code}.closed_html") %>
       </h2>
       <h2 class="h2">
         <%= t(".already_filed_html") %>
       </h2>
       <div class="partner-logo-wrapper spacing-below-35">
         <div class="partner-logo-image">
-          <%= image_tag state_image_path, alt: "#{current_state_name} state logo", class: "" %>
+          <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
         </div>
         <div class="partner-logo-text text--body text--bold">
-          <%=t(".#{current_state_code}.supported_by") %>
+          <%=t(".#{@state_code}.supported_by") %>
         </div>
       </div>
-      <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code), class: "button button--primary button--wide", id: "firstCta" do %>
+      <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: @state_code), class: "button button--primary button--wide", id: "firstCta" do %>
         <%= t(".download_your_record") %>
       <% end %>
     <% else %>
       <% unless @user_name.present? %>
         <h2 class="h2">
-          <%= t(".#{current_state_code}.built_with_html") %>
+          <%= t(".#{@state_code}.built_with_html") %>
         </h2>
       <% end %>
 
       <div class="partner-logo-wrapper spacing-below-35">
         <div class="partner-logo-image">
-          <%= image_tag state_image_path, alt: "#{current_state_name} state logo", class: "" %>
+          <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
         </div>
         <div class="partner-logo-text text--body text--bold">
-          <%=t(".#{current_state_code}.supported_by") %>
+          <%=t(".#{@state_code}.supported_by") %>
         </div>
       </div>
 
       <% if @user_name.present? %>
         <h2 class="h2"><%= t(".welcome_back", user_name: @user_name) %></h2>
-        <h2 class="h2"><%= t(".continue", state_name: current_state_name) %></h2>
-        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code), class: "button button--primary button--wide", id: "firstCta" do %>
+        <h2 class="h2"><%= t(".continue", state_name: @state_name) %></h2>
+        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: @state_code), class: "button button--primary button--wide", id: "firstCta" do %>
           <%= t("general.sign_in") %>
         <% end %>
         <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
           <h2 class="h2">
             <%= t(".not_you", user_name: @user_name) %>
-            <%=f.submit t(".start_new", state_name: current_state_name), class: "button--link" %>
+            <%=f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
           </h2>
         <% end %>
       <% else %>
@@ -61,7 +61,7 @@
           <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
         <% end %>
         <h2 class="h2">
-          <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)) %>
+          <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: @state_code)) %>
         </h2>
       <% end %>
     <% end %>

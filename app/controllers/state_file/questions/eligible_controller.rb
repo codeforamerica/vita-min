@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class EligibleController < QuestionsController
+    class EligibleController < AuthenticatedQuestionsController
       include OtherOptionsLinksConcern
 
       private

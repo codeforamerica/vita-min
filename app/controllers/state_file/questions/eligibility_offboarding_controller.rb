@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class EligibilityOffboardingController < QuestionsController
+    class EligibilityOffboardingController < AuthenticatedQuestionsController
       include OtherOptionsLinksConcern
       before_action :set_prev_path, only: [:edit]
       helper_method :ineligible_reason

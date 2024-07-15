@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NyEligibilityCollegeSavingsWithdrawalController < QuestionsController
+    class NyEligibilityCollegeSavingsWithdrawalController < AuthenticatedQuestionsController
       include EligibilityOffboardingConcern
     end
   end

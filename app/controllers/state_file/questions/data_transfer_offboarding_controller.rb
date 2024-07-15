@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class DataTransferOffboardingController < StateFile::Questions::QuestionsController
+    class DataTransferOffboardingController < AuthenticatedQuestionsController
       include OtherOptionsLinksConcern
       helper_method :ineligible_reason
 

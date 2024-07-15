@@ -1,9 +1,9 @@
 require "rails_helper"
 
-RSpec.describe AuthenticatedStateFileIntakeConcern, type: :controller do
+RSpec.describe StateFile::AuthenticatedStateFileIntakeConcern, type: :controller do
   describe "before actions" do
     controller(ApplicationController) do
-      include AuthenticatedStateFileIntakeConcern
+      include StateFile::AuthenticatedStateFileIntakeConcern
 
       def index
         head :ok

@@ -32,7 +32,7 @@
 <section>
   <% StateFile::StateInformationService.active_state_codes.each do |state_code| %>
     <%= link_to "Start Test #{state_code.upcase}",
-                StateFile::StateInformationService.navigation_class(state_code)::FLOW.first.to_path_helper(us_state: state_code),
+                state_landing_page_path(us_state: state_code),
                 class: "button" %>
   <% end %>
   <% if current_intake %>

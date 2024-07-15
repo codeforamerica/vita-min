@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class ContactPreferenceController < QuestionsController
+    class ContactPreferenceController < AuthenticatedQuestionsController
     end
   end
 end

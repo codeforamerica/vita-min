@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NyEligibilityResidenceController < QuestionsController
+    class NyEligibilityResidenceController < AuthenticatedQuestionsController
       include EligibilityOffboardingConcern
     end
   end
