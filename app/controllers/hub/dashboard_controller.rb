@@ -141,8 +141,8 @@ module Hub
           end
         end
       )
-      sum = returns_by_status.sum(&:value)
-      returns_by_status.each { |r| r.percentage = (r.value.to_f * 100 / sum).round }
+      @returns_by_status_total = returns_by_status.sum(&:value)
+      returns_by_status.each { |r| r.percentage = (r.value.to_f * 100 / @returns_by_status_total).round }
       @returns_by_status = returns_by_status
     end
 
