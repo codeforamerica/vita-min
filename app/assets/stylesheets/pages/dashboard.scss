@@ -43,9 +43,14 @@
         text-decoration: none;
       }
 
-      .controls {
+      .controls>div {
         display: flex;
         align-items: center;
+        gap: 0.5rem;
+        img {
+          width: 1.8rem;
+          height: 1.8rem;
+        }
       }
 
       .under-capacity {
