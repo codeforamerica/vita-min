@@ -6,6 +6,7 @@ module Hub
     helper_method :capacity_css_class
     helper_method :capacity_count
     before_action :load_flagged_clients, only: [:index, :show]
+    authorize_resource :client, parent: false, only: [:index, :show]
 
     def index
       model = @filter_options.first.model

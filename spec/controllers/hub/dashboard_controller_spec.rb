@@ -46,16 +46,35 @@ RSpec.describe Hub::DashboardController do
   describe "#show" do
 
     context "with an authorized user" do
+      let(:vita_partner) { VitaPartner.first }
       before { sign_in user }
       render_views
 
       it "sets instance variables and responds with ok" do
-        model = VitaPartner.first
-        get :show, params: { id: model.id, type: model.class.name.downcase }
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
         expect(response).to be_ok
-        expect(assigns(:selected_value)).to eq "organization/#{model.id}"
+        expect(assigns(:selected_value)).to eq "organization/#{vita_partner.id}"
         expect(assigns(:filter_options).length).to eq 1
-        expect(assigns(:filter_options)[0].model).to eq model
+        expect(assigns(:filter_options)[0].model).to eq vita_partner
+      end
+
+      it "shows the action required panel" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.action_required.title')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.action_required.client_name')
+      end
+
+      context "when there are flagged clients in the current product year" do
+        let!(:first_intake) { create :intake, preferred_name: "Joanna", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner)}
+        let!(:second_intake) { create :intake, preferred_name: "Kinsley", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner)}
+        let!(:unflagged_intake) { create :intake, preferred_name: "Lava", client: create(:client, flagged_at: nil, vita_partner: vita_partner)}
+
+        it "shows the flagged clients" do
+          get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+          expect(response.body).to have_text "Joanna"
+          expect(response.body).to have_text "Kinsley"
+          expect(response.body).not_to have_text "Lava"
+        end
       end
 
       it "shows the capacity panel" do
