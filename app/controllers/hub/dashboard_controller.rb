@@ -139,23 +139,39 @@ module Hub
 
     def load_return_summaries
       stage = params[:stage]
-      available_states = TaxReturnStateMachine.available_states_for(role_type: current_user.role_type)
+      available_stage_and_states = TaxReturnStateMachine.available_states_for(role_type: current_user.role_type)
+      num_returns_by_status = ActiveRecord::Base.connection.exec_query(
+        "SELECT current_state as state, count(*) as num_records FROM tax_returns GROUP BY current_state"
+      ).to_a
+
       returns_by_status = (
         if stage.present?
-          selected_state = available_states.find { |state| state[0] == stage }
-          selected_state[1].map do |state|
-            value = rand 128
+          stage, states = available_stage_and_states.find { |stage_and_states| stage_and_states[0] == stage }
+          states.map do |state|
+            num_returns_for_status = num_returns_by_status.find{ |row| state.ends_with?(row["state"]) }
+            value = num_returns_for_status ? num_returns_for_status["num_records"] : 0
+            if value.nil?
+              binding.pry
+            end
             ReturnSummary.new(state, value, :status, stage, 0)
           end
         else
-          available_states.map do |state|
-            value = rand 128
-            ReturnSummary.new(state[0], value, :stage, state[0], 0)
+          available_stage_and_states.map do |stage_and_states|
+            value = num_returns_by_status.filter do |row|
+              stage_and_states[1].include?(row["state"])
+            end.sum { |row| row["num_records"] }
+            ReturnSummary.new(stage_and_states[0], value, :stage, stage_and_states[0], 0)
           end
         end
       )
       @returns_by_status_total = returns_by_status.sum(&:value)
-      returns_by_status.each { |r| r.percentage = (r.value.to_f * 100 / @returns_by_status_total).round }
+      unless @returns_by_status_total.zero?
+        returns_by_status.each do |r|
+          unless r.value.zero?
+            r.percentage = (r.value.to_f * 100 / @returns_by_status_total).round
+          end
+        end
+      end
       @returns_by_status = returns_by_status
     end
 
