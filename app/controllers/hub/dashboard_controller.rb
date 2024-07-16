@@ -19,6 +19,13 @@ module Hub
       load_returns_by_status
     end
 
+    def returns_by_status
+      load_returns_by_status
+      respond_to do |format|
+        format.js
+      end
+    end
+
     private
 
     def require_dashboard_user
@@ -134,15 +141,16 @@ module Hub
       stage = params[:stage]
       available_states = TaxReturnStateMachine.available_states_for(role_type: current_user.role_type)
       returns_by_status = (
-        if stage
-          available_states.find {|state| state[0] == stage }[1].map do |state|
+        if stage.present?
+          selected_state = available_states.find { |state| state[0] == stage }
+          selected_state[1].map do |state|
             value = rand 128
-            DashboardCapacity.new(state[0], value, 0)
+            DashboardCapacity.new(state, value, :status, stage, 0)
           end
         else
           available_states.map do |state|
             value = rand 128
-            DashboardCapacity.new(state[0], value, 0)
+            DashboardCapacity.new(state[0], value, :stage, state[0], 0)
           end
         end
       )
@@ -151,6 +159,6 @@ module Hub
       @returns_by_status = returns_by_status
     end
 
-    DashboardCapacity = Struct.new(:code, :value, :percentage)
+    DashboardCapacity = Struct.new(:code, :value, :type, :stage, :percentage)
   end
 end

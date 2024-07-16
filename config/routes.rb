@@ -312,6 +312,7 @@ Rails.application.routes.draw do
 
         resources :dashboard, only: [:index] do
           get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
+          get "/returns-by-status", to: "dashboard#returns_by_status", on: :collection, as: :returns_by_status
         end
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]

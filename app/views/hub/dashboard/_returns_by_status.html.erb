@@ -1,36 +1,3 @@
 <div class="card returns-by-status">
-  <h2>Returns by Status</h2>
-  <div style="display:flex;align-items:center;gap:20px;padding-bottom: 20px;">
-    <div style="font-size:24px;"><%= @returns_by_status_total %></div>
-    <div><%= I18n.t("hub.dashboard.show.total_number_of_returns") %></div>
-  </div>
-  <select class="select__element">
-    <option><%= I18n.t("hub.dashboard.show.filter_by_stage") %></option>
-    <% TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).each do |stage| %>
-      <option value="<%=stage[0]%>"><%= I18n.t("hub.tax_returns.stage.#{stage[0]}") %></option>
-    <% end %>
-  </select>
-  <table style="border-collapse: collapse;">
-    <thead>
-    <tr>
-      <th><%= I18n.t("general.status") %></th>
-      <th><%= I18n.t("general.returns") %></th>
-    </tr>
-    </thead>
-    <tbody>
-      <% @returns_by_status.each do |status| %>
-        <tr>
-          <td>
-            <%= link_to I18n.t("hub.tax_returns.stage.#{status.code}"), hub_clients_path(status: status.code) %>
-          </td>
-          <td>
-            <div class="bar-container <%= status.code %>">
-              <div class="bar" style="width:<%= status.percentage %>%;"></div>
-              <div class="bar-label"><%= status.value %></div>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render "returns_by_status_content" %>
 </div>

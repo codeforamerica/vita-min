@@ -1,0 +1,36 @@
+<h2><%= I18n.t("hub.dashboard.show.returns_by_status") %></h2>
+<div style="display:flex;align-items:center;gap:20px;padding-bottom: 20px;">
+  <div style="font-size:24px;"><%= @returns_by_status_total %></div>
+  <div><%= I18n.t("hub.dashboard.show.total_number_of_returns") %></div>
+</div>
+<%= form_tag returns_by_status_hub_dashboard_index_path, method: :get, remote: true do |f| %>
+  <%= select_tag :stage, options_for_select([
+     [I18n.t("hub.dashboard.show.filter_by_stage"), ""]
+  ] + TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |state|
+    [I18n.t("hub.tax_returns.stage.#{state[0]}"), state[0]]
+  end, params[:stage]), class: "select__element", onchange: "document.querySelector('.returns-by-status .submit').click()" %>
+  <%= submit_tag "", class: "submit", style: "display:none" %>
+<% end %>
+<table style="border-collapse: collapse;">
+  <thead>
+  <tr>
+    <th><%= I18n.t("general.status") %></th>
+    <th><%= I18n.t("general.returns") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @returns_by_status.each do |status| %>
+    <tr>
+      <td>
+        <%= link_to I18n.t("hub.tax_returns.#{status.type}.#{status.code}"), hub_clients_path(status: status.code) %>
+      </td>
+      <td>
+        <div class="bar-container <%= status.stage %>">
+          <div class="bar" style="width:<%= status.percentage %>%;" title="<%= status.percentage %>%"></div>
+          <div class="bar-label"><%= status.value %></div>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
