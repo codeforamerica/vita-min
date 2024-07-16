@@ -19,6 +19,9 @@
           <td class="controls">
             <div class="<%= capacity_css_class(organization) %>">
               <div><%= organization.active_client_count %>/<%= organization.capacity_limit %></div>
+              <% if organization.active_client_count.to_f / organization.capacity_limit > 1 %>
+                <%= image_tag('icons/warning.svg', alt: "") %>
+              <% end %>
             </div>
           </td>
         </tr>
