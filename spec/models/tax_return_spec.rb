@@ -1015,6 +1015,12 @@ describe TaxReturn do
       allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
     end
 
+    around do |example|
+      Timecop.freeze(DateTime.parse("2022-04-14")) do
+        example.run
+      end
+    end
+
     it "provides an array of available filing years, which is the current tax year and three previous years" do
       expect(MultiTenantService.new(:gyr).filing_years).to eq [2021, 2020, 2019, 2018]
     end
@@ -1023,6 +1029,12 @@ describe TaxReturn do
   describe ".backtax_years" do
     before do
       allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
+    end
+
+    around do |example|
+      Timecop.freeze(DateTime.parse("2022-04-14")) do
+        example.run
+      end
     end
 
     it "excludes the current filing year from backtaxes" do

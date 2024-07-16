@@ -122,7 +122,7 @@ class MultiTenantService
     if service_type_or_parent == :ctc || service_type_or_parent == :state_file
       [current_tax_year]
     else
-      Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, deadline)|
+      Rails.application.config.tax_year_filing_seasons.select do |_, (season_start, deadline)|
         today = DateTime.now
         deadline > today - 3.years && season_start <= today
       end.keys.freeze

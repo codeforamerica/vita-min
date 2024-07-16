@@ -40,14 +40,16 @@ describe Portal::StillNeedsHelpsController do
       end
 
       context "when the client has triggered still needs help" do
-        let!(:tax_return_in_progress) { create(:tax_return, :intake_in_progress, year: 2018, client: client) }
-        let!(:tax_return_not_filing) { create(:tax_return, :file_not_filing, year: 2019, client: client) }
+        let!(:tax_return_in_progress) { create(:tax_return, :intake_in_progress, year: 2019, client: client) }
+        let!(:tax_return_not_filing) { create(:tax_return, :file_not_filing, year: 2020, client: client) }
         let(:client) { create :client, triggered_still_needs_help_at: Time.now, intake: build(:intake) }
-        let(:fake_time) { DateTime.new(2021, 1, 1) }
+        let(:fake_time) { DateTime.new(2022, 4, 1) }
+
         before { sign_in client }
 
         context "client indicates they still need help" do
           it "saves answer, tax return statuses, first_unanswered_incoming_interaction_at, and clears triggered_still_needs_help_at" do
+            allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2021)
             Timecop.freeze(fake_time) { put :update, params: { still_needs_help: "yes" } }
 
             # updates client still needs help fields

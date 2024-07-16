@@ -62,9 +62,9 @@ module Hub
     validates_presence_of :primary_ssn_confirmation, if: :primary_ssn
     validates_presence_of :spouse_ssn_confirmation, if: :spouse_ssn
     validates :primary_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include? primary_tin_type }
-    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin"}
+    validates :primary_ssn, individual_taxpayer_identification_number: true, if: -> { primary_tin_type == "itin" }
     validates_confirmation_of :spouse_ssn, if: -> { filing_joint == "yes" }
-    validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes"}
+    validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes" }
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
 
     def initialize(attributes = {})
@@ -74,6 +74,12 @@ module Hub
 
     def save(current_user)
       return false unless valid?
+
+      # Default to no, since some may be nil if there were less than 3 previous years displayed on the form
+      self.needs_help_previous_year_1 ||= "no"
+      self.needs_help_previous_year_2 ||= "no"
+      self.needs_help_previous_year_3 ||= "no"
+
       @client = Client.create!(
         vita_partner_id: attributes_for(:intake)[:vita_partner_id],
         intake_attributes: attributes_for(:intake).merge(default_intake_attributes),
