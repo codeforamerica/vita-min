@@ -970,7 +970,11 @@ es:
         title: Agregar un nuevo cliente
     dashboard:
       show:
+        capacity: Capacidad
+        current_capacity: Capacidad actual
+        org_name: Nombre de la Organización
         title: Panel
+        view_all: Ver todo
     documents:
       confirm:
         text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"

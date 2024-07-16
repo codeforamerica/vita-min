@@ -3,6 +3,8 @@ module Hub
     layout "hub"
     before_action :require_dashboard_user
     before_action :load_filter_options, only: [:index, :show]
+    helper_method :capacity_css_class
+    helper_method :capacity_count
 
     def index
       model = @filter_options.first.model
@@ -13,6 +15,7 @@ module Hub
       @selected_value = "#{params[:type]}/#{params[:id]}"
       selected_option = @filter_options.find{ |option| option.value == @selected_value }
       @selected = selected_option.model
+      load_capacity
     end
 
     private
@@ -92,5 +95,38 @@ module Hub
 
     DashboardFilterOption = Struct.new(:value, :model, :children, :has_parent)
 
+    def load_capacity
+      return if @selected.instance_of? Site
+      if @selected.instance_of? Coalition
+        @capacity = @selected.organizations.filter(&:capacity_limit)
+        @capacity.sort! do |a, b|
+          sort_a = (a.active_client_count.to_f / a.capacity_limit)
+          sort_b = (b.active_client_count.to_f / b.capacity_limit)
+          sort_b <=> sort_a
+        end
+      elsif @selected.instance_of?(Organization) && @selected.capacity_limit
+        @capacity = [@selected]
+      end
+    end
+
+    def capacity_css_class(organization)
+      if organization.active_client_count > (organization.capacity_limit || 0)
+        "over-capacity"
+      elsif organization.active_client_count < (organization.capacity_limit || 0)
+        "under-capacity"
+      else
+        "at-capacity"
+      end
+    end
+
+    def capacity_count
+      if @selected.instance_of? Coalition
+        @selected.organizations.count(&:capacity_limit)
+      elsif @selected.instance_of?(Organization) && @selected.capacity_limit
+        1
+      else
+        0
+      end
+    end
   end
 end
