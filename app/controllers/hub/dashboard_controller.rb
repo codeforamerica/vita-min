@@ -138,11 +138,12 @@ module Hub
     end
 
     def load_return_summaries
-      stage = params[:stage]
+      @returns_by_status_stage = stage = params[:stage]
       available_stage_and_states = TaxReturnStateMachine.available_states_for(role_type: current_user.role_type)
       num_returns_by_status = ActiveRecord::Base.connection.exec_query(
         "SELECT current_state as state, count(*) as num_records FROM tax_returns GROUP BY current_state"
       ).to_a
+      @returns_by_status_count = @returns_by_status_total = num_returns_by_status.map { |row| row["num_records"] }.sum
 
       returns_by_status = (
         if stage.present?
@@ -164,11 +165,11 @@ module Hub
           end
         end
       )
-      @returns_by_status_total = returns_by_status.sum(&:value)
+      @returns_by_status_count = returns_by_status.sum(&:value)
       unless @returns_by_status_total.zero?
         returns_by_status.each do |r|
           unless r.value.zero?
-            r.percentage = (r.value.to_f * 100 / @returns_by_status_total).round
+            r.percentage = (r.value.to_f * 100 / @returns_by_status_count).round
           end
         end
       end

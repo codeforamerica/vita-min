@@ -1,7 +1,17 @@
 <h2><%= I18n.t("hub.dashboard.show.returns_by_status") %></h2>
-<div style="display:flex;align-items:center;gap:20px;padding-bottom: 20px;">
-  <div style="font-size:24px;"><%= @returns_by_status_total %></div>
-  <div><%= I18n.t("hub.dashboard.show.total_number_of_returns") %></div>
+<div class="counts">
+  <% unless @returns_by_status_stage.present? %>
+    <div>
+      <span class="count"><%= @returns_by_status_count %></span>
+    </div>
+    <div class="description"><%= I18n.t("hub.dashboard.show.total_number_of_returns") %></div>
+  <% else %>
+    <div>
+      <span class="count"><%= @returns_by_status_count %></span>
+      <span>/<%= @returns_by_status_total %></span>
+    </div>
+    <div class="description"><%= I18n.t("hub.dashboard.show.total_returns_in", stage: "<span class=\"\"style='font-weight:bold'>#{I18n.t("hub.tax_returns.stage.#{params[:stage]}")}</span>".html_safe).html_safe %></div>
+  <% end %>
 </div>
 <%= form_tag returns_by_status_hub_dashboard_index_path, method: :get, remote: true do |f| %>
   <%= select_tag :stage, options_for_select([

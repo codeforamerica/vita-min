@@ -969,6 +969,7 @@ en:
         returns_by_status: Returns by Status
         title: Dashboard
         total_number_of_returns: Total number of returns
+        total_returns_in: Total Returns in [%{stage}]
         view_all: View All
     documents:
       confirm:

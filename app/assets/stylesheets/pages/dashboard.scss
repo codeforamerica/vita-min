@@ -67,6 +67,20 @@
   }
 
   .returns-by-status {
+
+    .counts {
+      display: flex;
+      align-items: center;
+      gap: 2.0rem;
+      padding-bottom: 2.0rem;
+      .count {
+        font-size:2.4rem;
+      }
+      .description {
+        color: #757575;
+      }
+    }
+
     table {
       border-collapse: collapse;
       border-spacing: 0;
@@ -76,7 +90,7 @@
         font-weight: normal;
         color: #757575;
         text-align: left;
-        padding: 14px 0 0 0;
+        padding: 1.4rem 0 0 0;
         white-space: nowrap;
       }
 
@@ -89,17 +103,17 @@
       }
 
       tbody tr td {
-        padding-top: 14px;
+        padding-top: 1.4rem;
       }
     }
 
     .bar-container {
       display: flex;
-      gap: 10px;
+      gap: 1.0rem;
 
       .bar {
-        height: 19px;
-        border: 1px solid #000;
+        height: 1.9rem;
+        border: 0.1rem solid #000;
       }
 
       &.intake .bar{background: #C6F9EC;}
