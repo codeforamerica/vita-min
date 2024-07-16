@@ -967,6 +967,7 @@ en:
           no_clients: No clients to display at the moment
           title: 'Action Required: Flagged Clients'
           updated: Updated At
+        approaching: Approaching
         capacity: Capacity
         current_capacity: Current Capacity
         org_name: Organization Name
@@ -974,6 +975,7 @@ en:
           hub_training: Hub Trainings
           newsletter: GYR Newsletter
           title: Resources
+        overdue: Overdue
         sla_title: Service Level Agreements Notifications
         title: Dashboard
         view_all: View All

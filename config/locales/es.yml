@@ -976,6 +976,7 @@ es:
           no_clients: No hay clientes para mostrar en este momento
           title: 'Acción requerida: Clientes marcados'
           updated: Actualizado en
+        approaching: Que se acerca
         capacity: Capacidad
         current_capacity: Capacidad actual
         org_name: Nombre de la Organización
@@ -983,6 +984,8 @@ es:
           hub_training: Capacitaciones centrales
           newsletter: Boletín GYR
           title: Recursos
+        overdue: Atrasado
+        sla_title: Notificaciones de acuerdos de nivel de servicio
         title: Panel
         view_all: Ver todo
     documents:

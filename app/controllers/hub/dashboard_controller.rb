@@ -8,6 +8,7 @@ module Hub
     before_action :load_clients, only: [:index, :show]
     authorize_resource :client, parent: false, only: [:index, :show]
     before_action :load_flagged_clients, only: [:index, :show]
+    before_action :load_client_sla_counts, only: [:index, :show]
 
     def index
       model = @filter_options.first.model
@@ -51,6 +52,14 @@ module Hub
 
     def load_filter_options
       @filter_options = DashboardController.flatten_filter_options(get_filter_options, [])
+    end
+
+    def load_client_sla_counts
+      clients = Client.accessible_by(current_ability)
+                      .distinct.joins(:intake)
+
+      @approaching_sla_count = clients.where("last_outgoing_communication_at >= ? AND last_outgoing_communication_at <= ?", 6.business_days.ago, 4.business_days.ago).count
+      @breached_sla_count = clients.where("last_outgoing_communication_at < ?", 6.business_days.ago).count
     end
 
     def to_option_value(model_type, model_id)
