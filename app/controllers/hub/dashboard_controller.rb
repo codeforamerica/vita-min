@@ -5,6 +5,7 @@ module Hub
     before_action :load_filter_options, only: [:index, :show]
     helper_method :capacity_css_class
     helper_method :capacity_count
+    before_action :load_flagged_clients, only: [:index, :show]
 
     def index
       model = @filter_options.first.model
@@ -83,6 +84,13 @@ module Hub
         add_filter_option(partner, parent_value, options, options_by_value)
       end
       options
+    end
+
+    def load_flagged_clients
+      @flagged_clients = Client.accessible_by(current_ability)
+                               .where.not(flagged_at: nil)
+                               .distinct.joins(:intake)
+                               .merge(Intake.current_product_year)
     end
 
     def self.flatten_filter_options(filter_options, result)

@@ -1,4 +1,39 @@
-<div class="card">
+<div class="card dashboard-table">
   <h2>Action Required: Flagged Clients</h2>
-  <p>TODO: Implement</p>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Client Name</th>
+        <th scope="col">Client ID</th>
+        <th scope="col">Updated At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @flagged_clients.exists? %>
+        <% @flagged_clients.limit(3).each do |client| %>
+          <tr>
+            <td>
+              <%= link_to client.preferred_name, hub_client_path(client.id) %>
+            </td>
+            <td>
+              <%= client.id %>
+            </td>
+            <td>
+              <%= client.updated_at.strftime("%b %d %l:%M%P") %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @flagged_clients.exists? %>
+    <div class="paging">
+      <p><%= @flagged_clients.limit(3).count %> of <%= @flagged_clients.count %></p>
+      <%= link_to "View All", hub_clients_path(flagged: true), class: "text--centered" %>
+    </div>
+  <% else %>
+    <p>No clients to display at the moment</p>
+  <% end %>
+
 </div>
