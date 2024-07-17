@@ -13,13 +13,11 @@ module Hub
     end
 
     def show
-      load_selected
       load_capacity
       load_return_summaries
     end
 
     def returns_by_status
-      load_selected
       load_return_summaries
       respond_to do |format|
         format.js
@@ -152,6 +150,14 @@ module Hub
               .select("current_state as state, count(*) as num_records")
               .group(:state)
       )
+      if @selected.instance_of?(Coalition)
+        ids = @filter_options.map(&:model).filter do |model|
+          !model.instance_of?(Coalition) && model.coalition_id == @selected.id
+        end.map(&:id)
+        num_returns_by_status = num_returns_by_status.where(clients: { vita_partner_id: ids })
+      else
+        num_returns_by_status = num_returns_by_status.where(clients: { vita_partner_id: @selected.id })
+      end
 
       @returns_by_status_count = @returns_by_status_total = num_returns_by_status.map { |row| row.num_records }.sum
 
