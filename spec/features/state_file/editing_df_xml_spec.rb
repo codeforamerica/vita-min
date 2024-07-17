@@ -27,7 +27,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     xml_before = StateFileNyIntake.last.raw_direct_file_data.strip
 
-    expect(page).to have_text I18n.t('state_file.questions.name_dob.edit.title1')
+    expect(page).to have_text I18n.t('state_file.questions.data_review.edit.title')
 
     xml_after = StateFileNyIntake.last.raw_direct_file_data.strip
     expect(xml_before).to eq(xml_after)
