@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :state_file_az_intakes
-  devise_for :state_file_ny_intakes
+  active_state_codes = StateFile::StateInformationService.active_state_codes
+
+  active_state_codes.each do |code|
+    devise_for StateInformationService.intake_class(code)
+  end
   devise_for :clients
 
   devise_scope :client do
@@ -567,7 +570,7 @@ Rails.application.routes.draw do
         end
       end
 
-      scope ':us_state', constraints: { us_state: /az|ny/i } do
+      scope ':us_state', constraints: { us_state: Regexp.new(active_state_codes.join("|"), Regexp::IGNORECASE) } do
         resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
         resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
         resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
@@ -575,7 +578,7 @@ Rails.application.routes.draw do
         get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
       end
 
-      scope ':us_state', constraints: { us_state: /az|ny|us/i } do
+      scope ':us_state', constraints: { us_state: Regexp.new((active_state_codes + ["us"]).join("|"), Regexp::IGNORECASE) } do
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
           get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
@@ -589,14 +592,11 @@ Rails.application.routes.draw do
         resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
-      scope ':us_state', as: 'az', constraints: { us_state: :az } do
-        scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
-      end
-
-      scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
-        scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        # TODO: ny_w2 route can be deleted once no intake has w2 as the current step
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
+      active_state_codes.each do |code|
+        scope ':us_state', as: code, constraints: { us_state: code } do
+          navigation_class = StateFile::StateInformationService.navigation_class(code)
+          scoped_navigation_routes(:questions, navigation_class)
+        end
       end
 
       scope ':us_state', as: 'us', constraints: { us_state: :us } do
