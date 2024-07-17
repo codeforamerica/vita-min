@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   active_state_codes = StateFile::StateInformationService.active_state_codes
 
   active_state_codes.each do |code|
-    devise_for StateInformationService.intake_class(code)
+    devise_for "state_file_#{code}_intakes"
   end
   devise_for :clients
 
