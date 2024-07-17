@@ -961,7 +961,11 @@ en:
         title: Add a new CTC client
     dashboard:
       show:
+        capacity: Capacity
+        current_capacity: Current Capacity
+        org_name: Organization Name
         title: Dashboard
+        view_all: View All
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?

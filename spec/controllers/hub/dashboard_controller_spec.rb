@@ -16,6 +16,30 @@ RSpec.describe Hub::DashboardController do
         model = VitaPartner.first
         expect(response).to redirect_to "/en/hub/dashboard/#{model.class.name.downcase}/#{model.id}"
       end
+
+      context "with a nested set of Coalitions and Organizations" do
+        let(:coalition) { create :coalition }
+        let(:user) { create(:user, role: create(:coalition_lead_role, coalition: coalition)) }
+        let(:orgs) do
+          [
+            create(:organization, coalition: coalition),
+            create(:organization, coalition: coalition),
+            create(:organization, coalition: coalition)
+          ]
+        end
+
+        it "sets filter options correctly" do
+          expected_filter_options = [
+            "coalition/#{coalition.id}",
+            "organization/#{orgs[0].id}",
+            "organization/#{orgs[1].id}",
+            "organization/#{orgs[2].id}"
+          ]
+          get :index
+          expect(assigns(:filter_options).length).to eq 4
+          expect(assigns(:filter_options).map{|option| option.value }).to eq expected_filter_options
+        end
+      end
     end
   end
 
@@ -33,6 +57,18 @@ RSpec.describe Hub::DashboardController do
         expect(assigns(:filter_options).length).to eq 1
         expect(assigns(:filter_options)[0].model).to eq model
       end
+
+      it "shows the capacity panel" do
+        model = VitaPartner.first
+        get :show, params: { id: model.id, type: model.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.capacity')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.org_name')
+        expect(response.body).to have_text Organization.first.name
+        # Count instances of substring - note: string.count doesn't do this!
+        expect(response.body.scan(/organization-link/).length).to eq(1)
+      end
     end
   end
 end
+
+

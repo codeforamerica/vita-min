@@ -1,13 +1,74 @@
 
 .dashboard-show-page-body{
   .card{
-    border: 1px solid #757575;
+    border: 0.1rem solid #757575;
   }
   select.select__element{
-    border: 1px solid #CFC5BF;
-    border-radius: 5px;
+    border: 0.1rem solid #CFC5BF;
+    border-radius: 0.5rem;
     background-image: image-url('dropdown.svg');
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 1rem center;
+  }
+
+  .capacity {
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+
+      tr th {
+        font-weight: normal;
+        color: #757575;
+        text-align: left;
+        padding: 1.2rem 0;
+      }
+
+      tr {
+        border-bottom: 0.1rem solid #BEBEBE;
+        td {
+          padding: 1.2rem 0;
+        }
+        td:last-child {
+          font-weight: bold;
+        }
+      }
+
+      tr:last-child {
+        border-bottom: none;
+      }
+
+      .organization-link {
+        color: #000;
+        text-decoration: none;
+      }
+
+      .controls>div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        img {
+          width: 1.8rem;
+          height: 1.8rem;
+        }
+      }
+
+      .under-capacity {
+        color: #07866C;
+      }
+
+      .at-capacity {
+      }
+
+      .over-capacity {
+        color: #D73D02;
+      }
+    }
+  }
+
+  .paging {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
   }
 }
