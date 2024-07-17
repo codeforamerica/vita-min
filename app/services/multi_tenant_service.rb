@@ -123,7 +123,7 @@ class MultiTenantService
       [current_tax_year]
     else
       Rails.application.config.tax_year_filing_seasons.select do |_, (season_start, deadline)|
-        # NB: This doesn't respect session toggles, but neither does current_tax_year so it's no worse than it was
+        # This doesn't respect session toggles, but neither does current_tax_year so it's no worse than it was
         today = DateTime.now
         deadline > today - 3.years && season_start <= today
       end.keys.freeze
