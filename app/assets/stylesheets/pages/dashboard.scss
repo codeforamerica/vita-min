@@ -71,4 +71,25 @@
     justify-content: flex-end;
     gap: 2rem;
   }
+
+  .resources {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      margin-right: .8rem;
+    }
+  }
 }

@@ -975,6 +975,10 @@ es:
         org_name: Nombre de la Organización
         title: Panel
         view_all: Ver todo
+        resources:
+          title: Recursos
+          hub_training: Capacitaciones centrales
+          newsletter: Boletín GYR
     documents:
       confirm:
         text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"

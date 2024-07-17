@@ -966,6 +966,10 @@ en:
         org_name: Organization Name
         title: Dashboard
         view_all: View All
+        resources:
+          title: Resources
+          hub_training: Hub Trainings
+          newsletter: GYR Newsletter
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
