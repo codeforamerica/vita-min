@@ -76,6 +76,28 @@ RSpec.describe Hub::DashboardController do
       end
     end
   end
+
+  describe "#returns_by_status" do
+    before do
+      tax_return = create(:gyr_tax_return, :intake_in_progress, updated_at: 10.days.ago, assigned_user: user)
+      tax_return.client.update(vita_partner: VitaPartner.first)
+      sign_in user
+    end
+    render_views
+
+    it "renders the returns by status container with a single bar that is 100% of width" do
+      model = VitaPartner.first
+      get(
+        :returns_by_status,
+        params: { id: model.id, type: model.class.name.downcase, stage: "intake" },
+        format: :js,
+        xhr: true
+      )
+      # Has width:100% and title="100%"
+      expect(response.body.scan(/100%/).length).to eq(2)
+    end
+
+  end
 end
 
 

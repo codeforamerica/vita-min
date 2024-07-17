@@ -2,7 +2,8 @@ module Hub
   class DashboardController < Hub::BaseController
     layout "hub"
     before_action :require_dashboard_user
-    before_action :load_filter_options, only: [:index, :show]
+    before_action :load_filter_options, only: [:index, :show, :returns_by_status]
+    before_action :load_selected, only: [:show, :returns_by_status]
     helper_method :capacity_css_class
     helper_method :capacity_count
 
@@ -12,14 +13,13 @@ module Hub
     end
 
     def show
-      @selected_value = "#{params[:type]}/#{params[:id]}"
-      selected_option = @filter_options.find{ |option| option.value == @selected_value }
-      @selected = selected_option.model
+      load_selected
       load_capacity
       load_return_summaries
     end
 
     def returns_by_status
+      load_selected
       load_return_summaries
       respond_to do |format|
         format.js
@@ -50,6 +50,12 @@ module Hub
 
     def load_filter_options
       @filter_options = DashboardController.flatten_filter_options(get_filter_options, [])
+    end
+
+    def load_selected
+      @selected_value = "#{params[:type]}/#{params[:id]}"
+      selected_option = @filter_options.find{ |option| option.value == @selected_value }
+      @selected = selected_option.model
     end
 
     def to_option_value(model_type, model_id)
@@ -140,27 +146,28 @@ module Hub
     def load_return_summaries
       @returns_by_status_stage = stage = params[:stage]
       available_stage_and_states = TaxReturnStateMachine.available_states_for(role_type: current_user.role_type)
-      num_returns_by_status = ActiveRecord::Base.connection.exec_query(
-        "SELECT current_state as state, count(*) as num_records FROM tax_returns GROUP BY current_state"
-      ).to_a
-      @returns_by_status_count = @returns_by_status_total = num_returns_by_status.map { |row| row["num_records"] }.sum
+      num_returns_by_status = (
+        Client.accessible_by(current_ability)
+              .joins(:tax_returns)
+              .select("current_state as state, count(*) as num_records")
+              .group(:state)
+      )
+
+      @returns_by_status_count = @returns_by_status_total = num_returns_by_status.map { |row| row.num_records }.sum
 
       returns_by_status = (
         if stage.present?
           stage, states = available_stage_and_states.find { |stage_and_states| stage_and_states[0] == stage }
           states.map do |state|
-            num_returns_for_status = num_returns_by_status.find{ |row| state.ends_with?(row["state"]) }
-            value = num_returns_for_status ? num_returns_for_status["num_records"] : 0
-            if value.nil?
-              binding.pry
-            end
+            num_returns_for_status = num_returns_by_status.find{ |row| state.ends_with?(row.state) }
+            value = num_returns_for_status ? num_returns_for_status.num_records : 0
             ReturnSummary.new(state, value, :status, stage, 0)
           end
         else
           available_stage_and_states.map do |stage_and_states|
             value = num_returns_by_status.filter do |row|
-              stage_and_states[1].include?(row["state"])
-            end.sum { |row| row["num_records"] }
+              stage_and_states[1].include?(row.state)
+            end.sum { |row| row.num_records }
             ReturnSummary.new(stage_and_states[0], value, :stage, stage_and_states[0], 0)
           end
         end
