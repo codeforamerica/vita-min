@@ -87,11 +87,34 @@ RSpec.describe Hub::DashboardController do
         expect(response.body.scan(/organization-link/).length).to eq(1)
       end
 
+
       it "shows the resources panel" do
         model = VitaPartner.first
         get :show, params: { id: model.id, type: model.class.name.downcase }
         expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.title')
         expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.newsletter')
+      end
+
+      it "displays service level agreement notifications panel" do
+        model = VitaPartner.first
+        get :show, params: { id: model.id, type: model.class.name.downcase }
+        expect(response.body).to have_text I18n.t("hub.dashboard.show.overdue")
+        expect(response.body).to have_text I18n.t("hub.dashboard.show.approaching")
+      end
+
+      context "when there are breached and approaching clients" do
+        let(:vita_partner) { VitaPartner.first }
+        let!(:breached_client_1) { create(:client, last_outgoing_communication_at: 7.business_days.ago, vita_partner: vita_partner) }
+        let!(:breached_client_2) { create(:client, last_outgoing_communication_at: 8.business_days.ago, vita_partner: vita_partner) }
+        let!(:approaching_client_1) { create(:client, last_outgoing_communication_at: 5.business_days.ago, vita_partner: vita_partner) }
+
+        it "shows the correct number of breached and approaching sla clients" do
+
+          get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+
+          expect(assigns(:breached_sla_count)).to eq 2
+          expect(assigns(:approaching_sla_count)).to eq 1
+        end
       end
     end
 

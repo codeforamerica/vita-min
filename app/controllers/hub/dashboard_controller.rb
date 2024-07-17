@@ -56,9 +56,8 @@ module Hub
 
     def load_client_sla_counts
       clients = Client.accessible_by(current_ability)
-                      .distinct.joins(:intake)
-
-      @approaching_sla_count = clients.where("last_outgoing_communication_at >= ? AND last_outgoing_communication_at <= ?", 6.business_days.ago, 4.business_days.ago).count
+                      .distinct
+      @approaching_sla_count = clients.where(last_outgoing_communication_at: 6.business_days.ago..4.business_days.ago).count
       @breached_sla_count = clients.where("last_outgoing_communication_at < ?", 6.business_days.ago).count
     end
 
