@@ -16,7 +16,7 @@
 <%= form_tag returns_by_status_hub_dashboard_index_path, method: :get, remote: true do |f| %>
   <%= select_tag :stage, options_for_select([
      [I18n.t("hub.dashboard.show.filter_by_stage"), ""]
-  ] + TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |available_state, _|
+  ] + TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |available_state,|
     [I18n.t("hub.tax_returns.stage.#{available_state}"), available_state]
   end, params[:stage]), class: "select__element", onchange: "document.querySelector('.returns-by-status .submit').click()" %>
   <%= submit_tag "", class: "submit", style: "display:none" %>

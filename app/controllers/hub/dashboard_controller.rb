@@ -163,7 +163,7 @@ module Hub
 
       returns_by_status = (
         if stage.present?
-          stage, states = available_stage_and_states.find { |available_stage, _| available_stage == stage }
+          stage, states = available_stage_and_states.find { |available_stage,| available_stage == stage }
           states.map do |state|
             num_returns_for_status = num_returns_by_status.find { |row| state.ends_with?(row.state) }
             value = num_returns_for_status ? num_returns_for_status.num_records : 0
