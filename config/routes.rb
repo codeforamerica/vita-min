@@ -578,6 +578,7 @@ Rails.application.routes.draw do
         get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
       end
 
+      # constraint on us state is like /az|ny|us/i
       scope ':us_state', constraints: { us_state: Regexp.new((active_state_codes + ["us"]).join("|"), Regexp::IGNORECASE) } do
         resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
           put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
