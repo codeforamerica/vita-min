@@ -60,12 +60,6 @@ module StateFile
 
     def illustration_path; end
 
-    def extra_path_params
-      {
-        us_state: params[:us_state]
-      }
-    end
-
     def intake_login_params
       params.require(:state_file_intake_login_form).permit(:ssn).merge(possible_intakes: @records)
     end
@@ -91,35 +85,30 @@ module StateFile
       :statefile
     end
 
-    def state_code
-      StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : nil
-    end
-
     def sign_in_and_redirect
       intake = @form.intake_to_log_in(@records)
 
       # Note: for god knows what reason, you cannot reference "current_state_file_#{state_code}_intake" or the new intake will fail to log in,
       # or at least in the test it seems to fail. Couldn't think of a better solution than grabbing the id from the session even though it looks terrible.
       # (Should return an array of 1 id)
-      unfinished_logged_in_intake_id = session.dig("warden.user.state_file_#{params[:us_state]}_intake.key", 0)
+      # TODO: Loop over states and grab all/any unfinished loged in intake ids instead of assuming that it'd be a specific state
+      unfinished_logged_in_intake_ids = StateFile::StateInformationService.active_state_codes.map do |state_code|
+        session.dig("warden.user.state_file_#{state_code}_intake.key", 0)
+      end.compact
 
       sign_in intake
 
-      if unfinished_logged_in_intake_id.present? && unfinished_logged_in_intake_id[0] != intake.id
-        intake.update(unfinished_intake_ids: intake.unfinished_intake_ids + unfinished_logged_in_intake_id)
+      unfinished_logged_in_intake_ids.each do |unfinished_logged_in_intake_id|
+        if unfinished_logged_in_intake_id[0] != intake.id
+          intake.update(unfinished_intake_ids: intake.unfinished_intake_ids + unfinished_logged_in_intake_id)
+        end
       end
 
       to_path = session.delete(:after_state_file_intake_login_path)
       unless to_path
         controller = intake.controller_for_current_step
-        # This can be removed once we are sure nobody has current_step set to landing_page
-        navigation = "Navigation::StateFile#{intake.state_code.titleize}QuestionNavigation".constantize
-        if navigation::FLOW.index(controller) < navigation::FLOW.index(StateFile::Questions::TermsAndConditionsController)
-          controller = StateFile::Questions::TermsAndConditionsController
-        end
         to_path = controller.to_path_helper(
-          action: controller.navigation_actions.first,
-          us_state: intake.state_code
+          action: controller.navigation_actions.first
         )
       end
       redirect_to to_path
