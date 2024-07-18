@@ -10,7 +10,7 @@
       <span class="count"><%= @returns_by_status_count %></span>
       <span>/<%= @returns_by_status_total %></span>
     </div>
-    <div class="description"><%= I18n.t("hub.dashboard.show.total_returns_in", stage: "<span class=\"\"style='font-weight:bold'>#{I18n.t("hub.tax_returns.stage.#{params[:stage]}")}</span>".html_safe).html_safe %></div>
+    <div class="description"><%= I18n.t("hub.dashboard.show.total_returns_in_html", stage: I18n.t("hub.tax_returns.stage.#{params[:stage]}")).html_safe %></div>
   <% end %>
 </div>
 <%= form_tag returns_by_status_hub_dashboard_index_path, method: :get, remote: true do |f| %>

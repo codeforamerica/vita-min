@@ -978,7 +978,7 @@ es:
         returns_by_status: Devoluciones por estado
         title: Panel
         total_number_of_returns: Número total de devoluciones
-        total_returns_in: Rentabilidad total en [%{stage}]
+        total_returns_in_html: Rentabilidad total en [<strong>%{stage}</strong>]
         view_all: Ver todo
     documents:
       confirm:
