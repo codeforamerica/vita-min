@@ -570,6 +570,7 @@ Rails.application.routes.draw do
         end
       end
 
+      # constraint on us state is like /az|ny/i
       scope ':us_state', constraints: { us_state: Regexp.new(active_state_codes.join("|"), Regexp::IGNORECASE) } do
         resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
         resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
