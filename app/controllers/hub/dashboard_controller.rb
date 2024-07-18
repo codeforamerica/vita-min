@@ -159,22 +159,22 @@ module Hub
         num_returns_by_status = num_returns_by_status.where(clients: { vita_partner_id: @selected.id })
       end
 
-      @returns_by_status_count = @returns_by_status_total = num_returns_by_status.map { |row| row.num_records }.sum
+      @returns_by_status_total = num_returns_by_status.map { |row| row.num_records }.sum
 
       returns_by_status = (
         if stage.present?
-          stage, states = available_stage_and_states.find { |stage_and_states| stage_and_states[0] == stage }
+          stage, states = available_stage_and_states.find { |available_stage, _| available_stage == stage }
           states.map do |state|
-            num_returns_for_status = num_returns_by_status.find{ |row| state.ends_with?(row.state) }
+            num_returns_for_status = num_returns_by_status.find { |row| state.ends_with?(row.state) }
             value = num_returns_for_status ? num_returns_for_status.num_records : 0
             ReturnSummary.new(state, value, :status, stage, 0)
           end
         else
-          available_stage_and_states.map do |stage_and_states|
+          available_stage_and_states.map do |available_stage, available_states|
             value = num_returns_by_status.filter do |row|
-              stage_and_states[1].include?(row.state)
+              available_states.include?(row.state)
             end.sum { |row| row.num_records }
-            ReturnSummary.new(stage_and_states[0], value, :stage, stage_and_states[0], 0)
+            ReturnSummary.new(available_stage, value, :stage, available_stage, 0)
           end
         end
       )
