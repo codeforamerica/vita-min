@@ -15,7 +15,6 @@ module Hub
       end
 
       def load_clients
-        # Definitely useful!
         @clients = @tax_return_selection.clients.accessible_by(current_ability)
       end
 
