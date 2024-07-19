@@ -193,13 +193,13 @@ describe Ctc::Portal::VerificationAttemptsController do
         end
         let(:active_storage_double) { double }
         before do
-          allow_any_instance_of(VerificationAttempt).to receive(:send).and_return active_storage_double
+          allow_any_instance_of(VerificationAttempt).to receive(:selfie).and_return active_storage_double
           allow(active_storage_double).to receive(:purge_later)
         end
 
         it "will purge the associated record" do
           delete :destroy, params: params
-          expect(assigns(:verification_attempt)).to have_received(:send).with("selfie")
+          expect(assigns(:verification_attempt)).to have_received(:selfie)
           expect(active_storage_double).to have_received(:purge_later)
           expect(response).to redirect_to ctc_portal_verification_attempt_path
         end
