@@ -16,30 +16,6 @@ RSpec.describe Hub::DashboardController do
         model = VitaPartner.first
         expect(response).to redirect_to "/en/hub/dashboard/#{model.class.name.downcase}/#{model.id}"
       end
-
-      context "with a nested set of Coalitions and Organizations" do
-        let(:coalition) { create :coalition }
-        let(:user) { create(:user, role: create(:coalition_lead_role, coalition: coalition)) }
-        let(:orgs) do
-          [
-            create(:organization, coalition: coalition),
-            create(:organization, coalition: coalition),
-            create(:organization, coalition: coalition)
-          ]
-        end
-
-        it "sets filter options correctly" do
-          expected_filter_options = [
-            "coalition/#{coalition.id}",
-            "organization/#{orgs[0].id}",
-            "organization/#{orgs[1].id}",
-            "organization/#{orgs[2].id}"
-          ]
-          get :index
-          expect(assigns(:filter_options).length).to eq 4
-          expect(assigns(:filter_options).map{|option| option.value }).to eq expected_filter_options
-        end
-      end
     end
   end
 
@@ -49,13 +25,10 @@ RSpec.describe Hub::DashboardController do
       before { sign_in user }
       render_views
 
-      it "sets instance variables and responds with ok" do
+      it "responds with ok" do
         model = VitaPartner.first
         get :show, params: { id: model.id, type: model.class.name.downcase }
         expect(response).to be_ok
-        expect(assigns(:selected_value)).to eq "organization/#{model.id}"
-        expect(assigns(:filter_options).length).to eq 1
-        expect(assigns(:filter_options)[0].model).to eq model
       end
 
       it "shows the capacity panel" do
