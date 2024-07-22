@@ -24,7 +24,6 @@
     "jquery-ui": "^1.13.2",
     "mini-css-extract-plugin": "^2.7.6",
     "regenerator-runtime": "^0.13.7",
-    "sane": "^5.0.1",
     "shakapacker": "7.1.0",
     "stickybits": "^3.7.9",
     "style-loader": "^2.0.0",
