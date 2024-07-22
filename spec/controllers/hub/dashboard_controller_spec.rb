@@ -47,6 +47,13 @@ RSpec.describe Hub::DashboardController do
         expect(response.body).to have_text I18n.t('hub.dashboard.show.returns_by_status')
         expect(response.body.scan(/<div class=\"bar\" style=\"width:0%;\" title=\"0%\"><\/div>/).length).to eq(4)
       end
+
+      it "shows the resources panel" do
+        model = VitaPartner.first
+        get :show, params: { id: model.id, type: model.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.title')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.newsletter')
+      end
     end
   end
 

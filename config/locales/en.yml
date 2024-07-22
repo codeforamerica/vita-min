@@ -966,6 +966,10 @@ en:
         current_capacity: Current Capacity
         filter_by_stage: Filter by Stage
         org_name: Organization Name
+        resources:
+          hub_training: Hub Trainings
+          newsletter: GYR Newsletter
+          title: Resources
         returns_by_status: Returns by Status
         title: Dashboard
         total_number_of_returns: Total number of returns

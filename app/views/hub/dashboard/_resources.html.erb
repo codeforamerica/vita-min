@@ -1,4 +1,16 @@
 <div class="card">
-  <h2>Resources</h2>
-  <p>TODO: Implement</p>
+  <h2><%= t('hub.dashboard.show.resources.title') %></h2>
+  <div class="resources">
+    <a target="_blank" rel="noopener nofollow" href="https://codeforamerica-partnersupport.coassemble.com/c/gyr-training-vitavols">
+      <div>
+        <%= image_tag('training.svg', alt: "") %>
+        <span><%= t('hub.dashboard.show.resources.hub_training') %></span>
+      </div>
+    </a>
+
+    <a target="_blank" rel="noopener nofollow" href="https://www.notion.so/cfa/GetYourRefund-Partner-Newsletter-fe56b3f09fa140fc970b310dca596202">
+      <%= image_tag('newsletter.svg', alt: "") %>
+      <span><%= t('hub.dashboard.show.resources.newsletter') %></span>
+    </a>
+  </div>
 </div>
