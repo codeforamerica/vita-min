@@ -59,6 +59,15 @@ describe Hub::Clients::BankAccountsController, type: :controller do
           expect(response.body).to include(archived_bank_account.routing_number)
         end
       end
+
+      context "for a greeter" do
+        let(:user) { create(:greeter_user) }
+
+        it "prevents access" do
+          get :show, params: params, format: :js, xhr: true
+          expect(response).to be_forbidden
+        end
+      end
     end
   end
 
