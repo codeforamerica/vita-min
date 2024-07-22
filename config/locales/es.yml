@@ -973,6 +973,10 @@ es:
         capacity: Capacidad
         current_capacity: Capacidad actual
         org_name: Nombre de la Organización
+        resources:
+          hub_training: Capacitaciones centrales
+          newsletter: Boletín GYR
+          title: Recursos
         title: Panel
         view_all: Ver todo
     documents:

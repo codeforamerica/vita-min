@@ -67,6 +67,13 @@ RSpec.describe Hub::DashboardController do
         # Count instances of substring - note: string.count doesn't do this!
         expect(response.body.scan(/organization-link/).length).to eq(1)
       end
+
+      it "shows the resources panel" do
+        model = VitaPartner.first
+        get :show, params: { id: model.id, type: model.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.title')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.newsletter')
+      end
     end
   end
 end
