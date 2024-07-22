@@ -16,7 +16,7 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @consumer = Mixpanel::Consumer.new
+    @consumer = Mixpanel::BufferedConsumer.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
       send_event_to_mixpanel(type, message)
     end
@@ -37,6 +37,7 @@ class MixpanelService
   # @param [Hash] data: (optional, defaults to {}) data to be sent to mixpanel
   #
   def run(distinct_id:, event_name:, data: {})
+    # ZZZZ
     @tracker.track(distinct_id, event_name, data)
   rescue StandardError => err
     Rails.logger.error "Error tracking analytics event #{err}"
