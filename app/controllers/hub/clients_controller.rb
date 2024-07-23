@@ -179,7 +179,11 @@ module Hub
       resource_id = params[:id]
       resource_name = params[:resource]
       redirect_to hub_clients_path and return unless resource_name
-      resource = resource_name.camelize.constantize.find(resource_id)
+      resource = Fraud::Indicator.reference_to_resource(resource_name)&.find(resource_id)
+
+      # When the resource is not valid, resource is nil. We ought to do a regular 404 in that case
+      raise ActiveRecord::RecordNotFound unless resource
+
       client = resource.is_a?(Client) ? resource : resource.client
       redirect_to hub_client_path(id: client)
     end

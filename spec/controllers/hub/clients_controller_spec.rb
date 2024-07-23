@@ -1454,6 +1454,16 @@ RSpec.describe Hub::ClientsController do
           expect(response).to redirect_to hub_client_path(id: client.id)
         end
       end
+
+      context "when the resource is an invalid resource" do
+        let(:client) { create :client}
+
+        it "should be an internal error" do
+          expect {
+            get :resource_to_client_redirect, params: {id: client.id, resource: "foobar"}
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
     end
   end
 

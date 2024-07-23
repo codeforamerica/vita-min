@@ -18,14 +18,6 @@ class TaxReturnAssignmentService
     end
   end
 
-  def not_already_assigned?
-    @assigned_user.present? &&
-      (
-        ([OrganizationLeadRole::TYPE].include?(@assigned_user.role_type) && @assigned_user.role.vita_partner_id != @client.vita_partner_id) ||
-        ([TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE].include?(@assigned_user.role_type) && !@assigned_user.role.sites.map(&:id).include?(@client.vita_partner_id))
-      )
-  end
-
   def send_notifications
     if @assigned_user.present? && (@assigned_user != @assigned_by)
       UserNotification.create!(
@@ -46,6 +38,19 @@ class TaxReturnAssignmentService
         )
       )
       SendInternalEmailJob.perform_later(internal_email)
+    end
+  end
+
+  private
+
+  def not_already_assigned?
+    return false unless @assigned_user.present?
+    case @assigned_user.role_type
+    when OrganizationLeadRole::TYPE
+      valid_vita_partner_ids =  @assigned_user.role.organization.child_sites.pluck(:id) << @assigned_user.role.vita_partner_id
+      !valid_vita_partner_ids.include?(@client.vita_partner_id)
+    when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
+      !@assigned_user.role.sites.pluck(:id).include?(@client.vita_partner_id)
     end
   end
 end

@@ -88,11 +88,11 @@ module StateFile
     end
 
     def service_type
-      case params[:us_state]
-      when "az" then :statefile_az
-      when "ny" then :statefile_ny
-      when "us" then :statefile
-      end
+      :statefile
+    end
+
+    def state_code
+      StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : nil
     end
 
     def sign_in_and_redirect

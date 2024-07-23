@@ -11,6 +11,13 @@
         </div>
 
         <% if current_user %>
+          <% if Flipper.enabled?(:hub_dashboard) && (current_user.site_coordinator? || current_user.coalition_lead? || current_user.org_lead?) %>
+            <%= render "hub/components/menu_item",
+                       link: hub_dashboard_index_path,
+                       item_label: "Dashboard",
+                       icon_path: image_path("icons/dashboard.svg")
+            %>
+          <% end %>
           <%= render "hub/components/menu_item",
                      link: hub_clients_path,
                      item_label: "All Clients",

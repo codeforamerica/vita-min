@@ -959,6 +959,17 @@ en:
         assign_to_label: Assign to
         save_and_add: Save and add another
         title: Add a new CTC client
+    dashboard:
+      show:
+        capacity: Capacity
+        current_capacity: Current Capacity
+        org_name: Organization Name
+        resources:
+          hub_training: Hub Trainings
+          newsletter: GYR Newsletter
+          title: Resources
+        title: Dashboard
+        view_all: View All
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
@@ -2130,6 +2141,31 @@ en:
           title:
             one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
+      az_eligibility_out_of_state_income:
+        edit:
+          expenses_helper_heading: What are qualifying and non-qualifying expenses?
+          expenses_helper_no_if: 'Select ''no'' if:'
+          expenses_helper_no_nothing_withdrawn: You didn't withdraw money from a 529 account at all.
+          expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
+          expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
+          expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          title: First, let's see if you can use this tool to file your taxes
+          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
+      az_eligibility_residence:
+        edit:
+          filing_status_married_filing_separately: Are you filing as “married filing separately”?
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
+          mfs_helper_heading: What does “married filing separately” mean?
+          mfs_helper_no_if: 'Select no if:'
+          mfs_helper_no_mfj: You are married and filing jointly on both your federal and state returns.
+          mfs_helper_no_unmarried: You are not married.
+          mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
+          mfs_helper_yes_if: 'Select yes if:'
+          mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
@@ -2286,33 +2322,6 @@ en:
               list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
           vita_link: Get started with VITA now
-      eligibility_out_of_state_income:
-        edit:
-          expenses_helper_heading: What are qualifying and non-qualifying expenses?
-          expenses_helper_no_if: 'Select ''no'' if:'
-          expenses_helper_no_nothing_withdrawn: You didn't withdraw money from a 529 account at all.
-          expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
-          expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
-          expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
-          part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
-          title: First, let's see if you can use this tool to file your taxes
-          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
-      eligibility_residence:
-        edit:
-          filing_status_married_filing_separately: Are you filing as “married filing separately”?
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
-          lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
-          mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
-          mfs_helper_heading: What does “married filing separately” mean?
-          mfs_helper_no_if: 'Select no if:'
-          mfs_helper_no_mfj: You are married and filing jointly on both your federal and state returns.
-          mfs_helper_no_unmarried: You are not married.
-          mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
-          mfs_helper_yes_if: 'Select yes if:'
-          mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
-          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
       eligible:
         az_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
@@ -2470,6 +2479,17 @@ en:
             title: What are qualifying and non-qualifying expenses?
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529: In 2023, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
+      ny_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+          title: First, let's see if you can use this tool to file your taxes
+      ny_eligibility_residence:
+        edit:
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       ny_permanent_address:
         edit:
           address_header: Address

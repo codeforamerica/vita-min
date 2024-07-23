@@ -968,6 +968,17 @@ es:
         assign_to_label: Asignado a
         save_and_add: Guardar y agregar otro
         title: Agregar un nuevo cliente
+    dashboard:
+      show:
+        capacity: Capacidad
+        current_capacity: Capacidad actual
+        org_name: Nombre de la Organización
+        resources:
+          hub_training: Capacitaciones centrales
+          newsletter: Boletín GYR
+          title: Recursos
+        title: Panel
+        view_all: Ver todo
     documents:
       confirm:
         text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
@@ -2089,6 +2100,31 @@ es:
             many: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
             one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
             other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
+      az_eligibility_out_of_state_income:
+        edit:
+          expenses_helper_heading: "¿Cuáles son los gastos que califican y los que no califican?"
+          expenses_helper_no_if: 'Selecciona ''no'' si:'
+          expenses_helper_no_nothing_withdrawn: No retiraste dinero de una cuenta 529 en absoluto.
+          expenses_helper_no_qualifying: Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o
+          expenses_helper_nonqualifying_description: La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
+          expenses_helper_qualifying_description: Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.
+          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
+          used_529_for_non_qual_expense_html: ¿Retiraste (o tu cónyuge, si presentan la declaración juntos) dinero de una <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">cuenta de ahorro universitario 529</a> y lo usaste para gastos que no califican en el 2023?
+      az_eligibility_residence:
+        edit:
+          filing_status_married_filing_separately: "¿Estás presentando tu declaración como “Casado presentando por separado”? "
+          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
+          mfs_helper_description: El estado civil de "casado presentando separado" es una opción para presentar la declaración de impuestos para personas que están legalmente casadas pero que deciden presentar declaraciones por separado.
+          mfs_helper_heading: ¿Qué quiere decir "Casado presentando por separado”?
+          mfs_helper_no_if: 'Selecciona no si:'
+          mfs_helper_no_mfj: Estás casado y estás presentado conjuntamente tus declaraciones, tanto federal como estatal.
+          mfs_helper_no_unmarried: No estás casado.
+          mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
+          mfs_helper_yes_if: 'Selecciona ''sí'' si::'
+          mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
+          subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
@@ -2252,33 +2288,6 @@ es:
               list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           vita_link: Solicitar asistencia de un voluntario VITA
-      eligibility_out_of_state_income:
-        edit:
-          expenses_helper_heading: "¿Cuáles son los gastos que califican y los que no califican?"
-          expenses_helper_no_if: 'Selecciona ''no'' si:'
-          expenses_helper_no_nothing_withdrawn: No retiraste dinero de una cuenta 529 en absoluto.
-          expenses_helper_no_qualifying: Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o
-          expenses_helper_nonqualifying_description: La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
-          expenses_helper_qualifying_description: Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.
-          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
-          part_year_nyc_resident_html: "¿Fuiste (o tu cónyuge, si presentan la declaración juntos) residente de la ciudad de Nueva York durante algún momento del 2023? (¿Te mudaste dentro o fuera de la ciudad durante el 2023?) <br><br> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
-          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
-          used_529_for_non_qual_expense_html: ¿Retiraste (o tu cónyuge, si presentan la declaración juntos) dinero de una <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">cuenta de ahorro universitario 529</a> y lo usaste para gastos que no califican en el 2023?
-      eligibility_residence:
-        edit:
-          filing_status_married_filing_separately: "¿Estás presentando tu declaración como “Casado presentando por separado”? "
-          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
-          lived_or_income_in_yonkers_html: "¿<strong>Viviste, recibiste ingresos o mantuviste un hogar</strong> (y tu cónyuge, si presentan la declaración juntos) en Yonkers en algún momento del 2023?"
-          mfs_helper_description: El estado civil de "casado presentando separado" es una opción para presentar la declaración de impuestos para personas que están legalmente casadas pero que deciden presentar declaraciones por separado.
-          mfs_helper_heading: ¿Qué quiere decir "Casado presentando por separado”?
-          mfs_helper_no_if: 'Selecciona no si:'
-          mfs_helper_no_mfj: Estás casado y estás presentado conjuntamente tus declaraciones, tanto federal como estatal.
-          mfs_helper_no_unmarried: No estás casado.
-          mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
-          mfs_helper_yes_if: 'Selecciona ''sí'' si::'
-          mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
-          subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
-          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
       eligible:
         az_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
@@ -2444,6 +2453,17 @@ es:
             title: "¿Cuáles son los gastos que califican y los que no califican?"
           title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
           withdraw_529: En el 2023, ¿contribuiste a una <u>cuenta de ahorros universitarios 529</u>, o retiraste dinero de una cuenta 529 y los usaste para gastos no calificados?
+      ny_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
+          part_year_nyc_resident_html: "¿Fuiste (o tu cónyuge, si presentan la declaración juntos) residente de la ciudad de Nueva York durante algún momento del 2023? (¿Te mudaste dentro o fuera de la ciudad durante el 2023?) <br><br> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
+      ny_eligibility_residence:
+        edit:
+          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
+          lived_or_income_in_yonkers_html: "¿<strong>Viviste, recibiste ingresos o mantuviste un hogar</strong> (y tu cónyuge, si presentan la declaración juntos) en Yonkers en algún momento del 2023?"
+          subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
+          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
       ny_permanent_address:
         edit:
           address_header: Dirección

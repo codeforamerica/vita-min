@@ -172,14 +172,6 @@ class StateFileNyIntake < StateFileBaseIntake
     district&.county_code
   end
 
-  def tax_calculator(include_source: false)
-    Efile::Ny::It201.new(
-      year: MultiTenantService.statefile.current_tax_year,
-      intake: self,
-      include_source: include_source
-    )
-  end
-
   def calculate_sales_use_tax
     fed_agi = direct_file_data&.fed_agi
 

@@ -22,8 +22,6 @@ describe MultiTenantService do
       expect(described_class.new(:ctc).url(locale: "en")).to eq "https://getctc.org/en"
       expect(described_class.new(:gyr).url(locale: "es")).to eq "https://getyourrefund.org/es"
       expect(described_class.new(:statefile).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en"
-      expect(described_class.new(:statefile_az).url(locale: "es")).to eq "https://fileyourstatetaxes.org/es/az/questions/landing-page"
-      expect(described_class.new(:statefile_ny).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en/ny/questions/landing-page"
     end
   end
 
@@ -108,8 +106,6 @@ describe MultiTenantService do
       expect {
         described_class.new(:statefile).intake_model
       }.to raise_error StandardError
-      expect(described_class.new(:statefile_az).intake_model).to eq StateFileAzIntake
-      expect(described_class.new(:statefile_ny).intake_model).to eq StateFileNyIntake
     end
   end
 end

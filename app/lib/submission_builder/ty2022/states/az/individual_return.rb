@@ -3,7 +3,7 @@ module SubmissionBuilder
   module Ty2022
     module States
       module Az
-        class IndividualReturn < SubmissionBuilder::Document
+        class IndividualReturn < StateReturn
           include DependentRelationshipTable
 
           FILING_STATUS_OPTIONS = {
@@ -11,7 +11,7 @@ module SubmissionBuilder
             :head_of_household => 'HeadHousehold',
             :married_filing_separately => 'MarriedFilingSeparateReturn',
             :single => "Single"
-          }
+          }.freeze
 
           STANDARD_DEDUCTIONS = {
             single: 12950,
@@ -20,26 +20,29 @@ module SubmissionBuilder
             head_of_household: 19400,
           }.freeze
 
-          def document
-            document = build_xml_doc('efile:ReturnState', stateSchemaVersion: "AZIndividual2023v1.0")
-            document.at("ReturnState").add_child(authentication_header)
-            document.at("ReturnState").add_child(return_header)
-            document.at("ReturnState").add_child("<ReturnDataState></ReturnDataState>")
-            document.at("ReturnDataState").add_child(documents_wrapper)
-            attached_documents.each do |attached|
-              document.at('ReturnDataState').add_child(document_fragment(attached))
-            end
+          private
+
+          def attached_documents_parent_tag
+            'ReturnDataState'
+          end
+
+          def build_xml_doc_tag
+            'efile:ReturnState'
+          end
+
+          def state_schema_version
+            "AZIndividual2023v1.0"
+          end
+
+          def form1099g_builder
+            SubmissionBuilder::Ty2022::States::Az::Documents::State1099G
+          end
+
+          def build_state_specific_tags(document)
             if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
               document.at("ReturnState").add_child(financial_transaction)
             end
-            document
           end
-
-          def pdf_documents
-            included_documents.map { |item| item if item.pdf }.compact
-          end
-
-          private
 
           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
@@ -170,18 +173,6 @@ module SubmissionBuilder
             FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
           end
 
-          def document_fragment(document)
-            document[:xml_class].build(@submission, validate: false, kwargs: document[:kwargs]).document.at("*")
-          end
-
-          def authentication_header
-            SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
-          end
-
-          def return_header
-            SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
-          end
-
           def financial_transaction
             SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
               @submission,
@@ -192,18 +183,6 @@ module SubmissionBuilder
 
           def schema_file
             SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd")
-          end
-
-          def attached_documents
-            @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
-          end
-
-          def xml_documents
-            included_documents.map { |item| item if item.xml }.compact
-          end
-
-          def included_documents
-            supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
           end
 
           def supported_documents
@@ -220,26 +199,8 @@ module SubmissionBuilder
               }
             ]
 
-            @submission.data_source.direct_file_data.w2s.each_with_index do |w2, i|
-              intake = @submission.data_source
-              intake_w2 = intake.state_file_w2s.find {|w2| w2.w2_index == i } if intake.state_file_w2s.present?
-
-              supported_docs << {
-                xml: SubmissionBuilder::Shared::ReturnW2,
-                pdf: nil,
-                include: true,
-                kwargs: { w2: w2, intake_w2: intake_w2 }
-              }
-            end
-
-            @submission.data_source.state_file1099_gs.each do |form1099g|
-              supported_docs << {
-                xml: SubmissionBuilder::Ty2022::States::Az::Documents::State1099G,
-                pdf: nil,
-                include: true,
-                kwargs: { form1099g: form1099g }
-              }
-            end
+            supported_docs += combined_w2s
+            supported_docs += form1099gs
             supported_docs
           end
 

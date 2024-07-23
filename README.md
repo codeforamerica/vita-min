@@ -79,19 +79,7 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 brew install git-duet/tap/git-duet
 ```
 
-### Add efile resources locally
-
-In development, we need to download the IRS e-file schemas zip manually from S3.
-
-> ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
-
-Run this rake task to get a list of missing schemas, where to download them from, and where to put them.
-
-```
-rake setup:unzip_efile_schemas
-```
-
-### Setup script
+#### Setup script
 
 There is a setup script that handles virtually everything with a single command:
 
@@ -99,8 +87,41 @@ There is a setup script that handles virtually everything with a single command:
 # In the root of vita-min
 bin/setup
 ```
+> ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
 
-#### Troubleshooting during setup
+
+#### Add efile resources locally
+
+In development, we need to download the IRS e-file schemas zip manually from S3.
+
+> ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
+
+Run this rake task to get a list of missing schemas, where to download them from, and where to put them. You might need to ask CfA staff for access if you do not have access to the Google drives.
+
+```
+rake setup:unzip_efile_schemas
+```
+
+#### Adding Credential Files
+
+You need to add the following credential files under the `config/credentials` folder:
+
+- `development.key`
+- `demo.key`
+- `production.key`
+
+And also add the `master.key` file in the `config` folder.
+
+You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
+
+#### Download the GYR Efiler
+
+Download the GYR Efiler to run tests locally by executing:
+```sh
+rails setup:download_gyr_efiler
+```
+
+### Troubleshooting during setup
 
 **Is the server running locally and accepting connections on Unix domain socket "/tmp/.s.PGSQL.5432"?**
 
@@ -142,7 +163,15 @@ See also [this upgrade guide](https://quaran.to/Upgrade-PostgreSQL-from-12-to-13
 
 If this doesn't get Postgres out of `error` state, or you otherwise can't figure out what's going wrong, ask for help in #tax-eng and say that you tried the instructions in the README.
 
-### Run the server
+#### Java Installation for pdftk on macOS
+
+To run pdftk on macOS, you need to have Java installed correctly. Use the following commands to install Java:
+
+```sh
+AdoptOpenJDK/openjdk && brew install adoptopenjdk8
+```
+
+## Run the server
 
 To get the server running run:
 

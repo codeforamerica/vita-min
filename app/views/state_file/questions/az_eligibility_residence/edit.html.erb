@@ -1,0 +1,52 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p class="subtitle"><%= t(".subtitle") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="blue-group">
+      <%= f.cfa_radio_set(
+            :eligibility_lived_in_state,
+            label_text: t(".lived_in_state_html", state: current_state_name),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+
+    <div class="blue-group">
+      <%= f.cfa_radio_set(
+            :eligibility_married_filing_separately,
+            label_text: t(".filing_status_married_filing_separately"),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__link"><%= t('.mfs_helper_heading') %></a></p>
+      <div class="reveal__content">
+        <p><%= t('.mfs_helper_description') %></p>
+
+        <p class="text--bold"><%= t('.mfs_helper_yes_if') %></p>
+        <ul>
+          <li><%= t('.mfs_helper_yes_federal_mfs') %></li>
+          <li><%= t('.mfs_helper_yes_state_mfs') %></li>
+        </ul>
+
+        <p class="text--bold spacing-above-25"><%= t('.mfs_helper_no_if') %></p>
+        <ul>
+          <li><%= t('.mfs_helper_no_unmarried') %></li>
+          <li><%= t('.mfs_helper_no_mfj') %></li>
+        </ul>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

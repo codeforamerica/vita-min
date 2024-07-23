@@ -5,29 +5,45 @@
   <div class="slab">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <h1><%= @main_heading %></h1>
+        <div style="display: flex; align-items: center;">
+          <h1 style="flex-grow: 1;"><%= @main_heading %></h1>
+          <% StateFile::StateInformationService.state_code_to_name_map.each do |state_code, state_name| %>
+            <%= link_to url_for(us_state: state_code), style: "margin-left: 1rem;#{@us_state == state_code ? "font-weight: bold;" : ""}" do %>
+              <%= state_name %>
+            <% end %>
+          <% end %>
+          <%= form_tag "", method: :get do %>
+            <%= hidden_field_tag(:us_state, @intake.state_code) %>
+            <%= text_field_tag(:intake_id, params[:intake_id], placeholder: "Intake Id", style: "margin-left: 1rem;") %>
+          <% end %>
+        </div>
 
-        <% @messages.each do |message_class, email| %>
-          <h2>
-            <%= message_class.respond_to?(:name) ? message_class.name.capitalize() : message_class %>
-          </h2>
-          <div class="client-messages-container" style="display: flex;">
-            <div class="with-padding-med" style="display: inline-block; width: 60%; margin-right: 16px; z-index: 3;">
-              <div class="client-messages__email">
-                <div class="email__subject">
-                  <%= email.subject %>
+        <% @messages.each do |message_class| %>
+          <div class="client-messages-container client-messages__email with-padding-med" style="background: #F7F7F7;">
+            <h1>
+              <%= message_class.respond_to?(:name) ? message_class.name.capitalize() : message_class %>
+            </h1>
+            <% @locales.each do |locale| %>
+              <% email = email_message(message_class, locale) %>
+              <div class="client-messages-container client-messages__email with-padding-med" style="background: #FFF;">
+                <div style="display: flex;">
+                  <div class="email__subject" style="flex-grow: 1;"><%= email.subject %></div>
+                  <div><%= I18n.t("general.language_options.#{locale}") %></div>
                 </div>
-                <div>
-                  <%= content_tag :iframe, nil, style: "width: 100%", sandbox: "allow-same-origin allow-scripts", srcdoc: email.html_part.body.decoded %>
+                <div style="display: flex;">
+                  <div class="with-padding-med" style="display: inline-block; width: 60%; margin-right: 16px; z-index: 3;">
+                    <%= content_tag :iframe, nil, style: "width: 100%", sandbox: "allow-same-origin allow-scripts", srcdoc: email.html_part.body.decoded %>
+                  </div>
+                  <% if message_class.respond_to?(:new) and message_class.new.respond_to?(:sms_body) %>
+                    <div class="with-padding-med" style="display: inline-block; width: 35%; margin-right: 8px;">
+                      <div class="client-messages__sms">
+                        <div style="white-space: pre-line; overflow-x: auto;"><%= sms_body(message_class, locale) %></div>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               </div>
-            </div>
-            <% if message_class.respond_to?(:new) and message_class.new.respond_to?(:sms_body) %>
-              <div class="with-padding-med" style="display: inline-block; width: 35%; margin-right: 8px;">
-                <div class="client-messages__sms">
-                  <div style="white-space: pre-line;"><%= message_class.new.sms_body %></div>
-                </div>
-              </div>
+
             <% end %>
           </div>
         <% end %>
@@ -40,14 +56,16 @@
       function resizeIFrameToFitContent( iFrame ) {
           iFrame.height = iFrame.contentWindow.document.body.scrollHeight + 20;
       }
-      document.querySelectorAll('iframe').forEach((iframe) => {
-          if (iframe.contentDocument.readyState === 'complete') {
-              resizeIFrameToFitContent(iframe);
-          } else {
-              iframe.onload = function () {
+      window.addEventListener("load", () => {
+          document.querySelectorAll('iframe').forEach((iframe) => {
+              if (iframe.contentDocument.readyState === 'complete') {
                   resizeIFrameToFitContent(iframe);
+              } else {
+                  iframe.onload = function () {
+                      resizeIFrameToFitContent(iframe);
+                  }
               }
-          }
+          });
       });
   </script>
 <% end %>
