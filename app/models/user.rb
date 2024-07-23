@@ -241,6 +241,10 @@ class User < ApplicationRecord
     role_type == AdminRole::TYPE && role.state_file?
   end
 
+  def team_member?
+    role_type == TeamMemberRole::TYPE
+  end
+
   def suspended?
     suspended_at.present?
   end

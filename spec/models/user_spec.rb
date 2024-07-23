@@ -570,6 +570,22 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
+  describe "#team_member?" do
+    context "when the user has TeamMemberRole type" do
+      let(:user) { create :team_member_user }
+      it "returns true" do
+        expect(user.team_member?).to be true
+      end
+    end
+
+    context "when the user does not have TeamMemberRole type" do
+      let(:user) { create :coalition_lead_user }
+      it "returns false" do
+        expect(user.team_member?).to be false
+      end
+    end
+  end
+
 
   describe "#state_file_admin?" do
     context "when the user has AdminRole type and state_file is true" do
