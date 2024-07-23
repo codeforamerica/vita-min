@@ -253,6 +253,37 @@ class User < ApplicationRecord
     !suspended?
   end
 
+  # Takes either a singular role symbol or an enumerable of role symbols and
+  # checks if the user has any of those roles.
+  #
+  # @param roles [Enumerable, Symbol] A role as a symbol or enumerable of
+  #   symbols that represent the role or roles being checked for
+  # @return [Boolean] Whether the user is a member of any of the roles
+  def role?(roles)
+    roles = [roles] unless roles.is_a?(Enumerable)
+
+    roles.map do |role|
+      case role
+      when :client_success
+        client_success?
+      when :admin
+        greeter?
+      when :org_lead
+        org_lead?
+      when :site_coordinator
+        site_coordinator?
+      when :coalition_lead
+        coalition_lead?
+      when :state_file_admin
+        state_file_admin?
+      when :team_member
+        team_member?
+      else
+        false
+      end
+    end.any?
+  end
+
   def active_for_authentication?
     # overrides
     super && !suspended?
