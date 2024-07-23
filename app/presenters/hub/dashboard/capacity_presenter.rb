@@ -11,7 +11,7 @@ module Hub
         return @capacity if @capacity
         return if @selected.instance_of? Site
         if @selected.instance_of? Coalition
-          @capacity = @selected.organizations.filter(&:capacity_limit)
+          @capacity = @selected.organizations.filter { |org| org.capacity_limit.present? && org.capacity_limit.positive? }
           @capacity.sort! do |a, b|
             sort_a = (a.active_client_count.to_f / a.capacity_limit)
             sort_b = (b.active_client_count.to_f / b.capacity_limit)
