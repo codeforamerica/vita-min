@@ -3,29 +3,43 @@ module StateFile
     layout "state_file"
 
     def unsubscribe_email
-      matching_intakes = matching_intakes(params[:email_address])
+      verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
-      if matching_intakes.present?
-        matching_intakes.each do |intake|
-          intake.update(unsubscribed_from_email: true)
+      begin
+        email_address = verifier.verify(params[:email_address])
+        matching_intakes = matching_intakes(email_address)
+
+        if matching_intakes.present?
+          matching_intakes.each do |intake|
+            intake.update(unsubscribed_from_email: true)
+          end
+        else
+          flash[:alert] = "No record found"
         end
-      else
-        flash[:alert] = "No record found"
+      rescue ActiveSupport::MessageVerifier::InvalidSignature
+        flash[:alert] = "Invalid unsubscribe link"
       end
     end
 
     def subscribe_email
-      matching_intakes = matching_intakes(params[:email_address])
+      verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
-      if matching_intakes.present?
-        matching_intakes.each do |intake|
-          intake.update(unsubscribed_from_email: false)
+      begin
+        email_address = verifier.verify(params[:email_address])
+        matching_intakes = matching_intakes(email_address)
+
+        if matching_intakes.present?
+          matching_intakes.each do |intake|
+            intake.update(unsubscribed_from_email: false)
+          end
+
+          flash[:notice] = I18n.t("state_file.notifications_settings.subscribe_email.flash")
+          render :unsubscribe_email
+        else
+          flash[:alert] = "No record found"
         end
-
-        flash[:notice] = I18n.t("state_file.notifications_settings.subscribe_email.flash")
-        render :unsubscribe_email
-      else
-        flash[:alert] = "No record found"
+      rescue ActiveSupport::MessageVerifier::InvalidSignature
+        flash[:alert] = "Invalid subscribe link"
       end
     end
 
