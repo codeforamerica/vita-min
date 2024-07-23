@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 set -eou pipefail
 
-pdftk_downloads_dir="${BASH_SOURCE%/*}/downloads"
-cd "$pdftk_downloads_dir/v3.3.3"
+pdftk_downloads_dir="$0/downloads"
+pwd
+cd "/app/vendor/pdftk/downloads/v3.3.3"
 curl -O "https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/v3.3.3/pdftk-all.jar"
-echo "a694d49bd03e1edd4c23b3ba808bc221eb8a8ccfe7bfd2a0a884b2b2fb425188 pdftk-all.jar" | sha256sum --check
+echo "a694d49bd03e1edd4c23b3ba808bc221eb8a8ccfe7bfd2a0a884b2b2fb425188 pdftk-all.jar" | sha256sum -c

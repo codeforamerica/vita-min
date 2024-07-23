@@ -1,20 +1,21 @@
 FROM ruby:3.2.2-alpine3.19
 
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
-RUN apt-get update --allow-releaseinfo-change
+# RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
-RUN apt-get update \
- && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
- && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
- && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
- && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y nodejs yarn python3 python3-pip python3-setuptools \
+RUN apk update \
+ && apk add ca-certificates libpq-dev ghostscript openjdk8-jre poppler-utils curl \
+# && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+# && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+# && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+# && apk update && apk add nodejs yarn python3 python3-pip python3-setuptools \
+ && apk add nodejs yarn python3 py3-pip py3-setuptools \
  && rm -rf /var/lib/apt/lists/*
 
 # If you require additional OS dependencies, install them here:
-# RUN apt-get update \
-#  && apt-get -y install imagemagick nodejs \
+# RUN apk update \
+#  && apk add imagemagick nodejs \
 #  && rm -rf /var/lib/apt/lists/*
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \

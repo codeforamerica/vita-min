@@ -52,7 +52,7 @@
     "jest-junit": "^12.0.0"
   },
   "engines": {
-    "node": ">=12.16 <19.0.0"
+    "node": ">=12.16 <21.0.0"
   },
   "scripts": {
     "test": "jest"
