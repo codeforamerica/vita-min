@@ -333,8 +333,4 @@ class Client < ApplicationRecord
       }
     end
   end
-
-  def has_return_for_every_current_filing_year?
-    (MultiTenantService.new(:gyr).filing_years - tax_returns.pluck(:year)).empty?
-  end
 end

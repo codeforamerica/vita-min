@@ -68,15 +68,18 @@ describe MultiTenantService do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
     end
 
-    around do |example|
-      Timecop.freeze(DateTime.parse("2019-04-14 12:00:00")) do
-        example.run
+    let(:fake_time) { DateTime.parse("2019-04-14 12:00:00") }
+
+    it "returns just the current year for ctc and valid filing years for gyr when using DateTime.now" do
+      Timecop.freeze(fake_time) do
+        expect(described_class.new(:ctc).filing_years).to eq [2017]
+        expect(described_class.new(:gyr).filing_years).to eq [2018, 2017, 2016, 2015]
       end
     end
 
-    it "returns just the current year for ctc and 4 years for gyr" do
-      expect(described_class.new(:ctc).filing_years).to eq [2017]
-      expect(described_class.new(:gyr).filing_years).to eq [2018, 2017, 2016, 2015]
+    it "returns just the current year for ctc and valid filing years for gyr when passed a time" do
+      expect(described_class.new(:ctc).filing_years(fake_time)).to eq [2017]
+      expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2018, 2017, 2016, 2015]
     end
   end
 
