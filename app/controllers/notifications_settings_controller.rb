@@ -1,29 +1,43 @@
 class NotificationsSettingsController < ApplicationController
 
   def unsubscribe_from_emails
-    matching_intakes = matching_intakes(params[:email_address])
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
-    if matching_intakes.present?
-      matching_intakes.each do |intake|
-        intake.update(email_notification_opt_in: "no")
+    begin
+      email_address = verifier.verify(params[:email_address])
+      matching_intakes = matching_intakes(email_address)
+
+      if matching_intakes.present?
+        matching_intakes.each do |intake|
+          intake.update(email_notification_opt_in: "no")
+        end
+      else
+        flash[:alert] = "No record found"
       end
-    else
-      flash[:alert] = "No record found"
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      flash[:alert] = "Invalid unsubscribe link"
     end
   end
 
   def subscribe_to_emails
-    matching_intakes = matching_intakes(params[:email_address])
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
-    if matching_intakes.present?
-      matching_intakes.each do |intake|
-        intake.update(email_notification_opt_in: "yes")
+    begin
+      email_address = verifier.verify(params[:email_address])
+      matching_intakes = matching_intakes(email_address)
+
+      if matching_intakes.present?
+        matching_intakes.each do |intake|
+          intake.update(email_notification_opt_in: "yes")
+        end
+
+        flash[:notice] = I18n.t("notifications_settings.subscribe_to_emails.flash")
+        render :unsubscribe_from_emails
+      else
+        flash[:alert] = "No record found"
       end
-
-      flash[:notice] = I18n.t("notifications_settings.subscribe_to_emails.flash")
-      render :unsubscribe_from_emails
-    else
-      flash[:alert] = "No record found"
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      flash[:alert] = "Invalid subscribe link"
     end
   end
 
