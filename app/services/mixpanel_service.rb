@@ -16,8 +16,7 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    #@consumer = Mixpanel::BufferedConsumer.new
-    @consumer = Mixpanel::Consumer.new
+    @consumer = Mixpanel::BufferedConsumer.new(nil, nil, nil, 10)
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
       send_event_to_mixpanel(type, message)
     end
@@ -54,7 +53,6 @@ class MixpanelService
 
   def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0)
     task = Concurrent::ScheduledTask.new(delay) do
-      Rails.logger "TRACE:send_event_to_mixpanel #{type} #{message}"
       @consumer.send!(type, message)
     rescue StandardError => err
       if num_attempts >= MAX_ATTEMPTS
