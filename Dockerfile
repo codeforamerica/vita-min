@@ -5,28 +5,19 @@ FROM ruby:3.2.2-alpine3.19
 
 # System prerequisites
 RUN apk update \
- && apk add ca-certificates libpq-dev ghostscript openjdk8-jre poppler-utils curl \
-# && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-# && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-# && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-# && apk update && apk add nodejs yarn python3 python3-pip python3-setuptools \
- && apk add nodejs yarn python3 py3-pip py3-setuptools \
- && rm -rf /var/lib/apt/lists/*
-
-# If you require additional OS dependencies, install them here:
-# RUN apk update \
-#  && apk add imagemagick nodejs \
-#  && rm -rf /var/lib/apt/lists/*
+    && apk add build-base git gcompat tzdata ca-certificates libpq-dev ghostscript openjdk8-jre poppler-utils imagemagick curl \
+    && apk add nodejs yarn python3 py3-pip py3-setuptools \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
     SUPERCRONIC=supercronic-linux-amd64 \
     SUPERCRONIC_SHA1SUM=5ddf8ea26b56d4a7ff6faecdd8966610d5cb9d85
 
 RUN curl -fsSLO "$SUPERCRONIC_URL" \
- && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
- && chmod +x "$SUPERCRONIC" \
- && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
- && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+    && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+    && chmod +x "$SUPERCRONIC" \
+    && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+    && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 ADD ./vendor/pdftk /app/vendor/pdftk
 RUN /app/vendor/pdftk/install
@@ -35,9 +26,9 @@ RUN /app/vendor/pdftk/install
 ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
     OPENJDK_SHA1SUM=55848001c21214d30ca1362bace8613ce9733516
 RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
- && echo "${OPENJDK_SHA1SUM}  /tmp/openjdk.tar.gz" | sha1sum -c - \
- && cd /opt && tar xf /tmp/openjdk.tar.gz \
- && rm -f /tmp/openjdk.tar.gz
+    && echo "${OPENJDK_SHA1SUM}  /tmp/openjdk.tar.gz" | sha1sum -c - \
+    && cd /opt && tar xf /tmp/openjdk.tar.gz \
+    && rm -f /tmp/openjdk.tar.gz
 ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
 
 ADD . /app
@@ -53,19 +44,20 @@ RUN set -a \
 RUN set -a \
     && . ./.aptible.env \
     && gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
+    && bundle config --local build.nokogiri --use-system-libraries \
     && bundle install
 
 # Add IRS e-file schemas, which are not in the git repo
 RUN set -a \
- && . ./.aptible.env \
- && bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
+    && . ./.aptible.env \
+    && bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
 
 # Collect assets. This approach is not fully production-ready, but
 # will help you experiment with Aptible Deploy before bothering with assets.
 # Review http://go.aptible.com/assets for production-ready advice.
 RUN set -a \
- && . ./.aptible.env \
- && bundle exec rake assets:precompile
+    && . ./.aptible.env \
+    && bundle exec rake assets:precompile
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
