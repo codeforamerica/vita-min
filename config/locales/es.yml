@@ -970,6 +970,12 @@ es:
         title: Agregar un nuevo cliente
     dashboard:
       show:
+        action_required:
+          client_id: ID de cliente
+          client_name: nombre del cliente
+          no_clients: No hay clientes para mostrar en este momento
+          title: 'Acción requerida: Clientes marcados'
+          updated: Actualizado en
         capacity: Capacidad
         current_capacity: Capacidad actual
         org_name: Nombre de la Organización
