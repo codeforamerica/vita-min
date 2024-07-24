@@ -122,6 +122,7 @@ class TaxReturnStateMachine
   end
 
   def self.available_states_for(role_type:)
+    # TODO: Defaulting to 'all' for unknown roles feels bad
     ALLOWABLE_STATES_BY_ROLE.fetch(role_type, STATES_BY_STAGE)
   end
 end
