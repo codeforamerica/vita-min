@@ -3,15 +3,16 @@ module Hub
     class CapacityPresenter
       attr_reader :selected
 
-      def initialize(selected)
+      def initialize(selected, selected_orgs_and_sites)
         @selected = selected
+        @selected_orgs_and_sites = selected_orgs_and_sites
       end
 
       def capacity
         return @capacity if @capacity
         return if @selected.instance_of? Site
         if @selected.instance_of? Coalition
-          @capacity = @selected.organizations.filter { |org| org.capacity_limit.present? && org.capacity_limit.positive? }
+          @capacity = @selected_orgs_and_sites.filter { |org| org.capacity_limit.present? && org.capacity_limit.positive? }
           @capacity.sort! do |a, b|
             sort_a = (a.active_client_count.to_f / a.capacity_limit)
             sort_b = (b.active_client_count.to_f / b.capacity_limit)

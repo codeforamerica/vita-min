@@ -26,18 +26,9 @@ RSpec.describe Hub::DashboardController do
       before { sign_in user }
       render_views
 
-<<<<<<< HEAD
       it "responds with ok" do
-        model = VitaPartner.first
-        get :show, params: { id: model.id, type: model.class.name.downcase }
-        expect(response).to be_ok
-=======
-      it "sets instance variables and responds with ok" do
         get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
         expect(response).to be_ok
-        expect(assigns(:selected_value)).to eq "organization/#{vita_partner.id}"
-        expect(assigns(:filter_options).length).to eq 1
-        expect(assigns(:filter_options)[0].model).to eq vita_partner
       end
 
       it "shows the action required panel" do
@@ -47,9 +38,9 @@ RSpec.describe Hub::DashboardController do
       end
 
       context "when there are flagged clients in the current product year" do
-        let!(:first_intake) { create :intake, preferred_name: "Joanna", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner)}
-        let!(:second_intake) { create :intake, preferred_name: "Kinsley", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner)}
-        let!(:unflagged_intake) { create :intake, preferred_name: "Lava", client: create(:client, flagged_at: nil, vita_partner: vita_partner)}
+        let!(:first_intake) { create :intake, preferred_name: "Joanna", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner) }
+        let!(:second_intake) { create :intake, preferred_name: "Kinsley", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner) }
+        let!(:unflagged_intake) { create :intake, preferred_name: "Lava", client: create(:client, flagged_at: nil, vita_partner: vita_partner) }
 
         it "shows the flagged clients" do
           get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
@@ -57,7 +48,6 @@ RSpec.describe Hub::DashboardController do
           expect(response.body).to have_text "Kinsley"
           expect(response.body).not_to have_text "Lava"
         end
->>>>>>> main
       end
 
       it "shows the capacity panel" do
@@ -91,10 +81,10 @@ RSpec.describe Hub::DashboardController do
       let(:second_org) { create(:organization, coalition: coalition, name: "MeowWolf") }
       let(:site) { create(:site, parent_organization_id: first_org.id) }
 
-      let!(:first_intake) { create :intake, preferred_name: "Juliet", client: create(:client, flagged_at: nil, vita_partner: first_org)}
-      let!(:second_intake) { create :intake, preferred_name: "Romeo", client: create(:client, flagged_at: Time.now, vita_partner: first_org)}
-      let!(:third_intake) { create :intake, preferred_name: "Benvolio", client: create(:client, flagged_at: Time.now, vita_partner: second_org)}
-      let!(:fourth_intake) { create :intake, preferred_name: "William", client: create(:client, flagged_at: Time.now, vita_partner: site)}
+      let!(:first_intake) { create :intake, preferred_name: "Juliet", client: create(:client, flagged_at: nil, vita_partner: first_org) }
+      let!(:second_intake) { create :intake, preferred_name: "Romeo", client: create(:client, flagged_at: Time.now, vita_partner: first_org) }
+      let!(:third_intake) { create :intake, preferred_name: "Benvolio", client: create(:client, flagged_at: Time.now, vita_partner: second_org) }
+      let!(:fourth_intake) { create :intake, preferred_name: "William", client: create(:client, flagged_at: Time.now, vita_partner: site) }
 
       let!(:admin_user) { create :admin_user }
 
@@ -170,8 +160,5 @@ RSpec.describe Hub::DashboardController do
       # Has width:100% and title="100%"
       expect(response.body.scan(/100%/).length).to eq(2)
     end
-
   end
 end
-
-

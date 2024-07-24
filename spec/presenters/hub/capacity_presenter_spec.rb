@@ -1,10 +1,11 @@
 require "rails_helper"
 
 describe Hub::Dashboard::CapacityPresenter do
-  subject { described_class.new(selected) }
+  subject { described_class.new(selected, selected_orgs_and_sites) }
   let(:coalition) { create :coalition }
-  let!(:oregano_org) { create :organization, name: "Oregano Org", coalition: coalition, capacity_limit: 10 }
-  let!(:orangutan_organization) { create :organization, name: "Orangutan Organization", coalition: coalition, capacity_limit: 5 }
+  let(:oregano_org) { create :organization, name: "Oregano Org", coalition: coalition, capacity_limit: 10 }
+  let(:orangutan_organization) { create :organization, name: "Orangutan Organization", coalition: coalition, capacity_limit: 5 }
+  let(:selected_orgs_and_sites) { [oregano_org, orangutan_organization] }
   before do
     allow(oregano_org).to receive(:active_client_count).and_return(7)
     allow(orangutan_organization).to receive(:active_client_count).and_return(6)

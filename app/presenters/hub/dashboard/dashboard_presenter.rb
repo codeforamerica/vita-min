@@ -40,7 +40,7 @@ module Hub
       end
 
       def capacity_presenter
-        @capacity_presenter ||= Hub::Dashboard::CapacityPresenter.new(selected_model)
+        @capacity_presenter ||= Hub::Dashboard::CapacityPresenter.new(selected_model, selected_orgs_and_sites)
       end
 
       def returns_by_status_presenter
