@@ -962,6 +962,12 @@ en:
         title: Add a new CTC client
     dashboard:
       show:
+        action_required:
+          client_id: Client ID
+          client_name: Client Name
+          no_clients: No clients to display at the moment
+          title: 'Action Required: Flagged Clients'
+          updated: Updated At
         capacity: Capacity
         current_capacity: Current Capacity
         filter_by_stage: Filter by Stage

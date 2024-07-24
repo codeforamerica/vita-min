@@ -4,10 +4,10 @@ module Hub
       attr_reader :stage
       ReturnSummary = Struct.new(:code, :value, :type, :stage)
 
-      def initialize(current_user, current_ability, orgs_and_sites, selected, stage)
+      def initialize(current_user, clients, selected_orgs_and_sites, selected, stage)
         @current_user = current_user
-        @current_ability = current_ability
-        @orgs_and_sites = orgs_and_sites
+        @clients = clients
+        @selected_orgs_and_sites = selected_orgs_and_sites
         @selected = selected
         @stage = stage
       end
@@ -52,19 +52,13 @@ module Hub
 
       def count_tax_returns_by_status
         return @count_tax_returns_by_status if @count_tax_returns_by_status
-        count_tax_returns_by_status = Client.accessible_by(@current_ability)
+        count_tax_returns_by_status = @clients
           .joins(:tax_returns)
-          .where(filterable_product_year: Rails.configuration.product_year)
           .select("current_state as state, count(*) as num_records")
           .group(:state)
-        ids = if @selected.instance_of?(Coalition)
-                @orgs_and_sites.filter {|model| model.coalition_id == @selected.id }
-              else
-                @orgs_and_sites.filter do |model|
-                  model.id == @selected.id || model.parent_organization_id == @selected.id
-                end
-              end
-        @count_tax_returns_by_status = count_tax_returns_by_status.where(clients: { vita_partner_id: ids })
+        @count_tax_returns_by_status = count_tax_returns_by_status.where(clients: {
+          vita_partner: @selected_orgs_and_sites
+        })
       end
     end
   end
