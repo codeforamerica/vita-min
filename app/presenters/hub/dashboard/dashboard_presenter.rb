@@ -74,7 +74,7 @@ module Hub
           add_filter_option(partner, parent_value, options, options_by_value)
         end
         return options if @current_user.coalition_lead?
-        partners.each do |partner|
+        orgs_and_sites.each do |partner|
           next unless partner.type == Site::TYPE
           parent_value = to_option_value(Coalition, partner.coalition_id)
           add_filter_option(partner, parent_value, options, options_by_value)
