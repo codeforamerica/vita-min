@@ -77,7 +77,7 @@ module StateFile
 
       def prev_path
         if @w2s.length > 1 && ["update", "edit"].include?(action_name)
-          return self.class.to_path_helper(action: :index, us_state: current_state_code, return_to_review: params[:return_to_review])
+          return self.class.to_path_helper(action: :index, return_to_review: params[:return_to_review])
         end
         super
       end

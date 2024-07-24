@@ -34,8 +34,8 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
       end
 
       it 'redirects to the next page' do
-        get :edit, params: { authorizationCode: 'abcde', us_state: :ny }
-        expect(response).to redirect_to(StateFile::Questions::DataReviewController.to_path_helper(us_state: :ny))
+        get :edit, params: { authorizationCode: 'abcde'}
+        expect(response).to redirect_to(StateFile::Questions::DataReviewController.to_path_helper)
       end
     end
   end

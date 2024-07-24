@@ -5,7 +5,7 @@ module StateFile
 
     included do
       before_action :require_state_file_intake_login
-      helper_method :current_intake, :current_state_code, :current_state_name
+      helper_method :current_intake, :current_state_code, :current_state_name, :card_postscript
     end
 
     def current_intake
@@ -32,7 +32,8 @@ module StateFile
     def require_state_file_intake_login
       if current_intake.blank?
         session[:after_state_file_intake_login_path] = request.original_fullpath if request.get?
-        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)
+        flash[:notice] = I18n.t("devise.failure.timeout")
+        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
       end
     end
   end

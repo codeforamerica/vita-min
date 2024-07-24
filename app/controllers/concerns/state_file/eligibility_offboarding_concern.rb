@@ -7,7 +7,7 @@ module StateFile
     private
 
     def offboarding_path
-      StateFile::Questions::EligibilityOffboardingController.to_path_helper(us_state: current_state_code)
+      StateFile::Questions::EligibilityOffboardingController.to_path_helper
     end
 
     def next_path

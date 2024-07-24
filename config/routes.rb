@@ -599,7 +599,6 @@ Rails.application.routes.draw do
         put "/landing-page", to: "state_file/landing_page#update"
       end
 
-
       unless Rails.env.production?
         resources :flows, only: [:index, :show] do
           post :generate, on: :collection
