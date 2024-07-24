@@ -77,7 +77,7 @@ class Ability
           current_state: [
             'intake_ready',
             'intake_greeter_info_requested',
-            'intake_need_doc_help',
+            'intake_needs_doc_help',
             'file_not_filing'
           ]
         },
