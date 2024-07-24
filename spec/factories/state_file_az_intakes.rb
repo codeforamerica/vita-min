@@ -113,8 +113,8 @@ FactoryBot.define do
 
     trait :with_az322_contributions do
       after(:build) do |intake|
-        create :az322_contribution, intake: intake
-        create :az322_contribution, intake: intake
+        create :az322_contribution, amount: 405.45, intake: intake
+        create :az322_contribution, amount: 355.21, intake: intake
       end
     end
 
