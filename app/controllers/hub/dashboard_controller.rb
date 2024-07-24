@@ -5,6 +5,9 @@ module Hub
     before_action :load_filter_options, only: [:index, :show]
     helper_method :capacity_css_class
     helper_method :capacity_count
+    before_action :load_clients, only: [:index, :show]
+    authorize_resource :client, parent: false, only: [:index, :show]
+    before_action :load_flagged_clients, only: [:index, :show]
 
     def index
       model = @filter_options.first.model
@@ -19,6 +22,12 @@ module Hub
     end
 
     private
+
+    def selected_vita_partner
+      selected_value = "#{params[:type]}/#{params[:id]}"
+      selected_option = @filter_options.find{ |option| option.value == selected_value }
+      selected_option&.model || @filter_options&.first&.model
+    end
 
     def require_dashboard_user
       is_dashboard_user = (
@@ -83,6 +92,31 @@ module Hub
         add_filter_option(partner, parent_value, options, options_by_value)
       end
       options
+    end
+
+    def load_flagged_clients
+      vita_partner = selected_vita_partner
+      @flagged_clients = @clients.where.not(flagged_at: nil)
+                                 .distinct
+                                 .joins(:intake)
+                                 .merge(Intake.current_product_year)
+
+      valid_vita_partners = case vita_partner
+                            when Coalition
+                              child_orgs = vita_partner.organizations
+                              child_sites = child_orgs.flat_map(&:child_sites)
+                              [vita_partner, *child_orgs, *child_sites]
+                            when Organization
+                              child_sites = VitaPartner.sites.where(parent_organization: vita_partner)
+                              [vita_partner, *child_sites]
+                            when Site
+                              vita_partner
+                            end
+      @flagged_clients = @flagged_clients.where(vita_partner: valid_vita_partners)
+    end
+
+    def load_clients
+      @clients = Client.accessible_by(current_ability)
     end
 
     def self.flatten_filter_options(filter_options, result)
