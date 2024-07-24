@@ -58,8 +58,55 @@ class Ability
     can :read, Organization, id: accessible_groups.pluck(:id)
     can :read, Site, id: accessible_groups.pluck(:id)
 
-    # Anyone can manage clients and client data in the groups they can access
-    can :manage, Client, vita_partner: accessible_groups
+    # This was overly permissive. We should work out what the permissions should
+    # be for each role and reduce this check. As we need to modify this, please
+    # break out the role and specify permissions more granularly
+    client_role_whitelist = [
+      :client_success, :admin, :org_lead, :site_coordinator,
+      :coalition_lead, :state_file_admin, :team_member
+    ].freeze
+
+    if user.role?(client_role_whitelist)
+      can :manage, Client, vita_partner: accessible_groups
+    end
+
+    if user.greeter?
+      # NOTE: that because of the complexity of the look up, we have to define it
+      # twice. Once in the block for individual items and once in call for scope
+      # look ups
+
+      json_params = [
+        [{current_state: "intake_ready"}],
+        [{current_state: "intake_greeter_info_requested"}],
+        [{current_state: "intake_need_doc_help"}],
+        [{current_state: "file_not_filing"}]
+      ]
+
+      json_query = Array.new(json_params.count, "filterable_tax_return_properties @> ?::jsonb").join(" OR ")
+
+      can [:edit, :read],
+        Client,
+        # Funky, I know, but it allows composition of abilities. Still, could be
+        # a regular where if that's not important
+        # ["vita_partner_id IN (?) AND #{json_query}", accessible_groups.pluck(:id), *json_params.map(&:to_json)] do |client|
+        ["vita_partner_id IN (?) AND #{json_query}", accessible_groups.pluck(:id), *json_params.map(&:to_json)] do |client|
+
+        # Results in something like ["intake_ready",
+        # "intake_greeter_info_requested"]. Duplicates possible. Doing it this
+        # way allows us to specify the params a single time and use them in both
+        # places
+        query_values = json_params.flat_map { |value| value[0][:current_state] }
+        state_values = client.filterable_tax_return_properties.map { |props| props['current_state'] }
+
+        # If both in the accessible groups and we detect an overlap between
+        # query values and state values, we're good.
+        [
+          accessible_groups.include?(client.vita_partner),
+          (query_values & state_values).present?
+        ].all?
+      end
+    end
+
     # Only admins can destroy clients
     cannot :destroy, Client unless user.admin?
     can :manage, [

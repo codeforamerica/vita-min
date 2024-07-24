@@ -267,6 +267,8 @@ class User < ApplicationRecord
       when :client_success
         client_success?
       when :admin
+        admin?
+      when :greeter
         greeter?
       when :org_lead
         org_lead?
