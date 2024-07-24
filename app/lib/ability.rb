@@ -88,7 +88,6 @@ class Ability
         Client,
         # Funky, I know, but it allows composition of abilities. Still, could be
         # a regular where if that's not important
-        # ["vita_partner_id IN (?) AND #{json_query}", accessible_groups.pluck(:id), *json_params.map(&:to_json)] do |client|
         ["vita_partner_id IN (?) AND #{json_query}", accessible_groups.pluck(:id), *json_params.map(&:to_json)] do |client|
 
         # Results in something like ["intake_ready",
