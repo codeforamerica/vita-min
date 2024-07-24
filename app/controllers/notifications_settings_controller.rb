@@ -3,6 +3,11 @@ class NotificationsSettingsController < ApplicationController
   def unsubscribe_from_emails
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
+    if params[:email_address].blank?
+      flash[:alert] = "No record found"
+      return
+    end
+
     begin
       email_address = verifier.verify(params[:email_address])
       matching_intakes = matching_intakes(email_address)
@@ -21,6 +26,11 @@ class NotificationsSettingsController < ApplicationController
 
   def subscribe_to_emails
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+
+    if params[:email_address].blank?
+      flash[:alert] = "No record found"
+      return
+    end
 
     begin
       email_address = verifier.verify(params[:email_address])
