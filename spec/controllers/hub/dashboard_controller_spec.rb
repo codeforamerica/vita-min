@@ -46,16 +46,35 @@ RSpec.describe Hub::DashboardController do
   describe "#show" do
 
     context "with an authorized user" do
+      let(:vita_partner) { VitaPartner.first }
       before { sign_in user }
       render_views
 
       it "sets instance variables and responds with ok" do
-        model = VitaPartner.first
-        get :show, params: { id: model.id, type: model.class.name.downcase }
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
         expect(response).to be_ok
-        expect(assigns(:selected_value)).to eq "organization/#{model.id}"
+        expect(assigns(:selected_value)).to eq "organization/#{vita_partner.id}"
         expect(assigns(:filter_options).length).to eq 1
-        expect(assigns(:filter_options)[0].model).to eq model
+        expect(assigns(:filter_options)[0].model).to eq vita_partner
+      end
+
+      it "shows the action required panel" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.action_required.title')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.action_required.client_name')
+      end
+
+      context "when there are flagged clients in the current product year" do
+        let!(:first_intake) { create :intake, preferred_name: "Joanna", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner)}
+        let!(:second_intake) { create :intake, preferred_name: "Kinsley", client: create(:client, flagged_at: Time.now, vita_partner: vita_partner)}
+        let!(:unflagged_intake) { create :intake, preferred_name: "Lava", client: create(:client, flagged_at: nil, vita_partner: vita_partner)}
+
+        it "shows the flagged clients" do
+          get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+          expect(response.body).to have_text "Joanna"
+          expect(response.body).to have_text "Kinsley"
+          expect(response.body).not_to have_text "Lava"
+        end
       end
 
       it "shows the capacity panel" do
@@ -73,6 +92,71 @@ RSpec.describe Hub::DashboardController do
         get :show, params: { id: model.id, type: model.class.name.downcase }
         expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.title')
         expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.newsletter')
+      end
+    end
+
+    context "with an admin user" do
+      let(:coalition) { create :coalition, name: "Montana" }
+      let(:first_org) { create(:organization, coalition: coalition, name: "PawPaw") }
+      let(:second_org) { create(:organization, coalition: coalition, name: "MeowWolf") }
+      let(:site) { create(:site, parent_organization_id: first_org.id) }
+
+      let!(:first_intake) { create :intake, preferred_name: "Juliet", client: create(:client, flagged_at: nil, vita_partner: first_org)}
+      let!(:second_intake) { create :intake, preferred_name: "Romeo", client: create(:client, flagged_at: Time.now, vita_partner: first_org)}
+      let!(:third_intake) { create :intake, preferred_name: "Benvolio", client: create(:client, flagged_at: Time.now, vita_partner: second_org)}
+      let!(:fourth_intake) { create :intake, preferred_name: "William", client: create(:client, flagged_at: Time.now, vita_partner: site)}
+
+      let!(:admin_user) { create :admin_user }
+
+      before { sign_in admin_user }
+      render_views
+
+      context "when selecting the coalition" do
+        let(:params) do
+          {
+            id: coalition.id,
+            type: coalition.class.name.downcase
+          }
+        end
+        it "shows only the flagged clients for that org and its child sites in the action required panel" do
+          get :show, params: params
+          expect(response.body).not_to have_text "Juliet"
+          expect(response.body).to have_text "Romeo"
+          expect(response.body).to have_text "Benvolio"
+          expect(response.body).to have_text "William"
+        end
+      end
+
+      context "when selecting an organization" do
+        let(:params) do
+          {
+            id: first_org.id,
+            type: first_org.class.name.downcase
+          }
+        end
+        it "shows only the flagged clients from that site in the action required panel" do
+          get :show, params: params
+          expect(response.body).not_to have_text "Juliet"
+          expect(response.body).to have_text "Romeo"
+          expect(response.body).not_to have_text "Benvolio"
+          expect(response.body).to have_text "William"
+        end
+      end
+
+      context "when selecting a site" do
+        let(:params) do
+          {
+            id: site.id,
+            type: site.class.name.downcase
+          }
+        end
+        it "shows only the flagged clients from that site in the action required panel" do
+          get :show, params: params
+          expect(response.body).not_to have_text "Juliet"
+          expect(response.body).not_to have_text "Romeo"
+          expect(response.body).not_to have_text "Benvolio"
+          expect(response.body).to have_text "William"
+        end
       end
     end
   end
