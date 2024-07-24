@@ -15,7 +15,6 @@ module Hub
       @selected_value = "#{params[:type]}/#{params[:id]}"
       selected_option = @filter_options.find{ |option| option.value == @selected_value }
       @selected = selected_option.model
-      puts "testing"
       load_capacity
     end
 
