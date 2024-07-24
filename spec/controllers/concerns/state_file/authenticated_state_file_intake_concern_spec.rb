@@ -1,15 +1,33 @@
 require "rails_helper"
 
 RSpec.describe StateFile::AuthenticatedStateFileIntakeConcern, type: :controller do
-  describe "before actions" do
-    controller(ApplicationController) do
-      include StateFile::AuthenticatedStateFileIntakeConcern
+  controller(ApplicationController) do
+    include StateFile::AuthenticatedStateFileIntakeConcern
 
-      def index
-        head :ok
+    def index
+      head :ok
+    end
+  end
+
+  describe "helper methods" do
+    before { sign_in create(:state_file_az_intake) }
+
+    describe "#current_state_code" do
+      context "when there is a logged in intake" do
+        it "returns the state code from the logged in intake" do
+          expect(subject.current_state_code).to eq "az"
+        end
       end
     end
 
+    describe "#current_state_name" do
+      it "returns the state name from the information service based on current_state_code" do
+        expect(subject.current_state_name).to eq "Arizona"
+      end
+    end
+  end
+
+  describe "before actions" do
     context "when a state file intake is not authenticated" do
       it "redirects to a login page" do
         get :index

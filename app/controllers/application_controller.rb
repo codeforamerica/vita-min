@@ -417,8 +417,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
-  def withdrawal_date_deadline
-    case params[:us_state]
+  def withdrawal_date_deadline(state_code)
+    case state_code
     when 'ny'
       Rails.configuration.state_file_withdrawal_date_deadline_ny
     else
@@ -429,14 +429,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :withdrawal_date_deadline
 
-  def before_withdrawal_date_deadline?
-    app_time < withdrawal_date_deadline
+  def before_withdrawal_date_deadline?(state_code)
+    app_time < withdrawal_date_deadline(state_code)
   end
   helper_method :before_withdrawal_date_deadline?
 
-  def post_deadline_withdrawal_date
+  def post_deadline_withdrawal_date(state_code)
     # after the tax deadline we automatically set the bank withdrawal date to be the current day
-    if params[:us_state] == 'ny'
+    case state_code
+    when 'ny'
       app_time.in_time_zone('America/New_York')
     else
       app_time.in_time_zone('America/Phoenix')

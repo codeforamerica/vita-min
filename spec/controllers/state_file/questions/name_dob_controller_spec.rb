@@ -5,7 +5,6 @@ RSpec.describe StateFile::Questions::NameDobController do
   let(:device_id) { "ABC123" }
   let(:params) do
     {
-      us_state: "az",
       state_file_name_dob_form: {
         device_id: device_id,
         primary_first_name: "Jo",
@@ -37,7 +36,7 @@ RSpec.describe StateFile::Questions::NameDobController do
     context "when it is the client's first visit to this page" do
       it "saves the timestamp for the first visit" do
         expect {
-          get :edit, params: { us_state: 'az' }
+          get :edit
           state_file_analytics.reload
         }.to change(state_file_analytics, :name_dob_first_visit_at)
 
@@ -49,7 +48,7 @@ RSpec.describe StateFile::Questions::NameDobController do
       it "does nothing" do
         state_file_analytics.update(name_dob_first_visit_at: 1.day.ago)
         expect {
-          get :edit, params: { us_state: 'az' }
+          get :edit
           state_file_analytics.reload
         }.not_to change(state_file_analytics, :name_dob_first_visit_at)
       end
