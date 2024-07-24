@@ -54,6 +54,7 @@ module Hub
         return @count_tax_returns_by_status if @count_tax_returns_by_status
         count_tax_returns_by_status = Client.accessible_by(@current_ability)
           .joins(:tax_returns)
+          .where(filterable_product_year: Rails.configuration.product_year)
           .select("current_state as state, count(*) as num_records")
           .group(:state)
         ids = if @selected.instance_of?(Coalition)
