@@ -74,7 +74,12 @@ class Ability
       can [:edit, :read],
         Client,
         tax_returns: {
-          current_state: ['intake_ready', 'intake_greeter_info_requested', 'intake_need_doc_help', 'file_not_filing']
+          current_state: [
+            'intake_ready',
+            'intake_greeter_info_requested',
+            'intake_need_doc_help',
+            'file_not_filing'
+          ]
         },
         vita_partner: accessible_groups
     end
