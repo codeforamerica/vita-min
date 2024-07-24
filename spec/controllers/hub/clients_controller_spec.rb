@@ -2086,6 +2086,7 @@ RSpec.describe Hub::ClientsController do
           )
         )
       end
+
       let!(:george_sr_2019_return) do
         create(
           :tax_return,

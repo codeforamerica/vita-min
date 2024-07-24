@@ -71,39 +71,12 @@ class Ability
     end
 
     if user.greeter?
-      # NOTE: that because of the complexity of the look up, we have to define it
-      # twice. Once in the block for individual items and once in call for scope
-      # look ups
-
-      json_params = [
-        [{current_state: "intake_ready"}],
-        [{current_state: "intake_greeter_info_requested"}],
-        [{current_state: "intake_need_doc_help"}],
-        [{current_state: "file_not_filing"}]
-      ]
-
-      json_query = Array.new(json_params.count, "filterable_tax_return_properties @> ?::jsonb").join(" OR ")
-
       can [:edit, :read],
         Client,
-        # Funky, I know, but it allows composition of abilities. Still, could be
-        # a regular where if that's not important
-        ["vita_partner_id IN (?) AND #{json_query}", accessible_groups.pluck(:id), *json_params.map(&:to_json)] do |client|
-
-        # Results in something like ["intake_ready",
-        # "intake_greeter_info_requested"]. Duplicates possible. Doing it this
-        # way allows us to specify the params a single time and use them in both
-        # places
-        query_values = json_params.flat_map { |value| value[0][:current_state] }
-        state_values = client.filterable_tax_return_properties.map { |props| props['current_state'] }
-
-        # If both in the accessible groups and we detect an overlap between
-        # query values and state values, we're good.
-        [
-          accessible_groups.include?(client.vita_partner),
-          (query_values & state_values).present?
-        ].all?
-      end
+        tax_returns: {
+          current_state: ['intake_ready', 'intake_greeter_info_requested', 'intake_need_doc_help', 'file_not_filing']
+        },
+        vita_partner: accessible_groups
     end
 
     # Only admins can destroy clients
