@@ -153,13 +153,37 @@ describe Ability do
       shared_examples :can_manage_but_not_delete_accessible_client do
         context "when the user can access a particular site" do
           let(:accessible_site) { create(:site) }
-          let(:accessible_client) { create(:client, vita_partner: accessible_site) }
+          let(:accessible_client) do
+            create(
+              :client,
+              vita_partner: accessible_site,
+              intake: build(
+                :intake,
+                :filled_out,
+                preferred_name: "George Sr.",
+                needs_help_2019: "yes",
+                needs_help_2018: "yes",
+                preferred_interview_language: "en", locale: "en"
+              ),
+              tax_returns: [
+                build(
+                  :tax_return,
+                  :intake_ready,
+                  year: 2019,
+                  service_type: "drop_off",
+                  filing_status: nil
+                ),
+              ]
+            )
+          end
+
           before do
             allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
           end
 
           it "can access all data for the client" do
-            expect(subject.can?(:manage, accessible_client)).to eq true
+            expect(subject.can?(:read, accessible_client)).to eq true
+            expect(subject.can?(:edit, accessible_client)).to eq true
             expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
