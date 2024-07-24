@@ -10,7 +10,7 @@ class OutgoingEmailMailer < ApplicationMailer
     @body = outgoing_email.body
 
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
-    @signed_email_address = verifier.generate(outgoing_email.to)
+    signed_email = verifier.generate(outgoing_email.to)
 
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
@@ -19,7 +19,7 @@ class OutgoingEmailMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: @signed_email_address
+        email_address: signed_email
       }
     )
     @subject = outgoing_email.subject

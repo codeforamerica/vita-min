@@ -15,7 +15,7 @@ module StateFile
           action: :unsubscribe_email,
           locale: I18n.locale,
           _recall: {},
-          email_address: signed_email.to
+          email_address: signed_email
         }
       )
       mail(

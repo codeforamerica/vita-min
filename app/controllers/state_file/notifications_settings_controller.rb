@@ -5,6 +5,11 @@ module StateFile
     def unsubscribe_email
       verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
+      if params[:email_address].blank?
+        flash[:alert] = "No record found"
+        return
+      end
+
       begin
         email_address = verifier.verify(params[:email_address])
         matching_intakes = matching_intakes(email_address)
@@ -23,6 +28,11 @@ module StateFile
 
     def subscribe_email
       verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+
+      if params[:email_address].blank?
+        flash[:alert] = "No record found"
+        return
+      end
 
       begin
         email_address = verifier.verify(params[:email_address])
