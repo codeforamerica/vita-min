@@ -94,6 +94,71 @@ RSpec.describe Hub::DashboardController do
         expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.newsletter')
       end
     end
+
+    context "with an admin user" do
+      let(:coalition) { create :coalition, name: "Montana" }
+      let(:first_org) { create(:organization, coalition: coalition, name: "PawPaw") }
+      let(:second_org) { create(:organization, coalition: coalition, name: "MeowWolf") }
+      let(:site) { create(:site, parent_organization_id: first_org.id) }
+
+      let!(:first_intake) { create :intake, preferred_name: "Juliet", client: create(:client, flagged_at: nil, vita_partner: first_org)}
+      let!(:second_intake) { create :intake, preferred_name: "Romeo", client: create(:client, flagged_at: Time.now, vita_partner: first_org)}
+      let!(:third_intake) { create :intake, preferred_name: "Benvolio", client: create(:client, flagged_at: Time.now, vita_partner: second_org)}
+      let!(:fourth_intake) { create :intake, preferred_name: "William", client: create(:client, flagged_at: Time.now, vita_partner: site)}
+
+      let!(:admin_user) { create :admin_user }
+
+      before { sign_in admin_user }
+      render_views
+
+      context "when selecting the coalition" do
+        let(:params) do
+          {
+            id: coalition.id,
+            type: coalition.class.name.downcase
+          }
+        end
+        it "shows only the flagged clients for that org and its child sites in the action required panel" do
+          get :show, params: params
+          expect(response.body).not_to have_text "Juliet"
+          expect(response.body).to have_text "Romeo"
+          expect(response.body).to have_text "Benvolio"
+          expect(response.body).to have_text "William"
+        end
+      end
+
+      context "when selecting an organization" do
+        let(:params) do
+          {
+            id: first_org.id,
+            type: first_org.class.name.downcase
+          }
+        end
+        it "shows only the flagged clients from that site in the action required panel" do
+          get :show, params: params
+          expect(response.body).not_to have_text "Juliet"
+          expect(response.body).to have_text "Romeo"
+          expect(response.body).not_to have_text "Benvolio"
+          expect(response.body).to have_text "William"
+        end
+      end
+
+      context "when selecting a site" do
+        let(:params) do
+          {
+            id: site.id,
+            type: site.class.name.downcase
+          }
+        end
+        it "shows only the flagged clients from that site in the action required panel" do
+          get :show, params: params
+          expect(response.body).not_to have_text "Juliet"
+          expect(response.body).not_to have_text "Romeo"
+          expect(response.body).not_to have_text "Benvolio"
+          expect(response.body).to have_text "William"
+        end
+      end
+    end
   end
 end
 
