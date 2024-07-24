@@ -11,6 +11,9 @@ module Hub
         @return_summary_stage = return_summary_stage
       end
 
+      def orgs_and_sites
+        @orgs_and_sites ||= VitaPartner.accessible_by(@current_ability).order(:name)
+      end
       def filter_options
         @filter_options ||= self.class.flatten_filter_options(load_filter_options, [])
       end
@@ -25,7 +28,7 @@ module Hub
 
       def returns_by_status_presenter
         @return_summary ||= Hub::Dashboard::ReturnsByStatusPresenter.new(
-          @current_user, @current_ability, filter_options, selected_model, @return_summary_stage
+          @current_user, @current_ability, orgs_and_sites, selected_model, @return_summary_stage
         )
       end
 
@@ -65,8 +68,7 @@ module Hub
         Coalition.accessible_by(@current_ability).order(:name).each do |coalition|
           add_filter_option(coalition, nil, options, options_by_value)
         end
-        partners = VitaPartner.accessible_by(@current_ability).order(:name)
-        partners.each do |partner|
+        orgs_and_sites.each do |partner|
           next unless partner.type == Organization::TYPE
           parent_value = to_option_value(Coalition, partner.coalition_id)
           add_filter_option(partner, parent_value, options, options_by_value)

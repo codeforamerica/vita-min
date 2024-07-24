@@ -4,10 +4,10 @@ module Hub
       attr_reader :stage
       ReturnSummary = Struct.new(:code, :value, :type, :stage)
 
-      def initialize(current_user, current_ability, filter_options, selected, stage)
+      def initialize(current_user, current_ability, orgs_and_sites, selected, stage)
         @current_user = current_user
         @current_ability = current_ability
-        @filter_options = filter_options
+        @orgs_and_sites = orgs_and_sites
         @selected = selected
         @stage = stage
       end
@@ -52,20 +52,18 @@ module Hub
 
       def count_tax_returns_by_status
         return @count_tax_returns_by_status if @count_tax_returns_by_status
-        count_tax_returns_by_status = (
-          Client.accessible_by(@current_ability)
-                .joins(:tax_returns)
-                .select("current_state as state, count(*) as num_records")
-                .group(:state)
-        )
-        if @selected.instance_of?(Coalition)
-          ids = @filter_options.map(&:model).filter do |model|
-            !model.instance_of?(Coalition) && model.coalition_id == @selected.id
-          end.map(&:id)
-          @count_tax_returns_by_status = count_tax_returns_by_status.where(clients: { vita_partner_id: ids })
-        else
-          @count_tax_returns_by_status = count_tax_returns_by_status.where(clients: { vita_partner_id: @selected.id })
-        end
+        count_tax_returns_by_status = Client.accessible_by(@current_ability)
+          .joins(:tax_returns)
+          .select("current_state as state, count(*) as num_records")
+          .group(:state)
+        ids = if @selected.instance_of?(Coalition)
+                @orgs_and_sites.filter {|model| model.coalition_id == @selected.id }
+              else
+                @orgs_and_sites.filter do |model|
+                  model.id == @selected.id || model.parent_organization_id == @selected.id
+                end
+              end
+        @count_tax_returns_by_status = count_tax_returns_by_status.where(clients: { vita_partner_id: ids })
       end
     end
   end
