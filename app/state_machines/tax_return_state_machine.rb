@@ -59,6 +59,19 @@ class TaxReturnStateMachine
   FORWARD_TO_INTERCOM = [:file_accepted, :file_mailed, :file_not_filing].freeze
   INCLUDED_IN_PREVIOUS_YEAR_COMPLETED_INTAKES = [:prep_ready_for_prep, :prep_preparing, :review_ready_for_qr, :review_reviewing, :intake_ready_for_call, :review_signature_requested, :file_ready_to_file, :file_efiled, :file_accepted, :file_rejected].freeze
 
+  ALLOWABLE_STATES_BY_ROLE = {
+    GreeterRole::TYPE => {
+      'intake' => [
+        'intake_ready',
+        'intake_greeter_info_requested',
+        'intake_needs_doc_help'
+      ],
+      'file' => [
+        'file_not_filing'
+      ]
+    }
+  }
+
   after_transition(after_commit: true) do |tax_return, transition|
     tax_return.update_columns(current_state: transition.to_state)
     SearchIndexer.refresh_filterable_properties([tax_return.client_id])
@@ -109,8 +122,6 @@ class TaxReturnStateMachine
   end
 
   def self.available_states_for(role_type:)
-    return STATES_BY_STAGE.slice("intake").merge({ "file" => %w[file_not_filing file_hold] }.freeze) if role_type == GreeterRole::TYPE
-
-    STATES_BY_STAGE
+    ALLOWABLE_STATES_BY_ROLE.fetch(role_type, STATES_BY_STAGE)
   end
 end

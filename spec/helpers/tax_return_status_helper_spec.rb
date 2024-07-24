@@ -66,14 +66,10 @@ describe TaxReturnStatusHelper do
         expect(helper.grouped_status_options_for_select)
           .to eq (
                    [["Intake",
-                     [["Not ready", "intake_in_progress"],
-                      ["Ready for review", "intake_ready"],
-                      ["Reviewing", "intake_reviewing"],
-                      ["Ready for call", "intake_ready_for_call"],
-                      ["Info requested", "intake_info_requested"],
+                     [["Ready for review", "intake_ready"],
                       ["Greeter - info requested", "intake_greeter_info_requested"],
                       ["Needs doc help", "intake_needs_doc_help"]]],
-                    ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
+                    ["Final steps", [["Not filing", "file_not_filing"]]]]
                  )
       end
     end
