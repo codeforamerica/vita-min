@@ -2131,7 +2131,6 @@ en:
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
-
     navigation:
       section_1: 'Section 1: Can you use this tool'
       section_2: 'Section 2: Create account'

@@ -2089,7 +2089,6 @@ es:
         start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
         title_closed: Nuestro servicio gratuito de presentación de impuestos %{state_name} está cerrado por temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
-
     navigation:
       section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
       section_2: 'Sección 2: Crear cuenta'
