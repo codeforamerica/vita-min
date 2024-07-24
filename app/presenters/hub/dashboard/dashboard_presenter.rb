@@ -23,7 +23,13 @@ module Hub
       def selected_orgs_and_sites
         @selected_orgs_and_sites ||=
           if selected_model.instance_of?(Coalition)
-            available_orgs_and_sites.filter {|model| model.coalition_id == selected_model.id }
+            available_by_id = available_orgs_and_sites.map{ |model| [model.id, model] }.to_h
+            available_orgs_and_sites.filter do |model|
+              if model.instance_of? Site
+                model = available_by_id[model.parent_organization_id]
+              end
+              model.coalition_id == selected_model.id
+            end
           else
             available_orgs_and_sites.filter do |model|
               model.id == selected_model.id || model.parent_organization_id == selected_model.id

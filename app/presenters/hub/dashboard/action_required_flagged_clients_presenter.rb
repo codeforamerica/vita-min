@@ -7,7 +7,7 @@ module Hub
       end
 
       def flagged_clients
-        @flagged_clients = @clients.where.not(flagged_at: nil).where(vita_partner: @selected_orgs_and_sites)
+        @flagged_clients ||= @clients.where.not(flagged_at: nil).where(vita_partner: @selected_orgs_and_sites)
       end
     end
   end
