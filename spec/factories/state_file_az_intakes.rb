@@ -118,6 +118,13 @@ FactoryBot.define do
       end
     end
 
+    trait :with_az321_contributions do
+      after(:build) do |intake|
+        create :az321_contribution, amount: 505.90, intake: intake
+        create :az321_contribution, amount: 234.89, intake: intake
+      end
+    end
+
     trait :with_efile_device_infos do
       after(:build) do |intake|
         create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
