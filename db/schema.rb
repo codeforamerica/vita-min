@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_23_190952) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_24_215829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -451,6 +451,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_23_190952) do
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
     t.index ["state_file_az_intake_id"], name: "index_az322_contributions_on_state_file_az_intake_id"
+  end
+
+  create_table "az321_contributions", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.string "charity_code"
+    t.string "charity_name"
+    t.datetime "created_at", null: false
+    t.date "date_of_contribution"
+    t.bigint "state_file_az_intake_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_az_intake_id"], name: "index_az321_contributions_on_state_file_az_intake_id"
   end
 
   create_table "bank_accounts", force: :cascade do |t|
