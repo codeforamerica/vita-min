@@ -117,6 +117,15 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_1099r_subtractions do
+      form1099r_received_military_payment { "yes" }
+      form1099r_primary_received_pension { "yes" }
+      form1099r_spouse_received_pension { "yes" }
+      form1099r_received_military_payment_amount { 100 }
+      form1099r_primary_received_pension_amount { 200 }
+      form1099r_spouse_received_pension_amount { 300 }
+    end
+
     trait :with_az322_contributions do
       after(:build) do |intake|
         create :az322_contribution, amount: 405.45, intake: intake
