@@ -17,4 +17,5 @@
 #  index_az322_contributions_on_state_file_az_intake_id  (state_file_az_intake_id)
 #
 class Az322Contribution < ApplicationRecord
+  belongs_to :state_file_az_intake
 end
