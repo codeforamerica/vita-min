@@ -45,6 +45,7 @@ class Seeder
 
     vp1 = first_org = VitaPartner.find_or_create_by!(
       name: "Oregano Org",
+      allows_greeters: true,
       coalition: koalas,
       type: Organization::TYPE
     )
@@ -184,6 +185,28 @@ class Seeder
       Note.create!(client: client, user: additional_user, body: "This is an incoming note!")
       Note.create!(client: client, user: user, body: "This is an outgoing note :)", created_at: 2.days.ago)
     end
+
+    find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      primary_first_name: "Peter",
+      primary_last_name: "Pan",
+      sms_phone_number: "+14155551999",
+      email_address: "peter@example.com",
+      primary_consented_to_service: "yes",
+      sms_notification_opt_in: :yes,
+      email_notification_opt_in: :yes,
+      bank_name: "Banky bank",
+      bank_routing_number: "011234569",
+      bank_account_number: "87654323",
+      bank_account_type: "checking",
+      client_attributes: {
+        vita_partner: first_org
+      },
+      tax_return_attributes: [
+        { year: 2022, assigned_user: user, current_state: "intake_ready" },
+        { year: 2023, current_state: "intake_ready" }
+      ]
+    )
 
     # Use this client for portal login; log in by email address & run rails jobs:work for the verification code; see SSN last 4 below
     _married_intake = find_or_create_intake_and_client(

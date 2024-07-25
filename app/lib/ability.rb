@@ -71,7 +71,7 @@ class Ability
     end
 
     if user.greeter?
-      can [:edit, :read],
+      can [:edit, :read, :edit_take_action],
         Client,
         tax_returns: {
           current_state: [
