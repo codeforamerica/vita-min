@@ -518,6 +518,7 @@ en:
     return_home: Return to home
     return_search: Return to search
     return_to_homepage: Return to homepage
+    returns: Returns
     role: Role
     routing: Routing
     save: Save
@@ -969,12 +970,16 @@ en:
           updated: Updated At
         capacity: Capacity
         current_capacity: Current Capacity
+        filter_by_stage: Filter by Stage
         org_name: Organization Name
         resources:
           hub_training: Hub Trainings
           newsletter: GYR Newsletter
           title: Resources
+        returns_by_status: Returns by Status
         title: Dashboard
+        total_number_of_returns: Total number of returns
+        total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]
         view_all: View All
     documents:
       confirm:
