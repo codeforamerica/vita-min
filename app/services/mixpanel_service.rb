@@ -16,7 +16,7 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @consumer = Mixpanel::BufferedConsumer.new(nil, nil, nil, 10)
+    @consumer = Mixpanel::BufferedConsumer.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
       send_event_to_mixpanel(type, message)
     end
