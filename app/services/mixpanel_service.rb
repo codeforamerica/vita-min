@@ -51,17 +51,17 @@ class MixpanelService
 
   private
 
-  def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0)
+  def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0, flush_delay = 5)
     task = Concurrent::ScheduledTask.new(delay) do
       @consumer.send!(type, message)
-    rescue StandardError => err
-      if num_attempts >= MAX_ATTEMPTS
-        Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
-      else
-        send_event_to_mixpanel(type, message, num_attempts + 1, RETRY_DELAY)
-      end
     end
     task.execute
+
+    @flusher.cancel if @flusher
+    @flusher = Concurrent::ScheduledTask.new(flush_delay) do
+      @consumer.flush
+    end
+    @flusher.execute
   end
 
   class << self
