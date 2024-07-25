@@ -51,14 +51,31 @@ module Hub
     end
 
     def load_filter_options
-      @filter_options = DashboardController.flatten_filter_options(get_filter_options, [])
+      @filter_options = DashboardController.flatten_filter_options(  get_filter_options, [])
     end
 
     def load_client_sla_counts
+      vita_partner = selected_vita_partner
+      @valid_vita_partners = case vita_partner
+                            when Coalition
+                              child_orgs = vita_partner.organizations
+                              child_sites = child_orgs.flat_map(&:child_sites)
+                              [vita_partner, *child_orgs, *child_sites]
+                            when Organization
+                              child_sites = VitaPartner.sites.where(parent_organization: vita_partner)
+                              [vita_partner, *child_sites]
+                            when Site
+                              vita_partner
+                            end
       clients = Client.accessible_by(current_ability)
                       .distinct
-      @approaching_sla_count = clients.where(last_outgoing_communication_at: 6.business_days.ago..4.business_days.ago).count
-      @breached_sla_count = clients.where("last_outgoing_communication_at < ?", 6.business_days.ago).count
+      @approaching_sla_clients = clients.joins(:vita_partner)
+                                        .where(last_outgoing_communication_at: 6.business_days.ago..4.business_days.ago)
+                                        .where(vita_partners: { id: @valid_vita_partners })
+
+      @breached_sla_clients = clients.joins(:vita_partner)
+                                     .where("last_outgoing_communication_at < ?", 6.business_days.ago)
+                                     .where(vita_partners: { id: @valid_vita_partners })
     end
 
     def to_option_value(model_type, model_id)

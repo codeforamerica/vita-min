@@ -4,7 +4,7 @@
     <div class="grid__item width-one-half">
       <div class="grid overdue">
         <div class="grid__item width-one-half">
-          <div class="count">  <%= @breached_sla_count  %> </div>
+          <div class="count">  <%= @breached_sla_clients.count %> </div>
         </div>
         <div class="grid__item width-one-half">
           <p><%= I18n.t("hub.dashboard.show.overdue") %></p>
@@ -15,7 +15,7 @@
     <div class="grid__item width-one-half">
       <div class="grid">
         <div class="grid__item width-one-half">
-          <div class="count"> <%= @approaching_sla_count  %> </div>
+          <div class="count"> <%= @approaching_sla_clients.count  %> </div>
         </div>
         <div class="grid__item width-one-half">
           <p class="approaching"><%= I18n.t("hub.dashboard.show.approaching") %></p>
