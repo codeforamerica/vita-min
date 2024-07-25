@@ -17,6 +17,7 @@ class MixpanelService
     return if mixpanel_key.nil?
 
     @consumer = Mixpanel::BufferedConsumer.new
+    @mutex = Mutex.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
       send_event_to_mixpanel(type, message)
     end
@@ -53,15 +54,16 @@ class MixpanelService
 
   def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0, flush_delay = 5)
     task = Concurrent::ScheduledTask.new(delay) do
-      @consumer.send!(type, message)
+      @mutex.synchronize do
+        @consumer.send!(type, message)
+        @flusher.cancel if @flusher
+        @flusher = Concurrent::ScheduledTask.new(flush_delay) do
+          @consumer.flush
+        end
+        @flusher.execute
+      end
     end
     task.execute
-
-    @flusher.cancel if @flusher
-    @flusher = Concurrent::ScheduledTask.new(flush_delay) do
-      @consumer.flush
-    end
-    @flusher.execute
   end
 
   class << self
