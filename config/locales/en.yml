@@ -45,6 +45,7 @@ en:
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
+      timeout: Your session expired. Please sign in again to continue.
     invitations:
       edit:
         email_label: Your email

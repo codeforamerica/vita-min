@@ -46,6 +46,7 @@ es:
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
+      timeout: Tu sesión ha expirado. Inicia sesión nuevamente.
     invitations:
       edit:
         email_label: Su correo electrónico
