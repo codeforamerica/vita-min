@@ -968,6 +968,23 @@ es:
         assign_to_label: Asignado a
         save_and_add: Guardar y agregar otro
         title: Agregar un nuevo cliente
+    dashboard:
+      show:
+        action_required:
+          client_id: ID de cliente
+          client_name: nombre del cliente
+          no_clients: No hay clientes para mostrar en este momento
+          title: 'Acción requerida: Clientes marcados'
+          updated: Actualizado en
+        capacity: Capacidad
+        current_capacity: Capacidad actual
+        org_name: Nombre de la Organización
+        resources:
+          hub_training: Capacitaciones centrales
+          newsletter: Boletín GYR
+          title: Recursos
+        title: Panel
+        view_all: Ver todo
     documents:
       confirm:
         text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"

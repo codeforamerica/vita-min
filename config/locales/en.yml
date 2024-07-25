@@ -959,6 +959,23 @@ en:
         assign_to_label: Assign to
         save_and_add: Save and add another
         title: Add a new CTC client
+    dashboard:
+      show:
+        action_required:
+          client_id: Client ID
+          client_name: Client Name
+          no_clients: No clients to display at the moment
+          title: 'Action Required: Flagged Clients'
+          updated: Updated At
+        capacity: Capacity
+        current_capacity: Current Capacity
+        org_name: Organization Name
+        resources:
+          hub_training: Hub Trainings
+          newsletter: GYR Newsletter
+          title: Resources
+        title: Dashboard
+        view_all: View All
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?

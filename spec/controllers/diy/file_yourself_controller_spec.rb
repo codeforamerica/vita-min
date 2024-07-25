@@ -2,10 +2,28 @@ require "rails_helper"
 
 RSpec.describe Diy::FileYourselfController do
   describe "#edit" do
-    it "is 200 OK 👍" do
-      get :edit
+    before do
+      allow(controller).to receive(:open_for_diy?).and_return(open_for_diy)
+    end
 
-      expect(response).to be_ok
+    context "when app if open for DIY" do
+      let(:open_for_diy) { true }
+
+      it "is 200 OK 👍" do
+        get :edit
+
+        expect(response).to be_ok
+      end
+    end
+
+    context "when app is closed for DIY" do
+      let(:open_for_diy) { false }
+
+      it "redirects to the root path" do
+        get :edit
+
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
