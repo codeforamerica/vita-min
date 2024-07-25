@@ -86,6 +86,7 @@ class StateFileAzIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   has_many :az322_contributions, dependent: :destroy
+  has_many :az321_contributions, dependent: destroy
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   # TODO: decide what to do with was_incarcerated column; see if data science wants to keep the historic data
   enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
