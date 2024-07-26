@@ -165,6 +165,8 @@ If this doesn't get Postgres out of `error` state, or you otherwise can't figure
 
 #### Java Installation for pdftk on macOS
 
+***NOTE:*** We are currently experimenting with just having ASDF install java instead. Check `.tool-versions` to see the version needed. It should be installable with `asdf install` in the root directory.
+
 To run pdftk on macOS, you need to have Java installed correctly. Use the following commands to install Java:
 
 ```sh
