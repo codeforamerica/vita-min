@@ -573,7 +573,6 @@ Rails.application.routes.draw do
       end
 
       get "login-options", to: "state_file/state_file_pages#login_options"
-      get "/faq", to: "state_file/faq#index", as: :state_faq
 
       match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
@@ -589,6 +588,7 @@ Rails.application.routes.draw do
 
       # constraint on us state is like /az|ny|us/i
       scope ':us_state', constraints: { us_state: Regexp.new((active_state_codes + ["us"]).join("|"), Regexp::IGNORECASE) } do
+        get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
       end
 
