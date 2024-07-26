@@ -63,21 +63,22 @@ describe MultiTenantService do
 
   describe "#filing_years" do
     before do
-      allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
+      allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2023)
     end
 
-    let(:fake_time) { DateTime.parse("2019-04-14 12:00:00") }
-
     it "returns just the current year for ctc and valid filing years for gyr when using DateTime.now" do
+      fake_time = Rails.configuration.tax_year_filing_seasons[2020][1] + 3.years - 1.day
       Timecop.freeze(fake_time) do
-        expect(described_class.new(:ctc).filing_years).to eq [2017]
-        expect(described_class.new(:gyr).filing_years).to eq [2018, 2017, 2016, 2015]
+        expect(described_class.new(:ctc).filing_years).to eq [2023]
+        expect(described_class.new(:gyr).filing_years).to eq [2023, 2022, 2021, 2020]
       end
     end
 
-    it "returns just the current year for ctc and valid filing years for gyr when passed a time" do
-      expect(described_class.new(:ctc).filing_years(fake_time)).to eq [2017]
-      expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2018, 2017, 2016, 2015]
+    it "returns just the current year for ctc and valid filing years for gyr when passed a time parameter that is past the deadline for a previous year" do
+      fake_time = Rails.configuration.tax_year_filing_seasons[2020][1] + 3.years + 1.day
+
+      expect(described_class.new(:ctc).filing_years(fake_time)).to eq [2023]
+      expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2023, 2022, 2021]
     end
   end
 
