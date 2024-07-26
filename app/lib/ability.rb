@@ -7,6 +7,15 @@ class Ability
       return
     end
 
+    # Custom actions
+    alias_action :flag, :toggle_field, :edit_take_action, :update_take_action,
+                 :unlock, :edit_13614c_form_page1, :edit_13614c_form_page2,
+                 :edit_13614c_form_page3, :save_and_maybe_exit,
+                 :update_13614c_form_page1, :update_13614c_form_page2,
+                 :update_13614c_form_page3, :cancel_13614c,
+                 :resource_to_client_redirect,
+                 to: :hub_client_management
+
     accessible_groups = user.accessible_vita_partners
 
     # Admins can do everything
@@ -71,7 +80,7 @@ class Ability
     end
 
     if user.greeter?
-      can [:edit, :read, :edit_take_action],
+      can [:update, :read, :hub_client_management],
         Client,
         tax_returns: {
           current_state: [

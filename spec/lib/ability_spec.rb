@@ -183,7 +183,7 @@ describe Ability do
 
           it "can access all data for the client" do
             expect(subject.can?(:read, accessible_client)).to eq true
-            expect(subject.can?(:edit, accessible_client)).to eq true
+            expect(subject.can?(:update, accessible_client)).to eq true
             expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
             expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
