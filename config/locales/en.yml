@@ -978,8 +978,8 @@ en:
           hub_training: Hub Trainings
           newsletter: GYR Newsletter
           title: Resources
-        sla_title: Service Level Agreements Notifications
         returns_by_status: Returns by Status
+        sla_title: Service Level Agreements Notifications
         title: Dashboard
         total_number_of_returns: Total number of returns
         total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]

@@ -987,8 +987,8 @@ es:
           hub_training: Capacitaciones centrales
           newsletter: Boletín GYR
           title: Recursos
-        sla_title: Notificaciones de acuerdos de nivel de servicio
         returns_by_status: Devoluciones por estado
+        sla_title: Notificaciones de acuerdos de nivel de servicio
         title: Panel
         total_number_of_returns: Número total de devoluciones
         total_returns_in_html: Rentabilidad total en [<strong>%{stage}</strong>]
