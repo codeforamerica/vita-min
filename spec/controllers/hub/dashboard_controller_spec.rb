@@ -158,8 +158,7 @@ RSpec.describe Hub::DashboardController do
     render_views
     it "shows the correct number of breached and approaching sla clients" do
       get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
-
-      puts response.body
+      
       expect(response.body.scan(/<div class="count breached-count">\s*\d+\s*<\/div>/).count).to eq(1)
       expect(response.body.scan(/<div class="count approaching-count">\s*\d+\s*<\/div>/).count).to eq(1)
     end
