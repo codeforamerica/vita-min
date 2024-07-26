@@ -19,8 +19,6 @@ module StateFile
     end
 
     def update
-      binding.pry
-
       sign_out current_intake if current_intake.present?
       intake = StateInformationService.intake_class(params[:us_state]).new(
         visitor_id: cookies.encrypted[:visitor_id],
