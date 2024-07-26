@@ -20,7 +20,7 @@ module StateFile
     end
 
     def from_path_params
-      [:us_state, :return_to_review].each_with_object({}) do |key, path_params|
+      [:return_to_review].each_with_object({}) do |key, path_params|
         path_params[key] = params[key] if params[key].present?
       end
     end

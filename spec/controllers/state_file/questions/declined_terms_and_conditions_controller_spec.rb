@@ -10,7 +10,7 @@ describe StateFile::Questions::DeclinedTermsAndConditionsController do
   describe '#edit' do
     render_views
     it 'succeeds' do
-      get :edit, params: { us_state: "az" }
+      get :edit
       expect(response).to be_successful
       expect(response_html).to have_text "You’ve declined the terms and conditions"
     end

@@ -10,7 +10,7 @@ describe StateFile::Questions::AzPrimaryStateIdController do
   describe '#edit' do
     render_views
     it 'succeeds' do
-      get :edit, params: { us_state: "az" }
+      get :edit
       expect(response).to be_successful
       expect(response_html).to have_text "your state-issued ID"
       expect(response_html).to have_text "ID Type"

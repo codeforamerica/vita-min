@@ -10,7 +10,7 @@ describe StateFile::Questions::NySpouseStateIdController do
   describe '#edit' do
     render_views
     it 'succeeds' do
-      get :edit, params: { us_state: "ny" }
+      get :edit
       expect(response).to be_successful
       expect(response_html).to have_text "your spouse"
       expect(response_html).to have_text "ID Type"
