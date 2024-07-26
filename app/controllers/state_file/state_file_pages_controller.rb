@@ -1,7 +1,7 @@
 module StateFile
   class StateFilePagesController < ApplicationController
     include StateFile::StateFileControllerConcern
-    include StateFile::AuthenticatedStateFileIntakeConcern
+    include StateFile::StateFileIntakeConcern
     layout "state_file"
     before_action :redirect_state_file_in_off_season, except: [:coming_soon]
     before_action :require_state_file_intake_login, only: [:fake_direct_file_transfer_page, :data_import_failed]

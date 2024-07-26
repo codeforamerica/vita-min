@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class Ny214Controller < AuthenticatedQuestionsController
+    class Ny214Controller < QuestionsController
       private
 
       def illustration_path

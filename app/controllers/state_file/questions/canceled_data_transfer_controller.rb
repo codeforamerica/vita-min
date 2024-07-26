@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class CanceledDataTransferController < AuthenticatedQuestionsController
+    class CanceledDataTransferController < QuestionsController
       include IrsDataTransferLinksConcern
       skip_before_action :set_current_step
 

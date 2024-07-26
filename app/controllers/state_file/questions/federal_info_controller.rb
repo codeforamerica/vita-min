@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class FederalInfoController < AuthenticatedQuestionsController
+    class FederalInfoController < QuestionsController
       before_action :redirect_on_prod
 
       layout "state_file/question"

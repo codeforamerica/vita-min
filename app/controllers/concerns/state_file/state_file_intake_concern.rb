@@ -1,5 +1,5 @@
 module StateFile
-  module AuthenticatedStateFileIntakeConcern
+  module StateFileIntakeConcern
     extend ActiveSupport::Concern
     include StateFile::StateFileControllerConcern
 

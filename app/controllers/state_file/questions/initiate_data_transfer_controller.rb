@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class InitiateDataTransferController < AuthenticatedQuestionsController
+    class InitiateDataTransferController < QuestionsController
       include IrsDataTransferLinksConcern
 
       def edit

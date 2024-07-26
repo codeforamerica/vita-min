@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class CodeVerifiedController < AuthenticatedQuestionsController
+    class CodeVerifiedController < QuestionsController
       private
 
       def form_class

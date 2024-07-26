@@ -445,6 +445,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :post_deadline_withdrawal_date
 
+  def state_code_for_page_style
+    if params.include?(:us_state)
+      params[:us_state]
+    elsif current_intake.present? && respond_to?(:current_state_code)
+      current_state_code
+    end
+  end
+  helper_method :state_code_for_page_style
+
   private
 
   def locale

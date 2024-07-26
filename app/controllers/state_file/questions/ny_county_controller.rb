@@ -11,7 +11,7 @@ module StateFile
   ].freeze
 
   module Questions
-    class NyCountyController < AuthenticatedQuestionsController
+    class NyCountyController < QuestionsController
       include ReturnToReviewConcern
 
       def edit

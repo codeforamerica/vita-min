@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class WaitingToLoadDataController < AuthenticatedQuestionsController
+    class WaitingToLoadDataController < QuestionsController
       include EligibilityOffboardingConcern
       skip_before_action :set_current_step
 

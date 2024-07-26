@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class SubmissionPdfsController < AuthenticatedQuestionsController
+    class SubmissionPdfsController < QuestionsController
       skip_before_action :redirect_if_in_progress_intakes_ended
 
       def show

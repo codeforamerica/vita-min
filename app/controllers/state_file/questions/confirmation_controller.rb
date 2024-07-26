@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class ConfirmationController < AuthenticatedQuestionsController
+    class ConfirmationController < QuestionsController
       def show_xml
         submission = EfileSubmission.where(data_source: current_intake).first
         builder = StateFile::StateInformationService.submission_builder_class(current_state_code)

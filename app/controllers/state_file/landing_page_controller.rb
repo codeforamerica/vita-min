@@ -1,8 +1,11 @@
 module StateFile
   class LandingPageController < ApplicationController
     include StateFile::StateFileControllerConcern
+    include StateFile::StateFileIntakeConcern
     helper_method :prev_path, :illustration_path
-    layout "state_file/question"
+    layout "state_file"
+
+    before_action :require_state_file_intake_login, except: [:edit, :update]
 
     def edit
       @closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
@@ -16,6 +19,8 @@ module StateFile
     end
 
     def update
+      binding.pry
+
       sign_out current_intake if current_intake.present?
       intake = StateInformationService.intake_class(params[:us_state]).new(
         visitor_id: cookies.encrypted[:visitor_id],

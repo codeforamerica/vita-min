@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class ReturnStatusController < AuthenticatedQuestionsController
+    class ReturnStatusController < QuestionsController
       before_action :redirect_if_from_efile
       before_action :redirect_if_no_submission
       skip_before_action :redirect_if_in_progress_intakes_ended
