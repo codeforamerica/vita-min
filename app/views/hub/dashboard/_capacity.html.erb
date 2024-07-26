@@ -1,4 +1,38 @@
-<div class="card">
-  <h2>Capacity</h2>
-  <p>TODO: Implement</p>
+<% p = presenter.capacity_presenter %>
+<div class="card capacity dashboard-table">
+  <h2><%= I18n.t("hub.dashboard.show.capacity") %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th><%= I18n.t("hub.dashboard.show.org_name") %></th>
+        <th><%= I18n.t("hub.dashboard.show.current_capacity") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% p.capacity[..3].each do |organization| %>
+        <tr>
+          <td>
+            <%= link_to "#{organization.name}",
+                        can?(:edit, organization) ? edit_hub_organization_path(id: organization) : hub_organization_path(id: organization),
+                        class: "organization-link"
+            %>
+          </td>
+          <td class="controls">
+            <div class="<%= capacity_css_class(organization) %>">
+              <div><%= organization.active_client_count %>/<%= organization.capacity_limit %></div>
+              <% if organization.active_client_count.to_f / organization.capacity_limit > 1 %>
+                <%= image_tag('icons/warning.svg', alt: "") %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if p.selected.instance_of? Coalition %>
+    <div class="paging">
+      <div><%= p.capacity.length %> of <%= p.capacity_count %></div>
+      <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_organizations_path  %>
+    </div>
+  <% end %>
 </div>

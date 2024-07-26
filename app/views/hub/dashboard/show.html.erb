@@ -6,8 +6,8 @@
       <div class="grid__item width-one-half">
         <div class="spacing-below-15">
           <select name="status" class="select__element" onchange="location.href='../'+event.target.value">
-            <% @filter_options.each do |option| %>
-              <option value="<%=option.value%>" <%= option.value == @selected_value ? "selected" : ""%>>
+            <% presenter.filter_options.each do |option| %>
+              <option value="<%=option.value%>" <%= option.value == presenter.selected_value ? "selected" : ""%>>
                 <% if option.has_parent %>&emsp;<% end %>
                 <%= option.model.name %>
               </option>
@@ -15,14 +15,14 @@
           </select>
         </div>
         <%= render "hub/dashboard/service_level_agreements_notifications" %>
-        <% if [Coalition, Organization].include?(@selected.class) %>
+        <% if presenter.capacity_presenter.capacity.present? %>
           <%= render "hub/dashboard/capacity" %>
         <% end %>
         <%= render "hub/dashboard/returns_by_status" %>
       </div>
       <div class="grid__item width-one-half">
         <%= render "hub/dashboard/action_required_flagged_clients" %>
-        <% if [Organization, Site].include?(@selected.class) %>
+        <% if [Organization, Site].include?(presenter.selected_model.class) %>
           <%= render "hub/dashboard/team_assignment" %>
         <% end %>
         <%= render "hub/dashboard/resources" %>

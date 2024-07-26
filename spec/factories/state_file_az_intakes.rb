@@ -111,6 +111,27 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_az322_contributions do
+      after(:build) do |intake|
+        create :az322_contribution, amount: 405.45, intake: intake
+        create :az322_contribution, amount: 355.21, intake: intake
+      end
+    end
+
+    trait :with_az321_contributions do
+      after(:build) do |intake|
+        create :az321_contribution, amount: 505.90, intake: intake
+        create :az321_contribution, amount: 234.89, intake: intake
+      end
+    end
+
+    trait :with_efile_device_infos do
+      after(:build) do |intake|
+        create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
+        create :state_file_efile_device_info, :filled, :submission, intake: intake
+      end
+    end
+
     factory :state_file_az_refund_intake do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
@@ -132,13 +153,6 @@ FactoryBot.define do
         intake.account_number = 222222222
         intake.date_electronic_withdrawal = Date.new(2024, 4, 15)
         intake.withdraw_amount = 5
-      end
-    end
-
-    trait :with_efile_device_infos do
-      after(:build) do |intake|
-        create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
-        create :state_file_efile_device_info, :filled, :submission, intake: intake
       end
     end
 
