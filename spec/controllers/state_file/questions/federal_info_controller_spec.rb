@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StateFile::Questions::TaxRefundController do
+describe StateFile::Questions::FederalInfoController do
 
   let(:intake) { create :state_file_az_refund_intake}
   before do
@@ -12,8 +12,7 @@ describe StateFile::Questions::TaxRefundController do
     it 'succeeds' do
       get :edit, params: { us_state: "az" }
       expect(response).to be_successful
-      expect(response_html).to have_text "Good news"
-      expect(response_html).to have_text "Bank name"
+      expect(response_html).to have_text "Direct File Data Overrides"
     end
   end
 end
