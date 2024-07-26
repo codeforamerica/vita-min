@@ -1,3 +1,4 @@
+<% p = presenter.capacity_presenter %>
 <div class="card capacity dashboard-table">
   <h2><%= I18n.t("hub.dashboard.show.capacity") %></h2>
   <table>
@@ -8,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @capacity[..3].each do |organization| %>
+      <% p.capacity[..3].each do |organization| %>
         <tr>
           <td>
             <%= link_to "#{organization.name}",
@@ -28,9 +29,9 @@
       <% end %>
     </tbody>
   </table>
-  <% if @selected.instance_of? Coalition %>
+  <% if p.selected.instance_of? Coalition %>
     <div class="paging">
-      <div><%= @capacity.length %> of <%= capacity_count %></div>
+      <div><%= p.capacity.length %> of <%= p.capacity_count %></div>
       <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_organizations_path  %>
     </div>
   <% end %>

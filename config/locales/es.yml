@@ -520,6 +520,7 @@ es:
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     return_to_homepage: Regresar a la página principal
+    returns: Devoluciones
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -979,6 +980,7 @@ es:
         approaching: Que se acerca
         capacity: Capacidad
         current_capacity: Capacidad actual
+        filter_by_stage: Filtrar por etapa
         org_name: Nombre de la Organización
         overdue: Atrasado
         resources:
@@ -986,7 +988,10 @@ es:
           newsletter: Boletín GYR
           title: Recursos
         sla_title: Notificaciones de acuerdos de nivel de servicio
+        returns_by_status: Devoluciones por estado
         title: Panel
+        total_number_of_returns: Número total de devoluciones
+        total_returns_in_html: Rentabilidad total en [<strong>%{stage}</strong>]
         view_all: Ver todo
     documents:
       confirm:
