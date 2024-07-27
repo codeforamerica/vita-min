@@ -1,0 +1,49 @@
+<%
+  p = presenter.returns_by_status_presenter
+%>
+<h2><%= I18n.t("hub.dashboard.show.returns_by_status") %></h2>
+<div class="counts">
+  <% unless p.stage.present? %>
+    <div>
+      <span class="count"><%= p.returns_by_status_count %></span>
+    </div>
+    <div class="description"><%= I18n.t("hub.dashboard.show.total_number_of_returns") %></div>
+  <% else %>
+    <div>
+      <span class="count"><%= p.returns_by_status_count %></span>
+      <span>/<%= p.returns_by_status_total %></span>
+    </div>
+    <div class="description"><%= I18n.t("hub.dashboard.show.total_returns_in_html", stage: I18n.t("hub.tax_returns.stage.#{p.stage}")).html_safe %></div>
+  <% end %>
+</div>
+<%= form_tag returns_by_status_hub_dashboard_index_path, method: :get, remote: true do |f| %>
+  <%= select_tag :stage, options_for_select([
+     [I18n.t("hub.dashboard.show.filter_by_stage"), ""]
+  ] + p.available_stage_and_states.map do |available_stage,|
+    [I18n.t("hub.tax_returns.stage.#{available_stage}"), available_stage]
+  end, params[:stage]), class: "select__element", onchange: "document.querySelector('.returns-by-status .submit').click()" %>
+  <%= submit_tag "", class: "submit", style: "display:none" %>
+<% end %>
+<table style="border-collapse: collapse;">
+  <thead>
+  <tr>
+    <th><%= I18n.t("general.status") %></th>
+    <th><%= I18n.t("general.returns") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% p.returns_by_status.each do |return_summary| %>
+    <tr>
+      <td>
+        <%= link_to I18n.t("hub.tax_returns.#{return_summary.type}.#{return_summary.code}"), hub_clients_path(status: return_summary.code) %>
+      </td>
+      <td>
+        <div class="bar-container <%= return_summary.stage %>">
+          <div class="bar" style="width:<%= p.percentage(return_summary.value) %>%;" title="<%= p.percentage(return_summary.value) %>%"></div>
+          <div class="bar-label"><%= return_summary.value %></div>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

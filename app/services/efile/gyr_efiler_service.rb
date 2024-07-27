@@ -1,4 +1,5 @@
 require 'zip'
+
 module Efile
   class GyrEfilerService
     CURRENT_VERSION = '7bf94e422032527b78cb169fc8674cfe9fd14554'
@@ -30,9 +31,10 @@ module Efile
         config_dir = Rails.root.join("tmp", "gyr_efiler", "gyr_efiler_config").to_s
 
         # On macOS, "java" will show a confusing pop-up if you run it without a JVM installed. Check for that and exit early.
-        if File.exist?("/Library/Java/JavaVirtualMachines") && Dir.glob("/Library/Java/JavaVirtualMachines/*").empty?
-          raise Error.new("Seems you are on a mac & lack Java. Run: brew tap AdoptOpenJDK/openjdk && brew install adoptopenjdk8")
+        unless system('java', '-version', out: "/dev/null", err: '/dev/null')
+          raise Error.new("Seems you are on a mac & lack Java. Refer to the README for instructions.")
         end
+  
         # /Library/Java/JavaVirtualMachines
         java = ENV["VITA_MIN_JAVA_HOME"] ? File.join(ENV["VITA_MIN_JAVA_HOME"], "bin", "java") : "java"
 

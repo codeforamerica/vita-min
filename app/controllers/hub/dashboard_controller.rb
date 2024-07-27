@@ -2,20 +2,21 @@ module Hub
   class DashboardController < Hub::BaseController
     layout "hub"
     before_action :require_dashboard_user
-    before_action :load_filter_options, only: [:index, :show]
+    helper_method :presenter
     helper_method :capacity_css_class
-    helper_method :capacity_count
 
     def index
-      model = @filter_options.first.model
+      model = presenter.filter_options.first.model
       redirect_to action: :show, type: model.class.name.downcase, id: model.id
     end
 
-    def show
-      @selected_value = "#{params[:type]}/#{params[:id]}"
-      selected_option = @filter_options.find{ |option| option.value == @selected_value }
-      @selected = selected_option.model
-      load_capacity
+    def presenter
+      @presenter ||= Hub::Dashboard::DashboardPresenter.new(
+        current_user,
+        current_ability,
+        "#{params[:type]}/#{params[:id]}",
+        params[:stage]
+      )
     end
 
     private
@@ -40,75 +41,6 @@ module Hub
       end
     end
 
-    def load_filter_options
-      @filter_options = DashboardController.flatten_filter_options(get_filter_options, [])
-    end
-
-    def to_option_value(model_type, model_id)
-      model_id ? "#{model_type.name.downcase}/#{model_id}" : nil
-    end
-
-    def add_filter_option(model, parent_value, options, options_by_value)
-      value = to_option_value(model.class, model.id)
-      option = DashboardFilterOption.new(value, model, [], false)
-      options_by_value[value] = option
-      if parent_value
-        parent = options_by_value[parent_value]
-        if parent
-          option.has_parent = true
-          parent.children << option
-          return
-        end
-      end
-      options << option
-    end
-
-    def get_filter_options
-      # Get the coalitions, organizations and sites to which the user has access and sort them
-      options = []
-      options_by_value = {}
-      Coalition.accessible_by(current_ability).order(:name).each do |coalition|
-        add_filter_option(coalition, nil, options, options_by_value)
-      end
-      partners = VitaPartner.accessible_by(current_ability).order(:name)
-      partners.each do |partner|
-        next unless partner.type == Organization::TYPE
-        parent_value = to_option_value(Coalition, partner.coalition_id)
-        add_filter_option(partner, parent_value, options, options_by_value)
-      end
-      return options if current_user.coalition_lead?
-      partners.each do |partner|
-        next unless partner.type == Site::TYPE
-        parent_value = to_option_value(Coalition, partner.coalition_id)
-        add_filter_option(partner, parent_value, options, options_by_value)
-      end
-      options
-    end
-
-    def self.flatten_filter_options(filter_options, result)
-      filter_options.each do |option|
-        result << option
-        DashboardController.flatten_filter_options(option.children, result)
-      end
-      result
-    end
-
-    DashboardFilterOption = Struct.new(:value, :model, :children, :has_parent)
-
-    def load_capacity
-      return if @selected.instance_of? Site
-      if @selected.instance_of? Coalition
-        @capacity = @selected.organizations.filter(&:capacity_limit)
-        @capacity.sort! do |a, b|
-          sort_a = (a.active_client_count.to_f / a.capacity_limit)
-          sort_b = (b.active_client_count.to_f / b.capacity_limit)
-          sort_b <=> sort_a
-        end
-      elsif @selected.instance_of?(Organization) && @selected.capacity_limit
-        @capacity = [@selected]
-      end
-    end
-
     def capacity_css_class(organization)
       if organization.active_client_count > (organization.capacity_limit || 0)
         "over-capacity"
@@ -116,16 +48,6 @@ module Hub
         "under-capacity"
       else
         "at-capacity"
-      end
-    end
-
-    def capacity_count
-      if @selected.instance_of? Coalition
-        @selected.organizations.count(&:capacity_limit)
-      elsif @selected.instance_of?(Organization) && @selected.capacity_limit
-        1
-      else
-        0
       end
     end
   end
