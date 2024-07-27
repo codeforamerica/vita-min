@@ -6,6 +6,8 @@ RSpec.describe StateFile::Questions::CanceledDataTransferController do
     sign_in intake
   end
 
+  render_views
+
   describe "#edit" do
     context "when the client visits this page" do
       it "increments the counter" do

@@ -11,5 +11,5 @@
   <% end %>
 
   <p class="spacing-above-35" > <%= t('.drop_down_html') %></p>
-  <%= link_to t(".faq_link"), state_faq_path %>
+  <%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %>
 <% end %>
