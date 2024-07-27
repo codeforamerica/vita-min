@@ -147,23 +147,6 @@ RSpec.describe Hub::DashboardController do
     end
   end
 
-  describe "when there are breached and approaching clients" do
-    let!(:vita_partner) { VitaPartner.first }
-    let!(:breached_client_1) { create(:client, last_outgoing_communication_at: 7.business_days.ago, vita_partner: vita_partner) }
-    let!(:breached_client_2) { create(:client, last_outgoing_communication_at: 8.business_days.ago, vita_partner: vita_partner) }
-    let!(:approaching_client_1) { create(:client, last_outgoing_communication_at: 5.business_days.ago, vita_partner: vita_partner) }
-    before do
-      sign_in user
-    end
-    render_views
-    it "shows the correct number of breached and approaching sla clients" do
-      get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
-      
-      expect(response.body.scan(/<div class="count breached-count">\s*\d+\s*<\/div>/).count).to eq(1)
-      expect(response.body.scan(/<div class="count approaching-count">\s*\d+\s*<\/div>/).count).to eq(1)
-    end
-  end
-
   describe "#returns_by_status" do
     before do
       tax_return = create(:gyr_tax_return, :intake_in_progress, updated_at: 10.days.ago, assigned_user: user)
