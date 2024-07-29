@@ -2076,9 +2076,7 @@ es:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
     notifications_settings:
-      subscribe_email:
-        flash: Has sido exitosamente re-suscrito a las notificaciones por correo electrónico.
-      unsubscribe_email:
+      unsubscribe_from_emails:
         help_text_html: Si cambias de opinión y deseas suscribirte más tarde, <a class="open-intercom">chatea con nosotros</a> o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
         link_text: Vuelve a suscribirte.
         mistake: "¿Es un error?"
