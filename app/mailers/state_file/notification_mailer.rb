@@ -12,7 +12,7 @@ module StateFile
         {
           host: MultiTenantService.new(:statefile).host,
           controller: "state_file/notifications_settings",
-          action: :unsubscribe_email,
+          action: :unsubscribe_from_emails,
           locale: I18n.locale,
           _recall: {},
           email_address: signed_email
