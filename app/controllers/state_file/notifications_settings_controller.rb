@@ -1,56 +1,14 @@
 module StateFile
   class NotificationsSettingsController < ApplicationController
     layout "state_file"
+    include EmailSubscriptionUpdater
 
-    def unsubscribe_email
-      verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
-
-      if params[:email_address].blank?
-        flash[:alert] = "No record found"
-        return
-      end
-
-      begin
-        email_address = verifier.verify(params[:email_address])
-        matching_intakes = matching_intakes(email_address)
-
-        if matching_intakes.present?
-          matching_intakes.each do |intake|
-            intake.update(unsubscribed_from_email: true)
-          end
-        else
-          flash[:alert] = "No record found"
-        end
-      rescue ActiveSupport::MessageVerifier::InvalidSignature
-        flash[:alert] = "Invalid unsubscribe link"
-      end
+    def unsubscribe_from_emails
+      update_email_subscription(direction: true, column_name: :unsubscribed_from_email)
     end
 
-    def subscribe_email
-      verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
-
-      if params[:email_address].blank?
-        flash[:alert] = "No record found"
-        return
-      end
-
-      begin
-        email_address = verifier.verify(params[:email_address])
-        matching_intakes = matching_intakes(email_address)
-
-        if matching_intakes.present?
-          matching_intakes.each do |intake|
-            intake.update(unsubscribed_from_email: false)
-          end
-
-          flash[:notice] = I18n.t("state_file.notifications_settings.subscribe_email.flash")
-          render :unsubscribe_email
-        else
-          flash[:alert] = "No record found"
-        end
-      rescue ActiveSupport::MessageVerifier::InvalidSignature
-        flash[:alert] = "Invalid subscribe link"
-      end
+    def subscribe_to_emails
+      update_email_subscription(direction: false, column_name: :unsubscribed_from_email, show_flash_and_render: true)
     end
 
     private

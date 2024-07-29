@@ -1792,6 +1792,8 @@ es:
     intake:
       your_spouse: Su cónyuge
   notifications_settings:
+    invalid_link: Enlace de suscripción no válido
+    no_record: Ningún record fue encontrado
     subscribe_to_emails:
       flash: Te has vuelto a suscribir con éxito a las notificaciones por correo electrónico.
     unsubscribe_from_emails:

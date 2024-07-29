@@ -28,7 +28,7 @@ RSpec.describe NotificationsSettingsController do
       it "shows a message" do
         get :unsubscribe_from_emails, params: { email_address: "unsubscribe_me@example.com" }
 
-        expect(flash[:alert]).to eq "Invalid unsubscribe link"
+        expect(flash[:alert]).to eq "Invalid subscription link"
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe NotificationsSettingsController do
       it "shows a message" do
         get :subscribe_to_emails, params: { email_address: "unsubscribe_me@example.com" }
 
-        expect(flash[:alert]).to eq "Invalid subscribe link"
+        expect(flash[:alert]).to eq "Invalid subscription link"
       end
     end
 
