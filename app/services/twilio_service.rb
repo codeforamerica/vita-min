@@ -26,14 +26,21 @@ class TwilioService
 
     def fetch_attachment(url)
       response = Net::HTTP.get_response(URI(url)) # first we get a redirect from Twilio to S3
-      response = Net::HTTP.get_response(URI(response['location'])) # then we get a redirect from S3 to S3
-      response = Net::HTTP.get_response(URI(response['location'])) # finally we should get a 200 OK with the file
-      filename_from_s3 = response['content-disposition'].split('"').last # S3 gives us the original filename
-
-      {
-        filename: filename_from_s3,
-        body: response.body,
-      }
+      begin
+        response = Net::HTTP.get_response(URI(response['location'])) # then we get a redirect from S3 to S3
+        response = Net::HTTP.get_response(URI(response['location'])) # finally we should get a 200 OK with the file
+        filename_from_s3 = response['content-disposition'].split('"').last # S3 gives us the original filename
+        {
+          filename: filename_from_s3,
+          body: response.body,
+        }
+      rescue ArgumentError => e
+        Rails.logger.error("Error getting attachment from Twilio: #{url}: #{response&.status}: #{response&.headers}")
+        {
+          filename: "unknown-file",
+          body: nil
+        }
+      end
     end
 
     def parse_attachments(params)
