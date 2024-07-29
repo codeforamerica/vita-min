@@ -7,8 +7,8 @@ require "singleton"
 # the singleton can be referenced using `MixpanelService.instance`
 #
 class MixpanelService
-  MAX_ATTEMPTS = 3
-  RETRY_DELAY = 30
+  MAX_BUFFER_SIZE = 50
+  FLUSH_DELAY = 5
 
   include Singleton
 
@@ -16,10 +16,10 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @consumer = Mixpanel::BufferedConsumer.new
+    @buffer = []
     @mutex = Mutex.new
     @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      send_event_to_mixpanel(type, message)
+      buffer_event_for_send(type, message)
     end
 
     # silence local SSL errors
@@ -52,18 +52,42 @@ class MixpanelService
 
   private
 
-  def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0, flush_delay = 5)
-    task = Concurrent::ScheduledTask.new(delay) do
-      @mutex.synchronize do
-        @consumer.send!(type, message)
-        @flusher.cancel if @flusher
-        @flusher = Concurrent::ScheduledTask.new(flush_delay) do
-          @consumer.flush
-        end
-        @flusher.execute
+  def buffer_event_for_send(type, message)
+    buffer = nil
+    @mutex.synchronize do
+      buffer = @buffer
+      buffer << [type, message]
+      @flusher.cancel if @flusher
+      if buffer.length < MAX_BUFFER_SIZE
+        init_flusher
+        return
+      else
+        @buffer = []
       end
     end
-    task.execute
+    if buffer.length >= MAX_BUFFER_SIZE
+      send_buffered_events_to_mixpanel(buffer)
+    end
+  end
+
+  def init_flusher
+    @flusher = Concurrent::ScheduledTask.new(FLUSH_DELAY) do
+      buffer = nil
+      @mutex.synchronize do
+        buffer = @buffer
+        @buffer = []
+      end
+      send_buffered_events_to_mixpanel(buffer)
+    end
+    @flusher.execute
+  end
+
+  def send_buffered_events_to_mixpanel(buffer)
+    consumer = Mixpanel::BufferedConsumer.new(nil, nil, nil, MAX_BUFFER_SIZE + 1)
+    buffer.each do |type, message|
+      consumer.send!(type, message)
+    end
+    consumer.flush
   end
 
   class << self
