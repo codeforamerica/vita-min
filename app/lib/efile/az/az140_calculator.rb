@@ -1,6 +1,6 @@
 module Efile
   module Az
-    class Az140 < ::Efile::TaxCalculator
+    class Az140Calculator < ::Efile::TaxCalculator
       attr_reader :lines
 
       def calculate
