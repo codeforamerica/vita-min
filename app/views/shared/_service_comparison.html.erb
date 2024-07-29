@@ -109,7 +109,7 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= MultiTenantService.new(:gyr).filing_years.last %>-<%= MultiTenantService.new(:gyr).filing_years.first %>
+              <%= gyr_filing_years.last %>-<%= gyr_filing_years.first %>
             </div>
             <div class="service diy">
               <%= MultiTenantService.new(:gyr).current_tax_year %>

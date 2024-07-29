@@ -1570,6 +1570,33 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#client_has_return_for_every_gyr_filing_year?" do
+    let(:client) { create(:client, intake: (build :intake)) }
+
+    context "client has no tax returns" do
+      it "returns false" do
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be false
+      end
+    end
+
+    context "client has one tax return" do
+      it "returns false" do
+        create :gyr_tax_return, client: client
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be false
+      end
+    end
+
+    context "client has tax returns for every current filing year" do
+      it "returns true" do
+        MultiTenantService.new(:gyr).filing_years.each do |year|
+          create :tax_return, client: client, year: year
+        end
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be true
+      end
+    end
+
+  end
+
   context "when receiving invalid requests from robots" do
     before do
       allow(DatadogApi).to receive(:increment)
