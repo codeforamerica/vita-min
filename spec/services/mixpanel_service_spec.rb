@@ -79,7 +79,7 @@ describe MixpanelService do
     end
 
     after do
-      MixpanelService.instance.remove_instance_variable(:@tracker)
+      MixpanelService.instance.remove_instance_variable(:@consumer)
       MixpanelService.instance.remove_instance_variable(:@tracker)
     end
 
