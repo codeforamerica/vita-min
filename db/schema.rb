@@ -458,7 +458,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_192155) do
     t.string "ctds_code"
     t.date "date_of_contribution"
     t.string "district_name"
-    t.integer "made_contribution"
+    t.integer "made_contribution", default: 0, null: false
     t.string "school_name"
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false

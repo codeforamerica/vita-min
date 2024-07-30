@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzPublicSchoolContributionsController < AuthenticatedQuestionsController
+    class AzPublicSchoolContributionsController < QuestionsController
       include ReturnToReviewConcern
 
       def self.navigation_actions

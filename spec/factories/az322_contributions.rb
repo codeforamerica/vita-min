@@ -7,7 +7,7 @@
 #  ctds_code               :string
 #  date_of_contribution    :date
 #  district_name           :string
-#  made_contribution       :integer
+#  made_contribution       :integer          default("unfilled"), not null
 #  school_name             :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
