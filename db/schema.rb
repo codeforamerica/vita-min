@@ -1674,12 +1674,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
-    t.integer "form1099r_primary_received_pension", default: 0, null: false
-    t.decimal "form1099r_primary_received_pension_amount", precision: 12, scale: 2
-    t.integer "form1099r_received_military_payment", default: 0, null: false
-    t.decimal "form1099r_received_military_payment_amount", precision: 12, scale: 2
-    t.integer "form1099r_spouse_received_pension", default: 0, null: false
-    t.decimal "form1099r_spouse_received_pension_amount", precision: 12, scale: 2
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
@@ -1698,11 +1692,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_received_pension", default: 0, null: false
+    t.decimal "primary_received_pension_amount", precision: 12, scale: 2
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
+    t.integer "received_military_retirement_payment", default: 0, null: false
+    t.decimal "received_military_retirement_payment_amount", precision: 12, scale: 2
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1713,6 +1711,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_received_pension", default: 0, null: false
+    t.decimal "spouse_received_pension_amount", precision: 12, scale: 2
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_was_incarcerated", default: 0, null: false
