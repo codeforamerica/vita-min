@@ -41,6 +41,7 @@ describe 'EfileError' do
       "az-excise-credit",
       "az-primary-state-id",
       "az-prior-last-names",
+      "az-public-school-contributions",
       "az-review",
       "az-senior-dependents",
       "az-spouse-state-id",
