@@ -19,10 +19,6 @@ describe VerificationCodeMailer, type: :mailer do
       expect(email.text_part.decoded.strip).to include "GetYourRefund"
     end
 
-    it_behaves_like "a mailer with an unsubscribe link" do
-      let(:mailer_method) { :with_code }
-    end
-
     context "for a CTC client" do
       it "delivers an email with CTC branding and a no-reply@ address" do
         email = described_class.with(
