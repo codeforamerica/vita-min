@@ -55,14 +55,9 @@ class EfileSubmissionStateMachine
     StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message if submission.is_for_state_filing?
 
     submission.create_qualifying_dependents
-    if submission.is_for_federal_filing?
-      if submission.first_submission? && submission.intake.filing_jointly?
-        submission.intake.update(spouse_prior_year_agi_amount: submission.intake.spouse_prior_year_agi_amount_computed)
-      end
-    end
 
-    fraud_score = submission.is_for_federal_filing? ? Fraud::Score.create_from(submission) : Fraud::Score.new(score: 0)
-    bypass_fraud_check = submission.is_for_state_filing? || submission.admin_resubmission? || submission.client.identity_verified_at
+    fraud_score = Fraud::Score.new(score: 0)
+    bypass_fraud_check = submission.is_for_state_filing?
     if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
       submission.transition_to(:bundling)
     else
@@ -70,22 +65,9 @@ class EfileSubmissionStateMachine
       submission.transition_to(:fraud_hold)
     end
 
-    if submission.is_for_federal_filing?
-      StateFile::CreateSubmissionPdfJob.perform_later(submission.id)
-    end
   end
 
   after_transition(to: :bundling) do |submission|
-    # Only sends if efile preparing message has never been sent bc
-    # StateFile::AutomatedMessage::EfilePreparing has send_only_once set to true
-    if submission.is_for_federal_filing?
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: submission.client,
-        message: StateFile::AutomatedMessage::EfilePreparing,
-      )
-      submission.tax_return.transition_to!(:file_ready_to_file)
-    end
-
     StateFile::BuildSubmissionBundleJob.perform_later(submission.id)
   end
 
@@ -93,22 +75,7 @@ class EfileSubmissionStateMachine
     StateFile::SendSubmissionJob.perform_later(submission)
   end
 
-  after_transition(to: :fraud_hold) do |submission|
-    if submission.is_for_federal_filing?
-      submission.tax_return.transition_to(:file_fraud_hold)
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: submission.client,
-        message: AutomatedMessage::InformOfFraudHold,
-      )
-    end
-  end
-
   after_transition(to: :transmitted) do |submission|
-    if submission.is_for_federal_filing?
-      submission.tax_return.transition_to(:file_efiled)
-      send_mixpanel_event(submission, "efile_return_transmitted")
-    end
-
     if submission.is_for_state_filing?
       # NOTE: a submission can have multiple successive :transmitted states, each with different
       # response XML
@@ -118,24 +85,10 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|
-    if submission.is_for_federal_filing?
-      submission.tax_return.transition_to(:file_needs_review)
-    end
-
     Efile::SubmissionErrorParser.persist_errors(transition)
 
     if transition.efile_errors.any?
-      if transition.efile_errors.any?(&:expose) && submission.is_for_federal_filing?
-        ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-          client: submission.client,
-          message: StateFile::AutomatedMessage::EfileFailed,
-        )
-      end
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
-    end
-
-    if submission.is_for_federal_filing?
-      send_mixpanel_event(submission, "ctc_efile_return_failed")
     end
 
     if submission.is_for_state_filing?
@@ -158,39 +111,10 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :accepted) do |submission|
-    if submission.is_for_federal_filing?
-      # Add a note to client page
-      client = submission.client
-      tax_return = submission.tax_return
-      ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-        client: client,
-        message: StateFile::AutomatedMessage::EfileAcceptance,
-      )
-      tax_return.transition_to(:file_accepted)
-
-      accepted_tr_analytics = submission.tax_return.create_accepted_tax_return_analytics!
-      accepted_tr_analytics.update!(accepted_tr_analytics.calculated_benefits_attrs)
-
-      benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: submission.qualifying_dependents)
-      send_mixpanel_event(submission, "ctc_efile_return_accepted", data: {
-        child_tax_credit_advance: benefits.advance_ctc_amount_received,
-        recovery_rebate_credit: [benefits.eip1_amount, benefits.eip2_amount].compact.sum,
-        third_stimulus_amount: benefits.eip3_amount,
-      })
-    elsif submission.is_for_state_filing?
+    if submission.is_for_state_filing?
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
       send_mixpanel_event(submission, "state_file_efile_return_accepted")
     end
-  end
-
-  after_transition(to: :investigating) do |submission|
-    # transitioning tax-return state
-    submission.tax_return.transition_to(:file_hold) if submission.is_for_federal_filing?
-  end
-
-
-  after_transition(to: :waiting) do |submission|
-    submission.tax_return.transition_to(:file_hold) if submission.is_for_federal_filing?
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
@@ -201,10 +125,6 @@ class EfileSubmissionStateMachine
     rescue Statesman::GuardFailedError
       Rails.logger.error "Failed to transition EfileSubmission##{@new_submission.id} to :preparing"
     end
-  end
-
-  after_transition(to: :cancelled) do |submission|
-    submission.tax_return.transition_to(:file_not_filing) if submission.is_for_federal_filing?
   end
 
   after_transition do |submission, transition|
