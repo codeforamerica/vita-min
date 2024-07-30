@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_215829) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_192155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -441,18 +441,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_215829) do
     t.index ["vita_partner_id"], name: "index_arcint_2021_on_vita_partner_id"
   end
 
-  create_table "az322_contributions", force: :cascade do |t|
-    t.decimal "amount", precision: 12, scale: 2
-    t.datetime "created_at", null: false
-    t.string "ctds_code"
-    t.date "date_of_contribution"
-    t.string "district_name"
-    t.string "school_name"
-    t.bigint "state_file_az_intake_id"
-    t.datetime "updated_at", null: false
-    t.index ["state_file_az_intake_id"], name: "index_az322_contributions_on_state_file_az_intake_id"
-  end
-
   create_table "az321_contributions", force: :cascade do |t|
     t.decimal "amount", precision: 12, scale: 2
     t.string "charity_code"
@@ -462,6 +450,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_215829) do
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
     t.index ["state_file_az_intake_id"], name: "index_az321_contributions_on_state_file_az_intake_id"
+  end
+
+  create_table "az322_contributions", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.string "ctds_code"
+    t.date "date_of_contribution"
+    t.string "district_name"
+    t.integer "made_contribution"
+    t.string "school_name"
+    t.bigint "state_file_az_intake_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_az_intake_id"], name: "index_az322_contributions_on_state_file_az_intake_id"
   end
 
   create_table "bank_accounts", force: :cascade do |t|

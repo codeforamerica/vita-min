@@ -1,0 +1,33 @@
+<% title = t('.lets_review') %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <% if @az322_contributions.present? %>
+    <% @az322_contributions.each do |contribution| %>
+      <div class="blue-group contribution">
+        <div class="contribution__details">
+          <h3 class="contribution__label">
+            <%= t('.contribution_label', school_name: contribution.school_name) %>
+          </h3>
+          <p class="contribution__info spacing-below-25">
+            <%= t('.amount_contributed', amount: contribution.amount) %>
+          </p>
+          <div>
+            <%= link_to t("general.edit"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
+            <%= link_to t("general.delete"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :destroy, us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button--small button--inline-action last" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
+    <%= t('general.continue') %>
+  <% end %>
+  <%= link_to(StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, us_state: current_state_code, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
+    <%= t('.add_another') %>
+  <% end %>
+<% end %>
+

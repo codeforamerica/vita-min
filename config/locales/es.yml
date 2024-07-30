@@ -2156,6 +2156,25 @@ es:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
             one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
             other: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
+      az_public_school_contributions:
+        index:
+          lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
+          contribution_label: Contribución a %{school_name}
+          amount_contributed: 'Cantidad contribuida: %{amount}'
+          edit: Editar
+          delete: Eliminar
+          delete_confirmation: ¿Estás seguro de que quieres eliminar esta contribución?
+          continue: Continuar
+          add_another: Añadir otra contribución
+        edit:
+          title: ¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}?
+          made_contribution: ¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado.
+          additional_info: 'Por favor, proporciona la siguiente información para cada escuela pública a la que pagaste tarifas o hiciste contribuciones:'
+          school_name: Nombre de la escuela
+          ctds_code: Código de la escuela/CTDS
+          district_name: Nombre del distrito escolar
+          amount: Cantidad de contribución/tarifas pagadas en %{year}
+          date_of_contribution: Fecha de pago en %{year} (mm/dd)
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
