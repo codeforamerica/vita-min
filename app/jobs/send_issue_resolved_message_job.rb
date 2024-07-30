@@ -23,7 +23,7 @@ class SendIssueResolvedMessageJob < ApplicationJob
   end
 
   def self.login_link
-    Rails.application.routes.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: "login_options", us_state: "us")
+    Rails.application.routes.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: "login_options")
   end
 
   private

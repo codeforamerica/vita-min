@@ -36,7 +36,7 @@
   <%=
     link_to(
       "Cancel",
-      StateFile::Questions::CanceledDataTransferController.to_path_helper(us_state: current_state_code),
+      StateFile::Questions::CanceledDataTransferController.to_path_helper,
       class: 'cancel-button'
     )
   %>
@@ -44,7 +44,7 @@
   <%=
     link_to(
       "See page for pending federal return",
-      StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_state_code),
+      StateFile::Questions::PendingFederalReturnController.to_path_helper,
     )
   %>
 

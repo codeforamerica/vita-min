@@ -12,7 +12,7 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
     }
     let(:efile_subimissions) { [create(:efile_submission, :notified_of_rejection)] }
     let(:message) { StateFile::AutomatedMessage::RejectResolutionReminder }
-    let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/az/questions/return-status" } }
+    let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status" } }
     let(:sf_messaging_service) {
       StateFile::MessagingService.new(
       intake: intake,
