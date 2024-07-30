@@ -33,8 +33,10 @@ class NotificationsSettingsController < ApplicationController
   def matching_intakes(email_address)
     return if email_address.blank?
     email_address = Intake.signed_id_verifier.verified email_address
-
     Intake.where(email_address: email_address)
+  rescue
+    Rails.logger.error("invalid_signature: #{email_address}")
+    nil
   end
 
 end
