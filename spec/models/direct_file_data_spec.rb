@@ -417,4 +417,13 @@ describe DirectFileData do
       end
     end
   end
+
+  describe "#sum_of_1099r_payments_received" do
+    it "returns the sum of TaxableAmt from 1099Rs" do
+      xml = StateFile::XmlReturnSampleService.new.read('az_retirement')
+      direct_file_data = DirectFileData.new(xml.to_s)
+
+      expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
+    end
+  end
 end

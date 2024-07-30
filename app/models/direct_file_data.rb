@@ -161,6 +161,10 @@ class DirectFileData
     surviving_spouse == "X"
   end
 
+  def sum_of_1099r_payments_received
+    parsed_xml.search("IRS1099R").reduce(0) { |sum, el| sum + el.at("TaxableAmt")&.text.to_i }
+  end
+
   def surviving_spouse=(value)
     if value.present?
       write_df_xml_value(__method__, value)
