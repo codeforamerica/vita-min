@@ -1,5 +1,5 @@
 class NotificationsSettingsController < ApplicationController
-  include EmailSubscriptionUpdater
+  include EmailSubscriptionUpdaterConcern
 
   def unsubscribe_from_emails
     update_email_subscription(direction: "no", column_name: :email_notification_opt_in)

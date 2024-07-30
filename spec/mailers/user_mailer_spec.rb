@@ -6,6 +6,19 @@ RSpec.describe UserMailer, type: :mailer do
     let(:assigned_user) { create :user }
     let(:tax_return) { create :gyr_tax_return }
 
+    it_behaves_like "a mailer with an unsubscribe link" do
+      let(:mail_method) { :assignment_email }
+      let(:mailer_args) do
+        {
+          assigned_user: assigned_user,
+          assigning_user: assigning_user,
+          tax_return: tax_return,
+          assigned_at: tax_return.updated_at
+        }
+      end
+      let(:email_address) { assigned_user.email }
+    end
+
     it "delivers the email with the right subject and body" do
       email = UserMailer.assignment_email(assigned_user: assigned_user,
                                           assigning_user: assigning_user,

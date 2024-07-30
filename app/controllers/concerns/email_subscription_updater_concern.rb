@@ -1,11 +1,11 @@
-module EmailSubscriptionUpdater
+module EmailSubscriptionUpdaterConcern
   extend ActiveSupport::Concern
 
   def update_email_subscription(direction:, column_name:, show_flash_and_render: false)
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
 
     if params[:email_address].blank?
-      flash[:alert] = "No record found"
+      flash[:alert] = I18n.t("notifications_settings.no_record")
       return
     end
 

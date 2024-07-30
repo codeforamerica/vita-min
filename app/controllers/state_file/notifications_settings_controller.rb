@@ -1,7 +1,7 @@
 module StateFile
   class NotificationsSettingsController < ApplicationController
     layout "state_file"
-    include EmailSubscriptionUpdater
+    include EmailSubscriptionUpdaterConcern
 
     def unsubscribe_from_emails
       update_email_subscription(direction: true, column_name: :unsubscribed_from_email)
