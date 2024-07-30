@@ -91,7 +91,6 @@ module StateFile
       # Note: for god knows what reason, you cannot reference "current_state_file_#{state_code}_intake" or the new intake will fail to log in,
       # or at least in the test it seems to fail. Couldn't think of a better solution than grabbing the id from the session even though it looks terrible.
       # (Should return an array of 1 id)
-      # TODO: Loop over states and grab all/any unfinished loged in intake ids instead of assuming that it'd be a specific state
       unfinished_logged_in_intake_ids = StateFile::StateInformationService.active_state_codes.map do |state_code|
         session.dig("warden.user.state_file_#{state_code}_intake.key", 0)
       end.compact
