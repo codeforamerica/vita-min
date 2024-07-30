@@ -227,6 +227,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
