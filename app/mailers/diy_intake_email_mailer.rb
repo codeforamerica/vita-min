@@ -11,7 +11,7 @@ class DiyIntakeEmailMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: diy_intake.email_address
+        email_address: Intake.signed_id_verifier.generate(diy_intake.email_address)
       }
     )
     I18n.with_locale(diy_intake.locale) do

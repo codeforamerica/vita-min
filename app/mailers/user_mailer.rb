@@ -24,7 +24,7 @@ class UserMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: @assigned_user.email
+        email_address: Intake.signed_id_verifier.generate(@assigned_user.email)
       }
     )
 

@@ -16,7 +16,7 @@ class OutgoingEmailMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: outgoing_email.to
+        email_address: Intake.signed_id_verifier.generate(outgoing_email.to)
       }
     )
     @subject = outgoing_email.subject
