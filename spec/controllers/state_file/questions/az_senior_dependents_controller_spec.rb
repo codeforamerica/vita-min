@@ -33,11 +33,10 @@ RSpec.describe StateFile::Questions::AzSeniorDependentsController do
               }
             }
           },
-          return_to_review: :y,
-          us_state: :az
+          return_to_review: :y
         }
         post :update, params: params
-        expect(response).to redirect_to "/en/az/questions/az-review"
+        expect(response).to redirect_to "/en/questions/az-review"
       end
     end
   end

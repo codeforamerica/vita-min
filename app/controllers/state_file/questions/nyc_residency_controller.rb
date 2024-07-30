@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NycResidencyController < AuthenticatedQuestionsController
+    class NycResidencyController < QuestionsController
       # the order of these two concerns is important.
       # they both overwrite next_path and defer to super.
       # offboarding should be last because its next_path method should take precedence and should be called first.

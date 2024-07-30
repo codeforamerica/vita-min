@@ -1,12 +1,12 @@
 <% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
 <% content_for :card do %>
-  <%= render "state_file/questions/shared/review_header", us_state: 'ny' %>
+  <%= render "state_file/questions/shared/review_header" %>
 
   <div id="full-year-resident" class="blue-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".nyc_full_year_resident") %></p>
       <p><%=current_intake.nyc_residency_full_year? ? t("general.affirmative") : t("general.negative") %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NycResidencyController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NycResidencyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
@@ -14,7 +14,7 @@
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".residence_county") %></p>
       <p><%=current_intake.residence_county %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NyCountyController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NyCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".school_district") %></p>
       <p><%=current_intake.school_district %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NySchoolDistrictController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NySchoolDistrictController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
@@ -31,7 +31,7 @@
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
         <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
-        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, us_state: current_state_code, id: w2.w2_index, return_to_review: "y"), class: "button--small" %>
+        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, id: w2.w2_index, return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
   <% end %>
@@ -40,7 +40,7 @@
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".out_of_state_purchases") %></p>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %>&nbsp;<%=number_to_currency(current_intake.sales_use_tax) %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NySalesUseTaxController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NySalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
@@ -49,7 +49,7 @@
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".third_party_designee") %></p>
         <p><%=current_intake.direct_file_data.third_party_designee_name %></p>
-        <%= link_to t("general.edit"), StateFile::Questions::NyThirdPartyDesigneeController.to_path_helper(us_state: "ny", return_to_review: "y"), class: "button--small" %>
+        <%= link_to t("general.edit"), StateFile::Questions::NyThirdPartyDesigneeController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
   <% end %>
