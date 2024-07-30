@@ -660,6 +660,9 @@ class FlowsController < ApplicationController
         locale: 'en',
         unfinished_intake_ids: [],
         df_data_imported_at: 2.hours.ago,
+        primary_received_pension: "yes",
+        received_military_retirement_payment: "yes",
+        spouse_received_pension: "yes",
       )
     end
 
