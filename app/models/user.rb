@@ -241,6 +241,27 @@ class User < ApplicationRecord
     role_type == AdminRole::TYPE && role.state_file?
   end
 
+  def role_display_name
+    case role_type
+    when "SiteCoordinatorRole"
+      "Site Coordinator"
+    when "OrganizationLeadRole"
+      "Organization Lead"
+    when "TeamMemberRole"
+      "Team Member"
+    when "CoalitionLeadRole"
+      "Coalition Lead"
+    when "AdminRole"
+      "Admin"
+    when "ClientSuccessRole"
+      "Client Success"
+    when "GreeterRole"
+      "Greeter"
+    else
+      ""
+    end
+  end
+
   def suspended?
     suspended_at.present?
   end
