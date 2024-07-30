@@ -15,7 +15,7 @@ class NotificationsSettingsController < ApplicationController
   def subscribe_to_emails
     matching_intakes = matching_intakes(params[:email_address])
 
-    if matching_intakes.present?
+    if matching_intakes.any?
       matching_intakes.each do |intake|
         intake.update(email_notification_opt_in: "yes")
       end
@@ -31,12 +31,12 @@ class NotificationsSettingsController < ApplicationController
 
 
   def matching_intakes(email_address)
-    return if email_address.blank?
+    return [] if email_address.blank?
     email_address = Intake.signed_id_verifier.verified email_address
-    Intake.where(email_address: email_address)
+    Intake.where(email_address: email_address).to_a
   rescue
     Rails.logger.error("invalid_signature: #{email_address}")
-    nil
+    []
   end
 
 end
