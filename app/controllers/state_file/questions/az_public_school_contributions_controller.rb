@@ -43,7 +43,7 @@ module StateFile
       def destroy
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
         if @az322_contribution.destroy
-          flash[:notice] = I18n.t("state_file.questions.az_public_school_contributions.destroy.removed", name: @az322_contribution.school_name)
+          flash[:notice] = I18n.t("state_file.questions.az_public_school_contributions.destroy.removed", school_name: @az322_contribution.school_name)
         end
         redirect_to action: :index, return_to_review: params[:return_to_review]
       end
