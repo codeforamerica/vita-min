@@ -988,6 +988,13 @@ en:
         total_number_of_returns: Total number of returns
         total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]
         view_all: View All
+        team_assignment:
+          title: Team Assignment
+          name: Name
+          role: Role
+          assigned_returns: Assigned Returns
+          pager: Displaying %{start_range} - %{end_range} of %{total}
+          no_team_assignments: No Team Assignments to display at the moment
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
