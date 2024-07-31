@@ -95,10 +95,6 @@ class EfileSubmission < ApplicationRecord
     result.except(*except)
   end
 
-  def is_for_federal_filing?
-    tax_return.present?
-  end
-
   def is_for_state_filing?
     data_source_type.in?(StateFile::StateInformationService.state_intake_class_names)
   end
@@ -192,25 +188,11 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_filing_pdf
-    if is_for_federal_filing?
-      pdf_documents = SubmissionBuilder::Ty2021::Return1040.new(self).pdf_documents
-      output_file = Tempfile.new([pdf_bundle_filename, ".pdf"], "tmp/")
-      filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
-      PdfForms.new.cat(*filled_out_documents.push(output_file.path))
-      ClientPdfDocument.create_or_update(
-        output_file: output_file,
-        document_type: DocumentTypes::Form1040,
-        client: client,
-        filename: pdf_bundle_filename,
-        tax_return: tax_return
-      )
-    else
-      pdf_documents = bundle_class.new(self).pdf_documents
-      output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
-      filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
-      PdfForms.new.cat(*filled_out_documents.push(output_file.path))
-      output_file
-    end
+    pdf_documents = bundle_class.new(self).pdf_documents
+    output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
+    filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
+    PdfForms.new.cat(*filled_out_documents.push(output_file.path))
+    output_file
   end
 
   def manifest_class
