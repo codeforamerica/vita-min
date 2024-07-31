@@ -1,7 +1,7 @@
 module Hub
   module Dashboard
     class TeamAssignmentPresenter
-      attr_reader :page
+      attr_reader :page, :user_count
       def initialize(current_user, page)
         @current_user = current_user
         @page = page
@@ -18,6 +18,8 @@ module Hub
                                      team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
                                      site_coordinators.or(team_members)
                                    end
+
+        @user_count = accessible_users_by_role.count
 
         accessible_users_by_role.paginate(page: @page, per_page: 5)
       end
