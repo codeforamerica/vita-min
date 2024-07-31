@@ -18,7 +18,7 @@ module StateFile
 
     def return_status_link(intake)
       locale = intake.locale || "en"
-      Rails.application.routes.url_helpers.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: intake.state_code, locale: locale)
+      Rails.application.routes.url_helpers.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", locale: locale)
     end
 
     def notified_of_rejected_and_not_accepted(intake)

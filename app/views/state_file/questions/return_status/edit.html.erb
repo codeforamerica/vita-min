@@ -3,13 +3,13 @@
   <%= render @return_status %>
 
   <% if !@error&.auto_wait || app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes) && @submission_to_show.present? %>
-    <%= link_to t('.download_state_return_pdf'), StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: current_state_code, action: :show, id: @submission_to_show.id), class: "button button--primary button--wide spacing-above-60" %>
+    <%= link_to t('.download_state_return_pdf'), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: @submission_to_show.id), class: "button button--primary button--wide spacing-above-60" %>
   <% end %>
 
   <% if show_xml? %>
     <p>
-      <%= link_to t('.show_xml'), StateFile::Questions::ConfirmationController.to_path_helper(us_state: current_state_code, action: :show_xml), class: 'dev-button' %>
-      <%= link_to t('.explain_calcs'), StateFile::Questions::ConfirmationController.to_path_helper(us_state: current_state_code, action: :explain_calculations), class: 'dev-button' %>
+      <%= link_to t('.show_xml'), StateFile::Questions::ConfirmationController.to_path_helper(action: :show_xml), class: 'dev-button' %>
+      <%= link_to t('.explain_calcs'), StateFile::Questions::ConfirmationController.to_path_helper(action: :explain_calculations), class: 'dev-button' %>
     </p>
   <% end %>
 <% end %>

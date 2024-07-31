@@ -76,8 +76,7 @@ module StateFile
       url_for(
         host: MultiTenantService.new(:statefile).host,
         controller: "state_file/questions/return_status",
-        action: "edit",
-        us_state: @intake.state_code,
+        action: "edit"
       )
     end
   end

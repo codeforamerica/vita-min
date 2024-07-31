@@ -57,7 +57,6 @@ describe 'EfileError' do
       "esign-declaration",
       "federal-info",
       "initiate-data-transfer",
-      "landing-page",
       "name-dob",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",

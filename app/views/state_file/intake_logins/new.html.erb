@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= title %></h1>
 
-  <%= form_with model: @form, url: StateFile::IntakeLoginsController.to_path_helper(action: :create, us_state: params[:us_state], contact_method: @contact_method), local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: StateFile::IntakeLoginsController.to_path_helper(action: :create, contact_method: @contact_method), local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
     <div class="blue-group">
       <%= f.cfa_input_field(@contact_method.to_sym, t(".#{@contact_method}.label"), classes: ["form-width--long"]) %>
     </div>

@@ -12,7 +12,7 @@ RSpec.feature "Going through the eligibility screener" do
       visit "/"
       click_on "Start Test NY"
 
-      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.ny.title")
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.ny.title")
       click_on "Get Started", id: "firstCta"
 
       expect(page).to have_text "First, let's see if you can use this tool to file your taxes"
@@ -27,7 +27,7 @@ RSpec.feature "Going through the eligibility screener" do
       visit "/"
       click_on "Start Test AZ"
 
-      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.az.title")
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
       click_on "Get Started", id: "firstCta"
 
       expect(page).to have_text "First, let's see if you can use this tool to file your taxes"

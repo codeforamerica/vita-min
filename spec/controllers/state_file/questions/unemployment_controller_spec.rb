@@ -30,7 +30,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
 
       it "renders information about each dependent" do
-        get :index, params: { us_state: :ny }
+        get :index
 
         expect(response.body).to include intake.primary.full_name
         expect(response.body).to include intake.spouse.full_name
@@ -40,8 +40,8 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     context "with no existing dependents" do
       render_views
       it "redirects to the new view" do
-        get :index, params: { us_state: :ny }
-        expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :new, us_state: :ny)
+        get :index
+        expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :new)
       end
     end
   end
@@ -49,7 +49,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   describe "#create" do
     let(:params) do
       {
-        us_state: :ny,
         state_file1099_g: {
           had_box_11: 'yes',
           recipient: 'primary',
@@ -72,7 +71,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         post :create, params: params
       end.to change(StateFile1099G, :count).by 1
 
-      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index, us_state: :ny))
+      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
 
       state_file1099_g = StateFile1099G.last
       expect(state_file1099_g.intake).to eq intake
@@ -116,7 +115,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
       let(:params) do
         {
-          us_state: :ny,
           state_file1099_g: {
             recipient: :globgor,
           }
@@ -146,7 +144,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         expect do
           post :create, params: params
         end.to change(StateFile1099G, :count)
-        expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index, us_state: 'ny'))
+        expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
       end
     end
   end
@@ -159,7 +157,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
              recipient: 'primary',
              unemployment_compensation: 456
     end
-    let(:params) { { us_state: :ny, id: form1099.id } }
+    let(:params) { { id: form1099.id } }
 
     render_views
 
@@ -183,7 +181,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
     let(:params) do
       {
-        us_state: :ny,
         id: form1099.id,
         state_file1099_g: {
           had_box_11: 'yes',
@@ -199,7 +196,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     it "updates the dependent and redirects to the index" do
       post :update, params: params
 
-      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(us_state: :ny, action: :index))
+      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
 
       form1099.reload
       expect(form1099.recipient).to eq "spouse"
@@ -224,7 +221,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
       let(:params) do
         {
-          us_state: :ny,
           id: form1099.id,
           state_file1099_g: {
             recipient: :globgor,
@@ -250,14 +246,14 @@ RSpec.describe StateFile::Questions::UnemploymentController do
              intake: intake,
              recipient: 'primary'
     end
-    let(:params) { { us_state: :ny, id: form1099.id } }
+    let(:params) { { id: form1099.id } }
 
     it "deletes the 1099 and adds a flash message and redirects to index path" do
       expect do
         delete :destroy, params: params
       end.to change(StateFile1099G, :count).by(-1)
 
-      expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(us_state: :ny, action: :index)
+      expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :index)
       expect(flash[:notice]).to eq I18n.t('state_file.questions.unemployment.destroy.removed', name: intake.primary.full_name)
     end
   end

@@ -38,7 +38,7 @@ module Hub::StateFile
         survey_link: StateFile::StateInformationService.survey_link(intake.state_code),
         submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
         state_name: intake.state_name,
-        return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(state_code, locale),
+        return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(locale),
         login_link: SendIssueResolvedMessageJob.login_link,
         state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(state_code),
       }

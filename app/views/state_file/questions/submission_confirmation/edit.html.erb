@@ -32,16 +32,16 @@
 
   <p><%= t('general.spread_the_word_html') %></p>
 
-  <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(us_state: current_state_code, action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary button--wide" %>
+  <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary button--wide" %>
 
   <% if show_xml? %>
     <p>
       <% xml_bundle = EfileSubmission.where(data_source: current_intake).last&.submission_bundle %>
-      <%= link_to "Main XML Doc", StateFile::Questions::ConfirmationController.to_path_helper(us_state: current_state_code, action: :show_xml), class: 'dev-button' %>
+      <%= link_to "Main XML Doc", StateFile::Questions::ConfirmationController.to_path_helper(action: :show_xml), class: 'dev-button' %>
       <% if xml_bundle.present? %>
         <%= link_to "Full XML Bundle", rails_blob_path(xml_bundle, disposition: "attachment"), class: 'dev-button' %>
       <% end %>
-      <%= link_to "Explain Calculations", StateFile::Questions::ConfirmationController.to_path_helper(us_state: current_state_code, action: :explain_calculations), class: 'dev-button' %>
+      <%= link_to "Explain Calculations", StateFile::Questions::ConfirmationController.to_path_helper(action: :explain_calculations), class: 'dev-button' %>
     </p>
   <% end %>
 <% end %>

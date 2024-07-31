@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class BaseReviewController < AuthenticatedQuestionsController
+    class BaseReviewController < QuestionsController
       def edit
         @invalid_w2s = StateFile::Questions::W2Controller.w2s_for_intake(current_intake)
         @refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount

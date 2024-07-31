@@ -11,7 +11,7 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
     context 'when there is no authorization code' do
       it 'raises an error' do
         expect do
-          get :edit, params: { us_state: :ny }
+          get :edit
         end.to raise_error(ActionController::RoutingError)
       end
     end
@@ -23,7 +23,7 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
 
       it 'queues a job to import the data' do
         expect do
-          get :edit, params: { authorizationCode: 'abcde', us_state: :ny }
+          get :edit, params: { authorizationCode: 'abcde' }
         end.to have_enqueued_job(StateFile::ImportFromDirectFileJob).with(authorization_code: 'abcde', intake: intake)
       end
     end
@@ -34,8 +34,8 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
       end
 
       it 'redirects to the next page' do
-        get :edit, params: { authorizationCode: 'abcde', us_state: :ny }
-        expect(response).to redirect_to(StateFile::Questions::DataReviewController.to_path_helper(us_state: :ny))
+        get :edit, params: { authorizationCode: 'abcde'}
+        expect(response).to redirect_to(StateFile::Questions::DataReviewController.to_path_helper)
       end
     end
   end

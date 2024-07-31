@@ -45,6 +45,7 @@ en:
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
+      timeout: Your session expired. Please sign in again to continue.
     invitations:
       edit:
         email_label: Your email
@@ -2116,6 +2117,40 @@ en:
           not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+    landing_page:
+      edit:
+        already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
+        already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
+        az:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of Arizona
+          title: File your Arizona state taxes for free
+        continue: To continue filing your %{state_name} State return, please sign in below
+        download_your_record: Download Your Record
+        help_text_html: |
+          <strong>What you’ll need:</strong>
+          <br />
+          <ul class="list--bulleted">
+            <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+            <li>Email address or phone number</li>
+            <li>Driver’s license or state-issued ID</li>
+            <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+            <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+          </ul>
+        not_you: Not %{user_name}?
+        ny:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by New York State
+          title: File your New York State taxes for free
+        start_new: Click here to start a new %{state_name} State return.
+        title_closed: Our free %{state_name} tax filing service is closed for the season
+        welcome_back: Welcome back %{user_name}!
     navigation:
       section_1: 'Section 1: Can you use this tool'
       section_2: 'Section 2: Create account'
@@ -2424,40 +2459,6 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
-      landing_page:
-        edit:
-          already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
-          already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
-          az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
-              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-            supported_by: Supported by the state of Arizona
-            title: File your Arizona state taxes for free
-          continue: To continue filing your %{state_name} State return, please sign in below
-          download_your_record: Download Your Record
-          help_text_html: |
-            <strong>What you’ll need:</strong>
-            <br />
-            <ul class="list--bulleted">
-              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
-              <li>Email address or phone number</li>
-              <li>Driver’s license or state-issued ID</li>
-              <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
-              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
-            </ul>
-          not_you: Not %{user_name}?
-          ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
-              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-            supported_by: Supported by New York State
-            title: File your New York State taxes for free
-          start_new: Click here to start a new %{state_name} State return.
-          title_closed: Our free %{state_name} tax filing service is closed for the season
-          welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}

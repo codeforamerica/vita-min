@@ -9,7 +9,6 @@ RSpec.describe StateFile::Questions::NyEligibilityOutOfStateIncomeController do
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_ny_intake do
       let(:eligible_params) do
         {
-          us_state: "ny",
           state_file_ny_eligibility_out_of_state_income_form: {
             eligibility_out_of_state_income: "no",
             eligibility_part_year_nyc_resident: "no",
@@ -19,7 +18,6 @@ RSpec.describe StateFile::Questions::NyEligibilityOutOfStateIncomeController do
 
       let(:ineligible_params) do
         {
-          us_state: "ny",
           state_file_ny_eligibility_out_of_state_income_form: {
             eligibility_out_of_state_income: "yes",
             eligibility_part_year_nyc_resident: "yes",

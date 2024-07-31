@@ -43,7 +43,7 @@ RSpec.describe StateFile::Questions::W2Controller do
     end
 
     it "renders index of invalid w2s with w2_index as id" do
-      get :index, params: { us_state: :ny }
+      get :index
 
       w2s_list = assigns(:w2s)
       expect(w2s_list.count).to eq 2
@@ -62,7 +62,7 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       it "filters correctly" do
-        get :index, params: { us_state: :ny }
+        get :index
         w2s_list = assigns(:w2s)
         expect(w2s_list.count).to eq 1
         expect(w2s_list[0].w2_index).to eq 1
@@ -77,8 +77,8 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       it "redirects to the edit page" do
-        get :index, params: { us_state: :ny }
-        expect(response).to redirect_to "/en/ny/questions/w2/0/edit"
+        get :index
+        expect(response).to redirect_to "/en/questions/w2/0/edit"
       end
     end
   end
@@ -96,7 +96,6 @@ RSpec.describe StateFile::Questions::W2Controller do
     context "with valid params" do
       let(:params) do
         {
-          us_state: "ny",
           id: 1,
           state_file_w2: {
             employer_state_id_num: "12345",
@@ -117,13 +116,13 @@ RSpec.describe StateFile::Questions::W2Controller do
         it "redirects to the review page" do
           post :update, params: params.merge(return_to_review: "y")
 
-          expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper(us_state: :ny, action: :edit))
+          expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper)
         end
 
         it "redirects to the review page" do
           post :create, params: params.merge(return_to_review: "y")
 
-          expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper(us_state: :ny, action: :edit))
+          expect(response).to redirect_to(StateFile::Questions::NyReviewController.to_path_helper)
         end
       end
 
@@ -147,7 +146,7 @@ RSpec.describe StateFile::Questions::W2Controller do
 
           # TODO: check other_w2 hasn't been updated? perhaps unnecessary test
 
-          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index))
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(action: :index))
         end
       end
 
@@ -168,7 +167,7 @@ RSpec.describe StateFile::Questions::W2Controller do
           expect(new_w2.local_income_tax_amt).to eq 30
           expect(new_w2.locality_nm).to eq "NYC"
 
-          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(us_state: :ny, action: :index))
+          expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(action: :index))
         end
       end
 
@@ -220,7 +219,7 @@ RSpec.describe StateFile::Questions::W2Controller do
 
         it "redirects to the next page in the flow" do
           post :update, params: params
-          expect(response).to redirect_to "/en/ny/questions/ny-sales-use-tax"
+          expect(response).to redirect_to "/en/questions/ny-sales-use-tax"
         end
 
         context "when the client got here from the review flow" do
@@ -235,7 +234,6 @@ RSpec.describe StateFile::Questions::W2Controller do
       render_views
       let(:params) do
         {
-          us_state: :ny,
           id: 0,
           state_file_w2: {
             employer_state_id_num: "12345",
@@ -285,7 +283,7 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       it "rerenders the index with errors if no override is persisted" do
-        post :create, params: { us_state: :ny, locale: :en }
+        post :create
         expect(response).to render_template(:index)
       end
 
@@ -293,8 +291,8 @@ RSpec.describe StateFile::Questions::W2Controller do
         let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
 
         it "redirects to the next path" do
-          post :create, params: { us_state: :ny, locale: :en }
-          expect(response).to redirect_to("/en/ny/questions/ny-sales-use-tax")
+          post :create
+          expect(response).to redirect_to("/en/questions/ny-sales-use-tax")
         end
       end
     end

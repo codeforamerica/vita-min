@@ -27,7 +27,7 @@ RSpec.feature "Logging in with an existing account" do
   end
 
   scenario "signing in with phone number" do
-    visit "/az/login-options"
+    visit "/login-options"
     expect(page).to have_text "Sign in to FileYourStateTaxes"
     click_on "Sign in with phone number"
 
@@ -55,7 +55,7 @@ RSpec.feature "Logging in with an existing account" do
   end
 
   scenario "signing in with email" do
-    visit "/ny/login-options"
+    visit "/login-options"
     expect(page).to have_text "Sign in to FileYourStateTaxes"
     click_on "Sign in with email"
 

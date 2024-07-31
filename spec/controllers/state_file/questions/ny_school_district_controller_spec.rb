@@ -17,7 +17,7 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
       }
 
       it "saves the correct district id, name, and code" do
-        post :update, params: { us_state: "ny" }.merge(form_params)
+        post :update, params: form_params
 
         intake.reload
         expect(intake.school_district_id).to eq 440
@@ -36,7 +36,7 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
       }
 
       it "saves the correct district id, name, and code" do
-        post :update, params: { us_state: "ny" }.merge(form_params)
+        post :update, params: form_params
 
         intake.reload
 
@@ -53,7 +53,6 @@ RSpec.describe StateFile::Questions::NySchoolDistrictController do
       it_behaves_like :return_to_review_concern do
         let(:form_params) do
           {
-            us_state: "ny",
             state_file_ny_school_district_form: {
               school_district_id: 440
             }

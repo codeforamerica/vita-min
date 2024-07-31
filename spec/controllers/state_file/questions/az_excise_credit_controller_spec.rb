@@ -134,7 +134,7 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
 
     context "single filer" do
       it "shows fields for primary filer only" do
-        get :edit, params: { us_state: "az" }
+        get :edit
 
         expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
         expect(response.body).not_to have_text I18n.t("state_file.questions.az_excise_credit.edit.spouse_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
@@ -148,7 +148,7 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
       end
 
       it "shows fields for primary and spouse" do
-        get :edit, params: { us_state: "az" }
+        get :edit
 
         expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
         expect(response.body).to have_text I18n.t("state_file.questions.az_excise_credit.edit.spouse_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year)
@@ -163,7 +163,6 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          us_state: "az",
           state_file_az_excise_credit_form: {
             primary_was_incarcerated: "yes",
             ssn_no_employment: "yes",

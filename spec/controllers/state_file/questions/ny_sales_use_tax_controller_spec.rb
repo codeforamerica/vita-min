@@ -13,7 +13,6 @@ RSpec.describe StateFile::Questions::NySalesUseTaxController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          us_state: "ny",
           state_file_ny_sales_use_tax_form: {
             untaxed_out_of_state_purchases: "yes",
             sales_use_tax_calculation_method: "automated"

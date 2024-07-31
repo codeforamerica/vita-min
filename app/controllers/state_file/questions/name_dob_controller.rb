@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NameDobController < AuthenticatedQuestionsController
+    class NameDobController < QuestionsController
       include ReturnToReviewConcern
 
       def edit

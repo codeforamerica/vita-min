@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StateFile::Questions::LandingPageController do
+RSpec.describe StateFile::LandingPageController do
   describe "#update" do
     # use the shared example to test functionality for creating the intake
     # This can be moved to a different controller spec but the valid params

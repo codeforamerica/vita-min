@@ -65,8 +65,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             phone_number: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :gyr,
-            state_code: nil,
+            service_type: :gyr
           )
 
           expect(response).to be_ok
@@ -90,8 +89,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             phone_number: "+15105551234",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :gyr,
-            state_code: nil
+            service_type: :gyr
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)

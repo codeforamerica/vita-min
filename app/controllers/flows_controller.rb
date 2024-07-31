@@ -212,11 +212,6 @@ class FlowsController < ApplicationController
           if respond_to?(:resource_name) && resource_name.present?
             url_params[:id] = "fake-#{resource_name}-id"
           end
-          if @current_controller.params[:id] == 'state_file_az'
-            url_params[:us_state] = 'az'
-          elsif @current_controller.params[:id] == 'state_file_ny'
-            url_params[:us_state] = 'ny'
-          end
           @current_controller.url_for(url_params)
         end
       end
@@ -660,6 +655,9 @@ class FlowsController < ApplicationController
         locale: 'en',
         unfinished_intake_ids: [],
         df_data_imported_at: 2.hours.ago,
+        primary_received_pension: "yes",
+        received_military_retirement_payment: "yes",
+        spouse_received_pension: "yes",
       )
     end
 

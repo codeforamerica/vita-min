@@ -5,7 +5,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
     PRIORITY_HIGH - 1 # Subtracting one to push to the top of the queue
   end
 
-  def perform(email_address: nil, phone_number: nil, locale:, visitor_id:, service_type:, state_code: nil)
+  def perform(email_address: nil, phone_number: nil, locale:, visitor_id:, service_type:)
     client_login_service = ClientLoginService.new(service_type)
     multi_tenant_service = MultiTenantService.new(service_type)
     if email_address.present?
@@ -34,17 +34,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           service_type: multi_tenant_service.service_type
         )
       else
-        url = if service_type == :statefile && state_code.present?
-                StateFile::StateInformationService.navigation_class(state_code)::FLOW.first.to_path_helper(
-                  us_state: state_code,
-                  full_url: true,
-                  host: URI(Rails.configuration.statefile_url).hostname,
-                  locale: locale,
-                  protocol: "https"
-                )
-              else
-                multi_tenant_service.url(locale: locale)
-              end
+        url = multi_tenant_service.url(locale: locale)
         body = case service_type
                when :ctc
                  I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale)

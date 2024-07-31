@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NyPermanentAddressController < AuthenticatedQuestionsController
+    class NyPermanentAddressController < QuestionsController
       include ReturnToReviewConcern
       include EligibilityOffboardingConcern
     end

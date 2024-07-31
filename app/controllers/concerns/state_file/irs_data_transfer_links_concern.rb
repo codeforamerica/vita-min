@@ -24,7 +24,7 @@ module StateFile
     private
 
     def return_url
-      return_url = URI(form_navigation.next.to_path_helper(full_url: true, us_state: params[:us_state]))
+      return_url = URI(form_navigation.next.to_path_helper(full_url: true))
       return_url.host = request.host
       return_url
     end

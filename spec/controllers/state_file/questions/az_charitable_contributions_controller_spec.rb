@@ -13,7 +13,6 @@ RSpec.describe StateFile::Questions::AzCharitableContributionsController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          us_state: "az",
           state_file_az_charitable_contributions_form: {
             charitable_contributions: "yes",
             charitable_cash: "100",

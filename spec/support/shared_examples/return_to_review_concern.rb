@@ -7,11 +7,11 @@ shared_examples :return_to_review_concern do
       it "navigates to the state review screen" do
         post :update, params: form_params.merge({return_to_review: "y"})
 
-        case form_params[:us_state]
+        case intake.state_code
         when "az"
-          expect(response).to redirect_to(controller: "az_review", action: :edit, us_state: "az")
+          expect(response).to redirect_to(controller: "az_review", action: :edit)
         when "ny"
-          expect(response).to redirect_to(controller: "ny_review", action: :edit, us_state: "ny")
+          expect(response).to redirect_to(controller: "ny_review", action: :edit)
         end
       end
     end
@@ -20,7 +20,7 @@ shared_examples :return_to_review_concern do
       it "navigates to the next page in the flow" do
         post :update, params: form_params
         controllers = []
-        case form_params[:us_state]
+        case intake.state_code
         when "az"
           controllers = Navigation::StateFileAzQuestionNavigation::FLOW.to_a
         when "ny"
@@ -34,7 +34,7 @@ shared_examples :return_to_review_concern do
           next_controller_to_show = next_controller.show?(intake) ? next_controller : nil
           increment += 1
         end
-        expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first, us_state: form_params[:us_state])
+        expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first)
       end
     end
   end

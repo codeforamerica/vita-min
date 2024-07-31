@@ -10,8 +10,7 @@ RSpec.describe StateFile::Questions::AzPriorLastNamesController do
     let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
     let(:device_id) { "ABC123" }
     let(:params) do
-      { us_state: "az",
-        state_file_az_prior_last_names_form: {
+      { state_file_az_prior_last_names_form: {
           has_prior_last_names: "yes",
           prior_last_names: "McTestface",
           device_id: device_id
@@ -24,7 +23,6 @@ RSpec.describe StateFile::Questions::AzPriorLastNamesController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          us_state: "az",
           state_file_az_prior_last_names_form: {
             has_prior_last_names: "yes",
             prior_last_names: "McTestface",

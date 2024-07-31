@@ -19,13 +19,13 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
   describe "#new" do
     context "with required params" do
       it "returns 200 OK for phone number" do
-        get :new, params: { contact_method: :sms_phone_number, us_state: "az" }
+        get :new, params: { contact_method: :sms_phone_number }
 
         expect(response).to be_ok
       end
 
       it "returns 200 OK for email" do
-        get :new, params: { contact_method: :email_address, us_state: "az" }
+        get :new, params: { contact_method: :email_address }
 
         expect(response).to be_ok
       end
@@ -33,7 +33,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
     context "without required params" do
       it "returns 404" do
-        get :new, params: { us_state: "az" }
+        get :new
 
         expect(response).to be_not_found
       end
@@ -44,7 +44,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       before { sign_in intake }
 
       it "renders the login page" do
-        get :new, params: { us_state: "az", contact_method: "email_address" }
+        get :new, params: { contact_method: "email_address" }
 
         expect(response.status).to eq(200)
         expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
@@ -57,7 +57,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     let(:params) do
       {
         locale: "es",
-        us_state: "az",
         contact_method: contact_method,
         state_file_request_intake_login_form: contact_info_params
       }
@@ -81,8 +80,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             phone_number: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :statefile,
-            state_code: "az"
+            service_type: :statefile
           )
 
           expect(response).to be_ok
@@ -107,8 +105,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             email_address: "",
             locale: :es,
             visitor_id: "visitor id",
-            service_type: :statefile,
-            state_code: "az"
+            service_type: :statefile
           )
           expect(response).to be_ok
           expect(response).to render_template(:enter_verification_code)
@@ -176,7 +173,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       before { sign_in intake }
 
       it "renders the login page" do
-        post :create, params: { us_state: "az", state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
+        post :create, params: { state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
 
         expect(response.status).to eq(200)
         expect(response.body).to include "Enter the code to continue"
@@ -192,7 +189,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       let(:hashed_verification_code) { "hashed_verification_code" }
       let(:params) do
         {
-          us_state: "az",
           portal_verification_code_form: {
             contact_info: email_address,
             verification_code: verification_code
@@ -208,7 +204,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       it "redirects to the next page for login" do
         post :check_verification_code, params: params
 
-        expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code, us_state: "az"))
+        expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code))
       end
 
       context "Datadog" do
@@ -224,7 +220,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       let(:email_address) { "example@example.com" }
       let(:params) {
         {
-          us_state: "ny",
           portal_verification_code_form: {
             contact_info: email_address,
             verification_code: verification_code,
@@ -274,19 +269,13 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "redirects to the account locked page" do
           post :check_verification_code, params: params
 
-          expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'ny'))
-        end
-
-        it "redirects to the account locked page even when the state is us" do
-          post :check_verification_code, params: params.merge(us_state: "us")
-          expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'us'))
+          expect(response).to redirect_to(account_locked_intake_logins_path)
         end
       end
 
       context "with blank contact info" do
         let(:params) {
           {
-            us_state: "ny",
             portal_verification_code_form: {
               contact_info: "",
               verification_code: "999999",
@@ -303,7 +292,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       context "with invalid data in the verification code" do
         let(:params) {
           {
-            us_state: "ny",
             portal_verification_code_form: {
               contact_info: email_address,
               verification_code: "invalid",
@@ -324,7 +312,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
   end
 
   describe "#edit" do
-    let(:params) { { us_state: "az", id: "raw_token" } }
+    let(:params) { { id: "raw_token" } }
 
     context "as an unauthenticated intake" do
       context "with valid token" do
@@ -344,7 +332,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           it "redirects to the lockout page" do
             get :edit, params: params
 
-            expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
+            expect(response).to redirect_to account_locked_intake_logins_path
           end
         end
 
@@ -358,7 +346,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           it "redirects to terms and conditions page" do
             get :edit, params: params
 
-            expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+            expect(response).to redirect_to questions_terms_and_conditions_path
             expect(intake.reload.unfinished_intake_ids).to match_array([stub_intake.id.to_s])
           end
         end
@@ -370,7 +358,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "redirects to the portal login page" do
           get :edit, params: params
 
-          expect(response).to redirect_to(intake_logins_path(us_state: "az"))
+          expect(response).to redirect_to(intake_logins_path)
         end
       end
     end
@@ -395,7 +383,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "redirects to terms and conditions page, does not save its own id as an unfinished intake id" do
           get :edit, params: params
 
-          expect(response).to redirect_to az_questions_terms_and_conditions_path(us_state: "az")
+          expect(response).to redirect_to questions_terms_and_conditions_path
           expect(intake.reload.unfinished_intake_ids).to be_empty
         end
       end
@@ -404,13 +392,12 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
   describe "#update" do
     let(:ssn) { "111223333" }
-    let(:params) { { us_state: "az", id: "raw_token", ssn: ssn } }
+    let(:params) { { id: "raw_token", ssn: ssn } }
 
     context "as an unauthenticated intake" do
       context "with a valid token" do
         let(:params) do
           {
-            us_state: "az",
             id: "raw_token",
             state_file_intake_login_form: {
               ssn: ssn
@@ -428,7 +415,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
-            expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+            expect(response).to redirect_to questions_data_review_path
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 
@@ -437,7 +424,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
-            expect(response).to redirect_to az_questions_name_dob_path(us_state: "az")
+            expect(response).to redirect_to questions_name_dob_path
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 
@@ -450,7 +437,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               post :update, params: params
 
               expect(subject.current_state_file_az_intake).to eq(intake)
-              expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+              expect(response).to redirect_to questions_return_status_path
               expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
             end
           end
@@ -474,7 +461,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
                 post :update, params: params
 
                 expect(subject.current_state_file_az_intake).to eq(second_intake)
-                expect(response).to redirect_to az_questions_return_status_path(us_state: "az")
+                expect(response).to redirect_to questions_return_status_path
                 expect(session["warden.user.state_file_az_intake.key"].first.first).to eq second_intake.id
               end
             end
@@ -510,7 +497,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             it "redirects to an account-locked page" do
               post :update, params: params
 
-              expect(response).to redirect_to account_locked_intake_logins_path(us_state: 'az')
+              expect(response).to redirect_to account_locked_intake_logins_path
             end
           end
         end
@@ -540,7 +527,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               end.to change { intake.reload.failed_attempts }.by 1
               expect(intake.reload.access_locked?).to be_truthy
 
-              expect(response).to redirect_to(account_locked_intake_logins_path(us_state: 'az'))
+              expect(response).to redirect_to(account_locked_intake_logins_path)
             end
           end
         end
@@ -552,7 +539,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "redirects to the login page" do
           post :update, params: params
 
-          expect(response).to redirect_to(intake_logins_path(us_state: "az"))
+          expect(response).to redirect_to(intake_logins_path)
         end
       end
     end
@@ -562,7 +549,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       let(:ssn) { "111223333" }
       let(:params) do
         {
-          us_state: "az",
           id: "raw_token",
           state_file_intake_login_form: {
             ssn: ssn
@@ -581,7 +567,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
         expect(subject.current_state_file_az_intake).to eq(intake)
         expect(intake.reload.unfinished_intake_ids).to match_array ["3", current_unfinished_intake.id.to_s]
-        expect(response).to redirect_to az_questions_data_review_path(us_state: "az")
+        expect(response).to redirect_to questions_data_review_path
         expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
       end
     end
