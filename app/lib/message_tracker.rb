@@ -13,10 +13,14 @@ class MessageTracker
   end
 
   def already_sent?
+    return false
+
     data_source.message_tracker[message_name].present?
   end
 
   def record(datetime)
+    MessageTracker.new
+
     data_source.message_tracker[message_name] = datetime.to_s
     data_source.save
   end

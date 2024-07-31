@@ -28,9 +28,9 @@ module StateFile
     def edit
       # Displays verify SSN form
       @form = IntakeLoginForm.new(possible_intakes: @records)
-      if @records.all? { |intake| intake.hashed_ssn.nil? }
+      # if @records.all? { |intake| intake.hashed_ssn.nil? }
         sign_in_and_redirect
-      end
+      # end
     end
 
     def update

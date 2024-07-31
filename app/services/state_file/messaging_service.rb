@@ -21,6 +21,8 @@ module StateFile
     end
 
     def send_message(require_verification: true)
+      return
+
       return nil if message_tracker.already_sent? && message.send_only_once?
 
       send_email(require_verification: require_verification) if @do_email && !intake.unsubscribed_from_email?

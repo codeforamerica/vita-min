@@ -189,9 +189,9 @@ class StateFileBaseIntake < ApplicationRecord
       if primary_or_spouse == :primary
         @first_name = intake.primary_first_name
         @last_name = intake.primary_last_name
-        @middle_initial = intake.primary_middle_initial
-        @suffix = intake.primary_suffix
-        @birth_date = intake.primary_birth_date
+        # @middle_initial = intake.primary_middle_initial
+        # @suffix = intake.primary_suffix
+        # @birth_date = intake.primary_birth_date
         @ssn = intake.direct_file_data.primary_ssn
       else
         @first_name = intake.spouse_first_name
@@ -225,6 +225,8 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def disqualifying_eligibility_answer
+    return
+
     disqualifying_eligibility_rules.each do |col, value|
       return col if self.public_send(col) == value
     end
@@ -291,6 +293,8 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def sanitize_bank_details
+    return if payment_or_deposit_type_unfilled?
+
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
       self.bank_name = nil

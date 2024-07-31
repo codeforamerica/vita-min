@@ -85,6 +85,11 @@ module StateFile
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
+      },
+      wa: {
+        intake_class: StateFileWaIntake,
+        navigation_class: Navigation::StateFileWaQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Wa::IndividualReturn,
       }
     }).with_indifferent_access
   end
