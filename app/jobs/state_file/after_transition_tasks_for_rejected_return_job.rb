@@ -21,14 +21,5 @@ module StateFile
     def priority
       PRIORITY_LOW
     end
-
-    private
-
-    def message_class_for_state(state)
-      return if state == 'resubmitted'
-      return StateFile::AutomatedMessage::EfileRejectedAndCancelled if state == 'cancelled'
-
-      StateFile::AutomatedMessage::EfileRejected
-    end
   end
 end
