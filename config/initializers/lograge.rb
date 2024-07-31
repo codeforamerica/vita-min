@@ -17,6 +17,8 @@ Rails.application.configure do
       params: event.payload[:params]&.reject { |k| %w(controller action).include? k },
       request_details: event.payload[:request_details],
       level: event.payload[:level],
+      mtapp: event.payload[:request].host,
     }
   end
 end
+
