@@ -18,9 +18,8 @@ module StateFile
           end
         end
 
-        message_class = message_class_for_state(submission.current_state)
-
         if submission.is_for_federal_filing?
+          message_class = message_class_for_state(submission.current_state)
           if message_class
             ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
               client: submission.client,
