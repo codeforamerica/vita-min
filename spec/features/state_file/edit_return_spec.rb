@@ -63,7 +63,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
   end
 
   scenario "edit your state return from the return status page with an auto-wait error" do
-    visit "/ny/login-options"
+    visit "/login-options"
     expect(page).to have_text "Sign in to FileYourStateTaxes"
     click_on "Sign in with email"
 
@@ -96,6 +96,6 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
     click_on I18n.t("general.continue")
 
-    expect(URI.parse(current_url).path).to eq "/en/ny/questions/ny-review"
+    expect(URI.parse(current_url).path).to eq "/en/questions/ny-review"
   end
 end

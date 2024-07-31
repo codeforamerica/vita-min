@@ -22,7 +22,7 @@ module StateFile
       if FaqCategory.where(slug: "other_state_filing_options", product_type: product_type).present?
         state_faq_section_path(section_key: "other_state_filing_options", us_state: current_state_code)
       else
-        state_faq_path
+        state_faq_path(us_state: current_state_code)
       end
     end
   end

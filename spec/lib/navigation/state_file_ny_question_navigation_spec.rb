@@ -4,7 +4,6 @@ RSpec.describe Navigation::StateFileNyQuestionNavigation do
   describe "Flow" do
     it "Flow has not changed" do
       expect(Navigation::StateFileNyQuestionNavigation::FLOW).to eq([
-        StateFile::Questions::LandingPageController, # creates state_intake (StartIntakeConcern)
         StateFile::Questions::NyEligibilityResidenceController,
         StateFile::Questions::NyEligibilityOutOfStateIncomeController,
         StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController,

@@ -9,7 +9,6 @@ RSpec.describe StateFile::Questions::NyEligibilityResidenceController do
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_ny_intake do
       let(:eligible_params) do
         {
-          us_state: "ny",
           state_file_ny_eligibility_residence_form: {
             eligibility_lived_in_state: "yes",
             eligibility_yonkers: "no",
@@ -19,7 +18,6 @@ RSpec.describe StateFile::Questions::NyEligibilityResidenceController do
 
       let(:ineligible_params) do
         {
-          us_state: "ny",
           state_file_ny_eligibility_residence_form: {
             eligibility_lived_in_state: "yes",
             eligibility_yonkers: "yes",
