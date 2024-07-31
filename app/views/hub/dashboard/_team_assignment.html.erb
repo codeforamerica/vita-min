@@ -23,7 +23,7 @@
             <%= user.role_display_name %>
           </td>
           <td>
-            <%= user.assigned_tax_returns.count %>
+            <%= link_to user.assigned_tax_returns.count, hub_clients_path(assigned_user_id: user.id) %>
           </td>
         </tr>
       <% end %>
