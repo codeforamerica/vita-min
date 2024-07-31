@@ -25,6 +25,8 @@ module Hub
       end
 
       def ordered_by_tr_count_users
+        return unless team_assignment_users.present?
+
         team_assignment_users.select('users.*, COUNT(tax_returns.id) AS tax_returns_count')
                              .left_joins(:assigned_tax_returns)
                              .group('users.id, users.name, users.role_type')
