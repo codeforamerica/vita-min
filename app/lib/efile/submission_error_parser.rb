@@ -82,9 +82,7 @@ module Efile
     private
 
     def error_service_type(submission)
-      if submission.is_for_state_filing?
-        :state_file
-      end
+      :state_file
     end
   end
 

@@ -42,29 +42,15 @@ class EfileSubmissionStateMachine
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
   end
 
-  guard_transition(to: :bundling) do |submission|
-    submission.is_for_state_filing? || submission.fraud_score.present?
-  end
-
   guard_transition(from: :failed, to: :rejected) do |_submission|
     # we need this for testing since submissions will fail on bundle in heroku and staging
     !Rails.env.production?
   end
 
   after_transition(to: :preparing) do |submission|
-    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message if submission.is_for_state_filing?
-
+    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
     submission.create_qualifying_dependents
-
-    fraud_score = Fraud::Score.new(score: 0)
-    bypass_fraud_check = submission.is_for_state_filing?
-    if bypass_fraud_check || fraud_score.score < Fraud::Score::HOLD_THRESHOLD
-      submission.transition_to(:bundling)
-    else
-      submission.client.touch(:restricted_at) if fraud_score.score >= Fraud::Score::RESTRICT_THRESHOLD
-      submission.transition_to(:fraud_hold)
-    end
-
+    submission.transition_to(:bundling)
   end
 
   after_transition(to: :bundling) do |submission|
@@ -76,12 +62,9 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :transmitted) do |submission|
-    if submission.is_for_state_filing?
-      # NOTE: a submission can have multiple successive :transmitted states, each with different
-      # response XML
-      analytics = submission.data_source.state_file_analytics
-      analytics&.update(analytics.calculated_attrs)
-    end
+    # NOTE: a submission can have multiple successive :transmitted states, each with different response XML
+    analytics = submission.data_source.state_file_analytics
+    analytics&.update(analytics.calculated_attrs)
   end
 
   after_transition(to: :failed, after_commit: true) do |submission, transition|
@@ -91,30 +74,22 @@ class EfileSubmissionStateMachine
       submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
     end
 
-    if submission.is_for_state_filing?
-      StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
-    end
+    StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
   end
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     StateFile::AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
-    if submission.is_for_state_filing?
-      EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
-      StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
-    end
+    EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
+    StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
   end
 
   before_transition(to: :notified_of_rejection) do |submission|
-    if submission.is_for_state_filing?
-      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
-    end
+    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
   end
 
   after_transition(to: :accepted) do |submission|
-    if submission.is_for_state_filing?
-      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
-      send_mixpanel_event(submission, "state_file_efile_return_accepted")
-    end
+    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
+    send_mixpanel_event(submission, "state_file_efile_return_accepted")
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
@@ -128,27 +103,25 @@ class EfileSubmissionStateMachine
   end
 
   after_transition do |submission, transition|
-    if submission.is_for_state_filing?
-      from_status = (
-        EfileSubmissionTransition
-          .where(efile_submission_id: transition.efile_submission_id)
-          .where.not(id: transition.id)
-          .last
-          &.to_state
-      )
-      Rails.logger.info({
-        event_type: "submission_transition",
-        from_status: from_status,
-        to_status: transition.to_state,
-        state_code: submission.data_source.state_code,
-        intake_id: submission.data_source_id,
-        submission_id: submission.id
-      }.as_json)
-    end
+    from_status = (
+      EfileSubmissionTransition
+        .where(efile_submission_id: transition.efile_submission_id)
+        .where.not(id: transition.id)
+        .last
+        &.to_state
+    )
+    Rails.logger.info({
+      event_type: "submission_transition",
+      from_status: from_status,
+      to_status: transition.to_state,
+      state_code: submission.data_source.state_code,
+      intake_id: submission.data_source_id,
+      submission_id: submission.id
+    }.as_json)
   end
 
   def self.send_mixpanel_event(efile_submission, event_name, data: {})
-    intake = efile_submission.is_for_state_filing? ? efile_submission.data_source : efile_submission.client.intake
+    intake = efile_submission.data_source
     MixpanelService.send_event(
       distinct_id: intake.visitor_id,
       event_name: event_name,

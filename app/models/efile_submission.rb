@@ -95,10 +95,6 @@ class EfileSubmission < ApplicationRecord
     result.except(*except)
   end
 
-  def is_for_state_filing?
-    data_source_type.in?(StateFile::StateInformationService.state_intake_class_names)
-  end
-
   # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
   # the return can be re-transmitted and accepted by the IRS if the Imperfect Return Election is made.
   # This election can only be made if the original return rejected with reject code SEIC-F1040-501-02 or R0000-504-02.
@@ -155,7 +151,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def source_record
-    is_for_state_filing? ? data_source : tax_return
+    data_source
   end
 
   def generate_verified_address(i = 0)
@@ -196,28 +192,11 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    if is_for_state_filing?
-      return SubmissionBuilder::StateManifest
-    end
-
-    SubmissionBuilder::FederalManifest
+    SubmissionBuilder::StateManifest
   end
 
   def bundle_class
-    if is_for_state_filing?
-      return StateFile::StateInformationService.submission_builder_class(data_source.state_code)
-    end
-
-    case tax_year
-    when 2020
-      SubmissionBuilder::Ty2020::Return1040
-    when 2021
-      SubmissionBuilder::Ty2021::Return1040
-    when 2022
-      SubmissionBuilder::Ty2021::Return1040
-    when 2023
-      SubmissionBuilder::Ty2021::Return1040
-    end
+    StateFile::StateInformationService.submission_builder_class(data_source.state_code)
   end
 
   ##

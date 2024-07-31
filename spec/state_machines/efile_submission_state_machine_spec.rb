@@ -10,19 +10,16 @@ describe EfileSubmissionStateMachine do
   describe "after_transition" do
     context "to preparing" do
       let(:submission) { create(:efile_submission, :new, :for_state) }
+      let(:messaging_service) { instance_double(StateFile::AfterTransitionMessagingService) }
 
-      context "for state file submissions" do
-        let(:messaging_service) { instance_double(StateFile::AfterTransitionMessagingService) }
+      before do
+        allow(StateFile::AfterTransitionMessagingService).to receive(:new).with(submission).and_return(messaging_service)
+        allow(messaging_service).to receive(:send_efile_submission_successful_submission_message)
+      end
 
-        before do
-          allow(StateFile::AfterTransitionMessagingService).to receive(:new).with(submission).and_return(messaging_service)
-          allow(messaging_service).to receive(:send_efile_submission_successful_submission_message)
-        end
-
-        it "sends a successful submission message" do
-          submission.transition_to!(:preparing)
-          expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
-        end
+      it "sends a successful submission message" do
+        submission.transition_to!(:preparing)
+        expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
       end
     end
 
@@ -38,19 +35,16 @@ describe EfileSubmissionStateMachine do
 
     context "to transmitted" do
       let(:submission) { create(:efile_submission, :queued, :for_state) }
+      before do
+        submission.update(data_source: create(:state_file_az_intake))
+      end
 
-      context "state file intakes" do
-        before do
-          submission.update(data_source: create(:state_file_az_intake))
-        end
+      it "updates state file analytics record with submission data" do
+        submission.transition_to(:transmitted)
 
-        it "updates state file analytics record with submission data" do
-          submission.transition_to(:transmitted)
-
-          expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
-          expect(submission.data_source.state_file_analytics.filing_status).to eq 1
-          expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
-        end
+        expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
+        expect(submission.data_source.state_file_analytics.filing_status).to eq 1
+        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
       end
     end
 
@@ -59,23 +53,21 @@ describe EfileSubmissionStateMachine do
       let!(:efile_error) { create(:efile_error, code: "USPS", expose: true, auto_wait: false, auto_cancel: false, service_type: :ctc) }
 
       context "schedule job for still processing notice" do
-        context "for state filing" do
-          it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
-            fake_time = Time.now
-            submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
-            Timecop.freeze(fake_time) do
-              expect {
-                submission.transition_to!(:failed)
-              }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
-              expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
-            end
+        it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
+          fake_time = Time.now
+          submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
+          Timecop.freeze(fake_time) do
+            expect {
+              submission.transition_to!(:failed)
+            }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
+            expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
           end
         end
       end
     end
 
     context "to rejected" do
-      let(:submission) { create(:efile_submission, :transmitted) }
+      let(:submission) { create(:efile_submission, :transmitted, :for_state) }
       let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
 
       it "enqueues an StateFile::AfterTransitionTasksForRejectedReturnJob" do
@@ -85,7 +77,7 @@ describe EfileSubmissionStateMachine do
       end
 
       context "transition from failed" do
-        let(:submission) { create(:efile_submission, :failed) }
+        let(:submission) { create(:efile_submission, :failed, :for_state) }
 
         context "in prod" do
           before do
@@ -110,23 +102,14 @@ describe EfileSubmissionStateMachine do
       end
 
       context "schedule job for still processing notice" do
-        context "for state filing" do
-          it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
-            fake_time = Time.now
-            submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
-            Timecop.freeze(fake_time) do
-              expect {
-                submission.transition_to!(:failed)
-              }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
-              expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
-            end
-          end
-        end
-
-        context "not for state filing" do
-          it "does not enqueue StateFile::SendStillProcessingNoticeJob" do
-            submission.transition_to!(:failed)
-            expect(StateFile::SendStillProcessingNoticeJob).not_to have_been_enqueued.with(submission)
+        it "enqueues StateFile::SendStillProcessingNoticeJob with run time at 24 hours from now" do
+          fake_time = Time.now
+          submission.update(data_source: create(:state_file_az_intake), tax_return: nil)
+          Timecop.freeze(fake_time) do
+            expect {
+              submission.transition_to!(:failed)
+            }.to have_enqueued_job(StateFile::SendStillProcessingNoticeJob).with(submission.reload)
+            expect(DateTime.parse(ActiveJob::Base.queue_adapter.enqueued_jobs.last["scheduled_at"])).to eq fake_time + 24.hours
           end
         end
       end
@@ -135,7 +118,7 @@ describe EfileSubmissionStateMachine do
     context "to notified_of_rejection" do
       let!(:submission) { create(:efile_submission, :rejected, :for_state) }
       let!(:other_submisssion) { create(:efile_submission, :waiting, :for_state) }
-      let(:after_transition_messaging_service) { StateFile::AfterTransitionMessagingService.new(submission)}
+      let(:after_transition_messaging_service) { StateFile::AfterTransitionMessagingService.new(submission) }
 
       before do
         allow(StateFile::AfterTransitionMessagingService).to receive(:new).with(submission).and_return(after_transition_messaging_service)
