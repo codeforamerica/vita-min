@@ -5,6 +5,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
   let!(:site_coordinator_user) { create :site_coordinator_user, role: create(:site_coordinator_role, sites: [site]) }
   let!(:coalition_lead) { create :coalition_lead_user, coalition: create(:coalition) }
   let!(:team_member) { create :user, role: (create :team_member_role, sites: [site]) }
+  let!(:inaccessible_team_member) { create :user, role: (create :team_member_role, sites: [create(:site)]) }
 
   let(:page) { 1 }
   let(:oregano_org) { create :organization, name: "Oregano Org", coalition: coalition_lead.role.coalition }
@@ -19,6 +20,8 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
 
     it "shows accessible users and their number of assigned tax returns in descending order" do
       expect(subject.ordered_by_tr_count_users).to eq [site_coordinator_user, team_member, org_lead_user]
+      expect(subject.ordered_by_tr_count_users).not_to include inaccessible_team_member
+      expect(subject.ordered_by_tr_count_users).not_to include coalition_lead
     end
   end
 
@@ -27,6 +30,8 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
 
     it "shows accessible users and their number of assigned tax returns in descending order" do
       expect(subject.ordered_by_tr_count_users).to eq [site_coordinator_user, team_member]
+      expect(subject.ordered_by_tr_count_users).not_to include inaccessible_team_member
+      expect(subject.ordered_by_tr_count_users).not_to include coalition_lead
     end
   end
 end
