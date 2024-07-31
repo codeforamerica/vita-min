@@ -35,8 +35,8 @@
     <div class="paging">
       <div class="user-count">
         <% start_user = ((p.page.to_i - 1) * 5) + 1 %>
-        <% end_user = [start_user + 4, users.size].min %>
-        <%= t("hub.dashboard.show.team_assignment.pager", start_range: start_user, end_range: end_user, total: users.size) %>
+        <% end_user = [start_user + 4, p.user_count].min %>
+        <%= t("hub.dashboard.show.team_assignment.pager", start_range: start_user, end_range: end_user, total: p.user_count) %>
       </div>
       <div><%= will_paginate users,
                              previous_label: "<i class='icon icon-keyboard_arrow_left'></i><span class='hide-on-mobile'>Previous 5</span>",
