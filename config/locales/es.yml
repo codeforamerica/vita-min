@@ -993,17 +993,17 @@ es:
           title: Recursos
         returns_by_status: Devoluciones por estado
         sla_title: Notificaciones de acuerdos de nivel de servicio
+        team_assignment:
+          assigned_returns: Devoluciones asignadas
+          name: Nombre
+          no_team_assignments: No hay asignaciones de equipo para mostrar en este momento
+          pager: Mostrando %{start_range} - %{end_range} de %{total}
+          role: Role
+          title: Asignación de equipo
         title: Panel
         total_number_of_returns: Número total de devoluciones
         total_returns_in_html: Rentabilidad total en [<strong>%{stage}</strong>]
         view_all: Ver todo
-        team_assignment:
-          title: Asignación de equipo
-          name: Nombre
-          role: Role
-          assigned_returns: Devoluciones asignadas
-          pager: Mostrando %{start_range} - %{end_range} de %{total}
-          no_team_assignments: No hay asignaciones de equipo para mostrar en este momento
     documents:
       confirm:
         text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
