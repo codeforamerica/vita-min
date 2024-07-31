@@ -9,7 +9,7 @@ describe EfileSubmissionStateMachine do
 
   describe "after_transition" do
     context "to preparing" do
-      let(:submission) { create(:efile_submission, :new) }
+      let(:submission) { create(:efile_submission, :new, :for_state) }
 
       context "EfileSubmissionDependent creation" do
         before do
@@ -57,26 +57,17 @@ describe EfileSubmissionStateMachine do
     end
 
     context "to bundling" do
-      let!(:submission) { create(:efile_submission, :preparing, :with_fraud_score) }
+      let!(:submission) { create(:efile_submission, :preparing, :for_state) }
 
-      it "messages the client and changes their tax return status" do
+      it "kicks off submission bundle building" do
+        expect(StateFile::BuildSubmissionBundleJob).to receive(:perform_later).with(submission.id)
+
         submission.transition_to!(:bundling)
-        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-          client: submission.client.reload,
-          message: StateFile::AutomatedMessage::EfilePreparing,
-        )
-        expect(submission.tax_return.current_state).to eq("file_ready_to_file")
-
       end
     end
 
     context "to transmitted" do
-      let(:submission) { create(:efile_submission, :queued) }
-
-      it "updates the tax return status" do
-        submission.transition_to!(:transmitted)
-        expect(submission.tax_return.current_state).to eq("file_efiled")
-      end
+      let(:submission) { create(:efile_submission, :queued, :for_state) }
 
       context "state file intakes" do
         before do
@@ -84,6 +75,7 @@ describe EfileSubmissionStateMachine do
         end
 
         it "updates state file analytics record with submission data" do
+          expect(submission.data_source.state_file_analytics).to receive(:update)
           submission.transition_to(:transmitted)
 
           expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
