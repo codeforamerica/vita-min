@@ -19,12 +19,14 @@ module Hub
                                      site_coordinators.or(team_members)
                                    end
 
-        accessible_users_by_role.select('users.*, COUNT(tax_returns.id) AS tax_returns_count')
-                                .left_joins(:assigned_tax_returns)
-                                .group('users.id, users.name, users.role_type')
-                                .order('tax_returns_count DESC')
-
         accessible_users_by_role.paginate(page: @page, per_page: 5)
+      end
+
+      def ordered_by_tr_count_users
+        team_assignment_users.select('users.*, COUNT(tax_returns.id) AS tax_returns_count')
+                             .left_joins(:assigned_tax_returns)
+                             .group('users.id, users.name, users.role_type')
+                             .order('tax_returns_count DESC')
       end
 
     end
