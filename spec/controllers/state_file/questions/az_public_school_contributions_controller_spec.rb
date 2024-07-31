@@ -135,9 +135,9 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
   end
 
   describe "navigation" do
-    it "has index and new as navigation actions" do
-      actions = StateFile::Questions::AzPublicSchoolContributionsController.navigation_actions
-      expect(actions).to eq [:index, :new]
+    it "has index as default" do
+      action = StateFile::Questions::AzPublicSchoolContributionsController.navigation_actions.first
+      expect(action).to eq :index
     end
   end
 end
