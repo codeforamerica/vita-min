@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
@@ -58,6 +57,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       contribution = Az322Contribution.last
       expect(contribution.state_file_az_intake).to eq intake
       expect(contribution.school_name).to eq 'School A'
+      expect(contribution.amount).to eq 100
     end
 
     context "when 'no' was selected for made_contribution" do
@@ -69,17 +69,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         expect do
           post :create, params: params
         end.not_to change(Az322Contribution, :count)
-      end
-    end
-
-    context "with invalid params" do
-      render_views
-      let(:invalid_params) do
-        {
-          az322_contribution: {
-            school_name: nil,
-          }
-        }
       end
     end
   end
@@ -127,18 +116,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         end.to change(Az322Contribution, :count).by(-1)
 
         expect { contribution.reload }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-
-    context "with invalid params" do
-      render_views
-      let(:invalid_params) do
-        {
-          id: contribution.id,
-          az322_contribution: {
-            school_name: nil,
-          }
-        }
       end
     end
   end
