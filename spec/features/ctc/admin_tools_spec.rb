@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Admin Tools", active_job: true do
-  let(:user) { create :admin_user }
+  let(:user) { create :state_file_admin_user }
 
   before do
     login_as user
@@ -26,24 +26,17 @@ RSpec.feature "Admin Tools", active_job: true do
     expect(page).to have_text "Report run at:"
   end
 
-  scenario "admin can click to verifications page" do
+  scenario "admin can click to state-file efile submissions page" do
     visit hub_user_profile_path
     click_on "Admin Tools"
-    click_on "Client Verification"
-    expect(page).to have_text "verification attempts"
+    click_on "Efile Submissions"
+    expect(page).to have_text "State Submission ID"
   end
 
-  scenario "admin can click to efile errors page" do
+  scenario "admin can click to state-file efile errors page" do
     visit hub_user_profile_path
     click_on "Admin Tools"
-    click_on "E-file Errors"
+    click_on "Efile Errors"
     expect(page).to have_text "Error Code"
-  end
-
-  scenario "admin can click to efile page" do
-    visit hub_user_profile_path
-    click_on "Admin Tools"
-    click_on "E-file Dashboard"
-    expect(page).to have_text "submissions"
   end
 end

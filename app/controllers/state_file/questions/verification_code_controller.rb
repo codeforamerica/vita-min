@@ -67,11 +67,9 @@ module StateFile
         )
         @form.intake = existing_intake
         intake.destroy unless intake.id == existing_intake.id
-        sign_in existing_intake
         redirect_to IntakeLoginsController.to_path_helper(
           action: :edit,
-          id: hashed_verification_code,
-          us_state: current_state_code
+          id: hashed_verification_code
         )
       end
     end

@@ -14,13 +14,13 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           email_address: email_address,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type_or_parent
+          service_type: multi_tenant_service.service_type
         )
       else
         VerificationCodeMailer.no_match_found(
           to: email_address,
           locale: locale,
-          service_type: multi_tenant_service.service_type_or_parent,
+          service_type: multi_tenant_service.service_type
         ).deliver_now
       end
     end
@@ -31,7 +31,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
           phone_number: phone_number,
           locale: locale,
           visitor_id: visitor_id,
-          service_type: multi_tenant_service.service_type_or_parent
+          service_type: multi_tenant_service.service_type
         )
       else
         url = multi_tenant_service.url(locale: locale)
@@ -40,7 +40,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
                  I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale)
                when :gyr
                  I18n.t("verification_code_sms.no_match_gyr", url: url, locale: locale)
-               when :statefile_az, :statefile_ny
+               when :statefile
                  I18n.t("state_file.intake_logins.no_match_sms", url: url, locale: locale)
                end
         TwilioService.send_text_message(

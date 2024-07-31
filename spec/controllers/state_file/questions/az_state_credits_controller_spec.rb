@@ -13,7 +13,6 @@ RSpec.describe StateFile::Questions::AzStateCreditsController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          us_state: "az",
           state_file_az_state_credits_form: {
             armed_forces_member: "yes",
             armed_forces_wages: "100",

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :state_file_az_intakes
-  devise_for :state_file_ny_intakes
-  devise_for :state_file_wa_intakes
+  active_state_codes = StateFile::StateInformationService.active_state_codes
+
+  active_state_codes.each do |code|
+    devise_for "state_file_#{code}_intakes"
+  end
   devise_for :clients
 
   devise_scope :client do
@@ -209,17 +211,6 @@ Rails.application.routes.draw do
         end
         resources :intentional_log, only: [:index]
         resources :tax_returns, only: [:edit, :update, :show]
-        resources :efile_submissions, path: "efile", only: [:index, :show] do
-          patch '/resubmit', to: 'efile_submissions#resubmit', on: :member, as: :resubmit
-          patch '/failed', to: 'efile_submissions#failed', on: :member, as: :failed
-          patch '/reject', to: 'efile_submissions#reject', on: :member, as: :reject
-          patch '/cancel', to: 'efile_submissions#cancel', on: :member, as: :cancel
-          patch '/investigate', to: 'efile_submissions#investigate', on: :member, as: :investigate
-          patch '/notify_of_rejection', to: 'efile_submissions#notify_of_rejection', on: :member, as: :notify_of_rejection
-          patch '/wait', to: 'efile_submissions#wait', on: :member, as: :wait
-          get '/download', to: 'efile_submissions#download', on: :member, as: :download
-          get '/state-counts', to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
-        end
 
         resources :fraud_indicators, path: "fraud-indicators" do
           collection do
@@ -249,6 +240,7 @@ Rails.application.routes.draw do
             get "show_df_xml", to: "efile_submissions#show_df_xml"
             get "show_pdf", to: "efile_submissions#show_pdf"
             get "/state-counts", to: 'efile_submissions#state_counts', on: :collection, as: :state_counts
+            patch '/transition-to/:to_state', to: 'efile_submissions#transition_to', on: :member, as: :transition_to
           end
 
           resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
@@ -310,6 +302,11 @@ Rails.application.routes.draw do
           end
         end
         resources :ctc_clients, only: [:edit, :update]
+
+        resources :dashboard, only: [:index] do
+          get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
+          get "/:type/:id/returns-by-status", to: "dashboard#returns_by_status", on: :collection, as: :returns_by_status
+        end
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
 
@@ -564,45 +561,41 @@ Rails.application.routes.draw do
         end
       end
 
-      scope ':us_state', constraints: { us_state: /az|ny|wa/i } do
-        resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
-        resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
-        resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-        get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
-        get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+      resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
+      resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
+      resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+      get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
+      get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+
+      resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
+        put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+        get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
       end
 
-      scope ':us_state', constraints: { us_state: /az|ny|us|wa/i } do
-        resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
-          put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
-          get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
-        end
-        get "login-options", to: "state_file/state_file_pages#login_options"
+      get "login-options", to: "state_file/state_file_pages#login_options"
+
+      match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+      match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+      resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
+
+      active_state_codes.each do |code|
+        navigation_class = StateFile::StateInformationService.navigation_class(code)
+        scoped_navigation_routes(:questions, navigation_class)
+      end
+
+      match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
+      match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
+
+      # constraint on us state is like /az|ny|us/i
+      scope ':us_state', constraints: { us_state: Regexp.new((active_state_codes + ["us"]).join("|"), Regexp::IGNORECASE) } do
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
-
-        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-        match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
-      scope ':us_state', as: 'az', constraints: { us_state: :az } do
-        scoped_navigation_routes(:questions, Navigation::StateFileAzQuestionNavigation)
-      end
-
-      scope ':us_state', as: 'wa', constraints: { us_state: :wa } do
-        scoped_navigation_routes(:questions, Navigation::StateFileWaQuestionNavigation)
-      end
-
-      scope ':us_state', as: 'ny', constraints: { us_state: :ny } do
-        scoped_navigation_routes(:questions, Navigation::StateFileNyQuestionNavigation)
-        # TODO: ny_w2 route can be deleted once no intake has w2 as the current step
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/ny_w2'
-      end
-
-      scope ':us_state', as: 'us', constraints: { us_state: :us } do
-        match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
-        match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
+      # constraint on us state is like /az|ny/i
+      scope ':us_state', constraints: { us_state: Regexp.new(active_state_codes.join("|"), Regexp::IGNORECASE) } do
+        get "/landing-page", to: "state_file/landing_page#edit", as: :state_landing_page
+        put "/landing-page", to: "state_file/landing_page#update"
       end
 
       unless Rails.env.production?

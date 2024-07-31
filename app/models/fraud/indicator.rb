@@ -24,11 +24,13 @@ module Fraud
 
     TOO_SHORT_MESSAGE = "must have minimum length of %{count}"
     WRONG_LENGTH_MESSAGE = "must have length of %{count}"
+    REFERENCE_WHITELIST = ["client", "intake", "efile_submission", "bank_account", "tax_return"].freeze
+
     validates :indicator_type, presence: true, inclusion: { in: ["missing_relationship", "duplicates", "average_under", "not_in_safelist", "in_riskylist", "execute", "equals", "gem"] }
     validates :points, presence: true
     validates :query_model_name, presence: true
     validates :list_model_name, presence: true, if: -> { indicator_type.in? ["not_in_safelist", "in_riskylist"] }
-    validates :reference, presence: true, inclusion: { in: ["client", "intake", "efile_submission", "bank_account", "tax_return"] }
+    validates :reference, presence: true, inclusion: { in: REFERENCE_WHITELIST}
     validates :name, presence: true
     validates :query_model_name, :list_model_name, class_name: true
     validates :threshold, numericality: true, if: -> { indicator_type.in? ["average_under", "duplicates"] }
@@ -105,6 +107,10 @@ module Fraud
       value = indicator_attributes[1]
 
       scoped_records(references).where(attribute => value).exists? ? response(points) : passing_response
+    end
+
+    def self.reference_to_resource(resource_name)
+      resource_name.classify.constantize if REFERENCE_WHITELIST.include? resource_name
     end
 
     private

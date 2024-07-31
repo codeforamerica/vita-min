@@ -71,6 +71,14 @@ class StateFileBaseIntake < ApplicationRecord
     @calculator
   end
 
+  def tax_calculator(include_source: false)
+    StateFile::StateInformationService.calculator_class(state_code).new(
+      year: MultiTenantService.statefile.current_tax_year,
+      intake: self,
+      include_source: include_source
+    )
+  end
+
   def calculated_refund_or_owed_amount
     calculator.refund_or_owed_amount
   end

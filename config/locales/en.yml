@@ -45,6 +45,7 @@ en:
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
+      timeout: Your session expired. Please sign in again to continue.
     invitations:
       edit:
         email_label: Your email
@@ -518,6 +519,7 @@ en:
     return_home: Return to home
     return_search: Return to search
     return_to_homepage: Return to homepage
+    returns: Returns
     role: Role
     routing: Routing
     save: Save
@@ -959,6 +961,27 @@ en:
         assign_to_label: Assign to
         save_and_add: Save and add another
         title: Add a new CTC client
+    dashboard:
+      show:
+        action_required:
+          client_id: Client ID
+          client_name: Client Name
+          no_clients: No clients to display at the moment
+          title: 'Action Required: Flagged Clients'
+          updated: Updated At
+        capacity: Capacity
+        current_capacity: Current Capacity
+        filter_by_stage: Filter by Stage
+        org_name: Organization Name
+        resources:
+          hub_training: Hub Trainings
+          newsletter: GYR Newsletter
+          title: Resources
+        returns_by_status: Returns by Status
+        title: Dashboard
+        total_number_of_returns: Total number of returns
+        total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]
+        view_all: View All
     documents:
       confirm:
         text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
@@ -2094,6 +2117,47 @@ en:
           not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+    landing_page:
+      edit:
+        already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
+        already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
+        az:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of Arizona
+          title: File your Arizona state taxes for free
+        continue: To continue filing your %{state_name} State return, please sign in below
+        download_your_record: Download Your Record
+        help_text_html: |
+          <strong>What you’ll need:</strong>
+          <br />
+          <ul class="list--bulleted">
+            <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+            <li>Email address or phone number</li>
+            <li>Driver’s license or state-issued ID</li>
+            <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+            <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+          </ul>
+        not_you: Not %{user_name}?
+        ny:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by New York State
+          title: File your New York State taxes for free
+        wa:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>Warshington State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with Warshington State to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by Warshington State
+          title: File your Warshington State taxes for free
+        start_new: Click here to start a new %{state_name} State return.
+        title_closed: Our free %{state_name} tax filing service is closed for the season
+        welcome_back: Welcome back %{user_name}!
     navigation:
       section_1: 'Section 1: Can you use this tool'
       section_2: 'Section 2: Create account'
@@ -2130,6 +2194,31 @@ en:
           title:
             one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
+      az_eligibility_out_of_state_income:
+        edit:
+          expenses_helper_heading: What are qualifying and non-qualifying expenses?
+          expenses_helper_no_if: 'Select ''no'' if:'
+          expenses_helper_no_nothing_withdrawn: You didn't withdraw money from a 529 account at all.
+          expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
+          expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
+          expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          title: First, let's see if you can use this tool to file your taxes
+          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
+      az_eligibility_residence:
+        edit:
+          filing_status_married_filing_separately: Are you filing as “married filing separately”?
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
+          mfs_helper_heading: What does “married filing separately” mean?
+          mfs_helper_no_if: 'Select no if:'
+          mfs_helper_no_mfj: You are married and filing jointly on both your federal and state returns.
+          mfs_helper_no_unmarried: You are not married.
+          mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
+          mfs_helper_yes_if: 'Select yes if:'
+          mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
@@ -2286,33 +2375,6 @@ en:
               list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
           vita_link: Get started with VITA now
-      eligibility_out_of_state_income:
-        edit:
-          expenses_helper_heading: What are qualifying and non-qualifying expenses?
-          expenses_helper_no_if: 'Select ''no'' if:'
-          expenses_helper_no_nothing_withdrawn: You didn't withdraw money from a 529 account at all.
-          expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
-          expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
-          expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
-          part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
-          title: First, let's see if you can use this tool to file your taxes
-          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
-      eligibility_residence:
-        edit:
-          filing_status_married_filing_separately: Are you filing as “married filing separately”?
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
-          lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
-          mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
-          mfs_helper_heading: What does “married filing separately” mean?
-          mfs_helper_no_if: 'Select no if:'
-          mfs_helper_no_mfj: You are married and filing jointly on both your federal and state returns.
-          mfs_helper_no_unmarried: You are not married.
-          mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
-          mfs_helper_yes_if: 'Select yes if:'
-          mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
-          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
       eligible:
         az_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
@@ -2404,47 +2466,6 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
-      landing_page:
-        edit:
-          already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
-          already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
-          az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
-              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-            supported_by: Supported by the state of Arizona
-            title: File your Arizona state taxes for free
-          continue: To continue filing your %{state_name} State return, please sign in below
-          download_your_record: Download Your Record
-          help_text_html: |
-            <strong>What you’ll need:</strong>
-            <br />
-            <ul class="list--bulleted">
-              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
-              <li>Email address or phone number</li>
-              <li>Driver’s license or state-issued ID</li>
-              <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
-              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
-            </ul>
-          not_you: Not %{user_name}?
-          ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
-              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-            supported_by: Supported by New York State
-            title: File your New York State taxes for free
-          wa:
-            built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>Warshington State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> is built in partnership with Warshington State to integrate with the IRS Direct File tool.<br /><br />
-              We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-            supported_by: Supported by Warshington State
-            title: File your Warshington State taxes for free
-          start_new: Click here to start a new %{state_name} State return.
-          title_closed: Our free %{state_name} tax filing service is closed for the season
-          welcome_back: Welcome back %{user_name}!
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2477,6 +2498,17 @@ en:
             title: What are qualifying and non-qualifying expenses?
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529: In 2023, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
+      ny_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+          title: First, let's see if you can use this tool to file your taxes
+      ny_eligibility_residence:
+        edit:
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       ny_permanent_address:
         edit:
           address_header: Address

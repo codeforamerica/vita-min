@@ -1,0 +1,40 @@
+<% p = presenter.action_required_flagged_clients_presenter %>
+<div class="card dashboard-table">
+  <h2><%= t("hub.dashboard.show.action_required.title") %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"><%= t("hub.dashboard.show.action_required.client_name") %></th>
+        <th scope="col"><%= t("hub.dashboard.show.action_required.client_id") %></th>
+        <th scope="col"><%= t("hub.dashboard.show.action_required.updated") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if p.flagged_clients.exists? %>
+        <% p.flagged_clients.limit(3).each do |client| %>
+          <tr>
+            <td>
+              <%= link_to client.preferred_name, hub_client_path(client.id) %>
+            </td>
+            <td>
+              <%= client.id %>
+            </td>
+            <td>
+              <%= client.updated_at.strftime("%b %d %l:%M%P") %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if p.flagged_clients.exists? %>
+    <div class="paging">
+      <p><%= p.flagged_clients.limit(3).count %> of <%= p.flagged_clients.count %></p>
+      <%= link_to t("hub.dashboard.show.view_all"), hub_clients_path(flagged: true), class: "text--centered" %>
+    </div>
+  <% else %>
+    <p><%= t("hub.dashboard.show.action_required.no_clients") %></p>
+  <% end %>
+
+</div>

@@ -56,7 +56,11 @@ RSpec.configure do |config|
   config.filter_run_when_matching :focus
 
   config.before(:each) do
-    Rack::Attack.enabled = false
+    begin
+      Rack::Attack.enabled = false
+    rescue
+      puts "RackAttack not loaded - are you running a single test?"
+    end
   end
 
 =begin

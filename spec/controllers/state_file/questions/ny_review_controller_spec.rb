@@ -11,7 +11,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
       let(:intake) { create :state_file_ny_owed_intake}
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
-        get :edit, params: { us_state: "ny" }
+        get :edit
 
         refund_or_owed_label = assigns(:refund_or_owed_label)
         expect(refund_or_owed_label).to eq I18n.t("state_file.questions.shared.review_header.your_tax_owed")
@@ -22,7 +22,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
       let(:intake) { create :state_file_ny_refund_intake }
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
-        get :edit, params: { us_state: "ny" }
+        get :edit
 
         refund_or_owed_label = assigns(:refund_or_owed_label)
         expect(refund_or_owed_label).to eq I18n.t("state_file.questions.shared.review_header.your_refund")
@@ -35,7 +35,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
       let!(:dependent) { intake.dependents.create(dob: 7.years.ago, first_name: "Bobby", last_name: "Tables", relationship: "Son") }
 
       it "displayed dependent details" do
-        get :edit, params: { us_state: "ny" }
+        get :edit
         expect(response.body).to include I18n.t("state_file.questions.shared.review_header.dependent_dob")
         expect(response.body).to include "Bobby Tables"
         expect(response.body).not_to include I18n.t("state_file.questions.shared.review_header.dependent_months_in_home")

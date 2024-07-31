@@ -1,26 +1,70 @@
 module Hub::StateFile
   class AutomatedMessagesController < Hub::StateFile::BaseController
+    helper_method :email_message
+    helper_method :sms_body
 
     def index
-      @messages = messages_preview
+      Rails.application.eager_load!
+      @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
+      @locales = [:en, :es]
+      @us_state = StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : "az"
+      get_intake
     end
 
     private
 
-    def messages_preview
-      Rails.application.eager_load!
-      message_classes = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
-      message_classes.to_h do |klass|
-        replaced_body = klass.new.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
-        email = StateFileNotificationEmail.new(to: "example@example.com",
-                                               body: replaced_body,
-                                               subject: klass.new.email_subject)
-        message = StateFile::NotificationMailer.user_message(notification_email: email)
-        ActionMailer::Base.preview_interceptors.each do |interceptor|
-          interceptor.previewing_email(message)
-        end
-        [klass, message]
+    def get_intake
+      return @intake if @intake.present?
+      state_class = "StateFile#{@us_state.titleize}Intake".constantize
+      if params[:intake_id].present?
+        @intake = state_class.find_by_id(params[:intake_id])
+        return @intake if @intake.present?
+        flash.now.alert = "Unknown Intake"
       end
+      @intake = state_class.new(
+        locale: "en",
+        primary_first_name: "Cornelius"
+      )
+    end
+
+    def message_params
+      intake = get_intake
+      state_code = intake.state_code
+      locale = intake.locale || "en"
+      submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
+      {
+        primary_first_name: intake.primary_first_name,
+        intake_id: intake.id || "CLIENT_ID",
+        survey_link: StateFile::StateInformationService.survey_link(intake.state_code),
+        submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
+        state_name: intake.state_name,
+        return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(locale),
+        login_link: SendIssueResolvedMessageJob.login_link,
+        state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(state_code),
+      }
+    end
+
+    def email_message(message_class, locale)
+      replaced_body = message_class.new.email_body(
+        **{locale: locale}.update(message_params)
+      ).gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
+      subject = message_class.new.email_subject(
+        **{locale: locale}.update(message_params)
+      )
+      email = StateFileNotificationEmail.new(to: "example@example.com",
+                                             body: replaced_body,
+                                             subject: subject)
+      message = StateFile::NotificationMailer.user_message(notification_email: email)
+      ActionMailer::Base.preview_interceptors.each do |interceptor|
+        interceptor.previewing_email(message)
+      end
+      message
+    end
+
+    def sms_body(message_class, locale)
+      message_class.new.sms_body(
+        **{locale: locale}.update(message_params)
+      )
     end
   end
 end

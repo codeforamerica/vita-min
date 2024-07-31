@@ -374,6 +374,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_gyr_logged_in_clients?
 
+  def open_for_diy?
+    app_time <= Rails.configuration.end_of_in_progress_intake
+  end
+
   def open_for_ctc_intake?
     return false if app_time >= Rails.configuration.ctc_end_of_intake
     return true if app_time >= Rails.configuration.ctc_full_launch
@@ -413,8 +417,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
-  def withdrawal_date_deadline
-    case params[:us_state]
+  def withdrawal_date_deadline(state_code)
+    case state_code
     when 'ny'
       Rails.configuration.state_file_withdrawal_date_deadline_ny
     else
@@ -425,20 +429,30 @@ class ApplicationController < ActionController::Base
   end
   helper_method :withdrawal_date_deadline
 
-  def before_withdrawal_date_deadline?
-    app_time < withdrawal_date_deadline
+  def before_withdrawal_date_deadline?(state_code)
+    app_time < withdrawal_date_deadline(state_code)
   end
   helper_method :before_withdrawal_date_deadline?
 
-  def post_deadline_withdrawal_date
+  def post_deadline_withdrawal_date(state_code)
     # after the tax deadline we automatically set the bank withdrawal date to be the current day
-    if params[:us_state] == 'ny'
+    case state_code
+    when 'ny'
       app_time.in_time_zone('America/New_York')
     else
       app_time.in_time_zone('America/Phoenix')
     end
   end
   helper_method :post_deadline_withdrawal_date
+
+  def state_code_for_page_style
+    if params.include?(:us_state)
+      params[:us_state]
+    elsif current_intake.present? && respond_to?(:current_state_code)
+      current_state_code
+    end
+  end
+  helper_method :state_code_for_page_style
 
   private
 

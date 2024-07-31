@@ -3,12 +3,9 @@ module Navigation
     include ControllerNavigation
 
     SECTIONS = [
-      Navigation::NavigationSection.new("", [
-        Navigation::NavigationStep.new(StateFile::Questions::LandingPageController, false)
-      ], false),
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOutOfStateIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityResidenceController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityOutOfStateIncomeController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),

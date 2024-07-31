@@ -15,7 +15,10 @@ module StateFile
         body_args = { return_status_link: return_status_link }
       when :owe
         message = StateFile::AutomatedMessage::AcceptedOwe
-        body_args = { state_pay_taxes_link: state_pay_taxes_link, return_status_link: return_status_link }
+        body_args = {
+          state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(@intake.state_code),
+          return_status_link: return_status_link
+        }
       end
 
       StateFile::MessagingService.new(
@@ -70,18 +73,11 @@ module StateFile
     private
 
     def return_status_link
-      url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: @intake.state_code)
-    end
-
-    def state_pay_taxes_link
-      case @intake.state_code
-      when "ny"
-        "https://www.tax.ny.gov/pay/"
-      when 'az'
-        "https://www.aztaxes.gov/"
-      else
-        ""
-      end
+      url_for(
+        host: MultiTenantService.new(:statefile).host,
+        controller: "state_file/questions/return_status",
+        action: "edit"
+      )
     end
   end
 end

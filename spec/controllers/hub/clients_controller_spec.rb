@@ -259,6 +259,8 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Pacific Time (US & Canada)")
         expect(profile).to have_text("I'm available every morning except Fridays.")
         expect(profile).to have_text("2")
+
+        expect(profile).to have_text "Refund Payment Info"
       end
 
       context "when a client needs a response" do
@@ -295,6 +297,16 @@ RSpec.describe Hub::ClientsController do
 
           expect(response.body).to have_text "Unlock account"
         end
+      end
+    end
+
+    context "as an authenticated greeter" do
+      before { sign_in create(:greeter_user) }
+      render_views
+
+      it "does not show bank details" do
+        get :show, params: params
+        expect(response.body).not_to have_text "Refund Payment Info"
       end
     end
   end
@@ -744,6 +756,16 @@ RSpec.describe Hub::ClientsController do
           around do |example|
             Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0)) do
               example.run
+            end
+          end
+
+          context "with page contents" do
+            render_views
+
+            it "filters the All Clients page" do
+              get :index
+              html = Nokogiri::HTML.parse(response.body)
+              expect(html.at_css("a.button--quick-filter").attr("href")).to include hub_clients_path
             end
           end
 
@@ -1442,6 +1464,16 @@ RSpec.describe Hub::ClientsController do
         it "redirects to the client show page" do
           get :resource_to_client_redirect, params: {id: client.id, resource: "client" }
           expect(response).to redirect_to hub_client_path(id: client.id)
+        end
+      end
+
+      context "when the resource is an invalid resource" do
+        let(:client) { create :client}
+
+        it "should be an internal error" do
+          expect {
+            get :resource_to_client_redirect, params: {id: client.id, resource: "foobar"}
+          }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end

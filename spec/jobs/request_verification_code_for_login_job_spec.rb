@@ -154,7 +154,7 @@ describe RequestVerificationCodeForLoginJob do
             email_address: "client@example.com",
             visitor_id: "87h2897gh2",
             locale: "es",
-            service_type: :statefile_az
+            service_type: :statefile
           }
         end
         let(:mailer_double) { double }
@@ -171,7 +171,7 @@ describe RequestVerificationCodeForLoginJob do
 
           it "requests a code from EmailVerificationCodeService" do
             described_class.perform_now(**params)
-            expect(EmailVerificationCodeService).to have_received(:request_code).with(a_hash_including(**params, service_type: :statefile))
+            expect(EmailVerificationCodeService).to have_received(:request_code).with(a_hash_including(params))
           end
         end
 
@@ -181,7 +181,7 @@ describe RequestVerificationCodeForLoginJob do
               email_address: "client@example.com",
               visitor_id: "87h2897gh2",
               locale: "es",
-              service_type: :statefile_ny
+              service_type: :statefile
             }
           end
 
@@ -208,7 +208,7 @@ describe RequestVerificationCodeForLoginJob do
             phone_number: "+15125551234",
             visitor_id: "87h2897gh2",
             locale: "en",
-            service_type: :statefile_az
+            service_type: :statefile
           }
         end
         before do
@@ -223,9 +223,7 @@ describe RequestVerificationCodeForLoginJob do
 
           it "requests a code from TextMessageVerificationCodeService" do
             described_class.perform_now(**params)
-            expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(
-                                                                                              **params, service_type: :statefile
-                                                                                            ))
+            expect(TextMessageVerificationCodeService).to have_received(:request_code).with(a_hash_including(params))
           end
         end
 
@@ -235,7 +233,7 @@ describe RequestVerificationCodeForLoginJob do
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
             expect(TwilioService).to have_received(:send_text_message)
                                        .with(a_hash_including(
-                                               body: I18n.t("state_file.intake_logins.no_match_sms", url: "https://statefile.test.localhost/en/az/questions/landing-page", locale: :en),
+                                               body: I18n.t("state_file.intake_logins.no_match_sms", url: "http://statefile.test.localhost/en", locale: :en),
                                                to: params[:phone_number]
                                              ))
           end

@@ -7,11 +7,11 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         az_intake = create(:state_file_az_intake)
         sign_in az_intake
         create(:efile_submission, :notified_of_rejection, :for_state, data_source: az_intake)
-        get :edit, params: { us_state: "az" }
+        get :edit
 
         expect(assigns(:tax_refund_url)).to eq "https://aztaxes.gov/home/checkrefund"
         expect(assigns(:tax_payment_url)).to eq "AZTaxes.gov"
-        expect(assigns(:primary_tax_form_name)).to eq "Form AZ-140V"
+        expect(assigns(:voucher_form_name)).to eq "Form AZ-140V"
         expect(assigns(:mail_voucher_address)).to eq "Arizona Department of Revenue<br/>"\
           "PO Box 29085<br/>"\
           "Phoenix, AZ 85038-9085"
@@ -31,7 +31,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         let!(:efile_submission) { create(:efile_submission, :notified_of_rejection, :for_state, data_source: az_intake) }
 
         it "shows the most recent submission" do
-          get :edit, params: { us_state: "az" }
+          get :edit
 
           expect(assigns(:submission_to_show)).to eq efile_submission
         end
@@ -51,7 +51,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
           let(:efile_error) { create(:efile_error, code: "901", service_type: :state_file, expose: true) }
 
           it "shows the most recent accepted submission" do
-            get :edit, params: { us_state: "az" }
+            get :edit
 
             expect(assigns(:submission_to_show)).to eq previous_efile_submission
           end
@@ -61,7 +61,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
           let(:efile_error) { create(:efile_error, code: "A LEGIT REJECTION I GUESS", service_type: :state_file, expose: true) }
 
           it "shows the most recent submission" do
-            get :edit, params: { us_state: "az" }
+            get :edit
 
             expect(assigns(:submission_to_show)).to eq latest_efile_submission
           end
@@ -79,7 +79,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         let!(:efile_submission) { create(:efile_submission, :notified_of_rejection, :for_state, data_source: ny_intake) }
 
         it "shows the most recent submission" do
-          get :edit, params: { us_state: "ny" }
+          get :edit
 
           expect(assigns(:submission_to_show)).to eq efile_submission
         end

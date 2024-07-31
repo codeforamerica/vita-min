@@ -6,11 +6,11 @@
 
     <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
       <div>
-        <p><%= t(".subheader_1_html", login_path: login_options_path(us_state: 'us')) %></p>
+        <p><%= t(".subheader_1_html", login_path: login_options_path) %></p>
         <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
-          <p><%= t(".subheader_2_html", login_path: login_options_path(us_state: 'us')) %></p>
+          <p><%= t(".subheader_2_html", login_path: login_options_path) %></p>
         <% end %>
-        <p><%= t(".subheader_3_html", login_path: login_options_path(us_state: 'us')) %></p>
+        <p><%= t(".subheader_3_html", login_path: login_options_path) %></p>
       </div>
 
       <div class="blue-group spacing-below-15 spacing-above-35">
@@ -19,7 +19,7 @@
     <% else %>
       <div>
         <%= t(".closed_subheader_html") %>
-        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: "us"), class: "button button--primary button--wide", id: "firstCta" do %>
+        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
           <%= t("general.sign_in") %>
         <% end %>
       </div>
@@ -30,9 +30,11 @@
 
 <% unless acts_like_production? %>
 <section>
-  <%= link_to "Start Test AZ", Navigation::StateFileAzQuestionNavigation::FLOW.first.to_path_helper(us_state: "az"), class: "button" %>
-  <%= link_to "Start Test NY", Navigation::StateFileNyQuestionNavigation::FLOW.first.to_path_helper(us_state: "ny"), class: "button" %>
-  <%= link_to "Start Test WA", Navigation::StateFileWaQuestionNavigation::FLOW.first.to_path_helper(us_state: "wa"), class: "button" %>
+  <% StateFile::StateInformationService.active_state_codes.each do |state_code| %>
+    <%= link_to "Start Test #{state_code.upcase}",
+                state_landing_page_path(us_state: state_code),
+                class: "button" %>
+  <% end %>
   <% if current_intake %>
     <div class="with-padding-med">
       Your session has this intake: <b><%= current_state_code %> <%= current_intake.id %></b>
