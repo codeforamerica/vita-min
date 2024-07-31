@@ -44,7 +44,7 @@ describe 'EfileError' do
       "az-review",
       "az-senior-dependents",
       "az-spouse-state-id",
-      "az-state-credits",
+      "az-subtractions",
       "canceled-data-transfer",
       "code-verified",
       "contact-preference",

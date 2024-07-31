@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::AzStateCreditsForm do
+RSpec.describe StateFile::AzSubtractionsForm do
   describe "#valid?" do
     let(:intake) { create :state_file_az_intake }
 

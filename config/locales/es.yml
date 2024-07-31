@@ -2223,7 +2223,7 @@ es:
           assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"
           passed_away_label: "%{name}falleció en el 2023?"
           title: Proporciónanos más información sobre las personas en tu familia que tienen 65 años o más.
-      az_state_credits:
+      az_subtractions:
         edit:
           armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
           armed_forces_wages_label:

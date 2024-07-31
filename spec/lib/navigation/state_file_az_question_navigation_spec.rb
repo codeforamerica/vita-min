@@ -26,7 +26,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::AzPriorLastNamesController,
         StateFile::Questions::W2Controller,
         StateFile::Questions::UnemploymentController,
-        StateFile::Questions::AzStateCreditsController,
+        StateFile::Questions::AzSubtractionsController,
         StateFile::Questions::AzCharitableContributionsController,
         StateFile::Questions::AzExciseCreditController,
         StateFile::Questions::AzPrimaryStateIdController,
