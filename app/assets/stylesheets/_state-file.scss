@@ -672,6 +672,13 @@
       display: none
     }
   }
+
+  .button--intercom{
+    background: #FFF;
+    border: 2px solid $color-az-grey;
+    // icon: state primary color
+    color: $color-az-grey;
+  }
 }
 
 $state-colors: (
