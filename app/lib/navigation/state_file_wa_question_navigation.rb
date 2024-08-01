@@ -3,9 +3,8 @@ module Navigation
     include ControllerNavigation
 
     SECTIONS = [
-      Navigation::NavigationSection.new("", [
-        Navigation::NavigationStep.new(StateFile::Questions::LandingPageController, false)
-      ], false),
+      Navigation::NavigationSection.new("state_file.navigation.section_1", [
+      ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
         Navigation::NavigationStep.new(StateFile::Questions::ContactPreferenceController),
         Navigation::NavigationStep.new(StateFile::Questions::PhoneNumberController),
