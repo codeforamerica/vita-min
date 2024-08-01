@@ -89,6 +89,10 @@ class DirectFileData
     df_xml_value(__method__)&.to_i
   end
 
+  def tax_return_year=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def filing_status
     df_xml_value(__method__)&.to_i
   end
