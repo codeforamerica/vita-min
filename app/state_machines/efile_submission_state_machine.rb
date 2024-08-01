@@ -91,6 +91,7 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :queued) do |submission|
     StateFile::SendSubmissionJob.perform_later(submission)
+    StateFile::BuildSubmissionPdfJob.perform_later(submission.id) if submission.is_for_state_filing?
   end
 
   after_transition(to: :fraud_hold) do |submission|

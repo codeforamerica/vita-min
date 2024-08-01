@@ -191,10 +191,16 @@ describe EfileSubmission do
       context "after transition to" do
         let!(:submission) { create(:efile_submission, :bundling, :with_fraud_score, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
-        it "queues a GyrEfilerSendSubmissionJob" do
+        it "queues a SendSubmissionJob" do
           expect do
             submission.transition_to!(:queued)
           end.to have_enqueued_job(StateFile::SendSubmissionJob).with(submission)
+        end
+
+        it "queues a BuildSubmissionPdfJob" do
+          expect do
+            submission.transition_to!(:queued)
+          end.to have_enqueued_job(StateFile::BuildSubmissionPdfJob).with(submission.id)
         end
       end
     end
@@ -685,7 +691,7 @@ describe EfileSubmission do
 
           expect {
             submission.retry_send_submission
-          }.not_to have_enqueued_job(StateFile::SendSubmissionJob)
+          }.not_to(have_enqueued_job(StateFile::SendSubmissionJob)).and.not_to(have_enqueued_job(StateFile::BuildSubmissionPdfJob))
           expect(submission.current_state).to eq("failed")
         end
       end
