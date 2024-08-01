@@ -21,4 +21,5 @@ class Az322Contribution < ApplicationRecord
   belongs_to :state_file_az_intake
 
   enum made_contribution: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_contribution
+
 end
