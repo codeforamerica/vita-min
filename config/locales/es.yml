@@ -3014,15 +3014,9 @@ es:
             title: Ha eliminado a todos sus %{credit_warnings} dependientes elegibles.
         edit_info:
           add_bank_information: Agregue su información bancaria
-          help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
-          help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
-          help_text_resubmission_limit_html: Ha alcanzado el número máximo de reenvíos. Envíe un correo electrónico a %{email_link} o chatee con el equipo de asistencia.
           no_ba_error_html: "<strong>Error: </strong>Seleccionó Deposito Directo, pero no agregó su información bancaria. Por favor actualice su información bancaria seleccionando Agregar información bancaria a continuación."
           no_bank_account: 'No ingreso su información bancaria. '
-          resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
-          w2s_missing: Falta información W-2
-          w2s_shared: W-2 compartidos
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
           contact_us: Contáctenos
