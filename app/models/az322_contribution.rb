@@ -22,4 +22,11 @@ class Az322Contribution < ApplicationRecord
 
   enum made_contribution: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_contribution
 
+  validates :made_contribution, inclusion: { in: %w[yes no], message: :blank }
+  validates :school_name, presence: true, if: -> { made_contribution == "yes" }
+  validates :ctds_code, presence: true, format: { with: /\A\d{9}\z/, message: 'must be exactly 9 digits' }, if: -> { made_contribution == "yes" }
+  validates :district_name, presence: true, if: -> { made_contribution == "yes" }
+  validates :amount, presence: true, numericality: { greater_than: 0 }, if: -> { made_contribution == "yes" }
+  validate :date_of_contribution_is_valid_date, if: -> { made_contribution == "yes" }
+
 end
