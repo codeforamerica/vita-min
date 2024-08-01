@@ -26,9 +26,11 @@ describe Seeder do
     expect(count_rows_by_model).to eq(row_count_after_one_run)
   end
 
-  it "creates an GYR client with an intake" do
-    intake = Intake.find_by(primary_first_name: "Captain")
-    expect(intake.tax_returns.count).to eq 2
-    expect(intake.client.vita_partner).to eq VitaPartner.find_by(name: "Oregano Org")
+  it "creates an eitc client under 24 with a qualifying child" do
+    intake = Intake.find_by(primary_first_name: "EitcUnderTwentyFourQC")
+    expect(intake.dependents.count).to eq 1
+    expect(intake.dependents.first.qualifying_eitc?).to eq true
+    expect(intake.client.efile_submissions.count).to eq 1
+    expect(intake.client.efile_submissions.first.last_client_accessible_transition.exposed_error).to be_present
   end
 end

@@ -258,6 +258,221 @@ class Seeder
       )
     end
 
+    intake_for_verification_attempt_1 = find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "VerifierOne",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      product_year: 2022,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+    )
+
+    va1_client = intake_for_verification_attempt_1.client
+    efile_submission = va1_client.efile_submissions.last || va1_client.tax_returns.last.efile_submissions.create
+    Fraud::Score.create_from(efile_submission) unless efile_submission.fraud_score.present?
+
+    attempt = VerificationAttempt.find_or_initialize_by(client: va1_client) do |attempt|
+      add_images_to_verification_attempt(attempt)
+      attempt.save
+    end
+    attempt.transition_to(:pending)
+
+    intake_for_verification_attempt_2 = find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "VerifierTwo",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      product_year: 2022,
+      tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+    )
+    va2_client = intake_for_verification_attempt_2.client
+    efile_submission = va2_client.efile_submissions.last || va2_client.tax_returns.last.efile_submissions.create
+    Fraud::Score.create_from(efile_submission) unless efile_submission.fraud_score.present?
+
+    bypass_attempt = VerificationAttempt.find_or_initialize_by(client: va2_client) do |attempt|
+      add_images_to_verification_attempt(attempt)
+      attempt.save
+    end
+    bypass_attempt.transition_to(:pending)
+
+
+    verifying_with_restricted_intake = find_or_create_intake_and_client(
+        Intake::CtcIntake,
+        primary_first_name: "RestrictedVerifier",
+        primary_last_name: "Smith",
+        primary_consented_to_service: "yes",
+        product_year: 2022,
+        tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
+    )
+
+    verifying_with_restricted_intake.client.touch(:restricted_at)
+    restricted_attempt = VerificationAttempt.find_or_initialize_by(client: verifying_with_restricted_intake.client) do |attempt|
+      attempt.client_bypass_request = "I don't have an ID but I'd like to submit my taxes."
+      add_images_to_verification_attempt(attempt)
+      attempt.save
+    end
+    restricted_attempt.transition_to(:pending)
+
+    eitc_under_twenty_four_qc = find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "EitcUnderTwentyFourQC",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 20.years.ago,
+      claim_eitc: 'yes',
+      exceeded_investment_income_limit: 'no',
+      primary_tin_type: 'ssn',
+      email_address: "yfong+EitcUnderTwentyFourQC@codeforamerica.org",
+      email_address_verified_at: Time.current,
+      product_year: 2022,
+      tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "single" }],
+      dependent_attributes: [
+        {
+          first_name: "QC",
+          last_name: "Smith",
+          relationship: "niece",
+          birth_date: 5.years.ago,
+          full_time_student: "no",
+          permanently_totally_disabled: "no",
+          provided_over_half_own_support: "no",
+          filed_joint_return: "no",
+          months_in_home: 7,
+          cant_be_claimed_by_other: "yes",
+          claim_anyway: "yes",
+          tin_type: "ssn",
+          ssn: "123121234"
+        }
+      ],
+      w2_attributes: [
+        {
+          employee: 'primary',
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+        }
+      ],
+    )
+
+    create_efile_security_info(eitc_under_twenty_four_qc.client) if eitc_under_twenty_four_qc.client.efile_security_informations.none?
+
+    if eitc_under_twenty_four_qc.client.efile_submissions.none?
+      eitc_under_twenty_four_qc_efile_submission = eitc_under_twenty_four_qc.client.tax_returns.last.efile_submissions.create
+      # Faking these out because we removed CTC code from the state machine - hopefully it's sufficiently realistic
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :preparing, sort_key: 1, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :queued, sort_key: 2, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :transmitted, sort_key: 3, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :rejected, sort_key: 4, most_recent: true)
+      efile_error = EfileError.create!(expose: true)
+      eitc_under_twenty_four_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
+    end
+
+    eitc_mfj_qc = find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      primary_first_name: "EitcMFJQC",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 35.years.ago,
+      spouse_first_name: "Spouse",
+      spouse_last_name: "Smith",
+      spouse_birth_date: 35.years.ago,
+      claim_eitc: 'yes',
+      exceeded_investment_income_limit: 'no',
+      primary_tin_type: 'ssn',
+      email_address: "yfong+EitcMFJQC@codeforamerica.org",
+      email_address_verified_at: Time.current,
+      product_year: 2022,
+      tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "married_filing_jointly" }],
+      dependent_attributes: [
+        {
+          first_name: "QC",
+          last_name: "Smith",
+          relationship: "niece",
+          birth_date: 5.years.ago,
+          full_time_student: "no",
+          permanently_totally_disabled: "no",
+          provided_over_half_own_support: "no",
+          filed_joint_return: "no",
+          months_in_home: 7,
+          cant_be_claimed_by_other: "yes",
+          claim_anyway: "yes",
+          tin_type: "ssn",
+          ssn: "123121234"
+        }
+      ],
+      w2_attributes: [
+        {
+          employee: 'primary',
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+        }
+      ],
+    )
+
+    if eitc_mfj_qc.client.efile_submissions.none?
+      eitc_mfj_qc_efile_submission = eitc_mfj_qc.client.tax_returns.last.efile_submissions.create
+      # Faking these out because we removed CTC code from the state machine - hopefully it's sufficiently realistic
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :preparing, sort_key: 1, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :queued, sort_key: 2, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :transmitted, sort_key: 3, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :rejected, sort_key: 4, most_recent: true)
+      efile_error = EfileError.create!(expose: true, auto_cancel: false, code: 'not-auto-cancel', message: 'this is an error that is not auto cancel')
+      auto_cancel_efile_error = EfileError.create!(expose: true, auto_cancel: true, code: 'auto-cancel', message: 'this is an error that is auto cancel')
+      eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
+      eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: auto_cancel_efile_error)
+    end
+
+    find_or_create_intake_and_client(
+      Intake::CtcIntake,
+      product_year: 2022,
+      primary_first_name: "EitcNoQC",
+      primary_last_name: "Smith",
+      primary_consented_to_service: "yes",
+      primary_birth_date: 35.years.ago,
+      claim_eitc: 'yes',
+      exceeded_investment_income_limit: 'no',
+      primary_tin_type: 'ssn',
+      email_address: "yfong+EitcNoQC@codeforamerica.org",
+      email_address_verified_at: Time.current,
+      current_step: "/en/questions/w2s",
+      tax_return_attributes: [{ year: 2021, current_state: "intake_in_progress", filing_status: "single" }],
+      w2_attributes: [
+        {
+          employee: 'primary',
+          employee_street_address: "456 Somewhere Ave",
+          employee_city: "Cleveland",
+          employee_state: "OH",
+          employee_zip_code: "44092",
+          employer_ein: "123456789",
+          employer_name: "Code for America",
+          employer_street_address: "123 Main St",
+          employer_city: "San Francisco",
+          employer_state: "CA",
+          employer_zip_code: "94414",
+          wages_amount: 100.10,
+          federal_income_tax_withheld: 20.34,
+        }
+      ],
+    )
+
     find_or_create_intake_and_client(
       Archived::Intake::GyrIntake2021,
       primary_first_name: "ArchivedGyr2021",
