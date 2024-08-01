@@ -1,5 +1,5 @@
 <button type="button" class="open-intercom button--intercom-blue button--intercom ">
-  <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "") %>
+  <%= image_tag("intercom-chat-#{params[:us_state] || "us"}.svg", "aria-hidden": "true", class: "") %>
   <%= I18n.t("general.intercom_cta") %>
 </button>
 
