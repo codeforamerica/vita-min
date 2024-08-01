@@ -150,10 +150,6 @@ class EfileSubmission < ApplicationRecord
     previous_submission if previous_submission.last_transition_to("transmitted").present?
   end
 
-  def source_record
-    data_source
-  end
-
   def generate_verified_address(i = 0)
     # TODO(state-file)
     return OpenStruct.new(valid?: true) unless intake

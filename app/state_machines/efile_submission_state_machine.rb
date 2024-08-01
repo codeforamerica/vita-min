@@ -95,7 +95,7 @@ class EfileSubmissionStateMachine
   end
   
   after_transition(to: :resubmitted) do |submission, transition|
-    @new_submission = submission.source_record.efile_submissions.create
+    @new_submission = submission.data_source.efile_submissions.create
 
     begin
       @new_submission.transition_to!(:preparing, previous_submission_id: submission.id, initiated_by_id: transition.metadata["initiated_by_id"])
