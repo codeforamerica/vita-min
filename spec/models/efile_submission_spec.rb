@@ -197,10 +197,15 @@ describe EfileSubmission do
           end.to have_enqueued_job(StateFile::SendSubmissionJob).with(submission)
         end
 
-        it "queues a BuildSubmissionPdfJob" do
-          expect do
-            submission.transition_to!(:queued)
-          end.to have_enqueued_job(StateFile::BuildSubmissionPdfJob).with(submission.id)
+        context "state file submissions queue a BuildSubmissionPdfJob" do
+          let!(:submitted_intake) { create :state_file_az_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago }
+          let!(:submission) { create :efile_submission, :for_state, :bundling, data_source: submitted_intake }
+
+          it "queues a BuildSubmissionPdfJob" do
+            expect do
+              submission.transition_to!(:queued)
+            end.to have_enqueued_job(StateFile::BuildSubmissionPdfJob).with(submission.id)
+          end
         end
       end
     end
@@ -662,7 +667,8 @@ describe EfileSubmission do
 
           expect {
             submission.retry_send_submission
-          }.to have_enqueued_job(StateFile::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission)
+          }.to have_enqueued_job(StateFile::SendSubmissionJob).at(Time.now.utc + expected_delay).with(submission).
+            and not_have_enqueued_job(StateFile::BuildSubmissionPdfJob)
         end
       end
     end
@@ -688,10 +694,9 @@ describe EfileSubmission do
           submission = create(:efile_submission, :queued)
           submission.efile_submission_transitions.where(to_state: "queued").update(created_at: (1.01).days.ago)
           clear_enqueued_jobs
-
           expect {
             submission.retry_send_submission
-          }.not_to(have_enqueued_job(StateFile::SendSubmissionJob)).and.not_to(have_enqueued_job(StateFile::BuildSubmissionPdfJob))
+          }.not_to have_enqueued_job(StateFile::SendSubmissionJob)
           expect(submission.current_state).to eq("failed")
         end
       end
