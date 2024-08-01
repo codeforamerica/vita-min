@@ -3,6 +3,13 @@ require "rails_helper"
 describe SubmissionBuilder::Ty2021::Return1040 do
   let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
 
+  def create_qualifying_dependents(submission)
+    submission.qualifying_dependents.delete_all
+    submission.intake.dependents.each do |dependent|
+      EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
+    end
+  end
+
   before do
     submission.intake.update(
         primary_first_name: "Hubert Blaine ",
@@ -27,7 +34,7 @@ describe SubmissionBuilder::Ty2021::Return1040 do
     context "when the filer is filing for CTC payment" do
       before do
         create(:qualifying_child, intake: submission.intake)
-        submission.create_qualifying_dependents
+        create_qualifying_dependents(submission)
         submission.reload
       end
 
@@ -103,7 +110,7 @@ describe SubmissionBuilder::Ty2021::Return1040 do
       context "for eitc filers with qualifying dependents" do
         before do
           create(:qualifying_child, intake: submission.intake)
-          submission.create_qualifying_dependents
+          create_qualifying_dependents(submission)
           submission.reload
         end
 

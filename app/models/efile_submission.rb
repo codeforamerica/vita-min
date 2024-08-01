@@ -232,17 +232,6 @@ class EfileSubmission < ApplicationRecord
     StateFile::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
   end
 
-  def create_qualifying_dependents
-    # TODO(state-file)
-    return unless intake
-
-    qualifying_dependents.delete_all
-
-    intake.dependents.each do |dependent|
-      EfileSubmissionDependent.create_qualifying_dependent(self, dependent)
-    end
-  end
-
   def generate_irs_submission_id!(i = 0)
     return if self.irs_submission_id.present?
 

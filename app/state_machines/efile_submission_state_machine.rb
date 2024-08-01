@@ -49,7 +49,6 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :preparing) do |submission|
     StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
-    submission.create_qualifying_dependents
     submission.transition_to(:bundling)
   end
 
@@ -79,6 +78,9 @@ class EfileSubmissionStateMachine
 
   after_transition(to: :rejected, after_commit: true) do |submission, transition|
     StateFile::AfterTransitionTasksForRejectedReturnJob.perform_later(submission, transition)
+
+
+
     EfileSubmissionStateMachine.send_mixpanel_event(submission, "state_file_efile_return_rejected")
     StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
   end
