@@ -2,7 +2,7 @@
 
 const execSync = require('child_process').execSync;
 
-let apps = execSync("heroku apps:list --org getyourrefund").toString()
+let apps = execSync("heroku apps:list --team getyourrefund").toString()
 let prs = JSON.parse(execSync("gh pr list --json number")).map(function (line) { return line.number })
 
 function removeReviewApp(number) {

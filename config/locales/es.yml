@@ -46,6 +46,7 @@ es:
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
+      timeout: Tu sesión ha expirado. Inicia sesión nuevamente.
     invitations:
       edit:
         email_label: Su correo electrónico
@@ -520,6 +521,7 @@ es:
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     return_to_homepage: Regresar a la página principal
+    returns: Devoluciones
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -970,14 +972,24 @@ es:
         title: Agregar un nuevo cliente
     dashboard:
       show:
+        action_required:
+          client_id: ID de cliente
+          client_name: nombre del cliente
+          no_clients: No hay clientes para mostrar en este momento
+          title: 'Acción requerida: Clientes marcados'
+          updated: Actualizado en
         capacity: Capacidad
         current_capacity: Capacidad actual
+        filter_by_stage: Filtrar por etapa
         org_name: Nombre de la Organización
         resources:
           hub_training: Capacitaciones centrales
           newsletter: Boletín GYR
           title: Recursos
+        returns_by_status: Devoluciones por estado
         title: Panel
+        total_number_of_returns: Número total de devoluciones
+        total_returns_in_html: Rentabilidad total en [<strong>%{stage}</strong>]
         view_all: Ver todo
     documents:
       confirm:
@@ -2063,6 +2075,40 @@ es:
           not_found: Lo siento, no tenemos una cuenta registrada para ese número de teléfono. ¿Te gustaría iniciar sesión con un número de teléfono diferente?
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
+    landing_page:
+      edit:
+        already_filed_html: "¿Ya presentó tus impuestos estatales con nosotros? <strong>Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.</strong>"
+        already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
+        az:
+          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
+            Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          supported_by: Respaldada por el estado de Arizona
+          title: Presenta tus impuestos estatales de Arizona sin costo
+        continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
+        download_your_record: Descargue tu registro
+        help_text_html: |
+          <strong>Lo que necesitarás para comenzar</strong>
+          <br />
+          <ul class="list--bulleted">
+            <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+            <li>Dirección de correo electrónico o número de teléfono.</li>
+            <li>Licencia de conducir o identificación emitida por el estado.</li>
+            <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
+            <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
+          </ul>
+        not_you: "¿No es %{user_name}?"
+        ny:
+          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
+            Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
+          supported_by: Respaldada por el estado de Nueva York
+          title: Presenta tus impuestos Estatales de Nueva York sin costo
+        start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+        title_closed: Nuestro servicio gratuito de presentación de impuestos %{state_name} está cerrado por temporada
+        welcome_back: "¡Bienvenido de nuevo %{user_name}!"
     navigation:
       section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
       section_2: 'Sección 2: Crear cuenta'
@@ -2378,40 +2424,6 @@ es:
             <p>Recibirás dos correos electrónicos del IRS: uno por una declaración enviada y otro por una declaración aceptada. Revisa tu correo electrónico para ver si recibiste uno de aceptación.</p>
             <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
-      landing_page:
-        edit:
-          already_filed_html: "¿Ya presentó tus impuestos estatales con nosotros? <strong>Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.</strong>"
-          already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
-          az:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
-              Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
-            supported_by: Respaldada por el estado de Arizona
-            title: Presenta tus impuestos estatales de Arizona sin costo
-          continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
-          download_your_record: Descargue tu registro
-          help_text_html: |
-            <strong>Lo que necesitarás para comenzar</strong>
-            <br />
-            <ul class="list--bulleted">
-              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
-              <li>Dirección de correo electrónico o número de teléfono.</li>
-              <li>Licencia de conducir o identificación emitida por el estado.</li>
-              <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
-              <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
-            </ul>
-          not_you: "¿No es %{user_name}?"
-          ny:
-            built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
-            closed_html: |
-              <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
-              Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
-            supported_by: Respaldada por el estado de Nueva York
-            title: Presenta tus impuestos Estatales de Nueva York sin costo
-          start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
-          title_closed: Nuestro servicio gratuito de presentación de impuestos %{state_name} está cerrado por temporada
-          welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}

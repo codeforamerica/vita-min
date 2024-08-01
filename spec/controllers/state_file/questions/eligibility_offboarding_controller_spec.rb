@@ -18,15 +18,12 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   end
 
   describe "#edit" do
-    let(:params) { { us_state: "az" } }
     let(:intake) { create :state_file_az_intake }
 
     context "with offboarded_from set in the session" do
       render_views
       let(:offboarded_from_path) do
-        StateFile::Questions::AzEligibilityResidenceController.to_path_helper(
-          action: :edit, us_state: params[:us_state]
-        )
+        StateFile::Questions::AzEligibilityResidenceController.to_path_helper
       end
       before do
         sign_in intake
@@ -35,7 +32,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
 
 
       it "uses the correct prev_path for the Go back button" do
-        get :edit, params: params
+        get :edit
 
         expect(Nokogiri::HTML.parse(response.body)).to have_link(href: offboarded_from_path)
         expect(session[:offboarded_from]).to be_nil

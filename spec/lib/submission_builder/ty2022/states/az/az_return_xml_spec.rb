@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::Az::IndividualReturn do
+describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml do
   describe '.build' do
     let(:intake) { create(:state_file_az_intake) }
     let(:submission) { create(:efile_submission, data_source: intake) }

@@ -259,6 +259,8 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Pacific Time (US & Canada)")
         expect(profile).to have_text("I'm available every morning except Fridays.")
         expect(profile).to have_text("2")
+
+        expect(profile).to have_text "Refund Payment Info"
       end
 
       context "when a client needs a response" do
@@ -295,6 +297,16 @@ RSpec.describe Hub::ClientsController do
 
           expect(response.body).to have_text "Unlock account"
         end
+      end
+    end
+
+    context "as an authenticated greeter" do
+      before { sign_in create(:greeter_user) }
+      render_views
+
+      it "does not show bank details" do
+        get :show, params: params
+        expect(response.body).not_to have_text "Refund Payment Info"
       end
     end
   end

@@ -29,6 +29,10 @@ module Hub
       def show
         @efile_submissions_same_intake = EfileSubmission.where(data_source: @efile_submission.data_source).where.not(id: @efile_submission.id)
         authorize! :read, @efile_submissions_same_intake
+        @valid_transitions = EfileSubmissionStateMachine.states.filter do |state|
+          next if %w[failed rejected].include?(state) && acts_like_production?
+          @efile_submission.can_transition_to?(state)
+        end
       end
 
       def show_xml
@@ -57,6 +61,27 @@ module Hub
       def state_counts
         @efile_submission_state_counts = EfileSubmission.statefile_state_counts(except: %w[new resubmitted ready_to_resubmit])
         respond_to :js
+      end
+
+      def transition_to
+        to_state = params[:to_state]
+        if %w[failed rejected].include?(to_state) && acts_like_production?
+          flash[:error] = "Transition to #{to_state} failed"
+          redirect_to hub_state_file_efile_submission_path(id: @efile_submission.id)
+          return
+        end
+
+        authorize! :update, @efile_submission
+        metadata = { initiated_by_id: current_user.id }
+        if to_state == "rejected"
+          metadata[:error_code] = EfileError.where(service_type: :state_file).last.code
+        end
+        if @efile_submission.transition_to!(to_state, metadata)
+          flash[:notice] = "Transitioned to #{to_state}"
+        else
+          flash[:error] = "Transition to #{to_state} failed"
+        end
+        redirect_to hub_state_file_efile_submission_path(id: @efile_submission.id)
       end
 
       private

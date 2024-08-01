@@ -13,7 +13,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test NY"
 
-      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.ny.title")
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.ny.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "ny")
@@ -155,7 +155,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test AZ"
 
-      expect(page).to have_text I18n.t("state_file.questions.landing_page.edit.az.title")
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "az")

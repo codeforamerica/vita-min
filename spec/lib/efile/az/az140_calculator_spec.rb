@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Efile::Az::Az140 do
+describe Efile::Az::Az140Calculator do
   let(:intake) { create(:state_file_az_intake, eligibility_lived_in_state: 1) }
   let(:instance) do
     described_class.new(

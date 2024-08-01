@@ -10,7 +10,7 @@ RSpec.describe StateFile::Questions::DataReviewController do
     context "with valid federal data" do
       it "renders edit template and creates an initial StateFileEfileDeviceInfo" do
         expect do
-          get :edit, params: { us_state: "az", state_file_data_review_form: { device_id: "ABC123" } }
+          get :edit, params: { state_file_data_review_form: { device_id: "ABC123" } }
         end.to change(StateFileEfileDeviceInfo, :count).by(1)
 
         efile_info = StateFileEfileDeviceInfo.last
@@ -25,24 +25,24 @@ RSpec.describe StateFile::Questions::DataReviewController do
     context "with disqualifying federal data" do
       it "redirects to the offboard screen" do
         allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(3)
-        response = get :edit, params: { us_state: "az" }
-        expect(response).to redirect_to(StateFile::Questions::DataTransferOffboardingController.to_path_helper(us_state: "az"))
+        response = get :edit
+        expect(response).to redirect_to(StateFile::Questions::DataTransferOffboardingController.to_path_helper)
       end
     end
 
     context "with federal data which we could not import successfully" do
       it "redirects to the offboard screen" do
         intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
-        response = get :edit, params: { us_state: "az" }
-        expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: "data_import_failed", us_state: "az"))
+        response = get :edit
+        expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: "data_import_failed"))
       end
     end
 
     context 'when the session times out/ is destroyed' do
       it 'redirects to the landing page for the correct state' do
         session.destroy
-        response = get :edit, params: { us_state: "az" }
-        expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: 'az'))
+        response = get :edit
+        expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: :login_options))
         expect(flash[:notice]).to eq('Your session expired. Please sign in again to continue.')
       end
     end

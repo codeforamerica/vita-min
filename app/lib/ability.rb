@@ -87,7 +87,7 @@ class Ability
     cannot :manage, StateFileW2
     cannot :manage, StateId
 
-    if user.role_type == CoalitionLeadRole::TYPE
+    if user.coalition_lead?
       can :read, Coalition, id: user.role.coalition_id
 
       # Coalition leads can view and edit users who are coalition leads, organization leads, site coordinators, and team members in their coalition
@@ -100,7 +100,7 @@ class Ability
       can :manage, TeamMemberRole, sites: { parent_organization: { coalition: user.role.coalition } }
     end
 
-    if user.role_type == OrganizationLeadRole::TYPE
+    if user.org_lead?
 
       # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
       can :manage, User, id: user.accessible_users.pluck(:id)
@@ -111,7 +111,7 @@ class Ability
       can :manage, TeamMemberRole, sites: { parent_organization: user.role.organization }
     end
 
-    if user.role_type == SiteCoordinatorRole::TYPE
+    if user.site_coordinator?
       # Site coordinators can create site coordinators and team members in their site
       can :manage, SiteCoordinatorRole do |role|
         user.role.sites.map.any? { |site| role.sites.map(&:id).include? site.id }

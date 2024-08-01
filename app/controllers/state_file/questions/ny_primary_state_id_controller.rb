@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NyPrimaryStateIdController < AuthenticatedQuestionsController
+    class NyPrimaryStateIdController < QuestionsController
       include ReturnToReviewConcern
     end
   end
