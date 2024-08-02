@@ -89,7 +89,7 @@ describe EfileSubmission do
     end
 
     context "preparing" do
-      let(:submission) { create :efile_submission, :preparing, :for_state}
+      let(:submission) { create :efile_submission, :preparing, :for_state }
 
       it "can transition to bundling" do
         expect { submission.transition_to!(:bundling) }.not_to raise_error
@@ -288,7 +288,6 @@ describe EfileSubmission do
   end
 
   describe "#generate_verified_address" do
-    # TODO(state-file)
   end
 
   describe "#admin_resubmission?" do
