@@ -285,13 +285,38 @@ describe EfileSubmission do
         end
       end
     end
+
   end
 
   describe "#generate_verified_address" do
+    let(:submission) { create :efile_submission, :preparing }
+
+    context "when there is an existing address" do
+      let!(:address) { create :address, record: submission, skip_usps_validation: true }
+      it "returns an object that we can call valid on and does not connect to USPS service" do
+        expect(submission.generate_verified_address.valid?).to be true
+        expect(StandardizeAddressService).not_to have_received(:new)
+      end
+    end
+
+    context "when there is a timeout" do
+      let(:address_double) { double }
+      before do
+        allow(StandardizeAddressService).to receive(:new).and_return address_double
+        allow(address_double).to receive(:timeout?).and_return true
+        allow(address_double).to receive(:valid?).and_return false
+
+      end
+
+      it "tries again up to 3x and returns the address object if it fails after 3 tries" do
+        expect(StandardizeAddressService).to receive(:new).exactly(3).times
+        expect(submission.generate_verified_address).to eq address_double
+      end
+    end
   end
 
   describe "#admin_resubmission?" do
-    let(:submission) { create :efile_submission, :bundling, :for_state }
+    let(:submission) { create :efile_submission, :bundling }
     let(:user) { create :admin_user }
 
     context "when it is the only submission for the client" do
@@ -333,6 +358,86 @@ describe EfileSubmission do
             expect(submission.admin_resubmission?).to eq false
           end
         end
+      end
+    end
+  end
+
+  describe "#generate_filing_pdf" do
+    let(:submission) { create :efile_submission, :ctc }
+    let(:example_pdf) { File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "rb") }
+
+    before do
+      allow(PdfFiller::Irs1040Pdf).to receive(:new).and_return(instance_double(PdfFiller::Irs1040Pdf, output_file: example_pdf))
+      allow(PdfFiller::Irs8812Ty2021Pdf).to receive(:new).and_return(instance_double(PdfFiller::Irs8812Ty2021Pdf, output_file: example_pdf))
+      allow(PdfFiller::Irs1040ScheduleLepPdf).to receive(:new).and_return(instance_double(PdfFiller::Irs1040ScheduleLepPdf, output_file: example_pdf))
+      allow(PdfFiller::AdditionalDependentsPdf).to receive(:new).and_return(instance_double(PdfFiller::AdditionalDependentsPdf, output_file: example_pdf))
+    end
+
+    context "the filer is claiming CTC (line 28 is greater than $0)" do
+      include CtcSubmissionHelper
+
+      before do
+        create(:qualifying_child, intake: submission.intake)
+        create_qualifying_dependents(submission)
+        submission.reload
+      end
+
+      it "generates and stores the 1040 and 8812 combined PDF" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        doc = submission.client.documents.last
+        expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year}.pdf")
+        expect(PdfFiller::Irs8812Ty2021Pdf).to have_received(:new)
+        expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+        expect(doc.tax_return).to eq(submission.tax_return)
+        expect(doc.upload.blob.download).not_to be_nil
+      end
+    end
+
+    context "the filer is not claiming CTC (line 28 = $0 or missing)" do
+      before do
+        allow(submission).to receive(:irs_submission_id).and_return "123456789"
+      end
+
+      it "generates and stores just the 1040 (does not generate the 8812)" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(PdfFiller::Irs1040Pdf).to have_received(:new)
+        expect(PdfFiller::Irs8812Ty2021Pdf).not_to have_received(:new)
+        doc = submission.client.documents.last
+        expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year} - 789.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+        expect(doc.tax_return).to eq(submission.tax_return)
+        expect(doc.upload.blob.download).not_to be_nil
+      end
+    end
+
+    context "when the filer has tons of dependents" do
+      before do
+        allow(submission).to receive(:benefits_eligibility).and_return(instance_double(Efile::BenefitsEligibility, outstanding_ctc_amount: 1, claiming_and_qualified_for_eitc?: false))
+        allow(submission).to receive_message_chain(:qualifying_dependents, :count).and_return 40
+      end
+
+      it "attaches multiple dependents documents" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(PdfFiller::AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 4)
+        expect(PdfFiller::AdditionalDependentsPdf).to have_received(:new).with(submission, start_node: 26)
+      end
+    end
+
+    context "the filer requested a language change" do
+      before do
+        submission.intake.update(irs_language_preference: "spanish")
+      end
+
+      it "attaches the schedule lep" do
+        expect { submission.generate_filing_pdf }.to change(Document, :count).by(1)
+        expect(PdfFiller::Irs1040Pdf).to have_received(:new)
+        expect(PdfFiller::Irs1040ScheduleLepPdf).to have_received(:new)
+        expect(PdfFiller::Irs8812Ty2021Pdf).not_to have_received(:new)
+        doc = submission.client.documents.last
+        expect(doc.display_name).to eq("IRS 1040 - TY#{MultiTenantService.new(:ctc).current_tax_year}.pdf")
+        expect(doc.document_type).to eq(DocumentTypes::Form1040.key)
+        expect(doc.tax_return).to eq(submission.tax_return)
+        expect(doc.upload.blob.download).not_to be_nil
       end
     end
   end
