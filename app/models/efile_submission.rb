@@ -180,19 +180,50 @@ class EfileSubmission < ApplicationRecord
   end
 
   def generate_filing_pdf
-    pdf_documents = bundle_class.new(self).pdf_documents
-    output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
-    filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
-    PdfForms.new.cat(*filled_out_documents.push(output_file.path))
-    output_file
+    if is_for_federal_filing?
+      pdf_documents = SubmissionBuilder::Ty2021::Return1040.new(self).pdf_documents
+      output_file = Tempfile.new([pdf_bundle_filename, ".pdf"], "tmp/")
+      filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
+      PdfForms.new.cat(*filled_out_documents.push(output_file.path))
+      ClientPdfDocument.create_or_update(
+        output_file: output_file,
+        document_type: DocumentTypes::Form1040,
+        client: client,
+        filename: pdf_bundle_filename,
+        tax_return: tax_return
+      )
+    else
+      pdf_documents = bundle_class.new(self).pdf_documents
+      output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
+      filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
+      PdfForms.new.cat(*filled_out_documents.push(output_file.path))
+      output_file
+    end
   end
 
   def manifest_class
-    SubmissionBuilder::StateManifest
+    if is_for_state_filing?
+      return SubmissionBuilder::StateManifest
+    end
+
+    SubmissionBuilder::FederalManifest
   end
 
   def bundle_class
-    StateFile::StateInformationService.submission_builder_class(data_source.state_code)
+    if is_for_state_filing?
+      return StateFile::StateInformationService.submission_builder_class(data_source.state_code)
+    end
+
+    case tax_year
+    when 2020
+      SubmissionBuilder::Ty2020::Return1040
+    when 2021
+      SubmissionBuilder::Ty2021::Return1040
+    when 2022
+      SubmissionBuilder::Ty2021::Return1040
+    when 2023
+      SubmissionBuilder::Ty2021::Return1040
+    end
   end
 
   ##
@@ -241,5 +272,15 @@ class EfileSubmission < ApplicationRecord
     else
       self.update!(irs_submission_id: irs_submission_id)
     end
+  end
+
+  private
+
+  def is_for_federal_filing?
+    tax_return.present?
+  end
+
+  def is_for_state_filing?
+    data_source_type.in?(StateFile::StateInformationService.state_intake_class_names)
   end
 end
