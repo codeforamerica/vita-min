@@ -5,10 +5,11 @@ module StateFile
 
       def show
         if current_intake.submission_pdf.attached?
-          send_data current_intake.submission_pdf, filename: "submission.pdf", disposition: 'inline'
+          send_data current_intake.submission_pdf.download, filename: "submission.pdf", disposition: 'inline'
           return
         end
         # This is a fallback for legacy reasons - all submitted intakes should have an attached submission pdf
+        # Once the take task has updated all entries and FYST-324 is complete, we can remove this
         @submission = current_intake.efile_submissions.find_by(id: params[:id])
         error_redirect and return unless @submission.present?
 
