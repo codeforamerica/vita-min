@@ -109,7 +109,7 @@ describe Efile::PollForAcknowledgmentsService do
                                                 .and_return expected_irs_return_value
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
                                                 .with("test", "submissions-status", transmitted_state_efile_submission.irs_submission_id)
-                                                .and_return expected_irs_return_value
+                                                .and_return ""
           end
 
           let(:first_ack) do
