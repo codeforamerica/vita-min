@@ -1,14 +1,9 @@
 require "rails_helper"
 
 describe SubmissionBuilder::Ty2021::Return1040 do
-  let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
+  include CtcSubmissionHelper
 
-  def create_qualifying_dependents(submission)
-    submission.qualifying_dependents.delete_all
-    submission.intake.dependents.each do |dependent|
-      EfileSubmissionDependent.create_qualifying_dependent(submission, dependent)
-    end
-  end
+  let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
 
   before do
     submission.intake.update(
