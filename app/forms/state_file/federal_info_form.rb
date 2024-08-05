@@ -23,12 +23,9 @@ module StateFile
                        :total_state_tax_withheld,
                        :total_exempt_primary_spouse
 
-    set_attributes_for :form, :skip_schema_validation
-
     validate :direct_file_data_must_be_imported
     validate :dependent_detail_ssns_must_be_unique
     validate :qualifying_child_information_ssns_must_be_in_dependent_detail
-    validate :schema_compliant
 
     def self.nested_attribute_names
       {
@@ -57,19 +54,6 @@ module StateFile
       missing_ssns = qualifying_child_information_ssns - dependent_details_ssns
       if missing_ssns.length > 0
         errors.add(:base, "Qualifying Child Information SSNs must also exist in DependentDetail. Missing: #{missing_ssns.sort.join(', ')}")
-      end
-    end
-
-    def schema_compliant
-      return true if skip_schema_validation
-
-      schema_file = SchemaFileLoader.load_file("irs", "unpacked", "2023v5.0", "IndividualIncomeTax", "Ind1040", "Return1040.xsd")
-      xsd = Nokogiri::XML::Schema(File.open(schema_file))
-      xml = Nokogiri::XML(intake.direct_file_data.to_s)
-      xml_errors = xsd.validate(xml)
-
-      xml_errors.each do |error|
-        errors.add(:base, error.to_s)
       end
     end
 
@@ -151,8 +135,7 @@ module StateFile
             raw_direct_file_data: intake.direct_file_data.to_s
           )
       )
-      # this page is broken right now on schema validation, if we ever fix this we should make sure we are also hashing ssn if primary_ssn changed on the df data
-      # @intake.update(hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn))
+      @intake.update(hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn))
       @intake.synchronize_df_dependents_to_database
     end
 

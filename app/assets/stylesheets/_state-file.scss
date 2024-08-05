@@ -748,6 +748,13 @@ $state-colors: (
   }
 }
 
+.federal-info-outer {
+  .dev-button {
+    margin: 0.5rem auto;
+    display: block;
+  }
+}
+
 .state-file-submissions {
   .pagination-wrapper {
     align-items: center;
