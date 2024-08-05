@@ -29,12 +29,17 @@
             <%= f.cfa_input_field(:district_name, t('state_file.questions.az_public_school_contributions.edit.district_name'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:amount, t('state_file.questions.az_public_school_contributions.edit.amount', year: @filing_year), classes: ["form-width--long"]) %>
             <div class="date-select">
-              <%= f.cfa_date_select(
+              <%= f.edit_date_select(
                     :date_of_contribution,
                     t("state_file.questions.az_public_school_contributions.edit.date_of_contribution", year: @filing_year),
                     options: {
                       start_year: @filing_year,
                       end_year: @filing_year,
+                    },
+                    selected: {
+                      year: @az322_contribution.date_of_contribution&.year,
+                      month: @az322_contribution.date_of_contribution&.month,
+                      day: @az322_contribution.date_of_contribution&.day
                     }
                   ) %>
             </div>
