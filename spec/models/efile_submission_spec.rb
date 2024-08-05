@@ -42,7 +42,7 @@ describe EfileSubmission do
         end
       end
 
-      let(:submission) { create(:efile_submission, :ctc) }
+      let(:submission) { create(:efile_submission, :for_state) }
 
       it "conforms to the IRS format [0-9]{13}[a-z0-9]{7}" do
         submission.generate_irs_submission_id!
@@ -77,7 +77,7 @@ describe EfileSubmission do
   end
 
   context 'a newly created submission' do
-    let(:submission) { create :efile_submission }
+    let(:submission) { create :efile_submission, :for_state }
     it 'has an initial current_state of new' do
       expect(submission.current_state).to eq "new"
     end
@@ -89,47 +89,35 @@ describe EfileSubmission do
     end
 
     context "preparing" do
-      let(:submission) { create :efile_submission, :preparing }
+      let(:submission) { create :efile_submission, :preparing, :for_state }
 
-      context "with a fraud score relation" do
-        before do
-          Fraud::Score.create_from(submission)
+      it "can transition to bundling" do
+        expect { submission.transition_to!(:bundling) }.not_to raise_error
+      end
+
+      context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
+        around do |example|
+          ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
+          example.run
+          ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
         end
 
-        it "can transition to bundling" do
-          expect { submission.transition_to!(:bundling) }.not_to raise_error
-        end
-
-        context "when HOLD_OFF_NEW_EFILE_SUBMISSIONS is set" do
-          around do |example|
-            ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'] = '1'
-            example.run
-            ENV.delete('HOLD_OFF_NEW_EFILE_SUBMISSIONS')
-          end
-
-          it "does not allow transitions from :preparing to :bundling" do
-            expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
-          end
-        end
-
-        context "cannot transition to" do
-          EfileSubmissionStateMachine.states.excluding("new", "bundling", "fraud_hold").each do |state|
-            it state.to_s do
-              expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
-            end
-          end
+        it "does not allow transitions from :preparing to :bundling" do
+          expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
         end
       end
 
-      context "without a fraud score relationship" do
-        it "cannot transition" do
-          expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
+      context "cannot transition to" do
+        EfileSubmissionStateMachine.states.excluding("new", "bundling", "fraud_hold").each do |state|
+          it state.to_s do
+            expect { submission.transition_to!(state) }.to raise_error(Statesman::TransitionFailedError)
+          end
         end
       end
     end
 
     context "bundling" do
-      let(:submission) { create :efile_submission, :bundling }
+      let(:submission) { create :efile_submission, :bundling, :for_state }
       before do
         address_service_double = double
         allow(ClientPdfDocument).to receive(:create_or_update)
@@ -157,7 +145,7 @@ describe EfileSubmission do
       end
 
       context "after transition to" do
-        let(:submission) { create(:efile_submission, :new) }
+        let(:submission) { create(:efile_submission, :new, :for_state) }
 
         it "queues a StateFile::BuildSubmissionBundleJob" do
           expect do
@@ -168,7 +156,7 @@ describe EfileSubmission do
     end
 
     context "queued" do
-      let(:submission) { create :efile_submission, :queued }
+      let(:submission) { create :efile_submission, :queued, :for_state }
       context "can transition to" do
         it "transmitted" do
           expect { submission.transition_to!(:transmitted) }.not_to raise_error
@@ -189,7 +177,7 @@ describe EfileSubmission do
       end
 
       context "after transition to" do
-        let!(:submission) { create(:efile_submission, :bundling, :with_fraud_score, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
+        let!(:submission) { create(:efile_submission, :bundling, :for_state, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
 
         it "queues a GyrEfilerSendSubmissionJob" do
           expect do
@@ -200,7 +188,7 @@ describe EfileSubmission do
     end
 
     context "fraud_hold" do
-      let(:submission) { create :efile_submission, :fraud_hold }
+      let(:submission) { create :efile_submission, :fraud_hold, :for_state }
       transitionable_states = [:investigating, :resubmitted, :waiting, :cancelled]
       context "can transition to " do
         transitionable_states.each do |state|
@@ -220,7 +208,7 @@ describe EfileSubmission do
     end
 
     context "transmitted" do
-      let(:submission) { create :efile_submission, :transmitted }
+      let(:submission) { create :efile_submission, :transmitted, :for_state }
 
       context "can transition to" do
         it "accepted" do
@@ -239,25 +227,10 @@ describe EfileSubmission do
           end
         end
       end
-
-      context "after transition to" do
-        before { allow(MixpanelService).to receive(:send_event) }
-        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
-
-        it "sends a mixpanel event" do
-          submission.transition_to!(:transmitted)
-
-          expect(MixpanelService).to have_received(:send_event).with hash_including(
-            distinct_id: submission.client.intake.visitor_id,
-            event_name: "efile_return_transmitted",
-            subject: submission.intake,
-          )
-        end
-      end
     end
 
     context "ready_for_ack" do
-      let(:submission) { create :efile_submission, :ready_for_ack }
+      let(:submission) { create :efile_submission, :ready_for_ack, :for_state }
 
       context "can transition to" do
         it "accepted" do
@@ -278,38 +251,9 @@ describe EfileSubmission do
       end
     end
 
-    context "accepted" do
-      context "after transition to" do
-        before do
-          allow(MixpanelService).to receive(:send_event)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1800)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
-          allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(3000)
-        end
-
-        let!(:submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
-
-        it "sends a mixpanel event" do
-          submission.transition_to!(:accepted)
-
-          expect(MixpanelService).to have_received(:send_event).with hash_including(
-            distinct_id: submission.client.intake.visitor_id,
-            event_name: "ctc_efile_return_accepted",
-            subject: submission.intake,
-            data: {
-              child_tax_credit_advance: 1800,
-              recovery_rebate_credit: 2300,
-              third_stimulus_amount: 3000
-            }
-          )
-        end
-      end
-    end
-
     context "rejected" do
       context "after transition to" do
-        let(:submission) { create(:efile_submission, :transmitted) }
+        let(:submission) { create(:efile_submission, :transmitted, :for_state) }
         let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: false, auto_cancel: false) }
 
         it "enqueues an StateFile::AfterTransitionTasksForRejectedReturnJob" do
@@ -321,7 +265,7 @@ describe EfileSubmission do
     end
 
     context "cancelled" do
-      let(:submission) { create :efile_submission, :cancelled }
+      let(:submission) { create :efile_submission, :cancelled, :for_state }
 
       context "can transition to" do
         it "waiting" do
@@ -340,23 +284,7 @@ describe EfileSubmission do
           end
         end
       end
-
-      context "after transition to" do
-        before { allow(MixpanelService).to receive(:send_event) }
-        let!(:submission) { create(:efile_submission, :queued, submission_bundle: { filename: 'picture_id.jpg', io: File.open(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"), 'rb') }) }
-
-        it "sends a mixpanel event" do
-          submission.transition_to!(:transmitted)
-
-          expect(MixpanelService).to have_received(:send_event).with hash_including(
-                                                                         distinct_id: submission.client.intake.visitor_id,
-                                                                         event_name: "efile_return_transmitted",
-                                                                         subject: submission.intake,
-                                                                         )
-        end
-      end
     end
-
 
   end
 
@@ -397,37 +325,36 @@ describe EfileSubmission do
       end
     end
 
-    context "when the client has more than one submission" do
+    context "when the intake has more than one submission" do
       context "when the previous submission was resubmitted" do
-        let!(:previous_submission) { create :efile_submission, :failed }
+        let!(:previous_submission) { create :efile_submission, :failed, :for_state }
 
         context "when the resubmission was by an admin user" do
           it "is true" do
             expect {
               previous_submission.transition_to!(:resubmitted, initiated_by_id: user.id)
             }.to change(EfileSubmission, :count).by 1
-            latest_submission = previous_submission.client.efile_submissions.last
+            latest_submission = previous_submission.data_source.efile_submissions.last
             expect(latest_submission.id).not_to eq previous_submission.id
             expect(latest_submission.admin_resubmission?).to eq true
           end
         end
 
         context "when the resubmission was not by a user" do
-          let(:previous_submission) { create :efile_submission, :resubmitted, metadata: { initiated_by_id: nil } }
-
+          let(:previous_submission) { create :efile_submission, :resubmitted, :for_state, metadata: { initiated_by_id: nil } }
 
           it "is false" do
-            submission = previous_submission.tax_return.efile_submissions.last
+            submission = previous_submission.data_source.efile_submissions.last
             expect(submission.admin_resubmission?).to eq false
           end
         end
 
         context "when the resubmission was not by an admin user" do
           let(:user) { create :team_member_user }
-          let(:previous_submission) { create :efile_submission, :resubmitted, metadata: { initiated_by_id: user.id } }
+          let(:previous_submission) { create :efile_submission, :resubmitted, :for_state, metadata: { initiated_by_id: user.id } }
 
           it "is false" do
-            submission = previous_submission.tax_return.efile_submissions.last
+            submission = previous_submission.data_source.efile_submissions.last
             expect(submission.admin_resubmission?).to eq false
           end
         end
@@ -447,9 +374,11 @@ describe EfileSubmission do
     end
 
     context "the filer is claiming CTC (line 28 is greater than $0)" do
+      include CtcSubmissionHelper
+
       before do
         create(:qualifying_child, intake: submission.intake)
-        submission.create_qualifying_dependents
+        create_qualifying_dependents(submission)
         submission.reload
       end
 
@@ -515,8 +444,8 @@ describe EfileSubmission do
 
   describe "#previously_transmitted_submission" do
     context "when the submission's preparing transition has a previous submission id stored" do
-      let(:previous_submission) { create :efile_submission, :transmitted }
-      let(:submission) { create :efile_submission }
+      let(:previous_submission) { create :efile_submission, :transmitted, :for_state }
+      let(:submission) { create :efile_submission, :for_state }
       before do
         submission.transition_to!(:preparing, previous_submission_id: previous_submission.id)
       end
@@ -537,14 +466,14 @@ describe EfileSubmission do
 
   describe "#accepted_as_imperfect_return?" do
     context "when not accepted status" do
-      let(:efile_submission) { create :efile_submission, :rejected }
+      let(:efile_submission) { create :efile_submission, :rejected, :for_state }
       it "returns false" do
         expect(efile_submission.accepted_as_imperfect_return?).to eq false
       end
     end
 
     context "when current status is accepted but was not an imperfect return acceptance on metadata" do
-      let(:efile_submission) { create :efile_submission, :accepted }
+      let(:efile_submission) { create :efile_submission, :accepted, :for_state }
 
       it "returns false" do
         expect(efile_submission.accepted_as_imperfect_return?).to eq false
@@ -553,7 +482,7 @@ describe EfileSubmission do
     end
 
     context "when current status is accepted and imperfect return acceptance is present on metadata" do
-      let(:efile_submission) { create :efile_submission, :accepted, metadata: { imperfect_return_acceptance: true } }
+      let(:efile_submission) { create :efile_submission, :accepted, :for_state, metadata: { imperfect_return_acceptance: true } }
 
       it "returns true" do
         expect(efile_submission.accepted_as_imperfect_return?).to eq true
@@ -563,9 +492,9 @@ describe EfileSubmission do
 
   describe "#imperfect_return_resubmission?" do
     context "when the submission's preparing transition has a previous submission id stored" do
-      let(:previous_submission) { create(:efile_submission, :transmitted) }
+      let(:previous_submission) { create(:efile_submission, :transmitted, :for_state) }
       let(:efile_error) { create(:efile_error, code: "SOMETHING-WRONG") }
-      let(:submission) { create :efile_submission }
+      let(:submission) { create :efile_submission, :for_state }
 
       before do
         create(:efile_submission_transition, :rejected, efile_submission: previous_submission, efile_error_ids: [efile_error.id], most_recent: false, sort_key: 1000)
@@ -590,7 +519,7 @@ describe EfileSubmission do
 
   describe "#last_client_accessible_transition" do
     context "when the status of the last_transition is investigating" do
-      let(:efile_submission) { create :efile_submission, :rejected }
+      let(:efile_submission) { create :efile_submission, :rejected, :for_state }
 
       before do
         efile_submission.transition_to!(:investigating)
@@ -602,7 +531,7 @@ describe EfileSubmission do
     end
 
     context "when the status of the last_transition is waiting" do
-      let(:efile_submission) { create :efile_submission, :rejected }
+      let(:efile_submission) { create :efile_submission, :rejected, :for_state }
 
       before do
         efile_submission.transition_to!(:waiting)
@@ -614,7 +543,7 @@ describe EfileSubmission do
     end
 
     context "when the last several statuses are things that should not be shown to clients" do
-      let(:efile_submission) { create :efile_submission, :rejected }
+      let(:efile_submission) { create :efile_submission, :rejected, :for_state }
 
       before do
         efile_submission.transition_to!(:waiting)
@@ -627,14 +556,14 @@ describe EfileSubmission do
     end
 
     context "when the status of the last_transition is not investigating" do
-      let(:efile_submission) { create :efile_submission, :preparing }
+      let(:efile_submission) { create :efile_submission, :preparing, :for_state }
       it "returns last_transition" do
         expect(efile_submission.last_client_accessible_transition).to eq (efile_submission.last_transition)
       end
     end
 
     context "when there is no last_transition" do
-      let(:efile_submission) { create :efile_submission }
+      let(:efile_submission) { create :efile_submission, :for_state }
       it "returns nil" do
         expect(efile_submission.last_client_accessible_transition).to eq nil
       end
@@ -649,7 +578,7 @@ describe EfileSubmission do
     context "when the submission was queued fairly recently" do
       it "enqueues the SendSubmission job with exponential backoff plus jitter", active_job: true do
         freeze_time do
-          submission = create(:efile_submission, :queued)
+          submission = create(:efile_submission, :queued, :for_state)
           submission.efile_submission_transitions.where(to_state: "queued").update(created_at: 1.minute.ago)
           clear_enqueued_jobs
           expected_delay = (1.minute ** 1.25) + 4
@@ -664,7 +593,7 @@ describe EfileSubmission do
     context "when the submission was queued more than one hour ago" do
       it "enqueues the SendSubmission job with 60 minute delay plus jitter", active_job: true do
         freeze_time do
-          submission = create(:efile_submission, :queued)
+          submission = create(:efile_submission, :queued, :for_state)
           submission.efile_submission_transitions.where(to_state: "queued").update(created_at: 61.minutes.ago)
           clear_enqueued_jobs
           expected_delay = 60.minutes + 4
@@ -679,7 +608,7 @@ describe EfileSubmission do
     context "when the submission was queued more than one day ago" do
       it "marks the submission as failed", active_job: true do
         freeze_time do
-          submission = create(:efile_submission, :queued)
+          submission = create(:efile_submission, :queued, :for_state)
           submission.efile_submission_transitions.where(to_state: "queued").update(created_at: (1.01).days.ago)
           clear_enqueued_jobs
 
@@ -693,7 +622,7 @@ describe EfileSubmission do
       context "and there is a resubmission initiated by a user very recently" do
         it "enqueues the SendSubmission job with exponential backoff plus jitter", active_job: true do
           freeze_time do
-            submission = create(:efile_submission, :queued)
+            submission = create(:efile_submission, :queued, :for_state)
             submission.efile_submission_transitions.where(to_state: "queued").last.update(created_at: 1.minute.ago)
             clear_enqueued_jobs
             expected_delay = (1.minute ** 1.25) + 4
@@ -707,26 +636,11 @@ describe EfileSubmission do
     end
   end
 
-  describe '#is_for_state_filing?' do
-    let(:state_efile_submission) { create :efile_submission, :for_state }
-    let(:non_state_efile_submission) { create :efile_submission }
-
-    it 'returns true for state submission' do
-      expect(state_efile_submission.is_for_state_filing?).to eq true
-    end
-
-    it 'returns false for non-state submission' do
-      expect(non_state_efile_submission.is_for_state_filing?).to eq false
-    end
-  end
-
   describe "#manifest_class" do
     let(:state_efile_submission) { create :efile_submission, :for_state }
-    let(:non_state_efile_submission) { create :efile_submission }
 
     it "returns the right class" do
       expect(state_efile_submission.manifest_class).to eq SubmissionBuilder::StateManifest
-      expect(non_state_efile_submission.manifest_class).to eq SubmissionBuilder::FederalManifest
     end
   end
 end

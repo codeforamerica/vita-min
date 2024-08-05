@@ -1417,79 +1417,6 @@ es:
         ¡Estamos aquí para ayudar!
     ctc_sms_opt_in: Bienvenido a los mensajes de GetCTC. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     default_subject_with_service_name: Actualización de %{service_name}
-    efile:
-      acceptance:
-        email:
-          body: "Hola <<Client.PreferredName>>,\n\n¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS, y pueden empezar a procesar su reembolso.\n\nPuede verificar el estado de su reembolso después de 24 horas en línea en sitio del IRS ¿Donde Está mi reembolso?: \nhttps://www.irs.gov/es/refunds\n\n¡Estamos aquí para ayudarle!\nSu equipo de impuestos GetCTC.org\n"
-          subject: "¡Gracias por declarar sus impuestos con GetCTC!"
-        sms: |
-          Hola <<Client.PreferredName>>, ¡Gracias por presentar su declaración de impuestos con GetCTC! Su declaración ha sido aceptada por el IRS.
-          Puede verificar el estado de su reembolso después de 24 horas en https://www.irs.gov/es/refunds
-      failed:
-        email:
-          body: |
-            Hola <<Client.PreferredName>>,
-
-            ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
-
-            Inicie sesión aquí <<Client.LoginLink>> para ver los pasos a seguir para corregir su información tributaria.
-
-            ¡Estamos aquí para ayudar!
-            Su equipo de impuestos de GetCTC.org
-          subject: Atención necesaria para presentar su declaración de impuestos con GetCTC
-        sms: |
-          Hola <<Client.PreferredName>>,
-          ¡Gracias por presentar su declaración de impuestos con GetCTC! Necesitamos corregir parte de su información tributaria para poder enviar su declaración de impuestos al IRS.
-          Inicie sesión aquí <<Client.LoginLink>> para ver los pasos a seguir para corregir su información tributaria.
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos de GetCTC.org
-      preparing:
-        email:
-          body: |
-            Hola <<Client.PreferredName>>,
-
-            Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá ningún pago hasta que se acepten sus impuestos.
-
-            ¡Estamos aquí para ayudar!
-            Su equipo de impuestos en GetCTC.org
-          subject: Su declaración de impuestos se está procesando.
-        sms: |
-          Hola <<Client.PreferredName>>,
-          Actualmente estamos procesando su información para enviarla al IRS. Le informaremos dentro de una semana si sus impuestos han sido aceptados o rechazados. No recibirá ningún pago hasta que se acepten sus impuestos.
-          Su equipo de impuestos en GetCTC.org
-      rejected:
-        email:
-          body: |
-            Hola <<Client.PreferredName>>:
-
-            ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
-
-            Inicie sesión aquí <<Client.LoginLink>> para ver los siguientes pasos y corregir la información de sus impuestos
-
-            ¡Estamos aquí para ayudarle!
-            Su equipo de impuestos GetCTC
-          subject: Le pedimos su atención para poder someter sus impuestos con GetCTC
-        sms: |
-          Hola <<Client.PreferredName>>,
-          ¡Gracias por declarar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS.
-          Inicie sesión para ver los siguientes pasos para corregir y volver a enviar su información fiscal: <<Client.LoginLink>>
-          ¡Estamos aquí para ayudarle!
-      rejected_and_cancelled:
-        email:
-          body: |
-            Hola <<Client.PreferredName>>,
-
-            ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, su declaración de impuestos ha sido rechazada por el IRS.
-
-            Inicie sesión para ver por qué no se aceptó su declaración: <<Client.LoginLink>>
-
-            Las respuestas a esta dirección no se controlan. Si necesita asistencia adicional, escriba a support@getyourrefund.org.
-
-            Su equipo de impuestos en GetCTC.org
-          subject: Actualización de Estado de Declaración de GetCTC
-        sms: |
-          Hola <<Client.PreferredName>>,
-          ¡Gracias por presentar sus impuestos con GetCTC! Desafortunadamente, sus impuestos han sido rechazados por el IRS. Inicie sesión aquí <<Client.LoginLink>> para obtener más información. (Respuestas no supervisadas. Escriba a support@getyourrefund.org para obtener ayuda).
     fraud_hold:
       email:
         body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
@@ -3089,15 +3016,9 @@ es:
             title: Ha eliminado a todos sus %{credit_warnings} dependientes elegibles.
         edit_info:
           add_bank_information: Agregue su información bancaria
-          help_text: Asegúrese de que toda su información sea correcta antes de enviar su declaración de impuestos. Una vez que vuelva a enviarla, su declaración de impuestos se transmitirá al IRS y no podrá realizar ningún cambio adicional.
-          help_text_cant_submit: Espere a enviar cambios adicionales a su envío. Estamos esperando una respuesta a su presentación anterior del IRS.
-          help_text_resubmission_limit_html: Ha alcanzado el número máximo de reenvíos. Envíe un correo electrónico a %{email_link} o chatee con el equipo de asistencia.
           no_ba_error_html: "<strong>Error: </strong>Seleccionó Deposito Directo, pero no agregó su información bancaria. Por favor actualice su información bancaria seleccionando Agregar información bancaria a continuación."
           no_bank_account: 'No ingreso su información bancaria. '
-          resubmit: Volver a enviar mi declaración de impuestos
           title: Corrija su información enviada
-          w2s_missing: Falta información W-2
-          w2s_shared: W-2 compartidos
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
           contact_us: Contáctenos

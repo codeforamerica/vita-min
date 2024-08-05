@@ -487,7 +487,6 @@ Rails.application.routes.draw do
           login_routes
 
           get 'edit_info', to: "portal#edit_info"
-          put 'resubmit', to: "portal#resubmit"
 
           get 'primary_filer', to: "primary_filer#edit"
           put 'primary_filer', to: "primary_filer#update"

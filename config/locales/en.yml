@@ -1419,85 +1419,6 @@ en:
         We’re here to help!
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     default_subject_with_service_name: Update from %{service_name}
-    efile:
-      acceptance:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your refund.
-
-            You can check the status of your refund after 24 hours at Where's My Refund: https://www.irs.gov/refunds
-
-            We're here to help!
-            Your tax team at GetCTC.org
-          subject: Thank you for filing your taxes with GetCTC!
-        sms: |
-          Hello <<Client.PreferredName>>, Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS.
-          You can check the status of your refund after 24 hours at https://www.irs.gov/refunds
-      failed:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
-
-            Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-
-            We’re here to help!
-            Your tax team at GetCTC.org
-          subject: Attention needed to submit your your taxes with GetCTC
-        sms: |
-          Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
-          Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-          We’re here to help!
-          Your tax team at GetCTC.org
-      preparing:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive any payments until your taxes are accepted.
-
-            We’re here to help!
-            Your tax team at GetCTC.org
-          subject: Your taxes are processing
-        sms: |
-          Hello <<Client.PreferredName>>,
-          We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive any payments until your taxes are accepted.
-          Your tax team at GetCTC.org
-      rejected:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
-
-            Sign in to see next steps for correcting and resubmitting your tax information: <<Client.LoginLink>>
-
-            We’re here to help!
-            Your tax team at GetCTC.org
-          subject: Attention needed to submit your taxes with GetCTC
-        sms: |
-          Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-      rejected_and_cancelled:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
-
-            Sign in to see why your return was not accepted: <<Client.LoginLink>>
-
-            Replies to this address are not monitored. If you need additional assistance, please write support@getyourrefund.org.
-
-            Your tax team at GetCTC.org
-          subject: GetCTC Return Status Update
-        sms: |
-          Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to learn more. (Replies not monitored. Write support@getyourrefund.org for assistance.)
     fraud_hold:
       email:
         body: |
@@ -3109,15 +3030,9 @@ en:
             title: You have removed all of your %{credit_warnings} eligible dependents.
         edit_info:
           add_bank_information: Add bank information
-          help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
-          help_text_cant_submit: Please wait to submit any additional changes to your submission. We are waiting on a response to your previous submission from the IRS.
-          help_text_resubmission_limit_html: You have reached the maximum number of resubmissions. Please email %{email_link} or chat the support team below.
           no_ba_error_html: "<strong>Error:</strong> You selected Direct Deposit, but you did not add your bank information. Please update your bank information by selecting Add bank information below."
           no_bank_account: No bank information entered.
-          resubmit: Resubmit my tax return
           title: Correct your submitted information
-          w2s_missing: Missing W-2 Info
-          w2s_shared: W-2s shared
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
         home:
           contact_us: Contact us
