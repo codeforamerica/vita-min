@@ -41,6 +41,7 @@ module StateFile
 
       def update
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
+        @filing_year = Rails.configuration.statefile_current_tax_year
         @az322_contribution.assign_attributes(az322_contribution_params)
 
         if @az322_contribution.made_contribution_no?
