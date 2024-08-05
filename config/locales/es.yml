@@ -2861,12 +2861,14 @@ es:
         header: Política de Privacidad
         header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los contribuyentes a presentar sus impuestos estatales después de usar la herramienta federal de presentación IRS Direct File.
         header_2_html: Esta Política de Privacidad describe cómo recopilamos, usamos, compartimos y protegemos tu información personal. Al usar nuestros servicios, aceptas los términos de esta Política de Privacidad. Esta Notificación de Privacidad se aplica independientemente del tipo de dispositivo que utilices para acceder a nuestros servicios.
-        header_3_html: Si tienes alguna pregunta sobre esta Notificación de Privacidad, contáctanos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
+        header_3_html: Si tienes alguna pregunta sobre esta Notificación de Privacidad, contáctanos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org<a href="
         how_we_collect_your_info: 'Recopilamos tu información de diversas fuentes, como cuando tú o los miembros de tu hogar:'
         how_we_collect_your_info_header: Cómo recopilamos tu información
         how_we_collect_your_info_item_1: Visita nuestro Sitio, completa formularios en nuestro Sitio o usan nuestros Servicios
         how_we_collect_your_info_item_2: Proporcionanos documentos para usar nuestros Servicios
         how_we_collect_your_info_item_3: Comunícate con nosotros (por ejemplo, a través de correo electrónico, chat, redes sociales o de otra manera)
+        independent_recourse_body_html: Si tiene una inquietud no resuelta sobre privacidad o uso de datos que no hayamos resuelto satisfactoriamente, comuníquese con nuestro proveedor de resolución de disputas de terceros con sede en EE. UU. (sin costo) en <a href="https://feedback-form.truste.com/watchdog/request">https://feedback-form.truste.com/watchdog/request</a>.
+        independent_recourse_header: Mecanismo de Recurso Independiente
         info_collect_1_html: 'No vendemos tu información personal. No compartimos tu información personal con ningún tercero, excepto según se establece en esta Política de Privacidad y de conformidad con el <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> De conformidad con la regulación, podemos usar o divulgar tu información en los siguientes casos:'
         info_collect_item_1: Para análisis e informes, es posible que compartamos información agregada limitada con agencias gubernamentales u otros terceros, incluido el IRS o los departamentos estatales de ingresos, para analizar el uso de nuestros servicios, con el fin de mejorar y ampliar nuestros servicios. Dicho análisis siempre se realiza usando datos anonimizados, y los datos nunca se divulgan en celdas de menos de diez declaraciones.
         info_collect_item_2: 'Para investigación para mejorar nuestros productos de presentación de impuestos, incluido:'
