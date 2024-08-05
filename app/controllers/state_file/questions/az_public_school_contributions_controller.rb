@@ -22,12 +22,10 @@ module StateFile
 
       def create
         @az322_contribution = current_intake.az322_contributions.build(az322_contribution_params)
+        @filing_year = Rails.configuration.statefile_current_tax_year
         @az322_contributions = current_intake.az322_contributions
         if @az322_contribution.made_contribution_no?
-          unless @az322_contributions.present?
-            return redirect_to next_path
-          end
-          return redirect_to action: :index, return_to_review: params[:return_to_review]
+          return redirect_to next_path
         end
 
         if @az322_contribution.valid?

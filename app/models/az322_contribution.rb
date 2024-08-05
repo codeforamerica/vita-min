@@ -23,7 +23,7 @@ class Az322Contribution < ApplicationRecord
 
   enum made_contribution: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_contribution
 
-  validates :made_contribution, inclusion: { in: %w[yes no], message: :blank }
+  validates_inclusion_of :made_contribution, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
   validates :school_name, presence: true, if: -> { made_contribution == "yes" }
   validates :ctds_code, presence: true, format: { with: /\A\d{9}\z/, message: -> (_object, _data) { I18n.t("validators.ctds_code") }}, if: -> { made_contribution == "yes" }
   validates :district_name, presence: true, if: -> { made_contribution == "yes" }
@@ -32,7 +32,7 @@ class Az322Contribution < ApplicationRecord
 
   attr_accessor :date_of_contribution_day, :date_of_contribution_month, :date_of_contribution_year
 
-  before_validation :set_date_of_contribution
+  before_validation :set_date_of_contribution, if: -> { made_contribution == "yes" }
 
   private
 
