@@ -37,7 +37,9 @@ class Az322Contribution < ApplicationRecord
   private
 
   def set_date_of_contribution
-    self.date_of_contribution = parse_date_params(date_of_contribution_year, date_of_contribution_month, date_of_contribution_day)
+    if date_of_contribution_year.present? || date_of_contribution_month.present? || date_of_contribution_day.present?
+      self.date_of_contribution = parse_date_params(date_of_contribution_year, date_of_contribution_month, date_of_contribution_day)
+    end
   end
 
   def parse_date_params(year, month, day)
@@ -45,6 +47,15 @@ class Az322Contribution < ApplicationRecord
   end
 
   def date_of_contribution_is_valid_date
-    valid_text_date(date_of_contribution_year, date_of_contribution_month, date_of_contribution_day, :date_of_contribution)
+    if date_of_contribution_year.present? || date_of_contribution_month.present? || date_of_contribution_day.present?
+      valid_text_date(date_of_contribution_year, date_of_contribution_month, date_of_contribution_day, :date_of_contribution)
+    else
+      if ((DateTime.parse(date_of_contribution) rescue ArgumentError) == ArgumentError)
+        errors.add(:date_of_contribution, I18n.t('errors.attributes.birth_date.blank'))
+        return false
+      end
+
+      true
+    end
   end
 end
