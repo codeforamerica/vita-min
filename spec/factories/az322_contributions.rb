@@ -19,7 +19,10 @@
 #
 FactoryBot.define do
   factory :az322_contribution do
-    date_of_contribution { Date.new(2023, 3, 4) }
+    date_of_contribution_year { "2023" }
+    date_of_contribution_month { "3" }
+    date_of_contribution_day { "4" }
+    made_contribution { "yes" }
     ctds_code { "100206038" }
     school_name { "Schublic Pool" }
     district_name { "Dool Schistrict" }

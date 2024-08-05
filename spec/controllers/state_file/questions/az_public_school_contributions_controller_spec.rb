@@ -39,10 +39,12 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         az322_contribution: {
           made_contribution: 'yes',
           school_name: 'School A',
-          ctds_code: '123456',
+          ctds_code: '123456789',
           district_name: 'District A',
           amount: 100,
-          date_of_contribution: '2023-01-01'
+          date_of_contribution_month: '8',
+          date_of_contribution_day: "12",
+          date_of_contribution_year: "2023"
         }
       }
     end
@@ -71,6 +73,26 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         end.not_to change(Az322Contribution, :count)
       end
     end
+
+    context "with invalid params" do
+      render_views
+      let(:invalid_params) do
+        {
+          az322_contribution: {
+            made_contribution: nil,
+          }
+        }
+      end
+
+      it "renders new with validation errors" do
+        expect do
+          post :create, params: invalid_params
+        end.not_to change(Az322Contribution, :count)
+
+        expect(response).to render_template(:new)
+        expect(response.body).to include "Can't be blank"
+      end
+    end
   end
 
   describe "#edit" do
@@ -93,6 +115,12 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         az322_contribution: {
           made_contribution: 'yes',
           school_name: 'New School',
+          ctds_code: '123456789',
+          district_name: 'District A',
+          amount: 100,
+          date_of_contribution_month: '8',
+          date_of_contribution_day: "12",
+          date_of_contribution_year: "2023"
         }
       }
     end
@@ -116,6 +144,30 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         end.to change(Az322Contribution, :count).by(-1)
 
         expect { contribution.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context "with invalid params" do
+      render_views
+      let(:invalid_params) do
+        {
+          id: contribution.id,
+          az322_contribution: {
+            mad_contribution: "yes",
+            school_name: nil,
+            ctds_code: nil
+          }
+        }
+      end
+
+      it "renders edit with validation errors" do
+        expect do
+          post :update, params: invalid_params
+        end.not_to change(Az322Contribution, :count)
+
+        expect(response).to render_template(:edit)
+        expect(response.body).to include "Can't be blank"
+        expect(response.body).to include "School Code/CTDS must be a 9 digit number"
       end
     end
   end

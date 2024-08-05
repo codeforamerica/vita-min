@@ -2941,6 +2941,7 @@ es:
     alpha: Sólo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
+    ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
     ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos. '
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.

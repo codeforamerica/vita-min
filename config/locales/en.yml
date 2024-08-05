@@ -2961,6 +2961,7 @@ en:
     alpha: Only letters A-Z and a-z are accepted.
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
+    ctds_code: School Code/CTDS must be a 9 digit number.
     ein: EIN must be a 9 digit number.
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
