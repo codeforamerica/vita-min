@@ -401,14 +401,14 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
       <div class="input-group--inline">
         <div class="select">
-          <label for="#{sanitized_id(method, 'month')}" class="sr-only">#{I18n.t('honeycrisp.month')}</label>
+          <label for="#{sanitized_id(method, 'month')}" class="sr-only">#{I18n.t('general.month')}</label>
           #{select_month(
       OpenStruct.new(month: month),
       {
         field_name: subfield_name(method, 'month'),
         field_id: subfield_id(method, 'month'),
         prefix: object_name,
-        prompt: I18n.t('honeycrisp.month'),
+        prompt: I18n.t('general.month'),
         selected: month
       }.reverse_merge(options),
       class: 'select__element',
@@ -416,28 +416,28 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       )}
         </div>
         <div class="select">
-          <label for="#{sanitized_id(method, 'day')}" class="sr-only">#{I18n.t('honeycrisp.day')}</label>
+          <label for="#{sanitized_id(method, 'day')}" class="sr-only">#{I18n.t('general.day')}</label>
           #{select_day(
       OpenStruct.new(day: day),
       {
         field_name: subfield_name(method, 'day'),
         field_id: subfield_id(method, 'day'),
         prefix: object_name,
-        prompt: I18n.t('honeycrisp.day'),
+        prompt: I18n.t('general.day'),
         selected: day
       }.merge(options),
       class: 'select__element',
       )}
         </div>
         <div class="select">
-          <label for="#{sanitized_id(method, 'year')}" class="sr-only">#{I18n.t('honeycrisp.year')}</label>
+          <label for="#{sanitized_id(method, 'year')}" class="sr-only">#{I18n.t('general.year_date')}</label>
           #{select_year(
       OpenStruct.new(year: year),
       {
         field_name: subfield_name(method, 'year'),
         field_id: subfield_id(method, 'year'),
         prefix: object_name,
-        prompt: I18n.t('honeycrisp.year'),
+        prompt: I18n.t('general.year_date'),
         selected: year
       }.merge(options),
       class: 'select__element',

@@ -316,6 +316,7 @@ es:
     ctc: GetCTC
     ctc_client: cliente de CTC
     date_of_birth: Fecha de nacimiento
+    day: Día
     days:
       many: "%{count} días"
       one: "%{count} día"
@@ -476,6 +477,7 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     married: Casado
+    month: Mes
     my_account: Mi cuenta
     my_profile: Mi perfil
     name: Nombre
@@ -598,6 +600,7 @@ es:
     well: Bien
     widowed: Viudo/a
     year: año
+    year_date: Año
     you: usted
     you_or_spouse: usted o su cónyuge
     zip_code: Código postal
