@@ -564,7 +564,7 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-      resources :az_public_school_contributions, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/az_public_school_contributions'
+      resources :az_public_school_contributions, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/az-public-school-contributions'
       get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
 

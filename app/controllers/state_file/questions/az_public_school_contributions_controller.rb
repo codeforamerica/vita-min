@@ -2,7 +2,7 @@ module StateFile
   module Questions
     class AzPublicSchoolContributionsController < QuestionsController
       include ReturnToReviewConcern
-      include DateHelper
+      before_action :load_filing_year, only: [:new, :create, :edit, :update]
 
       def self.navigation_actions
         [:index, :new]
@@ -17,12 +17,10 @@ module StateFile
 
       def new
         @az322_contribution = current_intake.az322_contributions.build
-        @filing_year = Rails.configuration.statefile_current_tax_year
       end
 
       def create
         @az322_contribution = current_intake.az322_contributions.build(az322_contribution_params)
-        @filing_year = Rails.configuration.statefile_current_tax_year
         @az322_contributions = current_intake.az322_contributions
         if @az322_contribution.made_contribution_no?
           return redirect_to next_path
@@ -38,12 +36,10 @@ module StateFile
 
       def edit
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
-        @filing_year = Rails.configuration.statefile_current_tax_year
       end
 
       def update
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
-        @filing_year = Rails.configuration.statefile_current_tax_year
         @az322_contribution.assign_attributes(az322_contribution_params)
 
         if @az322_contribution.made_contribution_no?
@@ -82,8 +78,8 @@ module StateFile
         )
       end
 
-      def date_of_contribution(year, month, day)
-        parse_date_params(year, month, day)
+      def load_filing_year
+        @filing_year = Rails.configuration.statefile_current_tax_year
       end
     end
   end
