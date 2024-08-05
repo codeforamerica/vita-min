@@ -220,11 +220,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_state_credits.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
-      check "state_file_az_state_credits_form_tribal_member"
-      fill_in "state_file_az_state_credits_form_tribal_wages", with: "100"
-      check "state_file_az_state_credits_form_armed_forces_member"
-      fill_in "state_file_az_state_credits_form_armed_forces_wages", with: "100"
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
+      check "state_file_az_subtractions_form_tribal_member"
+      fill_in "state_file_az_subtractions_form_tribal_wages", with: "100"
+      check "state_file_az_subtractions_form_armed_forces_member"
+      fill_in "state_file_az_subtractions_form_armed_forces_wages", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
