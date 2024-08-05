@@ -44,6 +44,7 @@ namespace :state_file do
         LIMIT #{batch_size}
       SQL
       ids = ActiveRecord::Base.connection.query(sql).flatten
+      Rails.logger.info("backfill_intake_submission_pdfs: #{intake_type.name}: #{ids}") if ids.present?
       intake_type.includes(:efile_submissions, :dependents, :state_file_w2s, :state_file1099_gs).with_attached_submission_pdf.find(ids).each do |intake|
         submission = intake.efile_submissions.last
         intake.submission_pdf.attach(
