@@ -83,7 +83,7 @@ module VitaMin
     config.middleware.use Middleware::RejectBadlyEncodedHeaders
     config.gyr_current_tax_year = 2023
     config.ctc_current_tax_year = 2021
-    config.statefile_current_tax_year = 2023
+    config.statefile_current_tax_year = 2024
     config.product_year = 2024
 
     # These defaults can be overridden per-environment if needed
