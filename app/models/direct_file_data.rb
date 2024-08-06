@@ -681,6 +681,12 @@ class DirectFileData
     end
   end
 
+  def form1099rs
+    parsed_xml.css('IRS1099R').map do |node|
+      Df1099R.new(node)
+    end
+  end
+
   def build_new_w2_node
     w2 = parsed_xml.css('IRSW2').first
     parsed_xml.css('IRSW2').last.add_next_sibling(w2.to_s)
@@ -1019,6 +1025,92 @@ class DirectFileData
         odc_qualifying: @odc_qualifying,
         months_in_home: @months_in_home
       }
+    end
+  end
+
+  class Df1099R
+    include DfXmlCrudMethods
+
+    SELECTORS = {
+      PayerNameControlTxt: "PayerNameControlTxt",
+      PayerName: "PayerName BusinessNameLine1Txt",
+      AddressLine1Txt: "PayerUSAddress AddressLine1Txt",
+      CityNm: "PayerUSAddress CityNm",
+      StateAbbreviationCd: "PayerUSAddress StateAbbreviationCd",
+      ZIPCd: "PayerUSAddress ZIPCd",
+      PayerEIN: "PayerEIN",
+      PhoneNum: "PhoneNum",
+      GrossDistributionAmt: "GrossDistributionAmt",
+      TaxableAmt: "TaxableAmt",
+      FederalIncomeTaxWithheldAmt: "FederalIncomeTaxWithheldAmt",
+      F1099RDistributionCd: "F1099RDistributionCd",
+      StandardOrNonStandardCd: "StandardOrNonStandardCd",
+    }
+
+    attr_reader :node
+
+    def selectors
+      SELECTORS
+    end
+
+    def initialize(node = nil)
+      @node = if node
+                node
+              else
+                Nokogiri::XML(IrsApiService.df_return_sample).at('IRS1099R')
+              end
+    end
+
+    def PayerNameControlTxt
+      df_xml_value(__method__)
+    end
+
+    def PayerName
+      df_xml_value(__method__)
+    end
+
+    def AddressLine1Txt
+      df_xml_value(__method__)
+    end
+
+    def CityNm
+      df_xml_value(__method__)
+    end
+
+    def StateAbbreviationCd
+      df_xml_value(__method__)
+    end
+
+    def ZIPCd
+      df_xml_value(__method__)
+    end
+
+    def PayerEIN
+      df_xml_value(__method__)
+    end
+
+    def PhoneNum
+      df_xml_value(__method__)
+    end
+
+    def GrossDistributionAmt
+      df_xml_value(__method__)
+    end
+
+    def TaxableAmt
+      df_xml_value(__method__)
+    end
+
+    def FederalIncomeTaxWithheldAmt
+      df_xml_value(__method__)
+    end
+
+    def F1099RDistributionCd
+      df_xml_value(__method__)
+    end
+
+    def StandardOrNonStandardCd
+      df_xml_value(__method__)
     end
   end
 

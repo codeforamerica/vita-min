@@ -119,17 +119,17 @@
       </PayerName>
       <PayerUSAddress>
         <AddressLine1Txt>2031 Pecan Street</AddressLine1Txt>
-        <CityNm>Monroe</CityNm>
-        <StateAbbreviationCd>MA</StateAbbreviationCd>
-        <ZIPCd>05502</ZIPCd>
+        <CityNm>Nonroe</CityNm>
+        <StateAbbreviationCd>NA</StateAbbreviationCd>
+        <ZIPCd>05503</ZIPCd>
       </PayerUSAddress>
-      <PayerEIN>000000001</PayerEIN>
-      <PhoneNum>2025551212</PhoneNum>
-      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <PayerEIN>000000002</PayerEIN>
+      <PhoneNum>3025551212</PhoneNum>
+      <GrossDistributionAmt>300</GrossDistributionAmt>
       <TaxableAmt>500</TaxableAmt>
       <FederalIncomeTaxWithheldAmt>200</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>6</F1099RDistributionCd>
-      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+      <StandardOrNonStandardCd>N</StandardOrNonStandardCd>
     </IRS1099R>
   </ReturnData>
 </Return>

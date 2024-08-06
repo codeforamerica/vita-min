@@ -420,10 +420,107 @@ describe DirectFileData do
 
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
-      xml = StateFile::XmlReturnSampleService.new.read('az_retirement')
+      xml = StateFile::XmlReturnSampleService.new.read("az_retirement")
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
+    end
+  end
+
+  describe "Df1099R" do
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_retirement")).to_s) }
+    let(:first_1099r) { direct_file_data.form1099rs[0] }
+    let(:second_1099r) { direct_file_data.form1099rs[1] }
+
+    describe "#PayerNameControlTxt" do
+      it "returns the value" do
+        expect(first_1099r.PayerNameControlTxt).to eq "PAYE"
+        expect(second_1099r.PayerNameControlTxt).to eq "PAYE DEUX"
+      end
+    end
+
+    describe "#PayerName" do
+      it "returns the value" do
+        expect(first_1099r.PayerName).to eq "Payer Name"
+        expect(second_1099r.PayerName).to eq "Second Payer Name"
+      end
+    end
+
+    describe "#AddressLine1Txt" do
+      it "returns the value" do
+        expect(first_1099r.AddressLine1Txt).to eq "2030 Pecan Street"
+        expect(second_1099r.AddressLine1Txt).to eq "2031 Pecan Street"
+      end
+    end
+
+    describe "#CityNm" do
+      it "returns the value" do
+        expect(first_1099r.CityNm).to eq "Monroe"
+        expect(second_1099r.CityNm).to eq "Nonroe"
+      end
+    end
+
+    describe "#StateAbbreviationCd" do
+      it "returns the value" do
+        expect(first_1099r.StateAbbreviationCd).to eq "MA"
+        expect(second_1099r.StateAbbreviationCd).to eq "NA"
+      end
+    end
+
+    describe "#ZIPCd" do
+      it "returns the value" do
+        expect(first_1099r.ZIPCd).to eq "05502"
+        expect(second_1099r.ZIPCd).to eq "05503"
+      end
+    end
+
+    describe "#PayerEIN" do
+      it "returns the value" do
+        expect(first_1099r.PayerEIN).to eq "000000001"
+        expect(second_1099r.PayerEIN).to eq "000000002"
+      end
+    end
+
+    describe "#PhoneNum" do
+      it "returns the value" do
+        expect(first_1099r.PhoneNum).to eq "2025551212"
+        expect(second_1099r.PhoneNum).to eq "3025551212"
+      end
+    end
+
+    describe "#GrossDistributionAmt" do
+      it "returns the value" do
+        expect(first_1099r.GrossDistributionAmt).to eq "200"
+        expect(second_1099r.GrossDistributionAmt).to eq "300"
+      end
+    end
+
+    describe "#TaxableAmt" do
+      it "returns the value" do
+        expect(first_1099r.TaxableAmt).to eq "1000"
+        expect(second_1099r.TaxableAmt).to eq "500"
+      end
+    end
+
+    describe "#FederalIncomeTaxWithheldAmt" do
+      it "returns the value" do
+        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq "300"
+        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq "200"
+      end
+    end
+
+    describe "#F1099RDistributionCd" do
+      it "returns the value" do
+        expect(first_1099r.F1099RDistributionCd).to eq "7"
+        expect(second_1099r.F1099RDistributionCd).to eq "6"
+      end
+    end
+
+    describe "#StandardOrNonStandardCd" do
+      it "returns the value" do
+        expect(first_1099r.StandardOrNonStandardCd).to eq "S"
+        expect(second_1099r.StandardOrNonStandardCd).to eq "N"
+      end
     end
   end
 end
