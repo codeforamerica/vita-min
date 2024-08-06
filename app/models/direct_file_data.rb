@@ -698,12 +698,7 @@ class DirectFileData
 
   def build_new_1099r_node
     form1099r = parsed_xml.css('IRS1099R').first
-    if form1099r
-      parsed_xml.css('IRS1099R').last.add_next_sibling(form1099r.to_s)
-    else
-      # TODO: WIP COME BACK HERE
-      parsed_xml.css('IRSW2').last.add_next_sibling("<IRS1099R documentId='IRS1099R0001'/")
-    end
+    parsed_xml.css('IRS1099R').last.add_next_sibling(form1099r.to_s)
   end
 
   def eitc_eligible_dependents

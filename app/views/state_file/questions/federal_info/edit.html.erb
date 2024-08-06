@@ -82,7 +82,9 @@
         <%= f.fields_for :form1099rs do |ff| %>
           <%= render "df_1099r", f: ff %>
         <% end %>
-        <%= link_to_add_fields "New 1099R", f, :form1099rs, { class: "button button--small", model: StateFile::FederalInfoForm::DfIrs1099RForm }, partial: "df_1099r" %>
+        <% if @form.form1099rs.present? %>
+          <%= link_to_add_fields "New 1099R", f, :form1099rs, { class: "button button--small", model: StateFile::FederalInfoForm::DfIrs1099RForm }, partial: "df_1099r" %>
+        <% end %>
       </div>
     </div>
 
