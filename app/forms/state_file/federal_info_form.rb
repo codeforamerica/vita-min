@@ -30,7 +30,7 @@ module StateFile
     def self.nested_attribute_names
       {
         w2s_attributes: DfIrsW2Form::SELECTORS.keys,
-        form1099rs_attributes: DirectFileData::Df1099R::SELECTORS.keys,
+        form1099rs_attributes: DfIrsW2Form::DfIrs1099RForm::SELECTORS.keys,
         dependent_details_attributes: DfDependentDetailForm::SELECTORS.keys,
         qualifying_child_informations_attributes: DfQualifyingChildInformationForm::SELECTORS.keys
       }
