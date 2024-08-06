@@ -1,8 +1,5 @@
 name: vita-min
 
-# TODO: debug why db service does not start before rails service
-# For now, db must be manually started before rails
-
 services:
   db:
     container_name: db
@@ -16,11 +13,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
-      interval: 10s
-      retries: 5
-      timeout: 10s
   pgadmin:
     container_name: pgadmin
     image: chorss/docker-pgadmin4
@@ -37,6 +29,7 @@ services:
     depends_on:
       - rails
     environment:
+      - "RAILS_ENV=${RAILS_ENV:-development}"
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
@@ -56,6 +49,7 @@ services:
     links:
       - db
     environment:
+      - "RUN_MIGRATIONS=${RUN_MIGRATIONS}"
       - "RAILS_ENV=${RAILS_ENV:-development}"
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
