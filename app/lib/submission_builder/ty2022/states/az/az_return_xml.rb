@@ -174,7 +174,7 @@ module SubmissionBuilder
           end
 
           def financial_transaction
-            SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
+            FinancialTransaction.build(
               @submission,
               validate: false,
               kwargs: { refund_amount: calculated_fields.fetch(:AZ140_LINE_79) }

@@ -36,11 +36,11 @@ module SubmissionBuilder
     end
 
     def authentication_header
-      SubmissionBuilder::Ty2022::States::AuthenticationHeader.build(@submission, validate: false).document.at("*")
+      SubmissionBuilder::AuthenticationHeader.build(@submission, validate: false).document.at("*")
     end
 
     def return_header
-      SubmissionBuilder::Ty2022::States::ReturnHeader.build(@submission, validate: false).document.at("*")
+      SubmissionBuilder::ReturnHeader.build(@submission, validate: false).document.at("*")
     end
 
     def attached_documents
