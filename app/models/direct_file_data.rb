@@ -681,6 +681,10 @@ class DirectFileData
     end
   end
 
+  def form1099r_nodes
+    parsed_xml.css('IRS1099R')
+  end
+
   def form1099rs
     parsed_xml.css('IRS1099R').map do |node|
       Df1099R.new(node)
@@ -690,6 +694,16 @@ class DirectFileData
   def build_new_w2_node
     w2 = parsed_xml.css('IRSW2').first
     parsed_xml.css('IRSW2').last.add_next_sibling(w2.to_s)
+  end
+
+  def build_new_1099r_node
+    form1099r = parsed_xml.css('IRS1099R').first
+    if form1099r
+      parsed_xml.css('IRS1099R').last.add_next_sibling(form1099r.to_s)
+    else
+      # TODO: WIP COME BACK HERE
+      parsed_xml.css('IRSW2').last.add_next_sibling("<IRS1099R documentId='IRS1099R0001'/")
+    end
   end
 
   def eitc_eligible_dependents
@@ -1057,7 +1071,7 @@ class DirectFileData
       @node = if node
                 node
               else
-                Nokogiri::XML(IrsApiService.df_return_sample).at('IRS1099R')
+                Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_retirement")).at('IRS1099R')
               end
     end
 
@@ -1065,52 +1079,104 @@ class DirectFileData
       df_xml_value(__method__)
     end
 
+    def PayerNameControlTxt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def PayerName
       df_xml_value(__method__)
+    end
+
+    def PayerName=(value)
+      write_df_xml_value(__method__, value)
     end
 
     def AddressLine1Txt
       df_xml_value(__method__)
     end
 
+    def AddressLine1Txt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def CityNm
       df_xml_value(__method__)
+    end
+
+    def CityNm=(value)
+      write_df_xml_value(__method__, value)
     end
 
     def StateAbbreviationCd
       df_xml_value(__method__)
     end
 
+    def StateAbbreviationCd=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def ZIPCd
       df_xml_value(__method__)
+    end
+
+    def ZIPCd=(value)
+      write_df_xml_value(__method__, value)
     end
 
     def PayerEIN
       df_xml_value(__method__)
     end
 
+    def PayerEIN=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def PhoneNum
       df_xml_value(__method__)
+    end
+
+    def PhoneNum=(value)
+      write_df_xml_value(__method__, value)
     end
 
     def GrossDistributionAmt
       df_xml_value(__method__)
     end
 
+    def GrossDistributionAmt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def TaxableAmt
       df_xml_value(__method__)
+    end
+
+    def TaxableAmt=(value)
+      write_df_xml_value(__method__, value)
     end
 
     def FederalIncomeTaxWithheldAmt
       df_xml_value(__method__)
     end
 
+    def FederalIncomeTaxWithheldAmt=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def F1099RDistributionCd
       df_xml_value(__method__)
     end
 
+    def F1099RDistributionCd=(value)
+      write_df_xml_value(__method__, value)
+    end
+
     def StandardOrNonStandardCd
       df_xml_value(__method__)
+    end
+
+    def StandardOrNonStandardCd=(value)
+      write_df_xml_value(__method__, value)
     end
   end
 
