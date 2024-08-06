@@ -77,7 +77,20 @@ module StateFile
         calculator_class: Efile::Nc::D400Calculator,
         navigation_class: Navigation::StateFileNcQuestionNavigation,
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
+        mail_voucher_address: "North Carolina Department of Revenue<br/>" \
+                              "PO Box 25000<br/>" \
+                              "Raleigh, NC 27640-0640".html_safe,
+        pay_taxes_link: "https://www.nc.gov/working/taxes",
+        return_type: "D-400",
         schema_file_name: "NCIndividual2023v1.0.zip",
+        state_name: "North Carolina",
+        survey_link: "",
+        tax_payment_info_url: "",
+        tax_payment_url: "",
+        tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
+        vita_link: "",
+        voucher_form_name: "Form D-400V",
+        voucher_path: "",
       },
       ny: {
         intake_class: StateFileNyIntake,

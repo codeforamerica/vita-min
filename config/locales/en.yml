@@ -2062,6 +2062,13 @@ en:
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
         not_you: Not %{user_name}?
+        nc:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of North Carolina
+          title: File your North Carolina state taxes for free
         ny:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
