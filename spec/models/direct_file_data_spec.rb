@@ -420,7 +420,7 @@ describe DirectFileData do
 
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
-      xml = StateFile::XmlReturnSampleService.new.read("az_retirement")
+      xml = StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
@@ -428,7 +428,7 @@ describe DirectFileData do
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_retirement")).to_s) }
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 

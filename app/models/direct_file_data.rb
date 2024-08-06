@@ -1066,7 +1066,7 @@ class DirectFileData
       @node = if node
                 node
               else
-                Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_retirement")).at('IRS1099R')
+                Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).at('IRS1099R')
               end
     end
 
