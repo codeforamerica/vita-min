@@ -2266,7 +2266,7 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_lived_in_state: did not live in %{state} for all of 2023
