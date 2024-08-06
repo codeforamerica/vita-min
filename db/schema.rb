@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_05_230339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -441,6 +441,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.index ["vita_partner_id"], name: "index_arcint_2021_on_vita_partner_id"
   end
 
+  create_table "az321_contributions", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.string "charity_code"
+    t.string "charity_name"
+    t.datetime "created_at", null: false
+    t.date "date_of_contribution"
+    t.bigint "state_file_az_intake_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_az_intake_id"], name: "index_az321_contributions_on_state_file_az_intake_id"
+  end
+
   create_table "az322_contributions", force: :cascade do |t|
     t.decimal "amount", precision: 12, scale: 2
     t.datetime "created_at", null: false
@@ -451,17 +462,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
     t.index ["state_file_az_intake_id"], name: "index_az322_contributions_on_state_file_az_intake_id"
-  end
-
-  create_table "az321_contributions", force: :cascade do |t|
-    t.decimal "amount", precision: 12, scale: 2
-    t.string "charity_code"
-    t.string "charity_name"
-    t.datetime "created_at", null: false
-    t.date "date_of_contribution"
-    t.bigint "state_file_az_intake_id"
-    t.datetime "updated_at", null: false
-    t.index ["state_file_az_intake_id"], name: "index_az321_contributions_on_state_file_az_intake_id"
   end
 
   create_table "bank_accounts", force: :cascade do |t|
@@ -1763,6 +1763,45 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.inet "ip_address"
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
+  end
+
+  create_table "state_file_nc_intakes", force: :cascade do |t|
+    t.integer "account_type", default: 0, null: false
+    t.string "city"
+    t.integer "consented_to_terms_and_conditions", default: 0, null: false
+    t.integer "contact_preference", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.string "current_step"
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.citext "email_address"
+    t.datetime "email_address_verified_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.integer "filing_status"
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
+    t.datetime "locked_at"
+    t.integer "payment_or_deposit_type", default: 0, null: false
+    t.string "phone_number"
+    t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
+    t.integer "primary_esigned", default: 0, null: false
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.text "raw_direct_file_data"
+    t.string "referrer"
+    t.integer "sign_in_count", default: 0, null: false
+    t.string "source"
+    t.integer "spouse_esigned", default: 0, null: false
+    t.string "ssn"
+    t.string "street_address"
+    t.integer "tax_return_year"
+    t.datetime "updated_at", null: false
+    t.string "visitor_id"
+    t.string "zip_code"
   end
 
   create_table "state_file_notification_emails", force: :cascade do |t|

@@ -3,7 +3,7 @@ module SubmissionBuilder
   module Ty2022
     module States
       module Az
-        class AzReturnXml < StateReturn
+        class AzReturnXml < SubmissionBuilder::StateReturn
           include DependentRelationshipTable
 
           FILING_STATUS_OPTIONS = {
