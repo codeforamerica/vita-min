@@ -84,23 +84,41 @@
   }
 
   .resources {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  a {
     display: flex;
-    justify-content: space-between;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    align-items: center;
+  }
 
-    a {
-      display: flex;
-      align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    margin-right: .8rem;
+  }
+}
+
+  .service-level-agreement {
+    padding-bottom: 1.4rem;
+    padding-top: 1.4rem;
+
+    .approaching {
+      color: #757575;
     }
-
-    div {
-      display: flex;
-      align-items: center;
+    .overdue {
+      color: #D73D02;
     }
-
-    img {
-      margin-right: .8rem;
+    .count{
+      font-size:4.25rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
     }
   }
 
