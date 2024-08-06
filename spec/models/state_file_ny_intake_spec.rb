@@ -386,7 +386,7 @@ describe StateFileNyIntake do
     let(:intake) { build :state_file_ny_intake }
 
     let(:df_w2) do
-      DirectFileData::DfW2.new(
+      StateFile::DirectFileData::DfW2.new(
         Nokogiri::XML(StateFile::XmlReturnSampleService.new.read('ny_batman')).at("IRSW2")
       )
     end

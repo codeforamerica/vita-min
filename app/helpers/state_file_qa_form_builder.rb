@@ -64,8 +64,8 @@ class StateFileQaFormBuilder < VitaMinFormBuilder
   private
 
   def add_selector_to_label(method, label_text)
-    if DirectFileData::SELECTORS[method]
-      decorated_selector = DirectFileData::SELECTORS[method].split(' ').map { |node_name| "&lt;#{node_name}&gt;" }.join('')
+    if StateFile::DirectFileData::SELECTORS[method]
+      decorated_selector = StateFile::DirectFileData::SELECTORS[method].split(' ').map { |node_name| "&lt;#{node_name}&gt;" }.join('')
       <<~LABEL
         <strong style='font-family: monospace; color: purple;'>#{decorated_selector}</strong>
         <br/>

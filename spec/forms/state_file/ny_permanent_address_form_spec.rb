@@ -135,10 +135,10 @@ RSpec.describe StateFile::NyPermanentAddressForm do
       end
 
       before do
-        allow_any_instance_of(DirectFileData).to receive(:mailing_street).and_return "Street address"
-        allow_any_instance_of(DirectFileData).to receive(:mailing_apartment).and_return "Apartment"
-        allow_any_instance_of(DirectFileData).to receive(:mailing_city).and_return "Albany"
-        allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return "12345"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_street).and_return "Street address"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_apartment).and_return "Apartment"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_city).and_return "Albany"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_zip).and_return "12345"
       end
 
       it "saves imported_permanent_address_confirmed as true" do

@@ -37,8 +37,8 @@ describe StateFileAnalytics do
   describe "#calculated_attrs" do
     before do
       allow_any_instance_of(StateFileBaseIntake).to receive(:calculated_refund_or_owed_amount).and_return(100)
-      allow_any_instance_of(DirectFileData).to receive(:fed_eic).and_return(2000)
-      allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(2)
+      allow_any_instance_of(StateFile::DirectFileData).to receive(:fed_eic).and_return(2000)
+      allow_any_instance_of(StateFile::DirectFileData).to receive(:filing_status).and_return(2)
     end
 
     let(:expected_attributes) {

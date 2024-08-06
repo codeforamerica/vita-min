@@ -215,7 +215,7 @@ describe StateFileAzIntake do
 
   describe "#disqualified_from_excise_credit_fyst?" do
     let(:intake) { build(:state_file_az_intake, ssn_no_employment: "no") }
-    let(:fake_df_data) { instance_double(DirectFileData) }
+    let(:fake_df_data) { instance_double(StateFile::DirectFileData) }
     before do
       allow(intake).to receive(:direct_file_data).and_return fake_df_data
       allow(fake_df_data).to receive(:claimed_as_dependent?).and_return false

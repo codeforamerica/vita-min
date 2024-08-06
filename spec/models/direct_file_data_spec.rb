@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DirectFileData do
+describe StateFile::DirectFileData do
   describe '#ny_public_employee_retirement_contributions' do
     let(:desc1) { '414H' }
     let(:desc2) { '414 (H)' }
@@ -25,7 +25,7 @@ describe DirectFileData do
         </OtherDeductionsBenefitsGrp>
       XML
 
-      @direct_file_data = DirectFileData.new(doc.to_s)
+      @direct_file_data = StateFile::DirectFileData.new(doc.to_s)
     end
 
     it "sums up the box14 amounts for anything associated with public employee retirement" do
@@ -81,7 +81,7 @@ describe DirectFileData do
 
     context "when all known adjustment types are present" do
       before do
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "generates a hash with all known types" do
@@ -96,7 +96,7 @@ describe DirectFileData do
       before do
         @doc.at("IRS1040Schedule1 EducatorExpensesAmt").remove
         @doc.at("IRS1040Schedule1 TotalAdjustmentsAmt").content = "2500"
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "generates a hash with only the types that were present" do
@@ -111,7 +111,7 @@ describe DirectFileData do
       before do
         @doc.at("IRS1040Schedule1 StudentLoanInterestDedAmt").content = "0"
         @doc.at("IRS1040Schedule1 TotalAdjustmentsAmt").content = "300"
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "generates a hash with only the types that had positive values" do
@@ -136,7 +136,7 @@ describe DirectFileData do
         @doc.at("IRS1040Schedule1 GrossIncomeExclusionAmt").content = "2000"
         @doc.at("IRS1040Schedule1").add_child(Nokogiri::XML::Node.new('TotalIncomeExclusionAmt', @doc))
         @doc.at("IRS1040Schedule1 TotalIncomeExclusionAmt").content = "3000"
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -150,7 +150,7 @@ describe DirectFileData do
     context "when all fields are missing" do
       before do
         @doc.at("IRS1040Schedule1 UnemploymentCompAmt").remove
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -188,7 +188,7 @@ describe DirectFileData do
         @doc.at("IRS1040Schedule3 TotRptgYrTxIncreaseDecreaseAmt").content = "800"
         @doc.at("IRS1040Schedule3").add_child(Nokogiri::XML::Node.new('MaxPrevOwnedCleanVehCrAmt', @doc))
         @doc.at("IRS1040Schedule3 MaxPrevOwnedCleanVehCrAmt").content = "900"
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -206,7 +206,7 @@ describe DirectFileData do
 
     context "when all fields are missing" do
       before do
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -234,7 +234,7 @@ describe DirectFileData do
         @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp CalculatedDifferenceAmt").content = "1000"
         @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp").add_child(Nokogiri::XML::Node.new('NontaxableCombatPayAmt', @doc))
         @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp NontaxableCombatPayAmt").content = "2000"
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -247,7 +247,7 @@ describe DirectFileData do
     context "when all fields are missing" do
       before do
         @doc.at("IRS1040Schedule8812 ClaimACTCAllFilersGrp TotalEarnedIncomeAmt").remove
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -280,7 +280,7 @@ describe DirectFileData do
         @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS8859', @doc))
         @doc.at("IRS8859").add_child(Nokogiri::XML::Node.new('DCHmByrCurrentYearCreditAmt', @doc))
         @doc.at("IRS8859 DCHmByrCurrentYearCreditAmt").content = "4000"
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -294,7 +294,7 @@ describe DirectFileData do
 
     context "when all fields are missing" do
       before do
-        @direct_file_data = DirectFileData.new(@doc.to_s)
+        @direct_file_data = StateFile::DirectFileData.new(@doc.to_s)
       end
 
       it "sets the correct values" do
@@ -310,10 +310,10 @@ describe DirectFileData do
   describe '#dependents' do
     context "when there are dependents in the xml" do
       let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
-      it 'returns an array of DirectFileData::Dependent objects' do
+      it 'returns an array of StateFile::DirectFileData::Dependent objects' do
 
         expect(described_class.new(xml).dependents.count).to eq(5)
-        expect(described_class.new(xml).dependents.first).to be_an_instance_of DirectFileData::Dependent
+        expect(described_class.new(xml).dependents.first).to be_an_instance_of StateFile::DirectFileData::Dependent
         expect(described_class.new(xml).dependents.first.ssn).to eq('444444444')
       end
     end
@@ -382,7 +382,7 @@ describe DirectFileData do
 
     context 'when there are dependents with missing eic tags' do
       let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_depdropping') }
-      it 'returns the correct array of DirectFileData::Dependent objects' do
+      it 'returns the correct array of StateFile::DirectFileData::Dependent objects' do
         expect(described_class.new(xml).dependents.count).to eq(8)
         expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
         expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'yes' }.length).to eq(1)
@@ -421,14 +421,14 @@ describe DirectFileData do
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
       xml = StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")
-      direct_file_data = DirectFileData.new(xml.to_s)
+      direct_file_data = StateFile::DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
     end
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
+    let(:direct_file_data) { StateFile::DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 

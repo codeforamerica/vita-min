@@ -648,7 +648,7 @@ describe Efile::Ny::It201 do
         intake.dependents.create(dob: 5.years.ago, ctc_qualifying: true)
         intake.dependents.create(dob: 3.years.ago, ctc_qualifying: true)
         intake.direct_file_data.fed_ctc = 1_000
-        allow_any_instance_of(DirectFileData).to receive(:fed_tax).and_return(nil)
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:fed_tax).and_return(nil)
       end
 
       it 'avoids getting undefined method `-` for nil:NilClass (NoMethodError)' do

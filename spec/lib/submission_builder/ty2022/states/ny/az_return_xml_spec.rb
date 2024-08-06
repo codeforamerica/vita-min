@@ -381,7 +381,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
 
       it 'truncates to 5 chars' do
-        allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return('123456789')
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_zip).and_return('123456789')
         xml = described_class.build(submission).document
         expect(intake.direct_file_data.mailing_zip).to eq('123456789')
         expect(intake.direct_file_data.mailing_zip.length).to eq(9)
@@ -394,7 +394,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
 
       it 'truncates to 18 chars' do
-        allow_any_instance_of(DirectFileData).to receive(:mailing_city).and_return('Castleton on Hudson')
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_city).and_return('Castleton on Hudson')
         xml = described_class.build(submission).document
         expect(intake.direct_file_data.mailing_city).to eq('Castleton on Hudson')
         expect(intake.direct_file_data.mailing_city.length).to eq(19)

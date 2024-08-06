@@ -34,10 +34,10 @@ RSpec.describe StateFile1099G do
   describe "conditional attributes" do
     describe '#address_confirmation' do
       before do
-        allow_any_instance_of(DirectFileData).to receive(:mailing_street).and_return "321 Main St"
-        allow_any_instance_of(DirectFileData).to receive(:mailing_apartment).and_return "Apt D"
-        allow_any_instance_of(DirectFileData).to receive(:mailing_city).and_return "Buffalo"
-        allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return "11105"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_street).and_return "321 Main St"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_apartment).and_return "Apt D"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_city).and_return "Buffalo"
+        allow_any_instance_of(StateFile::DirectFileData).to receive(:mailing_zip).and_return "11105"
       end
 
       it 'sets address to default address that was confirmed' do

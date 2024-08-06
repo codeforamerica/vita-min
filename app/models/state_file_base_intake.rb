@@ -51,7 +51,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def direct_file_data
-    @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
+    @direct_file_data ||= StateFile::DirectFileData.new(raw_direct_file_data)
   end
 
   def synchronize_df_dependents_to_database
