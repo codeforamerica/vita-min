@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_05_230339) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_223558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1774,16 +1774,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_230339) do
     t.datetime "current_sign_in_at"
     t.inet "current_sign_in_ip"
     t.string "current_step"
+    t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_imported_at"
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
     t.integer "filing_status"
+    t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -1799,9 +1803,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_230339) do
     t.string "ssn"
     t.string "street_address"
     t.integer "tax_return_year"
+    t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
+    t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
   end
 
   create_table "state_file_notification_emails", force: :cascade do |t|

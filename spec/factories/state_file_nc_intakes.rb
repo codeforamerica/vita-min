@@ -10,16 +10,20 @@
 #  current_sign_in_at                :datetime
 #  current_sign_in_ip                :inet
 #  current_step                      :string
+#  df_data_import_failed_at          :datetime
+#  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
 #  filing_status                     :integer
+#  hashed_ssn                        :string
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")
 #  locked_at                         :datetime
+#  message_tracker                   :jsonb
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -35,10 +39,15 @@
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  zip_code                          :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  visitor_id                        :string
+#
+# Indexes
+#
+#  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 FactoryBot.define do
   factory :state_file_nc_intake do
