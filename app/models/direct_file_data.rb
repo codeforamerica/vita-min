@@ -752,65 +752,7 @@ class DirectFileData
     end
   end
     
-  class DfW2
-    include DfXmlCrudMethods
-
-    SELECTORS = {
-      EmployeeSSN: 'EmployeeSSN',
-      EmployerEIN: 'EmployerEIN',
-      EmployerName: 'EmployerName BusinessNameLine1Txt',
-      EmployerStateIdNum: 'EmployerStateIdNum',
-      AddressLine1Txt: 'EmployerUSAddress AddressLine1Txt',
-      City: 'EmployerUSAddress CityNm',
-      State: 'EmployerUSAddress StateAbbreviationCd',
-      ZIP: 'EmployerUSAddress ZIPCd',
-      WagesAmt: 'WagesAmt',
-      AllocatedTipsAmt: 'AllocatedTipsAmt',
-      DependentCareBenefitsAmt: 'DependentCareBenefitsAmt',
-      NonqualifiedPlansAmt: 'NonqualifiedPlansAmt',
-      RetirementPlanInd: 'RetirementPlanInd',
-      ThirdPartySickPayInd: 'ThirdPartySickPayInd',
-      StateAbbreviationCd: 'W2StateTaxGrp StateAbbreviationCd',
-      StateWagesAmt: 'W2StateTaxGrp StateWagesAmt',
-      StateIncomeTaxAmt: 'W2StateTaxGrp StateIncomeTaxAmt',
-      LocalWagesAndTipsAmt: 'W2LocalTaxGrp LocalWagesAndTipsAmt',
-      LocalIncomeTaxAmt: 'W2LocalTaxGrp LocalIncomeTaxAmt',
-      LocalityNm: 'W2LocalTaxGrp LocalityNm',
-      WithholdingAmt: 'WithholdingAmt',
-    }
-
-    attr_reader :node
-    attr_accessor *SELECTORS.keys
-
-    def selectors
-      SELECTORS
-    end
-
-    def initialize(node = nil)
-      @node = if node
-                node
-              else
-                Nokogiri::XML(IrsApiService.df_return_sample).at('IRSW2')
-              end
-    end
-
-    SELECTORS.keys.each do |key|
-      if key.ends_with?("Amt")
-        define_method(key) do
-          df_xml_value(__method__)&.to_i || 0
-        end
-      else
-        define_method(key) do
-          df_xml_value(__method__)
-        end
-      end
-
-      define_method("#{key}=") do |value|
-        create_or_destroy_df_xml_node(__method__, value)
-        write_df_xml_value(__method__, value)
-      end
-    end
-
+  class DfW2 < DfW2Accessor
     def w2_box12
       @node.css('EmployersUseGrp').map do |node|
         {

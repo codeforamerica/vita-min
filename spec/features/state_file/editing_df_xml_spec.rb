@@ -59,7 +59,13 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text "‍💻🛠️ Direct File Data Overrides 🛠️💻"
 
     # W2
+    fill_in "WagesAmt", with: 500
+    fill_in "WithholdingAmt", with: 300
     fill_in "StateWagesAmt", with: 300
+    fill_in "StateIncomeTaxAmt", with: 600
+    fill_in "LocalWagesAndTipsAmt", with: 3000
+    fill_in "LocalIncomeTaxAmt", with: 4400
+    fill_in "LocalityNm", with: "Pelicanville"
 
     # 1099R
     fill_in "PayerName", with: "Rose Apothecary"
@@ -80,7 +86,14 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     xml_after = StateFileAzIntake.last.raw_direct_file_data.strip
     expect(xml_before).not_to eq(xml_after)
 
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].WagesAmt).to eq 500
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].WithholdingAmt).to eq 300
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].StateWagesAmt).to eq 300
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].StateIncomeTaxAmt).to eq 600
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalWagesAndTipsAmt).to eq 3000
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalIncomeTaxAmt).to eq 4400
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalityNm).to eq "Pelicanville"
+
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerName).to eq "Rose Apothecary"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerNameControlTxt).to eq "ROSEAPC"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].AddressLine1Txt).to eq "123 Schit Street"
