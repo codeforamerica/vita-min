@@ -196,12 +196,16 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::Az8879Pdf,
                 include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az322,
+                pdf: PdfFiller::Az322Pdf,
+                include: @submission.data_source.az322_contributions.present?
               }
             ]
 
             supported_docs += combined_w2s
             supported_docs += form1099gs
-            supported_docs +=
             supported_docs
           end
 
