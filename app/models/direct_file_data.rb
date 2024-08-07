@@ -780,9 +780,7 @@ class DirectFileData
     }
 
     attr_reader :node
-    attr_accessor :id
     attr_accessor *SELECTORS.keys
-    attr_accessor :_destroy
 
     def selectors
       SELECTORS
@@ -794,10 +792,6 @@ class DirectFileData
               else
                 Nokogiri::XML(IrsApiService.df_return_sample).at('IRSW2')
               end
-    end
-
-    def id
-      @node['documentId']
     end
 
     SELECTORS.keys.each do |key|
@@ -833,14 +827,6 @@ class DirectFileData
           other_amount: node.at('Amt')&.text
         }
       end
-    end
-
-    def persisted?
-      true
-    end
-
-    def errors
-      ActiveModel::Errors.new(nil)
     end
   end
 
