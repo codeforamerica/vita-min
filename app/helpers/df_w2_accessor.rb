@@ -35,9 +35,10 @@ class DfW2Accessor
             end
   end
 
-  def selectors
+  def self.selectors
     SELECTORS
   end
+  delegate :selectors, to: :class
 
   SELECTORS.keys.each do |key|
     if key.ends_with?("Amt")
