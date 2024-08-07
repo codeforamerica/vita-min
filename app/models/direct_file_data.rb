@@ -800,12 +800,14 @@ class DirectFileData
       @node['documentId']
     end
 
-    def EmployeeSSN
-      df_xml_value(__method__)
-    end
+    SELECTORS.keys.each do |key|
+      define_method(key) do
+        df_xml_value(__method__)
+      end
 
-    def EmployeeSSN=(value)
-      write_df_xml_value(__method__, value)
+      define_method("#{key}=") do |value|
+        write_df_xml_value(__method__, value)
+      end
     end
 
     def EmployerEIN
@@ -1070,108 +1072,14 @@ class DirectFileData
               end
     end
 
-    def PayerNameControlTxt
-      df_xml_value(__method__)
-    end
+    SELECTORS.keys.each do |key|
+      define_method(key) do
+        df_xml_value(__method__)
+      end
 
-    def PayerNameControlTxt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def PayerName
-      df_xml_value(__method__)
-    end
-
-    def PayerName=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def AddressLine1Txt
-      df_xml_value(__method__)
-    end
-
-    def AddressLine1Txt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def CityNm
-      df_xml_value(__method__)
-    end
-
-    def CityNm=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def StateAbbreviationCd
-      df_xml_value(__method__)
-    end
-
-    def StateAbbreviationCd=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def ZIPCd
-      df_xml_value(__method__)
-    end
-
-    def ZIPCd=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def PayerEIN
-      df_xml_value(__method__)
-    end
-
-    def PayerEIN=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def PhoneNum
-      df_xml_value(__method__)
-    end
-
-    def PhoneNum=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def GrossDistributionAmt
-      df_xml_value(__method__)
-    end
-
-    def GrossDistributionAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def TaxableAmt
-      df_xml_value(__method__)
-    end
-
-    def TaxableAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def FederalIncomeTaxWithheldAmt
-      df_xml_value(__method__)
-    end
-
-    def FederalIncomeTaxWithheldAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def F1099RDistributionCd
-      df_xml_value(__method__)
-    end
-
-    def F1099RDistributionCd=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def StandardOrNonStandardCd
-      df_xml_value(__method__)
-    end
-
-    def StandardOrNonStandardCd=(value)
-      write_df_xml_value(__method__, value)
+      # define_method(key) do |value|
+      #   write_df_xml_value(__method__, value)
+      # end
     end
   end
 

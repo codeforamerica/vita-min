@@ -74,7 +74,6 @@ describe DirectFileData do
   end
 
   describe '#fed_adjustments_claimed' do
-
     before do
       @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
     end
@@ -424,6 +423,25 @@ describe DirectFileData do
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
+    end
+  end
+
+  describe "DfW2" do
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")).to_s) }
+    let(:first_w2) { direct_file_data.w2s[0] }
+    let(:second_1099r) { direct_file_data.form1099rs[1] }
+
+    describe "#EmployeeSSN" do
+      it "returns the value" do
+        expect(first_w2.EmployeeSSN).to eq "400000003"
+      end
+    end
+
+    describe "#EmployeeSSN=" do
+      it "returns the value" do
+        first_w2.EmployeeSSN = "400000004"
+        expect(first_w2.EmployeeSSN).to eq "400000004"
+      end
     end
   end
 
