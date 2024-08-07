@@ -17,8 +17,6 @@ module Efile
       end
 
       def calculate
-        set_line(:WA100_LINE_1, :calculate_line_1)
-        set_line(:WA100_LINE_2, :calculate_line_2)
         @lines.transform_values(&:value)
       end
 
