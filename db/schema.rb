@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_234752) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_224704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1785,6 +1785,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_234752) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
     t.integer "filing_status"
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"

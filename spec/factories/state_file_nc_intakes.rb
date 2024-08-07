@@ -20,6 +20,7 @@
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
+#  federal_return_status             :string
 #  filing_status                     :integer
 #  hashed_ssn                        :string
 #  last_sign_in_at                   :datetime
@@ -48,6 +49,7 @@
 #  zip_code                          :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
+#  federal_submission_id             :string
 #  visitor_id                        :string
 #
 # Indexes
