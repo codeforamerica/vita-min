@@ -17,6 +17,9 @@ class UserMailer < ApplicationMailer
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo
 
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+    signed_email = verifier.generate(@assigned_user.email)
+
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
@@ -24,7 +27,7 @@ class UserMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: @assigned_user.email
+        email_address: signed_email
       }
     )
 

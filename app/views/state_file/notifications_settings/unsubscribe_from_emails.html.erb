@@ -7,7 +7,7 @@
 
       <p>
         <%= t(".mistake") %>
-        <%= link_to t(".link_text"), state_file_subscribe_email_path(email_address: params[:email_address]), method: :post %>
+        <%= link_to t(".link_text"), state_file_subscribe_to_emails_path(email_address: params[:email_address]), method: :post %>
       </p>
 
       <p><%= t(".help_text_html") %></p>
