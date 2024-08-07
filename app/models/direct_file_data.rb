@@ -801,85 +801,20 @@ class DirectFileData
     end
 
     SELECTORS.keys.each do |key|
-      define_method(key) do
-        df_xml_value(__method__)
+      if key.ends_with?("Amt")
+        define_method(key) do
+          df_xml_value(__method__)&.to_i || 0
+        end
+      else
+        define_method(key) do
+          df_xml_value(__method__)
+        end
       end
 
       define_method("#{key}=") do |value|
+        create_or_destroy_df_xml_node(__method__, value)
         write_df_xml_value(__method__, value)
       end
-    end
-
-    def EmployerEIN
-      df_xml_value(__method__)
-    end
-
-    def EmployerEIN=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def EmployerStateIdNum
-      df_xml_value(__method__)
-    end
-
-    def EmployerStateIdNum=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def EmployerName
-      df_xml_value(__method__)
-    end
-
-    def EmployerName=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def AddressLine1Txt
-      df_xml_value(__method__)
-    end
-
-    def AddressLine1Txt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def City
-      df_xml_value(__method__)
-    end
-
-    def City=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def State
-      df_xml_value(__method__)
-    end
-
-    def State=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def ZIP
-      df_xml_value(__method__)
-    end
-
-    def ZIP=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def WagesAmt
-      df_xml_value(__method__)&.to_i || 0
-    end
-
-    def WagesAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def RetirementPlanInd
-      df_xml_value(__method__)
-    end
-
-    def ThirdPartySickPayInd
-      df_xml_value(__method__)
     end
 
     def w2_box12
@@ -898,92 +833,6 @@ class DirectFileData
           other_amount: node.at('Amt')&.text
         }
       end
-    end
-
-    def AllocatedTipsAmt
-      df_xml_value(__method__).to_i
-    end
-
-    def AllocatedTipsAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def DependentCareBenefitsAmt
-      df_xml_value(__method__).to_i
-    end
-
-    def DependentCareBenefitsAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def NonqualifiedPlansAmt
-      df_xml_value(__method__).to_i
-    end
-
-    def NonqualifiedPlansAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def WithholdingAmt
-      df_xml_value(__method__)&.to_i || 0
-    end
-
-    def WithholdingAmt=(value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def StateAbbreviationCd
-      df_xml_value(__method__)
-    end
-
-    def StateAbbreviationCd=(value)
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value) if value.present?
-    end
-
-    def StateWagesAmt
-      df_xml_value(__method__)&.to_i || 0
-    end
-
-    def StateWagesAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def StateIncomeTaxAmt
-      df_xml_value(__method__)&.to_i || 0
-    end
-
-    def StateIncomeTaxAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value)
-    end
-
-    def LocalWagesAndTipsAmt
-      df_xml_value(__method__)&.to_i || 0
-    end
-
-    def LocalWagesAndTipsAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value) if value.present?
-    end
-
-    def LocalIncomeTaxAmt
-      df_xml_value(__method__)&.to_i || 0
-    end
-
-    def LocalIncomeTaxAmt=(value)
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value) if value.present?
-    end
-
-    def LocalityNm
-      df_xml_value(__method__)
-    end
-
-    def LocalityNm=(value)
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value) if value.present?
     end
 
     def persisted?
@@ -1076,10 +925,6 @@ class DirectFileData
       define_method(key) do
         df_xml_value(__method__)
       end
-
-      # define_method(key) do |value|
-      #   write_df_xml_value(__method__, value)
-      # end
     end
   end
 

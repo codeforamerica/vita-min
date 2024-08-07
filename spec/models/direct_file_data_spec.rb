@@ -427,20 +427,85 @@ describe DirectFileData do
   end
 
   describe "DfW2" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")).to_s) }
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+    let(:direct_file_data) { DirectFileData.new(xml.to_s) }
     let(:first_w2) { direct_file_data.w2s[0] }
-    let(:second_1099r) { direct_file_data.form1099rs[1] }
 
-    describe "#EmployeeSSN" do
-      it "returns the value" do
-        expect(first_w2.EmployeeSSN).to eq "400000003"
+    [
+      ["EmployeeSSN", "400000003"],
+      ["EmployerEIN", "234567891"],
+      ["EmployerName", "Rose Apothecary"],
+      ["EmployerStateIdNum", "12345"],
+      ["AddressLine1Txt", "123 Twyla Road"],
+      ["City", "Phoenix"],
+      ["State", "AZ"],
+      ["ZIP", "85034"],
+      ["RetirementPlanInd", "X"],
+      ["ThirdPartySickPayInd", "X"],
+      ["StateAbbreviationCd", "AZ"],
+      ["LocalityNm", "SomeCity"],
+      ["WagesAmt", 35000],
+      ["AllocatedTipsAmt", 50],
+      ["DependentCareBenefitsAmt", 70],
+      ["NonqualifiedPlansAmt", 10],
+      ["StateWagesAmt", 35000],
+      ["StateIncomeTaxAmt", 500],
+      ["LocalWagesAndTipsAmt", 1350],
+      ["LocalIncomeTaxAmt", 1000],
+      ["WithholdingAmt", 3000],
+    ].each do |node_name, current_value|
+      describe "##{node_name}" do
+        it "returns the value" do
+          expect(first_w2.send(node_name)).to eq current_value
+        end
+
+        if current_value.is_a?(Integer)
+          context "when the attribute is not present" do
+            before do
+              selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+              xml.at('IRSW2').at(selector).remove
+            end
+
+            it "defaults to 0" do
+              expect(first_w2.send(node_name)).to eq 0
+            end
+          end
+        end
       end
-    end
 
-    describe "#EmployeeSSN=" do
-      it "returns the value" do
-        first_w2.EmployeeSSN = "400000004"
-        expect(first_w2.EmployeeSSN).to eq "400000004"
+      describe "##{node_name}=" do
+        context "when the node is present" do
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+
+        context "when the node is not present" do
+          before do
+            selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+            xml.at('IRSW2').at(selector).remove
+          end
+
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
       end
     end
   end

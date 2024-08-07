@@ -173,12 +173,15 @@
       <MedicareWagesAndTipsAmt>35000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>508</MedicareTaxWithheldAmt>
       <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
-      <AllocatedTipsAmt>0</AllocatedTipsAmt>
-      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <AllocatedTipsAmt>50</AllocatedTipsAmt>
+      <DependentCareBenefitsAmt>70</DependentCareBenefitsAmt>
+      <NonqualifiedPlansAmt>10</NonqualifiedPlansAmt>
       <EmployersUseGrp>
         <EmployersUseCd>Q</EmployersUseCd>
         <EmployersUseAmt>0</EmployersUseAmt>
       </EmployersUseGrp>
+      <RetirementPlanInd>X</RetirementPlanInd>
+      <ThirdPartySickPayInd>X</ThirdPartySickPayInd>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
           <StateAbbreviationCd>AZ</StateAbbreviationCd>
@@ -186,8 +189,9 @@
           <StateWagesAmt>35000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+            <LocalWagesAndTipsAmt>1350</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1000</LocalIncomeTaxAmt>
+            <LocalityNm>SomeCity</LocalityNm>
           </W2LocalTaxGrp>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>
