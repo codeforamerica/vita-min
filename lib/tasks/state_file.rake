@@ -34,7 +34,7 @@ namespace :state_file do
           AND efile_submissions.data_source_id = #{intake_type.table_name}.id
         ) INNER JOIN efile_submission_transitions ON (
           efile_submission_transitions.efile_submission_id = efile_submissions.id
-          AND efile_submission_transitions.to_state not in ('new', 'preparing', 'bundling', 'queued')
+          AND efile_submission_transitions.to_state not in ('new', 'preparing', 'bundling', 'queued', 'cancelled')
           AND efile_submission_transitions.most_recent = true
         ) LEFT JOIN active_storage_attachments ON (
           active_storage_attachments.record_type = '#{intake_type.name}'

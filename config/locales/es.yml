@@ -316,6 +316,7 @@ es:
     ctc: GetCTC
     ctc_client: cliente de CTC
     date_of_birth: Fecha de nacimiento
+    day: Día
     days:
       many: "%{count} días"
       one: "%{count} día"
@@ -476,6 +477,7 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     married: Casado
+    month: Mes
     my_account: Mi cuenta
     my_profile: Mi perfil
     name: Nombre
@@ -598,6 +600,7 @@ es:
     well: Bien
     widowed: Viudo/a
     year: año
+    year_date: Año
     you: usted
     you_or_spouse: usted o su cónyuge
     zip_code: Código postal
@@ -2125,6 +2128,24 @@ es:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
             one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
             other: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
+      az_public_school_contributions:
+        destroy:
+          removed: Contribución eliminada para %{school_name}
+        edit:
+          additional_info: 'Por favor, proporciona la siguiente información para cada escuela pública a la que pagaste tarifas o hiciste contribuciones:'
+          amount: Cantidad de contribución/tarifas pagadas en %{year}
+          ctds_code: Código de la escuela/CTDS
+          date_of_contribution: Fecha de pago en %{year} (mm/dd)
+          district_name: Nombre del distrito escolar
+          made_contribution: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+          school_name: Nombre de la escuela
+          title: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}?"
+        index:
+          add_another: Añadir otra contribución
+          amount_contributed: 'Cantidad contribuida: %{amount}'
+          contribution_label: Contribución a %{school_name}
+          delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
+          lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2859,6 +2880,7 @@ es:
     alpha: Sólo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
+    ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
     ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos. '
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
