@@ -4,7 +4,7 @@ module StateFile
       include IrsDataTransferLinksConcern
 
       def edit
-        if current_intake.state_file_analytics.initiate_data_transfer_first_visit_at.nil?
+        if current_intake.state_file_analytics&.initiate_data_transfer_first_visit_at&.nil?
           current_intake.state_file_analytics.update!(initiate_data_transfer_first_visit_at: DateTime.now)
         end
         @fake_data_transfer_link = fake_data_transfer_link
