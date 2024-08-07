@@ -1,0 +1,53 @@
+<% @main_heading = t("state_file.questions.az_public_school_contributions.edit.title", year: @filing_year) %>
+
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <h1 class="form-question"><%= @main_heading %></h1>
+  <%= form_with model: @az322_contribution, url: { action: @az322_contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="blue-group">
+          <%= f.cfa_radio_set(
+                :made_contribution,
+                label_text: t('state_file.questions.az_public_school_contributions.edit.made_contribution', year: @filing_year),
+                collection: [
+                  { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#contribution-details" } },
+                  { value: :no, label: t('general.negative') }
+                ]
+              )
+          %>
+        </div>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="contribution-details">
+        <div class="blue-group">
+          <p class="form-question spacing-below-25"><%= t('state_file.questions.az_public_school_contributions.edit.additional_info') %></p>
+          <div class="form-group-tight">
+            <%= f.cfa_input_field(:school_name, t('state_file.questions.az_public_school_contributions.edit.school_name'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:ctds_code, t('state_file.questions.az_public_school_contributions.edit.ctds_code'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:district_name, t('state_file.questions.az_public_school_contributions.edit.district_name'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:amount, t('state_file.questions.az_public_school_contributions.edit.amount', year: @filing_year), classes: ["form-width--long"]) %>
+            <div class="date-select">
+              <%= f.edit_date_select(
+                    :date_of_contribution,
+                    t("state_file.questions.az_public_school_contributions.edit.date_of_contribution", year: @filing_year),
+                    options: {
+                      start_year: @filing_year,
+                      end_year: @filing_year,
+                    },
+                    selected: {
+                      year: @az322_contribution.date_of_contribution&.year,
+                      month: @az322_contribution.date_of_contribution&.month,
+                      day: @az322_contribution.date_of_contribution&.day
+                    }
+                  ) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= f.submit t("general.continue"), :class => "button button--primary button--wide" %>
+  <% end %>
+<% end %>

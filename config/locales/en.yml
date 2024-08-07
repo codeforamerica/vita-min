@@ -315,6 +315,7 @@ en:
     ctc: GetCTC
     ctc_client: CTC client
     date_of_birth: Date of birth
+    day: Day
     days:
       one: "%{count} day"
       other: "%{count} days"
@@ -474,6 +475,7 @@ en:
     log_out: Log out
     login: Login
     married: Married
+    month: Month
     my_account: My account
     my_profile: My profile
     name: Name
@@ -596,6 +598,7 @@ en:
     well: Well
     widowed: Widowed
     year: year
+    year_date: Year
     you: you
     you_or_spouse: you or your spouse
     zip_code: ZIP code
@@ -2151,6 +2154,24 @@ en:
           title:
             one: Did you file with a different last name in the last four years?
             other: Did you or your spouse file with a different last name in the last four years?
+      az_public_school_contributions:
+        destroy:
+          removed: Removed contribution for %{school_name}
+        edit:
+          additional_info: 'Please provide the following information for each public school you paid fees or made contributions to:'
+          amount: Amount of contribution/fees paid in %{year}
+          ctds_code: School Code/CTDS
+          date_of_contribution: Date of payment in %{year} (mm/dd)
+          district_name: School District Name
+          made_contribution: Did you pay fees or make cash contributions to a public school in %{year}? Do not include amounts claimed on last year’s tax return.
+          school_name: School Name
+          title: Did you pay fees or make cash contributions to a public school in %{year}?
+        index:
+          add_another: Add another contribution
+          amount_contributed: 'Amount contributed: %{amount}'
+          contribution_label: Contribution to %{school_name}
+          delete_confirmation: Are you sure you want to delete this contribution?
+          lets_review: Lets review your public school cash contributions and fees
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2866,6 +2887,7 @@ en:
     alpha: Only letters A-Z and a-z are accepted.
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
+    ctds_code: School Code/CTDS must be a 9 digit number.
     ein: EIN must be a 9 digit number.
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
