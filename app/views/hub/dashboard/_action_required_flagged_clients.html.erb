@@ -31,7 +31,7 @@
   <% if p.flagged_clients.exists? %>
     <div class="paging">
       <p><%= p.flagged_clients.limit(3).count %> of <%= p.flagged_clients.count %></p>
-      <%= link_to t("hub.dashboard.show.view_all"), hub_clients_path(flagged: true), class: "text--centered" %>
+      <p> <%= link_to t("hub.dashboard.show.view_all"), hub_clients_path(flagged: true), class: "text--centered" %></p>
     </div>
   <% else %>
     <p><%= t("hub.dashboard.show.action_required.no_clients") %></p>

@@ -15,7 +15,8 @@ module Hub
         current_user,
         current_ability,
         "#{params[:type]}/#{params[:id]}",
-        params[:stage]
+        params[:stage],
+        (params[:page] || 1)
       )
     end
 
