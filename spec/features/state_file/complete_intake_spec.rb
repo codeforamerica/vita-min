@@ -220,17 +220,29 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_state_credits.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
-      check "state_file_az_state_credits_form_tribal_member"
-      fill_in "state_file_az_state_credits_form_tribal_wages", with: "100"
-      check "state_file_az_state_credits_form_armed_forces_member"
-      fill_in "state_file_az_state_credits_form_armed_forces_wages", with: "100"
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
+      check "state_file_az_subtractions_form_tribal_member"
+      fill_in "state_file_az_subtractions_form_tribal_wages", with: "100"
+      check "state_file_az_subtractions_form_armed_forces_member"
+      fill_in "state_file_az_subtractions_form_armed_forces_wages", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
       fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in "az322_contribution_school_name", with: "Tax Elementary"
+      fill_in "az322_contribution_ctds_code", with: "123456789"
+      fill_in "az322_contribution_district_name", with: "Testerson"
+      fill_in "az322_contribution_amount", with: "200"
+      select_cfa_date "az322_contribution_date_of_contribution", Date.new(2023, 6, 21)
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')

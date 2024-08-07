@@ -34,7 +34,7 @@
         <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
         <p><%=number_to_currency(current_intake.armed_forces_wages) %></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::AzStateCreditsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 

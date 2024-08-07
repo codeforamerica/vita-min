@@ -95,14 +95,6 @@ class EfileSubmission < ApplicationRecord
     result.except(*except)
   end
 
-  def is_for_federal_filing?
-    tax_return.present?
-  end
-
-  def is_for_state_filing?
-    data_source_type.in?(StateFile::StateInformationService.state_intake_class_names)
-  end
-
   # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
   # the return can be re-transmitted and accepted by the IRS if the Imperfect Return Election is made.
   # This election can only be made if the original return rejected with reject code SEIC-F1040-501-02 or R0000-504-02.
@@ -156,10 +148,6 @@ class EfileSubmission < ApplicationRecord
     return nil unless previous_submission.present?
 
     previous_submission if previous_submission.last_transition_to("transmitted").present?
-  end
-
-  def source_record
-    is_for_state_filing? ? data_source : tax_return
   end
 
   def generate_verified_address(i = 0)
@@ -271,17 +259,6 @@ class EfileSubmission < ApplicationRecord
     StateFile::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
   end
 
-  def create_qualifying_dependents
-    # TODO(state-file)
-    return unless intake
-
-    qualifying_dependents.delete_all
-
-    intake.dependents.each do |dependent|
-      EfileSubmissionDependent.create_qualifying_dependent(self, dependent)
-    end
-  end
-
   def generate_irs_submission_id!(i = 0)
     return if self.irs_submission_id.present?
 
@@ -295,5 +272,15 @@ class EfileSubmission < ApplicationRecord
     else
       self.update!(irs_submission_id: irs_submission_id)
     end
+  end
+
+  private
+
+  def is_for_federal_filing?
+    tax_return.present?
+  end
+
+  def is_for_state_filing?
+    data_source_type.in?(StateFile::StateInformationService.state_intake_class_names)
   end
 end

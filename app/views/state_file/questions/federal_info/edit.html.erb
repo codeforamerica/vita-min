@@ -75,6 +75,19 @@
       </div>
     </div>
 
+    <div class="federal-info-controller-subform-section with-padding-med">
+      <div class="federal-info-controller-subform-section-title">1099R Zone</div>
+
+      <div class="federal-info-controller-subform-section-content">
+        <%= f.fields_for :form1099rs do |ff| %>
+          <%= render "df_1099r", f: ff %>
+        <% end %>
+        <% if @form.form1099rs.present? %>
+          <%= link_to_add_fields "New 1099R", f, :form1099rs, { class: "button button--small", model: StateFile::FederalInfoForm::DfIrs1099RForm }, partial: "df_1099r" %>
+        <% end %>
+      </div>
+    </div>
+
     <div style="background: #eaacea; padding: 15px; margin-bottom: 15px;">
       <h3>TODO ZONE: where do these things go?</h3>
       <%= f.state_file_qa_input_field :total_state_tax_withheld, "Total state tax withheld" %>

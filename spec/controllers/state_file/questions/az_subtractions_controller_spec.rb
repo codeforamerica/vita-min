@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::AzStateCreditsController do
+RSpec.describe StateFile::Questions::AzSubtractionsController do
   let(:intake) { create :state_file_az_intake }
   before do
     sign_in intake
@@ -13,7 +13,7 @@ RSpec.describe StateFile::Questions::AzStateCreditsController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          state_file_az_state_credits_form: {
+          state_file_az_subtractions_form: {
             armed_forces_member: "yes",
             armed_forces_wages: "100",
             tribal_member: "yes",
