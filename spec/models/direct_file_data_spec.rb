@@ -573,22 +573,22 @@ describe DirectFileData do
 
     describe "#GrossDistributionAmt" do
       it "returns the value" do
-        expect(first_1099r.GrossDistributionAmt).to eq "200"
-        expect(second_1099r.GrossDistributionAmt).to eq "300"
+        expect(first_1099r.GrossDistributionAmt).to eq 200
+        expect(second_1099r.GrossDistributionAmt).to eq 300
       end
     end
 
     describe "#TaxableAmt" do
       it "returns the value" do
-        expect(first_1099r.TaxableAmt).to eq "1000"
-        expect(second_1099r.TaxableAmt).to eq "500"
+        expect(first_1099r.TaxableAmt).to eq 1000
+        expect(second_1099r.TaxableAmt).to eq 500
       end
     end
 
     describe "#FederalIncomeTaxWithheldAmt" do
       it "returns the value" do
-        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq "300"
-        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq "200"
+        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
+        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 200
       end
     end
 
