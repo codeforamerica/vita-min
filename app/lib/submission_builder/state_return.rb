@@ -61,7 +61,7 @@ module SubmissionBuilder
         intake_w2 = intake.state_file_w2s.find { |w2| w2.w2_index == i } if intake.state_file_w2s.present?
 
         {
-          xml: SubmissionBuilder::Shared::ReturnW2,
+          xml: SubmissionBuilder::ReturnW2,
           pdf: w2_pdf,
           include: true,
           kwargs: { w2: w2, intake_w2: intake_w2 }
