@@ -76,9 +76,9 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     fill_in "ZIPCd", with: "43212"
     fill_in "PayerEIN", with: "000000003"
     fill_in "PhoneNum", with: "3025551223"
-    fill_in "GrossDistributionAmt", with: "3000"
-    fill_in "TaxableAmt", with: "200"
-    fill_in "FederalIncomeTaxWithheldAmt", with: "150"
+    fill_in "GrossDistributionAmt", with: 3000
+    fill_in "TaxableAmt", with: 200
+    fill_in "FederalIncomeTaxWithheldAmt", with: 150
     fill_in "F1099RDistributionCd", with: "8"
 
     click_on "Continue"
@@ -102,9 +102,9 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].ZIPCd).to eq "43212"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerEIN).to eq "000000003"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PhoneNum).to eq "3025551223"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].GrossDistributionAmt).to eq "3000"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].TaxableAmt).to eq "200"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].FederalIncomeTaxWithheldAmt).to eq "150"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].GrossDistributionAmt).to eq 3000
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].TaxableAmt).to eq 200
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].FederalIncomeTaxWithheldAmt).to eq 150
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].F1099RDistributionCd).to eq "8"
   end
 end

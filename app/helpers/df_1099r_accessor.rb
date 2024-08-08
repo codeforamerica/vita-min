@@ -33,8 +33,14 @@ class Df1099rAccessor
   end
 
   SELECTORS.keys.each do |key|
-    define_method(key) do
-      df_xml_value(__method__)
+    if key.ends_with?("Amt")
+      define_method(key) do
+        df_xml_value(__method__)&.to_i || 0
+      end
+    else
+      define_method(key) do
+        df_xml_value(__method__)
+      end
     end
 
     define_method("#{key}=") do |value|
