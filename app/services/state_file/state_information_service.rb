@@ -49,7 +49,7 @@ module StateFile
       end
     end
 
-    # private
+    private
 
     STATES_INFO = IceNine.deep_freeze!({
       az: {
