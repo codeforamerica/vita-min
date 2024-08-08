@@ -90,7 +90,7 @@ module StateFile
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
         vita_link: "",
         voucher_form_name: "Form D-400V",
-        voucher_path: "",
+        voucher_path: "/pdfs/d400v-TY2023.pdf",
       },
       ny: {
         intake_class: StateFileNyIntake,
