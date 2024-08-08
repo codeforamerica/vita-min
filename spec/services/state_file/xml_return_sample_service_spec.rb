@@ -6,7 +6,8 @@ describe StateFile::XmlReturnSampleService do
   let(:state_code) { 'az' }
   let(:sample_name) { 'superman_v2' }
   let(:key) { 'az_superman_v2' }
-  let(:bad_key) { 'az_superman_does_not_exist' }
+  let(:missing_key) { 'az_superman_does_not_exist' }
+  let(:invalid_key) { 'asdf' }
   let(:label) { 'Az superman v2' }
   let(:unique_file_contents) { 'KENT' }
   let(:old_sample_unique_file_contents) { 'TESTERSON' }
@@ -31,7 +32,7 @@ describe StateFile::XmlReturnSampleService do
     end
 
     it 'returns the default submission id if one is not found' do
-      expect(xml_return_sample_service.lookup_submission_id(bad_key)).to eq default_submission_id
+      expect(xml_return_sample_service.lookup_submission_id(missing_key)).to eq default_submission_id
     end
   end
 
@@ -41,8 +42,13 @@ describe StateFile::XmlReturnSampleService do
     end
 
     it 'returns false if the sample does not exist' do
-      expect(xml_return_sample_service.include?(bad_key)).to be_falsey
+      expect(xml_return_sample_service.include?(missing_key)).to be_falsey
     end
+
+    it 'returns false if the key is invalid' do
+      expect(xml_return_sample_service.include?(invalid_key)).to be_falsey
+    end
+
   end
 
   describe '#read' do
@@ -51,7 +57,11 @@ describe StateFile::XmlReturnSampleService do
     end
 
     it 'returns nil if the sample does not exist' do
-      expect(xml_return_sample_service.read(bad_key)).to be_nil
+      expect(xml_return_sample_service.read(missing_key)).to be_nil
+    end
+
+    it 'returns nil if the key is invalid' do
+      expect(xml_return_sample_service.read(invalid_key)).to be_nil
     end
   end
 

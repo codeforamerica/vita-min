@@ -236,25 +236,6 @@ class Client < ApplicationRecord
     intake.dependents.filter { |d| d.qualifying_child?(year) || d.qualifying_relative?(year) }
   end
 
-  def clients_with_dupe_contact_info(is_ctc)
-    return [] unless intake
-
-    matching_intakes = Intake.where(
-      "email_address = ? OR phone_number = ? OR phone_number = ? OR sms_phone_number = ? OR sms_phone_number = ?",
-      intake.email_address,
-      intake.phone_number,
-      intake.sms_phone_number,
-      intake.phone_number,
-      intake.sms_phone_number,
-    )
-    if is_ctc
-      matching_intakes = matching_intakes.where(type: "Intake::CtcIntake")
-    else
-      matching_intakes = matching_intakes.where.not(type: "Intake::CtcIntake")
-    end
-    Client.where.not(id: id).after_consent.where(intake: matching_intakes).pluck(:id)
-  end
-
   def clients_with_dupe_ssn(service_class)
     return Client.none unless intake && intake.hashed_primary_ssn.present?
 
