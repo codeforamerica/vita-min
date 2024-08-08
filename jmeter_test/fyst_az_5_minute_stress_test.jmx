@@ -454,7 +454,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility Residence to Eligibility out of State Income" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/questions/eligibility-residence</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-eligibility-residence</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -528,7 +528,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility out of State Income to Ineligible" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/questions/eligibility-out-of-state-income</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-eligibility-out-of-state-income</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -805,7 +805,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility Residence to Eligibility out of State Income" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/questions/eligibility-residence</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-eligibility-residence</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -879,7 +879,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility out of State Income to Eligible" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/questions/eligibility-out-of-state-income</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-eligibility-out-of-state-income</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1745,7 +1745,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility Residence to Eligibility out of State Income" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/questions/eligibility-residence</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-eligibility-residence</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1819,7 +1819,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility out of State Income to Eligible" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/questions/eligibility-out-of-state-income</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-eligibility-out-of-state-income</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
