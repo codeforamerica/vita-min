@@ -356,7 +356,7 @@ Connect to 5s</stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Landing Form" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/landing-page</stringProp>
+          <stringProp name="HTTPSampler.path">/en/az/landing-page</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -394,7 +394,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Landing Page to Eligibility Residence" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/landing-page</stringProp>
+          <stringProp name="HTTPSampler.path">/en/az/landing-page</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -454,7 +454,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility Residence to Eligibility out of State Income" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/eligibility-residence</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/eligibility-residence</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -528,7 +528,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility out of State Income to Ineligible" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/eligibility-out-of-state-income</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/eligibility-out-of-state-income</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -707,7 +707,7 @@ Connect to 5s</stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Landing Form" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/landing-page</stringProp>
+          <stringProp name="HTTPSampler.path">/en/az/landing-page</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -745,7 +745,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Landing Page to Eligibility Residence" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/landing-page</stringProp>
+          <stringProp name="HTTPSampler.path">/en/az/landing-page</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -805,7 +805,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility Residence to Eligibility out of State Income" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/eligibility-residence</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/eligibility-residence</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -879,7 +879,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility out of State Income to Eligible" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/eligibility-out-of-state-income</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/eligibility-out-of-state-income</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -944,7 +944,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Contact Preference" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/contact-preference</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/contact-preference</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -983,7 +983,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Contact Preference to Email Address" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/contact-preference</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/contact-preference</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1051,7 +1051,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Email Address to Verification Code" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/email-address</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/email-address</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1124,7 +1124,7 @@ Connect to 5s</stringProp>
           </TestAction>
           <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Verification Code to Code Verified" enabled="true">
-            <stringProp name="HTTPSampler.path">/en/az/questions/verification-code</stringProp>
+            <stringProp name="HTTPSampler.path">/en/questions/verification-code</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1192,7 +1192,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Terms and Conditions" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/terms-and-conditions</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/terms-and-conditions</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1231,7 +1231,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Terms and Conditions to Initiate Data Transfer" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/terms-and-conditions</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/terms-and-conditions</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1296,7 +1296,7 @@ Connect to 5s</stringProp>
         </WhileController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Waiting to Load Data" enabled="true">
-            <stringProp name="HTTPSampler.path">/en/az/questions/waiting-to-load-data?authorizationCode=az_bert</stringProp>
+            <stringProp name="HTTPSampler.path">/en/questions/waiting-to-load-data?authorizationCode=az_bert</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1335,7 +1335,7 @@ Connect to 5s</stringProp>
           <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Name DOB to AZ Prior Last Names" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/name-dob</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/name-dob</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1647,7 +1647,7 @@ Connect to 5s</stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Landing Form" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/landing-page</stringProp>
+          <stringProp name="HTTPSampler.path">/en/az/landing-page</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1685,7 +1685,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Landing Page to Eligibility Residence" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/landing-page</stringProp>
+          <stringProp name="HTTPSampler.path">/en/az/landing-page</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1745,7 +1745,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility Residence to Eligibility out of State Income" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/eligibility-residence</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/eligibility-residence</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1819,7 +1819,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Eligibility out of State Income to Eligible" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/eligibility-out-of-state-income</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/eligibility-out-of-state-income</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1884,7 +1884,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Contact Preference" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/contact-preference</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/contact-preference</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1923,7 +1923,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Contact Preference to Email Address" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/contact-preference</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/contact-preference</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1991,7 +1991,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Email Address to Verification Code" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/email-address</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/email-address</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2064,7 +2064,7 @@ Connect to 5s</stringProp>
           </TestAction>
           <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Verification Code to Code Verified" enabled="true">
-            <stringProp name="HTTPSampler.path">/en/az/questions/verification-code</stringProp>
+            <stringProp name="HTTPSampler.path">/en/questions/verification-code</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2132,7 +2132,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Terms and Conditions" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/terms-and-conditions</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/terms-and-conditions</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2171,7 +2171,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Terms and Conditions to Initiate Data Transfer" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/terms-and-conditions</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/terms-and-conditions</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2236,7 +2236,7 @@ Connect to 5s</stringProp>
         </WhileController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Waiting to Load Data" enabled="true">
-            <stringProp name="HTTPSampler.path">/en/az/questions/waiting-to-load-data?authorizationCode=az_bert</stringProp>
+            <stringProp name="HTTPSampler.path">/en/questions/waiting-to-load-data?authorizationCode=az_bert</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2275,7 +2275,7 @@ Connect to 5s</stringProp>
           <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Name DOB to AZ Prior Last Names" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/name-dob</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/name-dob</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2483,7 +2483,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Prior Last Names to AZ State Credits" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/az-prior-last-names</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-prior-last-names</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2614,7 +2614,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ State Credits to AZ Charitible Contributions" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/az-state-credits</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-state-credits</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2703,7 +2703,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Charitible Contributions to AZ Excise Credit" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/az-charitable-contributions</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-charitable-contributions</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2785,7 +2785,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Excise Credit to AZ Primary State Id" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/az-excise-credit</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-excise-credit</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -2881,7 +2881,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Primary State Id to AZ Spouse State Id" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/az-primary-state-id</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-primary-state-id</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -3019,7 +3019,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AZ Spouse State Id to AZ Review" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/az-spouse-state-id</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/az-spouse-state-id</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -3147,7 +3147,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tax Refund" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/tax-refund</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/tax-refund</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -3186,7 +3186,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tax Refund to ESign Declaration" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/tax-refund</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/tax-refund</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -3289,7 +3289,7 @@ Connect to 5s</stringProp>
         </TestAction>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ESign Declaration to Submission Confirmation" enabled="true">
-          <stringProp name="HTTPSampler.path">/en/az/questions/esign-declaration</stringProp>
+          <stringProp name="HTTPSampler.path">/en/questions/esign-declaration</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
