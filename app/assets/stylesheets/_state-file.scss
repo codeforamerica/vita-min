@@ -679,22 +679,12 @@
     }
   }
 
-  &.us-state--,
-  &.us-state--az {
+  &.us-state-- {
     .button--intercom{
       background: #FFF;
       border: 2px solid $color-az-grey;
       // icon: state primary color
       color: $color-az-grey;
-    }
-  }
-
-  &.us-state--ny {
-    .button--intercom{
-      background: #FFF;
-      border: 2px solid $color-ny-blue;
-      // icon: state primary color
-      color: $color-ny-blue;
     }
   }
 }
@@ -744,6 +734,13 @@ $state-colors: (
         background-color: $state-color;
       }
     }
+  }
+
+  .button--intercom {
+    background: #FFF;
+    border: 2px solid $state-color;
+    // icon: state primary color
+    color: $color-az-grey;
   }
 }
 
