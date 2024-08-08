@@ -38,34 +38,24 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
     end
   end
 
-  context "with az intake" do
-    let(:warden) do
-      warden_ = instance_double("warden")
-      allow(warden_).to receive(:user).with(:state_file_az_intake).and_return(intake)
-      allow(warden_).to receive(:user).with(:state_file_ny_intake).and_return(nil)
-      warden_
+  context "with a state intake" do
+    let(:warden) { warden_ = instance_double("warden") }
+
+    before do
+      StateFile::StateInformationService.active_state_codes.excluding(state_code).each do |other_state_code|
+        allow(warden).to receive(:user).with("state_file_#{other_state_code}_intake").and_return(nil)
+      end
+      allow(warden).to receive(:user).with(:state_file_az_intake).and_return(intake)
     end
-    let(:intake) { create(:state_file_az_intake) }
 
-    it "successfully connects" do
-      expect { connect "/cable" }.not_to raise_error
-      expect(connection.current_state_file_intake).to eq(intake)
-    end
-  end
+    StateFile::StateInformationService.active_state_codes.each do |state_code|
+      let(:state_code) { state_code }
+      let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
 
-
-  context "with ny intake" do
-    let(:warden) do
-      warden_ = instance_double("warden")
-      allow(warden_).to receive(:user).with(:state_file_az_intake).and_return(nil)
-      allow(warden_).to receive(:user).with(:state_file_ny_intake).and_return(intake)
-      warden_
-    end
-    let(:intake) { create(:state_file_az_intake) }
-
-    it "successfully connects" do
-      expect { connect "/cable" }.not_to raise_error
-      expect(connection.current_state_file_intake).to eq(intake)
+      it "successfully connects" do
+        expect { connect "/cable" }.not_to raise_error
+        expect(connection.current_state_file_intake).to eq(intake)
+      end
     end
   end
 end

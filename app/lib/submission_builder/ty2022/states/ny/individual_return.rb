@@ -3,7 +3,7 @@ module SubmissionBuilder
   module Ty2022
     module States
       module Ny
-        class IndividualReturn < StateReturn
+        class IndividualReturn < SubmissionBuilder::StateReturn
           DEPENDENT_OVERFLOW_THRESHOLD = 6
 
           private

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Shared::ReturnHeader1040 do
+describe SubmissionBuilder::ReturnHeader1040 do
   around do |example|
     Timecop.freeze(Date.new(2023, 3, 1)) do
       example.run

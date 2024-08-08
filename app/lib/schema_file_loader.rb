@@ -1,17 +1,18 @@
-
-
 class SchemaFileLoader
 
   BUCKET = "vita-min-irs-e-file-schema-prod".freeze
   REGION = "us-east-1".freeze
-  EFILE_SCHEMAS_FILENAMES = [
-    ["efile1040x_2020v5.1.zip", "irs"],
-    ["efile1040x_2021v5.2.zip", "irs"],
-    ["efile1040x_2022v5.3.zip", "irs"],
-    ["efile1040x_2023v5.0.zip", "irs"],
-    ["NYSIndividual2023V4.0.zip", "us_states"],
-    ["AZIndividual2023v1.0.zip", "us_states"],
-  ].freeze
+  EFILE_SCHEMAS_FILENAMES = (
+    [
+      ["efile1040x_2020v5.1.zip", "irs"],
+      ["efile1040x_2021v5.2.zip", "irs"],
+      ["efile1040x_2022v5.3.zip", "irs"],
+      ["efile1040x_2023v5.0.zip", "irs"]
+    ] +
+      StateFile::StateInformationService.state_schema_file_names.map do |schema_file_name|
+        [schema_file_name, "us_states"]
+      end
+  ).freeze
 
   class << self
     def load_file(*path)
@@ -39,7 +40,7 @@ class SchemaFileLoader
           response_target: download_path,
           bucket: BUCKET,
           key: File.basename(download_path),
-          )
+        )
       end
     end
 
@@ -55,7 +56,7 @@ class SchemaFileLoader
       Aws::Credentials.new(
         Rails.application.credentials.dig(:aws, :access_key_id),
         Rails.application.credentials.dig(:aws, :secret_access_key),
-        )
+      )
     end
 
     def prepare_directories(dest_dir)
