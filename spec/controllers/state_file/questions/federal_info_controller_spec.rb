@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe StateFile::Questions::FederalInfoController do
-
   let(:intake) { create :state_file_az_refund_intake}
   before do
     sign_in intake
