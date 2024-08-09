@@ -117,14 +117,14 @@
 
     .progress-step {
       height: 10px;
-      background: $color-grey-medium-light;
+      background: #808080;
       flex-shrink: 1;
       flex-grow: 1;
       border-radius: 5px;
     }
 
     .completed-step {
-      background: $color-state-file-primary;
+      background: #008817;
     }
   }
 
