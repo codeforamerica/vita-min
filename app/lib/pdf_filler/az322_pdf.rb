@@ -18,7 +18,7 @@ module PdfFiller
       answers = {
         "TP_Name" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
         "TP_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
-        "Spouse_NAME" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
+        "Spouse_Name" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
         "Spouse_SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
         "4" => @xml_document.at('TotalContributionsContSheet')&.text,
         "5" => @xml_document.at('TotalContributions')&.text,
