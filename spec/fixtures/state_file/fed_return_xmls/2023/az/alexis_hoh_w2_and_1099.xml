@@ -198,22 +198,22 @@
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
     <IRS1099R documentId="IRS1099R0001">
-      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerNameControlTxt>ALEXISPAYER</PayerNameControlTxt>
       <PayerName>
         <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
       </PayerName>
       <PayerUSAddress>
-        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
-        <CityNm>Monroe</CityNm>
-        <StateAbbreviationCd>MA</StateAbbreviationCd>
-        <ZIPCd>05502</ZIPCd>
+        <AddressLine1Txt>123 Walnut Street</AddressLine1Txt>
+        <CityNm>SomeTown</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>45502</ZIPCd>
       </PayerUSAddress>
-      <PayerEIN>000000001</PayerEIN>
-      <PhoneNum>2025551212</PhoneNum>
-      <GrossDistributionAmt>200</GrossDistributionAmt>
-      <TaxableAmt>1000</TaxableAmt>
-      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
-      <F1099RDistributionCd>7</F1099RDistributionCd>
+      <PayerEIN>000000011</PayerEIN>
+      <PhoneNum>2225551111</PhoneNum>
+      <GrossDistributionAmt>2000</GrossDistributionAmt>
+      <TaxableAmt>10000</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>3000</FederalIncomeTaxWithheldAmt>
+      <F1099RDistributionCd>9</F1099RDistributionCd>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRS1099R>
   </ReturnData>

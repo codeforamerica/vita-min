@@ -1,6 +1,4 @@
-class DfW2Accessor
-  include DfXmlCrudMethods
-
+class DfW2Accessor < DfXmlAccessor
   SELECTORS = {
     EmployeeSSN: 'EmployeeSSN',
     EmployerEIN: 'EmployerEIN',
@@ -25,35 +23,13 @@ class DfW2Accessor
     WithholdingAmt: 'WithholdingAmt',
   }
 
-  attr_reader :node
-
-  def initialize(node = nil)
-    @node = if node
-              node
-            else
-              Nokogiri::XML(IrsApiService.df_return_sample).at('IRSW2')
-            end
-  end
-
   def self.selectors
     SELECTORS
   end
-  delegate :selectors, to: :class
 
-  SELECTORS.keys.each do |key|
-    if key.ends_with?("Amt")
-      define_method(key) do
-        df_xml_value(__method__)&.to_i || 0
-      end
-    else
-      define_method(key) do
-        df_xml_value(__method__)
-      end
-    end
-
-    define_method("#{key}=") do |value|
-      create_or_destroy_df_xml_node(__method__, value)
-      write_df_xml_value(__method__, value)
-    end
+  def default_node
+    Nokogiri::XML(IrsApiService.df_return_sample).at('IRSW2')
   end
+
+  define_xml_methods
 end
