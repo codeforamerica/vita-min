@@ -32,7 +32,7 @@ module Efile
       end
 
       def calculate_line_11
-        # Add lines 5 and 10 (not in scope)
+        # Add lines 5 and 10 (line 10 not in scope)
         line_or_zero(:AZ322_LINE_5)
       end
 
@@ -57,7 +57,7 @@ module Efile
       end
 
       def calculate_line_22
-        # Total available credit (add lines 20 and line 21 (not in scope))
+        # Total available credit (add lines 20 and line 21 (line 21 not in scope))
         line_or_zero(:AZ322_LINE_20)
       end
     end
