@@ -32,10 +32,10 @@ module PdfFiller
         "4h" => @xml_document.at('TotalContributionsContSheet')&.text,
       }
       @submission.data_source.az322_contributions.each_with_index do |contribution, index|
-        if index < 3
+        if index < 3 # First three contributions on the first page with labels 1-3
           prefix = (index + 1).to_s
         else
-          letter = ('a'..'g').to_a[index - 3]
+          letter = ('a'..'g').to_a[index - 3] # Rest of the contributions are on page 3 has labels #4a-4g
           prefix = "4#{letter}"
         end
         answers["#{prefix}a"] = contribution.date_of_contribution.strftime("%m%d")

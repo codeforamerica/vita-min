@@ -156,6 +156,13 @@ FactoryBot.define do
                district_name: 'District D',
                amount: 400,
                state_file_az_intake: intake)
+        create(:az322_contribution,
+               date_of_contribution: '2023-05-01',
+               ctds_code: '123456789',
+               school_name: 'School E',
+               district_name: 'District E',
+               amount: 500,
+               state_file_az_intake: intake)
       end
     end
 
