@@ -570,7 +570,7 @@ Rails.application.routes.draw do
           :update, :destroy
         ],
         module: 'state_file/questions',
-        path: 'questions/az_qualifying_organization_contributions'
+        path: 'questions/az-qualifying-organization-contributions'
 
       get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
