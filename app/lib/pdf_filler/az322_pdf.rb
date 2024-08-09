@@ -35,7 +35,7 @@ module PdfFiller
         if index < 3 # First three contributions on the first page with labels 1-3
           prefix = (index + 1).to_s
         else
-          letter = ('a'..'g').to_a[index - 3] # Rest of the contributions are on page 3 has labels #4a-4g
+          letter = ('a'..'g').to_a[index - 3] # Remaining contributions on page 3 use labels #4a-4g
           prefix = "4#{letter}"
         end
         answers["#{prefix}a"] = contribution.date_of_contribution.strftime("%m%d")
