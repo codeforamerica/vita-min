@@ -44,6 +44,7 @@ services:
       - ./:/app
     ports:
       - 3000:3000
+      - 9888:9888
     depends_on:
       - db
     links:
@@ -55,5 +56,10 @@ services:
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
       - RAILS_DB_PASSWORD=password
+  chrome:
+    container_name: chrome
+    image: selenium/standalone-chrome:4.15.0 # this version should match that of the selenium-webdriver gem (see Gemfile)
+    ports:
+      - 4444:4444
 volumes:
   database:
