@@ -979,26 +979,6 @@ describe TaxReturn do
     end
   end
 
-  describe ".filing_years" do
-    before do
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
-    end
-
-    it "provides an array of available filing years, which is the current tax year and three previous years" do
-      expect(MultiTenantService.new(:gyr).filing_years).to eq [2021, 2020, 2019, 2018]
-    end
-  end
-
-  describe ".backtax_years" do
-    before do
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
-    end
-
-    it "excludes the current filing year from backtaxes" do
-      expect(MultiTenantService.new(:gyr).backtax_years).to eq [2020, 2019, 2018]
-    end
-  end
-
   describe "under_submission_limit?" do
     let(:tax_return) { create :ctc_tax_return }
 
