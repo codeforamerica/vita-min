@@ -1,7 +1,10 @@
 module DateAccessible
   extend ActiveSupport::Concern
+  DATE_FRAGMENTS = [:day, :year, :month].to_set
 
   included do
+    private
+
     # Calls `date_reader` and `date_writer` on specified date properties to set
     # getters and setters on the specified date properties. For use with
     # `cfa_date_select`
@@ -9,9 +12,9 @@ module DateAccessible
     # @see cfa_date_select
     #
     # @param properties [Array<Symbol> | Symbol] Either an individual date property or an array to set many at once
-    def self.date_accessor(properties)
-      self.date_reader(properties)
-      self.date_writer(properties)
+    def self.date_accessor(*properties)
+      self.date_reader(*properties)
+      self.date_writer(*properties)
     end
 
     # Creates *_day, *_month, and *_year setters for the specified date
@@ -20,7 +23,7 @@ module DateAccessible
     # @see cfa_date_select
     #
     # @param properties [Array<Symbol> | Symbol] Either an individual date property or an array to set many at once
-    def self.date_reader(properties)
+    def self.date_reader(*properties)
       properties = [properties] unless properties.is_a?(Enumerable)
 
       properties.each do |property|
@@ -44,7 +47,7 @@ module DateAccessible
     # @see cfa_date_select
     #
     # @param properties [Array<Symbol> | Symbol] Either an individual date property or an array to set many at once
-    def self.date_writer(properties)
+    def self.date_writer(*properties)
       properties = [properties] unless properties.is_a?(Enumerable)
 
       properties.each do |property|
@@ -65,7 +68,8 @@ module DateAccessible
     # Takes in valid arguments to Date#change. Will create a new date if
     # `date_of_contribution` is nil, otherwise will merely modify the correct
     # date part. Values can be strings as long as #to_i renders an appropriate
-    # integer
+    # integer. Note that Date#change only accepts :year, :month, and :day as
+    # keys, all other keys will be treated as nothing was passed at all.
     #
     # @see Date#change
     #
@@ -75,8 +79,8 @@ module DateAccessible
       existing_date = send(date_property) || Date.new
 
       self.send(
-        "#{date_property}=",
-        existing_date.change(**args.transform_values(&:to_i))
+          "#{date_property}=",
+          existing_date.change(**args.transform_values(&:to_i))
       )
     end
   end
