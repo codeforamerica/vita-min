@@ -19,7 +19,7 @@ services:
     ports:
       - 5050:5050
     depends_on:
-      - db
+      - rails
   jobs:
     container_name: jobs
     image: ruby:3.2.2

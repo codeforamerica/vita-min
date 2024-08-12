@@ -1,11 +1,10 @@
 #!/bin/sh
 
 dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bin/rails db:drop"
-bin/rails db:create
+bin/rails db:prepare
+bin/rails parallel:create
 if [[ -z "${RUN_MIGRATIONS}:+1" ]]; then
   bin/rails db:migrate
-else
-  bin/rails db:schema:load
 fi
 bin/rails db:seed
 
