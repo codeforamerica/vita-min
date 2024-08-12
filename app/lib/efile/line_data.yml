@@ -92,6 +92,22 @@ AZ140_CCWS_LINE_6c:
 “0”'
 AZ140_CCWS_LINE_7c:
   label: '7C Multiply line 6C by 31% (.31) and enter the result'
+AZ321_LINE_4H:
+  label: "Total past first 3 contributions"
+AZ321_LINE_4:
+  label: "Total past first 3 contributions"
+AZ321_LINE_5:
+  label: "Total contributions made or fees paid to QCOs during 2023"
+AZ321_LINE_11:
+  label: "Subtotal Amount"
+AZ321_LINE_12:
+  label: "Single or Head of Household Filing Status Amount"
+AZ321_LINE_13:
+  label: "Minimum of Line 11 or Line 12"
+AZ321_LINE_20:
+  label: "Current year credit (line 13)"
+AZ321_LINE_22:
+  label: "Total Available Credit (line 20)"
 AZ322_LINE_4:
   label: "Total Contributions Beyond Initial Limit"
 AZ322_LINE_5:
