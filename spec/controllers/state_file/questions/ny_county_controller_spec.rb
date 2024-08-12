@@ -11,7 +11,6 @@ RSpec.describe StateFile::Questions::NyCountyController do
     describe "#next_path" do
       let(:form_params) do
         {
-          us_state: "ny",
           state_file_ny_county_form: {
             residence_county: "Albany"
           }
@@ -21,7 +20,7 @@ RSpec.describe StateFile::Questions::NyCountyController do
       context "with return_to_review param set" do
         it "navigates to the district page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "ny_school_district", action: :edit, us_state: "ny", return_to_review: 'y')
+          expect(response).to redirect_to(controller: "ny_school_district", action: :edit, return_to_review: 'y')
         end
       end
 
@@ -37,7 +36,7 @@ RSpec.describe StateFile::Questions::NyCountyController do
             next_controller_to_show = next_controller.show?(intake) ? next_controller : nil
             increment += 1
           end
-          expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first, us_state: form_params[:us_state])
+          expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first)
         end
       end
     end

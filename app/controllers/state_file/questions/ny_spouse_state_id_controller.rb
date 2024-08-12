@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class NySpouseStateIdController < AuthenticatedQuestionsController
+    class NySpouseStateIdController < QuestionsController
       include ReturnToReviewConcern
 
       def self.show?(intake)

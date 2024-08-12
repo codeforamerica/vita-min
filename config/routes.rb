@@ -487,7 +487,6 @@ Rails.application.routes.draw do
           login_routes
 
           get 'edit_info', to: "portal#edit_info"
-          put 'resubmit', to: "portal#resubmit"
 
           get 'primary_filer', to: "primary_filer#edit"
           put 'primary_filer', to: "primary_filer#update"
@@ -561,40 +560,42 @@ Rails.application.routes.draw do
         end
       end
 
-      # constraint on us state is like /az|ny/i
-      scope ':us_state', constraints: { us_state: Regexp.new(active_state_codes.join("|"), Regexp::IGNORECASE) } do
-        resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
-        resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
-        resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-        get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
-        get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+      resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
+      resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
+      resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+      resources :az_public_school_contributions, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/az-public-school-contributions'
+      get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
+      get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+
+      resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
+        put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
+        get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
       end
+
+      get "login-options", to: "state_file/state_file_pages#login_options"
+
+      match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+      match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
+      resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
+
+      active_state_codes.each do |code|
+        navigation_class = StateFile::StateInformationService.navigation_class(code)
+        scoped_navigation_routes(:questions, navigation_class)
+      end
+
+      match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
+      match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
 
       # constraint on us state is like /az|ny|us/i
       scope ':us_state', constraints: { us_state: Regexp.new((active_state_codes + ["us"]).join("|"), Regexp::IGNORECASE) } do
-        resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
-          put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
-          get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
-        end
-        get "login-options", to: "state_file/state_file_pages#login_options"
         get "/faq", to: "state_file/faq#index", as: :state_faq
         get "/faq/:section_key", to: "state_file/faq#show", as: :state_faq_section
-
-        match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-        match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-        resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
       end
 
-      active_state_codes.each do |code|
-        scope ':us_state', as: code, constraints: { us_state: code } do
-          navigation_class = StateFile::StateInformationService.navigation_class(code)
-          scoped_navigation_routes(:questions, navigation_class)
-        end
-      end
-
-      scope ':us_state', as: 'us', constraints: { us_state: :us } do
-        match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
-        match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
+      # constraint on us state is like /az|ny/i
+      scope ':us_state', constraints: { us_state: Regexp.new(active_state_codes.join("|"), Regexp::IGNORECASE) } do
+        get "/landing-page", to: "state_file/landing_page#edit", as: :state_landing_page
+        put "/landing-page", to: "state_file/landing_page#update"
       end
 
       unless Rails.env.production?

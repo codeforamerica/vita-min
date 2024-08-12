@@ -662,6 +662,12 @@
       width: 40rem;
     }
 
+    .question-layout .question-wrapper .button.button--wide {
+      min-width: 40rem;
+      max-width: 40rem;
+      width: 40rem;
+    }
+
     .esign-declaration-outer .text--error {
       margin: 0 auto;
       text-align: center;
@@ -745,6 +751,13 @@ $state-colors: (
     border-color: black;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+}
+
+.federal-info-outer {
+  .dev-button {
+    margin: 0.5rem auto;
+    display: block;
   }
 }
 

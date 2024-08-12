@@ -2,8 +2,8 @@ module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileControllerConcern
+      include StateFile::StateFileIntakeConcern
       before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended
-      helper_method :card_postscript
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -25,8 +25,8 @@ module StateFile
 
       def redirect_if_no_intake
         unless current_intake.present?
-          flash[:notice] = 'Your session expired. Please sign in again to continue.'
-          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)
+          flash[:notice] = I18n.t("devise.failure.timeout")
+          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
         end
       end
 
@@ -35,7 +35,7 @@ module StateFile
           if current_intake.efile_submissions.empty?
             redirect_to root_path
           else
-            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit, us_state: current_state_code)
+            redirect_to StateFile::Questions::ReturnStatusController.to_path_helper(action: :edit)
           end
         end
       end
@@ -46,7 +46,7 @@ module StateFile
 
       def next_path
         step_for_next_path = next_step
-        options = { us_state: current_state_code, action: step_for_next_path.navigation_actions.first }
+        options = { action: step_for_next_path.navigation_actions.first }
         if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
@@ -63,7 +63,7 @@ module StateFile
 
       def path_for_step(step)
         return unless step
-        options = { us_state: current_state_code, action: step.navigation_actions.first }
+        options = { action: step.navigation_actions.first }
         if step.resource_name
           options[:id] = step.model_for_show_check(self)&.id
         end
@@ -72,8 +72,6 @@ module StateFile
 
       # by default, most state file questions have no illustration
       def illustration_path; end
-
-      def card_postscript; end
 
       def update_for_device_id_collection(efile_device_info)
         @form = initialized_update_form

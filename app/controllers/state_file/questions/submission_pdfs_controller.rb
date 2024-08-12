@@ -4,6 +4,12 @@ module StateFile
       skip_before_action :redirect_if_in_progress_intakes_ended
 
       def show
+        if current_intake.submission_pdf.attached?
+          send_data current_intake.submission_pdf.download, filename: "submission.pdf", disposition: 'inline'
+          return
+        end
+        # This is a fallback for legacy reasons - all submitted intakes should have an attached submission pdf
+        # Once the take task has updated all entries and FYST-324 is complete, we can remove this
         @submission = current_intake.efile_submissions.find_by(id: params[:id])
         error_redirect and return unless @submission.present?
 
@@ -13,7 +19,7 @@ module StateFile
       private
 
       def error_redirect
-        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options, us_state: current_state_code)
+        redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
       end
     end
   end

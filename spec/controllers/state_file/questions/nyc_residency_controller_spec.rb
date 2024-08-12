@@ -10,8 +10,7 @@ RSpec.describe StateFile::Questions::NycResidencyController do
     let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
     let(:device_id) { "ABC123" }
     let(:params) do
-      { us_state: "ny",
-        state_file_nyc_residency_form: {
+      { state_file_nyc_residency_form: {
           nyc_residency: "none",
           nyc_maintained_home: "yes",
           device_id: device_id
@@ -38,7 +37,6 @@ RSpec.describe StateFile::Questions::NycResidencyController do
       context "with a disqualifying answer" do
         it "redirects to the offboarding page with offboarded_from" do
           post :update, params: {
-            us_state: "ny",
             state_file_nyc_residency_form: {
               nyc_residency: "none",
               nyc_maintained_home: "yes",
@@ -46,17 +44,15 @@ RSpec.describe StateFile::Questions::NycResidencyController do
             }
           }
 
-          expected_path = StateFile::Questions::EligibilityOffboardingController.to_path_helper(
-            us_state: "ny")
+          expected_path = StateFile::Questions::EligibilityOffboardingController.to_path_helper
           expect(response).to redirect_to expected_path
-          expect(session[:offboarded_from]).to eq described_class.to_path_helper(us_state: "ny")
+          expect(session[:offboarded_from]).to eq described_class.to_path_helper
         end
       end
 
       context "when accessed from the review page" do
         it "redirects to the review page" do
           post :update, params: {
-            us_state: "ny",
             return_to_review: "y",
             state_file_nyc_residency_form: {
               nyc_residency: "full_year",
@@ -64,14 +60,13 @@ RSpec.describe StateFile::Questions::NycResidencyController do
             }
           }
 
-          expect(response).to redirect_to(controller: "ny_review", action: :edit, us_state: "ny")
+          expect(response).to redirect_to(controller: "ny_review", action: :edit)
         end
       end
 
       context "with both a disqualifying answer and a return to review param" do
         it "redirects to offboarding but retains the return to review param in the path to return to" do
           post :update, params: {
-            us_state: "ny",
             return_to_review: "y",
             state_file_nyc_residency_form: {
               nyc_residency: "part_year",
@@ -79,10 +74,9 @@ RSpec.describe StateFile::Questions::NycResidencyController do
             }
           }
 
-          expected_path = StateFile::Questions::EligibilityOffboardingController.to_path_helper(
-            us_state: "ny")
+          expected_path = StateFile::Questions::EligibilityOffboardingController.to_path_helper
           expect(response).to redirect_to expected_path
-          expect(session[:offboarded_from]).to eq described_class.to_path_helper(us_state: "ny", return_to_review: "y")
+          expect(session[:offboarded_from]).to eq described_class.to_path_helper(return_to_review: "y")
         end
       end
     end

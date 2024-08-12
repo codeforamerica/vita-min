@@ -4,7 +4,6 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
   describe "Flow" do
     it "Flow has not changed" do
       expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq([
-        StateFile::Questions::LandingPageController, # creates state_intake (StartIntakeConcern)
         StateFile::Questions::AzEligibilityResidenceController,
         StateFile::Questions::AzEligibilityOutOfStateIncomeController,
         StateFile::Questions::EligibilityOffboardingController,
@@ -27,8 +26,9 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::AzPriorLastNamesController,
         StateFile::Questions::W2Controller,
         StateFile::Questions::UnemploymentController,
-        StateFile::Questions::AzStateCreditsController,
+        StateFile::Questions::AzSubtractionsController,
         StateFile::Questions::AzCharitableContributionsController,
+        StateFile::Questions::AzPublicSchoolContributionsController,
         StateFile::Questions::AzExciseCreditController,
         StateFile::Questions::AzPrimaryStateIdController,
         StateFile::Questions::AzSpouseStateIdController,

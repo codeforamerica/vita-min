@@ -9,7 +9,7 @@ describe StateFile::StateInformationService do
 
   describe ".calculator_class" do
     it "returns the tax calculator class" do
-      expect(described_class.calculator_class("az")).to eq Efile::Az::Az140
+      expect(described_class.calculator_class("az")).to eq Efile::Az::Az140Calculator
     end
   end
 

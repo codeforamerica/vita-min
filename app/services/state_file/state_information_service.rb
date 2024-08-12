@@ -49,9 +49,9 @@ module StateFile
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
-        calculator_class: Efile::Az::Az140,
+        calculator_class: Efile::Az::Az140Calculator,
         navigation_class: Navigation::StateFileAzQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::IndividualReturn,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
