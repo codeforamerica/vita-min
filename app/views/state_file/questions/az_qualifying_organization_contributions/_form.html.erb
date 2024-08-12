@@ -1,0 +1,69 @@
+<% @main_heading = "Did you make cash contributions to a qualifying charitable organization in 2024?" %>
+
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <h1 class="form-question">
+    <%= @main_heading -%>
+  </h1>
+
+  <%= form_with(
+    model: @contribution,
+    url: {
+      action: @contribution.persisted? ? :update : :create
+    },
+    local: true,
+    builder: VitaMinFormBuilder,
+    html: {
+      class: 'form-card form-card--long'
+    }
+  ) do |f| %>
+
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="blue-group">
+          <%=
+            f.cfa_radio_set(
+              :made_contributions,
+              collection: [
+                {
+                  value: :yes,
+                  label: t('general.affirmative'),
+                  input_html: { "data-follow-up": "#contribution-details" }
+                },
+                {
+                  value: :no,
+                  label: t('general.negative')
+                }
+              ]
+            )
+          %>
+        </div> 
+
+      </div>
+      <div class="question-with-follow-up__follow-up" id="contribution-details">
+        <div class="blue-group">
+          <p class="form-question spacing-below-25">
+          Please provide the following information for each cash donation to a qualifying charitable organization:
+          </p>
+          <div class="form-group-tight">
+            <%= f.cfa_input_field(:charity_name, "Charity name", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:charity_code, "Charity code", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:amount, "Contribution amount", classes: ["form-width--long"]) %>
+            <div class="date-select">
+              <%= f.cfa_date_select(
+                :date_of_contribution,
+                "Date of contribution",
+                options: {
+                  start_year: @filing_year,
+                  end_year: @filing_year
+                }
+              ) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.submit t("general.continue"), class: "button button--primary button--wide" %>
+  <% end %>
+<% end %>

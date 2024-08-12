@@ -1,0 +1,32 @@
+<% title = 'Lets review' %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <% if @contributions.present? %>
+    <% @contributions.each do |contribution| %>
+      <div class="blue-group">
+        <div>
+          <h3>
+              Let's Review
+          </h3>
+          <p class="spacing-below-25">
+              what
+          </p>
+          <div>
+            <%= link_to 'Edit', StateFile::Questions::AzQualifyingOrganizationContributionsController .to_path_helper(id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
+            <%= link_to 'Delete', StateFile::Questions::AzQualifyingOrganizationContributionsController .to_path_helper(action: :destroy, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: {confirm: 'Ya sure?'}, class: "button--small button--inline-action last" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
+    <%= 'Continue' %>
+  <% end %>
+  <%= link_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
+    <%= 'Add another?' %>
+  <% end %>
+<% end %>
