@@ -16,7 +16,8 @@
 #  index_az321_contributions_on_state_file_az_intake_id  (state_file_az_intake_id)
 #
 class Az321Contribution < ApplicationRecord
-  attr_accessor :made_contributions
+  TAX_YEAR = Date.new(Rails.configuration.statefile_current_tax_year)
+  attr_writer :made_contributions
   date_accessor :date_of_contribution
 
   belongs_to :state_file_az_intake
@@ -27,10 +28,20 @@ class Az321Contribution < ApplicationRecord
   validates :charity_name, presence: true
   validates :charity_code, presence: true
   validates :amount, presence: true, numericality: { greater_than: 0 }
-  validates :date_of_contribution, presence: true
-  validate do |contribution|
-    if contribution.date_of_contribution.year != Rails.configuration.statefile_current_tax_year
-      errors.add(:date_of_contribution, "Invalid year")
+  validates :date_of_contribution,
+    inclusion: {
+      in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year,
+      message: I18n.t('errors.attributes.date.format')
+    },
+    presence: true
+
+  # Virtual attribute for creating/editing form. Only necessary on create. In
+  # other words, only matters before the model is persisted
+  def made_contributions
+    if persisted?
+      @made_contributions || "yes"
+    else
+      @made_contributions
     end
   end
 end
