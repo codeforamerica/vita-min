@@ -50,7 +50,7 @@ class SchemaFileLoader
       #
       # In development, download the file manually from S3. This allows us to avoid storing any AWS credentials in the development secrets.
       if ENV["AWS_ACCESS_KEY_ID"].present?
-        return Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+        return Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV.fetch("AWS_SECRET_ACCESS_KEY", nil))
       end
 
       Aws::Credentials.new(
@@ -95,7 +95,7 @@ class SchemaFileLoader
 
           Dir.chdir(unpack_path) do
             zip_file.each do |entry|
-              raise StandardError.new("Unsafe filename; exiting") unless entry.name_safe?
+              raise StandardError, "Unsafe filename; exiting" unless entry.name_safe?
 
               FileUtils.mkdir_p(File.dirname(entry.name))
 

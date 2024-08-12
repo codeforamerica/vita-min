@@ -196,7 +196,7 @@ bin/shakapacker-dev-server
 1. Run `docker compose up`. This will start the database, pgadmin, jobs, and rails app containers.
 
 ### Run tests in a docker container
-1. Set the rails env to test and restart the rails container: `RAILS_ENV=test docker compose up rails`
+1. Run local tests in the development environment
 1. Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails bin/test`
 
 ## Development 💻
