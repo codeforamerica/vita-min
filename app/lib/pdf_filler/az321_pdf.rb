@@ -29,6 +29,8 @@ class PdfFiller::Az321Pdf
     }
 
     @submission.data_source.az321_contributions.each_with_index do |contribution, index|
+      break if index >= 10
+
       if index <= 2
         prefix = index + 1
       else

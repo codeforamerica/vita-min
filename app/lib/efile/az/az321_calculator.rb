@@ -20,15 +20,15 @@ class Efile::Az::Az321Calculator < ::Efile::TaxCalculator
 
   private
 
+  def calculate_line_4h
+    # Add all the amounts in column (d) and enter the total. Also, enter this amount on page 1, line 4
+    @intake.az321_contributions.drop(3).sum(&:amount).round
+  end
+
   def calculate_line_4
     # If you made contributions to more that three qualifying charitable organization,
     # enter the amount from line 4h of the Continuation Sheet, otherwise enter "0"
     line_or_zero(:AZ321_LINE_4H)
-  end
-
-  def calculate_line_4h
-    # Add all the amounts in column (d) and enter the total. Also, enter this amount on page 1, line 4
-    @intake.az321_contributions.drop(3).sum(&:amount).round
   end
 
   def calculate_line_5

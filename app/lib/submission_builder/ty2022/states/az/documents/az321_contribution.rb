@@ -23,19 +23,23 @@ class SubmissionBuilder::Ty2022::States::Az::Documents::Az321Contribution < Subm
       xml.CurrentYrCr @calculated_fields.fetch(:AZ321_LINE_20)
       xml.TotalAvailCr @calculated_fields.fetch(:AZ321_LINE_22)
 
-      if az321contributions.present? && az321contributions&.size >= 4
-        az321contributions[3...[10, az321contributions.size].min].each do |contribution|
-          xml.ContinuationPages do
-            xml.QualCharityContrDate contribution.date_of_contribution
-            xml.QualCharityCode contribution.charity_code
-            xml.QualCharity contribution.charity_name
-            xml.QualCharityAmt contribution.amount.round
+      if az321contributions.present? && az321contributions.size >= 4
+        xml.ContinuationPages do
+
+          az321contributions[3...10].each do |contribution|
+            xml.CharityInfo do
+              xml.QualCharityContrDate contribution.date_of_contribution
+              xml.QualCharityCode contribution.charity_code
+              xml.QualCharity contribution.charity_name
+              xml.QualCharityAmt contribution.amount.round
+            end
           end
+
           xml.ContTotalCharityAmt @calculated_fields.fetch(:AZ321_LINE_4H)
+          xml.ContTotalCharityAmtAfter 0
         end
       end
 
     end
-
   end
 end
