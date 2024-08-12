@@ -148,7 +148,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it "generates XML with AZ-321 contributions information" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
-        expect(xml.css('CharityInfo').count).to eq 3
+        expect(xml.css('CharityInfo').count).to eq 4
         expect(xml.css('ContinuationPages').count).to eq 1
 
         expect(xml.at('CharityInfo QualCharityContrDate').text).to eq '2023-08-22'
