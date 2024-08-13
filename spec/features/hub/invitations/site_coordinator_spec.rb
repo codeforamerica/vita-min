@@ -9,7 +9,6 @@ RSpec.feature "Inviting site coordinator" do
     end
 
     scenario "Inviting, re-sending invites, and accepting invites", js: true do
-      binding.pry
       visit hub_tools_path
       click_on "Invitations"
 
