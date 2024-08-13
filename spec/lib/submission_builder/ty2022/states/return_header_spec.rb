@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::ReturnHeader do
+describe SubmissionBuilder::ReturnHeader do
   describe '.document' do
     context "filer DOBs" do
       let(:submission) { create(:efile_submission, data_source: intake) }
@@ -15,7 +15,7 @@ describe SubmissionBuilder::Ty2022::States::ReturnHeader do
         }
 
         it "generates xml with primary filer DOB only" do
-          doc = SubmissionBuilder::Ty2022::States::ReturnHeader.new(submission).document
+          doc = SubmissionBuilder::ReturnHeader.new(submission).document
           expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
           expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
         end
@@ -36,7 +36,7 @@ describe SubmissionBuilder::Ty2022::States::ReturnHeader do
         }
 
         it "generates xml with primary and spouse DOBs" do
-          doc = SubmissionBuilder::Ty2022::States::ReturnHeader.new(submission).document
+          doc = SubmissionBuilder::ReturnHeader.new(submission).document
           expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
           expect(doc.at("Filer Secondary DateOfBirth").text).to eq spouse_birth_date.strftime("%F")
         end
@@ -48,7 +48,7 @@ describe SubmissionBuilder::Ty2022::States::ReturnHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "generates xml with the right values" do
-        doc = SubmissionBuilder::Ty2022::States::ReturnHeader.new(submission).document
+        doc = SubmissionBuilder::ReturnHeader.new(submission).document
         expect(doc.at("ReturnType").text).to eq "Form140"
       end
     end
