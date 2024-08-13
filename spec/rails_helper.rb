@@ -18,18 +18,11 @@ else
   Capybara.javascript_driver = :selenium_chrome_headless
 end
 
-# selenium_app_host = ENV.fetch("SELENIUM_APP_HOST") do
-#   Socket.ip_address_list
-#         .find(&:ipv4_private?)
-#         .ip_address
-# end
-
 Capybara.default_max_wait_time = 5
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
-Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3000"
 Capybara.server_host = "0.0.0.0"
-# Capybara.server_port = 3000
+Capybara.ignore_hidden_elements = false
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
