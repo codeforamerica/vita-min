@@ -63,11 +63,9 @@ RSpec.feature "Creating new drop off clients" do
 
       # fields for tax return years
       check "2023"
-      check "2022"
-      check "2020"
+      check "2021"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_0_certification_level"
-      select "Basic", from: "hub_create_client_form_tax_returns_attributes_1_certification_level"
-      select "Basic", from: "hub_create_client_form_tax_returns_attributes_3_certification_level"
+      select "Basic", from: "hub_create_client_form_tax_returns_attributes_2_certification_level"
 
       check "Opt into email notifications"
       check "Opt into sms notifications"
@@ -95,9 +93,9 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "spicypeter@pepper.com"
 
       within ".tax-return-list" do
-        expect(page).to have_text "2020"
-        expect(page).not_to have_text "2021"
-        expect(page).to have_text "2022"
+        expect(page).not_to have_text "2020"
+        expect(page).to have_text "2021"
+        expect(page).not_to have_text "2022"
         expect(page).to have_text "2023"
       end
 

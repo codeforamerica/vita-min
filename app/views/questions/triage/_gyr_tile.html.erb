@@ -13,7 +13,7 @@
   <div class="bottom-section">
     <div>
       <ul class="list--bulleted">
-        <% filing_years = MultiTenantService.new(:gyr).filing_years  %>
+        <% filing_years = gyr_filing_years  %>
         <li><%= t('.list.file', oldest_filing_year: filing_years.last, current_tax_year: filing_years.first) %></li>
         <li><%= t('.list.income') %></li>
         <li><%= t('.list.ssn') %></li>
