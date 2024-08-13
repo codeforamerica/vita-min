@@ -29,14 +29,12 @@ services:
     depends_on:
       - rails
     environment:
-      - "RAILS_ENV=${RAILS_ENV:-development}"
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
       - RAILS_DB_PASSWORD=password
   rails:
     container_name: rails
-    image: ruby:3.2.2
     build:
       context: .
       dockerfile: Dockerfile.local
@@ -51,7 +49,6 @@ services:
       - db
     environment:
       - "RUN_MIGRATIONS=${RUN_MIGRATIONS}"
-      - "RAILS_ENV=${RAILS_ENV:-development}"
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
