@@ -8,7 +8,8 @@ if ENV['COVERAGE']
   puts "COVERAGE enabled! look at coverage/index.html for the result."
 end
 
-WebMock.disable_net_connect!(allow_localhost: true)
+# WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.allow_net_connect!
 
 RSpec::Matchers.define_negated_matcher :not_have_enqueued_job, :have_enqueued_job
 
@@ -57,12 +58,12 @@ RSpec.configure do |config|
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
   config.filter_run_when_matching :focus
 
-  config.before(:each) do
-    begin
-      Rack::Attack.enabled = false
-    rescue
-      puts "RackAttack not loaded - are you running a single test?"
-    end
+  config.before do
+    
+    Rack::Attack.enabled = false
+  rescue StandardError
+    puts "RackAttack not loaded - are you running a single test?"
+    
   end
 
 =begin

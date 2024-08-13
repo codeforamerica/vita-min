@@ -9,11 +9,12 @@ RSpec.feature "Inviting site coordinator" do
     end
 
     scenario "Inviting, re-sending invites, and accepting invites", js: true do
+      binding.pry
       visit hub_tools_path
       click_on "Invitations"
 
       # Invitations page
-      expect(page).to have_selector "h1", text: "Invitations"
+      expect(page).to have_css "h1", text: "Invitations"
       select "Site Coordinator", from: "What type of user do you want to invite?"
       click_on "Continue"
 
