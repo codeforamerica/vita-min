@@ -22,7 +22,6 @@ Capybara.default_max_wait_time = 5
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 Capybara.server_host = "0.0.0.0"
-Capybara.ignore_hidden_elements = false
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
