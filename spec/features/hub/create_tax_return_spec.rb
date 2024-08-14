@@ -6,8 +6,18 @@ RSpec.feature "Add a tax return for an existing client" do
     let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
     let!(:tax_return2020) { create :tax_return, client: client, year: 2020 }
 
+    let(:fake_current_tax_year) { 2023 }
+    let(:fake_time) { DateTime.parse("2024-04-14") }
+
     before do
+      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(fake_current_tax_year)
       login_as user
+    end
+
+    around do |example|
+      Timecop.freeze(fake_time) do
+        example.run
+      end
     end
 
     scenario "creating a tax return" do
@@ -18,7 +28,7 @@ RSpec.feature "Add a tax return for an existing client" do
       click_on "Add tax year"
 
       expect(page).to have_selector("h1", text: "Add tax year for Bart Simpson")
-      expect(page).to have_select("Tax year", options: (MultiTenantService.new(:gyr).filing_years - [2020]).map(&:to_s))
+      expect(page).to have_select("Tax year", options: (MultiTenantService.gyr.filing_years - [2020]).map(&:to_s))
       select "2021", from: "Tax year"
       select "Org Lead", from: "Assigned user"
       select "Basic", from: "Certification level"

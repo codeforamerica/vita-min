@@ -30,6 +30,7 @@ module StateFile
     def self.nested_attribute_names
       {
         w2s_attributes: DfIrsW2Form::SELECTORS.keys,
+        form1099rs_attributes: DfIrs1099RForm::SELECTORS.keys,
         dependent_details_attributes: DfDependentDetailForm::SELECTORS.keys,
         qualifying_child_informations_attributes: DfQualifyingChildInformationForm::SELECTORS.keys
       }
@@ -103,6 +104,12 @@ module StateFile
       end
     end
 
+    def form1099rs
+      @intake.direct_file_data.form1099r_nodes.map do |node|
+        DfIrs1099RForm.new(node)
+      end
+    end
+
     def w2s_attributes=(attributes)
       index = 0
       attributes.each do |_form_number, w2_attributes|
@@ -110,8 +117,22 @@ module StateFile
           @intake.direct_file_data.build_new_w2_node
         end
         w2 = w2s[index.to_i]
-        DfIrsW2Form::SELECTORS.each_key do |field|
+        DfIrsW2Form.selectors.each_key do |field|
           w2.send(:"#{field}=", w2_attributes[field.to_s])
+        end
+        index += 1
+      end
+    end
+
+    def form1099rs_attributes=(attributes)
+      index = 0
+      attributes.each do |_form_number, form1099r_attributes|
+        if index == form1099rs.length
+          @intake.direct_file_data.build_new_1099r_node
+        end
+        form1099r = form1099rs[index.to_i]
+        DfIrs1099RForm.selectors.each_key do |field|
+          form1099r.send(:"#{field}=", form1099r_attributes[field.to_s])
         end
         index += 1
       end
@@ -271,105 +292,29 @@ module StateFile
       end
     end
 
-    class DfIrsW2Form
-      include DfXmlCrudMethods
-
-      SELECTORS = {
-        WagesAmt: 'WagesAmt',
-        WithholdingAmt: 'WithholdingAmt',
-        StateWagesAmt: 'W2StateLocalTaxGrp W2StateTaxGrp StateWagesAmt',
-        StateIncomeTaxAmt: 'W2StateLocalTaxGrp W2StateTaxGrp StateIncomeTaxAmt',
-        LocalWagesAndTipsAmt: 'W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalWagesAndTipsAmt',
-        LocalIncomeTaxAmt: 'W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalIncomeTaxAmt',
-        LocalityNm: 'W2StateLocalTaxGrp W2StateTaxGrp W2LocalTaxGrp LocalityNm',
-      }
-
-      attr_reader :node
+    class DfIrsW2Form < DfW2Accessor
       attr_accessor :id
-      attr_accessor *SELECTORS.keys
       attr_accessor :_destroy
-
-      def selectors
-        SELECTORS
-      end
-
-      def initialize(node = nil)
-        @node = if node
-          node
-        else
-          Nokogiri::XML(IrsApiService.df_return_sample).at('IRSW2')
-        end
-      end
 
       def id
         @node['documentId']
       end
 
-      def WagesAmt
-        df_xml_value(__method__)&.to_i
+      def persisted?
+        true
       end
 
-      def WagesAmt=(value)
-        write_df_xml_value(__method__, value)
+      def errors
+        ActiveModel::Errors.new(nil)
       end
+    end
 
-      def WithholdingAmt
-        df_xml_value(__method__)&.to_i
-      end
+    class DfIrs1099RForm < Df1099rAccessor
+      attr_accessor :id
+      attr_accessor :_destroy
 
-      def WithholdingAmt=(value)
-        write_df_xml_value(__method__, value)
-      end
-
-      def StateWagesAmt
-        df_xml_value(__method__)&.to_i
-      end
-
-      def StateWagesAmt=(value)
-        create_or_destroy_df_xml_node(__method__, value)
-        write_df_xml_value(__method__, value)
-      end
-
-      def StateIncomeTaxAmt
-        df_xml_value(__method__)&.to_i
-      end
-
-      def StateIncomeTaxAmt=(value)
-        create_or_destroy_df_xml_node(__method__, value)
-        write_df_xml_value(__method__, value)
-      end
-
-      def LocalWagesAndTipsAmt
-        df_xml_value(__method__)&.to_i
-      end
-
-      def LocalWagesAndTipsAmt=(value)
-        create_or_destroy_df_xml_node(__method__, value)
-        if value.present?
-          write_df_xml_value(__method__, value)
-        end
-      end
-
-      def LocalIncomeTaxAmt
-        df_xml_value(__method__)&.to_i
-      end
-
-      def LocalIncomeTaxAmt=(value)
-        create_or_destroy_df_xml_node(__method__, value)
-        if value.present?
-          write_df_xml_value(__method__, value)
-        end
-      end
-
-      def LocalityNm
-        df_xml_value(__method__)
-      end
-
-      def LocalityNm=(value)
-        create_or_destroy_df_xml_node(__method__, value)
-        if value.present?
-          write_df_xml_value(__method__, value)
-        end
+      def id
+        @node['documentId']
       end
 
       def persisted?

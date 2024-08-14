@@ -9,6 +9,7 @@ module StateFile
         :mail_voucher_address,
         :pay_taxes_link,
         :return_type,
+        :schema_file_name,
         :state_name,
         :survey_link,
         :tax_payment_info_url,
@@ -39,6 +40,10 @@ module StateFile
         state_intake_classes.map(&:to_s).freeze
       end
 
+      def state_schema_file_names
+        STATES_INFO.map { |_, attrs| attrs[:schema_file_name] }
+      end
+
       def state_code_to_name_map
         active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
       end
@@ -57,6 +62,7 @@ module StateFile
                               "Phoenix, AZ 85038-9085".html_safe,
         pay_taxes_link: "https://www.aztaxes.gov/",
         return_type: "Form140",
+        schema_file_name: "AZIndividual2023v1.0.zip",
         state_name: "Arizona",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
@@ -65,6 +71,26 @@ module StateFile
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
+      },
+      nc: {
+        intake_class: StateFileNcIntake,
+        calculator_class: Efile::Nc::D400Calculator,
+        navigation_class: Navigation::StateFileNcQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
+        mail_voucher_address: "North Carolina Department of Revenue<br/>" \
+                              "PO Box 25000<br/>" \
+                              "Raleigh, NC 27640-0640".html_safe,
+        pay_taxes_link: "https://www.nc.gov/working/taxes",
+        return_type: "D-400",
+        schema_file_name: "NCIndividual2023v1.0.zip",
+        state_name: "North Carolina",
+        survey_link: "",
+        tax_payment_info_url: "",
+        tax_payment_url: "",
+        tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
+        vita_link: "",
+        voucher_form_name: "Form D-400V",
+        voucher_path: "/pdfs/d400v-TY2023.pdf",
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -78,6 +104,7 @@ module StateFile
         pay_taxes_link: "https://www.tax.ny.gov/pay/",
         return_type: "IT201",
         state_name: "New York",
+        schema_file_name: "NYSIndividual2023V4.0.zip",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_payment_url: "Tax.NY.gov",

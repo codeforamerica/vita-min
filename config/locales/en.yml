@@ -322,6 +322,7 @@ en:
     ctc: GetCTC
     ctc_client: CTC client
     date_of_birth: Date of birth
+    day: Day
     days:
       one: "%{count} day"
       other: "%{count} days"
@@ -481,6 +482,7 @@ en:
     log_out: Log out
     login: Login
     married: Married
+    month: Month
     my_account: My account
     my_profile: My profile
     name: Name
@@ -603,6 +605,7 @@ en:
     well: Well
     widowed: Widowed
     year: year
+    year_date: Year
     you: you
     you_or_spouse: you or your spouse
     zip_code: ZIP code
@@ -976,15 +979,18 @@ en:
           no_clients: No clients to display at the moment
           title: 'Action Required: Flagged Clients'
           updated: Updated At
+        approaching: Approaching
         capacity: Capacity
         current_capacity: Current Capacity
         filter_by_stage: Filter by Stage
         org_name: Organization Name
+        overdue: Overdue
         resources:
           hub_training: Hub Trainings
           newsletter: GYR Newsletter
           title: Resources
         returns_by_status: Returns by Status
+        sla_title: Service Level Agreements Notifications
         title: Dashboard
         total_number_of_returns: Total number of returns
         total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]
@@ -1426,85 +1432,6 @@ en:
         We’re here to help!
     ctc_sms_opt_in: Welcome to GetCTC messages. Msg&data rates may apply. Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     default_subject_with_service_name: Update from %{service_name}
-    efile:
-      acceptance:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS which means that they can begin processing your refund.
-
-            You can check the status of your refund after 24 hours at Where's My Refund: https://www.irs.gov/refunds
-
-            We're here to help!
-            Your tax team at GetCTC.org
-          subject: Thank you for filing your taxes with GetCTC!
-        sms: |
-          Hello <<Client.PreferredName>>, Thank you for filing your taxes with GetCTC! Your taxes have been accepted by the IRS.
-          You can check the status of your refund after 24 hours at https://www.irs.gov/refunds
-      failed:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
-
-            Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-
-            We’re here to help!
-            Your tax team at GetCTC.org
-          subject: Attention needed to submit your your taxes with GetCTC
-        sms: |
-          Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! We need to correct some of your tax information in order to submit your tax return to the IRS.
-          Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-          We’re here to help!
-          Your tax team at GetCTC.org
-      preparing:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive any payments until your taxes are accepted.
-
-            We’re here to help!
-            Your tax team at GetCTC.org
-          subject: Your taxes are processing
-        sms: |
-          Hello <<Client.PreferredName>>,
-          We are currently processing your information to send it to the IRS. We will let you know within one week if your taxes have been accepted or rejected. You will not receive any payments until your taxes are accepted.
-          Your tax team at GetCTC.org
-      rejected:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
-
-            Sign in to see next steps for correcting and resubmitting your tax information: <<Client.LoginLink>>
-
-            We’re here to help!
-            Your tax team at GetCTC.org
-          subject: Attention needed to submit your taxes with GetCTC
-        sms: |
-          Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to see next steps for correcting your tax information.
-      rejected_and_cancelled:
-        email:
-          body: |
-            Hello <<Client.PreferredName>>,
-
-            Thank you for filing your taxes with GetCTC! Unfortunately, your tax return has been rejected by the IRS.
-
-            Sign in to see why your return was not accepted: <<Client.LoginLink>>
-
-            Replies to this address are not monitored. If you need additional assistance, please write support@getyourrefund.org.
-
-            Your tax team at GetCTC.org
-          subject: GetCTC Return Status Update
-        sms: |
-          Hello <<Client.PreferredName>>,
-          Thank you for filing your taxes with GetCTC! Unfortunately, your taxes have been rejected by the IRS. Sign in here <<Client.LoginLink>> to learn more. (Replies not monitored. Write support@getyourrefund.org for assistance.)
     fraud_hold:
       email:
         body: |
@@ -1853,6 +1780,8 @@ en:
     intake:
       your_spouse: Your spouse
   notifications_settings:
+    invalid_link: Invalid subscription link
+    no_record: No record found
     subscribe_to_emails:
       flash: You are successfully re-subscribed to email notifications.
     unsubscribe_from_emails:
@@ -2147,6 +2076,13 @@ en:
             <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
+        nc:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of North Carolina
+          title: File your North Carolina state taxes for free
         not_you: Not %{user_name}?
         ny:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
@@ -2169,9 +2105,7 @@ en:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
     notifications_settings:
-      subscribe_email:
-        flash: You are successfully re-subscribed to email notifications.
-      unsubscribe_email:
+      unsubscribe_from_emails:
         help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
         link_text: Opt in again.
         mistake: Is this a mistake?
@@ -2252,6 +2186,24 @@ en:
           contribution_name: Contribution to %{charity_name} with code %{charity_code}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Great! Thanks for sharing that information. Let’s review.
+      az_public_school_contributions:
+        destroy:
+          removed: Removed contribution for %{school_name}
+        edit:
+          additional_info: 'Please provide the following information for each public school you paid fees or made contributions to:'
+          amount: Amount of contribution/fees paid in %{year}
+          ctds_code: School Code/CTDS
+          date_of_contribution: Date of payment in %{year} (mm/dd)
+          district_name: School District Name
+          made_contribution: Did you pay fees or make cash contributions to a public school in %{year}? Do not include amounts claimed on last year’s tax return.
+          school_name: School Name
+          title: Did you pay fees or make cash contributions to a public school in %{year}?
+        index:
+          add_another: Add another contribution
+          amount_contributed: 'Amount contributed: %{amount}'
+          contribution_label: Contribution to %{school_name}
+          delete_confirmation: Are you sure you want to delete this contribution?
+          lets_review: Lets review your public school cash contributions and fees
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2284,7 +2236,7 @@ en:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
           passed_away_label: Did %{name} pass away in 2023?
           title: Please provide some more information about the people in your family who are 65 years of age or older.
-      az_state_credits:
+      az_subtractions:
         edit:
           armed_forces_member_label_html: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces <strong>and</strong> received pay for active duty military service.
           armed_forces_wages_label:
@@ -2360,7 +2312,7 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this tool this year because %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_lived_in_state: did not live in %{state} for all of 2023
@@ -2909,6 +2861,8 @@ en:
         how_we_collect_your_info_item_1: Visit our Site, fill out forms on our Site, or use our Services
         how_we_collect_your_info_item_2: Provide us with documents to use our Services
         how_we_collect_your_info_item_3: Communicate with us (for instance through email, chat, social media, or otherwise)
+        independent_recourse_body_html: If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request">https://feedback-form.truste.com/watchdog/request</a>.
+        independent_recourse_header: Independent Recourse Mechanism
         info_collect_1_html: We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> Consistent with regulation, we may use or disclose your information in the following instances&#58;
         info_collect_item_1: For analysis and reporting, we may share limited aggregate information with government agencies or other third parties, including the IRS or state departments of revenue, to analyze the use of our Services, in order to improve and expand our services. Such analysis is always performed using anonymized data, and data is never disclosed in cells smaller than ten returns.
         info_collect_item_2: 'For research to improve our tax filing products, including:'
@@ -2916,7 +2870,7 @@ en:
         info_collect_item_2_2: To send you opportunities to participate in paid user research sessions, to learn more about your experience using our product and to guide the development of future free tax filing products.
         info_collect_item_3_html: "<em>For Arizona FileYourStateTaxes users only&#58;</em> To notify you of the availability of free tax filing services in the future."
         info_collect_item_4: If necessary, we may disclose your information to contractors who help us provide our services. We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
-        info_collect_item_5: We may share your information with third parties in special situations, such as when required by law.
+        info_collect_item_5: 'Legal Compliance: In certain situations, we may be required to disclose personal data in response to lawful requests by public authorities, including to meet national security or law enforcement requirements. We may also disclose your personal information as required by law, such as to comply with a subpoena or other legal process, when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.'
         info_we_collect_1: 'We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:'
         info_we_collect_header: Information we collect
         info_we_collect_item_1: Personal identifiers such as name, addresses, phone numbers, and email addresses
@@ -2965,6 +2919,7 @@ en:
     alpha: Only letters A-Z and a-z are accepted.
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
+    ctds_code: School Code/CTDS must be a 9 digit number.
     ein: EIN must be a 9 digit number.
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
@@ -3129,15 +3084,9 @@ en:
             title: You have removed all of your %{credit_warnings} eligible dependents.
         edit_info:
           add_bank_information: Add bank information
-          help_text: Please ensure that all of your information is correct prior to submitting your tax return. Once you resubmit, your tax return will be transmitted to the IRS and you will not be able to make any additional changes.
-          help_text_cant_submit: Please wait to submit any additional changes to your submission. We are waiting on a response to your previous submission from the IRS.
-          help_text_resubmission_limit_html: You have reached the maximum number of resubmissions. Please email %{email_link} or chat the support team below.
           no_ba_error_html: "<strong>Error:</strong> You selected Direct Deposit, but you did not add your bank information. Please update your bank information by selecting Add bank information below."
           no_bank_account: No bank information entered.
-          resubmit: Resubmit my tax return
           title: Correct your submitted information
-          w2s_missing: Missing W-2 Info
-          w2s_shared: W-2s shared
           will_send_check_to_address: You will receive a check to your mailing address above. If you'd like to receive a direct deposit, select the add bank information button below.
         home:
           contact_us: Contact us

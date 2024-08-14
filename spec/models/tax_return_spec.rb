@@ -97,37 +97,6 @@ describe TaxReturn do
   end
 
   describe "#record_expected_payments!" do
-    context "when the return is accepted" do
-      let(:tax_return) { create :ctc_tax_return }
-      let(:efile_submission) { create :efile_submission, :transmitted, tax_return: tax_return }
-
-      before do
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip1_amount).and_return(1000)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip2_amount).and_return(1300)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount).and_return(2400)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:advance_ctc_amount_received).and_return(1200)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:ctc_amount).and_return(2450)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:eip3_amount_received).and_return(2350)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_eip3).and_return(450)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_ctc_amount).and_return(900)
-        allow_any_instance_of(Efile::BenefitsEligibility).to receive(:outstanding_recovery_rebate_credit).and_return(2400)
-      end
-
-      it "creates an accepted_tax_return_analytics association" do
-        expect {
-          efile_submission.transition_to(:accepted)
-        }.to change(AcceptedTaxReturnAnalytics, :count).by 1
-        expect(tax_return.accepted_tax_return_analytics.advance_ctc_amount_cents).to eq 120000
-        expect(tax_return.accepted_tax_return_analytics.eip1_and_eip2_amount_cents).to eq 230000
-        expect(tax_return.accepted_tax_return_analytics.eip3_amount_cents).to eq 240000
-        expect(tax_return.accepted_tax_return_analytics.outstanding_ctc_amount_cents).to eq 90000
-        expect(tax_return.accepted_tax_return_analytics.ctc_amount_cents).to eq 245000
-        expect(tax_return.accepted_tax_return_analytics.eip1_and_eip2_amount_cents).to eq 230000
-        expect(tax_return.accepted_tax_return_analytics.eip3_amount_received_cents).to eq 235000
-        expect(tax_return.accepted_tax_return_analytics.total_refund_amount_cents).to eq 330000
-      end
-    end
-
     context "when the return is any status other than accepted" do
       let(:tax_return) { create :tax_return, :file_rejected }
 
@@ -1007,26 +976,6 @@ describe TaxReturn do
     it "passes in the correct arguments to AppliedStandardDeduction" do
       tax_return.standard_deduction
       expect(AppliedStandardDeduction).to have_received(:new).with(tax_return: tax_return)
-    end
-  end
-
-  describe ".filing_years" do
-    before do
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
-    end
-
-    it "provides an array of available filing years, which is the current tax year and three previous years" do
-      expect(MultiTenantService.new(:gyr).filing_years).to eq [2021, 2020, 2019, 2018]
-    end
-  end
-
-  describe ".backtax_years" do
-    before do
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return 2021
-    end
-
-    it "excludes the current filing year from backtaxes" do
-      expect(MultiTenantService.new(:gyr).backtax_years).to eq [2020, 2019, 2018]
     end
   end
 

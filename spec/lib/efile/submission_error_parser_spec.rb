@@ -72,7 +72,7 @@ describe Efile::SubmissionErrorParser do
           expect(transition.efile_errors.count).to eq 1
           expect(transition.efile_errors.first.message).to eq "You have a problem"
           expect(transition.efile_errors.first.source).to eq "internal"
-          expect(EfileError.last.service_type).to eq "ctc"
+          expect(EfileError.last.service_type).to eq "state_file"
         end
       end
 

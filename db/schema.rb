@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_224704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -458,6 +458,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.string "ctds_code"
     t.date "date_of_contribution"
     t.string "district_name"
+    t.integer "made_contribution", default: 0, null: false
     t.string "school_name"
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
@@ -1763,6 +1764,58 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_001953) do
     t.inet "ip_address"
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
+  end
+
+  create_table "state_file_nc_intakes", force: :cascade do |t|
+    t.string "account_number"
+    t.integer "account_type", default: 0, null: false
+    t.string "bank_name"
+    t.string "city"
+    t.integer "consented_to_terms_and_conditions", default: 0, null: false
+    t.integer "contact_preference", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.string "current_step"
+    t.date "date_electronic_withdrawal"
+    t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_imported_at"
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.citext "email_address"
+    t.datetime "email_address_verified_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
+    t.integer "filing_status"
+    t.string "hashed_ssn"
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
+    t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
+    t.integer "payment_or_deposit_type", default: 0, null: false
+    t.string "phone_number"
+    t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
+    t.integer "primary_esigned", default: 0, null: false
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.text "raw_direct_file_data"
+    t.string "referrer"
+    t.integer "routing_number"
+    t.integer "sign_in_count", default: 0, null: false
+    t.string "source"
+    t.integer "spouse_esigned", default: 0, null: false
+    t.string "ssn"
+    t.string "street_address"
+    t.integer "tax_return_year"
+    t.boolean "unsubscribed_from_email", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.string "visitor_id"
+    t.integer "withdraw_amount"
+    t.string "zip_code"
+    t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
   end
 
   create_table "state_file_notification_emails", force: :cascade do |t|
