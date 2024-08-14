@@ -1773,6 +1773,8 @@ en:
     intake:
       your_spouse: Your spouse
   notifications_settings:
+    invalid_link: Invalid subscription link
+    no_record: No record found
     subscribe_to_emails:
       flash: You are successfully re-subscribed to email notifications.
     unsubscribe_from_emails:
@@ -2096,9 +2098,7 @@ en:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
     notifications_settings:
-      subscribe_email:
-        flash: You are successfully re-subscribed to email notifications.
-      unsubscribe_email:
+      unsubscribe_from_emails:
         help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
         link_text: Opt in again.
         mistake: Is this a mistake?
