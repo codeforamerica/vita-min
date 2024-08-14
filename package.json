@@ -28,7 +28,7 @@
     "stickybits": "^3.7.9",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "5",
-    "trix": "^2.1.1",
+    "trix": "^2.1.4",
     "turbolinks": "^5.2.0",
     "webpack": "5",
     "webpack-assets-manifest": "5",
