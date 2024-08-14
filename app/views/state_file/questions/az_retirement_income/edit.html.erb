@@ -1,0 +1,11 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

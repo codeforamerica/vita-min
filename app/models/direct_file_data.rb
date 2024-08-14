@@ -21,6 +21,7 @@ class DirectFileData
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
+    fed_taxable_pensions: 'IRS1040 TotalTaxablePensionsAmt',
     fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
     fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
     fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
@@ -250,6 +251,14 @@ class DirectFileData
   end
 
   def fed_taxable_income=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_taxable_pensions
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_taxable_pensions=(value)
     write_df_xml_value(__method__, value)
   end
 

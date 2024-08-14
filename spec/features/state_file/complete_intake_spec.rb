@@ -227,6 +227,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages", with: "100"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text  I18n.t("state_file.questions.az_retirement_income.edit.title")
+      # TODO add checkboxes etc.
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"

@@ -2756,6 +2756,9 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
+      az_retirement_income:
+        edit:
+          title: "Arizona allows for a subtraction for certain types of retirement and pension income. Select any of the following situations that apply to you."
     state_file_pages:
       about_page:
         closed_subheader_html: |
