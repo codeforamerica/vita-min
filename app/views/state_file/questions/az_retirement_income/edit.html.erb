@@ -3,6 +3,45 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <% [:received_military_retirement_payment, :primary_received_pension, :spouse_received_pension].each do |income_type| %>
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <div class="blue-group">
+            <%= f.cfa_checkbox(
+                  income_type,
+                  t(".#{income_type}", count: current_intake.filer_count),
+                  options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "##{income_type}" }
+                )
+            %>
+          </div>
+        </div>
+        <div class="question-with-follow-up__follow-up" id="#{income_type}">
+          <div class="blue-group">
+            <div class="spacing-below-25">
+              <p><%= t(".#{income_type}_amount") %></p>
+              <p><%= t(".should_not_exceed_taxable_pensions_total_html", total: number_to_currency(current_intake.direct_file_data.fed_taxable_pensions)) %></p>
+            </div>
+            <div class="form-group-tight">
+              <%= f.cfa_input_field(
+                    "#{income_type}_amount".to_sym,
+                    t(".amount_label"),
+                    classes: ["form-width--long"]
+                  )
+              %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @form.errors[:base].any? %>
+      <div class="form-group form-group--error">
+        <% @form.errors[:base].each do |error| %>
+          <p class="text--error"><i class="icon-warning"></i><%= error %></p>
+        <% end %>
+      </div>
+    <% end %>
+
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
