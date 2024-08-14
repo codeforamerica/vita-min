@@ -233,6 +233,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: Rails.configuration.statefile_current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in "az321_contribution_charity_name", with: "Center for Ants"
+      fill_in "az321_contribution_charity_code", with: "123456789"
+      fill_in "az321_contribution_amount", with: "90"
+      select_cfa_date "az321_contribution_date_of_contribution", Date.new(Rails.configuration.statefile_current_tax_year, 6, 21)
+
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"

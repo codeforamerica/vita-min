@@ -1,10 +1,10 @@
-<% @main_heading = t('.main_heading')%>
+<% @main_heading = t('.main_heading', filing_year: @filing_year) %>
 
 <% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
   <h1 class="form-question">
-    <%= t('.main_heading_html') -%>
+    <%= t('.main_heading_html', filing_year: @filing_year) -%>
   </h1>
 
   <%= form_with(
@@ -49,13 +49,13 @@
             <%= t('.question_header') %>
           </p>
           <div class="form-group-tight">
-            <%= f.cfa_input_field(:charity_name, "Charity name", classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:charity_code, "Charity code", classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:amount, "Contribution amount", classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:charity_name, t('.charity_name'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:charity_code, t('.charity_code'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:amount, t('.amount', filing_year: @filing_year), classes: ["form-width--long"]) %>
             <div class="date-select">
               <%= f.cfa_date_select(
                 :date_of_contribution,
-                "Date of contribution",
+                t('.date_of_contribution', filing_year: @filing_year),
                 options: {
                   start_year: @filing_year,
                   end_year: @filing_year
