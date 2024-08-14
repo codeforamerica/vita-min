@@ -12,7 +12,7 @@
             <%= t('.contribution_name', charity_name: contribution.charity_name, charity_code: contribution.charity_code) %>
           </h3>
           <p class="spacing-below-25">
-            <%= contribution.amount %>
+            <%= t('.contribution_amount', amount: contribution.amount) %>
           </p>
           <div>
             <%=

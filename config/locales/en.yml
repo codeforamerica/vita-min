@@ -5,8 +5,15 @@ en:
       models:
         ctc/dependents/info_form:
           attributes:
-            ssn:
-              blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
+            blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
+ssn:
+  activerecord:
+    errors:
+      models:
+        az321_contribution:
+          attributes:
+            date_of_contribution:
+              inclusion: Date must be in the current tax year
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2237,6 +2244,7 @@ en:
           question_header: "Please provide the following information for each cash donation to a qualifying charitable organization:"
         index:
           add_another: Add another contribution
+          contribution_amount: "Amount: %{amount}"
           contribution_name: Contribution to %{charity_name} with code %{charity_code}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Great! Thanks for sharing that information. Let’s review.

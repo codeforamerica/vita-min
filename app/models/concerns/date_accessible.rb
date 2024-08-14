@@ -1,6 +1,7 @@
 module DateAccessible
   extend ActiveSupport::Concern
-  DATE_FRAGMENTS = [:day, :year, :month].to_set
+
+  TAX_YEAR = Date.new(Rails.configuration.statefile_current_tax_year)
 
   included do
     private

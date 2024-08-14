@@ -29,7 +29,9 @@
                 {
                   value: :yes,
                   label: t('general.affirmative'),
-                  input_html: { "data-follow-up": "#contribution-details", checked: @contribution.persisted? }
+                  input_html: {
+                    "data-follow-up": "#contribution-details",
+                  }
                 },
                 {
                   value: :no,

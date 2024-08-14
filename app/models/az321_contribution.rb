@@ -16,7 +16,6 @@
 #  index_az321_contributions_on_state_file_az_intake_id  (state_file_az_intake_id)
 #
 class Az321Contribution < ApplicationRecord
-  TAX_YEAR = Date.new(Rails.configuration.statefile_current_tax_year)
   attr_accessor :made_contributions
   date_accessor :date_of_contribution
 
@@ -30,8 +29,7 @@ class Az321Contribution < ApplicationRecord
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :date_of_contribution,
     inclusion: {
-      in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year,
-      message: I18n.t('errors.attributes.date.format')
+      in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year
     },
     presence: true
 end

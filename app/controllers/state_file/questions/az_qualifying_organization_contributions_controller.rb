@@ -10,7 +10,9 @@ module StateFile
         redirect_to action: :new unless contributions.present?
       end
 
-      def edit = contribution
+      def edit
+        contribution.made_contributions = "yes"
+      end
 
       def update
         contribution.assign_attributes(az321_contribution_params)
