@@ -50,13 +50,19 @@ module Hub
       end
 
       def returns_by_status_presenter
-        @return_summary ||= Hub::Dashboard::ReturnsByStatusPresenter.new(
+        @returns_by_status_presenter ||= Hub::Dashboard::ReturnsByStatusPresenter.new(
           @current_user, clients, selected_orgs_and_sites, selected_model, @return_summary_stage
         )
       end
 
       def action_required_flagged_clients_presenter
-        @action_required_flagged_clients ||= Hub::Dashboard::ActionRequiredFlaggedClientsPresenter.new(
+        @action_required_flagged_clients_presenter ||= Hub::Dashboard::ActionRequiredFlaggedClientsPresenter.new(
+          clients, selected_orgs_and_sites
+        )
+      end
+
+      def service_level_agreements_notifications_presenter
+        @service_level_agreements_notifications_presenter ||= Hub::Dashboard::ServiceLevelAgreementsNotificationsPresenter.new(
           clients, selected_orgs_and_sites
         )
       end

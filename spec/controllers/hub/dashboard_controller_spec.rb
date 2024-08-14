@@ -50,6 +50,12 @@ RSpec.describe Hub::DashboardController do
         end
       end
 
+      it "displays service level agreement notifications panel" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response.body).to have_text I18n.t("hub.dashboard.show.overdue")
+        expect(response.body).to have_text I18n.t("hub.dashboard.show.approaching")
+      end
+
       it "shows the capacity panel" do
         model = VitaPartner.first
         get :show, params: { id: model.id, type: model.class.name.downcase }
