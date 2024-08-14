@@ -72,6 +72,9 @@ module DateAccessible
     # integer. Note that Date#change only accepts :year, :month, and :day as
     # keys, all other keys will be treated as nothing was passed at all.
     #
+    # Note that until all three fragments are passed; month, day, and year, the
+    # year is nonsense. This is expected to be caught by validation.
+    #
     # @see Date#change
     #
     # @param date_property [Symbol] The property to manipulate
@@ -83,6 +86,8 @@ module DateAccessible
           "#{date_property}=",
           existing_date.change(**args.transform_values(&:to_i))
       )
+    rescue Date::Error
+      nil
     end
   end
 end

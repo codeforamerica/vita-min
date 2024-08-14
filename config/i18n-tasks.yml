@@ -118,6 +118,7 @@ ignore_unused:
   - 'activemodel.*'
   - 'number.currency.format.*'
   - 'state_file.navigation.*'
+  - 'activerecord.errors.models.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
