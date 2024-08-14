@@ -45,7 +45,9 @@
   <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
     <%= 'Continue' %>
   <% end %>
-  <%= link_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
-    <%= t('.add_another') %>
+  <% if @contribution_count < 3 %>
+    <%= link_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
+      <%= t('.add_another') %>
+    <% end %>
   <% end %>
 <% end %>

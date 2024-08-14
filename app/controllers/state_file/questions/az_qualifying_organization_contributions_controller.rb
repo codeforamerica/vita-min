@@ -6,6 +6,7 @@ module StateFile
       before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
 
       def index
+        @contribution_count = contributions.count
         redirect_to action: :new unless contributions.present?
       end
 
