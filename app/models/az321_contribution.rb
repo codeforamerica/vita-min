@@ -17,13 +17,13 @@
 #
 class Az321Contribution < ApplicationRecord
   TAX_YEAR = Date.new(Rails.configuration.statefile_current_tax_year)
-  attr_writer :made_contributions
+  attr_accessor :made_contributions
   date_accessor :date_of_contribution
 
   belongs_to :state_file_az_intake
 
-  # Virtual attribute, not in database
-  validates :made_contributions, presence: true, unless: :persisted?
+  # Virtual attribute, not in database. Only checked when created via form interface.
+  validates :made_contributions, presence: true, on: :form_create
 
   validates :charity_name, presence: true
   validates :charity_code, presence: true
@@ -34,14 +34,4 @@ class Az321Contribution < ApplicationRecord
       message: I18n.t('errors.attributes.date.format')
     },
     presence: true
-
-  # Virtual attribute for creating/editing form. Only necessary on create. In
-  # other words, only matters before the model is persisted
-  def made_contributions
-    if persisted?
-      @made_contributions || "yes"
-    else
-      @made_contributions
-    end
-  end
 end

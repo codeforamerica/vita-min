@@ -15,10 +15,10 @@ module StateFile
       def update
         contribution.assign_attributes(az321_contribution_params)
 
-        if contribution.valid?
-          contribution.save
-
+        if contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
+        else
+          render :edit
         end
       end
 
@@ -29,12 +29,9 @@ module StateFile
       def create
         @contribution = contributions.build(az321_contribution_params)
 
+        return redirect_to next_path unless @contribution.made_contributions == "yes"
 
-        if @contribution.valid?
-          return redirect_to next_path unless @contribution.made_contributions == "yes"
-
-          @contribution.save
-
+        if @contribution.save(context: :form_create)
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
           render :new

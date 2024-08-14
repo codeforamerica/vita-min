@@ -9,10 +9,10 @@
       <div class="blue-group">
         <div>
           <h3>
-              Let's Review
+            <%= t('.contribution_name', charity_name: contribution.charity_name, charity_code: contribution.charity_code) %>
           </h3>
           <p class="spacing-below-25">
-            <%= t('.contribution_name', charity_name: contribution.charity_name, charity_code: contribution.charity_code) %>
+            <%= contribution.amount %>
           </p>
           <div>
             <%=
