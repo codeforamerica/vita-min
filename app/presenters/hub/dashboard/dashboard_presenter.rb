@@ -69,7 +69,7 @@ module Hub
       end
 
       def team_assignment_presenter
-        @team_assignment_presenter ||= Hub::Dashboard::TeamAssignmentPresenter.new(@current_user, @page)
+        @team_assignment_presenter ||= Hub::Dashboard::TeamAssignmentPresenter.new(@current_user, @page, selected_model)
       end
 
       private
