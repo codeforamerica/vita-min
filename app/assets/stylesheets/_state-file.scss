@@ -680,6 +680,14 @@
   }
 }
 
+.us-state-- {
+  .button--intercom{
+    background: #FFF;
+    border: 2px solid $color-az-grey;
+    color: $color-az-grey;
+  }
+}
+
 $state-colors: (
   ny: $color-ny-blue,
   az: $color-az-grey,
@@ -704,6 +712,13 @@ $state-colors: (
 
     .slab--footer {
       background-color: $state-color;
+    }
+
+    .button--intercom {
+      background: #FFF;
+      border: 2px solid $state-color;
+      // icon: state primary color
+      color: $state-color;
     }
   }
 
