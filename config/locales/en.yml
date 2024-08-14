@@ -5,8 +5,8 @@ en:
       models:
         ctc/dependents/info_form:
           attributes:
-            blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
-ssn:
+            ssn:
+              blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
   activerecord:
     errors:
       models:
