@@ -243,7 +243,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
-
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: Rails.configuration.statefile_current_tax_year)
@@ -256,6 +255,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
+
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')

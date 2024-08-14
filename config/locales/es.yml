@@ -2138,21 +2138,6 @@ es:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
             one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
             other: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
-      az_qualifying_organization_contributions:
-        form:
-          amount: Monto de la contribución en %{filing_year}
-          charity_code: Código de caridad
-          charity_name: Nombre de la organización benéfica
-          date_of_contribution: Fecha de pago en %{filing_year} (mm/dd)
-          main_heading: "¿Hizo contribuciones en efectivo a una organización benéfica calificada en %{filing_year}?"
-          main_heading_html: ¿Hizo contribuciones en efectivo a una <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >organización benéfica calificada</a> en %{filing_year}?
-          question_header: 'Proporcione la siguiente información para cada donación en efectivo a una organización benéfica calificada:'
-        index:
-          add_another: Añadir otra contribución
-          contribution_amount: 'Cantidad: %{amount}'
-          contribution_name: Contribución a %{charity_name} con el código %{charity_code}
-          delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
-          lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
       az_public_school_contributions:
         destroy:
           removed: Contribución eliminada para %{school_name}
@@ -2171,6 +2156,21 @@ es:
           contribution_label: Contribución a %{school_name}
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
           lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
+      az_qualifying_organization_contributions:
+        form:
+          amount: Monto de la contribución en %{filing_year}
+          charity_code: Código de caridad
+          charity_name: Nombre de la organización benéfica
+          date_of_contribution: Fecha de pago en %{filing_year} (mm/dd)
+          main_heading: "¿Hizo contribuciones en efectivo a una organización benéfica calificada en %{filing_year}?"
+          main_heading_html: ¿Hizo contribuciones en efectivo a una <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >organización benéfica calificada</a> en %{filing_year}?
+          question_header: 'Proporcione la siguiente información para cada donación en efectivo a una organización benéfica calificada:'
+        index:
+          add_another: Añadir otra contribución
+          contribution_amount: 'Cantidad: %{amount}'
+          contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
+          lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
