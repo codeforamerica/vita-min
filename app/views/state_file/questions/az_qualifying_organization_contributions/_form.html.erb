@@ -1,10 +1,10 @@
-<% @main_heading = "Did you make cash contributions to a qualifying charitable organization in 2024?" %>
+<% @main_heading = t('.main_heading')%>
 
 <% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
   <h1 class="form-question">
-    <%= @main_heading -%>
+    <%= t('.main_heading_html') -%>
   </h1>
 
   <%= form_with(
@@ -44,7 +44,7 @@
       <div class="question-with-follow-up__follow-up" id="contribution-details">
         <div class="blue-group">
           <p class="form-question spacing-below-25">
-          Please provide the following information for each cash donation to a qualifying charitable organization:
+            <%= t('.question_header') %>
           </p>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:charity_name, "Charity name", classes: ["form-width--long"]) %>

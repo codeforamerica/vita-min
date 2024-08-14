@@ -21,7 +21,9 @@ module StateFile
         end
       end
 
-      def new = contributions.build
+      def new 
+        @contribution = contributions.build
+      end
 
       def create
         @contribution = contributions.build(az321_contribution_params)

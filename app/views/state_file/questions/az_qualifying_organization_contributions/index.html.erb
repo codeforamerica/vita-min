@@ -1,4 +1,4 @@
-<% title = 'Lets review' %>
+<% title = t('.lets_review') %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
@@ -12,11 +12,30 @@
               Let's Review
           </h3>
           <p class="spacing-below-25">
-              what
+            <%= t('.contribution_name', charity_name: contribution.charity_name, charity_code: contribution.charity_code) %>
           </p>
           <div>
-            <%= link_to 'Edit', StateFile::Questions::AzQualifyingOrganizationContributionsController .to_path_helper(id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
-            <%= link_to 'Delete', StateFile::Questions::AzQualifyingOrganizationContributionsController .to_path_helper(action: :destroy, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: {confirm: 'Ya sure?'}, class: "button--small button--inline-action last" %>
+            <%=
+              link_to t('general.edit'),
+                StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(
+                  id: contribution,
+                  return_to_review: params[:return_to_review]
+                ),
+                class: "button--small button--inline-action"
+            %>
+
+            <%=
+              link_to t('general.delete'),
+                StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(
+                  action: :destroy,
+                  id: contribution,
+                  return_to_review: params[:return_to_review]),
+              method: :delete,
+              data: {
+                confirm: t('.delete_confirmation')
+              },
+              class: "button--small button--inline-action last"
+            %>
           </div>
         </div>
       </div>
@@ -27,6 +46,6 @@
     <%= 'Continue' %>
   <% end %>
   <%= link_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
-    <%= 'Add another?' %>
+    <%= t('.add_another') %>
   <% end %>
 <% end %>

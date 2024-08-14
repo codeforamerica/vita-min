@@ -90,8 +90,8 @@ en:
     file_yourself:
       edit:
         info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $79,000 to file taxes and collect the tax credits you are owed!
-        - To get started, we’ll need to collect some basic information.
+          - File taxes online on your own using our partner website. This is our quickest option for households earning under $79,000 to file taxes and collect the tax credits you are owed!
+          - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
   documents:
     documents_help:
@@ -175,7 +175,7 @@ en:
         too_short: The password must be a minimum %{count} characters.
       payer_name:
         blank: Please enter a valid name.
-        invalid: 'Only letters, numbers, parentheses, apostrophe, and # are accepted.'
+        invalid: "Only letters, numbers, parentheses, apostrophe, and # are accepted."
       payer_tin:
         invalid: EIN must be a 9-digit number. Do not include a dash.
       payer_tin_ny_invalid: The number entered is not an accepted TIN by New York State.
@@ -234,11 +234,11 @@ en:
         contact_method_required: "%{attribute} is required if opting into notifications"
       invalid_tax_status: The provided tax status is not valid.
       mailing_address:
-        city: 'Error: Invalid City'
-        invalid: 'Error: Invalid Address.'
-        multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
-        not_found: 'Error: Address Not Found.'
-        state: 'Error: Invalid State Code'
+        city: "Error: Invalid City"
+        invalid: "Error: Invalid Address."
+        multiple: "Error: Multiple addresses were found for the information you entered, and no default exists."
+        not_found: "Error: Address Not Found."
+        state: "Error: Invalid State Code"
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
@@ -251,7 +251,7 @@ en:
         must_equal_100: Routing percentages must total 100%.
       status_must_change: Can't initiate status change to current status.
       tax_return_belongs_to_client: Can't update tax return unrelated to current client.
-      tax_returns: 'Please provide all required fields for tax returns: %{attrs}.'
+      tax_returns: "Please provide all required fields for tax returns: %{attrs}."
       tax_returns_attributes:
         certification_level: certification level
         is_hsa: is HSA
@@ -269,7 +269,7 @@ en:
     address: Address
     admin: Admin
     admin_controls: Admin Controls
-    affirmative: 'Yes'
+    affirmative: "Yes"
     all_organizations: All organizations
     and: and
     assign: Assign
@@ -477,7 +477,7 @@ en:
     my_account: My account
     my_profile: My profile
     name: Name
-    negative: 'No'
+    negative: "No"
     new: New
     new_unique_link: Additional unique link
     no_intake: No intake for client
@@ -592,7 +592,7 @@ en:
     very_well: Very well
     visit_free_file: Visit IRS Free File
     visit_stimulus_faq: Visit Stimulus FAQ
-    vita_long: 'VITA: Volunteer Income Tax Assistance'
+    vita_long: "VITA: Volunteer Income Tax Assistance"
     well: Well
     widowed: Widowed
     year: year
@@ -664,17 +664,17 @@ en:
           new_status: New Status
           remove_assignee: Remove assignee
           selected_action_and_tax_return_count_html:
-            one: 'You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} return</strong> with the following status:'
-            other: 'You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} returns</strong> with the following statuses:'
+            one: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} return</strong> with the following status:"
+            other: "You’ve selected <strong>Change Assignee and/or Status</strong> for <strong>%{count} returns</strong> with the following statuses:"
           title: Bulk Action
       change_organization:
         edit:
           by_clicking_submit: By clicking submit, you are changing the organization, sending a team note, and updating followers.
-          help_text_html: 'Note: All returns for these clients will be reassigned to the selected new organization. <br/>Changing the organization may cause assigned hub users to lose access and be unassigned.'
+          help_text_html: "Note: All returns for these clients will be reassigned to the selected new organization. <br/>Changing the organization may cause assigned hub users to lose access and be unassigned."
           new_organization: New organization
           selected_action_and_client_count_html:
-            one: 'You’ve selected <strong>Change Organization</strong> for <strong>%{count} client</strong> in the current organization:'
-            other: 'You’ve selected <strong>Change Organization</strong> for <strong>%{count} clients</strong> in the current organizations:'
+            one: "You’ve selected <strong>Change Organization</strong> for <strong>%{count} client</strong> in the current organization:"
+            other: "You’ve selected <strong>Change Organization</strong> for <strong>%{count} clients</strong> in the current organizations:"
           title: Bulk Action
       send_a_message:
         edit:
@@ -730,7 +730,7 @@ en:
           middle_initial: M.I.
           months_in_home: "# of mos. lived in home last year:"
           never_married: Never Married
-          north_american_resident: 'Resident of US, CAN or MEX last year:'
+          north_american_resident: "Resident of US, CAN or MEX last year:"
           primary_us_citizen: U.S. citizen?
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
           spouse_dob: Spouse's DOB
@@ -741,8 +741,8 @@ en:
           was_full_time_student: Full Time Student
           was_married: Single or Married as of 12/31/21
           was_student: Full-time Student last year
-        last_year_was_your_spouse: 'Last year, was your spouse:'
-        last_year_were_you: 'Last year, were you:'
+        last_year_was_your_spouse: "Last year, was your spouse:"
+        last_year_were_you: "Last year, were you:"
         title: 13614-C page 1
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_13614c_form_page2:
@@ -756,7 +756,7 @@ en:
           had_debt_forgiven: Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
           had_disability_income: Disability income?
           had_hsa: Have a Health Savings Account?
-          had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
+          had_interest_income: "Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?"
           had_local_tax_refund: Refund or state/local income taxes?
           had_other_income: Other income?
           had_rental_income: Income (or loss) from Rental Property?
@@ -803,7 +803,7 @@ en:
           q1_preferred_written_language: If yes, which language?
           q1_receive_written_communication: Receive written communications from the IRS in a language other than English?
           q2_presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
-          q3_refund_payment_method: 'If you are due a refund, would you like:'
+          q3_refund_payment_method: "If you are due a refund, would you like:"
           q3_refund_payment_method_direct_deposit: a. Direct Deposit
           q3_refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
           q3_refund_payment_method_split: c. Split refund between different accounts
@@ -885,7 +885,7 @@ en:
         client_id_heading: Client ID
         client_info: Client Info
         created_at: Created at
-        excludes_statuses: 'excludes: %{statuses}'
+        excludes_statuses: "excludes: %{statuses}"
         filing_year: Filing Year
         filter: Filter results
         filters: Filters
@@ -914,7 +914,7 @@ en:
         title: Add a new client
       organizations:
         edit:
-          warning_text_1: 'Note: All returns on this client will be assigned to the new organization.'
+          warning_text_1: "Note: All returns on this client will be assigned to the new organization."
           warning_text_2: Changing the organization may cause assigned hub users to lose access and be unassigned.
       show:
         basic_info: Basic Info
@@ -947,7 +947,7 @@ en:
           email: sent email
           internal_note: added internal note
           status: updated status
-          success: 'Success: Action taken! %{action_list}.'
+          success: "Success: Action taken! %{action_list}."
           text_message: sent text message
     coalitions:
       edit:
@@ -967,7 +967,7 @@ en:
           client_id: Client ID
           client_name: Client Name
           no_clients: No clients to display at the moment
-          title: 'Action Required: Flagged Clients'
+          title: "Action Required: Flagged Clients"
           updated: Updated At
         capacity: Capacity
         current_capacity: Current Capacity
@@ -1005,7 +1005,7 @@ en:
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant
-    last_client_update: 'Last client update: '
+    last_client_update: "Last client update: "
     last_contact: Last contact
     messages:
       automated: Automated
@@ -1039,14 +1039,14 @@ en:
           label: Add a note
           submit: Save
         outbound_call_synthetic_note: Called by %{user_name}. Call was %{status} and lasted %{duration}.
-        outbound_call_synthetic_note_body: 'Call notes:'
+        outbound_call_synthetic_note_body: "Call notes:"
     organizations:
       activated_all:
         success: Successfully activated %{count} users
       form:
         active_clients: active clients
         allows_greeters: Allows Greeters
-        excludes: 'excludes statuses: Accepted, Not filing, On hold'
+        excludes: "excludes statuses: Accepted, Not filing, On hold"
       index:
         add_coalition: Add new coalition
         add_organization: Add new organization
@@ -1067,8 +1067,8 @@ en:
         client_phone_number: Client phone number
         notice_html: Expect a call from <strong>%{receiving_number}</strong> when you press 'Call'.
         notice_list:
-        - Your phone number will remain private -- it is not accessible to the client.
-        - We'll always call from this number -- consider adding it to your contacts.
+          - Your phone number will remain private -- it is not accessible to the client.
+          - We'll always call from this number -- consider adding it to your contacts.
         title: Call client
         your_phone_number: Your phone number
       show:
@@ -1256,8 +1256,8 @@ en:
         send_a_message_description_html: Send a message to these <strong>%{count} clients</strong>.
         title: Choose your bulk action
       page_title:
-        one: 'Client selection #%{id} (%{count} result)'
-        other: 'Client selection #%{id} (%{count} results)'
+        one: "Client selection #%{id} (%{count} result)"
+        other: "Client selection #%{id} (%{count} results)"
     tax_returns:
       count:
         one: "%{count} tax return"
@@ -1269,7 +1269,7 @@ en:
       new:
         assigned_user: Assigned user (optional)
         certification_level: Certification level (optional)
-        current_years: 'Current Tax Years:'
+        current_years: "Current Tax Years:"
         no_remaining_years: There are no remaining tax years for which to create a return.
         tax_year: Tax year
         title: Add tax year for %{name}
@@ -1528,7 +1528,7 @@ en:
 
           We're here to help!
           Your Tax Team at GetYourRefund
-        subject: 'GetYourRefund: You have a submission in progress'
+        subject: "GetYourRefund: You have a submission in progress"
       sms:
         body: Hello <<Client.PreferredName>> you haven''t completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
     intercom_forwarding:
@@ -1588,7 +1588,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Reply to this text.\n"
       accepted_refund:
         email:
@@ -1601,7 +1601,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Accepted"
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
       finish_return:
         email:
@@ -1642,7 +1642,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
+          subject: "Final Reminder: FileYourStateTaxes closes April 25."
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
           Need help? Reply to this text.
@@ -1679,7 +1679,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed"
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
@@ -1709,7 +1709,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
+          subject: "FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected"
         sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
       successful_submission:
         email:
@@ -1723,7 +1723,7 @@ en:
             Best,
             The FileYourStateTaxes team
           resubmitted: resubmitted
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          subject: "FileYourStateTaxes Update: %{state_name} State Return Submitted"
           submitted: submitted
         sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Reply to this text.
       survey_notification:
@@ -1791,8 +1791,8 @@ en:
 
           We’re here to help!
           Your tax team at GetYourRefund
-        subject: 'GetYourRefund: You have successfully submitted your tax information!'
-      sms: 'Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. Your client ID is <<Client.ClientID>>. Your tax specialist will review your information and reach out and schedule a required phone call before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message.'
+        subject: "GetYourRefund: You have successfully submitted your tax information!"
+      sms: "Hello <<Client.PreferredName>>, Your tax information was successfully submitted to GetYourRefund. Your client ID is <<Client.ClientID>>. Your tax specialist will review your information and reach out and schedule a required phone call before preparing your taxes. In order to file by the deadline, we need all required documents by %{end_of_docs_date}. Check your progress and add additional documents here: <<Client.LoginLink>>. If you have any questions, please reply to this message."
     surveys:
       completion:
         email:
@@ -1803,7 +1803,7 @@ en:
 
             Take our 5 minute survey here: %{survey_link}
           subject: Thank you for choosing GetYourRefund!
-        sms: 'Thank you for choosing GetYourRefund! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
+        sms: "Thank you for choosing GetYourRefund! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}"
       ctc_experience:
         email:
           body: |
@@ -1815,7 +1815,7 @@ en:
 
             Take our 5 minute survey here: %{survey_link}
           subject: Your feedback on GetCTC
-        sms: 'Thank you for submitting your taxes with GetCTC! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
+        sms: "Thank you for submitting your taxes with GetCTC! We would love feedback on your experience so we can improve this service! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}"
     unmonitored_replies:
       email:
         body: Replies not monitored. Write %{support_email} for assistance. To check on your refund status, go to <a href="https://www.irs.gov/refunds">Where's My Refund?</a> To access your tax record, get <a href="https://www.irs.gov/individuals/get-transcript">your transcript.</a>
@@ -1840,8 +1840,8 @@ en:
           Thank you for creating an account with GetYourRefund! Your Client ID is <<Client.ClientId>>. This is an important piece of account information that can assist you when talking to our chat representatives and when logging into your account. Please keep track of this number and do not delete this message.
 
           You can check your progress and add additional documents here: <<Client.LoginLink>>
-        subject: 'Welcome to GetYourRefund: Client ID'
-      sms: 'Hello <<Client.PreferredName>>, You''ve signed up with GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message.'
+        subject: "Welcome to GetYourRefund: Client ID"
+      sms: "Hello <<Client.PreferredName>>, You've signed up with GetYourRefund. IMPORTANT: Your Client ID is <<Client.ClientId>>. Please keep track of this number and do not delete this message. If you have any questions, please reply to this message."
   models:
     intake:
       your_spouse: Your spouse
@@ -1874,7 +1874,7 @@ en:
         last_four_or_client_id: Client ID or Last 4 of SSN/ITIN
         title: Authentication needed to continue.
       enter_verification_code:
-        code_sent_to_html: 'A message with your code has been sent to: <strong>%{address}</strong>'
+        code_sent_to_html: "A message with your code has been sent to: <strong>%{address}</strong>"
         enter_6_digit_code: Enter 6 digit code
         title: Let’s verify that code!
         verify: Verify
@@ -1883,7 +1883,7 @@ en:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 5 failed attempts, accounts are locked.
       new:
-        one_form_of_contact: 'Please enter one form of contact below:'
+        one_form_of_contact: "Please enter one form of contact below:"
         send_code: Send code
         title: We’ll send you a secure code to sign in
     closed_logins:
@@ -1906,7 +1906,7 @@ en:
           add_signature_primary: Please add your final signature to your tax return
           add_signature_spouse: Please add your spouse's final signature to your tax return
           finish_intake: Please answer remaining tax questions to continue.
-        client_id: 'Client ID: %{id}'
+        client_id: "Client ID: %{id}"
         document_link:
           add_final_signature: Add final signature
           add_missing_documents: Add missing documents
@@ -1919,7 +1919,7 @@ en:
           view_w7: View or download form W-7
           view_w7_coa: View or download form W-7 (COA)
         help_text:
-          file_accepted: 'Completed: %{date}'
+          file_accepted: "Completed: %{date}"
           file_hold: Your return is on hold. Your tax preparer will reach out with an update.
           file_not_filing: This return is not being filed. Contact your tax preparer with any questions.
           file_rejected: Your return has been rejected. Contact your tax preparer with any questions.
@@ -1934,7 +1934,7 @@ en:
           review_reviewing: Your return is being reviewed.
           review_signature_requested_primary: We are waiting for a final signature from you.
           review_signature_requested_spouse: We are waiting for a final signature from your spouse.
-        subtitle: 'Here is a snapshot of your taxes:'
+        subtitle: "Here is a snapshot of your taxes:"
         tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
     still_needs_helps:
@@ -2003,7 +2003,7 @@ en:
         description: File quickly on your own.
         list:
           file: File for %{current_tax_year} only
-          income: 'Income: under $79,000'
+          income: "Income: under $79,000"
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
@@ -2011,7 +2011,7 @@ en:
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
           file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $66,000'
+          income: "Income: under $66,000"
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: File with Help
@@ -2077,10 +2077,10 @@ en:
       banner: New intakes for GetYourRefund have closed for 2023. Please come back in January to file next year.
       header: We'd love to work with you next year to help you file your taxes for free!
       opt_in_message:
-        01_intro: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:'
+        01_intro: "Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:"
         02_list:
-        - Receiving a GetYourRefund Verification Code
-        - Tax return notifications
+          - Receiving a GetYourRefund Verification Code
+          - Tax return notifications
         03_message_freq: Message frequency will vary. Standard message rates apply. Text HELP to 11111 for help. Text STOP to 11111 to cancel. Carriers (e.g. AT&T, Verizon, etc.) are not responsible or liable for undelivered or delayed messages.
         04_detail_links_html: See our <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
       subheader: Please sign up here to receive a notification when we open in January.
@@ -2152,12 +2152,12 @@ en:
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
     navigation:
-      section_1: 'Section 1: Can you use this tool'
-      section_2: 'Section 2: Create account'
-      section_3: 'Section 3: Terms and conditions'
-      section_4: 'Section 4: Transfer your data'
-      section_5: 'Section 5: Complete your state tax return'
-      section_6: 'Section 6: Submit your state taxes'
+      section_1: "Section 1: Can you use this tool"
+      section_2: "Section 2: Create account"
+      section_3: "Section 3: Terms and conditions"
+      section_4: "Section 4: Transfer your data"
+      section_5: "Section 5: Complete your state tax return"
+      section_6: "Section 6: Submit your state taxes"
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
@@ -2172,8 +2172,8 @@ en:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)'
+          charitable_cash_html: "Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)"
+          charitable_noncash_html: "Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)"
           learn_more_content_html: |
             Charitable contributions include <strong>cash</strong> and <strong>non-cash</strong> donations to qualifying organizations.<br><br>
             Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">here</a> to see if an organization qualifies.<br><br>
@@ -2190,7 +2190,7 @@ en:
       az_eligibility_out_of_state_income:
         edit:
           expenses_helper_heading: What are qualifying and non-qualifying expenses?
-          expenses_helper_no_if: 'Select ''no'' if:'
+          expenses_helper_no_if: "Select 'no' if:"
           expenses_helper_no_nothing_withdrawn: You didn't withdraw money from a 529 account at all.
           expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
           expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
@@ -2204,11 +2204,11 @@ en:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
           mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
           mfs_helper_heading: What does “married filing separately” mean?
-          mfs_helper_no_if: 'Select no if:'
+          mfs_helper_no_if: "Select no if:"
           mfs_helper_no_mfj: You are married and filing jointly on both your federal and state returns.
           mfs_helper_no_unmarried: You are not married.
           mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
-          mfs_helper_yes_if: 'Select yes if:'
+          mfs_helper_yes_if: "Select yes if:"
           mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
           subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
@@ -2224,12 +2224,22 @@ en:
       az_prior_last_names:
         edit:
           prior_last_names_label:
-            one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
+            one: "Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)"
             other: Enter all last names used by you and your spouse in the last four years.
           subtitle: This includes tax years 2019-2022.
           title:
             one: Did you file with a different last name in the last four years?
             other: Did you or your spouse file with a different last name in the last four years?
+      az_qualifying_organization_contributions:
+        form:
+          main_heading: Did you make cash contributions to a qualifying charitable organization in 2024?
+          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >qualifying charitable organization</a> in 2024?
+          question_header: "Please provide the following information for each cash donation to a qualifying charitable organization:"
+        index:
+          add_another: Add another contribution
+          contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          delete_confirmation: Are you sure you want to delete this contribution?
+          lets_review: Great! Thanks for sharing that information. Let’s review.
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2362,7 +2372,7 @@ en:
           other_options_reveal:
             fees: Fees may apply.
             list:
-              body: 'Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:'
+              body: "Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:"
               list1_html: Since you’ve already submitted your federal tax return, make sure the service or software you use allows you to file a <strong>state-only tax return.</strong> You may need to reach out to their customer support to confirm.
               list2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
               list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
@@ -2408,7 +2418,7 @@ en:
           nys_child_dependent_care_credit: NYS Child and Dependent Care Credit
           other_credits_change_filing_status: Change in filing status from federal to state
           other_credits_est_tax_etc: Estimated tax, extension payments, and prior year credit forward
-          other_credits_heading: 'Other credits, deductions and resources not supported this year:'
+          other_credits_heading: "Other credits, deductions and resources not supported this year:"
           other_credits_itemized_deductions: Itemized deductions
           real_property_tax_credit: Real Property Tax Credit
           subtractions_225_heading_html: 'All NY <a href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart" target="_blank" rel="noopener nofollow">subtractions claimed on IT-225 including</a>:'
@@ -2546,7 +2556,7 @@ en:
         edit:
           calculated_use_tax: Enter calculated use tax. (Round to the nearest whole number.)
           enter_valid_dollar_amount: Please enter a dollar amount between 0 and 1699.
-          select_one: 'Select one of the following:'
+          select_one: "Select one of the following:"
           subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
@@ -2584,7 +2594,7 @@ en:
           part_year:
             one: I lived in New York City for <strong>some of the year</strong>
             other: My spouse and I lived in New York City for <strong>some of the year</strong>, or we lived in New York City for different amounts of time.
-          title: 'Select your New York City residency status during %{year}:'
+          title: "Select your New York City residency status during %{year}:"
       pending_federal_return:
         edit:
           title_html: |
@@ -2623,8 +2633,8 @@ en:
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this tool.
           include_payment: You'll need to include the payment voucher form.
-          mail_voucher_and_payment: 'Mail the voucher form and payment to:'
-          pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
+          mail_voucher_and_payment: "Mail the voucher form and payment to:"
+          pay_by_mail_or_moneyorder: "If you are paying by mail via check or money order:"
           register_to_vote: Register to vote.
           title: Your 2023 %{state_name} state tax return is accepted
           track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
@@ -2649,8 +2659,8 @@ en:
             no_edit:
               body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
               title: What can I do next?
-          reject_code: 'Reject Code:'
-          reject_desc: 'Reject Description:'
+          reject_code: "Reject Code:"
+          reject_desc: "Reject Description:"
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
@@ -2691,10 +2701,10 @@ en:
         bank_details:
           account_number: Account Number
           after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
-          bank_title: 'Please provide your bank details:'
+          bank_title: "Please provide your bank details:"
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: "When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: "(Foreign accounts are not accepted)"
           routing_number: Routing Number
@@ -2779,7 +2789,7 @@ en:
           add_another: Add another 1099-G form
           delete_confirmation: Are you sure you want to delete this 1099-G?
           lets_review: Great! Thanks for sharing that information. Let’s review.
-          unemployment_compensation: 'Unemployment compensation: $%{amount}'
+          unemployment_compensation: "Unemployment compensation: $%{amount}"
       verification_code:
         edit:
           action: Verify code
@@ -2809,8 +2819,8 @@ en:
         index:
           title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
           updated: You've updated this W-2
-          w2_for: 'W-2 for: %{employer_name}'
-          wages_amount: 'Total wages amount: $%{wages_amount}'
+          w2_for: "W-2 for: %{employer_name}"
+          wages_amount: "Total wages amount: $%{wages_amount}"
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
@@ -2873,7 +2883,7 @@ en:
         cookies_3: We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Site to improve the way we promote our content and programs.
         cookies_4: Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.
         cookies_header: Cookies
-        data_retention_1: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.'
+        data_retention_1: "We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations."
         data_retention_2: If you no longer wish to proceed with the FileYourStateTaxes application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.
         data_retention_header: Data Retention
         effective_date: This version of the policy is effective January 15, 2024.
@@ -2882,20 +2892,20 @@ en:
         header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File tool.
         header_2_html: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         header_3_html: If you have any questions or concerns about this Privacy Notice, please contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
-        how_we_collect_your_info: 'We collect your information from various sources, such as when you or your household members:'
+        how_we_collect_your_info: "We collect your information from various sources, such as when you or your household members:"
         how_we_collect_your_info_header: How we collect your information
         how_we_collect_your_info_item_1: Visit our Site, fill out forms on our Site, or use our Services
         how_we_collect_your_info_item_2: Provide us with documents to use our Services
         how_we_collect_your_info_item_3: Communicate with us (for instance through email, chat, social media, or otherwise)
         info_collect_1_html: We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> Consistent with regulation, we may use or disclose your information in the following instances&#58;
         info_collect_item_1: For analysis and reporting, we may share limited aggregate information with government agencies or other third parties, including the IRS or state departments of revenue, to analyze the use of our Services, in order to improve and expand our services. Such analysis is always performed using anonymized data, and data is never disclosed in cells smaller than ten returns.
-        info_collect_item_2: 'For research to improve our tax filing products, including:'
+        info_collect_item_2: "For research to improve our tax filing products, including:"
         info_collect_item_2_1: To invite you to complete questionnaires regarding your experience using our product.
         info_collect_item_2_2: To send you opportunities to participate in paid user research sessions, to learn more about your experience using our product and to guide the development of future free tax filing products.
         info_collect_item_3_html: "<em>For Arizona FileYourStateTaxes users only&#58;</em> To notify you of the availability of free tax filing services in the future."
         info_collect_item_4: If necessary, we may disclose your information to contractors who help us provide our services. We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
         info_collect_item_5: We may share your information with third parties in special situations, such as when required by law.
-        info_we_collect_1: 'We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:'
+        info_we_collect_1: "We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:"
         info_we_collect_header: Information we collect
         info_we_collect_item_1: Personal identifiers such as name, addresses, phone numbers, and email addresses
         info_we_collect_item_10: Household information and information about your spouse, if applicable
@@ -3010,7 +3020,7 @@ en:
     no_match_gyr: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{url} to get started.
-    with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after 30 minutes.'
+    with_code: "Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after 30 minutes."
   views:
     consent_pages:
       consent_to_disclose:
@@ -3087,8 +3097,8 @@ en:
           contact_ta: Contact a Taxpayer Advocate
           contact_vita: Contact a VITA Site
           content_html:
-          - To check the status of your %{current_tax_year} tax return you can log into your <a href='https://www.irs.gov/payments/your-online-account'>IRS online account</a>.
-          - If you need additional support, you can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
+            - To check the status of your %{current_tax_year} tax return you can log into your <a href='https://www.irs.gov/payments/your-online-account'>IRS online account</a>.
+            - If you need additional support, you can reach out to a Volunteer Income Tax Assistance (VITA) site or the Taxpayer Advocate Service.
           title: Unfortunately, you can’t use GetCTC because you already filed a %{current_tax_year} tax return.
       portal:
         bank_account:
@@ -3125,7 +3135,7 @@ en:
           title: Edit your address
         messages:
           new:
-            body_label: 'Enter your message below:'
+            body_label: "Enter your message below:"
             title: Contact us
             wait_time: Please allow 3 business days for a response.
         primary_filer:
@@ -3152,7 +3162,7 @@ en:
           i_dont_have_id: I don't have an ID
           id: Your driver's license or state ID card
           id_label: Photo of your ID
-          info: 'To protect your identity and verify your information, we''ll need you to submit the following two photos:'
+          info: "To protect your identity and verify your information, we'll need you to submit the following two photos:"
           paper_file:
             download_link_text: Download 1040
             go_back: Submit my ID instead
@@ -3186,8 +3196,8 @@ en:
             title: Did you receive any Advance Child Tax Credit payments from the IRS in 2021?
           question: Did you receive this amount?
           title: Did you receive a total of $%{adv_ctc_estimate} in Advance Child Tax Credit payments in 2021?
-          total_adv_ctc: 'We estimate that you should have received:'
-          total_adv_ctc_details_html: 'for the following dependents:'
+          total_adv_ctc: "We estimate that you should have received:"
+          total_adv_ctc_details_html: "for the following dependents:"
           yes_received: I received this amount
         advance_ctc_amount:
           details_html: |
@@ -3206,15 +3216,15 @@ en:
             correct: Correct the amount I received
             no_file: I don’t need to file a return
           content:
-          - You entered %{amount_received} for the total amount of Advance Child Tax Credit you received in 2021.
-          - If this is correct, you are not eligible for any additional Child Tax Credit payment, and you probably do not need to file a tax return.
+            - You entered %{amount_received} for the total amount of Advance Child Tax Credit you received in 2021.
+            - If this is correct, you are not eligible for any additional Child Tax Credit payment, and you probably do not need to file a tax return.
           title: You have no more Child Tax Credit to claim.
         advance_ctc_received:
           already_received: Amount you received
           ctc_owed_details: If the amount you entered is incorrect, the IRS will automatically correct it for you, but your payment may be delayed.
-          ctc_owed_title: 'You are eligible for an additional:'
+          ctc_owed_title: "You are eligible for an additional:"
           title: Ok, we calculated your Child Tax Credit.
-          total_adv_ctc: 'Total Advance CTC: %{amount}'
+          total_adv_ctc: "Total Advance CTC: %{amount}"
         already_completed:
           content_html: |
             <p> You've completed all of our intake questions and we're reviewing and submitting your tax return. </p>
@@ -3231,17 +3241,17 @@ en:
               <p>If you received a notice from the IRS this year about your return (Letter 5071C, Letter 6331C, or Letter 12C), then you already filed a federal return with the IRS this year.</p>
               <p class="text--bold text--small">Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.</p>
             reveal:
-              content_title: 'If you received any of the letters listed here, you’ve already filed:'
+              content_title: "If you received any of the letters listed here, you’ve already filed:"
               list_content:
-              - 12C
-              - CP21
-              - 131C
-              - 4883C
-              - 5071C
-              - 5447C
-              - 5747C
-              - 6330C
-              - 6331C
+                - 12C
+                - CP21
+                - 131C
+                - 4883C
+                - 5071C
+                - 5447C
+                - 5747C
+                - 6330C
+                - 6331C
               title: I received a different letter from the IRS. Does that mean I already filed?
             title: Did you file a %{current_tax_year} federal tax return with the IRS this year?
           title: Did you file a %{current_tax_year} tax return this year?
@@ -3264,9 +3274,9 @@ en:
           help_text: The Earned Income Tax Credit (EITC) is a tax credit that can give you up to $6,700.
           info_box:
             list:
-            - You had a job earning money in %{current_tax_year}
-            - Each person on this return has an SSN
-            title: 'Requirements:'
+              - You had a job earning money in %{current_tax_year}
+              - Each person on this return has an SSN
+            title: "Requirements:"
           title: Would you like to claim more money by sharing any 2021 W-2 forms?
         confirm_bank_account:
           bank_information: Your bank information
@@ -3301,15 +3311,15 @@ en:
         confirm_payment:
           client_not_collecting: You are not collecting any payments, please edit your tax return.
           ctc_0_due_link: Claim children for CTC
-          ctc_due: 'Child Tax Credit payments:'
+          ctc_due: "Child Tax Credit payments:"
           do_not_file: Do not file
           do_not_file_flash_message: Thank you for using GetCTC! We will not file your return.
-          eitc: 'Earned Income Tax Credit:'
-          fed_income_tax_withholding: 'Federal Income Tax Withholding:'
+          eitc: "Earned Income Tax Credit:"
+          fed_income_tax_withholding: "Federal Income Tax Withholding:"
           subtitle: You’re almost done! Please confirm your refund information.
-          third_stimulus: 'Third Stimulus Payment:'
-          title: 'Review this list of the payments you are claiming:'
-          total: 'Total refund amount:'
+          third_stimulus: "Third Stimulus Payment:"
+          title: "Review this list of the payments you are claiming:"
+          total: "Total refund amount:"
         confirm_primary_prior_year_agi:
           primary_prior_year_agi: Your %{prior_tax_year} AGI
         confirm_spouse_prior_year_agi:
@@ -3317,7 +3327,7 @@ en:
         contact_preference:
           body: We’ll send a code to verify your contact information so that we can send updates on your return. Please select the option that works best!
           email: Email me
-          sms_policy: 'Note: Standard SMS message rates apply. We will not share your information with any outside parties.'
+          sms_policy: "Note: Standard SMS message rates apply. We will not share your information with any outside parties."
           text: Text me
           title: What is the best way to reach you?
         dependents:
@@ -3327,8 +3337,8 @@ en:
           child_claim_anyway:
             help_text:
               list:
-              - Whoever lived with %{name} for longer in %{current_tax_year} has the right to claim them.
-              - If you both spent the same time living with %{name} in %{current_tax_year}, then whichever parent made more money in %{current_tax_year} can claim %{name}.
+                - Whoever lived with %{name} for longer in %{current_tax_year} has the right to claim them.
+                - If you both spent the same time living with %{name} in %{current_tax_year}, then whichever parent made more money in %{current_tax_year} can claim %{name}.
               p1: If you and the other person who could claim the dependent are both their legal parents...
               p2: If you are %{name}’s legal parent and the other person who could claim them is not, then you can claim them.
             legal_parent_reveal:
@@ -3349,7 +3359,7 @@ en:
               info: A doctor determines that you have a permanent disability when you are unable to do a majority of your work because of a physical or mental condition.
               title: What is the definition of permanently and totally disabled?
             full_time_student: "%{name} was a full-time student"
-            help_text: 'Select any situations that were true in %{current_tax_year}:'
+            help_text: "Select any situations that were true in %{current_tax_year}:"
             permanently_totally_disabled: "%{name} was permanently and totally disabled"
             student_reveal:
               info_html: |
@@ -3362,10 +3372,10 @@ en:
             reveal:
               body: If your dependent was at a temporary location in 2021, select the number of months that your home was their official address.
               list:
-              - school
-              - medical facility
-              - a juvenile facility
-              list_title: 'Some examples of temporary locations:'
+                - school
+                - medical facility
+                - a juvenile facility
+              list_title: "Some examples of temporary locations:"
               title: What if my dependent was away for some time in 2021?
             select_options:
               eight: 8 months
@@ -3383,31 +3393,31 @@ en:
           does_my_child_qualify_reveal:
             content:
               list_1:
-              - Your foster child must have been placed with you per a formal arrangement with a foster agency or a court order.
+                - Your foster child must have been placed with you per a formal arrangement with a foster agency or a court order.
               list_2:
-              - If you have legally adopted or are in the process of legally adopting your child, select 'son' or 'daughter'
+                - If you have legally adopted or are in the process of legally adopting your child, select 'son' or 'daughter'
               p1: Who counts as a foster child?
               p2: What if I have an adopted child?
             title: Does my child qualify?
           does_not_qualify_ctc:
             conditions:
-            - The person you are trying to claim might be born in %{filing_year}. You can only claim dependents who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
-            - The person you are trying to claim might be too old to be your dependent. Except in a few specific cases, your dependent has to be under 19, or under 24 if a student.
-            - The person you are trying to claim might not have the right relationship to you to be your dependent. In most cases, your dependent has to be your child, grandchild, niece, or nephew. In limited other cases you can claim other close family members.
-            - The person you are trying to claim might not live with you for enough of the year. In most cases, your dependent must live with you for most of the year.
-            - The person you are trying to claim might be financially independent. In most cases, your dependent cannot pay for their own living expenses.
-            - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
+              - The person you are trying to claim might be born in %{filing_year}. You can only claim dependents who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
+              - The person you are trying to claim might be too old to be your dependent. Except in a few specific cases, your dependent has to be under 19, or under 24 if a student.
+              - The person you are trying to claim might not have the right relationship to you to be your dependent. In most cases, your dependent has to be your child, grandchild, niece, or nephew. In limited other cases you can claim other close family members.
+              - The person you are trying to claim might not live with you for enough of the year. In most cases, your dependent must live with you for most of the year.
+              - The person you are trying to claim might be financially independent. In most cases, your dependent cannot pay for their own living expenses.
+              - The person you are trying to claim might be someone else’s dependent rather than yours. Only one household can claim a given dependent.
             help_text: We will not save %{name} to your tax return. They do not qualify for any tax credits.
             puerto_rico:
               affirmative: Yes, add another child
               conditions:
-              - The person you are trying to claim might be too old to qualify for CTC. They must be 17 years old or less at the end of %{current_tax_year}.
-              - The person you are trying to claim might be born in %{filing_year}. You can only claim children who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
-              - The person you are trying to claim might not have the right relationship to you to qualify for CTC. They must be your child, your sibling, or a descendent of one of them.
-              - The person you are trying to claim might not live with you for enough of the year. In most cases, you can only claim children who live with you for most of the year.
-              - The person you are trying to claim might be financially independent. In most cases, you can only claim children if they do not pay for their own living expenses.
-              - The person you are trying to claim might be someone else’s child rather than yours. Only one household can claim a given child.
-              - The person you are trying to claim might not have a valid Social Security Number. To be eligible for CTC, they need to have a Social Security Number that is valid for employment.
+                - The person you are trying to claim might be too old to qualify for CTC. They must be 17 years old or less at the end of %{current_tax_year}.
+                - The person you are trying to claim might be born in %{filing_year}. You can only claim children who were alive in %{current_tax_year} on your %{current_tax_year} tax return.
+                - The person you are trying to claim might not have the right relationship to you to qualify for CTC. They must be your child, your sibling, or a descendent of one of them.
+                - The person you are trying to claim might not live with you for enough of the year. In most cases, you can only claim children who live with you for most of the year.
+                - The person you are trying to claim might be financially independent. In most cases, you can only claim children if they do not pay for their own living expenses.
+                - The person you are trying to claim might be someone else’s child rather than yours. Only one household can claim a given child.
+                - The person you are trying to claim might not have a valid Social Security Number. To be eligible for CTC, they need to have a Social Security Number that is valid for employment.
               help_text: We will not save %{name} to your tax return. They do not qualify for Child Tax Credit payments.
               negative: No, continue
               title: You can not claim Child Tax Credit for %{name}. Would you like to add anyone else?
@@ -3420,7 +3430,7 @@ en:
             last_name: Legal last name
             middle_initial: Legal middle name(s) (optional)
             relationship_to_you: What is their relationship to you?
-            situations: 'Select if the following is true:'
+            situations: "Select if the following is true:"
             suffix: Suffix (optional)
             title: Let’s get their basic information!
           relative_financial_support:
@@ -3432,7 +3442,7 @@ en:
             gross_income_reveal:
               content: "“Gross income” generally includes all income received during the year, including both earned and unearned income. Examples include wages, cash from your own business or side job, unemployment income, or Social Security income."
               title: What is gross income?
-            help_text: 'Select any situations that were true in %{current_tax_year}:'
+            help_text: "Select any situations that were true in %{current_tax_year}:"
             income_requirement: "%{name} earned less than $4,300 in gross income."
             title: We just need to verify a few more things.
           remove_dependent:
@@ -3487,7 +3497,7 @@ en:
             info: A qualified homeless youth is someone who is homeless or at risk of homelessness, who supports themselves financially. You must be between 18-24 years old and can not be under physical custody of a parent or guardian.
             title: Am I a qualified homeless youth?
           not_full_time_student: I was not a full time student
-          title: 'Select any of the situations that were true in %{current_tax_year}:'
+          title: "Select any of the situations that were true in %{current_tax_year}:"
         email_address:
           title: Please share your email address.
         file_full_return:
@@ -3496,14 +3506,14 @@ en:
           help_text2: If you file a full tax return you could receive additional cash benefits from the Earned Income Tax Credit, state tax credits, and more.
           help_text_eitc: If you have income that is reported on a 1099-NEC or a 1099-K you should file a full tax return instead.
           list_1_eitc:
-          - Child Tax Credit
-          - 3rd Stimulus Check
-          - Earned Income Tax Credit
-          list_1_eitc_title: 'You can file a simplified tax return to claim the:'
+            - Child Tax Credit
+            - 3rd Stimulus Check
+            - Earned Income Tax Credit
+          list_1_eitc_title: "You can file a simplified tax return to claim the:"
           list_2_eitc:
-          - Stimulus check 1 or 2
-          - State tax credits or stimulus payments
-          list_2_eitc_title: 'You cannot use this tool to claim:'
+            - Stimulus check 1 or 2
+            - State tax credits or stimulus payments
+          list_2_eitc_title: "You cannot use this tool to claim:"
           puerto_rico:
             full_btn: File a Puerto Rico tax return
             help_text: This is not a Puerto Rico return with Departamento de Hacienda. If you want to claim additional benefits (like the Earned Income Tax Credit, any of the stimulus payments, or other Puerto Rico credits) you will need to file a separate Puerto Rico Tax Return with Hacienda.
@@ -3511,9 +3521,9 @@ en:
             title: You are currently filing a simplified tax return to claim only your Child Tax Credit.
           reveal:
             body_html:
-            - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
-            - You can only claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref">free at GetYourRefund.</a>
+              - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
+              - You can only claim all or part of the third stimulus payment using GetCTC.
+              - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="https://www.getyourrefund.org/en/diy/file_yourself?source=gctc_ref">free at GetYourRefund.</a>
             title: How can I get the first two stimulus payments?
           simplified_btn: Continue filing a simplified return
           title: You are currently filing a simplified tax return to claim only your Child Tax Credit and third stimulus payment.
@@ -3526,7 +3536,7 @@ en:
           puerto_rico:
             did_not_file: No, I didn’t file a %{prior_tax_year} IRS tax return
             filed_full: Yes, I filed an IRS tax return
-            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
+            note: "Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda."
             title: Did you file a %{prior_tax_year} federal tax return with the IRS?
           title: Did you file a %{prior_tax_year} tax return?
         filing_status:
@@ -3547,54 +3557,54 @@ en:
           title: To claim your Child Tax Credit, you must add your dependents (children or others who you financially support)
           which_relationships_qualify_reveal:
             content:
-            - Son
-            - Daughter
-            - Stepchild
-            - Foster child
-            - Niece
-            - Nephew
-            - Grandchild
-            - Half Brother
-            - Half Sister
-            - Stepbrother
-            - Stepsister
-            - Great-grandchild
-            - Parent
-            - Step Parent
-            - Grandparent
-            - Aunt
-            - Uncle
-            - In Laws
-            - Other descendants of my siblings
-            - Other relationship not listed
+              - Son
+              - Daughter
+              - Stepchild
+              - Foster child
+              - Niece
+              - Nephew
+              - Grandchild
+              - Half Brother
+              - Half Sister
+              - Stepbrother
+              - Stepsister
+              - Great-grandchild
+              - Parent
+              - Step Parent
+              - Grandparent
+              - Aunt
+              - Uncle
+              - In Laws
+              - Other descendants of my siblings
+              - Other relationship not listed
             content_puerto_rico:
-            - Son
-            - Daughter
-            - Stepchild
-            - Foster child
-            - Niece
-            - Nephew
-            - Grandchild
-            - Half Brother
-            - Half Sister
-            - Stepbrother
-            - Stepsister
-            - Great-grandchild
-            - Other descendants of my siblings
+              - Son
+              - Daughter
+              - Stepchild
+              - Foster child
+              - Niece
+              - Nephew
+              - Grandchild
+              - Half Brother
+              - Half Sister
+              - Stepbrother
+              - Stepsister
+              - Great-grandchild
+              - Other descendants of my siblings
             title: Which relationships qualify?
         head_of_household:
           claim_hoh: Claim HoH status
           do_not_claim_hoh: Do not claim HoH status
           eligibility_b_criteria_list:
-          - A dependent who is your child, sibling, or a descendant of one of them; who lives with you more than half the year; who was less than 19 at the end of 2021, or less than 24 and a full-time student, or was permanently disabled; who paid for less than half of their own living expenses in 2021; and who did not file a return jointly with their spouse
-          - A dependent parent who earns less than $4,300, and for whom you cover more than half of their living expenses
-          - Another dependent relative who lives with you more than half of the year; who earns less than $4,300; and for whom you cover more than half of their living expenses
+            - A dependent who is your child, sibling, or a descendant of one of them; who lives with you more than half the year; who was less than 19 at the end of 2021, or less than 24 and a full-time student, or was permanently disabled; who paid for less than half of their own living expenses in 2021; and who did not file a return jointly with their spouse
+            - A dependent parent who earns less than $4,300, and for whom you cover more than half of their living expenses
+            - Another dependent relative who lives with you more than half of the year; who earns less than $4,300; and for whom you cover more than half of their living expenses
           eligibility_list_a: a. You are not married
-          eligibility_list_b: 'b. You have one or more of the following:'
+          eligibility_list_b: "b. You have one or more of the following:"
           eligibility_list_c_html: "<strong>c. You pay at least half the cost of keeping up the home where this dependent lives</strong> — costs including property taxes, mortgage interest, rent, utilities, upkeep/repairs, and food consumed."
           full_list_of_rules_html: The full list of Head of Household rules is available <a href="%{link}" target="_blank" rel="nofollow noopener">here</a>. If you choose to claim Head of Household status, you understand that you are responsible for reviewing these rules and ensuring that you are eligible.
           subtitle_1: Because you are claiming dependents, you may be eligible to claim Head of Household tax status on your return. Claiming Head of Household status will not increase your refund, and will not make you eligible for any additional tax benefits. We do not recommend you claim Head of Household status.
-          subtitle_2: 'You are likely eligible for Head of Household status if:'
+          subtitle_2: "You are likely eligible for Head of Household status if:"
           title: Claiming Head of Household status will not increase your refund.
         income:
           income_source_reveal:
@@ -3602,49 +3612,49 @@ en:
             title: How do I know the source of my income?
           list:
             one:
-            - earned less than $400 in contract work or self-employment income
-            - did not receive the Advance Premium Tax Credit
-            - are not required to file a full tax return for any other reason
+              - earned less than $400 in contract work or self-employment income
+              - did not receive the Advance Premium Tax Credit
+              - are not required to file a full tax return for any other reason
             other:
-            - earned less than $400 in contract work or self-employment income
-            - did not receive the Advance Premium Tax Credit
-            - are not required to file a full tax return for any other reason
+              - earned less than $400 in contract work or self-employment income
+              - did not receive the Advance Premium Tax Credit
+              - are not required to file a full tax return for any other reason
           mainland_connection_reveal:
             content: If your family and your belongings are located in any of the 50 states or in a foreign country rather than Puerto Rico, or your community engagements are stronger in the 50 states or in a foreign country than they are in Puerto Rico, then you can’t use GetCTC as a Puerto Rican resident.
             title: What does it mean to have a closer connection to the mainland U.S. than to Puerto Rico?
           puerto_rico:
             list:
               one:
-              - you earned less than %{standard_deduction} in total income
-              - you earned less than $400 in self-employment income
-              - you are not required to file a full tax return for any other reason
-              - all of your earned income came from sources within Puerto Rico
-              - you lived in Puerto Rico for at least half the year (183 days)
-              - your regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
-              - you did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
-              - you did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+                - you earned less than %{standard_deduction} in total income
+                - you earned less than $400 in self-employment income
+                - you are not required to file a full tax return for any other reason
+                - all of your earned income came from sources within Puerto Rico
+                - you lived in Puerto Rico for at least half the year (183 days)
+                - your regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+                - you did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+                - you did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
               other:
-              - you and your spouse earned less than %{standard_deduction} in total income
-              - you and your spouse earned less than $400 in self-employment income
-              - you and your spouse are not required to file a full tax return for any other reason
-              - all of your and your spouse's earned income came from sources within Puerto Rico
-              - you and your spouse lived in Puerto Rico for at least half the year (183 days)
-              - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
-              - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
-              - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
+                - you and your spouse earned less than %{standard_deduction} in total income
+                - you and your spouse earned less than $400 in self-employment income
+                - you and your spouse are not required to file a full tax return for any other reason
+                - all of your and your spouse's earned income came from sources within Puerto Rico
+                - you and your spouse lived in Puerto Rico for at least half the year (183 days)
+                - your and your spouse's regular place of employment was in Puerto Rico. If you didn’t have a regular place of employment, then your main home was in Puerto Rico
+                - you and your spouse did not have a “closer connection” to any of the 50 states or to a foreign country than you did to Puerto Rico
+                - you and your spouse did not move to Puerto Rico from somewhere else, or move from Puerto Rico to somewhere else
           self_employment_income_reveal:
             content:
               list_1:
-              - 1099 contract work
-              - gig work
-              - driving for Uber, Lyft, or similar
-              - renting out your home
+                - 1099 contract work
+                - gig work
+                - driving for Uber, Lyft, or similar
+                - renting out your home
               p1: Self-employment income is generally any money that you made from your own business, or in some cases working part time for an employer. Self-employment income is reported to you on a 1099 rather than a W-2.
-              p2: 'If your employer calls you a ''contractor'' rather than an ''employee,'' your income from that job is probably self-employment income. Self-employment income could include:'
+              p2: "If your employer calls you a 'contractor' rather than an 'employee,' your income from that job is probably self-employment income. Self-employment income could include:"
             title: What counts as self-employment income?
           title:
-            one: 'You can only use GetCTC if, in %{current_tax_year}, you:'
-            other: 'You can only use GetCTC if, in %{current_tax_year}, you and your spouse:'
+            one: "You can only use GetCTC if, in %{current_tax_year}, you:"
+            other: "You can only use GetCTC if, in %{current_tax_year}, you and your spouse:"
           what_is_aptc_reveal:
             content:
               p1: The Advance Premium Tax Credit is a subsidy some households get for their health insurance coverage.
@@ -3653,13 +3663,13 @@ en:
             title: What is the Advance Premium Tax Credit?
         income_qualifier:
           list:
-          - salary
-          - hourly wages
-          - dividends and interest
-          - tips
-          - commissions
-          - self-employment or contract payments
-          subtitle: 'Income could come from any of the following sources:'
+            - salary
+            - hourly wages
+            - dividends and interest
+            - tips
+            - commissions
+            - self-employment or contract payments
+          subtitle: "Income could come from any of the following sources:"
           title:
             one: Did you make less than %{standard_deduction} in %{current_tax_year}?
             other: Did you and your spouse make less than %{standard_deduction} in %{current_tax_year}?
@@ -3682,7 +3692,7 @@ en:
           <p>The IRS issues you a new IP PIN every year, and you must provide this year's PIN.</p>
           <p><a href="https://www.irs.gov/identity-theft-fraud-scams/retrieve-your-ip-pin" rel="noopener nofollow" target="_blank">Click here to retrieve your IP PIN from the IRS.</a></p>
         irs_language_preference:
-          select_language: 'Please select your preferred language:'
+          select_language: "Please select your preferred language:"
           subtitle: The IRS may reach out with questions. You have the option to select a preferred language.
           title: What language do you want the IRS to use when they contact you?
         legal_consent:
@@ -3743,8 +3753,8 @@ en:
           add_dependents: Add more dependents
           puerto_rico:
             subtitle:
-            - You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
-            - If this is a mistake you can click ‘Add a child’.
+              - You will not receive the Child Tax Credit. You have not added any dependents eligible for the Child Tax Credit, so we can not file a return at this time.
+              - If this is a mistake you can click ‘Add a child’.
             title: You will not receive the Child Tax Credit.
           subtitle: Based on your current answers you will not receive the Child Tax Credit, because you have no eligible dependents.
           title: You will not receive the Child Tax Credit, but you may continue to collect other cash payments.
@@ -3754,11 +3764,11 @@ en:
         non_w2_income:
           additional_income:
             list:
-            - contractor income
-            - interest income
-            - unemployment income
-            - any other money you received
-            list_title: 'Additional income includes:'
+              - contractor income
+              - interest income
+              - unemployment income
+              - any other money you received
+            list_title: "Additional income includes:"
           title:
             one: Did you make more than %{additional_income_amount} in additional income?
             other: Did you and your spouse make more than %{additional_income_amount} in additional income?
@@ -3767,7 +3777,7 @@ en:
             faq: Visit our FAQ
             home: Go to the homepage
           content:
-          - We will not send any of your information to the IRS.
+            - We will not send any of your information to the IRS.
           title: You’ve decided to not file a tax return.
         overview:
           help_text: Use our simple e-filing tool to receive your Child Tax Credit and, if applicable, your third stimulus payment.
@@ -3792,13 +3802,13 @@ en:
         restrictions:
           cannot_use_ctc: I can't use GetCTC
           list:
-          - you have previously had the CTC or the EITC reduced or disallowed by an IRS investigation and you have not properly filed Form 8862 since then
-          - you have income in tips from a service job that was not reported to your employer
-          - you want to file Form 8332 in order to claim a child who does not live with you
-          - you are claiming a qualifying relative under a “multiple support agreement” as defined by the IRS
-          - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credit payments in %{current_tax_year}
-          - you bought or sold cryptocurrency in %{current_tax_year}
-          list_title: 'You can not use GetCTC if:'
+            - you have previously had the CTC or the EITC reduced or disallowed by an IRS investigation and you have not properly filed Form 8862 since then
+            - you have income in tips from a service job that was not reported to your employer
+            - you want to file Form 8332 in order to claim a child who does not live with you
+            - you are claiming a qualifying relative under a “multiple support agreement” as defined by the IRS
+            - you are not claiming any children for the Child Tax Credit this year, but you received Advance Child Tax Credit payments in %{current_tax_year}
+            - you bought or sold cryptocurrency in %{current_tax_year}
+          list_title: "You can not use GetCTC if:"
           multiple_support_agreement_reveal:
             content:
               p1: A multiple support agreement is a formal arrangement you make with family or friends to jointly care for a child or relative.
@@ -3832,7 +3842,7 @@ en:
             did_not_file: No, %{spouse_first_name} didn’t file a %{prior_tax_year} IRS tax return
             filed_full: Yes, %{spouse_first_name} filed an IRS tax return separately from me
             filed_together: Yes, %{spouse_first_name} filed an IRS tax return jointly with me
-            note: 'Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda.'
+            note: "Note: federal return with the IRS is separate from a Puerto Rico return you may have filed with Hacienda."
             title: Did %{spouse_first_name} file a %{prior_tax_year} federal tax return with the IRS?
           title: Did %{spouse_first_name} file a %{prior_tax_year} tax return?
         spouse_info:
@@ -3859,15 +3869,15 @@ en:
           title: What was %{spouse_first_name}’s %{prior_tax_year} Adjusted Gross Income?
         spouse_review:
           help_text: We have added the following person as your spouse on your return.
-          spouse_birthday: 'Date of birth: %{dob}'
-          spouse_ssn: 'SSN: XXX-XX-%{ssn}'
+          spouse_birthday: "Date of birth: %{dob}"
+          spouse_ssn: "SSN: XXX-XX-%{ssn}"
           title: Let's confirm your spouse's information.
           your_spouse: Your spouse
         stimulus_owed:
           amount_received: Amount you received
           correction: If the amount you entered is incorrect, the IRS will automatically correct it for you, but your payment may be delayed.
           eip_three: Third stimulus
-          eligible_for: 'You are claiming an additional:'
+          eligible_for: "You are claiming an additional:"
           title: It looks like you are still owed some of the third stimulus payment.
         stimulus_payments:
           different_amount: I received a different amount
@@ -3875,15 +3885,15 @@ en:
           question: Did you receive this amount?
           reveal:
             content_html:
-            - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
-            - You can only claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">free at GetYourRefund.</a>
+              - The IRS issued three rounds of stimulus payments during the COVID pandemic. Most families received these in April 2020, December 2020, and March 2021.
+              - You can only claim all or part of the third stimulus payment using GetCTC.
+              - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file for <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">free at GetYourRefund.</a>
             title: How do I get the first two stimulus payments?
           third_stimulus: We estimate that you should have received
           third_stimulus_details:
-          - based on your filing status and dependents.
-          - The third stimulus payment was usually sent in March or April 2021 and was $1,400 per adult tax filer plus $1,400 per eligible dependent of any age.
-          - For example, a parent caring for two children would have received $4,200.
+            - based on your filing status and dependents.
+            - The third stimulus payment was usually sent in March or April 2021 and was $1,400 per adult tax filer plus $1,400 per eligible dependent of any age.
+            - For example, a parent caring for two children would have received $4,200.
           this_amount: I received this amount
           title: Did you receive a total of %{third_stimulus_amount} for your third stimulus payment?
         stimulus_received:
@@ -3901,39 +3911,39 @@ en:
         use_gyr:
           file_gyr: File with GetYourRefund
           puerto_rico:
-            address: 'San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. By appointment only. Call 787-622-8069.'
-            in_person: 'In-person:'
+            address: "San Patricio Office Center VITA site, #7 Calle Tabonuco, Guaynabo, PR 00968. By appointment only. Call 787-622-8069."
+            in_person: "In-person:"
             online_html: 'Online filing: <a href="https://myfreetaxes.com/" target="_blank" rel="nofollow noopener">https://myfreetaxes.com/</a>'
-            pr_number: 'Puerto Rico Helpline: 877-722-9832'
-            still_file: 'You may still be able to file to claim your benefits. For additional help, consider reaching out to:'
-            virtual: 'Virtual: MyFreeTaxes'
+            pr_number: "Puerto Rico Helpline: 877-722-9832"
+            still_file: "You may still be able to file to claim your benefits. For additional help, consider reaching out to:"
+            virtual: "Virtual: MyFreeTaxes"
             why_ineligible_reveal:
               content:
                 list:
-                - You earned more than $400 in self-employment income
-                - You earned some money from sources outside of Puerto Rico, for example in one of the 50 states or in a foreign country
-                - You did not live in Puerto Rico for more than half of %{current_tax_year}
-                - You moved in or out of Puerto Rico during %{current_tax_year}
-                - You can be claimed as a dependent by someone else
-                - You (and your spouse if applicable) don’t have a valid SSN or ITIN
-                - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
-                - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
+                  - You earned more than $400 in self-employment income
+                  - You earned some money from sources outside of Puerto Rico, for example in one of the 50 states or in a foreign country
+                  - You did not live in Puerto Rico for more than half of %{current_tax_year}
+                  - You moved in or out of Puerto Rico during %{current_tax_year}
+                  - You can be claimed as a dependent by someone else
+                  - You (and your spouse if applicable) don’t have a valid SSN or ITIN
+                  - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
+                  - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
           still_benefit: You could still benefit by filing a full tax return for free using GetYourRefund.
           title: Unfortunately, you are not eligible to use GetCTC.
           visit_our_faq: Visit our FAQ
           why_ineligible_reveal:
             content:
               list:
-              - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
-              - You earned more than $400 in self-employment income
-              - You can be claimed as a dependent
-              - You (and your spouse if applicable) don’t have a valid SSN or ITIN
-              - You didn’t live in any of the 50 states or the District of Columbia for most of %{current_tax_year}
-              - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
-              p: 'Some reasons you might be ineligible to use GetCTC are:'
+                - You earned more than %{single_deduction} filing individually or %{joint_deduction} filing married
+                - You earned more than $400 in self-employment income
+                - You can be claimed as a dependent
+                - You (and your spouse if applicable) don’t have a valid SSN or ITIN
+                - You didn’t live in any of the 50 states or the District of Columbia for most of %{current_tax_year}
+                - You received more Advance Child Tax Credit payments in %{current_tax_year} than you were eligible to receive.
+              p: "Some reasons you might be ineligible to use GetCTC are:"
             title: Why am I ineligible?
         verification:
-          body: 'A message with your code has been sent to:'
+          body: "A message with your code has been sent to:"
           error_message: Incorrect verification code.
           title: Let's verify that contact info with a code!
           verification_code_label: Enter 6 digit code
@@ -3945,20 +3955,20 @@ en:
           done_adding: Finished adding all W-2s
           dont_add_w2: I don't want to add my W-2
           employee_info:
-            employee_city: 'Box e: City'
-            employee_legal_name: 'Select the legal name on the W2:'
-            employee_state: 'Box e: State'
-            employee_street_address: 'Box e: Employee street address or P.O. box'
-            employee_zip_code: 'Box e: Zip code'
+            employee_city: "Box e: City"
+            employee_legal_name: "Select the legal name on the W2:"
+            employee_state: "Box e: State"
+            employee_street_address: "Box e: Employee street address or P.O. box"
+            employee_zip_code: "Box e: Zip code"
             title:
               one: Let’s start by entering some basic info for %{name}.
               other: Let’s start by entering some basic info.
           employer_info:
             add: Add W-2
-            box_d_control_number: 'Box d: Control number'
+            box_d_control_number: "Box d: Control number"
             employer_city: City
-            employer_ein: 'Box b: Employer Identification Number (EIN)'
-            employer_name: 'Box c: Employer Name'
+            employer_ein: "Box b: Employer Identification Number (EIN)"
+            employer_name: "Box c: Employer Name"
             employer_state: State
             employer_street_address: Employer street address or P.O. box
             employer_zip_code: Zip code
@@ -3969,31 +3979,31 @@ en:
               other: A W-2 is an official tax form given to you by your employer. Enter all of you and your spouse’s W-2s to get the Earned Income Tax Credit and avoid delays.
             p2: The form you enter must have W-2 printed on top or it will not be accepted.
           misc_info:
-            box11_nonqualified_plans: 'Box 11: Nonqualified plans'
+            box11_nonqualified_plans: "Box 11: Nonqualified plans"
             box12_error: Must provide both code and value
             box12_value_error: Value must be numeric
-            box12a: 'Box 12a:'
-            box12b: 'Box 12b:'
-            box12c: 'Box 12c:'
-            box12d: 'Box 12d:'
-            box13: 'Box 13: If marked on your W-2, select the matching option below'
+            box12a: "Box 12a:"
+            box12b: "Box 12b:"
+            box12c: "Box 12c:"
+            box12d: "Box 12d:"
+            box13: "Box 13: If marked on your W-2, select the matching option below"
             box13_retirement_plan: Retirement plan
             box13_statutory_employee: Statutory employee
             box13_third_party_sick_pay: Third-party sick pay
             box14_error: Must provide both description and amount
-            box14_other: 'Box 14: Other'
+            box14_other: "Box 14: Other"
             box15_error: Must provide both state and employer's state ID number
-            box15_state: 'Box 15: State and Employer’s State ID number'
-            box16_state_wages: 'Box 16: State wages, tips, etc.'
-            box17_state_income_tax: 'Box 17: State income tax'
-            box18_local_wages: 'Box 18: Local wages, tips, etc.'
-            box19_local_income_tax: 'Box 19: Local income tax'
-            box20_locality_name: 'Box 20: Locality name'
+            box15_state: "Box 15: State and Employer’s State ID number"
+            box16_state_wages: "Box 16: State wages, tips, etc."
+            box17_state_income_tax: "Box 17: State income tax"
+            box18_local_wages: "Box 18: Local wages, tips, etc."
+            box19_local_income_tax: "Box 19: Local income tax"
+            box20_locality_name: "Box 20: Locality name"
             remove_this_w2: Remove this W-2
-            requirement_title: 'Requirement:'
+            requirement_title: "Requirement:"
             requirements:
-            - The following sections of your W-2 are likely blank. Leave those boxes blank below so they match your W-2.
-            - For Boxes 15-20, if your W-2 is filled with information for multiple states, please only enter the first state's information.
+              - The following sections of your W-2 are likely blank. Leave those boxes blank below so they match your W-2.
+              - For Boxes 15-20, if your W-2 is filled with information for multiple states, please only enter the first state's information.
             submit: Save this W-2
             title: Let’s finish entering %{name}’s W-2 information.
           note_html: "<strong>Note:</strong> If you do not add a W-2 you will not receive the Earned Income Tax Credit. However, you can still claim the other credits if available to you."
@@ -4009,19 +4019,19 @@ en:
           title: Please share the income from your W-2.
           wages: Wages
           wages_info:
-            box10_dependent_care_benefits: 'Box 10: Dependent care benefits'
-            box3_social_security_wages: 'Box 3: Social Security wages'
-            box4_social_security_tax_withheld: 'Box 4: Social Security tax withheld'
-            box5_medicare_wages_and_tip_amount: 'Box 5: Medicare wages and tips amount'
-            box6_medicare_tax_withheld: 'Box 6: Medicare tax withheld'
-            box7_social_security_tips_amount: 'Box 7: Social Security tips amount'
-            box8_allocated_tips: 'Box 8: Allocated tips'
-            federal_income_tax_withheld: 'Box 2: Federal Income Tax Withheld'
+            box10_dependent_care_benefits: "Box 10: Dependent care benefits"
+            box3_social_security_wages: "Box 3: Social Security wages"
+            box4_social_security_tax_withheld: "Box 4: Social Security tax withheld"
+            box5_medicare_wages_and_tip_amount: "Box 5: Medicare wages and tips amount"
+            box6_medicare_tax_withheld: "Box 6: Medicare tax withheld"
+            box7_social_security_tips_amount: "Box 7: Social Security tips amount"
+            box8_allocated_tips: "Box 8: Allocated tips"
+            federal_income_tax_withheld: "Box 2: Federal Income Tax Withheld"
             info_box:
               requirement_description_html: Please enter the information <strong>exactly</strong> as it appears on your W-2. If there are blank boxes on your W-2, please leave them blank in the boxes below as well.
-              requirement_title: 'Requirement:'
+              requirement_title: "Requirement:"
             title: Great! Please enter all of %{name}’s wages, tips, and taxes withheld from this W-2.
-            wages_amount: 'Box 1: Wages Amount'
+            wages_amount: "Box 1: Wages Amount"
       shared:
         ssn_not_valid_for_employment: This person's SSN card has "Not valid for employment" printed on it. (This is rare)
     ctc_pages:
@@ -4029,21 +4039,21 @@ en:
         compare_benefits:
           ctc:
             list:
-            - Federal stimulus payments
-            - Child Tax Credit
+              - Federal stimulus payments
+              - Child Tax Credit
             note_html: If you file with GetCTC, you can file an amended return later to claim the additional credits you would have received by filing with GetYourRefund. <u>This process can be quite difficult</u>, and you would likely need assistance from a tax professional.
-            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>'
-            p2_html: 'A household with no children may receive an average of: <strong>$3,200</strong>'
+            p1_html: "A household with 1 child under the age of 6 may receive an average of: <strong>$7,500</strong>"
+            p2_html: "A household with no children may receive an average of: <strong>$3,200</strong>"
           gyr:
             list:
-            - Federal stimulus payments
-            - Child Tax Credit
-            - Earned Income Tax Credit
-            - California Earned Income Tax Credit
-            - Golden State Stimulus payments
-            - California Young Child Tax Credit
-            p1_html: 'A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>'
-            p2_html: 'A household with no children may receive an average of: <strong>$4,300</strong>'
+              - Federal stimulus payments
+              - Child Tax Credit
+              - Earned Income Tax Credit
+              - California Earned Income Tax Credit
+              - Golden State Stimulus payments
+              - California Young Child Tax Credit
+            p1_html: "A household with 1 child under the age of 6 may receive an average of: <strong>$12,200</strong>"
+            p2_html: "A household with no children may receive an average of: <strong>$4,300</strong>"
           title: Compare benefits
         compare_length:
           ctc: 30 minutes
@@ -4052,12 +4062,12 @@ en:
         compare_required_info:
           ctc:
             list:
-            - Social Security or ITIN Numbers
+              - Social Security or ITIN Numbers
           gyr:
             list:
-            - Employment documents
-            - "(W2’s, 1099’s, etc.)"
-            - Social Security or ITIN Numbers
+              - Employment documents
+              - "(W2’s, 1099’s, etc.)"
+              - Social Security or ITIN Numbers
           helper_text: Documents are required for each family member on your tax return.
           title: Compare required information
         ctc: GetCTC
@@ -4203,58 +4213,58 @@ en:
         title: GetCTC Outreach and Navigator Resources
       privacy_policy:
         01_intro:
-        - GetCTC.org is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help low to moderate-income households access tax benefits, like the Advance Child Tax Credit (AdvCTC) and Economic Impact Payments through accessible tax filing services.
-        - This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
+          - GetCTC.org is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help low to moderate-income households access tax benefits, like the Advance Child Tax Credit (AdvCTC) and Economic Impact Payments through accessible tax filing services.
+          - This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         02_questions_html: If you have any questions or concerns about this Privacy Notice, please contact us at %{email_link}
         03_overview: Overview
         04_info_we_collect: Information we collect
-        05_info_we_collect_details: 'We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:'
+        05_info_we_collect_details: "We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:"
         06_info_we_collect_list:
-        - Personal identifiers such as name, addresses, phone numbers, and email addresses
-        - Date of birth
-        - Demographic information, such as age and marital status
-        - Personal identifiers such as name, addresses, phone numbers, and email addresses
-        - Date of birth
-        - Demographic information, such as age and marital status
-        - Characteristics of protected classifications, such as gender, race, and ethnicity
-        - Tax information, such as social security number or individual taxpayer identification number (ITIN)
-        - State-issued identification, such as driver’s license number
-        - Financial information, such as employment, income and income sources
-        - Banking details for direct deposit of refunds
-        - Details of dependents
-        - Household information and information about your spouse, if applicable
-        - Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
+          - Personal identifiers such as name, addresses, phone numbers, and email addresses
+          - Date of birth
+          - Demographic information, such as age and marital status
+          - Personal identifiers such as name, addresses, phone numbers, and email addresses
+          - Date of birth
+          - Demographic information, such as age and marital status
+          - Characteristics of protected classifications, such as gender, race, and ethnicity
+          - Tax information, such as social security number or individual taxpayer identification number (ITIN)
+          - State-issued identification, such as driver’s license number
+          - Financial information, such as employment, income and income sources
+          - Banking details for direct deposit of refunds
+          - Details of dependents
+          - Household information and information about your spouse, if applicable
+          - Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
         07_info_required_by_irs: We collect information as required by the IRS in Revenue Procedure “Rev RP-21-24.”
-        '08_how_we_collect': How we collect your information
-        '09_various_sources': We collect your information from various sources, such as when you or your household members
+        "08_how_we_collect": How we collect your information
+        "09_various_sources": We collect your information from various sources, such as when you or your household members
         10_various_sources_list:
-        - Visit our Site, fill out forms on our Site, or use our Services
-        - Provide us with documents to use our Services
-        - Communicate with us (for instance through email, chat, social media, or otherwise)
+          - Visit our Site, fill out forms on our Site, or use our Services
+          - Provide us with documents to use our Services
+          - Communicate with us (for instance through email, chat, social media, or otherwise)
         11_third_parties: We may also collect your information from third-parties such as
         12_third_parties_list:
-        - Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for
-        - The Internal Revenue Service (“IRS”) or other government agencies relating to our Services
+          - Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for
+          - The Internal Revenue Service (“IRS”) or other government agencies relating to our Services
         13_using_information: Using information we have collected
         14_using_information_details: We use your information for our business purposes and legitimate interests such as
         14_using_information_list:
-        - To help connect you with the free tax preparation services or any other benefit programs that you apply for
-        - To complete forms required for use of the Services or filing of your taxes
-        - To provide support to you through the process and communicate with you
-        - To monitor and understand how the Site and our Services are used
-        - To improve the quality or scope of the Site or our Services
-        - To suggest other services or assistance programs that may be useful to you
-        - For fraud detection, prevention, and security purposes
-        - To comply with legal requirements and obligations
-        - For research
+          - To help connect you with the free tax preparation services or any other benefit programs that you apply for
+          - To complete forms required for use of the Services or filing of your taxes
+          - To provide support to you through the process and communicate with you
+          - To monitor and understand how the Site and our Services are used
+          - To improve the quality or scope of the Site or our Services
+          - To suggest other services or assistance programs that may be useful to you
+          - For fraud detection, prevention, and security purposes
+          - To comply with legal requirements and obligations
+          - For research
         15_information_shared_with_others: Information shared with others
         16_we_dont_sell: We do not sell your personal information.
         17_disclose_to_others_details: We do not share personal information to any third party, except as provided in this Privacy Policy. We may disclose information to contractors, affiliated organizations, and/or unaffiliated third parties to provide the Services to you, to conduct our business, or to help with our business activities. For example, we may share your information with
         18_disclose_to_others_list_html:
-        - VITA providers to help prepare and submit your tax returns
-        - The Internal Revenue Service (IRS) in order to help you e-file your taxes and/or other forms to qualify for the Child Tax Credit payments
-        - Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes. These third party communications are for the purpose the betterment of the product, to learn about the experience and to update you if you asked for updates
-        - Code for America has third party relationships with program and service providers who provide services on our behalf to help with our business activities. These companies are authorized to use your personal information only as necessary to provide these services to us, pursuant to written instructions. We may share your information with business partners and other third parties in order to allow them to provide you with offers or products and services that we think may benefit you. If you do not want us to share your personal information with these companies, please contact us at %{email_link}.
+          - VITA providers to help prepare and submit your tax returns
+          - The Internal Revenue Service (IRS) in order to help you e-file your taxes and/or other forms to qualify for the Child Tax Credit payments
+          - Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes. These third party communications are for the purpose the betterment of the product, to learn about the experience and to update you if you asked for updates
+          - Code for America has third party relationships with program and service providers who provide services on our behalf to help with our business activities. These companies are authorized to use your personal information only as necessary to provide these services to us, pursuant to written instructions. We may share your information with business partners and other third parties in order to allow them to provide you with offers or products and services that we think may benefit you. If you do not want us to share your personal information with these companies, please contact us at %{email_link}.
         19_require_third_parties: We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
         20_may_share_third_parties: We may share your information with third parties in special situations, such as when required by law, or we believe sharing will help to protect the safety, property, or rights of Code for America, the people we serve, our associates, or other persons.
         21_may_share_government: We may share limited, aggregated, or personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Child Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return or through the GetCTC website.
@@ -4263,15 +4273,15 @@ en:
         24_your_choices_contact_methods: Postal mail, email, and promotions
         25_to_update_prefs: To update your preferences or contact information, you may
         26_to_update_prefs_list_html:
-        - contact us at %{email_link} and request removal from the GetCTC update emails
-        - follow the opt-out instructions provided in emails or postal mail
-        - click on the “unsubscribe” hyperlink contained in our promotional emails from Code for America
+          - contact us at %{email_link} and request removal from the GetCTC update emails
+          - follow the opt-out instructions provided in emails or postal mail
+          - click on the “unsubscribe” hyperlink contained in our promotional emails from Code for America
         27_unsubscribe_note: Please note that even if you unsubscribe from promotional email offers and updates, we may still contact you for transactional purposes. For example, we may send communications regarding your tax return status, reminders, or to alert you of additional information needed.
         28_cookies: Cookies
         29_cookies_details: Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.
         30_cookies_list:
-        - We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Sites to improve the way we promote our content, programs, and events.
-        - Your use of our Sites indicates your consent to such use of Cookies.
+          - We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Sites to improve the way we promote our content, programs, and events.
+          - Your use of our Sites indicates your consent to such use of Cookies.
         31_cookies_default: Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.
         32_sms: Transactional SMS (Text) Messages
         33_sms_details_html: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">GetYourRefund's SMS terms</a>, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.
@@ -4281,44 +4291,44 @@ en:
         37_additional_services_details: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
         38_how_we_protect: How we protect your information
         39_how_we_protect_list:
-        - Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
-        - Still, no system can be guaranteed to be 100% secure. If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately as described in this Privacy Notice.
+          - Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
+          - Still, no system can be guaranteed to be 100% secure. If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately as described in this Privacy Notice.
         40_retention: Data Retention
         41_retention_list:
-        - 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.'
-        - If you no longer wish to proceed with the GetCTC application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.
+          - "We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations."
+          - If you no longer wish to proceed with the GetCTC application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.
         42_children: Children’s privacy
         43_children_details: We do not knowingly collect personal information from unemancipated minors under 16 years of age.
         44_changes: Changes
         45_changes_summary: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
         46_access_request: Access Request
         47_access_request_list_html:
-        - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
-        - Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity--which determined the means and purposes of processing, all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
+          - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
+          - Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity--which determined the means and purposes of processing, all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
         47_effective_date: Effective Date
         48_effective_date_info: This version of the policy is effective October 22, 2021.
         49_questions: Questions
         50_questions_list_html:
-        - If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
-        - 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
+          - If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request" target="_blank" rel="noopener noreferrer">https://feedback-form.truste.com/watchdog/request</a>.
+          - "If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:"
         51_do_our_best: We will do our best to resolve the issue.
       puerto_rico:
         hero:
-        - Collect money for any child that you take care of even if you have never filed taxes with the IRS before. You may be eligible to claim the Child Tax Credit and put cash in your family's pocket. If you're not required to file a federal return with the IRS, you can use this simplified tax filing tool to get your money.
-        - This form usually takes about 15 minutes to complete, and you won't need any tax documents.
+          - Collect money for any child that you take care of even if you have never filed taxes with the IRS before. You may be eligible to claim the Child Tax Credit and put cash in your family's pocket. If you're not required to file a federal return with the IRS, you can use this simplified tax filing tool to get your money.
+          - This form usually takes about 15 minutes to complete, and you won't need any tax documents.
         title: Puerto Rico, you can get Child Tax Credit for your family!
         what_is:
           body:
-          - This year, for the first time, families in Puerto Rico can get the full Child Tax Credit, of up to $3,600 per child.
-          - To claim your Child Tax Credit, you need to file a simplified form with the IRS. If you haven't already filed a federal return with the IRS, you can do it easily here!
+            - This year, for the first time, families in Puerto Rico can get the full Child Tax Credit, of up to $3,600 per child.
+            - To claim your Child Tax Credit, you need to file a simplified form with the IRS. If you haven't already filed a federal return with the IRS, you can do it easily here!
           heading: Most families in Puerto Rico can get thousands of dollars from the Child Tax Credit by filing with the IRS!
           how_much_reveal:
             body:
-            - The Child Tax Credit for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.
+              - The Child Tax Credit for tax year 2021 is up to $3,600 per child under 6, and $3,000 per child age 6-17.
             title: How much will I get?
           qualify_reveal:
             body:
-            - Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
+              - Your children probably qualify if they lived with you for most of 2021, they were under 18 at the end of 2021, and they were not born in 2022. GetCTC will walk you through a few quick questions to make sure.
             title: Do my children qualify?
       puerto_rico_overview:
         cta: You are about to file a tax return. You are responsible for answering questions truthfully and accurately to the best of your ability.
@@ -4367,8 +4377,8 @@ en:
           heading_open: Most families can get thousands of dollars from the third stimulus payment
           reveals:
             first_two_body_html:
-            - The IRS issued three rounds of stimulus payments during the COVID pandemic. Families usually received them in April 2020, December 2020, and March 2021. You can claim all or part of the third stimulus payment using GetCTC.
-            - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file back taxes for <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">free at GetYourRefund.</a>
+              - The IRS issued three rounds of stimulus payments during the COVID pandemic. Families usually received them in April 2020, December 2020, and March 2021. You can claim all or part of the third stimulus payment using GetCTC.
+              - If you missed any of the first or second stimulus payments, you have to file a 2020 tax return to claim them. You can file back taxes for <a target="_blank" rel="noopener nofollow" href="%{gyr_link}">free at GetYourRefund.</a>
             first_two_title: What about the first two stimulus payments?
             how_much_ctc_body: The third stimulus payment was usually issued in March or April 2021, and was worth $1,400 per adult tax filer plus $1,400 per eligible dependent. If you received less than you deserved in 2021, or didn’t receive any payment at all, you can claim your missing stimulus payment by filing a simple tax return.
             how_much_ctc_title: How much will I get from the Child Tax Credit?
@@ -4401,7 +4411,7 @@ en:
         title: Let’s claim someone!
     documents:
       additional_documents:
-        document_list_title: 'Based on your earlier answers, you might have the following:'
+        document_list_title: "Based on your earlier answers, you might have the following:"
         help_text: If you have any other documents that might be relevant, please share them with us below. It will help us better prepare your taxes!
         title: Please share any additional documents.
       employment:
@@ -4428,14 +4438,14 @@ en:
           one: The IRS requires us to see a current drivers license, passport, or state ID.
           other: The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse.
         info: We will use your ID card to verify and protect your identity in accordance with IRS guidelines. It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo.
-        need_for: 'We will need an ID for:'
+        need_for: "We will need an ID for:"
         title:
           one: Attach a photo of your ID card
           other: Attach photos of ID cards
       intro:
         info: Based on your answers to our earlier questions, we have a list of documents you should share. Your progress will be saved and you can return with more documents later.
-        note: 'Note: If you have other documents, you will have a chance to share those as well.'
-        should_have: 'You should have the following documents:'
+        note: "Note: If you have other documents, you will have a chance to share those as well."
+        should_have: "You should have the following documents:"
         title: Now, let's collect your tax documents!
       overview:
         empty: No documents of this type were uploaded.
@@ -4456,7 +4466,7 @@ en:
         submit_photo: Submit a photo
       selfies:
         help_text: The IRS requires us to verify who you are for tax preparation services.
-        need_for_html: 'We will need to see a <u>photo with ID</u> for:'
+        need_for_html: "We will need to see a <u>photo with ID</u> for:"
         title: Share a photo of yourself holding your ID card
       spouse_ids:
         expanded_id:
@@ -4470,7 +4480,7 @@ en:
           help_text: The IRS requires us to see an additional  form of identity. We use a second form of ID to verify and protect your identity in accordance with IRS guidelines.
           title: Attach photos of an additional form of ID
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
-        need_for: 'We will need a SSN or ITIN for:'
+        need_for: "We will need a SSN or ITIN for:"
         title: Attach photos of Social Security Card or ITIN
     layouts:
       admin:
@@ -4541,7 +4551,7 @@ en:
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ
-          header: 'Common Tax Questions:'
+          header: "Common Tax Questions:"
         header: Free tax filing, made simple.
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in 2024. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
@@ -4571,7 +4581,7 @@ en:
           description: We do not knowingly collect personal information from unemancipated minors under 16 years of age.
           header: Children’s privacy
         data_retention:
-          description: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations. If you no longer wish to proceed with GetYourRefund and request to remove your information from our Services, we will delete your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.'
+          description: "We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations. If you no longer wish to proceed with GetYourRefund and request to remove your information from our Services, we will delete your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law."
           header: Data Retention
         description: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         effective_date:
@@ -4595,7 +4605,7 @@ en:
               demographic: Demographic information, such as age and marital status
               device_information: Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
               financial_information: Financial information, such as employment, income and income sources
-              header: 'We may collect the following information about you, your dependents, or members of your household:'
+              header: "We may collect the following information about you, your dependents, or members of your household:"
               personal_identifiers: Personal identifiers such as name, addresses, phone numbers, and email addresses
               protected_classifications: Characteristics of protected classifications, such as gender, race, and ethnicity
               state_information: State-issued identification, such as driver’s license number
@@ -4663,7 +4673,7 @@ en:
             c/o Code for America</br>
             972 Mission Street</br>
             San Francisco, CA 94103
-          description_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
+          description_html: "If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:"
           header: Questions
           resolve: We will do our best to resolve the issue
         questions_html: If you have any questions or concerns about this Privacy Notice, please contact us at %{email_link}
@@ -4683,9 +4693,9 @@ en:
         title: SMS terms
       stimulus:
         facts_html:
-        - Collect your 2020 stimulus check by filing your taxes through <a href="/">GetYourRefund</a>!
-        - Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>
-        - 'Call the 211 Economic Impact Payment Helpline with questions: <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
+          - Collect your 2020 stimulus check by filing your taxes through <a href="/">GetYourRefund</a>!
+          - Check the status of your stimulus check on the <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Get My Payment website</a>
+          - "Call the 211 Economic Impact Payment Helpline with questions: <a href='tel:1-844-322-3639' data-track-click='call-211-hotline' data-track-attribute-position='homepage'>+1 (844) 322-3639</a>"
         file_with_help:
           header: Collect your 2020 stimulus check by filing your taxes today!
         heading: Need assistance getting your stimulus check?
@@ -4694,117 +4704,117 @@ en:
           eip:
             header: Economic Impact Payment (stimulus) check FAQs
             items:
-            - title: Will the EIP check affect my other government benefits?
-              content_html: No, the EIP checks are treated as a tax credit. This means your payment will not impact the benefits you receive now or in the future.
-            - title: I still need to file a tax return. How long are the economic impact payments available?
-              content_html: These payments will continue to be available by filing a tax return. Although the official deadline is May 17, you can continue to file until October 15 via GetYourRefund.org.
-            - title: If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?
-              content_html: While the stimulus payments made in 2020 were protected from garnishment, the same is not true for payments made through Rebate Recovery Credits.
-            - title: What if I am overdrawn at my bank?
-              content_html: If your bank or credit union has taken a portion of your EIP to cover money you owe them, the <a href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/">Consumer Financial Protection Bureau recommends</a> calling them to ask if they are willing to be flexible.
-            - title: What if someone offers a quicker payment?
-              content_html: Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams. If it looks too good to be true, it probably is. And don’t send money to someone you don’t know.  Look at the fees being charged if you are paying for your tax preparation service or a refund anticipation loan by having them deducted from your refund.
+              - title: Will the EIP check affect my other government benefits?
+                content_html: No, the EIP checks are treated as a tax credit. This means your payment will not impact the benefits you receive now or in the future.
+              - title: I still need to file a tax return. How long are the economic impact payments available?
+                content_html: These payments will continue to be available by filing a tax return. Although the official deadline is May 17, you can continue to file until October 15 via GetYourRefund.org.
+              - title: If I owe taxes, or have a payment agreement with the IRS, or owe other federal or state debts, will I still get the EIP?
+                content_html: While the stimulus payments made in 2020 were protected from garnishment, the same is not true for payments made through Rebate Recovery Credits.
+              - title: What if I am overdrawn at my bank?
+                content_html: If your bank or credit union has taken a portion of your EIP to cover money you owe them, the <a href="https://www.consumerfinance.gov/about-us/blog/consumer-advisory-protect-your-economic-payment-if-your-account-is-overdrawn/">Consumer Financial Protection Bureau recommends</a> calling them to ask if they are willing to be flexible.
+              - title: What if someone offers a quicker payment?
+                content_html: Don’t click on links whose origins you aren’t 100% sure of. Be wary of scams. If it looks too good to be true, it probably is. And don’t send money to someone you don’t know.  Look at the fees being charged if you are paying for your tax preparation service or a refund anticipation loan by having them deducted from your refund.
           how_to_get_paid:
             header: How to get paid
             items:
-            - title: How do I get my Economic Impact Payment check?
-              content_html: If the IRS has not sent your first or second round stimulus payment yet, or if you received the wrong amount for either payment, you will need to file a 2020 tax return in order to receive it.
-            - title: How do I determine if the IRS has sent my stimulus check?
-              content_html: |-
-                If you are not sure if the IRS has sent your third stimulus payment or want to check the status, you can search at the IRS <a
-                  href="https://www.irs.gov/coronavirus/get-my-payment"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-get-my-payment"
-                  data-track-attribute-position="stimulus-how-faq2">
-                Get My Payment</a> website. To see if you received the earlier stimulus payments, and for what amount, you must <a
-                  href="https://www.irs.gov/payments/view-your-tax-account"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-view-your-tax-account"
-                  data-track-attribute-position="stimulus-how-faq2">
-                view or create an online account</a> with the IRS.
-            - title: What if there are issues with my bank account information?
-              content_html: |-
-                If the IRS is not able to deposit to the account it has on record, it will mail the payment to the address it has on file. If mail is returned, the <a
-                  href="https://www.irs.gov/coronavirus/get-my-payment"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-get-my-payment"
-                  data-track-attribute-position="stimulus-how-faq3">
-                Get My Payment</a> tool will show a status of “more information needed” and you will have the opportunity to provide new bank information.
-            - title: What if I haven’t filed federal taxes?
-              content_html: We recommend that you file your taxes in order to access the Economic Impact Payments and any additional tax credits you may be eligible for. You can file 2018, 2019, 2020, and 2021 returns for free with GetYourRefund.
-            - title: What if I don’t have a bank account?
-              content_html: |-
-                If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, <a
-                  href="https://joinbankon.org/home/remotebanking/"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-online-banking"
-                  data-track-attribute-position="stimulus-how-faq5">
-                sign up for a bank account online</a> and add your account information when you file your return. If you don’t want to sign up for a bank account, you can link your prepaid debit card or <a
-                  href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-cash-app"
-                  data-track-attribute-position="stimulus-how-faq5">
-                Cash App</a> instead. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund.
-            - title: What if I moved since last year?
-              content_html: |-
-                The easiest way to update your address is by filing your 2020 return with the correct address. If you have already filed with your old address, you can use the <a
-                  href="https://www.irs.gov/faqs/irs-procedures/address-changes"
-                  rel="noopener nofollow"
-                  target="_blank"
-                  data-track-click="stimulus-irs-address-changes"
-                  data-track-attribute-position="stimulus-how-faq6">
-                IRS address change website</a> to update your address. There may be delays in receiving your EIP – it could take up to five months to receive your check by mail.
+              - title: How do I get my Economic Impact Payment check?
+                content_html: If the IRS has not sent your first or second round stimulus payment yet, or if you received the wrong amount for either payment, you will need to file a 2020 tax return in order to receive it.
+              - title: How do I determine if the IRS has sent my stimulus check?
+                content_html: |-
+                  If you are not sure if the IRS has sent your third stimulus payment or want to check the status, you can search at the IRS <a
+                    href="https://www.irs.gov/coronavirus/get-my-payment"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-how-faq2">
+                  Get My Payment</a> website. To see if you received the earlier stimulus payments, and for what amount, you must <a
+                    href="https://www.irs.gov/payments/view-your-tax-account"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-view-your-tax-account"
+                    data-track-attribute-position="stimulus-how-faq2">
+                  view or create an online account</a> with the IRS.
+              - title: What if there are issues with my bank account information?
+                content_html: |-
+                  If the IRS is not able to deposit to the account it has on record, it will mail the payment to the address it has on file. If mail is returned, the <a
+                    href="https://www.irs.gov/coronavirus/get-my-payment"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-get-my-payment"
+                    data-track-attribute-position="stimulus-how-faq3">
+                  Get My Payment</a> tool will show a status of “more information needed” and you will have the opportunity to provide new bank information.
+              - title: What if I haven’t filed federal taxes?
+                content_html: We recommend that you file your taxes in order to access the Economic Impact Payments and any additional tax credits you may be eligible for. You can file 2018, 2019, 2020, and 2021 returns for free with GetYourRefund.
+              - title: What if I don’t have a bank account?
+                content_html: |-
+                  If you don’t have a bank account, it could take up to five months to receive your EIP check by mail. To get your payment quickly via direct deposit, <a
+                    href="https://joinbankon.org/home/remotebanking/"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-online-banking"
+                    data-track-attribute-position="stimulus-how-faq5">
+                  sign up for a bank account online</a> and add your account information when you file your return. If you don’t want to sign up for a bank account, you can link your prepaid debit card or <a
+                    href="https://cash.app/help/us/en-us/1018-cash-app-the-stimulus-and-you"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-cash-app"
+                    data-track-attribute-position="stimulus-how-faq5">
+                  Cash App</a> instead. Many of our VITA partners can also enroll you in a prepaid debit card when you file your return through GetYourRefund.
+              - title: What if I moved since last year?
+                content_html: |-
+                  The easiest way to update your address is by filing your 2020 return with the correct address. If you have already filed with your old address, you can use the <a
+                    href="https://www.irs.gov/faqs/irs-procedures/address-changes"
+                    rel="noopener nofollow"
+                    target="_blank"
+                    data-track-click="stimulus-irs-address-changes"
+                    data-track-attribute-position="stimulus-how-faq6">
+                  IRS address change website</a> to update your address. There may be delays in receiving your EIP – it could take up to five months to receive your check by mail.
         header: Get your Stimulus Check (EIP)
         intro:
           common_questions: We know there are many questions around the Economic Impact Payments (EIP) and we have some answers! We’ve broken down some common questions to help you out.
           description:
-          - The federal government has begun sending out the third round of Economic Impact Payments (EIPs), often called a stimulus check. In this round, individuals can receive up to $1,400 for themselves or $2,800 for a married couple filing jointly and an additional $1,400 for every dependent.
-          - If you have not yet received this payment or earlier rounds of payments, it is not too late! You can still claim them by filing a tax return this year.
+            - The federal government has begun sending out the third round of Economic Impact Payments (EIPs), often called a stimulus check. In this round, individuals can receive up to $1,400 for themselves or $2,800 for a married couple filing jointly and an additional $1,400 for every dependent.
+            - If you have not yet received this payment or earlier rounds of payments, it is not too late! You can still claim them by filing a tax return this year.
           eligibility:
             header: Who is eligible?
             info:
-            - For the first round, eligible taxpayers received an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child under the age of 17.  For the second round, eligible taxpayers received an economic impact payment of up to $600 for individuals or $1,200 for married couples and up to $600 for each qualifying child.
-            - In each round of payments, tax filers with adjusted gross income up to $75,000 for individuals, up to $112,500 for those filing as head of household, or up to $150,000 for married couples filing joint returns receive the full payment. For filers with income above those amounts, the payment amount phases down gradually.
-            - In the first two rounds of payments, only children under age 17 could be claimed for the dependent payment. Other dependents were not eligible—and also could not claim the EIP themselves. In the third round of payments, all dependents, including college students and adult dependents can be claimed.  In addition, as discussed below, some children in mixed-immigration status households who were previously ineligible, can receive the third payment.
-            - 'The IRS made the first two rounds of payments based on the information it had from 2018 or 2019 tax returns.  If you are eligible for a larger payment based on your 2020 information, you can claim that credit when you file your 2020 return.  For example:'
+              - For the first round, eligible taxpayers received an economic impact payment of up to $1,200 for individuals or $2,400 for married couples and up to $500 for each qualifying child under the age of 17.  For the second round, eligible taxpayers received an economic impact payment of up to $600 for individuals or $1,200 for married couples and up to $600 for each qualifying child.
+              - In each round of payments, tax filers with adjusted gross income up to $75,000 for individuals, up to $112,500 for those filing as head of household, or up to $150,000 for married couples filing joint returns receive the full payment. For filers with income above those amounts, the payment amount phases down gradually.
+              - In the first two rounds of payments, only children under age 17 could be claimed for the dependent payment. Other dependents were not eligible—and also could not claim the EIP themselves. In the third round of payments, all dependents, including college students and adult dependents can be claimed.  In addition, as discussed below, some children in mixed-immigration status households who were previously ineligible, can receive the third payment.
+              - "The IRS made the first two rounds of payments based on the information it had from 2018 or 2019 tax returns.  If you are eligible for a larger payment based on your 2020 information, you can claim that credit when you file your 2020 return.  For example:"
             info_last_html:
-            - To claim this credit, you will need to report how much you received from the two EIPs in 2020. However, you will not have to repay the stimulus payments you received if your income went up in 2020 or the number of dependents you claimed went down.  You will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984">the Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
-            - If you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information.
+              - To claim this credit, you will need to report how much you received from the two EIPs in 2020. However, you will not have to repay the stimulus payments you received if your income went up in 2020 or the number of dependents you claimed went down.  You will need to complete <a href="https://www.irs.gov/instructions/i1040gi#idm140693714589984">the Recovery Rebate Credit Worksheet</a> for line 30 of the 2020 1040 tax form. We can assist you with these forms if you file your return through GetYourRefund.
+              - If you have any earned income or dependents, you may be able to access additional tax credits or benefits by filing or updating your info with the IRS. Please reach out via chat for more information.
             list:
-            - You only got a partial payment due to the phase out, but you lost your job due to COVID-19 and your income was lower in 2020 than in 2019.
-            - You had a new baby in 2020.
-            - You could be claimed as someone else’s dependent in 2019, but not in 2020.
-            - You were not required to file a tax return in 2018 or 2019, and missed the deadline for using the non-filers portal to claim the payments.
+              - You only got a partial payment due to the phase out, but you lost your job due to COVID-19 and your income was lower in 2020 than in 2019.
+              - You had a new baby in 2020.
+              - You could be claimed as someone else’s dependent in 2019, but not in 2020.
+              - You were not required to file a tax return in 2018 or 2019, and missed the deadline for using the non-filers portal to claim the payments.
           irs_info_html: The IRS will post all key information on %{irs_eip_link} as soon as it becomes available.
           last_updated: Updated on April 6, 2021
           mixed_status_eligibility:
             header: Are mixed immigration status families eligible?
             info_html:
-            - Originally, mixed status families were not eligible for the first round of payments. However, now mixed status families can claim both the first and second round of payments on this year’s tax return. For the second round of payments, if you jointly file with your spouse and only one of you has a valid Social Security Number, the spouse with the valid SSN will receive up to $600 and up to $600 for any qualifying children with SSNs. However, the spouse without a valid SSN is not eligible. The same rules now apply for the first round of payments as well.
-            - |-
-              For the third round of payments, taxpayers who file with Individual Taxpayer Identification Numbers (ITINs) can claim the EIP for their dependents who have Social Security Numbers.  You may obtain an ITIN by filing the <a
-                href="https://www.irs.gov/instructions/iw7"
-                rel="noopener nofollow"
-                target="_blank"
-                data-track-click="stimulus-irs-i-7"
-                data-track-attribute-position="stimulus-mixed-eligible1">
-              form I-7</a> and required documentation with your tax return, or by bringing the form and documentation to a <a
-                href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
-                rel="noopener nofollow"
-                target="_blank"
-                data-track-click="stimulus-irs-certified-acceptance-agent"
-                data-track-attribute-position="stimulus-mixed-eligible2">
-              Certified Acceptance Agent</a>.
+              - Originally, mixed status families were not eligible for the first round of payments. However, now mixed status families can claim both the first and second round of payments on this year’s tax return. For the second round of payments, if you jointly file with your spouse and only one of you has a valid Social Security Number, the spouse with the valid SSN will receive up to $600 and up to $600 for any qualifying children with SSNs. However, the spouse without a valid SSN is not eligible. The same rules now apply for the first round of payments as well.
+              - |-
+                For the third round of payments, taxpayers who file with Individual Taxpayer Identification Numbers (ITINs) can claim the EIP for their dependents who have Social Security Numbers.  You may obtain an ITIN by filing the <a
+                  href="https://www.irs.gov/instructions/iw7"
+                  rel="noopener nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-i-7"
+                  data-track-attribute-position="stimulus-mixed-eligible1">
+                form I-7</a> and required documentation with your tax return, or by bringing the form and documentation to a <a
+                  href="https://www.irs.gov/individuals/international-taxpayers/acceptance-agent-program"
+                  rel="noopener nofollow"
+                  target="_blank"
+                  data-track-click="stimulus-irs-certified-acceptance-agent"
+                  data-track-attribute-position="stimulus-mixed-eligible2">
+                Certified Acceptance Agent</a>.
         title: Stimulus Payment
       tax_questions:
         cannot_answer:
           different_services: Questions about taxes filed with a different service (H&R Block, TurboTax)
-          header: 'We can not answer:'
+          header: "We can not answer:"
           refund_amounts: The amount of refund you will receive
         header: Let's try to answer your tax questions!
         see_faq: Please see our FAQ
@@ -4836,7 +4846,7 @@ en:
         title: Wow, it looks like we are at capacity right now.
         warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
-        select_all_that_apply: 'Select all the years you would like to file for:'
+        select_all_that_apply: "Select all the years you would like to file for:"
         title: Which of the following years would you like to file for?
       balance_payment:
         title: If you have a balance due, would you like to make a payment directly from your bank account?
@@ -5069,7 +5079,7 @@ en:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
         global_carryforward_html: <a href="%{global_carryforward_url}" target="_blank" rel="noopener">Global Carryforward:</a> You allow us to make your tax return information available to other VITA programs you may visit.
-        help_text_html: 'We respect your privacy. <strong>You have the option</strong> to consent to the following:'
+        help_text_html: "We respect your privacy. <strong>You have the option</strong> to consent to the following:"
         legal_details_html: |
           <p>Federal law requires these consent forms be provided to you. Unless authorized by law, we cannot disclose your tax return information to third parties for purposes other than the preparation and filing of your tax return without your consent. If you consent to the disclosure of your tax return information, Federal law may not protect your tax return information from further use or distribution.</p>
 
@@ -5197,7 +5207,7 @@ en:
           other: In %{year}, did you or your spouse pay any student loan interest?
       successfully_submitted:
         additional_text: Please save this number for your records and future reference.
-        client_id: 'Client ID number: %{client_id}'
+        client_id: "Client ID number: %{client_id}"
         next_steps:
           confirmation_message: You will receive a confirmation message shortly
           header: Next Steps
@@ -5217,7 +5227,7 @@ en:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
       verification:
-        body: 'A message with your code has been sent to:'
+        body: "A message with your code has been sent to:"
         error_message: Incorrect verification code.
         title: Let's verify that contact info with a code!
         verification_code_label: Enter 6 digit code
@@ -5248,55 +5258,55 @@ en:
       consent_agreement:
         details:
           header: The Details
-          intro: 'This site is using 100% Virtual VITA/TCE Process: This method includes non-face-to-face interactions with the taxpayer and any of the VITA/TCE volunteers during the intake, interview, return preparation, quality review, and signing the tax return. The taxpayer will be explained the full process and is required to consent to step-by-step process used by the site. This includes the virtual procedures to send required documents (social security numbers, Form W-2 and other documents) through a secured file sharing system to a designated volunteer for review.'
+          intro: "This site is using 100% Virtual VITA/TCE Process: This method includes non-face-to-face interactions with the taxpayer and any of the VITA/TCE volunteers during the intake, interview, return preparation, quality review, and signing the tax return. The taxpayer will be explained the full process and is required to consent to step-by-step process used by the site. This includes the virtual procedures to send required documents (social security numbers, Form W-2 and other documents) through a secured file sharing system to a designated volunteer for review."
           sections:
-          - header: Overview
-            content:
-            - I understand that VITA is a <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a> that <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
-            - I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
-          - header: Securing Taxpayer Consent Agreement
-            content:
-            - I understand that selecting "I agree" provides my consent to the GetYourRefund tax prep process.
-          - header: Performing the Intake Process (Secure All Documents)
-            content:
-            - 'Intake process: GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return. All documents will be uploaded in the system and secured.'
-            - I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
-          - header: Validating Taxpayer's Authentication (Reviewing photo identification and Social Security Cards/ITINS)
-            content:
-            - I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return. Identity is validated by review of photo identification, proof of social security number or ITIN, and a photo of you holding your identification.
-          - header: Performing the interview with the taxpayer(s)
-            content:
-            - I understand that I will need to participate in an Intake Interview via phone in order to have a VITA preparation site file my taxes.
-          - header: Preparing the tax return
-            content:
-            - Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
-            - I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
-          - header: Performing the quality review
-            content:
-            - I understand that I will need to participate in a Quality Review via phone in order to have a VITA preparation site file my taxes.
-            - I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
-          - header: Sharing the completed return
-            content:
-            - Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
-          - header: Signing the return
-            content:
-            - I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.
-            - I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund.
-          - header: E-filing the tax return
-            content:
-            - I understand that GetYourRefund will e-file my tax return with the IRS.
-          - header: Request to Review your Tax Return for Accuracy
-            content:
-            - To ensure you are receiving quality services and an accurately prepared tax return at the volunteer site, IRS employees randomly select free tax preparation sites for review. If errors are identified, the site will make the necessary corrections. IRS does not keep any personal information from your reviewed tax return and this allows them to rate our VITA/TCE return preparation programs for accurately prepared tax returns. By consenting to the service, you consent to having your return reviewed for accuracy by an IRS employee if the site preparing this return is selected for a review.
-          - header: Virtual Consent Disclosure
-            content:
-            - If you agree to have your tax return prepared and your tax documents handled in the above manner, your signature and/or agreement is required on this document. Signing this document means that you are agreeing to the procedures stated above for preparing a tax return for you. (If this is a Married Filing Joint return both spouses must sign and date this document.) If you choose not to sign this form, we may not be able to prepare your tax return using this process. Since we are preparing your tax return virtually, we have to secure your consent agreeing to this process.
-            - If you consent to use these non-IRS virtual systems to disclose or use your tax return information, Federal law may not protect your tax return information from further use or distribution in the event these systems are hacked or breached without our knowledge.
-            - If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
-            - If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by e-mail at complaints@tigta.treas.gov.
-            - While the IRS is responsible for providing oversight requirements to Volunteer Income Tax Assistance (VITA) and Tax Counseling for the Elderly (TCE) programs, these sites are operated by IRS sponsored partners who manage IRS site operations requirements and volunteer ethical standards. In addition, the locations of these sites may not be in or on federal property.
-            - By signing below, you and your spouse (if applicable) agree to participate in the process and consent to allow GetYourRefund to assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
-            - This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS.
+            - header: Overview
+              content:
+                - I understand that VITA is a <a href="https://www.irs.gov/pub/irs-pdf/p4836.pdf">free tax program</a> that <a href="https://www.irs.gov/pub/irs-pdf/p4053csp.pdf">protects my civil rights</a>.
+                - I understand that GetYourRefund.org is a website run by Code for America, a non-profit organization, that will submit your tax information to a VITA preparation site.
+            - header: Securing Taxpayer Consent Agreement
+              content:
+                - I understand that selecting "I agree" provides my consent to the GetYourRefund tax prep process.
+            - header: Performing the Intake Process (Secure All Documents)
+              content:
+                - "Intake process: GetYourRefund will collect your information and documentation through the intake process in order to accurately prepare your tax return. All documents will be uploaded in the system and secured."
+                - I understand that I must provide all required information/documentation necessary to prepare an accurate tax return.
+            - header: Validating Taxpayer's Authentication (Reviewing photo identification and Social Security Cards/ITINS)
+              content:
+                - I understand that this site collects personally identifiable information I provide (social security numbers, Form W-2 and/or 1099, picture identification, and other documents) in order to prepare and quality review my tax return. Identity is validated by review of photo identification, proof of social security number or ITIN, and a photo of you holding your identification.
+            - header: Performing the interview with the taxpayer(s)
+              content:
+                - I understand that I will need to participate in an Intake Interview via phone in order to have a VITA preparation site file my taxes.
+            - header: Preparing the tax return
+              content:
+                - Return Preparation Process - GetYourRefund will use your information/documentation to complete a tax return.
+                - I understand that I may be contacted for additional information using a contact preference I provide. If the preparer has everything required to prepare the return, I will not be contacted until the return is completed.
+            - header: Performing the quality review
+              content:
+                - I understand that I will need to participate in a Quality Review via phone in order to have a VITA preparation site file my taxes.
+                - I understand I need to review my completed tax return to ensure the names, social security numbers, address, banking information, income, and expenses are correct to the best of my knowledge.
+            - header: Sharing the completed return
+              content:
+                - Quality Review Process - GetYourRefund will provide you with your return to review for accuracy prior to submission.
+            - header: Signing the return
+              content:
+                - I understand that I will need to sign Form 8879, IRS e-file Signature Authorization, through an electronic signature delivered via email after Quality Review is completed in order for a VITA preparation site to e-file my tax return.
+                - I understand that me and my spouse (if applicable) are ultimately responsible for all of the information provided to GetYourRefund.
+            - header: E-filing the tax return
+              content:
+                - I understand that GetYourRefund will e-file my tax return with the IRS.
+            - header: Request to Review your Tax Return for Accuracy
+              content:
+                - To ensure you are receiving quality services and an accurately prepared tax return at the volunteer site, IRS employees randomly select free tax preparation sites for review. If errors are identified, the site will make the necessary corrections. IRS does not keep any personal information from your reviewed tax return and this allows them to rate our VITA/TCE return preparation programs for accurately prepared tax returns. By consenting to the service, you consent to having your return reviewed for accuracy by an IRS employee if the site preparing this return is selected for a review.
+            - header: Virtual Consent Disclosure
+              content:
+                - If you agree to have your tax return prepared and your tax documents handled in the above manner, your signature and/or agreement is required on this document. Signing this document means that you are agreeing to the procedures stated above for preparing a tax return for you. (If this is a Married Filing Joint return both spouses must sign and date this document.) If you choose not to sign this form, we may not be able to prepare your tax return using this process. Since we are preparing your tax return virtually, we have to secure your consent agreeing to this process.
+                - If you consent to use these non-IRS virtual systems to disclose or use your tax return information, Federal law may not protect your tax return information from further use or distribution in the event these systems are hacked or breached without our knowledge.
+                - If you agree to the disclosure of your tax return information, your consent is valid for the amount of time that you specify. If you do not specify the duration of your consent, your consent is valid for one year from the date of signature.
+                - If you believe your tax return information has been disclosed or used improperly in a manner unauthorized by law or without your permission, you may contact the Treasury Inspector General for Tax Administration (TIGTA) by telephone at 1-800-366-4484, or by e-mail at complaints@tigta.treas.gov.
+                - While the IRS is responsible for providing oversight requirements to Volunteer Income Tax Assistance (VITA) and Tax Counseling for the Elderly (TCE) programs, these sites are operated by IRS sponsored partners who manage IRS site operations requirements and volunteer ethical standards. In addition, the locations of these sites may not be in or on federal property.
+                - By signing below, you and your spouse (if applicable) agree to participate in the process and consent to allow GetYourRefund to assist you with your taxes. You agree to the terms of the GetYourRefund privacy policy at www.GetYourRefund.org/privacy.
+                - This consent form replaces IRS Form 14446-Virtual VITA/TCE Taxpayer Consent. A copy of this consent will be retained on site, as required by the IRS.
           site_process_header: The GetYourRefund Site Process
         information_you_provide: You understand the information you provide this site (GetYourRefund.org) is sent to a Volunteer Income Tax Assistance (VITA) preparation site in order for an IRS-certified volunteer to review your information, conduct an intake interview on the phone, prepare the tax return, and perform a quality review before filing your taxes.
         proceed_and_confirm: By proceeding, you confirm that the following statements are true and complete to the best of your knowledge.
@@ -5317,13 +5327,13 @@ en:
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       progress_bar:
-        progress_text: 'Intake progress:'
+        progress_text: "Intake progress:"
       service_comparison:
         additional_benefits: Additional benefits
         all_services: All services provide email support and are available in English and Spanish.
         chat_support: Chat support
         filing_years:
-          title: 'Filing years:'
+          title: "Filing years:"
         id_documents:
           diy: ID numbers
           full_service: Photo
@@ -5334,7 +5344,7 @@ en:
           direct_file: Most filers under $200,000
           diy: under $79,000
           full_service: under $66,000
-          title: 'Income limit:'
+          title: "Income limit:"
         itin_assistance: ITIN application assistance
         mobile_friendly: Mobile-friendly
         required_information: Required information
@@ -5370,7 +5380,7 @@ en:
           diy: 45 minutes
           full_service: 2-3 weeks
           subtitle: IRS payment processing times vary 3-6 weeks
-          title: 'Length of time to file:'
+          title: "Length of time to file:"
         title_html: Free tax filing for households that qualify. <br/> Find the tax service that’s right for you!
         triage_link_text: Answer a few simple questions and we'll recommend the right service for you!
         vita: IRS-certified VITA tax team
