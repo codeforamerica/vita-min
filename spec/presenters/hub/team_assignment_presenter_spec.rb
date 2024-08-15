@@ -30,6 +30,14 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
   context "as a coalition lead" do
     subject { described_class.new(coalition_lead, page, selected_model) }
 
+    context "when selecting a coalition" do
+      let(:selected_model) { coalition_lead.role.coalition }
+
+      it "returns no users" do
+        expect(subject.ordered_by_tr_count_users).to eq nil
+      end
+    end
+
     context "when selecting an org" do
       it "shows org leads, team members and site coordinators belonging to selected org or child sites and their number of assigned tax returns in desc order" do
         expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
