@@ -201,6 +201,58 @@ describe Ability do
         end
       end
 
+      shared_examples :can_manage_but_not_delete_accessible_client_when_assigned do
+        context "when the user can access a particular site" do
+          let(:accessible_site) { create(:site) }
+          let(:accessible_client) do
+            create(
+              :client,
+              vita_partner: accessible_site,
+              intake: build(
+                :intake,
+                :filled_out,
+                preferred_name: "George Sr.",
+                needs_help_2019: "yes",
+                needs_help_2018: "yes",
+                preferred_interview_language: "en", locale: "en"
+              ),
+              tax_returns: [
+                build(
+                  :tax_return,
+                  :intake_ready,
+                  year: 2019,
+                  service_type: "drop_off",
+                  filing_status: nil,
+                  assigned_user: user
+                ),
+              ]
+            )
+          end
+
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+          end
+
+          it "can access all data for the client" do
+            expect(subject.can?(:read, accessible_client)).to eq true
+            expect(subject.can?(:update, accessible_client)).to eq true
+            expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client)]))).to eq true
+          end
+
+          it "cannot delete a client" do
+            expect(subject.can?(:destroy, accessible_client)).to eq false
+          end
+        end
+      end
+
       shared_examples :cannot_manage_inaccessible_client do
         context "when the user cannot access a particular site" do
           let(:accessible_site) { create(:site) }
@@ -266,7 +318,7 @@ describe Ability do
         context "a greeter" do
           let(:user) { create :greeter_user }
 
-          it_behaves_like :can_manage_but_not_delete_accessible_client
+          it_behaves_like :can_manage_but_not_delete_accessible_client_when_assigned
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
