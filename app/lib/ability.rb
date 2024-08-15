@@ -88,7 +88,8 @@ class Ability
             'intake_greeter_info_requested',
             'intake_needs_doc_help',
             'file_not_filing'
-          ]
+          ],
+          assigned_user: user,
         },
         vita_partner: accessible_groups
     end
