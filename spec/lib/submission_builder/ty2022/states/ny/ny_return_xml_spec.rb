@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
+describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schema: "ny" do
   describe '.build' do
     let(:intake) { create(:state_file_ny_intake, filing_status: filing_status) }
     let(:submission) { create(:efile_submission, data_source: intake) }
