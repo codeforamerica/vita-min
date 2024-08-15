@@ -409,7 +409,6 @@ class Intake < ApplicationRecord
   }
 
   scope :accessible_intakes, -> { where(primary_consented_to_service: "yes", product_year: Rails.configuration.product_year) }
-  scope :current_product_year, -> { where(product_year: Rails.configuration.product_year) }
 
   def duplicates
     return itin_duplicates if itin_applicant?

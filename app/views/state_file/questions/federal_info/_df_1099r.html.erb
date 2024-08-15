@@ -1,0 +1,24 @@
+<div class="with-padding-med df-1099r-form federal-info-controller-subform">
+  <div class="federal-info-controller-subform-title">1099R <%= f.object.id %></div>
+  <div class="federal-info-controller-subform-content">
+    <%= render 'node_xml_reveal', xml: f.object.to_pretty_s %>
+
+    <table>
+      <%= f.state_file_nested_xml_field :PayerNameControlTxt %>
+      <%= f.state_file_nested_xml_field :PayerName %>
+      <%= f.state_file_nested_xml_field :AddressLine1Txt %>
+      <%= f.state_file_nested_xml_field :CityNm %>
+      <%= f.state_file_nested_xml_field :StateAbbreviationCd %>
+      <%= f.state_file_nested_xml_field :ZIPCd %>
+      <%= f.state_file_nested_xml_field :PayerEIN %>
+      <%= f.state_file_nested_xml_field :PhoneNum %>
+      <%= f.state_file_nested_xml_field :GrossDistributionAmt %>
+      <%= f.state_file_nested_xml_field :TaxableAmt %>
+      <%= f.state_file_nested_xml_field :FederalIncomeTaxWithheldAmt %>
+      <%= f.state_file_nested_xml_field :F1099RDistributionCd %>
+    </table>
+
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.df-1099r-form', { class: "button button--small"} %>
+  </div>
+</div>

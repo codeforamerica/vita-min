@@ -1,6 +1,8 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Ty2021::Return1040 do
+describe SubmissionBuilder::Ty2021::Return1040, required_schema: "federal" do
+  include CtcSubmissionHelper
+
   let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2021 }
 
   before do
@@ -27,7 +29,7 @@ describe SubmissionBuilder::Ty2021::Return1040 do
     context "when the filer is filing for CTC payment" do
       before do
         create(:qualifying_child, intake: submission.intake)
-        submission.create_qualifying_dependents
+        create_qualifying_dependents(submission)
         submission.reload
       end
 
@@ -103,7 +105,7 @@ describe SubmissionBuilder::Ty2021::Return1040 do
       context "for eitc filers with qualifying dependents" do
         before do
           create(:qualifying_child, intake: submission.intake)
-          submission.create_qualifying_dependents
+          create_qualifying_dependents(submission)
           submission.reload
         end
 

@@ -117,14 +117,14 @@
 
     .progress-step {
       height: 10px;
-      background: $color-grey-medium-light;
+      background: #808080;
       flex-shrink: 1;
       flex-grow: 1;
       border-radius: 5px;
     }
 
     .completed-step {
-      background: $color-state-file-primary;
+      background: #008817;
     }
   }
 
@@ -662,6 +662,12 @@
       width: 40rem;
     }
 
+    .question-layout .question-wrapper .button.button--wide {
+      min-width: 40rem;
+      max-width: 40rem;
+      width: 40rem;
+    }
+
     .esign-declaration-outer .text--error {
       margin: 0 auto;
       text-align: center;
@@ -674,9 +680,18 @@
   }
 }
 
+.us-state-- {
+  .button--intercom{
+    background: #FFF;
+    border: 2px solid $color-az-grey;
+    color: $color-az-grey;
+  }
+}
+
 $state-colors: (
   ny: $color-ny-blue,
-  az: $color-az-grey
+  az: $color-az-grey,
+  nc: $color-nc-blue
 );
 
 @each $state_key, $state-color in $state-colors {
@@ -697,6 +712,13 @@ $state-colors: (
 
     .slab--footer {
       background-color: $state-color;
+    }
+
+    .button--intercom {
+      background: #FFF;
+      border: 2px solid $state-color;
+      // icon: state primary color
+      color: $state-color;
     }
   }
 
@@ -745,6 +767,13 @@ $state-colors: (
     border-color: black;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+}
+
+.federal-info-outer {
+  .dev-button {
+    margin: 0.5rem auto;
+    display: block;
   }
 }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::FinancialTransaction do
+describe SubmissionBuilder::Ty2022::States::Az::FinancialTransaction do
   describe '.build' do
     context "when filer owes money" do
       let(:intake) { create(:state_file_az_owed_intake) }

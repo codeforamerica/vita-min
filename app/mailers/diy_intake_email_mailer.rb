@@ -4,6 +4,10 @@ class DiyIntakeEmailMailer < ApplicationMailer
     @diy_intake = diy_intake
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo
+
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+    signed_email = verifier.generate(diy_intake.email_address)
+
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
@@ -11,7 +15,7 @@ class DiyIntakeEmailMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: diy_intake.email_address
+        email_address: signed_email
       }
     )
     I18n.with_locale(diy_intake.locale) do

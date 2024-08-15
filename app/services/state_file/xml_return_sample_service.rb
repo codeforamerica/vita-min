@@ -1,8 +1,8 @@
 module StateFile
   class XmlReturnSampleService
     def initialize
-      @_samples = {}
-      @_submission_id_lookup = {
+      @samples = {}
+      @submission_id_lookup = {
         'ny_rudy_v2' => '1016422024027ate001k',
         'ny_javier' => '1016422024018atw000x',
         'ny_matthew_v2' => '1016422024026atw001u',
@@ -18,7 +18,7 @@ module StateFile
 
     def samples
       load_samples
-      @_samples
+      @samples
     end
 
     def self.key(us_state, sample_name)
@@ -30,7 +30,7 @@ module StateFile
     end
 
     def lookup_submission_id(key)
-      @_submission_id_lookup[key] || '12345202201011234570'
+      @submission_id_lookup[key] || '12345202201011234570'
     end
 
     def include?(key)
@@ -51,13 +51,13 @@ module StateFile
     TAX_YEAR = Rails.configuration.statefile_current_tax_year.to_s.freeze
 
     def load_samples
-      return if @_samples.present?
+      return if @samples.present?
 
       StateFile::StateInformationService.active_state_codes.each do |us_state|
-        @_samples[us_state] = []
+        @samples[us_state] = []
         xml_path_glob = File.join(BASE_PATH, TAX_YEAR, us_state, '*.xml')
         Dir.glob(xml_path_glob).each do |xml_path|
-          @_samples[us_state].push(File.basename(xml_path, ".xml"))
+          @samples[us_state].push(File.basename(xml_path, ".xml"))
         end
       end
     end
@@ -67,7 +67,7 @@ module StateFile
       return @old_sample if key == "abcdefg"
 
       us_state, sample_name = key.split("_", 2)
-      if @_samples[us_state].include? sample_name
+      if @samples.include?(us_state) && @samples[us_state].include?(sample_name)
         File.join(BASE_PATH, TAX_YEAR, us_state, "#{sample_name}.xml")
       end
     end

@@ -74,7 +74,6 @@ describe DirectFileData do
   end
 
   describe '#fed_adjustments_claimed' do
-
     before do
       @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
     end
@@ -414,6 +413,196 @@ describe DirectFileData do
       let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_john_jane_no_eic') }
       it 'returns false' do
         expect(described_class.new(xml).spouse_deceased?).to eq(false)
+      end
+    end
+  end
+
+  describe "#sum_of_1099r_payments_received" do
+    it "returns the sum of TaxableAmt from 1099Rs" do
+      xml = StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")
+      direct_file_data = DirectFileData.new(xml.to_s)
+
+      expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
+    end
+  end
+
+  describe "DfW2" do
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+    let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+    let(:first_w2) { direct_file_data.w2s[0] }
+
+    [
+      ["EmployeeSSN", "400000003"],
+      ["EmployerEIN", "234567891"],
+      ["EmployerName", "Rose Apothecary"],
+      ["EmployerStateIdNum", "12345"],
+      ["AddressLine1Txt", "123 Twyla Road"],
+      ["City", "Phoenix"],
+      ["State", "AZ"],
+      ["ZIP", "85034"],
+      ["RetirementPlanInd", "X"],
+      ["ThirdPartySickPayInd", "X"],
+      ["StateAbbreviationCd", "AZ"],
+      ["LocalityNm", "SomeCity"],
+      ["WagesAmt", 35000],
+      ["AllocatedTipsAmt", 50],
+      ["DependentCareBenefitsAmt", 70],
+      ["NonqualifiedPlansAmt", 10],
+      ["StateWagesAmt", 35000],
+      ["StateIncomeTaxAmt", 500],
+      ["LocalWagesAndTipsAmt", 1350],
+      ["LocalIncomeTaxAmt", 1000],
+      ["WithholdingAmt", 3000],
+    ].each do |node_name, current_value|
+      describe "##{node_name}" do
+        it "returns the value" do
+          expect(first_w2.send(node_name)).to eq current_value
+        end
+
+        if current_value.is_a?(Integer)
+          context "when the attribute is not present" do
+            before do
+              selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+              xml.at('IRSW2').at(selector).remove
+            end
+
+            it "defaults to 0" do
+              expect(first_w2.send(node_name)).to eq 0
+            end
+          end
+        end
+      end
+
+      describe "##{node_name}=" do
+        context "when the node is present" do
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+
+        context "when the node is not present" do
+          before do
+            selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+            xml.at('IRSW2').at(selector).remove
+          end
+
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+      end
+    end
+  end
+
+  describe "Df1099R" do
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
+    let(:first_1099r) { direct_file_data.form1099rs[0] }
+    let(:second_1099r) { direct_file_data.form1099rs[1] }
+
+    describe "#PayerNameControlTxt" do
+      it "returns the value" do
+        expect(first_1099r.PayerNameControlTxt).to eq "PAYE"
+        expect(second_1099r.PayerNameControlTxt).to eq "PAYE DEUX"
+      end
+    end
+
+    describe "#PayerName" do
+      it "returns the value" do
+        expect(first_1099r.PayerName).to eq "Payer Name"
+        expect(second_1099r.PayerName).to eq "Second Payer Name"
+      end
+    end
+
+    describe "#AddressLine1Txt" do
+      it "returns the value" do
+        expect(first_1099r.AddressLine1Txt).to eq "2030 Pecan Street"
+        expect(second_1099r.AddressLine1Txt).to eq "2031 Pecan Street"
+      end
+    end
+
+    describe "#CityNm" do
+      it "returns the value" do
+        expect(first_1099r.CityNm).to eq "Monroe"
+        expect(second_1099r.CityNm).to eq "Nonroe"
+      end
+    end
+
+    describe "#StateAbbreviationCd" do
+      it "returns the value" do
+        expect(first_1099r.StateAbbreviationCd).to eq "MA"
+        expect(second_1099r.StateAbbreviationCd).to eq "NA"
+      end
+    end
+
+    describe "#ZIPCd" do
+      it "returns the value" do
+        expect(first_1099r.ZIPCd).to eq "05502"
+        expect(second_1099r.ZIPCd).to eq "05503"
+      end
+    end
+
+    describe "#PayerEIN" do
+      it "returns the value" do
+        expect(first_1099r.PayerEIN).to eq "000000001"
+        expect(second_1099r.PayerEIN).to eq "000000002"
+      end
+    end
+
+    describe "#PhoneNum" do
+      it "returns the value" do
+        expect(first_1099r.PhoneNum).to eq "2025551212"
+        expect(second_1099r.PhoneNum).to eq "3025551212"
+      end
+    end
+
+    describe "#GrossDistributionAmt" do
+      it "returns the value" do
+        expect(first_1099r.GrossDistributionAmt).to eq 200
+        expect(second_1099r.GrossDistributionAmt).to eq 300
+      end
+    end
+
+    describe "#TaxableAmt" do
+      it "returns the value" do
+        expect(first_1099r.TaxableAmt).to eq 1000
+        expect(second_1099r.TaxableAmt).to eq 500
+      end
+    end
+
+    describe "#FederalIncomeTaxWithheldAmt" do
+      it "returns the value" do
+        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
+        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 200
+      end
+    end
+
+    describe "#F1099RDistributionCd" do
+      it "returns the value" do
+        expect(first_1099r.F1099RDistributionCd).to eq "7"
+        expect(second_1099r.F1099RDistributionCd).to eq "6"
+      end
+    end
+
+    describe "#StandardOrNonStandardCd" do
+      it "returns the value" do
+        expect(first_1099r.StandardOrNonStandardCd).to eq "S"
+        expect(second_1099r.StandardOrNonStandardCd).to eq "N"
       end
     end
   end

@@ -1451,39 +1451,33 @@ RSpec.describe ApplicationController do
   end
 
   describe "#withdrawal_date_deadline" do
-    let(:state) { "ny" }
-    before { @params = { us_state: state } }
-
     context "for a New York return" do
+      let(:state_code) { "ny" }
+
       it "returns the NY withdrawal date deadline" do
-        get :index, params: @params
-        expect(subject.withdrawal_date_deadline).to eq Rails.configuration.state_file_withdrawal_date_deadline_ny
+        expect(subject.withdrawal_date_deadline(state_code)).to eq Rails.configuration.state_file_withdrawal_date_deadline_ny
       end
     end
 
     context "for an Arizona return" do
-      let(:state) { "az" }
+      let(:state_code) { "az" }
 
       it "returns the AZ withdrawal date deadline" do
-        get :index, params: @params
-        expect(subject.withdrawal_date_deadline).to eq Rails.configuration.state_file_end_of_new_intakes
+        expect(subject.withdrawal_date_deadline(state_code)).to eq Rails.configuration.state_file_end_of_new_intakes
       end
     end
   end
 
   describe "#before_withdrawal_date_deadline?" do
-    let(:state) { "ny" }
-    before { @params = { us_state: state } }
-
     context "ny intake" do
+      let(:state_code) { "ny" }
+
       context "before withdrawal deadline for ny" do
         let(:fake_time) { Rails.configuration.state_file_withdrawal_date_deadline_ny - 1.minute }
 
         it "returns true" do
-          get :index, params: @params
-
           Timecop.freeze(fake_time) do
-            expect(subject.before_withdrawal_date_deadline?).to eq true
+            expect(subject.before_withdrawal_date_deadline?(state_code)).to eq true
           end
         end
       end
@@ -1492,10 +1486,8 @@ RSpec.describe ApplicationController do
         let(:fake_time) { Rails.configuration.state_file_withdrawal_date_deadline_ny + 1.minute }
 
         it "returns false" do
-          get :index, params: @params
-
           Timecop.freeze(fake_time) do
-            expect(subject.before_withdrawal_date_deadline?).to eq false
+            expect(subject.before_withdrawal_date_deadline?(state_code)).to eq false
           end
         end
       end
@@ -1504,25 +1496,22 @@ RSpec.describe ApplicationController do
         let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes - 1.minute }
 
         it "returns false" do
-          get :index, params: @params
-
           Timecop.freeze(fake_time) do
-            expect(subject.before_withdrawal_date_deadline?).to eq false
+            expect(subject.before_withdrawal_date_deadline?(state_code)).to eq false
           end
         end
       end
     end
 
     context "az intake" do
-      let(:state) { "az" }
+      let(:state_code) { "az" }
+
       context "before withdrawal deadline for az" do
         let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes - 1.minute }
 
         it "returns true" do
-          get :index, params: @params
-
           Timecop.freeze(fake_time) do
-            expect(subject.before_withdrawal_date_deadline?).to eq true
+            expect(subject.before_withdrawal_date_deadline?(state_code)).to eq true
           end
         end
       end
@@ -1530,12 +1519,9 @@ RSpec.describe ApplicationController do
       context "after withdrawal deadline for az" do
         let(:fake_time) { Rails.configuration.state_file_end_of_new_intakes + 1.minute }
 
-
         it "returns false" do
-          get :index, params: @params
-
           Timecop.freeze(fake_time) do
-            expect(subject.before_withdrawal_date_deadline?).to eq false
+            expect(subject.before_withdrawal_date_deadline?(state_code)).to eq false
           end
         end
       end
@@ -1543,31 +1529,54 @@ RSpec.describe ApplicationController do
   end
 
   describe "#post_deadline_withdrawal_date" do
-    let(:state) { "ny" }
-    before { @params = { us_state: state } }
     let(:fake_time) { Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00') }
 
     context "ny app" do
-      it "returns the current time in EST timezone" do
-        get :index, params: @params
+      let(:state_code) { "ny" }
 
+      it "returns the current time in EST timezone" do
         Timecop.freeze(fake_time) do
-          expect(subject.post_deadline_withdrawal_date).to eq DateTime.parse('2001-01-01 3:00 EST')
+          expect(subject.post_deadline_withdrawal_date(state_code)).to eq DateTime.parse('2001-01-01 3:00 EST')
         end
       end
     end
 
     context "az app" do
-      let(:state) { "az" }
+      let(:state_code) { "az" }
 
       it "returns the current time in MST timezone" do
-        get :index, params: @params
-
         Timecop.freeze(fake_time) do
-          expect(subject.post_deadline_withdrawal_date).to eq DateTime.parse('2001-01-01 1:00 MST')
+          expect(subject.post_deadline_withdrawal_date(state_code)).to eq DateTime.parse('2001-01-01 1:00 MST')
         end
       end
     end
+  end
+
+  describe "#client_has_return_for_every_gyr_filing_year?" do
+    let(:client) { create(:client, intake: (build :intake)) }
+
+    context "client has no tax returns" do
+      it "returns false" do
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be false
+      end
+    end
+
+    context "client has one tax return" do
+      it "returns false" do
+        create :gyr_tax_return, client: client
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be false
+      end
+    end
+
+    context "client has tax returns for every current filing year" do
+      it "returns true" do
+        MultiTenantService.new(:gyr).filing_years.each do |year|
+          create :tax_return, client: client, year: year
+        end
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be true
+      end
+    end
+
   end
 
   context "when receiving invalid requests from robots" do

@@ -173,12 +173,15 @@
       <MedicareWagesAndTipsAmt>35000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>508</MedicareTaxWithheldAmt>
       <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
-      <AllocatedTipsAmt>0</AllocatedTipsAmt>
-      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <AllocatedTipsAmt>50</AllocatedTipsAmt>
+      <DependentCareBenefitsAmt>70</DependentCareBenefitsAmt>
+      <NonqualifiedPlansAmt>10</NonqualifiedPlansAmt>
       <EmployersUseGrp>
         <EmployersUseCd>Q</EmployersUseCd>
         <EmployersUseAmt>0</EmployersUseAmt>
       </EmployersUseGrp>
+      <RetirementPlanInd>X</RetirementPlanInd>
+      <ThirdPartySickPayInd>X</ThirdPartySickPayInd>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
           <StateAbbreviationCd>AZ</StateAbbreviationCd>
@@ -186,12 +189,32 @@
           <StateWagesAmt>35000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+            <LocalWagesAndTipsAmt>1350</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1000</LocalIncomeTaxAmt>
+            <LocalityNm>SomeCity</LocalityNm>
           </W2LocalTaxGrp>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
+    <IRS1099R documentId="IRS1099R0001">
+      <PayerNameControlTxt>ALEXISPAYER</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>123 Walnut Street</AddressLine1Txt>
+        <CityNm>SomeTown</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>45502</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000011</PayerEIN>
+      <PhoneNum>2225551111</PhoneNum>
+      <GrossDistributionAmt>2000</GrossDistributionAmt>
+      <TaxableAmt>10000</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>3000</FederalIncomeTaxWithheldAmt>
+      <F1099RDistributionCd>9</F1099RDistributionCd>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRS1099R>
   </ReturnData>
 </Return>

@@ -3,9 +3,6 @@ module Navigation
     include ControllerNavigation
 
     SECTIONS = [
-      Navigation::NavigationSection.new("", [
-        Navigation::NavigationStep.new(StateFile::Questions::LandingPageController, false)
-      ], false),
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
         Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityResidenceController),
         Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityOutOfStateIncomeController),
@@ -37,8 +34,9 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzStateCreditsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSpouseStateIdController),

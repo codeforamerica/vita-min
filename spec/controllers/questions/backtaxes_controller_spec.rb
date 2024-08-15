@@ -9,14 +9,6 @@ RSpec.describe Questions::BacktaxesController do
 
   render_views
 
-  describe "#load_possible_filing_years" do
-    it "sets possible_filing_years to all filing years" do
-      get :edit
-
-      expect(assigns(:possible_filing_years)).to eq (MultiTenantService.new(:gyr).filing_years)
-    end
-  end
-
   describe "#edit" do
     it "renders the edit page" do
       get :edit

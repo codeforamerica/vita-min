@@ -389,10 +389,11 @@ class Seeder
 
     if eitc_under_twenty_four_qc.client.efile_submissions.none?
       eitc_under_twenty_four_qc_efile_submission = eitc_under_twenty_four_qc.client.tax_returns.last.efile_submissions.create
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:preparing)
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:queued)
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:transmitted)
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:rejected)
+      # Faking these out because we removed CTC code from the state machine - hopefully it's sufficiently realistic
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :preparing, sort_key: 1, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :queued, sort_key: 2, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :transmitted, sort_key: 3, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :rejected, sort_key: 4, most_recent: true)
       efile_error = EfileError.create!(expose: true)
       eitc_under_twenty_four_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
     end
@@ -451,10 +452,11 @@ class Seeder
 
     if eitc_mfj_qc.client.efile_submissions.none?
       eitc_mfj_qc_efile_submission = eitc_mfj_qc.client.tax_returns.last.efile_submissions.create
-      eitc_mfj_qc_efile_submission.transition_to!(:preparing)
-      eitc_mfj_qc_efile_submission.transition_to!(:queued)
-      eitc_mfj_qc_efile_submission.transition_to!(:transmitted)
-      eitc_mfj_qc_efile_submission.transition_to!(:rejected)
+      # Faking these out because we removed CTC code from the state machine - hopefully it's sufficiently realistic
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :preparing, sort_key: 1, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :queued, sort_key: 2, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :transmitted, sort_key: 3, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :rejected, sort_key: 4, most_recent: true)
       efile_error = EfileError.create!(expose: true, auto_cancel: false, code: 'not-auto-cancel', message: 'this is an error that is not auto cancel')
       auto_cancel_efile_error = EfileError.create!(expose: true, auto_cancel: true, code: 'auto-cancel', message: 'this is an error that is auto cancel')
       eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)

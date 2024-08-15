@@ -9,14 +9,13 @@ module StateFile
           redirect_to next_path and return
         end
         if current_intake&.df_data_import_failed_at.present?
-          redirect_to StateFilePagesController.to_path_helper(action: :data_import_failed, us_state: current_state_code) and return
+          redirect_to StateFilePagesController.to_path_helper(action: :data_import_failed) and return
         end
         StateFileEfileDeviceInfo.find_or_create_by!(
           event_type: "initial_creation",
           ip_address: ip_for_irs,
           intake: current_intake,
         )
-        redirect_to next_path
       end
 
       private

@@ -32,21 +32,24 @@
       class: 'transfer-button'
     )
   %>
+  <br/>
 
   <%=
     link_to(
       "Cancel",
-      StateFile::Questions::CanceledDataTransferController.to_path_helper(us_state: current_state_code),
+      StateFile::Questions::CanceledDataTransferController.to_path_helper,
       class: 'cancel-button'
     )
   %>
+  <br/>
 
   <%=
     link_to(
       "See page for pending federal return",
-      StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_state_code),
+      StateFile::Questions::PendingFederalReturnController.to_path_helper,
     )
   %>
+  <br/>
 
   <% @xml_samples.each do |label, url| %>
     <%= link_to("Transfer " + label, url, class: 'transfer-button') %><br/>

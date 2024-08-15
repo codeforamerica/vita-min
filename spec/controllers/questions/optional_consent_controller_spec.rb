@@ -29,7 +29,7 @@ RSpec.describe Questions::OptionalConsentController do
         end
         let(:ip_address) { "127.0.0.1" }
         let(:user_agent) { "IceFerret" }
-        let(:current_time) { DateTime.new(2021, 2, 23) }
+        let(:current_time) { DateTime.new(2022, 2, 23) }
 
         before do
           allow(DateTime).to receive(:now).and_return current_time
