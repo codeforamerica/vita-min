@@ -26,9 +26,8 @@ module Hub
                                      User.where(role: roles)
                                    elsif @current_user.site_coordinator?
                                      sites = @selected_model.instance_of?(Site) ? @selected_model : @current_user.role.sites
-                                     site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(sites))
-                                     team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
-                                     site_coordinators.or(team_members)
+                                     roles = SiteCoordinatorRole.assignable_to_sites(sites) + TeamMemberRole.assignable_to_sites(sites)
+                                     User.where(role: roles)
                                    end
 
         @user_count = accessible_users_by_role.count
