@@ -177,7 +177,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
         put :create, params: made_contributions_missing_params
       }.not_to change(Az321Contribution, :count)
 
-      expect(response).to be_redirect
+      expect(response).not_to be_redirect
     end
 
     it 'should not create the contribution when the contribution is invalid' do
