@@ -31,7 +31,7 @@ module StateFile
       def create
         @contribution = contributions.build(az321_contribution_params)
 
-        return redirect_to next_path unless @contribution.made_contributions == "yes"
+        return redirect_to next_path if @contribution.made_contributions == "no"
 
         if @contribution.save(context: :form_create)
           redirect_to action: :index, return_to_review: params[:return_to_review]
