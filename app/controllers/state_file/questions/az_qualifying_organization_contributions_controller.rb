@@ -42,7 +42,7 @@ module StateFile
 
       def destroy
         if contribution.destroy
-          flash[:notice] = "Form destroyed"
+          flash[:notice] = t('.removed', charity_name: contribution.charity_name)
         end
 
         redirect_to action: :index, return_to_review: params[:return_to_review]

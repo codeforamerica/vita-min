@@ -2157,6 +2157,8 @@ es:
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
           lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
       az_qualifying_organization_contributions:
+        destroy:
+          removed: Se eliminó AZ 321 para %{charity_name}
         form:
           amount: Monto de la contribución en %{filing_year}
           charity_code: Código de caridad

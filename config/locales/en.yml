@@ -2190,6 +2190,8 @@ en:
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Lets review your public school cash contributions and fees
       az_qualifying_organization_contributions:
+        destroy:
+          removed: Removed AZ 321 for %{charity_name}
         form:
           amount: Amount of contribution in %{filing_year}
           charity_code: Charity Code
