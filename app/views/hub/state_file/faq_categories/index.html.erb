@@ -23,6 +23,15 @@
     <% unless @ny_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
       <p>No New York FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
     <% end %>
+    <hr/>
+    <h2 id="nc-cats">North Carolina</h2>
+    <%= link_to "Add new NC FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_nc"), method: :get, class: "button spacing-below-35" %>
+    <% @nc_faq_categories.each do |category| %>
+      <%= render 'faq_categories_and_items', category: category %>
+    <% end %>
+    <% unless @nc_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
+      <p>No North Carolina FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
+    <% end %>
   </div>
 <% end %>
 
