@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <% [:received_military_retirement_payment, :primary_received_pension, :spouse_received_pension].each do |income_type| %>
+    <% @attributes.each do |income_type| %>
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
           <div class="blue-group">

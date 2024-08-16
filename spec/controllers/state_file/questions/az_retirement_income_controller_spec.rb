@@ -24,7 +24,26 @@ RSpec.describe StateFile::Questions::AzRetirementIncomeController do
   end
 
   describe "#edit" do
-  # TODO: test that only mfj sees the spouse checkbox
+    render_views
+
+    it "does not show the spouse checkbox if single" do
+      allow(intake).to receive(:filing_status_mfj?).and_return false
+      puts "TEST #{intake.id}"
+      puts intake.filing_status_mfj?
+      get :edit
+
+      expect(response.body).not_to include I18n.t("state_file.questions.az_retirement_income.edit.spouse_received_pension")
+    end
+
+    # TODO WHY DOESN'T IT WORK
+    it "shows the spouse checkbox if mfj" do
+      allow(intake).to receive(:filing_status_mfj?).and_return true
+      puts "TEST #{intake.id}"
+      puts intake.filing_status_mfj?
+      get :edit
+
+      expect(response.body).to include I18n.t("state_file.questions.az_retirement_income.edit.spouse_received_pension")
+    end
   end
 
   describe "#update" do
@@ -32,7 +51,12 @@ RSpec.describe StateFile::Questions::AzRetirementIncomeController do
       let(:form_params) do
         {
           state_file_az_retirement_income_form: {
-          #  TODO: add actual params
+            received_military_retirement_payment: "yes",
+            received_military_retirement_payment_amount: 100,
+            primary_received_pension: "yes",
+            primary_received_pension_amount: 100,
+            spouse_received_pension: "yes",
+            spouse_received_pension_amount: 100
           }
         }
       end
