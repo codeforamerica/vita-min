@@ -113,6 +113,6 @@ module StateFile
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
       }
-    }).with_indifferent_access
+    }.with_indifferent_access)
   end
 end
