@@ -2,10 +2,18 @@ class StateFile::FaqController < ApplicationController
   layout "state_file"
 
   def index
+    intake_start = Rails.configuration.state_file_start_of_open_intake
+    active_tax_year = if (DateTime.now.year == intake_start.year) && DateTime.now < intake_start
+                        # if the start of intake is set to this year and it is currently before that date, we should still show the previous year's states
+                        Rails.configuration.statefile_current_tax_year - 1
+                      else
+                        Rails.configuration.statefile_current_tax_year
+                      end
+    visible_state_code_names = StateFile::StateInformationService.state_code_to_name_map.filter { |code, name| StateFile::StateInformationService.filing_years(code).include?(active_tax_year) }
     @state_code_names = if params[:us_state] == 'us'
-                          StateFile::StateInformationService.state_code_to_name_map
+                          visible_state_code_names
                         else
-                          StateFile::StateInformationService.state_code_to_name_map.slice(params[:us_state])
+                          visible_state_code_names.slice(params[:us_state]) || "what??"
                         end
   end
 
