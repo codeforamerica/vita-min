@@ -49,6 +49,7 @@ services:
       - db
     environment:
       - "RUN_MIGRATIONS=${RUN_MIGRATIONS}"
+      - RAILS_CAPYBARA_SERVER_HOST=rails
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
