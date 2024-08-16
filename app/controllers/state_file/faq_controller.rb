@@ -13,7 +13,7 @@ class StateFile::FaqController < ApplicationController
     @state_code_names = if params[:us_state] == 'us'
                           visible_state_code_names
                         else
-                          visible_state_code_names.slice(params[:us_state]) || "what??"
+                          visible_state_code_names.slice(params[:us_state])
                         end
   end
 
