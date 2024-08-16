@@ -35,7 +35,5 @@ RUN wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_
 
 EXPOSE 3000
 
-RUN rm -f tmp/pids/server.pid 
-
-# Does this work or do we need to start with foreman instead per the docs?
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000", "-e", "development"]
+RUN chmod +x /app/bin/docker-entrypoint
+CMD ["bash", "./bin/docker-entrypoint"]
