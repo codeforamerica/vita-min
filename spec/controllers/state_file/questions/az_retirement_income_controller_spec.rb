@@ -8,16 +8,17 @@ RSpec.describe StateFile::Questions::AzRetirementIncomeController do
 
   describe ".show?" do
     it "returns true if they have a 1099R and TotalTaxablePensionsAmt is > 0" do
-      intake.direct_file_data.fed_taxable_pensions = 300
       expect(described_class.show?(intake)).to eq true
     end
 
     it "returns false when TotalTaxablePensionsAmt is 0" do
+      intake.direct_file_data.fed_taxable_pensions = 0
       expect(described_class.show?(intake)).to eq false
     end
 
     it "returns false if 1099R missing" do
-      intake.update(raw_direct_file_data:  StateFile::XmlReturnSampleService.new.read("az_unemployment"))
+      intake = create :state_file_az_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("az_unemployment")
+      sign_in intake
       expect(described_class.show?(intake)).to eq false
     end
   end
