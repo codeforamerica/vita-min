@@ -29,11 +29,11 @@ module StateFile
       end
 
       def active_state_codes
-        @_active_state_codes ||= STATES_INFO.keys.map(&:to_s)
+        @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
       end
 
       def state_intake_classes
-        @_state_intake_classes ||= STATES_INFO.map { |_, attrs| attrs[:intake_class] }
+        @_state_intake_classes ||= STATES_INFO.map { |_, attrs| attrs[:intake_class] }.freeze
       end
 
       def state_intake_class_names
@@ -41,11 +41,11 @@ module StateFile
       end
 
       def state_schema_file_names
-        @_state_schema_file_names ||= STATES_INFO.map { |_, attrs| attrs[:schema_file_name] }
+        @_state_schema_file_names ||= STATES_INFO.map { |_, attrs| attrs[:schema_file_name] }.freeze
       end
 
       def state_code_to_name_map
-        @_state_code_to_name_map ||= active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }
+        @_state_code_to_name_map ||= active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }.freeze
       end
     end
 
