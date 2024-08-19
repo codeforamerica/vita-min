@@ -4,8 +4,8 @@ module StateFile
       include ReturnToReviewConcern
 
       def edit
-        puts current_intake.filing_status_mfj?
-        puts "CONTROLLER #{current_intake.id}"
+
+        puts "CONTROLLER; ID: #{current_intake} mfj? #{current_intake.filing_status_mfj?}"
         @attributes = [:received_military_retirement_payment, :primary_received_pension]
         @attributes << :spouse_received_pension if current_intake.filing_status_mfj?
         super

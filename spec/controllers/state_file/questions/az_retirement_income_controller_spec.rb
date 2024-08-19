@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::AzRetirementIncomeController do
-  let(:intake) { create :state_file_az_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r") }
+  let(:intake) { create :state_file_az_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r"), filing_status: filing_status }
+  let(:filing_status) { 'single' }
   before do
     sign_in intake
   end
@@ -27,22 +28,19 @@ RSpec.describe StateFile::Questions::AzRetirementIncomeController do
     render_views
 
     it "does not show the spouse checkbox if single" do
-      allow(intake).to receive(:filing_status_mfj?).and_return false
-      puts "TEST #{intake.id}"
-      puts intake.filing_status_mfj?
       get :edit
 
       expect(response.body).not_to include I18n.t("state_file.questions.az_retirement_income.edit.spouse_received_pension")
     end
 
-    # TODO WHY DOESN'T IT WORK
-    it "shows the spouse checkbox if mfj" do
-      allow(intake).to receive(:filing_status_mfj?).and_return true
-      puts "TEST #{intake.id}"
-      puts intake.filing_status_mfj?
-      get :edit
+    context "filing status mfj" do
+      let(:filing_status) { 'married_filing_jointly' }
 
-      expect(response.body).to include I18n.t("state_file.questions.az_retirement_income.edit.spouse_received_pension")
+      it "shows the spouse checkbox" do
+        get :edit
+
+        expect(response.body).to include I18n.t("state_file.questions.az_retirement_income.edit.spouse_received_pension")
+      end
     end
   end
 
