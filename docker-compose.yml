@@ -28,7 +28,8 @@ services:
       - ./:/app
     command: bin/rails jobs:work
     depends_on:
-      - rails
+      rails:
+        condition: service_healthy
     environment:
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
@@ -48,9 +49,14 @@ services:
       - db
     links:
       - db
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://0.0.0.0:3000/up" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     environment:
       - "RUN_MIGRATIONS=${RUN_MIGRATIONS}"
-      - RAILS_CAPYBARA_SERVER_HOST=rails
+      - DOCKER=true
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432

@@ -8,8 +8,11 @@ if ENV['COVERAGE']
   puts "COVERAGE enabled! look at coverage/index.html for the result."
 end
 
-# WebMock.disable_net_connect!(allow_localhost: true)
-WebMock.allow_net_connect!
+if ENV['DOCKER']
+  WebMock.allow_net_connect!
+else
+  WebMock.disable_net_connect!(allow_localhost: true)
+end
 
 RSpec::Matchers.define_negated_matcher :not_have_enqueued_job, :have_enqueued_job
 
