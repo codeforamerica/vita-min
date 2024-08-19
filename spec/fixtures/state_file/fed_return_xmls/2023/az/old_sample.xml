@@ -103,7 +103,7 @@
       <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
       <WagesSalariesAndTipsAmt>21000</WagesSalariesAndTipsAmt>
       <TaxableInterestAmt>24</TaxableInterestAmt>
-      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <TotalTaxablePensionsAmt>1500</TotalTaxablePensionsAmt>
       <SocSecBnftAmt>12203</SocSecBnftAmt>
       <TaxableSocSecAmt>5627</TaxableSocSecAmt>
       <CapitalGainLossAmt>0</CapitalGainLossAmt>
@@ -259,5 +259,24 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
+    <IRS1099R documentId="IRS1099R0001">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MA</StateAbbreviationCd>
+        <ZIPCd>05502</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000001</PayerEIN>
+      <PhoneNum>2025551212</PhoneNum>
+      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <TaxableAmt>1000</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+      <F1099RDistributionCd>7</F1099RDistributionCd>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRS1099R>
   </ReturnData>
 </Return>

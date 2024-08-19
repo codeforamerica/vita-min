@@ -228,7 +228,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text  I18n.t("state_file.questions.az_retirement_income.edit.title")
-      # TODO add checkboxes etc.
+      check "state_file_az_retirement_income_form_received_military_retirement_payment"
+      fill_in "state_file_az_retirement_income_form_received_military_retirement_payment_amount", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)

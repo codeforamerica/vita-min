@@ -657,6 +657,7 @@ class FlowsController < ApplicationController
         df_data_imported_at: 2.hours.ago,
         primary_received_pension: "yes",
         received_military_retirement_payment: "yes",
+        received_military_retirement_payment_amount: 100,
         spouse_received_pension: "yes",
       )
     end
