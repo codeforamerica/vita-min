@@ -118,6 +118,7 @@ ignore_unused:
   - 'activemodel.*'
   - 'number.currency.format.*'
   - 'state_file.navigation.*'
+  - 'state_file.questions.az_retirement_income.edit.received_military_retirement_payment.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
