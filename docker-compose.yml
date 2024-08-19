@@ -15,6 +15,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
   pgadmin:
     container_name: pgadmin
+    profiles: ["pgadmin"]
     image: chorss/docker-pgadmin4
     ports:
       - 5050:5050
