@@ -10,7 +10,7 @@
     <%= f.hidden_field(:device_id) %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%= f.cfa_radio_set(:nyc_residency, label_text: title, collection: [
             { value: :none, label: t(".none", count: current_intake.filer_count, year: current_tax_year),  input_html: { "data-follow-up": "#nyc-maintained-home" } },
             { value: :part_year, label: t(".part_year", count: current_intake.filer_count, year: current_tax_year) },
@@ -20,7 +20,7 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="nyc-maintained-home">
-        <div class="blue-group">
+        <div class="white-group">
           <%= f.cfa_radio_set(
                 :nyc_maintained_home,
                 label_text: t(".maintained_home", count: current_intake.filer_count, year: current_tax_year),
