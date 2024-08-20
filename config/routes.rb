@@ -306,6 +306,7 @@ Rails.application.routes.draw do
         resources :dashboard, only: [:index] do
           get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
           get "/:type/:id/returns-by-status", to: "dashboard#returns_by_status", on: :collection, as: :returns_by_status
+          get "/:type/:id/team-assignment", to: "dashboard#team_assignment", on: :collection, as: :team_assignment
         end
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
@@ -612,8 +613,8 @@ Rails.application.routes.draw do
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
-        get "/unsubscribe_email", to: "notifications_settings#unsubscribe_email", as: :unsubscribe_email
-        post "/subscribe_email", to: "notifications_settings#subscribe_email", as: :subscribe_email
+        get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
+        post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
       end
     end
   end

@@ -972,15 +972,25 @@ en:
           no_clients: No clients to display at the moment
           title: 'Action Required: Flagged Clients'
           updated: Updated At
+        approaching: Approaching
         capacity: Capacity
         current_capacity: Current Capacity
         filter_by_stage: Filter by Stage
         org_name: Organization Name
+        overdue: Overdue
         resources:
           hub_training: Hub Trainings
           newsletter: GYR Newsletter
           title: Resources
         returns_by_status: Returns by Status
+        sla_title: Service Level Agreements Notifications
+        team_assignment:
+          assigned_returns: Assigned Returns
+          name: Name
+          no_team_assignments: No Team Assignments to display at the moment
+          pager: Displaying %{start_range} - %{end_range} of %{total}
+          role: Role
+          title: Team Assignment
         title: Dashboard
         total_number_of_returns: Total number of returns
         total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]
@@ -1770,6 +1780,8 @@ en:
     intake:
       your_spouse: Your spouse
   notifications_settings:
+    invalid_link: Invalid subscription link
+    no_record: No record found
     subscribe_to_emails:
       flash: You are successfully re-subscribed to email notifications.
     unsubscribe_from_emails:
@@ -2064,6 +2076,13 @@ en:
             <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
+        nc:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of North Carolina
+          title: File your North Carolina state taxes for free
         not_you: Not %{user_name}?
         ny:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
@@ -2086,9 +2105,7 @@ en:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
     notifications_settings:
-      subscribe_email:
-        flash: You are successfully re-subscribed to email notifications.
-      unsubscribe_email:
+      unsubscribe_from_emails:
         help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
         link_text: Opt in again.
         mistake: Is this a mistake?

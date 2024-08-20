@@ -4,7 +4,7 @@ describe "personas" do
   context "2023" do
     let(:tax_year) { 2023 }
 
-    context "az" do
+    context "az", required_schema: "az" do
       let(:state_code) { :az }
 
       context "johnny" do
@@ -28,7 +28,7 @@ describe "personas" do
       end
     end
 
-    context "ny" do
+    context "ny", required_schema: "ny" do
       let(:state_code) { :ny }
 
       context "javier" do

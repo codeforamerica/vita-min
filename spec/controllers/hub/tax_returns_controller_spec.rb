@@ -17,6 +17,17 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
   let(:client) { create :client, intake: build(:intake, preferred_name: "Lucille"), vita_partner: client_assigned_group }
   let!(:tax_return) { create :tax_return, client: client, year: 2018, assigned_user: currently_assigned_coalition_lead }
 
+  let(:fake_current_tax_year) { 2021 }
+  let(:fake_time) { DateTime.parse("2022-04-14") }
+  before do
+    allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(fake_current_tax_year)
+  end
+  around do |example|
+    Timecop.freeze(fake_time) do
+      example.run
+    end
+  end
+
   describe "#new" do
     let(:params) do
       {
@@ -50,7 +61,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(assigns(:client)).to eq client
         expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
         expect(assigns(:form).tax_return_years).to eq [2018]
-        expect(assigns(:form).remaining_years).to eq MultiTenantService.new(:gyr).filing_years - [2018]
+        expect(assigns(:form).remaining_years).to eq(MultiTenantService.gyr.filing_years(fake_time) - [2018])
       end
     end
   end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Ty2021::Documents::ScheduleLep do
+describe SubmissionBuilder::Ty2021::Documents::ScheduleLep, required_schema: "federal" do
   let(:submission) { create :efile_submission, :ctc, tax_year: 2021 }
 
   before do

@@ -86,32 +86,47 @@ module VitaMin
     config.statefile_current_tax_year = 2023
     config.product_year = 2024
 
+    pt = Time.find_zone('America/Los_Angeles')
+    et = Time.find_zone('America/New_York')
+
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
-    config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-24 12:00:00')
-    config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2024-01-31 09:59:59')
-    config.tax_deadline = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
-    config.end_of_intake = Time.find_zone('America/New_York').parse('2024-10-01 23:59:59')
-    config.end_of_docs = Time.find_zone('America/New_York').parse('2024-10-08 23:59:59')
-    config.doc_submission_deadline = Time.find_zone('America/New_York').parse('2024-04-01 23:59:59')
-    config.end_of_closing = Time.find_zone('America/New_York').parse('2024-10-15 23:59:59')
-    config.end_of_in_progress_intake = Time.find_zone('America/New_York').parse('2024-10-16 23:59:59')
-    config.end_of_login = Time.find_zone('America/New_York').parse('2024-10-23 23:59:00')
+    config.start_of_unique_links_only_intake = pt.parse('2024-01-24 12:00:00')
+    config.start_of_open_intake = pt.parse('2024-01-31 09:59:59')
+    config.tax_deadline = et.parse('2024-04-15 23:59:59')
+    config.end_of_intake = et.parse('2024-10-01 23:59:59')
+    config.end_of_docs = et.parse('2024-10-08 23:59:59')
+    config.doc_submission_deadline = et.parse('2024-04-01 23:59:59')
+    config.end_of_closing = et.parse('2024-10-15 23:59:59')
+    config.end_of_in_progress_intake = et.parse('2024-10-16 23:59:59')
+    config.end_of_login = et.parse('2024-10-23 23:59:00')
+
+    config.tax_year_filing_seasons = {
+      2023 => [et.parse("2024-01-29 00:00:00"), et.parse("2024-04-15 23:59:59")],
+      2022 => [et.parse("2023-01-23 00:00:00"), et.parse("2023-04-18 23:59:59")],
+      2021 => [et.parse("2022-01-24 00:00:00"), et.parse("2022-04-18 23:59:59")],
+      2020 => [et.parse("2021-02-12 00:00:00"), et.parse("2021-05-17 23:59:59")],
+      2019 => [et.parse("2020-01-27 00:00:00"), et.parse("2020-07-15 23:59:59")],
+      2018 => [et.parse("2019-01-28 00:00:00"), et.parse("2019-04-15 23:59:59")],
+      2017 => [et.parse("2018-01-29 00:00:00"), et.parse("2018-04-17 23:59:59")],
+      2016 => [et.parse("2017-01-23 00:00:00"), et.parse("2017-04-18 23:59:59")],
+      2015 => [et.parse("2016-01-19 00:00:00"), et.parse("2016-04-18 23:59:59")]
+    }
 
     # GetCTC
-    config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-05-04 09:00:00")
-    config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-05-11 09:00:00")
-    config.eitc_soft_launch = Time.find_zone("America/New_York").parse("2022-09-30 09:00:00")
-    config.eitc_full_launch = Time.find_zone("America/New_York").parse("2022-10-11 09:00:00")
-    config.ctc_end_of_intake = Time.find_zone("America/New_York").parse("2022-11-16 23:59:00")
-    config.ctc_end_of_read_write = Time.find_zone("America/New_York").parse("2022-11-19 23:59:00")
-    config.ctc_end_of_login = Time.find_zone("America/New_York").parse("2024-12-31 23:59:00")
+    config.ctc_soft_launch = et.parse("2022-05-04 09:00:00")
+    config.ctc_full_launch = et.parse("2022-05-11 09:00:00")
+    config.eitc_soft_launch = et.parse("2022-09-30 09:00:00")
+    config.eitc_full_launch = et.parse("2022-10-11 09:00:00")
+    config.ctc_end_of_intake = et.parse("2022-11-16 23:59:00")
+    config.ctc_end_of_read_write = et.parse("2022-11-19 23:59:00")
+    config.ctc_end_of_login = et.parse("2024-12-31 23:59:00")
 
     # StateFile
-    config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-02-08 09:00:00')
-    config.state_file_end_of_new_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-15 23:59:59')
-    config.state_file_withdrawal_date_deadline_ny = Time.find_zone('America/New_York').parse('2024-04-15 23:59:59')
-    config.state_file_end_of_in_progress_intakes = Time.find_zone('America/Los_Angeles').parse('2024-04-25 23:59:59')
+    config.state_file_start_of_open_intake = et.parse('2024-02-08 09:00:00')
+    config.state_file_end_of_new_intakes = pt.parse('2024-04-15 23:59:59')
+    config.state_file_withdrawal_date_deadline_ny = et.parse('2024-04-15 23:59:59')
+    config.state_file_end_of_in_progress_intakes = pt.parse('2024-04-25 23:59:59')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)

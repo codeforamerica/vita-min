@@ -31,7 +31,7 @@
     <div class="form-group">
       <label for="year" class="form-question"><%= t("hub.clients.index.filing_year").humanize %></label>
       <div class="select">
-        <%= select_tag :year, options_for_select(MultiTenantService.new(:gyr).filing_years, filters[:year]), include_blank: true, class: "select__element" %>
+        <%= select_tag :year, options_for_select(gyr_filing_years, filters[:year]), include_blank: true, class: "select__element" %>
       </div>
     </div>
 

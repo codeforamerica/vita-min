@@ -445,6 +445,21 @@ class ApplicationController < ActionController::Base
   end
   helper_method :post_deadline_withdrawal_date
 
+  def gyr_filing_years
+    MultiTenantService.gyr.filing_years(app_time)
+  end
+  helper_method :gyr_filing_years
+
+  def gyr_backtax_years
+    MultiTenantService.gyr.backtax_years(app_time)
+  end
+  helper_method :gyr_backtax_years
+
+  def client_has_return_for_every_gyr_filing_year?(client)
+    (gyr_filing_years - client.tax_returns.pluck(:year)).empty?
+  end
+  helper_method :client_has_return_for_every_gyr_filing_year?
+
   def state_code_for_page_style
     if params.include?(:us_state)
       params[:us_state]

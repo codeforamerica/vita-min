@@ -74,7 +74,6 @@ describe DirectFileData do
   end
 
   describe '#fed_adjustments_claimed' do
-
     before do
       @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
     end
@@ -427,6 +426,90 @@ describe DirectFileData do
     end
   end
 
+  describe "DfW2" do
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+    let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+    let(:first_w2) { direct_file_data.w2s[0] }
+
+    [
+      ["EmployeeSSN", "400000003"],
+      ["EmployerEIN", "234567891"],
+      ["EmployerName", "Rose Apothecary"],
+      ["EmployerStateIdNum", "12345"],
+      ["AddressLine1Txt", "123 Twyla Road"],
+      ["City", "Phoenix"],
+      ["State", "AZ"],
+      ["ZIP", "85034"],
+      ["RetirementPlanInd", "X"],
+      ["ThirdPartySickPayInd", "X"],
+      ["StateAbbreviationCd", "AZ"],
+      ["LocalityNm", "SomeCity"],
+      ["WagesAmt", 35000],
+      ["AllocatedTipsAmt", 50],
+      ["DependentCareBenefitsAmt", 70],
+      ["NonqualifiedPlansAmt", 10],
+      ["StateWagesAmt", 35000],
+      ["StateIncomeTaxAmt", 500],
+      ["LocalWagesAndTipsAmt", 1350],
+      ["LocalIncomeTaxAmt", 1000],
+      ["WithholdingAmt", 3000],
+    ].each do |node_name, current_value|
+      describe "##{node_name}" do
+        it "returns the value" do
+          expect(first_w2.send(node_name)).to eq current_value
+        end
+
+        if current_value.is_a?(Integer)
+          context "when the attribute is not present" do
+            before do
+              selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+              xml.at('IRSW2').at(selector).remove
+            end
+
+            it "defaults to 0" do
+              expect(first_w2.send(node_name)).to eq 0
+            end
+          end
+        end
+      end
+
+      describe "##{node_name}=" do
+        context "when the node is present" do
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+
+        context "when the node is not present" do
+          before do
+            selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+            xml.at('IRSW2').at(selector).remove
+          end
+
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+      end
+    end
+  end
+
   describe "Df1099R" do
     let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
@@ -490,22 +573,22 @@ describe DirectFileData do
 
     describe "#GrossDistributionAmt" do
       it "returns the value" do
-        expect(first_1099r.GrossDistributionAmt).to eq "200"
-        expect(second_1099r.GrossDistributionAmt).to eq "300"
+        expect(first_1099r.GrossDistributionAmt).to eq 200
+        expect(second_1099r.GrossDistributionAmt).to eq 300
       end
     end
 
     describe "#TaxableAmt" do
       it "returns the value" do
-        expect(first_1099r.TaxableAmt).to eq "1000"
-        expect(second_1099r.TaxableAmt).to eq "500"
+        expect(first_1099r.TaxableAmt).to eq 1000
+        expect(second_1099r.TaxableAmt).to eq 500
       end
     end
 
     describe "#FederalIncomeTaxWithheldAmt" do
       it "returns the value" do
-        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq "300"
-        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq "200"
+        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
+        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 200
       end
     end
 

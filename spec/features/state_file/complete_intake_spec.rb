@@ -9,7 +9,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "NY", :flow_explorer_screenshot, js: true do
-    it "has content" do
+    it "has content", required_schema: "ny" do
       visit "/"
       click_on "Start Test NY"
 
@@ -151,7 +151,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "AZ", :flow_explorer_screenshot, js: true do
-    it "has content" do
+    it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
 
