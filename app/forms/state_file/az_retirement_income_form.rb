@@ -11,7 +11,7 @@ module StateFile
     validates :received_military_retirement_payment_amount, presence: true, numericality: true, allow_blank: false, if: -> { received_military_retirement_payment == "yes" }
     validates :primary_received_pension_amount, presence: true, numericality: true, allow_blank: false, if: -> { primary_received_pension == "yes" }
     validates :spouse_received_pension_amount, presence: true, numericality: true, allow_blank: false, if: -> { spouse_received_pension == "yes" }
-    validate :below_1040_amount, if: -> { [received_military_retirement_payment_amount, primary_received_pension_amount, spouse_received_pension_amount].any?(&:present?) }
+    validate :below_1040_amount
 
     def save
       @intake.update(attributes_for(:intake))
