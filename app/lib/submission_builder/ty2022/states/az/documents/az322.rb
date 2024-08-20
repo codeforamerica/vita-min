@@ -17,9 +17,7 @@ module SubmissionBuilder
                     xml.Contributions contribution.amount.round
                   end
                 end
-                if calculated_fields.fetch(:AZ322_LINE_4) > 0
-                  xml.TotalContributionsContSheet calculated_fields.fetch(:AZ322_LINE_4)
-                end
+                add_non_zero_claimed_value(xml, :TotalContributionsContSheet, :AZ322_LINE_4)
                 xml.TotalContributions calculated_fields.fetch(:AZ322_LINE_5)
                 xml.SubTotalAmt calculated_fields.fetch(:AZ322_LINE_11)
                 xml.SingleHOH calculated_fields.fetch(:AZ322_LINE_12)

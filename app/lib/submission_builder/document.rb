@@ -85,7 +85,7 @@ module SubmissionBuilder
     def add_non_zero_claimed_value(xml, elem_name, claimed)
       claimed_value = calculated_fields.fetch(claimed)
       if claimed_value.present? && claimed_value.to_i != 0
-        xml.send(elem_name, claimed: claimed_value)
+        xml.send(elem_name, claimed_value)
       end
     end
 
