@@ -4,10 +4,10 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
   # Users
   let!(:org_lead) { create :organization_lead_user, organization: oregano_org }
   let!(:other_org_lead) { create :organization_lead_user, organization: other_org }
-  let!(:site_coordinator) { create :site_coordinator_user, role: create(:site_coordinator_role, sites: [site, other_site]) }
+  let(:site_coordinator) { create :site_coordinator_user, role: create(:site_coordinator_role, sites: [site, other_site]) }
   let!(:other_site_coordinator) { create :site_coordinator_user, role: create(:site_coordinator_role, sites: [other_org_child_site]) }
   let!(:coalition_lead) { create :coalition_lead_user, coalition: create(:coalition) }
-  let!(:team_member) { create :user, role: (create :team_member_role, sites: [site]) }
+  let(:team_member) { create :user, role: (create :team_member_role, sites: [site]) }
   let!(:other_team_member) { create :user, role: (create :team_member_role, sites: [other_site]) }
   let!(:inaccessible_team_member) { create :user, role: (create :team_member_role, sites: [create(:site)]) }
 
@@ -41,6 +41,22 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
     context "when selecting an org" do
       it "shows org leads, team members and site coordinators belonging to selected org or child sites and their number of assigned tax returns in desc order" do
         expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+      end
+
+      context "when there are tax returns with archived clients" do
+        it "doesn't count their tax returns" do
+          # create(:gyr_tax_return, assigned_user: site_coordinator, client: create(:client, filterable_product_year: 2023))
+
+          expect(subject.ordered_by_tr_count_users.first.tax_returns_count).to eq 2
+        end
+      end
+
+      context "when there are suspended users" do
+        it "doesn't include them in the user group" do
+          create(:user, role: (create :team_member_role, sites: [site]), suspended_at: Time.now)
+
+          expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+        end
       end
     end
 
