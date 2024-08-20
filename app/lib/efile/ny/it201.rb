@@ -326,16 +326,14 @@ module Efile
       end
 
       def calculate_line_72
-        total_state_taxes_withheld = @direct_file_data.total_state_tax_withheld
-        state_file_1099gs = @intake.state_file1099_gs
-        state_file_1099gs.each do |state_file_1099g|
-          total_state_taxes_withheld += state_file_1099g.state_income_tax_withheld
-        end
-        total_state_taxes_withheld
+        # NY income tax withheld
+        # sum of tax withheld from all income documents
+        @direct_file_data.total_w2_state_tax_withheld +
+          @intake.state_file1099_gs.sum(&:state_income_tax_withheld)
       end
 
       def calculate_line_73
-        @direct_file_data.total_local_tax_withheld
+        @direct_file_data.total_w2_local_tax_withheld
       end
 
       def calculate_line_76
