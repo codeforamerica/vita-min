@@ -12,6 +12,8 @@ describe Hub::Dashboard::ServiceLevelAgreementsNotificationsPresenter do
   before do
     create :client, vita_partner: oregano_org, last_outgoing_communication_at: 5.business_days.ago, filterable_tax_return_properties: [{active: true }]
     create :client, vita_partner: oregano_org, last_outgoing_communication_at: 7.business_days.ago, filterable_tax_return_properties: [{active: true }]
+    create :client, vita_partner: oregano_org, last_outgoing_communication_at: 7.business_days.ago, filterable_tax_return_properties: [{active: false }]
+    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 5.business_days.ago, filterable_tax_return_properties: [{active: false }]
     create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 5.business_days.ago, filterable_tax_return_properties: [{active: true }]
     create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 8.business_days.ago, filterable_tax_return_properties: [{active: true }]
     create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 9.business_days.ago, filterable_tax_return_properties: [{active: true }]
