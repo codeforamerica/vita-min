@@ -17,7 +17,9 @@ module SubmissionBuilder
                     xml.Contributions contribution.amount.round
                   end
                 end
-                xml.TotalContributionsContSheet calculated_fields.fetch(:AZ322_LINE_4)
+                if calculated_fields.fetch(:AZ322_LINE_4) > 0
+                  xml.TotalContributionsContSheet calculated_fields.fetch(:AZ322_LINE_4)
+                end
                 xml.TotalContributions calculated_fields.fetch(:AZ322_LINE_5)
                 xml.SubTotalAmt calculated_fields.fetch(:AZ322_LINE_11)
                 xml.SingleHOH calculated_fields.fetch(:AZ322_LINE_12)
@@ -33,9 +35,9 @@ module SubmissionBuilder
                         xml.SchoolDist contribution.district_name
                         xml.Contributions contribution.amount.round
                       end
-                      xml.TotalContributions calculated_fields.fetch(:AZ322_LINE_4)
-                      xml.TotalContributionsAfter 0
                     end
+                    xml.TotalContributions calculated_fields.fetch(:AZ322_LINE_4)
+                    xml.TotalContributionsAfter 0
                   end
                 end
               end
