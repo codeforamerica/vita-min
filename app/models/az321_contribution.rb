@@ -25,7 +25,12 @@ class Az321Contribution < ApplicationRecord
   validates :made_contributions, presence: true, on: :form_create
 
   validates :charity_name, presence: true
-  validates :charity_code, presence: true
+  validates :charity_code,
+    presence: true,
+    format: {
+      # Valid for a 5 digit number beginning with 2.
+      with: /\A2\d{4}\z/
+    }
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :date_of_contribution,
     inclusion: {

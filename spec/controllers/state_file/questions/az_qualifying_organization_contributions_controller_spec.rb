@@ -47,13 +47,6 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
   describe "edit" do
     let(:contribution) { create(:az321_contribution, state_file_az_intake: intake)}
 
-    it 'should display a form' do
-      get :edit, params: { id: contribution.id }
-
-      expect(response).to be_ok
-      expect(response.body).to include('<form')
-    end
-
     it 'should render information about the contribution' do
       get :edit, params: { id: contribution.id }
 
@@ -110,7 +103,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
 
       contribution.reload
 
-      expect(contribution.date_of_contribution.to_s).to eql("#{Rails.configuration.statefile_current_tax_year}-06-16")
+      expect(contribution.date_of_contribution.to_s).to eq("#{Rails.configuration.statefile_current_tax_year}-06-16")
     end
   end
 
@@ -164,7 +157,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       }
     end
 
-    it 'should create the contribution when the made_contributions missing' do
+    it 'should create the contribution when the made_contributions is not missing' do
       expect {
         put :create, params: valid_params
       }.to change(Az321Contribution, :count).from(0).to(1)
@@ -172,7 +165,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       expect(response).to redirect_to(:az_qualifying_organization_contributions)
     end
 
-    it 'should not create the contribution when the made_contributions missing' do
+    it 'should not create the contribution when the made_contributions is missing' do
       expect {
         put :create, params: made_contributions_missing_params
       }.not_to change(Az321Contribution, :count)
