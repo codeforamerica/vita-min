@@ -1,7 +1,10 @@
-<button type="button" class="open-intercom button--intercom-blue button--intercom ">
-  <%= image_tag("intercom-chat-#{state_code_for_page_style || "us"}.svg", "aria-hidden": "true", class: "") %>
+<button type="button" class="open-intercom button--intercom-blue button--intercom">
+  <div class="icon-wrapper--intercom">
+    <%= render "shared/svg/intercom-chat" %>
+  </div>
   <%= I18n.t("general.intercom_cta") %>
 </button>
+
 
 <script>
     const hasIntake = <%= current_intake&.id.present? %>;
