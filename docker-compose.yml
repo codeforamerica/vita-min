@@ -12,7 +12,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_HOST_AUTH_METHOD: trust
   jobs:
     container_name: jobs
     image: ruby:3.2.2
@@ -59,6 +58,7 @@ services:
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
       - RAILS_DB_PASSWORD=password
+      - SHAKAPACKER_DEV_SERVER_HOST=shakapacker
   shakapacker:
     container_name: shakapacker
     build:
@@ -69,6 +69,8 @@ services:
     ports:
       - 3035:3035
     command: bin/shakapacker-dev-server
+    environment:
+      - SHAKAPACKER_DEV_SERVER_HOST=shakapacker
   chrome:
     container_name: chrome
     image: selenium/standalone-chrome:4.15.0 # this version should match that of the selenium-webdriver gem (see Gemfile)
