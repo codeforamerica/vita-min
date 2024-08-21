@@ -44,7 +44,6 @@ module Hub
           .group('users.id, users.name, users.role_type')
           .order('tax_returns_count DESC')
           .where('clients.filterable_product_year = :product_year OR clients.id IS NULL', product_year: Rails.configuration.product_year)
-
       end
 
     end
