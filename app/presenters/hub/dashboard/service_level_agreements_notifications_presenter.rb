@@ -7,11 +7,11 @@ module Hub
       end
 
       def approaching_sla_clients
-        @approaching_sla_clients ||= @clients.select("vita_partner_id, COUNT(clients.id) AS number_of_clients")
+        @approaching_sla_clients ||= @clients.select("clients.vita_partner_id, COUNT(clients.id) AS number_of_clients")
+                                             .sla_tracked
                                              .where(vita_partner_id: @selected_orgs_and_sites.map(&:id))
                                              .where(last_outgoing_communication_at: 6.business_days.ago..4.business_days.ago)
-                                             .where("filterable_tax_return_properties @> ?::jsonb", [{ active: true }].to_json)
-                                             .group("vita_partner_id")
+                                             .group("clients.vita_partner_id")
       end
 
       def approaching_sla_clients_count
@@ -23,11 +23,11 @@ module Hub
       end
 
       def breached_sla_clients
-        @breached_sla_clients ||= @clients.select("vita_partner_id, COUNT(clients.id) AS number_of_clients")
+        @breached_sla_clients ||= @clients.select("clients.vita_partner_id, COUNT(clients.id) AS number_of_clients")
+                                             .sla_tracked
                                              .where(vita_partner_id: @selected_orgs_and_sites.map(&:id))
                                              .where("last_outgoing_communication_at < ?", 6.business_days.ago)
-                                             .where("filterable_tax_return_properties @> ?::jsonb", [{ active: true }].to_json)
-                                             .group("vita_partner_id")
+                                             .group("clients.vita_partner_id")
       end
 
       def breached_sla_clients_count
