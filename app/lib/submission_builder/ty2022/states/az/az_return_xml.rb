@@ -26,6 +26,10 @@ module SubmissionBuilder
             'ReturnDataState'
           end
 
+          def build_xml_doc_tag
+            'efile:ReturnState'
+          end
+
           def state_schema_version
             "AZIndividual2023v1.0"
           end
