@@ -13,24 +13,20 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
-  pgadmin:
-    container_name: pgadmin
-    profiles: ["pgadmin"]
-    image: chorss/docker-pgadmin4
-    ports:
-      - 5050:5050
-    depends_on:
-      - rails
   jobs:
     container_name: jobs
     image: ruby:3.2.2
     volumes:
       - ./:/app
-    command: app/bin/rails jobs:work
+    build:
+      dockerfile: Dockerfile.local
+      target: "base"
+    command: rails jobs:work
     depends_on:
       rails:
         condition: service_healthy
     environment:
+      - DOCKER=true
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
@@ -38,8 +34,8 @@ services:
   rails:
     container_name: rails
     build:
-      context: .
       dockerfile: Dockerfile.local
+      target: "app"
     volumes:
       - ./:/app
     ports:
@@ -47,8 +43,10 @@ services:
       - 9888:9888
     depends_on:
       - db
+      - shakapacker
     links:
       - db
+      - shakapacker
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://0.0.0.0:3000/up" ]
       interval: 30s
@@ -61,10 +59,28 @@ services:
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
       - RAILS_DB_PASSWORD=password
+  shakapacker:
+    container_name: shakapacker
+    build:
+      dockerfile: Dockerfile.local
+      target: "base"
+    volumes:
+      - ./:/app
+    ports:
+      - 3035:3035
+    command: bin/shakapacker-dev-server
   chrome:
     container_name: chrome
     image: selenium/standalone-chrome:4.15.0 # this version should match that of the selenium-webdriver gem (see Gemfile)
     ports:
       - 4444:4444
+  pgadmin:
+    container_name: pgadmin
+    profiles: ["pgadmin"]
+    image: chorss/docker-pgadmin4
+    ports:
+      - 5050:5050
+    depends_on:
+      - rails
 volumes:
   database:
