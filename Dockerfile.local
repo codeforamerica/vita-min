@@ -1,6 +1,4 @@
-# This file is based on bin/setup and .circleci/config.yml
-
-FROM ruby:3.2.2
+FROM ruby:3.2.2 AS base
 
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
@@ -33,7 +31,12 @@ RUN wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_
 
 ADD . /app
 
+### Rails app only
+
+FROM base AS app
+
 EXPOSE 3000
 
 RUN chmod +x /app/bin/docker-entrypoint
+
 CMD ["bash", "./bin/docker-entrypoint"]
