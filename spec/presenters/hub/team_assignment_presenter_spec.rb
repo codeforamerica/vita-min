@@ -45,7 +45,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
 
       context "when there are tax returns with archived clients" do
         it "doesn't count their tax returns" do
-          # create(:gyr_tax_return, assigned_user: site_coordinator, client: create(:client, filterable_product_year: 2023))
+          create(:gyr_tax_return, assigned_user: site_coordinator, client: create(:client, filterable_product_year: 2023))
 
           expect(subject.ordered_by_tr_count_users.first.tax_returns_count).to eq 2
         end
