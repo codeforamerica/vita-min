@@ -68,7 +68,7 @@ services:
       - ./:/app
     ports:
       - 3035:3035
-    command: bin/shakapacker-dev-server
+    command: "bin/shakapacker-dev-server --client-web-socket-url auto://0.0.0.0:3035/ws"
     environment:
       - SHAKAPACKER_DEV_SERVER_HOST=shakapacker
   chrome:
