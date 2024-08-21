@@ -7,7 +7,7 @@ module SubmissionBuilder
           private
 
           def build_xml_doc_tag
-            "ReturnState"
+            "efile:ReturnState"
           end
 
           def schema_file
