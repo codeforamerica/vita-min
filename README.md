@@ -193,7 +193,7 @@ bin/shakapacker-dev-server
 
 1. Make sure you have `development.key` in `config/credentials`. Ask a teammate if you need access.
 1. Unpack the state schema files into `vendor/us_states`
-1. Run `docker compose up`. This will start the database, jobs, and rails app containers.
+1. Run `docker compose up`. This will start the database, jobs, shakapacker, and rails app containers. (If you had the app running locally, you may need to stop your local postgres first.)
 
 ### Run tests in a docker container
 - Developent environment is set by default, and test environment is set by default when you run tests
