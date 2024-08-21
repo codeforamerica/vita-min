@@ -52,7 +52,7 @@ development:
   # Keys not described there are documented inline and in https://github.com/shakacode/shakapacker/
   dev_server:
     https: false
-    host: 0.0.0.0
+    host: localhost
     port: 3035
     # Hot Module Replacement updates modules while the application is running without a full reload
     # Used instead of the `hot` key in https://webpack.js.org/configuration/dev-server/#devserverhot
@@ -74,7 +74,7 @@ development:
       webSocketURL:
        hostname: '0.0.0.0'
        pathname: '/ws'
-      #  port: 8080
+       port: 3035
     # Should we use gzip compression?
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
