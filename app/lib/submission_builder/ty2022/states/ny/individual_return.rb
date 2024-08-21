@@ -12,10 +12,6 @@ module SubmissionBuilder
             'forms'
           end
 
-          def build_xml_doc_tag
-            "ReturnState"
-          end
-
           def documents_wrapper
             xml_doc = build_xml_doc("processBO") do |xml|
               xml.filingKeys do
