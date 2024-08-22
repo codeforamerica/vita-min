@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schema: "ny" do
+describe SubmissionBuilder::Ty2022::States::Ny::NyReturnXml, required_schema: "ny" do
   describe '.build' do
     let(:intake) { create(:state_file_ny_intake, filing_status: filing_status) }
     let(:submission) { create(:efile_submission, data_source: intake) }
@@ -258,7 +258,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schem
       let(:filing_status) { 'single' }
 
       it "creates an additional dependents pdf" do
-        submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+        submission_builder = SubmissionBuilder::Ty2022::States::Ny::NyReturnXml.new(submission)
         additional_dependents = submission_builder.pdf_documents.select do |d|
           d.pdf == PdfFiller::It201AdditionalDependentsPdf
         end
@@ -274,7 +274,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schem
           end
 
           it "fills in and attaches the it-213-att" do
-            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+            submission_builder = SubmissionBuilder::Ty2022::States::Ny::NyReturnXml.new(submission)
             additional_dependents = submission_builder.pdf_documents.select do |d|
               d.pdf == PdfFiller::Ny213AttPdf
             end
@@ -284,7 +284,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schem
 
         context "when there are not more than 6 dependents who qualify for the ctc" do
           it "does not attach the it-213-att" do
-            submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+            submission_builder = SubmissionBuilder::Ty2022::States::Ny::NyReturnXml.new(submission)
             additional_dependents = submission_builder.pdf_documents.select do |d|
               d.pdf == PdfFiller::Ny213AttPdf
             end
@@ -410,7 +410,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schem
       let(:filing_status) { 'single' }
 
       it "does not create an additional dependents pdf" do
-        submission_builder = SubmissionBuilder::Ty2022::States::Ny::IndividualReturn.new(submission)
+        submission_builder = SubmissionBuilder::Ty2022::States::Ny::NyReturnXml.new(submission)
         additional_dependents = submission_builder.pdf_documents.select do |d|
           d.pdf == PdfFiller::It201AdditionalDependentsPdf
         end

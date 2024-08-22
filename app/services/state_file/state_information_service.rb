@@ -96,7 +96,7 @@ module StateFile
         intake_class: StateFileNyIntake,
         calculator_class: Efile::Ny::It201,
         navigation_class: Navigation::StateFileNyQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
