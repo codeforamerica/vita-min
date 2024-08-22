@@ -13,12 +13,16 @@ describe SubmissionBuilder::ReturnHeader do
         let(:mailing_city) { "Citayy" }
         let(:mailing_zip) { "54321" }
         let(:tax_return_year) { 2024 }
+        let(:efin) { "123455" }
+        let(:sin) { "223455" }
         before do
           intake.direct_file_data.mailing_street = mailing_street
           intake.direct_file_data.mailing_apartment = mailing_apartment
           intake.direct_file_data.mailing_city = mailing_city
           intake.direct_file_data.mailing_zip = mailing_zip
           intake.direct_file_data.tax_return_year = tax_return_year
+          allow(EnvironmentCredentials).to receive(:irs).with(:efin).and_return efin
+          allow(EnvironmentCredentials).to receive(:irs).with(:sin).and_return sin
         end
 
         it "generates xml with the right values" do
@@ -27,11 +31,9 @@ describe SubmissionBuilder::ReturnHeader do
           expect(doc.at("TaxPeriodBeginDt").text).to eq Date.new(tax_return_year, 1, 1).strftime("%F")
           expect(doc.at("TaxPeriodEndDt").text).to eq Date.new(tax_return_year, 12, 31).strftime("%F")
           expect(doc.at("TaxYr").text).to eq tax_return_year.to_s
-
-          # "OriginatorGrp EFIN"
-          # "OriginatorGrp OriginatorTypeCd"
-          # "SoftwareId"
-
+          expect(doc.at("OriginatorGrp EFIN").text).to eq efin
+          expect(doc.at("OriginatorGrp OriginatorTypeCd").text).to eq "OnlineFiler"
+          expect(doc.at("SoftwareId").text).to eq sin
           expect(doc.at("ReturnType").text).to eq StateFile::StateInformationService.return_type(state_code)
           expect(doc.at("USAddress AddressLine1Txt").text).to eq mailing_street
           expect(doc.at("USAddress AddressLine2Txt").text).to eq mailing_apartment
@@ -99,6 +101,7 @@ describe SubmissionBuilder::ReturnHeader do
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
+
             expect(doc.at("Filer Secondary DateOfBirth").text).to eq spouse_birth_date.strftime("%F")
             expect(doc.at('Filer Secondary TaxpayerSSN').content).to eq spouse_ssn
             expect(doc.at('Filer Secondary TaxpayerName FirstName').content).to eq spouse_first_name
