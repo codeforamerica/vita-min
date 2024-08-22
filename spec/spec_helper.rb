@@ -61,12 +61,12 @@ RSpec.configure do |config|
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
   config.filter_run_when_matching :focus
 
-  config.before do
-    
-    Rack::Attack.enabled = false
-  rescue StandardError
-    puts "RackAttack not loaded - are you running a single test?"
-    
+  config.before(:each) do
+    begin
+      Rack::Attack.enabled = false
+    rescue
+      puts "RackAttack not loaded - are you running a single test?"
+    end
   end
 
 =begin

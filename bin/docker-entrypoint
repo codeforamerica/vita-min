@@ -3,24 +3,12 @@
 dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bin/rails db:prepare"
 bin/rails parallel:create
 bin/rails parallel:prepare
-if [[ -z "${RUN_MIGRATIONS}:+1" ]]; then
-  bin/rails db:migrate
-fi
 bin/rails db:seed
 
-if [[ -z "${AWS_ACCESS_KEY_ID}:+1" ]]; then
-  # Add IRS e-file schemas, which are not in the git repo
-  bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
-fi
-
-# Collect assets. This approach is not fully production-ready, but
-# will help you experiment with Aptible Deploy before bothering with assets.
-# Review http://go.aptible.com/assets for production-ready advice.
 bundle exec rake assets:precompile
 
 if [ -f /app/tmp/pids/server.pid ]; then
   rm /app/tmp/pids/server.pid
 fi 
 
-# Does this work or do we need to start with foreman instead per the docs?
 bundle exec rails s -b 0.0.0.0 -p 3000

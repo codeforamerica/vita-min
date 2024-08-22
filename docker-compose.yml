@@ -14,7 +14,6 @@ services:
       POSTGRES_PASSWORD: password
   jobs:
     container_name: jobs
-    image: ruby:3.2.2
     volumes:
       - ./:/app
     build:
@@ -52,7 +51,6 @@ services:
       timeout: 30s
       retries: 15
     environment:
-      - "RUN_MIGRATIONS=${RUN_MIGRATIONS}"
       - DOCKER=true
       - RAILS_DB_HOST=db
       - RAILS_DB_USERNAME=postgres
