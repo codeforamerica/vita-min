@@ -299,6 +299,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schem
       let(:filing_status) { 'single' }
       before do
         intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR POBOX #157'
+        intake.direct_file_data.mailing_apartment = ''
       end
       it 'truncates under 30 characters' do
         xml = described_class.build(submission).document
@@ -313,6 +314,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schem
       let(:filing_status) { 'single' }
       before do
         intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR Suite 157'
+        intake.direct_file_data.mailing_apartment = ''
       end
       it 'truncates before the key word' do
         xml = described_class.build(submission).document
