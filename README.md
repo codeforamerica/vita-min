@@ -189,27 +189,6 @@ rails jobs:work
 bin/shakapacker-dev-server
 ```
 
-## Alternate setup + run the server instructions with docker compose
-
-1. Make sure you have `development.key` in `config/credentials`. Ask a teammate if you need access.
-1. Unpack the state schema files into `vendor/us_states`
-1. Run `docker compose up`. This will start the database, jobs, shakapacker, and rails app containers. (If you had the app running locally, you may need to stop your local postgres first.)
-
-### Run tests in a docker container
-- Developent environment is set by default, and test environment is set by default when you run tests
-- Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails rspec` or `docker exec -it rails yarn jest`
-- Turbo tests don't work with the current docker setup, so running `docker exec -it rails bin/test` won't work as expected
-
-### Useful docker commands
-| Command | Meaning |
-| ----- | ----- |
-| `docker compose up -d --build` | Build, run, and detach from docker compose containers in the default profile |
-| `docker compose --profile pgadmin up` | Start the pgadmin service |
-| `docker exec -e ALLOWED_SCHEMAS=nj -it rails rspec` | Run only the rspec tests that require the allowed schemas |
-| `docker exec -it rails yarn jest` | Run jest tests |
-| `docker logs -f rails` | Follow the logs of the rails container |
-| `docker volume prune --filter label=vita-min_database` | Get rid of the database entirely |
-
 ## Development 💻
 
 In development, you'll need to manually start the delayed_job worker using the following command:
@@ -321,6 +300,27 @@ The flows page tries to show a preview screenshot from each page, captured durin
 They'll be dumped into `public/assets/flow_explorer_screenshots` locally.
 
 You can upload them to the correct S3 bucket with the task `rake flow_explorer:upload_screenshots`
+
+## Alternate setup + development with docker compose
+
+1. Make sure you have `development.key` in `config/credentials`. Ask a teammate if you need access.
+1. Unpack the state schema files into `vendor/us_states`
+1. Run `docker compose up`. This will start the database, jobs, shakapacker, and rails app containers. (If you had the app running locally, you may need to stop your local postgres first.)
+
+### Run tests in a docker container
+- Developent environment is set by default, and test environment is set by default when you run tests
+- Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails rspec` or `docker exec -it rails yarn jest`
+- Turbo tests don't work with the current docker setup, so running `docker exec -it rails bin/test` won't work as expected
+
+### Useful docker commands
+| Command | Meaning |
+| ----- | ----- |
+| `docker compose up -d --build` | Build, run, and detach from docker compose containers in the default profile |
+| `docker compose --profile pgadmin up` | Start the pgadmin service |
+| `docker exec -e ALLOWED_SCHEMAS=nj -it rails rspec` | Run only the rspec tests that require the allowed schemas |
+| `docker exec -it rails yarn jest` | Run jest tests |
+| `docker logs -f rails` | Follow the logs of the rails container |
+| `docker volume prune --filter label=vita-min_database` | Get rid of the database entirely |
 
 ## Deploying the Application 🚀☁️
 
