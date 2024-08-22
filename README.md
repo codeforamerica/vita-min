@@ -199,7 +199,16 @@ bin/shakapacker-dev-server
 - Developent environment is set by default, and test environment is set by default when you run tests
 - Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails rspec` or `docker exec -it rails yarn jest`
 - Turbo tests don't work with the current docker setup, so running `docker exec -it rails bin/test` won't work as expected
-- Pass allowed schemas as a comma-separated env var: `docker exec -e ALLOWED_SCHEMAS=nj -it rails rspec` 
+
+### Useful docker commands
+| Command | Meaning |
+| ----- | ----- |
+| `docker compose up -d --build` | Build, run, and detach from docker compose containers in the default profile |
+| `docker compose --profile pgadmin up` | Start the pgadmin service |
+| `docker exec -e ALLOWED_SCHEMAS=nj -it rails rspec` | Run only the rspec tests that require the allowed schemas |
+| `docker exec -it rails yarn jest` | Run jest tests |
+| `docker logs -f rails` | Follow the logs of the rails container |
+| `docker volume prune --filter label=vita-min_database` | Get rid of the database entirely |
 
 ## Development 💻
 

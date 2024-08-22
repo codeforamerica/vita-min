@@ -1,6 +1,7 @@
 #!/bin/sh
 
-dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bin/rails db:prepare"
+dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bin/rails db:create"
+bin/rails db:prepare
 bin/rails parallel:create
 bin/rails parallel:prepare
 bin/rails db:seed
