@@ -27,6 +27,7 @@
             <PrimaryNameControlTxt>TEST</PrimaryNameControlTxt>
             <USAddress>
                 <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <AddressLine2Txt>A</AddressLine2Txt>
                 <CityNm>New York</CityNm>
                 <StateAbbreviationCd>NY</StateAbbreviationCd>
                 <ZIPCd>10128</ZIPCd>
