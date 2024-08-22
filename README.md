@@ -197,7 +197,8 @@ bin/shakapacker-dev-server
 
 ### Run tests in a docker container
 - Developent environment is set by default, and test environment is set by default when you run tests
-- Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails rspec`. (Running `bin/test` doesn't work with the current docker setup.)
+- Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails rspec` or `docker exec -it rails yarn jest`
+- Turbo tests don't work with the current docker setup, so running `docker exec -it rails bin/test` won't work as expected
 - Pass allowed schemas as a comma-separated env var: `docker exec -e ALLOWED_SCHEMAS=nj -it rails rspec` 
 
 ## Development 💻
