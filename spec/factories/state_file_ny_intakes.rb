@@ -244,5 +244,13 @@ FactoryBot.define do
         intake.dependents.reload
       end
     end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('ny_batman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('ny_bloombito_w2s') }
+    end
   end
 end

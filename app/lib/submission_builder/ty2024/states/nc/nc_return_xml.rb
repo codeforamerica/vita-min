@@ -10,6 +10,10 @@ module SubmissionBuilder
             "efile:ReturnState"
           end
 
+          def attached_documents_parent_tag
+            "ReturnDataState"
+          end
+
           def schema_file
             SchemaFileLoader.load_file("us_states", "unpacked", "NCIndividual2023v1.0", "NCIndividual", "IndividualReturnNCD400.xsd")
           end
@@ -20,7 +24,7 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            []
+            combined_w2s
           end
         end
       end

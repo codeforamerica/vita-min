@@ -180,6 +180,14 @@ FactoryBot.define do
       end
     end
 
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_superman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_goldwater') }
+    end
+
     factory :state_file_az_refund_intake do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
