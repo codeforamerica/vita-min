@@ -4,14 +4,14 @@ module StateFile
       include ReturnToReviewConcern
 
       before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
-      before_action :check_intake_opt_out, only: [:update, :create]
+      before_action :maybe_opt_out_and_continue, only: [:update, :create]
 
       def index
         @contribution_count = contributions.count
         redirect_to action: :new unless contributions.present?
       end
 
-      def edit = contribution
+      def edit = @contribution = contribution
 
       def update
         contribution.assign_attributes(az321_contribution_params)
@@ -59,7 +59,7 @@ module StateFile
         @contribution ||= contributions.find(params[:id])
       end
 
-      def check_intake_opt_out
+      def maybe_opt_out_and_continue
         current_intake.assign_attributes(
             az321_contribution_params.fetch(:state_file_az_intake_attributes, {})
           )

@@ -55,6 +55,12 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       expect(response.body).to include(contribution.charity_code)
       expect(response.body).to include(contribution.amount.to_s("F"))
     end
+
+    it 'should assign a new contribution' do
+      get :edit, params: { id: contribution.id }
+
+      expect(assigns(:contribution)).to eq(contribution)
+    end
   end
 
   describe "update" do
