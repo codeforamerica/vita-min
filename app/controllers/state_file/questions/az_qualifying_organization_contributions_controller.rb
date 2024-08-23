@@ -11,7 +11,10 @@ module StateFile
         redirect_to action: :new unless contributions.present?
       end
 
-      def edit = @contribution = contribution
+      def edit
+        @contribution_count = contributions.count
+        @contribution = contribution
+      end
 
       def update
         contribution.assign_attributes(az321_contribution_params)
@@ -23,7 +26,10 @@ module StateFile
         end
       end
 
-      def new = @contribution = contributions.build(date_of_contribution_year: @filing_year)
+      def new
+        @contribution_count = contributions.count
+        @contribution = contributions.build(date_of_contribution_year: @filing_year)
+      end
 
       def create
         @contribution = contributions.build

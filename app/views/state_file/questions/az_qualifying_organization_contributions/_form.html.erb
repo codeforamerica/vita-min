@@ -1,4 +1,5 @@
 <% @main_heading = t('.main_heading', filing_year: @filing_year) %>
+<% show_yes_no = @contribution_count == 0  %>
 
 <% content_for :page_title, @main_heading %>
 
@@ -7,67 +8,36 @@
     <%= t('.main_heading_html', filing_year: @filing_year) -%>
   </h1>
 
-  <%= form_with(
-    model: @contribution,
-    url: {
-      action: @contribution.persisted? ? :update : :create
-    },
-    local: true,
-    builder: VitaMinFormBuilder,
-    html: {
-      class: 'form-card form-card--long'
-    }
-  ) do |f| %>
+  <%= form_with( model: @contribution, url: { action: @contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' }) do |f| %>
 
     <div class="question-with-follow-up">
-      <div class="question-with-follow-up__question">
-        <div class="blue-group">
-          <%= f.fields_for(:state_file_az_intake) do |ff| %>
-            <%=
-              ff.cfa_radio_set(
-                :made_az321_contributions,
-                collection: [
-                  {
-                    value: :yes,
-                    label: t('general.affirmative'),
-                    input_html: {
-                      "data-follow-up": "#contribution-details",
-                    }
-                  },
-                  {
-                    value: :no,
-                    label: t('general.negative')
-                  }
-                ]
-              )
-            %>
-          <% end %>
-        </div> 
+      <% if show_yes_no %>
+        <div class="question-with-follow-up__question">
+          <div class="blue-group">
+            <%= f.fields_for(:state_file_az_intake) do |ff| %>
+              <%= ff.cfa_radio_set( :made_az321_contributions, collection: [ { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#contribution-details", } }, { value: :no, label: t('general.negative') } ]) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
 
-      </div>
-      <div class="question-with-follow-up__follow-up" id="contribution-details">
+      <div class="<%= "question-with-follow-up__follow-up" if show_yes_no %>" id="contribution-details">
         <div class="blue-group">
           <p class="form-question spacing-below-25">
-            <%= t('.question_header') %>
+          <%= t('.question_header') %>
           </p>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:charity_name, t('.charity_name'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:charity_code, t('.charity_code'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:amount, t('.amount', filing_year: @filing_year), classes: ["form-width--long"]) %>
             <div class="date-select">
-              <%= f.cfa_date_select(
-                :date_of_contribution,
-                t('.date_of_contribution', filing_year: @filing_year),
-                options: {
-                  start_year: @filing_year,
-                  end_year: @filing_year
-                }
-              ) %>
+              <%= f.cfa_date_select( :date_of_contribution, t('.date_of_contribution', filing_year: @filing_year), options: { start_year: @filing_year, end_year: @filing_year }) %>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
