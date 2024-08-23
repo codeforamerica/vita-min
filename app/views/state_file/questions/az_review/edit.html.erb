@@ -56,7 +56,7 @@
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".made_az321_contributions") %></p>
       <p><%= current_intake.az321_contributions.present? ? t("general.affirmative") : t("general.negative") %></p>
-      <% if current_intake.made_az321_contributions_yes? %>
+      <% if current_intake.az321_contributions.present? %>
         <% current_intake.az321_contributions.each do |contribution| %>
           <p class="text--bold spacing-below-5"><%=t(".az321_contribution_name", charity_name: contribution.charity_name, charity_code: contribution.charity_code) %></p>
           <p><%= number_to_currency(contribution.amount) || t("general.none") %></p>

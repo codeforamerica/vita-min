@@ -8,7 +8,7 @@ module StateFile
 
       def index
         @contribution_count = contributions.count
-        redirect_to action: :new unless contributions.present?
+        redirect_to action: :new, return_to_review: params[:return_to_review] unless contributions.present?
       end
 
       def edit
