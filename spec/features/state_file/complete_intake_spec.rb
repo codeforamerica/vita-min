@@ -9,7 +9,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "NY", :flow_explorer_screenshot, js: true do
-    it "has content" do
+    it "has content", required_schema: "ny" do
       visit "/"
       click_on "Start Test NY"
 
@@ -151,7 +151,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "AZ", :flow_explorer_screenshot, js: true do
-    it "has content" do
+    it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
 
@@ -311,6 +311,28 @@ RSpec.feature "Completing a state file intake", active_job: true do
       submission = EfileSubmission.last
       expect(submission.submission_bundle).to be_present
       expect(submission.current_state).to eq("queued")
+    end
+  end
+
+  context "NC", :flow_explorer_screenshot, js: true do
+    it "has content", required_schema: "nc" do
+      visit "/"
+      click_on "Start Test NC"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.nc.title")
+      click_on I18n.t('general.get_started'), id: "firstCta"
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
+      click_on "Continue"
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer("Transfer Nick")
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
     end
   end
 end

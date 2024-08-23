@@ -26,7 +26,7 @@ describe SubmissionBundle do
           irs_submission_id: state_return_submission_id
         )
       end
-      it "can bundle a minimal NY return" do
+      it "can bundle a minimal NY return", required_schema: "ny" do
         expect(described_class.new(submission).build.errors).to eq([])
       end
     end
@@ -36,7 +36,7 @@ describe SubmissionBundle do
         create(:efile_submission, data_source: create(:state_file_az_intake, :with_efile_device_infos, federal_submission_id: fed_return_submission_id), irs_submission_id: state_return_submission_id)
       }
 
-      it "can bundle a minimal AZ return" do
+      it "can bundle a minimal AZ return", required_schema: "az" do
         expect(described_class.new(submission).build.errors).to eq([])
       end
     end

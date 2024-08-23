@@ -681,7 +681,7 @@
 }
 
 .us-state-- {
-  .button--intercom{
+  .button--intercom {
     background: #FFF;
     border: 2px solid $color-az-grey;
     color: $color-az-grey;
@@ -719,6 +719,10 @@ $state-colors: (
       border: 2px solid $state-color;
       // icon: state primary color
       color: $state-color;
+    }
+
+    .icon-wrapper--intercom {
+      padding-right: $s10;
     }
   }
 

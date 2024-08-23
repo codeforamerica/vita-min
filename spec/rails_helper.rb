@@ -148,6 +148,13 @@ RSpec.configure do |config|
   if config.filter.rules[:flow_explorer_screenshot]
     FlowExplorerScreenshots.hook!(config)
   end
+
+  if ENV.include? "ALLOWED_SCHEMAS"
+    allowed_schemas = ENV["ALLOWED_SCHEMAS"].split(",").map(&:strip)
+    config.filter_run_excluding required_schema: lambda { |required_schema|
+      !allowed_schemas.include? required_schema
+    }
+  end
 end
 
 Shoulda::Matchers.configure do |config|

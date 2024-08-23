@@ -4,11 +4,12 @@ module Hub
       attr_reader :selected_value
       DashboardFilterOption = Struct.new(:value, :model, :children, :has_parent)
 
-      def initialize(current_user, current_ability, selected_value, return_summary_stage=nil)
+      def initialize(current_user, current_ability, selected_value, return_summary_stage = nil, page = 1)
         @current_user = current_user
         @current_ability = current_ability
         @selected_value = selected_value
         @return_summary_stage = return_summary_stage
+        @page = page
       end
 
       def clients
@@ -65,6 +66,10 @@ module Hub
         @service_level_agreements_notifications_presenter ||= Hub::Dashboard::ServiceLevelAgreementsNotificationsPresenter.new(
           clients, selected_orgs_and_sites
         )
+      end
+
+      def team_assignment_presenter
+        @team_assignment_presenter ||= Hub::Dashboard::TeamAssignmentPresenter.new(@current_user, @page, selected_model)
       end
 
       private

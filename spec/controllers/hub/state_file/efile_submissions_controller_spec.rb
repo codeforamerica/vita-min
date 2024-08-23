@@ -49,7 +49,7 @@ describe Hub::StateFile::EfileSubmissionsController do
       render_views
       before { sign_in(create(:state_file_admin_user)) }
 
-      it "shows the state efile submission xml" do
+      it "shows the state efile submission xml", required_schema: "ny" do
         get :show_xml, params: params
         expect(response).to be_successful
         xml = Nokogiri::XML(response.body)

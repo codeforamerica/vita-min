@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
+describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn, required_schema: "ny" do
   describe '.build' do
     let(:intake) { create(:state_file_ny_intake, filing_status: filing_status) }
     let(:submission) { create(:efile_submission, data_source: intake) }
@@ -299,6 +299,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
       before do
         intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR POBOX #157'
+        intake.direct_file_data.mailing_apartment = ''
       end
       it 'truncates under 30 characters' do
         xml = described_class.build(submission).document
@@ -313,6 +314,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::IndividualReturn do
       let(:filing_status) { 'single' }
       before do
         intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR Suite 157'
+        intake.direct_file_data.mailing_apartment = ''
       end
       it 'truncates before the key word' do
         xml = described_class.build(submission).document
