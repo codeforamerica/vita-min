@@ -119,18 +119,20 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
     let(:valid_params) do
       {
         az321_contribution: {
-          made_contributions: "yes",
+          state_file_az_intake_attributes: {
+            made_az321_contributions: "yes",
+          },
           date_of_contribution_month: 5,
           date_of_contribution_day: 12,
           date_of_contribution_year: Rails.configuration.statefile_current_tax_year,
           charity_name: "foo",
-          charity_code: "bar",
+          charity_code: "21111",
           amount: 50
         }
       }
     end
 
-    let(:made_contributions_missing_params) do
+    let(:made_az321_contributions_missing_params) do
       {
         az321_contribution: {
           date_of_contribution_month: 5,
@@ -146,7 +148,9 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
     let(:invalid_params) do
       {
         az321_contribution: {
-          made_contributions: "yes",
+          state_file_az_intake_attributes: {
+            made_az321_contributions: "yes",
+          },
           date_of_contribution_month: 5,
           date_of_contribution_day: 12,
           date_of_contribution_year: Rails.configuration.statefile_current_tax_year,
@@ -157,7 +161,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       }
     end
 
-    it 'should create the contribution when the made_contributions is not missing' do
+    it 'should create the contribution when the made_az321_contributions is not missing' do
       expect {
         put :create, params: valid_params
       }.to change(Az321Contribution, :count).from(0).to(1)
@@ -165,9 +169,9 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       expect(response).to redirect_to(:az_qualifying_organization_contributions)
     end
 
-    it 'should not create the contribution when the made_contributions is missing' do
+    it 'should not create the contribution when the made_az321_contributions is missing' do
       expect {
-        put :create, params: made_contributions_missing_params
+        put :create, params: made_az321_contributions_missing_params
       }.not_to change(Az321Contribution, :count)
 
       expect(response).not_to be_redirect

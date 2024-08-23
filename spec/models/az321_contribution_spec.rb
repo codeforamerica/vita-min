@@ -26,13 +26,13 @@ describe Az321Contribution do
     it { should validate_presence_of :date_of_contribution }
   end
 
-  describe '#made_contributions' do
+  describe '#made_az321_contributions' do
     it 'should validate presence on form_create context' do
       az = Az321Contribution.new(state_file_az_intake: intake)
 
-      az.valid?(:form_create)
+      az.valid?(:az321_form_create)
 
-      expect(az.errors[:made_contributions]).not_to be_empty
+      expect(az.state_file_az_intake.errors[:made_az321_contributions]).not_to be_empty
     end
 
     it 'should not validate presence in the default context' do
@@ -40,7 +40,7 @@ describe Az321Contribution do
 
       az.valid?
 
-      expect(az.errors[:made_contributions]).to be_empty
+      expect(az.errors[:made_az321_contributions]).to be_empty
     end
   end
 

@@ -108,7 +108,9 @@ class StateFileAzIntake < StateFileBaseIntake
   enum received_military_retirement_payment: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_military_retirement_payment
   enum primary_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_received_pension
   enum spouse_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_received_pension
+  enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
 
+  validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :az321_contributions, length: { maximum: 3 }
   def federal_dependent_count_under_17
     self.dependents.select{ |dependent| dependent.age < 17 }.length

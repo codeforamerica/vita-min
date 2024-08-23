@@ -2210,6 +2210,7 @@ en:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
+          az321_contribution_name: Contribution to %{charity_name} with code %{charity_code}
           az_agi: Arizona adjusted gross income
           az_tax: Arizona tax
           az_tax_withheld: Arizona tax withheld
@@ -2224,6 +2225,7 @@ en:
           incr_deduction_chrit_contributions: Increased deduction for charitable contributions
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
+          made_az321_contributions: Made contributions to qualifying charitable organizations
           see_detailed_return: See detailed return information
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           standard_deduction: Standard deduction
