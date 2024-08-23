@@ -1,6 +1,6 @@
 # This dockerfile is based on the production dockerfile, minus GYR Efiler Java deps
 
-### First build stage used for rails, jobs, and shakapacker containers
+### First build stage used for web, worker, and shakapacker containers
 FROM ruby:3.2.2 AS base
 
 RUN apt-get update --allow-releaseinfo-change

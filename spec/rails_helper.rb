@@ -22,7 +22,7 @@ Capybara.default_max_wait_time = 5
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 if ENV['DOCKER']
-  Capybara.server_host = "rails"
+  Capybara.server_host = "web"
 else
   Capybara.server_host = "0.0.0.0"
 end

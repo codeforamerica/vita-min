@@ -309,17 +309,17 @@ You can upload them to the correct S3 bucket with the task `rake flow_explorer:u
 
 ### Run tests in a docker container
 - Developent environment is set by default, and test environment is set by default when you run tests
-- Run any of the test commands in an interactive shell in the container named `rails`. For example, `docker exec -it rails rspec` or `docker exec -it rails yarn jest`
-- Turbo tests don't work with the current docker setup, so running `docker exec -it rails bin/test` won't work as expected
+- Run any of the test commands in an interactive shell in the container named `web`. For example, `docker exec -it web rspec` or `docker exec -it web yarn jest`
+- Turbo tests don't work with the current docker setup, so running `docker exec -it web bin/test` won't work as expected
 
 ### Useful docker commands
 | Command | Meaning |
 | ----- | ----- |
 | `docker compose up -d --build` | Build, run, and detach from docker compose containers in the default profile |
 | `docker compose --profile pgadmin up` | Start the pgadmin service |
-| `docker exec -e ALLOWED_SCHEMAS=nj -it rails rspec` | Run only the rspec tests that require the allowed schemas |
-| `docker exec -it rails yarn jest` | Run jest tests |
-| `docker logs -f rails` | Follow the logs of the rails container |
+| `docker exec -e ALLOWED_SCHEMAS=nj -it web rspec` | Run only the rspec tests that require the allowed schemas |
+| `docker exec -it web yarn jest` | Run jest tests |
+| `docker logs -f web` | Follow the logs of the rails container |
 | `docker volume prune --filter label=vita-min_database` | Get rid of the database entirely |
 
 ## Deploying the Application 🚀☁️
