@@ -96,6 +96,26 @@ module StateFile
         voucher_form_name: "Form D-400V",
         voucher_path: "/pdfs/d400v-TY2023.pdf",
       },
+      nj: {
+        intake_class: StateFileNjIntake,
+        calculator_class: Efile::Nj::Nj1040,
+        navigation_class: Navigation::StateFileNjQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::IndividualReturn,
+        state_name: "New Jersey",
+        return_type: "Resident",
+        schema_file_name: ""
+        # mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
+        #                       "Processing Center<br/>" \
+        #                       "Trenton, NJ".html_safe,
+        # pay_taxes_link: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        # survey_link: "",
+        # tax_payment_info_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        # tax_payment_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        # tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
+        # vita_link: "",
+        # voucher_form_name: "NJ Voucher Form",
+        # voucher_path: "/pdfs/it201v_1223.pdf", # TODO
+      },
       ny: {
         intake_class: StateFileNyIntake,
         calculator_class: Efile::Ny::It201,
