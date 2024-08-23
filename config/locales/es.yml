@@ -12,6 +12,8 @@ es:
       models:
         az321_contribution:
           attributes:
+            charity_code:
+              invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
               inclusion: La fecha debe estar en el año fiscal actual
   attributes:

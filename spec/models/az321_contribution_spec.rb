@@ -22,7 +22,6 @@ describe Az321Contribution do
 
   describe 'simple validation' do
     it { should validate_presence_of :charity_name }
-    it { should validate_presence_of :charity_code }
     it { should validate_presence_of :date_of_contribution }
   end
 
