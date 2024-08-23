@@ -4,8 +4,7 @@ local_default: &local_default
   timeout: 5000
   host: <%= ENV.fetch("RAILS_DB_HOST", "localhost") %>
   port: <%= ENV.fetch("RAILS_DB_PORT", "5432") %>
-  # TODO: what should the default username and password be?
-  username: <%= ENV.fetch("RAILS_DB_USERNAME", "postgres") %>
+  username: <%= ENV["RAILS_DB_USERNAME"] %>
   password: <%= ENV["RAILS_DB_PASSWORD"] %>
 
 deploy_default: &deploy_default
