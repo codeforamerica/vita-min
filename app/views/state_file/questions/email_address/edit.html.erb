@@ -4,7 +4,7 @@
   <h1 class="h2" id="main-question"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="blue-group">
+    <div class="white-group">
     <%= f.cfa_input_field(:email_address, t(".email_address_label"), classes: ["form-width--long"]) %>
     </div>
 

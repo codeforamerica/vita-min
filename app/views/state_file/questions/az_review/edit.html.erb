@@ -2,7 +2,7 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
-  <div id="prior-last-names" class="blue-group">
+  <div id="prior-last-names" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
       <p><%=current_intake.prior_last_names || t("general.none") %></p>
@@ -11,7 +11,7 @@
   </div>
 
   <% @invalid_w2s.each do |w2| %>
-    <div id="w2s" class="blue-group">
+    <div id="w2s" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
         <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
@@ -20,7 +20,7 @@
     </div>
   <% end %>
 
-  <div id="state-credits" class="blue-group">
+  <div id="state-credits" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
       <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div id="charitable-contributions" class="blue-group">
+  <div id="charitable-contributions" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".charitable_contributions") %></p>
       <p><%=current_intake.charitable_contributions_yes? ? t("general.affirmative") : t("general.negative") %></p>
@@ -53,7 +53,7 @@
   </div>
 
   <% unless current_intake.disqualified_from_excise_credit_df? %>
-    <div id="incarcerated" class="blue-group">
+    <div id="incarcerated" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>

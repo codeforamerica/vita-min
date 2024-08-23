@@ -7,7 +7,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%=
             f.cfa_radio_set(
               :untaxed_out_of_state_purchases,
@@ -22,7 +22,7 @@
       <div class="question-with-follow-up__follow-up" id="sut-method-field">
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <div class="blue-group">
+            <div class="white-group">
               <%=
                 f.cfa_radio_set(
                   :sales_use_tax_calculation_method,

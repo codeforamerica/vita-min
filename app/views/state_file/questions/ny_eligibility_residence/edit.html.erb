@@ -6,7 +6,7 @@
   <p class="subtitle"><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="blue-group">
+    <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_lived_in_state,
             label_text: t(".lived_in_state_html", state: current_state_name),
@@ -17,7 +17,7 @@
           ) %>
     </div>
 
-    <div class="blue-group">
+    <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_yonkers,
             label_text: t(".lived_or_income_in_yonkers_html"),

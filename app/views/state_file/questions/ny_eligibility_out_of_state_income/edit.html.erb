@@ -4,7 +4,7 @@
 <% content_for :card do %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="blue-group">
+    <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_out_of_state_income,
             label_text: t(".out_of_state_income_html"),
@@ -15,7 +15,7 @@
           ) %>
     </div>
 
-    <div class="blue-group">
+    <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_part_year_nyc_resident,
             label_text: t(".part_year_nyc_resident_html"),
