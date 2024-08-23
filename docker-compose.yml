@@ -12,8 +12,8 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-  jobs:
-    container_name: jobs
+  worker:
+    container_name: worker
     volumes:
       - ./:/app
     build:
@@ -21,7 +21,7 @@ services:
       target: "base"
     command: rails jobs:work
     depends_on:
-      rails:
+      web:
         condition: service_healthy
     environment:
       - DOCKER=true
@@ -29,8 +29,8 @@ services:
       - RAILS_DB_USERNAME=postgres
       - RAILS_DB_PORT=5432
       - RAILS_DB_PASSWORD=password
-  rails:
-    container_name: rails
+  web:
+    container_name: web
     build:
       dockerfile: Dockerfile.local
       target: "app"
@@ -80,6 +80,6 @@ services:
     ports:
       - 5050:5050
     depends_on:
-      - rails
+      - web
 volumes:
   database:
