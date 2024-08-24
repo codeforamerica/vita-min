@@ -15,6 +15,7 @@ jobs:
         with:
           fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
+          repository: ${{ github.event.repository }}
 
       - name: Login to Heroku
         uses: akhileshns/heroku-deploy@v3.12.13
