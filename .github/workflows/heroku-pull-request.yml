@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
