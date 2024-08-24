@@ -1,6 +1,6 @@
 name: Heroku Pull Request
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened, closed]
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name:  Log repository
-        run: echo "Repo is ${{ github.event.repository.full_name }}"
+        run: echo "Repo is ${{ github.head_ref }}"
         shell: bash
       - name: Checkout repository
         uses: actions/checkout@v4
