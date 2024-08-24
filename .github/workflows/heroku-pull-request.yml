@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name:  Log repository
-        run: echo "Repo is ${{ github.event.action.baseRepository.nameWithOwner }}"
+        run: echo "Repo is ${{ github.event.action.baseRepository.full_name }}"
         shell: bash
       - name: Checkout repository
         uses: actions/checkout@v4
