@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name:  Log repository
-        run: echo "Repo is ${{ github.event.repository }}"
+        run: echo "Repo is ${{ github.event.repository.name }}"
         shell: bash
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
