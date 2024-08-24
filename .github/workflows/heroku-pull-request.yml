@@ -10,7 +10,7 @@ jobs:
       HEROKU_APP_NAME: gyr-review-app-${{ github.event.number }}
 
     steps:
-      - name  Log repository
+      - name:  Log repository
         run: echo "Repo is ${{ github.event.repository }}"
         shell: bash
       - name: Checkout repository
