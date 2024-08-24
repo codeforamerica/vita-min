@@ -11,11 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
-          repository: ${{ github.event.repository }}
 
       - name: Login to Heroku
         uses: akhileshns/heroku-deploy@v3.12.13
