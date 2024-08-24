@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name:  Log repository
-        run: echo "Repo is ${{ github.event.baseRefName }}"
+        run: echo "Repo is ${{ github.event.headRepository }}"
         shell: bash
       - name: Checkout repository
         uses: actions/checkout@v4
