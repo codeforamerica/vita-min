@@ -3,6 +3,12 @@ module Efile
     class Nj1040 < ::Efile::TaxCalculator
       attr_reader :lines
 
+      def initialize(year:, intake:, include_source: false)
+        super
+
+        # @eligibility_lived_in_state = intake.eligibility_lived_in_state
+      end
+
       def calculate
         @lines.transform_values(&:value)
       end
