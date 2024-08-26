@@ -17,5 +17,77 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     it "includes municipality code with a prepending 0" do
       expect(xml.document.at("CountyCode").to_s).to include("00101")
     end
+
+    context "when filer has no spouse" do
+      it "Exemptions are populated" do
+        expect(xml.css('Exemptions').count).to eq(1)
+      end
+
+      it "populates line 6 XML fields" do
+        expect(xml.at("Exemptions YouRegular").text).to eq("X")
+        expect(xml.at("Exemptions SpouseCuRegular").text).to eq("")
+        expect(xml.at("Exemptions DomesticPartnerRegular").text).to eq("")
+      end
+
+      context "when filer is over 65" do
+        let(:intake) { create(:state_file_nj_intake, :primary_over_65) }
+        it "populates line 7 XML fields" do
+          expect(xml.at("Exemptions YouOver65").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("")
+        end
+      end
+      context "when filer is younger than 65" do
+        let(:intake) { create(:state_file_nj_intake) }
+        it "populates line 7 XML fields" do
+          expect(xml.at("Exemptions YouOver65").text).to eq("")
+          expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("")
+        end
+      end
+    end
+
+    context "when filer is married" do
+      let(:intake) { create(:state_file_nj_intake, :married) }
+      it "Exemptions are populated" do
+        expect(xml.css('Exemptions').count).to eq(1)
+      end
+
+      it "populates line 6 XML fields" do
+        expect(xml.at("Exemptions YouRegular").text).to eq("X")
+        expect(xml.at("Exemptions SpouseCURegular").text).to eq("X")
+        expect(xml.at("Exemptions DomesticPartnerRegular").text).to eq("")
+      end
+
+      context "when filer is over 65 and spouse is under 65" do
+        let(:intake) { create(:state_file_nj_intake, :primary_over_65, :married) }
+        it "populates line 7 XML fields" do
+          expect(xml.at("Exemptions YouOver65").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("")
+        end
+      end
+
+      context "when filer is over 65 and spouse is over 65" do
+        let(:intake) { create(:state_file_nj_intake, :primary_over_65, :married_spouse_over_65) }
+        it "populates line 7 XML fields" do
+          expect(xml.at("Exemptions YouOver65").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("X")
+        end
+      end
+
+      context "when filer is under 65 and spouse is under 65" do
+        let(:intake) { create(:state_file_nj_intake, :married) }
+        it "populates line 7 XML fields" do
+          expect(xml.at("Exemptions YouOver65").text).to eq("")
+          expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("")
+        end
+      end
+
+      context "when filer is under 65 and spouse is over 65" do
+        let(:intake) { create(:state_file_nj_intake, :married_spouse_over_65) }
+        it "populates line 7 XML fields" do
+          expect(xml.at("Exemptions YouOver65").text).to eq("")
+          expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("X")
+        end
+      end
+    end
   end
 end
