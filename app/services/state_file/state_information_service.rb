@@ -100,10 +100,10 @@ module StateFile
         intake_class: StateFileNjIntake,
         calculator_class: Efile::Nj::Nj1040,
         navigation_class: Navigation::StateFileNjQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::IndividualReturn,
+        submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
         state_name: "New Jersey",
         return_type: "Resident",
-        schema_file_name: ""
+        schema_file_name: "NJIndividual2023V0.4.zip"
         # mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
         #                       "Processing Center<br/>" \
         #                       "Trenton, NJ".html_safe,
