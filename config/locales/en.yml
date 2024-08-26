@@ -2659,10 +2659,9 @@ en:
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. Round to the nearest whole number.)
         edit:
-          az_title_html: Good news, you're getting a Arizona state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
           direct_deposit: Direct deposit (fastest)
           mail: Mail my payment (slower)
-          ny_title_html: Good news, you're getting a New York State tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
+          title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong> How would you like to receive your refund?
           page_title: Good news, you're getting a tax refund. How would you like to receive your refund?
       taxes_owed:
         edit:
