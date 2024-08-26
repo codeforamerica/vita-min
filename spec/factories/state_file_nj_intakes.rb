@@ -85,6 +85,10 @@ FactoryBot.define do
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nj', 'zeus_one_dep.xml')) }
     primary_first_name { "New" }
     primary_last_name { "Jerseyan" }
+    primary_birth_date { Date.new(1990, 1, 1) }
+    eligibility_lived_in_state { "yes" }
+    eligibility_out_of_state_income { "no" }
+    state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -104,6 +108,30 @@ FactoryBot.define do
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
+    end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+    end
+
+    trait :married do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_ssn { "123456789" }
+    end
+
+    trait :self_over_65 do
+      primary_birth_date { Date.new(1900, 1, 1) }
+    end
+
+    trait :married_spouse_over_65 do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(1900, 1, 1) }
+      spouse_ssn { "123456789" }
     end
   end
 end

@@ -50,9 +50,15 @@ module SubmissionBuilder
                       raise "Filing status not found"
                     end
                   end
-                  
+
                   xml.Exemptions do
                     xml.YouRegular "X"
+                    xml.SpouseCURegular calculated_fields.fetch(:NJ1040_LINE_6_SPOUSE) ? "X" : ""
+                    xml.DomesticPartnerRegular ""
+                    xml.Line6 calculated_fields.fetch(:NJ1040_LINE_6)
+                    xml.YouOver65 calculated_fields.fetch(:NJ1040_LINE_7_SELF) ? "X" : ""
+                    xml.SpouseCuPartner65OrOver calculated_fields.fetch(:NJ1040_LINE_7_SPOUSE) ? "X" : ""
+                    xml.Line7 calculated_fields.fetch(:NJ1040_LINE_7)
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
                   end
@@ -86,7 +92,7 @@ module SubmissionBuilder
             end
 
             def calculated_fields
-              @nj1040_fields ||= intake.tax_calculator.calculate
+              @nj1040_fields ||= @submission.data_source.tax_calculator.calculate
             end
           end
         end
