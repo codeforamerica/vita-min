@@ -25,7 +25,9 @@ module SubmissionBuilder
     end
 
     def build_documents
-      @document.at("ReturnDataState").add_child(documents_wrapper)
+      if documents_wrapper
+        @document.at("ReturnDataState").add_child(documents_wrapper)
+      end
       attached_documents.each do |attached|
         @document.at(attached_documents_parent_tag).add_child(document_fragment(attached))
       end
