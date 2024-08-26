@@ -13,6 +13,12 @@
           <li><a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow"><%= t(".family_income_credit") %></a></li>
           <li><a href="https://azdor.gov/forms/tax-credits-forms/credit-increased-excise-taxes" target="_blank" rel="noopener nofollow"><%= t(".increased_excise_credit") %></a></li>
         </ul>
+      <% elsif current_state_code == 'nj' %>
+        <ul class="list--bulleted">
+          <li>To do</li>
+          <li>Add links here</li>
+          <li>To supported credits and deductions</li>
+        </ul>
       <% else %>
         <ul class="list--bulleted">
           <li><a href="https://www.tax.ny.gov/pit/credits/household_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_hh_credit") %></a></li>

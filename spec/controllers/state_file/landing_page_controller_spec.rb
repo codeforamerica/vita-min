@@ -21,6 +21,14 @@ RSpec.describe StateFile::LandingPageController do
         }
       end
     end
+
+    it_behaves_like :start_intake_concern, intake_class: StateFileNjIntake, intake_factory: :state_file_nj_intake do
+      let(:valid_params) do
+        {
+          us_state: "nj"
+        }
+      end
+    end
   end
 
   describe "#edit" do

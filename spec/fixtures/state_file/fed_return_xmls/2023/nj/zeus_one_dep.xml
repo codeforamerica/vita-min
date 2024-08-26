@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <ReturnTs>******</ReturnTs>
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareId>******</SoftwareId>
+    <SoftwareVersionNum>******</SoftwareVersionNum>
+    <OriginatorGrp>
+      <EFIN>******</EFIN>
+      <OriginatorTypeCd>OnlineFiler</OriginatorTypeCd>
+    </OriginatorGrp>
+    <SelfSelectPINGrp>
+      <PrimaryBirthDt>1973-01-02</PrimaryBirthDt>
+      <SpouseBirthDt>1978-02-03</SpouseBirthDt>
+      <PrimaryPriorYearPIN>12345</PrimaryPriorYearPIN>
+      <SpousePriorYearPIN>54321</SpousePriorYearPIN>
+    </SelfSelectPINGrp>
+    <PINTypeCd>Self-Select On-Line</PINTypeCd>
+    <JuratDisclosureCd>Online Self Select PIN</JuratDisclosureCd>
+    <PrimaryPINEnteredByCd>Taxpayer</PrimaryPINEnteredByCd>
+    <SpousePINEnteredByCd>Taxpayer</SpousePINEnteredByCd>
+    <PrimarySignaturePIN>54321</PrimarySignaturePIN>
+    <SpouseSignaturePIN>12345</SpouseSignaturePIN>
+    <PrimarySignatureDt>2024-01-27</PrimarySignatureDt>
+    <SpouseSignatureDt>2024-01-27</SpouseSignatureDt>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000015</PrimarySSN>
+      <SpouseSSN>600000013</SpouseSSN>
+      <NameLine1Txt>ZEUS L &amp; HERA&lt;THUNDER</NameLine1Txt>
+      <PrimaryNameControlTxt>THUN</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>THUN</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>391 US-206</AddressLine1Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>08037</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionCreationGrp/>
+      <AtSubmissionFilingGrp>
+        <RefundProductElectionInd>false</RefundProductElectionInd>
+        <RefundDisbursementGrp>
+          <RefundDisbursementCd>3</RefundDisbursementCd>
+        </RefundDisbursementGrp>
+        <EmailAddressTxt>zeus.thunder@aol.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+      <TrustedCustomerGrp>
+        <TrustedCustomerCd>0</TrustedCustomerCd>
+        <OOBSecurityVerificationCd>11</OOBSecurityVerificationCd>
+        <AuthenticationAssuranceLevelCd>AAL2</AuthenticationAssuranceLevelCd>
+        <IdentityAssuranceLevelCd>IAL2</IdentityAssuranceLevelCd>
+        <FederatedAssuranceLevelCd>FAL2</FederatedAssuranceLevelCd>
+      </TrustedCustomerGrp>
+    </AdditionalFilerInformation>
+    <FilingSecurityInformation>
+      <AtSubmissionCreationGrp>
+        <IPAddress>
+          <IPv4AddressTxt>76.122.220.120</IPv4AddressTxt>
+        </IPAddress>
+        <IPPortNum>57374</IPPortNum>
+        <DeviceId>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</DeviceId>
+        <DeviceTypeCd>1</DeviceTypeCd>
+        <UserAgentTxt>curl/8.4.0</UserAgentTxt>
+        <BrowserLanguageTxt>en-us</BrowserLanguageTxt>
+        <PlatformTxt>iOS</PlatformTxt>
+        <TimeZoneOffsetNum>+240</TimeZoneOffsetNum>
+        <SystemTs>******</SystemTs>
+      </AtSubmissionCreationGrp>
+      <AtSubmissionFilingGrp>
+        <IPAddress>
+          <IPv4AddressTxt>76.122.220.120</IPv4AddressTxt>
+        </IPAddress>
+        <FinalIPPortNum>******</FinalIPPortNum>
+        <DeviceId>AEAEF1FED33281B55BDA9E1D6496D6A12D6085D7</DeviceId>
+        <DeviceTypeCd>1</DeviceTypeCd>
+        <UserAgentTxt>curl/8.4.0</UserAgentTxt>
+        <TimeZoneOffsetNum>-005</TimeZoneOffsetNum>
+        <SystemTs>******</SystemTs>
+      </AtSubmissionFilingGrp>
+      <FederalOriginalSubmissionId>******</FederalOriginalSubmissionId>
+      <FederalOriginalSubmissionIdDt>******</FederalOriginalSubmissionIdDt>
+      <FilingLicenseTypeCd>I</FilingLicenseTypeCd>
+      <TotalPreparationSubmissionTs>0</TotalPreparationSubmissionTs>
+      <TotActiveTimePrepSubmissionTs>0</TotActiveTimePrepSubmissionTs>
+      <AuthenticationReviewCd>5</AuthenticationReviewCd>
+      <VendorControlNum>******</VendorControlNum>
+    </FilingSecurityInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="6">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>KRONOS</DependentFirstNm>
+        <DependentLastNm>ATHENS</DependentLastNm>
+        <DependentNameControlTxt>ATHE</DependentNameControlTxt>
+        <DependentSSN>300000029</DependentSSN>
+        <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <MoreDependentsInd></MoreDependentsInd>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>13</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
+      <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>500</TaxableInterestAmt>
+      <SocSecBnftAmt>8000</SocSecBnftAmt>
+      <TaxableSocSecAmt>6800</TaxableSocSecAmt>
+      <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>57800</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>1500</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>56300</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>28600</TaxableIncomeAmt>
+      <TaxAmt>2995</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>2995</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>2995</CTCODCAmt>
+      <TotalCreditsAmt>2995</TotalCreditsAmt>
+      <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">5</Form1099WithheldTaxAmt>
+      <WithholdingTaxAmt>1005</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1490</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">6400</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>7890</RefundableCreditsAmt>
+      <TotalPaymentsAmt>8895</TotalPaymentsAmt>
+      <OverpaidAmt>8895</OverpaidAmt>
+      <RefundAmt>8895</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>God of Thunder</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>stay at home parent</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>500</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>200</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>1300</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>1500</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+    <IRS1040Schedule8812 documentName="IRS1040Schedule8812" documentId="IRS8812001">
+      <AdjustedGrossIncomeAmt>56300</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>56300</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>8000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <OtherDependentCreditAmt>0</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>11500</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>11500</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>2995</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>2995</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>8505</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>6400</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>6400</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>50000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>47500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>7125</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>true</ThreeOrMoreQlfyChildrenInd>
+        <FromW2Amt>3825</FromW2Amt>
+        <CalcFromW2AndReturnAmt>3825</CalcFromW2AndReturnAmt>
+        <CalcAmtFromRetPlusTaxWhldAmt>1490</CalcAmtFromRetPlusTaxWhldAmt>
+        <CalculatedDifferenceAmt>2335</CalculatedDifferenceAmt>
+        <LargerCalcIncomeOrDiffAmt>7125</LargerCalcIncomeOrDiffAmt>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>6400</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <!-- TODO -->
+    <IRSW2 documentName="IRSW2" documentId="W20001">
+      <EmployeeSSN>400000015</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>WSF</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Wharton State Forest</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>08037</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>ZEUS L THUNDER</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>391 US-206</AddressLine1Txt>
+        <AddressLine2Txt>Unit 73</AddressLine2Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>08037</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>50000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414HSUB</Desc>
+        <Amt>250</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NJ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>50000</StateWagesAmt>
+          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
+            <LocalityNm>Hammonton</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <OtherWithholdingStatement documentName="OtherWithholdingStatement" documentId="OTHERWITHHOLDING0001">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>000293117</EIN>
+        <WithholdingAmt>5</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>
