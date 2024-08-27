@@ -103,4 +103,10 @@ describe StateFile::StateInformationService do
       expect(described_class.pay_taxes_link("az")).to eq "https://www.aztaxes.gov/"
     end
   end
+
+  describe ".filing_years" do
+    it "returns the filing years for a state" do
+      expect(described_class.filing_years("az")).to eq [2024, 2023]
+    end
+  end
 end
