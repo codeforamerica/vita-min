@@ -5,14 +5,13 @@ module StateFile
 
       before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
       before_action :maybe_opt_out_and_continue, only: [:update, :create]
+      before_action :set_contribution_count
 
       def index
-        @contribution_count = contributions.count
         redirect_to action: :new, return_to_review: params[:return_to_review] unless contributions.present?
       end
 
       def edit
-        @contribution_count = contributions.count
         @contribution = contribution
       end
 
@@ -27,7 +26,6 @@ module StateFile
       end
 
       def new
-        @contribution_count = contributions.count
         @contribution = contributions.build(date_of_contribution_year: @filing_year)
       end
 
@@ -75,6 +73,8 @@ module StateFile
           redirect_to next_path, return_to_review: params[:return_to_review]
         end
       end
+
+      def set_contribution_count = @contribution_count = contributions.count
 
       def az321_contribution_params
         params.require(:az321_contribution).permit(
