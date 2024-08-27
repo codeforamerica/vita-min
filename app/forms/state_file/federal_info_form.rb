@@ -20,6 +20,7 @@ module StateFile
                        :fed_taxable_income,
                        :fed_unemployment,
                        :fed_taxable_ssb,
+                       :fed_taxable_pensions,
                        :total_state_tax_withheld,
                        :total_exempt_primary_spouse
 

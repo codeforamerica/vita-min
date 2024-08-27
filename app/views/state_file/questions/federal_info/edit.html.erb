@@ -78,6 +78,8 @@
     <div class="federal-info-controller-subform-section with-padding-med">
       <div class="federal-info-controller-subform-section-title">1099R Zone</div>
 
+      <%= f.state_file_qa_input_field :fed_taxable_pensions, "TotalTaxablePensionsAmt" %>
+
       <div class="federal-info-controller-subform-section-content">
         <%= f.fields_for :form1099rs do |ff| %>
           <%= render "df_1099r", f: ff %>
