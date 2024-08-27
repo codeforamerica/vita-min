@@ -640,8 +640,6 @@ class FlowsController < ApplicationController
         xml_service.read("az_sherlock_mfs")
       when :head_of_household
         xml_service.read("az_alexis_hoh_w2_and_1099")
-      else
-        xml_service.read("az_tycho_loanded") # Default to single if status is not picked?
       end
     end
 
