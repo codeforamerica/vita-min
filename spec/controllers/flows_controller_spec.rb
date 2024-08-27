@@ -118,6 +118,34 @@ RSpec.describe FlowsController do
 
       it 'can generate a single intake' do
         expect do
+          post :generate, params: default_params.merge({ submit_single: 'Single ✨'})
+        end.to change(StateFileAzIntake, :count).by(1)
+        expect(controller.current_intake.filing_status).to eq(:single)
+      end
+
+      it 'can generate a married filing jointly intake' do
+        expect do
+          post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
+        end.to change(StateFileAzIntake, :count).by(1)
+        expect(controller.current_intake.filing_status).to eq(:married_filing_jointly)
+      end
+
+      it 'can generate a qualifying widow intake' do
+        expect do
+          post :generate, params: default_params.merge({ submit_qualifying_widow: 'Qualifying Widow ✨' })
+        end.to change(StateFileAzIntake, :count).by(1)
+        expect(controller.current_intake.filing_status).to eq(:head_of_household) # In the AZ intake model we treat qualifying widow as hoh
+      end
+
+      it 'can generate a married filing separately intake' do
+        expect do
+          post :generate, params: default_params.merge({ submit_married_filing_separately: 'Married Filing Separately ✨' })
+        end.to change(StateFileAzIntake, :count).by(1)
+        expect(controller.current_intake.filing_status).to eq(:married_filing_separately)
+      end
+
+      it 'can generate a head of household intake' do
+        expect do
           post :generate, params: default_params.merge({ submit_head_of_household: 'Head Of Household ✨' })
         end.to change(StateFileAzIntake, :count).by(1)
         expect(controller.current_intake.filing_status).to eq(:head_of_household)

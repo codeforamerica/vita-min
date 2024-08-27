@@ -9,7 +9,7 @@ class FlowsController < ApplicationController
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
-    state_file_az: [:single, :married_filing_jointly, :qualifying_wido, :married_filing_separately, :head_of_household],
+    state_file_az: [:single, :married_filing_jointly, :qualifying_widow, :married_filing_separately, :head_of_household],
     state_file_ny: [:head_of_household],
   }.freeze
 
