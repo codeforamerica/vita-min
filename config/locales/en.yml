@@ -984,6 +984,13 @@ en:
           title: Resources
         returns_by_status: Returns by Status
         sla_title: Service Level Agreements Notifications
+        team_assignment:
+          assigned_returns: Assigned Returns
+          name: Name
+          no_team_assignments: No Team Assignments to display at the moment
+          pager: Displaying %{start_range} - %{end_range} of %{total}
+          role: Role
+          title: Team Assignment
         title: Dashboard
         total_number_of_returns: Total number of returns
         total_returns_in_html: Total Returns in [<strong>%{stage}</strong>]

@@ -164,7 +164,7 @@
     padding: 1rem;
   }
 
-  .blue-group {
+  .white-group {
     .select {
       select.input-warning {
         border: 2px solid #FFAE00;
@@ -172,11 +172,11 @@
     }
   }
 
-  .blue-group {
+  .white-group {
     padding: 2rem;
     margin-bottom: 2rem;
-    background: $color-state-file-blue-box;
-    border: 2px solid $color-state-file-blue-box-border;
+    background: white;
+    border: 2px solid $color-grey-medium-light;
     border-radius: 6px;
 
     .form-group {
@@ -268,7 +268,7 @@
   }
 
   .checkbox.is-selected{
-    background: $color-state-file-blue-box;
+    background: white;
   }
 
   .bulleted ul {
@@ -336,7 +336,7 @@
   .form-card {
     background-color: transparent;
 
-    .blue-group {
+    .white-group {
       .form-group:last-child {
         margin-bottom: 0;
       }
@@ -681,7 +681,7 @@
 }
 
 .us-state-- {
-  .button--intercom{
+  .button--intercom {
     background: #FFF;
     border: 2px solid $color-az-grey;
     color: $color-az-grey;
@@ -719,6 +719,10 @@ $state-colors: (
       border: 2px solid $state-color;
       // icon: state primary color
       color: $state-color;
+    }
+
+    .icon-wrapper--intercom {
+      padding-right: $s10;
     }
   }
 

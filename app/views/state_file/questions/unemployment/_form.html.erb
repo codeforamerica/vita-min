@@ -10,7 +10,7 @@
     <% end %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%=
             f.cfa_radio_set(
               :had_box_11,
@@ -25,7 +25,7 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
-        <div class="blue-group">
+        <div class="white-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.need_additional_information') %></p>
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.payer_question_html') %></p>
           <div class="form-group-tight">
@@ -47,7 +47,7 @@
         </div>
 
         <% if current_intake.filing_status_mfj? %>
-          <div class="blue-group">
+          <div class="white-group">
             <%=
               f.cfa_radio_set(
                 :recipient,
@@ -63,7 +63,7 @@
 
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <div class="blue-group">
+            <div class="white-group">
               <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.confirm_address_html') %></p>
               <div class="form-question spacing-below-15">
                 <div class="text--bold"><%= t('general.address') %></div>
@@ -89,7 +89,7 @@
           </div>
 
           <div class="question-with-follow-up__follow-up" id="recipient-address-fields">
-            <div class="blue-group">
+            <div class="white-group">
               <div class="form-group-tight">
                 <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_street_address_apartment, t('state_file.questions.unemployment.edit.apartment'), classes: ["form-width--long"]) %>
@@ -101,7 +101,7 @@
           </div>
         </div>
 
-        <div class="blue-group">
+        <div class="white-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.money_boxes_label') %></p>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation_html'), classes: ["form-width--long"]) %>

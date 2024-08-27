@@ -5,7 +5,7 @@
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
-    <div class="blue-group">
+    <div class="white-group">
       <div class="form-question spacing-below-25">
         <div class="text--bold spacing-below-15"><%=t("general.state") %></div>
         <div><%= current_state_name %></div>

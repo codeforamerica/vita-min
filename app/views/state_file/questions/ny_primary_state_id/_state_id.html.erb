@@ -4,7 +4,7 @@
   <% end %>
   <div class="question-with-follow-up spacing-below-25">
     <div class="question-with-follow-up__question spacing-below-15">
-      <div class="blue-group">
+      <div class="white-group">
         <div class="form-question spacing-below-15">
           <strong><%= t("state_file.questions.primary_state_id.state_id.id_type_question.label") %></strong>
         </div>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="question-with-follow-up__follow-up" id="id-details-fields">
-      <div class="blue-group form-group-tight">
+      <div class="white-group form-group-tight">
         <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long"]) %>
         <%= f.cfa_date_select(:issue_date,
                               t("state_file.questions.primary_state_id.state_id.id_details.issue"),

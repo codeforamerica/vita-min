@@ -10,21 +10,21 @@ describe Hub::Dashboard::ServiceLevelAgreementsNotificationsPresenter do
   let(:clients) { Client.all }
 
   before do
-    create :client, vita_partner: oregano_org, last_outgoing_communication_at: 5.business_days.ago
-    create :client, vita_partner: oregano_org, last_outgoing_communication_at: 7.business_days.ago
-    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 5.business_days.ago
-    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 8.business_days.ago
-    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 9.business_days.ago
+    create :client, vita_partner: oregano_org, last_outgoing_communication_at: 5.business_days.ago, intake: (build :intake), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep)]
+    create :client, vita_partner: oregano_org, last_outgoing_communication_at: 7.business_days.ago, intake: (build :intake), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep)]
+    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 5.business_days.ago, intake: (build :intake), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep)]
+    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 8.business_days.ago, intake: (build :intake), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep)]
+    create :client, vita_partner: orangutan_organization, last_outgoing_communication_at: 9.business_days.ago, intake: (build :intake), tax_returns: [build(:gyr_tax_return, :prep_ready_for_prep)]
   end
 
   describe "#approaching_sla_clients" do
-    it "returns clients whose last communication was between 4 and 6 business days ago" do
+    it "returns clients whose last communication was between 4 and 6 business days ago, and have active returns" do
       expect(subject.approaching_sla_clients_count).to eq 2
     end
   end
 
   describe "#breached_sla_clients" do
-    it "returns clients whose last communication was more than 6 business days ago" do
+    it "returns clients whose last communication was more than 6 business days ago and have active returns" do
       expect(subject.breached_sla_clients_count).to eq 3
     end
   end
