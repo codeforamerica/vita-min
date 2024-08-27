@@ -118,7 +118,7 @@ RSpec.describe FlowsController do
 
       it 'can generate a single intake' do
         expect do
-          post :generate, params: default_params.merge({ submit_single: 'Head Of Household ✨' })
+          post :generate, params: default_params.merge({ submit_head_of_household: 'Head Of Household ✨' })
         end.to change(StateFileAzIntake, :count).by(1)
         expect(controller.current_intake.filing_status).to eq(:head_of_household)
       end
@@ -138,7 +138,7 @@ RSpec.describe FlowsController do
 
       it 'can generate a single intake' do
         expect do
-          post :generate, params: default_params.merge({ submit_single: 'Head Of Household ✨' })
+          post :generate, params: default_params.merge({ submit_head_of_household: 'Head Of Household ✨' })
         end.to change(StateFileNyIntake, :count).by(1)
         expect(controller.current_intake).to be_a(StateFileNyIntake)
         expect(controller.current_intake.filing_status).to eq(:head_of_household)

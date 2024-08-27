@@ -9,7 +9,7 @@ class FlowsController < ApplicationController
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
-    state_file_az: [:single, :married_filing_jointly, :qualifying_surviving_spouse, :married_filing_seperately, :head_of_household],
+    state_file_az: [:single, :married_filing_jointly, :qualifying_wido, :married_filing_separately, :head_of_household],
     state_file_ny: [:head_of_household],
   }.freeze
 
@@ -585,7 +585,7 @@ class FlowsController < ApplicationController
       }
     end
 
-    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
+    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
       common_attributes.merge(
         confirmed_permanent_address: "no",
         confirmed_third_party_designee: "unfilled",
@@ -634,7 +634,7 @@ class FlowsController < ApplicationController
         xml_service.read("az_tycho_loanded")
       when :married_filing_jointly
         xml_service.read("az_martha_v2")
-      when :qualifying_surviving_spouse
+      when :qualifying_widow
         xml_service.read("az_leslie_qss_v2")
       when :married_filing_separately
         xml_service.read("az_sherlock_mfs")
@@ -647,8 +647,6 @@ class FlowsController < ApplicationController
 
     def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
       base_attributes = common_attributes.merge(
-        eligibility_lived_in_state: "yes",
-        eligibility_out_of_state_income: "no",
         armed_forces_member: "yes",
         armed_forces_wages: 100,
         charitable_cash: 123,
