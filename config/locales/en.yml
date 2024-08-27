@@ -2189,6 +2189,19 @@ en:
           contribution_label: Contribution to %{school_name}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Lets review your public school cash contributions and fees
+      az_retirement_income:
+        edit:
+          amount_label: Enter amount earned
+          primary_received_pension: You received a distribution from a qualifying federal, Arizona, or government pension plan
+          primary_received_pension_amount: What is your total taxable amount from qualifying payer(s). You can find this on form 1099-R in box 2a. If you have multiple qualifying payers, add together boxes 2a from all corresponding forms.
+          received_military_retirement_payment:
+            one: You received benefits, annuities, and/or pensions as a retired or retainer pay of the uniformed services of the United States OR You are a surviving spouse of a deceased military veteran, and are receiving payments from the uniformed services of the United States
+            other: You or your spouse received benefits, annuities, and/or pensions as a retired or retainer pay of the uniformed services of the United States OR You are a surviving spouse of a deceased military veteran, and are receiving payments from the uniformed services of the United States
+          received_military_retirement_payment_amount: What is the taxable amount (box 2a) from this payer?
+          should_not_exceed_taxable_pensions_total_html: "<strong>Note:</strong> this should not exceed %{total}"
+          spouse_received_pension: Your spouse received a distribution from a qualifying federal, Arizona, or government pension plan
+          spouse_received_pension_amount: What is your spouse’s total taxable amount from qualifying payer(s). You can find this on 1099-R in box 2a for qualifying payer(s).
+          title: Arizona allows for a subtraction for certain types of retirement and pension income. Select any of the following situations that apply to you.
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces

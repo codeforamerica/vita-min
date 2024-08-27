@@ -2156,6 +2156,19 @@ es:
           contribution_label: Contribución a %{school_name}
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
           lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
+      az_retirement_income:
+        edit:
+          amount_label: Ingrese la cantidad ganada
+          primary_received_pension: Recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
+          primary_received_pension_amount: "¿Cuál es el monto total imponible de los pagadores calificados? Puede encontrarlo en el formulario 1099-R en el cuadro 2a. Si tiene varios pagadores calificados, sume las casillas 2a de todos los formularios correspondientes."
+          received_military_retirement_payment:
+            one: Recibió beneficios, anualidades y/o pensiones como pago jubilado o anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
+            other: Usted o su cónyuge recibieron beneficios, anualidades y/o pensiones como jubilado o pago de anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
+          received_military_retirement_payment_amount: "¿Cuál es la base imponible (casilla 2a) de este pagador?"
+          should_not_exceed_taxable_pensions_total_html: "<strong>Nota:</strong> esto no debe exceder %{total}"
+          spouse_received_pension: Su cónyuge recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
+          spouse_received_pension_amount: "¿Cuál es el monto total imponible de su cónyuge según los pagadores calificados? Puede encontrar esto en el formulario 1099-R en el cuadro 2a para los pagadores que califican."
+          title: Arizona permite una resta para ciertos tipos de ingresos de jubilación y pensión. Seleccione cualquiera de las siguientes situaciones que se apliquen a usted.
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
