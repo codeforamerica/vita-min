@@ -2,26 +2,24 @@
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
+  ac: Arin Choi
   dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
   jh: Jenny Heath
   ti: Tahsina Islam
   tc: Tiffany Chang
-  to: Tim O'Farrell
   mr: Mike Rotondo
-  rk: Ricardo Kreyhsig
   mp: Martha Pidcock
   jf: jey flores
   kd: Kevin Diale
 email_addresses:
+  ac: achoi@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
   em: ebarnard@codeforamerica.org
   jh: jheath@codeforamerica.org
   ti: tislam@codeforamerica.org
   tc: tchang@codeforamerica.org
-  to: tofarrell@codeforamerica.org 
   mr: mrotondo@codeforamerica.org
-  rk: rkreyhsig@codeforamerica.org
   mp: mpidcock@codeforamerica.org
   jf: jflores@codeforamerica.org
   kd: kdiale@codeforamerica.org
