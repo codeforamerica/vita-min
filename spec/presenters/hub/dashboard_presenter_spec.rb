@@ -13,7 +13,7 @@ describe Hub::Dashboard::DashboardPresenter do
 
     it "presents filter options including the coalition and all organizations in the correct order" do
       expect(subject.filter_options.length).to eq 3
-      expect(subject.filter_options.map(&:model).map(&:name)).to eq ["Coalition 1", "Orangutan Organization", "Oregano Org"]
+      expect(subject.filter_options.map(&:model).map(&:name)).to eq [coalition.name, "Orangutan Organization", "Oregano Org"]
     end
 
     it "selects the correct coalition" do
