@@ -1957,45 +1957,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_195303) do
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 
-  create_table "state_file_wa_intakes", force: :cascade do |t|
-    t.integer "account_type", default: 0, null: false
-    t.string "city"
-    t.integer "consented_to_terms_and_conditions", default: 0, null: false
-    t.integer "contact_preference", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "current_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.string "current_step"
-    t.integer "eligibility_lived_in_state", default: 0, null: false
-    t.integer "eligibility_out_of_state_income", default: 0, null: false
-    t.citext "email_address"
-    t.datetime "email_address_verified_at"
-    t.integer "failed_attempts", default: 0, null: false
-    t.integer "filing_status"
-    t.datetime "last_sign_in_at"
-    t.inet "last_sign_in_ip"
-    t.string "locale", default: "en"
-    t.datetime "locked_at"
-    t.integer "payment_or_deposit_type", default: 0, null: false
-    t.string "phone_number"
-    t.datetime "phone_number_verified_at"
-    t.date "primary_birth_date"
-    t.integer "primary_esigned", default: 0, null: false
-    t.string "primary_first_name"
-    t.string "primary_last_name"
-    t.text "raw_direct_file_data"
-    t.string "referrer"
-    t.integer "sign_in_count", default: 0, null: false
-    t.string "source"
-    t.integer "spouse_esigned", default: 0, null: false
-    t.string "ssn"
-    t.string "street_address"
-    t.integer "tax_return_year"
-    t.datetime "updated_at", null: false
-    t.string "visitor_id"
-    t.string "zip_code"
-  end
-
   create_table "state_ids", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.date "expiration_date"
