@@ -92,6 +92,20 @@ AZ140_CCWS_LINE_6c:
 “0”'
 AZ140_CCWS_LINE_7c:
   label: '7C Multiply line 6C by 31% (.31) and enter the result'
+AZ322_LINE_4:
+  label: "Total Contributions Beyond Initial Limit"
+AZ322_LINE_5:
+  label: "Total Contributions"
+AZ322_LINE_11:
+  label: "Subtotal Amount"
+AZ322_LINE_12:
+  label: "Single or Head of Household Filing Status Amount"
+AZ322_LINE_13:
+  label: "Minimum of Line 11 and Line 12"
+AZ322_LINE_20:
+  label: "Amount from Line 13"
+AZ322_LINE_22:
+  label: "Total Available Credit"
 NYC_EIC_RATE_WK_LINE_1:
   label: 'Enter the amount from Form IT-201, line 33, New York adjusted gross income.'
 NYC_EIC_RATE_WK_LINE_2:
