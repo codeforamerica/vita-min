@@ -144,6 +144,10 @@ class StateFileBaseIntake < ApplicationRecord
     filing_status_mfj?
   end
 
+  def ask_months_in_home?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
