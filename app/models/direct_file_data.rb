@@ -877,7 +877,8 @@ class DirectFileData
       :fed_mortgage_interest_credit_amount,
       :fed_adoption_credit_amount,
       :fed_dc_homebuyer_credit_amount,
-      :fed_adjustments_claimed
+      :fed_adjustments_claimed,
+      :fed_taxable_pensions
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end
