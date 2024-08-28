@@ -304,7 +304,7 @@ You can upload them to the correct S3 bucket with the task `rake flow_explorer:u
 ## Alternate setup + development with docker compose
 
 1. Make sure you have `development.key` in `config/credentials`. Ask a teammate if you need access.
-1. Unpack the state schema files into `vendor/us_states`
+1. Unpack the state schema files into `vendor/us_states/unpacked`
 1. Run `docker compose up`. This will start the database, jobs, shakapacker, and rails app containers. (If you had the app running locally, you may need to stop your local postgres first.)
 
 ### Run tests in a docker container
