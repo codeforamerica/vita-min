@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000008</PrimarySSN>
+      <SpouseSSN>600000009</SpouseSSN>
+      <NameLine1Txt>SHELDON&lt;HOLMES&lt;&amp; NATE THE GREAT</NameLine1Txt>
+      <PrimaryNameControlTxt>HOLM</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>GREA</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>456 Creek Drive</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27513</ZIPCd>
+      </USAddress>
+      <PhoneNum>4085556666</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test011@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+      <SpouseNm>Nate the Great</SpouseNm>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">45000</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>45000</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>45000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>45000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>31150</TaxableIncomeAmt>
+      <TaxAmt>3521</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>3521</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
+      <TaxLessCreditsAmt>3521</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>3521</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <EICEligibilityLiteralCd>NO</EICEligibilityLiteralCd>
+      <RefundableCreditsAmt>0</RefundableCreditsAmt>
+      <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+      <OverpaidAmt>0</OverpaidAmt>
+      <RefundAmt>0</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>1521</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Detective</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000008</EmployeeSSN>
+      <EmployerEIN>123456789</EmployerEIN>
+      <EmployerNameControlTxt>ARTH</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Arthur Conan Doyle LLC</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>200 Elm Court</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27513</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Sherlock Holmes</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>456 Creek Drive</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27513</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>45000</WagesAmt>
+      <WithholdingAmt>2000</WithholdingAmt>
+      <SocialSecurityWagesAmt>45000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>2790</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>45000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>653</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <EmployersUseGrp>
+        <EmployersUseCd>Q</EmployersUseCd>
+        <EmployersUseAmt>0</EmployersUseAmt>
+      </EmployersUseGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>45000</StateWagesAmt>
+          <StateIncomeTaxAmt>400</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
