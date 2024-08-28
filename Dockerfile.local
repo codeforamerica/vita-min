@@ -1,0 +1,56 @@
+# This dockerfile is based on the production dockerfile, minus GYR Efiler Java deps
+
+### First build stage used for web, worker, and shakapacker containers
+FROM ruby:3.2.2 AS base
+
+RUN apt-get update --allow-releaseinfo-change
+
+# System prerequisites
+RUN apt-get update \
+ && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
+ && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+ && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+ && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+ && apt-get update && apt-get install -y nodejs yarn python3 python3-pip python3-setuptools \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
+  SUPERCRONIC=supercronic-linux-amd64 \
+  SUPERCRONIC_SHA1SUM=5ddf8ea26b56d4a7ff6faecdd8966610d5cb9d85
+
+RUN curl -fsSLO "$SUPERCRONIC_URL" \
+ && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+ && chmod +x "$SUPERCRONIC" \
+ && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+ && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+
+ADD ./vendor/pdftk /app/vendor/pdftk
+RUN /app/vendor/pdftk/install
+
+WORKDIR /app
+ADD package.json yarn.lock /app/
+RUN NODE_ENV=production yarn install --frozen-lockfile
+ADD .ruby-version Gemfile Gemfile.lock /app/
+
+RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
+&& bundle install
+
+RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
+
+# Install the OpenCV headless library
+RUN pip3 install opencv-python-headless --break-system-packages
+
+# https://github.com/jwilder/dockerize
+ENV DOCKERIZE_VERSION=v0.7.0
+RUN wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin
+
+ADD . /app
+
+### This build stage is used for the rails app only
+FROM base AS app
+
+EXPOSE 3000
+
+RUN chmod +x /app/bin/docker-entrypoint
+
+CMD ["bash", "./bin/docker-entrypoint"]

@@ -18,5 +18,14 @@ Capybara.register_driver :selenium_chrome_headless do |app|
     opts.add_option('goog:loggingPrefs', {browser: 'ALL'})
   end
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  if ENV['DOCKER']
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      url: 'http://chrome:4444/wd/hub',
+      options: browser_options
+    )
+  else
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  end
 end
