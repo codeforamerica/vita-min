@@ -5,8 +5,6 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
-
-        # @eligibility_lived_in_state = intake.eligibility_lived_in_state
       end
 
       def calculate

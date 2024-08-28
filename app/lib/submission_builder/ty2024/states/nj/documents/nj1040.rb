@@ -51,26 +51,9 @@ module SubmissionBuilder
                   
                   xml.Exemptions do
                     xml.YouRegular "X"
-                    # xml.SpouseCuRegular
-                    # xml.DomesticPartnerRegular
-                    # xml.YouOver65
-                    # xml.SpouseCuPartner65OrOver
-                    # xml.YouBlindOrDisabled
-                    # xml.SpouseCuPartnerBlindOrDisabled
-                    # xml.YouVeteran
-                    # xml.SpouseCuPartnerVeteran
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
-                    # xml.DependAttendCollege
-                    # # Add lines 6-12
-                    # xml.TotalExemptionAmountA
                   end
-
-                  # xml.NjOtherTaxYearBeginDate
-                  # xml.NjOtherTaxYearEndDate
-                  # xml.NjResidentStatusFromDate
-                  # xml.NjResidentStatusToDate
-                  # xml.FiscalMonth
 
                   unless intake.dependents.empty?
                     xml.Dependents do
@@ -83,60 +66,13 @@ module SubmissionBuilder
                           xml.NameSuffix dependent.suffix if dependent.suffix.present?
                         end
                         xml.DependentsSSN dependent.ssn
-                        # xml.BirthYear
-                        # xml.NoHealthInsurance
                       end
                     end
                   end
-
-                  # xml.CountyCode intake.residence_county_code
-
-                  # xml.NactpCode '12345' #???
                 end
                 
                 xml.Body do
-                  # xml.WagesSalariesTips
                   xml.TaxableInterestIncome intake.fed_taxable_income
-                  # xml.TaxexemptInterestIncome
-                  # xml.Dividends
-                  # xml.NetProfitsFromBusiness
-                  # xml.NetGainsDisposOfProperty
-                  # xml.PensAnnuitAndIraWithdraw
-                  # xml.TaxExemptPensAnnuit
-                  # xml.DistribShareOfPartshipInc
-                  # xml.NetProRataShareOfScorpIncome
-                  # xml.NetGainIncomRentsRoyalPatCopy
-                  # xml.NetGamblingWinnings
-                  # xml.AlimSepMaintPayReceived
-                  # xml.Other do
-                  #   xml.NatureOfPrizeSource
-                  #   xml.Amount
-                  # end
-                  # xml.TotalIncome
-                  # xml.PensionExclusion
-                  # xml.OtherRetireIncomeExclus
-                  # xml.TotalExclusionAmount
-                  # xml.GrossIncome
-                  # xml.TotalExemptionAmountB
-                  # xml.MedicalExpenses
-                  # xml.AlimSepMaintPayments
-                  # xml.QualifConserContribut
-                  # xml.HealthenterpriseZoneDed
-                  # xml.AltBusCalcAdjustment
-                  # xml.OrganMarrowDeduction
-                  # xml.NJBESTDed
-                  # xml.NJCLASSDed
-                  # xml.NJHigherEdDed
-                  # xml.TotalExemptDeductions
-                  # xml.TaxableIncome
-                  # xml.PropertyTaxDeductOrCredit do
-                  #   xml.TotalPropertyTaxPaid
-                  #   xml.Homeowner
-                  #   xml.Tenant
-                  #   xml.Both
-                  #   xml.PropertyTaxCredit
-                  #   xml.PropertyTaxDeduction
-                  # end
                 end
               end
             end

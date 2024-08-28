@@ -4,8 +4,6 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-                                          # Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityResidenceController),
-                                          # Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
@@ -31,8 +29,6 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
                                           Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
-                                          # Navigation::NavigationStep.new(StateFile::Questions::NjCountyController),
-                                          # Navigation::NavigationStep.new(StateFile::Questions::NjCountyCodeController),
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                           Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
