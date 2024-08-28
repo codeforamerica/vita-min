@@ -99,5 +99,13 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
       intake.direct_file_data.fed_w2_state = "NJ"
     end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+    end
   end
 end
