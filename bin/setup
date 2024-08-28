@@ -21,9 +21,6 @@ FileUtils.chdir APP_ROOT do
     system! "vendor/pdftk/install"
   end
 
-  puts "== Ensuring homebrew node version is 18 =="
-  system! "brew link node@18 || if /usr/local/bin/node --version | grep -q -v ^v18 ; then brew link --overwrite node@18 ; fi"
-
   puts "== Installing Ruby =="
   system! "rbenv install --skip-existing"
 
@@ -41,14 +38,6 @@ FileUtils.chdir APP_ROOT do
 
   puts "== Install JavaScript dependencies =="
   system! "yarn install"
-
-  puts "== Install Python dependencies =="
-  system! "pip3 install --user opencv-python-headless"
-
-  # puts "\n== Copying sample files =="
-  # unless File.exist?("config/database.yml")
-  #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
-  # end
 
   puts "\n== Starting database =="
   system! "brew services start postgresql"

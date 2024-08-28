@@ -36,9 +36,6 @@ commands:
       - run:
           name: install pdftk-java
           command: ./vendor/pdftk/install
-      - run:
-          name: install python binding for opencv
-          command: sudo apt install python3 python3-opencv python3-setuptools
   install_js_dependencies:
     description: "Install JS dependencies"
     steps:
