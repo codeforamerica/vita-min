@@ -23,7 +23,6 @@
 #  fed_taxable_income                :integer
 #  fed_wages                         :integer
 #  federal_return_status             :string
-#  filing_status                     :integer
 #  hashed_ssn                        :string
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
