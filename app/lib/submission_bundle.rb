@@ -9,11 +9,16 @@ class SubmissionBundle
       archive_directory_path = "#{dir}/#{@submission.irs_submission_id}.zip"
       Dir.mkdir("#{dir}/manifest")
       Dir.mkdir("#{dir}/xml")
+      Dir.mkdir("#{dir}/irs")
+      Dir.mkdir("#{dir}/irs/xml")
       File.open("#{dir}/manifest/manifest.xml", "w+") do |f|
         f.write(manifest_content)
       end
       File.open("#{dir}/xml/submission.xml", "w+") do |f|
         f.write(submission_content)
+      end
+      File.open("#{dir}/irs/xml/federalreturn.xml", "w+") do |f|
+        f.write(federal_return_content)
       end
       input_filenames = ['manifest/manifest.xml', 'xml/submission.xml']
 
@@ -57,6 +62,10 @@ class SubmissionBundle
       @errors = response.errors
       raise SubmissionBundleError
     end
+  end
+
+  def federal_return_content
+    @submission.intake.raw_direct_file_data
   end
 
   def self.build(*args)
