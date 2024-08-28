@@ -71,6 +71,8 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
+    primary_first_name { "North" }
+    primary_last_name { "Carolinian" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

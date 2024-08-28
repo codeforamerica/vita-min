@@ -5,11 +5,19 @@ module SubmissionBuilder
       module Nc
         class NcReturnXml < SubmissionBuilder::StateReturn
           FILING_STATUS_OPTIONS = {
-            :married_filing_jointly => 'MFJ',
-            :married_filing_separately => 'MFS',
-            :single => "Single",
-            :head_of_household => 'HOH',
-            :qualifying_widow => 'QW'
+            head_of_household: 'HOH',
+            married_filing_jointly: 'MFJ',
+            married_filing_separately: 'MFS',
+            qualifying_widow: 'QW',
+            single: "Single",
+          }.freeze
+
+          STANDARD_DEDUCTIONS = {
+            head_of_household: 19125,
+            married_filing_jointly: 25500,
+            married_filing_separately: 12750,
+            qualifying_widow: 25500,
+            single: 12750,
           }.freeze
 
           private
@@ -35,7 +43,15 @@ module SubmissionBuilder
               xml.ResidencyStatusPrimary true
               xml.ResidencyStatusSpouse true if @submission.data_source.filing_status_mfj?
               xml.FilingStatus filing_status
+              if @submission.data_source.filing_status_mfs?
+                xml.MFSSpouseName @submission.data_source.direct_file_data.spouse_name
+                xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
+              end
+              if @submission.data_source.filing_status_qw?
+                xml.QWYearSpouseDied Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death).year
+              end
               xml.FAGI @submission.data_source.direct_file_data.fed_agi
+              xml.NCStandardDeduction standard_deduction
             end
             xml_doc.at('*')
           end
@@ -46,6 +62,10 @@ module SubmissionBuilder
 
           def filing_status
             FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
+          end
+
+          def standard_deduction
+            STANDARD_DEDUCTIONS[@submission.data_source.filing_status]
           end
         end
       end

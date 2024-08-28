@@ -62,6 +62,7 @@ class DirectFileData
     third_party_designee_phone_number: 'IRS1040 ThirdPartyDesigneePhoneNum',
     third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
+    spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd'
   }.freeze
 
@@ -176,6 +177,17 @@ class DirectFileData
   end
 
   def spouse_date_of_death=(value)
+    if value.present?
+      create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
+      write_df_xml_value(__method__, value)
+    end
+  end
+
+  def spouse_name
+    df_xml_value(__method__)
+  end
+
+  def spouse_name=(value)
     if value.present?
       write_df_xml_value(__method__, value)
     end
