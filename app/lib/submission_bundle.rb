@@ -20,8 +20,8 @@ class SubmissionBundle
       File.open("#{dir}/irs/xml/federalreturn.xml", "w+") do |f|
         f.write(federal_return_content)
       end
-      input_filenames = ['manifest/manifest.xml', 'xml/submission.xml']
 
+      input_filenames = ['manifest/manifest.xml', 'xml/submission.xml', 'irs/xml/federalreturn.xml']
       Zip::File.open(archive_directory_path, create: true) do |zipfile|
         input_filenames.each do |filename|
           zipfile.add(filename, File.join(dir, filename))
