@@ -63,9 +63,6 @@ RUN set -a \
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
-# Install the OpenCV headless library
-RUN pip3 install opencv-python-headless --break-system-packages
-
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]

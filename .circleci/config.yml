@@ -147,12 +147,9 @@ jobs:
           environment:
             EAGER_LOAD: 1
             RAILS_CACHE_CLASSES: 1
-            PYTHON: /usr/bin/python3
       - run:
           command: |
             if [ -f /tmp/re-run ] ; then TEST_FILE_PREFIX=retry_ EAGER_LOAD=1 RAILS_CACHE_CLASSES=1 bundle exec parallel_rspec -n 12 -- --only-failures -- ; fi
-          environment:
-            PYTHON: /usr/bin/python3
       - store_test_results:
           path: tmp/rspec-parallel-test-results
       - store_artifacts:
