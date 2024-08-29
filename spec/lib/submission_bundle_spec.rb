@@ -42,12 +42,28 @@ describe SubmissionBundle do
         expect(submission.submission_bundle.attached?).to be true
       end
 
-      it "includes a copy of the federal return xml in the generated bundle", required_schema: "az" do
+      it "adds the 3 required xml files into the bundle", required_schema: "az" do
         described_class.new(submission).build
         archive = submission.submission_bundle
         expect(archive).not_to be_nil
 
-        # how to assert contents of archive? probably unzip to tmp folder and read files directly? overkill?
+        path = ActiveStorage::Blob.service.path_for(archive.key)
+        filenames = Zip::File.open(path) { |zf| zf.map(&:name) }
+        expect(filenames).to eq(["manifest/manifest.xml", "xml/submission.xml", "irs/xml/federalreturn.xml"])
+      end
+
+      it "includes a copy of the federal return xml in the generated bundle", required_schema: "az" do
+        described_class.new(submission).build
+        expected = submission.data_source.raw_direct_file_data
+
+        path = ActiveStorage::Blob.service.path_for(submission.submission_bundle.key)
+        Zip::File.open(path) do |zf|
+          zf.each do |file|
+            next unless file.name == "irs/xml/federalreturn.xml"
+            actual = file.get_input_stream.read
+            expect(actual).to eq(expected)
+          end
+        end
       end
     end
   end
