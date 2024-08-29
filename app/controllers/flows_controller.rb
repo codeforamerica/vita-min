@@ -627,21 +627,6 @@ class FlowsController < ApplicationController
         df_data_imported_at: 2.hours.ago,
       )
     end
-    def self.get_az_xml_sample(filing_status)
-      xml_service = StateFile::XmlReturnSampleService.new
-      case filing_status
-      when :single
-        xml_service.read("az_tycho_loanded")
-      when :married_filing_jointly
-        xml_service.read("az_martha_v2")
-      when :qualifying_widow
-        xml_service.read("az_leslie_qss_v2")
-      when :married_filing_separately
-        xml_service.read("az_sherlock_mfs")
-      when :head_of_household
-        xml_service.read("az_alexis_hoh_w2_and_1099")
-      end
-    end
 
     def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
       base_attributes = common_attributes.merge(
@@ -670,7 +655,7 @@ class FlowsController < ApplicationController
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
-        raw_direct_file_data: get_az_xml_sample(filing_status),
+        raw_direct_file_data: StateFile::XmlReturnSampleService.new.az_xml_sample(filing_status),
         df_data_imported_at: 2.hours.ago,
         primary_received_pension: "yes",
         received_military_retirement_payment: "yes",
