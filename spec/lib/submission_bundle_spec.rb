@@ -28,6 +28,7 @@ describe SubmissionBundle do
       end
       it "can bundle a minimal NY return", required_schema: "ny" do
         expect(described_class.new(submission).build.errors).to eq([])
+        expect(submission.submission_bundle.attached?).to be true
       end
     end
 
@@ -38,6 +39,15 @@ describe SubmissionBundle do
 
       it "can bundle a minimal AZ return", required_schema: "az" do
         expect(described_class.new(submission).build.errors).to eq([])
+        expect(submission.submission_bundle.attached?).to be true
+      end
+
+      it "includes a copy of the federal return xml in the generated bundle", required_schema: "az" do
+        described_class.new(submission).build
+        archive = submission.submission_bundle
+        expect(archive).not_to be_nil
+
+        # how to assert contents of archive? probably unzip to tmp folder and read files directly? overkill?
       end
     end
   end
