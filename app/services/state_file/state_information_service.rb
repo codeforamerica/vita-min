@@ -83,7 +83,7 @@ module StateFile
                               "Raleigh, NC 27640-0640".html_safe,
         navigation_class: Navigation::StateFileNcQuestionNavigation,
         pay_taxes_link: "https://www.nc.gov/working/taxes",
-        return_type: "D-400",
+        return_type: "FormNCD400",
         schema_file_name: "NCIndividual2023v1.0.zip",
         state_name: "North Carolina",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
