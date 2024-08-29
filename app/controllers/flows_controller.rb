@@ -708,7 +708,6 @@ class FlowsController < ApplicationController
       )
       intake_class = StateFile::StateInformationService.intake_class(@us_state)
       intake = intake_class.create(attributes)
-      intake.efile_submissions.create!
 
       generate_efile_device_info(intake)
 
