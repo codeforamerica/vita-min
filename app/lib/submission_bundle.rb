@@ -65,7 +65,7 @@ class SubmissionBundle
   end
 
   def federal_return_content
-    @submission.intake.raw_direct_file_data
+    @submission.data_source.raw_direct_file_data
   end
 
   def self.build(*args)
