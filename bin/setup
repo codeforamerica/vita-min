@@ -21,6 +21,9 @@ FileUtils.chdir APP_ROOT do
     system! "vendor/pdftk/install"
   end
 
+  puts "== Ensuring homebrew node version is 20 =="
+  system! "brew link node@20 || if /usr/local/bin/node --version | grep -q -v ^v20 ; then brew link --overwrite node@20 ; fi"
+
   puts "== Installing Ruby =="
   system! "rbenv install --skip-existing"
 
