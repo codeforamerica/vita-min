@@ -62,6 +62,7 @@ describe 'EfileError' do
       "initiate-data-transfer",
       "name-dob",
       "nc-review",
+      "nc-veteran-status",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
       "ny-eligibility-out-of-state-income",

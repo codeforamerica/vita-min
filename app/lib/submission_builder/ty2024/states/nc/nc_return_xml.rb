@@ -43,7 +43,7 @@ module SubmissionBuilder
             end
             xml_doc.at('*')
           end
-          
+
           def supported_documents
             supported_docs = [
               {
