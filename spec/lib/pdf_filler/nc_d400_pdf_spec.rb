@@ -14,8 +14,29 @@ RSpec.describe PdfFiller::NcD400Pdf do
       expect(missing_fields).to eq([])
     end
 
-    xit 'sets static fields to the correct values' do
-      expect(pdf_fields['']).to eq ''
+    context "pulling fields from xml" do
+      before do
+        allow_any_instance_of(SubmissionBuilder::Ty2024::States::Nc::NcReturnXml)
+          .to receive(:document)
+          .and_return Nokogiri::XML(File.read(Rails.root.join("spec", "fixtures", "state_file", "temp_nc_submission.xml")))
+      end
+
+      it 'sets static fields to the correct values' do
+        expect(pdf_fields['y_d400wf_datebeg']).to eq '2024-01-01'
+        expect(pdf_fields['y_d400wf_dateend']).to eq '2024-12-31'
+      end
+
+      it "sets client-specific fields to the correct values" do
+        expect(pdf_fields['y_d400wf_fname1']).to eq 'North'
+        expect(pdf_fields['y_d400wf_mi1']).to eq 'A'
+        expect(pdf_fields['y_d400wf_lname1']).to eq 'Carolinian'
+        expect(pdf_fields['y_d400wf_ssn1']).to eq '400000030'
+        expect(pdf_fields['y_d400wf_add']).to eq '123 Red Right Hand St Apt 1'
+        expect(pdf_fields['y_d400wf_apartment number']).to eq 'Apt 1'
+        expect(pdf_fields['y_d400wf_city']).to eq 'Raleigh'
+        expect(pdf_fields['y_d400wf_state']).to eq 'NC'
+        expect(pdf_fields['y_d400wf_zip']).to eq '27513'
+      end
     end
   end
 end
