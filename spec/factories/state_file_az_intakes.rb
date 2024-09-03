@@ -129,8 +129,41 @@ FactoryBot.define do
 
     trait :with_az322_contributions do
       after(:build) do |intake|
-        create :az322_contribution, amount: 405.45, intake: intake
-        create :az322_contribution, amount: 355.21, intake: intake
+        create(:az322_contribution,
+               date_of_contribution: '2023-03-04',
+               ctds_code: '123456789',
+               school_name: 'School A',
+               district_name: 'District A',
+               amount: 100,
+               state_file_az_intake: intake)
+        create(:az322_contribution,
+               date_of_contribution: '2023-02-01',
+               ctds_code: '123456789',
+               school_name: 'School B',
+               district_name: 'District B',
+               amount: 200,
+               state_file_az_intake: intake)
+        create(:az322_contribution,
+               date_of_contribution: '2023-03-01',
+               ctds_code: '123456789',
+               school_name: 'School C',
+               district_name: 'District C',
+               amount: 300,
+               state_file_az_intake: intake)
+        create(:az322_contribution,
+               date_of_contribution: '2023-04-01',
+               ctds_code: '123456789',
+               school_name: 'School D',
+               district_name: 'District D',
+               amount: 400,
+               state_file_az_intake: intake)
+        create(:az322_contribution,
+               date_of_contribution: '2023-05-01',
+               ctds_code: '123456789',
+               school_name: 'School E',
+               district_name: 'District E',
+               amount: 500,
+               state_file_az_intake: intake)
       end
     end
 
@@ -146,6 +179,14 @@ FactoryBot.define do
         create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
         create :state_file_efile_device_info, :filled, :submission, intake: intake
       end
+    end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_superman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_goldwater') }
     end
 
     factory :state_file_az_refund_intake do

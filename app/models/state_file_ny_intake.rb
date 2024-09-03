@@ -195,10 +195,6 @@ class StateFileNyIntake < StateFileBaseIntake
     end
   end
 
-  def ask_months_in_home?
-    false
-  end
-
   def ach_debit_transaction?
     refund_or_owe_taxes_type == :owe && self.payment_or_deposit_type_direct_deposit?
   end

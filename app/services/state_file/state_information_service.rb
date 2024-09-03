@@ -4,13 +4,14 @@ module StateFile
       [
         :intake_class,
         :calculator_class,
-        :navigation_class,
-        :submission_builder_class,
+        :filing_years,
         :mail_voucher_address,
+        :navigation_class,
         :pay_taxes_link,
         :return_type,
         :schema_file_name,
         :state_name,
+        :submission_builder_class,
         :survey_link,
         :tax_payment_info_url,
         :tax_payment_url,
@@ -55,15 +56,16 @@ module StateFile
       az: {
         intake_class: StateFileAzIntake,
         calculator_class: Efile::Az::Az140Calculator,
-        navigation_class: Navigation::StateFileAzQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
+        filing_years: [2024, 2023],
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
                               "Phoenix, AZ 85038-9085".html_safe,
+        navigation_class: Navigation::StateFileAzQuestionNavigation,
         pay_taxes_link: "https://www.aztaxes.gov/",
         return_type: "Form140",
         schema_file_name: "AZIndividual2023v1.0.zip",
         state_name: "Arizona",
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
         tax_payment_url: "AZTaxes.gov",
@@ -75,15 +77,16 @@ module StateFile
       nc: {
         intake_class: StateFileNcIntake,
         calculator_class: Efile::Nc::D400Calculator,
-        navigation_class: Navigation::StateFileNcQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
+        filing_years: [2024],
         mail_voucher_address: "North Carolina Department of Revenue<br/>" \
                               "PO Box 25000<br/>" \
                               "Raleigh, NC 27640-0640".html_safe,
+        navigation_class: Navigation::StateFileNcQuestionNavigation,
         pay_taxes_link: "https://www.nc.gov/working/taxes",
-        return_type: "D-400",
+        return_type: "FormNCD400",
         schema_file_name: "NCIndividual2023v1.0.zip",
         state_name: "North Carolina",
+        submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
         survey_link: "",
         tax_payment_info_url: "",
         tax_payment_url: "",
@@ -95,16 +98,17 @@ module StateFile
       ny: {
         intake_class: StateFileNyIntake,
         calculator_class: Efile::Ny::It201,
-        navigation_class: Navigation::StateFileNyQuestionNavigation,
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::IndividualReturn,
+        filing_years: [2023],
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Box 4124<br/>" \
                               "Binghamton, NY 13902-4124".html_safe,
+        navigation_class: Navigation::StateFileNyQuestionNavigation,
         pay_taxes_link: "https://www.tax.ny.gov/pay/",
         return_type: "IT201",
         state_name: "New York",
         schema_file_name: "NYSIndividual2023V4.0.zip",
+        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_payment_url: "Tax.NY.gov",

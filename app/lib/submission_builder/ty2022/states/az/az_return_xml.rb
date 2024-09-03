@@ -7,10 +7,10 @@ module SubmissionBuilder
           include DependentRelationshipTable
 
           FILING_STATUS_OPTIONS = {
-            :married_filing_jointly => 'MarriedJoint',
-            :head_of_household => 'HeadHousehold',
-            :married_filing_separately => 'MarriedFilingSeparateReturn',
-            :single => "Single"
+            married_filing_jointly: 'MarriedJoint',
+            head_of_household: 'HeadHousehold',
+            married_filing_separately: 'MarriedFilingSeparateReturn',
+            single: "Single"
           }.freeze
 
           STANDARD_DEDUCTIONS = {
@@ -196,6 +196,11 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::Az8879Pdf,
                 include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az322,
+                pdf: PdfFiller::Az322Pdf,
+                include: @submission.data_source.az322_contributions.present?
               }
             ]
 

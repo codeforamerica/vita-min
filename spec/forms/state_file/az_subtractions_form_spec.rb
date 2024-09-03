@@ -77,7 +77,6 @@ RSpec.describe StateFile::AzSubtractionsForm do
       end
     end
 
-
     context "with just armed forces member and wages" do
       let(:params) do
         {

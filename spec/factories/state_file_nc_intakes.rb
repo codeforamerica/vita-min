@@ -32,6 +32,7 @@
 #  phone_number_verified_at          :datetime
 #  primary_birth_date                :date
 #  primary_esigned                   :integer          default("unfilled"), not null
+#  primary_esigned_at                :datetime
 #  primary_first_name                :string
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
@@ -43,6 +44,7 @@
 #  source                            :string
 #  spouse_birth_date                 :date
 #  spouse_esigned                    :integer          default("unfilled"), not null
+#  spouse_esigned_at                 :datetime
 #  spouse_first_name                 :string
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
@@ -69,6 +71,8 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
+    primary_first_name { "North" }
+    primary_last_name { "Carolinian" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -80,6 +84,14 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
     end
   end
 end

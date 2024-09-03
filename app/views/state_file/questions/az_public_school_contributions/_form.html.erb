@@ -7,7 +7,7 @@
   <%= form_with model: @az322_contribution, url: { action: @az322_contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%= f.cfa_radio_set(
                 :made_contribution,
                 label_text: t('state_file.questions.az_public_school_contributions.edit.made_contribution', year: @filing_year),
@@ -21,7 +21,7 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="contribution-details">
-        <div class="blue-group">
+        <div class="white-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.az_public_school_contributions.edit.additional_info') %></p>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:school_name, t('state_file.questions.az_public_school_contributions.edit.school_name'), classes: ["form-width--long"]) %>

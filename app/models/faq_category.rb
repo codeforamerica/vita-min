@@ -22,7 +22,7 @@ class FaqCategory < ApplicationRecord
   has_rich_text :description_en
   has_rich_text :description_es
 
-  enum product_type: { gyr: 0, state_file_ny: 1, state_file_az: 2 }, _prefix: :product_type
+  enum product_type: { gyr: 0, state_file_ny: 1, state_file_az: 2, state_file_nc: 3 }, _prefix: :product_type
 
   def name(locale)
     case locale

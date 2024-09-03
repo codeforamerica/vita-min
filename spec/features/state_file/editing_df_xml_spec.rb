@@ -68,6 +68,8 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     fill_in "LocalityNm", with: "Pelicanville"
 
     # 1099R
+    fill_in "TotalTaxablePensionsAmt", with: 200
+
     fill_in "PayerName", with: "Rose Apothecary"
     fill_in "PayerNameControlTxt", with: "ROSEAPC"
     fill_in "AddressLine1Txt", with: "123 Schit Street"
@@ -94,6 +96,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalIncomeTaxAmt).to eq 4400
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalityNm).to eq "Pelicanville"
 
+    expect(StateFileAzIntake.last.direct_file_data.fed_taxable_pensions).to eq 200
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerName).to eq "Rose Apothecary"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerNameControlTxt).to eq "ROSEAPC"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].AddressLine1Txt).to eq "123 Schit Street"

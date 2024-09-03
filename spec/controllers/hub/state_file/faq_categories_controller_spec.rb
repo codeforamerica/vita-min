@@ -5,6 +5,7 @@ describe Hub::StateFile::FaqCategoriesController do
   let(:faq_category) { create :faq_category, position: 1, product_type: :state_file_az }
   let(:faq_category_2) { create :faq_category, name_en: "what what?", slug: "what_what", position: 2, product_type: :state_file_az }
   let(:faq_category_ny) { create :faq_category, name_en: "new york category", slug: "new_york_category", position: 2, product_type: :state_file_ny }
+  let(:faq_category_nc) { create :faq_category, name_en: "nc category", slug: "north_carolina_category", position: 1, product_type: :state_file_nc }
   let!(:faq_item) { create :faq_item, faq_category: faq_category }
   let!(:faq_item_2) { create :faq_item, faq_category: faq_category_2, slug: "there_there" }
 
@@ -20,6 +21,7 @@ describe Hub::StateFile::FaqCategoriesController do
       expect(response).to render_template :index
       expect(assigns(:az_faq_categories)).to match_array [faq_category, faq_category_2]
       expect(assigns(:ny_faq_categories)).to match_array [faq_category_ny]
+      expect(assigns(:nc_faq_categories)).to match_array [faq_category_nc]
     end
   end
 

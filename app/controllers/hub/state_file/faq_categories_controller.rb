@@ -6,6 +6,7 @@ module Hub
       def index
         @az_faq_categories = @faq_categories.where(product_type: :state_file_az)
         @ny_faq_categories = @faq_categories.where(product_type: :state_file_ny)
+        @nc_faq_categories = @faq_categories.where(product_type: :state_file_nc)
       end
 
       private

@@ -9,7 +9,7 @@
                 local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.hidden_field(:device_id) %>
     </br>
-    <div class="blue-group">
+    <div class="white-group">
       <p>
         <%= t(".primary_name_dob", last_four_ssn: current_intake.direct_file_data.primary_ssn&.last(4)) %>
       </p>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <% if f.object.ask_spouse_name?  %>
-      <div class="blue-group">
+      <div class="white-group">
         <p>
           <% if f.object.ask_spouse_dob? %>
             <%= t(".spouse_name_dob_html", last_four_ssn: current_intake.direct_file_data.spouse_ssn&.last(4)) %>
@@ -70,7 +70,7 @@
 
     <% asked_months = false %>
     <%= f.fields_for :dependents do |ff| %>
-      <div id="dependent-<%= ff.index %>" class="blue-group">
+      <div id="dependent-<%= ff.index %>" class="white-group">
 
         <p><%= t(".dependent_name_dob") %></p>
 

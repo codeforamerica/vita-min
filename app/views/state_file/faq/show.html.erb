@@ -4,7 +4,7 @@
   <p><%= @faq_category.description(I18n.locale) %></p>
 <% end %>
 <% @faq_category.faq_items.each do |faq_item| %>
-  <div class="blue-group list--bulleted bulleted">
+  <div class="white-group list--bulleted bulleted">
       <%= faq_item.answer(I18n.locale) %>
   </div>
 <% end %>

@@ -2,7 +2,7 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
-  <div id="full-year-resident" class="blue-group">
+  <div id="full-year-resident" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".nyc_full_year_resident") %></p>
       <p><%=current_intake.nyc_residency_full_year? ? t("general.affirmative") : t("general.negative") %></p>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div id="county" class="blue-group">
+  <div id="county" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".residence_county") %></p>
       <p><%=current_intake.residence_county %></p>
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div id="school-district" class="blue-group">
+  <div id="school-district" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".school_district") %></p>
       <p><%=current_intake.school_district %></p>
@@ -27,7 +27,7 @@
   </div>
 
   <% @invalid_w2s.each do |w2| %>
-    <div id="w2s" class="blue-group">
+    <div id="w2s" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
         <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
@@ -36,7 +36,7 @@
     </div>
   <% end %>
 
-  <div id="use-tax" class="blue-group">
+  <div id="use-tax" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".out_of_state_purchases") %></p>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %>&nbsp;<%=number_to_currency(current_intake.sales_use_tax) %></p>
@@ -45,7 +45,7 @@
   </div>
 
   <% if current_intake.confirmed_third_party_designee_yes? %>
-    <div id="third-party-designee" class="blue-group">
+    <div id="third-party-designee" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".third_party_designee") %></p>
         <p><%=current_intake.direct_file_data.third_party_designee_name %></p>

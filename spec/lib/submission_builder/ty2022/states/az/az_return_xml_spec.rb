@@ -141,5 +141,28 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(builder_response.errors).not_to be_present
       end
     end
+
+    context "when there are az322s present" do
+      let(:intake) { create(:state_file_az_intake, :with_az322_contributions) }
+
+      it "generates XML with contributions data" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+
+        expect(xml.css('SContribMadeTo').count).to eq 5
+        expect(xml.at('SContribMadeTo SchoolContrDate').text).to eq '2023-03-04'
+        expect(xml.at('SContribMadeTo CTDSCode').text).to eq '123456789'
+        expect(xml.at('SContribMadeTo SchoolName').text).to eq 'School A'
+        expect(xml.at('SContribMadeTo SchoolDist').text).to eq 'District A'
+        expect(xml.at('SContribMadeTo Contributions').text).to eq '100'
+
+        expect(xml.at('ContinuationPages')).to be_present
+        expect(xml.at('TotalContributionsContSheet').text).to eq '900'
+        expect(xml.at('TotalContributions').text).to eq '1500'
+        expect(xml.at('SubTotalAmt').text).to eq '1500'
+        expect(xml.at('SingleHOH').text).to eq '200'
+        expect(xml.at('CurrentYrCr').text).to eq '200'
+        expect(xml.at('TotalAvailCr').text).to eq '200'
+      end
+    end
   end
 end

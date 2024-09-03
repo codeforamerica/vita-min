@@ -21,6 +21,7 @@ class DirectFileData
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
+    fed_taxable_pensions: 'IRS1040 TotalTaxablePensionsAmt',
     fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
     fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
     fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
@@ -62,6 +63,7 @@ class DirectFileData
     third_party_designee_phone_number: 'IRS1040 ThirdPartyDesigneePhoneNum',
     third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
+    spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd'
   }.freeze
 
@@ -177,6 +179,17 @@ class DirectFileData
 
   def spouse_date_of_death=(value)
     if value.present?
+      create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
+      write_df_xml_value(__method__, value)
+    end
+  end
+
+  def spouse_name
+    df_xml_value(__method__)
+  end
+
+  def spouse_name=(value)
+    if value.present?
       write_df_xml_value(__method__, value)
     end
   end
@@ -254,6 +267,14 @@ class DirectFileData
   end
 
   def fed_taxable_income=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_taxable_pensions
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_taxable_pensions=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -872,7 +893,8 @@ class DirectFileData
       :fed_mortgage_interest_credit_amount,
       :fed_adoption_credit_amount,
       :fed_dc_homebuyer_credit_amount,
-      :fed_adjustments_claimed
+      :fed_adjustments_claimed,
+      :fed_taxable_pensions
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

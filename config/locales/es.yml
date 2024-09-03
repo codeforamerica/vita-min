@@ -2182,6 +2182,19 @@ es:
           contribution_name: Contribución a %{charity_name} con el código %{charity_code}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
           lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
+      az_retirement_income:
+        edit:
+          amount_label: Ingrese la cantidad ganada
+          primary_received_pension: Recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
+          primary_received_pension_amount: "¿Cuál es el monto total imponible de los pagadores calificados? Puede encontrarlo en el formulario 1099-R en el cuadro 2a. Si tiene varios pagadores calificados, sume las casillas 2a de todos los formularios correspondientes."
+          received_military_retirement_payment:
+            one: Recibió beneficios, anualidades y/o pensiones como pago jubilado o anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
+            other: Usted o su cónyuge recibieron beneficios, anualidades y/o pensiones como jubilado o pago de anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
+          received_military_retirement_payment_amount: "¿Cuál es la base imponible (casilla 2a) de este pagador?"
+          should_not_exceed_taxable_pensions_total_html: "<strong>Nota:</strong> esto no debe exceder %{total}"
+          spouse_received_pension: Su cónyuge recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
+          spouse_received_pension_amount: "¿Cuál es el monto total imponible de su cónyuge según los pagadores calificados? Puede encontrar esto en el formulario 1099-R en el cuadro 2a para los pagadores que califican."
+          title: Arizona permite una resta para ciertos tipos de ingresos de jubilación y pensión. Seleccione cualquiera de las siguientes situaciones que se apliquen a usted.
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2672,11 +2685,10 @@ es:
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondea al número entero más cercano)"
         edit:
-          az_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Arizona de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
           direct_deposit: Depósito directo (más rápido)
           mail: Enviar mi pago por correo (más lento)
-          ny_title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Nueva York de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
           page_title: Buenas noticias, recibirás un reembolso de impuestos. ¿Cómo te gustaría recibirlo?
+          title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
       taxes_owed:
         edit:
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
