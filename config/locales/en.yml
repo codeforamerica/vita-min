@@ -2490,6 +2490,10 @@ en:
         edit:
           amount: Amount
           use_tax_applied: Consumer Use Tax Applied
+      nc_veteran_status:
+        primary_veteran_question: Are you a veteran?
+        spouse_veteran_question: Is your spouse a veteran?
+        title: Veteran status question
       ny_county:
         edit:
           county: County
