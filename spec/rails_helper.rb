@@ -161,6 +161,13 @@ RSpec.configure do |config|
       !allowed_schemas.include? required_schema
     }
   end
+
+  if ENV.include? "DISALLOWED_SCHEMAS"
+    allowed_schemas = ENV["DISALLOWED_SCHEMAS"].split(",").map(&:strip)
+    config.filter_run_excluding required_schema: lambda { |required_schema|
+      allowed_schemas.include? required_schema
+    }
+  end
 end
 
 Shoulda::Matchers.configure do |config|
