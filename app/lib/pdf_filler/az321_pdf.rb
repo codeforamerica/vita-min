@@ -14,6 +14,8 @@ class PdfFiller::Az321Pdf
 
   def hash_for_pdf
     answers = {
+      "FY_Beg" => "0101",
+      "FY_End" => "1231#{MultiTenantService.new(:statefile).current_tax_year}",
       "TP_Name" => name('Primary'),
       "TP_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
       "Spouse_Name" => name('Secondary'),
