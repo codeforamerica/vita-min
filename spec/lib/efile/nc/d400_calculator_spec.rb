@@ -27,4 +27,26 @@ describe Efile::Nc::D400Calculator do
       end
     end
   end
+
+  describe "Line 20b: North Carolina Income Tax Withheld: Spouse's tax withheld" do
+    let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
+
+    context "only one w2 matches primary ssn" do
+      it "sums StateIncomeTaxAmt for only the matching ssn" do
+        intake.direct_file_data.w2s[0].EmployeeSSN = intake.direct_file_data.spouse_ssn
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_20B].value).to eq(15)
+      end
+    end
+
+    context "more than one w2 matches primary ssn" do
+      it "sums StateIncomeTaxAmt for all matching ssn's" do
+        intake.direct_file_data.w2s.each { |w2| w2.EmployeeSSN = intake.direct_file_data.spouse_ssn }
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_20B].value).to eq(715)
+      end
+    end
+  end
 end

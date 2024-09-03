@@ -13,6 +13,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       before do
         intake.direct_file_data.fed_agi = 10000
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20a).and_return 2000
+        allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20b).and_return 1000
       end
 
       it "correctly fills answers" do
@@ -24,6 +25,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCStandardDeduction').text).to eq "12750"
         # 12a = (11)NCStandardDeduction + (10b)ChildDeduction expect(xml.document.at('NCAGIAddition').text).to eq ""
         expect(xml.document.at('IncTaxWith').text).to eq "2000"
+        expect(xml.document.at('IncTaxWithSpouse').text).to eq "1000"
       end
     end
 
