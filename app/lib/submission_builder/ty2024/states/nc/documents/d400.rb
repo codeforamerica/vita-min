@@ -36,6 +36,7 @@ module SubmissionBuilder
                 end
                 xml.FAGI @submission.data_source.direct_file_data.fed_agi
                 xml.NCStandardDeduction standard_deduction
+                xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
               end
             end
 

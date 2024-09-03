@@ -442,3 +442,5 @@ IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
 IT227_PART_2_LINE_1:
   label: ''
+NCD400_LINE_20A:
+  label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
