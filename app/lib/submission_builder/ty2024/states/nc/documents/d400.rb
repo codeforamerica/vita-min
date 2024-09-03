@@ -42,6 +42,7 @@ module SubmissionBuilder
                 # line 16 TaxCredits is blank
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
+                xml.NCTaxPaid calculated_fields.fetch(:NCD400_LINE_23)
               end
             end
 

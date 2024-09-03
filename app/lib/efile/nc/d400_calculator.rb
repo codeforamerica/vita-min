@@ -6,6 +6,7 @@ module Efile
       def calculate
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
+        set_line(:NCD400_LINE_23, :calculate_line_23)
         @lines.transform_values(&:value)
       end
 
@@ -31,6 +32,13 @@ module Efile
           end
           sum
         end
+      end
+
+      def calculate_line_23
+        # sum of lines 20a through 22
+        # 21a, 21c, 21d, and 22 are all blank
+        # 21b is blank unless DF decides to support
+        line_or_zero(:NCD400_LINE_20A) + line_or_zero(:NCD400_LINE_20B)
       end
     end
   end

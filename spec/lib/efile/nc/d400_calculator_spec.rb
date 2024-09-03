@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Nc::D400Calculator do
+  let(:intake) { create(:state_file_nc_intake) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -47,6 +48,16 @@ describe Efile::Nc::D400Calculator do
         instance.calculate
         expect(instance.lines[:NCD400_LINE_20B].value).to eq(715)
       end
+    end
+  end
+
+  describe "Line 23: Add Lines 20a through 22" do
+    it "adds the other lines" do
+      allow(instance).to receive(:calculate_line_20a).and_return 5
+      allow(instance).to receive(:calculate_line_20b).and_return 5
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_23].value).to eq(10)
     end
   end
 end
