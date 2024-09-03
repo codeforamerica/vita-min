@@ -39,17 +39,13 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            supported_docs = [
+            [
               {
                 xml: nil,
                 pdf: PdfFiller::NcD400Pdf,
                 include: true
               },
             ]
-
-            supported_docs += combined_w2s
-
-            supported_docs
           end
 
           def documents_wrapper
