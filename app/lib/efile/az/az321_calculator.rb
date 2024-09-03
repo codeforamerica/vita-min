@@ -58,11 +58,11 @@ class Efile::Az::Az321Calculator < ::Efile::TaxCalculator
 
   def calculate_line_20
     # Current year's credit (enter the amount from line 13)
-    line_or_zero(:AZ322_LINE_13)
+    line_or_zero(:AZ321_LINE_13)
   end
 
   def calculate_line_22
     # Total available credit (add lines 20 and line 21, line 21 not in scope)
-    line_or_zero(:AZ322_LINE_20)
+    line_or_zero(:AZ321_LINE_20)
   end
 end
