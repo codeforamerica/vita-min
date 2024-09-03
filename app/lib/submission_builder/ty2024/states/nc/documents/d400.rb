@@ -43,6 +43,7 @@ module SubmissionBuilder
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
                 xml.NCTaxPaid calculated_fields.fetch(:NCD400_LINE_23)
+                xml.RemainingPayment calculated_fields.fetch(:NCD400_LINE_23) # equal to line 23 bc line 24 not supported
               end
             end
 
