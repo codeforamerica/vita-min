@@ -20,7 +20,9 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('ResidencyStatusSpouse')).to be_nil
         expect(xml.document.at('FilingStatus').text).to eq "Single"
         expect(xml.document.at('FAGI').text).to eq "10000"
+        expect(xml.document.at('FAGIPlusAdditions').text).to eq "10000"
         expect(xml.document.at('NCStandardDeduction').text).to eq "12750"
+        # 12a = (11)NCStandardDeduction + (10b)ChildDeduction expect(xml.document.at('NCAGIAddition').text).to eq ""
         expect(xml.document.at('IncTaxWith').text).to eq "2000"
       end
     end

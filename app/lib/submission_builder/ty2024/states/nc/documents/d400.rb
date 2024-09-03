@@ -35,7 +35,11 @@ module SubmissionBuilder
                   xml.QWYearSpouseDied Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death).year
                 end
                 xml.FAGI @submission.data_source.direct_file_data.fed_agi
+                # line 7 AdditionsToFAGI is blank
+                xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
+                # line 9 DeductionsFromFAGI is blank
                 xml.NCStandardDeduction standard_deduction
+                # line 16 TaxCredits is blank
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
               end
             end
