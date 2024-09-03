@@ -2464,8 +2464,8 @@ es:
           amount: Cantidad
           use_tax_applied: Impuesto de Uso Aplicado
       nc_veteran_status:
-        primary_veteran_question: ¿Eres un veterano?
-        spouse_veteran_question: ¿Es su cónyuge un veterano?
+        primary_veteran_question: "¿Eres un veterano?"
+        spouse_veteran_question: "¿Es su cónyuge un veterano?"
         title: Pregunta sobre el estatus de veterano
       ny_county:
         edit:
