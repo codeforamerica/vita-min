@@ -12,15 +12,15 @@ module SubmissionBuilder
               build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name && form1099g.payer_name != ''
                   xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+|-/, '').upcase[0..3] do
-                    xml.BusinessNameLine1Txt truncate(form1099g.payer_name.tr('-', ' '), 75)
+                    xml.BusinessNameLine1Txt sanitize_for_xml(form1099g.payer_name.tr('-', ' '), 75)
                   end
                   xml.PayerUSAddress do
-                    xml.AddressLine1Txt truncate(form1099g.payer_street_address.tr('-', ' '), 35) if form1099g.payer_street_address.present?
-                    xml.CityNm truncate(form1099g.payer_city, 22) if form1099g.payer_city.present?
+                    xml.AddressLine1Txt sanitize_for_xml(form1099g.payer_street_address.tr('-', ' '), 35) if form1099g.payer_street_address.present?
+                    xml.CityNm sanitize_for_xml(form1099g.payer_city, 22) if form1099g.payer_city.present?
                     xml.StateAbbreviationCd "NY"
                     xml.ZIPCd form1099g.payer_zip if form1099g.payer_zip.present?
                   end
-                  xml.PayerEIN form1099g.payer_tin.strip.gsub(/\s+/, ' ') if form1099g.payer_tin.present?
+                  xml.PayerEIN sanitize_for_xml(form1099g.payer_tin) if form1099g.payer_tin.present?
                 end
                 recipient = if form1099g.recipient_primary?
                   form1099g.intake.primary
@@ -28,11 +28,11 @@ module SubmissionBuilder
                   form1099g.intake.spouse
                 end
                 xml.RecipientSSN recipient.ssn if recipient.ssn.present?
-                xml.RecipientName recipient.full_name.strip.gsub(/\s+/, ' ') if recipient.full_name.present?
+                xml.RecipientName sanitize_for_xml(recipient.full_name) if recipient.full_name.present?
                 xml.RecipientUSAddress do
-                  xml.AddressLine1Txt truncate(form1099g.recipient_address_line1, 35) if form1099g.recipient_address_line1.present?
-                  xml.AddressLine2Txt truncate(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
-                  xml.CityNm truncate(form1099g.recipient_city, 22)if form1099g.recipient_city.present?
+                  xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35) if form1099g.recipient_address_line1.present?
+                  xml.AddressLine2Txt sanitize_for_xml(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
+                  xml.CityNm sanitize_for_xml(form1099g.recipient_city, 22)if form1099g.recipient_city.present?
                   xml.StateAbbreviationCd "NY"
                   xml.ZIPCd form1099g.recipient_zip if form1099g.recipient_zip.present?
                 end
