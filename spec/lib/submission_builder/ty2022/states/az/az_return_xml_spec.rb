@@ -146,13 +146,14 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, :with_az321_contributions) }
 
       it "generates XML with AZ-321 contributions information" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission.reload).document.to_xml)
 
+        expect(xml.css('Form321').count).to eq 1
         expect(xml.css('CharityInfo').count).to eq 4
         expect(xml.css('ContinuationPages').count).to eq 1
 
         expect(xml.at('CharityInfo QualCharityContrDate').text).to eq '2023-08-22'
-        expect(xml.at('CharityInfo QualCharityCode').text).to eq '12345'
+        expect(xml.at('CharityInfo QualCharityCode').text).to eq '22345'
         expect(xml.at('CharityInfo QualCharity').text).to eq 'Heartland'
         expect(xml.at('CharityInfo QualCharityAmt').text).to eq '506'
 
@@ -161,8 +162,8 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('AddCurYrCrAmtTotCshCont').text).to eq '1211'
         expect(xml.at('TxPyrsStatus').text).to eq '421'
         expect(xml.at('TotCshContrFostrChrty').text).to eq '421'
-        expect(xml.at('CurrentYrCr').text).to eq '0'
-        expect(xml.at('TotalAvailCr').text).to eq '0'
+        expect(xml.at('CurrentYrCr').text).to eq '421'
+        expect(xml.at('TotalAvailCr').text).to eq '421'
       end
     end
 

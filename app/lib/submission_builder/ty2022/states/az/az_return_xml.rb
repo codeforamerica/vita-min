@@ -38,10 +38,6 @@ module SubmissionBuilder
             SubmissionBuilder::Ty2022::States::Az::Documents::State1099G
           end
 
-          def az321_contribution_builder
-            SubmissionBuilder::Ty2022::States::Az::Documents::Az321Contribution
-          end
-
           def build_state_specific_tags(document)
             if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
               document.at("ReturnState").add_child(financial_transaction)
@@ -202,7 +198,7 @@ module SubmissionBuilder
                 include: true
               },
               {
-                xml: az321_contribution_builder,
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az321Contribution,
                 pdf: PdfFiller::Az321Pdf,
                 include: @submission.data_source.az321_contributions.present?,
               },

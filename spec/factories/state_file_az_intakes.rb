@@ -127,6 +127,37 @@ FactoryBot.define do
       spouse_received_pension_amount { 300 }
     end
 
+    trait :with_az321_contributions do
+      made_az321_contributions { "yes" }
+
+      after(:create) do |intake|
+        create :az321_contribution,
+               amount: 505.90,
+               state_file_az_intake: intake,
+               charity_code: "22345",
+               charity_name: "Heartland",
+               date_of_contribution: Date.parse("August 22 2023")
+        create :az321_contribution,
+               amount: 234.89,
+               state_file_az_intake: intake,
+               charity_code: "25544",
+               charity_name: "Crumbs and Whiskers",
+               date_of_contribution: Date.parse("July 31 2023")
+        create :az321_contribution,
+               amount: 234.89,
+               state_file_az_intake: intake,
+               charity_code: "25999",
+               charity_name: "The Flying Seagull Project",
+               date_of_contribution: Date.parse("June 1 2023")
+        create :az321_contribution,
+               amount: 234.89,
+               state_file_az_intake: intake,
+               charity_code: "27661",
+               charity_name: "Frogs Are Green",
+               date_of_contribution: Date.parse("January 15 2023")
+      end
+    end
+
     trait :with_az322_contributions do
       after(:build) do |intake|
         create(:az322_contribution,
@@ -164,35 +195,6 @@ FactoryBot.define do
                district_name: 'District E',
                amount: 500,
                state_file_az_intake: intake)
-      end
-    end
-
-    trait :with_az321_contributions do
-      after(:build) do |intake|
-        create :az321_contribution,
-               amount: 505.90,
-               state_file_az_intake: intake,
-               charity_code: "22345",
-               charity_name: "Heartland",
-               date_of_contribution: Date.parse("August 22 2023")
-        create :az321_contribution,
-               amount: 234.89,
-               state_file_az_intake: intake,
-               charity_code: "25544",
-               charity_name: "Crumbs and Whiskers",
-               date_of_contribution: Date.parse("July 31 2023")
-        create :az321_contribution,
-               amount: 234.89,
-               state_file_az_intake: intake,
-               charity_code: "25999",
-               charity_name: "The Flying Seagull Project",
-               date_of_contribution: Date.parse("June 1 2023")
-        create :az321_contribution,
-               amount: 234.89,
-               state_file_az_intake: intake,
-               charity_code: "27661",
-               charity_name: "Frogs Are Green",
-               date_of_contribution: Date.parse("January 15 2023")
       end
     end
 
