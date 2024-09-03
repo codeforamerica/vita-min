@@ -7,6 +7,15 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
+  activerecord:
+    errors:
+      models:
+        az321_contribution:
+          attributes:
+            charity_code:
+              invalid: should be a five digit number beginning with 2
+            date_of_contribution:
+              inclusion: Date must be in the current tax year
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2189,6 +2198,23 @@ en:
           contribution_label: Contribution to %{school_name}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Lets review your public school cash contributions and fees
+      az_qualifying_organization_contributions:
+        destroy:
+          removed: Removed AZ 321 for %{charity_name}
+        form:
+          amount: Amount of contribution in %{filing_year}
+          charity_code: Charity Code
+          charity_name: Charity Name
+          date_of_contribution: Date of payment in %{filing_year} (mm/dd)
+          main_heading: Did you make cash contributions to a qualifying charitable organization in %{filing_year}?
+          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >qualifying charitable organization</a> in %{filing_year}?
+          question_header: 'Please provide the following information for each cash donation to a qualifying charitable organization:'
+        index:
+          add_another: Add another contribution
+          contribution_amount: 'Amount: %{amount}'
+          contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          delete_confirmation: Are you sure you want to delete this contribution?
+          lets_review: Great! Thanks for sharing that information. Let’s review.
       az_retirement_income:
         edit:
           amount_label: Enter amount earned
@@ -2206,6 +2232,7 @@ en:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
+          az321_contribution_name: Contribution to %{charity_name} with code %{charity_code}
           az_agi: Arizona adjusted gross income
           az_tax: Arizona tax
           az_tax_withheld: Arizona tax withheld
@@ -2220,6 +2247,7 @@ en:
           incr_deduction_chrit_contributions: Increased deduction for charitable contributions
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
+          made_az321_contributions: Made contributions to qualifying charitable organizations
           see_detailed_return: See detailed return information
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           standard_deduction: Standard deduction

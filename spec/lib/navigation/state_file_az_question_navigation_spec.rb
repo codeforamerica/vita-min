@@ -30,6 +30,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::AzRetirementIncomeController,
         StateFile::Questions::AzCharitableContributionsController,
         StateFile::Questions::AzPublicSchoolContributionsController,
+        StateFile::Questions::AzQualifyingOrganizationContributionsController,
         StateFile::Questions::AzExciseCreditController,
         StateFile::Questions::AzPrimaryStateIdController,
         StateFile::Questions::AzSpouseStateIdController,

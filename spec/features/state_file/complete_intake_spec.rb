@@ -250,6 +250,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: Rails.configuration.statefile_current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in "az321_contribution_charity_name", with: "Center for Ants"
+      fill_in "az321_contribution_charity_code", with: "21134"
+      fill_in "az321_contribution_amount", with: "90"
+      select_cfa_date "az321_contribution_date_of_contribution", Date.new(Rails.configuration.statefile_current_tax_year, 6, 21)
+
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
+
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"

@@ -1683,6 +1683,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_195303) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.integer "made_az321_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
