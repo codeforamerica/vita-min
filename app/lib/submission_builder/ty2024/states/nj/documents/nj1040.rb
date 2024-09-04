@@ -28,9 +28,9 @@ module SubmissionBuilder
                       xml.MarriedCuPartFilingSeparate do
                         xml.SpouseSSN intake.spouse_ssn
                         xml.SpouseName do
-                          xml.FirstName intake.spouse_first_name
-                          xml.MiddleInitial intake.spouse_middle_initial if intake.spouse_middle_initial.present?
-                          xml.LastName intake.spouse_last_name
+                          xml.FirstName sanitize_for_xml(intake.spouse_first_name)
+                          xml.MiddleInitial sanitize_for_xml(intake.spouse_middle_initial) if intake.spouse_middle_initial.present?
+                          xml.LastName sanitize_for_xml(intake.spouse_last_name)
                           xml.NameSuffix intake.spouse_suffix if intake.spouse_suffix.present?
                         end
                       end
@@ -62,9 +62,9 @@ module SubmissionBuilder
                       # TODO: Should this be qualifying dependents? Or all dependents?
                       intake.dependents.each do |dependent|
                         xml.DependentsName do 
-                          xml.FirstName dependent.first_name
-                          xml.MiddleInitial dependent.middle_initial if dependent.middle_initial.present?
-                          xml.LastName dependent.last_name
+                          xml.FirstName sanitize_for_xml(dependent.first_name)
+                          xml.MiddleInitial sanitize_for_xml(dependent.middle_initial) if dependent.middle_initial.present?
+                          xml.LastName sanitize_for_xml(dependent.last_name)
                           xml.NameSuffix dependent.suffix if dependent.suffix.present?
                         end
                         xml.DependentsSSN dependent.ssn

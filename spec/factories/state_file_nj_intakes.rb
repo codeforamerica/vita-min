@@ -84,7 +84,7 @@ FactoryBot.define do
 
     eligibility_lived_in_state { "yes" }
     eligibility_out_of_state_income { "no" }
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
+    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nj', 'minimal.xml')) }
     state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
