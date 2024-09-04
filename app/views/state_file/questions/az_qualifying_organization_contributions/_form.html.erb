@@ -13,7 +13,7 @@
     <div class="question-with-follow-up">
       <% if show_yes_no %>
         <div class="question-with-follow-up__question">
-          <div class="blue-group">
+          <div class="white-group">
             <%= f.fields_for(:state_file_az_intake) do |ff| %>
               <%= ff.cfa_radio_set( :made_az321_contributions, collection: [ { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#contribution-details", } }, { value: :no, label: t('general.negative') } ]) %>
             <% end %>
@@ -22,7 +22,7 @@
       <% end %>
 
       <div class="<%= "question-with-follow-up__follow-up" if show_yes_no %>" id="contribution-details">
-        <div class="blue-group">
+        <div class="white-group">
           <p class="form-question spacing-below-25">
           <%= t('.question_header') %>
           </p>
