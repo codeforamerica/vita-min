@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SubmissionBuilder
   module Ty2024
     module States
@@ -7,9 +9,9 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             FILING_STATUS_ELEMENT = {
-              :married_filing_jointly => 'MarriedCuPartFilingJoint',
-              :head_of_household => 'HeadOfHousehold',
-              :married_filing_separately => 'MarriedCuPartFilingSeparate',
+              :married_filing_jointly => "MarriedCuPartFilingJoint",
+              :head_of_household => "HeadOfHousehold",
+              :married_filing_separately => "MarriedCuPartFilingSeparate",
               :single => "Single",
               :qualifying_widow => "QualWidOrWider"
             }.freeze
