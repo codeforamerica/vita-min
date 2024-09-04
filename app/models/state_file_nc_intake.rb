@@ -40,6 +40,8 @@
 #  raw_direct_file_data              :text
 #  referrer                          :string
 #  routing_number                    :integer
+#  sales_use_tax                     :integer
+#  sales_use_tax_calculation_method  :integer          default(0), not null
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -65,6 +67,9 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
+
+  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
+
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|
