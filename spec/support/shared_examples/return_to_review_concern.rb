@@ -7,7 +7,7 @@ shared_examples :return_to_review_concern do
       it "navigates to the state review screen" do
         post :update, params: form_params.merge({return_to_review: "y"})
 
-        expect(response).to redirect_to(controller: "#{state_code}_review", action: edit)
+        expect(response).to redirect_to(controller: "#{intake.state_code}_review", action: :edit)
       end
     end
 
