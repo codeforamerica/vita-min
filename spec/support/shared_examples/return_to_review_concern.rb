@@ -7,26 +7,15 @@ shared_examples :return_to_review_concern do
       it "navigates to the state review screen" do
         post :update, params: form_params.merge({return_to_review: "y"})
 
-        case intake.state_code
-        when "az"
-          expect(response).to redirect_to(controller: "az_review", action: :edit)
-        when "ny"
-          expect(response).to redirect_to(controller: "ny_review", action: :edit)
-        end
+        expect(response).to redirect_to(controller: "#{state_code}_review", action: edit)
       end
     end
 
     context "without return_to_review_param set" do
       it "navigates to the next page in the flow" do
         post :update, params: form_params
-        controllers = []
-        case intake.state_code
-        when "az"
-          controllers = Navigation::StateFileAzQuestionNavigation::FLOW.to_a
-        when "ny"
-          controllers = Navigation::StateFileNyQuestionNavigation::FLOW.to_a
-        end
 
+        controllers = StateFile::StateInformationService.navigation_class(intake.state_code)::FLOW
         next_controller_to_show = nil
         increment = 1
         while next_controller_to_show.nil?
