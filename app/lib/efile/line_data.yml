@@ -446,3 +446,5 @@ NCD400_LINE_20A:
   label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_20B:
   label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum'
+NCD400_LINE_23:
+  label: '23 Add lines 20a through 22'
