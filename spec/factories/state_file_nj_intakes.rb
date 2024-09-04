@@ -82,10 +82,9 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
-    eligibility_lived_in_state { "yes" }
-    eligibility_out_of_state_income { "no" }
-    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nj', 'minimal.xml')) }
-    state_file_analytics { StateFileAnalytics.create }
+    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nj', 'zeus_one_dep.xml')) }
+    primary_first_name { "New" }
+    primary_last_name { "Jerseyan" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -97,15 +96,14 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
-      intake.direct_file_data.fed_w2_state = "NJ"
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_two_w2s') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
     end
   end
 end
