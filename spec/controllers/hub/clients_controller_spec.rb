@@ -2058,270 +2058,344 @@ RSpec.describe Hub::ClientsController do
   end
 
   context "as a greeter" do
-    context "when the organization allows greeters and the client has an assigned user" do
-      before { sign_in(user) }
+    shared_examples "it doesn't require being assigned to a user" do |return_status|
+      context "when the organization allows greeters" do
+        before { sign_in(user) }
 
-      let!(:organization) { create :organization, allows_greeters: true }
-      let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
 
-      let(:client) do
-        build(
-          :client,
-          vita_partner: organization,
-          tax_returns: [
-            build(
-              :tax_return,
-              year: 2019,
-              service_type: "drop_off",
-              filing_status: nil
-            ),
-            build(
-              :tax_return,
-              year: 2018, service_type: "online_intake",
-              filing_status: nil
-            )
-          ]
-        )
-      end
-
-      let!(:george_sr) do
-        create(
-          :client,
-          vita_partner: organization,
-          intake: build(
-            :intake,
-            :filled_out,
-            preferred_name: "George Sr.",
-            needs_help_2019: "yes",
-            needs_help_2018: "yes",
-            preferred_interview_language: "en", locale: "en"
-          )
-        )
-      end
-
-      let!(:george_sr_2019_return) do
-        create(
-          :tax_return,
-          :intake_in_progress,
-          client: george_sr,
-          year: 2019,
-          assigned_user: user
-        )
-      end
-
-      describe "#index" do
-        it 'should have clients assigned when there is an intake_ready return' do
-          create(
-            :tax_return,
-            :intake_ready,
-            client: george_sr,
-            year: 2018,
-            assigned_user: user
-          )
-          get :index
-          expect(assigns(:clients)).not_to be_empty
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
         end
 
-        it 'should not have clients assigned when there are no intake_ready returns' do
-          get :index
-          expect(assigns(:clients)).to be_empty
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).not_to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be ok for clients with an #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_ok
+          end
         end
       end
 
-      describe '#edit' do
-        it 'should forbid clients without an intake_ready return' do
-          get :edit, params: { id: george_sr.id }
-          expect(response).to be_forbidden
+      context "when the organization does not allow greeters" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
         end
 
-        it 'should be ok for clients with an intake_ready return' do
-          create(
-            :tax_return,
-            :intake_ready,
-            client: george_sr,
-            year: 2018,
-            assigned_user: user
-          )
-          get :edit, params: { id: george_sr.id }
-          expect(response).to be_ok
-        end
-      end
-    end
-
-    context "when the organization does not allow greeters but the client has an assigned user" do
-      before { sign_in(user) }
-
-      let!(:organization) { create :organization, allows_greeters: false }
-      let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
-
-      let(:client) do
-        build(
-          :client,
-          vita_partner: organization,
-          tax_returns: [
-            build(
-              :tax_return,
-              year: 2019,
-              service_type: "drop_off",
-              filing_status: nil
-            ),
-            build(
-              :tax_return,
-              year: 2018, service_type: "online_intake",
-              filing_status: nil
-            )
-          ]
-        )
-      end
-
-      let!(:george_sr) do
-        create(
-          :client,
-          vita_partner: organization,
-          intake: build(
-            :intake,
-            :filled_out,
-            preferred_name: "George Sr.",
-            needs_help_2019: "yes",
-            needs_help_2018: "yes",
-            preferred_interview_language: "en", locale: "en"
-          )
-        )
-      end
-      let!(:george_sr_2019_return) do
-        create(
-          :tax_return,
-          :intake_in_progress,
-          client: george_sr,
-          year: 2019,
-          assigned_user: user
-        )
-      end
-
-      describe "#index" do
-        it 'should not have clients assigned when there is an intake_ready return' do
-          create(
-            :tax_return,
-            :intake_ready,
-            client: george_sr,
-            year: 2018,
-            assigned_user: user
-          )
-          get :index
-          expect(assigns(:clients)).to be_empty
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
         end
 
-        it 'should not have clients assigned when there are no intake_ready returns' do
-          get :index
-          expect(assigns(:clients)).to be_empty
-        end
-      end
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
 
-      describe '#edit' do
-        it 'should forbid clients without an intake_ready return' do
-          get :edit, params: { id: george_sr.id }
-          expect(response).to be_forbidden
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
         end
 
-        it 'should be forbidden for clients with an intake_ready return' do
-          create(
-            :tax_return,
-            :intake_ready,
-            client: george_sr,
-            year: 2018,
-            assigned_user: user
-          )
-          get :edit, params: { id: george_sr.id }
-          expect(response).to be_forbidden
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be forbidden for clients with a #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
         end
       end
     end
 
-    context "when the organization does allow greeters but the client has no assigned user" do
-      before { sign_in(user) }
+    shared_examples "it requires being assigned to a user" do |return_status|
+      context "when the organization allows greeters but has no assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
 
-      let!(:organization) { create :organization, allows_greeters: true }
-      let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
 
-      let(:client) do
-        build(
-          :client,
-          vita_partner: organization,
-          tax_returns: [
-            build(
-              :tax_return,
-              year: 2019,
-              service_type: "drop_off",
-              filing_status: nil
-            ),
-            build(
-              :tax_return,
-              year: 2018, service_type: "online_intake",
-              filing_status: nil
-            )
-          ]
-        )
-      end
-
-      let!(:george_sr) do
-        create(
-          :client,
-          vita_partner: organization,
-          intake: build(
-            :intake,
-            :filled_out,
-            preferred_name: "George Sr.",
-            needs_help_2019: "yes",
-            needs_help_2018: "yes",
-            preferred_interview_language: "en", locale: "en"
-          )
-        )
-      end
-
-      let!(:george_sr_2019_return) do
-        create(
-          :tax_return,
-          :intake_in_progress,
-          client: george_sr,
-          year: 2019,
-        )
-      end
-
-      describe "#index" do
-        it 'should have clients assigned when there is an intake_ready return' do
-          create(
-            :tax_return,
-            :intake_ready,
-            client: george_sr,
-            year: 2018,
-          )
-          get :index
-          expect(assigns(:clients)).to be_empty
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
         end
 
-        it 'should not have clients assigned when there are no intake_ready returns' do
-          get :index
-          expect(assigns(:clients)).to be_empty
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it 'should be forbidden for clients with an intake_ready return' do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
         end
       end
 
-      describe '#edit' do
-        it 'should forbid clients without an intake_ready return' do
-          get :edit, params: { id: george_sr.id }
-          expect(response).to be_forbidden
+      context "when the organization does not allow greeters and has no assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
         end
 
-        it 'should be ok for clients with an intake_ready return' do
-          create(
-            :tax_return,
-            :intake_ready,
-            client: george_sr,
-            year: 2018,
-          )
-          get :edit, params: { id: george_sr.id }
-          expect(response).to be_forbidden
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it 'should be forbidden for clients with an intake_ready return' do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+
+      context "when the organization allows greeters and has an assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+                assigned_user: user,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+        describe "#index" do
+          it "should have clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).not_to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be ok for clients with an #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_ok
+          end
         end
       end
     end
+
+    it_behaves_like "it doesn't require being assigned to a user", :intake_ready
+    it_behaves_like "it doesn't require being assigned to a user", :intake_greeter_info_requested
+    it_behaves_like "it doesn't require being assigned to a user", :intake_needs_doc_help
+
+    it_behaves_like "it requires being assigned to a user", :file_not_filing
   end
 end

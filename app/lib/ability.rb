@@ -87,6 +87,14 @@ class Ability
             'intake_ready',
             'intake_greeter_info_requested',
             'intake_needs_doc_help',
+          ],
+        },
+        vita_partner: accessible_groups
+
+      can [:update, :read, :hub_client_management],
+        Client,
+        tax_returns: {
+          current_state: [
             'file_not_filing'
           ],
           assigned_user: user,
