@@ -15,12 +15,6 @@ RSpec.describe PdfFiller::NcD400Pdf do
     end
 
     context "pulling fields from xml" do
-      before do
-        allow_any_instance_of(SubmissionBuilder::Ty2024::States::Nc::NcReturnXml)
-          .to receive(:document)
-          .and_return Nokogiri::XML(File.read(Rails.root.join("spec", "fixtures", "state_file", "temp_nc_submission.xml")))
-      end
-
       it 'sets static fields to the correct values' do
         expect(pdf_fields['y_d400wf_datebeg']).to eq '2024-01-01'
         expect(pdf_fields['y_d400wf_dateend']).to eq '2024-12-31'
