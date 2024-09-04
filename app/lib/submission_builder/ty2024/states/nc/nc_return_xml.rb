@@ -38,6 +38,20 @@ module SubmissionBuilder
             SchemaFileLoader.load_file("us_states", "unpacked", "NCIndividual2023v1.0", "NCIndividual", "IndividualReturnNCD400.xsd")
           end
 
+          def supported_documents
+            supported_docs = [
+              {
+                xml: nil,
+                pdf: PdfFiller::NcD400Pdf,
+                include: true
+              },
+            ]
+
+            supported_docs += combined_w2s
+
+            supported_docs
+          end
+
           def documents_wrapper
             xml_doc = build_xml_doc("FormNCD400") do |xml|
               xml.ResidencyStatusPrimary true
@@ -54,10 +68,6 @@ module SubmissionBuilder
               xml.NCStandardDeduction standard_deduction
             end
             xml_doc.at('*')
-          end
-
-          def supported_documents
-            combined_w2s
           end
 
           def filing_status
