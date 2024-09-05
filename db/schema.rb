@@ -1807,7 +1807,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_003736) do
     t.text "raw_direct_file_data"
     t.string "referrer"
     t.integer "routing_number"
-    t.integer "sales_use_tax"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
@@ -1822,6 +1822,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_003736) do
     t.string "street_address"
     t.integer "tax_return_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"

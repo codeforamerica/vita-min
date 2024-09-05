@@ -1,0 +1,50 @@
+<% title = t('.title', year: MultiTenantService.statefile.current_tax_year, count: current_intake.filer_count ) %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle_html") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up spacing-below-25">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%=
+            f.cfa_radio_set(
+              :untaxed_out_of_state_purchases,
+              collection: [
+                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-method-field" } },
+                { value: :no, label: t("general.negative") },
+              ]
+            )
+          %>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="sut-method-field">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <div class="white-group">
+              <%=
+                f.cfa_radio_set(
+                  :sales_use_tax_calculation_method,
+                  label_text: t(".select_one"),
+                  collection: [
+                    { value: :automated, label: t(".use_tax_method_automated"), input_html: { "onclick": "document.querySelector('#sut-field').style.display = 'none'"} },
+                    { value: :manual, label: t(".use_tax_method_manual_html"), input_html: { "data-follow-up": "#sut-field" } },
+                  ]
+                )
+              %>
+              <div class="question-with-follow-up__follow-up" id="sut-field">
+                <%= f.cfa_input_field(:sales_use_tax, t(".calculated_use_tax"), classes: ["form-width--long"]) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

@@ -40,8 +40,8 @@
 #  raw_direct_file_data              :text
 #  referrer                          :string
 #  routing_number                    :integer
-#  sales_use_tax                     :integer
-#  sales_use_tax_calculation_method  :integer          default(0), not null
+#  sales_use_tax                     :decimal(12, 2)
+#  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -55,6 +55,7 @@
 #  street_address                    :string
 #  tax_return_year                   :integer
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases    :integer          default(0), not null
 #  withdraw_amount                   :integer
 #  zip_code                          :string
 #  created_at                        :datetime         not null
