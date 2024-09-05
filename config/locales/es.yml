@@ -2454,6 +2454,20 @@ es:
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
           your_dob: Tu fecha de nacimiento
+      nj_county:
+        edit:
+          county: Condado
+          title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      nj_municipality:
+        edit:
+          helper_description_html: Si el lugar donde usted vive no aparece en la lista, utilice la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidad del estado de New Jersey</a> para obtener el nombre de su municipio.
+          helper_heading: El lugar donde vivo no está en la lista
+          municipality: Municipio
+          title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
+      nj_review:
+        edit:
+          county: Condado
+          municipality: Municipio
       ny_county:
         edit:
           county: Condado
