@@ -138,7 +138,7 @@ If this doesn't fix your problem, you should check if the service is in an `erro
 brew services
 ```
 
-If it is, you probably need to reead the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
+If it is, you probably need to read the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
 
 ```sh
 brew postgresql-upgrade-database
