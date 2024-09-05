@@ -150,8 +150,6 @@ If it gives you an error about needing to remove the postgres.old directory, the
 rm -rf /usr/local/var/postgres.old
 ```
 
-If it gives you an error about "Bootstrap failed: 5: Input/output error", then you may want to make sure you don't already have Postgres running.
-
 You can also try uninstalling postgresql & postgis, removing the whole postgres folder and running bin/setup again
 
 ```sh
