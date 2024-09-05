@@ -25,10 +25,8 @@ namespace :setup do
                 You need to manually download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
                 #{
                   missing_files.map do |filename|
-                    matching_file = SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.find do |(file_name, _dir)|
-                      File.basename(filename) == file_name
-                    end
-                    "#{filename} to vendor/#{matching_file[1]}"
+                    matching_file_directory = SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.filter_map { |(file_name, dir)| dir if File.basename(filename) == file_name }.first
+                    "#{filename} to vendor/#{matching_file_directory}"
                   end.join("\n")
                 }
         end
