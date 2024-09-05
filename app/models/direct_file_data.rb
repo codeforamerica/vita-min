@@ -89,14 +89,6 @@ class DirectFileData < DfXmlAccessor
     parsed_xml.to_s
   end
 
-  def filing_status
-    df_xml_value(__method__)&.to_i
-  end
-
-  def filing_status=(value)
-    write_df_xml_value(__method__, value)
-  end
-
   def phone_number
     df_xml_value(__method__)
   end

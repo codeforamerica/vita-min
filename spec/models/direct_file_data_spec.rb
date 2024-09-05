@@ -5,15 +5,16 @@ describe DirectFileData do
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
-    ["tax_return_year", 2023, :year],
-  ].each do |node_name, current_value, type|
+    ["tax_return_year", 2023, 2024],
+    ["filing_status", 4, 3],
+  ].each do |node_name, current_value, special_value=nil|
     describe "##{node_name}" do
       it "returns the value" do
         expect(direct_file_data.send(node_name)).to eq current_value
       end
 
-      if type == :amount
-        context "when the attribute is not present" do
+      if current_value.is_a?(Integer) && special_value.nil?
+        context "when the attribute is an amount and is not present" do
           before do
             selector = DirectFileData::SELECTORS[node_name.to_sym]
             xml.at(selector).remove
@@ -28,15 +29,15 @@ describe DirectFileData do
 
     describe "##{node_name}=" do
       context "when the node is present" do
-        if type == :amount
+        if special_value.present?
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", special_value.to_s)
+            expect(direct_file_data.send(node_name)).to eq special_value
+          end
+        elsif current_value.is_a?(Integer)
           it "sets the value" do
             direct_file_data.send("#{node_name}=", "500")
             expect(direct_file_data.send(node_name)).to eq 500
-          end
-        elsif type == :year
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", "2023")
-            expect(direct_file_data.send(node_name)).to eq 2023
           end
         else
           it "sets the value" do
@@ -52,15 +53,15 @@ describe DirectFileData do
           xml.at(selector).remove
         end
 
-        if type == :amount
+        if special_value.present?
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", special_value.to_s)
+            expect(direct_file_data.send(node_name)).to eq special_value
+          end
+        elsif current_value.is_a?(Integer)
           it "sets the value" do
             direct_file_data.send("#{node_name}=", "500")
             expect(direct_file_data.send(node_name)).to eq 500
-          end
-        elsif type == :year
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", "2023")
-            expect(direct_file_data.send(node_name)).to eq 2023
           end
         else
           it "sets the value" do
