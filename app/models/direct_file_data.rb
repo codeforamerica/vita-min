@@ -89,14 +89,6 @@ class DirectFileData < DfXmlAccessor
     parsed_xml.to_s
   end
 
-  def phone_number
-    df_xml_value(__method__)
-  end
-
-  def cell_phone_number
-    df_xml_value(__method__)
-  end
-
   def tax_payer_email
     df_xml_value(__method__)
   end

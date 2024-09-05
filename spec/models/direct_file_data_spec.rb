@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 describe DirectFileData do
-  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_df_complete_sample")) }
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
     ["tax_return_year", 2023, 2024],
     ["filing_status", 4, 3],
+    ["phone_number", "4805555555"],
+    ["cell_phone_number", "5551231234"],
   ].each do |node_name, current_value, special_value=nil|
     describe "##{node_name}" do
       it "returns the value" do
