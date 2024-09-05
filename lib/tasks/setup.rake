@@ -22,7 +22,7 @@ namespace :setup do
     missing_files = SchemaFileLoader.get_missing_downloads(vendor_dir)
     if missing_files.keep_if { |(_path, optional)| optional == false }.present?
       message = <<~MESSAGE
-                Download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
+                You need to manually download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
                 #{
                   missing_files.map do |filename|
                     matching_file = SchemaFileLoader::EFILE_SCHEMAS_FILENAMES.find do |(file_name, _dir)|
