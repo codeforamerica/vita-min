@@ -66,7 +66,7 @@ describe TaxReturnStateMachine do
           "intake_greeter_info_requested",
           "intake_needs_doc_help"
         ]
-        expect(result["file"]).to eq ["file_not_filing"]
+        expect(result["file"]).to eq ["file_not_filing", "file_hold"]
       end
     end
 
