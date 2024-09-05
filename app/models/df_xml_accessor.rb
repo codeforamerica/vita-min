@@ -18,6 +18,10 @@ class DfXmlAccessor
         define_method(key) do
           df_xml_value(__method__)&.to_i || 0
         end
+      elsif key.ends_with?("_year")
+        define_method(key) do
+          df_xml_value(__method__)&.to_i
+        end
       else
         define_method(key) do
           df_xml_value(__method__)

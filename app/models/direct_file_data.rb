@@ -1,4 +1,4 @@
-class DirectFileData
+class DirectFileData < DfXmlAccessor
   include DfXmlCrudMethods
 
   SELECTORS = {
@@ -71,9 +71,11 @@ class DirectFileData
     @raw_xml = raw_xml
   end
 
-  def selectors
+  def self.selectors
     SELECTORS
   end
+
+  define_xml_methods
 
   def parsed_xml
     @parsed_xml ||= Nokogiri::XML(@raw_xml)
@@ -85,14 +87,6 @@ class DirectFileData
 
   def to_s
     parsed_xml.to_s
-  end
-
-  def tax_return_year
-    df_xml_value(__method__)&.to_i
-  end
-
-  def tax_return_year=(value)
-    write_df_xml_value(__method__, value)
   end
 
   def filing_status

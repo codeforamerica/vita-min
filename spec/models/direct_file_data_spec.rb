@@ -1,6 +1,77 @@
 require 'rails_helper'
 
 describe DirectFileData do
+  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+  let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+
+  [
+    ["tax_return_year", 2023, :year],
+  ].each do |node_name, current_value, type|
+    describe "##{node_name}" do
+      it "returns the value" do
+        expect(direct_file_data.send(node_name)).to eq current_value
+      end
+
+      if type == :amount
+        context "when the attribute is not present" do
+          before do
+            selector = DirectFileData::SELECTORS[node_name.to_sym]
+            xml.at(selector).remove
+          end
+
+          it "defaults to 0" do
+            expect(direct_file_data.send(node_name)).to eq 0
+          end
+        end
+      end
+    end
+
+    describe "##{node_name}=" do
+      context "when the node is present" do
+        if type == :amount
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", "500")
+            expect(direct_file_data.send(node_name)).to eq 500
+          end
+        elsif type == :year
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", "2023")
+            expect(direct_file_data.send(node_name)).to eq 2023
+          end
+        else
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", "New Value")
+            expect(direct_file_data.send(node_name)).to eq "New Value"
+          end
+        end
+      end
+
+      context "when the node is not present" do
+        before do
+          selector = DirectFileData::SELECTORS[node_name.to_sym]
+          xml.at(selector).remove
+        end
+
+        if type == :amount
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", "500")
+            expect(direct_file_data.send(node_name)).to eq 500
+          end
+        elsif type == :year
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", "2023")
+            expect(direct_file_data.send(node_name)).to eq 2023
+          end
+        else
+          it "sets the value" do
+            direct_file_data.send("#{node_name}=", "New Value")
+            expect(direct_file_data.send(node_name)).to eq "New Value"
+          end
+        end
+      end
+    end
+  end
+
   describe '#ny_public_employee_retirement_contributions' do
     let(:desc1) { '414H' }
     let(:desc2) { '414 (H)' }
