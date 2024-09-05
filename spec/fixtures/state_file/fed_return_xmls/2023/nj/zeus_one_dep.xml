@@ -34,6 +34,7 @@
       <SpouseNameControlTxt>THUN</SpouseNameControlTxt>
       <USAddress>
         <AddressLine1Txt>391 US-206</AddressLine1Txt>
+        <AddressLine2Txt>B</AddressLine2Txt>
         <CityNm>Hammonton</CityNm>
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
