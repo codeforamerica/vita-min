@@ -9,6 +9,10 @@ describe DirectFileData do
     ["filing_status", 4, 3],
     ["phone_number", "4805555555"],
     ["cell_phone_number", "5551231234"],
+    ["tax_payer_email", "test011@test.com"],
+    ["primary_ssn", "400000003"],
+    ["spouse_ssn", "500000003"],
+    ["primary_occupation", "Singer"],
   ].each do |node_name, current_value, special_value=nil|
     describe "##{node_name}" do
       it "returns the value" do

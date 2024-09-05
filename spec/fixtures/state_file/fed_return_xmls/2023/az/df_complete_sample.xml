@@ -8,6 +8,7 @@
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
       <PrimarySSN>400000003</PrimarySSN>
+      <SpouseSSN>500000003</SpouseSSN>
       <NameLine1Txt>ALEXIS&lt;ROSE</NameLine1Txt>
       <PrimaryNameControlTxt>ROSE</PrimaryNameControlTxt>
       <USAddress>

@@ -89,30 +89,6 @@ class DirectFileData < DfXmlAccessor
     parsed_xml.to_s
   end
 
-  def tax_payer_email
-    df_xml_value(__method__)
-  end
-
-  def primary_ssn
-    df_xml_value(__method__)
-  end
-
-  def primary_ssn=(value)
-    write_df_xml_value(__method__, value)
-  end
-
-  def primary_occupation
-    df_xml_value(__method__)
-  end
-
-  def primary_occupation=(value)
-    write_df_xml_value(__method__, value)
-  end
-
-  def spouse_ssn
-    df_xml_value(__method__)
-  end
-
   def spouse_ssn=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimarySSN")
 
