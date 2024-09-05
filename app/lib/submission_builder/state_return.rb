@@ -91,8 +91,8 @@ module SubmissionBuilder
 
     def state_schema_version; end
 
-    def build_state_specific_tags(_)
-      ;
-    end
+    def build_state_specific_tags(_); end
+
+    def documents_wrapper; end
   end
 end
