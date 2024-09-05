@@ -2530,6 +2530,16 @@ en:
           lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
           subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
+      nc_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          withdraw_529: Did you (or your spouse, if you’re filing together) withdraw money from a 529 college savings account and use it for non-qualifying expenses in %{filing_year}?
+          title: First, let's see if you can use this tool to file your taxes
+      nc_eligibility_residence:
+        edit:
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       ny_permanent_address:
         edit:
           address_header: Address
