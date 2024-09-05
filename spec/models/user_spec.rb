@@ -570,6 +570,22 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
+  describe "#team_member?" do
+    context "when the user has TeamMemberRole type" do
+      let(:user) { create :team_member_user }
+      it "returns true" do
+        expect(user.team_member?).to be true
+      end
+    end
+
+    context "when the user does not have TeamMemberRole type" do
+      let(:user) { create :coalition_lead_user }
+      it "returns false" do
+        expect(user.team_member?).to be false
+      end
+    end
+  end
+
 
   describe "#state_file_admin?" do
     context "when the user has AdminRole type and state_file is true" do
@@ -592,6 +608,45 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
       let(:role) { create :admin_role, state_file: false }
       it "returns false" do
         expect(user.state_file_admin?).to be false
+      end
+    end
+  end
+
+  describe "#role?" do
+    context 'when the user has a particular role' do
+      let(:user) { create :admin_user, role: role }
+      let(:role) { create :admin_role, state_file: true }
+
+      it "should return true when checking for just that role" do
+        expect(user.role?(:state_file_admin)).to be true
+      end
+
+      it "should return true when checking for that role among others" do
+        expect(user.role?([:state_file_admin, :client_success])).to be true
+      end
+
+      it "should return false when the user doesn't have a particular role" do
+        expect(user.role?(:client_success)).to be false
+      end
+
+      it "should return false when the user doesn't any of many roles specified" do
+        expect(user.role?([:client_success, :org_lead])).to be false
+      end
+
+      it "should return false when an empty array is passed" do
+        expect(user.role?([])).to be false
+      end
+
+      it 'should return false when nonsense roles are checked' do
+        expect(user.role?([:foo, :bar])).to be false
+      end
+    end
+
+    context 'when the user has no roles at all' do
+      let(:user) { create :admin_user }
+
+      it 'should return false' do
+        expect(user.role?(:client_success)).to be false
       end
     end
   end
