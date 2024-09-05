@@ -316,6 +316,52 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
+    <IRSW2 documentName="IRSW2" documentId="W20004">
+      <EmployeeSSN>400000018</EmployeeSSN>
+      <EmployerEIN>001245770</EmployerEIN>
+      <EmployerNameControlTxt>ATLCB</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Atlantic City Beach</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>
+        <CityNm>Atlantic City</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>08037</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>ZEUS L THUNDER</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>391 US-206</AddressLine1Txt>
+        <AddressLine2Txt>Unit 73</AddressLine2Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>08037</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>50000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414HSUB</Desc>
+        <Amt>250</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NJ</StateAbbreviationCd>
+          <EmployerStateIdNum>54321</EmployerStateIdNum>
+          <StateWagesAmt>50000</StateWagesAmt>
+          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
+            <LocalityNm>Hammonton</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
     <OtherWithholdingStatement documentName="OtherWithholdingStatement" documentId="OTHERWITHHOLDING0001">
       <OtherWithholdingStmt>
         <WithholdingCd>FORM 1099</WithholdingCd>
