@@ -10,8 +10,8 @@ es:
         state_file/sales_use_tax_form:
           attributes:
             sales_use_tax:
-              not_a_number: Ingresa una cantidad en dólares.
               greater_than_or_equal_to: Ingresa una cantidad en dólares.
+              not_a_number: Ingresa una cantidad en dólares.
   activerecord:
     errors:
       models:
