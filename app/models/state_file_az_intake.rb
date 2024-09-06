@@ -112,7 +112,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
-  validates :az321_contributions, length: { maximum: 3 }
+  validates :az321_contributions, length: { maximum: 10 }
   def federal_dependent_count_under_17
     self.dependents.select{ |dependent| dependent.age < 17 }.length
   end
