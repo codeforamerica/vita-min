@@ -46,6 +46,7 @@ describe Efile::Nj::Nj1040 do
           expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
         end
       end
+
       context 'when filer is younger than 65' do
         before do
           intake.primary_birth_date = Date.new(2000, 1, 1)
@@ -64,6 +65,7 @@ describe Efile::Nj::Nj1040 do
         end
       end
     end
+
     context 'when filer has a spouse,' do
       let(:intake) { create(:state_file_nj_intake, :married) }
       context 'when filer is older than 65 and spouse is older than 65' do
@@ -83,6 +85,7 @@ describe Efile::Nj::Nj1040 do
           expect(instance.lines[:NJ1040_LINE_7].value).to eq(2000)
         end
       end
+
       context 'when filer is younger than 65 and spouse is older than 65' do
         let(:intake) { create(:state_file_nj_intake, :married_spouse_over_65) }
         before do
@@ -100,6 +103,7 @@ describe Efile::Nj::Nj1040 do
           expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
         end
       end
+
       context 'when filer is older than 65 and spouse is younger than 65' do
         let(:intake) { create(:state_file_nj_intake, :married, :self_over_65) }
         before do
@@ -117,6 +121,7 @@ describe Efile::Nj::Nj1040 do
           expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
         end
       end
+
       context 'when filer is younger than 65 and spouse is younger than 65' do
         let(:intake) { create(:state_file_nj_intake, :married) }
         before do
