@@ -20,7 +20,7 @@ namespace :setup do
   task unzip_efile_schemas: :environment do |_task|
     SchemaFileLoader.unzip_schemas(vendor_dir)
     missing_files = SchemaFileLoader.get_missing_downloads(vendor_dir)
-    if missing_files.present?
+    if missing_files.keep_if { |(_path, optional)| optional == false }.present?
       message = <<~MESSAGE
         Download the following files from https://drive.google.com/drive/u/0/folders/1ssEXuz5WDrlr9Ng7Ukp6duSksNJtRATa
         #{missing_files.map { |(filename, download_folder)| "#{filename} to vendor/#{download_folder}" }.join("\n")}
