@@ -6,7 +6,7 @@
     <% @attributes.each do |income_type| %>
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
-          <div class="blue-group">
+          <div class="white-group">
             <%= f.cfa_checkbox(
                   income_type,
                   t(".#{income_type}", count: current_intake.filer_count),
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="question-with-follow-up__follow-up" id=<%=income_type %>>
-          <div class="blue-group">
+          <div class="white-group">
             <div class="spacing-below-25">
               <p><%= t(".#{income_type}_amount") %></p>
               <p><%= t(".should_not_exceed_taxable_pensions_total_html", total: number_to_currency(current_intake.direct_file_data.fed_taxable_pensions)) %></p>

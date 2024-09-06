@@ -3,7 +3,7 @@ require "rails_helper"
 describe StateFile::StateInformationService do
   describe ".active_state_codes" do
     it "returns the list of state codes as strings" do
-      expect(described_class.active_state_codes).to match_array ["az", "nc", "ny"]
+      expect(described_class.active_state_codes).to match_array ["az", "nc", "nj", "ny"]
     end
   end
 
@@ -30,6 +30,7 @@ describe StateFile::StateInformationService do
       result = {
         "az" => "Arizona",
         "nc" => "North Carolina",
+        "nj" => "New Jersey",
         "ny" => "New York",
       }
       expect(described_class.state_code_to_name_map).to eq result

@@ -146,7 +146,7 @@ jobs:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
       - run: RAILS_ENV=test bin/shakapacker
       - run:
-          command: bundle exec parallel_rspec -n 12 || touch /tmp/re-run
+          command: bundle exec parallel_rspec -n 12 -o "--tag ~required_schema:nj" || touch /tmp/re-run
           environment:
             EAGER_LOAD: 1
             RAILS_CACHE_CLASSES: 1

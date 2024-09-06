@@ -2056,4 +2056,346 @@ RSpec.describe Hub::ClientsController do
       end
     end
   end
+
+  context "as a greeter" do
+    shared_examples "it doesn't require being assigned to a user" do |return_status|
+      context "when the organization allows greeters" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).not_to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be ok for clients with an #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_ok
+          end
+        end
+      end
+
+      context "when the organization does not allow greeters" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be forbidden for clients with a #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+
+    shared_examples "it requires being assigned to a user" do |return_status|
+      context "when the organization allows greeters but has no assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it 'should be forbidden for clients with an intake_ready return' do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+
+      context "when the organization does not allow greeters and has no assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it 'should be forbidden for clients with an intake_ready return' do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+
+      context "when the organization allows greeters and has an assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+                assigned_user: user,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+        describe "#index" do
+          it "should have clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).not_to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be ok for clients with an #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_ok
+          end
+        end
+      end
+    end
+
+    it_behaves_like "it doesn't require being assigned to a user", :intake_ready
+    it_behaves_like "it doesn't require being assigned to a user", :intake_greeter_info_requested
+    it_behaves_like "it doesn't require being assigned to a user", :intake_needs_doc_help
+
+    it_behaves_like "it requires being assigned to a user", :file_not_filing
+  end
 end

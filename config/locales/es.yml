@@ -2056,6 +2056,13 @@ es:
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de North Carolina
           title: Presenta tus impuestos estatales de North Carolina sin costo
+        nj:
+          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>New Jersey Office of Innovation</strong> para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
+            Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          supported_by: Respaldada por el New Jersey Office of Innovation
+          title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
         ny:
           built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
