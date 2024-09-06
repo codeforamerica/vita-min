@@ -75,7 +75,7 @@ class DirectFileData < DfXmlAccessor
     SELECTORS
   end
 
-  define_xml_methods
+  define_xml_readers
 
   def parsed_xml
     @parsed_xml ||= Nokogiri::XML(@raw_xml)
@@ -89,6 +89,22 @@ class DirectFileData < DfXmlAccessor
     parsed_xml.to_s
   end
 
+  def tax_return_year=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def filing_status=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_ssn=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_occupation=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def spouse_ssn=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimarySSN")
 
@@ -97,20 +113,12 @@ class DirectFileData < DfXmlAccessor
     end
   end
 
-  def spouse_occupation
-    df_xml_value(__method__)
-  end
-
   def spouse_occupation=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
 
     if value.present?
       write_df_xml_value(__method__, value)
     end
-  end
-
-  def surviving_spouse
-    df_xml_value(__method__)
   end
 
   def spouse_deceased?
@@ -127,19 +135,11 @@ class DirectFileData < DfXmlAccessor
     end
   end
 
-  def spouse_date_of_death
-    df_xml_value(__method__)
-  end
-
   def spouse_date_of_death=(value)
     if value.present?
       create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
       write_df_xml_value(__method__, value)
     end
-  end
-
-  def spouse_name
-    df_xml_value(__method__)
   end
 
   def spouse_name=(value)
@@ -148,40 +148,20 @@ class DirectFileData < DfXmlAccessor
     end
   end
 
-  def mailing_city
-    df_xml_value(__method__)
-  end
-
   def mailing_city=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def mailing_street
-    df_xml_value(__method__)
   end
 
   def mailing_street=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def mailing_apartment
-    df_xml_value(__method__)
-  end
-
   def mailing_apartment=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def mailing_state
-    df_xml_value(__method__)
-  end
-
   def mailing_state=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def mailing_zip
-    df_xml_value(__method__)
   end
 
   def mailing_zip=(value)

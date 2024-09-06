@@ -13,6 +13,7 @@
       <PrimaryNameControlTxt>ROSE</PrimaryNameControlTxt>
       <USAddress>
         <AddressLine1Txt>321 Roland St</AddressLine1Txt>
+        <AddressLine2Txt>Apt B</AddressLine2Txt>
         <CityNm>Phoenix</CityNm>
         <StateAbbreviationCd>AZ</StateAbbreviationCd>
         <ZIPCd>85034</ZIPCd>
@@ -29,6 +30,8 @@
   <ReturnData documentCnt="5">
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <SpouseNm>Allen</SpouseNm>
+      <SpouseDeathDt>2024-07-06</SpouseDeathDt>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
       <DependentDetail>
@@ -90,6 +93,8 @@
       <EsPenaltyAmt>0</EsPenaltyAmt>
       <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
       <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Actor</SpouseOccupationTxt>
+      <SurvivingSpouseInd>X</SurvivingSpouseInd>
       <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
     </IRS1040>
     <IRS1040Schedule1 documentId="IRS1040S1001">

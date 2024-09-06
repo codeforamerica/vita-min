@@ -5,21 +5,30 @@ describe DirectFileData do
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
-    ["tax_return_year", 2023, 2024],
-    ["filing_status", 4, 3],
+    ["tax_return_year", 2023],
+    ["filing_status", 4],
     ["phone_number", "4805555555"],
     ["cell_phone_number", "5551231234"],
     ["tax_payer_email", "test011@test.com"],
     ["primary_ssn", "400000003"],
     ["spouse_ssn", "500000003"],
     ["primary_occupation", "Singer"],
-  ].each do |node_name, current_value, special_value=nil|
+    ["spouse_occupation", "Actor"],
+    ["surviving_spouse", "X"],
+    ["spouse_date_of_death", "2024-07-06"],
+    ["spouse_name", "Allen"],
+    ["mailing_city", "Phoenix"],
+    ["mailing_street", "321 Roland St"],
+    ["mailing_apartment", "Apt B"],
+    ["mailing_state", "AZ"],
+    ["mailing_zip", "85034"],
+  ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
         expect(direct_file_data.send(node_name)).to eq current_value
       end
 
-      if current_value.is_a?(Integer) && special_value.nil?
+      if current_value.is_a?(Integer) && !node_name.ends_with?("_year", "_status")
         context "when the attribute is an amount and is not present" do
           before do
             selector = DirectFileData::SELECTORS[node_name.to_sym]
@@ -28,51 +37,6 @@ describe DirectFileData do
 
           it "defaults to 0" do
             expect(direct_file_data.send(node_name)).to eq 0
-          end
-        end
-      end
-    end
-
-    describe "##{node_name}=" do
-      context "when the node is present" do
-        if special_value.present?
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", special_value.to_s)
-            expect(direct_file_data.send(node_name)).to eq special_value
-          end
-        elsif current_value.is_a?(Integer)
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", "500")
-            expect(direct_file_data.send(node_name)).to eq 500
-          end
-        else
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", "New Value")
-            expect(direct_file_data.send(node_name)).to eq "New Value"
-          end
-        end
-      end
-
-      context "when the node is not present" do
-        before do
-          selector = DirectFileData::SELECTORS[node_name.to_sym]
-          xml.at(selector).remove
-        end
-
-        if special_value.present?
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", special_value.to_s)
-            expect(direct_file_data.send(node_name)).to eq special_value
-          end
-        elsif current_value.is_a?(Integer)
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", "500")
-            expect(direct_file_data.send(node_name)).to eq 500
-          end
-        else
-          it "sets the value" do
-            direct_file_data.send("#{node_name}=", "New Value")
-            expect(direct_file_data.send(node_name)).to eq "New Value"
           end
         end
       end

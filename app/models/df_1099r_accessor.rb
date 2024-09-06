@@ -23,5 +23,5 @@ class Df1099rAccessor < DfXmlAccessor
     Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).at('IRS1099R')
   end
 
-  define_xml_methods
+  define_xml_accessors
 end
