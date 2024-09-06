@@ -89,6 +89,7 @@ bin/setup
 ```
 > ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
 
+> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
 
 #### Add efile resources locally
 
