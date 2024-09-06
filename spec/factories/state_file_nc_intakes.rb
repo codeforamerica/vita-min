@@ -87,6 +87,12 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_spouse do
+      spouse_first_name { "Spouth" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Carolinian" }
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
     end

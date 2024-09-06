@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe PdfFiller::NcD400Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_nc_intake) }
+  let(:intake) { create(:state_file_nc_intake) }
+  let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
 
   describe '#hash_for_pdf' do
@@ -15,21 +16,109 @@ RSpec.describe PdfFiller::NcD400Pdf do
     end
 
     context "pulling fields from xml" do
-      it 'sets static fields to the correct values' do
-        expect(pdf_fields['y_d400wf_datebeg']).to eq '2024-01-01'
-        expect(pdf_fields['y_d400wf_dateend']).to eq '2024-12-31'
+      let(:intake) { create(:state_file_nc_intake, filing_status: "single") }
+
+      context "single filer" do
+        it 'sets static fields to the correct values' do
+          expect(pdf_fields['y_d400wf_datebeg']).to eq '01-01'
+          expect(pdf_fields['y_d400wf_dateend']).to eq '12-31-24'
+          expect(pdf_fields['y_d400wf_rs1yes']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Off'
+        end
+
+        it "sets other fields to the correct values" do
+          expect(pdf_fields['y_d400wf_fname1']).to eq 'North'
+          expect(pdf_fields['y_d400wf_mi1']).to eq 'A'
+          expect(pdf_fields['y_d400wf_lname1']).to eq 'Carolinian'
+          expect(pdf_fields['y_d400wf_ssn1']).to eq '400000030'
+          expect(pdf_fields['y_d400wf_add']).to eq '123 Red Right Hand St Apt 1'
+          expect(pdf_fields['y_d400wf_apartment number']).to eq 'Apt 1'
+          expect(pdf_fields['y_d400wf_city']).to eq 'Raleigh'
+          expect(pdf_fields['y_d400wf_state']).to eq 'NC'
+          expect(pdf_fields['y_d400wf_zip']).to eq '27513'
+
+          expect(pdf_fields['y_d400wf_fstat1']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_fstat2']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat3']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat4']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat5']).to eq 'Off'
+        end
       end
 
-      it "sets client-specific fields to the correct values" do
-        expect(pdf_fields['y_d400wf_fname1']).to eq 'North'
-        expect(pdf_fields['y_d400wf_mi1']).to eq 'A'
-        expect(pdf_fields['y_d400wf_lname1']).to eq 'Carolinian'
-        expect(pdf_fields['y_d400wf_ssn1']).to eq '400000030'
-        expect(pdf_fields['y_d400wf_add']).to eq '123 Red Right Hand St Apt 1'
-        expect(pdf_fields['y_d400wf_apartment number']).to eq 'Apt 1'
-        expect(pdf_fields['y_d400wf_city']).to eq 'Raleigh'
-        expect(pdf_fields['y_d400wf_state']).to eq 'NC'
-        expect(pdf_fields['y_d400wf_zip']).to eq '27513'
+      context "mfj filers" do
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly") }
+
+        before do
+          submission.data_source.direct_file_data.spouse_date_of_death = "2024-09-30"
+        end
+
+        it 'sets static fields to the correct values' do
+          expect(pdf_fields['y_d400wf_datebeg']).to eq '01-01'
+          expect(pdf_fields['y_d400wf_dateend']).to eq '12-31-24'
+          expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Yes'
+        end
+
+        it "sets other (spouse-specific) fields to the correct values" do
+          expect(pdf_fields['y_d400wf_fname2']).to eq 'Spouth'
+          expect(pdf_fields['y_d400wf_mi2']).to eq 'B'
+          expect(pdf_fields['y_d400wf_lname2']).to eq 'Carolinian'
+          expect(pdf_fields['y_d400wf_ssn2']).to eq '600000030'
+          expect(pdf_fields['y_d400wf_dead2']).to eq '09-30-24'
+
+          expect(pdf_fields['y_d400wf_fstat2']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_fstat1']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat3']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat4']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat5']).to eq 'Off'
+        end
+      end
+
+      context "mfs filer" do
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_separately") }
+        before do
+          submission.data_source.direct_file_data.spouse_name = "Stella Crumpets"
+          submission.data_source.direct_file_data.spouse_ssn = "111100030"
+        end
+
+        it "sets filing status field to the correct value" do
+          expect(pdf_fields['y_d400wf_sname2']).to eq 'Stella Crumpets'
+          expect(pdf_fields['y_d400wf_sssn2']).to eq '111100030'
+
+          expect(pdf_fields['y_d400wf_fstat1']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat2']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat3']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_fstat4']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat5']).to eq 'Off'
+        end
+      end
+
+      context "hoh filer" do
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "head_of_household") }
+
+        it "sets filing status field to the correct value" do
+          expect(pdf_fields['y_d400wf_fstat1']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat2']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat3']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat4']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_fstat5']).to eq 'Off'
+        end
+      end
+
+      context "qw filer" do
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "qualifying_widow") }
+        before do
+          submission.data_source.direct_file_data.spouse_date_of_death = "2024-06-07"
+        end
+
+        it "sets filing status field to the correct value" do
+          expect(pdf_fields['y_d400wf_fstat1']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat2']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat3']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat4']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_fstat5']).to eq 'Yes'
+
+          expect(pdf_fields['y_d400wf_dead3']).to eq '2024'
+        end
       end
     end
   end

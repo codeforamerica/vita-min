@@ -16,18 +16,39 @@ module PdfFiller
 
     def hash_for_pdf
       {
-        y_d400wf_datebeg: @xml_document.at('ReturnHeaderState TaxPeriodBeginDt').text,
-        y_d400wf_dateend: @xml_document.at('ReturnHeaderState TaxPeriodEndDt').text,
+        y_d400wf_datebeg: formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt').text, "%m-%d"),
+        y_d400wf_dateend: formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt').text, "%m-%d-%y"),
+        y_d400wf_ssn1: @xml_document.at('Primary TaxpayerSSN').text,
+        y_d400wf_ssn2: @xml_document.at('Secondary TaxpayerSSN')&.text,
         y_d400wf_fname1: @xml_document.at('Primary TaxpayerName FirstName').text,
         y_d400wf_mi1: @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
         y_d400wf_lname1: @xml_document.at('Primary TaxpayerName LastName').text,
-        y_d400wf_ssn1: @xml_document.at('Primary TaxpayerSSN').text,
+        y_d400wf_fname2: @xml_document.at('Secondary TaxpayerName FirstName')&.text,
+        y_d400wf_mi2: @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
+        y_d400wf_lname2: @xml_document.at('Secondary TaxpayerName LastName')&.text,
         y_d400wf_add: @xml_document.at('Filer USAddress AddressLine1Txt').text,
         'y_d400wf_apartment number': @xml_document.at('Filer USAddress AddressLine2Txt').text,
         y_d400wf_city: @xml_document.at('Filer USAddress CityNm').text,
         y_d400wf_state: @xml_document.at('Filer USAddress StateAbbreviationCd').text,
-        y_d400wf_zip: @xml_document.at('Filer USAddress ZIPCd').text
+        y_d400wf_zip: @xml_document.at('Filer USAddress ZIPCd').text,
+        y_d400wf_dead2: formatted_date(@xml_document.at('Secondary DateOfDeath')&.text, "%m-%d-%y"),
+        y_d400wf_rs1yes: 'Yes',
+        y_d400wf_rs2yes: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
+        y_d400wf_fstat1: @submission.data_source.filing_status_single? ? 'Yes' : 'Off',
+        y_d400wf_fstat2: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
+        y_d400wf_fstat3: @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
+        y_d400wf_fstat4: @submission.data_source.filing_status_hoh? ? 'Yes' : 'Off',
+        y_d400wf_fstat5: @submission.data_source.filing_status_qw? ? 'Yes' : 'Off',
+        y_d400wf_sname2: @xml_document.at('MFSSpouseName')&.text,
+        y_d400wf_sssn2: @xml_document.at('MFSSpouseSSN')&.text,
+        y_d400wf_dead3: @xml_document.at('QWYearSpouseDied')&.text,
       }
+    end
+
+    def formatted_date(date_str, format)
+      return if date_str.nil?
+
+      Date.parse(date_str)&.strftime(format)
     end
   end
 end
