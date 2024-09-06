@@ -2484,8 +2484,7 @@ en:
       nc_review:
         edit:
           amount: Amount
-          out_of_state_purchases: Out of state purchases/Use Tax Applied
-          sales_or_use_tax: Sales or use tax
+          use_tax_applied: Consumer Use Tax Applied
       ny_county:
         edit:
           county: County
@@ -2672,7 +2671,7 @@ en:
           select_one: 'Select one of the following:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for ‘consumer use worksheet’).
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
           subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?

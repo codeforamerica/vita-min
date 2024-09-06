@@ -2457,8 +2457,7 @@ es:
       nc_review:
         edit:
           amount: Cantidad
-          out_of_state_purchases: Compras fuera del estado/Impuesto de Uso Aplicado
-          sales_or_use_tax: Impuestos de venta o de uso
+          use_tax_applied: Impuesto de Uso Aplicado
       ny_county:
         edit:
           county: Condado
@@ -2659,14 +2658,14 @@ es:
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
-              manual_instructions_html: '(<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca ''exact calculation method’)'
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'exact calculation method')
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso.
           title:
             many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
             one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
             other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
-          use_tax_method_manual_html: 'Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.'
+          use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.

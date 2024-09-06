@@ -4,7 +4,7 @@
 
   <div id="use-tax" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".out_of_state_purchases") %></p>
+      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied") %></p>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
       <p><%=number_to_currency(current_intake.sales_use_tax)%></p>
