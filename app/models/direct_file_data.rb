@@ -16,7 +16,7 @@ class DirectFileData < DfXmlAccessor
     phone_number: 'ReturnHeader Filer PhoneNum',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
-    fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
+    fed_tax_amt: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
@@ -168,11 +168,7 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def fed_tax
-    df_xml_value(__method__)&.to_i || 0
-  end
-
-  def fed_tax=(value)
+  def fed_tax_amt=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -792,7 +788,7 @@ class DirectFileData < DfXmlAccessor
       :cell_phone_number,
       :tax_payer_email,
       :total_state_tax_withheld,
-      :fed_tax,
+      :fed_tax_amt,
       :fed_agi,
       :fed_wages,
       :fed_wages_salaries_tips,

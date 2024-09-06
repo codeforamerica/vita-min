@@ -14,7 +14,7 @@ class DfXmlAccessor
 
   def self.define_xml_readers
     self.selectors.keys.each do |key|
-      if key.ends_with?("Amt")
+      if key.ends_with?("Amt", "_amt")
         define_method(key) do
           df_xml_value(__method__)&.to_i || 0
         end

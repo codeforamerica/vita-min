@@ -22,6 +22,7 @@ describe DirectFileData do
     ["mailing_apartment", "Apt B"],
     ["mailing_state", "AZ"],
     ["mailing_zip", "85034"],
+    ["fed_tax_amt", 1993],
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
