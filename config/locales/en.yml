@@ -2476,6 +2476,11 @@ en:
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
+      nc_review:
+        edit:
+          amount: Amount
+          out_of_state_purchases: Out of state purchases/Use Tax Applied
+          sales_or_use_tax: Sales or use tax
       ny_county:
         edit:
           county: County

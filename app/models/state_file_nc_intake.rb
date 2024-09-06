@@ -79,7 +79,6 @@ class StateFileNcIntake < StateFileBaseIntake
     calculated_sales_use_tax
   end
 
-
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|

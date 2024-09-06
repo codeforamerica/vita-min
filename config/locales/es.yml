@@ -2447,6 +2447,11 @@ es:
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
           your_dob: Tu fecha de nacimiento
+      nc_review:
+        edit:
+          amount: Cantidad
+          out_of_state_purchases: Compras fuera del estado/Impuesto de Uso Aplicado
+          sales_or_use_tax: Impuestos de venta o de uso
       ny_county:
         edit:
           county: Condado

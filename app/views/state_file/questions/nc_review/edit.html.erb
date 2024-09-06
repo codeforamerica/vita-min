@@ -1,0 +1,16 @@
+<% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
+<% content_for :card do %>
+  <%= render "state_file/questions/shared/review_header" %>
+
+  <div id="use-tax" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".out_of_state_purchases") %></p>
+      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
+      <p><%=number_to_currency(current_intake.sales_use_tax)%></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NySalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <%= render "state_file/questions/shared/review_footer" %>
+<% end %>
