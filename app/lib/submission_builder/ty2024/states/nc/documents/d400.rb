@@ -31,7 +31,7 @@ module SubmissionBuilder
                   xml.MFSSpouseName @submission.data_source.direct_file_data.spouse_name
                   xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
                 end
-                if @submission.data_source.filing_status_qw?
+                if @submission.data_source.filing_status_qw? && @submission.data_source.direct_file_data.spouse_date_of_death.present?
                   xml.QWYearSpouseDied Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death).year
                 end
                 xml.FAGI @submission.data_source.direct_file_data.fed_agi
