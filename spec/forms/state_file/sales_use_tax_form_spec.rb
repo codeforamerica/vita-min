@@ -127,7 +127,7 @@ RSpec.describe StateFile::SalesUseTaxForm do
 
           it "is invalid" do
             expect(form.valid?).to eq false
-            expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount."
+            expect(form.errors[:sales_use_tax]).to include "Please enter a positive dollar amount."
           end
         end
       end

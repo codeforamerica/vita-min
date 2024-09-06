@@ -7,6 +7,11 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
+        state_file/sales_use_tax_form:
+          attributes:
+            sales_use_tax:
+              not_a_number: Please enter a dollar amount.
+              greater_than_or_equal_to: Please enter a positive dollar amount.
   activerecord:
     errors:
       models:
@@ -2667,7 +2672,6 @@ en:
       sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
-          enter_valid_dollar_amount: Please enter a dollar amount.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
