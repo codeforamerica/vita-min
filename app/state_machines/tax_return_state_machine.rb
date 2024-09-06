@@ -67,7 +67,8 @@ class TaxReturnStateMachine
         'intake_needs_doc_help'
       ],
       'file' => [
-        'file_not_filing'
+        'file_not_filing',
+        'file_hold',
       ]
     }
   }

@@ -95,7 +95,8 @@ class Ability
         Client,
         tax_returns: {
           current_state: [
-            'file_not_filing'
+            'file_not_filing',
+            'file_hold',
           ],
           assigned_user: user,
         },

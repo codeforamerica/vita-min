@@ -90,12 +90,34 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_spouse do
+      spouse_first_name { "Spouth" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Carolinian" }
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
     end
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+    end
+
+    trait :single do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('tucker_single') }
+    end
+
+    trait :head_of_household do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_mfs') }
+    end
+
+    trait :married_filing_separately do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('sheldon_mfs') }
+    end
+
+    trait :qualified_widow do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('laney_qss') }
     end
   end
 end
