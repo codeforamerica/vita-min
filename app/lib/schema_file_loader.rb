@@ -43,8 +43,12 @@ class SchemaFileLoader
           bucket: BUCKET,
           key: File.basename(download_path),
         )
-      rescue Aws::S3::Errors::NoSuchKey
-        next if optional
+      rescue Aws::S3::Errors::NoSuchKey => error
+        if optional
+          next
+        else
+          raise error
+        end
       end
     end
 
