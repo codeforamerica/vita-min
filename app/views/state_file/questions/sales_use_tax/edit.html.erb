@@ -29,7 +29,7 @@
                   label_text: t(".select_one"),
                   collection: [
                     { value: :automated, label: t(".use_tax_method_automated"), input_html: { "onclick": "document.querySelector('#sut-field').style.display = 'none'"} },
-                    { value: :manual, label: t(".use_tax_method_manual_html"), input_html: { "data-follow-up": "#sut-field" } },
+                    { value: :manual, label: "#{t(".use_tax_method_manual")} #{t(".state_specific.#{current_state_code}.manual_instructions_html")}", input_html: { "data-follow-up": "#sut-field" } },
                   ]
                 )
               %>
