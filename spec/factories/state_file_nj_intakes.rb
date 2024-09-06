@@ -98,6 +98,8 @@ FactoryBot.define do
         qualifying_widow: 5,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
+      intake.direct_file_data.primary_ssn = evaluator.primary_ssn || intake.direct_file_data.primary_ssn
+      intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn || intake.direct_file_data.spouse_ssn
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
