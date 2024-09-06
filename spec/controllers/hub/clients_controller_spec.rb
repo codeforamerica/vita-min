@@ -2397,5 +2397,6 @@ RSpec.describe Hub::ClientsController do
     it_behaves_like "it doesn't require being assigned to a user", :intake_needs_doc_help
 
     it_behaves_like "it requires being assigned to a user", :file_not_filing
+    it_behaves_like "it requires being assigned to a user", :file_hold
   end
 end

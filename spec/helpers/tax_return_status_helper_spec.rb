@@ -69,7 +69,7 @@ describe TaxReturnStatusHelper do
                      [["Ready for review", "intake_ready"],
                       ["Greeter - info requested", "intake_greeter_info_requested"],
                       ["Needs doc help", "intake_needs_doc_help"]]],
-                    ["Final steps", [["Not filing", "file_not_filing"]]]]
+                    ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
                  )
       end
     end
