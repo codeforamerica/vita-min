@@ -3,11 +3,36 @@ require 'net/https'
 require 'uri'
 require 'jwt'
 require 'nokogiri'
+require 'securerandom'
+
 require_relative 'state_file/xml_return_sample_service'
 
 class IrsApiService
   def self.df_return_sample
     StateFile::XmlReturnSampleService.new.old_sample
+  end
+
+  def self.create_auth_code
+    tax_return_uuid = SecureRandom.uuid
+    tax_return_uuid[0] = "a"
+    submission_id = "fake-submission-id"
+    tax_year = 2024
+    state_code = "FS"
+    request_body = {
+      taxReturnUuid: tax_return_uuid,
+      submissionId: submission_id,
+      taxYear: tax_year,
+      stateCode: state_code
+    }.to_json
+
+    request = Net::HTTP::Post.new(auth_code_url.request_uri, )
+    request.body = request_body
+    request.content_type = "application/json"
+
+    http = Net::HTTP.new(auth_code_url.host, auth_code_url.port)
+    http.use_ssl = true
+    response = http.request(request)
+    response.body.delete("\"")
   end
 
   def self.import_federal_data(authorization_code, _state_code)
@@ -48,7 +73,8 @@ class IrsApiService
 
       # CA chain for the IRS server certificate, so that we can verify it in mTLS
       http.ca_file = "config/entrust_l1k_full_chain.cer"
-
+    elsif server_url.host.ends_with?('cloud.gov')
+      # No mTLS on this endpoint
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -64,6 +90,8 @@ class IrsApiService
     request.initialize_http_header({'Authorization' => "Bearer #{token}"})
 
     response = http.request(request)
+
+    puts response.body
 
     if ENV['IRS_SAVE_RESPONSE']
       # Capture the entire response (body + headers) from the IRS in a file
@@ -135,7 +163,7 @@ class IrsApiService
     end
 
     def client_key_bytes
-      if server_url.host.ends_with?('irs.gov')
+      if server_url.host.ends_with?('irs.gov') || server_url.host.ends_with?('cloud.gov')
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.key'))
@@ -149,6 +177,10 @@ class IrsApiService
     else
       URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
     end
+  end
+
+  def self.auth_code_url
+    URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_auth_code))
   end
 
   def self.save_response(response, filename)
