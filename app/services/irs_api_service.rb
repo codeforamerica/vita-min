@@ -106,7 +106,14 @@ class IrsApiService
 
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
     decipher.decrypt
-    decipher.key = cert_finder.client_key.private_decrypt(Base64.decode64(response.header['SESSION-KEY']))
+    client_key = cert_finder.client_key
+    session_key = Base64.decode64(response.header['SESSION-KEY'])
+
+    label = ''
+    md_oaep = OpenSSL::Digest::SHA256
+    md_mgf1 = OpenSSL::Digest::SHA1
+
+    decipher.key = client_key.private_decrypt_oaep(session_key, label, md_oaep, md_mgf1)
     decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
     encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
 
