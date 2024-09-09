@@ -84,17 +84,18 @@ describe SchemaFileLoader do
 
   context "#get_missing_downloads" do
     it "gets missing downloads" do
-      expect(SchemaFileLoader.get_missing_downloads("testy")).
-        to eq [
-          ["testy/irs/efile1040x_2020v5.1.zip", false],
-          ["testy/irs/efile1040x_2021v5.2.zip", false],
-          ["testy/irs/efile1040x_2022v5.3.zip", false],
-          ["testy/irs/efile1040x_2023v5.0.zip", false],
-          ["testy/us_states/AZIndividual2023v1.0.zip", false],
-          ["testy/us_states/NCIndividual2023v1.0.zip", false],
-          ["testy/us_states/NJIndividual2023V0.4.zip", true],
-          ["testy/us_states/NYSIndividual2023V4.0.zip", false],
+      expect(SchemaFileLoader.get_missing_downloads("testy")).to eq(
+        [
+          ["testy/irs/efile1040x_2020v5.1.zip", 'irs', false],
+          ["testy/irs/efile1040x_2021v5.2.zip", 'irs', false],
+          ["testy/irs/efile1040x_2022v5.3.zip", 'irs', false],
+          ["testy/irs/efile1040x_2023v5.0.zip", 'irs', false],
+          ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states', false],
+          ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states', false],
+          ["testy/us_states/NJIndividual2023V0.4.zip", 'us_states', true],
+          ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states', true]
         ]
+      )
     end
   end
 end
