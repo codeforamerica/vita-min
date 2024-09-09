@@ -297,56 +297,28 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def fed_calculated_difference_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_calculated_difference_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_nontaxable_combat_pay_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_nontaxable_combat_pay_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_total_earned_income_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_total_earned_income_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_puerto_rico_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_puerto_rico_income_exclusion_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_total_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_total_income_exclusion_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_housing_deduction_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_housing_deduction_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_gross_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_gross_income_exclusion_amount=(value)

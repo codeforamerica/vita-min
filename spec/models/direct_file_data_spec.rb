@@ -23,6 +23,13 @@ describe DirectFileData do
     ["mailing_state", "AZ"],
     ["mailing_zip", "85034"],
     ["fed_tax_amt", 1993],
+    ["fed_calculated_difference_amount", 1634],
+    ["fed_nontaxable_combat_pay_amount", 10],
+    ["fed_total_earned_income_amount", 35000],
+    ["fed_puerto_rico_income_exclusion_amount", 80],
+    ["fed_total_income_exclusion_amount", 600],
+    ["fed_housing_deduction_amount", 700],
+    ["fed_gross_income_exclusion_amount", 900],
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do

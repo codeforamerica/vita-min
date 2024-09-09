@@ -66,6 +66,7 @@
       <TotalIncomeAmt>40000</TotalIncomeAmt>
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
       <AdjustedGrossIncomeAmt>40000</AdjustedGrossIncomeAmt>
+      <ExcldSect933PuertoRicoIncmAmt>80</ExcldSect933PuertoRicoIncmAmt>
       <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
       <TotalDeductionsAmt>20800</TotalDeductionsAmt>
       <TaxableIncomeAmt>19200</TaxableIncomeAmt>
@@ -99,10 +100,13 @@
     </IRS1040>
     <IRS1040Schedule1 documentId="IRS1040S1001">
       <UnemploymentCompAmt>5000</UnemploymentCompAmt>
+      <TotalIncomeExclusionAmt>600</TotalIncomeExclusionAmt>
       <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
       <EducatorExpensesAmt>0</EducatorExpensesAmt>
       <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <HousingDeductionAmt>700</HousingDeductionAmt>
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <GrossIncomeExclusionAmt>900</GrossIncomeExclusionAmt>
     </IRS1040Schedule1>
     <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
       <AdjustedGrossIncomeAmt>40000</AdjustedGrossIncomeAmt>
@@ -125,7 +129,7 @@
         <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
         <ACTCAfterLimitAmt>7</ACTCAfterLimitAmt>
         <TotalEarnedIncomeAmt>35000</TotalEarnedIncomeAmt>
-        <NontaxableCombatPayAmt>0</NontaxableCombatPayAmt>
+        <NontaxableCombatPayAmt>10</NontaxableCombatPayAmt>
         <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
         <NetTotalEarnedIncomeAmt>32500</NetTotalEarnedIncomeAmt>
         <NetEarnedIncomeCalculatedAmt>4875</NetEarnedIncomeCalculatedAmt>
