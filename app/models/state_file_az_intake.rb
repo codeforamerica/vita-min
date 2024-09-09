@@ -52,6 +52,8 @@
 #  primary_was_incarcerated                    :integer          default("unfilled"), not null
 #  prior_last_names                            :string
 #  raw_direct_file_data                        :text
+#  raw_direct_file_intake_data                 :jsonb
+#  raw_direct_file_tax_return_data             :text
 #  received_military_retirement_payment        :integer          default("unfilled"), not null
 #  received_military_retirement_payment_amount :decimal(12, 2)
 #  referrer                                    :string
@@ -90,9 +92,9 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_tax_return_data, :raw_direct_file_intake_data
 
-  has_many :az322_contributions, dependent: :destroy
+           has_many :az322_contributions, dependent: :destroy
   has_many :az321_contributions, dependent: :destroy
   enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
   # TODO: decide what to do with was_incarcerated column; see if data science wants to keep the historic data

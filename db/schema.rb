@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_09_221843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1701,6 +1701,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.text "raw_direct_file_tax_return_data"
     t.integer "received_military_retirement_payment", default: 0, null: false
     t.decimal "received_military_retirement_payment_amount", precision: 12, scale: 2
     t.string "referrer"
@@ -1805,8 +1807,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.string "primary_middle_initial"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.text "raw_direct_file_tax_return_data"
     t.string "referrer"
     t.integer "routing_number"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -1820,6 +1826,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.string "street_address"
     t.integer "tax_return_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
@@ -1874,6 +1881,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.text "raw_direct_file_tax_return_data"
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1984,6 +1993,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.text "raw_direct_file_tax_return_data"
     t.string "referrer"
     t.string "residence_county"
     t.string "routing_number"

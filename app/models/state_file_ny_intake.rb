@@ -70,6 +70,8 @@
 #  property_over_limit                :integer          default("unfilled"), not null
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
+#  raw_direct_file_intake_data        :jsonb
+#  raw_direct_file_tax_return_data    :text
 #  referrer                           :string
 #  residence_county                   :string
 #  routing_number                     :string
@@ -133,7 +135,7 @@ class StateFileNyIntake < StateFileBaseIntake
     "146013200"
   ].freeze
 
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_tax_return_data, :raw_direct_file_intake_data
   
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
   enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home

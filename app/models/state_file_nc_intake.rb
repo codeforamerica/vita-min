@@ -38,8 +38,12 @@
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
+#  raw_direct_file_tax_return_data   :text
 #  referrer                          :string
 #  routing_number                    :integer
+#  sales_use_tax                     :decimal(12, 2)
+#  sales_use_tax_calculation_method  :integer          default(0), not null
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -53,6 +57,7 @@
 #  street_address                    :string
 #  tax_return_year                   :integer
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases    :integer          default(0), not null
 #  withdraw_amount                   :integer
 #  zip_code                          :string
 #  created_at                        :datetime         not null
@@ -65,7 +70,7 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_tax_return_data, :raw_direct_file_intake_data
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
