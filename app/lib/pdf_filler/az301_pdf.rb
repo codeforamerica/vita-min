@@ -15,39 +15,26 @@ module PdfFiller
     end
 
     def hash_for_pdf
-      answers = {
-        "TY_Beg" => "0101",
-        "TY_End" => "1231#{Rails.configuration.statefile_current_tax_year}",
-        "TP_Name" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
-        "TP_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
+      {
+        "FY_Beg" => "0101",
+        "FY_End" => "1231#{Rails.configuration.statefile_current_tax_year}",
+        "Tp_Name" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
+        "Tp_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
         "Spouse_Name" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
         "Spouse_SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
-        "4" => @xml_document.at('TotalContributionsContSheet')&.text,
-        "5" => @xml_document.at('TotalContributions')&.text,
-        "9" => '0',
-        "10" => '0',
-        "11" => @xml_document.at('SubTotalAmt')&.text,
-        "12" => @xml_document.at('SingleHOH')&.text,
-        "13" => @xml_document.at('CurrentYrCr')&.text,
-        "20" => @xml_document.at('CurrentYrCr')&.text,
-        "22" => @xml_document.at('TotalAvailCr')&.text,
-        "4h" => @xml_document.at('TotalContributionsContSheet')&.text,
+        "6a" => @xml_document.at('ColumnA CtrbChrtyPrvdAstWrkgPor')&.text,
+        "6c" => @xml_document.at('ColumnC CtrbChrtyPrvdAstWrkgPor')&.text,
+        "7a" => @xml_document.at('ColumnA CtrbMdFePdPblcSchl')&.text,
+        "7c" => @xml_document.at('ColumnC CtrbMdFePdPblcSchl')&.text,
+        "26" => @xml_document.at('ColumnC TotalAvailTaxCr')&.text,
+        "27" => @xml_document.at('ComputedTax')&.text,
+        "33" => @xml_document.at('FamilyIncomeTax')&.text,
+        "34" => @xml_document.at('DiffFamilyIncTaxSubTotal')&.text,
+        "40" => @xml_document.at('NonrefunCreditsUsed CtrbChrtyPrvdAstWrkgPor')&.text,
+        "41" => @xml_document.at('NonrefunCreditsUsed CtrbMdFePdPblcSchl')&.text,
+        "60" => @xml_document.at('TxCrUsedForm301')&.text,
+        "62" => @xml_document.at('TxCrUsedForm301')&.text,
       }
-      @submission.data_source.az322_contributions.each_with_index do |contribution, index|
-        if index < 3 # First three contributions on the first page with labels 1-3
-          prefix = (index + 1).to_s
-        else
-          letter = ('a'..'g').to_a[index - 3] # Remaining contributions on page 3 use labels #4a-4g
-          prefix = "4#{letter}"
-        end
-        answers["#{prefix}a"] = contribution.date_of_contribution.strftime("%m%d")
-        answers["#{prefix}b"] = contribution.ctds_code
-        answers["#{prefix}c"] = contribution.school_name
-        answers["#{prefix}d"] = contribution.district_name
-        answers["#{prefix}e"] = contribution.amount.round
-      end
-
-      answers
     end
   end
 end

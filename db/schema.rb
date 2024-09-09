@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_03_144518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1804,6 +1804,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_suffix"
+    t.integer "primary_veteran", default: 0, null: false
     t.text "raw_direct_file_data"
     t.string "referrer"
     t.integer "routing_number"
@@ -1816,6 +1817,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
     t.string "ssn"
     t.string "street_address"
     t.integer "tax_return_year"

@@ -5,46 +5,34 @@ module SubmissionBuilder
         module Documents
           class Az301 < SubmissionBuilder::Document
             include SubmissionBuilder::FormattingMethods
-
             def document
+              @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+
               build_xml_doc("Form301") do |xml|
-                @submission.data_source.az322_contributions.first(3).each do |contribution|
-                  xml.SContribMadeTo do
-                    xml.SchoolContrDate contribution.date_of_contribution
-                    xml.CTDSCode contribution.ctds_code
-                    xml.SchoolName contribution.school_name
-                    xml.SchoolDist contribution.district_name
-                    xml.Contributions contribution.amount.round
+                xml.NonRfndTaxCr do
+                  xml.ColumnA do
+                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ301_LINE_6a)
+                    xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_7a)
+                  end
+                  xml.ColumnC do
+                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ322_LINE_20)
+                    xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_7c)
+                    xml.TotalAvailTaxCr @calculated_fields.fetch(:AZ301_LINE_26)
                   end
                 end
-                add_non_zero_value(xml, :TotalContributionsContSheet, :AZ322_LINE_4)
-                xml.TotalContributions calculated_fields.fetch(:AZ322_LINE_5)
-                xml.SubTotalAmt calculated_fields.fetch(:AZ322_LINE_11)
-                xml.SingleHOH calculated_fields.fetch(:AZ322_LINE_12)
-                xml.CurrentYrCr calculated_fields.fetch(:AZ322_LINE_13)
-                xml.TotalAvailCr calculated_fields.fetch(:AZ322_LINE_22)
-                if @submission.data_source.az322_contributions.count > 3
-                  xml.ContinuationPages do
-                    @submission.data_source.az322_contributions.drop(3).each do |contribution|
-                      xml.SContribMadeTo do
-                        xml.SchoolContrDate contribution.date_of_contribution
-                        xml.CTDSCode contribution.ctds_code
-                        xml.SchoolName contribution.school_name
-                        xml.SchoolDist contribution.district_name
-                        xml.Contributions contribution.amount.round
-                      end
-                    end
-                    xml.TotalContributions calculated_fields.fetch(:AZ322_LINE_4)
-                    xml.TotalContributionsAfter 0
+                xml.AppTaxCr do
+                  xml.ComputedTax @calculated_fields.fetch(:AZ301_LINE_27)
+                  xml.Subtotal 0
+                  xml.FamilyIncomeTax @calculated_fields.fetch(:AZ301_LINE_33)
+                  xml.DiffFamilyIncTaxSubTotal @calculated_fields.fetch(:AZ301_LINE_34)
+                  xml.NonrefunCreditsUsed do
+                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ301_LINE_40)
+                    xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_41)
                   end
+                  xml.TxCrUsedForm301 @calculated_fields.fetch(:AZ301_LINE_62)
+                  xml.TotalAvailTaxCrClm @calculated_fields.fetch(:AZ301_LINE_62)
                 end
               end
-            end
-
-            private
-
-            def calculated_fields
-              @calculated_fields ||= @submission.data_source.tax_calculator.calculate
             end
           end
         end
