@@ -4,6 +4,7 @@ require 'uri'
 require 'jwt'
 require 'nokogiri'
 require 'securerandom'
+require 'openssl/oaep'
 
 require_relative 'state_file/xml_return_sample_service'
 
