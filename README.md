@@ -114,8 +114,6 @@ You need to add the following credential files under the `config/credentials` fo
 - `staging.key`
 - `production.key`
 
-And also add the `master.key` file in the `config` folder.
-
 You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
 
 #### Download the GYR Efiler
