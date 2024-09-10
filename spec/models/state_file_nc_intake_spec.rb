@@ -37,6 +37,7 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
+#  primary_veteran                   :integer          default(0), not null
 #  raw_direct_file_data              :text
 #  referrer                          :string
 #  routing_number                    :integer
@@ -49,6 +50,7 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
+#  spouse_veteran                    :integer          default(0), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
