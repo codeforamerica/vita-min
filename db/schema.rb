@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_04_003736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1807,6 +1807,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.text "raw_direct_file_data"
     t.string "referrer"
     t.integer "routing_number"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -1820,6 +1822,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.string "street_address"
     t.integer "tax_return_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
