@@ -196,7 +196,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it "fills in the lines correctly" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
-        # expect(xml.css("Subtractions AZSubtractionsToIncome IntUSObligations").text).to eq "100"
         expect(xml.css("Subtractions IntUSObligations").text).to eq "100"
       end
     end
