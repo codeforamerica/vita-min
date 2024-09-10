@@ -107,7 +107,7 @@ module SubmissionBuilder
               end
               xml.AzAdjSubtotal calculated_fields.fetch(:AZ140_LINE_19)
               xml.Subtractions do
-                xml.IntUSObligations @submission.data_source.direct_file_data.interest_reported_amount if @submission.data_source.direct_file_data.interest_reported_amount > 0
+                add_non_zero_value(xml, :IntUSObligations, :AZ140_LINE_28)
                 xml.USSSRailRoadBnft calculated_fields.fetch(:AZ140_LINE_30)
                 xml.WageAmIndian calculated_fields.fetch(:AZ140_LINE_31)
                 xml.CompNtnlGrdArmdFrcs calculated_fields.fetch(:AZ140_LINE_32)
