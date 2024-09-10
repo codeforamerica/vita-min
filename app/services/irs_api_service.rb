@@ -129,6 +129,8 @@ class IrsApiService
     end
     plain = decipher.update(encrypted_tax_return_bytes) + decipher.final
 
+    puts plain
+
     decrypted_json = JSON.parse(plain)
     decrypted_json['xml'] = Nokogiri::XML(decrypted_json['xml']).to_xml
 

@@ -109,6 +109,8 @@
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+
   LOCALITIES = [
     "NY",
     "N Y",
@@ -130,13 +132,12 @@ class StateFileNyIntake < StateFileBaseIntake
     "MANHATTAN",
     "NEW YORK CIT",
   ].freeze
+
   VALID_TINS = [
     "270293117",
     "146013200"
   ].freeze
 
-  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_tax_return_data, :raw_direct_file_intake_data
-  
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
   enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
