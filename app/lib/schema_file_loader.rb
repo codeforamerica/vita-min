@@ -37,14 +37,14 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      get_missing_downloads(dest_dir).each do |(download_path, download_folder)|
+      get_missing_downloads(dest_dir).each do |(download_path, _, optional)|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
           key: File.basename(download_path),
         )
       rescue Aws::S3::Errors::NoSuchKey => e
-        raise e unless download_folder
+        raise e unless optional
       end
     end
 
@@ -76,7 +76,7 @@ class SchemaFileLoader
       download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder, optional)|
         [File.join(dest_dir, download_folder, filename), download_folder, optional]
       end
-      download_files.filter do |(download_file, _download_folder, _optional)|
+      download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
       end
     end

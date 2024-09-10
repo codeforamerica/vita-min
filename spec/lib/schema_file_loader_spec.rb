@@ -67,14 +67,14 @@ describe SchemaFileLoader do
 
     context "when file is not found" do
       it "should raise an error for non-optional schemas" do
-        allow(SchemaFileLoader).to receive(:get_missing_downloads).with('some_dir').and_return [["state_secrets.zip", false]]
+        allow(SchemaFileLoader).to receive(:get_missing_downloads).with('some_dir').and_return [["state_secrets.zip", 'dir', false]]
         allow_any_instance_of(Aws::S3::Client).to receive(:get_object).and_raise Aws::S3::Errors::NoSuchKey.new("Meant to be a context", "Meant to be a message")
 
         expect { SchemaFileLoader.download_schemas_from_s3('some_dir') }.to raise_error Aws::S3::Errors::NoSuchKey
       end
 
       it "should not raise an error for optional schemas" do
-        allow(SchemaFileLoader).to receive(:get_missing_downloads).with('some_dir').and_return [["state_secrets.zip", true]]
+        allow(SchemaFileLoader).to receive(:get_missing_downloads).with('some_dir').and_return [["state_secrets.zip", 'dir', true]]
         allow_any_instance_of(Aws::S3::Client).to receive(:get_object).and_raise Aws::S3::Errors::NoSuchKey.new("Meant to be a context", "Meant to be a message")
 
         expect { SchemaFileLoader.download_schemas_from_s3('some_dir') }.not_to raise_error
