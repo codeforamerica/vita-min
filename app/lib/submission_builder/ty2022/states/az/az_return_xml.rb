@@ -110,6 +110,9 @@ module SubmissionBuilder
                 xml.USSSRailRoadBnft calculated_fields.fetch(:AZ140_LINE_30)
                 xml.WageAmIndian calculated_fields.fetch(:AZ140_LINE_31)
                 xml.CompNtnlGrdArmdFrcs calculated_fields.fetch(:AZ140_LINE_32)
+                # where the fuck does this go????
+                # 102:0: ERROR: Element '{http://www.irs.gov/efile}IntUSObligations': This element is not expected. Expected is one of ( {http://www.irs.gov/efile}NetOperLossAdj, {http://www.irs.gov/efile}AZCollegeSavingsPlans ).
+                xml.IntUSObligations @submission.data_source.direct_file_data.interest_reported_amount if @submission.data_source.direct_file_data.interest_reported_amount > 0
               end
               xml.TotalSubtractions calculated_fields.fetch(:AZ140_LINE_35)
               xml.Subtotal calculated_fields.fetch(:AZ140_LINE_37)

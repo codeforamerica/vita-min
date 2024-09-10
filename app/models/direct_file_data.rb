@@ -64,7 +64,8 @@ class DirectFileData
     third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
-    non_resident_alien: 'IRS1040 NRALiteralCd'
+    non_resident_alien: 'IRS1040 NRALiteralCd',
+    interest_reported_amount: 'IRS1040 InterestReported', # fake
   }.freeze
 
   def initialize(raw_xml)
@@ -693,6 +694,17 @@ class DirectFileData
   end
 
   def non_resident_alien=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  # fake
+  def interest_reported_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  # fake
+  def interest_reported_amount=(value)
+    create_or_destroy_df_xml_node(__method__, value)
     write_df_xml_value(__method__, value)
   end
 

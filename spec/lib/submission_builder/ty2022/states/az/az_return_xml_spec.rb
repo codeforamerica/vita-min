@@ -189,5 +189,16 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('TotalAvailCr').text).to eq '200'
       end
     end
+
+    context "subtractions" do
+      let(:intake) { create(:state_file_az_intake, :with_1099int_subtraction) }
+
+      it "fills in the lines correctly" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+
+        # expect(xml.css("Subtractions AZSubtractionsToIncome IntUSObligations").text).to eq "100"
+        expect(xml.css("Subtractions IntUSObligations").text).to eq "100"
+      end
+    end
   end
 end

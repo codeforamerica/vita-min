@@ -35,6 +35,7 @@ module PdfFiller
         "10a" => @xml_document.at("DependentsUnder17")&.text,
         "10b" => @xml_document.at("Dependents17AndOlder")&.text,
         "11a" => @xml_document.at("QualifyingParentsAncestors")&.text,
+        "28" => @xml_document.at("Subtractions IntUSObligations")&.text,
       }
 
       non_qualifying_ancestor_dependents = @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?)

@@ -426,6 +426,22 @@ describe DirectFileData do
     end
   end
 
+  # fake field: will be replaced by a real one at some point pending info about df api
+  # when that time comes delete this whole spec in favor of a dynamically generated one (see top of file)
+  describe '#interest_reported_amount' do
+    let(:xml) { StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099") }
+
+    it "reads and writes" do
+      df_data = described_class.new(xml)
+      # defaults to 0
+      expect(df_data.interest_reported_amount).to eq 0
+
+      df_data.interest_reported_amount = 40
+
+      expect(df_data.interest_reported_amount).to eq 40
+    end
+  end
+
   describe "DfW2" do
     let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
     let(:direct_file_data) { DirectFileData.new(xml.to_s) }
