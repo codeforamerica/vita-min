@@ -53,10 +53,15 @@ module SubmissionBuilder
 
                   xml.Exemptions do
                     xml.YouRegular "X"
-                    xml.SpouseCuRegular calculated_fields.fetch(:NJ1040_LINE_6_SPOUSE) ? "X" : ""
-                    xml.DomesticPartnerRegular ""
-                    xml.YouOver65 calculated_fields.fetch(:NJ1040_LINE_7_SELF) ? "X" : ""
-                    xml.SpouseCuPartner65OrOver calculated_fields.fetch(:NJ1040_LINE_7_SPOUSE) ? "X" : ""
+                    if calculated_fields.fetch(:NJ1040_LINE_6_SPOUSE)
+                      xml.SpouseCuRegular "X"
+                    end
+                    if calculated_fields.fetch(:NJ1040_LINE_7_SELF)
+                      xml.YouOver65 "X"
+                    end
+                    if calculated_fields.fetch(:NJ1040_LINE_7_SPOUSE)
+                      xml.SpouseCuPartner65OrOver "X"
+                    end
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
                   end

@@ -30,6 +30,7 @@ describe Efile::Nj::Nj1040 do
     context 'when filer is younger than 65' do
       before do
         intake.primary_birth_date = Date.new(2000, 1, 1)
+        instance.calculate
       end
       it 'does not check the self 65+ checkbox and sets line 7 to 0' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
