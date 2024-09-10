@@ -17,6 +17,7 @@
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
+#  eligibility_withdrew_529          :integer          default(0), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
@@ -72,6 +73,7 @@ class StateFileNcIntake < StateFileBaseIntake
 
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
+  enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
 
   def calculate_sales_use_tax
     # TODO: Implement in FYST-426
@@ -90,6 +92,7 @@ class StateFileNcIntake < StateFileBaseIntake
     {
       eligibility_lived_in_state: "no",
       eligibility_out_of_state_income: "yes",
+      eligibility_withdrew_529: "yes"
     }
   end
 end
