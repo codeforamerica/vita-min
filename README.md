@@ -107,8 +107,11 @@ rake setup:unzip_efile_schemas
 
 You need to add the following credential files under the `config/credentials` folder:
 
+- `circleci.key`
 - `development.key`
 - `demo.key`
+- `heroku.key`
+- `staging.key`
 - `production.key`
 
 And also add the `master.key` file in the `config` folder.
