@@ -2462,6 +2462,8 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          primary_veteran: Información del Veterano
+          spouse_veteran: Información del Cónyuge Veterano
           use_tax_applied: Impuesto de Uso Aplicado
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"

@@ -2489,6 +2489,8 @@ en:
       nc_review:
         edit:
           amount: Amount
+          primary_veteran: Veteran Info
+          spouse_veteran: Spouse Veteran Info
           use_tax_applied: Consumer Use Tax Applied
       nc_veteran_status:
         primary_veteran_question: Are you a veteran?
