@@ -67,6 +67,7 @@ RSpec.feature "Read and send messages to a client", js: true do
       within(".email-form") do
         fill_in "Send an email", with: "Example email"
         attach_file("outgoing_email[attachment]", "spec/fixtures/files/test-pattern.png")
+        # Fails on next line locally on some computers that go through this too fast
         expect(page.find('#attachment-image-preview')['src']).to have_content 'data:image/png'
 
         attach_file("outgoing_email[attachment]", "spec/fixtures/files/document_bundle.pdf")

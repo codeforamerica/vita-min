@@ -37,7 +37,7 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      get_missing_downloads(dest_dir).each do |(download_path, optional)|
+      get_missing_downloads(dest_dir).each do |(download_path, _, optional)|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
@@ -74,9 +74,9 @@ class SchemaFileLoader
 
     def get_missing_downloads(dest_dir)
       download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder, optional)|
-        [File.join(dest_dir, download_folder, filename), optional]
+        [File.join(dest_dir, download_folder, filename), download_folder, optional]
       end
-      download_files.filter do |(download_file, optional)|
+      download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
       end
     end
