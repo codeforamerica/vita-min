@@ -1,5 +1,9 @@
 require 'rails_helper'
 
+def over_65_birth_year
+  MultiTenantService.statefile.current_tax_year - 65
+end
+
 describe Efile::Nj::Nj1040 do
   let(:intake) { create(:state_file_nj_intake) }
   let(:instance) do
@@ -16,8 +20,11 @@ describe Efile::Nj::Nj1040 do
     end
 
     context 'when filer is older than 65' do
+      let(:intake) do
+        create(:state_file_nj_intake,
+               primary_birth_date: Date.new(over_65_birth_year, 1, 1))
+      end
       before do
-        intake.primary_birth_date = Date.new(1900, 1, 1)
         instance.calculate
       end
       it 'checks the self 65+ checkbox and sets line 7 to 1000' do
@@ -28,8 +35,11 @@ describe Efile::Nj::Nj1040 do
     end
 
     context 'when filer is younger than 65' do
+      let(:intake) do
+        create(:state_file_nj_intake,
+               primary_birth_date: Date.new(over_65_birth_year + 1, 1, 1))
+      end
       before do
-        intake.primary_birth_date = Date.new(2000, 1, 1)
         instance.calculate
       end
       it 'does not check the self 65+ checkbox and sets line 7 to 0' do
@@ -41,14 +51,14 @@ describe Efile::Nj::Nj1040 do
   end
 
   context 'when filing status is married filing jointly' do
-    let(:intake) { create(:state_file_nj_intake, :married) }
+    let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
     it "sets line 6 to 2000" do
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_6].value).to eq(2000)
     end
 
     context 'when filer is older than 65 and spouse is older than 65' do
-      let(:intake) { create(:state_file_nj_intake, :married_spouse_over_65, :primary_over_65) }
+      let(:intake) { create(:state_file_nj_intake, :mfj_spouse_over_65, :primary_over_65) }
       before do
         instance.calculate
       end
@@ -60,7 +70,7 @@ describe Efile::Nj::Nj1040 do
     end
 
     context 'when filer is younger than 65 and spouse is older than 65' do
-      let(:intake) { create(:state_file_nj_intake, :married_spouse_over_65) }
+      let(:intake) { create(:state_file_nj_intake, :mfj_spouse_over_65) }
       before do
         instance.calculate
       end
@@ -72,7 +82,7 @@ describe Efile::Nj::Nj1040 do
     end
 
     context 'when filer is older than 65 and spouse is younger than 65' do
-      let(:intake) { create(:state_file_nj_intake, :married, :primary_over_65) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly, :primary_over_65) }
       before do
         instance.calculate
       end
@@ -84,7 +94,7 @@ describe Efile::Nj::Nj1040 do
     end
 
     context 'when filer is younger than 65 and spouse is younger than 65' do
-      let(:intake) { create(:state_file_nj_intake, :married) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       before do
         instance.calculate
       end

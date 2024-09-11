@@ -112,7 +112,7 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
     end
 
-    trait :married do
+    trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }
       spouse_ssn { "123456789" }
@@ -122,7 +122,7 @@ FactoryBot.define do
       primary_birth_date { Date.new(1900, 1, 1) }
     end
 
-    trait :married_spouse_over_65 do
+    trait :mfj_spouse_over_65 do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1900, 1, 1) }
       spouse_ssn { "123456789" }

@@ -46,7 +46,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     end
 
     context "when filer is married" do
-      let(:intake) { create(:state_file_nj_intake, :married) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       it "Exemptions are populated" do
         expect(xml.css('Exemptions').count).to eq(1)
       end
@@ -58,7 +58,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "when filer is over 65 and spouse is under 65" do
-        let(:intake) { create(:state_file_nj_intake, :primary_over_65, :married) }
+        let(:intake) { create(:state_file_nj_intake, :primary_over_65, :married_filing_jointly) }
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65").text).to eq("X")
           expect(xml.at("Exemptions SpouseCuPartner65OrOver")).to eq(nil)
@@ -66,7 +66,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "when filer is over 65 and spouse is over 65" do
-        let(:intake) { create(:state_file_nj_intake, :primary_over_65, :married_spouse_over_65) }
+        let(:intake) { create(:state_file_nj_intake, :primary_over_65, :mfj_spouse_over_65) }
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65").text).to eq("X")
           expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("X")
@@ -74,7 +74,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "when filer is under 65 and spouse is under 65" do
-        let(:intake) { create(:state_file_nj_intake, :married) }
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65")).to eq(nil)
           expect(xml.at("Exemptions SpouseCuPartner65OrOver")).to eq(nil)
@@ -82,7 +82,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "when filer is under 65 and spouse is over 65" do
-        let(:intake) { create(:state_file_nj_intake, :married_spouse_over_65) }
+        let(:intake) { create(:state_file_nj_intake, :mfj_spouse_over_65) }
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65")).to eq(nil)
           expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("X")

@@ -97,9 +97,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            primary_first_name: "Bert",
-            primary_last_name: "Muppet",
-            primary_middle_initial: "S",
           ) }
         it "fills pdf with correct Line 6 fields" do
           expect(pdf_fields["Check Box39"]).to eq "Off"
@@ -114,14 +111,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["x  1000_2"]).to eq "0"
           expect(pdf_fields["undefined_9"]).to eq "0"
         end
+
         context "primary over 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
               :state_file_nj_intake,
               :primary_over_65,
-              primary_first_name: "Bert",
-              primary_last_name: "Muppet",
-              primary_middle_initial: "S",
             ) }
           it "fills pdf with Line 7 fields" do
             expect(pdf_fields["Check Box41"]).to eq "Yes"
@@ -135,13 +130,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :married,
-            primary_first_name: "Bert",
-            primary_last_name: "Muppet",
-            primary_middle_initial: "S",
-            spouse_first_name: "Ernie",
-            spouse_last_name: "Muppet",
-            spouse_ssn: "123456789"
+            :married_filing_jointly,
           ) }
         it "fills pdf with correct Line 6 fields" do
           expect(pdf_fields["Check Box39"]).to eq "Yes"
@@ -149,6 +138,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Domestic"]).to eq "2"
           expect(pdf_fields["x  1000"]).to eq "2000"
         end
+
         it "fills pdf with Line 7 fields" do
           expect(pdf_fields["Check Box41"]).to eq "Off"
           expect(pdf_fields["Check Box42"]).to eq "Off"
@@ -157,6 +147,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
+
     describe "name field" do
       name_field = "Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different"
       context "single filer" do

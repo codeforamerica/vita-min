@@ -46,14 +46,14 @@ module PdfFiller
         "ZIP Code": @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
 
         # line 6 exemptions
-        "Check Box39": @xml_document.at("Exemptions SpouseCuRegular")&.text == "X" ? "Yes" : "Off",
+        "Check Box39": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuRegular")),
         "Check Box40": "Off",
         "Domestic": get_line_6_exemption_count,
         "x  1000": get_line_6_exemption_count * 1000,
 
         # line 7 exemptions
-        "Check Box41": @xml_document.at("Exemptions YouOver65")&.text == "X" ? "Yes" : "Off",
-        "Check Box42": @xml_document.at("Exemptions SpouseCuPartner65OrOver")&.text == "X" ? "Yes" : "Off",
+        "Check Box41": pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
+        "Check Box42": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
         "undefined_9": get_line_7_exemption_count,
         "x  1000_2": get_line_7_exemption_count * 1000,
       }
@@ -75,6 +75,10 @@ module PdfFiller
     end
 
     private
+
+    def pdf_checkbox_value(checkbox_xml)
+      checkbox_xml&.text == "X" ? "Yes" : "Off"
+    end
 
     def get_county_code
       @xml_document.at("ReturnDataState FormNJ1040 Header CountyCode")&.text
