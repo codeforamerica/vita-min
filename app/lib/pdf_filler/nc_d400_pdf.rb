@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-
+      "ncD400-TY2024"
     end
 
     def initialize(submission)
@@ -27,7 +27,7 @@ module PdfFiller
         y_d400wf_mi2: @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         y_d400wf_lname2: @xml_document.at('Secondary TaxpayerName LastName')&.text,
         y_d400wf_add: @xml_document.at('Filer USAddress AddressLine1Txt').text,
-        'y_d400wf_apartment number': @xml_document.at('Filer USAddress AddressLine2Txt').text,
+        'y_d400wf_apartment number': @xml_document.at('Filer USAddress AddressLine2Txt')&.text,
         y_d400wf_city: @xml_document.at('Filer USAddress CityNm').text,
         y_d400wf_state: @xml_document.at('Filer USAddress StateAbbreviationCd').text,
         y_d400wf_zip: @xml_document.at('Filer USAddress ZIPCd').text,
