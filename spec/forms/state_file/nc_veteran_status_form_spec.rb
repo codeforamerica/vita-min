@@ -49,4 +49,5 @@ RSpec.describe StateFile::NcVeteranStatusForm do
       expect(intake.spouse_veteran).to eq "no"
     end
   end
+
 end
