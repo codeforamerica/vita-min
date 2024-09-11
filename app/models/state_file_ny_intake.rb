@@ -71,7 +71,6 @@
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
 #  raw_direct_file_intake_data        :jsonb
-#  raw_direct_file_tax_return_data    :text
 #  referrer                           :string
 #  residence_county                   :string
 #  routing_number                     :string

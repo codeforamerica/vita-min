@@ -39,7 +39,6 @@
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
-#  raw_direct_file_tax_return_data   :text
 #  referrer                          :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)

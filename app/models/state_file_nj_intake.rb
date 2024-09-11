@@ -47,7 +47,6 @@
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
-#  raw_direct_file_tax_return_data   :text
 #  referrer                          :string
 #  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
