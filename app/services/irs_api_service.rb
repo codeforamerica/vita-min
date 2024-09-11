@@ -3,7 +3,6 @@ require 'net/https'
 require 'uri'
 require 'jwt'
 require 'nokogiri'
-require 'securerandom'
 require 'openssl/oaep'
 
 require_relative 'state_file/xml_return_sample_service'
@@ -11,29 +10,6 @@ require_relative 'state_file/xml_return_sample_service'
 class IrsApiService
   def self.df_return_sample
     StateFile::XmlReturnSampleService.new.old_sample
-  end
-
-  def self.create_auth_code
-    tax_return_uuid = SecureRandom.uuid
-    tax_return_uuid[0] = "a"
-    submission_id = "fake-submission-id"
-    tax_year = 2024
-    state_code = "FS"
-    request_body = {
-      taxReturnUuid: tax_return_uuid,
-      submissionId: submission_id,
-      taxYear: tax_year,
-      stateCode: state_code
-    }.to_json
-
-    request = Net::HTTP::Post.new(auth_code_url.request_uri, )
-    request.body = request_body
-    request.content_type = "application/json"
-
-    http = Net::HTTP.new(auth_code_url.host, auth_code_url.port)
-    http.use_ssl = true
-    response = http.request(request)
-    response.body.delete("\"")
   end
 
   def self.import_federal_data(authorization_code, _state_code)
@@ -74,8 +50,6 @@ class IrsApiService
 
       # CA chain for the IRS server certificate, so that we can verify it in mTLS
       http.ca_file = "config/entrust_l1k_full_chain.cer"
-    elsif server_url.host.ends_with?('cloud.gov')
-      # No mTLS on this endpoint
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -92,8 +66,6 @@ class IrsApiService
 
     response = http.request(request)
 
-    puts response.body
-
     if ENV['IRS_SAVE_RESPONSE']
       # Capture the entire response (body + headers) from the IRS in a file
       filename = "irs_api_response-#{authorization_code}-#{Time.now.strftime("%Y-%m-%d")}.txt"
@@ -101,7 +73,6 @@ class IrsApiService
     end
 
     undecrypted_body_json = JSON.parse(response.body)
-    puts undecrypted_body_json
     if undecrypted_body_json.include?("status") && undecrypted_body_json["status"] == "error"
       raise StandardError, "DF export-return API Response Error: #{undecrypted_body_json["error"]}"
     end
@@ -114,13 +85,13 @@ class IrsApiService
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
     decipher.decrypt
     client_key = cert_finder.client_key
-    session_key = Base64.decode64(response.header['SESSION-KEY'])
+    encrypted_session_key = Base64.decode64(response.header['SESSION-KEY'])
 
     label = ''
     md_oaep = OpenSSL::Digest::SHA256
     md_mgf1 = OpenSSL::Digest::SHA1
 
-    decipher.key = client_key.private_decrypt_oaep(session_key, label, md_oaep, md_mgf1)
+    decipher.key = client_key.private_decrypt_oaep(encrypted_session_key, label, md_oaep, md_mgf1)
     decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
     encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
 
@@ -134,8 +105,6 @@ class IrsApiService
       decipher.auth_tag = auth_tag
     end
     plain = decipher.update(encrypted_tax_return_bytes) + decipher.final
-
-    puts plain
 
     decrypted_json = JSON.parse(plain)
     decrypted_json['xml'] = Nokogiri::XML(decrypted_json['xml']).to_xml
@@ -179,7 +148,7 @@ class IrsApiService
     end
 
     def client_key_bytes
-      if server_url.host.ends_with?('irs.gov') || server_url.host.ends_with?('cloud.gov')
+      if server_url.host.ends_with?('irs.gov')
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.key'))
@@ -193,10 +162,6 @@ class IrsApiService
     else
       URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
     end
-  end
-
-  def self.auth_code_url
-    URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_auth_code))
   end
 
   def self.save_response(response, filename)
