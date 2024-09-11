@@ -31,9 +31,9 @@
     "terser-webpack-plugin": "5",
     "trix": "^2.1.4",
     "turbolinks": "^5.2.0",
-    "webpack": "^5",
+    "webpack": "5",
     "webpack-assets-manifest": "5",
-    "webpack-cli": "^5",
+    "webpack-cli": "5",
     "webpack-merge": "5"
   },
   "babel": {
