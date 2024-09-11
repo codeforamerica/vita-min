@@ -10,7 +10,11 @@ end
 begin
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
-  Flipper.enable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
+  if Rails.env.heroku? || Rails.env.demo?
+    Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
+  else
+    Flipper.enable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
+  end
 rescue
   # make sure we can still run rake tasks before table has been created
   nil
