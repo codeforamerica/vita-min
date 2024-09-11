@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::StateReturn do
-  StateFile::StateInformationService.active_state_codes.each do |state_code|
-    describe '.build', required_schema: state_code do
+  # NC does not include W2s in the state return xml
+  StateFile::StateInformationService.active_state_codes.excluding("nc").each do |state_code|
+    describe '#combined_w2s', required_schema: state_code do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
       let(:intake) { create("state_file_#{state_code}_intake".to_sym, filing_status: filing_status) }
       let(:submission) { create(:efile_submission, data_source: intake) }
