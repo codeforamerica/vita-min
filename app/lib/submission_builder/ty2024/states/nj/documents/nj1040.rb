@@ -71,6 +71,8 @@ module SubmissionBuilder
                       end
                     end
                   end
+
+                  xml.CountyCode "0#{intake.municipality_code}"
                 end
                 
                 xml.Body do

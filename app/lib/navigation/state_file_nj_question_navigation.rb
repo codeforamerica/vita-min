@@ -29,10 +29,13 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
                                           Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjCountyController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjMunicipalityController),
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                           Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController),
                                           Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
