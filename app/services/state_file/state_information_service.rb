@@ -47,10 +47,6 @@ module StateFile
       def state_intake_class_names
         @_state_intake_class_names ||= state_intake_classes.map(&:to_s).freeze
       end
-
-      def state_schema_file_names
-        @_state_schema_file_names ||= STATES_INFO.map { |_, attrs| attrs[:schema_file_name] }.freeze
-      end
     end
 
     private
@@ -76,7 +72,6 @@ module StateFile
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
-        optional: false
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -98,7 +93,6 @@ module StateFile
         vita_link: "",
         voucher_form_name: "Form D-400V",
         voucher_path: "/pdfs/d400v-TY2023.pdf",
-        optional: false
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -109,7 +103,6 @@ module StateFile
         state_name: "New Jersey",
         return_type: "Resident",
         schema_file_name: "NJIndividual2023V0.4.zip",
-        optional: true,
         mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Trenton, NJ".html_safe,
@@ -143,7 +136,6 @@ module StateFile
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
-        optional: false
       }
     }.with_indifferent_access)
   end

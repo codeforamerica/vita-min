@@ -5,14 +5,13 @@ class SchemaFileLoader
   EFILE_SCHEMAS_FILENAMES = (
     [
       # Format is schema name, directory, and whether the file is optional
-      ["efile1040x_2020v5.1.zip", "irs", false],
-      ["efile1040x_2021v5.2.zip", "irs", false],
-      ["efile1040x_2022v5.3.zip", "irs", false],
-      ["efile1040x_2023v5.0.zip", "irs", false]
+      ["efile1040x_2020v5.1.zip", "irs"],
+      ["efile1040x_2021v5.2.zip", "irs"],
+      ["efile1040x_2022v5.3.zip", "irs"],
+      ["efile1040x_2023v5.0.zip", "irs"]
     ] +
-      StateFile::StateInformationService::STATES_INFO.map do |key, values|
-        # TODO: If adding another member to this array, consider refactoring to a hash instead
-        [values[:schema_file_name], "us_states", values[:optional]]
+      StateFile::StateInformationService.active_state_codes.excluding("nj").map do |state_code|
+        [StateFile::StateInformationService.schema_file_name(state_code), "us_states"]
       end
   ).freeze
 
@@ -73,8 +72,8 @@ class SchemaFileLoader
     end
 
     def get_missing_downloads(dest_dir)
-      download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder, optional)|
-        [File.join(dest_dir, download_folder, filename), download_folder, optional]
+      download_files = EFILE_SCHEMAS_FILENAMES.map do |filename, download_folder|
+        [File.join(dest_dir, download_folder, filename), download_folder]
       end
       download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
