@@ -33,6 +33,15 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCTaxPaid').text).to eq tax_paid.to_s
         expect(xml.document.at('RemainingPayment').text).to eq tax_paid.to_s
       end
+
+      it "correctly fills veteran info for primary" do
+        intake.update(primary_veteran: "yes")
+        expect(xml.document.at('VeteranInfoPrimary').text).to eq "1"
+      end
+
+      it "does not include spouse veteran info" do
+        expect(xml.document.at('VeteranInfoSpouse')).to be_nil
+      end
     end
 
     context "mfj filers" do
@@ -42,6 +51,12 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('ResidencyStatusSpouse').text).to eq "true"
         expect(xml.document.at('FilingStatus').text).to eq "MFJ"
         expect(xml.document.at('NCStandardDeduction').text).to eq "25500"
+      end
+
+      it "correctly fills veteran info for both primary and spouse" do
+        intake.update(primary_veteran: "yes", spouse_veteran: "no")
+        expect(xml.document.at('VeteranInfoPrimary').text).to eq "1"
+        expect(xml.document.at('VeteranInfoSpouse').text).to eq "0"
       end
     end
 
@@ -77,5 +92,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCStandardDeduction').text).to eq "25500"
       end
     end
+
+
   end
 end
