@@ -23,5 +23,7 @@
   </div>
 </div>
 
-<p class="spacing-above-35"><%= link_to t(".vita_link"), @vita_link %></p>
+<% unless current_state_code == 'nc' %>
+  <p class="spacing-above-35"><%= link_to t(".vita_link"), @vita_link %></p>
+<% end %>
 <p><%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %></p>
