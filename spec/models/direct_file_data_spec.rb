@@ -1,6 +1,56 @@
 require 'rails_helper'
 
 describe DirectFileData do
+  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_df_complete_sample")) }
+  let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+
+  [
+    ["tax_return_year", 2023],
+    ["filing_status", 4],
+    ["phone_number", "4805555555"],
+    ["cell_phone_number", "5551231234"],
+    ["tax_payer_email", "test011@test.com"],
+    ["primary_ssn", "400000003"],
+    ["spouse_ssn", "500000003"],
+    ["primary_occupation", "Singer"],
+    ["spouse_occupation", "Actor"],
+    ["surviving_spouse", "X"],
+    ["spouse_date_of_death", "2024-07-06"],
+    ["spouse_name", "Allen"],
+    ["mailing_city", "Phoenix"],
+    ["mailing_street", "321 Roland St"],
+    ["mailing_apartment", "Apt B"],
+    ["mailing_state", "AZ"],
+    ["mailing_zip", "85034"],
+    ["fed_tax_amt", 1993],
+    ["fed_calculated_difference_amount", 1634],
+    ["fed_nontaxable_combat_pay_amount", 10],
+    ["fed_total_earned_income_amount", 35000],
+    ["fed_puerto_rico_income_exclusion_amount", 80],
+    ["fed_total_income_exclusion_amount", 600],
+    ["fed_housing_deduction_amount", 700],
+    ["fed_gross_income_exclusion_amount", 900],
+  ].each do |node_name, current_value|
+    describe "##{node_name}" do
+      it "returns the value" do
+        expect(direct_file_data.send(node_name)).to eq current_value
+      end
+
+      if current_value.is_a?(Integer) && !node_name.ends_with?("_year", "_status")
+        context "when the attribute is an amount and is not present" do
+          before do
+            selector = DirectFileData::SELECTORS[node_name.to_sym]
+            xml.at(selector).remove
+          end
+
+          it "defaults to 0" do
+            expect(direct_file_data.send(node_name)).to eq 0
+          end
+        end
+      end
+    end
+  end
+
   describe '#ny_public_employee_retirement_contributions' do
     let(:desc1) { '414H' }
     let(:desc2) { '414 (H)' }

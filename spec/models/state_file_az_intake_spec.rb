@@ -35,6 +35,7 @@
 #  last_sign_in_ip                             :inet
 #  locale                                      :string           default("en")
 #  locked_at                                   :datetime
+#  made_az321_contributions                    :integer          default("unfilled"), not null
 #  message_tracker                             :jsonb
 #  payment_or_deposit_type                     :integer          default("unfilled"), not null
 #  phone_number                                :string

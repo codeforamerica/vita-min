@@ -4,13 +4,15 @@ class SchemaFileLoader
   REGION = "us-east-1".freeze
   EFILE_SCHEMAS_FILENAMES = (
     [
-      ["efile1040x_2020v5.1.zip", "irs"],
-      ["efile1040x_2021v5.2.zip", "irs"],
-      ["efile1040x_2022v5.3.zip", "irs"],
-      ["efile1040x_2023v5.0.zip", "irs"]
+      # Format is schema name, directory, and whether the file is optional
+      ["efile1040x_2020v5.1.zip", "irs", false],
+      ["efile1040x_2021v5.2.zip", "irs", false],
+      ["efile1040x_2022v5.3.zip", "irs", false],
+      ["efile1040x_2023v5.0.zip", "irs", false]
     ] +
-      StateFile::StateInformationService.state_schema_file_names.map do |schema_file_name|
-        [schema_file_name, "us_states"]
+      StateFile::StateInformationService::STATES_INFO.map do |key, values|
+        # TODO: If adding another member to this array, consider refactoring to a hash instead
+        [values[:schema_file_name], "us_states", values[:optional]]
       end
   ).freeze
 
@@ -35,12 +37,14 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      get_missing_downloads(dest_dir).each do |download_path|
+      get_missing_downloads(dest_dir).each do |(download_path, _, optional)|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
           key: File.basename(download_path),
         )
+      rescue Aws::S3::Errors::NoSuchKey => e
+        raise e unless optional
       end
     end
 
@@ -69,10 +73,10 @@ class SchemaFileLoader
     end
 
     def get_missing_downloads(dest_dir)
-      download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder)|
-        File.join(dest_dir, download_folder, filename)
+      download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder, optional)|
+        [File.join(dest_dir, download_folder, filename), download_folder, optional]
       end
-      download_files.filter do |download_file|
+      download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
       end
     end

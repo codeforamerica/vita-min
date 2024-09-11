@@ -89,6 +89,7 @@ bin/setup
 ```
 > ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
 
+> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
 
 #### Add efile resources locally
 
@@ -106,11 +107,12 @@ rake setup:unzip_efile_schemas
 
 You need to add the following credential files under the `config/credentials` folder:
 
+- `circleci.key`
 - `development.key`
 - `demo.key`
+- `heroku.key`
+- `staging.key`
 - `production.key`
-
-And also add the `master.key` file in the `config` folder.
 
 You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
 
@@ -137,7 +139,7 @@ If this doesn't fix your problem, you should check if the service is in an `erro
 brew services
 ```
 
-If it is, you probably need to reead the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
+If it is, you probably need to read the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
 
 ```sh
 brew postgresql-upgrade-database
@@ -165,10 +167,17 @@ If this doesn't get Postgres out of `error` state, or you otherwise can't figure
 
 #### Java Installation for pdftk on macOS
 
-***NOTE:*** We are currently experimenting with just having ASDF install java instead. Check `.tool-versions` to see the version needed. It should be installable with `asdf install` in the root directory.
-
 To run pdftk on macOS, you need to have Java installed correctly. Use the following commands to install Java:
 
+***NOTE:*** We are currently discussing  `asdf` vs `brew`. Feel free to follow whichever set up works better for you for now.
+
+***asdf instructions***:
+
+First, make sure you have `asdf` (type `asdf` into the terminal and see if it shows up asdf options). If you don't, running `brew install asdf`.
+Check `.tool-versions` to see the version needed. You can also run `asdf current` which should tell you what libraries install.
+It should be installable with `asdf install` in the root directory.
+
+***brew instructions***:
 ```sh
 AdoptOpenJDK/openjdk && brew install adoptopenjdk8
 ```

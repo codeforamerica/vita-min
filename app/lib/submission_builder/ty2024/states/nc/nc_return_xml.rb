@@ -14,17 +14,26 @@ module SubmissionBuilder
             "ReturnDataState"
           end
 
+          def state_schema_version
+            "NCIndividual2023v1.0"
+          end
+
           def schema_file
             SchemaFileLoader.load_file("us_states", "unpacked", "NCIndividual2023v1.0", "NCIndividual", "IndividualReturnNCD400.xsd")
           end
 
-          def documents_wrapper
-            xml_doc = build_xml_doc("FormNCD400")
-            xml_doc.at('*')
-          end
-
           def supported_documents
-            combined_w2s
+            supported_docs = [
+              {
+                xml: SubmissionBuilder::Ty2024::States::Nc::Documents::D400,
+                pdf: PdfFiller::NcD400Pdf,
+                include: true
+              },
+            ]
+
+            supported_docs += combined_w2s
+
+            supported_docs
           end
         end
       end

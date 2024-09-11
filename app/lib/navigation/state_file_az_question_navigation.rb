@@ -38,6 +38,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzRetirementIncomeController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSpouseStateIdController),
