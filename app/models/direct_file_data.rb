@@ -1,4 +1,4 @@
-class DirectFileData
+class DirectFileData < DfXmlAccessor
   include DfXmlCrudMethods
 
   SELECTORS = {
@@ -16,7 +16,7 @@ class DirectFileData
     phone_number: 'ReturnHeader Filer PhoneNum',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
-    fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
+    fed_tax_amt: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
@@ -71,9 +71,11 @@ class DirectFileData
     @raw_xml = raw_xml
   end
 
-  def selectors
+  def self.selectors
     SELECTORS
   end
+
+  define_xml_readers
 
   def parsed_xml
     @parsed_xml ||= Nokogiri::XML(@raw_xml)
@@ -87,52 +89,20 @@ class DirectFileData
     parsed_xml.to_s
   end
 
-  def tax_return_year
-    df_xml_value(__method__)&.to_i
-  end
-
   def tax_return_year=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def filing_status
-    df_xml_value(__method__)&.to_i
   end
 
   def filing_status=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def phone_number
-    df_xml_value(__method__)
-  end
-
-  def cell_phone_number
-    df_xml_value(__method__)
-  end
-
-  def tax_payer_email
-    df_xml_value(__method__)
-  end
-
-  def primary_ssn
-    df_xml_value(__method__)
-  end
-
   def primary_ssn=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def primary_occupation
-    df_xml_value(__method__)
-  end
-
   def primary_occupation=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def spouse_ssn
-    df_xml_value(__method__)
   end
 
   def spouse_ssn=(value)
@@ -143,20 +113,12 @@ class DirectFileData
     end
   end
 
-  def spouse_occupation
-    df_xml_value(__method__)
-  end
-
   def spouse_occupation=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
 
     if value.present?
       write_df_xml_value(__method__, value)
     end
-  end
-
-  def surviving_spouse
-    df_xml_value(__method__)
   end
 
   def spouse_deceased?
@@ -173,19 +135,11 @@ class DirectFileData
     end
   end
 
-  def spouse_date_of_death
-    df_xml_value(__method__)
-  end
-
   def spouse_date_of_death=(value)
     if value.present?
       create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
       write_df_xml_value(__method__, value)
     end
-  end
-
-  def spouse_name
-    df_xml_value(__method__)
   end
 
   def spouse_name=(value)
@@ -194,51 +148,27 @@ class DirectFileData
     end
   end
 
-  def mailing_city
-    df_xml_value(__method__)
-  end
-
   def mailing_city=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def mailing_street
-    df_xml_value(__method__)
   end
 
   def mailing_street=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def mailing_apartment
-    df_xml_value(__method__)
-  end
-
   def mailing_apartment=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def mailing_state
-    df_xml_value(__method__)
   end
 
   def mailing_state=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def mailing_zip
-    df_xml_value(__method__)
-  end
-
   def mailing_zip=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_tax
-    df_xml_value(__method__)&.to_i || 0
-  end
-
-  def fed_tax=(value)
+  def fed_tax_amt=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -367,56 +297,28 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
-  def fed_calculated_difference_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_calculated_difference_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_nontaxable_combat_pay_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_nontaxable_combat_pay_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_total_earned_income_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_total_earned_income_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_puerto_rico_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_puerto_rico_income_exclusion_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_total_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_total_income_exclusion_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_housing_deduction_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_housing_deduction_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_gross_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_gross_income_exclusion_amount=(value)
@@ -858,7 +760,7 @@ class DirectFileData
       :cell_phone_number,
       :tax_payer_email,
       :total_state_tax_withheld,
-      :fed_tax,
+      :fed_tax_amt,
       :fed_agi,
       :fed_wages,
       :fed_wages_salaries_tips,

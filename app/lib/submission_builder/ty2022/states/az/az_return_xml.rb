@@ -198,6 +198,11 @@ module SubmissionBuilder
                 include: true
               },
               {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az321Contribution,
+                pdf: PdfFiller::Az321Pdf,
+                include: @submission.data_source.az321_contributions.present?,
+              },
+              {
                 xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az322,
                 pdf: PdfFiller::Az322Pdf,
                 include: @submission.data_source.az322_contributions.present?

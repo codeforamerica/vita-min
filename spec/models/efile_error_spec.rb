@@ -76,6 +76,7 @@ describe 'EfileError' do
       "nyc-residency",
       "phone-number",
       "return-status",
+      "sales-use-tax",
       "submission-confirmation",
       "tax-refund",
       "taxes-owed",
