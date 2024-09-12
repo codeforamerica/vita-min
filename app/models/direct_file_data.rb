@@ -765,9 +765,8 @@ class DirectFileData < DfXmlAccessor
       mailing_zip
       cell_phone_number
       tax_payer_email
-      total_state_tax_withheld
+      total_w2_state_tax_withheld
       fed_tax_amt
-      fed_tax
       fed_agi
       fed_wages
       fed_wages_salaries_tips
