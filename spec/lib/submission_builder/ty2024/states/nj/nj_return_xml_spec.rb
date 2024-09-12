@@ -37,7 +37,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
       context "when filer is younger than 65" do
-        let(:intake) { create(:state_file_nj_intake) }
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65")).to eq(nil)
           expect(xml.at("Exemptions SpouseCuPartner65OrOver")).to eq(nil)

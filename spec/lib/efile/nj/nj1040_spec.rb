@@ -12,10 +12,12 @@ describe Efile::Nj::Nj1040 do
       intake: intake
     )
   end
+  before do
+    instance.calculate
+  end
 
   context 'when filing status is single' do
     it "sets line 6 to 1000" do
-      instance.calculate
       expect(instance.lines[:NJ1040_LINE_6].value).to eq(1000)
     end
 
@@ -24,9 +26,7 @@ describe Efile::Nj::Nj1040 do
         create(:state_file_nj_intake,
                primary_birth_date: Date.new(over_65_birth_year, 1, 1))
       end
-      before do
-        instance.calculate
-      end
+
       it 'checks the self 65+ checkbox and sets line 7 to 1000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
@@ -39,9 +39,7 @@ describe Efile::Nj::Nj1040 do
         create(:state_file_nj_intake,
                primary_birth_date: Date.new(over_65_birth_year + 1, 1, 1))
       end
-      before do
-        instance.calculate
-      end
+
       it 'does not check the self 65+ checkbox and sets line 7 to 0' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
@@ -53,15 +51,12 @@ describe Efile::Nj::Nj1040 do
   context 'when filing status is married filing jointly' do
     let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
     it "sets line 6 to 2000" do
-      instance.calculate
       expect(instance.lines[:NJ1040_LINE_6].value).to eq(2000)
     end
 
     context 'when filer is older than 65 and spouse is older than 65' do
       let(:intake) { create(:state_file_nj_intake, :mfj_spouse_over_65, :primary_over_65) }
-      before do
-        instance.calculate
-      end
+
       it 'checks both 65+ checkboxes and sets line 7 to 2000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(true)
@@ -71,9 +66,7 @@ describe Efile::Nj::Nj1040 do
 
     context 'when filer is younger than 65 and spouse is older than 65' do
       let(:intake) { create(:state_file_nj_intake, :mfj_spouse_over_65) }
-      before do
-        instance.calculate
-      end
+
       it 'only checks the spouse 65+ checkbox and sets line 7 to 1000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(true)
@@ -83,9 +76,7 @@ describe Efile::Nj::Nj1040 do
 
     context 'when filer is older than 65 and spouse is younger than 65' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_jointly, :primary_over_65) }
-      before do
-        instance.calculate
-      end
+
       it 'only checks the self 65+ checkbox and sets line 7 to 1000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
@@ -95,9 +86,7 @@ describe Efile::Nj::Nj1040 do
 
     context 'when filer is younger than 65 and spouse is younger than 65' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-      before do
-        instance.calculate
-      end
+
       it 'checks neither checkbox and sets line 7 to 0' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
