@@ -58,6 +58,8 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     expect(page).to have_text "‍💻🛠️ Direct File Data Overrides 🛠️💻"
 
+    fill_in "Interest Reported", with: 200 # corresponds to fake df field for now
+
     # W2
     fill_in "WagesAmt", with: 500
     fill_in "WithholdingAmt", with: 300
@@ -87,6 +89,8 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     xml_after = StateFileAzIntake.last.raw_direct_file_data.strip
     expect(xml_before).not_to eq(xml_after)
+
+    expect(StateFileAzIntake.last.direct_file_data.interest_reported_amount).to eq 200
 
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].WagesAmt).to eq 500
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].WithholdingAmt).to eq 300

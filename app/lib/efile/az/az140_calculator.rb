@@ -33,6 +33,7 @@ module Efile
         set_line(:AZ140_LINE_12, @direct_file_data, :fed_agi)
         set_line(:AZ140_LINE_14, :calculate_line_14)
         set_line(:AZ140_LINE_19, :calculate_line_19)
+        set_line(:AZ140_LINE_28, @direct_file_data, :interest_reported_amount)
         set_line(:AZ140_LINE_30, @direct_file_data, :fed_taxable_ssb)
         set_line(:AZ140_LINE_31, :calculate_line_31)
         set_line(:AZ140_LINE_32, :calculate_line_32)
