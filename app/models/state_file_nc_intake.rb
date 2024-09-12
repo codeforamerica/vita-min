@@ -17,7 +17,7 @@
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
-#  eligibility_withdrew_529          :integer          default(0), not null
+#  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
