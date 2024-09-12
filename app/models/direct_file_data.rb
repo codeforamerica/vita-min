@@ -106,6 +106,11 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def phone_number=(value)
+    create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
+    write_df_xml_value(__method__, value)
+  end
+
   def spouse_ssn=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimarySSN")
 

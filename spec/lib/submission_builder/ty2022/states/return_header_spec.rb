@@ -89,6 +89,24 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
           end
+
+          context "phone number" do
+            it "does not include the element when not present in DF data" do
+              intake.direct_file_data.phone_number = ""
+
+              expect(doc.at("Filer Primary USPhone")).to be_nil
+            end
+
+            it "includes the element only in NC when present in DF data" do
+              intake.direct_file_data.phone_number = "5551231234"
+
+              if state_code == "nc"
+                expect(doc.at("Filer Primary USPhone").text).to eq "5551231234"
+              else
+                expect(doc.at("Filer Primary USPhone")).to be_nil
+              end
+            end
+          end
         end
 
         context "filer with spouse" do

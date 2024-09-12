@@ -26,6 +26,9 @@ module SubmissionBuilder
             end
             xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
             xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
+            if @submission.data_source.state_code == "nc" && @submission.data_source.direct_file_data.phone_number.present?
+              xml.USPhone @submission.data_source.direct_file_data.phone_number
+            end
           end
           if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present?
             xml.Secondary do
