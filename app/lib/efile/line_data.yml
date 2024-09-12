@@ -466,3 +466,13 @@ NCD400_LINE_20B:
   label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_23:
   label: '23 Add lines 20a through 22'
+NJ1040_LINE_6_SPOUSE:
+  label: '6 Spouse Regular Exemption'
+NJ1040_LINE_6:
+  label: '6 Sum all regular exemptions, multiply by 1000'
+NJ1040_LINE_7_SELF:
+  label: '7 Primary Senior 65+ Exemption'
+NJ1040_LINE_7_SPOUSE:
+  label: '7 Spouse Senior 65+ Exemption'
+NJ1040_LINE_7:
+  label: '7 Sum all Senior 65+ Exemption, multiply by 1000'

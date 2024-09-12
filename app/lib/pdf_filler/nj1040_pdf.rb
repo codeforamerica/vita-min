@@ -43,7 +43,19 @@ module PdfFiller
         "SpousesCU Partners SSN if filing jointly": get_address, # address text field
         "CountyMunicipality Code See Table page 50": @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text,  # city / town text field
         "State": @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
-        "ZIP Code": @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text
+        "ZIP Code": @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
+
+        # line 6 exemptions
+        "Check Box39": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuRegular")),
+        "Check Box40": "Off",
+        "Domestic": get_line_6_exemption_count,
+        "x  1000": get_line_6_exemption_count * 1000,
+
+        # line 7 exemptions
+        "Check Box41": pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
+        "Check Box42": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
+        "undefined_9": get_line_7_exemption_count,
+        "x  1000_2": get_line_7_exemption_count * 1000,
       }
       if spouse_ssn
         answers.merge!({
@@ -64,12 +76,31 @@ module PdfFiller
 
     private
 
+    def pdf_checkbox_value(checkbox_xml)
+      checkbox_xml&.text == "X" ? "Yes" : "Off"
+    end
+
     def get_county_code
       @xml_document.at("ReturnDataState FormNJ1040 Header CountyCode")&.text
     end
 
     def get_taxpayer_ssn
       @xml_document.at("ReturnHeaderState Filer Primary TaxpayerSSN")&.text
+    end
+
+    def get_line_6_exemption_count
+      @xml_document.at("Exemptions SpouseCuRegular")&.text == "X" ? 2 : 1
+    end
+
+    def get_line_7_exemption_count
+      count = 0
+      if @xml_document.at("Exemptions YouOver65")&.text == "X"
+        count += 1
+      end
+      if @xml_document.at("Exemptions SpouseCuPartner65OrOver")&.text == "X"
+        count += 1
+      end
+      count
     end
 
     def get_address
