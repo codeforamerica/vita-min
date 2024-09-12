@@ -110,6 +110,14 @@
       <TaxableAmt>1000</TaxableAmt>
       <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>7</F1099RDistributionCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>11</StateTaxWithheldAmt>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <PayerStateIdNumber>111111111</PayerStateIdNumber>
+          <StateDistributionAmt>111</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRS1099R>
     <IRS1099R documentId="IRS1099R0001">
@@ -129,6 +137,14 @@
       <TaxableAmt>500</TaxableAmt>
       <FederalIncomeTaxWithheldAmt>200</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>6</F1099RDistributionCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>22</StateTaxWithheldAmt>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <PayerStateIdNumber>222222222</PayerStateIdNumber>
+          <StateDistributionAmt>222</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
       <StandardOrNonStandardCd>N</StandardOrNonStandardCd>
     </IRS1099R>
   </ReturnData>
