@@ -113,7 +113,7 @@ module StateFile
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
-        voucher_path: "/pdfs/it201v_1223.pdf", # TODO
+        voucher_path: "",
       },
       ny: {
         intake_class: StateFileNyIntake,
