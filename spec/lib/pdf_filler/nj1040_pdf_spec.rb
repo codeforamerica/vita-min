@@ -253,5 +253,102 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["ZIP Code"]).to eq "08037"
       end
     end
+
+    describe "dependents" do
+      let(:intake) {
+        create(
+        :state_file_nj_intake,
+        :df_data_many_deps
+      )}
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: intake }
+
+      before do
+        intake.dependents.each_with_index do |dependent, i|
+          dependent.update(
+            dob: i.years.ago(Date.new(2020, 1, 1)),
+            first_name: "Firstname#{i}",
+            last_name: "Lastname#{i}",
+            middle_initial: 'ABCDEFGHIJK'[i],
+            suffix: 'JR',
+            ssn: "1234567#{"%02d" % i}"
+          )
+        end
+      end
+
+      it 'enters first four dependents into PDF' do
+        # dependent 1
+        expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "Lastname0 Firstname0 A JR"
+
+        expect(pdf_fields["undefined_18"]).to eq "1"
+        expect(pdf_fields["undefined_19"]).to eq "2"
+        expect(pdf_fields["undefined_20"]).to eq "3"
+        expect(pdf_fields["Text54"]).to eq "4"
+        expect(pdf_fields["Text55"]).to eq "5"
+        expect(pdf_fields["Text56"]).to eq "6"
+        expect(pdf_fields["Text57"]).to eq "7"
+        expect(pdf_fields["Text58"]).to eq "0"
+        expect(pdf_fields["Text59"]).to eq "0"
+
+        expect(pdf_fields["Birth Year"]).to eq "2"
+        expect(pdf_fields["Text60"]).to eq "0"
+        expect(pdf_fields["Text61"]).to eq "2"
+        expect(pdf_fields["Text62"]).to eq "0"
+
+        # dependent 2
+        expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq "Lastname1 Firstname1 B JR"
+
+        expect(pdf_fields["undefined_21"]).to eq "1"
+        expect(pdf_fields["undefined_22"]).to eq "2"
+        expect(pdf_fields["undefined_23"]).to eq "3"
+        expect(pdf_fields["undefined_24"]).to eq "4"
+        expect(pdf_fields["Text65"]).to eq "5"
+        expect(pdf_fields["Text66"]).to eq "6"
+        expect(pdf_fields["Text67"]).to eq "7"
+        expect(pdf_fields["Text68"]).to eq "0"
+        expect(pdf_fields["Text69"]).to eq "1"
+
+        expect(pdf_fields["Text70"]).to eq "2"
+        expect(pdf_fields["Text71"]).to eq "0"
+        expect(pdf_fields["Text72"]).to eq "1"
+        expect(pdf_fields["Text73"]).to eq "9"
+
+        # dependent 3
+        expect(pdf_fields["Last Name First Name Middle Initial 3"]).to eq "Lastname2 Firstname2 C JR"
+
+        expect(pdf_fields["undefined_25"]).to eq "1"
+        expect(pdf_fields["undefined_26"]).to eq "2"
+        expect(pdf_fields["undefined_27"]).to eq "3"
+        expect(pdf_fields["undefined_28"]).to eq "4"
+        expect(pdf_fields["Text75"]).to eq "5"
+        expect(pdf_fields["Text76"]).to eq "6"
+        expect(pdf_fields["Text77"]).to eq "7"
+        expect(pdf_fields["Text78"]).to eq "0"
+        expect(pdf_fields["Text79"]).to eq "2"
+
+        expect(pdf_fields["Text80"]).to eq "2"
+        expect(pdf_fields["Text81"]).to eq "0"
+        expect(pdf_fields["Text82"]).to eq "1"
+        expect(pdf_fields["Text83"]).to eq "8"
+
+        # dependent 4
+        expect(pdf_fields["Last Name First Name Middle Initial 4"]).to eq "Lastname3 Firstname3 D JR"
+
+        expect(pdf_fields["undefined_29"]).to eq "1"
+        expect(pdf_fields["undefined_30"]).to eq "2"
+        expect(pdf_fields["undefined_31"]).to eq "3"
+        expect(pdf_fields["undefined_32"]).to eq "4"
+        expect(pdf_fields["Text85"]).to eq "5"
+        expect(pdf_fields["Text86"]).to eq "6"
+        expect(pdf_fields["Text87"]).to eq "7"
+        expect(pdf_fields["Text88"]).to eq "0"
+        expect(pdf_fields["Text89"]).to eq "3"
+
+        expect(pdf_fields["Text90"]).to eq "2"
+        expect(pdf_fields["Text91"]).to eq "0"
+        expect(pdf_fields["Text92"]).to eq "1"
+        expect(pdf_fields["Text93"]).to eq "7"
+      end
+    end
   end
 end

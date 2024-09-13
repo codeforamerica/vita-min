@@ -57,6 +57,49 @@ module PdfFiller
         "undefined_9": get_line_7_exemption_count,
         "x  1000_2": get_line_7_exemption_count * 1000,
       }
+
+      undefined_field_counter = 17
+      get_dependents[0..3].map.with_index do |dependent, i|
+        index_starting_at_1 = i + 1
+        name = format_name(dependent[:first_name], dependent[:last_name], dependent[:middle_initial], dependent[:suffix])
+
+        name_hash = {
+          "Last Name First Name Middle Initial #{index_starting_at_1}": name
+        }
+
+        ssn_hash = {}
+        birth_year_hash = {}
+        text_field_start = 5
+        if i == 0
+          dependent[:ssn].chars.map.with_index do |char, j|
+            if j <= 2
+              ssn_hash["undefined_#{undefined_field_counter += 1}"] = char
+            else
+              ssn_hash["Text#{text_field_start}#{j + 1}"] = char
+            end
+            
+            birth_year_hash["Birth Year"] = dependent[:birth_year][0]
+            birth_year_hash["Text60"] = dependent[:birth_year][1]
+            birth_year_hash["Text61"] = dependent[:birth_year][2]
+            birth_year_hash["Text62"] = dependent[:birth_year][3]
+          end
+        else
+          dependent[:ssn].chars.map.with_index do |char, j|
+            if j <= 3
+              ssn_hash["undefined_#{undefined_field_counter += 1}"] = char
+            else
+              ssn_hash["Text#{text_field_start + i}#{j + 1}"] = char
+            end
+          end
+
+          dependent[:birth_year].chars.map.with_index do |char, j|
+            birth_year_hash["Text#{text_field_start + 1 + i}#{j}"] = char
+          end
+        end
+
+        answers.merge!(**name_hash, **ssn_hash, **birth_year_hash)
+      end
+
       if spouse_ssn
         answers.merge!({
          "undefined_3": spouse_ssn[0],
@@ -107,6 +150,19 @@ module PdfFiller
       address_line_1 = @xml_document.at("ReturnHeaderState Filer USAddress AddressLine1Txt")&.text
       address_line_2 = @xml_document.at("ReturnHeaderState Filer USAddress AddressLine2Txt")&.text
       [address_line_1, address_line_2].compact.join(" ")
+    end
+
+    def get_dependents
+      @xml_document.css("Dependents DependentsName").map.with_index do |dependent, i|
+        {
+          first_name: dependent.at("FirstName")&.text,
+          last_name: dependent.at("LastName")&.text,
+          middle_initial: dependent.at("MiddleInitial")&.text,
+          suffix: dependent.at("NameSuffix")&.text,
+          ssn: @xml_document.css("Dependents DependentsSSN")[i]&.text,
+          birth_year: @xml_document.css("Dependents BirthYear")[i]&.text,
+        }
+      end
     end
 
     def get_name

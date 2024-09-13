@@ -68,15 +68,15 @@ module SubmissionBuilder
 
                   unless intake.dependents.empty?
                     xml.Dependents do
-                      # TODO: Should this be qualifying dependents? Or all dependents?
                       intake.dependents.each do |dependent|
-                        xml.DependentsName do 
+                        xml.DependentsName do
                           xml.FirstName sanitize_for_xml(dependent.first_name)
                           xml.MiddleInitial sanitize_for_xml(dependent.middle_initial) if dependent.middle_initial.present?
                           xml.LastName sanitize_for_xml(dependent.last_name)
                           xml.NameSuffix dependent.suffix if dependent.suffix.present?
                         end
                         xml.DependentsSSN dependent.ssn
+                        xml.BirthYear dependent.dob.year
                       end
                     end
                   end

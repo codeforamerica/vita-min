@@ -88,5 +88,56 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
     end
+
+    describe 'dependents' do
+      context 'when no dependents' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+        it 'does not include dependents section' do
+          expect(xml.at("Dependents")).to eq(nil)
+        end
+      end
+
+      context 'when many dependents' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
+
+        before do
+          intake.dependents.each_with_index do |dependent, i|
+            dependent.update(
+              dob: i.years.ago(Date.new(2020, 1, 1)),
+              first_name: "Firstname#{i}",
+              last_name: "Lastname#{i}",
+              middle_initial: 'ABCDEFGHIJK'[i],
+              suffix: 'JR',
+              ssn: "0000000#{"%02d" % i}"
+            )
+          end
+        end
+
+        it 'includes each dependent names, SSN, and year of birth' do
+          expect(xml.css("Dependents DependentsName").count).to eq(11)
+
+          last_dep_name = xml.css("Dependents DependentsName")[0]
+          last_dep_ssn = xml.css("Dependents DependentsSSN")[0]
+          last_dep_birth_year = xml.css("Dependents BirthYear")[0]
+          expect(last_dep_name.at("FirstName").text).to eq("Firstname0")
+          expect(last_dep_name.at("LastName").text).to eq("Lastname0")
+          expect(last_dep_name.at("MiddleInitial").text).to eq("A")
+          expect(last_dep_name.at("NameSuffix").text).to eq("JR")
+          expect(last_dep_ssn.text).to eq("000000000")
+          expect(last_dep_birth_year.text).to eq("2020")
+
+          last_dep_name = xml.css("Dependents DependentsName")[10]
+          last_dep_ssn = xml.css("Dependents DependentsSSN")[10]
+          last_dep_birth_year = xml.css("Dependents BirthYear")[10]
+          expect(last_dep_name.at("FirstName").text).to eq("Firstname10")
+          expect(last_dep_name.at("LastName").text).to eq("Lastname10")
+          expect(last_dep_name.at("MiddleInitial").text).to eq("K")
+          expect(last_dep_name.at("NameSuffix").text).to eq("JR")
+          expect(last_dep_ssn.text).to eq("000000010")
+          expect(last_dep_birth_year.text).to eq("2010")
+        end
+      end
+    end
   end
 end
