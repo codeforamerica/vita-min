@@ -104,6 +104,8 @@ AZ301_LINE_26:
   label: 'Total available nonrefundable tax credits: Add lines 1 through 24'
 AZ301_LINE_27:
   label: 'Tax from Form 140, line 46; or Form 140PY, line 56; or Form 140NR, line 56; or Form 140X, line 37'
+AZ301_LINE_32:
+  label: 'Subtotal'
 AZ301_LINE_33:
   label: 'Family Income Tax Credit from Form 140, line 50; or Form 140PY, line 60; or Form 140X, box 40a; plus Dependent Tax Credit from Form 140, line 49; or Form 140PY, line 59; or Form 140NR, line 59; or Form 140X, box 40b'
 AZ301_LINE_34:
