@@ -58,46 +58,89 @@ module PdfFiller
         "x  1000_2": get_line_7_exemption_count * 1000,
       }
 
-      undefined_field_counter = 17
-      get_dependents[0..3].map.with_index do |dependent, i|
-        index_starting_at_1 = i + 1
-        name = format_name(dependent[:first_name], dependent[:last_name], dependent[:middle_initial], dependent[:suffix])
+      dependents = get_dependents
+      if dependents[0]
+        dep0 = dependents[0]
+        name = format_name(dep0[:first_name], dep0[:last_name], dep0[:middle_initial], dep0[:suffix])
+        answers.merge!({
+          "Last Name First Name Middle Initial 1": name,
+          "undefined_18": dep0[:ssn][0],
+          "undefined_19": dep0[:ssn][1],
+          "undefined_20": dep0[:ssn][2],
+          "Text54": dep0[:ssn][3],
+          "Text55": dep0[:ssn][4],
+          "Text56": dep0[:ssn][5],
+          "Text57": dep0[:ssn][6],
+          "Text58": dep0[:ssn][7],
+          "Text59": dep0[:ssn][8],
+          "Birth Year": dep0[:birth_year][0],
+          "Text60": dep0[:birth_year][1],
+          "Text61": dep0[:birth_year][2],
+          "Text62": dep0[:birth_year][3]
+        })
+      end
 
-        name_hash = {
-          "Last Name First Name Middle Initial #{index_starting_at_1}": name
-        }
+      if dependents[1]
+        dep1 = dependents[1]
+        name = format_name(dep1[:first_name], dep1[:last_name], dep1[:middle_initial], dep1[:suffix])
+        answers.merge!({
+           "Last Name First Name Middle Initial 2": name,
+           "undefined_21": dep1[:ssn][0],
+           "undefined_22": dep1[:ssn][1],
+           "undefined_23": dep1[:ssn][2],
+           "undefined_24": dep1[:ssn][3],
+           "Text65": dep1[:ssn][4],
+           "Text66": dep1[:ssn][5],
+           "Text67": dep1[:ssn][6],
+           "Text68": dep1[:ssn][7],
+           "Text69": dep1[:ssn][8],
+           "Text70": dep1[:birth_year][0],
+           "Text71": dep1[:birth_year][1],
+           "Text72": dep1[:birth_year][2],
+           "Text73": dep1[:birth_year][3]
+         })
+      end
 
-        ssn_hash = {}
-        birth_year_hash = {}
-        text_field_start = 5
-        if i == 0
-          dependent[:ssn].chars.map.with_index do |char, j|
-            if j <= 2
-              ssn_hash["undefined_#{undefined_field_counter += 1}"] = char
-            else
-              ssn_hash["Text#{text_field_start}#{j + 1}"] = char
-            end
-            
-            birth_year_hash["Birth Year"] = dependent[:birth_year][0]
-            birth_year_hash["Text60"] = dependent[:birth_year][1]
-            birth_year_hash["Text61"] = dependent[:birth_year][2]
-            birth_year_hash["Text62"] = dependent[:birth_year][3]
-          end
-        else
-          dependent[:ssn].chars.map.with_index do |char, j|
-            if j <= 3
-              ssn_hash["undefined_#{undefined_field_counter += 1}"] = char
-            else
-              ssn_hash["Text#{text_field_start + i}#{j + 1}"] = char
-            end
-          end
+      if dependents[2]
+        dep2 = dependents[2]
+        name = format_name(dep2[:first_name], dep2[:last_name], dep2[:middle_initial], dep2[:suffix])
+        answers.merge!({
+         "Last Name First Name Middle Initial 3": name,
+         "undefined_25": dep2[:ssn][0],
+         "undefined_26": dep2[:ssn][1],
+         "undefined_27": dep2[:ssn][2],
+         "undefined_28": dep2[:ssn][3],
+         "Text75": dep2[:ssn][4],
+         "Text76": dep2[:ssn][5],
+         "Text77": dep2[:ssn][6],
+         "Text78": dep2[:ssn][7],
+         "Text79": dep2[:ssn][8],
+         "Text80": dep2[:birth_year][0],
+         "Text81": dep2[:birth_year][1],
+         "Text82": dep2[:birth_year][2],
+         "Text83": dep2[:birth_year][3]
+       })
+      end
 
-          dependent[:birth_year].chars.map.with_index do |char, j|
-            birth_year_hash["Text#{text_field_start + 1 + i}#{j}"] = char
-          end
-        end
-
-        answers.merge!(**name_hash, **ssn_hash, **birth_year_hash)
+      if dependents[3]
+        dep3 = dependents[3]
+        name = format_name(dep3[:first_name], dep3[:last_name], dep3[:middle_initial], dep3[:suffix])
+        answers.merge!({
+           "Last Name First Name Middle Initial 4": name,
+           "undefined_29": dep3[:ssn][0],
+           "undefined_30": dep3[:ssn][1],
+           "undefined_31": dep3[:ssn][2],
+           "undefined_32": dep3[:ssn][3],
+           "Text85": dep3[:ssn][4],
+           "Text86": dep3[:ssn][5],
+           "Text87": dep3[:ssn][6],
+           "Text88": dep3[:ssn][7],
+           "Text89": dep3[:ssn][8],
+           "Text90": dep3[:birth_year][0],
+           "Text91": dep3[:birth_year][1],
+           "Text92": dep3[:birth_year][2],
+           "Text93": dep3[:birth_year][3]
+         })
       end
 
       if spouse_ssn
