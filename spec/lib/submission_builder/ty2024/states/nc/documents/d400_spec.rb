@@ -23,6 +23,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       it "correctly fills answers" do
         expect(xml.document.at('ResidencyStatusPrimary').text).to eq "true"
         expect(xml.document.at('ResidencyStatusSpouse')).to be_nil
+        expect(xml.document.at('VeteranInfoSpouse')).to be_nil
         expect(xml.document.at('FilingStatus').text).to eq "Single"
         expect(xml.document.at('FAGI').text).to eq "10000"
         expect(xml.document.at('FAGIPlusAdditions').text).to eq "10000"
@@ -37,10 +38,6 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       it "correctly fills veteran info for primary" do
         intake.update(primary_veteran: "yes")
         expect(xml.document.at('VeteranInfoPrimary').text).to eq "1"
-      end
-
-      it "does not include spouse veteran info" do
-        expect(xml.document.at('VeteranInfoSpouse')).to be_nil
       end
     end
 
@@ -92,7 +89,5 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCStandardDeduction').text).to eq "25500"
       end
     end
-
-
   end
 end
