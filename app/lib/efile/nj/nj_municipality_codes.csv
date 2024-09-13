@@ -1,0 +1,565 @@
+county_name,municipality_name,municipality_code
+Atlantic,Absecon City,0101
+Atlantic,Atlantic City,0102
+Atlantic,Brigantine City,0103
+Atlantic,Buena Borough,0104
+Atlantic,Buena Vista Township,0105
+Atlantic,Corbin City,0106
+Atlantic,Egg Harbor City,0107
+Atlantic,Egg Harbor Township,0108
+Atlantic,Estell Manor City,0109
+Atlantic,Folsom Borough,0110
+Atlantic,Galloway Township,0111
+Atlantic,Hamilton Township,0112
+Atlantic,Hammonton Town,0113
+Atlantic,Linwood City,0114
+Atlantic,Longport Borough,0115
+Atlantic,Margate City,0116
+Atlantic,Mullica Township,0117
+Atlantic,Northfield City,0118
+Atlantic,Pleasantville City,0119
+Atlantic,Port Republic City,0120
+Atlantic,Somers Point City,0121
+Atlantic,Ventnor City,0122
+Atlantic,Weymouth Township,0123
+Bergen,Allendale Borough,0201
+Bergen,Alpine Borough,0202
+Bergen,Bergenfield Borough,0203
+Bergen,Bogota Borough,0204
+Bergen,Carlstadt Borough,0205
+Bergen,Cliffside Park Borough,0206
+Bergen,Closter Borough,0207
+Bergen,Cresskill Borough,0208
+Bergen,Demarest Borough,0209
+Bergen,Dumont Borough,0210
+Bergen,East Rutherford Borough,0212
+Bergen,Edgewater Borough,0213
+Bergen,Elmwood Park Borough,0211
+Bergen,Emerson Borough,0214
+Bergen,Englewood City,0215
+Bergen,Englewood Cliffs Borough,0216
+Bergen,Fair Lawn Borough,0217
+Bergen,Fairview Borough,0218
+Bergen,Fort Lee Borough,0219
+Bergen,Franklin Lakes Borough,0220
+Bergen,Garfield City,0221
+Bergen,Glen Rock Borough,0222
+Bergen,Hackensack City,0223
+Bergen,Harrington Park Borough,0224
+Bergen,Hasbrouck Heights Borough,0225
+Bergen,Haworth Borough,0226
+Bergen,Hillsdale Borough,0227
+Bergen,Ho-Ho-Kus Borough,0228
+Bergen,Leonia Borough,0229
+Bergen,Little Ferry Borough,0230
+Bergen,Lodi Borough,0231
+Bergen,Lyndhurst Township,0232
+Bergen,Mahwah Township,0233
+Bergen,Maywood Borough,0234
+Bergen,Midland Park Borough,0235
+Bergen,Montvale Borough,0236
+Bergen,Moonachie Borough,0237
+Bergen,New Milford Borough,0238
+Bergen,North Arlington Borough,0239
+Bergen,Northvale Borough,0240
+Bergen,Norwood Borough,0241
+Bergen,Oakland Borough,0242
+Bergen,Old Tappan Borough,0243
+Bergen,Oradell Borough,0244
+Bergen,Palisades Park Borough,0245
+Bergen,Paramus Borough,0246
+Bergen,Park Ridge Borough,0247
+Bergen,Ramsey Borough,0248
+Bergen,Ridgefield Borough,0249
+Bergen,Ridgefield Park Village,0250
+Bergen,Ridgewood Village,0251
+Bergen,River Edge Borough,0252
+Bergen,River Vale Township,0253
+Bergen,Rochelle Park Township,0254
+Bergen,Rockleigh Borough,0255
+Bergen,Rutherford Borough,0256
+Bergen,Saddle Brook Township,0257
+Bergen,Saddle River Borough,0258
+Bergen,South Hackensack Township,0259
+Bergen,Teaneck Township,0260
+Bergen,Tenafly Borough,0261
+Bergen,Teterboro Borough,0262
+Bergen,Upper Saddle River Borough,0263
+Bergen,Waldwick Borough,0264
+Bergen,Wallington Borough,0265
+Bergen,Washington Township,0266
+Bergen,Westwood Borough,0267
+Bergen,Woodcliff Lake Borough,0268
+Bergen,Wood-Ridge Borough,0269
+Bergen,Wyckoff Township,0270
+Burlington,Bass River Township,0301
+Burlington,Beverly City,0302
+Burlington,Bordentown City,0303
+Burlington,Bordentown Township,0304
+Burlington,Burlington City,0305
+Burlington,Burlington Township,0306
+Burlington,Chesterfield Township,0307
+Burlington,Cinnaminson Township,0308
+Burlington,Delanco Township,0309
+Burlington,Delran Township,0310
+Burlington,Eastampton Township,0311
+Burlington,Edgewater Park Township,0312
+Burlington,Evesham Township,0313
+Burlington,Fieldsboro Borough,0314
+Burlington,Florence Township,0315
+Burlington,Hainesport Township,0316
+Burlington,Lumberton Township,0317
+Burlington,Mansfield Township,0318
+Burlington,Maple Shade Township,0319
+Burlington,Medford Township,0320
+Burlington,Medford Lakes Borough,0321
+Burlington,Moorestown Township,0322
+Burlington,Mount Holly Township,0323
+Burlington,Mount Laurel Township,0324
+Burlington,New Hanover Township,0325
+Burlington,North Hanover Township,0326
+Burlington,Palmyra Borough,0327
+Burlington,Pemberton Borough,0328
+Burlington,Pemberton Township,0329
+Burlington,Riverside Township,0330
+Burlington,Riverton Borough,0331
+Burlington,Shamong Township,0332
+Burlington,Southampton Township,0333
+Burlington,Springfield Township,0334
+Burlington,Tabernacle Township,0335
+Burlington,Washington Township,0336
+Burlington,Westampton Township,0337
+Burlington,Willingboro Township,0338
+Burlington,Woodland Township,0339
+Burlington,Wrightstown Borough,0340
+Camden,Audubon Borough,0401
+Camden,Audubon Park Borough,0402
+Camden,Barrington Borough,0403
+Camden,Bellmawr Borough,0404
+Camden,Berlin Borough,0405
+Camden,Berlin Township,0406
+Camden,Brooklawn Borough,0407
+Camden,Camden City,0408
+Camden,Cherry Hill Township,0409
+Camden,Chesilhurst Borough,0410
+Camden,Clementon Borough,0411
+Camden,Collingswood Borough,0412
+Camden,Gibbsboro Borough,0413
+Camden,Gloucester City,0414
+Camden,Gloucester Township,0415
+Camden,Haddon Township,0416
+Camden,Haddonfield Borough,0417
+Camden,Haddon Heights Borough,0418
+Camden,Hi-Nella Borough,0419
+Camden,Laurel Springs Borough,0420
+Camden,Lawnside Borough,0421
+Camden,Lindenwold Borough,0422
+Camden,Magnolia Borough,0423
+Camden,Merchantville Borough,0424
+Camden,Mount Ephraim Borough,0425
+Camden,Oaklyn Borough,0426
+Camden,Pennsauken Township,0427
+Camden,Pine Hill Borough,0428
+Camden,Runnemede Borough,0430
+Camden,Somerdale Borough,0431
+Camden,Stratford Borough,0432
+Camden,Tavistock Borough,0433
+Camden,Voorhees Township,0434
+Camden,Waterford Township,0435
+Camden,Winslow Township,0436
+Camden,Woodlynne Borough,0437
+Cape May,Avalon Borough,0501
+Cape May,Cape May City,0502
+Cape May,Cape May Point Borough,0503
+Cape May,Dennis Township,0504
+Cape May,Lower Township,0505
+Cape May,Middle Township,0506
+Cape May,North Wildwood City,0507
+Cape May,Ocean City,0508
+Cape May,Sea Isle City,0509
+Cape May,Stone Harbor Borough,0510
+Cape May,Upper Township,0511
+Cape May,West Cape May Borough,0512
+Cape May,West Wildwood Borough,0513
+Cape May,Wildwood City,0514
+Cape May,Wildwood Crest Borough,0515
+Cape May,Woodbine Borough,0516
+Cumberland,Bridgeton City,0601
+Cumberland,Commercial Township,0602
+Cumberland,Deerfield Township,0603
+Cumberland,Downe Township,0604
+Cumberland,Fairfield Township,0605
+Cumberland,Greenwich Township,0606
+Cumberland,Hopewell Township,0607
+Cumberland,Lawrence Township,0608
+Cumberland,Maurice River Township,0609
+Cumberland,Millville City,0610
+Cumberland,Shiloh Borough,0611
+Cumberland,Stow Creek Township,0612
+Cumberland,Upper Deerfield Township,0613
+Cumberland,Vineland City,0614
+Essex,Belleville Township,0701
+Essex,Bloomfield Township,0702
+Essex,Caldwell Borough Township,0703
+Essex,Cedar Grove Township,0704
+Essex,East Orange City,0705
+Essex,Essex Fells Township,0706
+Essex,Fairfield Township,0707
+Essex,Glen Ridge Borough,0708
+Essex,Irvington Township,0709
+Essex,Livingston Township,0710
+Essex,Maplewood Township,0711
+Essex,Millburn Township,0712
+Essex,Montclair Township,0713
+Essex,Newark City,0714
+Essex,North Caldwell Borough,0715
+Essex,Nutley Township,0716
+Essex,Orange City,0717
+Essex,Roseland Borough,0718
+Essex,South Orange Village Township,0719
+Essex,Verona Township,0720
+Essex,West Caldwell Township,0721
+Essex,West Orange Township,0722
+Gloucester,Clayton Borough,0801
+Gloucester,Deptford Township,0802
+Gloucester,East Greenwich Township,0803
+Gloucester,Elk Township,0804
+Gloucester,Franklin Township,0805
+Gloucester,Glassboro Borough,0806
+Gloucester,Greenwich Township,0807
+Gloucester,Harrison Township,0808
+Gloucester,Logan Township,0809
+Gloucester,Mantua Township,0810
+Gloucester,Monroe Township,0811
+Gloucester,National Park Borough,0812
+Gloucester,Newfield Borough,0813
+Gloucester,Paulsboro Borough,0814
+Gloucester,Pitman Borough,0815
+Gloucester,South Harrison Township,0816
+Gloucester,Swedesboro Borough,0817
+Gloucester,Washington Township,0818
+Gloucester,Wenonah Borough,0819
+Gloucester,West Deptford Township,0820
+Gloucester,Westville Borough,0821
+Gloucester,Woodbury City,0822
+Gloucester,Woodbury Heights Borough,0823
+Gloucester,Woolwich Township,0824
+Hudson,Bayonne City,0901
+Hudson,East Newark Borough,0902
+Hudson,Guttenberg Town,0903
+Hudson,Harrison Town,0904
+Hudson,Hoboken City,0905
+Hudson,Jersey City,0906
+Hudson,Kearny Town,0907
+Hudson,North Bergen Township,0908
+Hudson,Secaucus Town,0909
+Hudson,Union City,0910
+Hudson,Weehawken Township,0911
+Hudson,West New York Town,0912
+Hunterdon,Alexandria Township,1001
+Hunterdon,Bethlehem Township,1002
+Hunterdon,Bloomsbury Borough,1003
+Hunterdon,Califon Borough,1004
+Hunterdon,Clinton Town,1005
+Hunterdon,Clinton Township,1006
+Hunterdon,Delaware Township,1007
+Hunterdon,East Amwell Township,1008
+Hunterdon,Flemington Borough,1009
+Hunterdon,Franklin Township,1010
+Hunterdon,Frenchtown Borough,1011
+Hunterdon,Glen Gardner Borough,1012
+Hunterdon,Hampton Borough,1013
+Hunterdon,High Bridge Borough,1014
+Hunterdon,Holland Township,1015
+Hunterdon,Kingwood Township,1016
+Hunterdon,Lambertville City,1017
+Hunterdon,Lebanon Borough,1018
+Hunterdon,Lebanon Township,1019
+Hunterdon,Milford Borough,1020
+Hunterdon,Raritan Township,1021
+Hunterdon,Readington Township,1022
+Hunterdon,Stockton Borough,1023
+Hunterdon,Tewksbury Township,1024
+Hunterdon,Union Township,1025
+Hunterdon,West Amwell Township,1026
+Mercer,East Windsor Township,1101
+Mercer,Ewing Township,1102
+Mercer,Hamilton Township,1103
+Mercer,Hightstown Borough,1104
+Mercer,Hopewell Borough,1105
+Mercer,Hopewell Township,1106
+Mercer,Lawrence Township,1107
+Mercer,Pennington Borough,1108
+Mercer,Princeton,1114
+Mercer,Robbinsville Township,1112
+Mercer,Trenton City,1111
+Mercer,West Windsor Township,1113
+Middlesex,Carteret Borough,1201
+Middlesex,Cranbury Township,1202
+Middlesex,Dunellen Borough,1203
+Middlesex,East Brunswick Township,1204
+Middlesex,Edison Township,1205
+Middlesex,Helmetta Borough,1206
+Middlesex,Highland Park Borough,1207
+Middlesex,Jamesburg Borough,1208
+Middlesex,Metuchen Borough,1209
+Middlesex,Middlesex Borough,1210
+Middlesex,Milltown Borough,1211
+Middlesex,Monroe Township,1212
+Middlesex,New Brunswick City,1213
+Middlesex,North Brunswick Township,1214
+Middlesex,Old Bridge Township,1215
+Middlesex,Perth Amboy City,1216
+Middlesex,Piscataway Township,1217
+Middlesex,Plainsboro Township,1218
+Middlesex,Sayreville Borough,1219
+Middlesex,South Amboy City,1220
+Middlesex,South Brunswick Township,1221
+Middlesex,South Plainfield Borough,1222
+Middlesex,South River Borough,1223
+Middlesex,Spotswood Borough,1224
+Middlesex,Woodbridge Township,1225
+Monmouth,Aberdeen Township,1301
+Monmouth,Allenhurst Borough,1302
+Monmouth,Allentown Borough,1303
+Monmouth,Asbury Park City,1304
+Monmouth,Atlantic Highlands Borough,1305
+Monmouth,Avon-by-the-Sea Borough,1306
+Monmouth,Belmar Borough,1307
+Monmouth,Bradley Beach Borough,1308
+Monmouth,Brielle Borough,1309
+Monmouth,Colts Neck Township,1310
+Monmouth,Deal Borough,1311
+Monmouth,Eatontown Borough,1312
+Monmouth,Englishtown Borough,1313
+Monmouth,Fair Haven Borough,1314
+Monmouth,Farmingdale Borough,1315
+Monmouth,Freehold Borough,1316
+Monmouth,Freehold Township,1317
+Monmouth,Hazlet Township,1318
+Monmouth,Highlands Borough,1319
+Monmouth,Holmdel Township,1320
+Monmouth,Howell Township,1321
+Monmouth,Interlaken Borough,1322
+Monmouth,Keansburg Borough,1323
+Monmouth,Keyport Borough,1324
+Monmouth,Lake Como Borough,1346
+Monmouth,Little Silver Borough,1325
+Monmouth,Loch Arbour Village,1326
+Monmouth,Long Branch City,1327
+Monmouth,Manalapan Township,1328
+Monmouth,Manasquan Borough,1329
+Monmouth,Marlboro Township,1330
+Monmouth,Matawan Borough,1331
+Monmouth,Middletown Township,1332
+Monmouth,Millstone Township,1333
+Monmouth,Monmouth Beach Borough,1334
+Monmouth,Neptune City Borough,1336
+Monmouth,Neptune Township,1335
+Monmouth,Ocean Township,1337
+Monmouth,Oceanport Borough,1338
+Monmouth,Red Bank Borough,1339
+Monmouth,Roosevelt Borough,1340
+Monmouth,Rumson Borough,1341
+Monmouth,Sea Bright Borough,1342
+Monmouth,Sea Girt Borough,1343
+Monmouth,Shrewsbury Borough,1344
+Monmouth,Shrewsbury Township,1345
+Monmouth,Spring Lake Borough,1347
+Monmouth,Spring Lake Heights Borough,1348
+Monmouth,Tinton Falls Borough,1349
+Monmouth,Union Beach Borough,1350
+Monmouth,Upper Freehold Township,1351
+Monmouth,Wall Township,1352
+Monmouth,West Long Branch Borough,1353
+Morris,Boonton Town,1401
+Morris,Boonton Township,1402
+Morris,Butler Borough,1403
+Morris,Chatham Borough,1404
+Morris,Chatham Township,1405
+Morris,Chester Borough,1406
+Morris,Chester Township,1407
+Morris,Denville Township,1408
+Morris,Dover Town,1409
+Morris,East Hanover Township,1410
+Morris,Florham Park Borough,1411
+Morris,Hanover Township,1412
+Morris,Harding Township,1413
+Morris,Jefferson Township,1414
+Morris,Kinnelon Borough,1415
+Morris,Lincoln Park Borough,1416
+Morris,Long Hill Township,1430
+Morris,Madison Borough,1417
+Morris,Mendham Borough,1418
+Morris,Mendham Township,1419
+Morris,Mine Hill Township,1420
+Morris,Montville Township,1421
+Morris,Morris Plains Borough,1423
+Morris,Morris Township,1422
+Morris,Morristown Town,1424
+Morris,Mountain Lakes Borough,1425
+Morris,Mount Arlington Borough,1426
+Morris,Mount Olive Township,1427
+Morris,Netcong Borough,1428
+Morris,Parsippany-Troy Hills Township,1429
+Morris,Pequannock Township,1431
+Morris,Randolph Township,1432
+Morris,Riverdale Borough,1433
+Morris,Rockaway Borough,1434
+Morris,Rockaway Township,1435
+Morris,Roxbury Township,1436
+Morris,Victory Gardens Borough,1437
+Morris,Washington Township,1438
+Morris,Wharton Borough,1439
+Ocean,Barnegat Township,1501
+Ocean,Barnegat Light Borough,1502
+Ocean,Bay Head Borough,1503
+Ocean,Beach Haven Borough,1504
+Ocean,Beachwood Borough,1505
+Ocean,Berkeley Township,1506
+Ocean,Brick Township,1507
+Ocean,Eagleswood Township,1509
+Ocean,Harvey Cedars Borough,1510
+Ocean,Island Heights Borough,1511
+Ocean,Jackson Township,1512
+Ocean,Lacey Township,1513
+Ocean,Lakehurst Borough,1514
+Ocean,Lakewood Township,1515
+Ocean,Lavallette Borough,1516
+Ocean,Little Egg Harbor Township,1517
+Ocean,Long Beach Township,1518
+Ocean,Manchester Township,1519
+Ocean,Mantoloking Borough,1520
+Ocean,Ocean Gate Borough,1522
+Ocean,Ocean Township,1521
+Ocean,Pine Beach Borough,1523
+Ocean,Plumsted Township,1524
+Ocean,Point Pleasant Borough,1525
+Ocean,Point Pleasant Beach Borough,1526
+Ocean,Seaside Heights Borough,1527
+Ocean,Seaside Park Borough,1528
+Ocean,Ship Bottom Borough,1529
+Ocean,South Toms River Borough,1530
+Ocean,Stafford Township,1531
+Ocean,Surf City Borough,1532
+Ocean,Toms River Township,1508
+Ocean,Tuckerton Borough,1533
+Passaic,Bloomingdale Borough,1601
+Passaic,Clifton City,1602
+Passaic,Haledon Borough,1603
+Passaic,Hawthorne Borough,1604
+Passaic,Little Falls Township,1605
+Passaic,North Haledon Borough,1606
+Passaic,Passaic City,1607
+Passaic,Paterson City,1608
+Passaic,Pompton Lakes Borough,1609
+Passaic,Prospect Park Borough,1610
+Passaic,Ringwood Borough,1611
+Passaic,Totowa Borough,1612
+Passaic,Wanaque Borough,1613
+Passaic,Wayne Township,1614
+Passaic,West Milford Township,1615
+Passaic,Woodland Park Borough,1616
+Salem,Alloway Township,1701
+Salem,Carneys Point Township,1702
+Salem,Elmer Borough,1703
+Salem,Elsinboro Township,1704
+Salem,Lower Alloways Creek Township,1705
+Salem,Mannington Township,1706
+Salem,Oldmans Township,1707
+Salem,Penns Grove Borough,1708
+Salem,Pennsville Township,1709
+Salem,Pilesgrove Township,1710
+Salem,Pittsgrove Township,1711
+Salem,Quinton Township,1712
+Salem,Salem City,1713
+Salem,Upper Pittsgrove Township,1714
+Salem,Woodstown Borough,1715
+Somerset,Bedminster Township,1801
+Somerset,Bernards Township,1802
+Somerset,Bernardsville Borough,1803
+Somerset,Bound Brook Borough,1804
+Somerset,Branchburg Township,1805
+Somerset,Bridgewater Township,1806
+Somerset,Far Hills Borough,1807
+Somerset,Franklin Township,1808
+Somerset,Green Brook Township,1809
+Somerset,Hillsborough Township,1810
+Somerset,Manville Borough,1811
+Somerset,Millstone Borough,1812
+Somerset,Montgomery Township,1813
+Somerset,North Plainfield Borough,1814
+Somerset,Peapack & Gladstone Borough,1815
+Somerset,Raritan Borough,1816
+Somerset,Rocky Hill Borough,1817
+Somerset,Somerville Borough,1818
+Somerset,South Bound Brook Borough,1819
+Somerset,Warren Township,1820
+Somerset,Watchung Borough,1821
+Sussex,Andover Borough,1901
+Sussex,Andover Township,1902
+Sussex,Branchville Borough,1903
+Sussex,Byram Township,1904
+Sussex,Frankford Township,1905
+Sussex,Franklin Borough,1906
+Sussex,Fredon Township,1907
+Sussex,Green Township,1908
+Sussex,Hamburg Borough,1909
+Sussex,Hampton Township,1910
+Sussex,Hardyston Township,1911
+Sussex,Hopatcong Borough,1912
+Sussex,Lafayette Township,1913
+Sussex,Montague Township,1914
+Sussex,Newton Town,1915
+Sussex,Ogdensburg Borough,1916
+Sussex,Sandyston Township,1917
+Sussex,Sparta Township,1918
+Sussex,Stanhope Borough,1919
+Sussex,Stillwater Township,1920
+Sussex,Sussex Borough,1921
+Sussex,Vernon Township,1922
+Sussex,Walpack Township,1923
+Sussex,Wantage Township,1924
+Union,Berkeley Heights Township,2001
+Union,Clark Township,2002
+Union,Cranford Township,2003
+Union,Elizabeth City,2004
+Union,Fanwood Borough,2005
+Union,Garwood Borough,2006
+Union,Hillside Township,2007
+Union,Kenilworth Borough,2008
+Union,Linden City,2009
+Union,Mountainside Borough,2010
+Union,New Providence Borough,2011
+Union,Plainfield City,2012
+Union,Rahway City,2013
+Union,Roselle Borough,2014
+Union,Roselle Park Borough,2015
+Union,Scotch Plains Township,2016
+Union,Springfield Township,2017
+Union,Summit City,2018
+Union,Union Township,2019
+Union,Westfield Town,2020
+Union,Winfield Township,2021
+Warren,Allamuchy Township,2101
+Warren,Alpha Borough,2102
+Warren,Belvidere Town,2103
+Warren,Blairstown Township,2104
+Warren,Franklin Township,2105
+Warren,Frelinghuysen Township,2106
+Warren,Greenwich Township,2107
+Warren,Hackettstown Town,2108
+Warren,Hardwick Township,2109
+Warren,Harmony Township,2110
+Warren,Hope Township,2111
+Warren,Independence Township,2112
+Warren,Knowlton Township,2113
+Warren,Liberty Township,2114
+Warren,Lopatcong Township,2115
+Warren,Mansfield Township,2116
+Warren,Oxford Township,2117
+Warren,Phillipsburg Town,2119
+Warren,Pohatcong Township,2120
+Warren,Washington Borough,2121
+Warren,Washington Township,2122
+Warren,White Township,2123

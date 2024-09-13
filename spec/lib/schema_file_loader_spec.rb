@@ -1,22 +1,19 @@
 require "rails_helper"
 
 describe SchemaFileLoader do
-
   it "all required schema files are present" do
     expect(SchemaFileLoader::EFILE_SCHEMAS_FILENAMES).to eq [
-      ["efile1040x_2020v5.1.zip", "irs", false],
-      ["efile1040x_2021v5.2.zip", "irs", false],
-      ["efile1040x_2022v5.3.zip", "irs", false],
-      ["efile1040x_2023v5.0.zip", "irs", false],
-      ["AZIndividual2023v1.0.zip", "us_states", false],
-      ["NCIndividual2023v1.0.zip", "us_states", false],
-      ["NJIndividual2023V0.4.zip", "us_states", true],
-      ["NYSIndividual2023V4.0.zip", "us_states", false],
+      ["efile1040x_2020v5.1.zip", "irs"],
+      ["efile1040x_2021v5.2.zip", "irs"],
+      ["efile1040x_2022v5.3.zip", "irs"],
+      ["efile1040x_2023v5.0.zip", "irs"],
+      ["AZIndividual2023v1.0.zip", "us_states"],
+      ["NCIndividual2023v1.0.zip", "us_states"],
+      ["NYSIndividual2023V4.0.zip", "us_states"],
     ]
   end
 
   describe "#s3_credentials" do
-
     context "AWS_ACCESS_KEY_ID in ENV" do
       it "uses the environment variables" do
         stub_const("ENV", {
@@ -86,14 +83,13 @@ describe SchemaFileLoader do
     it "gets missing downloads" do
       expect(SchemaFileLoader.get_missing_downloads("testy")).to eq(
         [
-          ["testy/irs/efile1040x_2020v5.1.zip", 'irs', false],
-          ["testy/irs/efile1040x_2021v5.2.zip", 'irs', false],
-          ["testy/irs/efile1040x_2022v5.3.zip", 'irs', false],
-          ["testy/irs/efile1040x_2023v5.0.zip", 'irs', false],
-          ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states', false],
-          ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states', false],
-          ["testy/us_states/NJIndividual2023V0.4.zip", 'us_states', true],
-          ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states', false]
+          ["testy/irs/efile1040x_2020v5.1.zip", 'irs'],
+          ["testy/irs/efile1040x_2021v5.2.zip", 'irs'],
+          ["testy/irs/efile1040x_2022v5.3.zip", 'irs'],
+          ["testy/irs/efile1040x_2023v5.0.zip", 'irs'],
+          ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states']
         ]
       )
     end
