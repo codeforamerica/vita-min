@@ -39,6 +39,7 @@
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
 #  referrer                          :string
+#  residence_county                  :string           default("unfilled"), not null
 #  routing_number                    :integer
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
@@ -65,6 +66,7 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
+  include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data
 
   def disqualifying_df_data_reason

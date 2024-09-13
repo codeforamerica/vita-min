@@ -2481,6 +2481,10 @@ en:
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
+      nc_county:
+        edit:
+          county: County
+          title: Select the county where you lived on December 31st, %{filing_year}
       ny_county:
         edit:
           county: County

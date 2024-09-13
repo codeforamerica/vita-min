@@ -28,6 +28,7 @@ module Navigation
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::NameDobController),

@@ -39,6 +39,7 @@
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
 #  referrer                          :string
+#  residence_county                  :string           default("unfilled"), not null
 #  routing_number                    :integer
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string

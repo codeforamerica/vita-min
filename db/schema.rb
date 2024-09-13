@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_11_155059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1806,6 +1806,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_143013) do
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.string "referrer"
+    t.string "residence_county", default: "unfilled", null: false
     t.integer "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
