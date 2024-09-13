@@ -769,6 +769,7 @@ class DirectFileData < DfXmlAccessor
       mailing_apartment
       mailing_zip
       cell_phone_number
+      phone_number
       tax_payer_email
       total_w2_state_tax_withheld
       fed_tax_amt
