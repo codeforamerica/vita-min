@@ -15,14 +15,14 @@ module SubmissionBuilder
                     xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_7a)
                   end
                   xml.ColumnC do
-                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ322_LINE_20)
+                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ301_LINE_6c)
                     xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_7c)
                     xml.TotalAvailTaxCr @calculated_fields.fetch(:AZ301_LINE_26)
                   end
                 end
                 xml.AppTaxCr do
                   xml.ComputedTax @calculated_fields.fetch(:AZ301_LINE_27)
-                  xml.Subtotal 0
+                  xml.Subtotal @calculated_fields.fetch(:AZ301_LINE_32)
                   xml.FamilyIncomeTax @calculated_fields.fetch(:AZ301_LINE_33)
                   xml.DiffFamilyIncTaxSubTotal @calculated_fields.fetch(:AZ301_LINE_34)
                   xml.NonrefunCreditsUsed do

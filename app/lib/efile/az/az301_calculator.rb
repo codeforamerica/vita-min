@@ -10,43 +10,73 @@ module Efile
       end
 
       def calculate
-        set_line(:AZ301_LINE_6a, -> { @lines[:AZ321_LINE_20]&.value })
-        set_line(:AZ301_LINE_6c, -> { @lines[:AZ321_LINE_22]&.value })
-        set_line(:AZ301_LINE_7a, -> { @lines[:AZ322_LINE_20]&.value })
-        set_line(:AZ301_LINE_7c, -> { @lines[:AZ322_LINE_22]&.value })
-        set_line(:AZ301_LINE_26, :calculate_line_26)
-        set_line(:AZ301_LINE_27, -> { @lines[:AZ140_LINE_46]&.value })
-        set_line(:AZ301_LINE_33, :calculate_line_33)
-        set_line(:AZ301_LINE_34, -> { 0 }) # Subtract line 33 from line 32 (not in scope). Enter the difference. If less than zero, enter “0”
-        set_line(:AZ301_LINE_40, -> { @lines[:AZ301_LINE_6c]&.value })
-        set_line(:AZ301_LINE_41, -> { @lines[:AZ301_LINE_7c]&.value })
-        set_line(:AZ301_LINE_60, :calculate_line_60 )
-        set_line(:AZ301_LINE_62,  -> { @lines[:AZ301_LINE_60]&.value }) #Add lines 60 and 61 (not in scope).
+        set_line(:AZ301_LINE_6a, method(:calculate_line_6a))
+        set_line(:AZ301_LINE_6c, method(:calculate_line_6c))
+        set_line(:AZ301_LINE_7a, method(:calculate_line_7a))
+        set_line(:AZ301_LINE_7c, method(:calculate_line_7c))
+        set_line(:AZ301_LINE_26, method(:calculate_line_26))
+        set_line(:AZ301_LINE_27, method(:calculate_line_27))
+        set_line(:AZ301_LINE_32, method(:calculate_line_32))
+        set_line(:AZ301_LINE_33, method(:calculate_line_33))
+        set_line(:AZ301_LINE_34, method(:calculate_line_34))
+        set_line(:AZ301_LINE_40, method(:calculate_line_40))
+        set_line(:AZ301_LINE_41, method(:calculate_line_41))
+        set_line(:AZ301_LINE_60, method(:calculate_line_60))
+        set_line(:AZ301_LINE_62, method(:calculate_line_62))
       end
 
       private
 
-      def calculate_line_26
-        result = 0
-        (1..24).each do |line_num|
-          result += line_or_zero("AZ301_LINE_#{line_num}c")
-        end
+      def calculate_line_6a # Credit for Contributions to Qualifying Charitable Organizations from current year
+        @lines[:AZ321_LINE_20]&.value
+      end
 
-        result
+      def calculate_line_6c # Total credit for Contributions to Qualifying Charitable Organizations
+        @lines[:AZ321_LINE_22]&.value
+      end
+
+      def calculate_line_7a # Credit for Contributions Made or Fees Paid to Public Schools from current year
+        @lines[:AZ322_LINE_20]&.value
+      end
+
+      def calculate_line_7c # Total credit for Contributions Made or Fees Paid to Public Schools
+        @lines[:AZ322_LINE_22]&.value
+      end
+
+      def calculate_line_26
+        (1..24).sum { |line_num| line_or_zero("AZ301_LINE_#{line_num}c") }
+      end
+
+      def calculate_line_27 # Tax from Form 140, line 46
+        @lines[:AZ140_LINE_46]&.value
+      end
+
+      def calculate_line_32 # Add lines 27 and 31 (31 not in scope)
+        @lines[:AZ301_LINE_27]&.value
       end
 
       def calculate_line_33
         line_or_zero(:AZ140_LINE_50) + line_or_zero(:AZ140_LINE_49)
       end
 
-      def calculate_line_60
-        # Add 35 through 58
-        result = 0
-        (35..58).each do |line_num|
-          result += line_or_zero("AZ301_LINE_#{line_num}")
-        end
+      def calculate_line_34 #Subtract line 33 from line 32. Enter the difference. If less than zero, enter “0”
+        [line_or_zero(:AZ301_LINE_32) - line_or_zero(:AZ301_LINE_33), 0].max
+      end
 
-        result
+      def calculate_line_40
+        @lines[:AZ301_LINE_6c]&.value
+      end
+
+      def calculate_line_41
+        @lines[:AZ301_LINE_7c]&.value
+      end
+
+      def calculate_line_60
+        (35..58).sum { |line_num| line_or_zero("AZ301_LINE_#{line_num}") }
+      end
+
+      def calculate_line_62
+        @lines[:AZ301_LINE_60]&.value
       end
     end
   end
