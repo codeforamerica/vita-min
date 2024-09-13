@@ -1701,6 +1701,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.integer "received_military_retirement_payment", default: 0, null: false
     t.decimal "received_military_retirement_payment_amount", precision: 12, scale: 2
     t.string "referrer"
@@ -1805,6 +1806,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.string "primary_middle_initial"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.integer "routing_number"
     t.decimal "sales_use_tax", precision: 12, scale: 2
@@ -1880,6 +1882,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1990,6 +1993,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "residence_county"
     t.string "routing_number"
