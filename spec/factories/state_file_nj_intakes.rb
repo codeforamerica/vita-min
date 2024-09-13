@@ -106,6 +106,9 @@ FactoryBot.define do
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.dependents.each_with_index do |dependent, i|
+        dependent.update( dob: i.years.ago )
+      end
     end
 
     trait :df_data_2_w2s do
