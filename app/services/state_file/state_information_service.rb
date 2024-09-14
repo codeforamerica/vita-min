@@ -73,6 +73,27 @@ module StateFile
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
       },
+      md: {
+        intake_class: StateFileMdIntake,
+      #   calculator_class: Efile::Az::Az140Calculator,
+      #   filing_years: [2024, 2023],
+      #   mail_voucher_address: "Arizona Department of Revenue<br/>" \
+      #     "PO Box 29085<br/>" \
+      #     "Phoenix, AZ 85038-9085".html_safe,
+        navigation_class: Navigation::StateFileMdQuestionNavigation,
+      #   pay_taxes_link: "https://www.aztaxes.gov/",
+      #   return_type: "Form140",
+        schema_file_name: "MDIndividual2023v1.0.zip",
+      #   state_name: "Arizona",
+        submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
+      #   survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
+      #   tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
+      #   tax_payment_url: "AZTaxes.gov",
+      #   tax_refund_url: "https://aztaxes.gov/home/checkrefund",
+      #   vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
+      #   voucher_form_name: "Form AZ-140V",
+      #   voucher_path: "/pdfs/AZ-140V.pdf",
+      },
       nc: {
         intake_class: StateFileNcIntake,
         calculator_class: Efile::Nc::D400Calculator,
