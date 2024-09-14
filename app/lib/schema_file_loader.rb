@@ -4,7 +4,7 @@ class SchemaFileLoader
   REGION = "us-east-1".freeze
   EFILE_SCHEMAS_FILENAMES = (
     [
-      # Format is schema name, directory, and whether the file is optional
+      # Format is schema name, directory
       ["efile1040x_2020v5.1.zip", "irs"],
       ["efile1040x_2021v5.2.zip", "irs"],
       ["efile1040x_2022v5.3.zip", "irs"],
@@ -36,14 +36,14 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      get_missing_downloads(dest_dir).each do |(download_path, _, optional)|
+      get_missing_downloads(dest_dir).each do |(download_path, _)|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
           key: File.basename(download_path),
         )
       rescue Aws::S3::Errors::NoSuchKey => e
-        raise e unless optional
+        raise e
       end
     end
 
