@@ -9,17 +9,15 @@ module SubmissionBuilder
           private
 
           def attached_documents_parent_tag
-            # Line 29 in ReturnDataNj1040.xsd
             'ReturnDataState'
           end
 
           def build_xml_doc_tag
-            # Line 17 in IndividualReturnNj1040.xsd
             "ReturnState"
           end
 
           def state_schema_version
-            "NJIndividual2023V0.4"
+            "MDIndividual2023v1.0"
           end
 
           def documents_wrapper
@@ -27,14 +25,14 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2023V0.4", "NJIndividual", "IndividualReturnNJ1040.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2023v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
           end
 
           def supported_documents
             supported_docs = [
               {
-                xml: SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040,
-                # pdf: PdfFiller::Nj1040Pdf, TODO
+                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502,
+                # pdf: PdfFiller::Md502Pdf, TODO
                 pdf: nil,
                 include: true
               },
