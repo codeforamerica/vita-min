@@ -39,6 +39,7 @@
 #  primary_suffix                    :string
 #  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)

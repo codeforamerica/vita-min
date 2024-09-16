@@ -39,6 +39,7 @@
 #  primary_suffix                    :string
 #  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
@@ -70,7 +71,7 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran

@@ -52,6 +52,7 @@
 #  primary_was_incarcerated                    :integer          default("unfilled"), not null
 #  prior_last_names                            :string
 #  raw_direct_file_data                        :text
+#  raw_direct_file_intake_data                 :jsonb
 #  received_military_retirement_payment        :integer          default("unfilled"), not null
 #  received_military_retirement_payment_amount :decimal(12, 2)
 #  referrer                                    :string
