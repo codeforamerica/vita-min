@@ -75,6 +75,7 @@ FactoryBot.define do
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
+    residence_county { "001" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
