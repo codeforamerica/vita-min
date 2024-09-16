@@ -123,6 +123,13 @@ describe Efile::Nc::D400Calculator do
       end
     end
   end
+  # describe "Line 18: Consumer Use Tax" do
+  #
+  # end
+  #
+  # describe "Line 19: Add line 17 & 18" do
+  #
+  # end
 
   describe "Line 20a: North Carolina Income Tax Withheld" do
     let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
@@ -174,5 +181,27 @@ describe Efile::Nc::D400Calculator do
       instance.calculate
       expect(instance.lines[:NCD400_LINE_23].value).to eq(10)
     end
+  end
+
+  describe "Line 26a: Tax Due" do
+    context "they owe money" do
+
+    end
+
+    context "they have a refund" do
+
+    end
+  end
+
+  describe "Line 27: Amount Due" do
+
+  end
+
+  describe "Line 28: Overpayment" do
+
+  end
+
+  describe "Line 34: Amount To Be Refunded" do
+
   end
 end

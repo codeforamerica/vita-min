@@ -41,13 +41,26 @@ module SubmissionBuilder
                 xml.NCAGIAddition calculated_fields.fetch(:NCD400_LINE_12A)
                 xml.NCAGISubtraction calculated_fields.fetch(:NCD400_LINE_12B)
                 xml.NCTaxableInc calculated_fields.fetch(:NCD400_LINE_12B) # line 14 = line 12B
-                xml.NCIncTax calculated_fields.fetch(:NCD400_LINE_15)
+                xml.NCIncTax calculated_fields.fetch(:NCD400_LINE_15) # l17 = l15 - l16 and l16 is 0/blank
                 # line 16 TaxCredits is blank
-                xml.SubTaxCredFromIncTax calculated_fields.fetch(:NCD400_LINE_15) # l17 = l15 - l16 and l16 is 0/blank
+                if @submission.data_source.untaxed_out_of_state_purchases_yes?
+                  xml.UseTax '' #line 18
+                elsif @submission.data_source.untaxed_out_of_state_purchases_no?
+                  xml.NoUseTaxDue 'X'
+                end
+                xml.TotalNCTax 'line 19'
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
                 xml.NCTaxPaid calculated_fields.fetch(:NCD400_LINE_23)
                 xml.RemainingPayment calculated_fields.fetch(:NCD400_LINE_23) # equal to line 23 bc line 24 not supported
+                if calculated_fields.refund_or_owed_amount < 0
+                  xml.TaxDue calculated_fields.fetch(:NCD400_LINE_26a)
+                end
+                xml.TotalAmountDue calculated_fields.fetch(:NCD400_LINE_27)
+                if calculated_fields.refund_or_owed_amount > 0
+                  xml.Overpayment calculated_fields.fetch(:NCD400_LINE_28)
+                end
+                xml.RefundAmt calculated_fields.fetch(:NCD400_LINE_34)
               end
             end
 
