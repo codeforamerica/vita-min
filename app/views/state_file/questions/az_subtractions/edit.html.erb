@@ -20,7 +20,7 @@
             <p><%= t(".should_not_exceed_wages_html", wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %></p>
           </div>
           <div class="form-group-tight">
-            <%= f.cfa_input_field(
+            <%= f.vita_min_money_field(
                   :tribal_wages,
                   t(".wages_tip"),
                   classes: ["form-width--long"])
@@ -45,7 +45,7 @@
             <p><%= t(".should_not_exceed_wages_html", wages: number_to_currency(f.object&.intake&.direct_file_data&.fed_wages)) %></p>
           </div>
           <div class="form-group-tight">
-            <%= f.cfa_input_field(
+            <%= f.vita_min_money_field(
                   :armed_forces_wages,
                   t(".wages_tip"),
                   classes: ["form-width--long"])

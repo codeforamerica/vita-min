@@ -27,7 +27,7 @@
             <%= f.cfa_input_field(:school_name, t('state_file.questions.az_public_school_contributions.edit.school_name'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:ctds_code, t('state_file.questions.az_public_school_contributions.edit.ctds_code'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:district_name, t('state_file.questions.az_public_school_contributions.edit.district_name'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:amount, t('state_file.questions.az_public_school_contributions.edit.amount', year: @filing_year), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:amount, t('state_file.questions.az_public_school_contributions.edit.amount', year: @filing_year), classes: ["form-width--long"]) %>
             <div class="date-select">
               <%= f.edit_date_select(
                     :date_of_contribution,
