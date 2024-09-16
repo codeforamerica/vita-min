@@ -15,6 +15,7 @@ RSpec.describe PdfFiller::Az321Pdf do
       pdf_fields = filled_in_values(submission.reload.generate_filing_pdf.path)
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
       expect(missing_fields).to eq([])
+      puts pdf_fields
     end
   end
 end

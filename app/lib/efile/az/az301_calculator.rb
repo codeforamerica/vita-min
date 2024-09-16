@@ -27,19 +27,19 @@ module Efile
 
       private
 
-      def calculate_line_6a # Credit for Contributions to Qualifying Charitable Organizations from current year
+      def calculate_line_6a
         @lines[:AZ321_LINE_20]&.value
       end
 
-      def calculate_line_6c # Total credit for Contributions to Qualifying Charitable Organizations
+      def calculate_line_6c
         @lines[:AZ321_LINE_22]&.value
       end
 
-      def calculate_line_7a # Credit for Contributions Made or Fees Paid to Public Schools from current year
+      def calculate_line_7a
         @lines[:AZ322_LINE_20]&.value
       end
 
-      def calculate_line_7c # Total credit for Contributions Made or Fees Paid to Public Schools
+      def calculate_line_7c
         @lines[:AZ322_LINE_22]&.value
       end
 
@@ -47,7 +47,7 @@ module Efile
         (1..24).sum { |line_num| line_or_zero("AZ301_LINE_#{line_num}c") }
       end
 
-      def calculate_line_27 # Tax from Form 140, line 46
+      def calculate_line_27
         @lines[:AZ140_LINE_46]&.value
       end
 
@@ -59,7 +59,7 @@ module Efile
         line_or_zero(:AZ140_LINE_50) + line_or_zero(:AZ140_LINE_49)
       end
 
-      def calculate_line_34 #Subtract line 33 from line 32. Enter the difference. If less than zero, enter “0”
+      def calculate_line_34
         [line_or_zero(:AZ301_LINE_32) - line_or_zero(:AZ301_LINE_33), 0].max
       end
 

@@ -28,7 +28,7 @@ module PdfFiller
         "7c" => @xml_document.at('ColumnC CtrbMdFePdPblcSchl')&.text,
         "26" => @xml_document.at('ColumnC TotalAvailTaxCr')&.text,
         "27" => @xml_document.at('ComputedTax')&.text,
-        "32" => @xml_document.at('Subtotal')&.text,
+        "32" => @xml_document.at('AppTaxCr Subtotal')&.text,
         "33" => @xml_document.at('FamilyIncomeTax')&.text,
         "34" => @xml_document.at('DiffFamilyIncTaxSubTotal')&.text,
         "40" => @xml_document.at('NonrefunCreditsUsed CtrbChrtyPrvdAstWrkgPor')&.text,

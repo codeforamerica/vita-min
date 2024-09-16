@@ -21,10 +21,12 @@ describe Efile::Az::Az301Calculator do
 
   describe 'AZ301 calculations' do
     it "enters the credit for Contributions to Qualifying Charitable Organizations" do
+      expect(instance.lines[:AZ301_LINE_6a].value).to eq(841)
       expect(instance.lines[:AZ301_LINE_6c].value).to eq(841)
     end
 
     it "enters the credit for Contributions Made or Fees Paid to Public Schools" do
+      expect(instance.lines[:AZ301_LINE_7a].value).to eq(400)
       expect(instance.lines[:AZ301_LINE_7c].value).to eq(400)
     end
 
@@ -34,6 +36,7 @@ describe Efile::Az::Az301Calculator do
 
     it "calculates AZ301 part 2 values" do
       expect(instance.lines[:AZ301_LINE_27].value).to eq(2114) # Line 46 from AZ140
+      expect(instance.lines[:AZ301_LINE_32].value).to eq(2114)
       expect(instance.lines[:AZ301_LINE_33].value).to eq(0) # Line 50 from AZ140
       expect(instance.lines[:AZ301_LINE_34].value).to eq(2114) # Difference from line 27 and 33
     end
