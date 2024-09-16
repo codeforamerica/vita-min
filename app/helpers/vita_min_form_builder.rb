@@ -278,6 +278,40 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output.html_safe
   end
 
+  def vita_min_money_field(
+      method,
+      label_text,
+      options: {},
+      classes: []
+    )
+    text_field_options = standard_options.merge(
+      class: (classes + ["text-input money-input"]).join(" "),
+      ).merge(options).merge(error_attributes(method: method)).merge(placeholder: '0.00')
+
+    text_field_options[:id] ||= sanitized_id(method)
+    options[:input_id] ||= sanitized_id(method)
+
+    text_field_html = text_field(method, text_field_options)
+
+    wrapper_classes = classes + ['money-input-group']
+    label_and_field_html = label_and_field(
+      method,
+      label_text,
+      text_field_html,
+      prefix: '$',
+      options: options,
+      wrapper_classes: wrapper_classes,
+      )
+
+    html_output = <<~HTML
+      <div class="form-group#{error_state(object, method)} money-input-form-group">
+      #{label_and_field_html}
+        #{errors_for(object, method)}
+      </div>
+    HTML
+    html_output.html_safe
+  end
+
   def vita_min_text_field(
     method,
     label_text,
