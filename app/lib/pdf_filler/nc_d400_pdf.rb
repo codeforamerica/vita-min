@@ -33,6 +33,10 @@ module PdfFiller
         y_d400wf_zip: @xml_document.at('Filer USAddress ZIPCd')&.text,
         y_d400wf_dead2: formatted_date(@xml_document.at('Secondary DateOfDeath')&.text, "%m-%d-%y"),
         y_d400wf_rs1yes: 'Yes',
+        y_d400wf_v1yes: checkbox_value(@submission.data_source.primary_veteran_yes?),
+        y_d400wf_v2no: checkbox_value(@submission.data_source.primary_veteran_no?),
+        y_d400wf_sv1yes: checkbox_value(@submission.data_source.spouse_veteran_yes?),
+        y_d400wf_sv1no: checkbox_value(@submission.data_source.spouse_veteran_no?),
         y_d400wf_rs2yes: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
         y_d400wf_fstat1: @submission.data_source.filing_status_single? ? 'Yes' : 'Off',
         y_d400wf_fstat2: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
@@ -52,6 +56,10 @@ module PdfFiller
         y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid')&.text,
         y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text
       }
+    end
+
+    def checkbox_value(condition)
+      condition ? 'Yes' : 'Off'
     end
 
     def formatted_date(date_str, format)

@@ -37,6 +37,7 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
+#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
@@ -52,6 +53,7 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
+#  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
@@ -71,6 +73,8 @@
 class StateFileNcIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
+  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
+  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
 
