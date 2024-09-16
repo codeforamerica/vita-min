@@ -107,6 +107,9 @@ module SubmissionBuilder
               end
               xml.AzAdjSubtotal calculated_fields.fetch(:AZ140_LINE_19)
               xml.Subtractions do
+                add_non_zero_value(xml, :IntUSObligations, :AZ140_LINE_28)
+                xml.ExecFedStateLocGovPen calculated_fields.fetch(:AZ140_LINE_29A)
+                xml.SubExclBenAnnPen calculated_fields.fetch(:AZ140_LINE_29B)
                 xml.USSSRailRoadBnft calculated_fields.fetch(:AZ140_LINE_30)
                 xml.WageAmIndian calculated_fields.fetch(:AZ140_LINE_31)
                 xml.CompNtnlGrdArmdFrcs calculated_fields.fetch(:AZ140_LINE_32)

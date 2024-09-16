@@ -37,12 +37,13 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
-#  primary_veteran                   :integer          default(0), not null
+#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
-#  sales_use_tax_calculation_method  :integer          default(0), not null
+#  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -52,12 +53,12 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
-#  spouse_veteran                    :integer          default(0), not null
+#  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
-#  untaxed_out_of_state_purchases    :integer          default(0), not null
+#  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
 #  zip_code                          :string
 #  created_at                        :datetime         not null
@@ -70,7 +71,18 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+
+  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
+  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
+  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
+  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
+
+  def calculate_sales_use_tax
+    # TODO: Implement in FYST-426
+    calculated_sales_use_tax = 0
+    calculated_sales_use_tax
+  end
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

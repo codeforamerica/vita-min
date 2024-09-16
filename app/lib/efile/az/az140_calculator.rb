@@ -38,6 +38,9 @@ module Efile
         set_line(:AZ140_LINE_12, @direct_file_data, :fed_agi)
         set_line(:AZ140_LINE_14, :calculate_line_14)
         set_line(:AZ140_LINE_19, :calculate_line_19)
+        set_line(:AZ140_LINE_28, @direct_file_data, :interest_reported_amount)
+        set_line(:AZ140_LINE_29A, :calculate_line_29A)
+        set_line(:AZ140_LINE_29B, :calculate_line_29B)
         set_line(:AZ140_LINE_30, @direct_file_data, :fed_taxable_ssb)
         set_line(:AZ140_LINE_31, :calculate_line_31)
         set_line(:AZ140_LINE_32, :calculate_line_32)
@@ -99,6 +102,23 @@ module Efile
         line_or_zero(:AZ140_LINE_14)
       end
 
+      def calculate_line_29A
+        # total subtraction amount for pensions up to the maximum of $2,500 each for primary and spouse
+        pension_amount = 0
+        if @intake.primary_received_pension_yes?
+          pension_amount += [@intake.primary_received_pension_amount.round, 2_500].min
+        end
+        if filing_status_mfj? && @intake.spouse_received_pension_yes?
+          pension_amount += [@intake.spouse_received_pension_amount.round, 2_500].min
+        end
+        pension_amount
+      end
+
+      def calculate_line_29B
+        # total subtraction amount for uniformed services
+        @intake.received_military_retirement_payment_yes? ? @intake.received_military_retirement_payment_amount.round : 0
+      end
+
       def calculate_line_31
         @intake.tribal_member_yes? ? @intake.tribal_wages : 0
       end
@@ -108,7 +128,8 @@ module Efile
       end
 
       def calculate_line_35
-        subtractions = 0
+        # Subtotal after additions and subtractions
+        subtractions = line_or_zero(:AZ140_LINE_29A) + line_or_zero(:AZ140_LINE_29B)
         (30..32).each do |line_num|
           subtractions += line_or_zero("AZ140_LINE_#{line_num}")
         end
@@ -218,7 +239,7 @@ module Efile
           wrksht_2_line_5 = 120
         end
 
-        #wrksheet 2
+        # worksheet 2
         wrksht_2_line_3 = @dependent_count + wrksht_2_line_2
         wrksht_2_line_4 = wrksht_2_line_3 * 40
         [wrksht_2_line_4, wrksht_2_line_5].min
@@ -229,16 +250,14 @@ module Efile
         [line_52_value, 0].max
       end
 
+      # TODO: test combination of multiple forms (w2, 1099G, 1099R) in the spec for this calculator
       def calculate_line_53
-        # zzz
-        total_state_taxes_withheld = @direct_file_data.total_state_tax_withheld
-        state_file_1099gs = @intake.state_file1099_gs
-        state_file_1099gs.each do |state_file_1099g|
-          total_state_taxes_withheld += state_file_1099g.state_income_tax_withheld
-        end
-        total_state_taxes_withheld
+        # AZ income tax withheld
+        # sum of tax withheld from all income documents: W-2, 1099-R, 1099-G, 1099-INT
+        @direct_file_data.total_w2_state_tax_withheld +
+          @intake.state_file1099_gs.sum(&:state_income_tax_withheld) +
+          @direct_file_data.total_1099r_state_tax_withheld
       end
-
 
       def calculate_line_56
         if @intake.disqualified_from_excise_credit_df? || @intake.disqualified_from_excise_credit_fyst?

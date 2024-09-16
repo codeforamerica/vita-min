@@ -49,6 +49,7 @@
 #  primary_ssn                       :string
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
@@ -88,6 +89,7 @@ FactoryBot.define do
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nj', 'zeus_one_dep.xml')) }
     primary_first_name { "New" }
     primary_last_name { "Jerseyan" }
+    primary_birth_date { Date.new(1990, 1, 1) }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -98,6 +100,8 @@ FactoryBot.define do
         qualifying_widow: 5,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
+      intake.direct_file_data.primary_ssn = evaluator.primary_ssn || intake.direct_file_data.primary_ssn
+      intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn || intake.direct_file_data.spouse_ssn
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
@@ -107,6 +111,22 @@ FactoryBot.define do
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
+    end
+
+    trait :married_filing_jointly do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_ssn { "123456789" }
+    end
+
+    trait :primary_over_65 do
+      primary_birth_date { Date.new(1900, 1, 1) }
+    end
+
+    trait :mfj_spouse_over_65 do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(1900, 1, 1) }
+      spouse_ssn { "123456789" }
     end
   end
 end
