@@ -20,14 +20,14 @@ class PdfFiller::Az321Pdf
       "TP_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
       "Spouse_Name" => name('Secondary'),
       "Spouse_SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
-      "4h" => @xml_document.at('ContTotalCharityAmt')&.text,
-      "4" => @xml_document.at('TotalCharityAmtContSheet')&.text,
-      "5" => @xml_document.at('TotalCharityAmt')&.text,
-      "11" => @xml_document.at('AddCurYrCrAmtTotCshCont')&.text,
-      "12" => @xml_document.at('TxPyrsStatus')&.text,
-      "13" => @xml_document.at('TotCshContrFostrChrty')&.text,
-      "20" => @xml_document.at('CurrentYrCr')&.text,
-      "22" => @xml_document.at('TotalAvailCr')&.text,
+      "4h" => @xml_document.at('Form321 ContTotalCharityAmt')&.text,
+      "4" => @xml_document.at('Form321 TotalCharityAmtContSheet')&.text,
+      "5" => @xml_document.at('Form321 TotalCharityAmt')&.text,
+      "11" => @xml_document.at('Form321 AddCurYrCrAmtTotCshCont')&.text,
+      "12" => @xml_document.at('Form321 TxPyrsStatus')&.text,
+      "13" => @xml_document.at('Form321 TotCshContrFostrChrty')&.text,
+      "20" => @xml_document.at('Form321 CurrentYrCr')&.text,
+      "22" => @xml_document.at('Form321 TotalAvailCr')&.text,
     }
 
     @submission.data_source.az321_contributions.each_with_index do |contribution, index|
