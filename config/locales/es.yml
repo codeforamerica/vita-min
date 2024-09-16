@@ -2462,7 +2462,13 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          primary_veteran: Información del Veterano
+          spouse_veteran: Información del Cónyuge Veterano
           use_tax_applied: Impuesto de Uso Aplicado
+      nc_veteran_status:
+        primary_veteran_question: "¿Eres un veterano?"
+        spouse_veteran_question: "¿Es su cónyuge un veterano?"
+        title: Pregunta sobre el estatus de veterano
       nj_county:
         edit:
           county: Condado

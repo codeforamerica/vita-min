@@ -1805,6 +1805,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_suffix"
+    t.integer "primary_veteran", default: 0, null: false
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
@@ -1820,6 +1821,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
     t.string "ssn"
     t.string "street_address"
     t.integer "tax_return_year"

@@ -62,6 +62,7 @@ describe 'EfileError' do
       "initiate-data-transfer",
       "name-dob",
       "nc-review",
+      "nc-veteran-status",
       "nj-county",
       "nj-municipality",
       "nj-review",
