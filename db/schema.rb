@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_17_204740) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1860,6 +1860,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.string "hashed_ssn"
+    t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
