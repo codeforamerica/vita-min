@@ -10,6 +10,7 @@ describe SchemaFileLoader do
       ["AZIndividual2023v1.0.zip", "us_states"],
       ["MDIndividual2023v1.0.zip", "us_states"],
       ["NCIndividual2023v1.0.zip", "us_states"],
+      ["NJIndividual2023V0.4.zip", "us_states"],
       ["NYSIndividual2023V4.0.zip", "us_states"],
     ]
   end
@@ -84,6 +85,7 @@ describe SchemaFileLoader do
           ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states'],
           ["testy/us_states/MDIndividual2023v1.0.zip", 'us_states'],
           ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/NJIndividual2023V0.4.zip", 'us_states'],
           ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states']
         ]
       )

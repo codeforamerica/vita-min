@@ -5,6 +5,11 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
+        @az301 = Efile::Az::Az301Calculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
         @az321 = Efile::Az::Az321Calculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
@@ -71,6 +76,7 @@ module Efile
         set_line(:AZ140_LINE_80, :calculate_line_80)
         @az321.calculate
         @az322.calculate
+        @az301.calculate
         @lines.transform_values(&:value)
       end
 

@@ -105,12 +105,31 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    after(:create) do |intake|
+      intake.synchronize_df_dependents_to_database
+      intake.dependents.each_with_index do |dependent, i|
+        dependent.update( dob: i.years.ago )
+      end
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_two_w2s') }
     end
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
+    end
+
+    trait :df_data_minimal do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_minimal') }
+    end
+
+    trait :df_data_many_deps do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_deps') }
+    end
+
+    trait :df_data_one_dep do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_one_dep') }
     end
 
     trait :married_filing_jointly do
