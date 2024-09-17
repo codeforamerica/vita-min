@@ -76,7 +76,7 @@ module StateFile
       md: {
         intake_class: StateFileMdIntake,
         calculator_class: Efile::Md::Md502Calculator,
-        filing_years: [2024, 2023],
+        filing_years: [2024],
         mail_voucher_address: "".html_safe,
         navigation_class: Navigation::StateFileMdQuestionNavigation,
         pay_taxes_link: "",
