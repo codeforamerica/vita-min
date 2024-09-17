@@ -39,7 +39,7 @@ describe StillNeedsHelpService do
                                                                                                                      client: client,
                                                                                                                      locale: "en",
                                                                                                                      message: AutomatedMessage::ClosingSoon,
-                                                                                                                     body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 16th"}
+                                                                                                                     body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 15th"}
                                                                                                                  })
     end
 

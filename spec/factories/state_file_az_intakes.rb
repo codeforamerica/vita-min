@@ -35,6 +35,7 @@
 #  last_sign_in_ip                             :inet
 #  locale                                      :string           default("en")
 #  locked_at                                   :datetime
+#  made_az321_contributions                    :integer          default("unfilled"), not null
 #  message_tracker                             :jsonb
 #  payment_or_deposit_type                     :integer          default("unfilled"), not null
 #  phone_number                                :string
@@ -51,6 +52,7 @@
 #  primary_was_incarcerated                    :integer          default("unfilled"), not null
 #  prior_last_names                            :string
 #  raw_direct_file_data                        :text
+#  raw_direct_file_intake_data                 :jsonb
 #  received_military_retirement_payment        :integer          default("unfilled"), not null
 #  received_military_retirement_payment_amount :decimal(12, 2)
 #  referrer                                    :string
@@ -126,6 +128,45 @@ FactoryBot.define do
       spouse_received_pension_amount { 300 }
     end
 
+    trait :with_spouse do
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Spouth" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Carolinian" }
+    end
+
+
+    trait :with_az321_contributions do
+      made_az321_contributions { "yes" }
+
+      after(:build) do |intake|
+        create :az321_contribution,
+               amount: 505.90,
+               state_file_az_intake: intake,
+               charity_code: "22345",
+               charity_name: "Heartland",
+               date_of_contribution: Date.parse("August 22 2023")
+        create :az321_contribution,
+               amount: 234.89,
+               state_file_az_intake: intake,
+               charity_code: "25544",
+               charity_name: "Crumbs and Whiskers",
+               date_of_contribution: Date.parse("July 31 2023")
+        create :az321_contribution,
+               amount: 234.89,
+               state_file_az_intake: intake,
+               charity_code: "25999",
+               charity_name: "The Flying Seagull Project",
+               date_of_contribution: Date.parse("June 1 2023")
+        create :az321_contribution,
+               amount: 234.89,
+               state_file_az_intake: intake,
+               charity_code: "27661",
+               charity_name: "Frogs Are Green",
+               date_of_contribution: Date.parse("January 15 2023")
+      end
+    end
+
     trait :with_az322_contributions do
       after(:build) do |intake|
         create(:az322_contribution,
@@ -166,10 +207,9 @@ FactoryBot.define do
       end
     end
 
-    trait :with_az321_contributions do
+    trait :with_1099int_subtraction do
       after(:build) do |intake|
-        create :az321_contribution, amount: 505.90, intake: intake
-        create :az321_contribution, amount: 234.89, intake: intake
+        intake.direct_file_data.interest_reported_amount = 100
       end
     end
 

@@ -35,6 +35,7 @@
 #  last_sign_in_ip                             :inet
 #  locale                                      :string           default("en")
 #  locked_at                                   :datetime
+#  made_az321_contributions                    :integer          default("unfilled"), not null
 #  message_tracker                             :jsonb
 #  payment_or_deposit_type                     :integer          default("unfilled"), not null
 #  phone_number                                :string
@@ -51,6 +52,7 @@
 #  primary_was_incarcerated                    :integer          default("unfilled"), not null
 #  prior_last_names                            :string
 #  raw_direct_file_data                        :text
+#  raw_direct_file_intake_data                 :jsonb
 #  received_military_retirement_payment        :integer          default("unfilled"), not null
 #  received_military_retirement_payment_amount :decimal(12, 2)
 #  referrer                                    :string

@@ -4,13 +4,14 @@ class SchemaFileLoader
   REGION = "us-east-1".freeze
   EFILE_SCHEMAS_FILENAMES = (
     [
+      # Format is schema name, directory
       ["efile1040x_2020v5.1.zip", "irs"],
       ["efile1040x_2021v5.2.zip", "irs"],
       ["efile1040x_2022v5.3.zip", "irs"],
       ["efile1040x_2023v5.0.zip", "irs"]
     ] +
-      StateFile::StateInformationService.state_schema_file_names.map do |schema_file_name|
-        [schema_file_name, "us_states"]
+      StateFile::StateInformationService.active_state_codes.excluding("nj").map do |state_code|
+        [StateFile::StateInformationService.schema_file_name(state_code), "us_states"]
       end
   ).freeze
 
@@ -35,7 +36,7 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      get_missing_downloads(dest_dir).each do |download_path|
+      get_missing_downloads(dest_dir).each do |(download_path, _)|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
@@ -69,10 +70,10 @@ class SchemaFileLoader
     end
 
     def get_missing_downloads(dest_dir)
-      download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder)|
-        File.join(dest_dir, download_folder, filename)
+      download_files = EFILE_SCHEMAS_FILENAMES.map do |filename, download_folder|
+        [File.join(dest_dir, download_folder, filename), download_folder]
       end
-      download_files.filter do |download_file|
+      download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
       end
     end

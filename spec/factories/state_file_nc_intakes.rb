@@ -37,9 +37,13 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
+#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
+#  sales_use_tax                     :decimal(12, 2)
+#  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -49,10 +53,12 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
+#  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
 #  zip_code                          :string
 #  created_at                        :datetime         not null
@@ -71,6 +77,9 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
+    primary_first_name { "North" }
+    primary_middle_initial { "A" }
+    primary_last_name { "Carolinian" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -84,12 +93,34 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_spouse do
+      spouse_first_name { "Spouth" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Carolinian" }
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
     end
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+    end
+
+    trait :single do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('tucker_single') }
+    end
+
+    trait :head_of_household do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_mfs') }
+    end
+
+    trait :married_filing_separately do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('sheldon_mfs') }
+    end
+
+    trait :qualified_widow do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('laney_qss') }
     end
   end
 end

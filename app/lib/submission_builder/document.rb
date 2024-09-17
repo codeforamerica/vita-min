@@ -82,30 +82,31 @@ module SubmissionBuilder
       calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.direct_file_data.claimed_as_dependent?
     end
 
-    def add_non_zero_claimed_value(xml, elem_name, claimed) # This is specific to NY
+    # This is specific to NY
+    def add_non_zero_claimed_value(xml, elem_name, claimed)
       claimed_value = calculated_fields.fetch(claimed)
       if claimed_value.present? && claimed_value.to_i != 0
         xml.send(elem_name, claimed: claimed_value)
       end
     end
 
-    def add_non_zero_value(xml, elem_name, claimed)
-      claimed_value = calculated_fields.fetch(claimed)
-      if claimed_value.present? && claimed_value.to_i != 0
-        xml.send(elem_name, claimed_value)
+    def add_non_zero_value(xml, elem_name, line)
+      value = calculated_fields.fetch(line)
+      if value.present? && value.to_i != 0
+        xml.send(elem_name, value)
       end
     end
 
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 
-      mailing_street = @submission.data_source.direct_file_data.mailing_street.strip.gsub(/\s+/, ' ')
+      mailing_street = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street)
 
       if mailing_street.length > 30
         process_long_mailing_street(xml, mailing_street)
       else
-        xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_apartment.present?
-        xml.MAIL_LN_2_ADR mailing_street
+        xml.MAIL_LN_1_ADR sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 30) if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.MAIL_LN_2_ADR sanitize_for_xml(mailing_street, 30)
       end
     end
 
@@ -125,7 +126,7 @@ module SubmissionBuilder
 
     def process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
       if @submission.data_source.direct_file_data.mailing_apartment.present?
-        apartment = @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ')
+        apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
         if apartment.length + excess_characters.length > 30
           truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
           xml.MAIL_LN_1_ADR excess_characters + " " + truncated_apartment
@@ -141,13 +142,13 @@ module SubmissionBuilder
     def process_permanent_street(xml)
       return unless @submission.data_source.permanent_street.present?
 
-      permanent_street = @submission.data_source.permanent_street.strip.gsub(/\s+/, ' ')
+      permanent_street = sanitize_for_xml(@submission.data_source.permanent_street)
 
       if permanent_street.length > 30
         process_long_permanent_street(xml, permanent_street)
       else
-        xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.permanent_apartment.present?
-        xml.PERM_LN_2_ADR permanent_street
+        xml.PERM_LN_1_ADR sanitize_for_xml(@submission.data_source.permanent_apartment, 30) if @submission.data_source.permanent_apartment.present?
+        xml.PERM_LN_2_ADR sanitize_for_xml(permanent_street, 30)
       end
     end
 
@@ -167,7 +168,7 @@ module SubmissionBuilder
 
     def process_permanent_apartment(xml, excess_characters, truncated_permanent_street)
       if @submission.data_source.permanent_apartment.present?
-        apartment = @submission.data_source.permanent_apartment.strip.gsub(/\s+/, ' ')
+        apartment = sanitize_for_xml(@submission.data_source.permanent_apartment)
         if apartment.length + excess_characters.length > 30
           truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
           xml.PERM_LN_1_ADR excess_characters + " " + truncated_apartment

@@ -79,17 +79,17 @@ module SubmissionBuilder
                 add_non_zero_claimed_value(xml, :RFND_B4_EDU_AMT, :IT201_LINE_78)
                 add_non_zero_claimed_value(xml, :RFND_AMT, :IT201_LINE_78B)
                 if @submission.data_source.confirmed_third_party_designee_yes?
-                  xml.THRD_PRTY_NAME claimed: truncate(intake.direct_file_data.third_party_designee_name, 29) if @submission.data_source.direct_file_data.third_party_designee_name.present?
-                  xml.THRD_PRTY_PH_NMBR claimed: intake.direct_file_data.third_party_designee_phone_number.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.third_party_designee_phone_number.present?
+                  xml.THRD_PRTY_NAME claimed: sanitize_for_xml(intake.direct_file_data.third_party_designee_name, 29) if @submission.data_source.direct_file_data.third_party_designee_name.present?
+                  xml.THRD_PRTY_PH_NMBR claimed: sanitize_for_xml(intake.direct_file_data.third_party_designee_phone_number, 12) if @submission.data_source.direct_file_data.third_party_designee_phone_number.present?
                 end
                 xml.PR_SGN_IND claimed: 1
                 if @submission.data_source.spouse_esigned_yes?
                   xml.SP_SGN_IND claimed: 1
                 end
                 if intake.email_address.present?
-                  xml.TP_EMAIL_ADR claimed: intake.email_address.strip.gsub(/\s+/, ' ')
+                  xml.TP_EMAIL_ADR claimed: sanitize_for_xml(intake.email_address, 138)
                 elsif intake.direct_file_data.tax_payer_email.present?
-                  xml.TP_EMAIL_ADR claimed: intake.direct_file_data.tax_payer_email.strip.gsub(/\s+/, ' ')
+                  xml.TP_EMAIL_ADR claimed: sanitize_for_xml(intake.direct_file_data.tax_payer_email, 138)
                 end
                 if intake.direct_file_data.fed_adjustments_claimed.present?
                   xml.IT201FEDADJID do
@@ -105,9 +105,9 @@ module SubmissionBuilder
                   xml.IT201DepExmpInfo do
                     intake.dependents.each do |dependent|
                       xml.depInfo do
-                        xml.DEP_CHLD_FRST_NAME claimed: truncate(dependent.first_name, 16) if dependent.first_name.present?
-                        xml.DEP_CHLD_MI_NAME claimed: dependent.middle_initial.strip.gsub(/\s+/, ' ') if dependent.middle_initial.present?
-                        xml.DEP_CHLD_LAST_NAME claimed: dependent.last_name.strip.gsub(/\s+/, ' ') if dependent.last_name.present?
+                        xml.DEP_CHLD_FRST_NAME claimed: sanitize_for_xml(dependent.first_name, 16) if dependent.first_name.present?
+                        xml.DEP_CHLD_MI_NAME claimed: sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                        xml.DEP_CHLD_LAST_NAME claimed: sanitize_for_xml(dependent.last_name, 32) if dependent.last_name.present?
                         xml.DEP_RELATION_DESC claimed: dependent.relationship.delete(" ") if dependent.relationship.present?
                         xml.DEP_SSN_NMBR claimed: dependent.ssn if dependent.ssn.present?
                         xml.DOB_DT claimed: dependent.dob.strftime("%Y-%m-%d") if dependent.dob.present?

@@ -1,7 +1,7 @@
 module StateFile
+  # This concern can be used by any controller that sometimes needs to redirect
+  # to the review page rather than the usual next page in the flow
   module ReturnToReviewConcern
-    # This concern can be used by any controller that sometimes needs to redirect
-    # to the review page rather than the usual next page in the flow
     extend ActiveSupport::Concern
 
     def review_step

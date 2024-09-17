@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe SchemaFileLoader do
-
   it "all required schema files are present" do
     expect(SchemaFileLoader::EFILE_SCHEMAS_FILENAMES).to eq [
       ["efile1040x_2020v5.1.zip", "irs"],
@@ -14,8 +13,7 @@ describe SchemaFileLoader do
     ]
   end
 
-  context "#s3_credentials" do
-
+  describe "#s3_credentials" do
     context "AWS_ACCESS_KEY_ID in ENV" do
       it "uses the environment variables" do
         stub_const("ENV", {
@@ -38,7 +36,7 @@ describe SchemaFileLoader do
     end
   end
 
-  context "#prepare_directories" do
+  describe "#prepare_directories" do
     it "removes and recreates directories" do
       expect(FileUtils).to receive(:rm_rf).with("testy/irs/unpacked")
       expect(FileUtils).to receive(:mkdir_p).with("testy/irs/unpacked")
@@ -48,7 +46,7 @@ describe SchemaFileLoader do
     end
   end
 
-  context "#download_schemas_from_s3" do
+  describe "#download_schemas_from_s3" do
     it "downloads all schemas from S3" do
       stub_const("ENV", {
         "AWS_ACCESS_KEY_ID" => "mock-aws-access-key-id",
@@ -63,20 +61,30 @@ describe SchemaFileLoader do
       end
       SchemaFileLoader.download_schemas_from_s3("testy")
     end
+
+    context "when file is not found" do
+      it "should raise an error" do
+        allow(SchemaFileLoader).to receive(:get_missing_downloads).with('some_dir').and_return [["state_secrets.zip", 'dir']]
+        allow_any_instance_of(Aws::S3::Client).to receive(:get_object).and_raise Aws::S3::Errors::NoSuchKey.new("Meant to be a context", "Meant to be a message")
+
+        expect { SchemaFileLoader.download_schemas_from_s3('some_dir') }.to raise_error Aws::S3::Errors::NoSuchKey
+      end
+    end
   end
 
-  context "#get_missing_downloads" do
+  describe "#get_missing_downloads" do
     it "gets missing downloads" do
-      expect(SchemaFileLoader.get_missing_downloads("testy")).
-        to eq [
-          "testy/irs/efile1040x_2020v5.1.zip",
-          "testy/irs/efile1040x_2021v5.2.zip",
-          "testy/irs/efile1040x_2022v5.3.zip",
-          "testy/irs/efile1040x_2023v5.0.zip",
-          "testy/us_states/AZIndividual2023v1.0.zip",
-          "testy/us_states/NCIndividual2023v1.0.zip",
-          "testy/us_states/NYSIndividual2023V4.0.zip"
+      expect(SchemaFileLoader.get_missing_downloads("testy")).to eq(
+        [
+          ["testy/irs/efile1040x_2020v5.1.zip", 'irs'],
+          ["testy/irs/efile1040x_2021v5.2.zip", 'irs'],
+          ["testy/irs/efile1040x_2022v5.3.zip", 'irs'],
+          ["testy/irs/efile1040x_2023v5.0.zip", 'irs'],
+          ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states']
         ]
+      )
     end
   end
 end

@@ -35,6 +35,7 @@
 #  last_sign_in_ip                             :inet
 #  locale                                      :string           default("en")
 #  locked_at                                   :datetime
+#  made_az321_contributions                    :integer          default("unfilled"), not null
 #  message_tracker                             :jsonb
 #  payment_or_deposit_type                     :integer          default("unfilled"), not null
 #  phone_number                                :string
@@ -51,6 +52,7 @@
 #  primary_was_incarcerated                    :integer          default("unfilled"), not null
 #  prior_last_names                            :string
 #  raw_direct_file_data                        :text
+#  raw_direct_file_intake_data                 :jsonb
 #  received_military_retirement_payment        :integer          default("unfilled"), not null
 #  received_military_retirement_payment_amount :decimal(12, 2)
 #  referrer                                    :string
@@ -89,7 +91,7 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   has_many :az322_contributions, dependent: :destroy
   has_many :az321_contributions, dependent: :destroy
@@ -108,7 +110,10 @@ class StateFileAzIntake < StateFileBaseIntake
   enum received_military_retirement_payment: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_military_retirement_payment
   enum primary_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_received_pension
   enum spouse_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_received_pension
+  enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
 
+  validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
+  validates :az321_contributions, length: { maximum: 10 }
   def federal_dependent_count_under_17
     self.dependents.select{ |dependent| dependent.age < 17 }.length
   end

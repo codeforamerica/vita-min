@@ -4,9 +4,11 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
     let(:xml_result) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
+    let(:direct_file_intake_json) { '{"familyAndHousehold":[{"firstName":"Sammy","lastName":"Smith","middleInitial":null,"dateOfBirth":"2013-01-21"}],"filers":[{"firstName":"Samuel","lastName":"Smith","middleInitial":null,"dateOfBirth":"1985-09-29"},{"firstName":"Judy","lastName":"Johnson","middleInitial":null,"dateOfBirth":"1985-10-18"}]}'.to_json }
     let(:json_result) do
       {
         "xml" => xml_result,
+        "directFileData" => direct_file_intake_json,
         "submissionId" => "91873649812736",
         "status" => "accepted"
       }
@@ -26,6 +28,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.federal_submission_id).to eq "91873649812736"
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
+        expect(intake.raw_direct_file_intake_data).to eq direct_file_intake_json
         expect(intake.dependents.count).to eq(5)
         expected_hashed_ssn = OpenSSL::HMAC.hexdigest(
           "SHA256",

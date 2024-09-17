@@ -1,25 +1,28 @@
+# frozen_string_literal: true
 module StateFile
   class StateInformationService
+    GETTER_METHODS = [
+      :intake_class,
+      :calculator_class,
+      :filing_years,
+      :mail_voucher_address,
+      :navigation_class,
+      :pay_taxes_link,
+      :return_type,
+      :schema_file_name,
+      :state_name,
+      :submission_builder_class,
+      :survey_link,
+      :tax_payment_info_url,
+      :tax_payment_url,
+      :tax_refund_url,
+      :vita_link,
+      :voucher_form_name,
+      :voucher_path,
+    ].freeze
+
     class << self
-      [
-        :intake_class,
-        :calculator_class,
-        :filing_years,
-        :mail_voucher_address,
-        :navigation_class,
-        :pay_taxes_link,
-        :return_type,
-        :schema_file_name,
-        :state_name,
-        :submission_builder_class,
-        :survey_link,
-        :tax_payment_info_url,
-        :tax_payment_url,
-        :tax_refund_url,
-        :vita_link,
-        :voucher_form_name,
-        :voucher_path,
-      ].each do |attribute|
+      GETTER_METHODS.each do |attribute|
         define_method(attribute) do |state_code|
           unless STATES_INFO.key?(state_code)
             raise InvalidStateCodeError, state_code
@@ -33,20 +36,16 @@ module StateFile
         @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
       end
 
+      def state_code_to_name_map
+        @_state_code_to_name_map ||= active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }.freeze
+      end
+
       def state_intake_classes
         @_state_intake_classes ||= STATES_INFO.map { |_, attrs| attrs[:intake_class] }.freeze
       end
 
       def state_intake_class_names
         @_state_intake_class_names ||= state_intake_classes.map(&:to_s).freeze
-      end
-
-      def state_schema_file_names
-        @_state_schema_file_names ||= STATES_INFO.map { |_, attrs| attrs[:schema_file_name] }.freeze
-      end
-
-      def state_code_to_name_map
-        @_state_code_to_name_map ||= active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }.freeze
       end
     end
 
@@ -83,7 +82,7 @@ module StateFile
                               "Raleigh, NC 27640-0640".html_safe,
         navigation_class: Navigation::StateFileNcQuestionNavigation,
         pay_taxes_link: "https://www.nc.gov/working/taxes",
-        return_type: "D-400",
+        return_type: "FormNCD400",
         schema_file_name: "NCIndividual2023v1.0.zip",
         state_name: "North Carolina",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
@@ -94,6 +93,27 @@ module StateFile
         vita_link: "",
         voucher_form_name: "Form D-400V",
         voucher_path: "/pdfs/d400v-TY2023.pdf",
+      },
+      nj: {
+        intake_class: StateFileNjIntake,
+        calculator_class: Efile::Nj::Nj1040,
+        filing_years: [2024],
+        navigation_class: Navigation::StateFileNjQuestionNavigation,
+        submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
+        state_name: "New Jersey",
+        return_type: "Resident",
+        schema_file_name: "NJIndividual2023V0.4.zip",
+        mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
+                              "Processing Center<br/>" \
+                              "Trenton, NJ".html_safe,
+        pay_taxes_link: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        survey_link: "",
+        tax_payment_info_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        tax_payment_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
+        vita_link: "",
+        voucher_form_name: "NJ Voucher Form",
+        voucher_path: "",
       },
       ny: {
         intake_class: StateFileNyIntake,

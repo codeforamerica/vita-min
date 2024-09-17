@@ -1,0 +1,38 @@
+<% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
+<% content_for :card do %>
+  <%= render "state_file/questions/shared/review_header" %>
+
+  <% @invalid_w2s.each do |w2| %>
+    <div id="w2s" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
+        <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, id: w2.w2_index, return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="veteran-status" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".primary_veteran") %></p>
+      <p><%=current_intake.primary_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.filing_status_mfj? %>
+        <p class="text--bold spacing-below-5"><%=t(".spouse_veteran") %></p>
+        <p><%=current_intake.spouse_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcVeteranStatusController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+  
+  <div id="use-tax" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied") %></p>
+      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
+      <p><%=number_to_currency(current_intake.sales_use_tax)%></p>
+      <%= link_to t("general.edit"), StateFile::Questions::SalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <%= render "state_file/questions/shared/review_footer" %>
+<% end %>
