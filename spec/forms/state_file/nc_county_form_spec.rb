@@ -13,9 +13,9 @@ RSpec.describe StateFile::NcCountyForm, type: :model do
 
       form = StateFile::NcCountyForm.from_intake(intake)
 
-      form.residence_county = "001"
+      form.residence_county = "002"
 
-      expect { form.save }.to change(intake, :residence_county).to("001")
+      expect { form.save }.to change(intake, :residence_county).to("002")
     end
   end
 end
