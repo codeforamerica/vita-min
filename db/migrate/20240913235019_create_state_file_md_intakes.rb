@@ -1,7 +1,6 @@
 class CreateStateFileMdIntakes < ActiveRecord::Migration[7.1]
   def change
     create_table :state_file_md_intakes do |t|
-
       # Misc
       t.integer :tax_return_year
       t.string :current_step
@@ -56,10 +55,9 @@ class CreateStateFileMdIntakes < ActiveRecord::Migration[7.1]
       t.datetime :email_address_verified_at
       t.datetime :phone_number_verified_at
       t.boolean :unsubscribed_from_email, default: false, null: false
-      t.string :permanent_street
-      t.string :permanent_apartment
-      t.string :permanent_city
-      t.string :permanent_zip
+      t.string :street_address
+      t.string :city
+      t.string :zip_code
 
       # Enums
       t.integer :contact_preference, default: 0, null: false

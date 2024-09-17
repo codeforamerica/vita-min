@@ -6,6 +6,7 @@
 #  account_number                    :string
 #  account_type                      :integer          default("unfilled"), not null
 #  bank_name                         :string
+#  city                              :string
 #  claimed_as_dep                    :integer
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
@@ -30,10 +31,6 @@
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
-#  permanent_apartment               :string
-#  permanent_city                    :string
-#  permanent_street                  :string
-#  permanent_zip                     :string
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
 #  primary_birth_date                :date
@@ -59,10 +56,12 @@
 #  spouse_middle_initial             :string
 #  spouse_ssn                        :string
 #  spouse_suffix                     :string
+#  street_address                    :string
 #  tax_return_year                   :integer
 #  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  withdraw_amount                   :integer
+#  zip_code                          :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  federal_submission_id             :string

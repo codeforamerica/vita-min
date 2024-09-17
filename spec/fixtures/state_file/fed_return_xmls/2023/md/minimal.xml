@@ -12,6 +12,7 @@
       <PrimaryNameControlTxt>YARN</PrimaryNameControlTxt>
       <USAddress>
         <AddressLine1Txt>15 Cool St</AddressLine1Txt>
+        <AddressLine2Txt>Apt 12B</AddressLine2Txt>
         <CityNm>Monkton</CityNm>
         <StateAbbreviationCd>MD</StateAbbreviationCd>
         <ZIPCd>21111</ZIPCd>
