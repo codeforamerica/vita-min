@@ -59,88 +59,20 @@ module PdfFiller
       }
 
       dependents = get_dependents
-      if dependents[0]
-        dep0 = dependents[0]
-        name = format_name(dep0[:first_name], dep0[:last_name], dep0[:middle_initial], dep0[:suffix])
-        answers.merge!({
-          "Last Name First Name Middle Initial 1": name,
-          "undefined_18": dep0[:ssn][0],
-          "undefined_19": dep0[:ssn][1],
-          "undefined_20": dep0[:ssn][2],
-          "Text54": dep0[:ssn][3],
-          "Text55": dep0[:ssn][4],
-          "Text56": dep0[:ssn][5],
-          "Text57": dep0[:ssn][6],
-          "Text58": dep0[:ssn][7],
-          "Text59": dep0[:ssn][8],
-          "Birth Year": dep0[:birth_year][0],
-          "Text60": dep0[:birth_year][1],
-          "Text61": dep0[:birth_year][2],
-          "Text62": dep0[:birth_year][3]
-        })
-      end
+      dependents[0..3].each.with_index do |dependent, i|
+        name_field = dependent_pdf_keys[i][:name]
+        ssn_fields = dependent_pdf_keys[i][:ssn]
+        birth_year_fields = dependent_pdf_keys[i][:birth_year]
+        dependent_hash = {}
 
-      if dependents[1]
-        dep1 = dependents[1]
-        name = format_name(dep1[:first_name], dep1[:last_name], dep1[:middle_initial], dep1[:suffix])
-        answers.merge!({
-           "Last Name First Name Middle Initial 2": name,
-           "undefined_21": dep1[:ssn][0],
-           "undefined_22": dep1[:ssn][1],
-           "undefined_23": dep1[:ssn][2],
-           "undefined_24": dep1[:ssn][3],
-           "Text65": dep1[:ssn][4],
-           "Text66": dep1[:ssn][5],
-           "Text67": dep1[:ssn][6],
-           "Text68": dep1[:ssn][7],
-           "Text69": dep1[:ssn][8],
-           "Text70": dep1[:birth_year][0],
-           "Text71": dep1[:birth_year][1],
-           "Text72": dep1[:birth_year][2],
-           "Text73": dep1[:birth_year][3]
-         })
-      end
-
-      if dependents[2]
-        dep2 = dependents[2]
-        name = format_name(dep2[:first_name], dep2[:last_name], dep2[:middle_initial], dep2[:suffix])
-        answers.merge!({
-         "Last Name First Name Middle Initial 3": name,
-         "undefined_25": dep2[:ssn][0],
-         "undefined_26": dep2[:ssn][1],
-         "undefined_27": dep2[:ssn][2],
-         "undefined_28": dep2[:ssn][3],
-         "Text75": dep2[:ssn][4],
-         "Text76": dep2[:ssn][5],
-         "Text77": dep2[:ssn][6],
-         "Text78": dep2[:ssn][7],
-         "Text79": dep2[:ssn][8],
-         "Text80": dep2[:birth_year][0],
-         "Text81": dep2[:birth_year][1],
-         "Text82": dep2[:birth_year][2],
-         "Text83": dep2[:birth_year][3]
-       })
-      end
-
-      if dependents[3]
-        dep3 = dependents[3]
-        name = format_name(dep3[:first_name], dep3[:last_name], dep3[:middle_initial], dep3[:suffix])
-        answers.merge!({
-           "Last Name First Name Middle Initial 4": name,
-           "undefined_29": dep3[:ssn][0],
-           "undefined_30": dep3[:ssn][1],
-           "undefined_31": dep3[:ssn][2],
-           "undefined_32": dep3[:ssn][3],
-           "Text85": dep3[:ssn][4],
-           "Text86": dep3[:ssn][5],
-           "Text87": dep3[:ssn][6],
-           "Text88": dep3[:ssn][7],
-           "Text89": dep3[:ssn][8],
-           "Text90": dep3[:birth_year][0],
-           "Text91": dep3[:birth_year][1],
-           "Text92": dep3[:birth_year][2],
-           "Text93": dep3[:birth_year][3]
-         })
+        dependent_hash[name_field] = format_name(dependent[:first_name], dependent[:last_name], dependent[:middle_initial], dependent[:suffix])
+        ssn_fields.each.with_index do |field_name, i|
+          dependent_hash[field_name] = dependent[:ssn][i]
+        end
+        birth_year_fields.each.with_index do |field_name, i|
+          dependent_hash[field_name] = dependent[:birth_year][i]
+        end
+        answers.merge!(dependent_hash)
       end
 
       if spouse_ssn
@@ -241,5 +173,92 @@ module PdfFiller
     def get_spouse_ssn
       @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerSSN")&.text
     end
+
+    def dependent_pdf_keys
+      [
+        {
+          name: "Last Name First Name Middle Initial 1",
+          ssn: [
+            "undefined_18",
+            "undefined_19",
+            "undefined_20",
+            "Text54",
+            "Text55",
+            "Text56",
+            "Text57",
+            "Text58",
+            "Text59"
+          ],
+          birth_year: [
+            "Birth Year",
+            "Text60",
+            "Text61",
+            "Text62"
+          ]
+        },
+        {
+          name: "Last Name First Name Middle Initial 2",
+          ssn: [
+            "undefined_21",
+            "undefined_22",
+            "undefined_23",
+            "undefined_24",
+            "Text65",
+            "Text66",
+            "Text67",
+            "Text68",
+            "Text69"
+          ],
+          birth_year: [
+            "Text70",
+            "Text71",
+            "Text72",
+            "Text73"
+          ]
+        },
+        {
+          name: "Last Name First Name Middle Initial 3",
+          ssn: [
+            "undefined_25",
+            "undefined_26",
+            "undefined_27",
+            "undefined_28",
+            "Text75",
+            "Text76",
+            "Text77",
+            "Text78",
+            "Text79"
+          ],
+          birth_year: [
+            "Text80",
+            "Text81",
+            "Text82",
+            "Text83"
+          ]
+        },
+        {
+          name: "Last Name First Name Middle Initial 4",
+          ssn: [
+            "undefined_29",
+            "undefined_30",
+            "undefined_31",
+            "undefined_32",
+            "Text85",
+            "Text86",
+            "Text87",
+            "Text88",
+            "Text89"
+          ],
+          birth_year: [
+            "Text90",
+            "Text91",
+            "Text92",
+            "Text93"
+          ]
+        }
+      ]
+    end
+
+
   end
 end

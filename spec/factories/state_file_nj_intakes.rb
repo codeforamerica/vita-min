@@ -127,6 +127,10 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_deps') }
     end
 
+    trait :df_data_one_dep do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_one_dep') }
+    end
+
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }
