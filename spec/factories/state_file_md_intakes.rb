@@ -79,6 +79,36 @@
 #
 FactoryBot.define do
   factory :state_file_md_intake do
-    
+    transient do
+      filing_status { 'single' }
+    end
+
+    raw_direct_file_data { StateFile::XmlReturnSampleService.read("md_minimal") }
+    primary_first_name { "Mary" }
+    primary_middle_initial { "A" }
+    primary_last_name { "Lando" }
+
+    after(:build) do |intake, evaluator|
+      numeric_status = {
+        single: 1,
+        married_filing_jointly: 2,
+        married_filing_separately: 3,
+        head_of_household: 4,
+        qualifying_widow: 5,
+      }[evaluator.filing_status.to_sym] || evaluator.filing_status
+      intake.direct_file_data.filing_status = numeric_status
+      intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+
+
+    trait :with_spouse do
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+    end
+
   end
 end
