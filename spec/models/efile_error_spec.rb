@@ -61,6 +61,7 @@ describe 'EfileError' do
       "federal-info",
       "initiate-data-transfer",
       "name-dob",
+      "nc-county",
       "nc-review",
       "nc-veteran-status",
       "nj-county",
