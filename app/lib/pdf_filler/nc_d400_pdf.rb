@@ -54,7 +54,8 @@ module PdfFiller
         y_d400wf_li20a_pg2_good: @xml_document.at('IncTaxWith')&.text,
         y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse')&.text,
         y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid')&.text,
-        y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text
+        y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text,
+        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
       }
     end
 
