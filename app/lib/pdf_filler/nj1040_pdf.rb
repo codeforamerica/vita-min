@@ -75,6 +75,22 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
+      if @xml_document.at("WagesSalariesTips").present?
+        wages = @xml_document.at("WagesSalariesTips").text.to_i.digits
+        answers.merge!({
+           "Text105": "0",
+           "Text106": "0",
+           "Text104": wages[0].nil? ? "" : wages[0].to_s,
+           "Text103": wages[1].nil? ? "" : wages[1].to_s,
+           "Text101": wages[2].nil? ? "" : wages[2].to_s,
+           "Text100": wages[3].nil? ? "" : wages[3].to_s,
+           "undefined_38": wages[4].nil? ? "" : wages[4].to_s,
+           "undefined_37": wages[5].nil? ? "" : wages[5].to_s,
+           "undefined_36": wages[6].nil? ? "" : wages[6].to_s,
+           "15": wages[7].nil? ? "" : wages[7].to_s,
+         })
+      end
+
       if spouse_ssn
         answers.merge!({
          "undefined_3": spouse_ssn[0],
@@ -258,7 +274,5 @@ module PdfFiller
         }
       ]
     end
-
-
   end
 end

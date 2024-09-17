@@ -86,7 +86,9 @@ module SubmissionBuilder
                 end
 
                 xml.Body do
-
+                  if calculated_fields.fetch(:NJ1040_LINE_15) >= 0
+                    xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
+                  end
                 end
               end
             end
