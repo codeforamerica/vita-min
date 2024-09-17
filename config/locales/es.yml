@@ -2650,6 +2650,7 @@ es:
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
+        county: Condado
         w2: Información fiscal estatal y local W-2
       shared:
         review_footer:

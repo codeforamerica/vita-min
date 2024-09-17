@@ -12,5 +12,12 @@
     </div>
   <% end %>
 
+  <div id="nc-county" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county") %></p>
+        <p><%=  current_intake.residence_county_name %></p>
+      </div>
+  </div>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
