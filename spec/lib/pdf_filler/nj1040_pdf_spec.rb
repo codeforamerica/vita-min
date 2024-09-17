@@ -413,16 +413,16 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
 
         it "does not fill in any box on line 15" do
-          expect(pdf_fields["Text106"]).to eq ""
-          expect(pdf_fields["Text105"]).to eq ""
-          expect(pdf_fields["Text104"]).to eq ""
-          expect(pdf_fields["Text103"]).to eq ""
-          expect(pdf_fields["Text101"]).to eq ""
-          expect(pdf_fields["Text100"]).to eq ""
-          expect(pdf_fields["undefined_38"]).to eq ""
-          expect(pdf_fields["undefined_37"]).to eq ""
-          expect(pdf_fields["undefined_36"]).to eq ""
           expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          expect(pdf_fields["undefined_37"]).to eq ""
+          expect(pdf_fields["undefined_38"]).to eq ""
+          expect(pdf_fields["Text100"]).to eq ""
+          expect(pdf_fields["Text101"]).to eq ""
+          expect(pdf_fields["Text103"]).to eq ""
+          expect(pdf_fields["Text104"]).to eq ""
+          expect(pdf_fields["Text105"]).to eq ""
+          expect(pdf_fields["Text106"]).to eq ""
         end
       end
 
@@ -434,20 +434,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           ) }
 
         it "includes the rounded sum 200,001.33 split into each box on line 15" do
-          # decimals
-          expect(pdf_fields["Text106"]).to eq "0"
-          expect(pdf_fields["Text105"]).to eq "0"
-          # hundreds
-          expect(pdf_fields["Text104"]).to eq "1"
-          expect(pdf_fields["Text103"]).to eq "0"
-          expect(pdf_fields["Text101"]).to eq "0"
-          # thousands
-          expect(pdf_fields["Text100"]).to eq "0"
-          expect(pdf_fields["undefined_38"]).to eq "0"
-          expect(pdf_fields["undefined_37"]).to eq "2"
           # millions
-          expect(pdf_fields["undefined_36"]).to eq ""
           expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_37"]).to eq "2"
+          expect(pdf_fields["undefined_38"]).to eq "0"
+          expect(pdf_fields["Text100"]).to eq "0"
+          # hundreds
+          expect(pdf_fields["Text101"]).to eq "0"
+          expect(pdf_fields["Text103"]).to eq "0"
+          expect(pdf_fields["Text104"]).to eq "1"
+          # decimals
+          expect(pdf_fields["Text105"]).to eq "0"
+          expect(pdf_fields["Text106"]).to eq "0"
         end
       end
 
@@ -459,20 +459,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           ) }
 
         it "includes the rounded sum 62,345.67 split into each box on line 15" do
-          # decimals
-          expect(pdf_fields["Text106"]).to eq "0"
-          expect(pdf_fields["Text105"]).to eq "0"
-          # hundreds
-          expect(pdf_fields["Text104"]).to eq "6"
-          expect(pdf_fields["Text103"]).to eq "4"
-          expect(pdf_fields["Text101"]).to eq "3"
-          # thousands
-          expect(pdf_fields["Text100"]).to eq "2"
-          expect(pdf_fields["undefined_38"]).to eq "6"
-          expect(pdf_fields["undefined_37"]).to eq ""
           # millions
-          expect(pdf_fields["undefined_36"]).to eq ""
           expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_37"]).to eq ""
+          expect(pdf_fields["undefined_38"]).to eq "6"
+          expect(pdf_fields["Text100"]).to eq "2"
+          # hundreds
+          expect(pdf_fields["Text101"]).to eq "3"
+          expect(pdf_fields["Text103"]).to eq "4"
+          expect(pdf_fields["Text104"]).to eq "6"
+          # decimals
+          expect(pdf_fields["Text105"]).to eq "0"
+          expect(pdf_fields["Text106"]).to eq "0"
         end
       end
     end
