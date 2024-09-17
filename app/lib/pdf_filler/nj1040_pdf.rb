@@ -196,14 +196,14 @@ module PdfFiller
     end
 
     def get_dependents
-      @xml_document.css("Dependents DependentsName").map.with_index do |dependent, i|
+      @xml_document.css("Dependents").map do |dependent|
         {
-          first_name: dependent.at("FirstName")&.text,
-          last_name: dependent.at("LastName")&.text,
-          middle_initial: dependent.at("MiddleInitial")&.text,
-          suffix: dependent.at("NameSuffix")&.text,
-          ssn: @xml_document.css("Dependents DependentsSSN")[i]&.text,
-          birth_year: @xml_document.css("Dependents BirthYear")[i]&.text,
+          first_name: dependent.at("DependentsName FirstName")&.text,
+          last_name: dependent.at("DependentsName LastName")&.text,
+          middle_initial: dependent.at("DependentsName MiddleInitial")&.text,
+          suffix: dependent.at("DependentsName NameSuffix")&.text,
+          ssn: dependent.at("DependentsSSN")&.text,
+          birth_year: dependent.at("BirthYear")&.text,
         }
       end
     end

@@ -67,8 +67,8 @@ module SubmissionBuilder
                   end
 
                   unless intake.dependents.empty?
-                    xml.Dependents do
-                      intake.dependents.each do |dependent|
+                    intake.dependents[0..9].each do |dependent|
+                      xml.Dependents do
                         xml.DependentsName do
                           xml.FirstName sanitize_for_xml(dependent.first_name)
                           xml.MiddleInitial sanitize_for_xml(dependent.middle_initial) if dependent.middle_initial.present?
@@ -82,10 +82,11 @@ module SubmissionBuilder
                   end
 
                   xml.CountyCode "0#{intake.municipality_code}"
+                  xml.NactpCode "1234567890" # TODO - placeholder value
                 end
-                
+
                 xml.Body do
-                  xml.TaxableInterestIncome intake.fed_taxable_income
+
                 end
               end
             end

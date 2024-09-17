@@ -114,28 +114,30 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
           end
         end
 
-        it 'includes each dependent names, SSN, and year of birth' do
-          expect(xml.css("Dependents DependentsName").count).to eq(11)
+        it 'includes each dependent names, SSN, and year of birth to a maximum of 10' do
+          expect(xml.css("Dependents").count).to eq(10)
 
-          last_dep_name = xml.css("Dependents DependentsName")[0]
-          last_dep_ssn = xml.css("Dependents DependentsSSN")[0]
-          last_dep_birth_year = xml.css("Dependents BirthYear")[0]
-          expect(last_dep_name.at("FirstName").text).to eq("Firstname0")
-          expect(last_dep_name.at("LastName").text).to eq("Lastname0")
-          expect(last_dep_name.at("MiddleInitial").text).to eq("A")
-          expect(last_dep_name.at("NameSuffix").text).to eq("JR")
-          expect(last_dep_ssn.text).to eq("000000000")
-          expect(last_dep_birth_year.text).to eq("2020")
+          first_dep = xml.css("Dependents")[0]
+          first_dep_name = first_dep.at("DependentsName")
+          first_dep_ssn = first_dep.at("DependentsSSN")
+          first_dep_birth_year = first_dep.at("BirthYear")
+          expect(first_dep_name.at("FirstName").text).to eq("Firstname0")
+          expect(first_dep_name.at("LastName").text).to eq("Lastname0")
+          expect(first_dep_name.at("MiddleInitial").text).to eq("A")
+          expect(first_dep_name.at("NameSuffix").text).to eq("JR")
+          expect(first_dep_ssn.text).to eq("000000000")
+          expect(first_dep_birth_year.text).to eq("2020")
 
-          last_dep_name = xml.css("Dependents DependentsName")[10]
-          last_dep_ssn = xml.css("Dependents DependentsSSN")[10]
-          last_dep_birth_year = xml.css("Dependents BirthYear")[10]
-          expect(last_dep_name.at("FirstName").text).to eq("Firstname10")
-          expect(last_dep_name.at("LastName").text).to eq("Lastname10")
-          expect(last_dep_name.at("MiddleInitial").text).to eq("K")
+          last_dep = xml.css("Dependents")[9]
+          last_dep_name = last_dep.at("DependentsName")
+          last_dep_ssn = last_dep.at("DependentsSSN")
+          last_dep_birth_year = last_dep.at("BirthYear")
+          expect(last_dep_name.at("FirstName").text).to eq("Firstname9")
+          expect(last_dep_name.at("LastName").text).to eq("Lastname9")
+          expect(last_dep_name.at("MiddleInitial").text).to eq("J")
           expect(last_dep_name.at("NameSuffix").text).to eq("JR")
-          expect(last_dep_ssn.text).to eq("000000010")
-          expect(last_dep_birth_year.text).to eq("2010")
+          expect(last_dep_ssn.text).to eq("000000009")
+          expect(last_dep_birth_year.text).to eq("2011")
         end
       end
     end
