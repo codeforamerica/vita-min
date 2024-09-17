@@ -57,6 +57,24 @@ module PdfFiller
         "undefined_9": get_line_7_exemption_count,
         "x  1000_2": get_line_7_exemption_count * 1000,
       }
+
+      dependents = get_dependents
+      dependents[0..3].each.with_index do |dependent, i|
+        name_field = dependent_pdf_keys[i][:name]
+        ssn_fields = dependent_pdf_keys[i][:ssn]
+        birth_year_fields = dependent_pdf_keys[i][:birth_year]
+        dependent_hash = {}
+
+        dependent_hash[name_field] = format_name(dependent[:first_name], dependent[:last_name], dependent[:middle_initial], dependent[:suffix])
+        ssn_fields.each.with_index do |field_name, i|
+          dependent_hash[field_name] = dependent[:ssn][i]
+        end
+        birth_year_fields.each.with_index do |field_name, i|
+          dependent_hash[field_name] = dependent[:birth_year][i]
+        end
+        answers.merge!(dependent_hash)
+      end
+
       if spouse_ssn
         answers.merge!({
          "undefined_3": spouse_ssn[0],
@@ -109,6 +127,19 @@ module PdfFiller
       [address_line_1, address_line_2].compact.join(" ")
     end
 
+    def get_dependents
+      @xml_document.css("Dependents").map do |dependent|
+        {
+          first_name: dependent.at("DependentsName FirstName")&.text,
+          last_name: dependent.at("DependentsName LastName")&.text,
+          middle_initial: dependent.at("DependentsName MiddleInitial")&.text,
+          suffix: dependent.at("DependentsName NameSuffix")&.text,
+          ssn: dependent.at("DependentsSSN")&.text,
+          birth_year: dependent.at("BirthYear")&.text,
+        }
+      end
+    end
+
     def get_name
       first_name = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName FirstName")&.text
       last_name = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName LastName")&.text
@@ -142,5 +173,92 @@ module PdfFiller
     def get_spouse_ssn
       @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerSSN")&.text
     end
+
+    def dependent_pdf_keys
+      [
+        {
+          name: "Last Name First Name Middle Initial 1",
+          ssn: [
+            "undefined_18",
+            "undefined_19",
+            "undefined_20",
+            "Text54",
+            "Text55",
+            "Text56",
+            "Text57",
+            "Text58",
+            "Text59"
+          ],
+          birth_year: [
+            "Birth Year",
+            "Text60",
+            "Text61",
+            "Text62"
+          ]
+        },
+        {
+          name: "Last Name First Name Middle Initial 2",
+          ssn: [
+            "undefined_21",
+            "undefined_22",
+            "undefined_23",
+            "undefined_24",
+            "Text65",
+            "Text66",
+            "Text67",
+            "Text68",
+            "Text69"
+          ],
+          birth_year: [
+            "Text70",
+            "Text71",
+            "Text72",
+            "Text73"
+          ]
+        },
+        {
+          name: "Last Name First Name Middle Initial 3",
+          ssn: [
+            "undefined_25",
+            "undefined_26",
+            "undefined_27",
+            "undefined_28",
+            "Text75",
+            "Text76",
+            "Text77",
+            "Text78",
+            "Text79"
+          ],
+          birth_year: [
+            "Text80",
+            "Text81",
+            "Text82",
+            "Text83"
+          ]
+        },
+        {
+          name: "Last Name First Name Middle Initial 4",
+          ssn: [
+            "undefined_29",
+            "undefined_30",
+            "undefined_31",
+            "undefined_32",
+            "Text85",
+            "Text86",
+            "Text87",
+            "Text88",
+            "Text89"
+          ],
+          birth_year: [
+            "Text90",
+            "Text91",
+            "Text92",
+            "Text93"
+          ]
+        }
+      ]
+    end
+
+
   end
 end
