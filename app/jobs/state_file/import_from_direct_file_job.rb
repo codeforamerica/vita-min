@@ -32,6 +32,7 @@ module StateFile
         # Clear this timestamp if it failed before but succeeded this time
         intake.update(df_data_import_failed_at: nil)
       rescue => err
+        binding.pry
         Rails.logger.error(err)
         intake.update(df_data_import_failed_at: DateTime.now)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)

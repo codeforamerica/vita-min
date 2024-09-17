@@ -6,6 +6,7 @@ class CreateStateFileMdIntakes < ActiveRecord::Migration[7.1]
       t.integer :tax_return_year
       t.string :current_step
       t.text :raw_direct_file_data
+      t.jsonb :raw_direct_file_intake_data
 
       t.date :date_electronic_withdrawal
       t.datetime :df_data_import_failed_at
