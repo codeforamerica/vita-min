@@ -29,7 +29,6 @@
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")
 #  locked_at                         :datetime
-#  love_taxes                        :string
 #  message_tracker                   :jsonb
 #  municipality_code                 :string
 #  municipality_name                 :string
