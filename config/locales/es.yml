@@ -2462,6 +2462,13 @@ es:
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: "¿Usted (o su cónyuge, si presentan la declaración juntos) obtuvo algún ingreso en otro estado en %{filing_year}? (Esto incluye los ingresos por desempleo <strong>recibidos</strong> de otro estado)."
+          reveal:
+            list1: Retiró dinero de una cuenta 529 y lo usó para gastos calificados, o
+            list2: No retiraste dinero de una cuenta 529 en absoluto.
+            p1: Los gastos calificados incluyen matrícula y cuotas, libros, equipo (incluidas computadoras y otra tecnología), alojamiento y comida, programas de aprendizaje y matrícula K-12 hasta $10,000.
+            p2: La mayoría de los demás usos de los fondos son gastos no calificados, incluidas las tarifas de solicitud y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
+            subtitle: 'Seleccione ''no'' si:'
+            title: "¿Qué son los gastos calificados y no calificados?"
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
           withdraw_529_html: ¿Retiró usted (o su cónyuge, si presentan una declaración juntos) dinero de un <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">Cuenta de ahorros para la universidad 529</a> y usarla para gastos no calificados en %{filing_year}?
       nc_eligibility_residence:

@@ -2489,6 +2489,13 @@ en:
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
+          reveal:
+            list1: You withdrew money from a 529 account and used it for qualifying expenses, or
+            list2: You didn't withdraw money from a 529 account at all.
+            p1: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
+            p2: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
+            subtitle: 'Select ''no'' if:'
+            title: What are qualifying and non- qualifying expenses?
           title: First, let's see if you can use this tool to file your taxes
           withdraw_529_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
       nc_eligibility_residence:

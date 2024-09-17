@@ -26,6 +26,19 @@
           ) %>
     </div>
 
+    <div class="reveal">
+      <p><a href="#" class="reveal__link"><%= t('.reveal.title') %></a></p>
+      <div class="reveal__content">
+        <p><%= t('.reveal.p1') %></p>
+        <p><%= t('.reveal.p2') %></p>
+        <p><strong><%= t('.reveal.subtitle') %></strong></p>
+        <ul>
+          <li><%= t('.reveal.list1') %></li>
+          <li><%= t('.reveal.list2') %></li>
+        </ul>
+      </div>
+    </div>
+
     <%= f.continue %>
   <% end %>
 <% end %>
