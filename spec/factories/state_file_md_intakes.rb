@@ -107,5 +107,13 @@ FactoryBot.define do
       spouse_last_name { "Lando" }
     end
 
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_two_w2s') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_many_w2s') }
+    end
+
   end
 end

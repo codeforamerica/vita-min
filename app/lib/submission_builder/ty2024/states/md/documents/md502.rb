@@ -9,6 +9,10 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def document
+              build_xml_doc("Form502") do |xml|
+                xml.ResidencyStatusPrimary true
+              end
+
             end
 
             private
