@@ -15,7 +15,6 @@ namespace :setup do
   task download_efile_schemas: :environment do |_task|
     SchemaFileLoader.prepare_directories(vendor_dir)
     SchemaFileLoader.download_schemas_from_s3(vendor_dir)
-    puts "heck"
   end
 
   task unzip_efile_schemas: :environment do |_task|
