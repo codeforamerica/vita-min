@@ -83,7 +83,7 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
-    raw_direct_file_data { StateFile::XmlReturnSampleService.read("md_minimal") }
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("md_minimal") }
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
@@ -99,8 +99,6 @@ FactoryBot.define do
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
-
-
 
     trait :with_spouse do
       filing_status { 'married_filing_jointly' }
