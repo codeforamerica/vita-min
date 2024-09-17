@@ -9,6 +9,26 @@ describe Efile::Az::Az140Calculator do
     )
   end
 
+  describe 'Line 53: AZ Income Tax Withheld' do
+    let(:intake) {
+      # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
+      create(:state_file_az_intake,
+             raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('az_alexis_hoh_w2_and_1099'))
+    }
+    let(:state_file1099_g) {
+      create(:state_file1099_g, intake: intake, state_income_tax_withheld: 100)
+    }
+
+    before do
+      intake.state_file1099_gs.append(state_file1099_g)
+    end
+
+    it 'sums the AZ tax withheld from w2s, 1099gs and 1099rs' do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_53].value).to eq(610)
+    end
+  end
+
   describe "Line 56: Increased Excise Tax Credit" do
     before do
       allow(intake).to receive(:disqualified_from_excise_credit_fyst?).and_return false

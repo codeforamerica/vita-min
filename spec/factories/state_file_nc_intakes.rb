@@ -37,10 +37,14 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
+#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  residence_county                  :string           default("unfilled"), not null
 #  routing_number                    :integer
+#  sales_use_tax                     :decimal(12, 2)
+#  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -50,10 +54,12 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
+#  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
 #  zip_code                          :string
 #  created_at                        :datetime         not null

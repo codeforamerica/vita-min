@@ -3,6 +3,8 @@ require 'net/https'
 require 'uri'
 require 'jwt'
 require 'nokogiri'
+require 'openssl/oaep'
+
 require_relative 'state_file/xml_return_sample_service'
 
 class IrsApiService
@@ -48,7 +50,6 @@ class IrsApiService
 
       # CA chain for the IRS server certificate, so that we can verify it in mTLS
       http.ca_file = "config/entrust_l1k_full_chain.cer"
-
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -71,6 +72,11 @@ class IrsApiService
       save_response(response, filename)
     end
 
+    undecrypted_body_json = JSON.parse(response.body)
+    if undecrypted_body_json.include?("status") && undecrypted_body_json["status"] == "error"
+      raise StandardError, "DF export-return API Response Error: #{undecrypted_body_json["error"]}"
+    end
+
     unless response.header['SESSION-KEY']
       Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
       return
@@ -78,7 +84,14 @@ class IrsApiService
 
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
     decipher.decrypt
-    decipher.key = cert_finder.client_key.private_decrypt(Base64.decode64(response.header['SESSION-KEY']))
+    client_key = cert_finder.client_key
+    encrypted_session_key = Base64.decode64(response.header['SESSION-KEY'])
+
+    label = ''
+    md_oaep = OpenSSL::Digest::SHA256
+    md_mgf1 = OpenSSL::Digest::SHA1
+
+    decipher.key = client_key.private_decrypt_oaep(encrypted_session_key, label, md_oaep, md_mgf1)
     decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
     encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
 

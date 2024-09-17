@@ -1,0 +1,22 @@
+<% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
+<% content_for :card do %>
+  <%= render "state_file/questions/shared/review_header" %>
+
+  <div id="county" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".county") %></p>
+      <p><%=current_intake.county %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NjCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="municipality" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".municipality") %></p>
+      <p><%=current_intake.municipality_name %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NjMunicipalityController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <%= render "state_file/questions/shared/review_footer" %>
+<% end %>

@@ -9,6 +9,12 @@ RSpec.describe StateFile::FaqController do
       allow(Rails.configuration).to receive(:statefile_current_tax_year).and_return(current_year - 1)
     end
 
+    it "renders the page" do
+      get :index, params: { us_state: "us" }
+
+      expect(response).to be_ok
+    end
+
     context "showing the right states" do
       context "when FYST has not opened yet for the year" do
         before do
