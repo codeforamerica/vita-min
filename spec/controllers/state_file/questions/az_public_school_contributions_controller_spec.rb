@@ -76,21 +76,44 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     context "with invalid params" do
       render_views
-      let(:invalid_params) do
-        {
-          az322_contribution: {
-            made_contribution: nil,
+
+      context "made_contribution" do
+        let(:invalid_params) do
+          {
+            az322_contribution: {
+              made_contribution: nil,
+            }
           }
-        }
+        end
+
+        it "renders new with validation errors" do
+          expect do
+            post :create, params: invalid_params
+          end.not_to change(Az322Contribution, :count)
+
+          expect(response).to render_template(:new)
+          expect(response.body).to include "Can't be blank"
+        end
       end
 
-      it "renders new with validation errors" do
-        expect do
-          post :create, params: invalid_params
-        end.not_to change(Az322Contribution, :count)
+      context "amount" do
+        let(:invalid_params) do
+          {
+            az322_contribution: {
+              made_contribution: 'yes',
+              amount: 100.125
+            }
+          }
+        end
 
-        expect(response).to render_template(:new)
-        expect(response.body).to include "Can't be blank"
+        it "renders new with validation errors" do
+          expect do
+            post :create, params: invalid_params
+          end.not_to change(Az322Contribution, :count)
+
+          expect(response).to render_template(:new)
+          expect(response.body).to include "must be a valid dollar amount"
+        end
       end
     end
   end
@@ -155,7 +178,8 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           az322_contribution: {
             mad_contribution: "yes",
             school_name: nil,
-            ctds_code: nil
+            ctds_code: nil,
+            amount: 1312.92312
           }
         }
       end
@@ -168,6 +192,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         expect(response).to render_template(:edit)
         expect(response.body).to include "Can't be blank"
         expect(response.body).to include "School Code/CTDS must be a 9 digit number"
+        expect(response.body).to include "must be a valid dollar amount"
       end
     end
   end

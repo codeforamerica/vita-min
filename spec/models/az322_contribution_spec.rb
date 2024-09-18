@@ -99,20 +99,6 @@ describe 'Az322Contribution' do
         az.valid?
         expect(az.errors[:amount]).to be_empty
       end
-
-      it "validates two or less decimal places" do
-        az.amount = 100.11
-        az.valid?
-        expect(az.errors[:amount]).to be_empty
-
-        az.amount = 100.3
-        az.valid?
-        expect(az.errors[:amount]).to be_empty
-
-        az.assign_attributes(amount: 100.113)
-        az.valid?
-        expect(az.errors[:amount]).not_to be_empty
-      end
     end
 
     describe "#date_of_contribution_is_valid_date" do

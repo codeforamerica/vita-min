@@ -26,10 +26,11 @@ module StateFile
           return redirect_to next_path
         end
 
-        if @az322_contribution.valid?
+        if @az322_contribution.valid? && has_valid_cents?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
+          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_cents?
           render :new
         end
       end
@@ -47,10 +48,11 @@ module StateFile
           return redirect_to action: :index, return_to_review: params[:return_to_review]
         end
 
-        if @az322_contribution.valid?
+        if @az322_contribution.valid? && has_valid_cents?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
+          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_cents?
           render :edit
         end
       end
@@ -64,6 +66,12 @@ module StateFile
       end
 
       private
+
+      def has_valid_cents?
+        amount = az322_contribution_params[:amount]
+        decimal_digits = amount.to_s.split('.').second
+        decimal_digits && decimal_digits.length <= 2
+      end
 
       def az322_contribution_params
         params.require(:az322_contribution).permit(
