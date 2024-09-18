@@ -66,6 +66,7 @@ class DirectFileData < DfXmlAccessor
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
     interest_reported_amount: 'IRS1040 InterestReported', # fake
+    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt'
   }.freeze
 
   def initialize(raw_xml)
@@ -601,6 +602,10 @@ class DirectFileData < DfXmlAccessor
   # fake
   def interest_reported_amount=(value)
     create_or_destroy_df_xml_node(__method__, value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def qualifying_children_under_age_ssn_count=(value)
     write_df_xml_value(__method__, value)
   end
 

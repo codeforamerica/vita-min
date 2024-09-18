@@ -53,6 +53,17 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li23_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
         end
+
+        context "CTC fields" do
+          let(:intake) { create(:state_file_nc_intake, filing_status: "single", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+          before do
+            intake.direct_file_data.qualifying_children_under_age_ssn_count = 5
+          end
+
+          it "sets the correct values" do
+            expect(pdf_fields['y_d400wf_li10a_good']).to eq '5'
+          end
+        end
       end
 
       context "mfj filers" do

@@ -30,6 +30,7 @@ describe DirectFileData do
     ["fed_total_income_exclusion_amount", 600],
     ["fed_housing_deduction_amount", 700],
     ["fed_gross_income_exclusion_amount", 900],
+    ["qualifying_children_under_age_ssn_count", "1"],
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
@@ -48,6 +49,14 @@ describe DirectFileData do
           end
         end
       end
+    end
+  end
+
+  describe "#qualifying_children_under_age_ssn_count=" do
+    it "writes to the value when the node is present" do
+      direct_file_data.qualifying_children_under_age_ssn_count = 3
+
+      expect(direct_file_data.qualifying_children_under_age_ssn_count).to eq "3"
     end
   end
 

@@ -42,6 +42,7 @@ module SubmissionBuilder
                 # line 7 AdditionsToFAGI is blank
                 xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
                 # line 9 DeductionsFromFAGI is blank
+                xml.NumChildrenAllowed @submission.data_source.direct_file_data.qualifying_children_under_age_ssn_count
                 xml.NCStandardDeduction standard_deduction
                 # line 16 TaxCredits is blank
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)

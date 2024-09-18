@@ -28,7 +28,6 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('FAGI').text).to eq "10000"
         expect(xml.document.at('FAGIPlusAdditions').text).to eq "10000"
         expect(xml.document.at('NCStandardDeduction').text).to eq "12750"
-        # 12a = (11)NCStandardDeduction + (10b)ChildDeduction expect(xml.document.at('NCAGIAddition').text).to eq ""
         expect(xml.document.at('IncTaxWith').text).to eq income_tax_withheld.to_s
         expect(xml.document.at('IncTaxWithSpouse').text).to eq income_tax_withheld_spouse.to_s
         expect(xml.document.at('NCTaxPaid').text).to eq tax_paid.to_s
@@ -38,6 +37,18 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       it "correctly fills veteran info for primary" do
         intake.update(primary_veteran: "yes")
         expect(xml.document.at('VeteranInfoPrimary').text).to eq "1"
+      end
+
+      context "CTC-related values" do
+        let(:intake) { create(:state_file_nc_intake, filing_status: "head_of_household", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+
+        before do
+          intake.direct_file_data.qualifying_children_under_age_ssn_count = 3
+        end
+
+        it "pulls from DF" do
+          expect(xml.document.at('NumChildrenAllowed').text).to eq "3"
+        end
       end
     end
 
