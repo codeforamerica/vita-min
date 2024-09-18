@@ -141,5 +141,24 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
     end
+
+    describe "wages" do
+      context "when no w2 wages (line 15 is -1)" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+        it "does not include WagesSalariesTips item" do
+          expect(xml.at("WagesSalariesTips")).to eq(nil)
+        end
+      end
+
+      context "when w2 wages exist" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
+
+        it "includes the sum in WagesSalariesTips item" do
+          expected_sum = (50000.33 + 50000.33 + 50000.33 + 50000.33).round
+          expect(xml.at("WagesSalariesTips").text).to eq(expected_sum.to_s)
+        end
+      end
+    end
   end
 end

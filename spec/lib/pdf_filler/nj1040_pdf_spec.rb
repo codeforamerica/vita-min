@@ -402,5 +402,79 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
+
+    describe "line 15 wages" do
+      context "when no w2 wages" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_minimal
+          )
+        }
+
+        it "does not fill in any box on line 15" do
+          expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          expect(pdf_fields["undefined_37"]).to eq ""
+          expect(pdf_fields["undefined_38"]).to eq ""
+          expect(pdf_fields["Text100"]).to eq ""
+          expect(pdf_fields["Text101"]).to eq ""
+          expect(pdf_fields["Text103"]).to eq ""
+          expect(pdf_fields["Text104"]).to eq ""
+          expect(pdf_fields["Text105"]).to eq ""
+          expect(pdf_fields["Text106"]).to eq ""
+        end
+      end
+
+      context "when w2 wages exist" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s
+          ) }
+
+        it "includes the rounded sum 200,001.33 split into each box on line 15" do
+          # millions
+          expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_37"]).to eq "2"
+          expect(pdf_fields["undefined_38"]).to eq "0"
+          expect(pdf_fields["Text100"]).to eq "0"
+          # hundreds
+          expect(pdf_fields["Text101"]).to eq "0"
+          expect(pdf_fields["Text103"]).to eq "0"
+          expect(pdf_fields["Text104"]).to eq "1"
+          # decimals
+          expect(pdf_fields["Text105"]).to eq "0"
+          expect(pdf_fields["Text106"]).to eq "0"
+        end
+      end
+
+      context "when w2 wages exist (including decimal places)" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_2_w2s
+          ) }
+
+        it "includes the rounded sum 62,345.67 split into each box on line 15" do
+          # millions
+          expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_37"]).to eq ""
+          expect(pdf_fields["undefined_38"]).to eq "6"
+          expect(pdf_fields["Text100"]).to eq "2"
+          # hundreds
+          expect(pdf_fields["Text101"]).to eq "3"
+          expect(pdf_fields["Text103"]).to eq "4"
+          expect(pdf_fields["Text104"]).to eq "6"
+          # decimals
+          expect(pdf_fields["Text105"]).to eq "0"
+          expect(pdf_fields["Text106"]).to eq "0"
+        end
+      end
+    end
   end
 end
