@@ -171,13 +171,18 @@ To run pdftk on macOS, you need to have Java installed correctly. Use the follow
 
 ***NOTE:*** We are currently discussing  `asdf` vs `brew`. Feel free to follow whichever set up works better for you for now.
 
-***asdf instructions***:
+##### asdf instructions:
 
-First, make sure you have `asdf` (type `asdf` into the terminal and see if it shows up asdf options). If you don't, running `brew install asdf`.
-Check `.tool-versions` to see the version needed. You can also run `asdf current` which should tell you what libraries install.
-It should be installable with `asdf install` in the root directory.
+`asdf` is one big umbrella used to simplify installing and managing versions for our core technologies. The managed techs and desired versions are listed in `.tool-versions` in the vita-min root. To use `asdf`, follow these steps:
 
-***brew instructions***:
+1. Install asdf with `brew install asdf`.
+2. For each technology you wanna track with asdf, you'll need to install an appropriate plugin. We're talking about Java in this moment, so install the Java plugin with `asdf plugin-add java https://github.com/halcyon/asdf-java.git`
+3. Now you can let asdf take the wheel and install/setup Java with `asdf install`.
+4. Yay.
+
+You've likely noticed there's other things listed in `.tool-versions`, and it's reasonable to use `asdf` for those things too, but the setup script presumes the use of `brew`, so there may be resulting shell/path conflicts. Use at your own risk.
+
+##### brew instructions:
 ```sh
 AdoptOpenJDK/openjdk && brew install adoptopenjdk8
 ```
