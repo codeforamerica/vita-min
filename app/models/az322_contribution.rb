@@ -42,10 +42,6 @@ class Az322Contribution < ApplicationRecord
     end
   end
 
-  def parse_date_params(year, month, day)
-    Date.new(year.to_i, month.to_i, day.to_i) rescue nil
-  end
-
   def date_of_contribution_is_valid_date
     if date_of_contribution_year.present? || date_of_contribution_month.present? || date_of_contribution_day.present?
       valid_text_date(date_of_contribution_year, date_of_contribution_month, date_of_contribution_day, :date_of_contribution)

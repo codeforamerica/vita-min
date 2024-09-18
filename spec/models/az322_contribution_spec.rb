@@ -102,8 +102,45 @@ describe 'Az322Contribution' do
     end
 
     describe "#date_of_contribution_is_valid_date" do
-      it 'should validate presence' do
-        # TODO
+      before do
+        az.date_of_contribution_year = '2006'
+        az.date_of_contribution_month = '06'
+        az.date_of_contribution_day = '10'
+      end
+
+      it "should validate date" do
+        az.valid?
+        expect(az.errors[:date_of_contribution]).to be_empty
+      end
+
+      it 'should invalidate invalid year' do
+        az.date_of_contribution_year = 'beep beep'
+        az.valid?
+        expect(az.errors[:date_of_contribution]).not_to be_empty
+
+        az.date_of_contribution_year = nil
+        az.valid?
+        expect(az.errors[:date_of_contribution]).not_to be_empty
+      end
+
+      it 'should invalidate invalid month' do
+        az.date_of_contribution_month = 'boop boop'
+        az.valid?
+        expect(az.errors[:date_of_contribution]).not_to be_empty
+
+        az.date_of_contribution_month = nil
+        az.valid?
+        expect(az.errors[:date_of_contribution]).not_to be_empty
+      end
+
+      it 'should invalidate invalid day' do
+        az.date_of_contribution_day = '#84u123'
+        az.valid?
+        expect(az.errors[:date_of_contribution]).not_to be_empty
+
+        az.date_of_contribution_day = nil
+        az.valid?
+        expect(az.errors[:date_of_contribution]).not_to be_empty
       end
     end
   end
