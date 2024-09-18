@@ -70,7 +70,7 @@ module StateFile
       def has_valid_cents?
         amount = az322_contribution_params[:amount]
         decimal_digits = amount.to_s.split('.').second
-        decimal_digits && decimal_digits.length <= 2
+        decimal_digits ? decimal_digits.length <= 2 : true
       end
 
       def az322_contribution_params
