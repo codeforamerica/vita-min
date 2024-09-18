@@ -51,12 +51,12 @@ describe SubmissionBuilder::StateReturn do
 
               # w2 at index 0 remains the same
               w2_from_xml = xml.css('IRSW2')[0]
-              expect(w2_from_xml.at("EmployerStateIdNum").text).to eq intake.direct_file_data.w2s[0].EmployerStateIdNum
-              expect(w2_from_xml.at("LocalIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].LocalIncomeTaxAmt.to_s
-              expect(w2_from_xml.at("LocalWagesAndTipsAmt").text).to eq intake.direct_file_data.w2s[0].LocalWagesAndTipsAmt.to_s
-              expect(w2_from_xml.at("LocalityNm").text).to eq intake.direct_file_data.w2s[0].LocalityNm.upcase
-              expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].StateIncomeTaxAmt.to_s
-              expect(w2_from_xml.at("StateWagesAmt").text).to eq intake.direct_file_data.w2s[0].StateWagesAmt.to_s
+              expect(w2_from_xml.at("EmployerStateIdNum").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp EmployerStateIdNum").text
+              expect(w2_from_xml.at("LocalIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalIncomeTaxAmt").text
+              expect(w2_from_xml.at("LocalWagesAndTipsAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalWagesAndTipsAmt").text
+              expect(w2_from_xml.at("LocalityNm").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalityNm").text.upcase
+              expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp StateIncomeTaxAmt").text
+              expect(w2_from_xml.at("StateWagesAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp StateWagesAmt").text
 
               # w2 at index 1 is filled in with info from client
               w2_from_db = xml.css('IRSW2')[1]
