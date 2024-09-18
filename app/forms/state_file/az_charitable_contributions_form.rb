@@ -1,6 +1,6 @@
 module StateFile
   class AzCharitableContributionsForm < QuestionsForm
-    set_attributes_for :intake, :charitable_contributions, :charitable_cash, :charitable_noncash
+    set_attributes_for :intake, :charitable_contributions, :charitable_cash, :charitable_noncash, :charitable_cash_amount, :charitable_noncash_amount
 
     validates :charitable_contributions, inclusion: { in: %w[yes no], message: :blank }
     validates_numericality_of :charitable_cash, only_integer: true, message: :whole_number, if: -> { charitable_contributions == "yes" }

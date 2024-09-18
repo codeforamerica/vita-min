@@ -5,7 +5,8 @@ module StateFile
                        :spouse_was_incarcerated,
                        :ssn_no_employment,
                        :household_excise_credit_claimed,
-                       :household_excise_credit_claimed_amt
+                       :household_excise_credit_claimed_amt,
+                       :household_excise_credit_claimed_amount
 
     validates :primary_was_incarcerated, inclusion: { in: %w[yes no], message: :blank }
     validates :spouse_was_incarcerated, inclusion: { in: %w[yes no], message: :blank }, if: -> { intake.filing_status_mfj? }
