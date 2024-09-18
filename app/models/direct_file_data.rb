@@ -66,6 +66,8 @@ class DirectFileData < DfXmlAccessor
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
     interest_reported_amount: 'IRS1040 InterestReported', # fake
+    primary_blind: 'IRS1040 PrimaryBlindInd',
+    spouse_blind: 'IRS1040 SpouseBlindInd'
   }.freeze
 
   def initialize(raw_xml)
@@ -502,14 +504,33 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def blind_primary_spouse
-    elements_to_check = ['PrimaryBlindInd', 'SpouseBlindInd']
-    value = 0
+  def primary_blind
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, "X")
+  end
 
-    elements_to_check.each do |element_name|
-      if parsed_xml.at(element_name)
-        value += 1
-      end
+  def spouse_blind
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, "X")
+  end
+
+  def is_primary_blind?
+    return false unless parsed_xml.at('PrimaryBlindInd')
+    true
+  end
+
+  def is_spouse_blind?
+    return false unless parsed_xml.at('SpouseBlindInd')
+    true
+  end
+
+  def blind_primary_spouse
+    value = 0
+    if is_primary_blind?
+      value += 1
+    end
+    if is_spouse_blind?
+      value += 1
     end
     value
   end

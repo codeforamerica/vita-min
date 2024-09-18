@@ -160,5 +160,17 @@ FactoryBot.define do
       spouse_birth_date { Date.new(1900, 1, 1) }
       spouse_ssn { "123456789" }
     end
+
+    trait :primary_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.primary_blind
+      end
+    end
+
+    trait :spouse_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.spouse_blind
+      end
+    end
   end
 end

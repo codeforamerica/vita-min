@@ -144,6 +144,13 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["undefined_9"]).to eq "0"
         end
 
+        it "fills pdf with Line 8 fields" do
+          expect(pdf_fields["Check Box43"]).to eq "Off"
+          expect(pdf_fields["Check Box44"]).to eq "Off"
+          expect(pdf_fields["x  1000_3"]).to eq "0"
+          expect(pdf_fields["undefined_10"]).to eq "0"
+        end
+
         context "primary over 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -156,6 +163,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["Check Box42"]).to eq "Off"
             expect(pdf_fields["x  1000_2"]).to eq "1000"
             expect(pdf_fields["undefined_9"]).to eq "1"
+          end
+        end
+
+        context "primary is blind" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :primary_blind
+              ) }
+          it "fills pdf with Line 8 fields" do
+            expect(pdf_fields["Check Box43"]).to eq "Yes"
+            expect(pdf_fields["Check Box44"]).to eq "Off"
+            expect(pdf_fields["x  1000_3"]).to eq "1000"
+            expect(pdf_fields["undefined_10"]).to eq "1"
           end
         end
       end
@@ -179,6 +200,29 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Check Box42"]).to eq "Off"
           expect(pdf_fields["x  1000_2"]).to eq "0"
           expect(pdf_fields["undefined_9"]).to eq "0"
+        end
+
+        it "fills pdf with Line 8 fields" do
+          expect(pdf_fields["Check Box43"]).to eq "Off"
+          expect(pdf_fields["Check Box44"]).to eq "Off"
+          expect(pdf_fields["x  1000_3"]).to eq "0"
+          expect(pdf_fields["undefined_10"]).to eq "0"
+        end
+
+        context "primary and spouse are both blind" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :married_filing_jointly,
+              :primary_blind,
+              :spouse_blind
+              ) }
+          it "fills pdf with Line 8 fields" do
+            expect(pdf_fields["Check Box43"]).to eq "Yes"
+            expect(pdf_fields["Check Box44"]).to eq "Yes"
+            expect(pdf_fields["x  1000_3"]).to eq "2000"
+            expect(pdf_fields["undefined_10"]).to eq "2"
+          end
         end
       end
     end

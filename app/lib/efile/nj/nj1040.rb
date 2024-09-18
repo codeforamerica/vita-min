@@ -13,6 +13,7 @@ module Efile
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_7, :calculate_line_7)
+        set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         @lines.transform_values(&:value)
       end
@@ -37,12 +38,15 @@ module Efile
       end
 
       def calculate_line_7
-        number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox, line_7_spouse_checkbox])
+        number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox,
+                                                                 line_7_spouse_checkbox])
         number_of_line_7_exemptions * 1_000
       end
 
-      def total_exemption_amount
-        0
+      def calculate_line_8
+        number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind?,
+                                                                 @direct_file_data.is_spouse_blind?])
+        number_of_line_8_exemptions * 1_000
       end
 
       def refund_or_owed_amount

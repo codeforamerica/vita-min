@@ -21,30 +21,45 @@ describe Efile::Nj::Nj1040 do
       expect(instance.lines[:NJ1040_LINE_6].value).to eq(1000)
     end
 
-    context 'when filer is older than 65' do
-      let(:intake) do
-        create(:state_file_nj_intake,
-               primary_birth_date: Date.new(over_65_birth_year, 1, 1))
-      end
-
-      it 'checks the self 65+ checkbox and sets line 7 to 1000' do
-        expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
-        expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
-        expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
+    context "when filer is not blind" do
+      it "sets line 8 deductions to 0" do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(0)
       end
     end
 
-    context 'when filer is younger than 65' do
+    context "when filer is blind" do
       let(:intake) do
-        create(:state_file_nj_intake,
-               primary_birth_date: Date.new(over_65_birth_year + 1, 1, 1))
+        create(:state_file_nj_intake, :primary_blind)
       end
+      it "sets line 8 deductions to 1000" do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+      end
+    end
+  end
 
-      it 'does not check the self 65+ checkbox and sets line 7 to 0' do
-        expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
-        expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
-        expect(instance.lines[:NJ1040_LINE_7].value).to eq(0)
-      end
+  context "when filer is older than 65" do
+    let(:intake) do
+      create(:state_file_nj_intake,
+             primary_birth_date: Date.new(over_65_birth_year, 1, 1))
+    end
+
+    it 'checks the self 65+ checkbox and sets line 7 to 1000' do
+      expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
+      expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
+      expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
+    end
+  end
+
+  context 'when filer is younger than 65' do
+    let(:intake) do
+      create(:state_file_nj_intake,
+             primary_birth_date: Date.new(over_65_birth_year + 1, 1, 1))
+    end
+
+    it 'does not check the self 65+ checkbox and sets line 7 to 0' do
+      expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
+      expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
+      expect(instance.lines[:NJ1040_LINE_7].value).to eq(0)
     end
   end
 
@@ -91,6 +106,27 @@ describe Efile::Nj::Nj1040 do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7].value).to eq(0)
+      end
+    end
+
+    context 'when filer is blind and spouse is not blind' do
+      let(:intake) { create(:state_file_nj_intake, :primary_blind) }
+      it 'sets line 8 deductions to 1000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+      end
+    end
+
+    context 'when filer is not blind and spouse is blind' do
+      let(:intake) { create(:state_file_nj_intake, :spouse_blind) }
+      it 'sets line 8 deductions to 1000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+      end
+    end
+
+    context 'when filer is blind and spouse is blind' do
+      let(:intake) { create(:state_file_nj_intake, :primary_blind, :spouse_blind) }
+      it 'sets line 8 deductions to 2000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(2000)
       end
     end
   end
