@@ -87,7 +87,7 @@ module SubmissionBuilder
                   end
 
                   xml.CountyCode "0#{intake.municipality_code}"
-                  xml.NactpCode "1234567890" # TODO - placeholder value
+                  xml.NactpCode "1234567890" # TODO: - placeholder value
                 end
 
                 xml.Body do
