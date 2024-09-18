@@ -10,7 +10,7 @@ class SchemaFileLoader
       ["efile1040x_2022v5.3.zip", "irs"],
       ["efile1040x_2023v5.0.zip", "irs"]
     ] +
-      StateFile::StateInformationService.active_state_codes.excluding("nj").map do |state_code|
+      StateFile::StateInformationService.active_state_codes.map do |state_code|
         [StateFile::StateInformationService.schema_file_name(state_code), "us_states"]
       end
   ).freeze

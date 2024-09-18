@@ -20,6 +20,12 @@ module StateFileIntakeHelper
 
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
+    when "nc"
+      choose "state_file_nc_eligibility_residence_form_eligibility_lived_in_state_yes"
+      click_on "Continue"
+
+      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
+      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_withdrew_529_no"
     end
     click_on "Continue"
 
