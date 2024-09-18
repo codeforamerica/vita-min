@@ -16,6 +16,7 @@
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county") %></p>
         <p><%=  current_intake.residence_county_name %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
   </div>
 
