@@ -57,6 +57,8 @@
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  tribal_member                     :integer          default(0), not null
+#  tribal_wages                      :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer

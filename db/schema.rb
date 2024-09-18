@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_18_150825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1601,6 +1601,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.integer "address_confirmation", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "federal_income_tax_withheld"
+    t.decimal "federal_income_tax_withheld_amount", precision: 12, scale: 2
     t.integer "had_box_11", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
@@ -1616,7 +1617,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.string "recipient_zip"
     t.string "state_identification_number"
     t.integer "state_income_tax_withheld"
+    t.decimal "state_income_tax_withheld_amount", precision: 12, scale: 2
     t.integer "unemployment_compensation"
+    t.decimal "unemployment_compensation_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
   end
@@ -1653,10 +1656,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.integer "account_type"
     t.integer "armed_forces_member", default: 0, null: false
     t.integer "armed_forces_wages"
+    t.decimal "armed_forces_wages_amount", precision: 12, scale: 2
     t.string "bank_name"
     t.integer "charitable_cash", default: 0
+    t.decimal "charitable_cash_amount", precision: 12
     t.integer "charitable_contributions", default: 0, null: false
     t.integer "charitable_noncash", default: 0
+    t.decimal "charitable_noncash_amount", precision: 12, scale: 2
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1678,6 +1684,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
+    t.decimal "household_excise_credit_claimed_amount", precision: 12, scale: 2
     t.integer "household_excise_credit_claimed_amt"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1722,6 +1729,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.integer "tribal_wages"
+    t.decimal "tribal_wages_amount", precision: 12, scale: 2
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
@@ -1825,6 +1833,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.string "ssn"
     t.string "street_address"
     t.integer "tax_return_year"
+    t.integer "tribal_member", default: 0, null: false
+    t.decimal "tribal_wages", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
@@ -2030,12 +2040,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
   create_table "state_file_w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "employer_state_id_num"
+    t.decimal "local_income_tax_amount", precision: 12, scale: 2
     t.integer "local_income_tax_amt"
+    t.decimal "local_wages_and_tips_amount", precision: 12, scale: 2
     t.integer "local_wages_and_tips_amt"
     t.string "locality_nm"
     t.bigint "state_file_intake_id"
     t.string "state_file_intake_type"
+    t.decimal "state_income_tax_amount", precision: 12, scale: 2
     t.integer "state_income_tax_amt"
+    t.decimal "state_wages_amount", precision: 12, scale: 2
     t.integer "state_wages_amt"
     t.datetime "updated_at", null: false
     t.integer "w2_index"

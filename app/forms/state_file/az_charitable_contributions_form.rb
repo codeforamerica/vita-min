@@ -15,6 +15,9 @@ module StateFile
       else
         @intake.update(attributes_for(:intake))
       end
+
+      additional_attributes = { charitable_cash_amount: charitable_cash, charitable_noncash_amount: charitable_noncash }
+      @intake.update(attributes_for(:intake).merge(additional_attributes))
     end
   end
 end

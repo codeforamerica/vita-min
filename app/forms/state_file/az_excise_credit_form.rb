@@ -20,6 +20,9 @@ module StateFile
         attributes = attributes.merge(household_excise_credit_claimed_amt: nil)
       end
       @intake.update(attributes)
+
+      additional_attributes = { household_excise_credit_claimed_amount: household_excise_credit_claimed_amt }
+      @intake.update(attributes_for(:intake).merge(additional_attributes))
     end
   end
 end

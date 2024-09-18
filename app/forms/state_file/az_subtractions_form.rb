@@ -13,6 +13,9 @@ module StateFile
       attributes_to_save[:tribal_wages] = nil if tribal_member == "no"
       attributes_to_save[:armed_forces_wages] = nil if armed_forces_member == "no"
       @intake.update(attributes_to_save)
+
+      additional_attributes = { tribal_wages_amount: tribal_wages, armed_forces_wages_amount: armed_forces_wages }
+      @intake.update(attributes_for(:intake).merge(additional_attributes))
     end
 
     private
