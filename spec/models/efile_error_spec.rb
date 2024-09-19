@@ -67,6 +67,7 @@ describe 'EfileError' do
       "nc-veteran-status",
       "nj-county",
       "nj-municipality",
+      "nj-household-rent-own",
       "nj-review",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
