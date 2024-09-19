@@ -5,6 +5,8 @@ module Efile
 
       def calculate
         set_line(:NCD400_LINE_10B, :calculate_line_10b)
+        set_line(:NCD400_LINE_11, :calculate_line_11)
+        set_line(:NCD400_LINE_12A, :calculate_line_12a)
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
         set_line(:NCD400_LINE_23, :calculate_line_23)
@@ -31,6 +33,23 @@ module Efile
         amount_per_child = deduction_amounts[income_range_index]
 
         amount_per_child * @direct_file_data.qualifying_children_under_age_ssn_count.to_i
+      end
+
+      STANDARD_DEDUCTIONS = {
+        head_of_household: 19125,
+        married_filing_jointly: 25500,
+        married_filing_separately: 12750,
+        qualifying_widow: 25500,
+        single: 12750,
+      }.freeze
+      def calculate_line_11
+        STANDARD_DEDUCTIONS[@intake.filing_status]
+      end
+
+      def calculate_line_12a
+        # Add Lines 9, 10b, and 11
+        # line 9 DeductionsFromFAGI is blank
+        line_or_zero(:NCD400_LINE_10B) + line_or_zero(:NCD400_LINE_11)
       end
 
       def calculate_line_20a

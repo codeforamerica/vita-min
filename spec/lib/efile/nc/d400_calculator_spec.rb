@@ -58,6 +58,35 @@ describe Efile::Nc::D400Calculator do
     end
   end
 
+  describe "Line 11: Standard Deduction" do
+    [
+      ["head_of_household", 19125],
+      ["married_filing_jointly", 25500],
+      ["married_filing_separately", 12750],
+      ["qualifying_widow", 25500],
+      ["single", 12750],
+    ].each do |filing_status, deduction_amount|
+      context "#{filing_status} filer" do
+        let(:intake) { create :state_file_nc_intake, filing_status: filing_status }
+
+        it "returns the correct value" do
+          instance.calculate
+          expect(instance.lines[:NCD400_LINE_11].value).to eq(deduction_amount)
+        end
+      end
+    end
+  end
+
+  describe "Line 12a: NCAGIAddition" do
+    it "sums lines 10b and 11 (9 is blank)" do
+      allow(instance).to receive(:calculate_line_10b).and_return 10
+      allow(instance).to receive(:calculate_line_11).and_return 10
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_12A].value).to eq 20
+    end
+  end
+
   describe "Line 20a: North Carolina Income Tax Withheld" do
     let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
 

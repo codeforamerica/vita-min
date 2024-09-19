@@ -14,14 +14,6 @@ module SubmissionBuilder
               single: "Single",
             }.freeze
 
-            STANDARD_DEDUCTIONS = {
-              head_of_household: 19125,
-              married_filing_jointly: 25500,
-              married_filing_separately: 12750,
-              qualifying_widow: 25500,
-              single: 12750,
-            }.freeze
-
             def document
               build_xml_doc("FormNCD400") do |xml|
                 xml.ResidencyStatusPrimary true
@@ -44,7 +36,8 @@ module SubmissionBuilder
                 # line 9 DeductionsFromFAGI is blank
                 xml.NumChildrenAllowed @submission.data_source.direct_file_data.qualifying_children_under_age_ssn_count
                 xml.ChildDeduction calculated_fields.fetch(:NCD400_LINE_10B)
-                xml.NCStandardDeduction standard_deduction
+                xml.NCStandardDeduction calculated_fields.fetch(:NCD400_LINE_11)
+                xml.NCAGIAddition calculated_fields.fetch(:NCD400_LINE_12A)
                 # line 16 TaxCredits is blank
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
@@ -57,10 +50,6 @@ module SubmissionBuilder
 
             def filing_status
               FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
-            end
-
-            def standard_deduction
-              STANDARD_DEDUCTIONS[@submission.data_source.filing_status]
             end
 
             def calculated_fields
