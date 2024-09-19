@@ -2534,6 +2534,7 @@ en:
         edit:
           county: County
           municipality: Municipality
+          household_rent_own: Rent or own home
       ny_county:
         edit:
           county: County

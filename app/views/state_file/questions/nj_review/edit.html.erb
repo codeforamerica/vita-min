@@ -18,5 +18,13 @@
     </div>
   </div>
 
+  <div id="household_rent_own" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".household_rent_own") %></p>
+      <p><%=current_intake.household_rent_own %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NjHouseholdRentOwnController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

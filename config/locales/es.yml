@@ -2507,6 +2507,7 @@ es:
         edit:
           county: Condado
           municipality: Municipio
+          household_rent_own: Vivienda en alquiler o en propiedad propia
       ny_county:
         edit:
           county: Condado
