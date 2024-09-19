@@ -596,5 +596,40 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
+
+    describe "residency status" do
+      context "when taxpayer is a renter" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            household_rent_own: 'rent')
+        }
+        it "checks the Choice2 box" do
+          expect(pdf_fields["Group182"]).to eq "Choice2"
+        end
+      end
+
+      context "when taxpayer is a homeowner" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            household_rent_own: 'own')
+        }
+        it "checks the Choice1 box" do
+          expect(pdf_fields["Group182"]).to eq "Choice1"
+        end
+      end
+
+      context "when taxpayer is a neither a homeowner nor a renter" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            household_rent_own: 'neither')
+        }
+        it "does not check a box" do
+          expect(pdf_fields["Group182"]).to eq "Off"
+        end
+      end
+    end
   end
 end
