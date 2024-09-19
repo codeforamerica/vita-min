@@ -327,8 +327,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.nc.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
-      click_on "Continue"
+      step_through_eligibility_screener(us_state: "nc")
 
       step_through_initial_authentication(contact_preference: :email)
 

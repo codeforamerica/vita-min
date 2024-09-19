@@ -17,6 +17,7 @@
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
+#  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
@@ -37,7 +38,7 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
-#  primary_veteran                   :integer          default(0), not null
+#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
@@ -53,7 +54,7 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
-#  spouse_veteran                    :integer          default(0), not null
+#  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer

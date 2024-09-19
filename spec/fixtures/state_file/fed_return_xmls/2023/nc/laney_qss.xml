@@ -27,6 +27,7 @@
   <ReturnData documentCnt="5">
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+      <SpouseDeathDt>2023-07-09</SpouseDeathDt>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <Primary65OrOlderInd>X</Primary65OrOlderInd>
       <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>

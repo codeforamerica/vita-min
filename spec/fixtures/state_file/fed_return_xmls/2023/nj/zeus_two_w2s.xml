@@ -198,11 +198,11 @@
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>50000</WagesAmt>
+      <WagesAmt>12345.67</WagesAmt>
       <WithholdingAmt>1000</WithholdingAmt>
-      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+      <SocialSecurityWagesAmt>12345.67</SocialSecurityWagesAmt>
       <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+      <MedicareWagesAndTipsAmt>12345.67</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>414HSUB</Desc>
@@ -212,10 +212,10 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>50000</StateWagesAmt>
+          <StateWagesAmt>12345.67</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
+            <LocalWagesAndTipsAmt>12345.67</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>

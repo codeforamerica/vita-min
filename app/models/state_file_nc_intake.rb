@@ -17,6 +17,7 @@
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
+#  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
@@ -37,7 +38,7 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_suffix                    :string
-#  primary_veteran                   :integer          default(0), not null
+#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
@@ -53,7 +54,7 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
-#  spouse_veteran                    :integer          default(0), not null
+#  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
@@ -75,9 +76,12 @@
 class StateFileNcIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
+  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
+  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
+  enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
 
   def calculate_sales_use_tax
     # TODO: Implement in FYST-426
@@ -96,6 +100,7 @@ class StateFileNcIntake < StateFileBaseIntake
     {
       eligibility_lived_in_state: "no",
       eligibility_out_of_state_income: "yes",
+      eligibility_withdrew_529: "yes"
     }
   end
 end

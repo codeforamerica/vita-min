@@ -133,6 +133,17 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_dead3']).to eq '2024'
         end
       end
+
+      context "veteran status fields" do
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_veteran: "yes", spouse_veteran: "no") }
+
+        it "sets veteran status fields correctly" do
+          expect(pdf_fields['y_d400wf_v1yes']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_v2no']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_sv1yes']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_sv1no']).to eq 'Yes'
+        end
+      end
     end
   end
 end

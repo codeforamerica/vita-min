@@ -26,6 +26,10 @@ module SubmissionBuilder
               build_xml_doc("FormNCD400") do |xml|
                 xml.ResidencyStatusPrimary true
                 xml.ResidencyStatusSpouse true if @submission.data_source.filing_status_mfj?
+                xml.VeteranInfoPrimary @submission.data_source.primary_veteran_yes? ? 1 : 0
+                if @submission.data_source.filing_status_mfj?
+                  xml.VeteranInfoSpouse @submission.data_source.spouse_veteran_yes? ? 1 : 0
+                end
                 xml.FilingStatus filing_status
                 if @submission.data_source.filing_status_mfs?
                   xml.MFSSpouseName @submission.data_source.direct_file_data.spouse_name

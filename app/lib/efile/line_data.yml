@@ -98,6 +98,32 @@ AZ140_CCWS_LINE_6c:
 “0”'
 AZ140_CCWS_LINE_7c:
   label: '7C Multiply line 6C by 31% (.31) and enter the result'
+AZ301_LINE_6a:
+  label: 'Credit for Contributions to Qualifying Charitable Organizations (Form 321) - Current Year Credit'
+AZ301_LINE_6c:
+  label: 'Credit for Contributions to Qualifying Charitable Organizations (Form 321) - Total Available Credit'
+AZ301_LINE_7a:
+  label: 'Credit for Contributions Made or Fees Paid to Public Schools (Form 322) - Current Year Credit'
+AZ301_LINE_7c:
+  label: 'Credit for Contributions Made or Fees Paid to Public Schools (Form 322) - Total Available Credit'
+AZ301_LINE_26:
+  label: 'Total available nonrefundable tax credits: Add lines 1 through 24'
+AZ301_LINE_27:
+  label: 'Tax from Form 140, line 46; or Form 140PY, line 56; or Form 140NR, line 56; or Form 140X, line 37'
+AZ301_LINE_32:
+  label: 'Subtotal'
+AZ301_LINE_33:
+  label: 'Family Income Tax Credit from Form 140, line 50; or Form 140PY, line 60; or Form 140X, box 40a; plus Dependent Tax Credit from Form 140, line 49; or Form 140PY, line 59; or Form 140NR, line 59; or Form 140X, box 40b'
+AZ301_LINE_34:
+  label: 'Subtract line 33 from line 32. Enter the difference. If less than zero, enter "0"'
+AZ301_LINE_40:
+  label: 'Credit for Contributions to Qualifying Charitable Organizations (Form 321) - Amount Used This Taxable Year'
+AZ301_LINE_41:
+  label: 'Credit for Contributions Made or Fees Paid to Public Schools (Form 322) - Amount Used This Taxable Year'
+AZ301_LINE_60:
+  label: 'Tax credits used from Form 301: Add lines 35 through 58'
+AZ301_LINE_62:
+  label: 'Total Tax Credits Used: Add line 60 and 61. Enter this amount on Form 140, line 51; or Form 14PY, line 61; or Form 140NR, line 60; or Form 140X, line 41. Total credits used cannot be more than line 34'
 AZ321_LINE_4H:
   label: "Total past first 3 contributions"
 AZ321_LINE_4:
@@ -480,3 +506,5 @@ NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
 NJ1040_LINE_7:
   label: '7 Sum all Senior 65+ Exemption, multiply by 1000'
+NJ1040_LINE_15:
+  label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
