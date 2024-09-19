@@ -1,8 +1,8 @@
 module StateFile
   class NcSubtractionsForm < QuestionsForm
-    set_attributes_for :intake, :tribal_member, :tribal_wages
+    set_attributes_for :intake, :tribal_member, :tribal_wages_amount
 
-    validates_numericality_of :tribal_wages, only_integer: true, if: -> { tribal_member == "yes" }
+    validates_numericality_of :tribal_wages, if: -> { tribal_member == "yes" }
     validates :tribal_wages, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: 1 }, if: -> { tribal_member == "yes" }
 
     def save
