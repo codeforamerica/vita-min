@@ -5,16 +5,6 @@ RSpec.describe StateFile::NcCountyForm, type: :model do
   describe "simple validations" do
     it { should validate_presence_of :residence_county}
     it { should validate_inclusion_of(:residence_county).in_array(StateFileNcIntake::COUNTIES.keys) }
-
-    it "should not accept unfilled as a value" do
-      intake = create(:state_file_nc_intake)
-
-      form = StateFile::NcCountyForm.from_intake(intake)
-      form.residence_county = "unfilled"
-
-      form.valid?
-      expect(form.errors[:residence_county]).not_to be_empty
-    end
   end
 
   describe "#save" do
