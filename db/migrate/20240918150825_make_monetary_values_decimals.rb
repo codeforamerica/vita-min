@@ -1,6 +1,6 @@
 class MakeMonetaryValuesDecimals < ActiveRecord::Migration[7.1]
   def change
-    add_column :state_file_az_intakes, :charitable_cash_amount, :decimal, precision: 12
+    add_column :state_file_az_intakes, :charitable_cash_amount, :decimal, precision: 12, scale: 2
     add_column :state_file_az_intakes, :charitable_noncash_amount, :decimal, precision: 12, scale: 2
     add_column :state_file_az_intakes, :household_excise_credit_claimed_amount, :decimal, precision: 12, scale: 2
     add_column :state_file_az_intakes, :tribal_wages_amount, :decimal, precision: 12, scale: 2

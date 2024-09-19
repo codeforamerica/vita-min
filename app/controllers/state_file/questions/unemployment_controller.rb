@@ -92,9 +92,6 @@ module StateFile
           :recipient_zip,
           :state_identification_number
         )
-        state_file_params[:federal_income_tax_withheld_amount] = state_file_params[:federal_income_tax_withheld].to_d if state_file_params[:federal_income_tax_withheld].present?
-        state_file_params[:state_income_tax_withheld_amount] = state_file_params[:state_income_tax_withheld].to_d if state_file_params[:state_income_tax_withheld].present?
-        state_file_params[:unemployment_compensation_amount] = state_file_params[:unemployment_compensation].to_d if state_file_params[:unemployment_compensation].present?
         unless current_intake.filing_status_mfj?
           state_file_params[:recipient] = 'primary'
         end

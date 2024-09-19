@@ -1659,7 +1659,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_150825) do
     t.decimal "armed_forces_wages_amount", precision: 12, scale: 2
     t.string "bank_name"
     t.integer "charitable_cash", default: 0
-    t.decimal "charitable_cash_amount", precision: 12
+    t.decimal "charitable_cash_amount", precision: 12, scale: 2
     t.integer "charitable_contributions", default: 0, null: false
     t.integer "charitable_noncash", default: 0
     t.decimal "charitable_noncash_amount", precision: 12, scale: 2
@@ -1833,8 +1833,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_150825) do
     t.string "ssn"
     t.string "street_address"
     t.integer "tax_return_year"
-    t.integer "tribal_member", default: 0, null: false
-    t.decimal "tribal_wages", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false

@@ -1,7 +1,7 @@
-class BackfillNewDecimalColumnsWithIntegerValues
+class MigrateMonetaryValues
   def migrate
     # StateFileAzIntake
-    StateFileAzInake.where.not(charitable_cash: nil)
+    StateFileAzIntake.where.not(charitable_cash: nil)
                      .where(charitable_cash_amount: nil)
                      .in_batches(of: 10_000) do |batch|
       batch.update_all('charitable_cash_amount = charitable_cash')
@@ -77,9 +77,9 @@ class BackfillNewDecimalColumnsWithIntegerValues
   end
 end
 
-class BackfillNewDecimalColumnsWithIntegerValues < ActiveRecord::Migration[7.1]
+class BackfillNewDecimalColumns < ActiveRecord::Migration[7.1]
   def up
-    BackfillNewDecimalColumnsWithIntegerValues.new.migrate
+    MigrateMonetaryValues.new.migrate
   end
 
   def down

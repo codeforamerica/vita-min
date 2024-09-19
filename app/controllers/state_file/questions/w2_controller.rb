@@ -50,13 +50,6 @@ module StateFile
         params.require(StateFileW2.name.underscore)
               .except(:state_file_intake_id, :state_file_intake_type)
               .permit(*StateFileW2.attribute_names)
-
-        params[:state_wages_amount] = params(:state_wages_amt).to_d if params[:state_wages_amt].present?
-        params[:state_income_tax_amount] = params(:state_income_tax_amt).to_d if params[:state_income_tax_amt].present?
-        params[:local_wages_and_tips_amount] = params(:local_wages_and_tips_amt).to_d if params[:local_wages_and_tips_amt].present?
-        params[:local_income_tax_amount] = params(:local_income_tax_amt).to_d if params[:local_income_tax_amt].present?
-
-        params
       end
 
       def get_w2s_with_metadata

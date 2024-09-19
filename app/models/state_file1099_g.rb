@@ -34,6 +34,7 @@
 class StateFile1099G < ApplicationRecord
   belongs_to :intake, polymorphic: true
   before_validation :update_conditional_attributes
+  before_save :sync_amount_columns
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
   enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
@@ -56,6 +57,12 @@ class StateFile1099G < ApplicationRecord
   validates_numericality_of :state_income_tax_withheld, only_integer: true, message: :whole_number
   validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
   validate :state_specific_validation
+
+  def sync_amount_columns
+    self.unemployment_compensation_amount = unemployment_compensation if unemployment_compensation.present?
+    self.federal_income_tax_withheld_amount = federal_income_tax_withheld if federal_income_tax_withheld.present?
+    self.state_income_tax_withheld_amount = state_income_tax_withheld if state_income_tax_withheld.present?
+  end
 
   def update_conditional_attributes
     if address_confirmation_yes?
