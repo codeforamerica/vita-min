@@ -5,17 +5,19 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-
+  <p><%= t(".helper_description") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(
-            :eligibility_lived_in_state,
-            label_text: t(".lived_in_state_html", state: current_state_name),
+            :household_rent_own,
+            label_text: t(".title"),
             collection: [
-              { value: "yes", label: t("general.affirmative") },
-              { value: "no", label: t("general.negative") },
-            ]
+              { value: :own, label: t(".homeowner", filing_year: @filing_year) },
+              { value: :rent, label: t(".tenant", filing_year: @filing_year) },
+              { value: :neither, label: t(".neither") },
+            ],
+            legend_class: "sr-only"
           ) %>
     </div>
 
