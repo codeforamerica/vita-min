@@ -1810,7 +1810,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_155059) do
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
-    t.string "residence_county", default: "unfilled", null: false
+    t.string "residence_county"
     t.integer "routing_number"
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false

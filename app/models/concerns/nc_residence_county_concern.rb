@@ -4,8 +4,6 @@ module NcResidenceCountyConcern
   extend ActiveSupport::Concern
 
   COUNTIES = {
-    # This first one is unofficial and for our uses
-    "unfilled" => "Unfilled",
     "001" => "Alamance", "002" => "Alexander", "003" => "Alleghany", "004" => "Anson",
     "005" => "Ashe", "006" => "Avery", "007" => "Beaufort", "008" => "Bertie",
     "009" => "Bladen", "010" => "Brunswick", "011" => "Buncombe", "012" => "Burke",
@@ -47,7 +45,7 @@ module NcResidenceCountyConcern
     COUNTIES.fetch(residence_county, 'unfilled')
   end
 
-  def counties
-    COUNTIES
+  def counties_for_select
+    COUNTIES.invert
   end
 end
