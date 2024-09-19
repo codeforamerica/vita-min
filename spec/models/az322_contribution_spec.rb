@@ -101,45 +101,58 @@ describe 'Az322Contribution' do
       end
     end
 
-    describe "#date_of_contribution_is_valid_date" do
-      before do
-        az.date_of_contribution_year = '2006'
-        az.date_of_contribution_month = '06'
-        az.date_of_contribution_day = '10'
-      end
+    describe '#date_of_contribution' do
+      it 'should be valid in the current tax year' do
+        az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year
 
-      it "should validate date" do
         az.valid?
+
         expect(az.errors[:date_of_contribution]).to be_empty
       end
 
-      it 'should invalidate invalid year' do
-        az.date_of_contribution_year = 'beep beep'
-        az.valid?
-        expect(az.errors[:date_of_contribution]).not_to be_empty
+      it 'should be invalid in the previous year' do
+        az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year - 1
 
-        az.date_of_contribution_year = nil
         az.valid?
+
         expect(az.errors[:date_of_contribution]).not_to be_empty
       end
 
-      it 'should invalidate invalid month' do
-        az.date_of_contribution_month = 'boop boop'
-        az.valid?
-        expect(az.errors[:date_of_contribution]).not_to be_empty
+      it 'should be invalid in the next year' do
+        az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year + 1
 
-        az.date_of_contribution_month = nil
         az.valid?
+
         expect(az.errors[:date_of_contribution]).not_to be_empty
       end
 
-      it 'should invalidate invalid day' do
-        az.date_of_contribution_day = '#84u123'
-        az.valid?
-        expect(az.errors[:date_of_contribution]).not_to be_empty
+      it 'should be valid when a correct date is provided' do
+        current_tax_year = Rails.configuration.statefile_current_tax_year
 
-        az.date_of_contribution_day = nil
+        az.date_of_contribution_year = current_tax_year
+        az.date_of_contribution_day = 12
+        az.date_of_contribution_month = 5
+
         az.valid?
+
+        expect(az.errors[:date_of_contribution]).to be_empty
+
+        az.restore_attributes
+
+        expect(az.date_of_contribution).to be_nil
+
+        az.date_of_contribution = "#{current_tax_year}-05-12"
+
+        az.valid?
+
+        expect(az.errors[:date_of_contribution]).to be_empty
+      end
+
+      it 'should be invalid when nonsense is provided' do
+        az.date_of_contribution = "foo"
+
+        az.valid?
+
         expect(az.errors[:date_of_contribution]).not_to be_empty
       end
     end
