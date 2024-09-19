@@ -16,6 +16,10 @@ module SubmissionBuilder
               :qualifying_widow => "QualWidOrWider"
             }.freeze
 
+            def schema_file
+              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2023V0.4", "NJIndividual", "NJForms", "FormNJ1040.xsd")
+            end
+
             def document
               qualifying_dependents = @submission.qualifying_dependents
               
@@ -26,21 +30,22 @@ module SubmissionBuilder
                     case status
                     when :married_filing_separately
                       xml.MarriedCuPartFilingSeparate do
-                        xml.SpouseSSN intake.spouse_ssn
+                        xml.SpouseSSN intake.spouse.ssn
                         xml.SpouseName do
-                          xml.FirstName sanitize_for_xml(intake.spouse_first_name)
-                          xml.MiddleInitial sanitize_for_xml(intake.spouse_middle_initial) if intake.spouse_middle_initial.present?
-                          xml.LastName sanitize_for_xml(intake.spouse_last_name)
-                          xml.NameSuffix intake.spouse_suffix if intake.spouse_suffix.present?
+                          xml.FirstName sanitize_for_xml(intake.spouse.first_name)
+                          xml.MiddleInitial sanitize_for_xml(intake.spouse.middle_initial) if intake.spouse.middle_initial.present?
+                          xml.LastName sanitize_for_xml(intake.spouse.last_name)
+                          xml.NameSuffix intake.spouse.suffix if intake.spouse.suffix.present?
                         end
                       end
                     when :qualifying_widow
-                      yod = Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death)&.strftime("%Y")
+                      yod = Date.parse(intake.direct_file_data.spouse_date_of_death)&.strftime("%Y")
                       xml.QualWidOrWider do
                         xml.QualWidOrWiderSurvCuPartner 'X'
-                        if yod == Time.now.year - 1
+                        case yod
+                        when MultiTenantService.new(:statefile).current_tax_year.to_s
                           xml.LastYear 'X'
-                        elsif yod == Time.now.year - 2
+                        when (MultiTenantService.new(:statefile).current_tax_year - 1).to_s
                           xml.TwoYearPrior 'X'
                         end
                       end
@@ -82,7 +87,7 @@ module SubmissionBuilder
                   end
 
                   xml.CountyCode "0#{intake.municipality_code}"
-                  xml.NactpCode "1234567890" # TODO - placeholder value
+                  xml.NactpCode "1234567890" # TODO: - placeholder value
                 end
 
                 xml.Body do
