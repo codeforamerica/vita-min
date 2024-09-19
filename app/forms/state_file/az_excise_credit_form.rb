@@ -19,11 +19,13 @@ module StateFile
       attributes = attributes_for(:intake)
       if household_excise_credit_claimed == "no"
         attributes = attributes.merge(household_excise_credit_claimed_amt: nil)
+      else
+        attributes = attributes.merge(
+          household_excise_credit_claimed_amount: household_excise_credit_claimed_amt
+        )
       end
-      @intake.update(attributes)
 
-      additional_attributes = { household_excise_credit_claimed_amount: household_excise_credit_claimed_amt }
-      @intake.update(attributes_for(:intake).merge(additional_attributes))
+      @intake.update(attributes)
     end
   end
 end

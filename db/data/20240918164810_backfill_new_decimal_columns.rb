@@ -1,6 +1,5 @@
 class MigrateMonetaryValues
   def migrate
-    # StateFileAzIntake
     StateFileAzIntake.where.not(charitable_cash: nil)
                      .where(charitable_cash_amount: nil)
                      .in_batches(of: 10_000) do |batch|
@@ -31,7 +30,7 @@ class MigrateMonetaryValues
       batch.update_all('armed_forces_wages_amount = armed_forces_wages')
     end
 
-    # StateFile1099G
+
     StateFile1099G.where.not(unemployment_compensation: nil)
                   .where(unemployment_compensation_amount: nil)
                   .in_batches(of: 10_000) do |batch|
@@ -50,7 +49,7 @@ class MigrateMonetaryValues
       batch.update_all('state_income_tax_withheld_amount = state_income_tax_withheld')
     end
 
-    # StateFileW2
+
     StateFileW2.where.not(state_wages_amt: nil)
                .where(state_wages_amount: nil)
                .in_batches(of: 10_000) do |batch|
