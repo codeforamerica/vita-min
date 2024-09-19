@@ -41,13 +41,16 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
 
       context "CTC-related values" do
         let(:intake) { create(:state_file_nc_intake, filing_status: "head_of_household", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+        let(:child_deduction) { 2000 }
 
         before do
           intake.direct_file_data.qualifying_children_under_age_ssn_count = 3
+          allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return child_deduction
         end
 
         it "pulls from DF" do
           expect(xml.document.at('NumChildrenAllowed').text).to eq "3"
+          expect(xml.document.at('ChildDeduction').text).to eq child_deduction.to_s
         end
       end
     end

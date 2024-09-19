@@ -56,12 +56,15 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
         context "CTC fields" do
           let(:intake) { create(:state_file_nc_intake, filing_status: "single", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+          let(:child_deduction) { 2000 }
           before do
             intake.direct_file_data.qualifying_children_under_age_ssn_count = 5
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return child_deduction
           end
 
           it "sets the correct values" do
-            expect(pdf_fields['y_d400wf_li10a_good']).to eq '5'
+            expect(pdf_fields["y_d400wf_li10a_good"]).to eq "5"
+            expect(pdf_fields["y_d400wf_li10b_good"]).to eq child_deduction.to_s
           end
         end
       end

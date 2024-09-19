@@ -55,7 +55,8 @@ module PdfFiller
         y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse')&.text,
         y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid')&.text,
         y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text,
-        y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text
+        y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text,
+        y_d400wf_li10b_good: @xml_document.at('ChildDeduction')&.text
       }
     end
 
