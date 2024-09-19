@@ -7,13 +7,10 @@
 #  account_type                                :integer
 #  armed_forces_member                         :integer          default("unfilled"), not null
 #  armed_forces_wages                          :integer
-#  armed_forces_wages_amount                   :decimal(12, 2)
 #  bank_name                                   :string
 #  charitable_cash                             :integer          default(0)
-#  charitable_cash_amount                      :decimal(12, 2)
 #  charitable_contributions                    :integer          default("unfilled"), not null
 #  charitable_noncash                          :integer          default(0)
-#  charitable_noncash_amount                   :decimal(12, 2)
 #  consented_to_terms_and_conditions           :integer          default("unfilled"), not null
 #  contact_preference                          :integer          default("unfilled"), not null
 #  current_sign_in_at                          :datetime
@@ -33,7 +30,6 @@
 #  has_prior_last_names                        :integer          default("unfilled"), not null
 #  hashed_ssn                                  :string
 #  household_excise_credit_claimed             :integer          default("unfilled"), not null
-#  household_excise_credit_claimed_amount      :decimal(12, 2)
 #  household_excise_credit_claimed_amt         :integer
 #  last_sign_in_at                             :datetime
 #  last_sign_in_ip                             :inet
@@ -76,7 +72,6 @@
 #  ssn_no_employment                           :integer          default("unfilled"), not null
 #  tribal_member                               :integer          default("unfilled"), not null
 #  tribal_wages                                :integer
-#  tribal_wages_amount                         :decimal(12, 2)
 #  unfinished_intake_ids                       :text             default([]), is an Array
 #  unsubscribed_from_email                     :boolean          default(FALSE), not null
 #  was_incarcerated                            :integer          default("unfilled"), not null
