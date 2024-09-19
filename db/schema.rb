@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_17_172808) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1825,8 +1825,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_17_172808) do
     t.string "ssn"
     t.string "street_address"
     t.integer "tax_return_year"
-    t.integer "tribal_member", default: 0, null: false
-    t.decimal "tribal_wages", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
