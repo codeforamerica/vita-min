@@ -8,8 +8,7 @@ module StateFile
       inclusion: { in: StateFileNcIntake::COUNTIES.keys }
 
     def save
-      @intake.assign_attributes(attributes_for(:intake))
-      @intake.save
+      @intake.update(attributes_for(:intake))
     end
   end
 end
