@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_19_002040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1909,6 +1909,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_11_144523) do
     t.index ["hashed_ssn"], name: "index_state_file_nj_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_nj_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_nj_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_nj_staff_roles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_notification_emails", force: :cascade do |t|

@@ -27,6 +27,7 @@ class Ability
           cannot :manage, intake_class
         end
         # Enumerate classes here...
+        cannot :manage, StateFile::AutomatedMessage
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
         cannot :manage, StateFileW2
@@ -129,6 +130,11 @@ class Ability
     cannot :manage, StateFileDependent
     cannot :manage, StateFileW2
     cannot :manage, StateId
+
+    if user.state_file_nj_staff?
+      can :manage, :state_file_admin_tool
+      can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
+    end
 
     if user.coalition_lead?
       can :read, Coalition, id: user.role.coalition_id

@@ -148,6 +148,7 @@ class User < ApplicationRecord
       GreeterRole::TYPE,
       OrganizationLeadRole::TYPE,
       SiteCoordinatorRole::TYPE,
+      StateFileNjStaffRole::TYPE,
       TeamMemberRole::TYPE
     ]
   end
@@ -237,6 +238,10 @@ class User < ApplicationRecord
     role_type == CoalitionLeadRole::TYPE
   end
 
+  def state_file_nj_staff?
+    role_type == StateFileNjStaffRole::TYPE
+  end
+
   def state_file_admin?
     role_type == AdminRole::TYPE && role.state_file?
   end
@@ -276,6 +281,8 @@ class User < ApplicationRecord
         site_coordinator?
       when :coalition_lead
         coalition_lead?
+      when :state_file_nj_staff
+        state_file_nj_staff?
       when :state_file_admin
         state_file_admin?
       when :team_member

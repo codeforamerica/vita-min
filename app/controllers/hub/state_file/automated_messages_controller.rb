@@ -1,5 +1,6 @@
 module Hub::StateFile
   class AutomatedMessagesController < Hub::StateFile::BaseController
+    load_and_authorize_resource class: StateFile::AutomatedMessage
     helper_method :email_message
     helper_method :sms_body
 
