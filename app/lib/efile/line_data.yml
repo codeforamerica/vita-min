@@ -512,3 +512,5 @@ NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
 NJ1040_LINE_7:
   label: '7 Sum all Senior 65+ Exemption, multiply by 1000'
+NJ1040_LINE_15:
+  label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'

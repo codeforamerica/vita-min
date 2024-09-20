@@ -52,6 +52,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li20a_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li23_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
+          expect(pdf_fields['y_d400wf_dayphone']).to eq '9845559876'
         end
 
         context "CTC fields" do

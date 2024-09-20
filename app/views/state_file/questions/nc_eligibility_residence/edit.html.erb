@@ -1,0 +1,22 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p class="subtitle"><%= t(".subtitle", filing_year: Rails.configuration.statefile_current_tax_year) %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :eligibility_lived_in_state,
+            label_text: t(".lived_in_state_html", state: current_state_name, filing_year: Rails.configuration.statefile_current_tax_year),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

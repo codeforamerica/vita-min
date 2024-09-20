@@ -19,13 +19,15 @@
           <li>Add links here</li>
           <li>To supported credits and deductions</li>
         </ul>
-      <% else %>
+      <% elsif current_state_code == "ny" %>
         <ul class="list--bulleted">
           <li><a href="https://www.tax.ny.gov/pit/credits/household_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_hh_credit") %></a></li>
           <li><a href="https://www.tax.ny.gov/pit/credits/empire_state_child_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".empire_state_ctc") %></a></li>
           <li><a href="https://www.tax.ny.gov/pit/credits/earned_income_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_eic") %></a></li>
           <li><%= t(".nyc_school_tax_credit") %></li>
         </ul>
+      <% elsif current_state_code == "nc" %>
+        <p>Copy needed...</p>
       <% end %>
   </div>
 

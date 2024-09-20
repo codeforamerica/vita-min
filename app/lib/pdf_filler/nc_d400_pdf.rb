@@ -57,7 +57,8 @@ module PdfFiller
         y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text,
         y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text,
         y_d400wf_li10b_good: @xml_document.at('ChildDeduction')&.text,
-        y_d400wf_li12a_pg1_good: @xml_document.at('NCAGIAddition')&.text
+        y_d400wf_li12a_pg1_good: @xml_document.at('NCAGIAddition')&.text,
+        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
       }
     end
 
