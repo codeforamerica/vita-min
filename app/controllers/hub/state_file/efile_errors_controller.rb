@@ -30,8 +30,8 @@ module Hub::StateFile
     def reprocess
       if @efile_error.present? && (@efile_error.auto_wait || @efile_error.auto_cancel)
         auto_transition_to_state = @efile_error.auto_wait ? :waiting : :cancelled
-        submission_ids = EfileSubmissionTransitionError.includes(:efile_error, :efile_submission_transition).where(efile_error: @efile_error, efile_submission_transitions: { most_recent: true, to_state: ["rejected", "failed"] }).pluck(:efile_submission_id)
-        EfileSubmission.where(id: submission_ids).find_each { |submission| submission.transition_to(auto_transition_to_state) }
+        submission_ids = EfileSubmissionTransitionError.accessible_by(current_ability).includes(:efile_error, :efile_submission_transition).where(efile_error: @efile_error, efile_submission_transitions: { most_recent: true, to_state: ["rejected", "failed"] }).pluck(:efile_submission_id)
+        EfileSubmission.accessible_by(current_ability).where(id: submission_ids).find_each { |submission| submission.transition_to(auto_transition_to_state) }
 
         flash[:notice] = "Successfully reprocessed #{submission_ids.count} submission(s) with #{@efile_error.code} error!"
       else

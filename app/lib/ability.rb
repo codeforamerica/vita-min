@@ -133,6 +133,14 @@ class Ability
 
     if user.state_file_nj_staff?
       can :manage, :state_file_admin_tool
+      can :manage, StateFile::AutomatedMessage
+
+      nj_submission_ids = EfileSubmission.where(data_source_type: "StateFileNjIntake").pluck(:id)
+      nj_transition_error_ids = EfileSubmissionTransitionError.includes(:efile_submission_transition).where(
+        efile_submission_transitions: { efile_submission_id: nj_submission_ids }).pluck(:id)
+      nj_efile_error_ids = EfileSubmissionTransitionError.where(id: nj_transition_error_ids).pluck(:efile_error_id).uniq
+      can :manage, EfileSubmissionTransitionError, id: nj_transition_error_ids
+      can :manage, EfileError, service_type: :state_file, id: nj_efile_error_ids
       can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
     end
 
