@@ -44,7 +44,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           amount: 100,
           date_of_contribution_month: '8',
           date_of_contribution_day: "12",
-          date_of_contribution_year: "2023"
+          date_of_contribution_year: Rails.configuration.state_file_start_of_open_intake.year
         }
       }
     end
@@ -71,6 +71,75 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         expect do
           post :create, params: params
         end.not_to change(Az322Contribution, :count)
+      end
+    end
+
+    context "amount with decimal places" do
+      render_views
+
+      let(:amount) { nil }
+      let(:invalid_params) do
+        {
+          az322_contribution: {
+            made_contribution: 'yes',
+            school_name: 'School A',
+            ctds_code: '123456789',
+            district_name: 'District A',
+            amount: amount,
+            date_of_contribution_month: '8',
+            date_of_contribution_day: "12",
+            date_of_contribution_year: Rails.configuration.state_file_start_of_open_intake.year
+          }
+        }
+      end
+
+      context "1.2" do
+        let(:amount) { '1.2' }
+
+        it "creates a new contribution linked to the current intake and redirects to the index" do
+          expect do
+            post :create, params: invalid_params
+          end.to change(Az322Contribution, :count).by 1
+
+          expect(response).to redirect_to(action: :index)
+
+          contribution = Az322Contribution.last
+          expect(contribution.state_file_az_intake).to eq intake
+          expect(contribution.amount).to eq 1.2
+        end
+      end
+
+      # TODO
+      # context "1." do
+      #   let(:amount) { '1.' }
+      #
+      #   it "creates a new contribution linked to the current intake and redirects to the index" do
+      #     expect do
+      #       post :create, params: invalid_params
+      #     end.to change(Az322Contribution, :count).by 1
+      #
+      #     expect(response).to redirect_to(action: :index)
+      #
+      #     contribution = Az322Contribution.last
+      #     expect(contribution.state_file_az_intake).to eq intake
+      #     expect(contribution.amount).to eq 1
+      #   end
+      # end
+
+      context ".02" do
+        let(:amount) { '.02' }
+
+        it "creates a new contribution linked to the current intake and redirects to the index" do
+          expect do
+            post :create, params: invalid_params
+          end.to change(Az322Contribution, :count).by 1
+
+          expect(response).to redirect_to(action: :index)
+
+          contribution = Az322Contribution.last
+          expect(contribution.state_file_az_intake).to eq intake
+          expect(contribution.amount).to eq 0.02
+        end
       end
     end
 
@@ -193,6 +262,31 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         expect(response.body).to include "Can't be blank"
         expect(response.body).to include "School Code/CTDS must be a 9 digit number"
         expect(response.body).to include "must be a valid dollar amount"
+      end
+
+      context "multiple decimal points" do
+        let(:invalid_params) do
+          {
+            id: contribution.id,
+            az322_contribution: {
+              mad_contribution: "yes",
+              school_name: nil,
+              ctds_code: nil,
+              amount: '1312.923.12'
+            }
+          }
+        end
+
+        it "renders edit with validation errors" do
+          expect do
+            post :update, params: invalid_params
+          end.not_to change(Az322Contribution, :count)
+
+          expect(response).to render_template(:edit)
+          expect(response.body).to include "Can't be blank"
+          expect(response.body).to include "School Code/CTDS must be a 9 digit number"
+          expect(response.body).to include "must be a valid dollar amount"
+        end
       end
     end
   end
