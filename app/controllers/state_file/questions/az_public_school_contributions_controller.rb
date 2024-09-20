@@ -26,7 +26,7 @@ module StateFile
           return redirect_to next_path
         end
 
-        if @az322_contribution.valid? && has_valid_cents?
+        if @az322_contribution.valid? && has_valid_money_format?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
@@ -48,7 +48,7 @@ module StateFile
           return redirect_to action: :index, return_to_review: params[:return_to_review]
         end
 
-        if @az322_contribution.valid? && has_valid_cents?
+        if @az322_contribution.valid? && has_valid_money_format?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
@@ -67,7 +67,7 @@ module StateFile
 
       private
 
-      def has_valid_cents?
+      def has_valid_money_format?
         amount = az322_contribution_params[:amount]
         amount.to_s.match?(/^(\d+)?\.?\d{0,2}$/)
       end
