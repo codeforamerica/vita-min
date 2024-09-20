@@ -36,6 +36,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCStandardDeduction').text).to eq standard_deduction.to_s
         expect(xml.document.at('NCAGIAddition').text).to eq nc_agi_addition.to_s
         expect(xml.document.at('NCAGISubtraction').text).to eq nc_agi_subtraction.to_s
+        expect(xml.document.at('NCTaxableInc').text).to eq nc_agi_subtraction.to_s # TODO: validate assumption that we only have full year residents at this stage
         expect(xml.document.at('IncTaxWith').text).to eq income_tax_withheld.to_s
         expect(xml.document.at('IncTaxWithSpouse').text).to eq income_tax_withheld_spouse.to_s
         expect(xml.document.at('NCTaxPaid').text).to eq tax_paid.to_s

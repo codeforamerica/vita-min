@@ -72,6 +72,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
             expect(pdf_fields["y_d400wf_li10b_good"]).to eq child_deduction.to_s
             expect(pdf_fields["y_d400wf_li12a_pg1_good"]).to eq nc_agi_addition.to_s
             expect(pdf_fields["y_d400wf_li12b_pg1_good"]).to eq nc_agi_subtraction.to_s
+            expect(pdf_fields["y_d400wf_li14_pg1_good"]).to eq nc_agi_subtraction.to_s
           end
         end
       end
