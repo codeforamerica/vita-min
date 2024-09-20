@@ -87,6 +87,16 @@ describe Efile::Nc::D400Calculator do
     end
   end
 
+  describe "Line 12b: NCAGISubtraction" do
+    it "subtracts line 12a from line 8 (which is just fed agi)" do
+      allow(instance).to receive(:calculate_line_12a).and_return 10
+      allow_any_instance_of(DirectFileData).to receive(:fed_agi).and_return 100
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_12B].value).to eq 90
+    end
+  end
+
   describe "Line 20a: North Carolina Income Tax Withheld" do
     let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
 

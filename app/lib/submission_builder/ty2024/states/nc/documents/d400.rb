@@ -38,6 +38,7 @@ module SubmissionBuilder
                 xml.ChildDeduction calculated_fields.fetch(:NCD400_LINE_10B)
                 xml.NCStandardDeduction calculated_fields.fetch(:NCD400_LINE_11)
                 xml.NCAGIAddition calculated_fields.fetch(:NCD400_LINE_12A)
+                xml.NCAGISubtraction calculated_fields.fetch(:NCD400_LINE_12B)
                 # line 16 TaxCredits is blank
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
