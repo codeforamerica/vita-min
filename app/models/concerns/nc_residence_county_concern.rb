@@ -29,7 +29,10 @@ module NcResidenceCountyConcern
     "089" => "Tyrrell", "090" => "Union", "091" => "Vance", "092" => "Wake",
     "093" => "Warren", "094" => "Washington", "095" => "Watauga", "096" => "Wayne",
     "097" => "Wilkes", "098" => "Wilson", "099" => "Yadkin", "100" => "Yancey",
-    "101" => "Out-of-State"
+    # The XML doesn't appear to like this one, which makes sense because if they
+    # are out of state they can't file their taxes with us. Still, I've included
+    # it for posterity
+    # "101" => "Out-of-State"
   }
 
   # Convenient hash to see both code and name
