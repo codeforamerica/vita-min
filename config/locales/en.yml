@@ -2963,7 +2963,15 @@ en:
         title: Sign in to FileYourStateTaxes
         title_sign_in_closed: Sign in to download a copy of your state tax return.
       sms_terms:
-        header: SMS Terms
+        header: FileYourStateTaxes SMS Terms and Conditions
+        body_1: When you opt-in to the service, we will send you an SMS message to confirm your signup. We will also text you updates on your tax return (message frequency will vary) and one-time password codes for login (one message per request).
+        body_2: You can cancel the SMS service at any time. Just text "STOP" to 46207. After you send the SMS message "STOP" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just reply "START" and we will start sending SMS messages to you again. Note that unsubscribing from messages may hinder your ability to use FileYourStateTaxes.
+        body_3: If at any time you forget what keywords are supported, just text "HELP" to 46207. After you send the SMS message "HELP" to us, we will respond with instructions on how to use our service as well as how to unsubscribe.
+        body_4: "We are able to deliver messages to the following mobile phone carriers:"
+        body_5_html: As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. For all questions about the services provided by this number, you can send an email to <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+        body_6_html: "If you have any questions regarding privacy, please read our privacy policy: <a href='%{link}'>https://FileYourStateTaxes.org/privacy-policy</a>"
+        major_carriers: "Major carriers: Telcel, AT&T Mobility, T-Mobile USA, and Verizon Wireless"
+        minor_carriers: "Minor carriers: Bell Mobility, Rogers Wireless, and Telus Canada"
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.

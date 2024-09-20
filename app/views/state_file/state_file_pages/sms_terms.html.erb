@@ -1,5 +1,21 @@
 <% content_for :page_title, t(".header") %>
 
-<main role="main">
-  hi phones are bad
-</main>
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths">
+      <main role="main">
+          <h1><%= t(".header") %></h1>
+          <p><%= t(".body_1") %>
+          <p><%= t(".body_2") %>
+          <p><%= t(".body_3") %>
+          <p><%= t(".body_4") %>
+          <ul class="list--bulleted">
+            <li><%= t(".major_carriers") %></li>
+            <li><%= t(".minor_carriers") %></li>
+          </ul>
+          <p><%= t(".body_5_html") %>
+          <p><%= t(".body_6_html", link: url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: 'privacy_policy')) %>
+      </main>
+    </div>
+  </div>
+</section>
