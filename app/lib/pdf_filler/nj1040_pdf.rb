@@ -53,16 +53,16 @@ module PdfFiller
         'x  1000': get_line_6_exemption_count * 1000,
 
         # line 7 exemptions
-        "Check Box41": pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
-        "Check Box42": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
-        "undefined_9": get_line_7_exemption_count,
-        "x  1000_2": get_line_7_exemption_count * 1000,
+        'Check Box41': pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
+        'Check Box42': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
+        undefined_9: get_line_7_exemption_count,
+        'x  1000_2': get_line_7_exemption_count * 1000,
 
         # line 8 exemptions
-        "Check Box43": pdf_checkbox_value(@xml_document.at("Exemptions YouBlindOrDisabled")),
-        "Check Box44": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
-        "undefined_10": get_line_8_exemption_count,
-        "x  1000_3": get_line_8_exemption_count * 1000,
+        'Check Box43': pdf_checkbox_value(@xml_document.at("Exemptions YouBlindOrDisabled")),
+        'Check Box44': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
+        undefined_10: get_line_8_exemption_count,
+        'x  1000_3': get_line_8_exemption_count * 1000,
         
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year

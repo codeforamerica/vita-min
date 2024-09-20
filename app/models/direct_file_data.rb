@@ -109,7 +109,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def spouse_ssn=(value)
-    create_or_destroy_df_xml_node(__method__, value, after="PrimarySSN")
+    create_or_destroy_df_xml_node(__method__, value, after = "PrimarySSN")
 
     if value.present?
       write_df_xml_value(__method__, value)
@@ -117,7 +117,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def spouse_occupation=(value)
-    create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
+    create_or_destroy_df_xml_node(__method__, value, after = "PrimaryOccupationTxt")
 
     if value.present?
       write_df_xml_value(__method__, value)
@@ -140,7 +140,7 @@ class DirectFileData < DfXmlAccessor
 
   def spouse_date_of_death=(value)
     if value.present?
-      create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
+      create_or_destroy_df_xml_node(__method__, value, after = "IndividualReturnFilingStatusCd")
       write_df_xml_value(__method__, value)
     end
   end
@@ -250,8 +250,8 @@ class DirectFileData < DfXmlAccessor
         xml_label: "Student Loan Interest Deduction"
       }
     }
-    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i || 0 }
-    adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
+    adjustments.each_key { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i || 0 }
+    adjustments.select { |_k, info| info[:amount].present? && (info[:amount]).positive? }
   end
 
   def fed_total_adjustments
@@ -656,7 +656,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def eitc_eligible_dependents
-    @eligible_dependents ||= Hash.new{}
+    @eligible_dependents ||= Hash.new {}
     eitc_eligible_nodes.map { |node| @eligible_dependents[node.at('QualifyingChildSSN')&.text] = node }
     @eligible_dependents
   end

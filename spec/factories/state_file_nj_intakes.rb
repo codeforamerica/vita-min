@@ -108,7 +108,7 @@ FactoryBot.define do
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
-        dependent.update( dob: i.years.ago )
+        dependent.update(dob: i.years.ago)
       end
     end
 

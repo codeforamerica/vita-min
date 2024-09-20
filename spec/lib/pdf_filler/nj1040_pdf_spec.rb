@@ -171,7 +171,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             create :efile_submission, tax_return: nil, data_source: create(
               :state_file_nj_intake,
               :primary_blind
-              ) }
+              )
+          }
           it "fills pdf with Line 8 fields" do
             expect(pdf_fields["Check Box43"]).to eq "Yes"
             expect(pdf_fields["Check Box44"]).to eq "Off"
@@ -216,7 +217,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :married_filing_jointly,
               :primary_blind,
               :spouse_blind
-              ) }
+              )
+          }
           it "fills pdf with Line 8 fields" do
             expect(pdf_fields["Check Box43"]).to eq "Yes"
             expect(pdf_fields["Check Box44"]).to eq "Yes"
