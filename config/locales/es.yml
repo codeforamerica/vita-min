@@ -2951,16 +2951,6 @@ es:
         phone_number_signin: Iniciar sesión con el teléfono
         title: Iniciar sesión en FileYourStateTaxes
         title_sign_in_closed: Inicie sesión para descargar una copia de tu declaración de impuestos estatales.
-      sms_terms:
-        header: Términos y Condiciones de SMS de FileYourStateTaxes
-        body_1: Cuando optas por el servicio, te enviaremos un mensaje de texto (SMS) para confirmar tu registro y te enviaremos actualizaciones sobre tu declaración de impuestos.
-        body_2: Puedes cancelar el servicio de SMS en cualquier momento. Solo envía "STOP" al 46207. Después de que nos envíes el mensaje "STOP", te enviaremos un mensaje de texto para confirmar que te has dado de baja. Después de esto, ya no recibirás más mensajes de texto (SMS) de nuestra parte. Si quieres volver a unirte, solo responde "START" y volveremos a enviarte mensajes de texto. Ten en cuenta que darte de baja de los mensajes puede dificultar tu capacidad para usar FileYourStateTaxes.
-        body_3: Si en algún momento olvidas qué palabras clave son compatibles, simplemente envía "HELP" al 46207. Después de que nos envíes el mensaje "HELP", te responderemos con instrucciones sobre cómo usar nuestro servicio y cómo darte de baja.
-        body_4: "Podemos enviar mensajes a los siguientes operadores de telefonía móvil:"
-        body_5_html: Como siempre, pueden aplicarse tarifas por mensajes y datos para los mensajes que te enviamos y que nos envías. Si tienes alguna pregunta sobre tu plan de mensajes o datos, es mejor que te pongas en contacto con tu proveedor de telefonía móvil. Para todas las preguntas sobre los servicios proporcionados por este número, puedes enviar un correo electrónico a <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
-        body_6_html: "Si tienes alguna pregunta sobre privacidad, lee nuestra política de privacidad: <a href='%{link}'>https://FileYourStateTaxes.org/privacy-policy</a>"
-        major_carriers: "Principales operadores: Telcel, AT&T Mobility, T-Mobile USA y Verizon Wireless"
-        minor_carriers: "Operadores secundarios: Bell Mobility, Rogers Wireless y Telus Canada"
       privacy_policy:
         access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te proporcionaremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Ten en cuenta que para la información personal sobre ti que hemos obtenido o recibido para procesar en nombre de una entidad separada y no afiliada, que determinó los medios y fines del procesamiento, todas esas solicitudes deben hacerse directamente a esa entidad. Honraremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a tu información personal.
@@ -3033,8 +3023,8 @@ es:
         questions_1_html: 'Si tienes alguna pregunta, comentario, inquietud o queja sobre el Sitio, contáctanos por correo electrónico en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> o por correo postal a:'
         questions_2: Haremos todo lo posible para resolver el problema.
         questions_header: Preguntas
-        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los <a href='%{link}'>términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
         transactional_sms_header: Mensajes de texto transaccionales (SMS)
+        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los <a href='%{link}'>términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
         using_info_collected_html: |
           <h3>Uso de la información que hemos recopilado</h3>
           <p>Usamos tu información para nuestros fines empresariales, como</p>
@@ -3049,6 +3039,16 @@ es:
           </ul>
         your_info: Valoramos y respetamos tu privacidad y te ofrecemos opciones sobre cómo recopilamos, usamos y compartimos tu información.
         your_info_header: Tus opciones con respecto a tu información
+      sms_terms:
+        body_1: Cuando optas por el servicio, te enviaremos un mensaje de texto (SMS) para confirmar tu registro y te enviaremos actualizaciones sobre tu declaración de impuestos.
+        body_2: Puedes cancelar el servicio de SMS en cualquier momento. Solo envía "STOP" al 46207. Después de que nos envíes el mensaje "STOP", te enviaremos un mensaje de texto para confirmar que te has dado de baja. Después de esto, ya no recibirás más mensajes de texto (SMS) de nuestra parte. Si quieres volver a unirte, solo responde "START" y volveremos a enviarte mensajes de texto. Ten en cuenta que darte de baja de los mensajes puede dificultar tu capacidad para usar FileYourStateTaxes.
+        body_3: Si en algún momento olvidas qué palabras clave son compatibles, simplemente envía "HELP" al 46207. Después de que nos envíes el mensaje "HELP", te responderemos con instrucciones sobre cómo usar nuestro servicio y cómo darte de baja.
+        body_4: 'Podemos enviar mensajes a los siguientes operadores de telefonía móvil:'
+        body_5_html: Como siempre, pueden aplicarse tarifas por mensajes y datos para los mensajes que te enviamos y que nos envías. Si tienes alguna pregunta sobre tu plan de mensajes o datos, es mejor que te pongas en contacto con tu proveedor de telefonía móvil. Para todas las preguntas sobre los servicios proporcionados por este número, puedes enviar un correo electrónico a <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+        body_6_html: 'Si tienes alguna pregunta sobre privacidad, lee nuestra política de privacidad: <a href=''%{link}''>https://FileYourStateTaxes.org/privacy-policy</a>'
+        header: Términos y Condiciones de SMS de FileYourStateTaxes
+        major_carriers: 'Principales operadores: Telcel, AT&T Mobility, T-Mobile USA y Verizon Wireless'
+        minor_carriers: 'Operadores secundarios: Bell Mobility, Rogers Wireless y Telus Canada'
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
