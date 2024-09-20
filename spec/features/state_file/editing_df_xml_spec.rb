@@ -59,6 +59,8 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text "‍💻🛠️ Direct File Data Overrides 🛠️💻"
 
     fill_in "Interest Reported", with: 200 # corresponds to fake df field for now
+    fill_in "primary ssn", with: "123-45-6789"
+    fill_in "Return header phone number (primary)", with: "5551112222"
 
     # W2
     fill_in "WagesAmt", with: 500
@@ -105,6 +107,8 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalityNm).to eq "Pelicanville"
 
     expect(StateFileAzIntake.last.direct_file_data.fed_taxable_pensions).to eq 200
+    expect(StateFileAzIntake.last.direct_file_data.primary_ssn).to eq "123-45-6789"
+    expect(StateFileAzIntake.last.direct_file_data.phone_number).to eq "5551112222"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerName).to eq "Rose Apothecary"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerNameControlTxt).to eq "ROSEAPC"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerAddressLine1Txt).to eq "123 Schit Street"

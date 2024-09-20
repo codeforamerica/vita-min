@@ -71,6 +71,7 @@ describe SubmissionBuilder::ReturnHeader do
         before do
           intake.direct_file_data.primary_ssn = primary_ssn
           intake.direct_file_data.spouse_ssn = spouse_ssn
+          intake.direct_file_data.phone_number = "5551231234"
         end
 
         context "single filer" do
@@ -82,12 +83,41 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Primary TaxpayerName FirstName').content).to eq primary_first_name
             expect(doc.at('Filer Primary TaxpayerName MiddleInitial').content).to eq primary_middle_initial
             expect(doc.at('Filer Primary TaxpayerName LastName').content).to eq primary_last_name
+            expect(doc.at("Filer Primary USPhone").text).to eq "5551231234"
 
             expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+          end
+
+          context "excluding absent fields" do
+            let(:primary_birth_date) { nil }
+            let(:primary_ssn) { nil }
+            let(:primary_first_name) { nil }
+            let(:primary_middle_initial) { nil }
+            let(:primary_last_name) { nil }
+            before do
+              intake.direct_file_data.primary_ssn = nil
+              intake.direct_file_data.spouse_ssn = nil
+              intake.direct_file_data.phone_number = nil
+            end
+
+            it "excludes fields when they are empty" do
+              expect(doc.at("Filer Primary DateOfBirth")).not_to be_present
+              expect(doc.at('Filer Primary TaxpayerSSN')).not_to be_present
+              expect(doc.at('Filer Primary TaxpayerName FirstName')).not_to be_present
+              expect(doc.at('Filer Primary TaxpayerName MiddleInitial')).not_to be_present
+              expect(doc.at('Filer Primary TaxpayerName LastName')).not_to be_present
+              expect(doc.at("Filer Primary USPhone")).not_to be_present
+
+              expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+            end
           end
         end
 
