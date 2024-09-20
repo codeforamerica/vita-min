@@ -38,6 +38,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
 
+      it 'sets taxpayer SSN fields on header' do
+        expect(pdf_fields["Your Social Security Number"]).to eq "123456789"
+        expect(pdf_fields["Your Social Security Number_2"]).to eq "123456789"
+        expect(pdf_fields["Your Social Security Number_3"]).to eq "123456789"
+      end
+
       it 'sets taxpayer SSN fields' do
         expect(pdf_fields["undefined"]).to eq "1"
         expect(pdf_fields["undefined_2"]).to eq "2"
@@ -57,10 +63,17 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :married_filing_jointly,
+            primary_ssn: "222222222",
             spouse_ssn: "123456789",
             spouse_first_name: "Ada"
           )
         }
+
+        it 'sets taxpayer SSN fields on header to primary SSN' do
+          expect(pdf_fields["Your Social Security Number"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_2"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_3"]).to eq "222222222"
+        end
 
         it 'sets header spouse SSN fields' do
           expect(pdf_fields["undefined_3"]).to eq "1"
@@ -92,10 +105,17 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :married_filing_separately,
+            primary_ssn: "222222222",
             spouse_ssn: "123456789",
             spouse_first_name: "Ada"
           )
         }
+
+        it 'sets taxpayer SSN fields on header to primary SSN' do
+          expect(pdf_fields["Your Social Security Number"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_2"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_3"]).to eq "222222222"
+        end
 
         it 'fills married filing separately spouse SSN fields' do
           expect(pdf_fields["undefined_7"]).to eq "1"
@@ -196,6 +216,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
           it 'fills pdf with LastName FirstName' do
             expect(pdf_fields[name_field]).to eq "Hopper Grace"
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace"
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace"
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace"
           end
         end
 
@@ -210,6 +233,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
           it 'fills pdf with LastName FirstName MI' do
             expect(pdf_fields[name_field]).to eq "Hopper Grace B"
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace B"
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace B"
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace B"
           end
         end
 
@@ -224,6 +250,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
           it 'fills pdf with LastName FirstName Suf' do
             expect(pdf_fields[name_field]).to eq "Hopper Grace JR"
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace JR"
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace JR"
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace JR"
           end
         end
 
@@ -239,6 +268,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
           it 'fills pdf with LastName FirstName MI Suf' do
             expect(pdf_fields[name_field]).to eq "Hopper Grace B JR"
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace B JR"
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace B JR"
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace B JR"
           end
         end
       end
@@ -258,6 +290,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
           it 'fills pdf with LastName FirstName & FirstName' do
             expect(pdf_fields[name_field]).to eq "Muppet Bert S & Ernie"
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Muppet Bert S & Ernie"
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Muppet Bert S & Ernie"
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Muppet Bert S & Ernie"
           end
         end
 
@@ -273,8 +308,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               spouse_ssn: "123456789"
             )
           }
+
           it 'fills pdf with LastName FirstName & LastName FirstName' do
             expect(pdf_fields[name_field]).to eq "Lively Blake E & Reynolds Ryan"
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Lively Blake E & Reynolds Ryan"
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Lively Blake E & Reynolds Ryan"
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Lively Blake E & Reynolds Ryan"
           end
         end
       end
