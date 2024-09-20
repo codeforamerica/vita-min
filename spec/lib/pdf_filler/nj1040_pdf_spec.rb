@@ -124,31 +124,48 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "exemptions" do
-      context "single filer" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-          )
-        }
-        it "fills pdf with correct Line 6 fields" do
-          expect(pdf_fields["Check Box39"]).to eq "Off"
-          expect(pdf_fields["Check Box40"]).to eq "Off"
-          expect(pdf_fields["Domestic"]).to eq "1"
-          expect(pdf_fields["x  1000"]).to eq "1000"
+      describe "Line 6 exemptions" do
+        context "single filer" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+            )
+          }
+          it "fills pdf with correct Line 6 fields" do
+            expect(pdf_fields["Check Box39"]).to eq "Off"
+            expect(pdf_fields["Check Box40"]).to eq "Off"
+            expect(pdf_fields["Domestic"]).to eq "1"
+            expect(pdf_fields["x  1000"]).to eq "1000"
+          end
         end
-
-        it "fills pdf with Line 7 fields" do
-          expect(pdf_fields["Check Box41"]).to eq "Off"
-          expect(pdf_fields["Check Box42"]).to eq "Off"
-          expect(pdf_fields["x  1000_2"]).to eq "0"
-          expect(pdf_fields["undefined_9"]).to eq "0"
+        context "married filing jointly" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :married_filing_jointly,
+              )
+          }
+          it "fills pdf with correct Line 6 fields" do
+            expect(pdf_fields["Check Box39"]).to eq "Yes"
+            expect(pdf_fields["Check Box40"]).to eq "Off"
+            expect(pdf_fields["Domestic"]).to eq "2"
+            expect(pdf_fields["x  1000"]).to eq "2000"
+          end
         end
-
-        it "fills pdf with Line 8 fields" do
-          expect(pdf_fields["Check Box43"]).to eq "Off"
-          expect(pdf_fields["Check Box44"]).to eq "Off"
-          expect(pdf_fields["x  1000_3"]).to eq "0"
-          expect(pdf_fields["undefined_10"]).to eq "0"
+      end
+      describe "Line 7 exemptions" do
+        context "primary under 65" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              )
+          }
+          it "does not check the primary over 65 checkbox or the spouse over 65 checkbox" do
+            expect(pdf_fields["Check Box41"]).to eq "Off"
+            expect(pdf_fields["Check Box42"]).to eq "Off"
+            expect(pdf_fields["x  1000_2"]).to eq "0"
+            expect(pdf_fields["undefined_9"]).to eq "0"
+          end
         end
 
         context "primary over 65" do
@@ -156,60 +173,103 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             create :efile_submission, tax_return: nil, data_source: create(
               :state_file_nj_intake,
               :primary_over_65,
-            )
+              )
           }
-          it "fills pdf with Line 7 fields" do
+          it "checks the primary over 65 checkbox but not the spouse over 65 checkbox" do
             expect(pdf_fields["Check Box41"]).to eq "Yes"
             expect(pdf_fields["Check Box42"]).to eq "Off"
             expect(pdf_fields["x  1000_2"]).to eq "1000"
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+        context "primary over 65 and spouse under 65" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :married_filing_jointly,
+              :primary_over_65,
+              )
+          }
+          it "checks the primary over 65 checkbox but not the spouse over 65 checkbox" do
+            expect(pdf_fields["Check Box41"]).to eq "Yes"
+            expect(pdf_fields["Check Box42"]).to eq "Off"
+            expect(pdf_fields["x  1000_2"]).to eq "1000"
+            expect(pdf_fields["undefined_9"]).to eq "1"
+          end
+        end
+        context "primary under 65 and spouse over 65" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :mfj_spouse_over_65,
+              )
+          }
+          it "checks the spouse over 65 checkbox but not the self over 65 checkbox" do
+            expect(pdf_fields["Check Box41"]).to eq "Off"
+            expect(pdf_fields["Check Box42"]).to eq "Yes"
+            expect(pdf_fields["x  1000_2"]).to eq "1000"
+            expect(pdf_fields["undefined_9"]).to eq "1"
+          end
+        end
+        context "primary over 65 and spouse over 65" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :mfj_spouse_over_65,
+              :primary_over_65
+              )
+          }
+          it "checks the spouse over 65 checkbox but not the self over 65 checkbox" do
+            expect(pdf_fields["Check Box41"]).to eq "Yes"
+            expect(pdf_fields["Check Box42"]).to eq "Yes"
+            expect(pdf_fields["x  1000_2"]).to eq "2000"
+            expect(pdf_fields["undefined_9"]).to eq "2"
+          end
+        end
 
-        context "primary is blind" do
+      end
+      describe "Line 8 exemptions" do
+        context "neither primary nor spouse are blind" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              )
+          }
+          it "does not check the either the self or spouse blind/disabled checkboxes" do
+            expect(pdf_fields["Check Box43"]).to eq "Off"
+            expect(pdf_fields["Check Box44"]).to eq "Off"
+            expect(pdf_fields["x  1000_3"]).to eq "0"
+            expect(pdf_fields["undefined_10"]).to eq "0"
+          end
+        end
+        context "primary is blind but spouse is not blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
               :state_file_nj_intake,
               :primary_blind
-              )
+            )
           }
-          it "fills pdf with Line 8 fields" do
+          it "checks the self blind/disabled exemption but not the spouse checkbox" do
             expect(pdf_fields["Check Box43"]).to eq "Yes"
             expect(pdf_fields["Check Box44"]).to eq "Off"
             expect(pdf_fields["x  1000_3"]).to eq "1000"
             expect(pdf_fields["undefined_10"]).to eq "1"
           end
         end
-      end
-
-      context "married filing jointly" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :married_filing_jointly,
-          )
-        }
-        it "fills pdf with correct Line 6 fields" do
-          expect(pdf_fields["Check Box39"]).to eq "Yes"
-          expect(pdf_fields["Check Box40"]).to eq "Off"
-          expect(pdf_fields["Domestic"]).to eq "2"
-          expect(pdf_fields["x  1000"]).to eq "2000"
+        context "primary is not blind but spouse is blind" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :spouse_blind
+            )
+          }
+          it "checks the self blind/disabled exemption but not the spouse checkbox" do
+            expect(pdf_fields["Check Box43"]).to eq "Off"
+            expect(pdf_fields["Check Box44"]).to eq "Yes"
+            expect(pdf_fields["x  1000_3"]).to eq "1000"
+            expect(pdf_fields["undefined_10"]).to eq "1"
+          end
         end
-
-        it "fills pdf with Line 7 fields" do
-          expect(pdf_fields["Check Box41"]).to eq "Off"
-          expect(pdf_fields["Check Box42"]).to eq "Off"
-          expect(pdf_fields["x  1000_2"]).to eq "0"
-          expect(pdf_fields["undefined_9"]).to eq "0"
-        end
-
-        it "fills pdf with Line 8 fields" do
-          expect(pdf_fields["Check Box43"]).to eq "Off"
-          expect(pdf_fields["Check Box44"]).to eq "Off"
-          expect(pdf_fields["x  1000_3"]).to eq "0"
-          expect(pdf_fields["undefined_10"]).to eq "0"
-        end
-
         context "primary and spouse are both blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -217,9 +277,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :married_filing_jointly,
               :primary_blind,
               :spouse_blind
-              )
+            )
           }
-          it "fills pdf with Line 8 fields" do
+          it "claims both the self and spouse blind/disabled exemptions" do
             expect(pdf_fields["Check Box43"]).to eq "Yes"
             expect(pdf_fields["Check Box44"]).to eq "Yes"
             expect(pdf_fields["x  1000_3"]).to eq "2000"
@@ -609,33 +669,33 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "qualifying widow" do
-        context "spouse passed in the last year" do          
+        context "spouse passed in the last year" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
             date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year}-09-30"
             submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
           end
-  
+
           it "checks the Choice5 box" do
             expect(pdf_fields["Group1"]).to eq "Choice5"
           end
-  
+
           it "checks the one year prior spouse date of death" do
             expect(pdf_fields["Group1qualwi5ab"]).to eq "1"
           end
         end
 
-        context "spouse passed two years prior" do          
+        context "spouse passed two years prior" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
             date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
             submission.data_source.direct_file_data.spouse_date_of_death = date_two_years_prior
           end
-  
+
           it "checks the Choice5 box" do
             expect(pdf_fields["Group1"]).to eq "Choice5"
           end
-  
+
           it "checks the two years prior spouse date of death" do
             expect(pdf_fields["Group1qualwi5ab"]).to eq "0"
           end

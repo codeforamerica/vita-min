@@ -515,13 +515,11 @@ class DirectFileData < DfXmlAccessor
   end
 
   def is_primary_blind?
-    return false unless parsed_xml.at('PrimaryBlindInd')
-    true
+    parsed_xml.at('PrimaryBlindInd').present?
   end
 
   def is_spouse_blind?
-    return false unless parsed_xml.at('SpouseBlindInd')
-    true
+    parsed_xml.at('SpouseBlindInd').present?
   end
 
   def blind_primary_spouse
