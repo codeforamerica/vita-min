@@ -2943,6 +2943,7 @@ es:
       footer:
         faq: Preguntas Frecuentes
         privacy_policy: Política de Privacidad
+        sms_terms: Términos de SMS
         state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
       login_options:
         email_signin: Iniciar sesión con email
