@@ -3033,7 +3033,7 @@ es:
         questions_1_html: 'Si tienes alguna pregunta, comentario, inquietud o queja sobre el Sitio, contáctanos por correo electrónico en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> o por correo postal a:'
         questions_2: Haremos todo lo posible para resolver el problema.
         questions_header: Preguntas
-        transactional_sms: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los términos de SMS de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
+        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los <a href='%{link}'>términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
         transactional_sms_header: Mensajes de texto transaccionales (SMS)
         using_info_collected_html: |
           <h3>Uso de la información que hemos recopilado</h3>
