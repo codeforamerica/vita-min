@@ -60,6 +60,7 @@ module PdfFiller
         y_d400wf_li12a_pg1_good: @xml_document.at('NCAGIAddition')&.text,
         y_d400wf_li12b_pg1_good: @xml_document.at('NCAGISubtraction')&.text,
         y_d400wf_li14_pg1_good: @xml_document.at('NCAGISubtraction')&.text,
+        y_d400wf_li15_pg1_good: @xml_document.at('NCIncTax')&.text,
         y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
       }
     end

@@ -60,11 +60,13 @@ RSpec.describe PdfFiller::NcD400Pdf do
           let(:child_deduction) { 2000 }
           let(:nc_agi_addition) { 8000 }
           let(:nc_agi_subtraction) { 7000 }
+          let(:income_tax) { 70 }
           before do
             intake.direct_file_data.qualifying_children_under_age_ssn_count = 5
             allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return child_deduction
             allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12a).and_return nc_agi_addition
             allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12b).and_return nc_agi_subtraction
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_15).and_return income_tax
           end
 
           it "sets the correct values" do
@@ -73,6 +75,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
             expect(pdf_fields["y_d400wf_li12a_pg1_good"]).to eq nc_agi_addition.to_s
             expect(pdf_fields["y_d400wf_li12b_pg1_good"]).to eq nc_agi_subtraction.to_s
             expect(pdf_fields["y_d400wf_li14_pg1_good"]).to eq nc_agi_subtraction.to_s
+            expect(pdf_fields["y_d400wf_li15_pg1_good"]).to eq income_tax.to_s
           end
         end
       end
