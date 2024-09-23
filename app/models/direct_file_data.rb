@@ -1,4 +1,4 @@
-class DirectFileData
+class DirectFileData < DfXmlAccessor
   include DfXmlCrudMethods
 
   SELECTORS = {
@@ -16,7 +16,7 @@ class DirectFileData
     phone_number: 'ReturnHeader Filer PhoneNum',
     cell_phone_number: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp CellPhoneNum',
     tax_payer_email: 'ReturnHeader AdditionalFilerInformation AtSubmissionFilingGrp EmailAddressTxt',
-    fed_tax: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
+    fed_tax_amt: 'IRS1040 TotalTaxBeforeCrAndOthTaxesAmt',
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
@@ -64,16 +64,19 @@ class DirectFileData
     third_party_designee_pin: 'IRS1040 ThirdPartyDesigneePIN',
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
-    non_resident_alien: 'IRS1040 NRALiteralCd'
+    non_resident_alien: 'IRS1040 NRALiteralCd',
+    interest_reported_amount: 'IRS1040 InterestReported', # fake
   }.freeze
 
   def initialize(raw_xml)
     @raw_xml = raw_xml
   end
 
-  def selectors
+  def self.selectors
     SELECTORS
   end
+
+  define_xml_readers
 
   def parsed_xml
     @parsed_xml ||= Nokogiri::XML(@raw_xml)
@@ -87,52 +90,25 @@ class DirectFileData
     parsed_xml.to_s
   end
 
-  def tax_return_year
-    df_xml_value(__method__)&.to_i
-  end
-
   def tax_return_year=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def filing_status
-    df_xml_value(__method__)&.to_i
   end
 
   def filing_status=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def phone_number
-    df_xml_value(__method__)
-  end
-
-  def cell_phone_number
-    df_xml_value(__method__)
-  end
-
-  def tax_payer_email
-    df_xml_value(__method__)
-  end
-
-  def primary_ssn
-    df_xml_value(__method__)
-  end
-
   def primary_ssn=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def primary_occupation
-    df_xml_value(__method__)
   end
 
   def primary_occupation=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def spouse_ssn
-    df_xml_value(__method__)
+  def phone_number=(value)
+    create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
+    write_df_xml_value(__method__, value)
   end
 
   def spouse_ssn=(value)
@@ -143,20 +119,12 @@ class DirectFileData
     end
   end
 
-  def spouse_occupation
-    df_xml_value(__method__)
-  end
-
   def spouse_occupation=(value)
     create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
 
     if value.present?
       write_df_xml_value(__method__, value)
     end
-  end
-
-  def surviving_spouse
-    df_xml_value(__method__)
   end
 
   def spouse_deceased?
@@ -173,19 +141,11 @@ class DirectFileData
     end
   end
 
-  def spouse_date_of_death
-    df_xml_value(__method__)
-  end
-
   def spouse_date_of_death=(value)
     if value.present?
       create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
       write_df_xml_value(__method__, value)
     end
-  end
-
-  def spouse_name
-    df_xml_value(__method__)
   end
 
   def spouse_name=(value)
@@ -194,51 +154,27 @@ class DirectFileData
     end
   end
 
-  def mailing_city
-    df_xml_value(__method__)
-  end
-
   def mailing_city=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def mailing_street
-    df_xml_value(__method__)
   end
 
   def mailing_street=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def mailing_apartment
-    df_xml_value(__method__)
-  end
-
   def mailing_apartment=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def mailing_state
-    df_xml_value(__method__)
   end
 
   def mailing_state=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def mailing_zip
-    df_xml_value(__method__)
-  end
-
   def mailing_zip=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_tax
-    df_xml_value(__method__)&.to_i || 0
-  end
-
-  def fed_tax=(value)
+  def fed_tax_amt=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -329,22 +265,16 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
-  def total_state_tax_withheld
-    total = 0
-    parsed_xml.css('IRSW2').map do |w2|
-      amt = w2.at('StateIncomeTaxAmt')&.text.to_i
-      total += amt
-    end
-    total
+  def total_1099r_state_tax_withheld
+    form1099rs.sum(&:StateTaxWithheldAmt)
   end
 
-  def total_local_tax_withheld
-    total = 0
-    parsed_xml.css('IRSW2').map do |w2|
-      amt = w2.at('LocalIncomeTaxAmt')&.text.to_i
-      total += amt
-    end
-    total
+  def total_w2_state_tax_withheld
+    w2s.sum(&:StateIncomeTaxAmt)
+  end
+
+  def total_w2_local_tax_withheld
+    w2s.sum(&:LocalIncomeTaxAmt)
   end
 
   def fed_ctc_claimed
@@ -367,56 +297,28 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
-  def fed_calculated_difference_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_calculated_difference_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_nontaxable_combat_pay_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_nontaxable_combat_pay_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_total_earned_income_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_total_earned_income_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_puerto_rico_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_puerto_rico_income_exclusion_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_total_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_total_income_exclusion_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
-  def fed_housing_deduction_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
   def fed_housing_deduction_amount=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def fed_gross_income_exclusion_amount
-    df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_gross_income_exclusion_amount=(value)
@@ -696,6 +598,17 @@ class DirectFileData
     write_df_xml_value(__method__, value)
   end
 
+  # fake
+  def interest_reported_amount
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  # fake
+  def interest_reported_amount=(value)
+    create_or_destroy_df_xml_node(__method__, value)
+    write_df_xml_value(__method__, value)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -844,57 +757,58 @@ class DirectFileData
   class Df1099R < Df1099rAccessor; end
 
   def attributes
-    [
-      :tax_return_year,
-      :filing_status,
-      :primary_ssn,
-      :primary_occupation,
-      :spouse_ssn,
-      :spouse_occupation,
-      :mailing_city,
-      :mailing_street,
-      :mailing_apartment,
-      :mailing_zip,
-      :cell_phone_number,
-      :tax_payer_email,
-      :total_state_tax_withheld,
-      :fed_tax,
-      :fed_agi,
-      :fed_wages,
-      :fed_wages_salaries_tips,
-      :fed_taxable_income,
-      :fed_total_adjustments,
-      :fed_taxable_ssb,
-      :fed_ssb,
-      :fed_eic,
-      :fed_refund_amt,
-      :fed_ctc,
-      :fed_qualify_child,
-      :fed_puerto_rico_income_exclusion_amount,
-      :total_exempt_primary_spouse,
-      :fed_irs_1040_nr,
-      :fed_unemployment,
-      :fed_housing_deduction_amount,
-      :fed_gross_income_exclusion_amount,
-      :fed_total_income_exclusion_amount,
-      :fed_foreign_tax_credit_amount,
-      :fed_credit_for_child_and_dependent_care_amount,
-      :fed_education_credit_amount,
-      :fed_retirement_savings_contribution_credit_amount,
-      :fed_energy_efficiency_home_improvement_credit_amount,
-      :fed_credit_for_elderly_or_disabled_amount,
-      :fed_clean_vehicle_personal_use_credit_amount,
-      :fed_total_reporting_year_tax_increase_or_decrease_amount,
-      :fed_previous_owned_clean_vehicle_credit_amount,
-      :fed_calculated_difference_amount,
-      :fed_nontaxable_combat_pay_amount,
-      :fed_total_earned_income_amount,
-      :fed_residential_clean_energy_credit_amount,
-      :fed_mortgage_interest_credit_amount,
-      :fed_adoption_credit_amount,
-      :fed_dc_homebuyer_credit_amount,
-      :fed_adjustments_claimed,
-      :fed_taxable_pensions
+    %i[
+      tax_return_year
+      filing_status
+      primary_ssn
+      primary_occupation
+      spouse_ssn
+      spouse_occupation
+      mailing_city
+      mailing_street
+      mailing_apartment
+      mailing_zip
+      cell_phone_number
+      phone_number
+      tax_payer_email
+      total_w2_state_tax_withheld
+      fed_tax_amt
+      fed_agi
+      fed_wages
+      fed_wages_salaries_tips
+      fed_taxable_income
+      fed_total_adjustments
+      fed_taxable_ssb
+      fed_ssb
+      fed_eic
+      fed_refund_amt
+      fed_ctc
+      fed_qualify_child
+      fed_puerto_rico_income_exclusion_amount
+      total_exempt_primary_spouse
+      fed_irs_1040_nr
+      fed_unemployment
+      fed_housing_deduction_amount
+      fed_gross_income_exclusion_amount
+      fed_total_income_exclusion_amount
+      fed_foreign_tax_credit_amount
+      fed_credit_for_child_and_dependent_care_amount
+      fed_education_credit_amount
+      fed_retirement_savings_contribution_credit_amount
+      fed_energy_efficiency_home_improvement_credit_amount
+      fed_credit_for_elderly_or_disabled_amount
+      fed_clean_vehicle_personal_use_credit_amount
+      fed_total_reporting_year_tax_increase_or_decrease_amount
+      fed_previous_owned_clean_vehicle_credit_amount
+      fed_calculated_difference_amount
+      fed_nontaxable_combat_pay_amount
+      fed_total_earned_income_amount
+      fed_residential_clean_energy_credit_amount
+      fed_mortgage_interest_credit_amount
+      fed_adoption_credit_amount
+      fed_dc_homebuyer_credit_amount
+      fed_adjustments_claimed
+      fed_taxable_pensions
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

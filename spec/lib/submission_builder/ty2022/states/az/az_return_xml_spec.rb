@@ -13,7 +13,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it "generates xml" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FilingStatus").text).to eq('MarriedJoint')
-        expect(xml.document.root.namespaces).to include({"xmlns:efile"=>"http://www.irs.gov/efile", "xmlns"=>"http://www.irs.gov/efile"})
+        expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
         expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
         expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
       end
@@ -98,7 +98,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
               employer_state_id_num: "00123",
               state_income_tax_amt: "700",
               state_wages_amt: "2000",
-              )
+            )
           }
 
           it "prioritises state_file_w2s over w2s from the direct file xml, correctly updates & creates & deletes nodes" do
@@ -115,7 +115,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     end
 
     context "when there is a refund with banking info" do
-      let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no")}
+      let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no") }
       it "generates FinancialTransaction xml with correct RefundAmt" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
@@ -124,7 +124,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     end
 
     context "when there is a payment owed with banking info" do
-      let(:intake) { create(:state_file_az_owed_intake)}
+      let(:intake) { create(:state_file_az_owed_intake) }
       it "generates FinancialTransaction xml with correct Amount" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
@@ -187,6 +187,39 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('SingleHOH').text).to eq '200'
         expect(xml.at('CurrentYrCr').text).to eq '200'
         expect(xml.at('TotalAvailCr').text).to eq '200'
+      end
+    end
+
+    context "subtractions" do
+      let(:intake) { create(:state_file_az_intake, :with_1099int_subtraction) }
+
+      it "fills in the lines correctly" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+
+        expect(xml.css("Subtractions IntUSObligations").text).to eq "100"
+      end
+    end
+
+    context "when 1099-rs are present" do
+      let(:intake) do
+        create(:state_file_az_intake,
+               raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('az_richard_retirement_1099r'),
+               filing_status: "married_filing_jointly",
+               primary_received_pension: "yes",
+               primary_received_pension_amount: 2000.6,
+               spouse_received_pension: "yes",
+               spouse_received_pension_amount: 2600,
+               received_military_retirement_payment: "yes",
+               received_military_retirement_payment_amount: 1000.1
+        )
+      end
+
+      it "it calculates the total subtraction amounts" do
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.css('ExecFedStateLocGovPen').text).to eq "4501"
+        expect(xml.css('SubExclBenAnnPen').text).to eq "1000"
+        expect(xml.css('TotalSubtractions').text).to eq "114499"
+        expect(xml.css('AzIncTaxWithheld').text).to eq "33"
       end
     end
   end

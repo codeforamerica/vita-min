@@ -9,6 +9,7 @@ module StateFile
                        :filing_status,
                        :primary_ssn,
                        :primary_occupation,
+                       :phone_number,
                        :spouse_ssn,
                        :spouse_occupation,
                        :mailing_city,
@@ -22,7 +23,8 @@ module StateFile
                        :fed_taxable_ssb,
                        :fed_taxable_pensions,
                        :total_state_tax_withheld,
-                       :total_exempt_primary_spouse
+                       :total_exempt_primary_spouse,
+                       :interest_reported_amount
 
     validate :direct_file_data_must_be_imported
     validate :dependent_detail_ssns_must_be_unique

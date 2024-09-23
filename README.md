@@ -107,11 +107,12 @@ rake setup:unzip_efile_schemas
 
 You need to add the following credential files under the `config/credentials` folder:
 
+- `circleci.key`
 - `development.key`
 - `demo.key`
+- `heroku.key`
+- `staging.key`
 - `production.key`
-
-And also add the `master.key` file in the `config` folder.
 
 You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
 
@@ -138,7 +139,7 @@ If this doesn't fix your problem, you should check if the service is in an `erro
 brew services
 ```
 
-If it is, you probably need to reead the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
+If it is, you probably need to read the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
 
 ```sh
 brew postgresql-upgrade-database
@@ -166,10 +167,22 @@ If this doesn't get Postgres out of `error` state, or you otherwise can't figure
 
 #### Java Installation for pdftk on macOS
 
-***NOTE:*** We are currently experimenting with just having ASDF install java instead. Check `.tool-versions` to see the version needed. It should be installable with `asdf install` in the root directory.
-
 To run pdftk on macOS, you need to have Java installed correctly. Use the following commands to install Java:
 
+***NOTE:*** We are currently discussing  `asdf` vs `brew`. Feel free to follow whichever set up works better for you for now.
+
+##### asdf instructions:
+
+`asdf` is one big umbrella used to simplify installing and managing versions for our core technologies. The managed techs and desired versions are listed in `.tool-versions` in the vita-min root. To use `asdf`, follow these steps:
+
+1. Install asdf with `brew install asdf`.
+2. For each technology you wanna track with asdf, you'll need to install an appropriate plugin. We're talking about Java in this moment, so install the Java plugin with `asdf plugin-add java https://github.com/halcyon/asdf-java.git`
+3. Now you can let asdf take the wheel and install/setup Java with `asdf install`.
+4. Yay.
+
+You've likely noticed there's other things listed in `.tool-versions`, and it's reasonable to use `asdf` for those things too, but the setup script presumes the use of `brew`, so there may be resulting shell/path conflicts. Use at your own risk.
+
+##### brew instructions:
 ```sh
 AdoptOpenJDK/openjdk && brew install adoptopenjdk8
 ```

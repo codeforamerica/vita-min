@@ -58,6 +58,10 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     expect(page).to have_text "‍💻🛠️ Direct File Data Overrides 🛠️💻"
 
+    fill_in "Interest Reported", with: 200 # corresponds to fake df field for now
+    fill_in "primary ssn", with: "123-45-6789"
+    fill_in "Return header phone number (primary)", with: "5551112222"
+
     # W2
     fill_in "WagesAmt", with: 500
     fill_in "WithholdingAmt", with: 300
@@ -72,21 +76,27 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     fill_in "PayerName", with: "Rose Apothecary"
     fill_in "PayerNameControlTxt", with: "ROSEAPC"
-    fill_in "AddressLine1Txt", with: "123 Schit Street"
-    fill_in "CityNm", with: "Schitts Creek"
-    fill_in "StateAbbreviationCd", with: "AZ"
-    fill_in "ZIPCd", with: "43212"
+    fill_in "PayerAddressLine1Txt", with: "123 Schit Street"
+    fill_in "PayerCityNm", with: "Schitts Creek"
+    fill_in "PayerStateAbbreviationCd", with: "AZ"
+    fill_in "PayerZIPCd", with: "43212"
     fill_in "PayerEIN", with: "000000003"
     fill_in "PhoneNum", with: "3025551223"
     fill_in "GrossDistributionAmt", with: 3000
     fill_in "TaxableAmt", with: 200
     fill_in "FederalIncomeTaxWithheldAmt", with: 150
     fill_in "F1099RDistributionCd", with: "8"
+    fill_in "StateTaxWithheldAmt", with: 20
+    fill_in "StateAbbreviationCd", with: "NC"
+    fill_in "PayerStateIdNumber", with: "987654321"
+    fill_in "StateDistributionAmt", with: 200
 
     click_on "Continue"
 
     xml_after = StateFileAzIntake.last.raw_direct_file_data.strip
     expect(xml_before).not_to eq(xml_after)
+
+    expect(StateFileAzIntake.last.direct_file_data.interest_reported_amount).to eq 200
 
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].WagesAmt).to eq 500
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].WithholdingAmt).to eq 300
@@ -97,17 +107,23 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].LocalityNm).to eq "Pelicanville"
 
     expect(StateFileAzIntake.last.direct_file_data.fed_taxable_pensions).to eq 200
+    expect(StateFileAzIntake.last.direct_file_data.primary_ssn).to eq "123-45-6789"
+    expect(StateFileAzIntake.last.direct_file_data.phone_number).to eq "5551112222"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerName).to eq "Rose Apothecary"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerNameControlTxt).to eq "ROSEAPC"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].AddressLine1Txt).to eq "123 Schit Street"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].CityNm).to eq "Schitts Creek"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateAbbreviationCd).to eq "AZ"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].ZIPCd).to eq "43212"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerAddressLine1Txt).to eq "123 Schit Street"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerCityNm).to eq "Schitts Creek"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateAbbreviationCd).to eq "AZ"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerZIPCd).to eq "43212"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerEIN).to eq "000000003"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PhoneNum).to eq "3025551223"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].GrossDistributionAmt).to eq 3000
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].TaxableAmt).to eq 200
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].FederalIncomeTaxWithheldAmt).to eq 150
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].F1099RDistributionCd).to eq "8"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateTaxWithheldAmt).to eq 20
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateAbbreviationCd).to eq "NC"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateIdNumber).to eq "987654321"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateDistributionAmt).to eq 200
   end
 end

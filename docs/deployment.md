@@ -41,9 +41,7 @@ Links to the environments:
 
 ## To the Staging and Demo Environments
 
-To deploy to Demo and Staging, commit/merge to `main` and push to
-Github. This will trigger a CI/CD build and deploy to both the Demo and Staging
-environments.
+To deploy to Demo, commit/merge to `main` and push to Github. This will trigger a CI/CD build and deploy to the Demo environment. Deploying to staging is done manually by merging changes to the `staging` branch.
 
 ### Deploying to Staging Directly
 

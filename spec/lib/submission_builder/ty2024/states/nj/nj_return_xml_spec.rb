@@ -13,5 +13,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
     end
+
+    it "includes attached documents" do
+      expect(xml.document.at('ReturnDataState FormNJ1040 Header')).to be_an_instance_of Nokogiri::XML::Element
+    end
   end
 end

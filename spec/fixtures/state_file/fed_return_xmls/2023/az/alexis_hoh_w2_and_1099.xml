@@ -214,6 +214,14 @@
       <TaxableAmt>10000</TaxableAmt>
       <FederalIncomeTaxWithheldAmt>3000</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>9</F1099RDistributionCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>10</StateTaxWithheldAmt>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <PayerStateIdNumber>123456789</PayerStateIdNumber>
+          <StateDistributionAmt>100</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRS1099R>
   </ReturnData>

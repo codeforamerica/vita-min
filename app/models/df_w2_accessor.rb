@@ -31,5 +31,5 @@ class DfW2Accessor < DfXmlAccessor
     Nokogiri::XML(IrsApiService.df_return_sample).at('IRSW2')
   end
 
-  define_xml_methods
+  define_xml_accessors
 end

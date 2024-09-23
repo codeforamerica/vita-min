@@ -2,10 +2,11 @@ class Df1099rAccessor < DfXmlAccessor
   SELECTORS = {
     PayerNameControlTxt: "PayerNameControlTxt",
     PayerName: "PayerName BusinessNameLine1Txt",
-    AddressLine1Txt: "PayerUSAddress AddressLine1Txt",
-    CityNm: "PayerUSAddress CityNm",
-    StateAbbreviationCd: "PayerUSAddress StateAbbreviationCd",
-    ZIPCd: "PayerUSAddress ZIPCd",
+    PayerAddressLine1Txt: "PayerUSAddress AddressLine1Txt",
+    PayerAddressLine2Txt: "PayerUSAddress AddressLine2Txt",
+    PayerCityNm: "PayerUSAddress CityNm",
+    PayerStateAbbreviationCd: "PayerUSAddress StateAbbreviationCd",
+    PayerZIPCd: "PayerUSAddress ZIPCd",
     PayerEIN: "PayerEIN",
     PhoneNum: "PhoneNum",
     GrossDistributionAmt: "GrossDistributionAmt",
@@ -13,6 +14,10 @@ class Df1099rAccessor < DfXmlAccessor
     FederalIncomeTaxWithheldAmt: "FederalIncomeTaxWithheldAmt",
     F1099RDistributionCd: "F1099RDistributionCd",
     StandardOrNonStandardCd: "StandardOrNonStandardCd",
+    StateTaxWithheldAmt: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateTaxWithheldAmt",
+    StateAbbreviationCd: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateAbbreviationCd",
+    PayerStateIdNumber: "F1099RStateLocalTaxGrp F1099RStateTaxGrp PayerStateIdNumber",
+    StateDistributionAmt: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateDistributionAmt",
   }
 
   def self.selectors
@@ -23,5 +28,5 @@ class Df1099rAccessor < DfXmlAccessor
     Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).at('IRS1099R')
   end
 
-  define_xml_methods
+  define_xml_accessors
 end

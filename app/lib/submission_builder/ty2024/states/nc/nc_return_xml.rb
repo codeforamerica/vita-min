@@ -23,17 +23,13 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            supported_docs = [
+            [
               {
                 xml: SubmissionBuilder::Ty2024::States::Nc::Documents::D400,
                 pdf: PdfFiller::NcD400Pdf,
                 include: true
               },
             ]
-
-            supported_docs += combined_w2s
-
-            supported_docs
           end
         end
       end

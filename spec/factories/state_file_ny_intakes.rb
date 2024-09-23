@@ -70,6 +70,7 @@
 #  property_over_limit                :integer          default("unfilled"), not null
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
+#  raw_direct_file_intake_data        :jsonb
 #  referrer                           :string
 #  residence_county                   :string
 #  routing_number                     :string

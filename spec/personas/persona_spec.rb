@@ -36,6 +36,5 @@ describe "personas" do
         it_behaves_like :persona
       end
     end
-
   end
 end

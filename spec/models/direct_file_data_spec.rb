@@ -1,6 +1,66 @@
 require 'rails_helper'
 
 describe DirectFileData do
+  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_df_complete_sample")) }
+  let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+
+  [
+    ["tax_return_year", 2023],
+    ["filing_status", 4],
+    ["phone_number", "4805555555"],
+    ["cell_phone_number", "5551231234"],
+    ["tax_payer_email", "test011@test.com"],
+    ["primary_ssn", "400000003"],
+    ["spouse_ssn", "500000003"],
+    ["primary_occupation", "Singer"],
+    ["spouse_occupation", "Actor"],
+    ["surviving_spouse", "X"],
+    ["spouse_date_of_death", "2024-07-06"],
+    ["spouse_name", "Allen"],
+    ["mailing_city", "Phoenix"],
+    ["mailing_street", "321 Roland St"],
+    ["mailing_apartment", "Apt B"],
+    ["mailing_state", "AZ"],
+    ["mailing_zip", "85034"],
+    ["fed_tax_amt", 1993],
+    ["fed_calculated_difference_amount", 1634],
+    ["fed_nontaxable_combat_pay_amount", 10],
+    ["fed_total_earned_income_amount", 35000],
+    ["fed_puerto_rico_income_exclusion_amount", 80],
+    ["fed_total_income_exclusion_amount", 600],
+    ["fed_housing_deduction_amount", 700],
+    ["fed_gross_income_exclusion_amount", 900],
+  ].each do |node_name, current_value|
+    describe "##{node_name}" do
+      it "returns the value" do
+        expect(direct_file_data.send(node_name)).to eq current_value
+      end
+
+      if current_value.is_a?(Integer) && !node_name.ends_with?("_year", "_status")
+        context "when the attribute is an amount and is not present" do
+          before do
+            selector = DirectFileData::SELECTORS[node_name.to_sym]
+            xml.at(selector).remove
+          end
+
+          it "defaults to 0" do
+            expect(direct_file_data.send(node_name)).to eq 0
+          end
+        end
+      end
+    end
+  end
+
+  describe "#phone_number=" do
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample) }
+
+    it "adds the node in the right place" do
+      direct_file_data.phone_number = "5551231234"
+
+      expect(direct_file_data.phone_number).to eq "5551231234"
+    end
+  end
+
   describe '#ny_public_employee_retirement_contributions' do
     let(:desc1) { '414H' }
     let(:desc2) { '414 (H)' }
@@ -426,6 +486,22 @@ describe DirectFileData do
     end
   end
 
+  # fake field: will be replaced by a real one at some point pending info about df api
+  # when that time comes delete this whole spec in favor of a dynamically generated one (see top of file)
+  describe '#interest_reported_amount' do
+    let(:xml) { StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099") }
+
+    it "reads and writes" do
+      df_data = described_class.new(xml)
+      # defaults to 0
+      expect(df_data.interest_reported_amount).to eq 0
+
+      df_data.interest_reported_amount = 40
+
+      expect(df_data.interest_reported_amount).to eq 40
+    end
+  end
+
   describe "DfW2" do
     let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
     let(:direct_file_data) { DirectFileData.new(xml.to_s) }
@@ -529,31 +605,31 @@ describe DirectFileData do
       end
     end
 
-    describe "#AddressLine1Txt" do
+    describe "#PayerAddressLine1Txt" do
       it "returns the value" do
-        expect(first_1099r.AddressLine1Txt).to eq "2030 Pecan Street"
-        expect(second_1099r.AddressLine1Txt).to eq "2031 Pecan Street"
+        expect(first_1099r.PayerAddressLine1Txt).to eq "2030 Pecan Street"
+        expect(second_1099r.PayerAddressLine1Txt).to eq "2031 Pecan Street"
       end
     end
 
-    describe "#CityNm" do
+    describe "#PayerCityNm" do
       it "returns the value" do
-        expect(first_1099r.CityNm).to eq "Monroe"
-        expect(second_1099r.CityNm).to eq "Nonroe"
+        expect(first_1099r.PayerCityNm).to eq "Monroe"
+        expect(second_1099r.PayerCityNm).to eq "Nonroe"
       end
     end
 
-    describe "#StateAbbreviationCd" do
+    describe "#PayerStateAbbreviationCd" do
       it "returns the value" do
-        expect(first_1099r.StateAbbreviationCd).to eq "MA"
-        expect(second_1099r.StateAbbreviationCd).to eq "NA"
+        expect(first_1099r.PayerStateAbbreviationCd).to eq "MA"
+        expect(second_1099r.PayerStateAbbreviationCd).to eq "NA"
       end
     end
 
-    describe "#ZIPCd" do
+    describe "#PayerZIPCd" do
       it "returns the value" do
-        expect(first_1099r.ZIPCd).to eq "05502"
-        expect(second_1099r.ZIPCd).to eq "05503"
+        expect(first_1099r.PayerZIPCd).to eq "05502"
+        expect(second_1099r.PayerZIPCd).to eq "05503"
       end
     end
 
@@ -603,6 +679,31 @@ describe DirectFileData do
       it "returns the value" do
         expect(first_1099r.StandardOrNonStandardCd).to eq "S"
         expect(second_1099r.StandardOrNonStandardCd).to eq "N"
+      end
+    end
+
+    describe "#StateTaxWithheldAmt" do
+      it "returns the value" do
+        expect(first_1099r.StateTaxWithheldAmt).to eq 11
+        expect(second_1099r.StateTaxWithheldAmt).to eq 22
+      end
+    end
+    describe "#StateAbbreviationCd" do
+      it "returns the value" do
+        expect(first_1099r.StateAbbreviationCd).to eq "NC"
+        expect(second_1099r.StateAbbreviationCd).to eq "NC"
+      end
+    end
+    describe "#PayerStateIdNumber" do
+      it "returns the value" do
+        expect(first_1099r.PayerStateIdNumber).to eq "111111111"
+        expect(second_1099r.PayerStateIdNumber).to eq "222222222"
+      end
+    end
+    describe "#StateDistributionAmt" do
+      it "returns the value" do
+        expect(first_1099r.StateDistributionAmt).to eq 111
+        expect(second_1099r.StateDistributionAmt).to eq 222
       end
     end
   end

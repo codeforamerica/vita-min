@@ -9,7 +9,7 @@ class FlowsController < ApplicationController
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
-    state_file_az: [:head_of_household],
+    state_file_az: [:single, :married_filing_jointly, :qualifying_widow, :married_filing_separately, :head_of_household],
     state_file_ny: [:head_of_household],
   }.freeze
 
@@ -39,6 +39,7 @@ class FlowsController < ApplicationController
       if intake.respond_to?(:client)
         sign_in(intake.client)
       elsif [:state_file_az, :state_file_ny].include?(type)
+        intake.create_state_file_analytics!
         sign_in intake
       end
     else
@@ -563,7 +564,6 @@ class FlowsController < ApplicationController
         primary_esigned_at: 1.minute.ago,
         spouse_esigned: "yes",
         spouse_esigned_at: 1.minute.ago,
-        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         payment_or_deposit_type: "mail",
         bank_name: 'bank name',
         account_type: 'unfilled',
@@ -585,7 +585,7 @@ class FlowsController < ApplicationController
       }
     end
 
-    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
+    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
       common_attributes.merge(
         confirmed_permanent_address: "no",
         confirmed_third_party_designee: "unfilled",
@@ -609,6 +609,7 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         property_over_limit: "unfilled",
         public_housing: "unfilled",
+        raw_direct_file_data: StateFile::XmlReturnSampleService.new.old_sample,
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district_id: 441,
@@ -627,8 +628,8 @@ class FlowsController < ApplicationController
       )
     end
 
-    def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser')
-      common_attributes.merge(
+    def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
+      base_attributes = common_attributes.merge(
         armed_forces_member: "yes",
         armed_forces_wages: 100,
         charitable_cash: 123,
@@ -654,12 +655,34 @@ class FlowsController < ApplicationController
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
+        raw_direct_file_data: StateFile::XmlReturnSampleService.new.az_xml_sample(filing_status),
         df_data_imported_at: 2.hours.ago,
         primary_received_pension: "yes",
         received_military_retirement_payment: "yes",
         received_military_retirement_payment_amount: 100,
         spouse_received_pension: "yes",
       )
+      status_specific_attributes = case filing_status
+                                   when :married_filing_jointly, :married_filing_separately
+                                     {
+                                       spouse_first_name: "Spouse",
+                                       spouse_last_name: last_name,
+                                       spouse_birth_date: Date.parse('1979-06-22'),
+                                       spouse_was_incarcerated: "no",
+                                     }
+                                   when :head_of_household
+                                     {dependents_attributes: [{
+                                                                first_name: "Dependent",
+                                                                last_name: last_name,
+                                                                relationship: "DAUGHTER",
+                                                                dob: Date.new(Date.today.year - 10),
+                                                                months_in_home: 12,
+                                                              }]}
+                                   else
+                                     {}
+                                   end
+
+      base_attributes.merge(status_specific_attributes)
     end
 
     def generate_efile_device_info(intake)
@@ -681,7 +704,8 @@ class FlowsController < ApplicationController
       _type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
       attributes = self.class.send("#{@us_state}_attributes",
         first_name: params[:flows_controller_sample_intake_form][:first_name],
-        last_name: params[:flows_controller_sample_intake_form][:last_name]
+        last_name: params[:flows_controller_sample_intake_form][:last_name],
+                                   filing_status: _type
       )
       intake_class = StateFile::StateInformationService.intake_class(@us_state)
       intake = intake_class.create(attributes)

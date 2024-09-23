@@ -34,8 +34,7 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040,
-                # pdf: PdfFiller::Nj1040Pdf, TODO
-                pdf: nil,
+                pdf: PdfFiller::Nj1040Pdf,
                 include: true
               },
             ]
