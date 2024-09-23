@@ -15,6 +15,8 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       let(:tax_paid) { 3000 }
       before do
         intake.direct_file_data.fed_agi = 10000
+        intake.tribal_member = "yes"
+        intake.tribal_wages_amount = 100.00
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20a).and_return income_tax_withheld
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20b).and_return income_tax_withheld_spouse
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_23).and_return tax_paid
@@ -27,6 +29,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('FilingStatus').text).to eq "Single"
         expect(xml.document.at('FAGI').text).to eq "10000"
         expect(xml.document.at('FAGIPlusAdditions').text).to eq "10000"
+        expect(xml.document.at('DeductionsFromFAGI').text). to eq '100'
         expect(xml.document.at('NCStandardDeduction').text).to eq "12750"
         # 12a = (11)NCStandardDeduction + (10b)ChildDeduction expect(xml.document.at('NCAGIAddition').text).to eq ""
         expect(xml.document.at('IncTaxWith').text).to eq income_tax_withheld.to_s

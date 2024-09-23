@@ -145,6 +145,14 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_sv1no']).to eq 'Yes'
         end
       end
+
+      context "total deductions field" do
+        let(:intake) { create(:state_file_nc_intake, filing_status: "single", tribal_member: "yes", tribal_wages_amount: 500.00) }
+
+        it "total deductions field" do
+          expect(pdf_fields['y_d400wf_li9_good']).to eq '500'
+        end
+      end
     end
   end
 end

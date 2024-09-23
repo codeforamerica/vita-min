@@ -32,9 +32,14 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS,
                 pdf: PdfFiller::NcD400ScheduleSPdf,
-                include: true
+                include: adjustments_present?
               },
             ]
+          end
+
+          def adjustments_present?
+            calculated_fields = @submission.data_source.tax_calculator.calculate
+            (calculated_fields[:NCD400_LINE_9]).positive? # TODO Also needs to check if Line 7 is positive but not in scope yet
           end
         end
       end

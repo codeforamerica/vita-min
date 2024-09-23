@@ -41,7 +41,7 @@ module SubmissionBuilder
                 xml.FAGI @submission.data_source.direct_file_data.fed_agi
                 # line 7 AdditionsToFAGI is blank
                 xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
-                # line 9 DeductionsFromFAGI is blank
+                xml.DeductionsFromFAGI calculated_fields.fetch(:NCD400_LINE_9)
                 xml.NCStandardDeduction standard_deduction
                 # line 16 TaxCredits is blank
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
