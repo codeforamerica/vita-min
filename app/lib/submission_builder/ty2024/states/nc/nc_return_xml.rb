@@ -29,6 +29,11 @@ module SubmissionBuilder
                 pdf: PdfFiller::NcD400Pdf,
                 include: true
               },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS,
+                pdf: PdfFiller::NcD400ScheduleSPdf,
+                include: true
+              },
             ]
           end
         end

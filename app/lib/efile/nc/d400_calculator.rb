@@ -3,7 +3,19 @@ module Efile
     class D400Calculator < ::Efile::TaxCalculator
       attr_reader :lines
 
+      def initialize(year:, intake:, include_source: false)
+        super
+        @d400_schedule_s = Efile::Nc::D400ScheduleSCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
+      end
+
+
       def calculate
+        @d400_schedule_s.calculate
+        set_line(:NCD400_LINE_9, :calculate_line_9)
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
         set_line(:NCD400_LINE_23, :calculate_line_23)
@@ -15,6 +27,10 @@ module Efile
       end
 
       private
+
+      def calculate_line_9
+        line_or_zero(:NCD400_S_LINE_41)
+      end
 
       def calculate_line_20a
         @direct_file_data.w2s.reduce(0) do |sum, w2|

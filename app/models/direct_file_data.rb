@@ -193,6 +193,10 @@ class DirectFileData < DfXmlAccessor
     df_xml_value(__method__)&.to_i || 0
   end
 
+  def fed_wages_salaries_tips=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def fed_taxable_income
     df_xml_value(__method__)&.to_i || 0
   end
