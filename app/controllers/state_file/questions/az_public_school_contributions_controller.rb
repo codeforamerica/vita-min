@@ -30,7 +30,7 @@ module StateFile
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
-          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_cents?
+          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_money_format?
           render :new
         end
       end
@@ -52,7 +52,7 @@ module StateFile
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
-          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_cents?
+          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_money_format?
           render :edit
         end
       end
