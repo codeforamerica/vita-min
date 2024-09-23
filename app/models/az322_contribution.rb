@@ -37,5 +37,13 @@ class Az322Contribution < ApplicationRecord
             },
             presence: true
 
+  # Custom validation for handling values before they are coerced into decimal(12, 2) type
+  def amount=(value)
+    if value&.to_s&.match?(/^(\d+)?\.$/) # Remove trailing decimal. Ex: '10.'
+      value = value.chop
+    end
+    write_attribute :amount, value
+  end
+
   private
 end

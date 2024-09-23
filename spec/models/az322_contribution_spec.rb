@@ -99,6 +99,30 @@ describe 'Az322Contribution' do
         az.valid?
         expect(az.errors[:amount]).to be_empty
       end
+
+      it "should validate format" do
+        az.amount = 10.1
+        az.valid?
+        expect(az.errors[:amount]).to be_empty
+
+        az.amount = 10.22
+        az.valid?
+        expect(az.errors[:amount]).to be_empty
+
+        az.amount = '.1'
+        az.valid?
+        expect(az.errors[:amount]).to be_empty
+
+        az.amount = '.12'
+        az.valid?
+        expect(az.errors[:amount]).to be_empty
+      end
+
+      it "should clean up format that leads to validation errors" do
+        az.amount = '1.'
+        az.valid?
+        expect(az.errors[:amount]).to be_empty
+      end
     end
 
     describe '#date_of_contribution' do
