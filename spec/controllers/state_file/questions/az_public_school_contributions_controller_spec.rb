@@ -77,23 +77,21 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     context "with invalid params" do
       render_views
 
-      context "made_contribution" do
-        let(:invalid_params) do
-          {
-            az322_contribution: {
-              made_contribution: nil,
-            }
+      let(:invalid_params) do
+        {
+          az322_contribution: {
+            made_contribution: nil,
           }
-        end
+        }
+      end
 
-        it "renders new with validation errors" do
-          expect do
-            post :create, params: invalid_params
-          end.not_to change(Az322Contribution, :count)
+      it "renders new with validation errors" do
+        expect do
+          post :create, params: invalid_params
+        end.not_to change(Az322Contribution, :count)
 
-          expect(response).to render_template(:new)
-          expect(response.body).to include "Can't be blank"
-        end
+        expect(response).to render_template(:new)
+        expect(response.body).to include "Can't be blank"
       end
     end
   end
