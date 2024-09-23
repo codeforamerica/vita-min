@@ -89,11 +89,11 @@ describe 'Az322Contribution' do
       it 'should validate presence' do
         az.amount = nil
         az.valid?
-        expect(az.errors[:amount]).not_to be_empty
+        expect(az.errors[:amount]).to eq(["Can't be blank.", "is not a number"])
 
         az.amount = 0
         az.valid?
-        expect(az.errors[:amount]).not_to be_empty
+        expect(az.errors[:amount]).to eq(["must be greater than 0"])
 
         az.amount = 1
         az.valid?
