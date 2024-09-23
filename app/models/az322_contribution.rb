@@ -29,6 +29,7 @@ class Az322Contribution < ApplicationRecord
   validates :ctds_code, presence: true, format: { with: /\A\d{9}\z/, message: -> (_object, _data) { I18n.t("validators.ctds_code") }}, if: -> { made_contribution == "yes" }
   validates :district_name, presence: true, if: -> { made_contribution == "yes" }
   validates :amount, presence: true, numericality: { greater_than: 0 }, if: -> { made_contribution == "yes" }
+  validate :amount_format
 
   validates :date_of_contribution,
             inclusion: {
@@ -38,11 +39,17 @@ class Az322Contribution < ApplicationRecord
 
   # Custom validation for handling values before they are coerced into decimal(12, 2) type
   def amount=(value)
-    if value&.to_s&.match?(/^(\d+)?\.$/) # Remove trailing decimal. Ex: '10.'
-      value = value.chop
-    end
-    write_attribute :amount, value
+    write_attribute :amount, value&.to_s&.chomp('.') # Remove trailing decimal. Ex: '10.'
   end
 
   private
+
+  VALID_MONEY_REGEXP = /\A(\d+)?\.?\d{0,2}\z/.freeze
+  def amount_format
+    return true if amount.blank?
+
+    unless VALID_MONEY_REGEXP.match?(read_attribute_before_type_cast(:amount).to_s)
+      errors.add(:amount, 'must be a valid dollar amount')
+    end
+  end
 end
