@@ -13,6 +13,7 @@ module Efile
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_7, :calculate_line_7)
+        set_line(:NJ1040_LINE_15, :calculate_line_15)
         @lines.transform_values(&:value)
       end
 
@@ -54,6 +55,19 @@ module Efile
       end
 
       private
+
+      def calculate_line_15
+        if @direct_file_data.w2s.empty?
+          return -1
+        end
+
+        sum = 0
+        @direct_file_data.w2s.each do |w2|
+          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_f
+          sum += state_wage
+        end
+        sum.round
+      end
 
       def is_over_65(birth_date)
         over_65_birth_year = MultiTenantService.new(:statefile).current_tax_year - 65

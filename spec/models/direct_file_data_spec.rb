@@ -51,6 +51,16 @@ describe DirectFileData do
     end
   end
 
+  describe "#phone_number=" do
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample) }
+
+    it "adds the node in the right place" do
+      direct_file_data.phone_number = "5551231234"
+
+      expect(direct_file_data.phone_number).to eq "5551231234"
+    end
+  end
+
   describe '#ny_public_employee_retirement_contributions' do
     let(:desc1) { '414H' }
     let(:desc2) { '414 (H)' }

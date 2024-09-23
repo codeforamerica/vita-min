@@ -138,6 +138,19 @@ FactoryBot.define do
       spouse_ssn { "123456789" }
     end
 
+    trait :married_filing_separately do
+      transient do
+        filing_status { 'married_filing_separately' }
+        spouse_ssn { "123456789" }
+        spouse_occupation { "Lawyer" }
+      end
+
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_first_name { "Spousel" }
+      spouse_last_name { "Testerson" }
+      spouse_middle_initial { "T" }
+    end
+
     trait :primary_over_65 do
       primary_birth_date { Date.new(1900, 1, 1) }
     end

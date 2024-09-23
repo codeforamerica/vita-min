@@ -94,4 +94,32 @@ describe Efile::Nj::Nj1040 do
       end
     end
   end
+
+  describe 'line 15 - state wages' do
+    context 'when no federal w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+      it 'sets line 15 to -1 to indicate the sum does not exist' do
+        expect(instance.lines[:NJ1040_LINE_15].value).to eq(-1)
+      end
+    end
+
+    context 'when 2 federal w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+
+      it 'sets line 15 to the rounded sum of all state wage amounts' do
+        expected_sum = (12345.67 + 50000).round
+        expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
+      end
+    end
+
+    context 'when many federal w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
+
+      it 'sets line 15 to the rounded sum of all state wage amounts' do
+        expected_sum = (50000.33 + 50000.33 + 50000.33 + 50000.33).round
+        expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
+      end
+    end
+  end
 end

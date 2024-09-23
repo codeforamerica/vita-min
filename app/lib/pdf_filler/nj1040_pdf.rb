@@ -17,45 +17,49 @@ module PdfFiller
     def hash_for_pdf
       county_code = get_county_code
       taxpayer_ssn = get_taxpayer_ssn
-      spouse_ssn = get_spouse_ssn
+      mfj_spouse_ssn = get_mfj_spouse_ssn
+      mfs_spouse_ssn = get_mfs_spouse_ssn
       answers = {
         # county code
-        "CM4": county_code[1],
-        "CM3": county_code[2],
-        "CM2": county_code[3],
-        "CM1": county_code[4],
+        CM4: county_code[1],
+        CM3: county_code[2],
+        CM2: county_code[3],
+        CM1: county_code[4],
 
         # taxpayer ssn
-        "undefined": taxpayer_ssn[0],
-        "undefined_2": taxpayer_ssn[1],
-        "Your Social Security Number required": taxpayer_ssn[2],
-        "Text3": taxpayer_ssn[3],
-        "Text4": taxpayer_ssn[4],
-        "Text5": taxpayer_ssn[5],
-        "Text6": taxpayer_ssn[6],
-        "Text7": taxpayer_ssn[7],
-        "Text8": taxpayer_ssn[8],
+        undefined: taxpayer_ssn[0],
+        undefined_2: taxpayer_ssn[1],
+        'Your Social Security Number required': taxpayer_ssn[2],
+        Text3: taxpayer_ssn[3],
+        Text4: taxpayer_ssn[4],
+        Text5: taxpayer_ssn[5],
+        Text6: taxpayer_ssn[6],
+        Text7: taxpayer_ssn[7],
+        Text8: taxpayer_ssn[8],
 
         # name
-        "Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different": get_name,
+        'Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different': get_name,
 
         # address
-        "SpousesCU Partners SSN if filing jointly": get_address, # address text field
-        "CountyMunicipality Code See Table page 50": @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text,  # city / town text field
-        "State": @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
-        "ZIP Code": @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
+        'SpousesCU Partners SSN if filing jointly': get_address, # address text field
+        'CountyMunicipality Code See Table page 50': @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text, # city / town text field
+        State: @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
+        'ZIP Code': @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
 
         # line 6 exemptions
-        "Check Box39": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuRegular")),
-        "Check Box40": "Off",
-        "Domestic": get_line_6_exemption_count,
-        "x  1000": get_line_6_exemption_count * 1000,
+        'Check Box39': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuRegular")),
+        'Check Box40': "Off",
+        Domestic: get_line_6_exemption_count,
+        'x  1000': get_line_6_exemption_count * 1000,
 
         # line 7 exemptions
-        "Check Box41": pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
-        "Check Box42": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
-        "undefined_9": get_line_7_exemption_count,
-        "x  1000_2": get_line_7_exemption_count * 1000,
+        'Check Box41': pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
+        'Check Box42': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
+        undefined_9: get_line_7_exemption_count,
+        'x  1000_2': get_line_7_exemption_count * 1000,
+        
+        Group1: filing_status,
+        Group1qualwi5ab: spouse_death_year
       }
 
       dependents = get_dependents
@@ -75,20 +79,48 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
-      if spouse_ssn
+      if @xml_document.at("WagesSalariesTips").present?
+        wages = @xml_document.at("WagesSalariesTips").text.to_i.digits
         answers.merge!({
-         "undefined_3": spouse_ssn[0],
-         "undefined_4": spouse_ssn[1],
-         "undefined_5": spouse_ssn[2],
-         "Text9": spouse_ssn[3],
-         "Text10": spouse_ssn[4],
-         "Text11": spouse_ssn[5],
-         "Text12": spouse_ssn[6],
-         "Text13": spouse_ssn[7],
-         "Text14": spouse_ssn[8],
-       })
+           Text106: "0",
+           Text105: "0",
+           Text104: wages[0].nil? ? "" : wages[0].to_s,
+           Text103: wages[1].nil? ? "" : wages[1].to_s,
+           Text101: wages[2].nil? ? "" : wages[2].to_s,
+           Text100: wages[3].nil? ? "" : wages[3].to_s,
+           undefined_38: wages[4].nil? ? "" : wages[4].to_s,
+           undefined_37: wages[5].nil? ? "" : wages[5].to_s,
+           undefined_36: wages[6].nil? ? "" : wages[6].to_s,
+           '15': wages[7].nil? ? "" : wages[7].to_s,
+         })
       end
 
+      if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
+        answers.merge!({
+          undefined_3: mfj_spouse_ssn[0],
+          undefined_4: mfj_spouse_ssn[1],
+          undefined_5: mfj_spouse_ssn[2],
+          Text9: mfj_spouse_ssn[3],
+          Text10: mfj_spouse_ssn[4],
+          Text11: mfj_spouse_ssn[5],
+          Text12: mfj_spouse_ssn[6],
+          Text13: mfj_spouse_ssn[7],
+          Text14: mfj_spouse_ssn[8],
+        })
+      end
+      if mfs_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingSeparate'
+        answers.merge!({
+          undefined_7: mfs_spouse_ssn[0],
+          undefined_8: mfs_spouse_ssn[1],
+          'Enter spousesCU partners SSN': mfs_spouse_ssn[2],
+          Text31: mfs_spouse_ssn[3],
+          Text32: mfs_spouse_ssn[4],
+          Text33: mfs_spouse_ssn[5],
+          Text34: mfs_spouse_ssn[6],
+          Text35: mfs_spouse_ssn[7],
+          Text36: mfs_spouse_ssn[8],
+        })
+      end
       answers
     end
 
@@ -168,10 +200,6 @@ module PdfFiller
 
     def format_no_last_name(first_name, middle_initial, suffix)
       [first_name, middle_initial, suffix].compact.join(" ")
-    end
-
-    def get_spouse_ssn
-      @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerSSN")&.text
     end
 
     def dependent_pdf_keys
@@ -259,6 +287,34 @@ module PdfFiller
       ]
     end
 
+    def get_mfj_spouse_ssn
+      @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerSSN")&.text
+    end
 
+    def get_mfs_spouse_ssn
+      @xml_document.at("MarriedCuPartFilingSeparate SpouseSSN")&.text
+    end
+
+    FILING_STATUS_OPTIONS = {
+      "Single" => "Choice1",
+      "MarriedCuPartFilingJoint" => "Choice2",
+      "MarriedCuPartFilingSeparate" => "Choice3",
+      "HeadOfHousehold" => "Choice4",
+      "QualWidOrWider" => "Choice5"
+    }.freeze
+
+    def xml_filing_status
+      @xml_document.at("FilingStatus")&.children&.first&.name
+    end
+
+    def filing_status
+      FILING_STATUS_OPTIONS[xml_filing_status]
+    end
+
+    def spouse_death_year
+      return nil if xml_filing_status != "QualWidOrWider"
+      return "1" if @xml_document.at("QualWidOrWider LastYear")&.text == 'X'
+      return "0" if @xml_document.at("QualWidOrWider TwoYearPrior")&.text == 'X'
+    end
   end
 end

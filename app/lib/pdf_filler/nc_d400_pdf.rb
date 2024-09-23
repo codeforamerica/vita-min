@@ -55,7 +55,8 @@ module PdfFiller
         y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse')&.text,
         y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid')&.text,
         y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text,
-        y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5)
+        y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
+        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
       }
     end
 
