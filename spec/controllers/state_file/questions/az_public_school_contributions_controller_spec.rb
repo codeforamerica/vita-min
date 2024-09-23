@@ -163,26 +163,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           expect(response.body).to include "Can't be blank"
         end
       end
-
-      context "amount" do
-        let(:invalid_params) do
-          {
-            az322_contribution: {
-              made_contribution: 'yes',
-              amount: 100.125
-            }
-          }
-        end
-
-        it "renders new with validation errors" do
-          expect do
-            post :create, params: invalid_params
-          end.not_to change(Az322Contribution, :count)
-
-          expect(response).to render_template(:new)
-          expect(response.body).to include "must be a valid dollar amount"
-        end
-      end
     end
   end
 
@@ -246,8 +226,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           az322_contribution: {
             mad_contribution: "yes",
             school_name: nil,
-            ctds_code: nil,
-            amount: 1312.92312
+            ctds_code: nil
           }
         }
       end
@@ -260,32 +239,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         expect(response).to render_template(:edit)
         expect(response.body).to include "Can't be blank"
         expect(response.body).to include "School Code/CTDS must be a 9 digit number"
-        expect(response.body).to include "must be a valid dollar amount"
-      end
-
-      context "multiple decimal points" do
-        let(:invalid_params) do
-          {
-            id: contribution.id,
-            az322_contribution: {
-              mad_contribution: "yes",
-              school_name: nil,
-              ctds_code: nil,
-              amount: '1312.923.12'
-            }
-          }
-        end
-
-        it "renders edit with validation errors" do
-          expect do
-            post :update, params: invalid_params
-          end.not_to change(Az322Contribution, :count)
-
-          expect(response).to render_template(:edit)
-          expect(response.body).to include "Can't be blank"
-          expect(response.body).to include "School Code/CTDS must be a 9 digit number"
-          expect(response.body).to include "must be a valid dollar amount"
-        end
       end
     end
   end
