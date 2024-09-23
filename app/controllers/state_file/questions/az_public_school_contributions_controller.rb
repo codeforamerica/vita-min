@@ -65,11 +65,6 @@ module StateFile
 
       private
 
-      def has_valid_money_format?
-        amount = az322_contribution_params[:amount]
-        amount.to_s.match?(/^(\d+)?\.?\d{0,2}$/)
-      end
-
       def az322_contribution_params
         params.require(:az322_contribution).permit(
           :made_contribution,
