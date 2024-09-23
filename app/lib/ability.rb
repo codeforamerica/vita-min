@@ -135,12 +135,8 @@ class Ability
       can :manage, :state_file_admin_tool
       can :manage, StateFile::AutomatedMessage
 
-      nj_submission_ids = EfileSubmission.where(data_source_type: "StateFileNjIntake").pluck(:id)
-      nj_transition_error_ids = EfileSubmissionTransitionError.includes(:efile_submission_transition).where(
-        efile_submission_transitions: { efile_submission_id: nj_submission_ids }).pluck(:id)
-      nj_efile_error_ids = EfileSubmissionTransitionError.where(id: nj_transition_error_ids).pluck(:efile_error_id).uniq
-      can :manage, EfileSubmissionTransitionError, id: nj_transition_error_ids
-      can :manage, EfileError, service_type: :state_file, id: nj_efile_error_ids
+      # TODO: Implement this when state-specific service types are implemented on EfileErrors after FYST-825
+      can :manage, EfileError, service_type: :state_file_nj
       can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
     end
 
