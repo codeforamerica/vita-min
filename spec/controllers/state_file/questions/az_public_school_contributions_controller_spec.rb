@@ -44,7 +44,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           amount: 100,
           date_of_contribution_month: '8',
           date_of_contribution_day: "12",
-          date_of_contribution_year: Rails.configuration.state_file_start_of_open_intake.year
+          date_of_contribution_year: Rails.configuration.statefile_current_tax_year
         }
       }
     end
@@ -88,7 +88,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
             amount: amount,
             date_of_contribution_month: '8',
             date_of_contribution_day: "12",
-            date_of_contribution_year: Rails.configuration.state_file_start_of_open_intake.year
+            date_of_contribution_year: Rails.configuration.statefile_current_tax_year
           }
         }
       end
@@ -109,22 +109,21 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         end
       end
 
-      # TODO
-      # context "1." do
-      #   let(:amount) { '1.' }
-      #
-      #   it "creates a new contribution linked to the current intake and redirects to the index" do
-      #     expect do
-      #       post :create, params: invalid_params
-      #     end.to change(Az322Contribution, :count).by 1
-      #
-      #     expect(response).to redirect_to(action: :index)
-      #
-      #     contribution = Az322Contribution.last
-      #     expect(contribution.state_file_az_intake).to eq intake
-      #     expect(contribution.amount).to eq 1
-      #   end
-      # end
+      context "1." do
+        let(:amount) { '1.' }
+
+        it "creates a new contribution linked to the current intake and redirects to the index" do
+          expect do
+            post :create, params: invalid_params
+          end.to change(Az322Contribution, :count).by 1
+
+          expect(response).to redirect_to(action: :index)
+
+          contribution = Az322Contribution.last
+          expect(contribution.state_file_az_intake).to eq intake
+          expect(contribution.amount).to eq 1
+        end
+      end
 
       context ".02" do
         let(:amount) { '.02' }
