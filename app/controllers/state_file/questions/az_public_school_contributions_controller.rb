@@ -26,11 +26,10 @@ module StateFile
           return redirect_to next_path
         end
 
-        if @az322_contribution.valid? && has_valid_money_format?
+        if @az322_contribution.valid?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
-          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_money_format?
           render :new
         end
       end
@@ -48,11 +47,10 @@ module StateFile
           return redirect_to action: :index, return_to_review: params[:return_to_review]
         end
 
-        if @az322_contribution.valid? && has_valid_money_format?
+        if @az322_contribution.valid?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
-          @az322_contribution.errors.add(:amount, 'must be a valid dollar amount') unless has_valid_money_format?
           render :edit
         end
       end

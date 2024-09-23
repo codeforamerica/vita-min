@@ -123,6 +123,12 @@ describe 'Az322Contribution' do
         az.valid?
         expect(az.errors[:amount]).to be_empty
       end
+
+      it "should invalidate amount with more than 2 decimals" do
+        az.amount = '1.123'
+        az.valid?
+        expect(az.errors[:amount]).to eq(['must be a valid dollar amount'])
+      end
     end
 
     describe '#date_of_contribution' do
