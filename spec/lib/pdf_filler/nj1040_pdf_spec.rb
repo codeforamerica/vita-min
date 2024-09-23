@@ -215,10 +215,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace"
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace"
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace"
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace"
+            expected_name = "Hopper Grace"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -232,10 +233,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName MI' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace B"
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace B"
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace B"
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace B"
+            expected_name = "Hopper Grace B"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -249,10 +251,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName Suf' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace JR"
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace JR"
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace JR"
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace JR"
+            expected_name = "Hopper Grace JR"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -267,10 +270,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName MI Suf' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace B JR"
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Hopper Grace B JR"
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Hopper Grace B JR"
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Hopper Grace B JR"
+            expected_name = "Hopper Grace B JR"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
       end
@@ -289,10 +293,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName & FirstName' do
-            expect(pdf_fields[name_field]).to eq "Muppet Bert S & Ernie"
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Muppet Bert S & Ernie"
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Muppet Bert S & Ernie"
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Muppet Bert S & Ernie"
+            expected_name = "Muppet Bert S & Ernie"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -310,10 +315,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
 
           it 'fills pdf with LastName FirstName & LastName FirstName' do
-            expect(pdf_fields[name_field]).to eq "Lively Blake E & Reynolds Ryan"
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Lively Blake E & Reynolds Ryan"
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq "Lively Blake E & Reynolds Ryan"
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq "Lively Blake E & Reynolds Ryan"
+            expected_name = "Lively Blake E & Reynolds Ryan"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
       end
