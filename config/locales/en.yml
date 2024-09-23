@@ -2515,7 +2515,7 @@ en:
           title_html:
             one: Are you an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
             other: Are you or your spouse an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
-          tribal_wages_field_html: <b>Enter amount earned</b>
+          tribal_wages_field_html: "<b>Enter amount earned</b>"
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> <b>Note:</b> this should not exceed $%{amount_limit}
       nc_veteran_status:
         primary_veteran_question: Are you a veteran?
