@@ -68,6 +68,7 @@ describe 'EfileError' do
       "nj-county",
       "nj-municipality",
       "nj-review",
+      "nc-subtractions",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
       "ny-eligibility-out-of-state-income",
