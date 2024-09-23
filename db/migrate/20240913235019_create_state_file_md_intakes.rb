@@ -14,7 +14,7 @@ class CreateStateFileMdIntakes < ActiveRecord::Migration[7.1]
       t.string :federal_submission_id
       t.jsonb :message_tracker, default: {}
       t.text :unfinished_intake_ids, default: [], array: true
-      t.integer :withdraw_amount
+      t.decimal :withdraw_amount, precision: 12, scale: 2
 
       # Personal info
       t.string :primary_first_name
@@ -43,11 +43,6 @@ class CreateStateFileMdIntakes < ActiveRecord::Migration[7.1]
       t.string :referrer
       t.string :locale, default: 'en'
       t.string :visitor_id
-
-      # Tax info
-      t.integer :claimed_as_dep
-      t.integer :fed_wages
-      t.integer :fed_taxable_income
 
       # Contact info
       t.citext :email_address

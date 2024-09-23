@@ -1773,7 +1773,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_13_235019) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.string "city"
-    t.integer "claimed_as_dep"
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1788,8 +1787,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_13_235019) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
-    t.integer "fed_taxable_income"
-    t.integer "fed_wages"
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.string "hashed_ssn"
@@ -1832,7 +1829,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_13_235019) do
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
-    t.integer "withdraw_amount"
+    t.decimal "withdraw_amount", precision: 12, scale: 2
     t.string "zip_code"
     t.index ["email_address"], name: "index_state_file_md_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_md_intakes_on_hashed_ssn"

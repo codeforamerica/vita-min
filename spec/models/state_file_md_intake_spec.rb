@@ -7,7 +7,6 @@
 #  account_type                      :integer          default("unfilled"), not null
 #  bank_name                         :string
 #  city                              :string
-#  claimed_as_dep                    :integer
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
 #  current_sign_in_at                :datetime
@@ -21,8 +20,6 @@
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
-#  fed_taxable_income                :integer
-#  fed_wages                         :integer
 #  federal_return_status             :string
 #  hashed_ssn                        :string
 #  last_sign_in_at                   :datetime
@@ -60,7 +57,7 @@
 #  tax_return_year                   :integer
 #  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
-#  withdraw_amount                   :integer
+#  withdraw_amount                   :decimal(12, 2)
 #  zip_code                          :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
