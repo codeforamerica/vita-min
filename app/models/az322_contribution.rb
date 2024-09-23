@@ -35,9 +35,4 @@ class Az322Contribution < ApplicationRecord
               in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year
             },
             presence: true
-
-  # Custom validation for handling values before they are coerced into decimal(12, 2) type
-  def amount=(value)
-    write_attribute :amount, value&.to_s&.chomp('.') # Remove trailing decimal. Ex: '10.'
-  end
 end
