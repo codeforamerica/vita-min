@@ -10,11 +10,18 @@ module StateFile
 
     def save
       attributes_to_save = attributes_for(:intake)
-      attributes_to_save[:tribal_wages] = nil if tribal_member == "no"
-      attributes_to_save[:armed_forces_wages] = nil if armed_forces_member == "no"
 
-      attributes_to_save[:tribal_wages_amount] = tribal_wages
-      attributes_to_save[:armed_forces_wages_amount] = armed_forces_wages
+      if tribal_member == "no"
+        attributes_to_save[:tribal_wages] = nil
+      else
+        attributes_to_save[:tribal_wages_amount] = tribal_wages
+      end
+
+      if armed_forces_member == "no"
+        attributes_to_save[:armed_forces_wages] = nil
+      else
+        attributes_to_save[:armed_forces_wages_amount] = armed_forces_wages
+      end
 
       @intake.update(attributes_to_save)
     end

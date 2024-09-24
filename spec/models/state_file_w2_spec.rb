@@ -153,4 +153,44 @@ describe StateFileW2 do
       expect(xml.at("StateAbbreviationCd")).to be_nil
     end
   end
+
+  describe "#sync_amount_columns" do
+    let(:w2) { build(:state_file_w2, state_file_intake: create(:state_file_ny_intake)) }
+
+    it "syncs valid amounts for money" do
+      w2.state_wages_amt = 10000
+      w2.state_income_tax_amt = 1000
+      w2.local_wages_and_tips_amt = 9000
+      w2.local_income_tax_amt = 500
+      w2.save
+      expect(w2.state_wages_amount).to eq 10000
+      expect(w2.state_income_tax_amount).to eq 1000
+      expect(w2.local_wages_and_tips_amount).to eq 9000
+      expect(w2.local_income_tax_amount).to eq 500
+    end
+
+    it "syncs nil values" do
+      w2.state_wages_amt = nil
+      w2.state_income_tax_amt = nil
+      w2.local_wages_and_tips_amt = nil
+      w2.local_income_tax_amt = nil
+      w2.save
+      expect(w2.state_wages_amount).to be_nil
+      expect(w2.state_income_tax_amount).to be_nil
+      expect(w2.local_wages_and_tips_amount).to be_nil
+      expect(w2.local_income_tax_amount).to be_nil
+    end
+
+    it "doesn't sync invalid values" do
+      w2.state_wages_amt = "invalid"
+      w2.state_income_tax_amt = -1000
+      w2.local_wages_and_tips_amt = 9000.50
+      w2.local_income_tax_amt = "500"
+      w2.save
+      expect(w2.state_wages_amount).to be_nil
+      expect(w2.state_income_tax_amount).to be_nil
+      expect(w2.local_wages_and_tips_amount).to be_nil
+      expect(w2.local_income_tax_amount).to be_nil
+    end
+  end
 end

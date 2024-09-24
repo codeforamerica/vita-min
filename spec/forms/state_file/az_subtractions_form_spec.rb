@@ -111,8 +111,10 @@ RSpec.describe StateFile::AzSubtractionsForm do
       form.save
       expect(intake.reload.tribal_member_yes?).to be true
       expect(intake.reload.tribal_wages).to eq 10
+      expect(intake.reload.tribal_wages_amount).to eq 10
       expect(intake.reload.armed_forces_member_yes?).to be true
       expect(intake.reload.armed_forces_wages).to eq 20
+      expect(intake.reload.armed_forces_wages_amount).to eq 20
     end
   end
 
@@ -133,8 +135,10 @@ RSpec.describe StateFile::AzSubtractionsForm do
       form.save
       expect(intake.reload.tribal_member_no?).to be true
       expect(intake.reload.tribal_wages).to be_nil
+      expect(intake.reload.tribal_wages_amount).to be_nil
       expect(intake.reload.armed_forces_member_no?).to be true
       expect(intake.reload.armed_forces_wages).to be_nil
+      expect(intake.reload.armed_forces_wages_amount).to be_nil
     end
   end
 
@@ -155,8 +159,10 @@ RSpec.describe StateFile::AzSubtractionsForm do
       form.save
       expect(intake.reload.tribal_member_no?).to be true
       expect(intake.reload.tribal_wages).to be_nil
+      expect(intake.reload.tribal_wages_amount).to be_nil
       expect(intake.reload.armed_forces_member_no?).to be true
       expect(intake.reload.armed_forces_wages).to be_nil
+      expect(intake.reload.armed_forces_wages_amount).to be_nil
     end
   end
 end
