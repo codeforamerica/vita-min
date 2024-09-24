@@ -153,7 +153,7 @@ RSpec.describe StateFile::AzSubtractionsForm do
       }
     end
 
-    it "proceeds with nil prior last names" do
+    it "proceeds with nil wages and sets memberships to no" do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       form.save
