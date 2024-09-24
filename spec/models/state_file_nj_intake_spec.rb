@@ -25,6 +25,7 @@
 #  fed_wages                         :integer
 #  federal_return_status             :string
 #  hashed_ssn                        :string
+#  household_rent_own                :integer          default("unfilled"), not null
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")
