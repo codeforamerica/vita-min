@@ -122,4 +122,81 @@ describe Efile::Nj::Nj1040 do
       end
     end
   end
+
+  describe 'line 40a - total property taxes paid' do
+    context 'when homeowner' do
+      context 'when married filing separately' do
+        let(:intake) { 
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'own',
+            property_tax_paid: 12345
+          )
+        }
+
+        it 'sets line 40a to property_tax_paid divided by 2, rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(6173)
+        end
+      end
+
+      context 'when filing status is not MFS' do
+        let(:intake) { 
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'own',
+            property_tax_paid: 12345
+          )
+        }
+
+        it 'sets line 40a to property_tax_paid' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
+        end
+      end
+    end
+
+    context 'when renter' do
+      context 'when married filing separately' do
+        let(:intake) { 
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'rent',
+            rent_paid: 12345
+          )
+        }
+
+        it 'sets line 40a to 0.18 * rent_paid, then divided by 2, then rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(1111)
+        end
+      end
+
+      context 'when filing status is not MFS' do
+        let(:intake) { 
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'rent',
+            rent_paid: 54321
+          )
+        }
+
+        it 'sets line 40a to 0.18 * rent_paid, rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(9778)
+        end
+      end
+    end
+
+    context 'when neither homeowner nor renter' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          household_rent_own: 'neither',
+        )
+      }
+
+      it 'sets line 40a to nil' do
+        expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+      end
+    end
+  end
 end
