@@ -41,6 +41,7 @@ module Hub
         return nil if acts_like_production?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
+        authorize! :read, submission
         builder = ::StateFile::StateInformationService.submission_builder_class(submission.data_source.state_code)
         builder_response = builder.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
@@ -49,13 +50,17 @@ module Hub
       def show_df_xml
         return nil if acts_like_production?
 
-        response = EfileSubmission.find(params[:efile_submission_id]).data_source.raw_direct_file_data
+        submission = EfileSubmission.find(params[:efile_submission_id])
+        authorize! :read, submission
+        response = submission.data_source.raw_direct_file_data
         render(xml: response)
       end
 
       def show_pdf
         submission = EfileSubmission.find(params[:efile_submission_id])
         error_redirect and return unless submission.present?
+
+        authorize! :read, submission
 
         send_data submission.generate_filing_pdf.read, filename: "#{params[:efile_submission_id]}_submission.pdf", disposition: 'inline'
       end
