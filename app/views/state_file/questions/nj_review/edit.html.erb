@@ -26,5 +26,25 @@
     </div>
   </div>
 
+  <% if current_intake.household_rent_own == 'own' %>
+    <div id="property_tax_paid" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".property_tax_paid") %></p>
+        <p><%= number_to_currency(current_intake.property_tax_paid) %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_intake.household_rent_own == 'rent' %>
+    <div id="rent_paid" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".rent_paid") %></p>
+        <p><%= number_to_currency(current_intake.rent_paid) %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::NjRenterRentPaidController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

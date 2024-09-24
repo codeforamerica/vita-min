@@ -597,15 +597,34 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
-    describe "residency status" do
+    describe "lines 40a and 40b" do
       context "when taxpayer is a renter" do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            household_rent_own: 'rent')
+            household_rent_own: 'rent',
+            rent_paid: 75381
+          )
         }
         it "checks the Choice2 box" do
           expect(pdf_fields["Group182"]).to eq "Choice2"
+        end
+
+        it "inserts rent-converted property tax $13,568.58 rounded on line 40a" do
+          # millions
+          expect(pdf_fields["39"]).to eq ""
+          expect(pdf_fields["280"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_112"]).to eq ""
+          expect(pdf_fields["281"]).to eq "1"
+          expect(pdf_fields["282"]).to eq "3"
+          # hundreds
+          expect(pdf_fields["undefined_113"]).to eq "5"
+          expect(pdf_fields["283"]).to eq "6"
+          expect(pdf_fields["37"]).to eq "9"
+          # decimals
+          expect(pdf_fields["245"]).to eq "0"
+          expect(pdf_fields["24539a#2"]).to eq "0"
         end
       end
 
@@ -613,10 +632,29 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            household_rent_own: 'own')
+            household_rent_own: 'own',
+            property_tax_paid: 12345678
+          )
         }
         it "checks the Choice1 box" do
           expect(pdf_fields["Group182"]).to eq "Choice1"
+        end
+
+        it "inserts property tax $12,345,678 on line 40a" do
+          # millions
+          expect(pdf_fields["39"]).to eq "1"
+          expect(pdf_fields["280"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_112"]).to eq "3"
+          expect(pdf_fields["281"]).to eq "4"
+          expect(pdf_fields["282"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["undefined_113"]).to eq "6"
+          expect(pdf_fields["283"]).to eq "7"
+          expect(pdf_fields["37"]).to eq "8"
+          # decimals
+          expect(pdf_fields["245"]).to eq "0"
+          expect(pdf_fields["24539a#2"]).to eq "0"
         end
       end
 
@@ -628,6 +666,19 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
         it "does not check a box" do
           expect(pdf_fields["Group182"]).to eq "Off"
+        end
+
+        it "does not insert property tax calculation on line 40a" do
+          expect(pdf_fields["39"]).to eq ""
+          expect(pdf_fields["280"]).to eq ""
+          expect(pdf_fields["undefined_112"]).to eq ""
+          expect(pdf_fields["281"]).to eq ""
+          expect(pdf_fields["282"]).to eq ""
+          expect(pdf_fields["undefined_113"]).to eq ""
+          expect(pdf_fields["283"]).to eq ""
+          expect(pdf_fields["37"]).to eq ""
+          expect(pdf_fields["245"]).to eq ""
+          expect(pdf_fields["24539a#2"]).to eq ""
         end
       end
     end

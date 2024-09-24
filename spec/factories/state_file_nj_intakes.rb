@@ -49,9 +49,11 @@
 #  primary_signature                 :string
 #  primary_ssn                       :string
 #  primary_suffix                    :string
+#  property_tax_paid                 :integer
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  rent_paid                         :integer
 #  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
