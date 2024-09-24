@@ -9,21 +9,21 @@ module StateFile
     validate :below_1040_amount, if: -> { tribal_wages.present? || armed_forces_wages.present? }
 
     def save
-      attributes_to_save = attributes_for(:intake)
-
       if tribal_member == "no"
-        attributes_to_save[:tribal_wages] = nil
+        @intake.update(tribal_member: "no", tribal_wages: nil, tribal_wages_amount: nil)
       else
-        attributes_to_save[:tribal_wages_amount] = tribal_wages
+        @intake.update(attributes_for(:intake))
+        additional_attributes = { tribal_wages_amount: tribal_wages }
+        @intake.update(attributes_for(:intake).merge(additional_attributes))
       end
 
       if armed_forces_member == "no"
-        attributes_to_save[:armed_forces_wages] = nil
+        @intake.update(armed_forces_member: "no", armed_forces_wages: nil, armed_forces_wages_amount: nil)
       else
-        attributes_to_save[:armed_forces_wages_amount] = armed_forces_wages
+        @intake.update(attributes_for(:intake))
+        additional_attributes = { armed_forces_wages_amount: armed_forces_wages }
+        @intake.update(attributes_for(:intake).merge(additional_attributes))
       end
-
-      @intake.update(attributes_to_save)
     end
 
     private

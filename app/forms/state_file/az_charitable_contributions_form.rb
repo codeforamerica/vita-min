@@ -11,7 +11,7 @@ module StateFile
 
     def save
       if charitable_contributions == "no"
-        @intake.update(charitable_contributions: "no", charitable_cash: nil, charitable_noncash: nil)
+        @intake.update(charitable_contributions: "no", charitable_cash: nil, charitable_noncash: nil, charitable_cash_amount: nil, charitable_noncash_amount: nil)
       else
         @intake.update(attributes_for(:intake))
         additional_attributes = { charitable_cash_amount: charitable_cash, charitable_noncash_amount: charitable_noncash }
