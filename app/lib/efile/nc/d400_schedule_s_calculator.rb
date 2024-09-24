@@ -21,7 +21,7 @@ module Efile
       end
 
       def calculate_line_41
-        (17..22).sum { |line_num| line_or_zero("NCD400_S_LINE_#{line_num}") } + (25..40).sum { |line_num| line_or_zero("NCD400_S_LINE_#{line_num}") }
+        (17..22).sum { |line_num| line_or_zero("NCD400_S_LINE_#{line_num}") } + line_or_zero("NCD400_S_LINE_23F") + line_or_zero("NCD400_S_LINE_24F") + (25..40).sum { |line_num| line_or_zero("NCD400_S_LINE_#{line_num}") }
       end
     end
   end

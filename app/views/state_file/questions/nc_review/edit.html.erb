@@ -37,7 +37,7 @@
   <div id="state-credits" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".state_credit") %></p>
-      <p><%=current_intake.tribal_member_yes? ? number_to_currency(current_intake.tribal_wages_amount): t("general.negative") %></p>
+      <p><%=current_intake.tribal_member_yes? ? number_to_currency(current_intake.tribal_wages_amount, precision: 2): t("general.negative") %></p>
       <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>

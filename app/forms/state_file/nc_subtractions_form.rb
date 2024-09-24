@@ -4,7 +4,7 @@ module StateFile
 
     validates :tribal_member, inclusion: { in: %w[yes no], message: :blank }
     validates :tribal_wages_amount, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: 1 }, if: -> { tribal_member == "yes" }
-    validate :below_1040_amount, if: -> { tribal_wages_amount.present? }
+    validate :below_fed_wages_salaries_tips, if: -> { tribal_wages_amount.present? }
 
     def save
       if tribal_member == "no"
@@ -16,7 +16,7 @@ module StateFile
 
     private
 
-    def below_1040_amount
+    def below_fed_wages_salaries_tips
       amount_limit = @intake.direct_file_data.fed_wages_salaries_tips
       if self.tribal_wages_amount.to_d > amount_limit
         errors.add(:tribal_wages_amount, I18n.t("forms.errors.state_credit.exceeds_limit", limit: amount_limit))
