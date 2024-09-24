@@ -230,22 +230,30 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
-    describe "household rent own status" do
+    describe "property tax - lines 40a and 40b" do
       context "when taxpayer is a renter" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'rent',) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'rent', rent_paid: 54321) }
 
         it "adds a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant").text).to eq("X")
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
         end
+
+        it 'inserts property tax rent calculation on line 40a' do
+          expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid").text).to eq("9778")
+        end
       end
 
       context "when taxpayer is a homeowner" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'own',) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'own', property_tax_paid: 12345) }
 
         it "adds a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner").text).to eq("X")
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
+        end
+
+        it 'inserts property tax calculation on line 40a' do
+          expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid").text).to eq("12345")
         end
       end
 
@@ -255,6 +263,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "does not add a checked tenant or homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+        end
+
+        it 'does not add property tax on line 40a' do
+          expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")).to eq(nil)
         end
       end
     end

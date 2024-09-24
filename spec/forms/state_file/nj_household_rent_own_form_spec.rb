@@ -24,11 +24,11 @@ RSpec.describe StateFile::NjHouseholdRentOwnForm do
 
   describe ".save" do
     let(:intake) {
-      create :state_file_nj_intake, household_rent_own: "own"
+      create :state_file_nj_intake, household_rent_own: "own", property_tax_paid: 123
     }
     let(:form) { described_class.new(intake, valid_params) }
 
-    context "when saving household rent own status" do
+    context "when saving a new selection" do
       let(:valid_params) do
         { household_rent_own: "rent" }
       end
@@ -36,8 +36,25 @@ RSpec.describe StateFile::NjHouseholdRentOwnForm do
       it "saves attributes" do
         expect(form.valid?).to eq true
         form.save
-
         expect(intake.household_rent_own).to eq "rent"
+      end
+
+      it "resets rent_paid and property_tax_paid" do
+        form.save
+        expect(intake.rent_paid).to eq nil
+        expect(intake.property_tax_paid).to eq nil
+      end
+    end
+
+    context "when saving the same selection" do
+      let(:valid_params) do
+        { household_rent_own: "own" }
+      end
+
+      it "does not reset rent_paid and property_tax_paid" do
+        form.save
+        expect(intake.rent_paid).to eq nil
+        expect(intake.property_tax_paid).to eq 123
       end
     end
   end

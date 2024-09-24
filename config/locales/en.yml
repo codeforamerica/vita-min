@@ -237,7 +237,7 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
-      round_to_whole_number: round to the nearest whole number
+      round_to_whole_number: Round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
@@ -2517,6 +2517,12 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_homeowner_property_tax:
+        edit:
+          helper_description: TODO FILL THIS OUT
+          helper_heading: Where do I find how much property taxes I paid?
+          label: Property taxes paid in %{filing_year}
+          title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
       nj_household_rent_own:
         edit:
           helper_description: If you own a mobile home that is located in a mobile home park, you are considered a tenant.
@@ -2530,11 +2536,18 @@ en:
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
+      nj_renter_rent_paid:
+        edit:
+          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
+          label: Rent paid in %{filing_year}
+          title: Enter your rent paid in %{filing_year}.
       nj_review:
         edit:
           county: County
           household_rent_own: Rent or own home
           municipality: Municipality
+          property_tax_paid: Property taxes paid
+          rent_paid: Rent paid
       ny_county:
         edit:
           county: County

@@ -66,4 +66,76 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
     end
   end
 
+  describe "#next_path" do
+    context 'when not return_to_review' do
+      context "when intake is own" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
+
+        it "next path is property_tax page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper)
+        end
+      end
+
+      context "when intake is rent" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
+
+        it "next path is rent_paid page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjRenterRentPaidController.to_path_helper)
+        end
+      end
+
+      context "when intake is neither" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
+
+        it "navigates to next controller in flow" do
+          controllers = Navigation::StateFileNjQuestionNavigation::FLOW
+          next_controller_to_show = nil
+          increment = 1
+          while next_controller_to_show.nil?
+            next_controller = controllers[controllers.index(described_class) + increment]
+            next_controller_to_show = next_controller.show?(intake) ? next_controller : nil
+            increment += 1
+          end
+
+          expect(subject.next_path).to include(next_controller.controller_name)
+        end
+      end
+    end
+
+    context 'when return_to_review' do
+      context "when intake is own" do
+        let(:form_params) do
+          { state_file_nj_household_rent_own_form: { household_rent_own: "own" } }
+        end
+
+        it "navigates to the property_tax page with the param" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(controller: "nj_homeowner_property_tax", action: :edit, return_to_review: 'y')
+        end
+      end
+
+      context "when intake is rent" do
+        let(:form_params) do
+          { state_file_nj_household_rent_own_form: { household_rent_own: "rent" } }
+        end
+
+        it "navigates to the rent_paid page with the param" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(controller: "nj_renter_rent_paid", action: :edit, return_to_review: 'y')
+        end
+      end
+
+      context "when intake is neither" do
+        let(:form_params) do
+          { state_file_nj_household_rent_own_form: { household_rent_own: "neither" } }
+        end
+
+        it "navigates back to review" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(controller: "nj_review", action: :edit)
+        end
+      end
+    end
+  end
+
 end

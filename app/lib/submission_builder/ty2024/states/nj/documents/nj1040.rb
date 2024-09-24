@@ -95,12 +95,14 @@ module SubmissionBuilder
                     xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
                   end
 
-                  if intake.household_rent_own_rent?
-                    xml.PropertyTaxDeductOrCredit do
-                      xml.Tenant "X"
+                  xml.PropertyTaxDeductOrCredit do
+                    if calculated_fields.fetch(:NJ1040_LINE_40A)
+                      xml.TotalPropertyTaxPaid calculated_fields.fetch(:NJ1040_LINE_40A)
                     end
-                  elsif intake.household_rent_own_own?
-                    xml.PropertyTaxDeductOrCredit do
+
+                    if intake.household_rent_own_rent?
+                      xml.Tenant "X"
+                    elsif intake.household_rent_own_own?
                       xml.Homeowner "X"
                     end
                   end
