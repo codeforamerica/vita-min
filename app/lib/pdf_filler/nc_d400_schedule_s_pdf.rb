@@ -22,15 +22,5 @@ module PdfFiller
         y_d400schswf_li41_good:  @xml_document.at('DedFedAGI TotDedFromFAGI')&.text,
       }
     end
-
-    def checkbox_value(condition)
-      condition ? 'Yes' : 'Off'
-    end
-
-    def formatted_date(date_str, format)
-      return if date_str.nil?
-
-      Date.parse(date_str)&.strftime(format)
-    end
   end
 end

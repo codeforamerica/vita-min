@@ -59,7 +59,8 @@ module PdfFiller
         'x  1000_2': get_line_7_exemption_count * 1000,
         
         Group1: filing_status,
-        Group1qualwi5ab: spouse_death_year
+        Group1qualwi5ab: spouse_death_year,
+        Group182: household_rent_own
       }
 
       dependents = get_dependents
@@ -315,6 +316,12 @@ module PdfFiller
       return nil if xml_filing_status != "QualWidOrWider"
       return "1" if @xml_document.at("QualWidOrWider LastYear")&.text == 'X'
       return "0" if @xml_document.at("QualWidOrWider TwoYearPrior")&.text == 'X'
+    end
+
+    def household_rent_own
+      return "Choice1" if @xml_document.at("PropertyTaxDeductOrCredit Homeowner")&.text == 'X'
+      return "Choice2" if @xml_document.at("PropertyTaxDeductOrCredit Tenant")&.text == 'X'
+      "Off"
     end
   end
 end
