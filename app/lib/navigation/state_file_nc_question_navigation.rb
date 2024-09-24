@@ -4,10 +4,9 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        # These are to be implemented in FYST-311
-        # Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityResidenceController),
-        # Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityOutOfStateIncomeController),
-        # Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityResidenceController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityOutOfStateIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [

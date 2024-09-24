@@ -9,6 +9,7 @@ module StateFile
                        :filing_status,
                        :primary_ssn,
                        :primary_occupation,
+                       :phone_number,
                        :spouse_ssn,
                        :spouse_occupation,
                        :mailing_city,
