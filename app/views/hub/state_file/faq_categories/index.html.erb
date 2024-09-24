@@ -3,35 +3,28 @@
 <% content_for :card do %>
   <div class="slab slab--not-padded spacing-above-25">
     <%= render 'hub/faq_categories/header', titles: [@title]%>
-    <a href="#az-cats" class="button spacing-below-0">Jump to AZ ↓</a>
-    <a href="#ny-cats" class="button spacing-below-0">Jump to NY ↓</a>
-    <a href="#nc-cats" class="button spacing-below-0">Jump to NC ↓</a>
-    <hr/>
-    <h2 id="az-cats">Arizona</h2>
-    <%= link_to "Add new AZ FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_az"), method: :get, class: "button spacing-below-35" %>
-    <% @az_faq_categories.each do |category| %>
-      <%= render 'faq_categories_and_items', category: category %>
-    <% end %>
-    <% if !@az_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
-      <p>No Arizona FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
+    <% ::StateFile::StateInformationService.active_state_codes.each do |state_code| %>
+      <% if current_ability.can?(:read, FaqCategory.new(product_type: "state_file_#{state_code}")) %>
+        <%= link_to "##{state_code}-cats", class: "button spacing-below-0" do %>
+          <%= "Jump to #{::StateFile::StateInformationService.state_name(state_code)} ↓" %>
+        <% end %>
+      <% end %>
     <% end %>
     <hr/>
-    <h2 id="ny-cats">New York</h2>
-    <%= link_to "Add new NY FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_ny"), method: :get, class: "button spacing-below-35" %>
-    <% @ny_faq_categories.each do |category| %>
-      <%= render 'faq_categories_and_items', category: category %>
-    <% end %>
-    <% if !@ny_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
-      <p>No New York FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
-    <% end %>
-    <hr/>
-    <h2 id="nc-cats">North Carolina</h2>
-    <%= link_to "Add new NC FAQ Category", new_hub_state_file_faq_category_path(product_type: "state_file_nc"), method: :get, class: "button spacing-below-35" %>
-    <% @nc_faq_categories.each do |category| %>
-      <%= render 'faq_categories_and_items', category: category %>
-    <% end %>
-    <% if !@nc_faq_categories.present? && current_user.admin? && current_user.role.engineer? %>
-      <p>No North Carolina FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
+    <% ::StateFile::StateInformationService.active_state_codes.each do |state_code| %>
+      <% if current_ability.can?(:read, FaqCategory.new(product_type: "state_file_#{state_code}")) %>
+        <h2 id="<%= state_code %>-cats"><%= ::StateFile::StateInformationService.state_name(state_code) %></h2>
+        <%= link_to "Add new #{state_code.capitalize} FAQ Category",
+                    new_hub_state_file_faq_category_path(product_type: "state_file_#{state_code}"),
+                    method: :get, class: "button spacing-below-35" %>
+        <% @state_faq_categories[state_code].each do |category| %>
+          <%= render 'faq_categories_and_items', category: category %>
+        <% end %>
+        <% if !@state_faq_categories.include? state_code && current_ability.can?(:create, FaqCategory.new(product_type: "state_file_#{state_code}")) %>
+          <p>No <%= ::StateFile::StateInformationService.state_name(state_code) %> FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
+        <% end %>
+        <hr/>
+      <% end %>
     <% end %>
   </div>
 <% end %>

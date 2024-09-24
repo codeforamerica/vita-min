@@ -1,6 +1,5 @@
 module Hub
   class FaqCategoriesController < Hub::BaseController
-    before_action :require_admin
     before_action :set_paper_trail_whodunnit
     before_action :load_faq_return_path
     load_and_authorize_resource
