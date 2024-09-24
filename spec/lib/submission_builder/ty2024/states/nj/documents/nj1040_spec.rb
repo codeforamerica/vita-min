@@ -236,9 +236,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
         it "adds a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant").text).to eq("X")
-        end
-
-        it "does not add a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
         end
       end
@@ -248,9 +245,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
         it "adds a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner").text).to eq("X")
-        end
-
-        it "does not add a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
         end
       end
@@ -258,11 +252,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context "when taxpayer is a neither a homeowner nor a renter" do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'neither',) }
 
-        it "does not add a checked tenant element to property tax deduct or credit" do
+        it "does not add a checked tenant or homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
-        end
-        
-        it "does not add a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
         end
       end
