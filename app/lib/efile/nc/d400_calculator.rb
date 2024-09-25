@@ -21,7 +21,6 @@ module Efile
         set_line(:NCD400_LINE_12A, :calculate_line_12a)
         set_line(:NCD400_LINE_12B, :calculate_line_12b)
         set_line(:NCD400_LINE_15, :calculate_line_15)
->>>>>>> main
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
         set_line(:NCD400_LINE_23, :calculate_line_23)
