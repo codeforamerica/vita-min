@@ -35,6 +35,7 @@
 #  primary_first_name                :string
 #  primary_last_name                 :string
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
 #  sign_in_count                     :integer          default(0), not null

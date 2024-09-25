@@ -1803,6 +1803,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_24_213820) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.integer "routing_number"
     t.integer "sign_in_count", default: 0, null: false

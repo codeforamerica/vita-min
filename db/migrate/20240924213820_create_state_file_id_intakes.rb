@@ -49,6 +49,7 @@ class CreateStateFileIdIntakes < ActiveRecord::Migration[7.1]
 
       # federal fields
       t.text :raw_direct_file_data
+      t.jsonb :raw_direct_file_intake_data
       t.datetime :df_data_imported_at
       t.datetime :df_data_import_failed_at
       t.string :federal_submission_id

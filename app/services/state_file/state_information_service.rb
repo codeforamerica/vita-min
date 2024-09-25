@@ -73,6 +73,12 @@ module StateFile
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
       },
+      id: {
+        intake_class: StateFileIdIntake,
+        navigation_class: Navigation::StateFileIdQuestionNavigation,
+        state_name: "Idaho",
+        schema_file_name: "IDST.Txyr202320240909112545.zip",
+      },
       nc: {
         intake_class: StateFileNcIntake,
         calculator_class: Efile::Nc::D400Calculator,

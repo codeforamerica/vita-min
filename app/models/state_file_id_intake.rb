@@ -35,6 +35,7 @@
 #  primary_first_name                :string
 #  primary_last_name                 :string
 #  raw_direct_file_data              :text
+#  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
 #  sign_in_count                     :integer          default(0), not null
@@ -54,6 +55,8 @@
 #  index_state_file_id_intakes_on_hashed_ssn     (hashed_ssn)
 #
 class StateFileIdIntake < StateFileBaseIntake
+  def disqualifying_df_data_reason; end
+
   def disqualifying_eligibility_rules
     {}
   end
