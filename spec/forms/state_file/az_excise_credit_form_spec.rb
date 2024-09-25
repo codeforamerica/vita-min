@@ -119,6 +119,7 @@ RSpec.describe StateFile::AzExciseCreditForm do
         expect(intake.ssn_no_employment_yes?).to eq true
         expect(intake.household_excise_credit_claimed_yes?).to eq true
         expect(intake.household_excise_credit_claimed_amt).to eq 1000
+        expect(intake.household_excise_credit_claimed_amount).to eq 1000
       end
 
       it "zeroes out credit amount if credit claimed = no (does not save the amount param if claimed = no)" do
@@ -138,6 +139,7 @@ RSpec.describe StateFile::AzExciseCreditForm do
         expect(intake.ssn_no_employment_yes?).to eq true
         expect(intake.household_excise_credit_claimed_no?).to eq true
         expect(intake.household_excise_credit_claimed_amt).to be_nil
+        expect(intake.household_excise_credit_claimed_amount).to be_nil
       end
     end
   end

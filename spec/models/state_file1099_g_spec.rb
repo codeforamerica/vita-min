@@ -5,6 +5,7 @@
 #  id                                 :bigint           not null, primary key
 #  address_confirmation               :integer          default("unfilled"), not null
 #  federal_income_tax_withheld        :integer
+#  federal_income_tax_withheld_amount :decimal(12, 2)
 #  had_box_11                         :integer          default("unfilled"), not null
 #  intake_type                        :string           not null
 #  payer_city                         :string
@@ -19,7 +20,9 @@
 #  recipient_zip                      :string
 #  state_identification_number        :string
 #  state_income_tax_withheld          :integer
+#  state_income_tax_withheld_amount   :decimal(12, 2)
 #  unemployment_compensation          :integer
+#  unemployment_compensation_amount   :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
 #  intake_id                          :bigint           not null
@@ -142,6 +145,40 @@ RSpec.describe StateFile1099G do
         state_file_1099.valid?
         expect(state_file_1099.errors[:unemployment_compensation]).to include "must be greater than or equal to 1"
       end
+    end
+  end
+
+  describe "#sync_amount_columns" do
+    let(:state_file_1099) { build(:state_file1099_g, intake: create(:state_file_ny_intake)) }
+
+    it "syncs valid amounts for money " do
+      state_file_1099.unemployment_compensation = 1000
+      state_file_1099.federal_income_tax_withheld = 200
+      state_file_1099.state_income_tax_withheld = 150
+      state_file_1099.save
+      expect(state_file_1099.unemployment_compensation_amount).to eq 1000
+      expect(state_file_1099.federal_income_tax_withheld_amount).to eq 200
+      expect(state_file_1099.state_income_tax_withheld_amount).to eq 150
+    end
+
+    it "syncs nil values" do
+      state_file_1099.unemployment_compensation = nil
+      state_file_1099.federal_income_tax_withheld = nil
+      state_file_1099.state_income_tax_withheld = nil
+      state_file_1099.save
+      expect(state_file_1099.unemployment_compensation_amount).to be_nil
+      expect(state_file_1099.federal_income_tax_withheld_amount).to be_nil
+      expect(state_file_1099.state_income_tax_withheld_amount).to be_nil
+    end
+
+    it "doesn't sync invalid values" do
+      state_file_1099.unemployment_compensation = "invalid"
+      state_file_1099.federal_income_tax_withheld = -1000
+      state_file_1099.state_income_tax_withheld = 100.50
+      state_file_1099.save
+      expect(state_file_1099.unemployment_compensation_amount).to be_nil
+      expect(state_file_1099.federal_income_tax_withheld_amount).to be_nil
+      expect(state_file_1099.state_income_tax_withheld_amount).to be_nil
     end
   end
 end

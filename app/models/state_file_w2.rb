@@ -2,24 +2,30 @@
 #
 # Table name: state_file_w2s
 #
-#  id                       :bigint           not null, primary key
-#  employer_state_id_num    :string
-#  local_income_tax_amt     :integer
-#  local_wages_and_tips_amt :integer
-#  locality_nm              :string
-#  state_file_intake_type   :string
-#  state_income_tax_amt     :integer
-#  state_wages_amt          :integer
-#  w2_index                 :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  state_file_intake_id     :bigint
+#  id                          :bigint           not null, primary key
+#  employer_state_id_num       :string
+#  local_income_tax_amount     :decimal(12, 2)
+#  local_income_tax_amt        :integer
+#  local_wages_and_tips_amount :decimal(12, 2)
+#  local_wages_and_tips_amt    :integer
+#  locality_nm                 :string
+#  state_file_intake_type      :string
+#  state_income_tax_amount     :decimal(12, 2)
+#  state_income_tax_amt        :integer
+#  state_wages_amount          :decimal(12, 2)
+#  state_wages_amt             :integer
+#  w2_index                    :integer
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  state_file_intake_id        :bigint
 #
 # Indexes
 #
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
+  before_save :sync_amount_columns
+
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML
   <W2StateTaxGrp>
@@ -53,6 +59,13 @@ class StateFileW2 < ApplicationRecord
   validate :validate_tax_amts
   validate :state_specific_validation
   before_validation :locality_nm_to_upper_case
+
+  def sync_amount_columns
+    self.state_wages_amount = state_wages_amt if state_wages_amt.present?
+    self.state_income_tax_amount = state_income_tax_amt if state_income_tax_amt.present?
+    self.local_wages_and_tips_amount = local_wages_and_tips_amt if local_wages_and_tips_amt.present?
+    self.local_income_tax_amount = local_income_tax_amt if local_income_tax_amt.present?
+  end
 
   def state_specific_validation
     state_file_intake.validate_state_specific_w2_requirements(self) if state_file_intake.present?
