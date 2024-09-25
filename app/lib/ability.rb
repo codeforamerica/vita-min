@@ -135,10 +135,10 @@ class Ability
       can :manage, :state_file_admin_tool
       can :manage, StateFile::AutomatedMessage
 
-      # TODO: Implement this when state-specific service types are implemented on EfileErrors after FYST-825
-      can :manage, EfileError, service_type: :state_file_nj
+      can :manage, EfileError, service_type: "state_file_nj"  # TODO: Implement this when state-specific service types are implemented on EfileErrors after FYST-825
       can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
-      can :manage, FaqCategory, product_type: :state_file_nj
+      can :manage, FaqCategory, product_type: "state_file_nj"
+      can :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
     end
 
     if user.coalition_lead?

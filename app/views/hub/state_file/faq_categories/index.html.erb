@@ -20,7 +20,7 @@
         <% @state_faq_categories[state_code].each do |category| %>
           <%= render 'faq_categories_and_items', category: category %>
         <% end %>
-        <% if !@state_faq_categories.include? state_code && current_ability.can?(:create, FaqCategory.new(product_type: "state_file_#{state_code}")) %>
+        <% if (!@state_faq_categories.include?(state_code) || @state_faq_categories[state_code].empty?) && current_ability.can?(:create, FaqCategory.new(product_type: "state_file_#{state_code}")) %>
           <p>No <%= ::StateFile::StateInformationService.state_name(state_code) %> FAQ categories currently...perhaps reseed (run `StateFile::FaqDatabaseExportService.export_yml_to_database` in console or rerun data migrations)</p>
         <% end %>
         <hr/>
