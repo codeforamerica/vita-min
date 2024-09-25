@@ -61,6 +61,7 @@ describe 'EfileError' do
       "federal-info",
       "initiate-data-transfer",
       "name-dob",
+      "nc-county",
       "nc-eligibility-out-of-state-income",
       "nc-eligibility-residence",
       "nc-review",

@@ -33,6 +33,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('IncTaxWithSpouse').text).to eq income_tax_withheld_spouse.to_s
         expect(xml.document.at('NCTaxPaid').text).to eq tax_paid.to_s
         expect(xml.document.at('RemainingPayment').text).to eq tax_paid.to_s
+        expect(xml.document.at('NCCountyCode').text).to eq "001"
       end
 
       it "correctly fills veteran info for primary" do

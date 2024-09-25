@@ -24,6 +24,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_dateend']).to eq '12-31-24'
           expect(pdf_fields['y_d400wf_rs1yes']).to eq 'Yes'
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_county']).to eq 'Alama'
         end
 
         it "sets other fields to the correct values" do

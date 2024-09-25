@@ -2486,6 +2486,10 @@ en:
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
+      nc_county:
+        edit:
+          county: County
+          title: Select the county where you lived on December 31st, %{filing_year}
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
@@ -2726,6 +2730,7 @@ en:
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
+        county: County
         w2: W-2 state and local tax information
       sales_use_tax:
         edit:

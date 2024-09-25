@@ -2459,6 +2459,10 @@ es:
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
           your_dob: Tu fecha de nacimiento
+      nc_county:
+        edit:
+          county: Condado
+          title: Seleccione el condado donde vivía el 31 de diciembre de %{filing_year}
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: "¿Usted (o su cónyuge, si presentan la declaración juntos) obtuvo algún ingreso en otro estado en %{filing_year}? (Esto incluye los ingresos por desempleo <strong>recibidos</strong> de otro estado)."
@@ -2713,6 +2717,7 @@ es:
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
+        county: Condado
         w2: Información fiscal estatal y local W-2
       sales_use_tax:
         edit:

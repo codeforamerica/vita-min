@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema[7.1].define(version: 2024_09_20_145713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1810,6 +1811,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_145713) do
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
+    t.string "residence_county"
     t.integer "routing_number"
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
