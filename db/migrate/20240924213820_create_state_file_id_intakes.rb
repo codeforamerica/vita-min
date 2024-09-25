@@ -3,8 +3,15 @@ class CreateStateFileIdIntakes < ActiveRecord::Migration[7.1]
     create_table :state_file_id_intakes do |t|
       # personal info
       t.string :primary_first_name
+      t.string :primary_middle_initial
       t.string :primary_last_name
+      t.string :primary_suffix
       t.date :primary_birth_date
+      t.string :spouse_first_name
+      t.string :spouse_middle_initial
+      t.string :spouse_last_name
+      t.string :spouse_suffix
+      t.date :spouse_birth_date
 
       # browser info
       t.string :source

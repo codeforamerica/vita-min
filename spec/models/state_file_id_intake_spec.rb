@@ -34,14 +34,21 @@
 #  primary_esigned_at                :datetime
 #  primary_first_name                :string
 #  primary_last_name                 :string
+#  primary_middle_initial            :string
+#  primary_suffix                    :string
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  routing_number                    :integer
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
+#  spouse_birth_date                 :date
 #  spouse_esigned                    :integer          default("unfilled"), not null
 #  spouse_esigned_at                 :datetime
+#  spouse_first_name                 :string
+#  spouse_last_name                  :string
+#  spouse_middle_initial             :string
+#  spouse_suffix                     :string
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  withdraw_amount                   :integer
 #  created_at                        :datetime         not null
