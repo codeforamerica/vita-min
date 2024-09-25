@@ -20,6 +20,14 @@ module PdfFiller
       mfj_spouse_ssn = get_mfj_spouse_ssn
       mfs_spouse_ssn = get_mfs_spouse_ssn
       answers = {
+        # header
+        'Your Social Security Number': taxpayer_ssn.to_s,
+        'Your Social Security Number_2': taxpayer_ssn.to_s,
+        'Your Social Security Number_3': taxpayer_ssn.to_s,
+        'Names as shown on Form NJ1040': get_name,
+        'Names as shown on Form NJ1040_2': get_name,
+        'Names as shown on Form NJ1040_3': get_name,
+
         # county code
         CM4: county_code[1],
         CM3: county_code[2],
