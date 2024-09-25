@@ -3,6 +3,8 @@ module Efile
     class Nj1040 < ::Efile::TaxCalculator
       attr_reader :lines
 
+      RENT_CONVERSION = 0.18
+
       def initialize(year:, intake:, include_source: false)
         super
       end
@@ -15,6 +17,7 @@ module Efile
         set_line(:NJ1040_LINE_7, :calculate_line_7)
         set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
+        set_line(:NJ1040_LINE_40A, :calculate_line_40a)
         @lines.transform_values(&:value)
       end
 
@@ -47,6 +50,25 @@ module Efile
         number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind?,
                                                                  @direct_file_data.is_spouse_blind?])
         number_of_line_8_exemptions * 1_000
+      end
+      
+      def calculate_line_40a
+        is_mfs = @intake.filing_status == :married_filing_separately
+
+        case @intake.household_rent_own
+        when "own"
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        is_mfs ? (property_tax_paid / 2.0).round : property_tax_paid.round
+      end
+
+      def total_exemption_amount
+        0
       end
 
       def refund_or_owed_amount

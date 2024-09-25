@@ -68,6 +68,7 @@ class DirectFileData < DfXmlAccessor
     interest_reported_amount: 'IRS1040 InterestReported', # fake
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd'
+    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt'
   }.freeze
 
   def initialize(raw_xml)
@@ -105,6 +106,11 @@ class DirectFileData < DfXmlAccessor
   end
 
   def primary_occupation=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def phone_number=(value)
+    create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
     write_df_xml_value(__method__, value)
   end
 
@@ -623,6 +629,10 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def qualifying_children_under_age_ssn_count=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -783,6 +793,7 @@ class DirectFileData < DfXmlAccessor
       mailing_apartment
       mailing_zip
       cell_phone_number
+      phone_number
       tax_payer_email
       total_w2_state_tax_withheld
       fed_tax_amt

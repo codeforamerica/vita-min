@@ -42,6 +42,7 @@
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  residence_county                  :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
@@ -58,6 +59,8 @@
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  tribal_member                     :integer          default(0), not null
+#  tribal_wages_amount               :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
