@@ -44,13 +44,13 @@ describe Efile::Nc::D400Calculator do
           let(:intake) { create(:state_file_nc_intake, filing_status: filing_status, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
           let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
 
-          agis_to_deductions.each do |fagi, deduction_amount|
+          agis_to_deductions.each do |fagi, deduction_amt_for_two_children|
             it "returns the value corresponding to #{fagi} FAGI multiplied by number of QCs" do
               intake.direct_file_data.fed_agi = fagi
               intake.direct_file_data.qualifying_children_under_age_ssn_count = 2
 
               calculator_instance.calculate
-              expect(calculator_instance.lines[:NCD400_LINE_10B].value).to eq(deduction_amount)
+              expect(calculator_instance.lines[:NCD400_LINE_10B].value).to eq(deduction_amt_for_two_children)
             end
           end
         end

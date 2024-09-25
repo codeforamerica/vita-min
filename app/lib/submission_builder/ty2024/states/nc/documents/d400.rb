@@ -16,6 +16,7 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("FormNCD400") do |xml|
+                xml.NCCountyCode @submission.data_source.residence_county
                 xml.ResidencyStatusPrimary true
                 xml.ResidencyStatusSpouse true if @submission.data_source.filing_status_mfj?
                 xml.VeteranInfoPrimary @submission.data_source.primary_veteran_yes? ? 1 : 0
