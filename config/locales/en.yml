@@ -2232,6 +2232,7 @@ en:
           contribution_name: Contribution to %{charity_name} with code %{charity_code}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Great! Thanks for sharing that information. Let’s review.
+          maximum_records: You have provided the maximum amount of records.
       az_retirement_income:
         edit:
           amount_label: Enter amount earned

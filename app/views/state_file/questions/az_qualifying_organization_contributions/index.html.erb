@@ -48,4 +48,7 @@
   <%= button_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide", method: :get, disabled: (@contribution_count >= 10)) do %>
     <%= t('.add_another') %>
   <% end %>
+  <% if @contribution_count >= 10 %>
+    <p class="text--error text--centered spacing-above-5"><%= t('.maximum_records') %></p>
+  <% end %>
 <% end %>
