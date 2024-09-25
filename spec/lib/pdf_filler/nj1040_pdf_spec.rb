@@ -38,6 +38,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
 
+      it 'sets taxpayer SSN fields on header' do
+        expect(pdf_fields["Your Social Security Number"]).to eq "123456789"
+        expect(pdf_fields["Your Social Security Number_2"]).to eq "123456789"
+        expect(pdf_fields["Your Social Security Number_3"]).to eq "123456789"
+      end
+
       it 'sets taxpayer SSN fields' do
         expect(pdf_fields["undefined"]).to eq "1"
         expect(pdf_fields["undefined_2"]).to eq "2"
@@ -57,10 +63,17 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :married_filing_jointly,
+            primary_ssn: "222222222",
             spouse_ssn: "123456789",
             spouse_first_name: "Ada"
           )
         }
+
+        it 'sets taxpayer SSN fields on header to primary SSN' do
+          expect(pdf_fields["Your Social Security Number"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_2"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_3"]).to eq "222222222"
+        end
 
         it 'sets header spouse SSN fields' do
           expect(pdf_fields["undefined_3"]).to eq "1"
@@ -92,10 +105,17 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :married_filing_separately,
+            primary_ssn: "222222222",
             spouse_ssn: "123456789",
             spouse_first_name: "Ada"
           )
         }
+
+        it 'sets taxpayer SSN fields on header to primary SSN' do
+          expect(pdf_fields["Your Social Security Number"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_2"]).to eq "222222222"
+          expect(pdf_fields["Your Social Security Number_3"]).to eq "222222222"
+        end
 
         it 'fills married filing separately spouse SSN fields' do
           expect(pdf_fields["undefined_7"]).to eq "1"
@@ -195,7 +215,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace"
+            expected_name = "Hopper Grace"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -209,7 +233,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName MI' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace B"
+            expected_name = "Hopper Grace B"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -223,7 +251,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName Suf' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace JR"
+            expected_name = "Hopper Grace JR"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -238,7 +270,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName MI Suf' do
-            expect(pdf_fields[name_field]).to eq "Hopper Grace B JR"
+            expected_name = "Hopper Grace B JR"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
       end
@@ -257,7 +293,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'fills pdf with LastName FirstName & FirstName' do
-            expect(pdf_fields[name_field]).to eq "Muppet Bert S & Ernie"
+            expected_name = "Muppet Bert S & Ernie"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
 
@@ -273,8 +313,13 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               spouse_ssn: "123456789"
             )
           }
+
           it 'fills pdf with LastName FirstName & LastName FirstName' do
-            expect(pdf_fields[name_field]).to eq "Lively Blake E & Reynolds Ryan"
+            expected_name = "Lively Blake E & Reynolds Ryan"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
           end
         end
       end
@@ -593,6 +638,92 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           it "checks the two years prior spouse date of death" do
             expect(pdf_fields["Group1qualwi5ab"]).to eq "0"
           end
+        end
+      end
+    end
+
+    describe "lines 40a and 40b" do
+      context "when taxpayer is a renter" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            household_rent_own: 'rent',
+            rent_paid: 75381
+          )
+        }
+        it "checks the Choice2 box" do
+          expect(pdf_fields["Group182"]).to eq "Choice2"
+        end
+
+        it "inserts rent-converted property tax $13,568.58 rounded on line 40a" do
+          # millions
+          expect(pdf_fields["39"]).to eq ""
+          expect(pdf_fields["280"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_112"]).to eq ""
+          expect(pdf_fields["281"]).to eq "1"
+          expect(pdf_fields["282"]).to eq "3"
+          # hundreds
+          expect(pdf_fields["undefined_113"]).to eq "5"
+          expect(pdf_fields["283"]).to eq "6"
+          expect(pdf_fields["37"]).to eq "9"
+          # decimals
+          expect(pdf_fields["245"]).to eq "0"
+          expect(pdf_fields["24539a#2"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer is a homeowner" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            household_rent_own: 'own',
+            property_tax_paid: 12345678
+          )
+        }
+        it "checks the Choice1 box" do
+          expect(pdf_fields["Group182"]).to eq "Choice1"
+        end
+
+        it "inserts property tax $12,345,678 on line 40a" do
+          # millions
+          expect(pdf_fields["39"]).to eq "1"
+          expect(pdf_fields["280"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_112"]).to eq "3"
+          expect(pdf_fields["281"]).to eq "4"
+          expect(pdf_fields["282"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["undefined_113"]).to eq "6"
+          expect(pdf_fields["283"]).to eq "7"
+          expect(pdf_fields["37"]).to eq "8"
+          # decimals
+          expect(pdf_fields["245"]).to eq "0"
+          expect(pdf_fields["24539a#2"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer is a neither a homeowner nor a renter" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            household_rent_own: 'neither')
+        }
+        it "does not check a box" do
+          expect(pdf_fields["Group182"]).to eq "Off"
+        end
+
+        it "does not insert property tax calculation on line 40a" do
+          expect(pdf_fields["39"]).to eq ""
+          expect(pdf_fields["280"]).to eq ""
+          expect(pdf_fields["undefined_112"]).to eq ""
+          expect(pdf_fields["281"]).to eq ""
+          expect(pdf_fields["282"]).to eq ""
+          expect(pdf_fields["undefined_113"]).to eq ""
+          expect(pdf_fields["283"]).to eq ""
+          expect(pdf_fields["37"]).to eq ""
+          expect(pdf_fields["245"]).to eq ""
+          expect(pdf_fields["24539a#2"]).to eq ""
         end
       end
     end

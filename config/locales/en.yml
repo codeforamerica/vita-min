@@ -237,7 +237,7 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
-      round_to_whole_number: round to the nearest whole number
+      round_to_whole_number: Round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
@@ -2493,6 +2493,10 @@ en:
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
+      nc_county:
+        edit:
+          county: County
+          title: Select the county where you lived on December 31st, %{filing_year}
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
@@ -2524,16 +2528,37 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_homeowner_property_tax:
+        edit:
+          helper_description: TODO FILL THIS OUT
+          helper_heading: Where do I find how much property taxes I paid?
+          label: Property taxes paid in %{filing_year}
+          title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
+      nj_household_rent_own:
+        edit:
+          helper_description: If you own a mobile home that is located in a mobile home park, you are considered a tenant.
+          homeowner: Homeowner in %{filing_year}
+          neither: Neither
+          tenant: Tenant in %{filing_year}
+          title: Which describes you best?
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
+      nj_renter_rent_paid:
+        edit:
+          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
+          label: Rent paid in %{filing_year}
+          title: Enter your rent paid in %{filing_year}.
       nj_review:
         edit:
           county: County
+          household_rent_own: Rent or own home
           municipality: Municipality
+          property_tax_paid: Property taxes paid
+          rent_paid: Rent paid
       ny_county:
         edit:
           county: County
@@ -2712,6 +2737,7 @@ en:
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
+        county: County
         w2: W-2 state and local tax information
       sales_use_tax:
         edit:

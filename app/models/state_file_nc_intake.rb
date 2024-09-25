@@ -42,6 +42,7 @@
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  residence_county                  :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
@@ -72,6 +73,7 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
+  include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
@@ -85,7 +87,7 @@ class StateFileNcIntake < StateFileBaseIntake
     calculated_sales_use_tax = 0
     calculated_sales_use_tax
   end
-
+  
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|
