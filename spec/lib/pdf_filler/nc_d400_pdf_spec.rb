@@ -24,6 +24,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_dateend']).to eq '12-31-24'
           expect(pdf_fields['y_d400wf_rs1yes']).to eq 'Yes'
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Off'
+          expect(pdf_fields['y_d400wf_county']).to eq 'Alama'
         end
 
         it "sets other fields to the correct values" do
@@ -53,6 +54,31 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li23_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_dayphone']).to eq '9845559876'
+        end
+
+        context "CTC & cascading fields" do
+          let(:intake) { create(:state_file_nc_intake, filing_status: "single", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+          let(:child_deduction) { 2000 }
+          let(:nc_agi_addition) { 8000 }
+          let(:nc_agi_subtraction) { 7000 }
+          let(:income_tax) { 70 }
+          before do
+            intake.direct_file_data.qualifying_children_under_age_ssn_count = 5
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return child_deduction
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12a).and_return nc_agi_addition
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12b).and_return nc_agi_subtraction
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_15).and_return income_tax
+          end
+
+          it "sets the correct values" do
+            expect(pdf_fields["y_d400wf_li10a_good"]).to eq "5"
+            expect(pdf_fields["y_d400wf_li10b_good"]).to eq child_deduction.to_s
+            expect(pdf_fields["y_d400wf_li12a_pg1_good"]).to eq nc_agi_addition.to_s
+            expect(pdf_fields["y_d400wf_li12b_pg1_good"]).to eq nc_agi_subtraction.to_s
+            expect(pdf_fields["y_d400wf_li14_pg1_good"]).to eq nc_agi_subtraction.to_s
+            expect(pdf_fields["y_d400wf_li15_pg1_good"]).to eq income_tax.to_s
+            expect(pdf_fields["y_d400wf_li17_pg2_good"]).to eq income_tax.to_s
+          end
         end
       end
 

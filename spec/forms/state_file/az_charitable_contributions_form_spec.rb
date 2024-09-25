@@ -72,6 +72,8 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       form.save
       expect(intake.reload.charitable_cash).to eq 100
       expect(intake.reload.charitable_noncash).to eq 100
+      expect(intake.reload.charitable_cash_amount).to eq 100
+      expect(intake.reload.charitable_noncash_amount).to eq 100
     end
   end
 
@@ -91,6 +93,8 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       form.save
       expect(intake.reload.charitable_cash).to be_nil
       expect(intake.reload.charitable_noncash).to be_nil
+      expect(intake.reload.charitable_cash_amount).to be_nil
+      expect(intake.reload.charitable_noncash_amount).to be_nil
     end
   end
 
@@ -110,6 +114,8 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       form.save
       expect(intake.reload.charitable_cash).to be_nil
       expect(intake.reload.charitable_noncash).to be_nil
+      expect(intake.reload.charitable_cash_amount).to be_nil
+      expect(intake.reload.charitable_noncash_amount).to be_nil
     end
   end
 end

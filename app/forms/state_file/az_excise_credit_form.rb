@@ -5,7 +5,8 @@ module StateFile
                        :spouse_was_incarcerated,
                        :ssn_no_employment,
                        :household_excise_credit_claimed,
-                       :household_excise_credit_claimed_amt
+                       :household_excise_credit_claimed_amt,
+                       :household_excise_credit_claimed_amount
 
     validates :primary_was_incarcerated, inclusion: { in: %w[yes no], message: :blank }
     validates :spouse_was_incarcerated, inclusion: { in: %w[yes no], message: :blank }, if: -> { intake.filing_status_mfj? }
@@ -17,8 +18,13 @@ module StateFile
     def save
       attributes = attributes_for(:intake)
       if household_excise_credit_claimed == "no"
-        attributes = attributes.merge(household_excise_credit_claimed_amt: nil)
+        attributes = attributes.merge(household_excise_credit_claimed_amt: nil, household_excise_credit_claimed_amount: nil)
+      else
+        attributes = attributes.merge(
+          household_excise_credit_claimed_amount: household_excise_credit_claimed_amt
+        )
       end
+
       @intake.update(attributes)
     end
   end

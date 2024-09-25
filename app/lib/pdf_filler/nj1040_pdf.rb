@@ -20,6 +20,14 @@ module PdfFiller
       mfj_spouse_ssn = get_mfj_spouse_ssn
       mfs_spouse_ssn = get_mfs_spouse_ssn
       answers = {
+        # header
+        'Your Social Security Number': taxpayer_ssn.to_s,
+        'Your Social Security Number_2': taxpayer_ssn.to_s,
+        'Your Social Security Number_3': taxpayer_ssn.to_s,
+        'Names as shown on Form NJ1040': get_name,
+        'Names as shown on Form NJ1040_2': get_name,
+        'Names as shown on Form NJ1040_3': get_name,
+
         # county code
         CM4: county_code[1],
         CM3: county_code[2],
@@ -60,7 +68,7 @@ module PdfFiller
         
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year,
-        Group182: household_rent_own
+        Group182: household_rent_own,
       }
 
       dependents = get_dependents
@@ -81,19 +89,34 @@ module PdfFiller
       end
 
       if @xml_document.at("WagesSalariesTips").present?
-        wages = @xml_document.at("WagesSalariesTips").text.to_i.digits
-        answers.merge!({
-           Text106: "0",
-           Text105: "0",
-           Text104: wages[0].nil? ? "" : wages[0].to_s,
-           Text103: wages[1].nil? ? "" : wages[1].to_s,
-           Text101: wages[2].nil? ? "" : wages[2].to_s,
-           Text100: wages[3].nil? ? "" : wages[3].to_s,
-           undefined_38: wages[4].nil? ? "" : wages[4].to_s,
-           undefined_37: wages[5].nil? ? "" : wages[5].to_s,
-           undefined_36: wages[6].nil? ? "" : wages[6].to_s,
-           '15': wages[7].nil? ? "" : wages[7].to_s,
-         })
+        wages = @xml_document.at("WagesSalariesTips").text.to_i
+        answers.merge!(insert_digits_into_fields(wages, [
+          "Text106",
+          "Text105",
+          "Text104",
+          "Text103",
+          "Text101",
+          "Text100",
+          "undefined_38",
+          "undefined_37",
+          "undefined_36",
+          "15"
+        ]))
+      end
+
+      if get_property_tax.present?
+        answers.merge!(insert_digits_into_fields(get_property_tax.to_i, [
+          "24539a#2",
+          "245",
+          "37",
+          "283",
+          "undefined_113",
+          "282",
+          "281",
+          "undefined_112",
+          "280",
+          "39",
+        ]))
       end
 
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
@@ -201,6 +224,19 @@ module PdfFiller
 
     def format_no_last_name(first_name, middle_initial, suffix)
       [first_name, middle_initial, suffix].compact.join(" ")
+    end
+
+    def insert_digits_into_fields(number, fields_ordered_decimals_to_millions)
+      digits = number.digits
+      digits_hash = {}
+      digits_hash[fields_ordered_decimals_to_millions[0]] = "0"
+      digits_hash[fields_ordered_decimals_to_millions[1]] = "0"
+
+      fields_ordered_decimals_to_millions[2..].each.with_index do |field, i|
+        digits_hash[field] = digits[i].nil? ? "" : digits[i].to_s
+      end
+
+      digits_hash
     end
 
     def dependent_pdf_keys
@@ -322,6 +358,10 @@ module PdfFiller
       return "Choice1" if @xml_document.at("PropertyTaxDeductOrCredit Homeowner")&.text == 'X'
       return "Choice2" if @xml_document.at("PropertyTaxDeductOrCredit Tenant")&.text == 'X'
       "Off"
+    end
+
+    def get_property_tax
+      @xml_document.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")&.text
     end
   end
 end
