@@ -126,4 +126,26 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateIdNumber).to eq "987654321"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateDistributionAmt).to eq 200
   end
+
+  it "preserves W2 EmployeeSSN when XML Editor is opened without changes" do
+    visit "/"
+    click_on "Start Test NC"
+
+    expect(page).to have_text I18n.t("state_file.landing_page.edit.nc.title")
+    click_on "Get Started", id: "firstCta"
+
+    step_through_eligibility_screener(us_state: "nc")
+
+    step_through_initial_authentication(contact_preference: :text_message)
+
+    expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+    click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+    step_through_df_data_transfer("Transfer Nick")
+
+    expect(page).to have_text I18n.t('state_file.questions.data_review.edit.title')
+
+    xml_before = StateFileNcIntake.last.direct_file_data
+    expect(xml_before.w2s[0].EmployeeSSN).to eq "400000030"
+  end
 end
