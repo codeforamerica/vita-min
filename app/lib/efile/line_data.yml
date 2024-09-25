@@ -490,6 +490,12 @@ IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
 IT227_PART_2_LINE_1:
   label: ''
+NCD400_LINE_10B:
+  label: '10B Child Deduction: On Line 10b, enter the amount of the child deduction.'
+NCD400_LINE_11:
+  label: '11 N.C. Standard Deduction'
+NCD400_LINE_12A:
+  label: '12A NCAGIAddition Add Lines 9, 10b, and 11.'
 NCD400_LINE_20A:
   label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_20B:

@@ -55,6 +55,23 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_dayphone']).to eq '9845559876'
         end
+
+        context "CTC fields" do
+          let(:intake) { create(:state_file_nc_intake, filing_status: "single", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+          let(:child_deduction) { 2000 }
+          let(:nc_agi_addition) { 8000 }
+          before do
+            intake.direct_file_data.qualifying_children_under_age_ssn_count = 5
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return child_deduction
+            allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12a).and_return nc_agi_addition
+          end
+
+          it "sets the correct values" do
+            expect(pdf_fields["y_d400wf_li10a_good"]).to eq "5"
+            expect(pdf_fields["y_d400wf_li10b_good"]).to eq child_deduction.to_s
+            expect(pdf_fields["y_d400wf_li12a_pg1_good"]).to eq nc_agi_addition.to_s
+          end
+        end
       end
 
       context "mfj filers" do

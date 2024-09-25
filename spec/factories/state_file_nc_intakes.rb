@@ -115,7 +115,7 @@ FactoryBot.define do
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_mfs') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_hoh') }
     end
 
     trait :married_filing_separately do
