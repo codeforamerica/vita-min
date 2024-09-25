@@ -5,7 +5,6 @@ describe Hub::StateFile::EfileSubmissionsController do
     let!(:state_efile_submission) { create :efile_submission, :for_state }
     let!(:non_state_efile_submission) { create :efile_submission }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :an_action_for_state_file_admins_only, action: :index, method: :get
 
     context "with an authenticated state file admin" do
       before { sign_in(create(:state_file_admin_user)) }
@@ -14,6 +13,16 @@ describe Hub::StateFile::EfileSubmissionsController do
         get :index
 
         expect(assigns(:efile_submissions)).to match_array [state_efile_submission]
+      end
+    end
+
+    context "with an authenticated non-state file admin" do
+      before { sign_in(create(:admin_user)) }
+
+      it "shows no efile submissions" do
+        get :index
+
+        expect(assigns(:efile_submissions)).to be_empty
       end
     end
   end
@@ -25,7 +34,6 @@ describe Hub::StateFile::EfileSubmissionsController do
       { id: state_efile_submission.id }
     end
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
-    it_behaves_like :an_action_for_state_file_admins_only, action: :index, method: :get
 
     context "with an authenticated state file admin" do
       before { sign_in(create(:state_file_admin_user)) }
@@ -35,6 +43,17 @@ describe Hub::StateFile::EfileSubmissionsController do
 
         expect(assigns(:efile_submission)).to eq state_efile_submission
       end
+    end
+
+    context "with an authenticated non-state file admin" do
+      before { sign_in(create(:admin_user)) }
+
+      it "returns 403 forbidden" do
+        get :show, params: params
+
+        expect(response.status).to eq 403
+      end
+
     end
   end
 
@@ -54,6 +73,17 @@ describe Hub::StateFile::EfileSubmissionsController do
         expect(response).to be_successful
         xml = Nokogiri::XML(response.body)
         expect(xml.at("ReturnState Filer Primary LastName").text).to eq intake.primary_last_name
+      end
+    end
+
+    context "with an authenticated non-state file admin" do
+      render_views
+      before { sign_in(create(:admin_user)) }
+
+      it "returns 403 forbidden" do
+        get :show_xml, params: params
+
+        expect(response.status).to eq 403
       end
     end
   end

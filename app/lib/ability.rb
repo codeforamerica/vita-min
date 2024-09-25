@@ -32,7 +32,7 @@ class Ability
         cannot :manage, StateFileDependent
         cannot :manage, StateFileW2
         cannot :manage, StateId
-        cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
+        cannot :manage, EfileSubmission, data_source_type: StateFile::StateInformationService.state_intake_class_names
         cannot :manage, EfileError do |error|
           error.service_type == "state_file" || error.service_type == "unfilled"
         end
