@@ -1,16 +1,14 @@
 module Navigation
-  class StateFileNcQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
+  class StateFileMdQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityOutOfStateIncomeController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
         Navigation::NavigationStep.new(StateFile::Questions::ContactPreferenceController),
+        # Phone number only shows if the contact pref is text, which only shows if the text pref feature is toggled on by Flipper
         Navigation::NavigationStep.new(StateFile::Questions::PhoneNumberController),
         Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
@@ -27,15 +25,12 @@ module Navigation
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        # Federal info does not show to users
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
-        Navigation::NavigationStep.new(StateFile::Questions::SalesUseTaxController),
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
@@ -48,3 +43,4 @@ module Navigation
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end
 end
+  

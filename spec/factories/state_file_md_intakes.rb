@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: state_file_nc_intakes
+# Table name: state_file_md_intakes
 #
 #  id                                :bigint           not null, primary key
 #  account_number                    :string
@@ -17,7 +17,6 @@
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
-#  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
@@ -37,15 +36,13 @@
 #  primary_first_name                :string
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
+#  primary_signature                 :string
+#  primary_ssn                       :string
 #  primary_suffix                    :string
-#  primary_veteran                   :integer          default("unfilled"), not null
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
-#  residence_county                  :string
-#  routing_number                    :integer
-#  sales_use_tax                     :decimal(12, 2)
-#  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
+#  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
@@ -54,52 +51,66 @@
 #  spouse_first_name                 :string
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
+#  spouse_ssn                        :string
 #  spouse_suffix                     :string
-#  spouse_veteran                    :integer          default("unfilled"), not null
-#  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
-#  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
-#  withdraw_amount                   :integer
+#  withdraw_amount                   :decimal(12, 2)
 #  zip_code                          :string
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  federal_submission_id             :string
+#  primary_state_id_id               :bigint
+#  spouse_state_id_id                :bigint
 #  visitor_id                        :string
 #
 # Indexes
 #
-#  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
+#  index_state_file_md_intakes_on_email_address        (email_address)
+#  index_state_file_md_intakes_on_hashed_ssn           (hashed_ssn)
+#  index_state_file_md_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
-class StateFileNcIntake < StateFileBaseIntake
-  include NcResidenceCountyConcern
-  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
-
-  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
-  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
-  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
-  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
-  enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
-
-  def calculate_sales_use_tax
-    # TODO: Implement in FYST-426
-    calculated_sales_use_tax = 0
-    calculated_sales_use_tax
-  end
-  
-  def disqualifying_df_data_reason
-    w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
-    :has_out_of_state_w2 if w2_states.any? do |state|
-      (state.text || '').upcase != state_code.upcase
+FactoryBot.define do
+  factory :state_file_md_intake do
+    transient do
+      filing_status { 'single' }
     end
-  end
 
-  def disqualifying_eligibility_rules
-    {
-      eligibility_lived_in_state: "no",
-      eligibility_out_of_state_income: "yes",
-      eligibility_withdrew_529: "yes"
-    }
+    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("md_minimal") }
+    primary_first_name { "Mary" }
+    primary_middle_initial { "A" }
+    primary_last_name { "Lando" }
+
+    after(:build) do |intake, evaluator|
+      numeric_status = {
+        single: 1,
+        married_filing_jointly: 2,
+        married_filing_separately: 3,
+        head_of_household: 4,
+        qualifying_widow: 5,
+      }[evaluator.filing_status.to_sym] || evaluator.filing_status
+      intake.direct_file_data.filing_status = numeric_status
+      intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    trait :with_spouse do
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+    end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_two_w2s') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_many_w2s') }
+    end
+
   end
 end
