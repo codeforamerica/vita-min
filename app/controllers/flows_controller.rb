@@ -633,7 +633,6 @@ class FlowsController < ApplicationController
         armed_forces_member: "yes",
         armed_forces_wages: 100,
         armed_forces_wages_amount: 100,
-        charitable_cash: 123,
         charitable_cash_amount: 123,
         charitable_contributions: "yes",
         charitable_noncash: 123,
