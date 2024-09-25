@@ -190,6 +190,17 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
 
       expect(response).to be_ok
     end
+
+    it 'should not create more than 10 contributions' do
+      10.times do
+        put :create, params: valid_params
+      end
+      expect(intake.az321_contributions.count).to eq 10
+
+      expect {
+        put :create, params: valid_params
+      }.not_to change(intake.az321_contributions, :count)
+    end
   end
 
   describe "destroy" do
