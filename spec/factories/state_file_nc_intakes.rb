@@ -59,6 +59,8 @@
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  tribal_member                     :integer          default(0), not null
+#  tribal_wages_amount               :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
@@ -86,6 +88,7 @@ FactoryBot.define do
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
+    residence_county { "001" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -118,7 +121,7 @@ FactoryBot.define do
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_mfs') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_hoh') }
     end
 
     trait :married_filing_separately do

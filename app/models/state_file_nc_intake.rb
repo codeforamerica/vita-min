@@ -59,6 +59,8 @@
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  tribal_member                     :integer          default(0), not null
+#  tribal_wages_amount               :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
@@ -77,6 +79,7 @@
 #  index_state_file_nc_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNcIntake < StateFileBaseIntake
+  include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
@@ -90,7 +93,7 @@ class StateFileNcIntake < StateFileBaseIntake
     calculated_sales_use_tax = 0
     calculated_sales_use_tax
   end
-
+  
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|
