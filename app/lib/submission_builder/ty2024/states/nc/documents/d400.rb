@@ -34,7 +34,7 @@ module SubmissionBuilder
                 xml.FAGI @submission.data_source.direct_file_data.fed_agi
                 # line 7 AdditionsToFAGI is blank
                 xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
-                # line 9 DeductionsFromFAGI is blank
+                xml.DeductionsFromFAGI calculated_fields.fetch(:NCD400_LINE_9)
                 xml.NumChildrenAllowed @submission.data_source.direct_file_data.qualifying_children_under_age_ssn_count
                 xml.ChildDeduction calculated_fields.fetch(:NCD400_LINE_10B)
                 xml.NCStandardDeduction calculated_fields.fetch(:NCD400_LINE_11)

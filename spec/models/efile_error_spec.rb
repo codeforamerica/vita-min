@@ -65,6 +65,7 @@ describe 'EfileError' do
       "nc-eligibility-out-of-state-income",
       "nc-eligibility-residence",
       "nc-review",
+      "nc-subtractions",
       "nc-veteran-status",
       "nj-county",
       "nj-homeowner-property-tax",

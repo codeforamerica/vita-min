@@ -490,6 +490,8 @@ IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
 IT227_PART_2_LINE_1:
   label: ''
+NCD400_LINE_9:
+  label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
   label: '10B Child Deduction: On Line 10b, enter the amount of the child deduction.'
 NCD400_LINE_11:
@@ -510,6 +512,10 @@ NCD400_LINE_20B:
   label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_23:
   label: '23 Add lines 20a through 22'
+NCD400_S_LINE_27:
+  label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
+NCD400_S_LINE_41:
+  label: 'Total Deductions - Add Lines 17 through 22, 23f, 24f, and 25 through 40 (Enter the total here and on Form D-400, Line 9)'
 NJ1040_LINE_6_SPOUSE:
   label: '6 Spouse Regular Exemption'
 NJ1040_LINE_6:
