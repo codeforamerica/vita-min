@@ -25,6 +25,7 @@
 #  fed_wages                         :integer
 #  federal_return_status             :string
 #  hashed_ssn                        :string
+#  household_rent_own                :integer          default("unfilled"), not null
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")
@@ -48,9 +49,11 @@
 #  primary_signature                 :string
 #  primary_ssn                       :string
 #  primary_suffix                    :string
+#  property_tax_paid                 :integer
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  rent_paid                         :integer
 #  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string

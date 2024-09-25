@@ -42,6 +42,7 @@
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  residence_county                  :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
@@ -81,6 +82,7 @@ FactoryBot.define do
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
+    residence_county { "001" }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -113,7 +115,7 @@ FactoryBot.define do
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_mfs') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_hoh') }
     end
 
     trait :married_filing_separately do

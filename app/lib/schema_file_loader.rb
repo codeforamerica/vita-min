@@ -73,6 +73,7 @@ class SchemaFileLoader
       download_files = EFILE_SCHEMAS_FILENAMES.map do |filename, download_folder|
         [File.join(dest_dir, download_folder, filename), download_folder]
       end
+      puts "heck"
       download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
       end

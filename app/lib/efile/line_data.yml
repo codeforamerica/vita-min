@@ -490,6 +490,20 @@ IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
 IT227_PART_2_LINE_1:
   label: ''
+NCD400_LINE_10B:
+  label: '10B Child Deduction: On Line 10b, enter the amount of the child deduction.'
+NCD400_LINE_11:
+  label: '11 N.C. Standard Deduction'
+NCD400_LINE_12A:
+  label: '12A NCAGIAddition Add Lines 9, 10b, and 11'
+NCD400_LINE_12B:
+  label: '12B NCAGISubtraction Subtract Line 12a from Line 8'
+NCD400_LINE_14:
+  label: '14 North Carolina Taxable Income: Full-year residents enter the amount from Line 12b. Part-year residents and nonresidents multiply amount on Line 12b by the decimal amount on Line 13.'
+NCD400_LINE_15:
+  label: '15 North Carolina Income Tax: Multiply Line 14 by 4.5% (0.045) and round to the nearest dollar. If zero or less, enter a zero.'
+NCD400_LINE_17:
+  label: '17 Subtract Line 16 from Line 15'
 NCD400_LINE_20A:
   label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_20B:
@@ -508,3 +522,5 @@ NJ1040_LINE_7:
   label: '7 Sum all Senior 65+ Exemption, multiply by 1000'
 NJ1040_LINE_15:
   label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
+NJ1040_LINE_40A:
+  label: 'Total Property Taxes (18% of Rent) Paid (See instructions page 25)'
