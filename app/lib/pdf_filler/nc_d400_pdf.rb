@@ -58,6 +58,10 @@ module PdfFiller
         y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text,
         y_d400wf_li10b_good: @xml_document.at('ChildDeduction')&.text,
         y_d400wf_li12a_pg1_good: @xml_document.at('NCAGIAddition')&.text,
+        y_d400wf_li12b_pg1_good: @xml_document.at('NCAGISubtraction')&.text,
+        y_d400wf_li14_pg1_good: @xml_document.at('NCAGISubtraction')&.text,
+        y_d400wf_li15_pg1_good: @xml_document.at('NCIncTax')&.text,
+        y_d400wf_li17_pg2_good: @xml_document.at('SubTaxCredFromIncTax')&.text,
         y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
         y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
       }

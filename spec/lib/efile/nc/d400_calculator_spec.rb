@@ -87,6 +87,43 @@ describe Efile::Nc::D400Calculator do
     end
   end
 
+  describe "Line 12b: NCAGISubtraction" do
+    it "subtracts line 12a from line 8 (which is just fed agi)" do
+      allow(instance).to receive(:calculate_line_12a).and_return 10
+      allow_any_instance_of(DirectFileData).to receive(:fed_agi).and_return 100
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_12B].value).to eq 90
+    end
+  end
+
+  describe "Line 15: North Carolina Income Tax" do
+    context "value (line 14 (which = line 12b) * 0.045 rounded to the nearest dollar) is positive" do
+      it "returns the value rounded up" do
+        allow(instance).to receive(:calculate_line_12b).and_return 100
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_15].value).to eq 5
+      end
+
+      it "returns the value rounded down" do
+        allow(instance).to receive(:calculate_line_12b).and_return 50
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_15].value).to eq 2
+      end
+    end
+
+    context "value (line 14 (which = line 12b) * 0.045 rounded to the nearest dollar) is negative" do
+      it "returns zero" do
+        allow(instance).to receive(:calculate_line_12b).and_return -100
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_15].value).to eq 0
+      end
+    end
+  end
+
   describe "Line 20a: North Carolina Income Tax Withheld" do
     let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
 

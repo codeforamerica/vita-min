@@ -7,6 +7,8 @@ module Efile
         set_line(:NCD400_LINE_10B, :calculate_line_10b)
         set_line(:NCD400_LINE_11, :calculate_line_11)
         set_line(:NCD400_LINE_12A, :calculate_line_12a)
+        set_line(:NCD400_LINE_12B, :calculate_line_12b)
+        set_line(:NCD400_LINE_15, :calculate_line_15)
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
         set_line(:NCD400_LINE_23, :calculate_line_23)
@@ -50,6 +52,16 @@ module Efile
         # Add Lines 9, 10b, and 11
         # line 9 DeductionsFromFAGI is blank
         line_or_zero(:NCD400_LINE_10B) + line_or_zero(:NCD400_LINE_11)
+      end
+
+      def calculate_line_12b
+        # Subtract Line 12a from Line 8
+        # line 8 is just fed agi
+        @direct_file_data.fed_agi - line_or_zero(:NCD400_LINE_12A)
+      end
+
+      def calculate_line_15
+        [(line_or_zero(:NCD400_LINE_12B) * 0.045).round, 0].max
       end
 
       def calculate_line_20a
