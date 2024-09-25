@@ -42,6 +42,7 @@
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  residence_county                  :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
@@ -65,11 +66,15 @@
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  federal_submission_id             :string
+#  primary_state_id_id               :bigint
+#  spouse_state_id_id                :bigint
 #  visitor_id                        :string
 #
 # Indexes
 #
-#  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
+#  index_state_file_nc_intakes_on_hashed_ssn           (hashed_ssn)
+#  index_state_file_nc_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_nc_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 FactoryBot.define do
   factory :state_file_nc_intake do
