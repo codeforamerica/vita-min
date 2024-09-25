@@ -80,7 +80,7 @@ module StateFile
         mail_voucher_address: "",
         navigation_class: Navigation::StateFileIdQuestionNavigation,
         pay_taxes_link: "",
-        return_type: "",
+        return_type: "Form40",
         state_name: "Idaho",
         schema_file_name: "ID.MeF2023V1.0.zip",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Id::IdReturnXml,
