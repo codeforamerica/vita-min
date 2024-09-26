@@ -7,8 +7,8 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    it "generates a valid xml" do
-      expect(build_response.errors).to be_empty
+    it "correctly fills out the answers" do
+      expect(xml.document.at('ResidencyStatusPrimary').text).to eq "true"
     end
   end
 end
