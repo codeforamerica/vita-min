@@ -58,7 +58,6 @@
 #  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
-#  tax_return_year                   :integer
 #  tribal_member                     :integer          default("unfilled"), not null
 #  tribal_wages_amount               :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null

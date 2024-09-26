@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_20_145713) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_26_172957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1832,7 +1832,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_145713) do
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.string "street_address"
-    t.integer "tax_return_year"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
@@ -1903,7 +1902,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_145713) do
     t.integer "spouse_veteran", default: 0, null: false
     t.string "ssn"
     t.string "street_address"
-    t.integer "tax_return_year"
     t.integer "tribal_member", default: 0, null: false
     t.decimal "tribal_wages_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -1982,7 +1980,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_145713) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
-    t.integer "tax_return_year"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
