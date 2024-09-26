@@ -75,6 +75,9 @@ module PdfFiller
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year,
         Group182: household_rent_own,
+
+        # line 65 nj child tax credit
+        '64': @xml_document.at("Body NJChildTCNumOfDep")&.text,
       }
 
       dependents = get_dependents
@@ -97,28 +100,28 @@ module PdfFiller
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
-          "Text53",
-          "Text52",
-          "Text51",
-          "Text50",
-          "undefined_17",
-          "undefined_16",
-          "undefined_15"
-        ]))
+                                                   "Text53",
+                                                   "Text52",
+                                                   "Text51",
+                                                   "Text50",
+                                                   "undefined_17",
+                                                   "undefined_16",
+                                                   "undefined_15"
+                                                 ]))
       end
 
       if @xml_document.at("Body TotalExemptionAmountB")
         total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
-          "214",
-          "undefined_91",
-          "213",
-          "212",
-          "undefined_90",
-          "211",
-          "210",
-          "30"
-        ]))
+                                                   "214",
+                                                   "undefined_91",
+                                                   "213",
+                                                   "212",
+                                                   "undefined_90",
+                                                   "211",
+                                                   "210",
+                                                   "30"
+                                                 ]))
       end
 
       if @xml_document.at("TotalExemptDeductions")
@@ -139,17 +142,17 @@ module PdfFiller
       if @xml_document.at("WagesSalariesTips").present?
         wages = @xml_document.at("WagesSalariesTips").text.to_i
         answers.merge!(insert_digits_into_fields(wages, [
-          "Text106",
-          "Text105",
-          "Text104",
-          "Text103",
-          "Text101",
-          "Text100",
-          "undefined_38",
-          "undefined_37",
-          "undefined_36",
-          "15"
-        ]))
+                                                   "Text106",
+                                                   "Text105",
+                                                   "Text104",
+                                                   "Text103",
+                                                   "Text101",
+                                                   "Text100",
+                                                   "undefined_38",
+                                                   "undefined_37",
+                                                   "undefined_36",
+                                                   "15"
+                                                 ]))
       end
 
       if @xml_document.at("TotalIncome").present?
@@ -222,17 +225,17 @@ module PdfFiller
 
       if get_property_tax.present?
         answers.merge!(insert_digits_into_fields(get_property_tax.to_i, [
-          "24539a#2",
-          "245",
-          "37",
-          "283",
-          "undefined_113",
-          "282",
-          "281",
-          "undefined_112",
-          "280",
-          "39",
-        ]))
+                                                   "24539a#2",
+                                                   "245",
+                                                   "37",
+                                                   "283",
+                                                   "undefined_113",
+                                                   "282",
+                                                   "281",
+                                                   "undefined_112",
+                                                   "280",
+                                                   "39",
+                                                 ]))
       end
 
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
@@ -261,6 +264,19 @@ module PdfFiller
           Text36: mfs_spouse_ssn[8],
         })
       end
+      # line 65 nj child tax credit
+      # TODO: what should we do if there are more digits to fill?
+      if get_nj_ctc
+        answers.merge!(insert_digits_into_fields(get_nj_ctc, [
+                                                   "Text186",
+                                                   "Text185",
+                                                   "Text184",
+                                                   "Text183",
+                                                   "Text182",
+                                                   "undefined_162",
+                                                 ]))
+      end
+
       answers
     end
 
@@ -479,6 +495,10 @@ module PdfFiller
 
     def get_property_tax
       @xml_document.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")&.text
+    end
+
+    def get_nj_ctc
+      @xml_document.at("Body NJChildTaxCredit")&.text.to_i
     end
   end
 end

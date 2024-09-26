@@ -158,6 +158,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["x  1000"]).to eq "1000"
           end
         end
+
         context "married filing jointly" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -173,6 +174,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           end
         end
       end
+
       describe "Line 7 exemptions" do
         context "primary under 65" do
           let(:submission) {
@@ -202,6 +204,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+
         context "primary over 65 and spouse under 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -217,6 +220,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+
         context "primary under 65 and spouse over 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -231,6 +235,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+
         context "primary over 65 and spouse over 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -248,6 +253,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
       end
+
       describe "Line 8 exemptions" do
         context "neither primary nor spouse are blind" do
           let(:submission) {
@@ -262,6 +268,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_10"]).to eq "0"
           end
         end
+
         context "primary is blind but spouse is not blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -276,6 +283,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_10"]).to eq "1"
           end
         end
+
         context "primary is not blind but spouse is blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -290,6 +298,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_10"]).to eq "1"
           end
         end
+
         context "primary and spouse are both blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -694,6 +703,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text52"]).to eq "0"
         expect(pdf_fields["Text53"]).to eq "0"
       end
+
       it "totals line 6-8 and writes it to line 30" do
         # thousands
         expect(pdf_fields["30"]).to eq ""
@@ -1045,6 +1055,38 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         # decimals
         expect(pdf_fields["Text40"]).to eq "0"
         expect(pdf_fields["Text41"]).to eq "0"
+      end
+    end
+    
+    describe "line 65 nj child tax credit" do
+      let(:intake) {
+        # TODO: update after line 42 income work
+        create(
+          :state_file_nj_intake,
+          :df_data_one_dep
+        )
+      }
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: intake
+      }
+      before do
+        intake.dependents.first.update(dob: Date.new(2023, 1, 1))
+      end
+
+      it "adds the correct number of dependents younger than 5" do
+        expect(pdf_fields["64"]).to eq "1"
+      end
+
+      it "adds 1000 per dependent for nj taxable incomes less than or equal to 30k" do
+        # thousands
+        expect(pdf_fields["undefined_162"]).to eq "1"
+        # hundreds
+        expect(pdf_fields["Text182"]).to eq "0"
+        expect(pdf_fields["Text183"]).to eq "0"
+        expect(pdf_fields["Text184"]).to eq "0"
+        # decimals
+        expect(pdf_fields["Text185"]).to eq "0"
+        expect(pdf_fields["Text186"]).to eq "0"
       end
     end
   end
