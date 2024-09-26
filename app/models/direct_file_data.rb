@@ -67,7 +67,7 @@ class DirectFileData < DfXmlAccessor
     non_resident_alien: 'IRS1040 NRALiteralCd',
     interest_reported_amount: 'IRS1040 InterestReported', # fake
     primary_blind: 'IRS1040 PrimaryBlindInd',
-    spouse_blind: 'IRS1040 SpouseBlindInd'
+    spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt'
   }.freeze
 
