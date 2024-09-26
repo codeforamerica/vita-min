@@ -8,12 +8,15 @@ module Efile
         set_line(:NCD400_LINE_11, :calculate_line_11)
         set_line(:NCD400_LINE_12A, :calculate_line_12a)
         set_line(:NCD400_LINE_12B, :calculate_line_12b)
+        set_line(:NCD400_LINE_14, :calculate_line_14)
         set_line(:NCD400_LINE_15, :calculate_line_15)
+        set_line(:NCD400_LINE_17, :calculate_line_17)
         set_line(:NCD400_LINE_18, :calculate_line_18)
         set_line(:NCD400_LINE_19, :calculate_line_19)
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
         set_line(:NCD400_LINE_23, :calculate_line_23)
+        set_line(:NCD400_LINE_25, :calculate_line_25)
         set_line(:NCD400_LINE_26A, :calculate_line_26a)
         set_line(:NCD400_LINE_27, :calculate_line_27)
         set_line(:NCD400_LINE_28, :calculate_line_28)
@@ -28,6 +31,7 @@ module Efile
 
       def calculate_use_tax(nc_taxable_income)
         brackets = [
+          # todo check that its non-inclusive of the larger number
           [0, 2200, 1], [2200, 3700, 2], [3700, 5200, 3], [5200, 6700, 4],
           [6700, 8100, 5], [8100, 9600, 6], [9600, 11100, 7], [11100, 12600, 8],
           [12600, 14100, 9], [14100, 15600, 10], [15600, 17000, 11], [17000, 18500, 12],
@@ -83,23 +87,32 @@ module Efile
       end
 
       def calculate_line_12b
-        # Subtract Line 12a from Line 8
-        # line 8 is just fed agi
+        # Subtract Line 12a from Line 8 (which is just fed_agi)
         @direct_file_data.fed_agi - line_or_zero(:NCD400_LINE_12A)
       end
 
+      def calculate_line_14
+        line_or_zero(:NCD400_LINE_12B)
+      end
+
       def calculate_line_15
-        [(line_or_zero(:NCD400_LINE_12B) * 0.045).round, 0].max
+        [(line_or_zero(:NCD400_LINE_14) * 0.045).round, 0].max
       end
       def calculate_line_18
         # Consumer use tax
+        # todo: change/simplify this if the value we save and show to the client is the same in the model
         if @intake.untaxed_out_of_state_purchases_yes?
-          if @intake.sales_use_tax_calculation_method_manual?
+          if @intake.sales_use_tax_calculation_method_automated?
             calculate_use_tax(line_or_zero(:NCD400_LINE_14))
-          elsif @intake.sales_use_tax_calculation_method_automated?
+          elsif @intake.sales_use_tax_calculation_method_manual?
             @intake.sales_use_tax
           end
         end
+      end
+
+      def calculate_line_17
+        # Line 15 minus Line 16 (line 16 is 0/blank)
+        line_or_zero(:NCD400_LINE_15)
       end
 
       def calculate_line_19
@@ -132,6 +145,11 @@ module Efile
         line_or_zero(:NCD400_LINE_20A) + line_or_zero(:NCD400_LINE_20B)
       end
 
+      def calculate_line_25
+        # line 23 - line 24 (line 24 not in scope)
+        line_or_zero(:NCD400_LINE_23)
+      end
+
       def calculate_line_26a
         # Owe Money: if Line 25 is less than Line 19, subtract Line 25 from Line 19.
         if line_or_zero(:NCD400_LINE_25) < line_or_zero(:NCD400_LINE_19)
@@ -140,8 +158,8 @@ module Efile
       end
 
       def calculate_line_27
-        # Total amount due: Sum of Lines 26a, 26d, and 26e
-        [line_or_zero(:NCD400_LINE_26a), line_or_zero(:NCD400_LINE_26d), line_or_zero(:NCD400_LINE_26e)].sum
+        # Total amount due: Sum of Lines 26a, 26d, and 26e (line 26d & 26e out of scope)
+        line_or_zero(:NCD400_LINE_26a)
       end
 
       def calculate_line_28
@@ -152,9 +170,10 @@ module Efile
       end
 
       def calculate_line_34
-        # Total refund amount
-        line_or_zero(:NCD400_LINE_28) - line_or_zero(:NCD400_LINE_33)
+        # Total refund amount: line 28 - line 33 (line 33 not in scope)
+        line_or_zero(:NCD400_LINE_28)
       end
+      #todo: do i need to add rounding to each value
 
     end
   end

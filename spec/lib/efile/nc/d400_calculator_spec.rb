@@ -116,20 +116,78 @@ describe Efile::Nc::D400Calculator do
 
     context "value (line 14 (which = line 12b) * 0.045 rounded to the nearest dollar) is negative" do
       it "returns zero" do
-        allow(instance).to receive(:calculate_line_12b).and_return -100
+        allow(instance).to receive(:calculate_line_12b).and_return(-100)
 
         instance.calculate
         expect(instance.lines[:NCD400_LINE_15].value).to eq 0
       end
     end
   end
-  # describe "Line 18: Consumer Use Tax" do
-  #
-  # end
-  #
-  # describe "Line 19: Add line 17 & 18" do
-  #
-  # end
+
+  describe "Line 18: Consumer Use Tax" do
+    context "they have untaxed out of state purchases and selected automated calculation" do
+      let(:intake) { create(:state_file_nc_intake, untaxed_out_of_state_purchases: "yes", sales_use_tax_calculation_method: "automated") }
+
+      context "nc taxable income is 2,100" do
+        it "returns 1" do
+          allow(instance).to receive(:calculate_line_14).and_return 2_100
+          instance.calculate
+
+          expect(instance.lines[:NCD400_LINE_18].value).to eq 1
+        end
+      end
+
+      context "nc taxable income is 2,200" do
+        it "returns 2" do
+          allow(instance).to receive(:calculate_line_14).and_return 2_200
+          instance.calculate
+
+          expect(instance.lines[:NCD400_LINE_18].value).to eq 2
+        end
+      end
+
+      context "nc taxable income is 33,500" do
+        it "returns 23" do
+          allow(instance).to receive(:calculate_line_14).and_return 33_500
+          instance.calculate
+
+          expect(instance.lines[:NCD400_LINE_18].value).to eq 23
+        end
+      end
+
+      context "nc taxable income is 47,000" do
+        it "returns 23 (nc taxable income * .000675)" do
+          allow(instance).to receive(:calculate_line_14).and_return 47_000
+          instance.calculate
+
+          expect(instance.lines[:NCD400_LINE_18].value).to eq 32
+        end
+      end
+    end
+
+    context "they have untaxed out of state purchases and selected manual calculation" do
+      let(:intake) { create(:state_file_nc_intake, untaxed_out_of_state_purchases: "yes", sales_use_tax_calculation_method: "manual", sales_use_tax: "3") }
+
+      context "nc taxable income is 2,100" do
+        it "returns their entered sales use tax" do
+          allow(instance).to receive(:calculate_line_14).and_return 2_100
+          instance.calculate
+
+          expect(instance.lines[:NCD400_LINE_18].value).to eq 3
+        end
+      end
+    end
+  end
+
+  describe "Line 19" do
+    it "adds line 17 and 18" do
+      allow(instance).to receive(:calculate_line_17).and_return 102
+      allow(instance).to receive(:calculate_line_18).and_return 206
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_19].value).to eq 308
+    end
+  end
 
   describe "Line 20a: North Carolina Income Tax Withheld" do
     let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
@@ -184,24 +242,37 @@ describe Efile::Nc::D400Calculator do
   end
 
   describe "Line 26a: Tax Due" do
+    # If Line 25 is less than Line 19, Line 19 - Line 25. Otherwise, go to Line 28.
     context "they owe money" do
-
+      it "returns line 19 - line 25" do
+        allow(instance).to receive(:calculate_line_19).and_return 200
+        allow(instance).to receive(:calculate_line_25).and_return 100
+        
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_26A].value).to eq 100
+      end
     end
 
     context "they have a refund" do
+      it "returns nil" do
+        allow(instance).to receive(:calculate_line_19).and_return 100
+        allow(instance).to receive(:calculate_line_25).and_return 250
 
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_26A].value).to eq nil
+      end
     end
   end
 
-  describe "Line 27: Amount Due" do
+  # describe "Line 27: Amount Due" do
+  #
+  # end
 
-  end
+  # describe "Line 28: Overpayment" do
+  #
+  # end
 
-  describe "Line 28: Overpayment" do
-
-  end
-
-  describe "Line 34: Amount To Be Refunded" do
-
-  end
+  # describe "Line 34: Amount To Be Refunded" do
+  #
+  # end
 end

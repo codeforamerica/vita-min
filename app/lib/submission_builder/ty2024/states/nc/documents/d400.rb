@@ -40,15 +40,15 @@ module SubmissionBuilder
                 xml.NCStandardDeduction calculated_fields.fetch(:NCD400_LINE_11)
                 xml.NCAGIAddition calculated_fields.fetch(:NCD400_LINE_12A)
                 xml.NCAGISubtraction calculated_fields.fetch(:NCD400_LINE_12B)
-                xml.NCTaxableInc calculated_fields.fetch(:NCD400_LINE_12B) # line 14 = line 12B
-                xml.NCIncTax calculated_fields.fetch(:NCD400_LINE_15) # l17 = l15 - l16 and l16 is 0/blank
+                xml.NCTaxableInc calculated_fields.fetch(:NCD400_LINE_14)
+                xml.NCIncTax calculated_fields.fetch(:NCD400_LINE_17)
                 # line 16 TaxCredits is blank
                 if @submission.data_source.untaxed_out_of_state_purchases_yes?
-                  xml.UseTax '' #line 18
+                  xml.UseTax calculated_fields.fetch(:NCD400_LINE_18)
                 elsif @submission.data_source.untaxed_out_of_state_purchases_no?
                   xml.NoUseTaxDue 'X'
                 end
-                xml.TotalNCTax 'line 19'
+                xml.TotalNCTax calculated_fields.fetch(:NCD400_LINE_19)
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
                 xml.NCTaxPaid calculated_fields.fetch(:NCD400_LINE_23)
