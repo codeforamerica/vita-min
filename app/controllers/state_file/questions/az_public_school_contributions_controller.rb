@@ -11,7 +11,7 @@ module StateFile
       def index
         @az322_contributions = current_intake.az322_contributions
         unless @az322_contributions.present?
-          redirect_to action: :new
+          redirect_to action: :new, return_to_review: params[:return_to_review]
         end
       end
 

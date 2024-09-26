@@ -29,5 +29,8 @@
   <%= link_to(StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, us_state: current_state_code, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
     <%= t('.add_another') %>
   <% end %>
+  <% if @az322_contributions.count >= 10 %>
+    <p class="text--error text--centered spacing-above-5"><%= t('.maximum_records') %></p>
+  <% end %>
 <% end %>
 

@@ -34,6 +34,8 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
   end
 
   describe "#create" do
+    render_views
+
     let(:params) do
       {
         az322_contribution: {
@@ -60,6 +62,23 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       expect(contribution.state_file_az_intake).to eq intake
       expect(contribution.school_name).to eq 'School A'
       expect(contribution.amount).to eq 100
+    end
+
+    it 'should not create more than 10 contributions' do
+      get :index
+      expect(response.body).not_to include(I18n.t('state_file.questions.az_public_school_contributions.index.maximum_records'))
+
+      10.times do
+        put :create, params: params
+      end
+      expect(intake.az322_contributions.count).to eq 10
+
+      get :index
+      expect(response.body).to include(I18n.t('state_file.questions.az_public_school_contributions.index.maximum_records'))
+
+      expect {
+        put :create, params: params
+      }.not_to change(intake.az322_contributions, :count)
     end
 
     context "when 'no' was selected for made_contribution" do

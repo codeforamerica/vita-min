@@ -2191,6 +2191,7 @@ es:
           contribution_label: Contribución a %{school_name}
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
           lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
       az_qualifying_organization_contributions:
         destroy:
           removed: Se eliminó AZ 321 para %{charity_name}
