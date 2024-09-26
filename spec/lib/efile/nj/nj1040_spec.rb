@@ -104,6 +104,19 @@ describe Efile::Nj::Nj1040 do
     end
   end
 
+  describe 'line 13 - total exemptions' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 13 to the sum of lines 6-12' do
+      self_exemption = 1000
+      expect(instance.lines[:NJ1040_LINE_6].value).to eq(self_exemption)
+      not_over_65 = 0
+      expect(instance.lines[:NJ1040_LINE_7].value).to eq(not_over_65)
+      not_blind = 0
+      expect(instance.lines[:NJ1040_LINE_8].value).to eq(not_blind)
+      expect(instance.lines[:NJ1040_LINE_13].value).to eq(self_exemption + not_over_65 + not_blind)
+    end
+  end
+
   describe 'line 15 - state wages' do
     context 'when no federal w2s' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
