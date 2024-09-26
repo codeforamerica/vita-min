@@ -82,7 +82,12 @@ module Efile
     private
 
     def error_service_type(submission)
-      :state_file
+      if submission.data_source
+        state_code = submission.data_source.state_code
+        "state_file_#{state_code}"
+      else
+        "ctc"
+      end
     end
   end
 
