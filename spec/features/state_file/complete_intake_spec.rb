@@ -354,6 +354,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1978, 6, 21)
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title")
+      select("Alamance", from: "County")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title")
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
