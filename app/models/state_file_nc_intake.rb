@@ -59,6 +59,8 @@
 #  ssn                               :string
 #  street_address                    :string
 #  tax_return_year                   :integer
+#  tribal_member                     :integer          default("unfilled"), not null
+#  tribal_wages_amount               :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
@@ -80,6 +82,7 @@ class StateFileNcIntake < StateFileBaseIntake
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
+  enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
 
   def calculate_sales_use_tax

@@ -2,18 +2,22 @@
 #
 # Table name: state_file_w2s
 #
-#  id                       :bigint           not null, primary key
-#  employer_state_id_num    :string
-#  local_income_tax_amt     :integer
-#  local_wages_and_tips_amt :integer
-#  locality_nm              :string
-#  state_file_intake_type   :string
-#  state_income_tax_amt     :integer
-#  state_wages_amt          :integer
-#  w2_index                 :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  state_file_intake_id     :bigint
+#  id                          :bigint           not null, primary key
+#  employer_state_id_num       :string
+#  local_income_tax_amount     :decimal(12, 2)
+#  local_income_tax_amt        :integer
+#  local_wages_and_tips_amount :decimal(12, 2)
+#  local_wages_and_tips_amt    :integer
+#  locality_nm                 :string
+#  state_file_intake_type      :string
+#  state_income_tax_amount     :decimal(12, 2)
+#  state_income_tax_amt        :integer
+#  state_wages_amount          :decimal(12, 2)
+#  state_wages_amt             :integer
+#  w2_index                    :integer
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  state_file_intake_id        :bigint
 #
 # Indexes
 #
@@ -147,6 +151,46 @@ describe StateFileW2 do
       w2.employer_state_id_num = ""
       xml = Nokogiri::XML(w2.state_tax_group_xml_node)
       expect(xml.at("StateAbbreviationCd")).to be_nil
+    end
+  end
+
+  describe "#sync_amount_columns" do
+    let(:w2) { build(:state_file_w2, state_file_intake: create(:state_file_ny_intake)) }
+
+    it "syncs valid amounts for money" do
+      w2.state_wages_amt = 10000
+      w2.state_income_tax_amt = 1000
+      w2.local_wages_and_tips_amt = 9000
+      w2.local_income_tax_amt = 500
+      w2.save
+      expect(w2.state_wages_amount).to eq 10000
+      expect(w2.state_income_tax_amount).to eq 1000
+      expect(w2.local_wages_and_tips_amount).to eq 9000
+      expect(w2.local_income_tax_amount).to eq 500
+    end
+
+    it "syncs nil values" do
+      w2.state_wages_amt = nil
+      w2.state_income_tax_amt = nil
+      w2.local_wages_and_tips_amt = nil
+      w2.local_income_tax_amt = nil
+      w2.save
+      expect(w2.state_wages_amount).to be_nil
+      expect(w2.state_income_tax_amount).to be_nil
+      expect(w2.local_wages_and_tips_amount).to be_nil
+      expect(w2.local_income_tax_amount).to be_nil
+    end
+
+    it "doesn't sync invalid values" do
+      w2.state_wages_amt = "invalid"
+      w2.state_income_tax_amt = -1000
+      w2.local_wages_and_tips_amt = 9000.50
+      w2.local_income_tax_amt = "500"
+      w2.save
+      expect(w2.state_wages_amount).to be_nil
+      expect(w2.state_income_tax_amount).to be_nil
+      expect(w2.local_wages_and_tips_amount).to be_nil
+      expect(w2.local_income_tax_amount).to be_nil
     end
   end
 end

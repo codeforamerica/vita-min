@@ -3,7 +3,19 @@ module Efile
     class D400Calculator < ::Efile::TaxCalculator
       attr_reader :lines
 
+      def initialize(year:, intake:, include_source: false)
+        super
+        @d400_schedule_s = Efile::Nc::D400ScheduleSCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
+      end
+
+
       def calculate
+        @d400_schedule_s.calculate
+        set_line(:NCD400_LINE_9, :calculate_line_9)
         set_line(:NCD400_LINE_10B, :calculate_line_10b)
         set_line(:NCD400_LINE_11, :calculate_line_11)
         set_line(:NCD400_LINE_12A, :calculate_line_12a)
@@ -20,6 +32,10 @@ module Efile
       end
 
       private
+
+      def calculate_line_9
+        line_or_zero(:NCD400_S_LINE_41)
+      end
 
       def calculate_line_10b
         income_ranges = if filing_status_single? || filing_status_mfs?
