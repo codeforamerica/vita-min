@@ -65,7 +65,6 @@
 #  spouse_middle_initial             :string
 #  spouse_ssn                        :string
 #  spouse_suffix                     :string
-#  tax_return_year                   :integer
 #  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  withdraw_amount                   :integer
