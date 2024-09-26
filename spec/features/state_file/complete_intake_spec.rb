@@ -386,4 +386,30 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina")
     end
   end
+
+  context "ID", :flow_explorer_screenshot, js: true do
+    it "has content", required_schema: "id" do
+      visit "/"
+      click_on "Start Test ID"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
+      click_on I18n.t('general.get_started'), id: "firstCta"
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
+      check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
+      click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
+
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho")
+    end
+  end
 end
