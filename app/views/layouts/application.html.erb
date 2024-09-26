@@ -35,7 +35,7 @@
     <meta property="twitter:url" content="<%= canonical_url %>">
 
     <% # Site verification for InsightAppSec DAST vulnerability scanner %>
-    <% if not Rails.env.production? %>
+    <% unless Rails.env.production? %>
       <meta name="insight-app-sec-validation" content="a08ae307-c25f-4fc4-9dff-0c4ae0c7dff4">
     <% end %>
 
