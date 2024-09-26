@@ -111,7 +111,7 @@ FactoryBot.define do
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
-        dependent.update( dob: i.years.ago )
+        dependent.update(dob: i.years.ago)
       end
     end
 
@@ -162,6 +162,18 @@ FactoryBot.define do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1900, 1, 1) }
       spouse_ssn { "123456789" }
+    end
+
+    trait :primary_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.primary_blind
+      end
+    end
+
+    trait :spouse_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.spouse_blind
+      end
     end
   end
 end
