@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::StateReturn do
-  states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc")
+  states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc", "id")
   states_requiring_w2s.each do |state_code|
     describe '#combined_w2s', required_schema: state_code do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }

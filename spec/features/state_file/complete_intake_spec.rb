@@ -354,12 +354,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1978, 6, 21)
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      select("Alamance", from: "County")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title")
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.sales_use_tax.edit.title.other", year: MultiTenantService.statefile.current_tax_year, count: 2)
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -376,6 +384,32 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina")
+    end
+  end
+
+  context "ID", :flow_explorer_screenshot, js: true do
+    it "has content", required_schema: "id" do
+      visit "/"
+      click_on "Start Test ID"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
+      click_on I18n.t('general.get_started'), id: "firstCta"
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
+      check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
+      click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
+
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho")
     end
   end
 end
