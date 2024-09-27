@@ -2208,6 +2208,7 @@ es:
           contribution_name: Contribución a %{charity_name} con el código %{charity_code}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
           lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
       az_retirement_income:
         edit:
           amount_label: Ingrese la cantidad ganada
