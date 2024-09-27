@@ -269,7 +269,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "total exemption - lines 13 and 30" do
       let(:intake) { create(:state_file_nj_intake) }
-      it "totals lines 6-12 and stores the result" do
+      it "totals lines 6-8 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0

@@ -682,7 +682,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :state_file_nj_intake
         )
       }
-      it "totals line 6-12 and writes it to line 13" do
+      it "totals line 6-8 and writes it to line 13" do
         # thousands
         expect(pdf_fields["undefined_15"]).to eq ""
         expect(pdf_fields["undefined_16"]).to eq "1"
@@ -694,7 +694,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text52"]).to eq "0"
         expect(pdf_fields["Text53"]).to eq "0"
       end
-      it "totals line 6-12 and writes it to line 30" do
+      it "totals line 6-8 and writes it to line 30" do
         # thousands
         expect(pdf_fields["30"]).to eq ""
         expect(pdf_fields["210"]).to eq ""
