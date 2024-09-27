@@ -3052,7 +3052,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
-    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
+    must_enter_amount: If someone claimed this credit you must enter an amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"
