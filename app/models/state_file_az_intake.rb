@@ -40,6 +40,7 @@
 #  locale                                      :string           default("en")
 #  locked_at                                   :datetime
 #  made_az321_contributions                    :integer          default("unfilled"), not null
+#  made_az322_contributions                    :integer          default("unfilled"), not null
 #  message_tracker                             :jsonb
 #  payment_or_deposit_type                     :integer          default("unfilled"), not null
 #  phone_number                                :string
@@ -116,6 +117,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum primary_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_received_pension
   enum spouse_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_received_pension
   enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
+  enum made_az322_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az322_contributions
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :az321_contributions, length: { maximum: 10 }
