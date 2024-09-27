@@ -12,8 +12,11 @@
         <th scope="col" width="100" class="index-table__header index-table__header--center">
           Auto-wait?
         </th>
-        <th scope="col" width="150" class="index-table__header">
+        <th scope="col" width="100" class="index-table__header">
           Source
+        </th>
+        <th scope="col" width="120" class="index-table__header">
+          Service type
         </th>
         <th scope="col" width="150" class="index-table__header">
           Error Code
@@ -51,6 +54,9 @@
           <td class="index-table__cell status">
             <% source = error.source.present? ? error.source : "none" %>
             <%= link_to source, hub_state_file_efile_error_path(id: error.id) %>
+          </td>
+          <td class="index-table__cell status">
+            <%= error.service_type %>
           </td>
           <td class="index-table__cell">
             <%= link_to error.code, hub_state_file_efile_error_path(id: error.id), class: "underline" %>
