@@ -48,7 +48,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         end
 
         context "client got accepted and then submitted another return which got reject 901" do
-          let(:efile_error) { create(:efile_error, code: "901", service_type: :state_file, expose: true) }
+          let(:efile_error) { create(:efile_error, code: "901", service_type: :state_file_az, expose: true) }
 
           it "shows the most recent accepted submission" do
             get :edit
@@ -58,7 +58,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         end
 
         context "client got accepted and then submitted another return which got a different rejection" do
-          let(:efile_error) { create(:efile_error, code: "A LEGIT REJECTION I GUESS", service_type: :state_file, expose: true) }
+          let(:efile_error) { create(:efile_error, code: "A LEGIT REJECTION I GUESS", service_type: :state_file_az, expose: true) }
 
           it "shows the most recent submission" do
             get :edit
