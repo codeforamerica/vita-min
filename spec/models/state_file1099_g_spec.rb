@@ -4,7 +4,6 @@
 #
 #  id                                 :bigint           not null, primary key
 #  address_confirmation               :integer          default("unfilled"), not null
-#  federal_income_tax_withheld        :integer
 #  federal_income_tax_withheld_amount :decimal(12, 2)
 #  had_box_11                         :integer          default("unfilled"), not null
 #  intake_type                        :string           not null
@@ -19,9 +18,7 @@
 #  recipient_street_address_apartment :string
 #  recipient_zip                      :string
 #  state_identification_number        :string
-#  state_income_tax_withheld          :integer
 #  state_income_tax_withheld_amount   :decimal(12, 2)
-#  unemployment_compensation          :integer
 #  unemployment_compensation_amount   :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
