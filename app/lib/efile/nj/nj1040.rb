@@ -79,7 +79,7 @@ module Efile
       end
 
       def calculate_line_13
-        calculate_line_6 + calculate_line_7 + calculate_line_8
+        line_or_zero(:NJ1040_LINE_6) +  line_or_zero(:NJ1040_LINE_7) +  line_or_zero(:NJ1040_LINE_8) 
       end
 
       def calculate_line_15
