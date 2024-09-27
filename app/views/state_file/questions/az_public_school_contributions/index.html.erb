@@ -26,8 +26,7 @@
   <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
     <%= t('general.continue') %>
   <% end %>
-  <%= @az322_contributions.count %>
-  <%= link_to(StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide", method: :get, disabled: (@az322_contributions.count >= 10)) do %>
+  <%= button_to(StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide", method: :get, disabled: (@az322_contributions.count >= 10)) do %>
     <%= t('.add_another') %>
   <% end %>
   <% if @az322_contributions.count >= 10 %>

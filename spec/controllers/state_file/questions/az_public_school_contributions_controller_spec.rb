@@ -65,16 +65,17 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     end
 
     it 'should not create more than 10 contributions' do
-      get :index
-      expect(response.body).not_to include(I18n.t('state_file.questions.az_public_school_contributions.index.maximum_records'))
-
       10.times do
         put :create, params: params
       end
       expect(intake.az322_contributions.count).to eq 10
 
       get :index
+      expect(response).to be_ok
       expect(response.body).to include(I18n.t('state_file.questions.az_public_school_contributions.index.maximum_records'))
+      html = Nokogiri::HTML.parse(response.body)
+      add_contribution_button = html.xpath("//button[contains(., 'Add another contribution')]")[0]
+      expect(add_contribution_button.attr("disabled")).to eq("disabled")
 
       expect {
         put :create, params: params
