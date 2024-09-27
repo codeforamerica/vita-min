@@ -2656,12 +2656,12 @@ Connect to 5s</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">state_file_az_state_credits_form[armed_forces_member]</stringProp>
               </elementProp>
-              <elementProp name="state_file_az_state_credits_form[armed_forces_wages]" elementType="HTTPArgument">
+              <elementProp name="state_file_az_state_credits_form[armed_forces_wages_amount]" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value"></stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">state_file_az_state_credits_form[armed_forces_wages]</stringProp>
+                <stringProp name="Argument.name">state_file_az_state_credits_form[armed_forces_wages_amount]</stringProp>
               </elementProp>
               <elementProp name="commit" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
