@@ -22,8 +22,9 @@ class EfileError < ApplicationRecord
   has_rich_text :resolution_en
   has_rich_text :resolution_es
 
-  state_enum_options = StateFile::StateInformationService.active_state_codes.each.with_index.reduce({}) do |acc, (state_code, i)|
-    acc["state_file_#{state_code}"] = (i + 3)
+  state_enum_options = StateFile::StateInformationService.active_state_codes.reduce({}) do |acc, state_code|
+    int_value = state_code.bytes.sum
+    acc["state_file_#{state_code}"] = int_value
     acc
   end
   enum service_type: { unfilled: 0, ctc: 1, state_file: 2 }.merge(state_enum_options), _prefix: :service_type
