@@ -23,10 +23,10 @@ class EfileError < ApplicationRecord
   has_rich_text :resolution_es
 
   state_enum_options = StateFile::StateInformationService.active_state_codes.each.with_index.reduce({}) do |acc, (state_code, i)|
-    acc["state_file_#{state_code}"] = (i + 2)
+    acc["state_file_#{state_code}"] = (i + 3)
     acc
   end
-  enum service_type: { unfilled: 0, ctc: 1 }.merge(state_enum_options), _prefix: :service_type
+  enum service_type: { unfilled: 0, ctc: 1, state_file: 2 }.merge(state_enum_options), _prefix: :service_type
 
   def self.error_codes_to_retry_once
     # These error codes indicate that the IRS had trouble parsing our data. When we see this, it
