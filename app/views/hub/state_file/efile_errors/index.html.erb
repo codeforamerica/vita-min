@@ -16,7 +16,7 @@
           Source
         </th>
         <th scope="col" width="120" class="index-table__header">
-          Service type
+          <%= link_to "Service type", hub_state_file_efile_errors_path(sort_by: :service_type) %>
         </th>
         <th scope="col" width="150" class="index-table__header">
           Error Code
@@ -51,14 +51,14 @@
           <td class="index-table__cell index-table__cell--center">
             <%= image_tag error.auto_wait ? "icons/check.svg" : "icons/cancelled.svg", alt: error.auto_wait ? "yes" : "no" %>
           </td>
-          <td class="index-table__cell status">
+          <td class="index-table__cell">
             <% source = error.source.present? ? error.source : "none" %>
-            <%= link_to source, hub_state_file_efile_error_path(id: error.id) %>
-          </td>
-          <td class="index-table__cell status">
-            <%= error.service_type %>
+            <%= source %>
           </td>
           <td class="index-table__cell">
+            <%= link_to error.service_type, hub_state_file_efile_errors_path(filter_by_service_type: error.service_type), class: "underline" %>
+          </td>
+          <td class="index-table__cell status">
             <%= link_to error.code, hub_state_file_efile_error_path(id: error.id), class: "underline" %>
           </td>
           <td class="index-table__cell">
