@@ -37,6 +37,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::NcReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::NcPrimaryStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcSpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
