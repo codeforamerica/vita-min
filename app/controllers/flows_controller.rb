@@ -631,11 +631,9 @@ class FlowsController < ApplicationController
     def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
       base_attributes = common_attributes.merge(
         armed_forces_member: "yes",
-        armed_forces_wages: 100,
         armed_forces_wages_amount: 100,
         charitable_cash_amount: 123,
         charitable_contributions: "yes",
-        charitable_noncash: 123,
         charitable_noncash_amount: 123,
         contact_preference: "email",
         eligibility_529_for_non_qual_expense: "no",
@@ -648,7 +646,6 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         prior_last_names: "Jordan, Pippen, Rodman",
         tribal_member: "yes",
-        tribal_wages: 100,
         tribal_wages_amount: 100,
         primary_was_incarcerated: "no",
         spouse_was_incarcerated: "no",

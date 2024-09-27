@@ -31,12 +31,12 @@ describe StateFileW2 do
   let(:w2) {
     create(:state_file_w2,
       employer_state_id_num: "001245788",
-      local_income_tax_amt: 200,
-      local_wages_and_tips_amt: 8000,
+      local_income_tax_amount: 200,
+      local_wages_and_tips_amount: 8000,
       locality_nm: "NYC",
       state_file_intake: intake,
-      state_income_tax_amt: 600,
-      state_wages_amt: 8000,
+      state_income_tax_amount: 600,
+      state_wages_amount: 8000,
       w2_index: 0
     )
   }
@@ -47,17 +47,11 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
-    [:w2_index, :state_wages_amt, :state_income_tax_amt, :local_wages_and_tips_amt, :local_income_tax_amt].each do |field|
+    [:w2_index, :state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount].each do |field|
       context field do
 
         it "does not permit strings" do
           w2.send("#{field}=", "nope")
-          expect(w2).not_to be_valid
-          expect(w2.errors[field]).to be_present
-        end
-
-        it "does not permit floats" do
-          w2.send("#{field}=", 3.14159)
           expect(w2).not_to be_valid
           expect(w2.errors[field]).to be_present
         end
@@ -78,26 +72,26 @@ describe StateFileW2 do
 
     it "permits both locality_nm and local_wages_and_tips_amt to be missing" do
       w2.locality_nm = nil
-      w2.local_wages_and_tips_amt = 0
-      w2.local_income_tax_amt = 0
+      w2.local_wages_and_tips_amount = 0
+      w2.local_income_tax_amount = 0
       expect(w2).to be_valid
     end
 
     it "requires local_income_tax_amt to be less than local_wages_and_tips_amt" do
-      w2.local_wages_and_tips_amt = 0
+      w2.local_wages_and_tips_amount = 0
       expect(w2).not_to be_valid
-      expect(w2.errors[:local_income_tax_amt]).to be_present
+      expect(w2.errors[:local_income_tax_amount]).to be_present
     end
 
     it "requires state_income_tax_amt to be less than state_wages_amt" do
-      w2.state_wages_amt = 0
+      w2.state_wages_amount = 0
       expect(w2).not_to be_valid
-      expect(w2.errors[:state_income_tax_amt]).to be_present
+      expect(w2.errors[:state_income_tax_amount]).to be_present
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.state_wages_amt = 0
-      w2.state_income_tax_amt = 0
+      w2.state_wages_amount = 0
+      w2.state_income_tax_amount = 0
       expect(w2).to be_valid
     end
 
@@ -109,8 +103,8 @@ describe StateFileW2 do
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
       w2.employer_state_id_num = nil
-      w2.state_wages_amt = 0
-      w2.state_income_tax_amt = 0
+      w2.state_wages_amount = 0
+      w2.state_income_tax_amount = 0
       expect(w2).to be_valid
     end
 
@@ -126,7 +120,7 @@ describe StateFileW2 do
     end
 
     it "permits local_wages_and_tips_amt to be greater than w2.wagesAmt" do
-      w2.local_wages_and_tips_amt = 1000000
+      w2.local_wages_and_tips_amount = 1000000
       expect(w2).to be_valid
     end
 
@@ -151,46 +145,6 @@ describe StateFileW2 do
       w2.employer_state_id_num = ""
       xml = Nokogiri::XML(w2.state_tax_group_xml_node)
       expect(xml.at("StateAbbreviationCd")).to be_nil
-    end
-  end
-
-  describe "#sync_amount_columns" do
-    let(:w2) { build(:state_file_w2, state_file_intake: create(:state_file_ny_intake)) }
-
-    it "syncs valid amounts for money" do
-      w2.state_wages_amt = 10000
-      w2.state_income_tax_amt = 1000
-      w2.local_wages_and_tips_amt = 9000
-      w2.local_income_tax_amt = 500
-      w2.save
-      expect(w2.state_wages_amount).to eq 10000
-      expect(w2.state_income_tax_amount).to eq 1000
-      expect(w2.local_wages_and_tips_amount).to eq 9000
-      expect(w2.local_income_tax_amount).to eq 500
-    end
-
-    it "syncs nil values" do
-      w2.state_wages_amt = nil
-      w2.state_income_tax_amt = nil
-      w2.local_wages_and_tips_amt = nil
-      w2.local_income_tax_amt = nil
-      w2.save
-      expect(w2.state_wages_amount).to be_nil
-      expect(w2.state_income_tax_amount).to be_nil
-      expect(w2.local_wages_and_tips_amount).to be_nil
-      expect(w2.local_income_tax_amount).to be_nil
-    end
-
-    it "doesn't sync invalid values" do
-      w2.state_wages_amt = "invalid"
-      w2.state_income_tax_amt = -1000
-      w2.local_wages_and_tips_amt = 9000.50
-      w2.local_income_tax_amt = "500"
-      w2.save
-      expect(w2.state_wages_amount).to be_nil
-      expect(w2.state_income_tax_amount).to be_nil
-      expect(w2.local_wages_and_tips_amount).to be_nil
-      expect(w2.local_income_tax_amount).to be_nil
     end
   end
 end

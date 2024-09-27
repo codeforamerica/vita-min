@@ -40,9 +40,9 @@ FactoryBot.define do
     payer_zip {'11102'}
     payer_tin {'270293117'}
     state_identification_number {'123456789'}
-    unemployment_compensation { '1' }
-    federal_income_tax_withheld { '0' }
-    state_income_tax_withheld { '0' }
+    unemployment_compensation_amount { '1' }
+    federal_income_tax_withheld_amount { '0' }
+    state_income_tax_withheld_amount { '0' }
     recipient_city {'New York'}
     recipient_street_address {'123 Recipient St'}
     recipient_zip {'11102'}

@@ -11,7 +11,7 @@ module StateFile
 
       def form_params
         params.require(:state_file_az_subtractions_form).permit(
-          [:armed_forces_member, :armed_forces_wages, :tribal_member, :tribal_wages]
+          [:armed_forces_member, :armed_forces_wages_amount, :tribal_member, :tribal_wages_amount]
         )
       end
     end

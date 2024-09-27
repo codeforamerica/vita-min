@@ -52,9 +52,9 @@ RSpec.describe StateFile1099G do
           recipient_street_address: '123 Main St',
           recipient_street_address_apartment: 'Apt E',
           recipient_zip: '11102',
-          unemployment_compensation: '1',
-          federal_income_tax_withheld: '0',
-          state_income_tax_withheld: '0',
+          unemployment_compensation_amount: '1',
+          federal_income_tax_withheld_amount: '0',
+          state_income_tax_withheld_amount: '0',
         )
         state_file_1099.address_confirmation = 'yes'
         state_file_1099.save
@@ -75,27 +75,27 @@ RSpec.describe StateFile1099G do
       recipient_street_address: '123 Main St',
       recipient_street_address_apartment: 'Apt E',
       recipient_zip: '11102',
-      unemployment_compensation: '1',
-      federal_income_tax_withheld: '0',
-      state_income_tax_withheld: '0',
+      unemployment_compensation_amount: '1',
+      federal_income_tax_withheld_amount: '0',
+      state_income_tax_withheld_amount: '0',
       ) }
 
-    it "validates unemployment_compensation" do
-      state_file_1099.unemployment_compensation = nil
+    it "validates unemployment_compensation_amount" do
+      state_file_1099.unemployment_compensation_amount = nil
       expect(state_file_1099.save).to eq false
-      state_file_1099.unemployment_compensation = '0'
-      expect(state_file_1099.save).to eq false
-    end
-    it "validates federal_income_tax_withheld" do
-      state_file_1099.federal_income_tax_withheld = nil
-      expect(state_file_1099.save).to eq false
-      state_file_1099.federal_income_tax_withheld = '-1'
+      state_file_1099.unemployment_compensation_amount = '0'
       expect(state_file_1099.save).to eq false
     end
-    it "validates state_income_tax_withheld" do
-      state_file_1099.state_income_tax_withheld = nil
+    it "validates federal_income_tax_withheld_amount" do
+      state_file_1099.federal_income_tax_withheld_amount = nil
       expect(state_file_1099.save).to eq false
-      state_file_1099.state_income_tax_withheld = '-1'
+      state_file_1099.federal_income_tax_withheld_amount = '-1'
+      expect(state_file_1099.save).to eq false
+    end
+    it "validates state_income_tax_withheld_amount" do
+      state_file_1099.state_income_tax_withheld_amount = nil
+      expect(state_file_1099.save).to eq false
+      state_file_1099.state_income_tax_withheld_amount = '-1'
       expect(state_file_1099.save).to eq false
     end
 
@@ -107,26 +107,6 @@ RSpec.describe StateFile1099G do
       expect(state_file_1099.recipient_address_line2).to eq nil
     end
 
-    context "non-integer number" do
-      let(:state_file_1099) { build(
-        :state_file1099_g,
-        intake: create(:state_file_ny_intake),
-        address_confirmation: 'no',
-        recipient_city: 'New York',
-        recipient_street_address: '123 Main St',
-        recipient_street_address_apartment: 'Apt E',
-        recipient_zip: '11102',
-        unemployment_compensation: '2.5',
-        federal_income_tax_withheld: '0',
-        state_income_tax_withheld: '0',
-        ) }
-
-      it "validates unemployment_compensation for a whole number" do
-        state_file_1099.valid?
-        expect(state_file_1099.errors[:unemployment_compensation]).to include "must be a whole number"
-      end
-    end
-
     context "for wrong range" do
       let(:state_file_1099) { build(
         :state_file1099_g,
@@ -136,49 +116,15 @@ RSpec.describe StateFile1099G do
         recipient_street_address: '123 Main St',
         recipient_street_address_apartment: 'Apt E',
         recipient_zip: '11102',
-        unemployment_compensation: '0',
-        federal_income_tax_withheld: '0',
-        state_income_tax_withheld: '0',
+        unemployment_compensation_amount: '0',
+        federal_income_tax_withheld_amount: '0',
+        state_income_tax_withheld_amount: '0',
         ) }
 
       it "validates unemployment_compensation" do
         state_file_1099.valid?
-        expect(state_file_1099.errors[:unemployment_compensation]).to include "must be greater than or equal to 1"
+        expect(state_file_1099.errors[:unemployment_compensation_amount]).to include "must be greater than or equal to 1"
       end
-    end
-  end
-
-  describe "#sync_amount_columns" do
-    let(:state_file_1099) { build(:state_file1099_g, intake: create(:state_file_ny_intake)) }
-
-    it "syncs valid amounts for money " do
-      state_file_1099.unemployment_compensation = 1000
-      state_file_1099.federal_income_tax_withheld = 200
-      state_file_1099.state_income_tax_withheld = 150
-      state_file_1099.save
-      expect(state_file_1099.unemployment_compensation_amount).to eq 1000
-      expect(state_file_1099.federal_income_tax_withheld_amount).to eq 200
-      expect(state_file_1099.state_income_tax_withheld_amount).to eq 150
-    end
-
-    it "syncs nil values" do
-      state_file_1099.unemployment_compensation = nil
-      state_file_1099.federal_income_tax_withheld = nil
-      state_file_1099.state_income_tax_withheld = nil
-      state_file_1099.save
-      expect(state_file_1099.unemployment_compensation_amount).to be_nil
-      expect(state_file_1099.federal_income_tax_withheld_amount).to be_nil
-      expect(state_file_1099.state_income_tax_withheld_amount).to be_nil
-    end
-
-    it "doesn't sync invalid values" do
-      state_file_1099.unemployment_compensation = "invalid"
-      state_file_1099.federal_income_tax_withheld = -1000
-      state_file_1099.state_income_tax_withheld = 100.50
-      state_file_1099.save
-      expect(state_file_1099.unemployment_compensation_amount).to be_nil
-      expect(state_file_1099.federal_income_tax_withheld_amount).to be_nil
-      expect(state_file_1099.state_income_tax_withheld_amount).to be_nil
     end
   end
 end

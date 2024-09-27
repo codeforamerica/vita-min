@@ -248,7 +248,7 @@ describe StateFileAzIntake do
 
     context "has new columns" do
       before do
-        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no", household_excise_credit_claimed: "yes", household_excise_credit_claimed_amt: 50)
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no", household_excise_credit_claimed: "yes", household_excise_credit_claimed_amount: 50)
       end
 
       it "returns false if neither filer was incarcerated" do

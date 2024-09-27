@@ -70,8 +70,6 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       form.save
-      expect(intake.reload.charitable_cash).to eq 100
-      expect(intake.reload.charitable_noncash).to eq 100
       expect(intake.reload.charitable_cash_amount).to eq 100
       expect(intake.reload.charitable_noncash_amount).to eq 100
     end
@@ -82,8 +80,8 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
     let(:valid_params) do
       {
         charitable_contributions: "no",
-        charitable_cash: "",
-        charitable_noncash: "",
+        charitable_cash_amount: "",
+        charitable_noncash_amount: "",
       }
     end
 
@@ -91,20 +89,18 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       form.save
-      expect(intake.reload.charitable_cash).to be_nil
-      expect(intake.reload.charitable_noncash).to be_nil
       expect(intake.reload.charitable_cash_amount).to be_nil
       expect(intake.reload.charitable_noncash_amount).to be_nil
     end
   end
 
   describe "going back and saying no to charitable contributions" do
-    let(:intake) { create :state_file_az_intake, charitable_cash: 100, charitable_noncash: 100}
+    let(:intake) { create :state_file_az_intake, charitable_cash_amount: 100, charitable_noncash_amount: 100}
     let(:valid_params) do
       {
         charitable_contributions: "no",
-        charitable_cash: 100,
-        charitable_noncash: 100,
+        charitable_cash_amount: 100,
+        charitable_noncash_amount: 100,
       }
     end
 
@@ -112,8 +108,6 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       form.save
-      expect(intake.reload.charitable_cash).to be_nil
-      expect(intake.reload.charitable_noncash).to be_nil
       expect(intake.reload.charitable_cash_amount).to be_nil
       expect(intake.reload.charitable_noncash_amount).to be_nil
     end

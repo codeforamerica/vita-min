@@ -2642,12 +2642,12 @@ Connect to 5s</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">state_file_az_state_credits_form[tribal_member]</stringProp>
               </elementProp>
-              <elementProp name="state_file_az_state_credits_form[tribal_wages]" elementType="HTTPArgument">
+              <elementProp name="state_file_az_state_credits_form[tribal_wages_amount]" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value"></stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">state_file_az_state_credits_form[tribal_wages]</stringProp>
+                <stringProp name="Argument.name">state_file_az_state_credits_form[tribal_wages_amount]</stringProp>
               </elementProp>
               <elementProp name="state_file_az_state_credits_form[armed_forces_member]" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
@@ -2731,19 +2731,19 @@ Connect to 5s</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">state_file_az_charitable_contributions_form[charitable_contributions]</stringProp>
               </elementProp>
-              <elementProp name="state_file_az_charitable_contributions_form[charitable_cash]" elementType="HTTPArgument">
+              <elementProp name="state_file_az_charitable_contributions_form[charitable_cash_amount]" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">0</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">state_file_az_charitable_contributions_form[charitable_cash]</stringProp>
+                <stringProp name="Argument.name">state_file_az_charitable_contributions_form[charitable_cash_amount]</stringProp>
               </elementProp>
-              <elementProp name="state_file_az_charitable_contributions_form[charitable_noncash]" elementType="HTTPArgument">
+              <elementProp name="state_file_az_charitable_contributions_form[charitable_noncash_amount]" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">0</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">state_file_az_charitable_contributions_form[charitable_noncash]</stringProp>
+                <stringProp name="Argument.name">state_file_az_charitable_contributions_form[charitable_noncash_amount]</stringProp>
               </elementProp>
               <elementProp name="commit" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
@@ -2834,12 +2834,12 @@ Connect to 5s</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">state_file_az_excise_credit_form[household_excise_credit_claimed]</stringProp>
               </elementProp>
-              <elementProp name="state_file_az_excise_credit_form[household_excise_credit_claimed_amt]" elementType="HTTPArgument">
+              <elementProp name="state_file_az_excise_credit_form[household_excise_credit_claimed_amount]" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value"></stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">state_file_az_excise_credit_form[household_excise_credit_claimed_amt]</stringProp>
+                <stringProp name="Argument.name">state_file_az_excise_credit_form[household_excise_credit_claimed_amount]</stringProp>
               </elementProp>
               <elementProp name="commit" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
