@@ -23,7 +23,7 @@ class EfileError < ApplicationRecord
   has_rich_text :resolution_es
 
   state_enum_options = StateFile::StateInformationService.active_state_codes.reduce({}) do |acc, state_code|
-    int_value = state_code.bytes.sum
+    int_value = state_code.bytes.map(&:to_s).join.to_i
     acc["state_file_#{state_code}"] = int_value
     acc
   end
