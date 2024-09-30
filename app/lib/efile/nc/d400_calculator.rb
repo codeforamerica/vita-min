@@ -30,8 +30,9 @@ module Efile
       end
 
       def calculate_use_tax(nc_taxable_income)
+        return 0 if nc_taxable_income < 0
+
         brackets = [
-          # todo check that its non-inclusive of the larger number
           [0, 2200, 1], [2200, 3700, 2], [3700, 5200, 3], [5200, 6700, 4],
           [6700, 8100, 5], [8100, 9600, 6], [9600, 11100, 7], [11100, 12600, 8],
           [12600, 14100, 9], [14100, 15600, 10], [15600, 17000, 11], [17000, 18500, 12],

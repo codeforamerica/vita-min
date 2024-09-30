@@ -85,9 +85,8 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
 
   def calculate_sales_use_tax
-    # TODO: Implement in FYST-426 ???
-    calculated_sales_use_tax = 0
-    calculated_sales_use_tax
+    nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
+    calculator.calculate_use_tax(nc_taxable_income)
   end
   
   def disqualifying_df_data_reason
