@@ -98,21 +98,23 @@ module Efile
       def calculate_line_15
         [(line_or_zero(:NCD400_LINE_14) * 0.045).round, 0].max
       end
-      def calculate_line_18
-        # Consumer use tax
-        # todo: change/simplify this if the value we save and show to the client is the same in the model
-        if @intake.untaxed_out_of_state_purchases_yes?
-          if @intake.sales_use_tax_calculation_method_automated?
-            calculate_use_tax(line_or_zero(:NCD400_LINE_14))
-          elsif @intake.sales_use_tax_calculation_method_manual?
-            @intake.sales_use_tax
-          end
-        end
-      end
 
       def calculate_line_17
         # Line 15 minus Line 16 (line 16 is 0/blank)
         line_or_zero(:NCD400_LINE_15)
+      end
+      def calculate_line_18
+        # Consumer use tax
+        # todo: change/simplify this if the value we save and show to the client is the same in the model
+        if @intake.untaxed_out_of_state_purchases_yes?
+          if @intake.sales_use_tax_calculation_method_manual?
+            @intake.sales_use_tax
+          else
+            calculate_use_tax(line_or_zero(:NCD400_LINE_14))
+          end
+        else
+          0
+        end
       end
 
       def calculate_line_19
@@ -159,7 +161,7 @@ module Efile
 
       def calculate_line_27
         # Total amount due: Sum of Lines 26a, 26d, and 26e (line 26d & 26e out of scope)
-        line_or_zero(:NCD400_LINE_26a)
+        line_or_zero(:NCD400_LINE_26A)
       end
 
       def calculate_line_28

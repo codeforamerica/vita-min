@@ -242,7 +242,6 @@ describe Efile::Nc::D400Calculator do
   end
 
   describe "Line 26a: Tax Due" do
-    # If Line 25 is less than Line 19, Line 19 - Line 25. Otherwise, go to Line 28.
     context "they owe money" do
       it "returns line 19 - line 25" do
         allow(instance).to receive(:calculate_line_19).and_return 200
@@ -264,15 +263,54 @@ describe Efile::Nc::D400Calculator do
     end
   end
 
-  # describe "Line 27: Amount Due" do
-  #
-  # end
+  describe "Line 27: Amount Due" do
+    context "line 26a is positive" do
+      it "they owe money" do
+        allow(instance).to receive(:calculate_line_26a).and_return 100
 
-  # describe "Line 28: Overpayment" do
-  #
-  # end
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_27].value).to eq 100
+      end
+    end
 
-  # describe "Line 34: Amount To Be Refunded" do
-  #
-  # end
+    context "line 26a is nil" do
+      it "returns 0" do
+        allow(instance).to receive(:calculate_line_26a).and_return nil
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_27].value).to eq 0
+      end
+    end
+  end
+
+  describe "Line 28: Overpayment" do
+    context "they owe money" do
+      it "returns line 19 - line 25" do
+        allow(instance).to receive(:calculate_line_19).and_return 200
+        allow(instance).to receive(:calculate_line_25).and_return 100
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_28].value).to eq nil
+      end
+    end
+
+    context "they have a refund" do
+      it "returns nil" do
+        allow(instance).to receive(:calculate_line_19).and_return 100
+        allow(instance).to receive(:calculate_line_25).and_return 250
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_28].value).to eq 150
+      end
+    end
+  end
+
+  describe "Line 34: Amount To Be Refunded" do
+    it "equals line 28" do
+      allow(instance).to receive(:calculate_line_28).and_return 250
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_34].value).to eq 250
+    end
+  end
 end
