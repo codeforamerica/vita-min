@@ -13,8 +13,18 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       let(:income_tax_withheld) { 2000 }
       let(:income_tax_withheld_spouse) { 1000 }
       let(:tax_paid) { 3000 }
+      let(:standard_deduction) { 12750 }
+      let(:nc_agi_addition) { 18750 }
+      let(:nc_agi_subtraction) { 10750 }
+      let(:income_tax) { 400 }
       before do
         intake.direct_file_data.fed_agi = 10000
+        intake.tribal_member = "yes"
+        intake.tribal_wages_amount = 100.00
+        allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_11).and_return standard_deduction
+        allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12a).and_return nc_agi_addition
+        allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12b).and_return nc_agi_subtraction
+        allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_15).and_return income_tax
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20a).and_return income_tax_withheld
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20b).and_return income_tax_withheld_spouse
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_23).and_return tax_paid
@@ -27,17 +37,38 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('FilingStatus').text).to eq "Single"
         expect(xml.document.at('FAGI').text).to eq "10000"
         expect(xml.document.at('FAGIPlusAdditions').text).to eq "10000"
-        expect(xml.document.at('NCStandardDeduction').text).to eq "12750"
-        # 12a = (11)NCStandardDeduction + (10b)ChildDeduction expect(xml.document.at('NCAGIAddition').text).to eq ""
+        expect(xml.document.at('DeductionsFromFAGI').text). to eq '100'
+        expect(xml.document.at('NCStandardDeduction').text).to eq standard_deduction.to_s
+        expect(xml.document.at('NCAGIAddition').text).to eq nc_agi_addition.to_s
+        expect(xml.document.at('NCAGISubtraction').text).to eq nc_agi_subtraction.to_s
+        expect(xml.document.at('NCTaxableInc').text).to eq nc_agi_subtraction.to_s
+        expect(xml.document.at('NCIncTax').text).to eq income_tax.to_s
+        expect(xml.document.at('SubTaxCredFromIncTax').text).to eq income_tax.to_s
         expect(xml.document.at('IncTaxWith').text).to eq income_tax_withheld.to_s
         expect(xml.document.at('IncTaxWithSpouse').text).to eq income_tax_withheld_spouse.to_s
         expect(xml.document.at('NCTaxPaid').text).to eq tax_paid.to_s
         expect(xml.document.at('RemainingPayment').text).to eq tax_paid.to_s
+        expect(xml.document.at('NCCountyCode').text).to eq "001"
       end
 
       it "correctly fills veteran info for primary" do
         intake.update(primary_veteran: "yes")
         expect(xml.document.at('VeteranInfoPrimary').text).to eq "1"
+      end
+
+      context "CTC-related values" do
+        let(:intake) { create(:state_file_nc_intake, filing_status: "head_of_household", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+        let(:child_deduction) { 2000 }
+
+        before do
+          intake.direct_file_data.qualifying_children_under_age_ssn_count = 3
+          allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return child_deduction
+        end
+
+        it "pulls from DF" do
+          expect(xml.document.at('NumChildrenAllowed').text).to eq "3"
+          expect(xml.document.at('ChildDeduction').text).to eq child_deduction.to_s
+        end
       end
     end
 
@@ -47,7 +78,6 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       it "correctly fills spouse-specific answers" do
         expect(xml.document.at('ResidencyStatusSpouse').text).to eq "true"
         expect(xml.document.at('FilingStatus').text).to eq "MFJ"
-        expect(xml.document.at('NCStandardDeduction').text).to eq "25500"
       end
 
       it "correctly fills veteran info for both primary and spouse" do
@@ -64,7 +94,6 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('FilingStatus').text).to eq "MFS"
         expect(xml.document.at('MFSSpouseName').text).to eq "Sophie Cave"
         expect(xml.document.at('MFSSpouseSSN').text).to eq "600000030"
-        expect(xml.document.at('NCStandardDeduction').text).to eq "12750"
       end
     end
 
@@ -73,7 +102,6 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
 
       it "correctly fills head-of-household-specific answers" do
         expect(xml.document.at('FilingStatus').text).to eq "HOH"
-        expect(xml.document.at('NCStandardDeduction').text).to eq "19125"
       end
     end
 
@@ -86,7 +114,6 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       it "correctly fills qualifying-widow-specific answers" do
         expect(xml.document.at('FilingStatus').text).to eq "QW"
         expect(xml.document.at('QWYearSpouseDied').text).to eq "2023"
-        expect(xml.document.at('NCStandardDeduction').text).to eq "25500"
       end
     end
   end

@@ -238,7 +238,7 @@ es:
       blank: No puede estar en blanco.
       invalid: es invalido
       only_letters: Sólo se aceptan cartas
-      round_to_whole_number: redondea al número entero más próximo
+      round_to_whole_number: Redondea al número entero más próximo
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -2054,6 +2054,20 @@ es:
             <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
             <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
           </ul>
+        id:
+          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Idaho para integrarse con la herramienta Direct File del IRS.<br /><br />
+            Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          supported_by: Respaldada por el estado de Idaho
+          title: Presenta tus impuestos estatales de Idaho sin costo
+        md:
+          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con Maryland para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> se creó en asociación con Maryland para integrarse con la herramienta Direct File del IRS.<br /><br />
+            Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          supported_by: Respaldada por Maryland
+          title: Presenta tus impuestos Maryland sin costo
         nc:
           built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de North Carolina para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
@@ -2177,6 +2191,7 @@ es:
           contribution_label: Contribución a %{school_name}
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
           lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
       az_qualifying_organization_contributions:
         destroy:
           removed: Se eliminó AZ 321 para %{charity_name}
@@ -2194,6 +2209,7 @@ es:
           contribution_name: Contribución a %{charity_name} con el código %{charity_code}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
           lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
       az_retirement_income:
         edit:
           amount_label: Ingrese la cantidad ganada
@@ -2459,12 +2475,41 @@ es:
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
           your_dob: Tu fecha de nacimiento
+      nc_county:
+        edit:
+          county: Condado
+          title: Seleccione el condado donde vivía el 31 de diciembre de %{filing_year}
+      nc_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: "¿Usted (o su cónyuge, si presentan la declaración juntos) obtuvo algún ingreso en otro estado en %{filing_year}? (Esto incluye los ingresos por desempleo <strong>recibidos</strong> de otro estado)."
+          reveal:
+            list1: Retiró dinero de una cuenta 529 y lo usó para gastos calificados, o
+            list2: No retiraste dinero de una cuenta 529 en absoluto.
+            p1: Los gastos calificados incluyen matrícula y cuotas, libros, equipo (incluidas computadoras y otra tecnología), alojamiento y comida, programas de aprendizaje y matrícula K-12 hasta $10,000.
+            p2: La mayoría de los demás usos de los fondos son gastos no calificados, incluidas las tarifas de solicitud y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
+            subtitle: 'Seleccione ''no'' si:'
+            title: "¿Qué son los gastos calificados y no calificados?"
+          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
+          withdraw_529_html: ¿Retiró usted (o su cónyuge, si presentan una declaración juntos) dinero de un <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">Cuenta de ahorros para la universidad 529</a> y usarla para gastos no calificados en %{filing_year}?
+      nc_eligibility_residence:
+        edit:
+          lived_in_state_html: "¿Usted (y su cónyuge, si presentan la declaración juntos) vivieron en %{state} durante <strong>todo</strong> el %{filing_year}?"
+          subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
+          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
       nc_review:
         edit:
           amount: Cantidad
           primary_veteran: Información del Veterano
           spouse_veteran: Información del Cónyuge Veterano
+          state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           use_tax_applied: Impuesto de Uso Aplicado
+      nc_subtractions:
+        edit:
+          title_html:
+            one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
+            other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
+          tribal_wages_field_html: "<b>Ingrese la cantidad ganada</b>"
+          tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
@@ -2473,16 +2518,37 @@ es:
         edit:
           county: Condado
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      nj_homeowner_property_tax:
+        edit:
+          helper_description: TODO FILL THIS OUT
+          helper_heading: "¿Dónde puedo encontrar cuánto impuesto a la propiedad pagué?"
+          label: Impuestos sobre la propiedad pagados en %{filing_year}
+          title: Ingrese el monto de los impuestos sobre la propiedad pagados a %{municipality} por su vivienda principal en %{filing_year}.
+      nj_household_rent_own:
+        edit:
+          helper_description: Si usted es dueño de una casa móvil que está ubicada en un parque de casas móviles, se le considera un inquilino.
+          homeowner: Propietario de vivienda en %{filing_year}
+          neither: Tampoco
+          tenant: Inquilino en %{filing_year}
+          title: "¿Cuál te describe mejor?"
       nj_municipality:
         edit:
           helper_description_html: Si el lugar donde usted vive no aparece en la lista, utilice la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidad del estado de New Jersey</a> para obtener el nombre de su municipio.
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
+      nj_renter_rent_paid:
+        edit:
+          helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
+          label: Alquiler pagado en %{filing_year}
+          title: Ingrese el alquiler pagado en %{filing_year}.
       nj_review:
         edit:
           county: Condado
+          household_rent_own: Vivienda en alquiler o en propiedad propia
           municipality: Municipio
+          property_tax_paid: Impuestos sobre la propiedad pagados
+          rent_paid: Alquiler pagado
       ny_county:
         edit:
           county: Condado
@@ -2675,6 +2741,7 @@ es:
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
+        county: Condado
         w2: Información fiscal estatal y local W-2
       sales_use_tax:
         edit:
@@ -2991,7 +3058,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
-    must_enter_amount: Si alguien reclamó este crédito, debe ingresar el monto en un número entero.
+    must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"

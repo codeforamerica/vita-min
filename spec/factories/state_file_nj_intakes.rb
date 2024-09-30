@@ -25,6 +25,7 @@
 #  fed_wages                         :integer
 #  federal_return_status             :string
 #  hashed_ssn                        :string
+#  household_rent_own                :integer          default("unfilled"), not null
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")
@@ -48,9 +49,11 @@
 #  primary_signature                 :string
 #  primary_ssn                       :string
 #  primary_suffix                    :string
+#  property_tax_paid                 :integer
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  rent_paid                         :integer
 #  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
@@ -62,7 +65,6 @@
 #  spouse_middle_initial             :string
 #  spouse_ssn                        :string
 #  spouse_suffix                     :string
-#  tax_return_year                   :integer
 #  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  withdraw_amount                   :integer
@@ -105,6 +107,13 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    after(:create) do |intake|
+      intake.synchronize_df_dependents_to_database
+      intake.dependents.each_with_index do |dependent, i|
+        dependent.update(dob: i.years.ago)
+      end
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_two_w2s') }
     end
@@ -113,10 +122,35 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
     end
 
+    trait :df_data_minimal do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_minimal') }
+    end
+
+    trait :df_data_many_deps do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_deps') }
+    end
+
+    trait :df_data_one_dep do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_one_dep') }
+    end
+
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }
       spouse_ssn { "123456789" }
+    end
+
+    trait :married_filing_separately do
+      transient do
+        filing_status { 'married_filing_separately' }
+        spouse_ssn { "123456789" }
+        spouse_occupation { "Lawyer" }
+      end
+
+      spouse_birth_date { Date.new(1990, 1, 1) }
+      spouse_first_name { "Spousel" }
+      spouse_last_name { "Testerson" }
+      spouse_middle_initial { "T" }
     end
 
     trait :primary_over_65 do
@@ -127,6 +161,18 @@ FactoryBot.define do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1900, 1, 1) }
       spouse_ssn { "123456789" }
+    end
+
+    trait :primary_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.primary_blind
+      end
+    end
+
+    trait :spouse_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.spouse_blind
+      end
     end
   end
 end

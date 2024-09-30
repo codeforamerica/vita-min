@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::StateReturn do
-  states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc")
+  states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc", "id")
   states_requiring_w2s.each do |state_code|
     describe '#combined_w2s', required_schema: state_code do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
@@ -29,11 +29,11 @@ describe SubmissionBuilder::StateReturn do
                 state_file_intake: intake,
                 w2_index: 1,
                 employer_state_id_num: "00123",
-                local_income_tax_amt: "0",
-                local_wages_and_tips_amt: "2000",
+                local_income_tax_amount: "0",
+                local_wages_and_tips_amount: "2000",
                 locality_nm: intake.direct_file_data.w2s[0].LocalityNm,
-                state_income_tax_amt: "700",
-                state_wages_amt: "2000",
+                state_income_tax_amount: "700",
+                state_wages_amount: "2000",
                 )
             }
             before do
@@ -51,21 +51,21 @@ describe SubmissionBuilder::StateReturn do
 
               # w2 at index 0 remains the same
               w2_from_xml = xml.css('IRSW2')[0]
-              expect(w2_from_xml.at("EmployerStateIdNum").text).to eq intake.direct_file_data.w2s[0].EmployerStateIdNum
-              expect(w2_from_xml.at("LocalIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].LocalIncomeTaxAmt.to_s
-              expect(w2_from_xml.at("LocalWagesAndTipsAmt").text).to eq intake.direct_file_data.w2s[0].LocalWagesAndTipsAmt.to_s
-              expect(w2_from_xml.at("LocalityNm").text).to eq intake.direct_file_data.w2s[0].LocalityNm.upcase
-              expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].StateIncomeTaxAmt.to_s
-              expect(w2_from_xml.at("StateWagesAmt").text).to eq intake.direct_file_data.w2s[0].StateWagesAmt.to_s
+              expect(w2_from_xml.at("EmployerStateIdNum").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp EmployerStateIdNum").text
+              expect(w2_from_xml.at("LocalIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalIncomeTaxAmt").text
+              expect(w2_from_xml.at("LocalWagesAndTipsAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalWagesAndTipsAmt").text
+              expect(w2_from_xml.at("LocalityNm").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalityNm").text.upcase
+              expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp StateIncomeTaxAmt").text
+              expect(w2_from_xml.at("StateWagesAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp StateWagesAmt").text
 
               # w2 at index 1 is filled in with info from client
               w2_from_db = xml.css('IRSW2')[1]
               expect(w2_from_db.at("EmployerStateIdNum").text).to eq state_file_w2.employer_state_id_num
               expect(w2_from_db.at("LocalIncomeTaxAmt")).to be_nil
-              expect(w2_from_db.at("LocalWagesAndTipsAmt").text).to eq state_file_w2.local_wages_and_tips_amt.to_s
+              expect(w2_from_db.at("LocalWagesAndTipsAmt").text).to eq state_file_w2.local_wages_and_tips_amount.round.to_s
               expect(w2_from_db.at("LocalityNm").text).to eq state_file_w2.locality_nm
-              expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq state_file_w2.state_income_tax_amt.to_s
-              expect(w2_from_db.at("StateWagesAmt").text).to eq state_file_w2.state_wages_amt.to_s
+              expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq state_file_w2.state_income_tax_amount.round.to_s
+              expect(w2_from_db.at("StateWagesAmt").text).to eq state_file_w2.state_wages_amount.round.to_s
             end
           end
 
@@ -83,11 +83,11 @@ describe SubmissionBuilder::StateReturn do
               expect(generated_document.css('IRSW2').count).to eq original_w2_count
               (0..3).each do |i|
                 expect(generated_document.css('IRSW2')[i].at("EmployerStateIdNum").text).to eq send("w2_#{i+1}").employer_state_id_num
-                expect(generated_document.css('IRSW2')[i].at("LocalIncomeTaxAmt").text).to eq send("w2_#{i+1}").local_income_tax_amt.to_s
-                expect(generated_document.css('IRSW2')[i].at("LocalWagesAndTipsAmt").text).to eq send("w2_#{i+1}").local_wages_and_tips_amt.to_s
+                expect(generated_document.css('IRSW2')[i].at("LocalIncomeTaxAmt").text).to eq send("w2_#{i+1}").local_income_tax_amount.round.to_s
+                expect(generated_document.css('IRSW2')[i].at("LocalWagesAndTipsAmt").text).to eq send("w2_#{i+1}").local_wages_and_tips_amount.round.to_s
                 expect(generated_document.css('IRSW2')[i].at("LocalityNm").text).to eq send("w2_#{i+1}").locality_nm
-                expect(generated_document.css('IRSW2')[i].at("StateIncomeTaxAmt").text).to eq send("w2_#{i+1}").state_income_tax_amt.to_s
-                expect(generated_document.css('IRSW2')[i].at("StateWagesAmt").text).to eq send("w2_#{i+1}").state_wages_amt.to_s
+                expect(generated_document.css('IRSW2')[i].at("StateIncomeTaxAmt").text).to eq send("w2_#{i+1}").state_income_tax_amount.round.to_s
+                expect(generated_document.css('IRSW2')[i].at("StateWagesAmt").text).to eq send("w2_#{i+1}").state_wages_amount.round.to_s
               end
             end
           end

@@ -17,6 +17,7 @@
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
+#  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
@@ -41,6 +42,7 @@
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  residence_county                  :string
 #  routing_number                    :integer
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
@@ -56,7 +58,8 @@
 #  spouse_veteran                    :integer          default("unfilled"), not null
 #  ssn                               :string
 #  street_address                    :string
-#  tax_return_year                   :integer
+#  tribal_member                     :integer          default("unfilled"), not null
+#  tribal_wages_amount               :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer
@@ -71,19 +74,22 @@
 #  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
 #
 class StateFileNcIntake < StateFileBaseIntake
+  include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
+  enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
+  enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
 
   def calculate_sales_use_tax
     # TODO: Implement in FYST-426
     calculated_sales_use_tax = 0
     calculated_sales_use_tax
   end
-
+  
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|
@@ -95,6 +101,7 @@ class StateFileNcIntake < StateFileBaseIntake
     {
       eligibility_lived_in_state: "no",
       eligibility_out_of_state_income: "yes",
+      eligibility_withdrew_529: "yes"
     }
   end
 end

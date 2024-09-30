@@ -98,6 +98,32 @@ AZ140_CCWS_LINE_6c:
 “0”'
 AZ140_CCWS_LINE_7c:
   label: '7C Multiply line 6C by 31% (.31) and enter the result'
+AZ301_LINE_6a:
+  label: 'Credit for Contributions to Qualifying Charitable Organizations (Form 321) - Current Year Credit'
+AZ301_LINE_6c:
+  label: 'Credit for Contributions to Qualifying Charitable Organizations (Form 321) - Total Available Credit'
+AZ301_LINE_7a:
+  label: 'Credit for Contributions Made or Fees Paid to Public Schools (Form 322) - Current Year Credit'
+AZ301_LINE_7c:
+  label: 'Credit for Contributions Made or Fees Paid to Public Schools (Form 322) - Total Available Credit'
+AZ301_LINE_26:
+  label: 'Total available nonrefundable tax credits: Add lines 1 through 24'
+AZ301_LINE_27:
+  label: 'Tax from Form 140, line 46; or Form 140PY, line 56; or Form 140NR, line 56; or Form 140X, line 37'
+AZ301_LINE_32:
+  label: 'Subtotal'
+AZ301_LINE_33:
+  label: 'Family Income Tax Credit from Form 140, line 50; or Form 140PY, line 60; or Form 140X, box 40a; plus Dependent Tax Credit from Form 140, line 49; or Form 140PY, line 59; or Form 140NR, line 59; or Form 140X, box 40b'
+AZ301_LINE_34:
+  label: 'Subtract line 33 from line 32. Enter the difference. If less than zero, enter "0"'
+AZ301_LINE_40:
+  label: 'Credit for Contributions to Qualifying Charitable Organizations (Form 321) - Amount Used This Taxable Year'
+AZ301_LINE_41:
+  label: 'Credit for Contributions Made or Fees Paid to Public Schools (Form 322) - Amount Used This Taxable Year'
+AZ301_LINE_60:
+  label: 'Tax credits used from Form 301: Add lines 35 through 58'
+AZ301_LINE_62:
+  label: 'Total Tax Credits Used: Add line 60 and 61. Enter this amount on Form 140, line 51; or Form 14PY, line 61; or Form 140NR, line 60; or Form 140X, line 41. Total credits used cannot be more than line 34'
 AZ321_LINE_4H:
   label: "Total past first 3 contributions"
 AZ321_LINE_4:
@@ -464,12 +490,32 @@ IT214_LINE_33:
   label: '33 Enter the amount from line 32 or 31, whichever is less. This is the credit for your household.'
 IT227_PART_2_LINE_1:
   label: ''
+NCD400_LINE_9:
+  label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
+NCD400_LINE_10B:
+  label: '10B Child Deduction: On Line 10b, enter the amount of the child deduction.'
+NCD400_LINE_11:
+  label: '11 N.C. Standard Deduction'
+NCD400_LINE_12A:
+  label: '12A NCAGIAddition Add Lines 9, 10b, and 11'
+NCD400_LINE_12B:
+  label: '12B NCAGISubtraction Subtract Line 12a from Line 8'
+NCD400_LINE_14:
+  label: '14 North Carolina Taxable Income: Full-year residents enter the amount from Line 12b. Part-year residents and nonresidents multiply amount on Line 12b by the decimal amount on Line 13.'
+NCD400_LINE_15:
+  label: '15 North Carolina Income Tax: Multiply Line 14 by 4.5% (0.045) and round to the nearest dollar. If zero or less, enter a zero.'
+NCD400_LINE_17:
+  label: '17 Subtract Line 16 from Line 15'
 NCD400_LINE_20A:
   label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_20B:
   label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum'
 NCD400_LINE_23:
   label: '23 Add lines 20a through 22'
+NCD400_S_LINE_27:
+  label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
+NCD400_S_LINE_41:
+  label: 'Total Deductions - Add Lines 17 through 22, 23f, 24f, and 25 through 40 (Enter the total here and on Form D-400, Line 9)'
 NJ1040_LINE_6_SPOUSE:
   label: '6 Spouse Regular Exemption'
 NJ1040_LINE_6:
@@ -480,3 +526,11 @@ NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
 NJ1040_LINE_7:
   label: '7 Sum all Senior 65+ Exemption, multiply by 1000'
+NJ1040_LINE_8:
+  label: '8 Sum all Blind/Disabled Exemption, multiply by 1000'
+NJ1040_LINE_13:
+  label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
+NJ1040_LINE_15:
+  label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
+NJ1040_LINE_40A:
+  label: 'Total Property Taxes (18% of Rent) Paid (See instructions page 25)'

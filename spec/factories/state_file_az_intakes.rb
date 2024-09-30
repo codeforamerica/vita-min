@@ -6,11 +6,11 @@
 #  account_number                              :string
 #  account_type                                :integer
 #  armed_forces_member                         :integer          default("unfilled"), not null
-#  armed_forces_wages                          :integer
+#  armed_forces_wages_amount                   :decimal(12, 2)
 #  bank_name                                   :string
-#  charitable_cash                             :integer          default(0)
+#  charitable_cash_amount                      :decimal(12, 2)
 #  charitable_contributions                    :integer          default("unfilled"), not null
-#  charitable_noncash                          :integer          default(0)
+#  charitable_noncash_amount                   :decimal(12, 2)
 #  consented_to_terms_and_conditions           :integer          default("unfilled"), not null
 #  contact_preference                          :integer          default("unfilled"), not null
 #  current_sign_in_at                          :datetime
@@ -30,7 +30,7 @@
 #  has_prior_last_names                        :integer          default("unfilled"), not null
 #  hashed_ssn                                  :string
 #  household_excise_credit_claimed             :integer          default("unfilled"), not null
-#  household_excise_credit_claimed_amt         :integer
+#  household_excise_credit_claimed_amount      :decimal(12, 2)
 #  last_sign_in_at                             :datetime
 #  last_sign_in_ip                             :inet
 #  locale                                      :string           default("en")
@@ -71,7 +71,7 @@
 #  spouse_was_incarcerated                     :integer          default("unfilled"), not null
 #  ssn_no_employment                           :integer          default("unfilled"), not null
 #  tribal_member                               :integer          default("unfilled"), not null
-#  tribal_wages                                :integer
+#  tribal_wages_amount                         :decimal(12, 2)
 #  unfinished_intake_ids                       :text             default([]), is an Array
 #  unsubscribed_from_email                     :boolean          default(FALSE), not null
 #  was_incarcerated                            :integer          default("unfilled"), not null
@@ -128,10 +128,18 @@ FactoryBot.define do
       spouse_received_pension_amount { 300 }
     end
 
+    trait :with_spouse do
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Spouth" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Carolinian" }
+    end
+
+
     trait :with_az321_contributions do
       made_az321_contributions { "yes" }
 
-      after(:create) do |intake|
+      after(:build) do |intake|
         create :az321_contribution,
                amount: 505.90,
                state_file_az_intake: intake,

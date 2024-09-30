@@ -3,7 +3,7 @@ require "rails_helper"
 describe StateFile::StateInformationService do
   describe ".active_state_codes" do
     it "returns the list of state codes as strings" do
-      expect(described_class.active_state_codes).to match_array ["az", "nc", "nj", "ny"]
+      expect(described_class.active_state_codes).to match_array ["az", "id", "md", "nc", "nj", "ny"]
     end
   end
 
@@ -11,9 +11,11 @@ describe StateFile::StateInformationService do
     it "returns a map of all the state codes to state names" do
       result = {
         "az" => "Arizona",
+        "md" => "Maryland",
         "nc" => "North Carolina",
         "nj" => "New Jersey",
         "ny" => "New York",
+        "id" => "Idaho",
       }
       expect(described_class.state_code_to_name_map).to eq result
     end
@@ -21,13 +23,13 @@ describe StateFile::StateInformationService do
 
   describe ".state_intake_classes" do
     it "returns an array of the intake classes" do
-      expect(described_class.state_intake_classes).to match_array [StateFileAzIntake, StateFileNcIntake, StateFileNjIntake, StateFileNyIntake]
+      expect(described_class.state_intake_classes).to match_array [StateFileAzIntake, StateFileIdIntake, StateFileMdIntake, StateFileNcIntake, StateFileNjIntake, StateFileNyIntake]
     end
   end
 
   describe ".state_intake_class_names" do
     it "returns an array of the intake classes as strings" do
-      expect(described_class.state_intake_class_names).to match_array ["StateFileAzIntake", "StateFileNcIntake", "StateFileNjIntake", "StateFileNyIntake"]
+      expect(described_class.state_intake_class_names).to match_array ["StateFileAzIntake", "StateFileIdIntake", "StateFileMdIntake", "StateFileNcIntake", "StateFileNjIntake", "StateFileNyIntake"]
     end
   end
 

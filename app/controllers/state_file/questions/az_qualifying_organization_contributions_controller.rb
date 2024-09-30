@@ -33,7 +33,6 @@ module StateFile
         @contribution = contributions.build
         @contribution.assign_attributes(az321_contribution_params)
 
-
         if @contribution.save(context: :az321_form_create)
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else

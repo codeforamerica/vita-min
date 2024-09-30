@@ -1,0 +1,31 @@
+<% title = t(".title_html", count: current_intake.filer_count) %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%= f.cfa_radio_set(:tribal_member, label_text: title, collection: [
+            { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#tribal_member" } },
+            { value: "no", label: t("general.negative") },
+          ], legend_class: "sr-only") %>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="tribal_member">
+        <div class="white-group">
+          <div class="form-group-tight">
+            <p><%= t(".tribal_wages_question_html", amount_limit: current_intake.direct_file_data.fed_wages_salaries_tips) %></p>
+            <%= f.cfa_input_field(:tribal_wages_amount, t(".tribal_wages_field_html"), classes: ["form-width--long"]) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
