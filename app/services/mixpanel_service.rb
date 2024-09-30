@@ -18,9 +18,24 @@ class MixpanelService
 
     @buffer = []
     @mutex = Mutex.new
-    @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      buffer_event_for_send(type, message)
-    end
+    @tracker =
+      if Rails.env.production?
+        Mixpanel::Tracker.new(mixpanel_key) do |type, message|
+          buffer_event_for_send(type, message)
+        end
+      elsif Rails.env.development? # for debugging purposes
+        Struct.new(:track) do
+          def track(distinct_id, event_name, data)
+            Rails.logger.info("Sending Mixpanel event: id #{distinct_id}, event_name #{event_name}, data #{data}")
+          end
+        end
+      else # demo, staging, heroku
+        Struct.new(:track) do
+          def track(distinct_id, event_name, data)
+            # do nothing
+          end
+        end
+      end
 
     # silence local SSL errors
     if Rails.env.development?
@@ -38,11 +53,6 @@ class MixpanelService
   # @param [Hash] data: (optional, defaults to {}) data to be sent to mixpanel
   #
   def run(distinct_id:, event_name:, data: {})
-    unless Rails.env.production?
-      Rails.logger.error "You are currently on non-prod environment. If you want to track mixpanel events in non-prod environments, please uncomment this check in Mixpanel Service"
-      return
-    end
-
     @tracker.track(distinct_id, event_name, data)
   rescue StandardError => err
     Rails.logger.error "Error tracking analytics event #{err}"

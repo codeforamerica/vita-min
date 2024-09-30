@@ -72,6 +72,7 @@ describe MixpanelService do
     context "in non-prod environment" do
       before do
         allow(Rails.env).to receive(:production?).and_return(false)
+        allow(MixpanelService.instance).to receive(:init_flusher)
       end
 
       it 'does not send events to mixpanel even when the buffer is full' do
@@ -81,8 +82,7 @@ describe MixpanelService do
         expect_any_instance_of(Mixpanel::BufferedConsumer).not_to receive(:send!)
         expect_any_instance_of(Mixpanel::BufferedConsumer).not_to receive(:flush)
 
-        # expect(MixpanelService.instance).not_to have_received(:init_flusher)
-        expect(MixpanelService.instance).to receive(:init_flusher).exactly(0).times
+        expect(MixpanelService.instance).not_to have_received(:init_flusher)
 
         3.times do
           MixpanelService.instance.run(
@@ -213,19 +213,6 @@ describe MixpanelService do
           MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
 
           expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
-        end
-
-        context "in dev env" do
-          before do
-            allow(Rails.env).to receive(:production?).and_return(false)
-          end
-
-          it 'does not track an event by name and id if in development mode' do
-
-            MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
-
-            expect(fake_tracker).not_to have_received(:track).with(distinct_id, event_name, any_args)
-          end
         end
 
         it 'includes user agent and request information, if present' do
