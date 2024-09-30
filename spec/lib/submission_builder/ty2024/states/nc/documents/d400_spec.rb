@@ -58,7 +58,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCTaxPaid')&.text).to eq tax_paid.to_s # 23
         expect(xml.document.at('RemainingPayment')&.text).to eq tax_paid.to_s # 23
         expect(xml.document.at('TaxDue')&.text).to eq nil # 26a
-        expect(xml.document.at('TotalAmountDue')&.text).to eq nil # 27
+        expect(xml.document.at('TotalAmountDue')&.text).to eq "0" # 27
         expect(xml.document.at('Overpayment')&.text).to eq "2500" # 28
         expect(xml.document.at('RefundAmt')&.text).to eq "2500" # 34
       end
