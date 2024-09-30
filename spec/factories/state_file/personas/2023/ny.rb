@@ -33,10 +33,10 @@ FactoryBot.define do
         recipient_street_address: "123 Main St",
         recipient_city: "Pleasantville",
         recipient_zip: "10572",
-        unemployment_compensation: 500,
-        federal_income_tax_withheld: 0,
+        unemployment_compensation_amount: 500,
+        federal_income_tax_withheld_amount: 0,
         state_identification_number: "270293117",
-        state_income_tax_withheld: 50,
+        state_income_tax_withheld_amount: 50,
       )
     end
 

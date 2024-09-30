@@ -8,9 +8,9 @@ RSpec.describe StateFile::AzSubtractionsForm do
       let(:params) do
         {
           tribal_member: "no",
-          tribal_wages: nil,
+          tribal_wages_amount: nil,
           armed_forces_member: "no",
-          armed_forces_wages: nil
+          armed_forces_wages_amount: nil
         }
       end
 
@@ -31,15 +31,15 @@ RSpec.describe StateFile::AzSubtractionsForm do
       it "is not valid" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors).to include :tribal_wages
-        expect(form.errors).to include :armed_forces_wages
+        expect(form.errors).to include :tribal_wages_amount
+        expect(form.errors).to include :armed_forces_wages_amount
       end
 
       it "non numeric values are invalid" do
-        form = described_class.new(intake, params.merge(tribal_wages: "a10", armed_forces_wages: "b10"))
+        form = described_class.new(intake, params.merge(tribal_wages_amount: "a10", armed_forces_wages_amount: "b10"))
         expect(form).not_to be_valid
-        expect(form.errors).to include :tribal_wages
-        expect(form.errors).to include :armed_forces_wages
+        expect(form.errors).to include :tribal_wages_amount
+        expect(form.errors).to include :armed_forces_wages_amount
       end
     end
 
@@ -47,17 +47,17 @@ RSpec.describe StateFile::AzSubtractionsForm do
       let(:params) do
         {
           tribal_member: "yes",
-          tribal_wages: nil,
+          tribal_wages_amount: nil,
           armed_forces_member: "yes",
-          armed_forces_wages: nil
+          armed_forces_wages_amount: nil
         }
       end
 
       it "is not valid" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-        expect(form.errors).to include :tribal_wages
-        expect(form.errors).to include :armed_forces_wages
+        expect(form.errors).to include :tribal_wages_amount
+        expect(form.errors).to include :armed_forces_wages_amount
       end
     end
 
@@ -65,9 +65,9 @@ RSpec.describe StateFile::AzSubtractionsForm do
       let(:params) do
         {
           tribal_member: "yes",
-          tribal_wages: 10,
+          tribal_wages_amount: 10,
           armed_forces_member: "no",
-          armed_forces_wages: nil
+          armed_forces_wages_amount: nil
         }
       end
 
@@ -81,9 +81,9 @@ RSpec.describe StateFile::AzSubtractionsForm do
       let(:params) do
         {
           tribal_member: "no",
-          tribal_wages: nil,
+          tribal_wages_amount: nil,
           armed_forces_member: "yes",
-          armed_forces_wages: 10
+          armed_forces_wages_amount: 10
         }
       end
 
@@ -99,9 +99,9 @@ RSpec.describe StateFile::AzSubtractionsForm do
     let(:params) do
       {
         tribal_member: "yes",
-        tribal_wages: 10,
+        tribal_wages_amount: 10,
         armed_forces_member: "yes",
-        armed_forces_wages: 20
+        armed_forces_wages_amount: 20
       }
     end
 
@@ -110,10 +110,8 @@ RSpec.describe StateFile::AzSubtractionsForm do
       expect(form).to be_valid
       form.save
       expect(intake.reload.tribal_member_yes?).to be true
-      expect(intake.reload.tribal_wages).to eq 10
       expect(intake.reload.tribal_wages_amount).to eq 10
       expect(intake.reload.armed_forces_member_yes?).to be true
-      expect(intake.reload.armed_forces_wages).to eq 20
       expect(intake.reload.armed_forces_wages_amount).to eq 20
     end
   end
@@ -123,9 +121,9 @@ RSpec.describe StateFile::AzSubtractionsForm do
     let(:params) do
       {
         tribal_member: "no",
-        tribal_wages: nil,
+        tribal_wages_amount: nil,
         armed_forces_member: "no",
-        armed_forces_wages: nil
+        armed_forces_wages_amount: nil
       }
     end
 
@@ -134,22 +132,20 @@ RSpec.describe StateFile::AzSubtractionsForm do
       expect(form).to be_valid
       form.save
       expect(intake.reload.tribal_member_no?).to be true
-      expect(intake.reload.tribal_wages).to be_nil
       expect(intake.reload.tribal_wages_amount).to be_nil
       expect(intake.reload.armed_forces_member_no?).to be true
-      expect(intake.reload.armed_forces_wages).to be_nil
       expect(intake.reload.armed_forces_wages_amount).to be_nil
     end
   end
 
   describe "going back and removing memberships" do
-    let(:intake) { create :state_file_az_intake, tribal_member: "yes", tribal_wages: 10, armed_forces_member: "yes", armed_forces_wages: 20 }
+    let(:intake) { create :state_file_az_intake, tribal_member: "yes", tribal_wages_amount: 10, armed_forces_member: "yes", armed_forces_wages_amount: 20 }
     let(:valid_params) do
       {
         tribal_member: "no",
-        tribal_wages: 10,
+        tribal_wages_amount: 10,
         armed_forces_member: "no",
-        armed_forces_wages: 20
+        armed_forces_wages_amount: 20
       }
     end
 
@@ -158,10 +154,8 @@ RSpec.describe StateFile::AzSubtractionsForm do
       expect(form).to be_valid
       form.save
       expect(intake.reload.tribal_member_no?).to be true
-      expect(intake.reload.tribal_wages).to be_nil
       expect(intake.reload.tribal_wages_amount).to be_nil
       expect(intake.reload.armed_forces_member_no?).to be true
-      expect(intake.reload.armed_forces_wages).to be_nil
       expect(intake.reload.armed_forces_wages_amount).to be_nil
     end
   end

@@ -3057,7 +3057,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
-    must_enter_amount: Si alguien reclamó este crédito, debe ingresar el monto en un número entero.
+    must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
