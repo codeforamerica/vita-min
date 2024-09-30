@@ -10,6 +10,7 @@ module StateFile
     validates :sales_use_tax,
       presence: true,
       numericality: {
+        allow_blank: true,
         greater_than_or_equal_to: 0
       },
       if: -> { sales_use_tax_calculation_method == "manual" }

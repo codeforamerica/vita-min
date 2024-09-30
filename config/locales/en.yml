@@ -10,8 +10,8 @@ en:
         state_file/sales_use_tax_form:
           attributes:
             sales_use_tax:
-              greater_than_or_equal_to: Please enter a positive dollar amount.
-              not_a_number: Please enter a dollar amount.
+              greater_than_or_equal_to: Please enter numbers only.
+              not_a_number: Please enter numbers only.
   activerecord:
     errors:
       models:
