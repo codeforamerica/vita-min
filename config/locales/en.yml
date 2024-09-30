@@ -2222,6 +2222,7 @@ en:
           contribution_label: Contribution to %{school_name}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Lets review your public school cash contributions and fees
+          maximum_records: You have provided the maximum amount of records.
       az_qualifying_organization_contributions:
         destroy:
           removed: Removed AZ 321 for %{charity_name}
