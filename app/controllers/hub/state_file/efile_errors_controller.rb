@@ -9,11 +9,11 @@ module Hub::StateFile
         order.prepend(params[:sort_by])
       end
 
-      if params[:filter_by_service_type].present?
-        filter = { service_type: params[:filter_by_service_type] }
-      end
+      @efile_errors = @efile_errors.where.not(service_type: "ctc").order(*order)
 
-      @efile_errors = @efile_errors.where.not(service_type: "ctc").where(*filter).order(*order)
+      if params[:filter_by_service_type].present?
+        @efile_errors = @efile_errors.where(service_type: params[:filter_by_service_type])
+      end
     end
 
     def edit
