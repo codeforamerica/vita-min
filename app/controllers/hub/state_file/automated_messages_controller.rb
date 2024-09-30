@@ -16,7 +16,7 @@ module Hub::StateFile
 
     def get_intake
       return @intake if @intake.present?
-      state_class = "StateFile#{@us_state.titleize}Intake".constantize
+      state_class = StateFile::StateInformationService.intake_class(@us_state)
       if params[:intake_id].present?
         @intake = state_class.find_by_id(params[:intake_id])
         return @intake if @intake.present?
