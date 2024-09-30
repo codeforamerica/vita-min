@@ -6,7 +6,7 @@ module Hub::StateFile
     def index
       order = [:source, :code]
       if params[:sort_by].present?
-        order = [params[:sort_by]] + order
+        order.prepend(params[:sort_by])
       end
 
       @efile_errors = @efile_errors.where.not(service_type: "ctc").order(*order)

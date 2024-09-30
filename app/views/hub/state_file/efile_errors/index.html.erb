@@ -56,7 +56,9 @@
             <%= source %>
           </td>
           <td class="index-table__cell">
-            <%= link_to error.service_type, hub_state_file_efile_errors_path(filter_by_service_type: error.service_type), class: "underline" %>
+            <% if error.service_type.present? %>
+              <%= link_to error.service_type, hub_state_file_efile_errors_path(filter_by_service_type: error.service_type), class: "underline" %>
+            <% end %>
           </td>
           <td class="index-table__cell status">
             <%= link_to error.code, hub_state_file_efile_error_path(id: error.id), class: "underline" %>
