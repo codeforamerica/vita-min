@@ -263,7 +263,7 @@ module Efile
         # AZ income tax withheld
         # sum of tax withheld from all income documents: W-2, 1099-R, 1099-G, 1099-INT
         @direct_file_data.total_w2_state_tax_withheld +
-          @intake.state_file1099_gs.sum(&:state_income_tax_withheld_amount).round +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @direct_file_data.total_1099r_state_tax_withheld
       end
 
