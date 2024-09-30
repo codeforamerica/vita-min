@@ -207,7 +207,7 @@ describe Efile::SubmissionErrorParser do
 
         context "when the BANK DETAIL error already exists" do
           before do
-            DefaultErrorMessages.generate!
+            DefaultErrorMessages.generate!(service_type: :state_file)
           end
 
           it "creates an efile submission transition error with associated error" do

@@ -1,5 +1,5 @@
 class DefaultErrorMessages
-  def self.generate!(service_type: "unfilled")
+  def self.generate!(service_type:)
     EfileError.find_or_create_by!(
       code: "USPS-2147219401",
       message: "Address Not Found.",
