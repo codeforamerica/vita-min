@@ -2487,12 +2487,22 @@ es:
           lived_in_state_html: "¿Usted (y su cónyuge, si presentan la declaración juntos) vivieron en %{state} durante <strong>todo</strong> el %{filing_year}?"
           subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
+      nc_primary_state_id:
+        edit:
+          encourage_sharing: Se le recomienda compartir esta información, pero no es obligatorio para presentar su declaración de impuestos de Carolina del Norte.
+          protect_identity: Para proteger su identidad y combatir el fraude fiscal, muchas agencias estatales piden a las personas que proporcionen su licencia de conducir o número de identificación estatal.
+          why_ask_this: "¿Por qué me pides esta información?"
       nc_review:
         edit:
           amount: Cantidad
           primary_veteran: Información del Veterano
           spouse_veteran: Información del Cónyuge Veterano
           use_tax_applied: Impuesto de Uso Aplicado
+      nc_spouse_state_id:
+        edit:
+          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          why_ask_this: Why are you asking for this information?
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"

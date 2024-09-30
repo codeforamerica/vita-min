@@ -1,6 +1,6 @@
 module StateFile
   class NcPrimaryStateIdForm < QuestionsForm
-    # Validation /attribute set up
+    # Validation /attribute set up common across both state ids
     include StateFile::NcStateIdConcern
 
     def self.existing_attributes(intake)
