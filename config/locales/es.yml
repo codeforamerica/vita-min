@@ -7,7 +7,7 @@ es:
           attributes:
             ssn:
               blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
-        state_file/sales_use_tax_form:
+        state_file/nc_sales_use_tax_form:
           attributes:
             sales_use_tax:
               greater_than_or_equal_to: Ingresa una cantidad en dólares.
@@ -2742,7 +2742,7 @@ es:
       review:
         county: Condado
         w2: Información fiscal estatal y local W-2
-      sales_use_tax:
+      nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
           select_one: 'Selecciona una de las siguientes opciones:'

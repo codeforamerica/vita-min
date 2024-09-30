@@ -7,7 +7,7 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
-        state_file/sales_use_tax_form:
+        state_file/nc_sales_use_tax_form:
           attributes:
             sales_use_tax:
               greater_than_or_equal_to: Please enter a positive dollar amount.
@@ -2755,7 +2755,7 @@ en:
       review:
         county: County
         w2: W-2 state and local tax information
-      sales_use_tax:
+      nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
           select_one: 'Select one of the following:'

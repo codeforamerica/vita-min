@@ -1,5 +1,5 @@
 module StateFile
-  class SalesUseTaxForm < QuestionsForm
+  class NcSalesUseTaxForm < QuestionsForm
     set_attributes_for :intake,
                        :untaxed_out_of_state_purchases,
                        :sales_use_tax_calculation_method,
