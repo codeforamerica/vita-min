@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe MixpanelService do
+  before do
+    allow(Rails.env).to receive(:production?).and_return(true)
+  end
 
   context "Testing concurrency" do
     let!(:procs) { [] }  # We maintain a list of procs because the internal the mutex prevents direct invocation
@@ -63,6 +66,33 @@ describe MixpanelService do
 
       while procs.any?
         procs.pop.call
+      end
+    end
+
+    context "in non-prod environment" do
+      before do
+        allow(Rails.env).to receive(:production?).and_return(false)
+      end
+
+      it 'does not send events to mixpanel even when the buffer is full' do
+        # For this test, we reset the buffer size from 50 to 2.
+        stub_const "MixpanelService::MAX_BUFFER_SIZE", 2
+
+        expect_any_instance_of(Mixpanel::BufferedConsumer).not_to receive(:send!)
+        expect_any_instance_of(Mixpanel::BufferedConsumer).not_to receive(:flush)
+
+        # expect(MixpanelService.instance).not_to have_received(:init_flusher)
+        expect(MixpanelService.instance).to receive(:init_flusher).exactly(0).times
+
+        3.times do
+          MixpanelService.instance.run(
+            distinct_id: 'abcde',
+            event_name: 'test_event',
+            data: { test: 'OK' }
+          )
+        end
+
+        expect(procs).to be_empty
       end
     end
   end
@@ -183,6 +213,19 @@ describe MixpanelService do
           MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
 
           expect(fake_tracker).to have_received(:track).with(distinct_id, event_name, any_args)
+        end
+
+        context "in dev env" do
+          before do
+            allow(Rails.env).to receive(:production?).and_return(false)
+          end
+
+          it 'does not track an event by name and id if in development mode' do
+
+            MixpanelService.send_event(distinct_id: distinct_id, event_name: event_name, data: {})
+
+            expect(fake_tracker).not_to have_received(:track).with(distinct_id, event_name, any_args)
+          end
         end
 
         it 'includes user agent and request information, if present' do

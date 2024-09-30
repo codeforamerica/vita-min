@@ -38,6 +38,11 @@ class MixpanelService
   # @param [Hash] data: (optional, defaults to {}) data to be sent to mixpanel
   #
   def run(distinct_id:, event_name:, data: {})
+    unless Rails.env.production?
+      Rails.logger.error "You are currently on non-prod environment. if You want to track mixpanel events in non-prod environments, please uncomment this check in Mixpanel Service"
+      return
+    end
+
     @tracker.track(distinct_id, event_name, data)
   rescue StandardError => err
     Rails.logger.error "Error tracking analytics event #{err}"
