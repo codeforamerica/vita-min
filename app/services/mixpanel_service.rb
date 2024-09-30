@@ -39,7 +39,7 @@ class MixpanelService
   #
   def run(distinct_id:, event_name:, data: {})
     unless Rails.env.production?
-      Rails.logger.error "You are currently on non-prod environment. if You want to track mixpanel events in non-prod environments, please uncomment this check in Mixpanel Service"
+      Rails.logger.error "You are currently on non-prod environment. If you want to track mixpanel events in non-prod environments, please uncomment this check in Mixpanel Service"
       return
     end
 
