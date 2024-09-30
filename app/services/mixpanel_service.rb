@@ -31,7 +31,7 @@ class MixpanelService
         end
       else # demo, staging, heroku
         Struct.new(:track) do
-          def track(distinct_id, event_name, data)
+          def track(_distinct_id, _event_name, _data)
             # do nothing
           end
         end
