@@ -729,6 +729,16 @@ $state-colors: (
     }
   }
 
+  .us-state--nj {
+    .main-header {
+      background-color: $color-nj-blue-darker;
+    }
+
+    .slab--footer {
+      background-color: $color-nj-blue-darker;
+    }
+  }
+
   .loading-container {
     width:100%;
     display:flex;
@@ -746,6 +756,21 @@ $state-colors: (
       }
       .client-menu {
         background-color: $state-color;
+      }
+    }
+  }
+
+  .state-file-html-bg--nj {
+    background-color: $color-nj-blue-darker;
+    .state-file {
+      .main-header {
+        background-color: $color-nj-blue-darker;
+      }
+      .client-menu-closer {
+        background-color: $color-nj-blue-darker;
+      }
+      .client-menu {
+        background-color: $color-nj-blue-darker;
       }
     }
   }
