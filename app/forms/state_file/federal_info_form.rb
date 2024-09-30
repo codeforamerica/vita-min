@@ -114,19 +114,19 @@ module StateFile
     end
 
     def w2s_attributes=(attributes)
+      index = 0
       attributes.each do |_form_number, w2_attributes|
-        w2 = w2s.find { |w| w.id == w2_attributes['id'] }
-        if w2
-          w2_attributes.except('id', '_destroy').each do |field, value|
-            w2.send("#{field}=", value) if w2.respond_to?("#{field}=")
-          end
-        else
-          new_w2_node = @intake.direct_file_data.build_new_w2_node
-          new_w2 = DfIrsW2Form.new(new_w2_node)
-          w2_attributes.except('id', '_destroy').each do |field, value|
-            new_w2.send("#{field}=", value) if new_w2.respond_to?("#{field}=")
+        if index == w2s.length
+          @intake.direct_file_data.build_new_w2_node
+        end
+        w2 = w2s[index.to_i]
+        DfIrsW2Form.selectors.each_key do |field|
+          new_value = w2_attributes[field.to_s]
+          if new_value.present? && w2.send(field) != new_value
+            w2.send(:"#{field}=", new_value)
           end
         end
+        index += 1
       end
     end
 

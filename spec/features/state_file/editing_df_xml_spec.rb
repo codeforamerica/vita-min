@@ -127,7 +127,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateDistributionAmt).to eq 200
   end
 
-  it "preserves W2 EmployeeSSN when XML Editor is opened without changes" do
+  it "preserves W2 when XML Editor is opened without changes" do
     visit "/"
     click_on "Start Test NC"
 
@@ -146,6 +146,18 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text I18n.t('state_file.questions.data_review.edit.title')
 
     xml_before = StateFileNcIntake.last.direct_file_data
+    raw_xml_before = StateFileNcIntake.last.raw_direct_file_data.strip
     expect(xml_before.w2s[0].EmployeeSSN).to eq "400000030"
+
+    find("#visit_federal_info_controller").click
+    expect(page).to have_text "‍💻🛠️ Direct File Data Overrides 🛠️💻"
+
+    click_on "Continue"
+    expect(page).to have_text I18n.t('state_file.questions.name_dob.edit.title1')
+    xml_after = StateFileNcIntake.last.direct_file_data
+    raw_xml_after = StateFileNcIntake.last.raw_direct_file_data.strip
+    expect(raw_xml_before).to eq(raw_xml_after)
+
+    expect(xml_after.w2s[0].EmployeeSSN).to eq "400000030"
   end
 end
