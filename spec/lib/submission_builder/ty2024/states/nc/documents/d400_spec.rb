@@ -25,6 +25,8 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       let(:income_tax) { 400 }
       before do
         intake.direct_file_data.fed_agi = 10000
+        intake.tribal_member = "yes"
+        intake.tribal_wages_amount = 100.00
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_11).and_return standard_deduction
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12a).and_return nc_agi_addition
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_12b).and_return nc_agi_subtraction

@@ -48,6 +48,7 @@ module PdfFiller
         y_d400wf_dead3: @xml_document.at('QWYearSpouseDied')&.text,
         y_d400wf_li6_good: @xml_document.at('FAGI')&.text,
         y_d400wf_li8_good: @xml_document.at('FAGIPlusAdditions')&.text,
+        y_d400wf_li9_good: @xml_document.at('DeductionsFromFAGI')&.text,
         y_d400wf_ncstandarddeduction: 'Yes',
         y_d400wf_li11_page1_good: @xml_document.at('NCStandardDeduction')&.text,
         y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text,
