@@ -16,11 +16,22 @@ module Efile
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_7, :calculate_line_7)
         set_line(:NJ1040_LINE_8, :calculate_line_8)
+        set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_40A, :calculate_line_40a)
         @lines.transform_values(&:value)
       end
 
+      def refund_or_owed_amount
+        0
+      end
+
+      def analytics_attrs
+        {
+        }
+      end
+
+      private
       def line_6_spouse_checkbox
         @intake.filing_status_mfj?
       end
@@ -51,7 +62,7 @@ module Efile
                                                                  @direct_file_data.is_spouse_blind?])
         number_of_line_8_exemptions * 1_000
       end
-      
+
       def calculate_line_40a
         is_mfs = @intake.filing_status == :married_filing_separately
 
@@ -67,20 +78,9 @@ module Efile
         is_mfs ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
-      def total_exemption_amount
-        0
+      def calculate_line_13
+        line_or_zero(:NJ1040_LINE_6) +  line_or_zero(:NJ1040_LINE_7) +  line_or_zero(:NJ1040_LINE_8) 
       end
-
-      def refund_or_owed_amount
-        0
-      end
-
-      def analytics_attrs
-        {
-        }
-      end
-
-      private
 
       def calculate_line_15
         if @direct_file_data.w2s.empty?
