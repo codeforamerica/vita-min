@@ -22,7 +22,7 @@ module StateFile
       # Position is important. Must be below `set_attributes_for` to overwrite the standard `attr_accessor`s
       date_accessor :expiration_date, :issue_date
 
-      validates :issue_date, presence: true
+      validates :issue_date, presence: true, unless: -> { id_type == "no_id" }
       validates :expiration_date, presence: true, unless: -> { id_type == "no_id" || non_expiring == "1" }
       validates :state, presence: true, inclusion: { in: States.keys }, unless: -> { id_type == "no_id" }
       validates :id_type, presence: true

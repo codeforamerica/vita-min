@@ -3,19 +3,9 @@ module StateFile
     # Validation / attribute set up common across both state ids
     include StateFile::NcStateIdConcern
 
-    def initialize(intake, params = nil)
+    def self.existing_attributes(intake)
       intake.build_spouse_state_id unless intake.spouse_state_id
-      attribute_subset = intake.spouse_state_id
-        .attributes
-        # Looks at the attribute hash available on the spouse state id and
-        # takes out the bits irrelvant to us for this form
-        .slice(
-          *attribute_names.map(&:to_s)
-        )
-
-      # Assigns default values if the object exists
-      assign_attributes(attribute_subset) if intake.spouse_state_id
-      super(intake, params)
+      HashWithIndifferentAccess.new(intake.spouse_state_id.attributes)
     end
 
     def save
