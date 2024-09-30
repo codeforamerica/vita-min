@@ -46,7 +46,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           amount: 100,
           date_of_contribution_month: '8',
           date_of_contribution_day: "12",
-          date_of_contribution_year: "2023"
+          date_of_contribution_year: Rails.configuration.statefile_current_tax_year
         }
       }
     end
@@ -96,6 +96,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     context "with invalid params" do
       render_views
+
       let(:invalid_params) do
         {
           az322_contribution: {

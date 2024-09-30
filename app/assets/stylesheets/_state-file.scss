@@ -265,6 +265,30 @@
     .list--bulleted {
       padding-left: 1.5rem;
     }
+
+    .money-input-form-group {
+
+      .money-input-group {
+        margin-bottom: 2rem;
+        border: 1px solid $color-state-file-input-border;
+        box-shadow: none;
+        &:focus-within {
+          box-shadow: $focus-box-shadow;
+        }
+      }
+
+      .text-input-group__prefix {
+        box-shadow: none;
+        background-color: white;
+      }
+      .money-input {
+        margin-bottom: 0;
+        border: none;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
   }
 
   .checkbox.is-selected{
@@ -532,7 +556,7 @@
   .radio-button input[type='radio']:focus,
   .select__element:focus,
   .checkbox input[type='checkbox']:focus {
-    box-shadow: 0 0 0 5px $color-state-file-primary, inset 0px 2px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: $focus-box-shadow;
   }
 
   input[type='radio'] {

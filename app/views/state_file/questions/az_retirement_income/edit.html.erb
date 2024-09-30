@@ -22,7 +22,7 @@
               <p><%= t(".should_not_exceed_taxable_pensions_total_html", total: number_to_currency(current_intake.direct_file_data.fed_taxable_pensions)) %></p>
             </div>
             <div class="form-group-tight">
-              <%= f.cfa_input_field(
+              <%= f.vita_min_money_field(
                     "#{income_type}_amount".to_sym,
                     t(".amount_label"),
                     classes: ["form-width--long"]

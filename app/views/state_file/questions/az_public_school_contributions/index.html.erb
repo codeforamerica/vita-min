@@ -12,7 +12,7 @@
             <%= t('.contribution_label', school_name: contribution.school_name) %>
           </h3>
           <p class="contribution__info spacing-below-25">
-            <%= t('.amount_contributed', amount: contribution.amount) %>
+            <%= t('.amount_contributed', amount: number_to_currency(contribution.amount, precision: 2)) %>
           </p>
           <div>
             <%= link_to t("general.edit"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
