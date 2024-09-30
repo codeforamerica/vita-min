@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
   describe '.build' do
-    let(:intake) { create(:state_file_nc_intake, filing_status: "single") }
+    let(:intake) { create(:state_file_md_intake, filing_status: "single") }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }

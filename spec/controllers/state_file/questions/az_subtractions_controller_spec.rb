@@ -15,9 +15,9 @@ RSpec.describe StateFile::Questions::AzSubtractionsController do
         {
           state_file_az_subtractions_form: {
             armed_forces_member: "yes",
-            armed_forces_wages: "100",
+            armed_forces_wages_amount: "100",
             tribal_member: "yes",
-            tribal_wages: "200"
+            tribal_wages_amount: "200"
           }
         }
       end

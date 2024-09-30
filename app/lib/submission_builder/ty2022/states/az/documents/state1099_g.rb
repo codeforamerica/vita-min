@@ -36,10 +36,10 @@ module SubmissionBuilder
                   xml.StateAbbreviationCd "AZ"
                   xml.ZIPCd sanitize_for_xml(form1099g.recipient_zip)
                 end
-                xml.UnemploymentCompensation form1099g.unemployment_compensation
-                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld
+                xml.UnemploymentCompensation form1099g.unemployment_compensation_amount&.round
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount&.round
                 xml.State1099GStateLocalTaxGrp do
-                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld
+                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld_amount&.round
                   xml.StateAbbreviationCd "AZ"
                   if form1099g.state_identification_number && form1099g.state_identification_number != ''
                     xml.PayerStateIdNumber form1099g.state_identification_number

@@ -96,8 +96,8 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
               state_file_intake: intake,
               w2_index: 0,
               employer_state_id_num: "00123",
-              state_income_tax_amt: "700",
-              state_wages_amt: "2000",
+              state_income_tax_amount: "700",
+              state_wages_amount: "2000",
             )
           }
 

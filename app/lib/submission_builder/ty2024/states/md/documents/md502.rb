@@ -12,7 +12,6 @@ module SubmissionBuilder
               build_xml_doc("Form502") do |xml|
                 xml.ResidencyStatusPrimary true
               end
-
             end
 
             private

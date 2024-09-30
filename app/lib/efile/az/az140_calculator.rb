@@ -23,8 +23,8 @@ module Efile
       end
 
       def calculate
-        set_line(:AZ140_CCWS_LINE_1c, @intake, :charitable_cash)
-        set_line(:AZ140_CCWS_LINE_2c, @intake, :charitable_noncash)
+        set_line(:AZ140_CCWS_LINE_1c, :calculate_line_1c)
+        set_line(:AZ140_CCWS_LINE_2c, :calculate_line_2c)
         set_line(:AZ140_CCWS_LINE_3c, -> { 0 })
         set_line(:AZ140_CCWS_LINE_4c, :calculate_ccws_line_4c)
         set_line(:AZ140_CCWS_LINE_5c, -> { 0 })
@@ -94,6 +94,14 @@ module Efile
 
       private
 
+      def calculate_line_1c
+        @intake.charitable_cash_amount&.round
+      end
+
+      def calculate_line_2c
+        @intake.charitable_noncash_amount&.round
+      end
+
       def calculate_line_14
         line_or_zero(:AZ140_LINE_12)
       end
@@ -120,11 +128,11 @@ module Efile
       end
 
       def calculate_line_31
-        @intake.tribal_member_yes? ? @intake.tribal_wages : 0
+        @intake.tribal_member_yes? ? @intake.tribal_wages_amount&.round : 0
       end
 
       def calculate_line_32
-        @intake.armed_forces_member_yes? ? @intake.armed_forces_wages : 0
+        @intake.armed_forces_member_yes? ? @intake.armed_forces_wages_amount&.round : 0
       end
 
       def calculate_line_35
@@ -255,7 +263,7 @@ module Efile
         # AZ income tax withheld
         # sum of tax withheld from all income documents: W-2, 1099-R, 1099-G, 1099-INT
         @direct_file_data.total_w2_state_tax_withheld +
-          @intake.state_file1099_gs.sum(&:state_income_tax_withheld) +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @direct_file_data.total_1099r_state_tax_withheld
       end
 
@@ -269,7 +277,7 @@ module Efile
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
 
           max_credit = 100
-          max_credit -= @intake.household_excise_credit_claimed_amt if @intake.household_excise_credit_claimed_yes? && @intake.household_excise_credit_claimed_amt.is_a?(Integer)
+          max_credit -= @intake.household_excise_credit_claimed_amount&.round if @intake.household_excise_credit_claimed_yes?
 
           [wrksht_line_4, max_credit].min
         end

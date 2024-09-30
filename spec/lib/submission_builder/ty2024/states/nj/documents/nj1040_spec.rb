@@ -32,6 +32,19 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.at("Exemptions DomesticPartnerRegular")).to eq(nil)
       end
 
+      it "populates line 8 XML fields" do
+        expect(xml.at("Exemptions YouBlindOrDisabled")).to eq(nil)
+        expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled")).to eq(nil)
+      end
+
+      context "when filer is blind" do
+        let(:intake) { create(:state_file_nj_intake, :primary_blind) }
+        it "populates line 8 XML fields" do
+          expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled")).to eq(nil)
+        end
+      end
+
       context "when filer is over 65" do
         let(:intake) { create(:state_file_nj_intake, :primary_over_65) }
         it "populates line 7 XML fields" do
@@ -89,6 +102,30 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65")).to eq(nil)
           expect(xml.at("Exemptions SpouseCuPartner65OrOver").text).to eq("X")
+        end
+      end
+
+      context "when filer is blind and their spouse is not blind" do
+        let(:intake) { create(:state_file_nj_intake, :primary_blind) }
+        it "populates line 8 XML fields" do
+          expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled")).to eq(nil)
+        end
+      end
+
+      context "when filer is not blind and their spouse is blind" do
+        let(:intake) { create(:state_file_nj_intake, :spouse_blind) }
+        it "populates line 8 XML fields" do
+          expect(xml.at("Exemptions YouBlindOrDisabled")).to eq(nil)
+          expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled").text).to eq("X")
+        end
+      end
+
+      context "when filer and their spouse are both blind" do
+        let(:intake) { create(:state_file_nj_intake, :primary_blind, :spouse_blind) }
+        it "populates line 8 XML fields" do
+          expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled").text).to eq("X")
         end
       end
 
@@ -227,6 +264,18 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           expected_sum = (50000.33 + 50000.33 + 50000.33 + 50000.33).round
           expect(xml.at("WagesSalariesTips").text).to eq(expected_sum.to_s)
         end
+      end
+    end
+
+    describe "total exemption - lines 13 and 30" do
+      let(:intake) { create(:state_file_nj_intake) }
+      it "totals lines 6-8 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
+        line_6_single_filer = 1_000
+        line_7_not_over_65 = 0
+        line_8_not_blind = 0
+        expected_sum = line_6_single_filer + line_7_not_over_65 + line_8_not_blind
+        expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
+        expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
       end
     end
 

@@ -36,10 +36,10 @@ module SubmissionBuilder
                   xml.StateAbbreviationCd "NY"
                   xml.ZIPCd form1099g.recipient_zip if form1099g.recipient_zip.present?
                 end
-                xml.UnemploymentCompensation form1099g.unemployment_compensation if form1099g.unemployment_compensation.present?
-                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld if form1099g.federal_income_tax_withheld.present?
+                xml.UnemploymentCompensation form1099g.unemployment_compensation_amount.round if form1099g.unemployment_compensation_amount.present?
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount.round if form1099g.federal_income_tax_withheld_amount.present?
                 xml.State1099GStateLocalTaxGrp do
-                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld if form1099g.state_income_tax_withheld.present?
+                  xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld_amount.round if form1099g.state_income_tax_withheld_amount.present?
                   xml.StateAbbreviationCd "NY"
                   if form1099g.state_identification_number && form1099g.state_identification_number != ''
                     xml.PayerStateIdNumber form1099g.state_identification_number

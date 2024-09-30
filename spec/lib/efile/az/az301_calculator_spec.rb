@@ -11,8 +11,8 @@ describe Efile::Az::Az301Calculator do
   let(:instance) { az140_calculator.instance_variable_get(:@az301) }
 
   before do
-    intake.charitable_cash = 50
-    intake.charitable_noncash = 50
+    intake.charitable_cash_amount = 50
+    intake.charitable_noncash_amount = 50
     intake.charitable_contributions = 'yes'
     intake.direct_file_data.filing_status = 2 # married_filing_jointly
     intake.reload

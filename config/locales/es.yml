@@ -2054,6 +2054,13 @@ es:
             <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
             <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
           </ul>
+        id:
+          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Idaho para integrarse con la herramienta Direct File del IRS.<br /><br />
+            Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          supported_by: Respaldada por el estado de Idaho
+          title: Presenta tus impuestos estatales de Idaho sin costo
         md:
           built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con Maryland para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
@@ -2184,6 +2191,7 @@ es:
           contribution_label: Contribución a %{school_name}
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
           lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
       az_qualifying_organization_contributions:
         destroy:
           removed: Se eliminó AZ 321 para %{charity_name}
@@ -2201,6 +2209,7 @@ es:
           contribution_name: Contribución a %{charity_name} con el código %{charity_code}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
           lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
       az_retirement_income:
         edit:
           amount_label: Ingrese la cantidad ganada
@@ -2492,7 +2501,15 @@ es:
           amount: Cantidad
           primary_veteran: Información del Veterano
           spouse_veteran: Información del Cónyuge Veterano
+          state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           use_tax_applied: Impuesto de Uso Aplicado
+      nc_subtractions:
+        edit:
+          title_html:
+            one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
+            other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
+          tribal_wages_field_html: "<b>Ingrese la cantidad ganada</b>"
+          tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
@@ -3041,7 +3058,7 @@ es:
     itin: Por favor ingrese un Número de Identificación Personal del Contribuyente válido.
     legal_name: Ingrese un nombre que solo contenga cartas, apóstrofos, guiones, puntos y acentos.
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
-    must_enter_amount: Si alguien reclamó este crédito, debe ingresar el monto en un número entero.
+    must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"

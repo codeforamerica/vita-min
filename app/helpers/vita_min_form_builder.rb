@@ -278,6 +278,40 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output.html_safe
   end
 
+  def vita_min_money_field(
+      method,
+      label_text,
+      options: {},
+      classes: []
+    )
+    text_field_options = standard_options.merge(
+      class: (classes + ["text-input money-input"]).join(" "),
+      ).merge(options).merge(error_attributes(method: method)).merge(placeholder: '0.00')
+
+    text_field_options[:id] ||= sanitized_id(method)
+    options[:input_id] ||= sanitized_id(method)
+
+    text_field_html = text_field(method, text_field_options)
+
+    wrapper_classes = classes + ['money-input-group']
+    label_and_field_html = label_and_field(
+      method,
+      label_text,
+      text_field_html,
+      prefix: '$',
+      options: options,
+      wrapper_classes: wrapper_classes,
+      )
+
+    html_output = <<~HTML
+      <div class="form-group#{error_state(object, method)} money-input-form-group">
+      #{label_and_field_html}
+        #{errors_for(object, method)}
+      </div>
+    HTML
+    html_output.html_safe
+  end
+
   def vita_min_text_field(
     method,
     label_text,
@@ -382,70 +416,5 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       style: "display:none",
       "data-permitted": permitted_values.to_json
     )
-  end
-
-  def edit_date_select(
-    method,
-    label_text,
-    help_text: nil,
-    options: {},
-    autofocus: nil,
-    selected: {}
-  )
-    day = selected[:day]
-    month = selected[:month]
-    year = selected[:year]
-
-    <<~HTML.html_safe
-    <fieldset class="form-group#{error_state(object, method)}">
-      #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
-      <div class="input-group--inline">
-        <div class="select">
-          <label for="#{sanitized_id(method, 'month')}" class="sr-only">#{I18n.t('general.month')}</label>
-          #{select_month(
-      OpenStruct.new(month: month),
-      {
-        field_name: subfield_name(method, 'month'),
-        field_id: subfield_id(method, 'month'),
-        prefix: object_name,
-        prompt: I18n.t('general.month'),
-        selected: month
-      }.reverse_merge(options),
-      class: 'select__element',
-      autofocus: autofocus,
-      )}
-        </div>
-        <div class="select">
-          <label for="#{sanitized_id(method, 'day')}" class="sr-only">#{I18n.t('general.day')}</label>
-          #{select_day(
-      OpenStruct.new(day: day),
-      {
-        field_name: subfield_name(method, 'day'),
-        field_id: subfield_id(method, 'day'),
-        prefix: object_name,
-        prompt: I18n.t('general.day'),
-        selected: day
-      }.merge(options),
-      class: 'select__element',
-      )}
-        </div>
-        <div class="select">
-          <label for="#{sanitized_id(method, 'year')}" class="sr-only">#{I18n.t('general.year_date')}</label>
-          #{select_year(
-      OpenStruct.new(year: year),
-      {
-        field_name: subfield_name(method, 'year'),
-        field_id: subfield_id(method, 'year'),
-        prefix: object_name,
-        prompt: I18n.t('general.year_date'),
-        selected: year
-      }.merge(options),
-      class: 'select__element',
-      )}
-        </div>
-      </div>
-      #{errors_for(object, method)}
-    </fieldset>
-  HTML
   end
 end
