@@ -61,17 +61,17 @@ module PdfFiller
         y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
         y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName').text.slice(0,11),
-        y_d400wf_Consumer_Use_Tax: @xml_document.at('NoUseTaxDue')&.text, #might need to rename pdf field again
-        y_d400wf_li18_pg2_good: @xml_document.at('UseTax')&.text, # 18 what if not there will fill nil?
-        y_d400wf_li19_pg2_good: @xml_document.at('TotalNCTax')&.text, # 19
+        y_d400wf_Consumer_Use_Tax: @xml_document.at('NoUseTaxDue')&.text,
+        y_d400wf_li18_pg2_good: @xml_document.at('UseTax')&.text,
+        y_d400wf_li19_pg2_good: @xml_document.at('TotalNCTax')&.text,
         y_d400wf_li20a_pg2_good: @xml_document.at('IncTaxWith').text,
         y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse').text,
         y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid').text,
         y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment').text,
-        y_d400wf_li26a_pg2_good: @xml_document.at('TaxDue')&.text, # 26a
-        y_d400wf_li27_pg2_good: @xml_document.at('TotalAmountDue')&.text, # 27
-        y_d400wf_li28_pg2_good: @xml_document.at('Overpayment')&.text, # 28
-        y_d400wf_li34_pg2_good: @xml_document.at('RefundAmt')&.text, # 34
+        y_d400wf_li26a_pg2_good: @xml_document.at('TaxDue')&.text,
+        y_d400wf_li27_pg2_good: @xml_document.at('TotalAmountDue')&.text,
+        y_d400wf_li28_pg2_good: @xml_document.at('Overpayment')&.text,
+        y_d400wf_li34_pg2_good: @xml_document.at('RefundAmt')&.text,
       }
     end
 

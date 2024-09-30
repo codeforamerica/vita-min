@@ -62,11 +62,11 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
           expect(pdf_fields['y_d400wf_Consumer_Use_Tax']).to eq 'X'
           expect(pdf_fields['y_d400wf_li18_pg2_good']).to eq '0'
-          expect(pdf_fields['y_d400wf_li19_pg2_good']).to eq '0' # TotalNCTax, 17 + 18
-          expect(pdf_fields['y_d400wf_li26a_pg2_good']).to eq '' # 26a
-          expect(pdf_fields['y_d400wf_li27_pg2_good']).to eq '0' # 27
-          expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '15' # 28
-          expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '15' # 34
+          expect(pdf_fields['y_d400wf_li19_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li26a_pg2_good']).to eq ''
+          expect(pdf_fields['y_d400wf_li27_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '15'
+          expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '15'
         end
 
         context "CTC & cascading fields" do

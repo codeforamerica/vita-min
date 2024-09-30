@@ -122,7 +122,6 @@ module Efile
       end
       def calculate_line_18
         # Consumer use tax
-        # todo: change/simplify this if the value we save and show to the client is the same in the model
         if @intake.untaxed_out_of_state_purchases_yes?
           if @intake.sales_use_tax_calculation_method_manual?
             @intake.sales_use_tax
@@ -192,7 +191,6 @@ module Efile
         # Total refund amount: line 28 - line 33 (line 33 not in scope)
         line_or_zero(:NCD400_LINE_28)
       end
-      #todo: do i need to add rounding to each value
 
     end
   end
