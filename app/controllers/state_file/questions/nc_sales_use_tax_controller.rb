@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class SalesUseTaxController < QuestionsController
+    class NcSalesUseTaxController < QuestionsController
       include ReturnToReviewConcern
     end
   end

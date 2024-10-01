@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::SalesUseTaxForm do
+RSpec.describe StateFile::NcSalesUseTaxForm do
   sales_use_tax_states = [:nc]
   sales_use_tax_states.each do |state_code|
 
