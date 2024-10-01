@@ -18,9 +18,26 @@ class MixpanelService
 
     @buffer = []
     @mutex = Mutex.new
-    @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      buffer_event_for_send(type, message)
-    end
+
+    @tracker =
+      if Rails.env.production?
+        Mixpanel::Tracker.new(mixpanel_key) do |type, message|
+          buffer_event_for_send(type, message)
+        end
+      elsif Rails.env.development?
+        Struct.new("DummyTracker") do
+          def track(distinct_id, event_name, data)
+            # for debugging purposes
+            Rails.logger.info("Sending Mixpanel event: id #{distinct_id}, event_name #{event_name}, data #{data}")
+          end
+        end.new
+      else # demo, staging, heroku
+        Struct.new("DummyTracker") do
+          def track(_distinct_id, _event_name, _data)
+            # do nothing
+          end
+        end.new
+      end
 
     # silence local SSL errors
     if Rails.env.development?

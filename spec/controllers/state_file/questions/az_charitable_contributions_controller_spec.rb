@@ -15,8 +15,8 @@ RSpec.describe StateFile::Questions::AzCharitableContributionsController do
         {
           state_file_az_charitable_contributions_form: {
             charitable_contributions: "yes",
-            charitable_cash: "100",
-            charitable_noncash: "50"
+            charitable_cash_amount: "100",
+            charitable_noncash_amount: "50"
           }
         }
       end

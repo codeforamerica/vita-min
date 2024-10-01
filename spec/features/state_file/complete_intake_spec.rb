@@ -100,10 +100,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "11102", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "270293117"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
-      fill_in 'state_file1099_g_unemployment_compensation', with: "123"
-      fill_in 'state_file1099_g_federal_income_tax_withheld', with: "456"
+      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
       fill_in 'state_file1099_g_state_identification_number', with: "123456789"
-      fill_in 'state_file1099_g_state_income_tax_withheld', with: "789"
+      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
@@ -211,10 +211,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
-      fill_in 'state_file1099_g_unemployment_compensation', with: "123"
-      fill_in 'state_file1099_g_federal_income_tax_withheld', with: "456"
+      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
       fill_in 'state_file1099_g_state_identification_number', with: "123456789"
-      fill_in 'state_file1099_g_state_income_tax_withheld', with: "789"
+      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
@@ -222,9 +222,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
       check "state_file_az_subtractions_form_tribal_member"
-      fill_in "state_file_az_subtractions_form_tribal_wages", with: "100"
+      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
       check "state_file_az_subtractions_form_armed_forces_member"
-      fill_in "state_file_az_subtractions_form_armed_forces_wages", with: "100"
+      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text  I18n.t("state_file.questions.az_retirement_income.edit.title")

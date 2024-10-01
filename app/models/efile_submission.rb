@@ -274,8 +274,6 @@ class EfileSubmission < ApplicationRecord
     end
   end
 
-  private
-
   def is_for_federal_filing?
     tax_return.present?
   end

@@ -299,5 +299,5 @@ CREATE view analytics.state_file_ny_intakes AS
     FROM public.state_file_ny_intakes;
 
 CREATE view analytics.state_file_w2s AS
-SELECT id, employer_state_id_num, local_income_tax_amt, local_wages_and_tips_amt, locality_nm, state_file_intake_type, state_income_tax_amt, state_wages_amt, w2_index, created_at, updated_at, state_file_intake_id
+SELECT id, employer_state_id_num, local_income_tax_amount, local_wages_and_tips_amount, locality_nm, state_file_intake_type, state_income_tax_amount, state_wages_amount, w2_index, created_at, updated_at, state_file_intake_id
 FROM public.state_file_w2s;

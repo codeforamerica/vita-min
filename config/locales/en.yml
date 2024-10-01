@@ -7,11 +7,6 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
-        state_file/nc_sales_use_tax_form:
-          attributes:
-            sales_use_tax:
-              greater_than_or_equal_to: Please enter a positive dollar amount.
-              not_a_number: Please enter a dollar amount.
   activerecord:
     errors:
       models:
@@ -2222,6 +2217,7 @@ en:
           contribution_label: Contribution to %{school_name}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Lets review your public school cash contributions and fees
+          maximum_records: You have provided the maximum amount of records.
       az_qualifying_organization_contributions:
         destroy:
           removed: Removed AZ 321 for %{charity_name}
@@ -2768,6 +2764,23 @@ en:
       review:
         county: County
         w2: W-2 state and local tax information
+<<<<<<< HEAD
+=======
+      sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          not_a_number: Please enter numbers only.
+          select_one: 'Select one of the following:'
+          state_specific:
+            nc:
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          title:
+            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
+          use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
+          use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
+>>>>>>> main
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -3068,7 +3081,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
-    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
+    must_enter_amount: If someone claimed this credit you must enter an amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"

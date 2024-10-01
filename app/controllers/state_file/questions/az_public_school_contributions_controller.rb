@@ -11,7 +11,7 @@ module StateFile
       def index
         @az322_contributions = current_intake.az322_contributions
         unless @az322_contributions.present?
-          redirect_to action: :new
+          redirect_to action: :new, return_to_review: params[:return_to_review]
         end
       end
 
@@ -26,7 +26,7 @@ module StateFile
           return redirect_to next_path
         end
 
-        if @az322_contribution.valid?
+        if current_intake.valid?(:az322) && @az322_contribution.valid?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else

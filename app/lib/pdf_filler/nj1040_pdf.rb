@@ -94,6 +94,33 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
+      if @xml_document.at("Exemptions TotalExemptionAmountA")
+        total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
+        answers.merge!(insert_digits_into_fields(total_exemptions, [
+          "Text53",
+          "Text52",
+          "Text51",
+          "Text50",
+          "undefined_17",
+          "undefined_16",
+          "undefined_15"
+        ]))
+      end
+
+      if @xml_document.at("Body TotalExemptionAmountB")
+        total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
+        answers.merge!(insert_digits_into_fields(total_exemptions, [
+          "214",
+          "undefined_91",
+          "213",
+          "212",
+          "undefined_90",
+          "211",
+          "210",
+          "30"
+        ]))
+      end
+
       if @xml_document.at("WagesSalariesTips").present?
         wages = @xml_document.at("WagesSalariesTips").text.to_i
         answers.merge!(insert_digits_into_fields(wages, [

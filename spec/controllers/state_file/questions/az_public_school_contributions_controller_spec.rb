@@ -34,6 +34,8 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
   end
 
   describe "#create" do
+    render_views
+
     let(:params) do
       {
         az322_contribution: {
@@ -44,7 +46,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           amount: 100,
           date_of_contribution_month: '8',
           date_of_contribution_day: "12",
-          date_of_contribution_year: "2023"
+          date_of_contribution_year: Rails.configuration.statefile_current_tax_year
         }
       }
     end
@@ -62,6 +64,24 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       expect(contribution.amount).to eq 100
     end
 
+    it 'should not create more than 10 contributions' do
+      10.times do
+        put :create, params: params
+      end
+      expect(intake.az322_contributions.count).to eq 10
+
+      get :index
+      expect(response).to be_ok
+      expect(response.body).to include(I18n.t('state_file.questions.az_public_school_contributions.index.maximum_records'))
+      html = Nokogiri::HTML.parse(response.body)
+      add_contribution_button = html.xpath("//button[contains(., 'Add another contribution')]")[0]
+      expect(add_contribution_button.attr("disabled")).to eq("disabled")
+
+      expect {
+        put :create, params: params
+      }.not_to change(intake.az322_contributions, :count)
+    end
+
     context "when 'no' was selected for made_contribution" do
       before do
         params[:az322_contribution][:made_contribution] = 'no'
@@ -76,6 +96,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     context "with invalid params" do
       render_views
+
       let(:invalid_params) do
         {
           az322_contribution: {
