@@ -371,6 +371,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
+      fill_in "state_file_nc_primary_state_id_form_id_number", with: "123456789"
+      select_cfa_date "state_file_nc_primary_state_id_form_issue_date", Date.new(2020, 1, 1)
+      check "state_file_nc_primary_state_id_form_non_expiring"
+      select("Alaska", from: "State")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
+      fill_in "state_file_nc_spouse_state_id_form_id_number", with: "123456789"
+      select_cfa_date "state_file_nc_spouse_state_id_form_issue_date", Date.new(2020, 1, 1)
+      check "state_file_nc_spouse_state_id_form_non_expiring"
+      select("Alaska", from: "State")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
