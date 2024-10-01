@@ -2528,6 +2528,7 @@ en:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
+          not_a_number: Please enter numbers only.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
@@ -2764,23 +2765,6 @@ en:
       review:
         county: County
         w2: W-2 state and local tax information
-<<<<<<< HEAD
-=======
-      sales_use_tax:
-        edit:
-          calculated_use_tax: Enter calculated use tax
-          not_a_number: Please enter numbers only.
-          select_one: 'Select one of the following:'
-          state_specific:
-            nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
-          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
-          title:
-            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
-            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
-          use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
-          use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
->>>>>>> main
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
