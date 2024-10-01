@@ -13,6 +13,8 @@ module RoleHelper
     result = case role_type
     when AdminRole::TYPE
       I18n.t("general.admin")
+    when StateFileNjStaffRole::TYPE
+      I18n.t("general.nj_staff")
     when OrganizationLeadRole::TYPE
       I18n.t("general.organization_lead")
     when CoalitionLeadRole::TYPE
