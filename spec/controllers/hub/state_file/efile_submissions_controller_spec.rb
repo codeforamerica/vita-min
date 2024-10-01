@@ -51,7 +51,7 @@ describe Hub::StateFile::EfileSubmissionsController do
       it "returns 403 forbidden" do
         get :show, params: params
 
-        expect(response.status).to eq 403
+        expect(response).to be_forbidden
       end
 
     end
@@ -83,7 +83,7 @@ describe Hub::StateFile::EfileSubmissionsController do
       it "returns 403 forbidden" do
         get :show_xml, params: params
 
-        expect(response.status).to eq 403
+        expect(response).to be_forbidden
       end
     end
   end
