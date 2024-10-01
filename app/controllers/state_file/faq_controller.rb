@@ -33,8 +33,7 @@ class StateFile::FaqController < ApplicationController
       elsif app_time.year == intake_start.year && app_time < intake_start # before intake opens this year
         # show states that were open the previous year and will open this year
         [tax_year - 1, tax_year]
-      else
-        # intake is closed for the year
+      else # intake is closed for the year
         # show states that were open this year and will open next year
         [tax_year, tax_year + 1]
       end
