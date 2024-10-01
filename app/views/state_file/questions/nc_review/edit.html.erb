@@ -12,6 +12,14 @@
     </div>
   <% end %>
 
+  <div id="nc-county" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county") %></p>
+        <p><%=  current_intake.residence_county_name %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+  </div>
+
   <div id="veteran-status" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".primary_veteran") %></p>
@@ -30,7 +38,15 @@
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
       <p><%=number_to_currency(current_intake.sales_use_tax)%></p>
-      <%= link_to t("general.edit"), StateFile::Questions::SalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="state-credits" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".state_credit") %></p>
+      <p><%=current_intake.tribal_member_yes? ? number_to_currency(current_intake.tribal_wages_amount, precision: 2): t("general.negative") %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 

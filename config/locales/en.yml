@@ -7,11 +7,6 @@ en:
           attributes:
             ssn:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
-        state_file/sales_use_tax_form:
-          attributes:
-            sales_use_tax:
-              greater_than_or_equal_to: Please enter a positive dollar amount.
-              not_a_number: Please enter a dollar amount.
   activerecord:
     errors:
       models:
@@ -237,7 +232,7 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
-      round_to_whole_number: round to the nearest whole number
+      round_to_whole_number: Round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
@@ -2090,6 +2085,20 @@ en:
             <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
+        id:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of Idaho
+          title: File your Idaho state taxes for free
+        md:
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with the IRS Direct File tool.<br /><br />
+            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+          supported_by: Supported by the state of Maryland
+          title: File your state taxes for free
         nc:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
@@ -2098,7 +2107,7 @@ en:
           supported_by: Supported by the state of North Carolina
           title: File your North Carolina state taxes for free
         nj:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
+          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool. It takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with the IRS Direct File tool.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
           supported_by: Supported by the New Jersey Office of Innovation
           title: File your New Jersey taxes for free
@@ -2208,6 +2217,7 @@ en:
           contribution_label: Contribution to %{school_name}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Lets review your public school cash contributions and fees
+          maximum_records: You have provided the maximum amount of records.
       az_qualifying_organization_contributions:
         destroy:
           removed: Removed AZ 321 for %{charity_name}
@@ -2225,6 +2235,7 @@ en:
           contribution_name: Contribution to %{charity_name} with code %{charity_code}
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Great! Thanks for sharing that information. Let’s review.
+          maximum_records: You have provided the maximum amount of records.
       az_retirement_income:
         edit:
           amount_label: Enter amount earned
@@ -2486,12 +2497,55 @@ en:
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
+      nc_county:
+        edit:
+          county: County
+          title: Select the county where you lived on December 31st, %{filing_year}
+      nc_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
+          reveal:
+            list1: You withdrew money from a 529 account and used it for qualifying expenses, or
+            list2: You didn't withdraw money from a 529 account at all.
+            p1: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
+            p2: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
+            subtitle: 'Select ''no'' if:'
+            title: What are qualifying and non- qualifying expenses?
+          title: First, let's see if you can use this tool to file your taxes
+          withdraw_529_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
+      nc_eligibility_residence:
+        edit:
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
+          subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your taxes
       nc_review:
         edit:
           amount: Amount
           primary_veteran: Veteran Info
           spouse_veteran: Spouse Veteran Info
+          state_credit: Amount earned as member of a federally recognized Indian tribe
           use_tax_applied: Consumer Use Tax Applied
+      nc_sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          not_a_number: Please enter numbers only.
+          select_one: 'Select one of the following:'
+          state_specific:
+            nc:
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          title:
+            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
+          use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
+          use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
+      nc_subtractions:
+        edit:
+          title_html:
+            one: Are you an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
+            other: Are you or your spouse an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
+          tribal_wages_field_html: "<b>Enter amount earned</b>"
+          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> <b>Note:</b> this should not exceed $%{amount_limit}
       nc_veteran_status:
         primary_veteran_question: Are you a veteran?
         spouse_veteran_question: Is your spouse a veteran?
@@ -2500,16 +2554,37 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_homeowner_property_tax:
+        edit:
+          helper_description: TODO FILL THIS OUT
+          helper_heading: Where do I find how much property taxes I paid?
+          label: Property taxes paid in %{filing_year}
+          title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
+      nj_household_rent_own:
+        edit:
+          helper_description: If you own a mobile home that is located in a mobile home park, you are considered a tenant.
+          homeowner: Homeowner in %{filing_year}
+          neither: Neither
+          tenant: Tenant in %{filing_year}
+          title: Which describes you best?
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
+      nj_renter_rent_paid:
+        edit:
+          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
+          label: Rent paid in %{filing_year}
+          title: Enter your rent paid in %{filing_year}.
       nj_review:
         edit:
           county: County
+          household_rent_own: Rent or own home
           municipality: Municipality
+          property_tax_paid: Property taxes paid
+          rent_paid: Rent paid
       ny_county:
         edit:
           county: County
@@ -2688,20 +2763,8 @@ en:
           title: Unfortunately, your 2023 %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
+        county: County
         w2: W-2 state and local tax information
-      sales_use_tax:
-        edit:
-          calculated_use_tax: Enter calculated use tax
-          select_one: 'Select one of the following:'
-          state_specific:
-            nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
-          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
-          title:
-            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
-            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
-          use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
-          use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -3002,7 +3065,7 @@ en:
     itin: Please enter a valid individual taxpayer identification number.
     legal_name: Please enter a name that only contains letters, apostrophes, hyphens, periods, and accents.
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
-    must_enter_amount: If someone claimed this credit you must enter a whole number amount.
+    must_enter_amount: If someone claimed this credit you must enter an amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"

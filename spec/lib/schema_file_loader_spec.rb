@@ -2,14 +2,17 @@ require "rails_helper"
 
 describe SchemaFileLoader do
   it "all required schema files are present" do
-    expect(SchemaFileLoader::EFILE_SCHEMAS_FILENAMES).to eq [
+    expect(SchemaFileLoader::EFILE_SCHEMAS_FILENAMES).to match_array [
       ["efile1040x_2020v5.1.zip", "irs"],
       ["efile1040x_2021v5.2.zip", "irs"],
       ["efile1040x_2022v5.3.zip", "irs"],
       ["efile1040x_2023v5.0.zip", "irs"],
       ["AZIndividual2023v1.0.zip", "us_states"],
+      ["MDIndividual2023v1.0.zip", "us_states"],
       ["NCIndividual2023v1.0.zip", "us_states"],
+      ["NJIndividual2023V0.4.zip", "us_states"],
       ["NYSIndividual2023V4.0.zip", "us_states"],
+      ["ID.MeF2023V1.0.zip", "us_states"],
     ]
   end
 
@@ -74,15 +77,18 @@ describe SchemaFileLoader do
 
   describe "#get_missing_downloads" do
     it "gets missing downloads" do
-      expect(SchemaFileLoader.get_missing_downloads("testy")).to eq(
+      expect(SchemaFileLoader.get_missing_downloads("testy")).to match_array(
         [
           ["testy/irs/efile1040x_2020v5.1.zip", 'irs'],
           ["testy/irs/efile1040x_2021v5.2.zip", 'irs'],
           ["testy/irs/efile1040x_2022v5.3.zip", 'irs'],
           ["testy/irs/efile1040x_2023v5.0.zip", 'irs'],
           ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/MDIndividual2023v1.0.zip", 'us_states'],
           ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states'],
-          ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states']
+          ["testy/us_states/NJIndividual2023V0.4.zip", 'us_states'],
+          ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states'],
+          ["testy/us_states/ID.MeF2023V1.0.zip", "us_states"]
         ]
       )
     end

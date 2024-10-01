@@ -48,13 +48,23 @@ module PdfFiller
         y_d400wf_dead3: @xml_document.at('QWYearSpouseDied')&.text,
         y_d400wf_li6_good: @xml_document.at('FAGI')&.text,
         y_d400wf_li8_good: @xml_document.at('FAGIPlusAdditions')&.text,
+        y_d400wf_li9_good: @xml_document.at('DeductionsFromFAGI')&.text,
         y_d400wf_ncstandarddeduction: 'Yes',
         y_d400wf_li11_page1_good: @xml_document.at('NCStandardDeduction')&.text,
-        y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName')&.text.slice(0,11),
+        y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName')&.text&.slice(0,11),
         y_d400wf_li20a_pg2_good: @xml_document.at('IncTaxWith')&.text,
         y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse')&.text,
         y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid')&.text,
-        y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text
+        y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text,
+        y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text,
+        y_d400wf_li10b_good: @xml_document.at('ChildDeduction')&.text,
+        y_d400wf_li12a_pg1_good: @xml_document.at('NCAGIAddition')&.text,
+        y_d400wf_li12b_pg1_good: @xml_document.at('NCAGISubtraction')&.text,
+        y_d400wf_li14_pg1_good: @xml_document.at('NCAGISubtraction')&.text,
+        y_d400wf_li15_pg1_good: @xml_document.at('NCIncTax')&.text,
+        y_d400wf_li17_pg2_good: @xml_document.at('SubTaxCredFromIncTax')&.text,
+        y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
+        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
       }
     end
 

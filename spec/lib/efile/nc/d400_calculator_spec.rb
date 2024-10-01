@@ -9,6 +9,121 @@ describe Efile::Nc::D400Calculator do
     )
   end
 
+  describe "Line 10b: Child Deduction" do
+    [
+      [["single", "married_filing_separately"], [
+        [20_000, 6000],
+        [30_000, 5000],
+        [40_000, 4000],
+        [50_000, 3000],
+        [60_000, 2000],
+        [70_000, 1000],
+        [70_001, 0],
+      ]],
+      [["head_of_household"], [
+        [30_000, 6000],
+        [45_000, 5000],
+        [60_000, 4000],
+        [75_000, 3000],
+        [90_000, 2000],
+        [105_000, 1000],
+        [105_001, 0]
+      ]],
+      [["married_filing_jointly", "qualifying_widow"], [
+        [40_000, 6000],
+        [60_000, 5000],
+        [80_000, 4000],
+        [100_000, 3000],
+        [120_000, 2000],
+        [140_000, 1000],
+        [140_001, 0]
+      ]]
+    ].each do |filing_statuses, agis_to_deductions|
+      filing_statuses.each do |filing_status|
+        context "#{filing_status}" do
+          let(:intake) { create(:state_file_nc_intake, filing_status: filing_status, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+          let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
+
+          agis_to_deductions.each do |fagi, deduction_amt_for_two_children|
+            it "returns the value corresponding to #{fagi} FAGI multiplied by number of QCs" do
+              intake.direct_file_data.fed_agi = fagi
+              intake.direct_file_data.qualifying_children_under_age_ssn_count = 2
+
+              calculator_instance.calculate
+              expect(calculator_instance.lines[:NCD400_LINE_10B].value).to eq(deduction_amt_for_two_children)
+            end
+          end
+        end
+      end
+    end
+  end
+
+  describe "Line 11: Standard Deduction" do
+    [
+      ["head_of_household", 19125],
+      ["married_filing_jointly", 25500],
+      ["married_filing_separately", 12750],
+      ["qualifying_widow", 25500],
+      ["single", 12750],
+    ].each do |filing_status, deduction_amount|
+      context "#{filing_status} filer" do
+        let(:intake) { create :state_file_nc_intake, filing_status: filing_status }
+
+        it "returns the correct value" do
+          instance.calculate
+          expect(instance.lines[:NCD400_LINE_11].value).to eq(deduction_amount)
+        end
+      end
+    end
+  end
+
+  describe "Line 12a: NCAGIAddition" do
+    it "sums lines 10b and 11 (9 is blank)" do
+      allow(instance).to receive(:calculate_line_10b).and_return 10
+      allow(instance).to receive(:calculate_line_11).and_return 10
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_12A].value).to eq 20
+    end
+  end
+
+  describe "Line 12b: NCAGISubtraction" do
+    it "subtracts line 12a from line 8 (which is just fed agi)" do
+      allow(instance).to receive(:calculate_line_12a).and_return 10
+      allow_any_instance_of(DirectFileData).to receive(:fed_agi).and_return 100
+
+      instance.calculate
+      expect(instance.lines[:NCD400_LINE_12B].value).to eq 90
+    end
+  end
+
+  describe "Line 15: North Carolina Income Tax" do
+    context "value (line 14 (which = line 12b) * 0.045 rounded to the nearest dollar) is positive" do
+      it "returns the value rounded up" do
+        allow(instance).to receive(:calculate_line_12b).and_return 100
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_15].value).to eq 5
+      end
+
+      it "returns the value rounded down" do
+        allow(instance).to receive(:calculate_line_12b).and_return 50
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_15].value).to eq 2
+      end
+    end
+
+    context "value (line 14 (which = line 12b) * 0.045 rounded to the nearest dollar) is negative" do
+      it "returns zero" do
+        allow(instance).to receive(:calculate_line_12b).and_return -100
+
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_15].value).to eq 0
+      end
+    end
+  end
+
   describe "Line 20a: North Carolina Income Tax Withheld" do
     let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
 

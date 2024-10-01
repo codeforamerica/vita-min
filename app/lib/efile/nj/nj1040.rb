@@ -3,6 +3,8 @@ module Efile
     class Nj1040 < ::Efile::TaxCalculator
       attr_reader :lines
 
+      RENT_CONVERSION = 0.18
+
       def initialize(year:, intake:, include_source: false)
         super
       end
@@ -13,9 +15,23 @@ module Efile
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_7, :calculate_line_7)
+        set_line(:NJ1040_LINE_8, :calculate_line_8)
+        set_line(:NJ1040_LINE_13, :calculate_line_13)
+        set_line(:NJ1040_LINE_15, :calculate_line_15)
+        set_line(:NJ1040_LINE_40A, :calculate_line_40a)
         @lines.transform_values(&:value)
       end
 
+      def refund_or_owed_amount
+        0
+      end
+
+      def analytics_attrs
+        {
+        }
+      end
+
+      private
       def line_6_spouse_checkbox
         @intake.filing_status_mfj?
       end
@@ -36,24 +52,48 @@ module Efile
       end
 
       def calculate_line_7
-        number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox, line_7_spouse_checkbox])
+        number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox,
+                                                                 line_7_spouse_checkbox])
         number_of_line_7_exemptions * 1_000
       end
 
-      def total_exemption_amount
-        0
+      def calculate_line_8
+        number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind?,
+                                                                 @direct_file_data.is_spouse_blind?])
+        number_of_line_8_exemptions * 1_000
       end
 
-      def refund_or_owed_amount
-        0
+      def calculate_line_40a
+        is_mfs = @intake.filing_status == :married_filing_separately
+
+        case @intake.household_rent_own
+        when "own"
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        is_mfs ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
-      def analytics_attrs
-        {
-        }
+      def calculate_line_13
+        line_or_zero(:NJ1040_LINE_6) +  line_or_zero(:NJ1040_LINE_7) +  line_or_zero(:NJ1040_LINE_8) 
       end
 
-      private
+      def calculate_line_15
+        if @direct_file_data.w2s.empty?
+          return -1
+        end
+
+        sum = 0
+        @direct_file_data.w2s.each do |w2|
+          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_f
+          sum += state_wage
+        end
+        sum.round
+      end
 
       def is_over_65(birth_date)
         over_65_birth_year = MultiTenantService.new(:statefile).current_tax_year - 65

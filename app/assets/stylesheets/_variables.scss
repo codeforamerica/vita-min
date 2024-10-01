@@ -38,9 +38,12 @@ $color-focused-link: #000000;
 // state file / usds colors
 $color-state-file-black: #3C3A3A;
 $color-az-grey: #3C3A3A;
+$color-id-green: #446443;
 $color-ny-blue: #184A72;
 $color-nc-blue: #092940;
-$color-nj-blue: #002c75;
+$color-md-primary: #2E2C40;
+$color-nj-blue: #0076D6;
+$color-nj-blue-darker: #0B4778;
 $color-state-file-bg: #FBFCF7;
 $color-state-file-blue-box: #E7F6F8;
 $color-state-file-blue-box-border: #52DAF2;
@@ -51,3 +54,6 @@ $color-state-file-chat: #4dcce3;
 
 // Size
 $intake-max-width: 570px;
+
+// Focus
+$focus-box-shadow: 0 0 0 5px $color-state-file-primary, inset 0px 2px 0px rgba(0, 0, 0, 0.15)

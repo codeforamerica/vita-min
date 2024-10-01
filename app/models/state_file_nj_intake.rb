@@ -25,6 +25,7 @@
 #  fed_wages                         :integer
 #  federal_return_status             :string
 #  hashed_ssn                        :string
+#  household_rent_own                :integer          default("unfilled"), not null
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")
@@ -48,9 +49,11 @@
 #  primary_signature                 :string
 #  primary_ssn                       :string
 #  primary_suffix                    :string
+#  property_tax_paid                 :integer
 #  raw_direct_file_data              :text
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
+#  rent_paid                         :integer
 #  routing_number                    :string
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
@@ -62,7 +65,6 @@
 #  spouse_middle_initial             :string
 #  spouse_ssn                        :string
 #  spouse_suffix                     :string
-#  tax_return_year                   :integer
 #  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  withdraw_amount                   :integer
@@ -83,6 +85,8 @@
 class StateFileNjIntake < StateFileBaseIntake
 
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+
+  enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3 }, _prefix: :household_rent_own
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

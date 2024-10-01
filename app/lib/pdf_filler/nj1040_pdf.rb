@@ -17,45 +17,64 @@ module PdfFiller
     def hash_for_pdf
       county_code = get_county_code
       taxpayer_ssn = get_taxpayer_ssn
-      spouse_ssn = get_spouse_ssn
+      mfj_spouse_ssn = get_mfj_spouse_ssn
+      mfs_spouse_ssn = get_mfs_spouse_ssn
       answers = {
+        # header
+        'Your Social Security Number': taxpayer_ssn.to_s,
+        'Your Social Security Number_2': taxpayer_ssn.to_s,
+        'Your Social Security Number_3': taxpayer_ssn.to_s,
+        'Names as shown on Form NJ1040': get_name,
+        'Names as shown on Form NJ1040_2': get_name,
+        'Names as shown on Form NJ1040_3': get_name,
+
         # county code
-        "CM4": county_code[1],
-        "CM3": county_code[2],
-        "CM2": county_code[3],
-        "CM1": county_code[4],
+        CM4: county_code[1],
+        CM3: county_code[2],
+        CM2: county_code[3],
+        CM1: county_code[4],
 
         # taxpayer ssn
-        "undefined": taxpayer_ssn[0],
-        "undefined_2": taxpayer_ssn[1],
-        "Your Social Security Number required": taxpayer_ssn[2],
-        "Text3": taxpayer_ssn[3],
-        "Text4": taxpayer_ssn[4],
-        "Text5": taxpayer_ssn[5],
-        "Text6": taxpayer_ssn[6],
-        "Text7": taxpayer_ssn[7],
-        "Text8": taxpayer_ssn[8],
+        undefined: taxpayer_ssn[0],
+        undefined_2: taxpayer_ssn[1],
+        'Your Social Security Number required': taxpayer_ssn[2],
+        Text3: taxpayer_ssn[3],
+        Text4: taxpayer_ssn[4],
+        Text5: taxpayer_ssn[5],
+        Text6: taxpayer_ssn[6],
+        Text7: taxpayer_ssn[7],
+        Text8: taxpayer_ssn[8],
 
         # name
-        "Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different": get_name,
+        'Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different': get_name,
 
         # address
-        "SpousesCU Partners SSN if filing jointly": get_address, # address text field
-        "CountyMunicipality Code See Table page 50": @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text,  # city / town text field
-        "State": @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
-        "ZIP Code": @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
+        'SpousesCU Partners SSN if filing jointly': get_address, # address text field
+        'CountyMunicipality Code See Table page 50': @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text, # city / town text field
+        State: @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
+        'ZIP Code': @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
 
         # line 6 exemptions
-        "Check Box39": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuRegular")),
-        "Check Box40": "Off",
-        "Domestic": get_line_6_exemption_count,
-        "x  1000": get_line_6_exemption_count * 1000,
+        'Check Box39': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuRegular")),
+        'Check Box40': "Off",
+        Domestic: get_line_6_exemption_count,
+        'x  1000': get_line_6_exemption_count * 1000,
 
         # line 7 exemptions
-        "Check Box41": pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
-        "Check Box42": pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
-        "undefined_9": get_line_7_exemption_count,
-        "x  1000_2": get_line_7_exemption_count * 1000,
+        'Check Box41': pdf_checkbox_value(@xml_document.at("Exemptions YouOver65")),
+        'Check Box42': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
+        undefined_9: get_line_7_exemption_count,
+        'x  1000_2': get_line_7_exemption_count * 1000,
+
+        # line 8 exemptions
+        'Check Box43': pdf_checkbox_value(@xml_document.at("Exemptions YouBlindOrDisabled")),
+        'Check Box44': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
+        undefined_10: get_line_8_exemption_count,
+        'x  1000_3': get_line_8_exemption_count * 1000,
+        
+        Group1: filing_status,
+        Group1qualwi5ab: spouse_death_year,
+        Group182: household_rent_own,
       }
 
       dependents = get_dependents
@@ -75,20 +94,90 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
-      if spouse_ssn
-        answers.merge!({
-         "undefined_3": spouse_ssn[0],
-         "undefined_4": spouse_ssn[1],
-         "undefined_5": spouse_ssn[2],
-         "Text9": spouse_ssn[3],
-         "Text10": spouse_ssn[4],
-         "Text11": spouse_ssn[5],
-         "Text12": spouse_ssn[6],
-         "Text13": spouse_ssn[7],
-         "Text14": spouse_ssn[8],
-       })
+      if @xml_document.at("Exemptions TotalExemptionAmountA")
+        total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
+        answers.merge!(insert_digits_into_fields(total_exemptions, [
+          "Text53",
+          "Text52",
+          "Text51",
+          "Text50",
+          "undefined_17",
+          "undefined_16",
+          "undefined_15"
+        ]))
       end
 
+      if @xml_document.at("Body TotalExemptionAmountB")
+        total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
+        answers.merge!(insert_digits_into_fields(total_exemptions, [
+          "214",
+          "undefined_91",
+          "213",
+          "212",
+          "undefined_90",
+          "211",
+          "210",
+          "30"
+        ]))
+      end
+
+      if @xml_document.at("WagesSalariesTips").present?
+        wages = @xml_document.at("WagesSalariesTips").text.to_i
+        answers.merge!(insert_digits_into_fields(wages, [
+          "Text106",
+          "Text105",
+          "Text104",
+          "Text103",
+          "Text101",
+          "Text100",
+          "undefined_38",
+          "undefined_37",
+          "undefined_36",
+          "15"
+        ]))
+      end
+
+      if get_property_tax.present?
+        answers.merge!(insert_digits_into_fields(get_property_tax.to_i, [
+          "24539a#2",
+          "245",
+          "37",
+          "283",
+          "undefined_113",
+          "282",
+          "281",
+          "undefined_112",
+          "280",
+          "39",
+        ]))
+      end
+
+      if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
+        answers.merge!({
+          undefined_3: mfj_spouse_ssn[0],
+          undefined_4: mfj_spouse_ssn[1],
+          undefined_5: mfj_spouse_ssn[2],
+          Text9: mfj_spouse_ssn[3],
+          Text10: mfj_spouse_ssn[4],
+          Text11: mfj_spouse_ssn[5],
+          Text12: mfj_spouse_ssn[6],
+          Text13: mfj_spouse_ssn[7],
+          Text14: mfj_spouse_ssn[8],
+        })
+      end
+      if mfs_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingSeparate'
+        answers.merge!({
+          undefined_7: mfs_spouse_ssn[0],
+          undefined_8: mfs_spouse_ssn[1],
+          'Enter spousesCU partners SSN': mfs_spouse_ssn[2],
+          Text31: mfs_spouse_ssn[3],
+          Text32: mfs_spouse_ssn[4],
+          Text33: mfs_spouse_ssn[5],
+          Text34: mfs_spouse_ssn[6],
+          Text35: mfs_spouse_ssn[7],
+          Text36: mfs_spouse_ssn[8],
+        })
+      end
       answers
     end
 
@@ -111,14 +200,15 @@ module PdfFiller
     end
 
     def get_line_7_exemption_count
-      count = 0
-      if @xml_document.at("Exemptions YouOver65")&.text == "X"
-        count += 1
-      end
-      if @xml_document.at("Exemptions SpouseCuPartner65OrOver")&.text == "X"
-        count += 1
-      end
-      count
+      get_total_exemption_count(["Exemptions YouOver65", "Exemptions SpouseCuPartner65OrOver"])
+    end
+
+    def get_line_8_exemption_count
+      get_total_exemption_count(["Exemptions YouBlindOrDisabled", "Exemptions SpouseCuPartnerBlindOrDisabled"])
+    end
+
+    def get_total_exemption_count(xml_selector_string_array)
+      xml_selector_string_array.sum { |selector| @xml_document.at(selector)&.text == "X" ? 1 : 0 }
     end
 
     def get_address
@@ -170,8 +260,17 @@ module PdfFiller
       [first_name, middle_initial, suffix].compact.join(" ")
     end
 
-    def get_spouse_ssn
-      @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerSSN")&.text
+    def insert_digits_into_fields(number, fields_ordered_decimals_to_millions)
+      digits = number.digits
+      digits_hash = {}
+      digits_hash[fields_ordered_decimals_to_millions[0]] = "0"
+      digits_hash[fields_ordered_decimals_to_millions[1]] = "0"
+
+      fields_ordered_decimals_to_millions[2..].each.with_index do |field, i|
+        digits_hash[field] = digits[i].nil? ? "" : digits[i].to_s
+      end
+
+      digits_hash
     end
 
     def dependent_pdf_keys
@@ -259,6 +358,44 @@ module PdfFiller
       ]
     end
 
+    def get_mfj_spouse_ssn
+      @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerSSN")&.text
+    end
 
+    def get_mfs_spouse_ssn
+      @xml_document.at("MarriedCuPartFilingSeparate SpouseSSN")&.text
+    end
+
+    FILING_STATUS_OPTIONS = {
+      "Single" => "Choice1",
+      "MarriedCuPartFilingJoint" => "Choice2",
+      "MarriedCuPartFilingSeparate" => "Choice3",
+      "HeadOfHousehold" => "Choice4",
+      "QualWidOrWider" => "Choice5"
+    }.freeze
+
+    def xml_filing_status
+      @xml_document.at("FilingStatus")&.children&.first&.name
+    end
+
+    def filing_status
+      FILING_STATUS_OPTIONS[xml_filing_status]
+    end
+
+    def spouse_death_year
+      return nil if xml_filing_status != "QualWidOrWider"
+      return "1" if @xml_document.at("QualWidOrWider LastYear")&.text == 'X'
+      return "0" if @xml_document.at("QualWidOrWider TwoYearPrior")&.text == 'X'
+    end
+
+    def household_rent_own
+      return "Choice1" if @xml_document.at("PropertyTaxDeductOrCredit Homeowner")&.text == 'X'
+      return "Choice2" if @xml_document.at("PropertyTaxDeductOrCredit Tenant")&.text == 'X'
+      "Off"
+    end
+
+    def get_property_tax
+      @xml_document.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")&.text
+    end
   end
 end

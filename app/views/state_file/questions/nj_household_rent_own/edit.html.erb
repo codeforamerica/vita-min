@@ -1,0 +1,29 @@
+<%
+    title = t(".title", filing_year: Rails.configuration.statefile_current_tax_year )
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".helper_description") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :household_rent_own,
+            label_text: t(".title"),
+            collection: [
+              { value: :own, label: t(".homeowner", filing_year: @filing_year) },
+              { value: :rent, label: t(".tenant", filing_year: @filing_year) },
+              { value: :neither, label: t(".neither") },
+            ],
+            legend_class: "sr-only"
+          ) %>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

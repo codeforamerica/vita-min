@@ -66,6 +66,9 @@ class DirectFileData < DfXmlAccessor
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
     interest_reported_amount: 'IRS1040 InterestReported', # fake
+    primary_blind: 'IRS1040 PrimaryBlindInd',
+    spouse_blind: 'IRS1040 SpouseBlindInd',
+    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt'
   }.freeze
 
   def initialize(raw_xml)
@@ -106,8 +109,13 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def phone_number=(value)
+    create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
+    write_df_xml_value(__method__, value)
+  end
+
   def spouse_ssn=(value)
-    create_or_destroy_df_xml_node(__method__, value, after="PrimarySSN")
+    create_or_destroy_df_xml_node(__method__, value, after = "PrimarySSN")
 
     if value.present?
       write_df_xml_value(__method__, value)
@@ -115,7 +123,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def spouse_occupation=(value)
-    create_or_destroy_df_xml_node(__method__, value, after="PrimaryOccupationTxt")
+    create_or_destroy_df_xml_node(__method__, value, after = "PrimaryOccupationTxt")
 
     if value.present?
       write_df_xml_value(__method__, value)
@@ -138,7 +146,7 @@ class DirectFileData < DfXmlAccessor
 
   def spouse_date_of_death=(value)
     if value.present?
-      create_or_destroy_df_xml_node(__method__, value, after="IndividualReturnFilingStatusCd")
+      create_or_destroy_df_xml_node(__method__, value, after = "IndividualReturnFilingStatusCd")
       write_df_xml_value(__method__, value)
     end
   end
@@ -191,6 +199,10 @@ class DirectFileData < DfXmlAccessor
 
   def fed_wages_salaries_tips
     df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_wages_salaries_tips=(value)
+    write_df_xml_value(__method__, value)
   end
 
   def fed_taxable_income
@@ -248,8 +260,8 @@ class DirectFileData < DfXmlAccessor
         xml_label: "Student Loan Interest Deduction"
       }
     }
-    adjustments.keys.each { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i || 0 }
-    adjustments.select { |k, info| info[:amount].present? && info[:amount] > 0 }
+    adjustments.each_key { |k| adjustments[k][:amount] = df_xml_value(k)&.to_i || 0 }
+    adjustments.select { |_k, info| info[:amount].present? && (info[:amount]).positive? }
   end
 
   def fed_total_adjustments
@@ -502,14 +514,31 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def blind_primary_spouse
-    elements_to_check = ['PrimaryBlindInd', 'SpouseBlindInd']
-    value = 0
+  def primary_blind
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, "X")
+  end
 
-    elements_to_check.each do |element_name|
-      if parsed_xml.at(element_name)
-        value += 1
-      end
+  def spouse_blind
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, "X")
+  end
+
+  def is_primary_blind?
+    parsed_xml.at('PrimaryBlindInd').present?
+  end
+
+  def is_spouse_blind?
+    parsed_xml.at('SpouseBlindInd').present?
+  end
+
+  def blind_primary_spouse
+    value = 0
+    if is_primary_blind?
+      value += 1
+    end
+    if is_spouse_blind?
+      value += 1
     end
     value
   end
@@ -604,6 +633,10 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def qualifying_children_under_age_ssn_count=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -635,7 +668,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def eitc_eligible_dependents
-    @eligible_dependents ||= Hash.new{}
+    @eligible_dependents ||= Hash.new {}
     eitc_eligible_nodes.map { |node| @eligible_dependents[node.at('QualifyingChildSSN')&.text] = node }
     @eligible_dependents
   end
@@ -764,6 +797,7 @@ class DirectFileData < DfXmlAccessor
       mailing_apartment
       mailing_zip
       cell_phone_number
+      phone_number
       tax_payer_email
       total_w2_state_tax_withheld
       fed_tax_amt
