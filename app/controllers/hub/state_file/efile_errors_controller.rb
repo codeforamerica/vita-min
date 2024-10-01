@@ -4,7 +4,16 @@ module Hub::StateFile
     layout "hub"
 
     def index
-      @efile_errors = @efile_errors.where.not(service_type: "ctc").order(:source, :code)
+      order = [:source, :code]
+      if params[:sort_by].present?
+        order.prepend(params[:sort_by])
+      end
+
+      @efile_errors = @efile_errors.where.not(service_type: "ctc").order(*order)
+
+      if params[:filter_by_service_type].present?
+        @efile_errors = @efile_errors.where(service_type: params[:filter_by_service_type])
+      end
     end
 
     def edit

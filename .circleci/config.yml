@@ -66,10 +66,10 @@ commands:
     description: "Install IRS e-File schemas"
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "app/lib/schema_file_loader.rb" }}-v2
+          key: bundle-{{ checksum "app/lib/schema_file_loader.rb" }}-{{ checksum "app/services/state_file/state_information_service.rb" }}-v2
       - run: if [ ! -d vendor/irs/unpacked ] ; then bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas ; fi && find vendor/irs && find vendor/us_states
       - save_cache:
-          key: bundle-{{ checksum "app/lib/schema_file_loader.rb" }}-v2
+          key: bundle-{{ checksum "app/lib/schema_file_loader.rb" }}-{{ checksum "app/services/state_file/state_information_service.rb" }}-v2
           paths:
             - /mnt/ramdisk/vendor/irs
             - /mnt/ramdisk/vendor/us_states

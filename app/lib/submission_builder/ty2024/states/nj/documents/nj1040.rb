@@ -67,6 +67,13 @@ module SubmissionBuilder
                     if calculated_fields.fetch(:NJ1040_LINE_7_SPOUSE)
                       xml.SpouseCuPartner65OrOver "X"
                     end
+                    if @submission.data_source.direct_file_data.is_primary_blind?
+                      xml.YouBlindOrDisabled "X"
+                    end
+                    if @submission.data_source.direct_file_data.is_spouse_blind?
+                      xml.SpouseCuPartnerBlindOrDisabled "X"
+                    end
+                    xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
                   end
@@ -94,6 +101,8 @@ module SubmissionBuilder
                   if calculated_fields.fetch(:NJ1040_LINE_15) >= 0
                     xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
                   end
+
+                  xml.TotalExemptionAmountB calculated_fields.fetch(:NJ1040_LINE_13)
 
                   xml.PropertyTaxDeductOrCredit do
                     if calculated_fields.fetch(:NJ1040_LINE_40A)

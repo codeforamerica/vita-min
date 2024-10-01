@@ -65,6 +65,12 @@ module PdfFiller
         'Check Box42': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartner65OrOver")),
         undefined_9: get_line_7_exemption_count,
         'x  1000_2': get_line_7_exemption_count * 1000,
+
+        # line 8 exemptions
+        'Check Box43': pdf_checkbox_value(@xml_document.at("Exemptions YouBlindOrDisabled")),
+        'Check Box44': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
+        undefined_10: get_line_8_exemption_count,
+        'x  1000_3': get_line_8_exemption_count * 1000,
         
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year,
@@ -86,6 +92,33 @@ module PdfFiller
           dependent_hash[field_name] = dependent[:birth_year][i]
         end
         answers.merge!(dependent_hash)
+      end
+
+      if @xml_document.at("Exemptions TotalExemptionAmountA")
+        total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
+        answers.merge!(insert_digits_into_fields(total_exemptions, [
+          "Text53",
+          "Text52",
+          "Text51",
+          "Text50",
+          "undefined_17",
+          "undefined_16",
+          "undefined_15"
+        ]))
+      end
+
+      if @xml_document.at("Body TotalExemptionAmountB")
+        total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
+        answers.merge!(insert_digits_into_fields(total_exemptions, [
+          "214",
+          "undefined_91",
+          "213",
+          "212",
+          "undefined_90",
+          "211",
+          "210",
+          "30"
+        ]))
       end
 
       if @xml_document.at("WagesSalariesTips").present?
@@ -167,14 +200,15 @@ module PdfFiller
     end
 
     def get_line_7_exemption_count
-      count = 0
-      if @xml_document.at("Exemptions YouOver65")&.text == "X"
-        count += 1
-      end
-      if @xml_document.at("Exemptions SpouseCuPartner65OrOver")&.text == "X"
-        count += 1
-      end
-      count
+      get_total_exemption_count(["Exemptions YouOver65", "Exemptions SpouseCuPartner65OrOver"])
+    end
+
+    def get_line_8_exemption_count
+      get_total_exemption_count(["Exemptions YouBlindOrDisabled", "Exemptions SpouseCuPartnerBlindOrDisabled"])
+    end
+
+    def get_total_exemption_count(xml_selector_string_array)
+      xml_selector_string_array.sum { |selector| @xml_document.at(selector)&.text == "X" ? 1 : 0 }
     end
 
     def get_address

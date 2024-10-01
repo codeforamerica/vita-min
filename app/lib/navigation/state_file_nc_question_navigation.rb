@@ -33,6 +33,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::SalesUseTaxController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::NcReviewController),

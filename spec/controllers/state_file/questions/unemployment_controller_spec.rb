@@ -58,9 +58,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           payer_city: 'New York',
           payer_zip: '11102',
           payer_tin: '270293117',
-          federal_income_tax_withheld: 123,
-          state_income_tax_withheld: 456,
-          unemployment_compensation: 789,
+          federal_income_tax_withheld_amount: 123,
+          state_income_tax_withheld_amount: 456,
+          unemployment_compensation_amount: 789,
           state_identification_number: '123456789',
         }
       }
@@ -78,9 +78,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       expect(state_file1099_g.had_box_11).to eq 'yes'
       expect(state_file1099_g.recipient).to eq 'primary'
       expect(state_file1099_g.address_confirmation).to eq "yes"
-      expect(state_file1099_g.federal_income_tax_withheld).to eq 123
-      expect(state_file1099_g.state_income_tax_withheld).to eq 456
-      expect(state_file1099_g.unemployment_compensation).to eq 789
+      expect(state_file1099_g.federal_income_tax_withheld_amount).to eq 123
+      expect(state_file1099_g.state_income_tax_withheld_amount).to eq 456
+      expect(state_file1099_g.unemployment_compensation_amount).to eq 789
     end
 
     context "when 'no' was selected for had_box_11" do
@@ -155,7 +155,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       create :state_file1099_g,
              intake: intake,
              recipient: 'primary',
-             unemployment_compensation: 456
+             unemployment_compensation_amount: 456
     end
     let(:params) { { id: form1099.id } }
 
@@ -175,9 +175,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
              had_box_11: 'yes',
              recipient: 'primary',
              address_confirmation: 'yes',
-             federal_income_tax_withheld: 123,
-             state_income_tax_withheld: 456,
-             unemployment_compensation: 789
+             federal_income_tax_withheld_amount: 123,
+             state_income_tax_withheld_amount: 456,
+             unemployment_compensation_amount: 789
     end
     let(:params) do
       {
@@ -186,9 +186,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           had_box_11: 'yes',
           recipient: 'spouse',
           address_confirmation: 'yes',
-          federal_income_tax_withheld: 123,
-          state_income_tax_withheld: 456,
-          unemployment_compensation: 789,
+          federal_income_tax_withheld_amount: 123,
+          state_income_tax_withheld_amount: 456,
+          unemployment_compensation_amount: 789,
         }
       }
     end

@@ -4,7 +4,6 @@
 #
 #  id                                 :bigint           not null, primary key
 #  address_confirmation               :integer          default("unfilled"), not null
-#  federal_income_tax_withheld        :integer
 #  federal_income_tax_withheld_amount :decimal(12, 2)
 #  had_box_11                         :integer          default("unfilled"), not null
 #  intake_type                        :string           not null
@@ -19,9 +18,7 @@
 #  recipient_street_address_apartment :string
 #  recipient_zip                      :string
 #  state_identification_number        :string
-#  state_income_tax_withheld          :integer
 #  state_income_tax_withheld_amount   :decimal(12, 2)
-#  unemployment_compensation          :integer
 #  unemployment_compensation_amount   :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
@@ -32,9 +29,9 @@
 #  index_state_file1099_gs_on_intake  (intake_type,intake_id)
 #
 class StateFile1099G < ApplicationRecord
+  self.ignored_columns = %w[unemployment_compensation federal_income_tax_withheld state_income_tax_withheld]
   belongs_to :intake, polymorphic: true
   before_validation :update_conditional_attributes
-  before_save :sync_amount_columns
 
   enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
   enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
@@ -50,19 +47,10 @@ class StateFile1099G < ApplicationRecord
   validates :recipient_street_address_apartment, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}, allow_blank: true
   validates :recipient_city, presence: true, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
   validates :recipient_zip, zip_code: { zip_code_lengths: [5, 9, 12].freeze }
-  validates_numericality_of :unemployment_compensation, only_integer: true, message: :whole_number
-  validates :unemployment_compensation, numericality: { greater_than_or_equal_to: 1 }
-  validates_numericality_of :federal_income_tax_withheld, only_integer: true, message: :whole_number
-  validates :federal_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
-  validates_numericality_of :state_income_tax_withheld, only_integer: true, message: :whole_number
-  validates :state_income_tax_withheld, numericality: { greater_than_or_equal_to: 0}
+  validates :unemployment_compensation_amount, numericality: { greater_than_or_equal_to: 1 }
+  validates :federal_income_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0}
+  validates :state_income_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0}
   validate :state_specific_validation
-
-  def sync_amount_columns
-    self.unemployment_compensation_amount = unemployment_compensation if unemployment_compensation.present?
-    self.federal_income_tax_withheld_amount = federal_income_tax_withheld if federal_income_tax_withheld.present?
-    self.state_income_tax_withheld_amount = state_income_tax_withheld if state_income_tax_withheld.present?
-  end
 
   def update_conditional_attributes
     if address_confirmation_yes?
