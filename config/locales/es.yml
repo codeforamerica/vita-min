@@ -7,11 +7,6 @@ es:
           attributes:
             ssn:
               blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
-        state_file/sales_use_tax_form:
-          attributes:
-            sales_use_tax:
-              greater_than_or_equal_to: Ingresa una cantidad en dólares.
-              not_a_number: Ingresa una cantidad en dólares.
   activerecord:
     errors:
       models:
@@ -2746,6 +2741,7 @@ es:
       sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
+          not_a_number: Por favor ingresa únicamente números.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
