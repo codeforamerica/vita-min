@@ -26,7 +26,6 @@ class Df1099rAccessor < DfXmlAccessor
     DesignatedROTHAcctFirstYr: "DesignatedROTHAcctFirstYr",
   }
 
-
   def self.selectors
     SELECTORS
   end
