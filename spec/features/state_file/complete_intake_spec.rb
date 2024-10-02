@@ -363,7 +363,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.sales_use_tax.edit.title.other", year: MultiTenantService.statefile.current_tax_year, count: 2)
+      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: MultiTenantService.statefile.current_tax_year, count: 2)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 

@@ -1,5 +1,5 @@
 module StateFile
-  class SalesUseTaxForm < QuestionsForm
+  class NcSalesUseTaxForm < QuestionsForm
     set_attributes_for :intake,
                        :untaxed_out_of_state_purchases,
                        :sales_use_tax_calculation_method,
@@ -10,7 +10,9 @@ module StateFile
     validates :sales_use_tax,
       presence: true,
       numericality: {
-        greater_than_or_equal_to: 0
+        allow_blank: true,
+        greater_than_or_equal_to: 0,
+        message: I18n.t("state_file.questions.nc_sales_use_tax.edit.not_a_number")
       },
       if: -> { sales_use_tax_calculation_method == "manual" }
 

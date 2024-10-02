@@ -7,11 +7,6 @@ es:
           attributes:
             ssn:
               blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
-        state_file/sales_use_tax_form:
-          attributes:
-            sales_use_tax:
-              greater_than_or_equal_to: Ingresa una cantidad en dólares.
-              not_a_number: Ingresa una cantidad en dólares.
   activerecord:
     errors:
       models:
@@ -2503,6 +2498,21 @@ es:
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           use_tax_applied: Impuesto de Uso Aplicado
+      nc_sales_use_tax:
+        edit:
+          calculated_use_tax: Ingresa el impuesto de uso calculado
+          not_a_number: Por favor ingresa únicamente números.
+          select_one: 'Selecciona una de las siguientes opciones:'
+          state_specific:
+            nc:
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'exact calculation method')
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso.
+          title:
+            many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
+            one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
+            other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
+          use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
+          use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
       nc_subtractions:
         edit:
           title_html:
@@ -2743,20 +2753,6 @@ es:
       review:
         county: Condado
         w2: Información fiscal estatal y local W-2
-      sales_use_tax:
-        edit:
-          calculated_use_tax: Ingresa el impuesto de uso calculado
-          select_one: 'Selecciona una de las siguientes opciones:'
-          state_specific:
-            nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'exact calculation method')
-          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso.
-          title:
-            many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
-            one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
-            other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
-          use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
-          use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
