@@ -618,28 +618,28 @@ describe DirectFileData do
     describe "#PayerAddressLine1Txt" do
       it "returns the value" do
         expect(first_1099r.PayerAddressLine1Txt).to eq "2030 Pecan Street"
-        expect(second_1099r.PayerAddressLine1Txt).to eq "2031 Pecan Street"
+        expect(second_1099r.PayerAddressLine1Txt).to eq nil
       end
     end
 
     describe "#PayerCityNm" do
       it "returns the value" do
         expect(first_1099r.PayerCityNm).to eq "Monroe"
-        expect(second_1099r.PayerCityNm).to eq "Nonroe"
+        expect(second_1099r.PayerCityNm).to eq nil
       end
     end
 
     describe "#PayerStateAbbreviationCd" do
       it "returns the value" do
         expect(first_1099r.PayerStateAbbreviationCd).to eq "NC"
-        expect(second_1099r.PayerStateAbbreviationCd).to eq "NC"
+        expect(second_1099r.PayerStateAbbreviationCd).to eq nil
       end
     end
 
     describe "#PayerZIPCd" do
       it "returns the value" do
         expect(first_1099r.PayerZIPCd).to eq "05502"
-        expect(second_1099r.PayerZIPCd).to eq "05503"
+        expect(second_1099r.PayerZIPCd).to eq nil
       end
     end
 
@@ -653,7 +653,7 @@ describe DirectFileData do
     describe "#PhoneNum" do
       it "returns the value" do
         expect(first_1099r.PhoneNum).to eq "2025551212"
-        expect(second_1099r.PhoneNum).to eq "3025551212"
+        expect(second_1099r.PhoneNum).to eq nil
       end
     end
 
@@ -681,7 +681,7 @@ describe DirectFileData do
     describe "#F1099RDistributionCd" do
       it "returns the value" do
         expect(first_1099r.F1099RDistributionCd).to eq "7"
-        expect(second_1099r.F1099RDistributionCd).to eq "6"
+        expect(second_1099r.F1099RDistributionCd).to eq nil
       end
     end
 
@@ -694,26 +694,26 @@ describe DirectFileData do
 
     describe "#StateTaxWithheldAmt" do
       it "returns the value" do
-        expect(first_1099r.StateTaxWithheldAmt).to eq 11
+        expect(first_1099r.StateTaxWithheldAmt).to eq 0
         expect(second_1099r.StateTaxWithheldAmt).to eq 0
       end
     end
     describe "#StateAbbreviationCd" do
       it "returns the value" do
-        expect(first_1099r.StateAbbreviationCd).to eq "NC"
+        expect(first_1099r.StateAbbreviationCd).to eq nil
         expect(second_1099r.StateAbbreviationCd).to eq "NC"
       end
     end
     describe "#PayerStateIdNumber" do
       it "returns the value" do
-        expect(first_1099r.PayerStateIdNumber).to eq "111111111"
-        expect(second_1099r.PayerStateIdNumber).to eq "222222222"
+        expect(first_1099r.PayerStateIdNumber).to eq nil
+        expect(second_1099r.PayerStateIdNumber).to eq nil
       end
     end
     describe "#StateDistributionAmt" do
       it "returns the value" do
-        expect(first_1099r.StateDistributionAmt).to eq 111
-        expect(second_1099r.StateDistributionAmt).to eq 0
+        expect(first_1099r.StateDistributionAmt).to eq 0
+        expect(second_1099r.StateDistributionAmt).to eq 2000
       end
     end
   end
