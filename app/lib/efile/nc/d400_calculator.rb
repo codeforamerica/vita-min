@@ -124,7 +124,7 @@ module Efile
         # Consumer use tax
         if @intake.untaxed_out_of_state_purchases_yes?
           if @intake.sales_use_tax_calculation_method_manual?
-            @intake.sales_use_tax
+            @intake.sales_use_tax.round.to_i
           else
             calculate_use_tax(line_or_zero(:NCD400_LINE_14))
           end

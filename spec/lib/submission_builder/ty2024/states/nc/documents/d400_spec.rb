@@ -50,7 +50,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('NCTaxableInc')&.text).to eq nc_agi_subtraction.to_s # 14
         expect(xml.document.at('SubTaxCredFromIncTax')&.text).to eq income_tax.to_s # 15
         expect(xml.document.at('NCIncTax')&.text).to eq income_tax.to_s # 17
-        expect(xml.document.at('UseTax')&.text).to eq "100.0" # 18 todo: -should we remove the points
+        expect(xml.document.at('UseTax')&.text).to eq "100" # 18
         expect(xml.document.at('NoUseTaxDue')&.text).to eq nil # 18
         expect(xml.document.at('TotalNCTax')&.text).to eq "500" # 19
         expect(xml.document.at('IncTaxWith')&.text).to eq income_tax_withheld.to_s # 20a
