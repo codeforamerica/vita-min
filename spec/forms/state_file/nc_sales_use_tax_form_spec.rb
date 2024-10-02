@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::SalesUseTaxForm do
+RSpec.describe StateFile::NcSalesUseTaxForm do
   sales_use_tax_states = [:nc]
   sales_use_tax_states.each do |state_code|
 
@@ -112,7 +112,7 @@ RSpec.describe StateFile::SalesUseTaxForm do
 
           it "is valid" do
             expect(form.valid?).to eq false
-            expect(form.errors[:sales_use_tax]).to include "Please enter a dollar amount."
+            expect(form.errors[:sales_use_tax]).to include "Please enter numbers only."
           end
         end
 
@@ -127,7 +127,7 @@ RSpec.describe StateFile::SalesUseTaxForm do
 
           it "is invalid" do
             expect(form.valid?).to eq false
-            expect(form.errors[:sales_use_tax]).to include "Please enter a positive dollar amount."
+            expect(form.errors[:sales_use_tax]).to include "Please enter numbers only."
           end
         end
       end
