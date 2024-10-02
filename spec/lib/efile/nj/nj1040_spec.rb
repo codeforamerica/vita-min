@@ -145,6 +145,43 @@ describe Efile::Nj::Nj1040 do
     end
   end
 
+  describe 'line 27 - total income' do
+    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+    it 'sets line 27 to the rounded sum of all state wage amounts' do
+      line_15_w2_wages = (12345.67 + 50000).round
+      expect(instance.lines[:NJ1040_LINE_15].value).to eq(line_15_w2_wages)
+      expect(instance.lines[:NJ1040_LINE_27].value).to eq(line_15_w2_wages)
+    end
+  end
+
+  describe 'line 29 - gross income' do
+    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+    it 'sets line 29 to the rounded sum of all state wage amounts' do
+      line_15_w2_wages = (12345.67 + 50000).round
+      expect(instance.lines[:NJ1040_LINE_15].value).to eq(line_15_w2_wages)
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(line_15_w2_wages)
+    end
+  end
+
+  describe 'line 38 - total exemptions/deductions' do
+    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
+    it 'sets line 38 to the total exemption amount' do
+      self_exemption = 1_000
+      self_over_65 = 1_000
+      self_blind = 1_000
+      total_exemptions = self_exemption + self_over_65 + self_blind
+      expect(instance.lines[:NJ1040_LINE_38].value).to eq(total_exemptions)
+    end
+  end
+
+  describe 'line 39 - taxable income' do
+    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s, :primary_over_65, :primary_blind) }
+    it 'sets line 39 to line 29 gross income minus line 38 total exemptions/deductions' do
+      expected_total = instance.lines[:NJ1040_LINE_29].value - instance.lines[:NJ1040_LINE_38].value
+      expect(instance.lines[:NJ1040_LINE_39].value).to eq(expected_total)
+    end
+  end
+
   describe 'line 40a - total property taxes paid' do
     context 'when homeowner' do
       context 'when married filing separately' do
@@ -219,6 +256,13 @@ describe Efile::Nj::Nj1040 do
       it 'sets line 40a to nil' do
         expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
       end
+    end
+  end
+
+  describe 'line 42 - new jersey taxable income' do
+    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s, :primary_over_65, :primary_blind) }
+    it 'sets line 42 to line 39 (taxable income)' do
+      expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
     end
   end
 end
