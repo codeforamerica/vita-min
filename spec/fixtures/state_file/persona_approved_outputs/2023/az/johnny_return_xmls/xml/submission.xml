@@ -34,35 +34,35 @@
     <TransmissionDetail>
       <InitialCreation>
         <IPAddress>
-          <IPv4AddressTxt>64.252.70.34</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-06-13T20:06:32+00:00</IPTs>
-        <DeviceId>82F26DC25FB43167651CA926DB3E8D0515ED4FAA</DeviceId>
+        <IPTs>2024-10-02T04:17:45+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
       <Submission>
         <IPAddress>
-          <IPv4AddressTxt>64.252.73.54</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-06-13T20:22:58+00:00</IPTs>
-        <DeviceId>82F26DC25FB43167651CA926DB3E8D0515ED4FAA</DeviceId>
+        <IPTs>2024-10-02T04:17:45+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
-      <TotActiveTimePrepSubmissionTs>20</TotActiveTimePrepSubmissionTs>
-      <TotalPreparationSubmissionTs>20</TotalPreparationSubmissionTs>
+      <TotActiveTimePrepSubmissionTs>0</TotActiveTimePrepSubmissionTs>
+      <TotalPreparationSubmissionTs>0</TotalPreparationSubmissionTs>
     </TransmissionDetail>
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-06-13T20:22:58+00:00</ReturnTs>
+    <ReturnTs>2024-10-02T04:17:45+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
     <OriginatorGrp>
-      <EFIN>123456</EFIN>
+      <EFIN>441466</EFIN>
       <OriginatorTypeCd>OnlineFiler</OriginatorTypeCd>
     </OriginatorGrp>
-    <SoftwareId>11111111</SoftwareId>
+    <SoftwareId>21013326</SoftwareId>
     <ReturnType>Form140</ReturnType>
     <Filer>
       <Primary>
@@ -74,6 +74,7 @@
         </TaxpayerName>
         <TaxpayerSSN>400000001</TaxpayerSSN>
         <DateOfBirth>1975-01-01</DateOfBirth>
+        <USPhone>4805555556</USPhone>
       </Primary>
       <Secondary>
         <TaxpayerName>
@@ -191,6 +192,8 @@
       </Additions>
       <AzAdjSubtotal>45000</AzAdjSubtotal>
       <Subtractions>
+        <ExecFedStateLocGovPen>0</ExecFedStateLocGovPen>
+        <SubExclBenAnnPen>0</SubExclBenAnnPen>
         <USSSRailRoadBnft>0</USSSRailRoadBnft>
         <WageAmIndian>1000</WageAmIndian>
         <CompNtnlGrdArmdFrcs>0</CompNtnlGrdArmdFrcs>

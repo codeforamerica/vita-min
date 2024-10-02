@@ -15,35 +15,35 @@
     <TransmissionDetail>
       <InitialCreation>
         <IPAddress>
-          <IPv4AddressTxt>64.252.71.255</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-07-02T17:14:39+00:00</IPTs>
-        <DeviceId>7BC931FC571000EBD5EC97BF9E685677CBCE881E</DeviceId>
+        <IPTs>2024-10-02T04:17:46+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
       <Submission>
         <IPAddress>
-          <IPv4AddressTxt>64.252.73.151</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-07-02T17:19:02+00:00</IPTs>
-        <DeviceId>7BC931FC571000EBD5EC97BF9E685677CBCE881E</DeviceId>
+        <IPTs>2024-10-02T04:17:46+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
-      <TotActiveTimePrepSubmissionTs>6</TotActiveTimePrepSubmissionTs>
-      <TotalPreparationSubmissionTs>6</TotalPreparationSubmissionTs>
+      <TotActiveTimePrepSubmissionTs>0</TotActiveTimePrepSubmissionTs>
+      <TotalPreparationSubmissionTs>0</TotalPreparationSubmissionTs>
     </TransmissionDetail>
   </AuthenticationHeader>
   <ReturnHeaderState>
     <Jurisdiction>NYST</Jurisdiction>
-    <ReturnTs>2024-07-02T17:19:02+00:00</ReturnTs>
+    <ReturnTs>2024-10-02T04:17:46+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
     <OriginatorGrp>
-      <EFIN>123456</EFIN>
+      <EFIN>441466</EFIN>
       <OriginatorTypeCd>OnlineFiler</OriginatorTypeCd>
     </OriginatorGrp>
-    <SoftwareId>11111111</SoftwareId>
+    <SoftwareId>21013326</SoftwareId>
     <ReturnType>IT201</ReturnType>
     <Filer>
       <Primary>
@@ -54,6 +54,7 @@
         </TaxpayerName>
         <TaxpayerSSN>177001011</TaxpayerSSN>
         <DateOfBirth>1968-01-25</DateOfBirth>
+        <USPhone>2125555555</USPhone>
       </Primary>
       <USAddress>
         <AddressLine1Txt>123 Main St</AddressLine1Txt>
@@ -234,7 +235,7 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
-          <State1099G xmlns:efile="http://www.irs.gov/efile" documentId="State1099G-198">
+          <State1099G xmlns:efile="http://www.irs.gov/efile" documentId="State1099G-8">
             <PayerName payerNameControl="NEWY">
               <BusinessNameLine1Txt>NEW YORK STATE DEPT OF LABOR</BusinessNameLine1Txt>
             </PayerName>
