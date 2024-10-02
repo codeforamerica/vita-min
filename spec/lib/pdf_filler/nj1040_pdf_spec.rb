@@ -1060,7 +1060,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     
     describe "line 65 nj child tax credit" do
       let(:intake) {
-        # TODO: update after line 42 income work
         create(
           :state_file_nj_intake,
           :df_data_one_dep
@@ -1077,16 +1076,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["64"]).to eq "1"
       end
 
-      it "adds 1000 per dependent for nj taxable incomes less than or equal to 30k" do
-        # thousands
-        expect(pdf_fields["undefined_162"]).to eq "1"
-        # hundreds
-        expect(pdf_fields["Text182"]).to eq "0"
-        expect(pdf_fields["Text183"]).to eq "0"
-        expect(pdf_fields["Text184"]).to eq "0"
-        # decimals
-        expect(pdf_fields["Text185"]).to eq "0"
-        expect(pdf_fields["Text186"]).to eq "0"
+      it "adds 600 per dependent for nj taxable incomes less than or equal to 50k" do
+        digits_in_pdf = ""
+        digit_fields = ["undefined_162",
+                        "Text182",
+                        "Text183",
+                        "Text184",
+                        "Text185",
+                        "Text186"]
+        digit_fields.each do |field_name, _i|
+          digits_in_pdf << pdf_fields[field_name]
+          digits_in_pdf << "." if field_name == digit_fields[-3]
+        end
+        tax_credit = digits_in_pdf.to_f
+        expect(tax_credit).to eq 600
       end
     end
   end
