@@ -21,6 +21,9 @@ class Df1099rAccessor < DfXmlAccessor
     RecipientSSN: "RecipientSSN",
     RecipientNm: "RecipientNm",
     TxblAmountNotDeterminedInd: "TxblAmountNotDeterminedInd",
+    TotalDistributionInd: "TotalDistributionInd",
+    CapitalGainAmt: "CapitalGainAmt",
+    DesignatedROTHAcctFirstYr: "DesignatedROTHAcctFirstYr",
   }
 
 

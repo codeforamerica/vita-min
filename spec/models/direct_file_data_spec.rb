@@ -731,10 +731,32 @@ describe DirectFileData do
       end
     end
 
+    # TODO: Once we have better 1099R example, replace with one that has values for these
     describe "#TxblAmountNotDeterminedInd" do
       it "returns the value" do
-        expect(first_1099r.TxblAmountNotDeterminedInd).to eq 'Susan Miranda'
-        expect(second_1099r.TxblAmountNotDeterminedInd).to eq 'Susan Miranda'
+        expect(first_1099r.TxblAmountNotDeterminedInd).to eq nil
+        expect(second_1099r.TxblAmountNotDeterminedInd).to eq nil
+      end
+    end
+
+    describe "#TotalDistributionInd" do
+      it "returns the value" do
+        expect(first_1099r.TotalDistributionInd).to eq nil
+        expect(second_1099r.TotalDistributionInd).to eq nil
+      end
+    end
+
+    describe "#CapitalGainAmt" do
+      it "returns the value" do
+        expect(first_1099r.CapitalGainAmt).to eq 0
+        expect(second_1099r.CapitalGainAmt).to eq 0
+      end
+    end
+
+    describe "#DesignatedROTHAcctFirstYr" do
+      it "returns the value" do
+        expect(first_1099r.DesignatedROTHAcctFirstYr).to eq nil
+        expect(second_1099r.DesignatedROTHAcctFirstYr).to eq nil
       end
     end
   end
