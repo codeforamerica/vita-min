@@ -64,20 +64,6 @@ module Efile
                                                                  line_7_spouse_checkbox])
         number_of_line_7_exemptions * 1_000
       end
-      
-      def calculate_line_29
-        # TODO: replace dummy value
-        0
-      end
-
-      def calculate_line_38
-        # TODO: replace dummy value
-        0
-      end
-
-      def calculate_line_39
-        calculate_line_29 - calculate_line_38
-      end
 
       def calculate_line_8
         number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind?,
@@ -107,42 +93,6 @@ module Efile
       def calculate_line_41
         # TODO: replace dummy value
         0
-      end
-
-      def calculate_line_42
-        calculate_line_39 - calculate_line_41
-      end
-
-      def total_exemption_amount
-        0
-      end
-
-      def number_of_dependents_age_5_younger
-        # TODO: revise once we have lines 10 and 11
-        @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
-      end
-
-      def calculate_line_65
-        return nil if @intake.filing_status == :married_filing_separately
-        
-        eligible_dependents_count = number_of_dependents_age_5_younger
-        return nil if eligible_dependents_count.zero?
-
-        nj_taxable_income = calculate_line_42
-
-        case
-        when nj_taxable_income <= 30_000
-          return eligible_dependents_count * 1000
-        when nj_taxable_income <= 40_000
-          return eligible_dependents_count * 800
-        when nj_taxable_income <= 50_000
-          return eligible_dependents_count * 600
-        when nj_taxable_income <= 60_000
-          return eligible_dependents_count * 400
-        when nj_taxable_income <= 80_000
-          return eligible_dependents_count * 200
-        end
-        nil
       end
 
       def calculate_line_15
@@ -178,6 +128,34 @@ module Efile
         calculate_line_39
       end
 
+      def calculate_line_65
+        return nil if @intake.filing_status == :married_filing_separately
+        
+        eligible_dependents_count = number_of_dependents_age_5_younger
+        return nil if eligible_dependents_count.zero?
+
+        nj_taxable_income = calculate_line_42
+
+        case
+        when nj_taxable_income <= 30_000
+          return eligible_dependents_count * 1000
+        when nj_taxable_income <= 40_000
+          return eligible_dependents_count * 800
+        when nj_taxable_income <= 50_000
+          return eligible_dependents_count * 600
+        when nj_taxable_income <= 60_000
+          return eligible_dependents_count * 400
+        when nj_taxable_income <= 80_000
+          return eligible_dependents_count * 200
+        end
+        nil
+      end
+
+      def number_of_dependents_age_5_younger
+        # TODO: revise once we have lines 10 and 11
+        @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
+      end
+
       def is_over_65(birth_date)
         over_65_birth_year = MultiTenantService.new(:statefile).current_tax_year - 65
         birth_date <= Date.new(over_65_birth_year, 12, 31)
@@ -185,7 +163,7 @@ module Efile
 
       def age_on_last_day_of_tax_year(dob)
         last_day_of_tax_year = Date.new(MultiTenantService.new(:statefile).current_tax_year, 12, 31)
-        last_day_of_tax_year.year - dob.year - (last_day_of_tax_year.month > dob.month || (last_day_of_tax_year.month == dob.month && last_day_of_tax_year.day >= dob.day) ? 0 : 1)
+        last_day_of_tax_year.year - dob.year
       end
 
       def number_of_true_checkboxes(checkbox_array_for_line)
