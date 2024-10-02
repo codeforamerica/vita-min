@@ -27,7 +27,7 @@ class StateFile::FaqController < ApplicationController
     tax_year = Rails.configuration.statefile_current_tax_year
 
     if Rails.env.production?
-      if intake_start < app_time && app_time < intake_end # intake is open
+      if app_time.between?(intake_start, intake_end) # intake is open
         # show currently open states
         [tax_year]
       elsif app_time.year == intake_start.year && app_time < intake_start # before intake opens this year
