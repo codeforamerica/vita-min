@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2023</TaxYr>
+        <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+        <Filer>
+            <PrimarySSN>400001032</PrimarySSN>
+            <NameLine1Txt>SUSAN&lt;MIRANDA</NameLine1Txt>
+            <PrimaryNameControlTxt>MIRA</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>02301</ZIPCd>
+            </USAddress>
+            <PhoneNum>2025551212</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test.user.2@direct-file.local</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">39674</WagesAmt>
+            <WagesSalariesAndTipsAmt>39674</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>4000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>4200</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>43874</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>43874</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+            <TaxableIncomeAmt>30024</TaxableIncomeAmt>
+            <TaxAmt>3383</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3383</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3383</TaxLessCreditsAmt>
+            <TotalTaxAmt>3383</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>7274</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>7574</WithholdingTaxAmt>
+            <TotalPaymentsAmt>7574</TotalPaymentsAmt>
+            <OverpaidAmt>4191</OverpaidAmt>
+            <RefundAmt>4191</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Scenario Tester</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>05502</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>000000008</PayerEIN>
+            <PhoneNum>2025551212</PhoneNum>
+            <RecipientSSN>400001032</RecipientSSN>
+            <RecipientNm>Susan Miranda</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>02301</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>200</GrossDistributionAmt>
+            <TaxableAmt>1000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp/>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Payer 2 Name</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>Line 2</BusinessNameLine2Txt>
+            </PayerName>
+            <PayerEIN>000000009</PayerEIN>
+            <RecipientSSN>400001032</RecipientSSN>
+            <RecipientNm>Susan Miranda</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>20 Override Street</AddressLine1Txt>
+                <AddressLine2Txt>Line Two</AddressLine2Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>70201</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>4000</GrossDistributionAmt>
+            <TaxableAmt>3000</TaxableAmt>
+            <EmployeeContributionsAmt>500</EmployeeContributionsAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <StateDistributionAmt>2000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp>
+                        <LocalTaxWithheldAmt>2000</LocalTaxWithheldAmt>
+                        <LocalityNm>How Town</LocalityNm>
+                        <LocalDistributionAmt>2000</LocalDistributionAmt>
+                    </F1099RLocalTaxGrp>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp/>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>N</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentName="IRSW2" documentId="W20001">
+            <EmployeeSSN>400001032</EmployeeSSN>
+            <EmployerEIN>000000004</EmployerEIN>
+            <EmployerNameControlTxt>OURF</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Our Flower Shop</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2045 Pecan Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>70201</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Susan Miranda</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>70201</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>15205</WagesAmt>
+            <WithholdingAmt>1405</WithholdingAmt>
+            <SocialSecurityWagesAmt>15205</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>943</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>15205</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>220</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>00-0000005</EmployerStateIdNum>
+                    <StateWagesAmt>15205</StateWagesAmt>
+                    <StateIncomeTaxAmt>507</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentName="IRSW2" documentId="W20002">
+            <EmployeeSSN>400001032</EmployeeSSN>
+            <EmployerEIN>000000007</EmployerEIN>
+            <EmployerNameControlTxt>MAGN</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Magnolia Floral Design</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1001 Main Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>70201</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Susan Miranda</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+                <CityNm>Monroe</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>70201</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>24469</WagesAmt>
+            <WithholdingAmt>5869</WithholdingAmt>
+            <SocialSecurityWagesAmt>24469</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1517</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>24469</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>355</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>00-0000008</EmployerStateIdNum>
+                    <StateWagesAmt>24469</StateWagesAmt>
+                    <StateIncomeTaxAmt>1502</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

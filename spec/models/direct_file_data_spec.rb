@@ -596,21 +596,22 @@ describe DirectFileData do
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("nc_miranda_1099r")).to_s) }
+    # let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 
     describe "#PayerNameControlTxt" do
       it "returns the value" do
         expect(first_1099r.PayerNameControlTxt).to eq "PAYE"
-        expect(second_1099r.PayerNameControlTxt).to eq "PAYE DEUX"
+        expect(second_1099r.PayerNameControlTxt).to eq "PAYE"
       end
     end
 
     describe "#PayerName" do
       it "returns the value" do
         expect(first_1099r.PayerName).to eq "Payer Name"
-        expect(second_1099r.PayerName).to eq "Second Payer Name"
+        expect(second_1099r.PayerName).to eq "Payer 2 Name"
       end
     end
 
@@ -630,8 +631,8 @@ describe DirectFileData do
 
     describe "#PayerStateAbbreviationCd" do
       it "returns the value" do
-        expect(first_1099r.PayerStateAbbreviationCd).to eq "MA"
-        expect(second_1099r.PayerStateAbbreviationCd).to eq "NA"
+        expect(first_1099r.PayerStateAbbreviationCd).to eq "NC"
+        expect(second_1099r.PayerStateAbbreviationCd).to eq "NC"
       end
     end
 
@@ -644,8 +645,8 @@ describe DirectFileData do
 
     describe "#PayerEIN" do
       it "returns the value" do
-        expect(first_1099r.PayerEIN).to eq "000000001"
-        expect(second_1099r.PayerEIN).to eq "000000002"
+        expect(first_1099r.PayerEIN).to eq "000000008"
+        expect(second_1099r.PayerEIN).to eq "000000009"
       end
     end
 
@@ -659,21 +660,21 @@ describe DirectFileData do
     describe "#GrossDistributionAmt" do
       it "returns the value" do
         expect(first_1099r.GrossDistributionAmt).to eq 200
-        expect(second_1099r.GrossDistributionAmt).to eq 300
+        expect(second_1099r.GrossDistributionAmt).to eq 4000
       end
     end
 
     describe "#TaxableAmt" do
       it "returns the value" do
         expect(first_1099r.TaxableAmt).to eq 1000
-        expect(second_1099r.TaxableAmt).to eq 500
+        expect(second_1099r.TaxableAmt).to eq 3000
       end
     end
 
     describe "#FederalIncomeTaxWithheldAmt" do
       it "returns the value" do
         expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
-        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 200
+        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 0
       end
     end
 
@@ -694,7 +695,7 @@ describe DirectFileData do
     describe "#StateTaxWithheldAmt" do
       it "returns the value" do
         expect(first_1099r.StateTaxWithheldAmt).to eq 11
-        expect(second_1099r.StateTaxWithheldAmt).to eq 22
+        expect(second_1099r.StateTaxWithheldAmt).to eq 0
       end
     end
     describe "#StateAbbreviationCd" do
@@ -712,7 +713,7 @@ describe DirectFileData do
     describe "#StateDistributionAmt" do
       it "returns the value" do
         expect(first_1099r.StateDistributionAmt).to eq 111
-        expect(second_1099r.StateDistributionAmt).to eq 222
+        expect(second_1099r.StateDistributionAmt).to eq 0
       end
     end
   end
