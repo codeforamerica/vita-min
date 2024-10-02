@@ -532,5 +532,15 @@ NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:
   label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
+NJ1040_LINE_27:
+  label: '27 Total Income (Add lines 15, 16a, and 20a)'
+NJ1040_LINE_29:
+  label: "29 New Jersey Gross Income (Subtract line 28c from line 27) (See instructions)"
+NJ1040_LINE_38:
+  label: "38 Total Exemptions and Deductions (Add lines 30 through 37c)"
+NJ1040_LINE_39:
+  label: "39 Taxable Income (Subtract line 38 from line 29)"
 NJ1040_LINE_40A:
-  label: 'Total Property Taxes (18% of Rent) Paid (See instructions page 25)'
+  label: '40A Total Property Taxes (18% of Rent) Paid (See instructions page 25)'
+NJ1040_LINE_42:
+  label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'

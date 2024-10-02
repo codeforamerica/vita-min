@@ -73,9 +73,9 @@ module SubmissionBuilder
                     if @submission.data_source.direct_file_data.is_spouse_blind?
                       xml.SpouseCuPartnerBlindOrDisabled "X"
                     end
-                    xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
+                    xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                   end
 
                   unless intake.dependents.empty?
@@ -101,8 +101,19 @@ module SubmissionBuilder
                   if calculated_fields.fetch(:NJ1040_LINE_15) >= 0
                     xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
                   end
+                  if calculated_fields.fetch(:NJ1040_LINE_27) > 0
+                    xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
+                  end
+                  if calculated_fields.fetch(:NJ1040_LINE_29) > 0
+                    xml.GrossIncome calculated_fields.fetch(:NJ1040_LINE_29)
+                  end
 
                   xml.TotalExemptionAmountB calculated_fields.fetch(:NJ1040_LINE_13)
+                  xml.TotalExemptDeductions calculated_fields.fetch(:NJ1040_LINE_38)
+
+                  if calculated_fields.fetch(:NJ1040_LINE_39) > 0
+                    xml.TaxableIncome calculated_fields.fetch(:NJ1040_LINE_39)
+                  end
 
                   xml.PropertyTaxDeductOrCredit do
                     if calculated_fields.fetch(:NJ1040_LINE_40A)
@@ -114,6 +125,10 @@ module SubmissionBuilder
                     elsif intake.household_rent_own_own?
                       xml.Homeowner "X"
                     end
+                  end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_42) > 0
+                    xml.NewJerseyTaxableIncome calculated_fields.fetch(:NJ1040_LINE_42)
                   end
                 end
               end

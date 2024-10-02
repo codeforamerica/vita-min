@@ -18,7 +18,12 @@ module Efile
         set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
+        set_line(:NJ1040_LINE_27, :calculate_line_27)
+        set_line(:NJ1040_LINE_29, :calculate_line_29)
+        set_line(:NJ1040_LINE_38, :calculate_line_38)
+        set_line(:NJ1040_LINE_39, :calculate_line_39)
         set_line(:NJ1040_LINE_40A, :calculate_line_40a)
+        set_line(:NJ1040_LINE_42, :calculate_line_42)
         @lines.transform_values(&:value)
       end
 
@@ -93,6 +98,26 @@ module Efile
           sum += state_wage
         end
         sum.round
+      end
+
+      def calculate_line_27
+        calculate_line_15
+      end
+
+      def calculate_line_29
+        calculate_line_27
+      end
+
+      def calculate_line_38
+        calculate_line_13
+      end
+
+      def calculate_line_39
+        calculate_line_29 - calculate_line_38
+      end
+
+      def calculate_line_42
+        calculate_line_39
       end
 
       def is_over_65(birth_date)
