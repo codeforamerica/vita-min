@@ -716,5 +716,26 @@ describe DirectFileData do
         expect(second_1099r.StateDistributionAmt).to eq 2000
       end
     end
+
+    describe "#RecipientSSN" do
+      it "returns the value" do
+        expect(first_1099r.RecipientSSN).to eq '400001032'
+        expect(second_1099r.RecipientSSN).to eq '400001032'
+      end
+    end
+
+    describe "#RecipientNm" do
+      it "returns the value" do
+        expect(first_1099r.RecipientNm).to eq 'Susan Miranda'
+        expect(second_1099r.RecipientNm).to eq 'Susan Miranda'
+      end
+    end
+
+    describe "#TxblAmountNotDeterminedInd" do
+      it "returns the value" do
+        expect(first_1099r.TxblAmountNotDeterminedInd).to eq 'Susan Miranda'
+        expect(second_1099r.TxblAmountNotDeterminedInd).to eq 'Susan Miranda'
+      end
+    end
   end
 end

@@ -18,7 +18,11 @@ class Df1099rAccessor < DfXmlAccessor
     StateAbbreviationCd: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateAbbreviationCd",
     PayerStateIdNumber: "F1099RStateLocalTaxGrp F1099RStateTaxGrp PayerStateIdNumber",
     StateDistributionAmt: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateDistributionAmt",
+    RecipientSSN: "RecipientSSN",
+    RecipientNm: "RecipientNm",
+    TxblAmountNotDeterminedInd: "TxblAmountNotDeterminedInd",
   }
+
 
   def self.selectors
     SELECTORS
