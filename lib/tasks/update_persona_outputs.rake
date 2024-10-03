@@ -28,6 +28,11 @@ namespace :update_persona_outputs do
 
   desc "Update the XML output of all personas for a state"
   task generate_xmls: :environment do
+    # overloading the env to use our test environment values
+    # otherwise we get the dev environment values and the persona tests break
+    ENV['VITA_MIN_EFIN'] = '123456'
+    ENV['VITA_MIN_SIN'] = '11111111'
+
     STATE_PERSONAS.each do |us_state, personas|
       personas.each do |persona_name|
         intake = FactoryBot.create(persona_name, federal_submission_id: "1016422024018atw000x")
