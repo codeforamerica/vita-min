@@ -59,6 +59,7 @@ class Ability
       cannot :manage, OrganizationLeadRole
       cannot :manage, TeamMemberRole
       cannot :manage, AdminRole
+      cannot :manage, StateFileNjStaffRole
       cannot :manage, ClientSuccessRole
       cannot :manage, SiteCoordinatorRole
       cannot :manage, GreeterRole
