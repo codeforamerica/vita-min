@@ -64,7 +64,9 @@ module PdfFiller
         y_d400wf_li15_pg1_good: @xml_document.at('NCIncTax')&.text,
         y_d400wf_li17_pg2_good: @xml_document.at('SubTaxCredFromIncTax')&.text,
         y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
-        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
+        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? @submission.data_source.primary_esigned_at.to_date : "",
+        y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? @submission.data_source.spouse_esigned_at.to_date : ""
       }
     end
 
