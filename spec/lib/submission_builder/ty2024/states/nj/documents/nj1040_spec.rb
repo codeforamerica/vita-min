@@ -391,6 +391,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
     
+    describe "child and dependent care credit - line 64" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care) }
+      it "adds 40% of federal credit for an income of 60k or less" do
+        expect(xml.at("ChildDependentCareCredit").text).to eq(400.0.to_s)
+      end
+    end
+
     describe "NJ child tax credit - line 65" do
       context "when taxpayer is not eligible" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }

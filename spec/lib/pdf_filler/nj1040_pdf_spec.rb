@@ -1057,6 +1057,33 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text41"]).to eq "0"
       end
     end
+
+
+    describe "line 64 child and dependent care credit" do
+      let(:intake) {
+        create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care)
+      }
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: intake
+      }
+      it "adds 40% of federal credit for an income of 60k or less" do
+        digits_in_pdf = ""
+        digit_fields = [
+          'undefined_168',
+          'Text192',
+          'Text193',
+          'Text194',
+          'Text195',
+          'Text196',
+        ]
+        digit_fields.each do |field_name, _i|
+          digits_in_pdf << pdf_fields[field_name]
+          digits_in_pdf << "." if field_name == digit_fields[-3]
+        end
+        tax_credit = digits_in_pdf.to_f
+        expect(tax_credit).to eq 400
+      end
+    end
     
     describe "line 65 nj child tax credit" do
       let(:intake) {
