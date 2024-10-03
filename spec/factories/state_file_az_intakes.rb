@@ -119,6 +119,42 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_json_data do
+      raw_direct_file_intake_data do
+        {
+           familyAndHousehold: [
+             {
+               firstName: "Jane",
+               middleInitial: "T",
+               lastName: "Smith",
+               dateOfBirth: "2020-01-01",
+               relationship: "biologicalChild",
+               eligibleDependent: true,
+               isClaimedDependent: true
+             },
+             {
+               firstName: "John",
+               middleInitial: "G",
+               lastName: "Smith",
+               dateOfBirth: "2019-01-01",
+               relationship: "biologicalChild",
+               eligibleDependent: true,
+               isClaimedDependent: true
+             }
+           ],
+           filers: [
+             {
+               firstName: "Joan",
+               middleInitial: nil,
+               lastName: "Smith",
+               dateOfBirth: "1980-01-01",
+               isPrimaryFiler: true
+             }
+           ]
+        }
+      end
+    end
+
     trait :with_1099r_subtractions do
       received_military_retirement_payment { "yes" }
       primary_received_pension { "yes" }

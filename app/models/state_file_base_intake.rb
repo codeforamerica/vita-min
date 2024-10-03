@@ -54,6 +54,10 @@ class StateFileBaseIntake < ApplicationRecord
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
 
+  def direct_file_json_data
+    @direct_file_json_data ||= DirectFileJsonData.new(raw_direct_file_intake_data)
+  end
+
   def synchronize_df_dependents_to_database
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build
