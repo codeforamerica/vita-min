@@ -14,9 +14,9 @@ module StateFile
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
 
         case StateFile::NjHomeownerEligibilityHelper.determine_eligibility(current_intake)
-        when 'ineligible'
+        when StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
           NjIneligiblePropertyTaxController.to_path_helper(options)
-        when 'unsupported'
+        when StateFile::NjHomeownerEligibilityHelper::UNSUPPORTED
           NjUnsupportedPropertyTaxController.to_path_helper(options)
         else
           NjHomeownerPropertyTaxController.to_path_helper(options)

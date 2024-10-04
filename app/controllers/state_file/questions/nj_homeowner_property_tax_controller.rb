@@ -7,7 +7,7 @@ module StateFile
       before_action -> { @municipality = current_intake.municipality_name }
 
       def self.show?(intake)
-        intake.household_rent_own == 'own' && StateFile::NjHomeownerEligibilityHelper.determine_eligibility(intake) == 'advance'
+        intake.household_rent_own == 'own' && StateFile::NjHomeownerEligibilityHelper.determine_eligibility(intake) == StateFile::NjHomeownerEligibilityHelper::ADVANCE
       end
     end
   end
