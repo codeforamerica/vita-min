@@ -61,7 +61,7 @@ module PdfFiller
         y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
         y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName').text.slice(0,11),
-        y_d400wf_Consumer_Use_Tax: @xml_document.at('NoUseTaxDue')&.text,
+        y_d400wf_Consumer_Use_Tax: @xml_document.at('NoUseTaxDue')&.text.present? ? 'Yes' : 'Off',
         y_d400wf_li18_pg2_good: @xml_document.at('UseTax')&.text,
         y_d400wf_li19_pg2_good: @xml_document.at('TotalNCTax')&.text,
         y_d400wf_li20a_pg2_good: @xml_document.at('IncTaxWith').text,
