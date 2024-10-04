@@ -76,6 +76,9 @@ module Efile
 
         case @intake.household_rent_own
         when "own"
+          if @intake.property_tax_paid.nil?
+            return nil
+          end
           property_tax_paid = @intake.property_tax_paid
         when "rent"
           property_tax_paid = @intake.rent_paid * RENT_CONVERSION

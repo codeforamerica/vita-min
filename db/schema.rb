@@ -1987,6 +1987,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.string "hashed_ssn"
+    t.integer "homeowner_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "homeowner_main_home_multi_unit", default: 0, null: false
+    t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
+    t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
