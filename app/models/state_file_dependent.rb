@@ -40,7 +40,10 @@ class StateFileDependent < ApplicationRecord
     "PARENT" => "Parent",
     "GRANDPARENT" => "Grandparent",
     "NONE" => "Other",
+    "grandParent" => "Grandparent",
   }.freeze
+
+  # TODO: once we have added all the json fixtures for all the states we can take out the xml mapping values and take out relationship from the Dependent class in direct file data.
 
   belongs_to :intake, polymorphic: true
   encrypts :ssn

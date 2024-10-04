@@ -62,6 +62,7 @@
 #  index_state_file_id_intakes_on_hashed_ssn     (hashed_ssn)
 #
 FactoryBot.define do
+  factory :minimal_state_file_id_intake, class: "StateFileIdIntake"
   factory :state_file_id_intake do
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
 
@@ -86,6 +87,11 @@ FactoryBot.define do
     trait :single_filer_with_json do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_lana_single') }
       raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_lana_single') }
+    end
+
+    trait :mfj_filer_with_json do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_paul_mfj') }
+      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_paul_mfj') }
     end
   end
 end
