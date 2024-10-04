@@ -1,43 +1,13 @@
 require 'rails_helper'
 
 describe 'DirectFileJsonData' do
-  let(:direct_file_json_data) {
-    DirectFileJsonData.new({
-                              familyAndHousehold: [
-                                {
-                                  firstName: "Jane",
-                                  middleInitial: "T",
-                                  lastName: "Smith",
-                                  dateOfBirth: "2020-01-01",
-                                  relationship: "biologicalChild",
-                                  eligibleDependent: true,
-                                  isClaimedDependent: true
-                                },
-                                {
-                                  firstName: "John",
-                                  middleInitial: "G",
-                                  lastName: "Smith",
-                                  dateOfBirth: "2019-01-01",
-                                  relationship: "biologicalChild",
-                                  eligibleDependent: true,
-                                  isClaimedDependent: true
-                                }
-                              ],
-                              filers: [
-                                {
-                                  firstName: "Joan",
-                                  middleInitial: nil,
-                                  lastName: "Smith",
-                                  dateOfBirth: "1980-01-01",
-                                  isPrimaryFiler: true
-                                }
-                              ]
-                            }.to_json)
-  }
+  let(:intake) { create :state_file_id_intake, :single_filer_with_json}
+  let(:direct_file_json_data) { intake.direct_file_json_data }
 
   describe "#primary_first_name" do
     it "can read value" do
-      expect(direct_file_json_data.primary_first_name).to eq "Joan"
+      expect(direct_file_json_data.primary_first_name).to eq "Lana"
+      expect(direct_file_json_data.primary_dob).to eq "Lana"
     end
   end
 end

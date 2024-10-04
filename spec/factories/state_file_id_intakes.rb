@@ -80,5 +80,12 @@ FactoryBot.define do
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
+
+    #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
+
+    trait :single_filer_with_json do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_lana_single') }
+      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_lana_single') }
+    end
   end
 end

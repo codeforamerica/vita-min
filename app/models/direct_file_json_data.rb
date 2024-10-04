@@ -1,6 +1,7 @@
 class DirectFileJsonData
+
   def initialize(json)
-    @json = json
+    @json = JSON.parse(json)
   end
 
   def primary_filer

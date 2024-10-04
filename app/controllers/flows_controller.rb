@@ -656,6 +656,7 @@ class FlowsController < ApplicationController
         locale: 'en',
         unfinished_intake_ids: [],
         raw_direct_file_data: StateFile::XmlReturnSampleService.new.az_xml_sample(filing_status),
+        raw_direct_file_intake_data: StateFile::JsonReturnSampleService.new.az_json_sample(filing_status),
         df_data_imported_at: 2.hours.ago,
         primary_received_pension: "yes",
         received_military_retirement_payment: "yes",
