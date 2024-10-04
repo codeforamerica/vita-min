@@ -2554,6 +2554,14 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_disabled_exemption:
+        edit:
+          title: Disabled Exemption
+          instructions_html: People with disabilities are eligible for tax exemptions. <br><br> In NJ, you are considered disabled if you have a "<b>total and permanent</b> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness." <br><br> (This is different from the federal tax definition. NJ doesn’t consider your age or your receipt of taxable disability income.)
+          primary_label: Select whether you were disabled in %{filing_year}.
+          primary_disabled_question: Are you disabled according to the New Jersey definition?
+          spouse_label: Select whether your spouse was disabled in %{filing_year}.
+          spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
       nj_homeowner_property_tax:
         edit:
           helper_description: TODO FILL THIS OUT
@@ -2585,6 +2593,8 @@ en:
           municipality: Municipality
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+          primary_disabled: I have a disability
+          spouse_disabled: My spouse has a disability
       ny_county:
         edit:
           county: County

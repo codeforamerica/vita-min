@@ -41,6 +41,7 @@
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
 #  primary_birth_date                :date
+#  primary_disabled                  :integer          default("unfilled"), not null
 #  primary_esigned                   :integer          default("unfilled"), not null
 #  primary_esigned_at                :datetime
 #  primary_first_name                :string
@@ -58,6 +59,7 @@
 #  sign_in_count                     :integer          default(0), not null
 #  source                            :string
 #  spouse_birth_date                 :date
+#  spouse_disabled                   :integer          default("unfilled"), not null
 #  spouse_esigned                    :integer          default("unfilled"), not null
 #  spouse_esigned_at                 :datetime
 #  spouse_first_name                 :string
@@ -87,6 +89,8 @@ class StateFileNjIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3 }, _prefix: :household_rent_own
+  enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
+  enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

@@ -36,6 +36,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjRenterRentPaidController),
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                           Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjDisabledExemptionController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjReviewController),
