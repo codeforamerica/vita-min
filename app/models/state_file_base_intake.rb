@@ -64,13 +64,14 @@ class StateFileBaseIntake < ApplicationRecord
       dependent.assign_attributes(direct_file_dependent.attributes)
 
       dependent_json = direct_file_json_data.find_matching_json_dependent(dependent)
-      json_attributes = {
-        middle_initial: dependent_json["middleInitial"],
-        relationship: dependent_json["relationship"].humanize,
-        dob: dependent_json["dateOfBirth"]
-      }
-      dependent.assign_attributes(json_attributes)
-
+      if dependent_json.present?
+        json_attributes = {
+          middle_initial: dependent_json["middleInitial"],
+          relationship: dependent_json["relationship"].humanize,
+          dob: dependent_json["dateOfBirth"]
+        }
+        dependent.assign_attributes(json_attributes)
+      end
       dependent.assign_attributes(intake_id: self.id, intake_type: self.class.to_s)
       dependent.save!
     end

@@ -1,7 +1,7 @@
 class DirectFileJsonData
 
   def initialize(json)
-    @json = JSON.parse(json)
+    @json = JSON.parse(json || '{}')
   end
 
   def primary_filer
@@ -64,6 +64,8 @@ class DirectFileJsonData
   end
 
   def find_matching_json_dependent(dependent)
+    return nil unless dependents.present?
+
     dependents.find do |json_dependent|
       json_dependent["firstName"] == dependent.first_name
     end
