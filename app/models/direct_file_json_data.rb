@@ -65,7 +65,6 @@ class DirectFileJsonData
 
   def find_matching_json_dependent(dependent)
     dependents.find do |json_dependent|
-      # TODO: refactor to use method?
       json_dependent["firstName"] == dependent.first_name
     end
   end

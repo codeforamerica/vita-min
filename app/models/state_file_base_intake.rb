@@ -76,10 +76,6 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def find_matching_json_dependent(dependent)
-    direct_file_json_data
-  end
-
   def calculator
     unless @calculator.present?
       @calculator = tax_calculator
