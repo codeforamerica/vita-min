@@ -212,6 +212,20 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
         end
       end
+
+      context 'when property tax paid is nil (not eligible)' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'own',
+            property_tax_paid: nil
+          )
+        }
+
+        it 'sets line 40a to nil' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+      end
     end
 
     context 'when renter' do
