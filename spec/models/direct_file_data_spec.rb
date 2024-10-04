@@ -703,10 +703,10 @@ describe DirectFileData do
         expect(second_1099r.StateAbbreviationCd).to eq "NC"
       end
     end
-    describe "#PayerStateIdNumber" do
+    describe "#PayerStateIdNum" do
       it "returns the value" do
-        expect(first_1099r.PayerStateIdNumber).to eq nil
-        expect(second_1099r.PayerStateIdNumber).to eq nil
+        expect(first_1099r.PayerStateIdNum).to eq nil
+        expect(second_1099r.PayerStateIdNum).to eq nil
       end
     end
     describe "#StateDistributionAmt" do

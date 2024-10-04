@@ -16,7 +16,7 @@ class Df1099rAccessor < DfXmlAccessor
     StandardOrNonStandardCd: "StandardOrNonStandardCd",
     StateTaxWithheldAmt: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateTaxWithheldAmt",
     StateAbbreviationCd: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateAbbreviationCd",
-    PayerStateIdNumber: "F1099RStateLocalTaxGrp F1099RStateTaxGrp PayerStateIdNumber",
+    PayerStateIdNum: "F1099RStateLocalTaxGrp F1099RStateTaxGrp PayerStateIdNum",
     StateDistributionAmt: "F1099RStateLocalTaxGrp F1099RStateTaxGrp StateDistributionAmt",
     RecipientSSN: "RecipientSSN",
     RecipientNm: "RecipientNm",

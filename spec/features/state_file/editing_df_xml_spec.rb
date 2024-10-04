@@ -88,7 +88,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     fill_in "F1099RDistributionCd", with: "8"
     fill_in "StateTaxWithheldAmt", with: 20
     fill_in "StateAbbreviationCd", with: "NC"
-    fill_in "PayerStateIdNumber", with: "987654321"
+    fill_in "PayerStateIdNum", with: "987654321"
     fill_in "StateDistributionAmt", with: 200
 
     click_on "Continue"
@@ -123,7 +123,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].F1099RDistributionCd).to eq "8"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateTaxWithheldAmt).to eq 20
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateAbbreviationCd).to eq "NC"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateIdNumber).to eq "987654321"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateIdNum).to eq "987654321"
     expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateDistributionAmt).to eq 200
   end
 
