@@ -2040,6 +2040,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.index ["spouse_state_id_id"], name: "index_state_file_nj_intakes_on_spouse_state_id_id"
   end
 
+  create_table "state_file_nj_staff_roles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "state_file_notification_emails", force: :cascade do |t|
     t.string "body", null: false
     t.datetime "created_at", null: false
