@@ -545,6 +545,6 @@ NJ1040_LINE_40A:
 NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
 NJ1040_LINE_65_DEPENDENTS:
-  label: '65 # of dependents age 5 or younger on 12/31/23'
+  label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
