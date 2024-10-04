@@ -7,7 +7,6 @@ describe 'DirectFileJsonData' do
   describe "#primary_first_name" do
     it "can read value" do
       expect(direct_file_json_data.primary_first_name).to eq "Lana"
-      expect(direct_file_json_data.primary_dob).to eq "Lana"
     end
   end
 end
