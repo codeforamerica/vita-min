@@ -67,10 +67,10 @@ module SubmissionBuilder
                     if calculated_fields.fetch(:NJ1040_LINE_7_SPOUSE)
                       xml.SpouseCuPartner65OrOver "X"
                     end
-                    if @submission.data_source.direct_file_data.is_primary_blind?
+                    if @submission.data_source.direct_file_data.is_primary_blind? || intake.primary_disabled == "yes"
                       xml.YouBlindOrDisabled "X"
                     end
-                    if @submission.data_source.direct_file_data.is_spouse_blind?
+                    if @submission.data_source.direct_file_data.is_spouse_blind? || intake.spouse_disabled == "yes"
                       xml.SpouseCuPartnerBlindOrDisabled "X"
                     end
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)

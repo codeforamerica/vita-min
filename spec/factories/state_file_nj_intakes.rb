@@ -180,16 +180,25 @@ FactoryBot.define do
       end
     end
 
+    trait :primary_disabled do
+      primary_disabled { "yes" }
+    end
+
     trait :spouse_blind do
       after(:build) do |intake|
         intake.direct_file_data.spouse_blind
       end
     end
 
+<<<<<<< HEAD
     trait :fed_credit_for_child_and_dependent_care do
       after(:build) do |intake|
         intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
       end
+=======
+    trait :spouse_disabled do
+      spouse_disabled { "yes" }
+>>>>>>> 4ffc27edb (NJ 67 - Added disabled exemption)
     end
   end
 end

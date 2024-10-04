@@ -45,6 +45,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
       end
 
+      context "when filer is disabled" do
+        let(:intake) { create(:state_file_nj_intake, :primary_disabled) }
+        it "claims the YouBlindOrDisabled exemption" do
+          expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled")).to eq(nil)
+        end
+      end
+
       context "when filer is over 65" do
         let(:intake) { create(:state_file_nj_intake, :primary_over_65) }
         it "populates line 7 XML fields" do
@@ -124,6 +132,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context "when filer and their spouse are both blind" do
         let(:intake) { create(:state_file_nj_intake, :primary_blind, :spouse_blind) }
         it "populates line 8 XML fields" do
+          expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled").text).to eq("X")
+        end
+      end
+
+      context "when both filer and their spouse are disabled" do
+        let(:intake) { create(:state_file_nj_intake, :primary_disabled, :spouse_disabled) }
+        it "claims the YouBlindOrDisabled and the SpouseCuPartnerBlindOrDisabled exemptions" do
           expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
           expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled").text).to eq("X")
         end

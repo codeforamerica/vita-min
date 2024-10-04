@@ -46,5 +46,21 @@
     </div>
   <% end %>
 
+  <% if current_intake.primary_disabled != "unfilled" || current_intake.spouse_disabled != "unfilled"%>
+    <div id="disabled_exemption" class="white-group">
+      <div class="spacing-below-5">
+        <% if current_intake.primary_disabled != "unfilled" %>
+          <p class="text--bold spacing-below-5"><%=t(".primary_disabled") %></p>
+          <p><%= current_intake.primary_disabled %></p>
+        <% end %>
+        <% if current_intake.spouse_disabled != "unfilled" %>
+          <p class="text--bold spacing-below-5"><%=t(".spouse_disabled") %></p>
+          <p><%= current_intake.spouse_disabled  %></p>
+        <% end %>
+        <%= link_to t("general.edit"), StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
