@@ -6,6 +6,7 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :dependents, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileDependent', inverse_of: :intake, dependent: :destroy
   has_many :efile_submissions, -> { order(created_at: :asc) }, as: :data_source, class_name: 'EfileSubmission', inverse_of: :data_source, dependent: :destroy
   has_many :state_file1099_gs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099G', inverse_of: :intake, dependent: :destroy
+  has_many :state_file1099_rs, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFile1099R', inverse_of: :intake, dependent: :destroy
   has_many :efile_device_infos, -> { order(created_at: :asc) }, as: :intake, class_name: 'StateFileEfileDeviceInfo', inverse_of: :intake, dependent: :destroy
   has_many :state_file_w2s, as: :state_file_intake, class_name: "StateFileW2", inverse_of: :state_file_intake, dependent: :destroy
   has_many :df_data_import_errors, -> { order(created_at: :asc) }, as: :state_file_intake, class_name: "DfDataImportError", inverse_of: :state_file_intake, dependent: :destroy
@@ -60,6 +61,15 @@ class StateFileBaseIntake < ApplicationRecord
       dependent.assign_attributes(direct_file_dependent.attributes)
       dependent.assign_attributes(intake_id: self.id, intake_type: self.class.to_s)
       dependent.save!
+    end
+  end
+
+  def copy_df_1099_rs_to_database
+    direct_file_data.form1099rs.each do |direct_file_1099_r|
+      state_file1099_r = state_file1099_rs.build
+      state_file1099_r.assign_attributes(direct_file_1099_r.to_h)
+      state_file1099_r.assign_attributes(intake: self)
+      state_file1099_r.save!
     end
   end
 

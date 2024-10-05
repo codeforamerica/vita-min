@@ -28,6 +28,7 @@ module StateFile
         end
 
         intake.synchronize_df_dependents_to_database
+        intake.copy_df_1099_rs_to_database
 
         # Clear this timestamp if it failed before but succeeded this time
         intake.update(df_data_import_failed_at: nil)

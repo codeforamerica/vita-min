@@ -1,30 +1,34 @@
 class CreateStateFile1099Rs < ActiveRecord::Migration[7.1]
   def change
     create_table :state_file1099_rs do |t|
-      t.string "payer_name_control", null: false
-      t.string "payer_name", null: false
-      t.string "payer_address_line1", null: false
-      t.string "payer_address_line2", null: false
-      t.string "payer_city_name", null: false
-      t.string "payer_state_code", null: false
-      t.string "payer_zip", null: false
-      t.string "payer_identification_number", null: false
-      t.string "phone_number", null: false
-      t.integer "gross_distribution_amount", null: false
-      t.integer "taxable_amount", null: false
-      t.integer "federal_income_tax_withheld_amount", null: false
-      t.string "distribution_code", null: false
-      t.boolean "standard", null: false
-      t.integer "state_tax_withheld_amount", null: false
-      t.string "state_code", null: false
-      t.string "payer_state_identification_number", null: false
-      t.integer "state_distribution_amount", null: false
-      t.string "recipient_ssn", null: false
-      t.string "recipient_name", null: false
-      t.boolean "taxable_amount_not_determined", null: false
-      t.boolean "total_distribution", null: false
-      t.integer "capital_gain_amount", null: false
-      t.integer "designated_roth_account_first_year", null: false
+      t.string "payer_name_control"
+      t.string "payer_name"
+      t.string "payer_address_line1"
+      t.string "payer_address_line2"
+      t.string "payer_city_name"
+      t.string "payer_state_code"
+      t.string "payer_zip"
+      t.string "payer_identification_number"
+      t.string "phone_number"
+      t.integer "gross_distribution_amount"
+      t.integer "taxable_amount"
+      t.integer "federal_income_tax_withheld_amount"
+      t.string "distribution_code"
+      t.boolean "standard"
+      t.integer "state_tax_withheld_amount"
+      t.string "state_code"
+      t.string "payer_state_identification_number"
+      t.integer "state_distribution_amount"
+      t.string "recipient_ssn"
+      t.string "recipient_name"
+      t.boolean "taxable_amount_not_determined"
+      t.boolean "total_distribution"
+      t.integer "capital_gain_amount"
+      t.integer "designated_roth_account_first_year"
+
+      t.references :intake, polymorphic: true, null: false
+      t.references :state_specific_followup, polymorphic: true, null: true
+
       t.timestamps
     end
   end

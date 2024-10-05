@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_04_225721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1622,32 +1622,38 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
   end
 
   create_table "state_file1099_rs", force: :cascade do |t|
-    t.integer "capital_gain_amount", null: false
+    t.integer "capital_gain_amount"
     t.datetime "created_at", null: false
-    t.integer "designated_roth_account_first_year", null: false
-    t.string "distribution_code", null: false
-    t.integer "federal_income_tax_withheld_amount", null: false
-    t.integer "gross_distribution_amount", null: false
-    t.string "payer_address_line1", null: false
-    t.string "payer_address_line2", null: false
-    t.string "payer_city_name", null: false
-    t.string "payer_identification_number", null: false
-    t.string "payer_name", null: false
-    t.string "payer_name_control", null: false
-    t.string "payer_state_code", null: false
-    t.string "payer_state_identification_number", null: false
-    t.string "payer_zip", null: false
-    t.string "phone_number", null: false
-    t.string "recipient_name", null: false
-    t.string "recipient_ssn", null: false
-    t.boolean "standard", null: false
-    t.string "state_code", null: false
-    t.integer "state_distribution_amount", null: false
-    t.integer "state_tax_withheld_amount", null: false
-    t.integer "taxable_amount", null: false
-    t.boolean "taxable_amount_not_determined", null: false
-    t.boolean "total_distribution", null: false
+    t.integer "designated_roth_account_first_year"
+    t.string "distribution_code"
+    t.integer "federal_income_tax_withheld_amount"
+    t.integer "gross_distribution_amount"
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "payer_address_line1"
+    t.string "payer_address_line2"
+    t.string "payer_city_name"
+    t.string "payer_identification_number"
+    t.string "payer_name"
+    t.string "payer_name_control"
+    t.string "payer_state_code"
+    t.string "payer_state_identification_number"
+    t.string "payer_zip"
+    t.string "phone_number"
+    t.string "recipient_name"
+    t.string "recipient_ssn"
+    t.boolean "standard"
+    t.string "state_code"
+    t.integer "state_distribution_amount"
+    t.bigint "state_specific_followup_id"
+    t.string "state_specific_followup_type"
+    t.integer "state_tax_withheld_amount"
+    t.integer "taxable_amount"
+    t.boolean "taxable_amount_not_determined"
+    t.boolean "total_distribution"
     t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file1099_rs_on_intake"
+    t.index ["state_specific_followup_type", "state_specific_followup_id"], name: "index_state_file1099_rs_on_state_specific_followup"
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
@@ -1675,6 +1681,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
+  create_table "state_file_az1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
@@ -1797,6 +1808,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
   end
 
+  create_table "state_file_id1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "state_file_id_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
@@ -1852,6 +1868,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
     t.integer "withdraw_amount"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
+  end
+
+  create_table "state_file_md1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
@@ -1922,6 +1943,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
     t.index ["spouse_state_id_id"], name: "index_state_file_md_intakes_on_spouse_state_id_id"
   end
 
+  create_table "state_file_nc1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "state_file_nc_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
@@ -1989,6 +2015,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_000045) do
     t.integer "withdraw_amount"
     t.string "zip_code"
     t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
+  end
+
+  create_table "state_file_nj1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_nj_intakes", force: :cascade do |t|
