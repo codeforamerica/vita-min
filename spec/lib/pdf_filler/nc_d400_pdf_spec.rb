@@ -60,7 +60,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_dayphone']).to eq '9845559876'
 
-          expect(pdf_fields['y_d400wf_Consumer_Use_Tax']).to eq 'X'
+          expect(pdf_fields['y_d400wf_Consumer_Use_Tax']).to eq 'Yes'
           expect(pdf_fields['y_d400wf_li18_pg2_good']).to eq '0'
           expect(pdf_fields['y_d400wf_li19_pg2_good']).to eq '0'
           expect(pdf_fields['y_d400wf_li26a_pg2_good']).to eq ''
