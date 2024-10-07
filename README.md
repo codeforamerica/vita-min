@@ -45,7 +45,7 @@ We use [devise to secure access to resources](config/initializers/devise.rb)
 
 ## Setup 🧰
 
-### Assumptions before first time setup
+#### Assumptions before first time setup
 
 > ℹ️ These steps assume you are working with a macOS operating system, if that is not the case, some steps may be different. Ask a fellow teammate and we can update these setup steps to include the operating system you are using.
 
@@ -71,36 +71,20 @@ brew install git
 
 If you don't have an SSH key on your computer to connect to GitHub, their documentation on [how to add an SSH key](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) is a good starting point. You will need to have an SSH key to download this repository locally.
 
+#### Clone the repo
+
+You'll want to use SSH to clone
+
+```sh
+git clone git@github.com:codeforamerica/vita-min.git
+```
+
 #### Git duet
 
 To make pairing commit history easier, we use [git duet](https://github.com/git-duet/git-duet/), which can be installed with:
 
 ```sh
 brew install git-duet/tap/git-duet
-```
-
-#### Setup script
-
-There is a setup script that handles virtually everything with a single command:
-
-```sh
-# In the root of vita-min
-bin/setup
-```
-> ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
-
-> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
-
-#### Add efile resources locally
-
-In development, we need to download the IRS e-file schemas zip manually from S3.
-
-> ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
-
-Run this rake task to get a list of missing schemas, where to download them from, and where to put them. You might need to ask CfA staff for access if you do not have access to the Google drives.
-
-```
-rake setup:unzip_efile_schemas
 ```
 
 #### Adding Credential Files
@@ -115,6 +99,30 @@ You need to add the following credential files under the `config/credentials` fo
 - `production.key`
 
 You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
+
+#### Add efile resources locally
+
+In development, we need to download the IRS e-file schemas zip manually from S3.
+
+> ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
+
+Run this rake task to get a list of missing schemas, where to download them from, and where to put them. You might need to ask CfA staff for access if you do not have access to the Google drives.
+
+```
+rake setup:unzip_efile_schemas
+```
+
+#### Setup script
+
+There is a setup script that handles virtually everything with a single command:
+
+```sh
+# In the root of vita-min
+bin/setup
+```
+> ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
+
+> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
 
 #### Download the GYR Efiler
 
