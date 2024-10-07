@@ -3024,7 +3024,7 @@ es:
         questions_2: Haremos todo lo posible para resolver el problema.
         questions_header: Preguntas
         transactional_sms_header: Mensajes de texto transaccionales (SMS)
-        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los <a href='%{link}'>términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
+        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los <a href='%{link}' target="_blank" rel="noopener nofollow">términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
         using_info_collected_html: |
           <h3>Uso de la información que hemos recopilado</h3>
           <p>Usamos tu información para nuestros fines empresariales, como</p>
@@ -3045,8 +3045,8 @@ es:
         body_3_html: Si en algún momento olvida qué palabras clave son compatibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviarnos el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo utilizar nuestro servicio y cómo cancelar la suscripción.
         body_4: 'Podemos enviar mensajes a los siguientes operadores de telefonía móvil:'
         body_5a: Como siempre, se pueden aplicar tarifas de mensajes y datos para cualquier mensaje que le enviemos a usted y a nosotros. Si tiene alguna pregunta sobre su plan de mensajes de texto o de datos, lo mejor es comunicarse con su proveedor de servicios inalámbricos.
-        body_5b_html: Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
-        body_6_html: 'Si tiene alguna pregunta sobre la privacidad, lea nuestra política de privacidad: <a href="%{link}">https://FileYourStateTaxes.org/privacy-policy</a>'
+        body_5b_html: Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org" target="_blank" rel="noopener nofollow">help@fileyourstatetaxes.org</a></strong>.
+        body_6_html: 'Si tiene alguna pregunta sobre la privacidad, lea nuestra política de privacidad: <a href="%{link}" target="_blank" rel="noopener nofollow">https://FileYourStateTaxes.org/privacy-policy</a>'
         carrier_disclaimer: Los proveedores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o retrasados.
         header: Por favor revise nuestros términos y condiciones de mensajería de texto.
         major_carriers: 'Principales operadores: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile.'
