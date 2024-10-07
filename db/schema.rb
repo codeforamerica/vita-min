@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_04_225721) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_07_205126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1734,16 +1734,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_225721) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.integer "primary_received_pension", default: 0, null: false
-    t.decimal "primary_received_pension_amount", precision: 12, scale: 2
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
-    t.integer "received_military_retirement_payment", default: 0, null: false
-    t.decimal "received_military_retirement_payment_amount", precision: 12, scale: 2
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1754,8 +1750,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_225721) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.integer "spouse_received_pension", default: 0, null: false
-    t.decimal "spouse_received_pension_amount", precision: 12, scale: 2
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_was_incarcerated", default: 0, null: false
