@@ -1,0 +1,40 @@
+{
+        "familyAndHousehold": [
+                {
+                        "firstName": "Gloria",
+                        "middleInitial": "T",
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1920-01-01",
+                        "relationship": "grandParent",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true
+                },
+                {
+                        "firstName": "Patrick",
+                        "middleInitial": "G",
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1919-01-01",
+                        "relationship": "grandParent",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true
+                },
+                {
+                        "firstName": "Jack",
+                        "middleInitial": "G",
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1919-01-01",
+                        "relationship": "grandParent",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true
+                }
+        ],
+        "filers": [
+                {
+                        "firstName": "Ernest",
+                        "middleInitial": null,
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1980-01-01",
+                        "isPrimaryFiler": true
+                }
+        ]
+}

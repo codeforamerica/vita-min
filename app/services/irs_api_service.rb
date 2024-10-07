@@ -19,7 +19,8 @@ class IrsApiService
         return {
           'xml' => xml_return_sample_service.read(authorization_code),
           'submissionId' => xml_return_sample_service.lookup_submission_id(authorization_code),
-          'status' => "accepted"
+          'status' => "accepted",
+          'directFileData' => StateFile::JsonReturnSampleService.new.read(authorization_code)
         }
       end
     end
