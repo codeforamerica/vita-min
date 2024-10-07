@@ -54,10 +54,24 @@ class StateFileBaseIntake < ApplicationRecord
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
 
+  def direct_file_json_data
+    @direct_file_json_data ||= DirectFileJsonData.new(raw_direct_file_intake_data)
+  end
+
   def synchronize_df_dependents_to_database
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build
       dependent.assign_attributes(direct_file_dependent.attributes)
+
+      dependent_json = direct_file_json_data.find_matching_json_dependent(dependent)
+      if dependent_json.present?
+        json_attributes = {
+          middle_initial: dependent_json["middleInitial"],
+          relationship: dependent_json["relationship"]&.humanize,
+          dob: dependent_json["dateOfBirth"]
+        }
+        dependent.assign_attributes(json_attributes)
+      end
       dependent.assign_attributes(intake_id: self.id, intake_type: self.class.to_s)
       dependent.save!
     end

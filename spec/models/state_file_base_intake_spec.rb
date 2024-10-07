@@ -3,12 +3,14 @@ require "rails_helper"
 describe StateFileBaseIntake do
   describe "#synchronize_df_dependents_to_database" do
     it "reads in dependents and adds all of them to the database" do
-      xml = StateFile::XmlReturnSampleService.new.read('ny_five_dependents')
-      intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
+      xml = StateFile::XmlReturnSampleService.new.read('id_ernest_hoh')
+      json = StateFile::JsonReturnSampleService.new.read('id_ernest_hoh')
+      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
       expect(intake.dependents).to be_blank
       intake.synchronize_df_dependents_to_database
 
-      expect(intake.dependents.count).to eq 5
+      expect(intake.dependents.first.relationship).to eq "Grandparent"
+      expect(intake.dependents.count).to eq 3
     end
   end
 
@@ -25,6 +27,13 @@ describe StateFileBaseIntake do
         expect(intake.timedout?(15.minutes.ago)).to eq true
         expect(intake.timedout?(16.minutes.ago)).to eq true
       end
+    end
+  end
+
+  describe "#direct_file_json_data" do
+    let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+    it "returns the json data from Direct File that contains personal information" do
+      expect(intake.direct_file_json_data.primary_first_name).to eq('Lana')
     end
   end
 
