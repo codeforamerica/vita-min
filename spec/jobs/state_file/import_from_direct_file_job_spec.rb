@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
-    let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
+    let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
     let(:xml_result) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
-    let(:direct_file_intake_json) { '{"familyAndHousehold":[{"firstName":"Sammy","lastName":"Smith","middleInitial":null,"dateOfBirth":"2013-01-21"}],"filers":[{"firstName":"Samuel","lastName":"Smith","middleInitial":null,"dateOfBirth":"1985-09-29"},{"firstName":"Judy","lastName":"Johnson","middleInitial":null,"dateOfBirth":"1985-10-18"}]}'.to_json }
+    let(:direct_file_intake_json) { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
     let(:json_result) do
       {
         "xml" => xml_result,
@@ -24,7 +24,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        expect(IrsApiService).to have_received(:import_federal_data).with(auth_code, "az")
+        expect(IrsApiService).to have_received(:import_federal_data).with(auth_code, "id")
         expect(intake.federal_submission_id).to eq "91873649812736"
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
