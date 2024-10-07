@@ -11,6 +11,8 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form502") do |xml|
                 xml.ResidencyStatusPrimary true
+                xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
+                xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
               end
             end
 
