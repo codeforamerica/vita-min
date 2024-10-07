@@ -45,7 +45,7 @@ We use [devise to secure access to resources](config/initializers/devise.rb)
 
 ## Setup 🧰
 
-### Assumptions before first time setup
+#### Assumptions before first time setup
 
 > ℹ️ These steps assume you are working with a macOS operating system, if that is not the case, some steps may be different. Ask a fellow teammate and we can update these setup steps to include the operating system you are using.
 
@@ -70,6 +70,14 @@ brew install git
 #### Connect GitHub with a SSH key
 
 If you don't have an SSH key on your computer to connect to GitHub, their documentation on [how to add an SSH key](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) is a good starting point. You will need to have an SSH key to download this repository locally.
+
+#### Clone the repo
+
+You'll want to use SSH to clone
+
+```sh
+git clone git@github.com:codeforamerica/vita-min.git
+```
 
 #### Git duet
 
