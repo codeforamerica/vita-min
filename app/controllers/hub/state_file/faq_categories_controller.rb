@@ -1,12 +1,10 @@
 module Hub
   module StateFile
     class FaqCategoriesController < Hub::FaqCategoriesController
-      before_action :require_state_file
-
       def index
-        @az_faq_categories = @faq_categories.where(product_type: :state_file_az)
-        @ny_faq_categories = @faq_categories.where(product_type: :state_file_ny)
-        @nc_faq_categories = @faq_categories.where(product_type: :state_file_nc)
+        @state_faq_categories = ::StateFile::StateInformationService.active_state_codes.to_h do |state_code|
+          [state_code, @faq_categories.where(product_type: "state_file_#{state_code}".to_sym)]
+        end
       end
 
       private

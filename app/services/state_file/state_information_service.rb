@@ -134,7 +134,7 @@ module StateFile
       },
       nj: {
         intake_class: StateFileNjIntake,
-        calculator_class: Efile::Nj::Nj1040,
+        calculator_class: Efile::Nj::Nj1040Calculator,
         filing_years: [2024],
         navigation_class: Navigation::StateFileNjQuestionNavigation,
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,

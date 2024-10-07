@@ -4,7 +4,7 @@ def over_65_birth_year
   MultiTenantService.statefile.current_tax_year - 65
 end
 
-describe Efile::Nj::Nj1040 do
+describe Efile::Nj::Nj1040Calculator do
   let(:intake) { create(:state_file_nj_intake) }
   let(:instance) do
     described_class.new(
@@ -212,6 +212,20 @@ describe Efile::Nj::Nj1040 do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
         end
       end
+
+      context 'when property tax paid is nil (not eligible)' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'own',
+            property_tax_paid: nil
+          )
+        }
+
+        it 'sets line 40a to nil' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+      end
     end
 
     context 'when renter' do
@@ -263,6 +277,131 @@ describe Efile::Nj::Nj1040 do
     let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s, :primary_over_65, :primary_blind) }
     it 'sets line 42 to line 39 (taxable income)' do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
+    end
+  end
+  
+  describe 'line 65 - NJ child tax credit' do
+    context 'when taxpayer is married filing separately' do
+      let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
+      it 'returns nil' do
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(nil)
+      end
+    end
+
+    context 'when taxable income is over 80k' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+      it 'returns nil' do
+        allow(instance).to receive(:number_of_dependents_age_5_younger).and_return 10
+        allow(instance).to receive(:calculate_line_42).and_return 80_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(nil)
+      end
+    end
+
+    context 'when taxable income is under 80k and taxpayer has 1 dependent' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+
+      before do
+        allow(instance).to receive(:number_of_dependents_age_5_younger).and_return 1
+      end
+
+
+      it 'returns 1000 for incomes less than or equal to 30k' do
+        allow(instance).to receive(:calculate_line_42).and_return 30_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(1000)
+      end
+
+      it 'returns 800 for incomes less than or equal to 40k' do
+        allow(instance).to receive(:calculate_line_42).and_return 40_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(800)
+      end
+
+      it 'returns 600 for incomes less than or equal to 50k' do
+        allow(instance).to receive(:calculate_line_42).and_return 50_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(600)
+      end
+
+      it 'returns 400 for incomes less than or equal to 60k' do
+        allow(instance).to receive(:calculate_line_42).and_return 60_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(400)
+      end
+
+      it 'returns 200 for incomes less than or equal to 80k' do
+        allow(instance).to receive(:calculate_line_42).and_return 80_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(200)
+      end
+    end
+
+    context 'when all dependents are over 5 years old' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+
+      it 'returns nil' do
+        five_years_one_day = Date.new(MultiTenantService.new(:statefile).current_tax_year - 6, 12, 31)
+        intake.synchronize_df_dependents_to_database
+        intake.dependents.first.update(dob: five_years_one_day)
+        intake.dependents.reload
+        allow(instance).to receive(:calculate_line_42).and_return 10_000
+        instance.calculate
+        expect(intake.dependents.count).to eq(1)
+        expect(instance.lines[:NJ1040_LINE_65].value).to eq(nil)
+      end
+    end
+
+    context 'with multiple dependents, some of whom are under 5 years old' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
+
+      context 'with 1 dependent' do
+        before do
+          five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
+          five_years_one_day = Date.new(MultiTenantService.new(:statefile).current_tax_year - 6, 12, 31)
+          intake.synchronize_df_dependents_to_database
+          intake.dependents.each do |d| d.update(dob: five_years_one_day) end
+          intake.dependents.first.update(dob: five_years)
+          intake.dependents.reload
+        end
+        
+        it 'returns 1000 for 1 eligible dependent and a taxable income of 10k' do
+          allow(instance).to receive(:calculate_line_42).and_return 10_000
+          instance.calculate
+          expect(intake.dependents.count).to eq(11)
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(1000)
+        end
+
+        it 'returns 800 for 1 eligible dependent and a taxable income of 40k' do
+          allow(instance).to receive(:calculate_line_42).and_return 40_000
+          instance.calculate
+          expect(intake.dependents.count).to eq(11)
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(800)
+        end
+      end
+
+      context 'with 11 dependents' do
+        before do
+          five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
+          intake.synchronize_df_dependents_to_database
+          intake.dependents.each do |d| d.update(dob: five_years) end
+          intake.dependents.reload
+        end
+
+        it 'returns 11000 for 11 eligible dependents and a taxable income of 10k' do
+          allow(instance).to receive(:calculate_line_42).and_return 10_000
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(11_000)
+        end
+
+        it 'returns 8800 for 11 dependents and a taxable income of 40k' do
+          allow(instance).to receive(:calculate_line_42).and_return 40_000
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(8800)
+        end
+      end
+
     end
   end
 end

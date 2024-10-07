@@ -17,11 +17,17 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
     context "pulling fields from xml" do
       let(:intake) { create(:state_file_nc_intake, filing_status: "single", primary_last_name: "Carolinianian", primary_esigned: "yes", primary_esigned_at: DateTime.now) }
+      let(:intake) {
+        create(:state_file_nc_intake,
+               filing_status: "single",
+               primary_last_name: "Carolinianian",
+               untaxed_out_of_state_purchases: "no")
+      }
 
       context "single filer" do
         it 'sets static fields to the correct values' do
           expect(pdf_fields['y_d400wf_datebeg']).to eq '01-01'
-          expect(pdf_fields['y_d400wf_dateend']).to eq '12-31-24'
+          expect(pdf_fields['y_d400wf_dateend']).to eq "12-31-#{Rails.configuration.statefile_current_tax_year.to_s[-2..-1]}"
           expect(pdf_fields['y_d400wf_rs1yes']).to eq 'Yes'
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Off'
           expect(pdf_fields['y_d400wf_county']).to eq 'Alama'
@@ -54,6 +60,13 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li23_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_dayphone']).to eq '9845559876'
+          expect(pdf_fields['y_d400wf_Consumer_Use_Tax']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_li18_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li19_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li26a_pg2_good']).to eq ''
+          expect(pdf_fields['y_d400wf_li27_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '15'
+          expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_sigdate']). to eq DateTime.now.strftime('%Y-%m-%d')
           expect(pdf_fields['y_d400wf_sigdate2']). to eq ""
         end
@@ -94,7 +107,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
         it 'sets static fields to the correct values' do
           expect(pdf_fields['y_d400wf_datebeg']).to eq '01-01'
-          expect(pdf_fields['y_d400wf_dateend']).to eq '12-31-24'
+          expect(pdf_fields['y_d400wf_dateend']).to eq "12-31-#{Rails.configuration.statefile_current_tax_year.to_s[-2..-1]}"
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Yes'
         end
 
