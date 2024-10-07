@@ -106,8 +106,6 @@ module Efile
       end
 
       def calculate_line_40a
-        is_mfs = @intake.filing_status == :married_filing_separately
-
         case @intake.household_rent_own
         when "own"
           if @intake.property_tax_paid.nil?
@@ -120,7 +118,7 @@ module Efile
           return nil
         end
 
-        is_mfs ? (property_tax_paid / 2.0).round : property_tax_paid.round
+        @intake.filing_status_mfs? ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
       def calculate_line_41
