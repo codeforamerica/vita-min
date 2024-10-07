@@ -265,9 +265,19 @@ module PdfFiller
         })
       end
 
-      # line 65 nj child tax credit
-      if get_nj_ctc
-        answers.merge!(insert_digits_into_fields(get_nj_ctc, [
+      if get_line_64_nj_child_dependent_care
+        answers.merge!(insert_digits_into_fields(get_line_64_nj_child_dependent_care, [
+                                                   'Text196',
+                                                   'Text195',
+                                                   'Text194',
+                                                   'Text193',
+                                                   'Text192',
+                                                   'undefined_168'
+                                                 ]))
+      end
+
+      if get_line_65_nj_ctc
+        answers.merge!(insert_digits_into_fields(get_line_65_nj_ctc, [
                                                    "Text186",
                                                    "Text185",
                                                    "Text184",
@@ -276,7 +286,6 @@ module PdfFiller
                                                    "undefined_162",
                                                  ]))
       end
-
       answers
     end
 
@@ -497,8 +506,13 @@ module PdfFiller
       @xml_document.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")&.text
     end
 
-    def get_nj_ctc
+    def get_line_64_nj_child_dependent_care
+      @xml_document.at('ChildDependentCareCredit')&.text.to_i
+    end
+    
+    def get_line_65_nj_ctc
       @xml_document.at("Body NJChildTaxCredit")&.text.to_i
     end
+    
   end
 end

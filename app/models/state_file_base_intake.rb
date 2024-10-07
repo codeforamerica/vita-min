@@ -59,14 +59,18 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def synchronize_filers_to_database
-    attributes_to_update = {
-      primary_first_name: direct_file_json_data.primary_first_name,
-      primary_middle_initial: direct_file_json_data.primary_middle_initial,
-      primary_last_name: direct_file_json_data.primary_last_name,
-      primary_birth_date: direct_file_json_data.primary_dob
-    }
+    attributes_to_update = {}
 
-    if filing_status_mfj?
+    if direct_file_json_data.primary_filer.present?
+      attributes_to_update.merge!(
+        primary_first_name: direct_file_json_data.primary_first_name,
+        primary_middle_initial: direct_file_json_data.primary_middle_initial,
+        primary_last_name: direct_file_json_data.primary_last_name,
+        primary_birth_date: direct_file_json_data.primary_dob
+      )
+    end
+
+    if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
       attributes_to_update.merge!(
         spouse_first_name: direct_file_json_data.spouse_first_name,
         spouse_middle_initial: direct_file_json_data.spouse_middle_initial,
@@ -75,7 +79,7 @@ class StateFileBaseIntake < ApplicationRecord
       )
     end
 
-    update(attributes_to_update)
+    update(attributes_to_update) if attributes_to_update.present?
   end
 
   def synchronize_df_dependents_to_database

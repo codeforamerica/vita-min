@@ -179,5 +179,11 @@ FactoryBot.define do
         intake.direct_file_data.spouse_blind
       end
     end
+
+    trait :fed_credit_for_child_and_dependent_care do
+      after(:build) do |intake|
+        intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
+      end
+    end
   end
 end

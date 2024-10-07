@@ -72,6 +72,8 @@ module PdfFiller
         y_d400wf_li27_pg2_good: @xml_document.at('TotalAmountDue')&.text,
         y_d400wf_li28_pg2_good: @xml_document.at('Overpayment')&.text,
         y_d400wf_li34_pg2_good: @xml_document.at('RefundAmt')&.text,
+        y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? @submission.data_source.primary_esigned_at.to_date : "",
+        y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? @submission.data_source.spouse_esigned_at.to_date : ""
       }
     end
 

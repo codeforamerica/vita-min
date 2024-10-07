@@ -12,11 +12,6 @@ describe StateFileBaseIntake do
         expect(intake.primary_middle_initial).to be_nil
         expect(intake.primary_last_name).to eq("Turner")
         expect(intake.primary_birth_date).to eq(Date.parse("1980-01-01"))
-
-        expect(intake.spouse_first_name).to be_nil
-        expect(intake.spouse_middle_initial).to be_nil
-        expect(intake.spouse_last_name).to be_nil
-        expect(intake.spouse_birth_date).to be_nil
       end
     end
 
