@@ -58,6 +58,26 @@ class StateFileBaseIntake < ApplicationRecord
     @direct_file_json_data ||= DirectFileJsonData.new(raw_direct_file_intake_data)
   end
 
+  def synchronize_filers_to_database
+    attributes_to_update = {
+      primary_first_name: direct_file_json_data.primary_first_name,
+      primary_middle_initial: direct_file_json_data.primary_middle_initial,
+      primary_last_name: direct_file_json_data.primary_last_name,
+      primary_birth_date: direct_file_json_data.primary_dob
+    }
+
+    if filing_status_mfj?
+      attributes_to_update.merge!(
+        spouse_first_name: direct_file_json_data.spouse_first_name,
+        spouse_middle_initial: direct_file_json_data.spouse_middle_initial,
+        spouse_last_name: direct_file_json_data.spouse_last_name,
+        spouse_birth_date: direct_file_json_data.spouse_dob
+      )
+    end
+
+    update(attributes_to_update)
+  end
+
   def synchronize_df_dependents_to_database
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build
