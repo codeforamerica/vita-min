@@ -4,28 +4,30 @@
     <%= render 'node_xml_reveal', xml: f.object.to_pretty_s %>
 
     <table>
-      <%= f.state_file_nested_xml_field :PayerNameControlTxt %>
-      <%= f.state_file_nested_xml_field :PayerName %>
-      <%= f.state_file_nested_xml_field :PayerAddressLine1Txt %>
-      <%= f.state_file_nested_xml_field :PayerCityNm %>
-      <%= f.state_file_nested_xml_field :PayerStateAbbreviationCd %>
-      <%= f.state_file_nested_xml_field :PayerZIPCd %>
-      <%= f.state_file_nested_xml_field :PayerEIN %>
-      <%= f.state_file_nested_xml_field :PhoneNum %>
-      <%= f.state_file_nested_xml_field :GrossDistributionAmt %>
-      <%= f.state_file_nested_xml_field :TaxableAmt %>
-      <%= f.state_file_nested_xml_field :FederalIncomeTaxWithheldAmt %>
-      <%= f.state_file_nested_xml_field :F1099RDistributionCd %>
-      <%= f.state_file_nested_xml_field :StateTaxWithheldAmt %>
-      <%= f.state_file_nested_xml_field :StateAbbreviationCd %>
-      <%= f.state_file_nested_xml_field :PayerStateIdNum %>
-      <%= f.state_file_nested_xml_field :StateDistributionAmt %>
-      <%= f.state_file_nested_xml_field :RecipientSSN %>
-      <%= f.state_file_nested_xml_field :RecipientNm %>
-      <%= f.state_file_nested_xml_field :TxblAmountNotDeterminedInd %>
-      <%= f.state_file_nested_xml_field :TotalDistributionInd %>
-      <%= f.state_file_nested_xml_field :CapitalGainAmt %>
-      <%= f.state_file_nested_xml_field :DesignatedROTHAcctFirstYr %>
+      <%= f.state_file_nested_xml_field :payer_name_control %>
+      <%= f.state_file_nested_xml_field :payer_name %>
+      <%= f.state_file_nested_xml_field :payer_address_line1 %>
+      <%= f.state_file_nested_xml_field :payer_address_line2 %>
+      <%= f.state_file_nested_xml_field :payer_city_name %>
+      <%= f.state_file_nested_xml_field :payer_state_code %>
+      <%= f.state_file_nested_xml_field :payer_zip %>
+      <%= f.state_file_nested_xml_field :payer_identification_number %>
+      <%= f.state_file_nested_xml_field :phone_number %>
+      <%= f.state_file_nested_xml_field :gross_distribution_amount %>
+      <%= f.state_file_nested_xml_field :taxable_amount %>
+      <%= f.state_file_nested_xml_field :federal_income_tax_withheld_amount %>
+      <%= f.state_file_nested_xml_field :distribution_code %>
+      <%= f.state_file_nested_xml_field :standard %>
+      <%= f.state_file_nested_xml_field :state_tax_withheld_amount %>
+      <%= f.state_file_nested_xml_field :state_code %>
+      <%= f.state_file_nested_xml_field :payer_state_identification_number %>
+      <%= f.state_file_nested_xml_field :state_distribution_amount %>
+      <%= f.state_file_nested_xml_field :recipient_ssn %>
+      <%= f.state_file_nested_xml_field :recipient_name %>
+      <%= f.state_file_nested_xml_field :taxable_amount_not_determined %>
+      <%= f.state_file_nested_xml_field :total_distribution %>
+      <%= f.state_file_nested_xml_field :capital_gain_amount %>
+      <%= f.state_file_nested_xml_field :designated_roth_account_first_year %>
     </table>
 
     <%= f.hidden_field :_destroy %>

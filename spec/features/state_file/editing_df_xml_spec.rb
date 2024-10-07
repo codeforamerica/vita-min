@@ -74,22 +74,22 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     # 1099R
     fill_in "TotalTaxablePensionsAmt", with: 200
 
-    fill_in "PayerName", with: "Rose Apothecary"
-    fill_in "PayerNameControlTxt", with: "ROSEAPC"
-    fill_in "PayerAddressLine1Txt", with: "123 Schit Street"
-    fill_in "PayerCityNm", with: "Schitts Creek"
-    fill_in "PayerStateAbbreviationCd", with: "AZ"
-    fill_in "PayerZIPCd", with: "43212"
-    fill_in "PayerEIN", with: "000000003"
-    fill_in "PhoneNum", with: "3025551223"
-    fill_in "GrossDistributionAmt", with: 3000
-    fill_in "TaxableAmt", with: 200
-    fill_in "FederalIncomeTaxWithheldAmt", with: 150
-    fill_in "F1099RDistributionCd", with: "8"
-    fill_in "StateTaxWithheldAmt", with: 20
-    fill_in "StateAbbreviationCd", with: "NC"
-    fill_in "PayerStateIdNum", with: "987654321"
-    fill_in "StateDistributionAmt", with: 200
+    fill_in "payer_name", with: "Rose Apothecary"
+    fill_in "payer_name_control", with: "ROSEAPC"
+    fill_in "payer_address_line1", with: "123 Schit Street"
+    fill_in "payer_city_name", with: "Schitts Creek"
+    fill_in "payer_state_code", with: "AZ"
+    fill_in "payer_zip", with: "43212"
+    fill_in "payer_identification_number", with: "000000003"
+    fill_in "phone_number", with: "3025551223"
+    fill_in "gross_distribution_amount", with: 3000
+    fill_in "taxable_amount", with: 200
+    fill_in "federal_income_tax_withheld_amount", with: 150
+    fill_in "distribution_code", with: "8"
+    fill_in "state_tax_withheld_amount", with: 20
+    fill_in "state_code", with: "NC"
+    fill_in "payer_state_identification_number", with: "987654321"
+    fill_in "state_distribution_amount", with: 200
 
     click_on "Continue"
 
@@ -109,22 +109,24 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.direct_file_data.fed_taxable_pensions).to eq 200
     expect(StateFileAzIntake.last.direct_file_data.primary_ssn).to eq "123-45-6789"
     expect(StateFileAzIntake.last.direct_file_data.phone_number).to eq "5551112222"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerName).to eq "Rose Apothecary"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerNameControlTxt).to eq "ROSEAPC"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerAddressLine1Txt).to eq "123 Schit Street"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerCityNm).to eq "Schitts Creek"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateAbbreviationCd).to eq "AZ"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerZIPCd).to eq "43212"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerEIN).to eq "000000003"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PhoneNum).to eq "3025551223"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].GrossDistributionAmt).to eq 3000
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].TaxableAmt).to eq 200
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].FederalIncomeTaxWithheldAmt).to eq 150
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].F1099RDistributionCd).to eq "8"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateTaxWithheldAmt).to eq 20
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateAbbreviationCd).to eq "NC"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].PayerStateIdNum).to eq "987654321"
-    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].StateDistributionAmt).to eq 200
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_name).to eq "Rose Apothecary"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_name_control).to eq "ROSEAPC"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_address_line1).to eq "123 Schit Street"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_city_name).to eq "Schitts Creek"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_state_code).to eq "AZ"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_zip).to eq "43212"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_identification_number).to eq "000000003"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].phone_number).to eq "3025551223"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].gross_distribution_amount).to eq 3000
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].taxable_amount).to eq 200
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].federal_income_tax_withheld_amount).to eq 150
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].distribution_code).to eq "8"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].state_tax_withheld_amount).to eq 20
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].state_code).to eq "NC"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].payer_state_identification_number).to eq "987654321"
+    expect(StateFileAzIntake.last.direct_file_data.form1099rs[0].state_distribution_amount).to eq 200
+
+    expect(StateFileAzIntake.last.state_file1099_rs[0].state_tax_withheld_amount).to eq 20
   end
 
   it "preserves W2 when XML Editor is opened without changes" do

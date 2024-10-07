@@ -64,9 +64,9 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def copy_df_1099_rs_to_database
-    direct_file_data.form1099rs.each do |direct_file_1099_r|
-      state_file1099_r = state_file1099_rs.build
+  def synchronize_df_1099_rs_to_database
+    direct_file_data.form1099rs.each_with_index do |direct_file_1099_r, i|
+      state_file1099_r = state_file1099_rs[i] || state_file1099_rs.build
       state_file1099_r.assign_attributes(direct_file_1099_r.to_h)
       state_file1099_r.assign_attributes(intake: self)
       state_file1099_r.save!
