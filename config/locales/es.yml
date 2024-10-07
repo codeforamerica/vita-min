@@ -2530,7 +2530,7 @@ es:
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
       nj_disabled_exemption:
         edit:
-          instructions_html: People with disabilities are eligible for tax exemptions. <br><br> In NJ, you are considered disabled if you have a "total and permanent inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness."<br><br>(This is different from the federal tax definition. NJ doesn’t consider your age or your receipt of taxable disability income.)
+          instructions_html: People with disabilities are eligible for tax exemptions. <br><br> In NJ, you are considered disabled if you have a "total and permanent inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness." <br><br> (This is different from the federal tax definition. NJ doesn’t consider your age or your receipt of taxable disability income.)
           primary_disabled_question: Are you disabled according to the New Jersey definition?
           primary_label: Select whether you were disabled in %{filing_year}.
           spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
