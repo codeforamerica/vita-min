@@ -26,7 +26,7 @@ module StateFile
       File.read(path(key)) if include?(key)
     end
 
-    # TODO: Re-evaluate and remove use of old_sample once all our return examples when updated 2024 state return examples
+    # TODO: Re-evaluate and remove use of old_sample once all our return examples are updated to 2024 versions
     def old_sample
       read("abcdefg")
     end

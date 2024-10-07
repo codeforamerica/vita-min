@@ -29,4 +29,25 @@ describe DirectFileJsonData do
       expect(direct_file_json_data.spouse_dob).to eq Date.parse("1980-01-01")
     end
   end
+
+  describe "#find_matching_json_dependent" do
+    let(:intake) { create :state_file_id_intake, :with_dependents}
+    let(:direct_file_json_data) { intake.direct_file_json_data }
+    let(:dependents) { intake.dependents }
+
+    before do
+      intake.synchronize_df_dependents_to_database
+    end
+
+    it "should be able to find matching dependent from xml in json" do
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[0])["firstName"]).to eq("Gloria")
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[1])["firstName"]).to eq("Patrick")
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[2])["firstName"]).to eq("Jack")
+    end
+
+    it "should be return nil if dependent is not found in json" do
+      intake.dependents.create(first_name: "Jill", last_name: "Hemingway", relationship: "daughter")
+      expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.last)).to eq(nil)
+    end
+  end
 end
