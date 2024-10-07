@@ -161,7 +161,7 @@ module Efile
       end
       
       def calculate_line_64
-        federal_child_and_dependent_care_credit = @intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount
+        federal_child_and_dependent_care_credit = @direct_file_data.fed_credit_for_child_and_dependent_care_amount
         nj_taxable_income = calculate_line_42
         if nj_taxable_income <= 30_000
           federal_child_and_dependent_care_credit * 0.5
