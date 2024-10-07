@@ -79,17 +79,18 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 brew install git-duet/tap/git-duet
 ```
 
-#### Setup script
+#### Adding Credential Files
 
-There is a setup script that handles virtually everything with a single command:
+You need to add the following credential files under the `config/credentials` folder:
 
-```sh
-# In the root of vita-min
-bin/setup
-```
-> ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
+- `circleci.key`
+- `development.key`
+- `demo.key`
+- `heroku.key`
+- `staging.key`
+- `production.key`
 
-> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
+You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
 
 #### Add efile resources locally
 
@@ -103,18 +104,17 @@ Run this rake task to get a list of missing schemas, where to download them from
 rake setup:unzip_efile_schemas
 ```
 
-#### Adding Credential Files
+#### Setup script
 
-You need to add the following credential files under the `config/credentials` folder:
+There is a setup script that handles virtually everything with a single command:
 
-- `circleci.key`
-- `development.key`
-- `demo.key`
-- `heroku.key`
-- `staging.key`
-- `production.key`
+```sh
+# In the root of vita-min
+bin/setup
+```
+> ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
 
-You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
+> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
 
 #### Download the GYR Efiler
 
