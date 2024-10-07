@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'DirectFileJsonData' do
+describe DirectFileJsonData do
   describe "for a single filer" do
     let(:intake) { create :state_file_id_intake, :single_filer_with_json}
     let(:direct_file_json_data) { intake.direct_file_json_data }
     it "can read value" do
       expect(direct_file_json_data.primary_first_name).to eq "Lana"
-      expect(direct_file_json_data.primary_dob).to eq "1980-01-01"
+      expect(direct_file_json_data.primary_dob).to eq Date.parse("1980-01-01")
       expect(direct_file_json_data.primary_middle_initial).to eq nil
       expect(direct_file_json_data.primary_last_name).to eq "Turner"
     end
@@ -25,8 +25,8 @@ describe 'DirectFileJsonData' do
       expect(direct_file_json_data.primary_last_name).to eq "Revere"
       expect(direct_file_json_data.spouse_last_name).to eq "Revere"
 
-      expect(direct_file_json_data.primary_dob).to eq "1980-01-01"
-      expect(direct_file_json_data.spouse_dob).to eq "1980-01-01"
+      expect(direct_file_json_data.primary_dob).to eq Date.parse("1980-01-01")
+      expect(direct_file_json_data.spouse_dob).to eq Date.parse("1980-01-01")
     end
   end
 end

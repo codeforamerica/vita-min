@@ -64,7 +64,7 @@ class DirectFileJsonData
   end
 
   def find_matching_json_dependent(dependent)
-    return nil unless dependents.present?
+    return nil unless dependents.respond_to?(:find)
 
     dependents.find do |json_dependent|
       json_dependent["firstName"] == dependent.first_name
