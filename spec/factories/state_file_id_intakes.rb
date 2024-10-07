@@ -90,6 +90,7 @@ FactoryBot.define do
     end
 
     trait :mfj_filer_with_json do
+      filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_paul_mfj') }
       raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_paul_mfj') }
     end
