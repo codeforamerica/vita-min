@@ -1,0 +1,11 @@
+<% @main_heading = "Admin Tools" %>
+<% content_for :page_title, @main_heading %>
+
+<% content_for :card do %>
+  <div class="slab">
+    <div class="grid">
+      <h2>State File Actions</h2>
+      <%= render 'hub/tools_table', actions: @actions %>
+    </div>
+  </div>
+<% end %>

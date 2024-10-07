@@ -610,6 +610,7 @@ class FlowsController < ApplicationController
         property_over_limit: "unfilled",
         public_housing: "unfilled",
         raw_direct_file_data: StateFile::XmlReturnSampleService.new.old_sample,
+        raw_direct_file_intake_data: StateFile::JsonReturnSampleService.new.old_sample,
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district_id: 441,
@@ -656,6 +657,7 @@ class FlowsController < ApplicationController
         locale: 'en',
         unfinished_intake_ids: [],
         raw_direct_file_data: StateFile::XmlReturnSampleService.new.az_xml_sample(filing_status),
+        raw_direct_file_intake_data: StateFile::JsonReturnSampleService.new.old_sample,
         df_data_imported_at: 2.hours.ago
       )
       status_specific_attributes = case filing_status

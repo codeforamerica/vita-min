@@ -12,7 +12,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
       get :edit
       expect(response).to be_successful
     end
-    
+
     context "when a user is a renter" do
       let(:form_params) {
         {
@@ -41,27 +41,12 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
           }
         }
       }
-  
+
       it "saves the correct name and code" do
         expect(intake.household_rent_own).to eq "neither"
         post :update, params: form_params
         intake.reload
         expect(intake.household_rent_own).to eq "own"
-      end
-    end 
-
-    context "when the screen is part of the review flow" do
-      # use the return_to_review_concern shared example if the page
-      # should skip to the review page when the return_to_review param is present
-      # requires form_params to be set with any other required params
-      it_behaves_like :return_to_review_concern do
-        let(:form_params) do
-          {
-            state_file_nj_household_rent_own_form: {
-              household_rent_own: :neither
-            }
-          }
-        end
       end
     end
   end
@@ -72,7 +57,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
 
         it "next path is property_tax page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper)
+          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerEligibilityController.to_path_helper)
         end
       end
 
@@ -84,20 +69,19 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         end
       end
 
+      context "when intake is both" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
+
+        it "next path is unsupported page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        end
+      end
+
       context "when intake is neither" do
         let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
 
-        it "navigates to next controller in flow" do
-          controllers = Navigation::StateFileNjQuestionNavigation::FLOW
-          next_controller_to_show = nil
-          increment = 1
-          while next_controller_to_show.nil?
-            next_controller = controllers[controllers.index(described_class) + increment]
-            next_controller_to_show = next_controller.show?(intake) ? next_controller : nil
-            increment += 1
-          end
-
-          expect(subject.next_path).to include(next_controller.controller_name)
+        it "next path is ineligible page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
         end
       end
     end
@@ -110,7 +94,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
 
         it "navigates to the property_tax page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "nj_homeowner_property_tax", action: :edit, return_to_review: 'y')
+          expect(response).to redirect_to(controller: "nj_homeowner_eligibility", action: :edit, return_to_review: 'y')
         end
       end
 
@@ -130,12 +114,23 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
           { state_file_nj_household_rent_own_form: { household_rent_own: "neither" } }
         end
 
-        it "navigates back to review" do
+        it "navigates to the ineligible page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "nj_review", action: :edit)
+          expect(response).to redirect_to(controller: "nj_ineligible_property_tax", action: :edit, return_to_review: 'y')
+        end
+      end
+
+      context "when intake is both" do
+        let(:form_params) do
+          { state_file_nj_household_rent_own_form: { household_rent_own: "both" } }
+        end
+
+        it "navigates to the unsupported page with the param" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(controller: "nj_unsupported_property_tax", action: :edit, return_to_review: 'y')
         end
       end
     end
   end
-
 end
+

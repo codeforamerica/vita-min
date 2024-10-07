@@ -9,7 +9,7 @@ module Hub
           "SELECT state_file_#{_state_code}_intakes.id as intake_id, 'StateFile#{_state_code.to_s.titleize}Intake' as ds_type, '#{_state_code}' as data_source_state_code, state_file_#{_state_code}_intakes.email_address FROM state_file_#{_state_code}_intakes"
         end
         join_sql = "INNER JOIN (#{join_sql.join(" UNION ")}) data_source ON efile_submissions.data_source_id = data_source.intake_id and efile_submissions.data_source_type = data_source.ds_type"
-        @efile_submissions = EfileSubmission.joins(join_sql).select("efile_submissions.*, data_source.*")
+        @efile_submissions = @efile_submissions.joins(join_sql).select("efile_submissions.*, data_source.*")
         search = params[:search]
         if search.present?
           query = "email_address LIKE ? OR irs_submission_id LIKE ?"
@@ -28,7 +28,9 @@ module Hub
 
       def show
         @efile_submissions_same_intake = EfileSubmission.where(data_source: @efile_submission.data_source).where.not(id: @efile_submission.id)
-        authorize! :read, @efile_submissions_same_intake
+        @efile_submissions_same_intake.each do |efile_submission_same_intake|
+          authorize! :read, efile_submission_same_intake
+        end
         @valid_transitions = EfileSubmissionStateMachine.states.filter do |state|
           next if %w[failed rejected].include?(state) && acts_like_production?
           @efile_submission.can_transition_to?(state)
@@ -39,6 +41,7 @@ module Hub
         return nil if acts_like_production?
 
         submission = EfileSubmission.find(params[:efile_submission_id])
+        authorize! :read, submission
         builder = ::StateFile::StateInformationService.submission_builder_class(submission.data_source.state_code)
         builder_response = builder.build(submission)
         builder_response.errors.present? ? render(plain: builder_response.errors.join("\n") + "\n\n" + builder_response.document.to_xml) : render(xml: builder_response.document)
@@ -47,13 +50,17 @@ module Hub
       def show_df_xml
         return nil if acts_like_production?
 
-        response = EfileSubmission.find(params[:efile_submission_id]).data_source.raw_direct_file_data
+        submission = EfileSubmission.find(params[:efile_submission_id])
+        authorize! :read, submission
+        response = submission.data_source.raw_direct_file_data
         render(xml: response)
       end
 
       def show_pdf
         submission = EfileSubmission.find(params[:efile_submission_id])
         error_redirect and return unless submission.present?
+
+        authorize! :read, submission
 
         send_data submission.generate_filing_pdf.read, filename: "#{params[:efile_submission_id]}_submission.pdf", disposition: 'inline'
       end

@@ -27,6 +27,13 @@ RSpec.describe StateFile::Questions::NjRenterRentPaidController do
         expect(described_class.show?(intake)).to eq false
       end
     end
+
+    context "when indicated both rent and own" do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
+      it "does not show" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
   end
 
   describe "#edit" do

@@ -19,9 +19,11 @@ describe Hub::StateFile::FaqCategoriesController do
     it "renders index" do
       get :index
       expect(response).to render_template :index
-      expect(assigns(:az_faq_categories)).to match_array [faq_category, faq_category_2]
-      expect(assigns(:ny_faq_categories)).to match_array [faq_category_ny]
-      expect(assigns(:nc_faq_categories)).to match_array [faq_category_nc]
+      state_faq_categories = assigns(:state_faq_categories)
+      expect(state_faq_categories.keys.to_set).to eq(StateFile::StateInformationService.active_state_codes.to_set)
+      expect(state_faq_categories["az"]).to match_array [faq_category, faq_category_2]
+      expect(state_faq_categories["ny"]).to match_array [faq_category_ny]
+      expect(state_faq_categories["nc"]).to match_array [faq_category_nc]
     end
   end
 
