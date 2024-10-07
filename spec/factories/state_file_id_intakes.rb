@@ -93,5 +93,10 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_paul_mfj') }
       raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_paul_mfj') }
     end
+
+    trait :with_dependents do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_ernest_hoh') }
+      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
+    end
   end
 end
