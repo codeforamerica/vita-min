@@ -70,6 +70,7 @@ describe 'EfileError' do
       "nc-subtractions",
       "nc-veteran-status",
       "nj-county",
+      "nj-disabled-exemption",
       "nj-homeowner-property-tax",
       "nj-household-rent-own",
       "nj-municipality",
