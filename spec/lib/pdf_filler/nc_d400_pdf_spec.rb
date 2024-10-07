@@ -16,12 +16,13 @@ RSpec.describe PdfFiller::NcD400Pdf do
     end
 
     context "pulling fields from xml" do
-      let(:intake) { create(:state_file_nc_intake, filing_status: "single", primary_last_name: "Carolinianian", primary_esigned: "yes", primary_esigned_at: DateTime.now) }
       let(:intake) {
         create(:state_file_nc_intake,
                filing_status: "single",
                primary_last_name: "Carolinianian",
-               untaxed_out_of_state_purchases: "no")
+               untaxed_out_of_state_purchases: "no",
+               primary_esigned: "yes",
+               primary_esigned_at: DateTime.now)
       }
 
       context "single filer" do
