@@ -113,6 +113,10 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_1099_rs_synced do
+      after(:create, &:synchronize_df_1099_rs_to_database)
+    end
+
     trait :with_spouse do
       filing_status { 'married_filing_jointly' }
       spouse_first_name { "Spouth" }
