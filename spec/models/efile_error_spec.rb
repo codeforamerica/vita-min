@@ -43,7 +43,6 @@ describe 'EfileError' do
       "az-prior-last-names",
       "az-public-school-contributions",
       'az-qualifying-organization-contributions',
-      "az-retirement-income",
       "az-review",
       "az-senior-dependents",
       "az-spouse-state-id",

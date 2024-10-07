@@ -112,19 +112,12 @@ module Efile
 
       def calculate_line_29A
         # total subtraction amount for pensions up to the maximum of $2,500 each for primary and spouse
-        pension_amount = 0
-        if @intake.primary_received_pension_yes?
-          pension_amount += [@intake.primary_received_pension_amount.round, 2_500].min
-        end
-        if filing_status_mfj? && @intake.spouse_received_pension_yes?
-          pension_amount += [@intake.spouse_received_pension_amount.round, 2_500].min
-        end
-        pension_amount
+        0
       end
 
       def calculate_line_29B
         # total subtraction amount for uniformed services
-        @intake.received_military_retirement_payment_yes? ? @intake.received_military_retirement_payment_amount.round : 0
+        0
       end
 
       def calculate_line_31
@@ -264,7 +257,7 @@ module Efile
         # sum of tax withheld from all income documents: W-2, 1099-R, 1099-G, 1099-INT
         @direct_file_data.total_w2_state_tax_withheld +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
-          @direct_file_data.total_1099r_state_tax_withheld
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
 
       def calculate_line_56

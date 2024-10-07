@@ -218,7 +218,7 @@
         <F1099RStateTaxGrp>
           <StateTaxWithheldAmt>10</StateTaxWithheldAmt>
           <StateAbbreviationCd>AZ</StateAbbreviationCd>
-          <PayerStateIdNumber>123456789</PayerStateIdNumber>
+          <PayerStateIdNum>123456789</PayerStateIdNum>
           <StateDistributionAmt>100</StateDistributionAmt>
         </F1099RStateTaxGrp>
       </F1099RStateLocalTaxGrp>

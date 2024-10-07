@@ -35,7 +35,6 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzRetirementIncomeController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),

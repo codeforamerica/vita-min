@@ -47,6 +47,18 @@ describe StateFileBaseIntake do
     end
   end
 
+  describe "#synchronize_df_1099_rs_to_database" do
+    it "reads in 1099Rs and adds all of them to the database" do
+      xml = StateFile::XmlReturnSampleService.new.read('az_alexis_hoh_w2_and_1099')
+      intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
+      expect(intake.state_file1099_rs).to be_blank
+      intake.synchronize_df_1099_rs_to_database
+
+      expect(intake.state_file1099_rs.first.state_tax_withheld_amount).to eq 10
+      expect(intake.state_file1099_rs.count).to eq 1
+    end
+  end
+
   describe "#timedout?" do
     let!(:intake) { create :state_file_az_intake }
     let!(:efile_submission) { create :efile_submission, data_source_id: intake.id, data_source_type: "StateFileAzIntake" }

@@ -658,11 +658,7 @@ class FlowsController < ApplicationController
         unfinished_intake_ids: [],
         raw_direct_file_data: StateFile::XmlReturnSampleService.new.az_xml_sample(filing_status),
         raw_direct_file_intake_data: StateFile::JsonReturnSampleService.new.old_sample,
-        df_data_imported_at: 2.hours.ago,
-        primary_received_pension: "yes",
-        received_military_retirement_payment: "yes",
-        received_military_retirement_payment_amount: 100,
-        spouse_received_pension: "yes",
+        df_data_imported_at: 2.hours.ago
       )
       status_specific_attributes = case filing_status
                                    when :married_filing_jointly, :married_filing_separately
