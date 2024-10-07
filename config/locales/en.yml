@@ -2588,11 +2588,6 @@ en:
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
-      nj_renter_rent_paid:
-        edit:
-          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
-          label: Rent paid in %{filing_year}
-          title: Enter your rent paid in %{filing_year}.
       nj_review:
         edit:
           county: County
@@ -2600,6 +2595,23 @@ en:
           municipality: Municipality
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+      nj_tenant_eligibility:
+        edit:
+          helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
+          helper_heading: What is not included here?
+          label: Did any of these apply to you?
+          tenant_access_kitchen_bath: Did you have access to kitchen and bath facilities?
+          tenant_building_multi_unit: If you rented your main home in a building that had more than one dwelling unit.
+          tenant_home_subject_to_property_taxes: Your main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
+          tenant_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          tenant_same_home_spouse: Did you and your spouse live in the same home?
+          tenant_shared_rent_not_spouse: Did you occupy and share rent for your main home (apartment/rental unit) with someone who was not your spouse during the year?
+          title: You said you were a tenant in %{filing_year}.
+      nj_tenant_rent_paid:
+        edit:
+          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
+          label: Rent paid in %{filing_year}
+          title: Enter your rent paid in %{filing_year}.
       nj_unsupported_property_tax:
         edit:
           helper_1_html: "<strong>What is this credit?</strong> If you qualify, you can deduct up to $15,000 in property tax expenses from your taxable income, or receive up to $50 in credit."
