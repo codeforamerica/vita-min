@@ -105,10 +105,10 @@ module Efile
 
         sum = 0
         @direct_file_data.w2s.each do |w2|
-          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_f
+          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_i
           sum += state_wage
         end
-        sum.round
+        sum
       end
 
       def calculate_line_27

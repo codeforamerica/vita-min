@@ -1,5 +1,18 @@
 require 'rails_helper'
 
+spec_vars = {
+  default: {
+    w2_node_name: "IRSW2",
+    employer_state_id_num_name: "EmployerStateIdNum",
+    locality_name: "LocalityNm"
+  },
+  nj: {
+    w2_node_name: "NJW2",
+    employer_state_id_num_name: "EmployersStateIdNumber",
+    locality_name: "NameOfLocality"
+  }
+}
+
 describe SubmissionBuilder::StateReturn do
   states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc", "id")
   states_requiring_w2s.each do |state_code|
@@ -9,6 +22,7 @@ describe SubmissionBuilder::StateReturn do
       let(:submission) { create(:efile_submission, data_source: intake) }
       let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
       let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
+      let(:vars) { spec_vars[state_code.to_sym] || spec_vars[:default] }
 
       context "when there are w2s present" do
         let(:filing_status) { 'single' }
@@ -16,7 +30,7 @@ describe SubmissionBuilder::StateReturn do
         context "when the intake does not have any state_file_w2s" do
           it "copies all w2s from the direct file xml field" do
             xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
-            expect(xml.css('IRSW2').count).to eq intake.direct_file_data.w2s.length
+            expect(xml.css(vars[:w2_node_name]).count).to eq intake.direct_file_data.w2s.length
           end
         end
 
@@ -38,7 +52,7 @@ describe SubmissionBuilder::StateReturn do
             }
             before do
               xml = Nokogiri::XML(intake.raw_direct_file_data)
-              xml.search("IRSW2").each_with_index do |w2, i|
+              xml.search(vars[:w2_node_name]).each_with_index do |w2, i|
                 if i == 1
                   w2.at("StateWagesAmt").remove
                 end
@@ -50,20 +64,20 @@ describe SubmissionBuilder::StateReturn do
               xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
 
               # w2 at index 0 remains the same
-              w2_from_xml = xml.css('IRSW2')[0]
-              expect(w2_from_xml.at("EmployerStateIdNum").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp EmployerStateIdNum").text
+              w2_from_xml = xml.css(vars[:w2_node_name])[0]
+              expect(w2_from_xml.at(vars[:employer_state_id_num_name]).text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp EmployerStateIdNum").text
               expect(w2_from_xml.at("LocalIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalIncomeTaxAmt").text
               expect(w2_from_xml.at("LocalWagesAndTipsAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalWagesAndTipsAmt").text
-              expect(w2_from_xml.at("LocalityNm").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalityNm").text.upcase
+              expect(w2_from_xml.at(vars[:locality_name]).text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp LocalityNm").text.upcase
               expect(w2_from_xml.at("StateIncomeTaxAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp StateIncomeTaxAmt").text
               expect(w2_from_xml.at("StateWagesAmt").text).to eq intake.direct_file_data.w2s[0].node.at("W2StateLocalTaxGrp StateWagesAmt").text
 
               # w2 at index 1 is filled in with info from client
-              w2_from_db = xml.css('IRSW2')[1]
-              expect(w2_from_db.at("EmployerStateIdNum").text).to eq state_file_w2.employer_state_id_num
+              w2_from_db = xml.css(vars[:w2_node_name])[1]
+              expect(w2_from_db.at(vars[:employer_state_id_num_name]).text).to eq state_file_w2.employer_state_id_num
               expect(w2_from_db.at("LocalIncomeTaxAmt")).to be_nil
               expect(w2_from_db.at("LocalWagesAndTipsAmt").text).to eq state_file_w2.local_wages_and_tips_amount.round.to_s
-              expect(w2_from_db.at("LocalityNm").text).to eq state_file_w2.locality_nm
+              expect(w2_from_db.at(vars[:locality_name]).text).to eq state_file_w2.locality_nm
               expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq state_file_w2.state_income_tax_amount.round.to_s
               expect(w2_from_db.at("StateWagesAmt").text).to eq state_file_w2.state_wages_amount.round.to_s
             end
@@ -78,16 +92,17 @@ describe SubmissionBuilder::StateReturn do
             let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, w2_index: 3) }
 
             it "updates the correct tags" do
+              w2 = vars[:w2_node_name]
               generated_document = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml, &:noblanks)
 
-              expect(generated_document.css('IRSW2').count).to eq original_w2_count
+              expect(generated_document.css(w2).count).to eq original_w2_count
               (0..3).each do |i|
-                expect(generated_document.css('IRSW2')[i].at("EmployerStateIdNum").text).to eq send("w2_#{i+1}").employer_state_id_num
-                expect(generated_document.css('IRSW2')[i].at("LocalIncomeTaxAmt").text).to eq send("w2_#{i+1}").local_income_tax_amount.round.to_s
-                expect(generated_document.css('IRSW2')[i].at("LocalWagesAndTipsAmt").text).to eq send("w2_#{i+1}").local_wages_and_tips_amount.round.to_s
-                expect(generated_document.css('IRSW2')[i].at("LocalityNm").text).to eq send("w2_#{i+1}").locality_nm
-                expect(generated_document.css('IRSW2')[i].at("StateIncomeTaxAmt").text).to eq send("w2_#{i+1}").state_income_tax_amount.round.to_s
-                expect(generated_document.css('IRSW2')[i].at("StateWagesAmt").text).to eq send("w2_#{i+1}").state_wages_amount.round.to_s
+                expect(generated_document.css(w2)[i].at(vars[:employer_state_id_num_name]).text).to eq send("w2_#{i+1}").employer_state_id_num
+                expect(generated_document.css(w2)[i].at("LocalIncomeTaxAmt").text).to eq send("w2_#{i+1}").local_income_tax_amount.round.to_s
+                expect(generated_document.css(w2)[i].at("LocalWagesAndTipsAmt").text).to eq send("w2_#{i+1}").local_wages_and_tips_amount.round.to_s
+                expect(generated_document.css(w2)[i].at(vars[:locality_name]).text).to eq send("w2_#{i+1}").locality_nm
+                expect(generated_document.css(w2)[i].at("StateIncomeTaxAmt").text).to eq send("w2_#{i+1}").state_income_tax_amount.round.to_s
+                expect(generated_document.css(w2)[i].at("StateWagesAmt").text).to eq send("w2_#{i+1}").state_wages_amount.round.to_s
               end
             end
           end

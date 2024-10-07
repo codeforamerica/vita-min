@@ -129,8 +129,8 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when 2 federal w2s' do
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
 
-      it 'sets line 15 to the rounded sum of all state wage amounts' do
-        expected_sum = (12345.67 + 50000).round
+      it 'sets line 15 to the sum of all state wage amounts' do
+        expected_sum = 12345 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
     end
@@ -138,8 +138,8 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when many federal w2s' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
 
-      it 'sets line 15 to the rounded sum of all state wage amounts' do
-        expected_sum = (50000.33 + 50000.33 + 50000.33 + 50000.33).round
+      it 'sets line 15 to the sum of all state wage amounts' do
+        expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
     end
@@ -147,8 +147,8 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe 'line 27 - total income' do
     let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
-    it 'sets line 27 to the rounded sum of all state wage amounts' do
-      line_15_w2_wages = (12345.67 + 50000).round
+    it 'sets line 27 to the sum of all state wage amounts' do
+      line_15_w2_wages = 12345 + 50000
       expect(instance.lines[:NJ1040_LINE_15].value).to eq(line_15_w2_wages)
       expect(instance.lines[:NJ1040_LINE_27].value).to eq(line_15_w2_wages)
     end
@@ -156,8 +156,8 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe 'line 29 - gross income' do
     let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
-    it 'sets line 29 to the rounded sum of all state wage amounts' do
-      line_15_w2_wages = (12345.67 + 50000).round
+    it 'sets line 29 to the sum of all state wage amounts' do
+      line_15_w2_wages = 12345 + 50000
       expect(instance.lines[:NJ1040_LINE_15].value).to eq(line_15_w2_wages)
       expect(instance.lines[:NJ1040_LINE_29].value).to eq(line_15_w2_wages)
     end

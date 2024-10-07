@@ -640,7 +640,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
 
-        it "includes the rounded sum 200,001.33 split into each box on line 15" do
+        it "includes the sum 200,000 split into each box on line 15" do
           # millions
           expect(pdf_fields["15"]).to eq ""
           expect(pdf_fields["undefined_36"]).to eq ""
@@ -651,7 +651,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           # hundreds
           expect(pdf_fields["Text101"]).to eq "0"
           expect(pdf_fields["Text103"]).to eq "0"
-          expect(pdf_fields["Text104"]).to eq "1"
+          expect(pdf_fields["Text104"]).to eq "0"
           # decimals
           expect(pdf_fields["Text105"]).to eq "0"
           expect(pdf_fields["Text106"]).to eq "0"
@@ -666,7 +666,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
 
-        it "includes the rounded sum 62,345.67 split into each box on line 15" do
+        it "includes the sum 62,345 split into each box on line 15" do
           # millions
           expect(pdf_fields["15"]).to eq ""
           expect(pdf_fields["undefined_36"]).to eq ""
@@ -677,7 +677,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           # hundreds
           expect(pdf_fields["Text101"]).to eq "3"
           expect(pdf_fields["Text103"]).to eq "4"
-          expect(pdf_fields["Text104"]).to eq "6"
+          expect(pdf_fields["Text104"]).to eq "5"
           # decimals
           expect(pdf_fields["Text105"]).to eq "0"
           expect(pdf_fields["Text106"]).to eq "0"
@@ -792,7 +792,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 27 - total income" do
-      context "when taxpayer provides total income with the sum 200,001.33" do
+      context "when taxpayer provides total income with the sum 200,000" do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
@@ -811,7 +811,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           # hundreds
           expect(pdf_fields["undefined_79"]).to eq "0"
           expect(pdf_fields["186"]).to eq "0"
-          expect(pdf_fields["187"]).to eq "1"
+          expect(pdf_fields["187"]).to eq "0"
           # decimals
           expect(pdf_fields["undefined_80"]).to eq "0"
           expect(pdf_fields["188"]).to eq "0"
@@ -846,7 +846,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 29 - gross income" do
-      context "when taxpayer provides gross income with the sum 200,001.33" do
+      context "when taxpayer provides gross income with the sum 200,000" do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
@@ -865,7 +865,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           # hundreds
           expect(pdf_fields["undefined_88"]).to eq "0"
           expect(pdf_fields["207"]).to eq "0"
-          expect(pdf_fields["208"]).to eq "1"
+          expect(pdf_fields["208"]).to eq "0"
           # decimals
           expect(pdf_fields["undefined_89"]).to eq "0"
           expect(pdf_fields["209"]).to eq "0"
@@ -928,7 +928,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :state_file_nj_intake, :df_data_many_w2s
         )
       }
-      it "writes taxable income $199,001 (200,001.33-1000) to fill boxes on line 39" do
+      it "writes taxable income $199,000 (200,000-1000) to fill boxes on line 39" do
         # millions
         expect(pdf_fields["279"]).to eq ""
         expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
@@ -940,7 +940,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         # hundreds
         expect(pdf_fields["undefined_108"]).to eq "0"
         expect(pdf_fields["254"]).to eq "0"
-        expect(pdf_fields["255"]).to eq "1"
+        expect(pdf_fields["255"]).to eq "0"
         # decimals
         expect(pdf_fields["undefined_109"]).to eq "0"
         expect(pdf_fields["256"]).to eq "0"
@@ -1039,7 +1039,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :state_file_nj_intake, :df_data_many_w2s
         )
       }
-      it "writes new jersey taxable income $199,001 (200,001.33-1000) to fill boxes on line 39" do
+      it "writes new jersey taxable income $199,000 (200,000-1000) to fill boxes on line 39" do
         # millions
         expect(pdf_fields["Enter Code4332"]).to eq ""
         expect(pdf_fields["40"]).to eq ""
@@ -1051,7 +1051,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         # hundreds
         expect(pdf_fields["Text37"]).to eq "0"
         expect(pdf_fields["Text38"]).to eq "0"
-        expect(pdf_fields["Text39"]).to eq "1"
+        expect(pdf_fields["Text39"]).to eq "0"
         # decimals
         expect(pdf_fields["Text40"]).to eq "0"
         expect(pdf_fields["Text41"]).to eq "0"
