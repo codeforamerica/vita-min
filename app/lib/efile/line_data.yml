@@ -558,6 +558,8 @@ NJ1040_LINE_40A:
   label: '40A Total Property Taxes (18% of Rent) Paid (See instructions page 25)'
 NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
+NJ1040_LINE_64:
+  label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
