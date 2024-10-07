@@ -169,10 +169,18 @@ FactoryBot.define do
       end
     end
 
+    trait :primary_disabled do
+      primary_disabled { "yes" }
+    end
+
     trait :spouse_blind do
       after(:build) do |intake|
         intake.direct_file_data.spouse_blind
       end
+    end
+
+    trait :spouse_disabled do
+      spouse_disabled { "yes" }
     end
   end
 end
