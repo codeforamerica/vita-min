@@ -28,6 +28,8 @@
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
 class StateFileDependent < ApplicationRecord
+  # TODO: once we have added all the json fixtures for all the states we can remove RELATIONSHIP_LABELS used to map xml relationship to gender-neutral terms in relationship colum.
+  #
   RELATIONSHIP_LABELS = {
     "DAUGHTER" => "Child",
     "STEPCHILD" => "Child",
@@ -49,7 +51,7 @@ class StateFileDependent < ApplicationRecord
   enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
   enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
 
-  # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
+  # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :first_name, :last_name, :dob, on: :dob_form
   validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }

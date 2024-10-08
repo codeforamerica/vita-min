@@ -1,4 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
+  include DateAccessible
+
   self.abstract_class = true
 
   # Allow counting up to a max number; see https://alexcastano.com/the-hidden-cost-of-the-invisible-queries-in-rails/#how-far-do-you-plan-to-count

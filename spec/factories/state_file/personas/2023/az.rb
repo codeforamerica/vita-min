@@ -66,7 +66,7 @@ FactoryBot.define do
     prior_last_names { "Schitt, Creek" }
 
     tribal_member { "yes" }
-    tribal_wages { 1000 }
+    tribal_wages_amount { 1000 }
 
     armed_forces_member { "no" }
 
@@ -130,10 +130,10 @@ FactoryBot.define do
         recipient_street_address: "321 ANDY STREET",
         recipient_city: "PHOENIX",
         recipient_zip: "85034",
-        unemployment_compensation: 10000,
-        federal_income_tax_withheld: 10,
+        unemployment_compensation_amount: 10000,
+        federal_income_tax_withheld_amount: 10,
         state_identification_number: "123456",
-        state_income_tax_withheld: 10,
+        state_income_tax_withheld_amount: 10,
         )
     end
 
@@ -142,7 +142,7 @@ FactoryBot.define do
     tribal_member { "no" }
 
     armed_forces_member { "yes" }
-    armed_forces_wages { 5000 }
+    armed_forces_wages_amount { 5000 }
 
     charitable_contributions { "no" }
 
@@ -196,8 +196,8 @@ FactoryBot.define do
     armed_forces_member { "no" }
 
     charitable_contributions { "yes" }
-    charitable_cash { 100 }
-    charitable_noncash { 100 }
+    charitable_cash_amount { 100 }
+    charitable_noncash_amount { 100 }
 
     payment_or_deposit_type { "direct_deposit" }
     bank_name { "canvas credit union" }

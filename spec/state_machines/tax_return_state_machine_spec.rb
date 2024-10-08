@@ -61,7 +61,11 @@ describe TaxReturnStateMachine do
         expect(result.keys.length).to eq 2
         expect(result.keys.first).to eq "intake"
         expect(result.keys.last).to eq "file"
-        expect(result["intake"]).to eq TaxReturnStateMachine::STATES_BY_STAGE["intake"]
+        expect(result["intake"]).to eq [
+          "intake_ready",
+          "intake_greeter_info_requested",
+          "intake_needs_doc_help"
+        ]
         expect(result["file"]).to eq ["file_not_filing", "file_hold"]
       end
     end

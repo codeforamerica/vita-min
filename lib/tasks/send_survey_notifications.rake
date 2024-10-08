@@ -9,7 +9,6 @@ namespace :survey_notifications do
 
     accepted_submissions.each_slice(BATCH_SIZE) do |batch|
       batch.each do |submission|
-        next unless submission.is_for_state_filing?
         puts "Sending survey notification to #{submission.id}"
         StateFile::MessagingService.new(
           intake: submission.data_source,

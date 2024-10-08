@@ -21,5 +21,6 @@ FactoryBot.define do
     charity_code { 22541 }
     charity_name { "Center for Ants" }
     amount { 532.57 }
+    state_file_az_intake
   end
 end

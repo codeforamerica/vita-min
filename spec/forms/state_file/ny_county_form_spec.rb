@@ -31,6 +31,7 @@ RSpec.describe StateFile::NyCountyForm do
         residence_county: "Albany",
       }
     end
+    
     it "saves attributes" do
       expect(form.valid?).to eq true
       form.save

@@ -31,45 +31,6 @@ class Ctc::Portal::PortalController < Ctc::Portal::BaseAuthenticatedController
     @benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: current_client.intake.default_tax_return, dependents: current_client.intake.dependents)
   end
 
-  def resubmit
-    return redirect_to Ctc::Questions::UseGyrController.to_path_helper if current_client.intake.benefits_eligibility.disqualified_for_simplified_filing?
-
-    if @submission.can_transition_to?(:resubmitted)
-      unless current_client.efile_security_informations.create(efile_security_params).persisted?
-        flash[:alert] = I18n.t("general.enable_javascript")
-        return redirect_back(fallback_location: ctc_portal_edit_info_path)
-      end
-      return redirect_back(fallback_location: ctc_portal_edit_info_path) unless @submission.tax_return.under_submission_limit?
-      @submission.transition_to(:resubmitted)
-      if recaptcha_score_param('resubmit').present? && recaptcha_score_param('resubmit')[:recaptcha_score].present?
-        current_client.recaptcha_scores.create(
-          score: recaptcha_score_param('resubmit')[:recaptcha_score],
-          action: recaptcha_score_param('resubmit')[:recaptcha_action]
-        )
-      end
-      SystemNote::CtcPortalAction.generate!(
-        model: @submission,
-        action: 'resubmitted',
-        client: current_client
-      )
-    end
-    redirect_to(action: :home)
-  end
-
-  def efile_security_params
-    params.require(:ctc_resubmit_form).permit(:device_id,
-                                              :user_agent,
-                                              :browser_language,
-                                              :platform,
-                                              :timezone_offset,
-                                              :timezone,
-                                              :client_system_time,
-                                              :recaptcha_score)
-          .merge(ip_address: request.remote_ip)
-          .merge(recaptcha_score: recaptcha_score_param('resubmit')[:recaptcha_score])
-
-  end
-
   def ensure_current_submission
     @submission = current_client.efile_submissions.last
     unless @submission.present?

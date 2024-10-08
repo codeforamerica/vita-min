@@ -6,7 +6,7 @@
   <p><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="blue-group">
+    <div class="white-group">
       <%= f.cfa_radio_set(
             :confirmed_third_party_designee,
             collection: [

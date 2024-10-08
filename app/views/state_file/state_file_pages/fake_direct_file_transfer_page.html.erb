@@ -32,6 +32,7 @@
       class: 'transfer-button'
     )
   %>
+  <br/>
 
   <%=
     link_to(
@@ -40,6 +41,7 @@
       class: 'cancel-button'
     )
   %>
+  <br/>
 
   <%=
     link_to(
@@ -47,6 +49,7 @@
       StateFile::Questions::PendingFederalReturnController.to_path_helper,
     )
   %>
+  <br/>
 
   <% @xml_samples.each do |label, url| %>
     <%= link_to("Transfer " + label, url, class: 'transfer-button') %><br/>

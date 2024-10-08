@@ -1,6 +1,6 @@
 module SubmissionBuilder
   module Ty2021
-    class Return1040 < SubmissionBuilder::Shared::Return1040
+    class Return1040 < SubmissionBuilder::Return1040
       def attached_documents
         @attached_documents ||= xml_documents.map { |doc| { xml_class: doc.xml, kwargs: doc.kwargs } }
       end

@@ -5,13 +5,7 @@
   <div class="slab">
     <div class="grid">
       <h1>Get Your Refund Actions</h1>
-
-      <%= render 'tools_table', actions: @actions %>
-
-      <% if @state_file_actions.present? %>
-      <h2>State File Actions</h2>
-      <%= render 'tools_table', actions: @state_file_actions %>
-      <% end %>
+      <%= render 'hub/tools_table', actions: @actions %>
     </div>
   </div>
 <% end %>

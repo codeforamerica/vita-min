@@ -3,8 +3,6 @@ module StateFile
     def perform(submission, transition)
       transition ||= submission.last_transition
 
-      submission.tax_return&.transition_to(:file_rejected) if submission.is_for_federal_filing?
-
       Efile::SubmissionErrorParser.persist_errors(transition)
 
       if transition.efile_errors.any?
@@ -17,33 +15,11 @@ module StateFile
             submission.transition_to!(:resubmitted, { auto_resubmitted: true })
           end
         end
-
-        message_class = message_class_for_state(submission.current_state)
-
-        if submission.is_for_federal_filing?
-          if message_class
-            ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-              client: submission.client,
-              message: message_class,
-              locale: submission.client.intake.locale
-            )
-          end
-          EfileSubmissionStateMachine.send_mixpanel_event(submission, "ctc_efile_return_rejected")
-        end
       end
     end
 
     def priority
       PRIORITY_LOW
-    end
-
-    private
-
-    def message_class_for_state(state)
-      return if state == 'resubmitted'
-      return StateFile::AutomatedMessage::EfileRejectedAndCancelled if state == 'cancelled'
-
-      StateFile::AutomatedMessage::EfileRejected
     end
   end
 end

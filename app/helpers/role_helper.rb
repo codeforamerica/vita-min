@@ -13,6 +13,8 @@ module RoleHelper
     result = case role_type
     when AdminRole::TYPE
       I18n.t("general.admin")
+    when StateFileNjStaffRole::TYPE
+      I18n.t("general.nj_staff")
     when OrganizationLeadRole::TYPE
       I18n.t("general.organization_lead")
     when CoalitionLeadRole::TYPE
@@ -40,6 +42,8 @@ module RoleHelper
       CoalitionLeadRole.new(role_params)
     when AdminRole::TYPE
       AdminRole.new
+    when StateFileNjStaffRole::TYPE
+      StateFileNjStaffRole.new
     when SiteCoordinatorRole::TYPE
       SiteCoordinatorRole.new(sites: @vita_partners.sites.where(id: JSON.parse(params[:sites].presence || '[]').pluck('id')))
     when ClientSuccessRole::TYPE
@@ -70,6 +74,8 @@ module RoleHelper
     role_name = role_name.capitalize
     if role_name.include?(I18n.t("general.admin"))
       AdminRole::TYPE
+    elsif role_name.include?(I18n.t("general.nj_staff"))
+      StateFileNjStaffRole::TYPE
     elsif role_name.include?(I18n.t("general.organization_lead")) || role_name.include?("org lead")
       OrganizationLeadRole::TYPE
     elsif role_name.include?(I18n.t("general.coalition_lead"))

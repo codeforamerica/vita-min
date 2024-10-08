@@ -2,13 +2,13 @@
 
 <div class="review-header">
   <% if @refund_or_owed_amount == 0 %>
-    <div class="blue-group">
+    <div class="white-group">
       <div class="spacing-below-5">
         <%= t(".taxes_owed_html") %>
       </div>
     </div>
   <% else %>
-    <div class="blue-group">
+    <div class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=@refund_or_owed_label %></p>
         <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount.abs) %></p>
@@ -16,7 +16,7 @@
     </div>
   <% end %>
 
-  <div id="household-info" class="blue-group">
+  <div id="household-info" class="white-group">
     <div class="spacing-below-25">
       <p class="text--bold spacing-below-5"><%=t(".household_info") %></p>
     </div>

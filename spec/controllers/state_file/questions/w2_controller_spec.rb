@@ -99,10 +99,10 @@ RSpec.describe StateFile::Questions::W2Controller do
           id: 1,
           state_file_w2: {
             employer_state_id_num: "12345",
-            state_wages_amt: 10000,
-            state_income_tax_amt: 500,
-            local_wages_and_tips_amt: 40,
-            local_income_tax_amt: 30,
+            state_wages_amount: 10000,
+            state_income_tax_amount: 500,
+            local_wages_and_tips_amount: 40,
+            local_income_tax_amount: 30,
             locality_nm: "NYC"
           }
         }
@@ -110,7 +110,7 @@ RSpec.describe StateFile::Questions::W2Controller do
 
       context "when the client got here from the review flow" do
         let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1 }
-        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amount: 8000 }
 
         # can't use shared example here because it's written for the default update in QuestionsController
         it "redirects to the review page" do
@@ -128,7 +128,7 @@ RSpec.describe StateFile::Questions::W2Controller do
 
       context "with existing w2" do
         let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1 }
-        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+        let!(:other_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amount: 8000 }
 
         it "updates the w2 and redirects to the index" do
           expect {
@@ -138,10 +138,10 @@ RSpec.describe StateFile::Questions::W2Controller do
           w2.reload
           expect(w2.state_file_intake).to eq intake
           expect(w2.employer_state_id_num).to eq "12345"
-          expect(w2.state_wages_amt).to eq 10000
-          expect(w2.state_income_tax_amt).to eq 500
-          expect(w2.local_wages_and_tips_amt).to eq 40
-          expect(w2.local_income_tax_amt).to eq 30
+          expect(w2.state_wages_amount).to eq 10000
+          expect(w2.state_income_tax_amount).to eq 500
+          expect(w2.local_wages_and_tips_amount).to eq 40
+          expect(w2.local_income_tax_amount).to eq 30
           expect(w2.locality_nm).to eq "NYC"
 
           # TODO: check other_w2 hasn't been updated? perhaps unnecessary test
@@ -161,10 +161,10 @@ RSpec.describe StateFile::Questions::W2Controller do
           expect(new_w2.w2_index).to eq 1
           expect(new_w2.state_file_intake).to eq intake
           expect(new_w2.employer_state_id_num).to eq "12345"
-          expect(new_w2.state_wages_amt).to eq 10000
-          expect(new_w2.state_income_tax_amt).to eq 500
-          expect(new_w2.local_wages_and_tips_amt).to eq 40
-          expect(new_w2.local_income_tax_amt).to eq 30
+          expect(new_w2.state_wages_amount).to eq 10000
+          expect(new_w2.state_income_tax_amount).to eq 500
+          expect(new_w2.local_wages_and_tips_amount).to eq 40
+          expect(new_w2.local_income_tax_amount).to eq 30
           expect(new_w2.locality_nm).to eq "NYC"
 
           expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(action: :index))
@@ -175,7 +175,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         let(:intake2) do
           create :state_file_ny_intake, raw_direct_file_data: direct_file_xml.to_xml
         end
-        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amount: 8000 }
         let(:params) do
           p = super()
           p.merge({
@@ -237,10 +237,10 @@ RSpec.describe StateFile::Questions::W2Controller do
           id: 0,
           state_file_w2: {
             employer_state_id_num: "12345",
-            state_wages_amt: 0,
-            state_income_tax_amt: 500,
-            local_wages_and_tips_amt: 20,
-            local_income_tax_amt: 30,
+            state_wages_amount: 0,
+            state_income_tax_amount: 500,
+            local_wages_and_tips_amount: 20,
+            local_income_tax_amount: 30,
             locality_nm: "NYC"
           }
         }
@@ -288,7 +288,7 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       context "with a persisted override" do
-        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amt: 8000 }
+        let!(:w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0, state_wages_amount: 8000 }
 
         it "redirects to the next path" do
           post :create

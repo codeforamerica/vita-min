@@ -117,14 +117,14 @@
 
     .progress-step {
       height: 10px;
-      background: $color-grey-medium-light;
+      background: #808080;
       flex-shrink: 1;
       flex-grow: 1;
       border-radius: 5px;
     }
 
     .completed-step {
-      background: $color-state-file-primary;
+      background: #008817;
     }
   }
 
@@ -164,7 +164,7 @@
     padding: 1rem;
   }
 
-  .blue-group {
+  .white-group {
     .select {
       select.input-warning {
         border: 2px solid #FFAE00;
@@ -172,11 +172,11 @@
     }
   }
 
-  .blue-group {
+  .white-group {
     padding: 2rem;
     margin-bottom: 2rem;
-    background: $color-state-file-blue-box;
-    border: 2px solid $color-state-file-blue-box-border;
+    background: white;
+    border: 2px solid $color-grey-medium-light;
     border-radius: 6px;
 
     .form-group {
@@ -265,10 +265,34 @@
     .list--bulleted {
       padding-left: 1.5rem;
     }
+
+    .money-input-form-group {
+
+      .money-input-group {
+        margin-bottom: 2rem;
+        border: 1px solid $color-state-file-input-border;
+        box-shadow: none;
+        &:focus-within {
+          box-shadow: $focus-box-shadow;
+        }
+      }
+
+      .text-input-group__prefix {
+        box-shadow: none;
+        background-color: white;
+      }
+      .money-input {
+        margin-bottom: 0;
+        border: none;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
   }
 
   .checkbox.is-selected{
-    background: $color-state-file-blue-box;
+    background: white;
   }
 
   .bulleted ul {
@@ -336,7 +360,7 @@
   .form-card {
     background-color: transparent;
 
-    .blue-group {
+    .white-group {
       .form-group:last-child {
         margin-bottom: 0;
       }
@@ -532,7 +556,7 @@
   .radio-button input[type='radio']:focus,
   .select__element:focus,
   .checkbox input[type='checkbox']:focus {
-    box-shadow: 0 0 0 5px $color-state-file-primary, inset 0px 2px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: $focus-box-shadow;
   }
 
   input[type='radio'] {
@@ -662,6 +686,12 @@
       width: 40rem;
     }
 
+    .question-layout .question-wrapper .button.button--wide {
+      min-width: 40rem;
+      max-width: 40rem;
+      width: 40rem;
+    }
+
     .esign-declaration-outer .text--error {
       margin: 0 auto;
       text-align: center;
@@ -674,9 +704,21 @@
   }
 }
 
+.us-state-- {
+  .button--intercom {
+    background: #FFF;
+    border: 2px solid $color-az-grey;
+    color: $color-az-grey;
+  }
+}
+
 $state-colors: (
   ny: $color-ny-blue,
-  az: $color-az-grey
+  az: $color-az-grey,
+  id: $color-id-green,
+  nc: $color-nc-blue,
+  nj: $color-nj-blue,
+  md: $color-md-primary
 );
 
 @each $state_key, $state-color in $state-colors {
@@ -698,6 +740,27 @@ $state-colors: (
     .slab--footer {
       background-color: $state-color;
     }
+
+    .button--intercom {
+      background: #FFF;
+      border: 2px solid $state-color;
+      // icon: state primary color
+      color: $state-color;
+    }
+
+    .icon-wrapper--intercom {
+      padding-right: $s10;
+    }
+  }
+
+  .us-state--nj {
+    .main-header {
+      background-color: $color-nj-blue-darker;
+    }
+
+    .slab--footer {
+      background-color: $color-nj-blue-darker;
+    }
   }
 
   .loading-container {
@@ -717,6 +780,21 @@ $state-colors: (
       }
       .client-menu {
         background-color: $state-color;
+      }
+    }
+  }
+
+  .state-file-html-bg--nj {
+    background-color: $color-nj-blue-darker;
+    .state-file {
+      .main-header {
+        background-color: $color-nj-blue-darker;
+      }
+      .client-menu-closer {
+        background-color: $color-nj-blue-darker;
+      }
+      .client-menu {
+        background-color: $color-nj-blue-darker;
       }
     }
   }
@@ -745,6 +823,13 @@ $state-colors: (
     border-color: black;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+}
+
+.federal-info-outer {
+  .dev-button {
+    margin: 0.5rem auto;
+    display: block;
   }
 }
 

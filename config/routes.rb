@@ -306,6 +306,7 @@ Rails.application.routes.draw do
         resources :dashboard, only: [:index] do
           get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
           get "/:type/:id/returns-by-status", to: "dashboard#returns_by_status", on: :collection, as: :returns_by_status
+          get "/:type/:id/team-assignment", to: "dashboard#team_assignment", on: :collection, as: :team_assignment
         end
 
         resources :tax_return_selections, path: "tax-return-selections", only: [:create, :show, :new]
@@ -351,6 +352,7 @@ Rails.application.routes.draw do
         end
         resources :tools, only: [:index]
         resources :admin_tools, only: [:index]
+        resources :state_file_admin_tools, only: [:index]
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
@@ -487,7 +489,6 @@ Rails.application.routes.draw do
           login_routes
 
           get 'edit_info', to: "portal#edit_info"
-          put 'resubmit', to: "portal#resubmit"
 
           get 'primary_filer', to: "primary_filer#edit"
           put 'primary_filer', to: "primary_filer#update"
@@ -564,6 +565,15 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+      resources :az_qualifying_organization_contributions,
+        only: [
+          :index, :new, :create, :edit,
+          :update, :destroy
+        ],
+        module: 'state_file/questions',
+        path: 'questions/az-qualifying-organization-contributions'
+
+      resources :az_public_school_contributions, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/az-public-school-contributions'
       get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
 
@@ -612,8 +622,8 @@ Rails.application.routes.draw do
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
-        get "/unsubscribe_email", to: "notifications_settings#unsubscribe_email", as: :unsubscribe_email
-        post "/subscribe_email", to: "notifications_settings#subscribe_email", as: :subscribe_email
+        get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
+        post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
       end
     end
   end

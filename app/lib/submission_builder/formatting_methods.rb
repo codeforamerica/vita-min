@@ -6,8 +6,12 @@ module SubmissionBuilder
       string.squish.first(length)&.strip
     end
 
-    def truncate(string, length)
-      string&.gsub(/\s+/, ' ')&.slice(0, length)&.strip
+    def sanitize_for_xml(string, length = nil)
+      sanitized_string = string&.gsub(/\s+/, ' ')
+      if length
+        sanitized_string = sanitized_string&.first(length)
+      end
+      sanitized_string&.strip
     end
 
     def datetime_type(datetime)

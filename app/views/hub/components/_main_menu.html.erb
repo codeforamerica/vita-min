@@ -45,6 +45,14 @@
                        icon_path: image_path("icons/admin-tools.svg")
             %>
           <% end %>
+          <% if current_user.state_file_admin? || current_user.state_file_nj_staff? %>
+            <%= render "hub/components/menu_item",
+                       link: hub_state_file_admin_tools_path,
+                       item_label: "FYST Admin Tools",
+                       icon_path: image_path("icons/admin-tools.svg")
+            %>
+          <% end %>
+
         <% end %>
       </div>
       <% if current_user %>

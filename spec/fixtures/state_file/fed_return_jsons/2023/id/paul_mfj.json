@@ -1,0 +1,19 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Paul",
+      "middleInitial": "S",
+      "lastName": "Revere",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Sydney",
+      "middleInitial": null,
+      "lastName": "Revere",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": false
+    }
+  ]
+}

@@ -25,6 +25,12 @@ RSpec.describe OutgoingEmailMailer, type: :mailer do
       allow(DatadogApi).to receive(:increment)
     end
 
+    it_behaves_like "a mailer with an unsubscribe link" do
+      let(:mail_method) { :user_message }
+      let(:mailer_args) { { outgoing_email: outgoing_email } }
+      let(:email_address) { outgoing_email.to }
+    end
+
     it "delivers the email with the right subject" do
       email = OutgoingEmailMailer.user_message(outgoing_email: outgoing_email)
       expect do

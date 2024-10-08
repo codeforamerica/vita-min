@@ -100,11 +100,6 @@ describe VerificationAttemptStateMachine do
           message: AutomatedMessage::VerificationAttemptDenied
         )
       end
-
-      it "transitions the clients efile submission to cancelled" do
-        verification_attempt.transition_to(:denied)
-        expect(verification_attempt.client.efile_submissions.last.current_state).to eq "cancelled"
-      end
     end
 
     context "request new photos" do

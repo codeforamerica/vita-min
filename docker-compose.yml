@@ -1,0 +1,85 @@
+name: vita-min
+
+services:
+  db:
+    container_name: db
+    image: postgis/postgis:13-3.4-alpine
+    user: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+  worker:
+    container_name: worker
+    volumes:
+      - ./:/app
+    build:
+      dockerfile: Dockerfile.local
+      target: "base"
+    command: rails jobs:work
+    depends_on:
+      web:
+        condition: service_healthy
+    environment:
+      - DOCKER=true
+      - RAILS_DB_HOST=db
+      - RAILS_DB_USERNAME=postgres
+      - RAILS_DB_PORT=5432
+      - RAILS_DB_PASSWORD=password
+  web:
+    container_name: web
+    build:
+      dockerfile: Dockerfile.local
+      target: "app"
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+      - shakapacker
+    links:
+      - db
+      - shakapacker
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://0.0.0.0:3000/up" ]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+    environment:
+      - DOCKER=true
+      - RAILS_DB_HOST=db
+      - RAILS_DB_USERNAME=postgres
+      - RAILS_DB_PORT=5432
+      - RAILS_DB_PASSWORD=password
+      - SHAKAPACKER_DEV_SERVER_HOST=shakapacker
+  shakapacker:
+    container_name: shakapacker
+    build:
+      dockerfile: Dockerfile.local
+      target: "base"
+    volumes:
+      - ./:/app
+    ports:
+      - 3035:3035
+    command: "bin/shakapacker-dev-server --client-web-socket-url auto://0.0.0.0:3035/ws"
+    environment:
+      - SHAKAPACKER_DEV_SERVER_HOST=shakapacker
+  chrome:
+    container_name: chrome
+    image: selenium/standalone-chrome:4.15.0 # this version should match that of the selenium-webdriver gem (see Gemfile)
+    ports:
+      - 4444:4444
+  pgadmin:
+    container_name: pgadmin
+    profiles: ["pgadmin"]
+    image: chorss/docker-pgadmin4
+    ports:
+      - 5050:5050
+    depends_on:
+      - web
+volumes:
+  database:

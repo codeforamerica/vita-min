@@ -98,16 +98,18 @@ class MultiTenantService
     current_tax_year - 1
   end
 
-  def filing_years
+  def filing_years(now = DateTime.now)
     if service_type == :ctc || service_type == :state_file
       [current_tax_year]
     else
-      ((current_tax_year - 3)..current_tax_year).to_a.reverse.freeze
+      Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, deadline)|
+        deadline > now - 3.years && season_start <= now
+      end.keys.freeze
     end
   end
 
-  def backtax_years
-    filing_years.without(current_tax_year)
+  def backtax_years(now = DateTime.now)
+    filing_years(now).without(current_tax_year)
   end
 
   class << self

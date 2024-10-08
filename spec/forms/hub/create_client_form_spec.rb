@@ -1,9 +1,20 @@
 require "rails_helper"
 
 RSpec.describe Hub::CreateClientForm do
+
+  let(:fake_current_tax_year) { 2023 }
+  let(:fake_time) { DateTime.parse("2024-04-14") }
+  let(:filing_years) { MultiTenantService.gyr.filing_years(fake_time) }
+
+  around do |example|
+    Timecop.freeze(fake_time) do
+      example.run
+    end
+  end
+
   describe "#new" do
     it "initializes with empty tax_return objects for each valid filing year" do
-      expect(described_class.new.tax_returns.map(&:year)).to eq(MultiTenantService.new(:gyr).filing_years)
+      expect(described_class.new(filing_years).tax_returns.map(&:year)).to eq(filing_years)
     end
   end
 
@@ -90,14 +101,14 @@ RSpec.describe Hub::CreateClientForm do
     context "with valid params and context" do
       it "creates a client" do
         expect do
-          described_class.new(params).save(current_user)
+          described_class.new(filing_years, params).save(current_user)
         end.to change(Client, :count).by 1
         client = Client.last
         expect(client.vita_partner).to eq vita_partner
       end
 
       it "assigns client to an instance on the form object" do
-        form = described_class.new(params)
+        form = described_class.new(filing_years, params)
         form.save(current_user)
         expect(form.client).to eq Client.last
       end
@@ -107,7 +118,7 @@ RSpec.describe Hub::CreateClientForm do
         let(:email_opt_in) { "yes" }
 
         it "sends the message in english" do
-          described_class.new(params).save(current_user)
+          described_class.new(filing_years, params).save(current_user)
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
             message: AutomatedMessage::SuccessfulSubmissionDropOff,
@@ -121,7 +132,7 @@ RSpec.describe Hub::CreateClientForm do
         let(:email_opt_in) { "yes" }
 
         it "sends the message in spanish" do
-          described_class.new(params).save(current_user)
+          described_class.new(filing_years, params).save(current_user)
 
           expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
             client: Client.last,
@@ -133,7 +144,7 @@ RSpec.describe Hub::CreateClientForm do
 
       it "creates an intake" do
         expect do
-          described_class.new(params).save(current_user)
+          described_class.new(filing_years, params).save(current_user)
         end.to change(Intake, :count).by 1
         intake = Intake.last
         expect(intake.vita_partner).to eq vita_partner
@@ -147,7 +158,7 @@ RSpec.describe Hub::CreateClientForm do
 
       it "creates tax returns for each tax_return where _create is true" do
         expect do
-          described_class.new(params).save(current_user)
+          described_class.new(filing_years, params).save(current_user)
         end.to change(TaxReturn, :count).by 4
         tax_returns = Client.last.tax_returns
         intake = Intake.last
@@ -170,7 +181,7 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "sends drop_off_submitted event to Mixpanel" do
-          described_class.new(params).save(current_user)
+          described_class.new(filing_years, params).save(current_user)
           tax_returns = Client.last.tax_returns
 
           expect(MixpanelService).to have_received(:send_event).with(
@@ -187,7 +198,8 @@ RSpec.describe Hub::CreateClientForm do
 
       context "phone numbers" do
         it "normalizes phone_number and sms_phone_number" do
-          described_class.new(params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save(current_user)
+          described_class.new(filing_years,
+                              params.update(sms_phone_number: "650-555-1212", phone_number: "(650) 555-1212")).save(current_user)
           client = Client.last
           expect(client.intake.sms_phone_number).to eq "+16505551212"
           expect(client.intake.phone_number).to eq "+16505551212"
@@ -195,7 +207,7 @@ RSpec.describe Hub::CreateClientForm do
       end
 
       context "when associated models are not valid" do
-        let(:form) { described_class.new(params) }
+        let(:form) { described_class.new(filing_years, params) }
 
         before do
           params[:sms_phone_number] = nil
@@ -211,7 +223,7 @@ RSpec.describe Hub::CreateClientForm do
     context "validations" do
       context "with an invalid email" do
         before { params[:email_address] = "someone@example" }
-        let(:form) { described_class.new(params) }
+        let(:form) { described_class.new(filing_years, params) }
 
         it "is not valid and adds an error to the email field" do
           expect(form).not_to be_valid
@@ -225,18 +237,18 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "is not valid" do
-          expect(described_class.new(params).valid?).to eq false
+          expect(described_class.new(filing_years, params).valid?).to eq false
         end
 
         it "pushes errors for attribute into the errors" do
-          obj = described_class.new(params)
+          obj = described_class.new(filing_years, params)
           obj.valid?
           expect(obj.errors[:vita_partner_id]).to eq ["Can't be blank."]
         end
       end
 
       context "preferred_interview_language" do
-        let(:form) { described_class.new(params) }
+        let(:form) { described_class.new(filing_years, params) }
 
         context "when nil" do
           before do
@@ -268,11 +280,11 @@ RSpec.describe Hub::CreateClientForm do
           end
 
           it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
+            expect(described_class.new(filing_years, params).valid?).to eq false
           end
 
           it "adds an error to the attribute" do
-            obj = described_class.new(params)
+            obj = described_class.new(filing_years, params)
             obj.valid?
             expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
           end
@@ -284,7 +296,7 @@ RSpec.describe Hub::CreateClientForm do
           end
 
           it "adds an error to the attribute" do
-            obj = described_class.new(params)
+            obj = described_class.new(filing_years, params)
             obj.valid?
             expect(obj.errors[:state_of_residence]).to eq ["Please select a state from the list."]
           end
@@ -297,11 +309,11 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "is required" do
-          expect(described_class.new(params).valid?).to eq false
+          expect(described_class.new(filing_years, params).valid?).to eq false
         end
 
         it "pushes errors for signature method into the errors" do
-          obj = described_class.new(params)
+          obj = described_class.new(filing_years, params)
           obj.valid?
           expect(obj.errors[:signature_method]).to include "Can't be blank."
         end
@@ -314,11 +326,11 @@ RSpec.describe Hub::CreateClientForm do
           end
 
           it "is not valid" do
-            expect(described_class.new(params).valid?).to eq false
+            expect(described_class.new(filing_years, params).valid?).to eq false
           end
 
           it "adds an error to the attribute" do
-            obj = described_class.new(params)
+            obj = described_class.new(filing_years, params)
             obj.valid?
             expect(obj.errors[:tax_returns_attributes]).to eq ["Please provide all required fields for tax returns: certification level."]
           end
@@ -334,11 +346,11 @@ RSpec.describe Hub::CreateClientForm do
         end
 
         it "is not valid" do
-          expect(described_class.new(params).valid?).to eq false
+          expect(described_class.new(filing_years, params).valid?).to eq false
         end
 
         it "pushes an error" do
-          obj = described_class.new(params)
+          obj = described_class.new(filing_years, params)
           obj.valid?
           expect(obj.errors[:tax_returns_attributes]).to include "Please pick at least one year."
         end

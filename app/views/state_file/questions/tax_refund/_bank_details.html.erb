@@ -1,10 +1,10 @@
-<div class="blue-group">
+<div class="white-group">
   <p class="spacing-below-0"><%= t(".bank_title") %></p>
   <p class="text--small"><%= t(".foreign_accounts") %></p>
   <div class="form-group-tight">
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
-      <%= form.cfa_input_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+      <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
       <% if before_withdrawal_date_deadline?(current_state_code) %>
         <div class="date-select">
           <% year = MultiTenantService.new(:statefile).current_tax_year + 1 %>

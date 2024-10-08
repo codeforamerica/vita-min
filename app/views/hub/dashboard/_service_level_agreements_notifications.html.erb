@@ -1,4 +1,28 @@
-<div class="card">
-  <h2>Service Level Agreements Notifications</h2>
-  <p>TODO: Implement</p>
+<% p = presenter.service_level_agreements_notifications_presenter %>
+<div class="card service-level-agreement">
+  <h2><%= I18n.t("hub.dashboard.show.sla_title") %></h2>
+  <div class="grid">
+    <div class="grid__item width-one-half">
+      <div class="grid overdue">
+        <div class="grid__item width-one-half">
+          <div class="count breached-count">  <%= p.breached_sla_clients_count %> </div>
+        </div>
+        <div class="grid__item width-one-half">
+          <p><%= I18n.t("hub.dashboard.show.overdue") %></p>
+          <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_clients_path(last_contact: "breached_sla", active_returns: true, vita_partners: p.breached_sla_client_ids.to_json)  %>
+        </div>
+      </div>
+    </div>
+    <div class="grid__item width-one-half">
+      <div class="grid">
+        <div class="grid__item width-one-half">
+          <div class="count approaching-count"> <%= p.approaching_sla_clients_count  %> </div>
+        </div>
+        <div class="grid__item width-one-half">
+          <p class="approaching"><%= I18n.t("hub.dashboard.show.approaching") %></p>
+          <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_clients_path(last_contact: "approaching_sla", active_returns: true, vita_partners: p.approaching_sla_client_ids.to_json)  %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -9,6 +9,9 @@ class OutgoingEmailMailer < ApplicationMailer
 
     @body = outgoing_email.body
 
+    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
+    signed_email = verifier.generate(outgoing_email.to)
+
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
@@ -16,7 +19,7 @@ class OutgoingEmailMailer < ApplicationMailer
         action: :unsubscribe_from_emails,
         locale: I18n.locale,
         _recall: {},
-        email_address: outgoing_email.to
+        email_address: signed_email
       }
     )
     @subject = outgoing_email.subject

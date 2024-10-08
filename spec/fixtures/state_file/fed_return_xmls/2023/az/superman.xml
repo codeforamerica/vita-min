@@ -140,7 +140,11 @@
           <EmployerStateIdNum>12345</EmployerStateIdNum>
           <StateWagesAmt>10000</StateWagesAmt>
           <StateIncomeTaxAmt>350</StateIncomeTaxAmt>
-          <W2LocalTaxGrp/>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>1200</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>100</LocalIncomeTaxAmt>
+            <LocalityNm>Phoenix</LocalityNm>
+          </W2LocalTaxGrp>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>

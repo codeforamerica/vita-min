@@ -93,10 +93,10 @@ module StateFile
                 state_file_intake: intake,
                 w2_index: index,
                 employer_state_id_num: df_w2.EmployerStateIdNum,
-                state_wages_amt: df_w2.StateWagesAmt,
-                state_income_tax_amt: df_w2.StateIncomeTaxAmt,
-                local_wages_and_tips_amt: df_w2.LocalWagesAndTipsAmt,
-                local_income_tax_amt: df_w2.LocalIncomeTaxAmt,
+                state_wages_amount: df_w2.StateWagesAmt,
+                state_income_tax_amount: df_w2.StateIncomeTaxAmt,
+                local_wages_and_tips_amount: df_w2.LocalWagesAndTipsAmt,
+                local_income_tax_amount: df_w2.LocalIncomeTaxAmt,
                 locality_nm: df_w2.LocalityNm
               )
             end

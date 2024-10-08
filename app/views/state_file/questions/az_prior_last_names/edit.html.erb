@@ -10,7 +10,7 @@
     <%= f.hidden_field(:device_id) %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%= f.cfa_radio_set(:has_prior_last_names, label_text: title, collection: [
             { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#prior-last-names" } },
             { value: "no", label: t("general.negative") },
@@ -19,7 +19,7 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="prior-last-names">
-        <div class="blue-group">
+        <div class="white-group">
           <%= f.cfa_input_field(:prior_last_names, t(".prior_last_names_label", count: current_intake.filer_count), classes: ["form-width--long"]) %>
         </div>
       </div>

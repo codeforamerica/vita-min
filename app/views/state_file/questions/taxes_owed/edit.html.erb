@@ -6,7 +6,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
-      <div class="question-with-follow-up__question blue-group">
+      <div class="question-with-follow-up__question white-group">
         <%= f.cfa_radio_set(
           :payment_or_deposit_type,
           collection: [

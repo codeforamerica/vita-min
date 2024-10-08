@@ -19,7 +19,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
         sign_in ny_intake
       end
 
-      it "returns some xml" do
+      it "returns some xml", required_schema: "ny" do
         get :show_xml, params: { id: efile_submission.id }
         expect(Nokogiri::XML(response.body).at('Primary FirstName').text).to eq("Jerry")
       end

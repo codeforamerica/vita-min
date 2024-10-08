@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Ty2021::Documents::Irs1040 do
+describe SubmissionBuilder::Ty2021::Documents::Irs1040, required_schema: "federal" do
   describe ".build" do
     before do
       submission.intake.update(primary_last_name: "Kòala")

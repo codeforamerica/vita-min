@@ -35,7 +35,7 @@
   <% p.returns_by_status.each do |return_summary| %>
     <tr>
       <td>
-        <%= link_to I18n.t("hub.tax_returns.#{return_summary.type}.#{return_summary.code}"), hub_clients_path(status: return_summary.code) %>
+        <%= link_to I18n.t("hub.tax_returns.#{return_summary.type}.#{return_summary.code}"), hub_clients_path(status: return_summary.code, vita_partners: p.vita_partner_ids.to_json)  %>
       </td>
       <td>
         <div class="bar-container <%= return_summary.stage %>">

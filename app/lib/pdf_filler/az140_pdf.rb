@@ -34,7 +34,7 @@ module PdfFiller
         "9" => @xml_document.at("VisionExemp")&.text,
         "10a" => @xml_document.at("DependentsUnder17")&.text,
         "10b" => @xml_document.at("Dependents17AndOlder")&.text,
-        "11a" => @xml_document.at("QualifyingParentsAncestors")&.text,
+        "11a" => @xml_document.at("QualifyingParentsAncestors")&.text
       }
 
       non_qualifying_ancestor_dependents = @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?)
@@ -82,9 +82,12 @@ module PdfFiller
       end
 
       answers.merge!({
-        "19" => @xml_document.at('AzAdjSubtotal')&.text,
         "12" => @xml_document.at('FedAdjGrossIncome')&.text,
         "14" => @xml_document.at('ModFedAdjGrossInc')&.text,
+        "19" => @xml_document.at('AzAdjSubtotal')&.text,
+        "28" => @xml_document.at("Subtractions IntUSObligations")&.text,
+        "29a" => @xml_document.at('ExecFedStateLocGovPen')&.text,
+        "29b" => @xml_document.at('SubExclBenAnnPen')&.text,
         "30" => @xml_document.at('USSSRailRoadBnft')&.text,
         "31" => @xml_document.at('WageAmIndian')&.text,
         "32" => @xml_document.at('CompNtnlGrdArmdFrcs')&.text,

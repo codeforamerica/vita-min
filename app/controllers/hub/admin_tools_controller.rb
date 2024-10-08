@@ -15,14 +15,6 @@ module Hub
         [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
         [Hub::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
       ]
-      if current_user.state_file_admin?
-        @state_file_actions = [
-          [Hub::StateFile::EfileSubmissionsController.to_path_helper(action: :index), "Efile Submissions"],
-          [Hub::StateFile::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
-          [Hub::StateFile::AutomatedMessagesController.to_path_helper(action: :index), "Automated Messages"],
-          [Hub::StateFile::EfileErrorsController.to_path_helper(action: :index), "Efile Errors"],
-        ]
-      end
     end
   end
 end

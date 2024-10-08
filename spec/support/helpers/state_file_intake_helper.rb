@@ -20,6 +20,12 @@ module StateFileIntakeHelper
 
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
+    when "nc"
+      choose "state_file_nc_eligibility_residence_form_eligibility_lived_in_state_yes"
+      click_on "Continue"
+
+      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
+      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_withdrew_529_no"
     end
     click_on "Continue"
 
@@ -95,7 +101,7 @@ module StateFileIntakeHelper
 
     intake = StateFile::StateInformationService.intake_class(us_state).last
     flow_explorer_params = FlowsController::SampleStateFileIntakeGenerator.send("#{us_state}_attributes")
-    intake_attribute_keys = intake.attributes.select { |_k, v| v }.keys - %w[id primary_state_id_id]
+    intake_attribute_keys = intake.attributes.select { |_k, v| v }.keys - %w[id primary_state_id_id made_az321_contributions]
     flow_explorer_generated_intake_keys = flow_explorer_params.keys.map(&:to_s)
     missing_keys = intake_attribute_keys - flow_explorer_generated_intake_keys
     expect(missing_keys).to eq([])

@@ -6,7 +6,7 @@
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <%= f.fields_for :dependents do |ff| %>
-        <div class="blue-group">
+        <div class="white-group">
           <%= ff.cfa_radio_set(
                 :needed_assistance,
                 label_text: t(".assistance_label", name: ff&.object&.first_name&.capitalize),
@@ -16,7 +16,7 @@
                 ]
               ) %>
         </div>
-        <div class="blue-group">
+        <div class="white-group">
           <%= ff.cfa_radio_set(
                 :passed_away,
                 label_text: t(".passed_away_label", name: ff&.object&.first_name&.capitalize),

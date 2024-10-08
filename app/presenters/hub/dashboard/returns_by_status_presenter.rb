@@ -48,6 +48,10 @@ module Hub
         (value.to_f * 100 / returns_by_status_count).round
       end
 
+      def vita_partner_ids
+        @selected_orgs_and_sites.map(&:id)
+      end
+
       private
 
       def count_tax_returns_by_status

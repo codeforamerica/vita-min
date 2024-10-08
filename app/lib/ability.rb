@@ -7,22 +7,39 @@ class Ability
       return
     end
 
+    # Custom actions
+    alias_action :flag, :toggle_field, :edit_take_action, :update_take_action,
+                 :unlock, :edit_13614c_form_page1, :edit_13614c_form_page2,
+                 :edit_13614c_form_page3, :save_and_maybe_exit,
+                 :update_13614c_form_page1, :update_13614c_form_page2,
+                 :update_13614c_form_page3, :cancel_13614c,
+                 :resource_to_client_redirect,
+                 to: :hub_client_management
+
     accessible_groups = user.accessible_vita_partners
 
     # Admins can do everything
     if user.admin?
       # All admins who are also state file
       can :manage, :all
+
+      # Non-NJ staff cannot manage NJ EfileErrors, EfileSubmissions or FAQs
+      cannot :manage, EfileError, service_type: "state_file_nj"
+      cannot :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
+      cannot :manage, FaqCategory, product_type: "state_file_nj"
+      cannot :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
+
       unless user.state_file_admin?
         StateFile::StateInformationService.state_intake_classes.each do |intake_class|
           cannot :manage, intake_class
         end
         # Enumerate classes here...
+        cannot :manage, StateFile::AutomatedMessage
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
         cannot :manage, StateFileW2
         cannot :manage, StateId
-        cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
+        cannot :manage, EfileSubmission, data_source_type: StateFile::StateInformationService.state_intake_class_names
         cannot :manage, EfileError do |error|
           error.service_type == "state_file" || error.service_type == "unfilled"
         end
@@ -42,6 +59,7 @@ class Ability
       cannot :manage, OrganizationLeadRole
       cannot :manage, TeamMemberRole
       cannot :manage, AdminRole
+      cannot :manage, StateFileNjStaffRole
       cannot :manage, ClientSuccessRole
       cannot :manage, SiteCoordinatorRole
       cannot :manage, GreeterRole
@@ -58,8 +76,42 @@ class Ability
     can :read, Organization, id: accessible_groups.pluck(:id)
     can :read, Site, id: accessible_groups.pluck(:id)
 
-    # Anyone can manage clients and client data in the groups they can access
-    can :manage, Client, vita_partner: accessible_groups
+    # This was overly permissive. We should work out what the permissions should
+    # be for each role and reduce this check. As we need to modify this, please
+    # break out the role and specify permissions more granularly
+    client_role_whitelist = [
+      :client_success, :admin, :org_lead, :site_coordinator,
+      :coalition_lead, :state_file_admin, :team_member
+    ].freeze
+
+    if user.role?(client_role_whitelist)
+      can :manage, Client, vita_partner: accessible_groups
+    end
+
+    if user.greeter?
+      can [:update, :read, :hub_client_management],
+        Client,
+        tax_returns: {
+          current_state: [
+            'intake_ready',
+            'intake_greeter_info_requested',
+            'intake_needs_doc_help',
+          ],
+        },
+        vita_partner: accessible_groups
+
+      can [:update, :read, :hub_client_management],
+        Client,
+        tax_returns: {
+          current_state: [
+            'file_not_filing',
+            'file_hold',
+          ],
+          assigned_user: user,
+        },
+        vita_partner: accessible_groups
+    end
+
     # Only admins can destroy clients
     cannot :destroy, Client unless user.admin?
     can :manage, [
@@ -86,6 +138,16 @@ class Ability
     cannot :manage, StateFileDependent
     cannot :manage, StateFileW2
     cannot :manage, StateId
+
+    if user.state_file_nj_staff?
+      can :manage, :state_file_admin_tool
+      can :read, StateFile::AutomatedMessage
+
+      can :manage, EfileError, service_type: "state_file_nj"
+      can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
+      can :manage, FaqCategory, product_type: "state_file_nj"
+      can :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
+    end
 
     if user.coalition_lead?
       can :read, Coalition, id: user.role.coalition_id

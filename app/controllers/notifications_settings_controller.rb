@@ -1,35 +1,15 @@
 class NotificationsSettingsController < ApplicationController
+  include EmailSubscriptionUpdaterConcern
 
   def unsubscribe_from_emails
-    matching_intakes = matching_intakes(params[:email_address])
-
-    if matching_intakes.present?
-      matching_intakes.each do |intake|
-        intake.update(email_notification_opt_in: "no")
-      end
-    else
-      flash[:alert] = "No record found"
-    end
+    update_email_subscription(direction: "no", column_name: :email_notification_opt_in)
   end
 
   def subscribe_to_emails
-    matching_intakes = matching_intakes(params[:email_address])
-
-    if matching_intakes.present?
-      matching_intakes.each do |intake|
-        intake.update(email_notification_opt_in: "yes")
-      end
-
-      flash[:notice] = I18n.t("notifications_settings.subscribe_to_emails.flash")
-      render :unsubscribe_from_emails
-    else
-      flash[:alert] = "No record found"
-    end
+    update_email_subscription(direction: "yes", column_name: :email_notification_opt_in, show_flash_and_render: true)
   end
 
   private
-
-
   def matching_intakes(email_address)
     return if email_address.blank?
 

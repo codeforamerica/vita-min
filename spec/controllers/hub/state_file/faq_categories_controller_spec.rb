@@ -5,6 +5,7 @@ describe Hub::StateFile::FaqCategoriesController do
   let(:faq_category) { create :faq_category, position: 1, product_type: :state_file_az }
   let(:faq_category_2) { create :faq_category, name_en: "what what?", slug: "what_what", position: 2, product_type: :state_file_az }
   let(:faq_category_ny) { create :faq_category, name_en: "new york category", slug: "new_york_category", position: 2, product_type: :state_file_ny }
+  let(:faq_category_nc) { create :faq_category, name_en: "nc category", slug: "north_carolina_category", position: 1, product_type: :state_file_nc }
   let!(:faq_item) { create :faq_item, faq_category: faq_category }
   let!(:faq_item_2) { create :faq_item, faq_category: faq_category_2, slug: "there_there" }
 
@@ -18,8 +19,11 @@ describe Hub::StateFile::FaqCategoriesController do
     it "renders index" do
       get :index
       expect(response).to render_template :index
-      expect(assigns(:az_faq_categories)).to match_array [faq_category, faq_category_2]
-      expect(assigns(:ny_faq_categories)).to match_array [faq_category_ny]
+      state_faq_categories = assigns(:state_faq_categories)
+      expect(state_faq_categories.keys.to_set).to eq(StateFile::StateInformationService.active_state_codes.to_set)
+      expect(state_faq_categories["az"]).to match_array [faq_category, faq_category_2]
+      expect(state_faq_categories["ny"]).to match_array [faq_category_ny]
+      expect(state_faq_categories["nc"]).to match_array [faq_category_nc]
     end
   end
 

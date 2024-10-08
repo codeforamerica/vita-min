@@ -1,17 +1,19 @@
-
-
 class SchemaFileLoader
 
   BUCKET = "vita-min-irs-e-file-schema-prod".freeze
   REGION = "us-east-1".freeze
-  EFILE_SCHEMAS_FILENAMES = [
-    ["efile1040x_2020v5.1.zip", "irs"],
-    ["efile1040x_2021v5.2.zip", "irs"],
-    ["efile1040x_2022v5.3.zip", "irs"],
-    ["efile1040x_2023v5.0.zip", "irs"],
-    ["NYSIndividual2023V4.0.zip", "us_states"],
-    ["AZIndividual2023v1.0.zip", "us_states"],
-  ].freeze
+  EFILE_SCHEMAS_FILENAMES = (
+    [
+      # Format is schema name, directory
+      ["efile1040x_2020v5.1.zip", "irs"],
+      ["efile1040x_2021v5.2.zip", "irs"],
+      ["efile1040x_2022v5.3.zip", "irs"],
+      ["efile1040x_2023v5.0.zip", "irs"]
+    ] +
+      StateFile::StateInformationService.active_state_codes.map do |state_code|
+        [StateFile::StateInformationService.schema_file_name(state_code), "us_states"]
+      end
+  ).freeze
 
   class << self
     def load_file(*path)
@@ -34,12 +36,12 @@ class SchemaFileLoader
 
     def download_schemas_from_s3(dest_dir)
       s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
-      get_missing_downloads(dest_dir).each do |download_path|
+      get_missing_downloads(dest_dir).each do |(download_path, _)|
         s3_client.get_object(
           response_target: download_path,
           bucket: BUCKET,
           key: File.basename(download_path),
-          )
+        )
       end
     end
 
@@ -55,7 +57,7 @@ class SchemaFileLoader
       Aws::Credentials.new(
         Rails.application.credentials.dig(:aws, :access_key_id),
         Rails.application.credentials.dig(:aws, :secret_access_key),
-        )
+      )
     end
 
     def prepare_directories(dest_dir)
@@ -68,10 +70,10 @@ class SchemaFileLoader
     end
 
     def get_missing_downloads(dest_dir)
-      download_files = EFILE_SCHEMAS_FILENAMES.map do |(filename, download_folder)|
-        File.join(dest_dir, download_folder, filename)
+      download_files = EFILE_SCHEMAS_FILENAMES.map do |filename, download_folder|
+        [File.join(dest_dir, download_folder, filename), download_folder]
       end
-      download_files.filter do |download_file|
+      download_files.filter do |(download_file, _, _)|
         !File.exist?(download_file)
       end
     end

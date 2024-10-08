@@ -28,14 +28,14 @@ RSpec.feature "Admin Tools", active_job: true do
 
   scenario "admin can click to state-file efile submissions page" do
     visit hub_user_profile_path
-    click_on "Admin Tools"
+    click_on "FYST Admin Tools"
     click_on "Efile Submissions"
     expect(page).to have_text "State Submission ID"
   end
 
   scenario "admin can click to state-file efile errors page" do
     visit hub_user_profile_path
-    click_on "Admin Tools"
+    click_on "FYST Admin Tools"
     click_on "Efile Errors"
     expect(page).to have_text "Error Code"
   end

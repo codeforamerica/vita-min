@@ -2,7 +2,7 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
-  <div id="prior-last-names" class="blue-group">
+  <div id="prior-last-names" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
       <p><%=current_intake.prior_last_names || t("general.none") %></p>
@@ -11,7 +11,7 @@
   </div>
 
   <% @invalid_w2s.each do |w2| %>
-    <div id="w2s" class="blue-group">
+    <div id="w2s" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
         <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
@@ -20,40 +20,54 @@
     </div>
   <% end %>
 
-  <div id="state-credits" class="blue-group">
+  <div id="state-credits" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
       <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.tribal_member_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".tribal_wages") %></p>
-        <p><%=number_to_currency(current_intake.tribal_wages) %></p>
+        <p><%=number_to_currency(current_intake.tribal_wages_amount) %></p>
       <% end %>
       <p class="text--bold spacing-below-5"><%=t(".armed_forces_member") %></p>
       <p><%=current_intake.armed_forces_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.armed_forces_member_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
-        <p><%=number_to_currency(current_intake.armed_forces_wages) %></p>
+        <p><%=number_to_currency(current_intake.armed_forces_wages_amount) %></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::AzStateCreditsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
-  <div id="charitable-contributions" class="blue-group">
+  <div id="charitable-contributions" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".charitable_contributions") %></p>
       <p><%=current_intake.charitable_contributions_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.charitable_contributions_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".charitable_cash") %></p>
-        <p><%=number_to_currency(current_intake.charitable_cash) || t("general.none") %></p>
+        <p><%=number_to_currency(current_intake.charitable_cash_amount) || t("general.none") %></p>
         <p class="text--bold spacing-below-5"><%=t(".charitable_noncash") %></p>
-        <p><%=number_to_currency(current_intake.charitable_noncash) || t("general.none") %></p>
+        <p><%=number_to_currency(current_intake.charitable_noncash_amount) || t("general.none") %></p>
       <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::AzCharitableContributionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
+  <div id="qualifing-organization-contributions" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".made_az321_contributions") %></p>
+      <p><%= current_intake.az321_contributions.present? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.az321_contributions.present? %>
+        <% current_intake.az321_contributions.each do |contribution| %>
+          <p class="text--bold spacing-below-5"><%=t(".az321_contribution_name", charity_name: contribution.charity_name, charity_code: contribution.charity_code) %></p>
+          <p><%= number_to_currency(contribution.amount) || t("general.none") %></p>
+        <% end %>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :index, return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
   <% unless current_intake.disqualified_from_excise_credit_df? %>
-    <div id="incarcerated" class="blue-group">
+    <div id="incarcerated" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>

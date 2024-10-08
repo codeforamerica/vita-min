@@ -70,6 +70,7 @@
 #  property_over_limit                :integer          default("unfilled"), not null
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
+#  raw_direct_file_intake_data        :jsonb
 #  referrer                           :string
 #  residence_county                   :string
 #  routing_number                     :string
@@ -243,6 +244,14 @@ FactoryBot.define do
         end
         intake.dependents.reload
       end
+    end
+
+    trait :df_data_2_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('ny_batman') }
+    end
+
+    trait :df_data_many_w2s do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('ny_bloombito_w2s') }
     end
   end
 end

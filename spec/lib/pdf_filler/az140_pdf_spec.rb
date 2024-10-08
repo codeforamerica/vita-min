@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Az140Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_az_intake) }
+  let(:intake) { create(:state_file_az_intake) }
+  let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
 
   describe 'field mappings' do
@@ -20,6 +21,12 @@ RSpec.describe PdfFiller::Az140Pdf do
       pdf_fields = filled_in_values(submission.generate_filing_pdf.path)
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
       expect(missing_fields).to eq([])
+    end
+
+    it "fills the fields correctly" do
+      intake.direct_file_data.interest_reported_amount = 30
+
+      expect(pdf.hash_for_pdf["28"]).to eq "30"
     end
   end
 end

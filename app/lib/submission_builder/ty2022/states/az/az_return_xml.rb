@@ -3,14 +3,14 @@ module SubmissionBuilder
   module Ty2022
     module States
       module Az
-        class AzReturnXml < StateReturn
+        class AzReturnXml < SubmissionBuilder::StateReturn
           include DependentRelationshipTable
 
           FILING_STATUS_OPTIONS = {
-            :married_filing_jointly => 'MarriedJoint',
-            :head_of_household => 'HeadHousehold',
-            :married_filing_separately => 'MarriedFilingSeparateReturn',
-            :single => "Single"
+            married_filing_jointly: 'MarriedJoint',
+            head_of_household: 'HeadHousehold',
+            married_filing_separately: 'MarriedFilingSeparateReturn',
+            single: "Single"
           }.freeze
 
           STANDARD_DEDUCTIONS = {
@@ -34,10 +34,6 @@ module SubmissionBuilder
             "AZIndividual2023v1.0"
           end
 
-          def form1099g_builder
-            SubmissionBuilder::Ty2022::States::Az::Documents::State1099G
-          end
-
           def build_state_specific_tags(document)
             if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
               document.at("ReturnState").add_child(financial_transaction)
@@ -46,12 +42,12 @@ module SubmissionBuilder
 
           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
-              xml.LNPriorYrs @submission.data_source.prior_last_names&.strip&.gsub(/\s+/, ' ')
+              xml.LNPriorYrs sanitize_for_xml(@submission.data_source.prior_last_names)
               xml.FilingStatus filing_status
               if @submission.data_source.hoh_qualifying_person_name.present?
                 xml.QualChildDependentName do
-                  xml.FirstName truncate(@submission.data_source.hoh_qualifying_person_name[:first_name], 16)
-                  xml.LastName @submission.data_source.hoh_qualifying_person_name[:last_name]&.strip&.gsub(/\s+/, ' ')
+                  xml.FirstName sanitize_for_xml(@submission.data_source.hoh_qualifying_person_name[:first_name], 16)
+                  xml.LastName sanitize_for_xml(@submission.data_source.hoh_qualifying_person_name[:last_name], 32)
                 end
               end
               xml.Exemptions do
@@ -66,14 +62,14 @@ module SubmissionBuilder
                 @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.DependentDetails do
                     xml.Name do
-                      xml.FirstName truncate(dependent.first_name, 16)
-                      xml.MiddleInitial dependent.middle_initial&.strip&.gsub(/\s+/, ' ') if dependent.middle_initial.present?
-                      xml.LastName dependent.last_name&.strip&.gsub(/\s+/, ' ')
+                      xml.FirstName sanitize_for_xml(dependent.first_name, 16)
+                      xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                      xml.LastName sanitize_for_xml(dependent.last_name, 32)
                     end
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.RelationShip relationship_key(dependent.relationship)&.strip&.gsub(/\s+/, ' ')
+                    xml.RelationShip relationship_key(dependent.relationship)
                     xml.NumMonthsLived dependent.months_in_home
                     if dependent.under_17?
                       xml.DepUnder17 'X'
@@ -85,9 +81,9 @@ module SubmissionBuilder
                 @submission.data_source.dependents.select(&:is_qualifying_parent_or_grandparent?).each do |dependent|
                   xml.QualParentsAncestors do
                     xml.Name do
-                      xml.FirstName truncate(dependent.first_name, 16)
-                      xml.MiddleInitial dependent.middle_initial&.strip&.gsub(/\s+/, ' ') if dependent.middle_initial.present?
-                      xml.LastName dependent.last_name&.strip&.gsub(/\s+/, ' ')
+                      xml.FirstName sanitize_for_xml(dependent.first_name, 16)
+                      xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                      xml.LastName sanitize_for_xml(dependent.last_name, 32)
                     end
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
@@ -107,6 +103,9 @@ module SubmissionBuilder
               end
               xml.AzAdjSubtotal calculated_fields.fetch(:AZ140_LINE_19)
               xml.Subtractions do
+                add_non_zero_value(xml, :IntUSObligations, :AZ140_LINE_28)
+                xml.ExecFedStateLocGovPen calculated_fields.fetch(:AZ140_LINE_29A)
+                xml.SubExclBenAnnPen calculated_fields.fetch(:AZ140_LINE_29B)
                 xml.USSSRailRoadBnft calculated_fields.fetch(:AZ140_LINE_30)
                 xml.WageAmIndian calculated_fields.fetch(:AZ140_LINE_31)
                 xml.CompNtnlGrdArmdFrcs calculated_fields.fetch(:AZ140_LINE_32)
@@ -174,7 +173,7 @@ module SubmissionBuilder
           end
 
           def financial_transaction
-            SubmissionBuilder::Ty2022::States::FinancialTransaction.build(
+            FinancialTransaction.build(
               @submission,
               validate: false,
               kwargs: { refund_amount: calculated_fields.fetch(:AZ140_LINE_79) }
@@ -196,6 +195,21 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::Az8879Pdf,
                 include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az301,
+                pdf: PdfFiller::Az301Pdf,
+                include:  @submission.data_source.az321_contributions.present? || @submission.data_source.az322_contributions.present?
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az321Contribution,
+                pdf: PdfFiller::Az321Pdf,
+                include: @submission.data_source.az321_contributions.present?,
+              },
+              {
+                xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az322,
+                pdf: PdfFiller::Az322Pdf,
+                include: @submission.data_source.az322_contributions.present?
               }
             ]
 

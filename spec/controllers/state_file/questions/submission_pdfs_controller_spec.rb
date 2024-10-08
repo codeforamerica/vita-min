@@ -48,6 +48,21 @@ RSpec.describe StateFile::Questions::SubmissionPdfsController do
           expect(response).not_to have_http_status(:redirect)
         end
       end
+
+      context "when an intake has a pregenerated pdf" do
+        # Pick a random PDF we have available and use it as a mock
+        let(:mock_file) { Rails.root.join('public', 'pdfs', 'AZ-140V.pdf') }
+        before do
+          az_intake.submission_pdf.attach(io: File.open(mock_file), filename: 'mock.pdf', content_type: 'application/pdf')
+        end
+        it "uses the pregenerated pdf" do
+          get :show, params: { id: efile_submission.id }
+
+          tempfile = Tempfile.new(['output', '.pdf'])
+          tempfile.write(response.body.force_encoding("UTF-8"))
+          expect(tempfile.length).to equal File.size(mock_file)
+        end
+      end
     end
   end
 end

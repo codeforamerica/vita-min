@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Ty2020::Return1040 do
+describe SubmissionBuilder::Ty2020::Return1040, required_schema: "federal" do
   let(:submission) { create :efile_submission, :ctc, filing_status: "married_filing_jointly", tax_year: 2020 }
 
   before do

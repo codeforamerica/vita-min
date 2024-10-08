@@ -1,0 +1,29 @@
+<%
+    title = t(".title", filing_year: @filing_year)
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <h1 class="h2"><%= title %></h1>
+    <p><%= t(".label") %></p>
+
+    <div class="tight-checkboxes spacing-above-0 question-with-follow-up">
+      <%= f.cfa_checkbox(:homeowner_home_subject_to_property_taxes, t(".homeowner_home_subject_to_property_taxes"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:homeowner_more_than_one_main_home_in_nj, t(".homeowner_more_than_one_main_home_in_nj"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:homeowner_shared_ownership_not_spouse, t(".homeowner_shared_ownership_not_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <div class="question-with-follow-up__question">
+        <%= f.cfa_checkbox(:homeowner_main_home_multi_unit, t(".homeowner_main_home_multi_unit"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#homeowner_multi_unit_followup", "aria-controls": "homeowner_multi_unit_followup"}) %>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="homeowner_multi_unit_followup">
+        <%= f.cfa_checkbox(:homeowner_main_home_multi_unit_max_four_one_commercial, t(".homeowner_main_home_multi_unit_max_four_one_commercial"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

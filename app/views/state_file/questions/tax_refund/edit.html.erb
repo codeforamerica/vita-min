@@ -2,13 +2,13 @@
 
 <% content_for :card do %>
   <h1 class="h2">
-    <%= t(".#{current_state_code}_title_html", refund_amount: refund_amount) %>
+    <%= t(".title_html", refund_amount: refund_amount, state_name: current_state_name) %>
   </h1>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%= f.cfa_radio_set(
                 :payment_or_deposit_type,
                 collection: [

@@ -497,7 +497,7 @@ describe ReplacementParametersService do
 
     context "closing soon email" do
       context "in english" do
-        let(:body) { AutomatedMessage::ClosingSoon.new.email_body(locale: "en", body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 16th"})}
+        let(:body) { AutomatedMessage::ClosingSoon.new.email_body(locale: "en", body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 15th"})}
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -506,7 +506,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { AutomatedMessage::ClosingSoon.new.email_body(locale: locale, body_args: {end_of_docs_date: "8 de octubre", end_of_in_progress_intake_date: "16 de octubre"})}
+        let(:body) { AutomatedMessage::ClosingSoon.new.email_body(locale: locale, body_args: {end_of_docs_date: "8 de octubre", end_of_in_progress_intake_date: "15 de octubre"})}
         let(:locale) { "es" }
 
         it "replaces the replacement strings in the template" do
@@ -518,7 +518,7 @@ describe ReplacementParametersService do
 
     context "closing soon text message" do
       context "in english" do
-        let(:body) { AutomatedMessage::ClosingSoon.new.sms_body(locale: "en", body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 16th"})}
+        let(:body) { AutomatedMessage::ClosingSoon.new.sms_body(locale: "en", body_args: {end_of_docs_date: "October 8th", end_of_in_progress_intake_date: "October 15th"})}
 
         it "replaces the replacement strings in the template" do
           result = subject.process
@@ -527,7 +527,7 @@ describe ReplacementParametersService do
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("messages.closing_soon.sms", locale: locale, body_args: {end_of_docs_date: "8 de octubre", end_of_in_progress_intake_date: "16 de octubre"})}
+        let(:body) { I18n.t("messages.closing_soon.sms", locale: locale, body_args: {end_of_docs_date: "8 de octubre", end_of_in_progress_intake_date: "15 de octubre"})}
         let(:locale) { "es" }
         it "replaces the replacement strings in the template" do
           result = subject.process

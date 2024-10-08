@@ -13,6 +13,7 @@ RSpec.describe Efile::TaxFormLine do
       end
 
       missing = set_line_symbols.map(&:to_s) - described_class.line_data.keys
+      # add lines to line_data.yml if failing
       expect(missing).to eq([])
     end
   end

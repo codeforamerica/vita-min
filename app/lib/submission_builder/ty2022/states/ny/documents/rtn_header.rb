@@ -22,10 +22,10 @@ module SubmissionBuilder
                 # xml.COND_CODE_2_NMBR
                 if @submission.data_source.confirmed_third_party_designee_yes?
                   xml.THRD_PRTY_DSGN_IND claimed: 1
-                  xml.THRD_PRTY_PIN_NMBR claimed: @submission.data_source.direct_file_data.third_party_designee_pin.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.third_party_designee_pin.present?
+                  xml.THRD_PRTY_PIN_NMBR claimed: sanitize_for_xml(@submission.data_source.direct_file_data.third_party_designee_pin) if @submission.data_source.direct_file_data.third_party_designee_pin.present?
                 end
                 xml.EXT_TP_ID claimed: @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
-                xml.ABA_NMBR claimed: @submission.data_source.routing_number.strip.gsub(/\s+/, ' ') if @submission.data_source.routing_number.present?
+                xml.ABA_NMBR claimed: sanitize_for_xml(@submission.data_source.routing_number) if @submission.data_source.routing_number.present?
                 xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-') if @submission.data_source.account_number.present?
                 if @submission.data_source.account_type.present? && ACCOUNT_TYPES[@submission.data_source.account_type.to_sym] != 0
                   xml.ACCT_TYPE_CD claimed: ACCOUNT_TYPES[@submission.data_source.account_type.to_sym]

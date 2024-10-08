@@ -6,7 +6,7 @@ RSpec.describe StateFile::SendSubmissionJob, type: :job do
   end
 
   describe '#perform' do
-    let!(:submission) { create(:efile_submission, :queued, irs_submission_id: "12345200202011234567", submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+    let!(:submission) { create(:efile_submission, :queued, :for_state, irs_submission_id: "12345200202011234567", submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
     let(:successful_result) do
       <<~RESULT

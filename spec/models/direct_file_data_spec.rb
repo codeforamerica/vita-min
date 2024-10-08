@@ -1,6 +1,75 @@
 require 'rails_helper'
 
 describe DirectFileData do
+  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_df_complete_sample")) }
+  let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+
+  [
+    ["tax_return_year", 2023],
+    ["filing_status", 4],
+    ["phone_number", "4805555555"],
+    ["cell_phone_number", "5551231234"],
+    ["tax_payer_email", "test011@test.com"],
+    ["primary_ssn", "400000003"],
+    ["spouse_ssn", "500000003"],
+    ["primary_occupation", "Singer"],
+    ["spouse_occupation", "Actor"],
+    ["surviving_spouse", "X"],
+    ["spouse_date_of_death", "2024-07-06"],
+    ["spouse_name", "Allen"],
+    ["mailing_city", "Phoenix"],
+    ["mailing_street", "321 Roland St"],
+    ["mailing_apartment", "Apt B"],
+    ["mailing_state", "AZ"],
+    ["mailing_zip", "85034"],
+    ["fed_tax_amt", 1993],
+    ["fed_calculated_difference_amount", 1634],
+    ["fed_nontaxable_combat_pay_amount", 10],
+    ["fed_total_earned_income_amount", 35000],
+    ["fed_puerto_rico_income_exclusion_amount", 80],
+    ["fed_total_income_exclusion_amount", 600],
+    ["fed_housing_deduction_amount", 700],
+    ["fed_gross_income_exclusion_amount", 900],
+    ["qualifying_children_under_age_ssn_count", "1"],
+  ].each do |node_name, current_value|
+    describe "##{node_name}" do
+      it "returns the value" do
+        expect(direct_file_data.send(node_name)).to eq current_value
+      end
+
+      if current_value.is_a?(Integer) && !node_name.ends_with?("_year", "_status")
+        context "when the attribute is an amount and is not present" do
+          before do
+            selector = DirectFileData::SELECTORS[node_name.to_sym]
+            xml.at(selector).remove
+          end
+
+          it "defaults to 0" do
+            expect(direct_file_data.send(node_name)).to eq 0
+          end
+        end
+      end
+    end
+  end
+
+  describe "#phone_number=" do
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample) }
+
+    it "adds the node in the right place" do
+      direct_file_data.phone_number = "5551231234"
+
+      expect(direct_file_data.phone_number).to eq "5551231234"
+    end
+  end
+
+  describe "#qualifying_children_under_age_ssn_count=" do
+    it "writes to the value when the node is present" do
+      direct_file_data.qualifying_children_under_age_ssn_count = 3
+
+      expect(direct_file_data.qualifying_children_under_age_ssn_count).to eq "3"
+    end
+  end
+
   describe '#ny_public_employee_retirement_contributions' do
     let(:desc1) { '414H' }
     let(:desc2) { '414 (H)' }
@@ -74,7 +143,6 @@ describe DirectFileData do
   end
 
   describe '#fed_adjustments_claimed' do
-
     before do
       @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
     end
@@ -414,6 +482,280 @@ describe DirectFileData do
       let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_john_jane_no_eic') }
       it 'returns false' do
         expect(described_class.new(xml).spouse_deceased?).to eq(false)
+      end
+    end
+  end
+
+  describe "#sum_of_1099r_payments_received" do
+    it "returns the sum of TaxableAmt from 1099Rs" do
+      xml = StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")
+      direct_file_data = DirectFileData.new(xml.to_s)
+
+      expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
+    end
+  end
+
+  # fake field: will be replaced by a real one at some point pending info about df api
+  # when that time comes delete this whole spec in favor of a dynamically generated one (see top of file)
+  describe '#interest_reported_amount' do
+    let(:xml) { StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099") }
+
+    it "reads and writes" do
+      df_data = described_class.new(xml)
+      # defaults to 0
+      expect(df_data.interest_reported_amount).to eq 0
+
+      df_data.interest_reported_amount = 40
+
+      expect(df_data.interest_reported_amount).to eq 40
+    end
+  end
+
+  describe "DfW2" do
+    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+    let(:direct_file_data) { DirectFileData.new(xml.to_s) }
+    let(:first_w2) { direct_file_data.w2s[0] }
+
+    [
+      ["EmployeeSSN", "400000003"],
+      ["EmployerEIN", "234567891"],
+      ["EmployerName", "Rose Apothecary"],
+      ["EmployerStateIdNum", "12345"],
+      ["AddressLine1Txt", "123 Twyla Road"],
+      ["City", "Phoenix"],
+      ["State", "AZ"],
+      ["ZIP", "85034"],
+      ["RetirementPlanInd", "X"],
+      ["ThirdPartySickPayInd", "X"],
+      ["StateAbbreviationCd", "AZ"],
+      ["LocalityNm", "SomeCity"],
+      ["WagesAmt", 35000],
+      ["AllocatedTipsAmt", 50],
+      ["DependentCareBenefitsAmt", 70],
+      ["NonqualifiedPlansAmt", 10],
+      ["StateWagesAmt", 35000],
+      ["StateIncomeTaxAmt", 500],
+      ["LocalWagesAndTipsAmt", 1350],
+      ["LocalIncomeTaxAmt", 1000],
+      ["WithholdingAmt", 3000],
+    ].each do |node_name, current_value|
+      describe "##{node_name}" do
+        it "returns the value" do
+          expect(first_w2.send(node_name)).to eq current_value
+        end
+
+        if current_value.is_a?(Integer)
+          context "when the attribute is not present" do
+            before do
+              selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+              xml.at('IRSW2').at(selector).remove
+            end
+
+            it "defaults to 0" do
+              expect(first_w2.send(node_name)).to eq 0
+            end
+          end
+        end
+      end
+
+      describe "##{node_name}=" do
+        context "when the node is present" do
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+
+        context "when the node is not present" do
+          before do
+            selector = DirectFileData::DfW2::SELECTORS[node_name.to_sym]
+            xml.at('IRSW2').at(selector).remove
+          end
+
+          if current_value.is_a?(Integer)
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "500")
+              expect(first_w2.send(node_name)).to eq 500
+            end
+          else
+            it "sets the value" do
+              first_w2.send("#{node_name}=", "New Value")
+              expect(first_w2.send(node_name)).to eq "New Value"
+            end
+          end
+        end
+      end
+    end
+  end
+
+  describe "Df1099R" do
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("nc_miranda_1099r")).to_s) }
+    let(:first_1099r) { direct_file_data.form1099rs[0] }
+    let(:second_1099r) { direct_file_data.form1099rs[1] }
+
+    describe "#PayerNameControlTxt" do
+      it "returns the value" do
+        expect(first_1099r.PayerNameControlTxt).to eq "PAYE"
+        expect(second_1099r.PayerNameControlTxt).to eq "PAYE"
+      end
+    end
+
+    describe "#PayerName" do
+      it "returns the value" do
+        expect(first_1099r.PayerName).to eq "Payer Name"
+        expect(second_1099r.PayerName).to eq "Payer 2 Name"
+      end
+    end
+
+    describe "#PayerAddressLine1Txt" do
+      it "returns the value" do
+        expect(first_1099r.PayerAddressLine1Txt).to eq "2030 Pecan Street"
+        expect(second_1099r.PayerAddressLine1Txt).to eq nil
+      end
+    end
+
+    describe "#PayerCityNm" do
+      it "returns the value" do
+        expect(first_1099r.PayerCityNm).to eq "Monroe"
+        expect(second_1099r.PayerCityNm).to eq nil
+      end
+    end
+
+    describe "#PayerStateAbbreviationCd" do
+      it "returns the value" do
+        expect(first_1099r.PayerStateAbbreviationCd).to eq "NC"
+        expect(second_1099r.PayerStateAbbreviationCd).to eq nil
+      end
+    end
+
+    describe "#PayerZIPCd" do
+      it "returns the value" do
+        expect(first_1099r.PayerZIPCd).to eq "05502"
+        expect(second_1099r.PayerZIPCd).to eq nil
+      end
+    end
+
+    describe "#PayerEIN" do
+      it "returns the value" do
+        expect(first_1099r.PayerEIN).to eq "000000008"
+        expect(second_1099r.PayerEIN).to eq "000000009"
+      end
+    end
+
+    describe "#PhoneNum" do
+      it "returns the value" do
+        expect(first_1099r.PhoneNum).to eq "2025551212"
+        expect(second_1099r.PhoneNum).to eq nil
+      end
+    end
+
+    describe "#GrossDistributionAmt" do
+      it "returns the value" do
+        expect(first_1099r.GrossDistributionAmt).to eq 200
+        expect(second_1099r.GrossDistributionAmt).to eq 4000
+      end
+    end
+
+    describe "#TaxableAmt" do
+      it "returns the value" do
+        expect(first_1099r.TaxableAmt).to eq 1000
+        expect(second_1099r.TaxableAmt).to eq 3000
+      end
+    end
+
+    describe "#FederalIncomeTaxWithheldAmt" do
+      it "returns the value" do
+        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
+        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 0
+      end
+    end
+
+    describe "#F1099RDistributionCd" do
+      it "returns the value" do
+        expect(first_1099r.F1099RDistributionCd).to eq "7"
+        expect(second_1099r.F1099RDistributionCd).to eq nil
+      end
+    end
+
+    describe "#StandardOrNonStandardCd" do
+      it "returns the value" do
+        expect(first_1099r.StandardOrNonStandardCd).to eq "S"
+        expect(second_1099r.StandardOrNonStandardCd).to eq "N"
+      end
+    end
+
+    describe "#StateTaxWithheldAmt" do
+      it "returns the value" do
+        expect(first_1099r.StateTaxWithheldAmt).to eq 0
+        expect(second_1099r.StateTaxWithheldAmt).to eq 0
+      end
+    end
+    describe "#StateAbbreviationCd" do
+      it "returns the value" do
+        expect(first_1099r.StateAbbreviationCd).to eq nil
+        expect(second_1099r.StateAbbreviationCd).to eq "NC"
+      end
+    end
+    describe "#PayerStateIdNumber" do
+      it "returns the value" do
+        expect(first_1099r.PayerStateIdNumber).to eq nil
+        expect(second_1099r.PayerStateIdNumber).to eq nil
+      end
+    end
+    describe "#StateDistributionAmt" do
+      it "returns the value" do
+        expect(first_1099r.StateDistributionAmt).to eq 0
+        expect(second_1099r.StateDistributionAmt).to eq 2000
+      end
+    end
+
+    describe "#RecipientSSN" do
+      it "returns the value" do
+        expect(first_1099r.RecipientSSN).to eq '400001032'
+        expect(second_1099r.RecipientSSN).to eq '400001032'
+      end
+    end
+
+    describe "#RecipientNm" do
+      it "returns the value" do
+        expect(first_1099r.RecipientNm).to eq 'Susan Miranda'
+        expect(second_1099r.RecipientNm).to eq 'Susan Miranda'
+      end
+    end
+
+    # TODO: Once we have better 1099R example, replace with one that has values for these
+    describe "#TxblAmountNotDeterminedInd" do
+      it "returns the value" do
+        expect(first_1099r.TxblAmountNotDeterminedInd).to eq nil
+        expect(second_1099r.TxblAmountNotDeterminedInd).to eq nil
+      end
+    end
+
+    describe "#TotalDistributionInd" do
+      it "returns the value" do
+        expect(first_1099r.TotalDistributionInd).to eq nil
+        expect(second_1099r.TotalDistributionInd).to eq nil
+      end
+    end
+
+    describe "#CapitalGainAmt" do
+      it "returns the value" do
+        expect(first_1099r.CapitalGainAmt).to eq 0
+        expect(second_1099r.CapitalGainAmt).to eq 0
+      end
+    end
+
+    describe "#DesignatedROTHAcctFirstYr" do
+      it "returns the value" do
+        expect(first_1099r.DesignatedROTHAcctFirstYr).to eq nil
+        expect(second_1099r.DesignatedROTHAcctFirstYr).to eq nil
       end
     end
   end
