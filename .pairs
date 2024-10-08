@@ -3,6 +3,7 @@
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
   ac: Arin Choi
+  ar: Anisha Ramnani
   dbd: Dimitri DeFigueiredo
   em: Em Barnard-Shao
   jh: Jenny Heath
@@ -14,6 +15,7 @@ pairs:
   kd: Kevin Diale
 email_addresses:
   ac: achoi@codeforamerica.org
+  ar: aramnani@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
   em: ebarnard@codeforamerica.org
   jh: jheath@codeforamerica.org
