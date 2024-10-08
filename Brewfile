@@ -1,6 +1,8 @@
 brew "gh"
 brew "ghostscript"
 brew "imagemagick"
+tap "AdoptOpenJDK/openjdk"
+cask "adoptopenjdk"
 brew "poppler"
 brew "postgresql@14"
 brew "postgis"
