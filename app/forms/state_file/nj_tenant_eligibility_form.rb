@@ -12,9 +12,7 @@ module StateFile
       @intake.update(attributes_for(:intake))
 
       if StateFile::NjTenantEligibilityHelper.determine_eligibility(@intake) != StateFile::NjTenantEligibilityHelper::ADVANCE
-        @intake.update({
-                         rent_paid: nil
-        })
+        @intake.update({ rent_paid: nil })
       end
     end
   end

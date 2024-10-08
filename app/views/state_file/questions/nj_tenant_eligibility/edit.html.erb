@@ -6,27 +6,27 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= title %></h1>
-    <p><%= t(".label") %></p>
+    <fieldset>
+      <legend style="margin-bottom: 2.5rem"><%= t(".label") %></legend>
 
-    <div class="tight-checkboxes spacing-above-0 question-with-follow-up">
-      <%= f.cfa_checkbox(:tenant_home_subject_to_property_taxes, t(".tenant_home_subject_to_property_taxes"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <div class="tight-checkboxes spacing-above-0 question-with-follow-up">
+        <%= f.cfa_checkbox(:tenant_home_subject_to_property_taxes, t(".tenant_home_subject_to_property_taxes"), options: { checked_value: "yes", unchecked_value: "no" }) %>
 
+        <div class="question-with-follow-up__question">
+          <%= f.cfa_checkbox(:tenant_building_multi_unit, t(".tenant_building_multi_unit"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#tenant_access_kitchen_bath_followup", "aria-controls": "tenant_access_kitchen_bath_followup" }) %>
+        </div>
+        <div class="question-with-follow-up__follow-up" id="tenant_access_kitchen_bath_followup">
+          <%= f.cfa_checkbox(:tenant_access_kitchen_bath, t(".tenant_access_kitchen_bath"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        </div>
 
-      <div class="question-with-follow-up__question">
-        <%= f.cfa_checkbox(:tenant_building_multi_unit, t(".tenant_building_multi_unit"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#tenant_access_kitchen_bath_followup", "aria-controls": "tenant_access_kitchen_bath_followup" }) %>
+        <%= f.cfa_checkbox(:tenant_more_than_one_main_home_in_nj, t(".tenant_more_than_one_main_home_in_nj"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox(:tenant_shared_rent_not_spouse, t(".tenant_shared_rent_not_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+
+        <% if current_intake.filing_status == :married_filing_separately %>
+          <%= f.cfa_checkbox(:tenant_same_home_spouse, t(".tenant_same_home_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <% end %>
       </div>
-      <div class="question-with-follow-up__follow-up" id="tenant_access_kitchen_bath_followup">
-        <%= f.cfa_checkbox(:tenant_access_kitchen_bath, t(".tenant_access_kitchen_bath"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      </div>
-
-      <%= f.cfa_checkbox(:tenant_more_than_one_main_home_in_nj, t(".tenant_more_than_one_main_home_in_nj"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.cfa_checkbox(:tenant_shared_rent_not_spouse, t(".tenant_shared_rent_not_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-
-      <% if current_intake.filing_status == :married_filing_separately %>
-        <%= f.cfa_checkbox(:tenant_same_home_spouse, t(".tenant_same_home_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <% end %>
-
-    </div>
+    </fieldset>
 
     <div class="reveal">
       <p><a href="#" class="reveal__link"><%= t('.helper_heading') %></a></p>
