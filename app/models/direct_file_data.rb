@@ -494,18 +494,6 @@ class DirectFileData < DfXmlAccessor
     primary_ssn.start_with?("9")
   end
 
-  def fed_65_primary_spouse
-    elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
-    value = 0
-
-    elements_to_check.each do |element_name|
-      if parsed_xml.at(element_name)
-        value += 1
-      end
-    end
-    value
-  end
-
   def fed_w2_state
     df_xml_value(__method__)
   end
