@@ -113,11 +113,11 @@ FactoryBot.define do
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shelby_hoh') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_shelby_hoh') }
     end
 
     trait :claimed_as_dependent do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('riley_claimedasdep') }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_riley_claimedasdep') }
     end
   end
 end

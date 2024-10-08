@@ -35,13 +35,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "qw filer" do
-        let(:intake) { create(:state_file_md_intake, filing_status: "qualifying_widow") }
-        it "correctly fills answers" do
-          expect(xml.document.at('FilingStatus')&.text).to eq "QualifyingWidow"
-        end
-      end
-
       context "hoh filer" do
         let(:intake) { create(:state_file_md_intake, filing_status: "head_of_household") }
 
@@ -50,10 +43,15 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "dependent filer" do
-        before do
-          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+      context "qw filer" do
+        let(:intake) { create(:state_file_md_intake, filing_status: "qualifying_widow") }
+        it "correctly fills answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "QualifyingWidow"
         end
+      end
+
+      context "dependent filer" do
+        let(:intake) { create(:state_file_md_intake, :claimed_as_dependent) }
 
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus')&.text).to eq "DependentTaxpayer"
