@@ -4,6 +4,7 @@ pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
   ac: Arin Choi
   dbd: Dimitri DeFigueiredo
+  dp: Drew Proebstel
   em: Em Barnard-Shao
   jh: Jenny Heath
   ti: Tahsina Islam
@@ -15,6 +16,7 @@ pairs:
 email_addresses:
   ac: achoi@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
+  dp: dproebstel@codeforamerica.org
   em: ebarnard@codeforamerica.org
   jh: jheath@codeforamerica.org
   ti: tislam@codeforamerica.org
