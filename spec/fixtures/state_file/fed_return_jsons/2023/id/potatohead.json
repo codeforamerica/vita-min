@@ -1,0 +1,19 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Potato",
+      "middleInitial": null,
+      "lastName": "Head",
+      "dateOfBirth": null,
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Spud",
+      "middleInitial": null,
+      "lastName": "Head",
+      "dateOfBirth": null,
+      "isPrimaryFiler": false
+    }
+  ]
+}

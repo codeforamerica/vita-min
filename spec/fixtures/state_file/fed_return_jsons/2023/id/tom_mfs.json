@@ -1,0 +1,19 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Tom",
+      "middleInitial": null,
+      "lastName": "Hanks",
+      "dateOfBirth": null,
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Rita",
+      "middleInitial": null,
+      "lastName": "Wilson",
+      "dateOfBirth": null,
+      "isPrimaryFiler": false
+    }
+  ]
+}
