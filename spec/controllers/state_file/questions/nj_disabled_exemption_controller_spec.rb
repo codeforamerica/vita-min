@@ -22,8 +22,15 @@ RSpec.describe StateFile::Questions::NjDisabledExemptionController do
       end
     end
 
-    context "when spouse or taxpayer have not claimed DirectFile blind" do
+    context "when both spouse and taxpayer have not claimed DirectFile blind" do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly }
+      it "shows" do
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "when taxpayer has claimed DirectFile blind but spouse has not" do
+      let(:intake) { create :state_file_nj_intake, :married_filing_jointly, :primary_blind }
       it "shows" do
         expect(described_class.show?(intake)).to eq true
       end
