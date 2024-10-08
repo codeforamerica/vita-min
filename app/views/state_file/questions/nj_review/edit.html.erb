@@ -61,6 +61,17 @@
       </div>
     </div>
   <% end %>
+  
+  <div id="medical_expenses" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".medical_expenses") %></p>
+      <p><%= number_to_currency(current_intake.medical_expenses) %></p>
+      <%= link_to StateFile::Questions::NjMedicalExpensesController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= t("general.edit") %>
+        <span class="sr-only"><%= t(".medical_expenses") %></span>
+      <% end %>
+    </div>
+  </div>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

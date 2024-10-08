@@ -71,14 +71,14 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_options_with_errors = html_options.merge(error_attributes(method: method))
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-            #{formatted_label}
-            <div class="select">
-              #{select(method, collection, options, html_options_with_errors, &block)}
-            </div>
-            #{errors_for(object, method)}
-          </div>
-        HTML
+      <div class="form-group#{error_state(object, method)}">
+        #{formatted_label}
+        <div class="select">
+          #{select(method, collection, options, html_options_with_errors, &block)}
+        </div>
+        #{errors_for(object, method)}
+      </div>
+    HTML
 
     html_output.html_safe
   end
@@ -282,11 +282,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       method,
       label_text,
       options: {},
-      classes: []
+      classes: [],
+      help_text: nil
     )
     text_field_options = standard_options.merge(
       class: (classes + ["text-input money-input"]).join(" "),
-      ).merge(options).merge(error_attributes(method: method)).merge(placeholder: '0.00')
+      ).merge(error_attributes(method: method)).merge(placeholder: '0.00').merge(options)
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
@@ -301,6 +302,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       prefix: '$',
       options: options,
       wrapper_classes: wrapper_classes,
+      help_text: help_text
       )
 
     html_output = <<~HTML
@@ -412,9 +414,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def warning_for_select(element_id, permitted_values, msg)
     @template.content_tag(:div, msg,
       class: "warning warning-for-select",
-      "data-warning-for-select": element_id,
+      'data-warning-for-select': element_id,
       style: "display:none",
-      "data-permitted": permitted_values.to_json
+      'data-permitted': permitted_values.to_json
     )
   end
 end
