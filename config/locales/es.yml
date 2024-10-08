@@ -2531,8 +2531,8 @@ es:
       nj_disabled_exemption:
         edit:
           instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
-          primary_disabled_question: ¿Está usted discapacitado según la definición de Nueva Jersey?
-          spouse_disabled_question: ¿Su cónyuge está discapacitado según la definición de Nueva Jersey?
+          primary_disabled_question: "¿Está usted discapacitado según la definición de Nueva Jersey?"
+          spouse_disabled_question: "¿Su cónyuge está discapacitado según la definición de Nueva Jersey?"
           title: Exención para discapacitados
       nj_homeowner_property_tax:
         edit:
