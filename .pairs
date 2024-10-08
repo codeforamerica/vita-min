@@ -3,9 +3,12 @@
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
   ac: Arin Choi
+  ak: Afia Kyalo
   ar: Anisha Ramnani
   dbd: Dimitri DeFigueiredo
+  dp: Drew Proebstel
   em: Em Barnard-Shao
+  hm: Hugo Melo
   jh: Jenny Heath
   ti: Tahsina Islam
   tc: Tiffany Chang
@@ -15,9 +18,12 @@ pairs:
   kd: Kevin Diale
 email_addresses:
   ac: achoi@codeforamerica.org
+  ak: akyalo@codeforamerica.org
   ar: aramnani@codeforamerica.org
   dbd: ddefigueiredo@codeforamerica.org
+  dp: dproebstel@codeforamerica.org
   em: ebarnard@codeforamerica.org
+  hm: hmelo@codeforamerica.org
   jh: jheath@codeforamerica.org
   ti: tislam@codeforamerica.org
   tc: tchang@codeforamerica.org
@@ -25,4 +31,4 @@ email_addresses:
   mp: mpidcock@codeforamerica.org
   jf: jflores@codeforamerica.org
   kd: kdiale@codeforamerica.org
-global: false  # Set to true for git-pair to change git configuration for all your projects
+global: false # Set to true for git-pair to change git configuration for all your projects
