@@ -1,5 +1,5 @@
 module StateFile
-  class NjRenterRentPaidForm < QuestionsForm
+  class NjTenantRentPaidForm < QuestionsForm
     set_attributes_for :intake,
                        :rent_paid
 

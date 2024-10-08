@@ -2562,11 +2562,6 @@ es:
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
-      nj_renter_rent_paid:
-        edit:
-          helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
-          label: Alquiler pagado en %{filing_year}
-          title: Ingrese el alquiler pagado en %{filing_year}.
       nj_review:
         edit:
           county: Condado
@@ -2574,6 +2569,23 @@ es:
           municipality: Municipio
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
+      nj_tenant_eligibility:
+        edit:
+          helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
+          helper_heading: "¿Qué no está incluido aquí?"
+          label: "¿Se aplica a usted alguna de estas situaciones?"
+          tenant_access_kitchen_bath: "¿Tuviste acceso a las instalaciones de cocina y baño?"
+          tenant_building_multi_unit: Si usted alquiló su vivienda principal en un edificio que tenía más de una unidad de vivienda.
+          tenant_home_subject_to_property_taxes: Su vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
+          tenant_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
+          tenant_same_home_spouse: "¿Usted y su cónyuge vivían en la misma casa?"
+          tenant_shared_rent_not_spouse: "¿Ocupó y compartió el alquiler de su vivienda principal (apartamento/unidad de alquiler) con alguien que no era su cónyuge durante el año?"
+          title: Dijiste que eras inquilino en %{filing_year}.
+      nj_tenant_rent_paid:
+        edit:
+          helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
+          label: Alquiler pagado en %{filing_year}
+          title: Ingrese el alquiler pagado en %{filing_year}.
       nj_unsupported_property_tax:
         edit:
           helper_1_html: "<strong>¿Qué es este crédito?</strong> Si califica, puede deducir hasta $15,000 en gastos de impuestos a la propiedad de su ingreso tributable, o recibir hasta $50 en crédito."
