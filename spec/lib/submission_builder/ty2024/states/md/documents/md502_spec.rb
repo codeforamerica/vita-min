@@ -18,6 +18,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.document.at("TaxPeriodBeginDt").text).to eq "2023-01-01"
           expect(xml.document.at("TaxPeriodEndDt").text).to eq "2023-12-31"
           expect(xml.document.at('FilingStatus')&.text).to eq "Single"
+          expect(xml.document.at('DaytimePhoneNumber')&.text).to eq "5551234567"
         end
       end
 
