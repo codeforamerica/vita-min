@@ -2639,6 +2639,28 @@ en:
         edit:
           helper_description: Please continue to see what else we can guide you to qualify for.
           title: Looks like you’re not eligible for this credit.
+      nj_medical_expenses:
+        edit:
+          description: |-
+            <li>This includes expenses for yourself, your spouse, and your dependents.</li>
+            <li>Only expenses that exceed 2% of your gross income may be deducted.</li>
+            <li>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</li>
+          help_text: If you do not want to claim this deduction, click “Continue”.
+          label: Non-reimbursed medical expenses paid in %{filing_year}
+          learn_more_content_html: |-
+            <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
+            <li>Hospital care</li>
+            <li>Nursing care</li>
+            <li>Medicines and drugs</li><li>Prosthetic devices</li>
+            <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+            <li>Amounts paid for transportation primarily for and essential to medical care</li>
+            <li>Insurance (including amounts paid as premiums under Part B of Title XVIII of the Social Security Act, relating to supplementary medical insurance for the aged) covering medical care</li>
+          learn_more_meaning: Medical expenses means non-reimbursed payments for costs such as
+          learn_more_note_html: |-
+            Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
+            oopener noreferrer">if the child was your dependent.</a>
+          learn_more_title: What are medical expenses?
+          title: You can deduct medical expenses
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
@@ -2649,6 +2671,7 @@ en:
         edit:
           county: County
           household_rent_own: Rent or own home
+          medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
           property_tax_paid: Property taxes paid

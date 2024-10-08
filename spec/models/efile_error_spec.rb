@@ -80,6 +80,7 @@ describe 'EfileError' do
       "nj-homeowner-property-tax",
       "nj-household-rent-own",
       "nj-ineligible-property-tax",
+      "nj-medical-expenses",
       "nj-municipality",
       "nj-review",
       "nj-tenant-eligibility",
