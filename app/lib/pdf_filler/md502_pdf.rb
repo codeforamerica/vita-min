@@ -24,6 +24,7 @@ module PdfFiller
         "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
         "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         "6. Check here": claimed_as_dependent? ? 'Yes' : 'Off',
+        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
     end
 
