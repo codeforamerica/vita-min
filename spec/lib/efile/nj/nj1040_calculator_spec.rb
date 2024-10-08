@@ -163,6 +163,49 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 31 - medical expenses' do
+    let(:intake) { create(:state_file_nj_intake, medical_expenses: 123_456)}
+
+    before do
+      allow(instance).to receive(:calculate_line_29).and_return gross_income
+      allow(instance).to receive(:calculate_line_13).and_return 1234
+      instance.calculate
+    end
+
+    context 'when gross income is 0' do
+      let(:gross_income) { 0 }
+      it 'sets line 31 to the entire cost of medical expenses' do
+        expect(instance.lines[:NJ1040_LINE_31].value).to eq(123_456)
+      end
+
+      it 'includes medical expenses in line 38' do
+        expect(instance.lines[:NJ1040_LINE_38].value).to eq(124_690)
+      end
+    end
+
+    context 'when gross income is 10_000' do
+      let(:gross_income) { 10_000 }
+      it 'sets line 31 to medical expenses minus $200' do
+        expect(instance.lines[:NJ1040_LINE_31].value).to eq(123_256)
+      end
+
+      it 'includes medical expenses in line 38' do
+        expect(instance.lines[:NJ1040_LINE_38].value).to eq(124_490)
+      end
+    end
+
+    context 'when gross income is 100_000_000' do
+      let(:gross_income) { 100_000_000 }
+      it 'does not set a value for line 31' do
+        expect(instance.lines[:NJ1040_LINE_31].value).to eq(nil)
+      end
+
+      it 'does not alter line 38' do
+        expect(instance.lines[:NJ1040_LINE_38].value).to eq(1234)
+      end
+    end
+  end
+
   describe 'line 38 - total exemptions/deductions' do
     let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
     it 'sets line 38 to the total exemption amount' do
