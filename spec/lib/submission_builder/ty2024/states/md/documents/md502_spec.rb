@@ -10,6 +10,5 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
     it "generates a valid xml" do
       expect(build_response.errors).to be_empty
     end
-
   end
 end

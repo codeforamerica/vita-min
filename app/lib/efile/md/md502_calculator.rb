@@ -5,9 +5,15 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
+        @md502b = Efile::Md::Md502bCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
+        @md502b.calculate
         @lines.transform_values(&:value)
       end
 

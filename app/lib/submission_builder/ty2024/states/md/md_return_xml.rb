@@ -36,6 +36,11 @@ module SubmissionBuilder
                 pdf: nil,
                 include: true
               },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502b,
+                pdf: nil,
+                include: true
+              },
             ]
 
             supported_docs += combined_w2s
