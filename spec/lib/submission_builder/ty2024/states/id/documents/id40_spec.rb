@@ -35,7 +35,6 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
       let(:intake) { create(:state_file_id_intake, :with_dependents, filing_status: "head_of_household") }
 
       it "correctly fills answers" do
-        intake.reload
         expect(xml.at("FilingStatus").text).to eq "HOH"
         # expect(xml.css('DependentGrid').count).to eq 3
         #
