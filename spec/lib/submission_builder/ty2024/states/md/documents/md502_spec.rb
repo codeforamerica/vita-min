@@ -23,21 +23,23 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
 
       context "mfj filer" do
-        let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly") }
+        let(:intake) { create(:state_file_md_intake, :with_spouse) }
+
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus')&.text).to eq "Joint"
         end
       end
 
       context "mfs filer" do
-        let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_separately") }
+        let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_separately") }
+
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus')&.text).to eq "MarriedFilingSeparately"
         end
       end
 
       context "hoh filer" do
-        let(:intake) { create(:state_file_md_intake, filing_status: "head_of_household") }
+        let(:intake) { create(:state_file_md_intake, :head_of_household) }
 
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus')&.text).to eq "HeadOfHousehold"
@@ -45,7 +47,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
 
       context "qw filer" do
-        let(:intake) { create(:state_file_md_intake, filing_status: "qualifying_widow") }
+        let(:intake) { create(:state_file_md_intake, :qualifying_widow) }
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus')&.text).to eq "QualifyingWidow"
         end

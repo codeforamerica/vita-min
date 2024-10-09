@@ -32,7 +32,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "mfj" do
-      let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly") }
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
       context "pulling fields from xml" do
         it "sets other fields to the correct values" do
@@ -47,7 +47,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "mfs" do
-      let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_separately") }
+      let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_separately") }
 
       context "pulling fields from xml" do
         it "sets other fields to the correct values" do
@@ -62,7 +62,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "hoh" do
-      let(:intake) { create(:state_file_md_intake, filing_status: "head_of_household") }
+      let(:intake) { create(:state_file_md_intake, :head_of_household) }
 
       context "pulling fields from xml" do
         it "sets other fields to the correct values" do
@@ -77,7 +77,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "qw" do
-      let(:intake) { create(:state_file_md_intake, filing_status: "qualifying_widow") }
+      let(:intake) { create(:state_file_md_intake, :qualifying_widow) }
 
       context "pulling fields from xml" do
         it "sets other fields to the correct values" do
@@ -92,7 +92,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "dependent taxpayer" do
-      let(:intake) { create(:state_file_md_intake, :claimed_as_dependent, filing_status: "married_filing_jointly") }
+      let(:intake) { create(:state_file_md_intake, :claimed_as_dependent) }
 
       context "pulling fields from xml" do
         it "sets other fields to the correct values" do
