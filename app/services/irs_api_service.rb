@@ -5,7 +5,7 @@ require 'jwt'
 require 'nokogiri'
 require 'openssl/oaep'
 
-require_relative 'state_file/xml_return_sample_service'
+require_relative 'state_file/direct_file_api_response_sample_service'
 
 class IrsApiService
   def self.df_return_sample
