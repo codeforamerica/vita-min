@@ -135,6 +135,10 @@ class DirectFileData < DfXmlAccessor
     surviving_spouse == "X"
   end
 
+  def spouse_claimed_dependent=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def spouse_is_a_dependent?
     spouse_claimed_dependent == "X"
   end

@@ -17,14 +17,18 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form40") do |xml|
                 xml.FilingStatus filing_status
-                @submission.data_source.dependents do |dependent|
+                add_non_zero_value(xml, :PrimeExemption, :ID40_LINE_6A)
+                add_non_zero_value(xml, :SpouseExemption, :ID40_LINE_6B)
+                add_non_zero_value(xml, :OtherExemption, :ID40_LINE_6C)
+                add_non_zero_value(xml, :TotalExemption, :ID40_LINE_6D)
+                @submission.data_source.dependents.each do |dependent|
                   xml.DependentGrid do
                     xml.DependentFirstName sanitize_for_xml(dependent.first_name, 20)
                     xml.DependentLastName sanitize_for_xml(dependent.last_name, 20)
                     unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
-                    xml.DependentDOB datetype(dependent.dob)
+                    xml.DependentDOB date_type(dependent.dob)
                   end
                 end
               end
@@ -35,6 +39,9 @@ module SubmissionBuilder
               FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
             end
 
+            def calculated_fields
+              @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+            end
           end
         end
       end

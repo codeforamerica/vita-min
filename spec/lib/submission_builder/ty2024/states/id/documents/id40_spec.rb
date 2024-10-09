@@ -12,6 +12,8 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "SINGLE"
+        expect(xml.at("PrimeExemption").text).to eq "1"
+        expect(xml.at("TotalExemption").text).to eq "1"
       end
     end
 
@@ -20,6 +22,9 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "JOINT"
+        expect(xml.at("PrimeExemption").text).to eq "1"
+        expect(xml.at("SpouseExemption").text).to eq "1"
+        expect(xml.at("TotalExemption").text).to eq "2"
       end
     end
 
@@ -32,23 +37,10 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
     end
 
     context "head of household with dependents" do
-      let(:intake) { create(:state_file_id_intake, :with_dependents, filing_status: "head_of_household") }
+      let(:intake) { create(:state_file_id_intake, filing_status: "head_of_household") }
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "HOH"
-        # expect(xml.css('DependentGrid').count).to eq 3
-        #
-        # expect(xml.document.at("DependentGrid[1]/DependentFirstName").text).to eq "Gloria"
-        # expect(xml.document.at("DependentGrid[1]/DependentLastName").text).to eq "Hemingway"
-        # expect(xml.document.at("DependentGrid[1]/DependentDOB").text).to eq "1920-01-01"
-        #
-        # expect(xml.document.at("DependentGrid[2]/DependentFirstName").text).to eq "Patrick"
-        # expect(xml.document.at("DependentGrid[2]/DependentLastName").text).to eq "Hemingway"
-        # expect(xml.document.at("DependentGrid[2]/DependentDOB").text).to eq "1919-01-01"
-        #
-        # expect(xml.document.at("DependentGrid[3]/DependentFirstName").text).to eq "Jack"
-        # expect(xml.document.at("DependentGrid[3]/DependentLastName").text).to eq "Hemingway"
-        # expect(xml.document.at("DependentGrid[3]/DependentDOB").text).to eq "1919-01-01"
       end
     end
 
@@ -57,6 +49,31 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "QWID"
+      end
+    end
+
+    context "when there are dependents" do
+      before do
+        create(:state_file_dependent, intake: intake, first_name: "Gloria", last_name: "Hemingway", dob: Date.new(1920, 1, 1))
+        create(:state_file_dependent, intake: intake, first_name: "Patrick", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
+        create(:state_file_dependent, intake: intake, first_name: "Jack", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
+      end
+
+      it"fills out dependent information" do
+        expect(xml.css('OtherExemption').text).to eq "3"
+        expect(xml.css('DependentGrid').count).to eq 3
+
+        expect(xml.css('DependentGrid')[0].at("DependentFirstName").text).to eq "Gloria"
+        expect(xml.css('DependentGrid')[0].at("DependentLastName").text).to eq "Hemingway"
+        expect(xml.css('DependentGrid')[0].at("DependentDOB").text).to eq "1920-01-01"
+
+        expect(xml.css('DependentGrid')[1].at("DependentFirstName").text).to eq "Patrick"
+        expect(xml.css('DependentGrid')[1].at("DependentLastName").text).to eq "Hemingway"
+        expect(xml.css('DependentGrid')[1].at("DependentDOB").text).to eq "1919-01-01"
+
+        expect(xml.css('DependentGrid')[2].at("DependentFirstName").text).to eq "Jack"
+        expect(xml.css('DependentGrid')[2].at("DependentLastName").text).to eq "Hemingway"
+        expect(xml.css('DependentGrid')[2].at("DependentDOB").text).to eq "1919-01-01"
       end
     end
   end

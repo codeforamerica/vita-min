@@ -10,44 +10,43 @@ module PdfFiller
       @submission = submission
 
       # Most PDF fields are grabbed right off the XML
-      builder = StateFile::StateInformationService.submission_builder_class(:nc)
+      builder = StateFile::StateInformationService.submission_builder_class(:id)
       @xml_document = builder.new(submission).document
     end
 
     def hash_for_pdf
-      {
-        'YearBeginning' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
-        'YearEnding' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d-%y"),
+      answers = {
+        'YearBeginning' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%Y"),
+        'YearEnding' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%Y"),
         'FirstNameInitial' => @xml_document.at('Primary TaxpayerName FirstName')&.text,
         'LastName' => @xml_document.at('Primary TaxpayerName LastName')&.text,
         'SSN' => @xml_document.at('Primary TaxpayerSSN')&.text,
-        'SpouseFirstNameInitial' => @xml_document.at('Primary TaxpayerSpouseFirstName')&.text,
-        'SpouseLastName' => @xml_document.at('Primary TaxpayerSpouseLastName')&.text,
-        'SpouseSSN' => @xml_document.at('Primary TaxpayerSpouseSSN')&.text,
+        'SpouseFirstNameInitial' => @xml_document.at('Secondary TaxpayerName FirstName')&.text,
+        'SpouseLastName' => @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        'SpouseSSN' => @xml_document.at('Secondary TaxpayerSSN')&.text,
         'CurrentMailing' => [@xml_document.at('Filer USAddress AddressLine1Txt')&.text, @xml_document.at('Filer USAddress AddressLine2Txt')&.text].compact.join(', '),
         'City' => @xml_document.at('Filer USAddress CityNm')&.text,
         'StateAbbrv' => @xml_document.at('Filer USAddress StateAbbreviationCd')&.text,
         'ZIPcode' => @xml_document.at('Filer USAddress ZIPCd')&.text,
         'FilingStatusMarriedJoint' => @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
         'FilingStatusSingle' => @submission.data_source.filing_status_single? ? 'Yes' : 'Off',
-        'FilingStatusMarriedSeperate' => @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
+        'FilingStatusMarriedSeparate' => @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
         'FilingStatusHead' => @submission.data_source.filing_status_hoh? ? 'Yes' : 'Off',
         'SpouseDeceased' => @submission.data_source.filing_status_qw? ? 'Yes' : 'Off',
-        '6aYourself' => @submission.data_source.direct_file_data.claimed_as_dependent? ? "" : "1",
-        '6bSpouse' => @submission.data_source.filing_status_mfj? ? "1" : "",
-        '6cDependents' => @submission.data_source.dependents.count,
-        '6dTotalHousehold' => dependent_count,
+        '6aYourself' =>  @xml_document.at('PrimeExemption')&.text,
+        '6bSpouse' => @xml_document.at('SpouseExemption')&.text,
+        '6cDependents' => @xml_document.at('OtherExemption')&.text,
+        '6dTotalHousehold' => @xml_document.at('TotalExemption')&.text,
       }
-    end
-
-    def dependent_count
-      if @submission.data_source.direct_file_data.claimed_as_dependent?
-        0
-      else
-        count = @submission.data_source.dependents.count + 1 # adding yourself as a dependent
-        count += 1 if @submission.data_source.filing_status_mfj?
-        count
+      @submission.data_source.dependents.first(3).each_with_index do |dependent, index|
+        answers.merge!(
+          "6cDependent#{index+1}First" => dependent.first_name,
+          "6cDependent#{index+1}Last" => dependent.last_name,
+          "6cDependent#{index+1}SSN" => dependent.ssn,
+          "6cDependent#{index+1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
+          )
       end
+      answers
     end
 
     def formatted_date(date_str, format)
