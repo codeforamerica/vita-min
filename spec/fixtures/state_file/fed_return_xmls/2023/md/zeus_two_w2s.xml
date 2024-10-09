@@ -211,7 +211,7 @@
       </OtherDeductionsBenefitsGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>NJ</StateAbbreviationCd>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
           <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
@@ -257,7 +257,7 @@
       </OtherDeductionsBenefitsGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>NJ</StateAbbreviationCd>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
           <EmployerStateIdNum>54321</EmployerStateIdNum>
           <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>

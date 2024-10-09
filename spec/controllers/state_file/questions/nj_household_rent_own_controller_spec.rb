@@ -56,7 +56,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
       context "when intake is own" do
         let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
 
-        it "next path is property_tax page" do
+        it "next path is homeowner eligibility page" do
           expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerEligibilityController.to_path_helper)
         end
       end
@@ -64,8 +64,8 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
       context "when intake is rent" do
         let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
 
-        it "next path is rent_paid page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjRenterRentPaidController.to_path_helper)
+        it "next path is tenant eligibility page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjTenantEligibilityController.to_path_helper)
         end
       end
 
@@ -92,7 +92,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
           { state_file_nj_household_rent_own_form: { household_rent_own: "own" } }
         end
 
-        it "navigates to the property_tax page with the param" do
+        it "navigates to the tenant eligibility page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
           expect(response).to redirect_to(controller: "nj_homeowner_eligibility", action: :edit, return_to_review: 'y')
         end
@@ -103,9 +103,9 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
           { state_file_nj_household_rent_own_form: { household_rent_own: "rent" } }
         end
 
-        it "navigates to the rent_paid page with the param" do
+        it "navigates to the tenant eligibility page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "nj_renter_rent_paid", action: :edit, return_to_review: 'y')
+          expect(response).to redirect_to(controller: "nj_tenant_eligibility", action: :edit, return_to_review: 'y')
         end
       end
 

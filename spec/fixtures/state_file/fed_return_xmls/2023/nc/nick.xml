@@ -89,6 +89,13 @@
       <SpouseOccupationTxt>Fashion designer</SpouseOccupationTxt>
       <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
     </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>1000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>0</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
     <IRSW2 documentId="W20001" documentName="IRSW2">
       <EmployeeSSN>400000030</EmployeeSSN>
       <EmployerEIN>678912345</EmployerEIN>
