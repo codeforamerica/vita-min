@@ -29,7 +29,7 @@ module Efile
 
       def calculate_line_1e
         total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
-        total_interest > 11_600 ? "X" : ""
+        total_interest > 11_600
       end
     end
   end

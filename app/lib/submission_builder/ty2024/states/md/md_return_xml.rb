@@ -37,10 +37,11 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502,
                 pdf: PdfFiller::Md502Pdf,
-                pdf: nil,
                 include: true
               },
             ]
+
+            calculator_lines = @submission.data_source.tax_calculator.calculate
 
             supported_docs += combined_w2s
             supported_docs

@@ -23,7 +23,7 @@ module SubmissionBuilder
                 income.WagesSalariesAndTips calculated_fields.fetch(:MD502_LINE_1A)
                 income.EarnedIncome calculated_fields.fetch(:MD502_LINE_1B)
                 income.TaxablePensionsIRAsAnnuities calculated_fields.fetch(:MD502_LINE_1D)
-                income.InvestmentIncomeIndicator calculated_fields.fetch(:MD502_LINE_1E)
+                income.InvestmentIncomeIndicator calculated_fields.fetch(:MD502_LINE_1E) ? "X" : ""
               end
             end
 
