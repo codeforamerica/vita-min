@@ -38,7 +38,7 @@ module SubmissionBuilder
               },
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502b,
-                pdf: nil,
+                pdf: PdfFiller::Md502bPdf,
                 include: true
               },
             ]
