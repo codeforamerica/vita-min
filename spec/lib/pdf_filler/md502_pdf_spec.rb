@@ -16,6 +16,9 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    # We usually expect "Yes" to be the "checked" option in PDFs, but for this field "No" means checked.
+    # This test is to ensure when fixtures change, change is made to the corresponding has_for_pdf value
+    # on this field from "No" to "Yes"
     it "pdf contains 'No' option for mfs checkbox" do
       expect(check_pdf_option(file_path, "Check Box - 3", "No")).to eq(true)
     end
