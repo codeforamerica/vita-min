@@ -46,7 +46,10 @@ describe DirectFileJsonData do
     end
 
     it "should be return nil if dependent is not found in json" do
-      intake.dependents.create(first_name: "Jill", last_name: "Hemingway", relationship: "daughter")
+      intake.dependents.last.update(ssn: nil)
+      expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.last)).to eq(nil)
+
+      intake.dependents.create(first_name: "Jill", last_name: "Hemingway", relationship: "daughter", ssn: nil)
       expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.last)).to eq(nil)
     end
   end

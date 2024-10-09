@@ -70,7 +70,11 @@ class DirectFileJsonData
     dependents.find do |json_dependent|
       next unless json_dependent.present?
 
-      json_dependent["tin"]&.tr("-", "") == dependent.ssn
+      json_tin = json_dependent["tin"]&.tr("-", "")
+      xml_ssn = dependent.ssn
+
+      next unless json_tin && xml_ssn
+      json_tin == xml_ssn
     end
   end
 end
