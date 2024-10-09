@@ -16,7 +16,7 @@ module StateFile
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
       @xml_samples = DirectFileApiResponseSampleService.new.xml_samples[current_state_code].map do |sample_name|
         [DirectFileApiResponseSampleService.label(sample_name),
-         transfer_url(XmlReturnSampleService.key(current_state_code, sample_name), params[:redirect])]
+         transfer_url(DirectFileApiResponseSampleService.key(current_state_code, sample_name), params[:redirect])]
       end
       render layout: nil
     end
