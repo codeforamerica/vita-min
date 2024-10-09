@@ -48,11 +48,5 @@ module PdfFiller
     def filing_status(method)
       claimed_as_dependent? ? false : @submission.data_source.send(method)
     end
-
-    def formatted_date(date_str, format)
-      return if date_str.nil?
-
-      Date.parse(date_str)&.strftime(format)
-    end
   end
 end
