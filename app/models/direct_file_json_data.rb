@@ -68,8 +68,9 @@ class DirectFileJsonData
     return nil unless dependents.respond_to?(:find)
 
     dependents.find do |json_dependent|
-      # TODO: find match based on SSN
-      json_dependent["firstName"] == dependent.first_name
+      next unless json_dependent.present?
+
+      json_dependent["tin"]&.tr("-", "") == dependent.ssn
     end
   end
 end

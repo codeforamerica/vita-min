@@ -7,7 +7,8 @@
                         "dateOfBirth": "1920-01-01",
                         "relationship": "grandParent",
                         "eligibleDependent": true,
-                        "isClaimedDependent": true
+                        "isClaimedDependent": true,
+                        "tin": "300-00-0015"
                 },
                 {
                         "firstName": "Patrick",
@@ -16,7 +17,8 @@
                         "dateOfBirth": "1919-01-01",
                         "relationship": "grandParent",
                         "eligibleDependent": true,
-                        "isClaimedDependent": true
+                        "isClaimedDependent": true,
+                        "tin": "300-00-0016"
                 },
                 {
                         "firstName": "Jack",
@@ -25,7 +27,8 @@
                         "dateOfBirth": "1919-01-01",
                         "relationship": "grandParent",
                         "eligibleDependent": true,
-                        "isClaimedDependent": true
+                        "isClaimedDependent": true,
+                        "tin": "300-00-0017"
                 }
         ],
         "filers": [
