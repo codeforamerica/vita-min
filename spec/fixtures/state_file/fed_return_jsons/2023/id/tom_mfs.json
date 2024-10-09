@@ -5,14 +5,14 @@
       "firstName": "Tom",
       "middleInitial": null,
       "lastName": "Hanks",
-      "dateOfBirth": null,
+      "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
     },
     {
       "firstName": "Rita",
       "middleInitial": null,
       "lastName": "Wilson",
-      "dateOfBirth": null,
+      "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": false
     }
   ]

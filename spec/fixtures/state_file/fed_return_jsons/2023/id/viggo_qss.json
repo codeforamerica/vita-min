@@ -1,0 +1,22 @@
+{
+        "familyAndHousehold": [
+                {
+                        "firstName": "Henry",
+                        "middleInitial": null,
+                        "lastName": "Mortenson",
+                        "dateOfBirth": "2019-05-15",
+                        "relationship": "son",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true
+                }
+        ],
+        "filers": [
+                {
+                        "firstName": "Viggo",
+                        "middleInitial": null,
+                        "lastName": "Mortenson",
+                        "dateOfBirth": "1958-10-20",
+                        "isPrimaryFiler": true
+                }
+        ]
+}
