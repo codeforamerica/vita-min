@@ -19,6 +19,9 @@ module SubmissionBuilder
                   xml.FilingStatus filing_status
                 end
                 xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
+                if @submission.data_source.filing_status_mfs?
+                  xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
+                end
               end
             end
 

@@ -35,6 +35,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus')&.text).to eq "MarriedFilingSeparately"
+          expect(xml.document.at('MFSSpouseSSN')&.text).to eq "600000030"
         end
       end
 

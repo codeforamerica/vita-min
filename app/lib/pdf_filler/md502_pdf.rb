@@ -28,12 +28,17 @@ module PdfFiller
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
         "Check Box - 1": filing_status(:filing_status_single?) ? 'Yes' : 'Off',
         "Check Box - 2": filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
-        "Check Box - 3": filing_status(:filing_status_mfs?) ? 'Yes' : 'Off',
+        "Check Box - 3": filing_status(:filing_status_mfs?) ? 'No' : 'Off', # For some reason, "Yes" does not check the box for MFS
+        "MARRIED FILING Enter spouse's social security number": spouse_ssn_if_mfs,
         "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
         "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         "6. Check here": claimed_as_dependent? ? 'Yes' : 'Off',
         "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
+    end
+
+    def spouse_ssn_if_mfs
+      filing_status(:filing_status_mfs?) ? @xml_document.at('MFSSpouseSSN')&.text : nil
     end
 
     def claimed_as_dependent?
