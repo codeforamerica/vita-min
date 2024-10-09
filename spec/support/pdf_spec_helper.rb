@@ -13,4 +13,14 @@ module PdfSpecHelper
       key.exclude?("intake_specialist_")
     end
   end
+
+  # Only works for Field Type: Button
+  def check_pdf_option(file_path, field_name, value)
+    data_dump = PdfForms.new.call_pdftk(file_path, :dump_data_fields)
+    matching_field = data_dump.split("---").find { |data_field| data_field.match(field_name) }
+    value_pairs = matching_field.split("\n")
+    field_state_options = value_pairs.filter { |pair| pair.match("FieldStateOption") }
+    clean_field_state_options = field_state_options.map { |field| field.sub("FieldStateOption: ", "") }
+    clean_field_state_options.include?(value)
+  end
 end

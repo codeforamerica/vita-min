@@ -8,11 +8,16 @@ RSpec.describe PdfFiller::Md502Pdf do
   let(:pdf) { described_class.new(submission) }
 
   describe '#hash_for_pdf' do
-    let(:pdf_fields) { filled_in_values(described_class.new(submission.reload).output_file.path) }
+    let(:file_path) { described_class.new(submission.reload).output_file.path }
+    let(:pdf_fields) { filled_in_values(file_path) }
 
     it 'uses field names that exist in the pdf' do
       missing_fields = pdf.hash_for_pdf.keys.map { |k| k.to_s.gsub("'", "&apos;").to_s } - pdf_fields.keys
       expect(missing_fields).to eq([])
+    end
+
+    it "pdf contains 'No' option for mfs checkbox" do
+      expect(check_pdf_option(file_path, "Check Box - 3", "No")).to eq(true)
     end
 
     context "single" do
