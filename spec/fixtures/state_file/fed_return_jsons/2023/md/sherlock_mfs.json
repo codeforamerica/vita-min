@@ -2,16 +2,16 @@
   "familyAndHousehold": [],
   "filers": [
     {
-      "firstName": "Nate",
+      "firstName": "Sherlock",
       "middleInitial": null,
-      "lastName": "Cave",
+      "lastName": "Holmes",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
     },
     {
-      "firstName": "Susie",
-      "middleInitial": "K",
-      "lastName": "Cave",
+      "firstName": "Nate",
+      "middleInitial": "T",
+      "lastName": "Great",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": false
     }

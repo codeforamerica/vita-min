@@ -1,7 +1,7 @@
 {
   "familyAndHousehold": [
     {
-      "firstName": "April"
+      "firstName": "April",
       "middleInitial": null,
       "lastName": "Ludgate",
       "dateOfBirth": "1998-01-01",
@@ -13,7 +13,7 @@
   "filers": [
     {
       "firstName": "Laney",
-      "middleInitial": null,
+      "middleInitial": "J",
       "lastName": "Knope",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
