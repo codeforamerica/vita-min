@@ -62,15 +62,15 @@ module StateFile
     def az_xml_sample(filing_status)
       case filing_status.to_sym
       when :single
-        read("az_tycho_loanded")
+        read_xml("az_tycho_loanded")
       when :married_filing_jointly
-        read("az_martha_v2")
+        read_xml("az_martha_v2")
       when :qualifying_widow
-        read("az_leslie_qss_v2")
+        read_xml("az_leslie_qss_v2")
       when :married_filing_separately
-        read("az_sherlock_mfs")
+        read_xml("az_sherlock_mfs")
       when :head_of_household
-        read("az_alexis_hoh_w2_and_1099")
+        read_xml("az_alexis_hoh_w2_and_1099")
       end
     end
 
