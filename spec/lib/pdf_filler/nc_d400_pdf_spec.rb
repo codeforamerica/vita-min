@@ -16,7 +16,14 @@ RSpec.describe PdfFiller::NcD400Pdf do
     end
 
     context "pulling fields from xml" do
-      let(:intake) { create(:state_file_nc_intake, filing_status: "single", primary_last_name: "Carolinianian") }
+      let(:intake) {
+        create(:state_file_nc_intake,
+               filing_status: "single",
+               primary_last_name: "Carolinianian",
+               untaxed_out_of_state_purchases: "no",
+               primary_esigned: "yes",
+               primary_esigned_at: DateTime.now)
+      }
 
       context "single filer" do
         it 'sets static fields to the correct values' do
@@ -54,6 +61,15 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li23_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li25_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_dayphone']).to eq '9845559876'
+          expect(pdf_fields['y_d400wf_Consumer_Use_Tax']).to eq 'Yes'
+          expect(pdf_fields['y_d400wf_li18_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li19_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li26a_pg2_good']).to eq ''
+          expect(pdf_fields['y_d400wf_li27_pg2_good']).to eq '0'
+          expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '15'
+          expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '15'
+          expect(pdf_fields['y_d400wf_sigdate']). to eq DateTime.now.strftime('%Y-%m-%d')
+          expect(pdf_fields['y_d400wf_sigdate2']). to eq ""
         end
 
         context "CTC & cascading fields" do
@@ -83,7 +99,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
       end
 
       context "mfj filers" do
-        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly") }
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: DateTime.now, spouse_esigned: "yes", spouse_esigned_at: DateTime.now)}
 
         before do
           submission.data_source.direct_file_data.spouse_date_of_death = "2024-09-30"
@@ -110,6 +126,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_fstat5']).to eq 'Off'
 
           expect(pdf_fields['y_d400wf_li20b_pg2_good']).to eq '15'
+          expect(pdf_fields['y_d400wf_sigdate']). to eq DateTime.now.strftime('%Y-%m-%d')
+          expect(pdf_fields['y_d400wf_sigdate2']). to eq DateTime.now.strftime('%Y-%m-%d')
         end
       end
 

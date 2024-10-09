@@ -212,6 +212,20 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
         end
       end
+
+      context 'when property tax paid is nil (not eligible)' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'own',
+            property_tax_paid: nil
+          )
+        }
+
+        it 'sets line 40a to nil' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+      end
     end
 
     context 'when renter' do
@@ -265,7 +279,66 @@ describe Efile::Nj::Nj1040Calculator do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
     end
   end
-  
+
+  describe 'line 64 - child and dependent care credit' do
+    let(:intake) { 
+      create(
+      :state_file_nj_intake,
+      :df_data_one_dep,
+      :fed_credit_for_child_and_dependent_care)
+    }
+    
+    context 'with an income of over 150k' do
+      it 'returns nil' do
+        allow(instance).to receive(:calculate_line_42).and_return 150_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_64].value).to eq(nil)
+      end
+    end
+
+    context 'with an income of 150k or less' do
+      before do
+        allow(instance).to receive(:calculate_line_42).and_return nj_taxable_income
+        instance.calculate
+      end
+
+      context "with an income of 150k or less" do
+        let(:nj_taxable_income) { 150_000 }
+        it 'returns 10% of federal credit' do
+          expect(instance.lines[:NJ1040_LINE_64].value).to eq(100)
+        end
+      end
+
+      context "with an income of 120k or less" do
+        let(:nj_taxable_income) { 120_000 }
+        it 'returns 20% of federal credit' do
+          expect(instance.lines[:NJ1040_LINE_64].value).to eq(200)
+        end
+      end
+
+      context "with an income of 90k or less" do
+        let(:nj_taxable_income) { 90_000 }
+        it 'returns 30% of federal credit' do
+          expect(instance.lines[:NJ1040_LINE_64].value).to eq(300)
+        end
+      end
+
+      context "with an income of 60k or less" do
+        let(:nj_taxable_income) { 60_000 }
+        it 'returns 40% of federal credit' do
+          expect(instance.lines[:NJ1040_LINE_64].value).to eq(400)
+        end
+      end
+
+      context "with an income of 30k or less" do
+        let(:nj_taxable_income) { 30_000 }
+        it 'returns 50% of federal credit' do
+          expect(instance.lines[:NJ1040_LINE_64].value).to eq(500)
+        end
+      end
+    end
+  end
+
   describe 'line 65 - NJ child tax credit' do
     context 'when taxpayer is married filing separately' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
@@ -290,37 +363,43 @@ describe Efile::Nj::Nj1040Calculator do
 
       before do
         allow(instance).to receive(:number_of_dependents_age_5_younger).and_return 1
+        allow(instance).to receive(:calculate_line_42).and_return nj_taxable_income
+        instance.calculate
       end
 
-
-      it 'returns 1000 for incomes less than or equal to 30k' do
-        allow(instance).to receive(:calculate_line_42).and_return 30_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_65].value).to eq(1000)
+      context "for incomes of 30k or less" do
+        let(:nj_taxable_income) { 30_000 }
+        it 'returns 1000' do
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(1000)
+        end
       end
 
-      it 'returns 800 for incomes less than or equal to 40k' do
-        allow(instance).to receive(:calculate_line_42).and_return 40_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_65].value).to eq(800)
+      context "for incomes of 40k or less" do
+        let(:nj_taxable_income) { 40_000 }
+        it 'returns 800' do
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(800)
+        end
       end
 
-      it 'returns 600 for incomes less than or equal to 50k' do
-        allow(instance).to receive(:calculate_line_42).and_return 50_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_65].value).to eq(600)
+      context "for incomes of 50k or less" do
+        let(:nj_taxable_income) { 50_000 }
+        it 'returns 600' do
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(600)
+        end
       end
 
-      it 'returns 400 for incomes less than or equal to 60k' do
-        allow(instance).to receive(:calculate_line_42).and_return 60_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_65].value).to eq(400)
+      context "for incomes of 60k or less" do
+        let(:nj_taxable_income) { 60_000 }
+        it 'returns 400' do
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(400)
+        end
       end
 
-      it 'returns 200 for incomes less than or equal to 80k' do
-        allow(instance).to receive(:calculate_line_42).and_return 80_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_65].value).to eq(200)
+      context "for incomes of 80k or less" do
+        let(:nj_taxable_income) { 80_000 }
+        it 'returns 200' do
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(200)
+        end
       end
     end
 
@@ -387,7 +466,6 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_65].value).to eq(8800)
         end
       end
-
     end
   end
 end

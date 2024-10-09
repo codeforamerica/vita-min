@@ -491,6 +491,7 @@ en:
     negative: 'No'
     new: New
     new_unique_link: Additional unique link
+    nj_staff: New Jersey Staff
     no_intake: No intake for client
     none: None
     none_of_the_above: None of the above
@@ -2554,6 +2555,15 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_homeowner_eligibility:
+        edit:
+          homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
+          homeowner_main_home_multi_unit: Was your main home a unit in a multi-unit property that you owned?
+          homeowner_main_home_multi_unit_max_four_one_commercial: My main home was a unit in a multi-unit property I owned, the property had no more than four units, and no more than one of those was a commercial unit.
+          homeowner_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          homeowner_shared_ownership_not_spouse: Did you share ownership of your main home with someone who is not your spouse?
+          label: Did any of these apply to you?
+          title: You said you were a homeowner in %{filing_year}.
       nj_homeowner_property_tax:
         edit:
           helper_description: TODO FILL THIS OUT
@@ -2562,22 +2572,22 @@ en:
           title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
       nj_household_rent_own:
         edit:
-          helper_description: If you own a mobile home that is located in a mobile home park, you are considered a tenant.
-          homeowner: Homeowner in %{filing_year}
+          both: Both a tenant and a homeowner
+          homeowner: Homeowner
+          label: In %{filing_year}, which were you?
           neither: Neither
-          tenant: Tenant in %{filing_year}
-          title: Which describes you best?
+          tenant: Tenant (If you own a mobile home that is located in a mobile home park, you are considered a tenant.)
+          title: You might be eligible for the New Jersey Property Tax credit or deduction!
+      nj_ineligible_property_tax:
+        edit:
+          helper_description: Please continue to see what else we can guide you to qualify for.
+          title: Looks like you’re not eligible for this credit.
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
-      nj_renter_rent_paid:
-        edit:
-          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
-          label: Rent paid in %{filing_year}
-          title: Enter your rent paid in %{filing_year}.
       nj_review:
         edit:
           county: County
@@ -2585,6 +2595,32 @@ en:
           municipality: Municipality
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+      nj_tenant_eligibility:
+        edit:
+          helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
+          helper_heading: What is not included here?
+          label: Did any of these apply to you?
+          tenant_access_kitchen_bath: Did you have access to kitchen and bath facilities?
+          tenant_building_multi_unit: If you rented your main home in a building that had more than one dwelling unit.
+          tenant_home_subject_to_property_taxes: Your main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
+          tenant_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          tenant_same_home_spouse: Did you and your spouse live in the same home?
+          tenant_shared_rent_not_spouse: Did you occupy and share rent for your main home (apartment/rental unit) with someone who was not your spouse during the year?
+          title: You said you were a tenant in %{filing_year}.
+      nj_tenant_rent_paid:
+        edit:
+          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
+          label: Rent paid in %{filing_year}
+          title: Enter your rent paid in %{filing_year}.
+      nj_unsupported_property_tax:
+        edit:
+          helper_1_html: "<strong>What is this credit?</strong> If you qualify, you can deduct up to $15,000 in property tax expenses from your taxable income, or receive up to $50 in credit."
+          helper_2: Want to claim these credits or deductions?
+          helper_3: You may be able to file your state return for free with help from IRS-certified VITA volunteers in New Jersey. Note that this option may take 2-3 weeks to complete.
+          helper_4: Get started with VITA now
+          helper_5: Learn more about this process and other filing options here.
+          helper_6: Please continue to see what else you might qualify for.
+          title: Looks like we can’t help you with this Property Tax Credit / Deduction.
       ny_county:
         edit:
           county: County

@@ -1,10 +1,11 @@
 module Hub
   class FaqItemsController < Hub::BaseController
-    before_action :require_admin
-    before_action :set_paper_trail_whodunnit
-    before_action :load_faq_category
-    before_action :load_faq_return_path
+    load_and_authorize_resource :faq_category
+    before_action :build_faq_item, only: [:new, :create]
     load_and_authorize_resource
+
+    before_action :set_paper_trail_whodunnit
+    before_action :load_faq_return_path
     layout "hub"
 
     def new
@@ -18,8 +19,8 @@ module Hub
         flash[:notice] = "Successfully created '#{@faq_item.question_en}'"
         redirect_to hub_faq_category_faq_item_path(@faq_category.id, @faq_item.id)
       else
-        flash_message = "Unable to create '#{@faq_item.question_en}'"
-        render :new, error: flash_message
+        flash.now[:alert] = "Unable to create '#{@faq_item.question_en}'"
+        render :new
       end
     end
 
@@ -34,8 +35,8 @@ module Hub
         flash[:notice] = "Successfully updated '#{@faq_item.question_en}'"
         redirect_to hub_faq_category_faq_item_path(@faq_category.id, @faq_item.id)
       else
-        flash_message = "Unable to update '#{@faq_item.question_en}'"
-        render :edit, error: flash_message
+        flash.now[:alert] = "Unable to update '#{@faq_item.question_en}'"
+        render :edit
       end
     end
 
@@ -59,8 +60,8 @@ module Hub
       params.fetch(:hub_faq_item_form, {}).permit(*form_class.attribute_names)
     end
 
-    def load_faq_category
-      @faq_category = FaqCategory.find(params[:faq_category_id])
+    def build_faq_item
+      @faq_item = FaqItem.new(faq_category: @faq_category)
     end
 
     def load_faq_return_path
