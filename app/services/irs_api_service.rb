@@ -9,18 +9,18 @@ require_relative 'state_file/xml_return_sample_service'
 
 class IrsApiService
   def self.df_return_sample
-    StateFile::XmlReturnSampleService.new.old_sample
+    StateFile::DirectFileApiResponseSampleService.new.old_xml_sample
   end
 
   def self.import_federal_data(authorization_code, _state_code)
     unless Rails.env.production?
-      xml_return_sample_service = StateFile::XmlReturnSampleService.new
-      if xml_return_sample_service.include?(authorization_code)
+      direct_file_api_response_sample_service = StateFile::DirectFileApiResponseSampleService.new
+      if direct_file_api_response_sample_service.include?(authorization_code, 'xml')
         return {
-          'xml' => xml_return_sample_service.read(authorization_code),
-          'submissionId' => xml_return_sample_service.lookup_submission_id(authorization_code),
+          'xml' => direct_file_api_response_sample_service.read_xml(authorization_code),
+          'submissionId' => direct_file_api_response_sample_service.lookup_submission_id(authorization_code),
           'status' => "accepted",
-          'directFileData' => StateFile::JsonReturnSampleService.new.read(authorization_code)
+          'directFileData' => direct_file_api_response_sample_service.read_json(authorization_code)
         }
       end
     end

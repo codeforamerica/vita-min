@@ -41,7 +41,7 @@ describe Efile::Nc::D400Calculator do
     ].each do |filing_statuses, agis_to_deductions|
       filing_statuses.each do |filing_status|
         context "#{filing_status}" do
-          let(:intake) { create(:state_file_nc_intake, filing_status: filing_status, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+          let(:intake) { create(:state_file_nc_intake, filing_status: filing_status, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_shiloh_hoh")) }
           let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
 
           agis_to_deductions.each do |fagi, deduction_amt_for_two_children|
