@@ -32,11 +32,12 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502,
-                # pdf: PdfFiller::Md502Pdf, TODO
-                pdf: nil,
+                pdf: PdfFiller::Md502Pdf,
                 include: true
               },
             ]
+
+            calculator_lines = @submission.data_source.tax_calculator.calculate
 
             supported_docs += combined_w2s
             supported_docs += form1099gs
