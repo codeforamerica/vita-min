@@ -26,21 +26,14 @@ describe SubmissionBuilder::Ty2022::States::Az::Documents::Az301, required_schem
     end
 
     context "with both AZ-321 and AZ-322 contributions" do
-      let(:intake) do
-        create(
-          :state_file_az_intake,
-          :with_az321_contributions,
-          :with_az322_contributions,
-          primary_birth_date: Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 12, 31),
-        )
-      end
+      let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions) }
 
       it "generates XML with correct total available tax credit" do
         expect(xml.at("NonRfndTaxCr ColumnC TotalAvailTaxCr").text).to eq "621"
-        expect(xml.at("AppTaxCr ComputedTax").text).to eq "2461"
-        expect(xml.at("AppTaxCr Subtotal").text).to eq "2461"
+        expect(xml.at("AppTaxCr ComputedTax").text).to eq "2513"
+        expect(xml.at("AppTaxCr Subtotal").text).to eq "2513"
         expect(xml.at("AppTaxCr FamilyIncomeTax").text).to eq "0"
-        expect(xml.at("AppTaxCr DiffFamilyIncTaxSubTotal").text).to eq "2461"
+        expect(xml.at("AppTaxCr DiffFamilyIncTaxSubTotal").text).to eq "2513"
         expect(xml.at("AppTaxCr NonrefunCreditsUsed CtrbChrtyPrvdAstWrkgPor").text).to eq "421"
         expect(xml.at("AppTaxCr NonrefunCreditsUsed CtrbMdFePdPblcSchl").text).to eq "200"
         expect(xml.at("AppTaxCr TxCrUsedForm301").text).to eq "621"

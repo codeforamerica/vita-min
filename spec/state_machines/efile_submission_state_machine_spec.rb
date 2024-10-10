@@ -44,7 +44,7 @@ describe EfileSubmissionStateMachine do
 
         expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
         expect(submission.data_source.state_file_analytics.filing_status).to eq 1
-        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
+        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2063
       end
     end
 

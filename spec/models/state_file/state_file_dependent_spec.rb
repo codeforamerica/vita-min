@@ -80,7 +80,7 @@ describe StateFileDependent do
       end
 
       context "when a dependent is younger than 65" do
-        let(:dob) { described_class.senior_cutoff_date + 1.week } # is this true with changes
+        let(:dob) { described_class.senior_cutoff_date + 1.week }
         it "does NOT ask more questions" do
           expect(dependent.ask_senior_questions?).to be false
         end
