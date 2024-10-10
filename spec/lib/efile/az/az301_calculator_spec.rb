@@ -35,10 +35,10 @@ describe Efile::Az::Az301Calculator do
     end
 
     it "calculates AZ301 part 2 values" do
-      expect(instance.lines[:AZ301_LINE_27].value).to eq(2167) # Line 46 from AZ140
-      expect(instance.lines[:AZ301_LINE_32].value).to eq(2167)
+      expect(instance.lines[:AZ301_LINE_27].value).to eq(2114) # Line 46 from AZ140
+      expect(instance.lines[:AZ301_LINE_32].value).to eq(2114)
       expect(instance.lines[:AZ301_LINE_33].value).to eq(0) # Line 50 from AZ140
-      expect(instance.lines[:AZ301_LINE_34].value).to eq(2167) # Difference from line 27 and 33
+      expect(instance.lines[:AZ301_LINE_34].value).to eq(2114) # Difference from line 27 and 33
     end
 
     it "calculates Nonrefundable Tax Credits Used This Taxable Year correctly" do

@@ -198,7 +198,7 @@ describe Efile::Az::Az140Calculator do
   end
 
   describe "Line 8" do
-    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 12, 31) }
+    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 31) }
 
     context "when both primary and spouse are older than 65" do
       let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }

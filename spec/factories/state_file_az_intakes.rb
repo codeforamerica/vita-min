@@ -102,6 +102,7 @@ FactoryBot.define do
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
+    primary_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1) }
     state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
