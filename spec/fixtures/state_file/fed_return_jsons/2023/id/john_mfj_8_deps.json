@@ -1,0 +1,102 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Ronnie",
+      "lastName": "Lee",
+      "middleInitial": null,
+      "tin": "300-00-0006",
+      "dateOfBirth": null,
+      "relationship": "parent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "Currie",
+      "middleInitial": null,
+      "tin": "300-00-0007",
+      "dateOfBirth": null,
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Twyla",
+      "lastName": "Sands",
+      "middleInitial": null,
+      "tin": "300-00-0002",
+      "dateOfBirth": null,
+      "relationship": "nephew",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "David",
+      "lastName": "Rose",
+      "middleInitial": null,
+      "tin": "300-00-0001",
+      "dateOfBirth": null,
+      "relationship": "daughter",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Roland",
+      "lastName": "Schitt",
+      "middleInitial": null,
+      "tin": "300-00-0005",
+      "dateOfBirth": null,
+      "relationship": "parent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Stevie",
+      "lastName": "Budd",
+      "middleInitial": null,
+      "tin": "300-00-0004",
+      "dateOfBirth": "2021-01-01",
+      "relationship": "daughter",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Wendy",
+      "lastName": "Kurtz",
+      "middleInitial": null,
+      "tin": "300-00-0008",
+      "dateOfBirth": null,
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Alexis",
+      "lastName": "Rose",
+      "middleInitial": null,
+      "tin": "300-00-0003",
+      "dateOfBirth": "2019-01-01",
+      "relationship": "daughter",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Johnny",
+      "lastName": "Rose",
+      "middleInitial": null,
+      "tin": "400-00-0001",
+      "dateOfBirth": null,
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Moira",
+      "lastName": "O'Hara",
+      "middleInitial": null,
+      "tin": "600-00-0001",
+      "dateOfBirth": null,
+      "isPrimaryFiler": false
+    }
+  ]
+}

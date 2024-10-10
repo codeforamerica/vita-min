@@ -2,10 +2,11 @@
         "familyAndHousehold": [
                 {
                         "firstName": "Henry",
-                        "middleInitial": null,
                         "lastName": "Mortenson",
+                        "middleInitial": null,
+                        "tin": "400-00-0007",
                         "dateOfBirth": "2019-05-15",
-                        "relationship": "son",
+                        "relationship": "biologicalChild",
                         "eligibleDependent": true,
                         "isClaimedDependent": true
                 }
@@ -13,8 +14,9 @@
         "filers": [
                 {
                         "firstName": "Viggo",
-                        "middleInitial": null,
                         "lastName": "Mortenson",
+                        "middleInitial": null,
+                        "tin": "300-00-0014",
                         "dateOfBirth": "1958-10-20",
                         "isPrimaryFiler": true
                 }

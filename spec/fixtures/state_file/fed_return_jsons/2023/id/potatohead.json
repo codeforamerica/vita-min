@@ -3,16 +3,18 @@
   "filers": [
     {
       "firstName": "Potato",
-      "middleInitial": null,
       "lastName": "Head",
-      "dateOfBirth": "1980-01-01",
+      "middleInitial": null,
+      "tin": "400-00-0030",
+      "dateOfBirth": null,
       "isPrimaryFiler": true
     },
     {
-      "firstName": "Spud",
+      "firstName": "Sophie",
+      "lastName": "Cave",
       "middleInitial": null,
-      "lastName": "Head",
-      "dateOfBirth": "1980-01-01",
+      "tin": "600-00-0030",
+      "dateOfBirth": null,
       "isPrimaryFiler": false
     }
   ]
