@@ -39,10 +39,6 @@ module StateFile
       path(key, file_type).present?
     end
 
-    def read(key, file_type = "xml")
-      File.read(path(key, file_type)) if include?(key, file_type)
-    end
-
     def read_json(key)
       File.read(path(key, 'json')) if include?(key, 'json')
     end
@@ -79,6 +75,10 @@ module StateFile
     TAX_YEAR = Rails.configuration.statefile_current_tax_year.to_s.freeze
     def base_path(file_type)
       "spec/fixtures/state_file/fed_return_#{file_type}s/".freeze
+    end
+
+    def read(key, file_type)
+      File.read(path(key, file_type)) if include?(key, file_type)
     end
 
     def load_samples
