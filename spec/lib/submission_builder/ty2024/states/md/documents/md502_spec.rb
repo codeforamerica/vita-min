@@ -7,17 +7,18 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    it "generates a valid xml" do
-      expect(build_response.errors).to be_empty
-    end
-
     describe ".document" do
+      context "basic structure" do
+        it "constructs the correct wrapping tags" do
+          expect(xml.children.count).to eq 1
+          expect(xml.children[0].name).to eq "Form502"
+          expect(xml.at("Form502").attr("documentId")).to eq "Form502"
+        end
+      end
+
       context "single filer" do
         it "correctly fills answers" do
-          expect(xml.document.at('ResidencyStatusPrimary')&.text).to eq "true"
-          expect(xml.document.at("TaxPeriodBeginDt").text).to eq "2023-01-01"
-          expect(xml.document.at("TaxPeriodEndDt").text).to eq "2023-12-31"
-          expect(xml.document.at('FilingStatus')&.text).to eq "Single"
+          expect(xml.document.at('FilingStatus Single')&.text).to eq "X"
           expect(xml.document.at('DaytimePhoneNumber')&.text).to eq "5551234567"
         end
       end
@@ -26,7 +27,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
         it "correctly fills answers" do
-          expect(xml.document.at('FilingStatus')&.text).to eq "Joint"
+          expect(xml.document.at('FilingStatus Joint')&.text).to eq "X"
         end
       end
 
@@ -34,8 +35,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_separately") }
 
         it "correctly fills answers" do
-          expect(xml.document.at('FilingStatus')&.text).to eq "MarriedFilingSeparately"
-          expect(xml.document.at('MFSSpouseSSN')&.text).to eq "600000030"
+          expect(xml.document.at('FilingStatus MarriedFilingSeparately').text).to eq "X"
+          expect(xml.document.at('FilingStatus MarriedFilingSeparately')['spouseSSN']).to eq "600000030"
         end
       end
 
@@ -43,14 +44,14 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         let(:intake) { create(:state_file_md_intake, :head_of_household) }
 
         it "correctly fills answers" do
-          expect(xml.document.at('FilingStatus')&.text).to eq "HeadOfHousehold"
+          expect(xml.document.at('FilingStatus HeadOfHousehold').text).to eq "X"
         end
       end
 
       context "qw filer" do
         let(:intake) { create(:state_file_md_intake, :qualifying_widow) }
         it "correctly fills answers" do
-          expect(xml.document.at('FilingStatus')&.text).to eq "QualifyingWidow"
+          expect(xml.document.at('FilingStatus QualifyingWidow')&.text).to eq "X"
         end
       end
 
@@ -58,7 +59,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         let(:intake) { create(:state_file_md_intake, :claimed_as_dependent) }
 
         it "correctly fills answers" do
-          expect(xml.document.at('FilingStatus')&.text).to eq "DependentTaxpayer"
+          expect(xml.document.at('FilingStatus DependentTaxpayer')&.text).to eq "X"
         end
       end
 
