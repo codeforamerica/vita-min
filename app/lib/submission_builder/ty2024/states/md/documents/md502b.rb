@@ -9,7 +9,7 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def document
-              build_xml_doc("Form502B") do |xml|
+              build_xml_doc("Form502B", documentId: "Form502B") do |xml|
                 xml.Dependents do
                   xml.CountRegular calculated_fields.fetch(:MD502B_LINE_1)
                   xml.CountOver65 calculated_fields.fetch(:MD502B_LINE_2)
@@ -23,7 +23,7 @@ module SubmissionBuilder
                         xml.LastName sanitize_for_xml(dependent.last_name, 32)
                       end
                       xml.SSN dependent.ssn
-                      xml.RelationToTaxpayer dependent.relationship_label
+                      xml.RelationToTaxpayer relationship(dependent)
                       xml.ClaimedAsDependent "X"
                       xml.Over65 "X" if dependent.senior?
                       xml.DependentDOB dependent.dob.strftime("%Y-%m-%d")
@@ -41,6 +41,25 @@ module SubmissionBuilder
 
             def calculated_fields
               @calculated_fields ||= intake.tax_calculator.calculate
+            end
+
+            # from MDIndividualeFileTypes.xsd
+            RELATIONSHIP_OPTIONS = {
+              "DAUGHTER": "CH",
+              "STEPCHILD": "CH",
+              "FOSTER CHILD": "FC",
+              "GRANDCHILD": "GC",
+              "SISTER": "SR",
+              "HALF SISTER": "CH",
+              "NEPHEW": "NP",
+              "STEPBROTHER": "CH",
+              "PARENT": "PT",
+              "GRANDPARENT": "GP",
+              "NONE": "NN",
+            }.freeze
+
+            def relationship(dependent)
+              RELATIONSHIP_OPTIONS[dependent.relationship.upcase.to_sym]
             end
           end
         end

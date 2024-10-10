@@ -7,6 +7,14 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
+    context "basic structure" do
+      it "constructs the correct wrapping tags" do
+        expect(xml.children.count).to eq 1
+        expect(xml.children[0].name).to eq "Form502B"
+        expect(xml.at("Form502B").attr("documentId")).to eq "Form502B"
+      end
+    end
+
     context "dependent counts" do
       before do
         allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_1).and_return 2
@@ -55,7 +63,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
         expect(dependent_1.at("Name MiddleInitial").text).to eq "J"
         expect(dependent_1.at("Name LastName").text).to eq "Jawplyn"
         expect(dependent_1.at("SSN").text).to eq "123456789"
-        expect(dependent_1.at("RelationToTaxpayer").text).to eq "Child"
+        expect(dependent_1.at("RelationToTaxpayer").text).to eq "CH"
         expect(dependent_1.at("ClaimedAsDependent").text).to eq "X"
         expect(dependent_1.at("Over65")).to be_nil
         expect(dependent_1.at("DependentDOB").text).to eq young_dob.strftime("%Y-%m-%d")
@@ -65,7 +73,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
         expect(dependent_2.at("Name MiddleInitial").text).to eq "F"
         expect(dependent_2.at("Name LastName").text).to eq "Jimplin"
         expect(dependent_2.at("SSN").text).to eq "234567890"
-        expect(dependent_2.at("RelationToTaxpayer").text).to eq "Grandparent"
+        expect(dependent_2.at("RelationToTaxpayer").text).to eq "GP"
         expect(dependent_2.at("ClaimedAsDependent").text).to eq "X"
         expect(dependent_2.at("Over65").text).to eq "X"
         expect(dependent_2.at("DependentDOB").text).to eq old_dob.strftime("%Y-%m-%d")
