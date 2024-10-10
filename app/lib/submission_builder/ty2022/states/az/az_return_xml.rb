@@ -34,10 +34,6 @@ module SubmissionBuilder
             "AZIndividual2023v1.0"
           end
 
-          def form1099g_builder
-            SubmissionBuilder::Ty2022::States::Az::Documents::State1099G
-          end
-
           def build_state_specific_tags(document)
             if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
               document.at("ReturnState").add_child(financial_transaction)

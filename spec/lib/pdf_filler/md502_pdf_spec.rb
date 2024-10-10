@@ -20,7 +20,8 @@ RSpec.describe PdfFiller::Md502Pdf do
     # This test is to ensure when fixtures change, change is made to the corresponding has_for_pdf value
     # on this field from "No" to "Yes"
     it "pdf contains 'No' option for mfs checkbox" do
-      expect(check_pdf_option(file_path, "Check Box - 3", "No")).to eq(true)
+      expect(check_if_valid_pdf_option(file_path, "Check Box - 3", "No")).to eq(true)
+      expect(check_if_valid_pdf_option(file_path, "6. Check here", "No")).to eq(true)
     end
 
     describe "filing_status" do
@@ -126,7 +127,7 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Check Box - 3"]).to eq "Off"
           expect(pdf_fields["Check Box - 4"]).to eq "Off"
           expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "Yes"
+          expect(pdf_fields["6. Check here"]).to eq "No"
         end
       end
     end

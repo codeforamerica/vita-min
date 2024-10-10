@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::NjRenterRentPaidForm do
+RSpec.describe StateFile::NjTenantRentPaidForm do
   let(:intake) { create :state_file_nj_intake }
 
   describe "validations" do
