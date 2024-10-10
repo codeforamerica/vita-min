@@ -195,6 +195,37 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 8" do
+    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 12, 31) }
+
+    context "when both primary and spouse are older than 65" do
+      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }
+
+      it "returns 2" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
+      end
+    end
+
+    context "when only the primary is over 65" do
+      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date + 2.months) }
+
+      it "returns 1" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_8].value).to eq(1)
+      end
+    end
+
+    context "when born a day after the senior cutoff date" do
+      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date + 1.day, spouse_birth_date: senior_cutoff_date + 1.day) }
+
+      it "it counts them" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
+      end
+    end
+  end
+
   describe 'the Az flat tax rate is 2.5%' do
     context 'when the filer has an income of $25,000' do
       before do
