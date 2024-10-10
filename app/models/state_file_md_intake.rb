@@ -15,6 +15,7 @@
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
 #  df_data_imported_at               :datetime
+#  eligibility_filing_status         :integer          default(0), not null
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  email_address                     :citext
@@ -74,6 +75,10 @@
 #
 class StateFileMdIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum eligibility_filing_status: { unfilled: 0, mfj: 1, non_mfj: 2 }, _prefix: true
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

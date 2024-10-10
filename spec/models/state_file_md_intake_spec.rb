@@ -15,6 +15,7 @@
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
 #  df_data_imported_at               :datetime
+#  eligibility_filing_status         :integer          default(0), not null
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  email_address                     :citext
@@ -84,6 +85,20 @@ RSpec.describe StateFileMdIntake, type: :model do
     it "doesn't include Jan 1st in the past tax year" do
       expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 10
       expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
+    end
+  end
+
+  describe "#eligibility_filing_status" do
+    subject(:intake) do
+      create(:state_file_md_intake, eligibility_filing_status: :mfj)
+    end
+
+    it "defines a correct enum" do
+      expect(intake.eligibility_filing_status_before_type_cast).to eq(1)
+      intake.update(eligibility_filing_status: :non_mfj)
+      expect(intake.eligibility_filing_status_before_type_cast).to eq(2)
+      intake.update(eligibility_filing_status: :unfilled)
+      expect(intake.eligibility_filing_status_before_type_cast).to eq(0)
     end
   end
 end
