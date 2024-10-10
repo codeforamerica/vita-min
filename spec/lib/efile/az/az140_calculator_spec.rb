@@ -184,6 +184,8 @@ describe Efile::Az::Az140Calculator do
       intake.charitable_cash_amount = 50
       intake.charitable_noncash_amount = 50
       intake.charitable_contributions = 'yes'
+      allow(instance).to receive(:calculate_line_42).and_return 10_000
+      allow(instance).to receive(:calculate_line_43).and_return 2_000
     end
 
     # 31% of 100 (50+50)
@@ -191,7 +193,7 @@ describe Efile::Az::Az140Calculator do
       instance.calculate
       expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
       expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
-      expect(instance.lines[:AZ140_LINE_45].value).to eq(98392) # Charitable contribitions affect this; before was 98423
+      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_969)
     end
   end
 
@@ -229,22 +231,29 @@ describe Efile::Az::Az140Calculator do
   describe 'the Az flat tax rate is 2.5%' do
     context 'when the filer has an income of $25,000' do
       before do
-        intake.direct_file_data.fed_agi = 25_000
+        allow(instance).to receive(:calculate_line_42).and_return 25_000
+        allow(instance).to receive(:calculate_line_43).and_return 2_000
+        allow(instance).to receive(:calculate_line_44).and_return 2_000
       end
+
       it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(3423) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(86)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(21_000) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(525)
       end
     end
+
     context 'when the filer has an income of $150,000' do
       before do
-        intake.direct_file_data.fed_agi = 150_000
+        allow(instance).to receive(:calculate_line_42).and_return 150_000
+        allow(instance).to receive(:calculate_line_43).and_return 2_000
+        allow(instance).to receive(:calculate_line_44).and_return 2_000
       end
+
       it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(128423) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(3211)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(146000) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(3650)
       end
     end
   end
