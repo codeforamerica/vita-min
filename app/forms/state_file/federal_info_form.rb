@@ -121,7 +121,10 @@ module StateFile
         end
         w2 = w2s[index.to_i]
         DfIrsW2Form.selectors.each_key do |field|
-          w2.send(:"#{field}=", w2_attributes[field.to_s])
+          new_value = w2_attributes[field.to_s]
+          if new_value.present? && w2.send(field) != new_value
+            w2.send(:"#{field}=", new_value)
+          end
         end
         index += 1
       end

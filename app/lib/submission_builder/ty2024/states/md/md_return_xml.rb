@@ -28,21 +28,17 @@ module SubmissionBuilder
             SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2023v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
           end
 
-          def form1099g_builder
-            SubmissionBuilder::Ty2024::States::Md::Documents::State1099G
-          end
-
           def supported_documents
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502,
-                # pdf: PdfFiller::Md502Pdf, TODO
-                pdf: nil,
+                pdf: PdfFiller::Md502Pdf,
                 include: true
               },
             ]
 
             supported_docs += combined_w2s
+            supported_docs += form1099gs
             supported_docs
           end
         end

@@ -62,6 +62,7 @@
 #  index_state_file_id_intakes_on_hashed_ssn     (hashed_ssn)
 #
 FactoryBot.define do
+  factory :minimal_state_file_id_intake, class: "StateFileIdIntake"
   factory :state_file_id_intake do
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
 
@@ -79,6 +80,24 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
+
+    trait :single_filer_with_json do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_lana_single') }
+      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_lana_single') }
+    end
+
+    trait :mfj_filer_with_json do
+      filing_status { "married_filing_jointly" }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_paul_mfj') }
+      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_paul_mfj') }
+    end
+
+    trait :with_dependents do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_ernest_hoh') }
+      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
     end
   end
 end

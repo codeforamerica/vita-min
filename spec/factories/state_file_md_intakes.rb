@@ -96,6 +96,7 @@ FactoryBot.define do
     end
 
     trait :with_spouse do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("md_nate_mfj") }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -111,5 +112,18 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_many_w2s') }
     end
 
+    trait :head_of_household do
+      filing_status { 'head_of_household' }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_shelby_hoh') }
+    end
+
+    trait :qualifying_widow do
+      filing_status { 'qualifying_widow' }
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_laney_qss') }
+    end
+
+    trait :claimed_as_dependent do
+      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_riley_claimedasdep') }
+    end
   end
 end

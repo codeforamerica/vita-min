@@ -51,11 +51,6 @@ module PdfFiller
         y_d400wf_li9_good: @xml_document.at('DeductionsFromFAGI')&.text,
         y_d400wf_ncstandarddeduction: 'Yes',
         y_d400wf_li11_page1_good: @xml_document.at('NCStandardDeduction')&.text,
-        y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName')&.text&.slice(0,11),
-        y_d400wf_li20a_pg2_good: @xml_document.at('IncTaxWith')&.text,
-        y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse')&.text,
-        y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid')&.text,
-        y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment')&.text,
         y_d400wf_li10a_good: @xml_document.at('NumChildrenAllowed')&.text,
         y_d400wf_li10b_good: @xml_document.at('ChildDeduction')&.text,
         y_d400wf_li12a_pg1_good: @xml_document.at('NCAGIAddition')&.text,
@@ -64,18 +59,26 @@ module PdfFiller
         y_d400wf_li15_pg1_good: @xml_document.at('NCIncTax')&.text,
         y_d400wf_li17_pg2_good: @xml_document.at('SubTaxCredFromIncTax')&.text,
         y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
-        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text
+        y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName').text.slice(0,11),
+        y_d400wf_Consumer_Use_Tax: @xml_document.at('NoUseTaxDue')&.text.present? ? 'Yes' : 'Off',
+        y_d400wf_li18_pg2_good: @xml_document.at('UseTax')&.text,
+        y_d400wf_li19_pg2_good: @xml_document.at('TotalNCTax')&.text,
+        y_d400wf_li20a_pg2_good: @xml_document.at('IncTaxWith').text,
+        y_d400wf_li20b_pg2_good: @xml_document.at('IncTaxWithSpouse').text,
+        y_d400wf_li23_pg2_good: @xml_document.at('NCTaxPaid').text,
+        y_d400wf_li25_pg2_good: @xml_document.at('RemainingPayment').text,
+        y_d400wf_li26a_pg2_good: @xml_document.at('TaxDue')&.text,
+        y_d400wf_li27_pg2_good: @xml_document.at('TotalAmountDue')&.text,
+        y_d400wf_li28_pg2_good: @xml_document.at('Overpayment')&.text,
+        y_d400wf_li34_pg2_good: @xml_document.at('RefundAmt')&.text,
+        y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? @submission.data_source.primary_esigned_at.to_date : "",
+        y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? @submission.data_source.spouse_esigned_at.to_date : ""
       }
     end
 
     def checkbox_value(condition)
       condition ? 'Yes' : 'Off'
-    end
-
-    def formatted_date(date_str, format)
-      return if date_str.nil?
-
-      Date.parse(date_str)&.strftime(format)
     end
   end
 end

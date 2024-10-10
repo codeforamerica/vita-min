@@ -83,7 +83,7 @@ module SubmissionBuilder
     end
 
     def form1099g_builder
-      raise "SubmissionBuilder classes must implement their own form1099g_builder method that returns the class that builds the state 1099G"
+      SubmissionBuilder::State1099G
     end
 
     # default to nil

@@ -54,10 +54,48 @@ class StateFileBaseIntake < ApplicationRecord
     @direct_file_data ||= DirectFileData.new(raw_direct_file_data)
   end
 
+  def direct_file_json_data
+    @direct_file_json_data ||= DirectFileJsonData.new(raw_direct_file_intake_data)
+  end
+
+  def synchronize_filers_to_database
+    attributes_to_update = {}
+
+    if direct_file_json_data.primary_filer.present?
+      attributes_to_update.merge!(
+        primary_first_name: direct_file_json_data.primary_first_name,
+        primary_middle_initial: direct_file_json_data.primary_middle_initial,
+        primary_last_name: direct_file_json_data.primary_last_name,
+        primary_birth_date: direct_file_json_data.primary_dob
+      )
+    end
+
+    if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
+      attributes_to_update.merge!(
+        spouse_first_name: direct_file_json_data.spouse_first_name,
+        spouse_middle_initial: direct_file_json_data.spouse_middle_initial,
+        spouse_last_name: direct_file_json_data.spouse_last_name,
+        spouse_birth_date: direct_file_json_data.spouse_dob
+      )
+    end
+
+    update(attributes_to_update) if attributes_to_update.present?
+  end
+
   def synchronize_df_dependents_to_database
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build
       dependent.assign_attributes(direct_file_dependent.attributes)
+
+      dependent_json = direct_file_json_data.find_matching_json_dependent(dependent)
+      if dependent_json.present?
+        json_attributes = {
+          middle_initial: dependent_json["middleInitial"],
+          relationship: dependent_json["relationship"]&.humanize,
+          dob: dependent_json["dateOfBirth"]
+        }
+        dependent.assign_attributes(json_attributes)
+      end
       dependent.assign_attributes(intake_id: self.id, intake_type: self.class.to_s)
       dependent.save!
     end
