@@ -32,7 +32,6 @@ module SubmissionBuilder
                     end
                   end
                 end
-                add_non_zero_value(xml, :ExemptionAmount, :MD502_LINE_19)
               end
             end
 

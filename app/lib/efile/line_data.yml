@@ -568,8 +568,6 @@ MD502_DEPENDENT_EXEMPTION_COUNT:
   label: 'Dependent exemption count'
 MD502_DEPENDENT_EXEMPTION_AMOUNT:
   label: 'Dependent exemption amount'
-MD502_LINE_19:
-  label: '19 Exemption amount'
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

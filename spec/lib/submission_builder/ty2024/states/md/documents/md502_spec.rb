@@ -101,28 +101,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             end
           end
         end
-
-        context "exemption amount" do
-          before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return exemption_amount
-          end
-
-          context "amount is zero" do
-            let(:exemption_amount) { 0 }
-
-            it "omits the node" do
-              expect(xml.document.at("ExemptionAmount")).to be_nil
-            end
-          end
-
-          context "amount is positive" do
-            let(:exemption_amount) { 3200 }
-
-            it "fills out the dependent exemptions correctly" do
-              expect(xml.document.at("ExemptionAmount")&.text).to eq exemption_amount.to_s
-            end
-          end
-        end
       end
     end
   end
