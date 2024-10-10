@@ -26,7 +26,14 @@ describe SubmissionBuilder::Ty2022::States::Az::Documents::Az301, required_schem
     end
 
     context "with both AZ-321 and AZ-322 contributions" do
-      let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions) }
+      let(:intake) do
+        create(
+          :state_file_az_intake,
+          :with_az321_contributions,
+          :with_az322_contributions,
+          primary_birth_date: Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 12, 31),
+        )
+      end
 
       it "generates XML with correct total available tax credit" do
         expect(xml.at("NonRfndTaxCr ColumnC TotalAvailTaxCr").text).to eq "621"

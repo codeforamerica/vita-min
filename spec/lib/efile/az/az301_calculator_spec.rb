@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Az::Az301Calculator do
-  let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions) }
+  let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions, primary_birth_date: Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 12, 31)) }
   let(:az140_calculator) do
     Efile::Az::Az140Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,
