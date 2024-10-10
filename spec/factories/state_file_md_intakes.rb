@@ -114,7 +114,7 @@ FactoryBot.define do
 
     trait :head_of_household do
       filing_status { 'head_of_household' }
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('shelby_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_shelby_hoh') }
     end
 
     trait :qualifying_widow do
