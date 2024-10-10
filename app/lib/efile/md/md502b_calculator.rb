@@ -19,7 +19,7 @@ module Efile
       private
 
       def calculate_line_1
-        @intake.dependents.filter { |dependent| !dependent.senior? }.count
+        @intake.dependents.count
       end
 
       def calculate_line_2
@@ -27,7 +27,7 @@ module Efile
       end
 
       def calculate_line_3
-        line_or_zero(:MD502B_LINE_1) + line_or_zero(:MD502B_LINE_2)
+        line_or_zero(:MD502B_LINE_1)
       end
     end
   end

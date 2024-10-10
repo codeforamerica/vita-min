@@ -11,13 +11,13 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
       before do
         allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_1).and_return 2
         allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_2).and_return 1
-        allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_3).and_return 3
+        allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_3).and_return 2
       end
 
       it "fills out the correct counts" do
         expect(xml.at("Form502B Dependents CountRegular").text).to eq "2"
         expect(xml.at("Form502B Dependents CountOver65").text).to eq "1"
-        expect(xml.at("Form502B Dependents Count").text).to eq "3"
+        expect(xml.at("Form502B Dependents Count").text).to eq "2"
       end
     end
 

@@ -15,7 +15,7 @@ describe Efile::Md::Md502bCalculator do
   describe "Line 1: Regular dependent count" do
     it "returns the correct value" do
       instance.calculate
-      expect(instance.lines[:MD502B_LINE_1].value).to eq(1)
+      expect(instance.lines[:MD502B_LINE_1].value).to eq(2)
     end
   end
 

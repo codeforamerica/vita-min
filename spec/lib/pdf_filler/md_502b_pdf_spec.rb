@@ -68,7 +68,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["SPOUSE Last name_2"]).to eq "Jomp"
         expect(pdf_fields["Spouse social security 1"]).to eq "987654321"
 
-        expect(pdf_fields["No. regular dependents"]).to eq "1"
+        expect(pdf_fields["No. regular dependents"]).to eq "2"
         expect(pdf_fields["No. 65orOver dependents"]).to eq "1"
         expect(pdf_fields["No. total dependents"]).to eq "2"
 
