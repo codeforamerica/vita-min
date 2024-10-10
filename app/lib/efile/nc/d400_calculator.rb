@@ -12,7 +12,6 @@ module Efile
         )
       end
 
-
       def calculate
         @d400_schedule_s.calculate
         set_line(:NCD400_LINE_9, :calculate_line_9)

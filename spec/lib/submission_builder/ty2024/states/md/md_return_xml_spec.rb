@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
-  describe '.build' do
+  describe ".build" do
     let(:intake) { create(:state_file_md_intake, filing_status: "single") }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
@@ -13,6 +13,11 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+    end
+
+    it "includes attached documents" do
+      expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
+      expect(xml.document.at('ReturnDataState Form502B')).to be_an_instance_of Nokogiri::XML::Element
     end
   end
 end

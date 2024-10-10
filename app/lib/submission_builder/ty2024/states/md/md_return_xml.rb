@@ -35,6 +35,11 @@ module SubmissionBuilder
                 pdf: PdfFiller::Md502Pdf,
                 include: true
               },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502b,
+                pdf: PdfFiller::Md502bPdf,
+                include: true
+              },
             ]
 
             supported_docs += combined_w2s
