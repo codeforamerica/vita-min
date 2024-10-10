@@ -11,64 +11,116 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       expect(build_response.errors).to be_empty
     end
 
-    context "exemptions stuff" do
-      context "when there are no exemptions" do
-        it "omits the whole exemptions section" do
-          [
-            :get_dependent_exemption_count,
-            :calculate_dependent_exemption_amount
-          ].each do |method|
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
-          end
-
-          expect(xml.document.at("Exemptions")).to be_nil
+    describe ".document" do
+      context "single filer" do
+        it "correctly fills answers" do
+          expect(xml.document.at('ResidencyStatusPrimary')&.text).to eq "true"
+          expect(xml.document.at("TaxPeriodBeginDt").text).to eq "2023-01-01"
+          expect(xml.document.at("TaxPeriodEndDt").text).to eq "2023-12-31"
+          expect(xml.document.at('FilingStatus')&.text).to eq "Single"
+          expect(xml.document.at('DaytimePhoneNumber')&.text).to eq "5551234567"
         end
       end
 
-      context "dependents section" do
-        before do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
-        end
+      context "mfj filer" do
+        let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
-        context "when there are values" do
-          let(:dependent_count) { 2 }
-          let(:dependent_exemption_amount) { 6400 }
-
-          it "fills out the dependent exemptions correctly" do
-            expect(xml.document.at("Exemptions Dependents Count")&.text).to eq dependent_count.to_s
-            expect(xml.document.at("Exemptions Dependents Amount")&.text).to eq dependent_exemption_amount.to_s
-          end
-        end
-
-        context "when there are no values" do
-          let(:dependent_count) { 0 }
-          let(:dependent_exemption_amount) { 0 }
-
-          it "omits the whole section" do
-            expect(xml.document.at("Exemptions Dependents")).to be_nil
-          end
+        it "correctly fills answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "Joint"
         end
       end
 
-      context "exemption amount" do
-        before do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return exemption_amount
+      context "mfs filer" do
+        let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_separately") }
+
+        it "correctly fills answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "MarriedFilingSeparately"
+          expect(xml.document.at('MFSSpouseSSN')&.text).to eq "600000030"
         end
+      end
 
-        context "amount is zero" do
-          let(:exemption_amount) { 0 }
+      context "hoh filer" do
+        let(:intake) { create(:state_file_md_intake, :head_of_household) }
 
-          it "omits the node" do
-            expect(xml.document.at("ExemptionAmount")).to be_nil
+        it "correctly fills answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "HeadOfHousehold"
+        end
+      end
+
+      context "qw filer" do
+        let(:intake) { create(:state_file_md_intake, :qualifying_widow) }
+        it "correctly fills answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "QualifyingWidow"
+        end
+      end
+
+      context "dependent filer" do
+        let(:intake) { create(:state_file_md_intake, :claimed_as_dependent) }
+
+        it "correctly fills answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "DependentTaxpayer"
+        end
+      end
+
+      context "exemptions stuff" do
+        context "when there are no exemptions" do
+          it "omits the whole exemptions section" do
+            [
+              :get_dependent_exemption_count,
+              :calculate_dependent_exemption_amount
+            ].each do |method|
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
+            end
+
+            expect(xml.document.at("Exemptions")).to be_nil
           end
         end
 
-        context "amount is positive" do
-          let(:exemption_amount) { 3200 }
+        context "dependents section" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
+          end
 
-          it "fills out the dependent exemptions correctly" do
-            expect(xml.document.at("ExemptionAmount")&.text).to eq exemption_amount.to_s
+          context "when there are values" do
+            let(:dependent_count) { 2 }
+            let(:dependent_exemption_amount) { 6400 }
+
+            it "fills out the dependent exemptions correctly" do
+              expect(xml.document.at("Exemptions Dependents Count")&.text).to eq dependent_count.to_s
+              expect(xml.document.at("Exemptions Dependents Amount")&.text).to eq dependent_exemption_amount.to_s
+            end
+          end
+
+          context "when there are no values" do
+            let(:dependent_count) { 0 }
+            let(:dependent_exemption_amount) { 0 }
+
+            it "omits the whole section" do
+              expect(xml.document.at("Exemptions Dependents")).to be_nil
+            end
+          end
+        end
+
+        context "exemption amount" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return exemption_amount
+          end
+
+          context "amount is zero" do
+            let(:exemption_amount) { 0 }
+
+            it "omits the node" do
+              expect(xml.document.at("ExemptionAmount")).to be_nil
+            end
+          end
+
+          context "amount is positive" do
+            let(:exemption_amount) { 3200 }
+
+            it "fills out the dependent exemptions correctly" do
+              expect(xml.document.at("ExemptionAmount")&.text).to eq exemption_amount.to_s
+            end
           end
         end
       end

@@ -1,0 +1,12 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Rory",
+      "middleInitial": null,
+      "lastName": "Gilmore",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    }
+  ]
+}
