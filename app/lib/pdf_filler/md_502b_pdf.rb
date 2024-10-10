@@ -16,6 +16,14 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
+        "Your first name": @xml_document.at("Primary TaxpayerName FirstName")&.text,
+        "Initial": @xml_document.at("Primary TaxpayerName MiddleInitial")&.text,
+        "yOUR Last name": @xml_document.at("Primary TaxpayerName LastName")&.text,
+        "social security 1": @xml_document.at("Primary TaxpayerSSN")&.text,
+        "Spouses first name": @xml_document.at("Secondary TaxpayerName FirstName")&.text,
+        "Initial_2": @xml_document.at("Secondary TaxpayerName MiddleInitial")&.text,
+        "SPOUSE Last name_2": @xml_document.at("Secondary TaxpayerName LastName")&.text,
+        "Spouse social security 1": @xml_document.at("Secondary TaxpayerSSN")&.text,
         "No. regular dependents": @xml_document.at("Form502B Dependents CountRegular")&.text,
         "No. 65orOver dependents": @xml_document.at("Form502B Dependents CountOver65")&.text,
         "No. total dependents": @xml_document.at("Form502B Dependents Count")&.text,
