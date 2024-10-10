@@ -40,7 +40,7 @@ module PdfFiller
     end
 
     def spouse_ssn_if_mfs
-      filing_status(:filing_status_mfs?) ? @xml_document.at('MFSSpouseSSN')&.text : nil
+      filing_status(:filing_status_mfs?) ? @xml_document.at('FilingStatus MarriedFilingSeparately')['spouseSSN'] : nil
     end
 
     def claimed_as_dependent?

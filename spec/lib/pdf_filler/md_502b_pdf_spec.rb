@@ -76,7 +76,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["MI 1"]).to eq "J"
         expect(pdf_fields["Last Name 1"]).to eq "Jawplyn"
         expect(pdf_fields["DEPENDENTS SSN 1"]).to eq "123456789"
-        expect(pdf_fields["RELATIONSHIP 1"]).to eq "Child"
+        expect(pdf_fields["RELATIONSHIP 1"]).to eq "CH"
         expect(pdf_fields["REGULAR 1"]).to eq "Yes"
         expect(pdf_fields["65 OR OLDER 1"]).to eq "Off"
         expect(pdf_fields["DOB date 1_af_date"]).to eq young_dob.strftime("%Y-%m-%d")
@@ -85,7 +85,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["MI 2"]).to eq "F"
         expect(pdf_fields["Last Name 2"]).to eq "Jimplin"
         expect(pdf_fields["DEPENDENTS SSN 2"]).to eq "234567890"
-        expect(pdf_fields["RELATIONSHIP 2"]).to eq "Grandparent"
+        expect(pdf_fields["RELATIONSHIP 2"]).to eq "GP"
         expect(pdf_fields["REGULAR 2"]).to eq "Yes"
         expect(pdf_fields["65 OR OLDER 2"]).to eq "2"
         expect(pdf_fields["DOB date 1_af_date 2"]).to eq old_dob.strftime("%Y-%m-%d")
