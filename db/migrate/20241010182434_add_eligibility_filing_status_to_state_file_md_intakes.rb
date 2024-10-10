@@ -1,0 +1,5 @@
+class AddEligibilityFilingStatusToStateFileMdIntakes < ActiveRecord::Migration[7.1]
+  def change
+    add_column :state_file_md_intakes, :eligibility_filing_status, :integer, null: false, default: 0
+  end
+end

@@ -15,6 +15,7 @@
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
 #  df_data_imported_at               :datetime
+#  eligibility_filing_status         :integer          default(0), not null
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  email_address                     :citext
@@ -75,5 +76,17 @@
 require 'rails_helper'
 
 RSpec.describe StateFileMdIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:intake) do
+    create(:state_file_md_intake, eligibility_filing_status: :mfj)
+  end
+
+  describe "#eligibility_filing_status" do
+    it "defines a correct enum" do
+      expect(intake.eligibility_filing_status_before_type_cast).to eq(1)
+      intake.update(eligibility_filing_status: :non_mfj)
+      expect(intake.eligibility_filing_status_before_type_cast).to eq(2)
+      intake.update(eligibility_filing_status: :unfilled)
+      expect(intake.eligibility_filing_status_before_type_cast).to eq(0)
+    end
+  end
 end
