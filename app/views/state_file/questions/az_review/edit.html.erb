@@ -26,13 +26,13 @@
       <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.tribal_member_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".tribal_wages") %></p>
-        <p><%=number_to_currency(current_intake.tribal_wages_amount) %></p>
+        <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2) %></p>
       <% end %>
       <p class="text--bold spacing-below-5"><%=t(".armed_forces_member") %></p>
       <p><%=current_intake.armed_forces_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.armed_forces_member_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
-        <p><%=number_to_currency(current_intake.armed_forces_wages_amount) %></p>
+        <p><%=number_to_currency(current_intake.armed_forces_wages_amount, precision: 2) %></p>
       <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::AzSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
@@ -44,9 +44,9 @@
       <p><%=current_intake.charitable_contributions_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.charitable_contributions_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".charitable_cash") %></p>
-        <p><%=number_to_currency(current_intake.charitable_cash_amount) || t("general.none") %></p>
+        <p><%=number_to_currency(current_intake.charitable_cash_amount, precision: 2) || t("general.none") %></p>
         <p class="text--bold spacing-below-5"><%=t(".charitable_noncash") %></p>
-        <p><%=number_to_currency(current_intake.charitable_noncash_amount) || t("general.none") %></p>
+        <p><%=number_to_currency(current_intake.charitable_noncash_amount, precision: 2) || t("general.none") %></p>
       <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::AzCharitableContributionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
@@ -59,7 +59,7 @@
       <% if current_intake.az321_contributions.present? %>
         <% current_intake.az321_contributions.each do |contribution| %>
           <p class="text--bold spacing-below-5"><%=t(".az321_contribution_name", charity_name: contribution.charity_name, charity_code: contribution.charity_code) %></p>
-          <p><%= number_to_currency(contribution.amount) || t("general.none") %></p>
+          <p><%= number_to_currency(contribution.amount, precision: 2) || t("general.none") %></p>
         <% end %>
       <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :index, return_to_review: "y"), class: "button--small" %>

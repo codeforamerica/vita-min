@@ -27,6 +27,8 @@ module StateFile
 
     def privacy_policy; end
 
+    def sms_terms; end
+
     def coming_soon
       redirect_to root_path unless before_state_file_launch?
     end

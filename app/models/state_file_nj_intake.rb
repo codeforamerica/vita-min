@@ -70,6 +70,12 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
+#  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
+#  tenant_building_multi_unit                             :integer          default("unfilled"), not null
+#  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
+#  tenant_more_than_one_main_home_in_nj                   :integer          default("unfilled"), not null
+#  tenant_same_home_spouse                                :integer          default("unfilled"), not null
+#  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
 #  withdraw_amount                                        :integer
@@ -98,6 +104,13 @@ class StateFileNjIntake < StateFileBaseIntake
   enum homeowner_main_home_multi_unit_max_four_one_commercial: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_main_home_multi_unit_max_four_one_commercial
   enum homeowner_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_more_than_one_main_home_in_nj
   enum homeowner_shared_ownership_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_shared_ownership_not_spouse
+
+  enum tenant_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_home_subject_to_property_taxes
+  enum tenant_building_multi_unit: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_building_multi_unit
+  enum tenant_access_kitchen_bath: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_access_kitchen_bath
+  enum tenant_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_more_than_one_main_home_in_nj
+  enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
+  enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
