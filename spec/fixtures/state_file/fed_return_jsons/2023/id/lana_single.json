@@ -6,7 +6,8 @@
       "middleInitial": null,
       "lastName": "Turner",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": true,
+      "tin": "400-00-0012"
     }
   ]
 }
