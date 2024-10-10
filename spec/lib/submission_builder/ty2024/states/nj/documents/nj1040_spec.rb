@@ -261,7 +261,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
 
         it "includes the sum in WagesSalariesTips item" do
-          expected_sum = (50000.33 + 50000.33 + 50000.33 + 50000.33).round
+          expected_sum = 50000 + 50000 + 50000 + 50000
           expect(xml.at("WagesSalariesTips").text).to eq(expected_sum.to_s)
         end
       end
@@ -283,7 +283,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context "when filer submits w2 wages" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "fills TotalIncome with the value from Line 15" do
-          expected_line_15_w2_wages = 200_001
+          expected_line_15_w2_wages = 200_000
           expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
           expect(xml.at("TotalIncome").text).to eq(expected_line_15_w2_wages.to_s)
         end
@@ -301,7 +301,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context "when filer submits w2 wages" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "fills TotalIncome with the value from Line 15" do
-          expected_line_15_w2_wages = 200_001
+          expected_line_15_w2_wages = 200_000
           expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
           expect(xml.at("GrossIncome").text).to eq(expected_line_15_w2_wages.to_s)
         end
@@ -329,7 +329,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "taxable income - line 39" do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
       it "fills TaxableIncome with gross income minus total exemptions/deductions" do
-        expected_line_15_w2_wages = 200_001
+        expected_line_15_w2_wages = 200_000
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
@@ -382,7 +382,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "new jersey taxable income - line 42" do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
       it "fills NewJerseyTaxableIncome with taxable income" do
-        expected_line_15_w2_wages = 200_001
+        expected_line_15_w2_wages = 200_000
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
