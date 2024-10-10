@@ -15,7 +15,7 @@ module Efile
       def calculate
         set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
         set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_dependent_exemption_amount)
-        set_line(:MD502_EXEMPTION_AMOUNT, :calculate_exemption_amount)
+        set_line(:MD502_LINE_19, :calculate_line_19)
         @md502b.calculate
         @lines.transform_values(&:value)
       end
@@ -62,7 +62,7 @@ module Efile
         amount_per_child * line_or_zero(:MD502_DEPENDENT_EXEMPTION_COUNT)
       end
 
-      def calculate_exemption_amount
+      def calculate_line_19
         line_or_zero(:MD502_DEPENDENT_EXEMPTION_AMOUNT)
       end
     end

@@ -64,7 +64,7 @@ describe Efile::Md::Md502Calculator do
         allow(instance).to receive(:calculate_dependent_exemption_amount).and_return 3200
 
         instance.calculate
-        expect(instance.lines[:MD502_EXEMPTION_AMOUNT].value).to eq 3200
+        expect(instance.lines[:MD502_LINE_19].value).to eq 3200
       end
     end
   end
