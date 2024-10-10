@@ -15,7 +15,7 @@ module PdfSpecHelper
   end
 
   # Only works for Field Type: Button
-  def check_pdf_option(file_path, field_name, value)
+  def check_if_valid_pdf_option(file_path, field_name, value)
     data_dump = PdfForms.new.call_pdftk(file_path, :dump_data_fields)
     matching_field = data_dump.split("---").find { |data_field| data_field.match(field_name) }
     value_pairs = matching_field.split("\n")
