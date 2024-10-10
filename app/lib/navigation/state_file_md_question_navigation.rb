@@ -4,6 +4,7 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
+        Navigation::NavigationStep.new(StateFile::Questions::MdEligibilityFilingStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
@@ -44,4 +45,3 @@ module Navigation
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end
 end
-  

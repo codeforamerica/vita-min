@@ -15,6 +15,7 @@
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
 #  df_data_imported_at               :datetime
+#  eligibility_filing_status         :integer          default(0), not null
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  email_address                     :citext
