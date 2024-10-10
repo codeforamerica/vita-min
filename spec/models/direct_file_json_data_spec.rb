@@ -45,12 +45,36 @@ describe DirectFileJsonData do
       expect(direct_file_json_data.find_matching_json_dependent(dependents[2])["firstName"]).to eq("Jack")
     end
 
-    it "should be return nil if dependent is not found in json" do
+    it "should be return nil if xml dependent has no ssn" do
       intake.dependents.last.update(ssn: nil)
       expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.last)).to eq(nil)
+    end
 
-      intake.dependents.create(first_name: "Jill", last_name: "Hemingway", relationship: "daughter", ssn: nil)
+    it "should be return nil if xml dependent does not have matching ssn" do
+      intake.dependents.last.update(ssn: '100-00-0001')
       expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.last)).to eq(nil)
+    end
+
+    context "no tin in json" do
+      before do
+        allow(direct_file_json_data).to receive(:dependents).and_return(
+          [{
+             "firstName" => "Gloria",
+             "middleInitial" => "T",
+             "lastName" => "Hemingway",
+             "dateOfBirth" => "1920-01-01",
+             "relationship" => "grandParent",
+             "eligibleDependent" => true,
+             "isClaimedDependent" => true
+             # no ssn in json
+           }]
+        )
+      end
+
+      it "should be return nil if xml dependent has no ssn and json dependent also has no tin" do
+        intake.dependents.first.update(ssn: nil)
+        expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.first)).to eq(nil)
+      end
     end
   end
 end
