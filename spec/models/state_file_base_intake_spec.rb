@@ -51,4 +51,31 @@ describe StateFileBaseIntake do
       expect(intake.tax_calculator).to be_an_instance_of(Efile::Az::Az140Calculator)
     end
   end
+
+  describe "#calculate_age" do
+    let(:intake) { create :state_file_az_intake, primary_birth_date: dob }
+    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+
+    context "when following federal guidelines" do
+      context "when calculating age for benefit one ages into" do
+        it "includes Jan 1st b-days for the past tax year" do
+          expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 11
+        end
+      end
+
+      context "when calculating age for benefits one ages out of" do
+        it "doesn't include Jan 1st for the past tax year" do
+          expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
+        end
+      end
+    end
+
+    context "when Maryland intake" do
+      let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      it "doesn't include Jan 1st in the past tax year" do
+        expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 10
+        expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
+      end
+    end
+  end
 end
