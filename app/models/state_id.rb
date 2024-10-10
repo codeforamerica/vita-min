@@ -14,6 +14,8 @@
 #  updated_at          :datetime         not null
 #
 class StateId < ApplicationRecord
+  date_accessor :expiration_date, :issue_date
+
   has_one :intake_as_primary, class_name: "StateFileNyIntake", foreign_key: "primary_state_id"
   has_one :intake_as_spouse, class_name: "StateFileNyIntake", foreign_key: "spouse_state_id"
   enum id_type: { unfilled: 0, driver_license: 1, dmv_bmv: 2, no_id: 3 }, _prefix: :id_type
@@ -30,5 +32,4 @@ class StateId < ApplicationRecord
       self.expiration_date = nil
     end
   end
-
 end

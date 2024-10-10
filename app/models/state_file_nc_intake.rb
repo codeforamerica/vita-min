@@ -67,11 +67,15 @@
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  federal_submission_id             :string
+#  primary_state_id_id               :bigint
+#  spouse_state_id_id                :bigint
 #  visitor_id                        :string
 #
 # Indexes
 #
-#  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
+#  index_state_file_nc_intakes_on_hashed_ssn           (hashed_ssn)
+#  index_state_file_nc_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_nc_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNcIntake < StateFileBaseIntake
   include NcResidenceCountyConcern
