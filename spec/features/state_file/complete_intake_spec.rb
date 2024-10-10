@@ -475,13 +475,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
-      expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
-      fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
-      select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
