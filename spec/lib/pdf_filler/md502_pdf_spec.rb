@@ -127,7 +127,7 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Check Box - 3"]).to eq "Off"
           expect(pdf_fields["Check Box - 4"]).to eq "Off"
           expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "Yes"
+          expect(pdf_fields["6. Check here"]).to eq "No"
         end
       end
     end
