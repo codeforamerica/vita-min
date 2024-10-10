@@ -221,11 +221,11 @@ FactoryBot.define do
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_superman') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_goldwater') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_goldwater') }
     end
 
     factory :state_file_az_refund_intake do
@@ -258,7 +258,7 @@ FactoryBot.define do
 
     factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database

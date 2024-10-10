@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
-    let(:xml_result) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
-    let(:direct_file_intake_json) { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
+    let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_five_dependents') }
+    let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
     let(:json_result) do
       {
         "xml" => xml_result,

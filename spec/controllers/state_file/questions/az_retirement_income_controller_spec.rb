@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::AzRetirementIncomeController do
-  let(:intake) { create :state_file_az_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r"), filing_status: filing_status }
+  let(:intake) { create :state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r"), filing_status: filing_status }
   let(:filing_status) { 'single' }
   before do
     sign_in intake
@@ -18,7 +18,7 @@ RSpec.describe StateFile::Questions::AzRetirementIncomeController do
     end
 
     it "returns false if 1099R missing" do
-      intake = create :state_file_az_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("az_unemployment")
+      intake = create :state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_unemployment")
       sign_in intake
       expect(described_class.show?(intake)).to eq false
     end

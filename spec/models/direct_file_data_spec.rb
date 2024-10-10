@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe DirectFileData do
-  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_df_complete_sample")) }
+  let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_df_complete_sample")) }
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
@@ -53,7 +53,7 @@ describe DirectFileData do
   end
 
   describe "#phone_number=" do
-    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample) }
+    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample) }
 
     it "adds the node in the right place" do
       direct_file_data.phone_number = "5551231234"
@@ -75,7 +75,7 @@ describe DirectFileData do
     let(:desc2) { '414 (H)' }
 
     before do
-      doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
       # clone the single w2 so there are two of them
       doc.at('IRSW2').add_next_sibling(doc.at('IRSW2').to_s)
       doc.css('IRSW2')[1]['documentId'] = 'W20002'
@@ -144,7 +144,7 @@ describe DirectFileData do
 
   describe '#fed_adjustments_claimed' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all known adjustment types are present" do
@@ -193,7 +193,7 @@ describe DirectFileData do
 
   describe '#fed_IRS1040Schedule1_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -232,7 +232,7 @@ describe DirectFileData do
 
   describe '#fed_IRS1040Schedule3_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -293,7 +293,7 @@ describe DirectFileData do
 
   describe '#fed_IRS1040Schedule8812_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -328,7 +328,7 @@ describe DirectFileData do
 
   describe '#fed_OtherForm_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -377,7 +377,7 @@ describe DirectFileData do
 
   describe '#dependents' do
     context "when there are dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_five_dependents') }
       it 'returns an array of DirectFileData::Dependent objects' do
 
         expect(described_class.new(xml).dependents.count).to eq(5)
@@ -387,7 +387,7 @@ describe DirectFileData do
     end
 
     context "when there are no dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_javier') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_javier') }
       it 'returns blank array' do
 
         expect(described_class.new(xml).dependents).to eq []
@@ -395,7 +395,7 @@ describe DirectFileData do
     end
 
     context "when there are CTC dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
       it 'sets ctc_qualifying on those dependents' do
 
         expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying }.length).to eq(3)
@@ -405,7 +405,7 @@ describe DirectFileData do
     end
 
     context "when there are EIC dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
       it 'sets eic_qualifying on those dependents' do
         dependents = described_class.new(xml).dependents
         expect(dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
@@ -417,7 +417,7 @@ describe DirectFileData do
     end
 
     context "when there is a eic dependent with a disability" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_robert_mfj') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_robert_mfj') }
 
       it "sets eic_disability on those dependents" do
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
@@ -426,7 +426,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in AZ, the months_in_home is not populated" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
 
       it 'sets the months_in_home to nil' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
@@ -434,7 +434,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in NY, the months_in_home IS populated" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_matthew') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_matthew') }
 
       it 'sets the months_in_home' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
@@ -442,14 +442,14 @@ describe DirectFileData do
     end
 
     context 'when there are dependents with missing tags' do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_batman') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
       it 'still sets the dependents' do
         expect(described_class.new(xml).dependents.length).to eq(1)
       end
     end
 
     context 'when there are dependents with missing eic tags' do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_depdropping') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_depdropping') }
       it 'returns the correct array of DirectFileData::Dependent objects' do
         expect(described_class.new(xml).dependents.count).to eq(8)
         expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
@@ -462,7 +462,7 @@ describe DirectFileData do
   end
 
   describe '#determine_eic_attribute' do
-    let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_depdropping') }
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_depdropping') }
     it 'returns yes for true' do
       expect(described_class.new(xml).determine_eic_attribute('true')).to eq('yes')
       expect(described_class.new(xml).determine_eic_attribute('false')).to eq('no')
@@ -472,14 +472,14 @@ describe DirectFileData do
 
   describe '#surviving_spouse?' do
     context "when federal XML SurvivingSpouseInd has a value of 'X'" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_deceased_spouse') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_deceased_spouse') }
       it 'returns true' do
         expect(described_class.new(xml).spouse_deceased?).to eq(true)
       end
     end
 
     context "when federal XML SurvivingSpouseInd node not present" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_john_jane_no_eic') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_john_jane_no_eic') }
       it 'returns false' do
         expect(described_class.new(xml).spouse_deceased?).to eq(false)
       end
@@ -488,7 +488,7 @@ describe DirectFileData do
 
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
-      xml = StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r")
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
@@ -498,7 +498,7 @@ describe DirectFileData do
   # fake field: will be replaced by a real one at some point pending info about df api
   # when that time comes delete this whole spec in favor of a dynamically generated one (see top of file)
   describe '#interest_reported_amount' do
-    let(:xml) { StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099") }
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099") }
 
     it "reads and writes" do
       df_data = described_class.new(xml)
@@ -512,7 +512,7 @@ describe DirectFileData do
   end
 
   describe "DfW2" do
-    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099")) }
     let(:direct_file_data) { DirectFileData.new(xml.to_s) }
     let(:first_w2) { direct_file_data.w2s[0] }
 
@@ -596,7 +596,7 @@ describe DirectFileData do
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("nc_miranda_1099r")).to_s) }
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_miranda_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 
