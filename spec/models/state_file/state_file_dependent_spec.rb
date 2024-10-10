@@ -50,100 +50,120 @@ describe StateFileDependent do
   end
 
   describe "#ask_senior_questions?" do
-    it "asks more questions when a dependent is 65+ by the end of the tax year + grandparent + 12 months in home" do
-      dependent = build(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 12,
-        relationship: "GRANDPARENT"
-      )
+    let(:dependent) { build(:state_file_dependent, dob: dob, months_in_home: months_in_home, relationship: relationship, intake: intake) }
+    let(:relationship) { "GRANDPARENT" }
+    let(:dob) { described_class.senior_cutoff_date }
+    let(:months_in_home) { 12 }
+    let(:intake) { build :state_file_az_intake }
 
-      expect(dependent.ask_senior_questions?).to be true
+    context "when spent 12 months in home" do
+      context "when a dependent is 65+" do
+        context "when grandparent" do
+          it "asks more questions" do
+            expect(dependent.ask_senior_questions?).to be true
+          end
+        end
+
+        context "when parent" do
+          let(:relationship) { "PARENT" }
+          it "asks more questions" do
+            expect(dependent.ask_senior_questions?).to be true
+          end
+        end
+
+        context "when daughter (not parent or grandparent)" do
+          let(:relationship) { "DAUGHTER" }
+          it "doesn't asks more questions" do
+            expect(dependent.ask_senior_questions?).to be false
+          end
+        end
+      end
+
+      context "when a dependent is younger than 65" do
+        let(:dob) { described_class.senior_cutoff_date + 1.week }
+        it "does NOT ask more questions" do
+          expect(dependent.ask_senior_questions?).to be false
+        end
+      end
+
+      context "when dependent's birthday is one day from the cutoff (January 1st)" do
+        let(:dob) { described_class.senior_cutoff_date + 1.day }
+        context "when Maryland intake" do
+          let(:intake) { build :state_file_md_intake }
+          it "doesn't ask more questions" do
+            expect(dependent.ask_senior_questions?).to be false
+          end
+        end
+
+        context "when following federal age guidelines" do
+          it "doesn't ask more questions" do
+            expect(dependent.ask_senior_questions?).to be true
+          end
+        end
+      end
     end
 
-    it "asks more questions when a dependent is 65+ by the end of the tax year + parent + 12 months in home" do
-      dependent = build(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 12,
-        relationship: "PARENT"
-      )
-
-      expect(dependent.ask_senior_questions?).to be true
-    end
-
-    it "does NOT ask more questions when a dependent is 65+ AFTER the end of the tax year + grandparent + 12 months in home" do
-      dependent = build(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date + 1.day,
-        months_in_home: 12,
-        relationship: "GRANDPARENT"
-      )
-
-      expect(dependent.ask_senior_questions?).to be false
-    end
-
-    it "does NOT ask more questions when a dependent is 65+ by the end of the tax year + NOT parent or grandparent + 12 months in home" do
-      dependent = build(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 12,
-        relationship: "DAUGHTER"
-      )
-
-      expect(dependent.ask_senior_questions?).to be false
-    end
-
-    it "does NOT ask more questions when a dependent is 65+ by the end of the tax year + grandparent + LESS THAN 12 months in home" do
-      dependent = build(
-        :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
-        months_in_home: 11,
-        relationship: "GRANDPARENT"
-      )
-
-      expect(dependent.ask_senior_questions?).to be false
+    context "when less than 12 months in the home" do
+      let(:months_in_home) { 11 }
+      it "does NOT ask more questions" do
+        expect(dependent.ask_senior_questions?).to be false
+      end
     end
   end
 
   describe "#is_qualifying_parent_or_grandparent?" do
     it "only returns dependents that are 65+ by end of tax year, a grandparent or parent, spent 12 months in home, and needed assistance" do
-      qualifying_grandparent = create(
+      qualifying_grandparent = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "GRANDPARENT"
       )
-      qualifying_parent = create(
+      qualifying_parent = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "PARENT"
       )
-      too_young = create(
+      too_young = build(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date + 2.day,
+        months_in_home: 12,
+        needed_assistance: "yes",
+        relationship: "GRANDPARENT"
+      )
+      jan_1_az_intake = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date + 1.day,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "GRANDPARENT"
       )
-      not_ancestor = create(
+      jan_1_md_intake = build(
+        :state_file_dependent,
+        dob: described_class.senior_cutoff_date + 1.day,
+        months_in_home: 12,
+        needed_assistance: "yes",
+        relationship: "GRANDPARENT",
+        intake: build(:state_file_md_intake)
+      )
+      not_ancestor = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "DAUGHTER"
       )
-      too_few_months = create(
+      too_few_months = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 11,
         needed_assistance: "yes",
         relationship: "GRANDPARENT"
       )
-      did_not_need_assistance = create(
+      did_not_need_assistance = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
@@ -153,26 +173,39 @@ describe StateFileDependent do
       expect(qualifying_grandparent.is_qualifying_parent_or_grandparent?).to be true
       expect(qualifying_parent.is_qualifying_parent_or_grandparent?).to be true
       expect(too_young.is_qualifying_parent_or_grandparent?).to be false
+      expect(jan_1_az_intake.is_qualifying_parent_or_grandparent?).to be true
+      expect(jan_1_md_intake.is_qualifying_parent_or_grandparent?).to be false
       expect(not_ancestor.is_qualifying_parent_or_grandparent?).to be false
       expect(too_few_months.is_qualifying_parent_or_grandparent?).to be false
       expect(did_not_need_assistance.is_qualifying_parent_or_grandparent?).to be false
     end
   end
 
-  describe "#age" do
-    it "when the birthday is the last day of the tax year" do
-      dependent = build(
-        :state_file_dependent,
-        dob: (MultiTenantService.statefile.end_of_current_tax_year - 10.years).strftime("%Y-%m-%d")
-      )
-      expect(dependent.age).to be 10
+  describe "#calculate_age" do
+    let(:dependent) { create :state_file_dependent, dob: dob, intake: intake }
+    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+    let(:intake) { create :state_file_az_intake }
+
+    context "when following federal guidelines" do
+      context "when calculating age for benefit one ages into" do
+        it "includes Jan 1st b-days for the past tax year" do
+          expect(dependent.calculate_age(inclusive_of_jan_1: true)).to eq 11
+        end
+      end
+
+      context "when calculating age for benefits one ages out of" do
+        it "doesn't include Jan 1st for the past tax year" do
+          expect(dependent.calculate_age(inclusive_of_jan_1: false)).to eq 10
+        end
+      end
     end
-    it "when the birthday is the first day of the next tax year" do
-      dependent = build(
-        :state_file_dependent,
-        dob: (MultiTenantService.statefile.end_of_current_tax_year + 1.days - 10.years).strftime("%Y-%m-%d")
-      )
-      expect(dependent.age).to be 9
+
+    context "when Maryland intake" do
+      let(:intake) { create :state_file_md_intake }
+      it "doesn't include Jan 1st in the past tax year" do
+        expect(dependent.calculate_age(inclusive_of_jan_1: true)).to eq 10
+        expect(dependent.calculate_age(inclusive_of_jan_1: false)).to eq 10
+      end
     end
   end
 

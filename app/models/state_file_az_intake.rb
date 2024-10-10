@@ -118,11 +118,11 @@ class StateFileAzIntake < StateFileBaseIntake
 
   validates :az322_contributions, length: { maximum: 10 }, on: :az322
   def federal_dependent_count_under_17
-    self.dependents.select{ |dependent| dependent.age < 17 }.length
+    self.dependents.select{ |dependent| dependent.under_17? }.length
   end
 
   def federal_dependent_count_over_17_non_qualifying_senior
-    self.dependents.select{ |dependent| dependent.age >= 17 && !dependent.is_qualifying_parent_or_grandparent? }.length
+    self.dependents.select{ |dependent| !dependent.under_17? && !dependent.is_qualifying_parent_or_grandparent? }.length
   end
 
   def qualifying_parents_and_grandparents
@@ -230,12 +230,12 @@ class StateFileAzIntake < StateFileBaseIntake
         dependent[:months_in_home] < 6
       }
       hoh_qualifying_dependent = six_plus_months_in_home.max_by { |dependent|
-        [dependent[:months_in_home], -dependent.age]
+        [dependent[:months_in_home], -dependent.calculate_age(inclusive_of_jan_1: false)]
       }
       if hoh_qualifying_dependent.nil?
         hoh_qualifying_dependent = hoh_qualifying_dependents.select { |dependent|
           dependent[:relationship] == "PARENT"
-        }.max_by(&:age)
+        }.max_by { |dependent| dependent.calculate_age(inclusive_of_jan_1: false) }
       end
       {
         :first_name => hoh_qualifying_dependent.first_name,

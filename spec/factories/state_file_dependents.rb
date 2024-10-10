@@ -29,7 +29,7 @@
 #
 FactoryBot.define do
   factory :state_file_dependent do
-    intake
+    intake { create :state_file_az_intake }
     first_name { "Ali" }
     middle_initial {"U"}
     last_name { "Poppyseed" }
