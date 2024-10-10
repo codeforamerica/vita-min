@@ -22,16 +22,24 @@ class Ability
     if user.admin?
       # All admins who are also state file
       can :manage, :all
+
+      # Non-NJ staff cannot manage NJ EfileErrors, EfileSubmissions or FAQs
+      cannot :manage, EfileError, service_type: "state_file_nj"
+      cannot :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
+      cannot :manage, FaqCategory, product_type: "state_file_nj"
+      cannot :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
+
       unless user.state_file_admin?
         StateFile::StateInformationService.state_intake_classes.each do |intake_class|
           cannot :manage, intake_class
         end
         # Enumerate classes here...
+        cannot :manage, StateFile::AutomatedMessage
         cannot :manage, StateFile1099G
         cannot :manage, StateFileDependent
         cannot :manage, StateFileW2
         cannot :manage, StateId
-        cannot :manage, EfileSubmission, id: EfileSubmission.for_state_filing.pluck(:id)
+        cannot :manage, EfileSubmission, data_source_type: StateFile::StateInformationService.state_intake_class_names
         cannot :manage, EfileError do |error|
           error.service_type == "state_file" || error.service_type == "unfilled"
         end
@@ -51,6 +59,7 @@ class Ability
       cannot :manage, OrganizationLeadRole
       cannot :manage, TeamMemberRole
       cannot :manage, AdminRole
+      cannot :manage, StateFileNjStaffRole
       cannot :manage, ClientSuccessRole
       cannot :manage, SiteCoordinatorRole
       cannot :manage, GreeterRole
@@ -129,6 +138,16 @@ class Ability
     cannot :manage, StateFileDependent
     cannot :manage, StateFileW2
     cannot :manage, StateId
+
+    if user.state_file_nj_staff?
+      can :manage, :state_file_admin_tool
+      can :read, StateFile::AutomatedMessage
+
+      can :manage, EfileError, service_type: "state_file_nj"
+      can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
+      can :manage, FaqCategory, product_type: "state_file_nj"
+      can :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
+    end
 
     if user.coalition_lead?
       can :read, Coalition, id: user.role.coalition_id

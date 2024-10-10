@@ -28,6 +28,8 @@
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
 class StateFileDependent < ApplicationRecord
+  # TODO: once we have added all the json fixtures for all the states we can remove RELATIONSHIP_LABELS used to map xml relationship to gender-neutral terms in relationship colum.
+  #
   RELATIONSHIP_LABELS = {
     "DAUGHTER" => "Child",
     "STEPCHILD" => "Child",

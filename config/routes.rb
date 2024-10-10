@@ -352,6 +352,7 @@ Rails.application.routes.draw do
         end
         resources :tools, only: [:index]
         resources :admin_tools, only: [:index]
+        resources :state_file_admin_tools, only: [:index]
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
@@ -621,6 +622,7 @@ Rails.application.routes.draw do
         get "/coming-soon", to: "state_file_pages#coming_soon"
         post "/clear_session", to: 'state_file_pages#clear_session'
         get "/privacy-policy", to: "state_file_pages#privacy_policy"
+        get "/sms-terms", to: "state_file_pages#sms_terms"
         get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
         post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
       end

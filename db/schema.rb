@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_02_180452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1991,6 +1991,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.string "hashed_ssn"
+    t.integer "homeowner_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "homeowner_main_home_multi_unit", default: 0, null: false
+    t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
+    t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -2033,6 +2038,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "tenant_access_kitchen_bath", default: 0, null: false
+    t.integer "tenant_building_multi_unit", default: 0, null: false
+    t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "tenant_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "tenant_same_home_spouse", default: 0, null: false
+    t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
@@ -2042,6 +2053,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.index ["hashed_ssn"], name: "index_state_file_nj_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_nj_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_nj_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_nj_staff_roles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_notification_emails", force: :cascade do |t|

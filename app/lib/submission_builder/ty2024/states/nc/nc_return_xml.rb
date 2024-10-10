@@ -23,7 +23,7 @@ module SubmissionBuilder
           end
 
           def supported_documents
-            [
+            supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2024::States::Nc::Documents::D400,
                 pdf: PdfFiller::NcD400Pdf,
@@ -35,6 +35,9 @@ module SubmissionBuilder
                 include: adjustments_present?
               },
             ]
+
+            supported_docs += form1099gs
+            supported_docs
           end
 
           def adjustments_present?

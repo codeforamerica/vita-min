@@ -188,7 +188,7 @@
       <EmployerUSAddress>
         <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>
         <CityNm>Hammonton</CityNm>
-        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployerUSAddress>
       <EmployeeNm>ZEUS L THUNDER</EmployeeNm>
@@ -196,7 +196,7 @@
         <AddressLine1Txt>391 US-206</AddressLine1Txt>
         <AddressLine2Txt>Unit 73</AddressLine2Txt>
         <CityNm>Hammonton</CityNm>
-        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
       <WagesAmt>50000</WagesAmt>
@@ -211,7 +211,7 @@
       </OtherDeductionsBenefitsGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>NJ</StateAbbreviationCd>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
           <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
@@ -234,7 +234,7 @@
       <EmployerUSAddress>
         <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>
         <CityNm>Hammonton</CityNm>
-        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployerUSAddress>
       <EmployeeNm>ZEUS L THUNDER</EmployeeNm>
@@ -242,7 +242,7 @@
         <AddressLine1Txt>391 US-206</AddressLine1Txt>
         <AddressLine2Txt>Unit 73</AddressLine2Txt>
         <CityNm>Hammonton</CityNm>
-        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
       <WagesAmt>50000</WagesAmt>
@@ -257,7 +257,7 @@
       </OtherDeductionsBenefitsGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>NJ</StateAbbreviationCd>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
           <EmployerStateIdNum>54321</EmployerStateIdNum>
           <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>

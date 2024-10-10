@@ -158,6 +158,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["x  1000"]).to eq "1000"
           end
         end
+
         context "married filing jointly" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -173,6 +174,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           end
         end
       end
+
       describe "Line 7 exemptions" do
         context "primary under 65" do
           let(:submission) {
@@ -202,6 +204,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+
         context "primary over 65 and spouse under 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -217,6 +220,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+
         context "primary under 65 and spouse over 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -231,6 +235,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_9"]).to eq "1"
           end
         end
+
         context "primary over 65 and spouse over 65" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -248,6 +253,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
       end
+
       describe "Line 8 exemptions" do
         context "neither primary nor spouse are blind" do
           let(:submission) {
@@ -262,6 +268,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_10"]).to eq "0"
           end
         end
+
         context "primary is blind but spouse is not blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -276,6 +283,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_10"]).to eq "1"
           end
         end
+
         context "primary is not blind but spouse is blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -290,6 +298,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_10"]).to eq "1"
           end
         end
+
         context "primary and spouse are both blind" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -694,6 +703,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text52"]).to eq "0"
         expect(pdf_fields["Text53"]).to eq "0"
       end
+
       it "totals line 6-8 and writes it to line 30" do
         # thousands
         expect(pdf_fields["30"]).to eq ""
@@ -781,6 +791,162 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 27 - total income" do
+      context "when taxpayer provides total income with the sum 200,001.33" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s
+          )
+        }
+        it "fills in the total income boxes in the PDF on line 27 with the rounded value" do
+          # millions
+          expect(pdf_fields["263"]).to eq ""
+          expect(pdf_fields["27"]).to eq ""
+          expect(pdf_fields["183"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_78"]).to eq "2"
+          expect(pdf_fields["184"]).to eq "0"
+          expect(pdf_fields["185"]).to eq "0"
+          # hundreds
+          expect(pdf_fields["undefined_79"]).to eq "0"
+          expect(pdf_fields["186"]).to eq "0"
+          expect(pdf_fields["187"]).to eq "1"
+          # decimals
+          expect(pdf_fields["undefined_80"]).to eq "0"
+          expect(pdf_fields["188"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer provides total income of 0" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_minimal
+          )
+        }
+        it "does not fill in any of the boxes on line 27" do
+          # millions
+          expect(pdf_fields["263"]).to eq ""
+          expect(pdf_fields["27"]).to eq ""
+          expect(pdf_fields["183"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_78"]).to eq ""
+          expect(pdf_fields["184"]).to eq ""
+          expect(pdf_fields["185"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_79"]).to eq ""
+          expect(pdf_fields["186"]).to eq ""
+          expect(pdf_fields["187"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_80"]).to eq ""
+          expect(pdf_fields["188"]).to eq ""
+        end
+      end
+    end
+
+    describe "line 29 - gross income" do
+      context "when taxpayer provides gross income with the sum 200,001.33" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s
+          )
+        }
+        it "fills in the gross income boxes in the PDF on line 29 with the rounded value" do
+          # millions
+          expect(pdf_fields["270"]).to eq ""
+          expect(pdf_fields["29"]).to eq ""
+          expect(pdf_fields["204"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_87"]).to eq "2"
+          expect(pdf_fields["205"]).to eq "0"
+          expect(pdf_fields["206"]).to eq "0"
+          # hundreds
+          expect(pdf_fields["undefined_88"]).to eq "0"
+          expect(pdf_fields["207"]).to eq "0"
+          expect(pdf_fields["208"]).to eq "1"
+          # decimals
+          expect(pdf_fields["undefined_89"]).to eq "0"
+          expect(pdf_fields["209"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer provides total income of 0" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_minimal
+          )
+        }
+        it "does not fill in any of the boxes on line 29" do
+          # millions
+          expect(pdf_fields["270"]).to eq ""
+          expect(pdf_fields["29"]).to eq ""
+          expect(pdf_fields["204"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_87"]).to eq ""
+          expect(pdf_fields["205"]).to eq ""
+          expect(pdf_fields["206"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_88"]).to eq ""
+          expect(pdf_fields["207"]).to eq ""
+          expect(pdf_fields["208"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_89"]).to eq ""
+          expect(pdf_fields["209"]).to eq ""
+        end
+      end
+    end
+
+    describe "line 38 total exemptions and deductions" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake
+        )
+      }
+      it "writes sum $1,000.00 to fill boxes on line 38" do
+        # millions
+        expect(pdf_fields["278"]).to eq ""
+        # thousands
+        expect(pdf_fields["undefined_104"]).to eq ""
+        expect(pdf_fields["246"]).to eq ""
+        expect(pdf_fields["247"]).to eq "1"
+        # hundreds
+        expect(pdf_fields["undefined_105"]).to eq "0"
+        expect(pdf_fields["248"]).to eq "0"
+        expect(pdf_fields["249"]).to eq "0"
+        # decimals
+        expect(pdf_fields["undefined_106"]).to eq "0"
+        expect(pdf_fields["250"]).to eq "0"
+      end
+    end
+
+    describe "line 39 taxable income" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake, :df_data_many_w2s
+        )
+      }
+      it "writes taxable income $199,001 (200,001.33-1000) to fill boxes on line 39" do
+        # millions
+        expect(pdf_fields["279"]).to eq ""
+        expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
+        expect(pdf_fields["251"]).to eq ""
+        # thousands
+        expect(pdf_fields["undefined_107"]).to eq "1"
+        expect(pdf_fields["252"]).to eq "9"
+        expect(pdf_fields["253"]).to eq "9"
+        # hundreds
+        expect(pdf_fields["undefined_108"]).to eq "0"
+        expect(pdf_fields["254"]).to eq "0"
+        expect(pdf_fields["255"]).to eq "1"
+        # decimals
+        expect(pdf_fields["undefined_109"]).to eq "0"
+        expect(pdf_fields["256"]).to eq "0"
+      end
+    end
+
     describe "lines 40a and 40b" do
       context "when taxpayer is a renter" do
         let(:submission) {
@@ -864,6 +1030,93 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["245"]).to eq ""
           expect(pdf_fields["24539a#2"]).to eq ""
         end
+      end
+    end
+
+    describe "line 42 new jersey taxable income" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake, :df_data_many_w2s
+        )
+      }
+      it "writes new jersey taxable income $199,001 (200,001.33-1000) to fill boxes on line 39" do
+        # millions
+        expect(pdf_fields["Enter Code4332"]).to eq ""
+        expect(pdf_fields["40"]).to eq ""
+        expect(pdf_fields["undefined_114"]).to eq ""
+        # thousands
+        expect(pdf_fields["Text19"]).to eq "1"
+        expect(pdf_fields["Text20"]).to eq "9"
+        expect(pdf_fields["Text30"]).to eq "9"
+        # hundreds
+        expect(pdf_fields["Text37"]).to eq "0"
+        expect(pdf_fields["Text38"]).to eq "0"
+        expect(pdf_fields["Text39"]).to eq "1"
+        # decimals
+        expect(pdf_fields["Text40"]).to eq "0"
+        expect(pdf_fields["Text41"]).to eq "0"
+      end
+    end
+
+
+    describe "line 64 child and dependent care credit" do
+      let(:intake) {
+        create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care)
+      }
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: intake
+      }
+      it "adds 40% of federal credit for an income of 60k or less" do
+        digits_in_pdf = ""
+        digit_fields = [
+          'undefined_168',
+          'Text192',
+          'Text193',
+          'Text194',
+          'Text195',
+          'Text196',
+        ]
+        digit_fields.each do |field_name, _i|
+          digits_in_pdf << pdf_fields[field_name]
+          digits_in_pdf << "." if field_name == digit_fields[-3]
+        end
+        tax_credit = digits_in_pdf.to_f
+        expect(tax_credit).to eq 400
+      end
+    end
+    
+    describe "line 65 nj child tax credit" do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :df_data_one_dep
+        )
+      }
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: intake
+      }
+      before do
+        intake.dependents.first.update(dob: Date.new(2023, 1, 1))
+      end
+
+      it "adds the correct number of dependents younger than 5" do
+        expect(pdf_fields["64"]).to eq "1"
+      end
+
+      it "adds 600 per dependent for nj taxable incomes less than or equal to 50k" do
+        digits_in_pdf = ""
+        digit_fields = ["undefined_162",
+                        "Text182",
+                        "Text183",
+                        "Text184",
+                        "Text185",
+                        "Text186"]
+        digit_fields.each do |field_name, _i|
+          digits_in_pdf << pdf_fields[field_name]
+          digits_in_pdf << "." if field_name == digit_fields[-3]
+        end
+        tax_credit = digits_in_pdf.to_f
+        expect(tax_credit).to eq 600
       end
     end
   end

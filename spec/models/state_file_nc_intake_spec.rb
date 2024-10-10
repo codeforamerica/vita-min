@@ -80,9 +80,14 @@
 require 'rails_helper'
 
 RSpec.describe StateFileNcIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it_behaves_like :state_file_base_intake, factory: :state_file_nc_intake
 
   describe "#calculate_sales_use_tax" do
-    # TODO: Add tests in FYST-426
+    let(:intake) { create :state_file_nc_intake }
+
+    it "calculates the sales use tax using the nc_taxable_income" do
+      allow(intake.calculator.lines).to receive(:[]).with(:NCD400_LINE_14).and_return(double(value: 2500))
+      expect(intake.calculate_sales_use_tax).to eq 2
+    end
   end
 end
