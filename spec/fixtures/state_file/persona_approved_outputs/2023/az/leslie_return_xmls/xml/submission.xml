@@ -15,27 +15,27 @@
     <TransmissionDetail>
       <InitialCreation>
         <IPAddress>
-          <IPv4AddressTxt>64.252.70.105</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-07-01T22:06:15+00:00</IPTs>
-        <DeviceId>85E8B5C15E6B551936A61B2BC7D3077B801E77FC</DeviceId>
+        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
       <Submission>
         <IPAddress>
-          <IPv4AddressTxt>64.252.73.88</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-07-01T22:12:02+00:00</IPTs>
-        <DeviceId>85E8B5C15E6B551936A61B2BC7D3077B801E77FC</DeviceId>
+        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
-      <TotActiveTimePrepSubmissionTs>9</TotActiveTimePrepSubmissionTs>
-      <TotalPreparationSubmissionTs>9</TotalPreparationSubmissionTs>
+      <TotActiveTimePrepSubmissionTs>0</TotActiveTimePrepSubmissionTs>
+      <TotalPreparationSubmissionTs>0</TotalPreparationSubmissionTs>
     </TransmissionDetail>
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-07-01T22:12:02+00:00</ReturnTs>
+    <ReturnTs>2024-10-03T23:00:38+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
@@ -53,6 +53,7 @@
         </TaxpayerName>
         <TaxpayerSSN>400000007</TaxpayerSSN>
         <DateOfBirth>1955-12-12</DateOfBirth>
+        <USPhone>4085555559</USPhone>
       </Primary>
       <USAddress>
         <AddressLine1Txt>3756 supercalifragilistic roadway</AddressLine1Txt>
@@ -96,6 +97,8 @@
       </Additions>
       <AzAdjSubtotal>41910</AzAdjSubtotal>
       <Subtractions>
+        <ExecFedStateLocGovPen>0</ExecFedStateLocGovPen>
+        <SubExclBenAnnPen>0</SubExclBenAnnPen>
         <USSSRailRoadBnft>11810</USSSRailRoadBnft>
         <WageAmIndian>0</WageAmIndian>
         <CompNtnlGrdArmdFrcs>5000</CompNtnlGrdArmdFrcs>
@@ -205,7 +208,7 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
-    <State1099G xmlns="http://www.irs.gov/efile" documentId="State1099G-197">
+    <State1099G xmlns="http://www.irs.gov/efile" documentId="State1099G-15">
       <PayerName payerNameControl="ARIZ">
         <BusinessNameLine1Txt>ARIZONA DEPARTMENT OF ECONOMIC SECURITY</BusinessNameLine1Txt>
       </PayerName>
