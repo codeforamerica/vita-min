@@ -21,6 +21,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     # on this field from "No" to "Yes"
     it "pdf contains 'No' option for mfs checkbox" do
       expect(check_pdf_option(file_path, "Check Box - 3", "No")).to eq(true)
+      expect(check_pdf_option(file_path, "6. Check here", "No")).to eq(true)
     end
 
     describe "filing_status" do
