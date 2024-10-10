@@ -38,7 +38,7 @@ module PdfFiller
         '6cDependents' => @xml_document.at('OtherExemption')&.text,
         '6dTotalHousehold' => @xml_document.at('TotalExemption')&.text,
       }
-      @submission.data_source.dependents.first(3).each_with_index do |dependent, index|
+      @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(
           "6cDependent#{index+1}First" => dependent.first_name,
           "6cDependent#{index+1}Last" => dependent.last_name,
