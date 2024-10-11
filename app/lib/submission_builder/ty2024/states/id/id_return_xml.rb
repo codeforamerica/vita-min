@@ -41,7 +41,8 @@ module SubmissionBuilder
                 include: @submission.data_source.dependents.count > 4
               },
             ]
-            # If there are more than 7 dependents total (the State XML field can handle a max of 20), another copy of the ID Form 39R PDF is used to handle these cases
+            # For dependents 1-7: First 4 dependents listed on ID40, next 3 dependents are added to first ID39R form
+            # For more than 7 dependents total (the State XML field can handle a max of 20): additional copies of ID Form 39R PDF is used to handle these cases
             @submission.data_source.dependents.drop(7).take(13).each_slice(3) do |dependents|
               supported_docs << {
                 xml: nil,
