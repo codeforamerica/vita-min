@@ -227,11 +227,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text  I18n.t("state_file.questions.az_retirement_income.edit.title")
-      check "state_file_az_retirement_income_form_received_military_retirement_payment"
-      fill_in "state_file_az_retirement_income_form_received_military_retirement_payment_amount", with: "100"
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
@@ -367,10 +362,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
-      choose I18n.t("general.negative")
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
@@ -387,6 +378,26 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
+      click_on I18n.t("general.continue")
+
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
+      fill_in "state_file_nc_primary_state_id_form_id_number", with: "123456789"
+      select_cfa_date "state_file_nc_primary_state_id_form_issue_date", Date.new(2020, 1, 1)
+      check "state_file_nc_primary_state_id_form_non_expiring"
+      select("Alaska", from: "State")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
+      fill_in "state_file_nc_spouse_state_id_form_id_number", with: "123456789"
+      select_cfa_date "state_file_nc_spouse_state_id_form_issue_date", Date.new(2020, 1, 1)
+      check "state_file_nc_spouse_state_id_form_non_expiring"
+      select("Alaska", from: "State")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")

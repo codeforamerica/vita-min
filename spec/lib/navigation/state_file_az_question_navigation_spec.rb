@@ -27,7 +27,6 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::W2Controller,
         StateFile::Questions::UnemploymentController,
         StateFile::Questions::AzSubtractionsController,
-        StateFile::Questions::AzRetirementIncomeController,
         StateFile::Questions::AzCharitableContributionsController,
         StateFile::Questions::AzPublicSchoolContributionsController,
         StateFile::Questions::AzQualifyingOrganizationContributionsController,

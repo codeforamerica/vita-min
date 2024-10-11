@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe DirectFileData do
-  let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_df_complete_sample")) }
+  let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_df_complete_sample")) }
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
@@ -53,7 +53,7 @@ describe DirectFileData do
   end
 
   describe "#phone_number=" do
-    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample) }
+    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample) }
 
     it "adds the node in the right place" do
       direct_file_data.phone_number = "5551231234"
@@ -75,7 +75,7 @@ describe DirectFileData do
     let(:desc2) { '414 (H)' }
 
     before do
-      doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
       # clone the single w2 so there are two of them
       doc.at('IRSW2').add_next_sibling(doc.at('IRSW2').to_s)
       doc.css('IRSW2')[1]['documentId'] = 'W20002'
@@ -144,7 +144,7 @@ describe DirectFileData do
 
   describe '#fed_adjustments_claimed' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all known adjustment types are present" do
@@ -193,7 +193,7 @@ describe DirectFileData do
 
   describe '#fed_IRS1040Schedule1_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -232,7 +232,7 @@ describe DirectFileData do
 
   describe '#fed_IRS1040Schedule3_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -293,7 +293,7 @@ describe DirectFileData do
 
   describe '#fed_IRS1040Schedule8812_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -328,7 +328,7 @@ describe DirectFileData do
 
   describe '#fed_OtherForm_fields' do
     before do
-      @doc = Nokogiri::XML(StateFile::XmlReturnSampleService.new.old_sample)
+      @doc = Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.old_xml_sample)
     end
 
     context "when all fields are present" do
@@ -377,7 +377,7 @@ describe DirectFileData do
 
   describe '#dependents' do
     context "when there are dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_five_dependents') }
       it 'returns an array of DirectFileData::Dependent objects' do
 
         expect(described_class.new(xml).dependents.count).to eq(5)
@@ -387,7 +387,7 @@ describe DirectFileData do
     end
 
     context "when there are no dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_javier') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_javier') }
       it 'returns blank array' do
 
         expect(described_class.new(xml).dependents).to eq []
@@ -395,7 +395,7 @@ describe DirectFileData do
     end
 
     context "when there are CTC dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
       it 'sets ctc_qualifying on those dependents' do
 
         expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying }.length).to eq(3)
@@ -405,7 +405,7 @@ describe DirectFileData do
     end
 
     context "when there are EIC dependents in the xml" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
       it 'sets eic_qualifying on those dependents' do
         dependents = described_class.new(xml).dependents
         expect(dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
@@ -417,7 +417,7 @@ describe DirectFileData do
     end
 
     context "when there is a eic dependent with a disability" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_robert_mfj') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_robert_mfj') }
 
       it "sets eic_disability on those dependents" do
         expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
@@ -426,7 +426,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in AZ, the months_in_home is not populated" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
 
       it 'sets the months_in_home to nil' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
@@ -434,7 +434,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in NY, the months_in_home IS populated" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_matthew') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_matthew') }
 
       it 'sets the months_in_home' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
@@ -442,14 +442,14 @@ describe DirectFileData do
     end
 
     context 'when there are dependents with missing tags' do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_batman') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
       it 'still sets the dependents' do
         expect(described_class.new(xml).dependents.length).to eq(1)
       end
     end
 
     context 'when there are dependents with missing eic tags' do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_depdropping') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_depdropping') }
       it 'returns the correct array of DirectFileData::Dependent objects' do
         expect(described_class.new(xml).dependents.count).to eq(8)
         expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
@@ -462,7 +462,7 @@ describe DirectFileData do
   end
 
   describe '#determine_eic_attribute' do
-    let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_zeus_depdropping') }
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_depdropping') }
     it 'returns yes for true' do
       expect(described_class.new(xml).determine_eic_attribute('true')).to eq('yes')
       expect(described_class.new(xml).determine_eic_attribute('false')).to eq('no')
@@ -472,14 +472,14 @@ describe DirectFileData do
 
   describe '#surviving_spouse?' do
     context "when federal XML SurvivingSpouseInd has a value of 'X'" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_deceased_spouse') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_deceased_spouse') }
       it 'returns true' do
         expect(described_class.new(xml).spouse_deceased?).to eq(true)
       end
     end
 
     context "when federal XML SurvivingSpouseInd node not present" do
-      let(:xml) { StateFile::XmlReturnSampleService.new.read('ny_john_jane_no_eic') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_john_jane_no_eic') }
       it 'returns false' do
         expect(described_class.new(xml).spouse_deceased?).to eq(false)
       end
@@ -488,7 +488,7 @@ describe DirectFileData do
 
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
-      xml = StateFile::XmlReturnSampleService.new.read("az_richard_retirement_1099r")
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r")
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
@@ -498,7 +498,7 @@ describe DirectFileData do
   # fake field: will be replaced by a real one at some point pending info about df api
   # when that time comes delete this whole spec in favor of a dynamically generated one (see top of file)
   describe '#interest_reported_amount' do
-    let(:xml) { StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099") }
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099") }
 
     it "reads and writes" do
       df_data = described_class.new(xml)
@@ -512,7 +512,7 @@ describe DirectFileData do
   end
 
   describe "DfW2" do
-    let(:xml) { Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("az_alexis_hoh_w2_and_1099")) }
+    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099")) }
     let(:direct_file_data) { DirectFileData.new(xml.to_s) }
     let(:first_w2) { direct_file_data.w2s[0] }
 
@@ -596,166 +596,166 @@ describe DirectFileData do
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::XmlReturnSampleService.new.read("nc_miranda_1099r")).to_s) }
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_miranda_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 
-    describe "#PayerNameControlTxt" do
+    describe "#payer_name_control" do
       it "returns the value" do
-        expect(first_1099r.PayerNameControlTxt).to eq "PAYE"
-        expect(second_1099r.PayerNameControlTxt).to eq "PAYE"
+        expect(first_1099r.payer_name_control).to eq "PAYE"
+        expect(second_1099r.payer_name_control).to eq "PAYE"
       end
     end
 
-    describe "#PayerName" do
+    describe "#payer_name" do
       it "returns the value" do
-        expect(first_1099r.PayerName).to eq "Payer Name"
-        expect(second_1099r.PayerName).to eq "Payer 2 Name"
+        expect(first_1099r.payer_name).to eq "Payer Name"
+        expect(second_1099r.payer_name).to eq "Payer 2 Name"
       end
     end
 
-    describe "#PayerAddressLine1Txt" do
+    describe "#payer_address_line1" do
       it "returns the value" do
-        expect(first_1099r.PayerAddressLine1Txt).to eq "2030 Pecan Street"
-        expect(second_1099r.PayerAddressLine1Txt).to eq nil
+        expect(first_1099r.payer_address_line1).to eq "2030 Pecan Street"
+        expect(second_1099r.payer_address_line1).to eq nil
       end
     end
 
-    describe "#PayerCityNm" do
+    describe "#payer_city_name" do
       it "returns the value" do
-        expect(first_1099r.PayerCityNm).to eq "Monroe"
-        expect(second_1099r.PayerCityNm).to eq nil
+        expect(first_1099r.payer_city_name).to eq "Monroe"
+        expect(second_1099r.payer_city_name).to eq nil
       end
     end
 
-    describe "#PayerStateAbbreviationCd" do
+    describe "#payer_state_code" do
       it "returns the value" do
-        expect(first_1099r.PayerStateAbbreviationCd).to eq "NC"
-        expect(second_1099r.PayerStateAbbreviationCd).to eq nil
+        expect(first_1099r.payer_state_code).to eq "NC"
+        expect(second_1099r.payer_state_code).to eq nil
       end
     end
 
-    describe "#PayerZIPCd" do
+    describe "#payer_zip" do
       it "returns the value" do
-        expect(first_1099r.PayerZIPCd).to eq "05502"
-        expect(second_1099r.PayerZIPCd).to eq nil
+        expect(first_1099r.payer_zip).to eq "05502"
+        expect(second_1099r.payer_zip).to eq nil
       end
     end
 
-    describe "#PayerEIN" do
+    describe "#payer_identification_number" do
       it "returns the value" do
-        expect(first_1099r.PayerEIN).to eq "000000008"
-        expect(second_1099r.PayerEIN).to eq "000000009"
+        expect(first_1099r.payer_identification_number).to eq "000000008"
+        expect(second_1099r.payer_identification_number).to eq "000000009"
       end
     end
 
-    describe "#PhoneNum" do
+    describe "#phone_number" do
       it "returns the value" do
-        expect(first_1099r.PhoneNum).to eq "2025551212"
-        expect(second_1099r.PhoneNum).to eq nil
+        expect(first_1099r.phone_number).to eq "2025551212"
+        expect(second_1099r.phone_number).to eq nil
       end
     end
 
-    describe "#GrossDistributionAmt" do
+    describe "#gross_distribution_amount" do
       it "returns the value" do
-        expect(first_1099r.GrossDistributionAmt).to eq 200
-        expect(second_1099r.GrossDistributionAmt).to eq 4000
+        expect(first_1099r.gross_distribution_amount).to eq 200
+        expect(second_1099r.gross_distribution_amount).to eq 4000
       end
     end
 
-    describe "#TaxableAmt" do
+    describe "#taxable_amount" do
       it "returns the value" do
-        expect(first_1099r.TaxableAmt).to eq 1000
-        expect(second_1099r.TaxableAmt).to eq 3000
+        expect(first_1099r.taxable_amount).to eq 1000
+        expect(second_1099r.taxable_amount).to eq 3000
       end
     end
 
-    describe "#FederalIncomeTaxWithheldAmt" do
+    describe "#federal_income_tax_withheld_amount" do
       it "returns the value" do
-        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
-        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 0
+        expect(first_1099r.federal_income_tax_withheld_amount).to eq 300
+        expect(second_1099r.federal_income_tax_withheld_amount).to eq 0
       end
     end
 
-    describe "#F1099RDistributionCd" do
+    describe "#distribution_code" do
       it "returns the value" do
-        expect(first_1099r.F1099RDistributionCd).to eq "7"
-        expect(second_1099r.F1099RDistributionCd).to eq nil
+        expect(first_1099r.distribution_code).to eq "7"
+        expect(second_1099r.distribution_code).to eq nil
       end
     end
 
-    describe "#StandardOrNonStandardCd" do
+    describe "#standard" do
       it "returns the value" do
-        expect(first_1099r.StandardOrNonStandardCd).to eq "S"
-        expect(second_1099r.StandardOrNonStandardCd).to eq "N"
+        expect(first_1099r.standard).to eq "S"
+        expect(second_1099r.standard).to eq "N"
       end
     end
 
-    describe "#StateTaxWithheldAmt" do
+    describe "#state_tax_withheld_amount" do
       it "returns the value" do
-        expect(first_1099r.StateTaxWithheldAmt).to eq 0
-        expect(second_1099r.StateTaxWithheldAmt).to eq 0
+        expect(first_1099r.state_tax_withheld_amount).to eq 0
+        expect(second_1099r.state_tax_withheld_amount).to eq 0
       end
     end
-    describe "#StateAbbreviationCd" do
+    describe "#state_code" do
       it "returns the value" do
-        expect(first_1099r.StateAbbreviationCd).to eq nil
-        expect(second_1099r.StateAbbreviationCd).to eq "NC"
+        expect(first_1099r.state_code).to eq nil
+        expect(second_1099r.state_code).to eq "NC"
       end
     end
-    describe "#PayerStateIdNumber" do
+    describe "#payer_state_identification_number" do
       it "returns the value" do
-        expect(first_1099r.PayerStateIdNumber).to eq nil
-        expect(second_1099r.PayerStateIdNumber).to eq nil
+        expect(first_1099r.payer_state_identification_number).to eq nil
+        expect(second_1099r.payer_state_identification_number).to eq nil
       end
     end
-    describe "#StateDistributionAmt" do
+    describe "#state_distribution_amount" do
       it "returns the value" do
-        expect(first_1099r.StateDistributionAmt).to eq 0
-        expect(second_1099r.StateDistributionAmt).to eq 2000
-      end
-    end
-
-    describe "#RecipientSSN" do
-      it "returns the value" do
-        expect(first_1099r.RecipientSSN).to eq '400001032'
-        expect(second_1099r.RecipientSSN).to eq '400001032'
+        expect(first_1099r.state_distribution_amount).to eq 0
+        expect(second_1099r.state_distribution_amount).to eq 2000
       end
     end
 
-    describe "#RecipientNm" do
+    describe "#recipient_ssn" do
       it "returns the value" do
-        expect(first_1099r.RecipientNm).to eq 'Susan Miranda'
-        expect(second_1099r.RecipientNm).to eq 'Susan Miranda'
+        expect(first_1099r.recipient_ssn).to eq '400001032'
+        expect(second_1099r.recipient_ssn).to eq '400001032'
+      end
+    end
+
+    describe "#recipient_name" do
+      it "returns the value" do
+        expect(first_1099r.recipient_name).to eq 'Susan Miranda'
+        expect(second_1099r.recipient_name).to eq 'Susan Miranda'
       end
     end
 
     # TODO: Once we have better 1099R example, replace with one that has values for these
-    describe "#TxblAmountNotDeterminedInd" do
+    describe "#taxable_amount_not_determined" do
       it "returns the value" do
-        expect(first_1099r.TxblAmountNotDeterminedInd).to eq nil
-        expect(second_1099r.TxblAmountNotDeterminedInd).to eq nil
+        expect(first_1099r.taxable_amount_not_determined).to eq nil
+        expect(second_1099r.taxable_amount_not_determined).to eq nil
       end
     end
 
-    describe "#TotalDistributionInd" do
+    describe "#total_distribution" do
       it "returns the value" do
-        expect(first_1099r.TotalDistributionInd).to eq nil
-        expect(second_1099r.TotalDistributionInd).to eq nil
+        expect(first_1099r.total_distribution).to eq nil
+        expect(second_1099r.total_distribution).to eq nil
       end
     end
 
-    describe "#CapitalGainAmt" do
+    describe "#capital_gain_amount" do
       it "returns the value" do
-        expect(first_1099r.CapitalGainAmt).to eq 0
-        expect(second_1099r.CapitalGainAmt).to eq 0
+        expect(first_1099r.capital_gain_amount).to eq 0
+        expect(second_1099r.capital_gain_amount).to eq 0
       end
     end
 
-    describe "#DesignatedROTHAcctFirstYr" do
+    describe "#designated_roth_account_first_year" do
       it "returns the value" do
-        expect(first_1099r.DesignatedROTHAcctFirstYr).to eq nil
-        expect(second_1099r.DesignatedROTHAcctFirstYr).to eq nil
+        expect(first_1099r.designated_roth_account_first_year).to eq nil
+        expect(second_1099r.designated_roth_account_first_year).to eq nil
       end
     end
   end

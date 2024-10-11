@@ -2206,19 +2206,6 @@ es:
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
           lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
           maximum_records: Ha proporcionado la cantidad máxima de registros.
-      az_retirement_income:
-        edit:
-          amount_label: Ingrese la cantidad ganada
-          primary_received_pension: Recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
-          primary_received_pension_amount: "¿Cuál es el monto total imponible de los pagadores calificados? Puede encontrarlo en el formulario 1099-R en el cuadro 2a. Si tiene varios pagadores calificados, sume las casillas 2a de todos los formularios correspondientes."
-          received_military_retirement_payment:
-            one: Recibió beneficios, anualidades y/o pensiones como pago jubilado o anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
-            other: Usted o su cónyuge recibieron beneficios, anualidades y/o pensiones como jubilado o pago de anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
-          received_military_retirement_payment_amount: "¿Cuál es la base imponible (casilla 2a) de este pagador?"
-          should_not_exceed_taxable_pensions_total_html: "<strong>Nota:</strong> esto no debe exceder %{total}"
-          spouse_received_pension: Su cónyuge recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
-          spouse_received_pension_amount: "¿Cuál es el monto total imponible de su cónyuge según los pagadores calificados? Puede encontrar esto en el formulario 1099-R en el cuadro 2a para los pagadores que califican."
-          title: Arizona permite una resta para ciertos tipos de ingresos de jubilación y pensión. Seleccione cualquiera de las siguientes situaciones que se apliquen a usted.
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2492,6 +2479,11 @@ es:
           lived_in_state_html: "¿Usted (y su cónyuge, si presentan la declaración juntos) vivieron en %{state} durante <strong>todo</strong> el %{filing_year}?"
           subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
+      nc_primary_state_id:
+        edit:
+          encourage_sharing: Se le recomienda compartir esta información, pero no es obligatorio para presentar su declaración de impuestos de Carolina del Norte.
+          protect_identity: Para proteger su identidad y combatir el fraude fiscal, muchas agencias estatales piden a las personas que proporcionen su licencia de conducir o número de identificación estatal.
+          why_ask_this: "¿Por qué me pides esta información?"
       nc_review:
         edit:
           amount: Cantidad
@@ -2514,6 +2506,11 @@ es:
             other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
           use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
+      nc_spouse_state_id:
+        edit:
+          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
           title_html:
