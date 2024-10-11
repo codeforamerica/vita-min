@@ -6,6 +6,10 @@ module SubmissionBuilder
       module Nj
         class NjReturnXml < SubmissionBuilder::StateReturn
 
+          def w2_class
+            SubmissionBuilder::Ty2024::States::Nj::Documents::NjW2
+          end
+
           private
 
           def attached_documents_parent_tag
