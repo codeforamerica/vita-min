@@ -13,6 +13,7 @@ describe Efile::Az::Az140Calculator do
     let(:intake) {
       # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
       create(:state_file_az_intake,
+             :with_1099_rs_synced,
              raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099'))
     }
     let(:state_file1099_g) {

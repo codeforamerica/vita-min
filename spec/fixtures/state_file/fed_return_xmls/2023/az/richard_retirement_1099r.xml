@@ -114,7 +114,7 @@
         <F1099RStateTaxGrp>
           <StateTaxWithheldAmt>11</StateTaxWithheldAmt>
           <StateAbbreviationCd>NC</StateAbbreviationCd>
-          <PayerStateIdNumber>111111111</PayerStateIdNumber>
+          <PayerStateIdNum>111111111</PayerStateIdNum>
           <StateDistributionAmt>111</StateDistributionAmt>
         </F1099RStateTaxGrp>
       </F1099RStateLocalTaxGrp>
@@ -141,7 +141,7 @@
         <F1099RStateTaxGrp>
           <StateTaxWithheldAmt>22</StateTaxWithheldAmt>
           <StateAbbreviationCd>NC</StateAbbreviationCd>
-          <PayerStateIdNumber>222222222</PayerStateIdNumber>
+          <PayerStateIdNum>222222222</PayerStateIdNum>
           <StateDistributionAmt>222</StateDistributionAmt>
         </F1099RStateTaxGrp>
       </F1099RStateLocalTaxGrp>
