@@ -388,7 +388,7 @@ describe StateFileNyIntake do
 
     let(:df_w2) do
       DirectFileData::DfW2.new(
-        Nokogiri::XML(StateFile::XmlReturnSampleService.new.read('ny_batman')).at("IRSW2")
+        Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman')).at("IRSW2")
       )
     end
 
