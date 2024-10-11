@@ -600,162 +600,162 @@ describe DirectFileData do
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 
-    describe "#PayerNameControlTxt" do
+    describe "#payer_name_control" do
       it "returns the value" do
-        expect(first_1099r.PayerNameControlTxt).to eq "PAYE"
-        expect(second_1099r.PayerNameControlTxt).to eq "PAYE"
+        expect(first_1099r.payer_name_control).to eq "PAYE"
+        expect(second_1099r.payer_name_control).to eq "PAYE"
       end
     end
 
-    describe "#PayerName" do
+    describe "#payer_name" do
       it "returns the value" do
-        expect(first_1099r.PayerName).to eq "Payer Name"
-        expect(second_1099r.PayerName).to eq "Payer 2 Name"
+        expect(first_1099r.payer_name).to eq "Payer Name"
+        expect(second_1099r.payer_name).to eq "Payer 2 Name"
       end
     end
 
-    describe "#PayerAddressLine1Txt" do
+    describe "#payer_address_line1" do
       it "returns the value" do
-        expect(first_1099r.PayerAddressLine1Txt).to eq "2030 Pecan Street"
-        expect(second_1099r.PayerAddressLine1Txt).to eq nil
+        expect(first_1099r.payer_address_line1).to eq "2030 Pecan Street"
+        expect(second_1099r.payer_address_line1).to eq nil
       end
     end
 
-    describe "#PayerCityNm" do
+    describe "#payer_city_name" do
       it "returns the value" do
-        expect(first_1099r.PayerCityNm).to eq "Monroe"
-        expect(second_1099r.PayerCityNm).to eq nil
+        expect(first_1099r.payer_city_name).to eq "Monroe"
+        expect(second_1099r.payer_city_name).to eq nil
       end
     end
 
-    describe "#PayerStateAbbreviationCd" do
+    describe "#payer_state_code" do
       it "returns the value" do
-        expect(first_1099r.PayerStateAbbreviationCd).to eq "NC"
-        expect(second_1099r.PayerStateAbbreviationCd).to eq nil
+        expect(first_1099r.payer_state_code).to eq "NC"
+        expect(second_1099r.payer_state_code).to eq nil
       end
     end
 
-    describe "#PayerZIPCd" do
+    describe "#payer_zip" do
       it "returns the value" do
-        expect(first_1099r.PayerZIPCd).to eq "05502"
-        expect(second_1099r.PayerZIPCd).to eq nil
+        expect(first_1099r.payer_zip).to eq "05502"
+        expect(second_1099r.payer_zip).to eq nil
       end
     end
 
-    describe "#PayerEIN" do
+    describe "#payer_identification_number" do
       it "returns the value" do
-        expect(first_1099r.PayerEIN).to eq "000000008"
-        expect(second_1099r.PayerEIN).to eq "000000009"
+        expect(first_1099r.payer_identification_number).to eq "000000008"
+        expect(second_1099r.payer_identification_number).to eq "000000009"
       end
     end
 
-    describe "#PhoneNum" do
+    describe "#phone_number" do
       it "returns the value" do
-        expect(first_1099r.PhoneNum).to eq "2025551212"
-        expect(second_1099r.PhoneNum).to eq nil
+        expect(first_1099r.phone_number).to eq "2025551212"
+        expect(second_1099r.phone_number).to eq nil
       end
     end
 
-    describe "#GrossDistributionAmt" do
+    describe "#gross_distribution_amount" do
       it "returns the value" do
-        expect(first_1099r.GrossDistributionAmt).to eq 200
-        expect(second_1099r.GrossDistributionAmt).to eq 4000
+        expect(first_1099r.gross_distribution_amount).to eq 200
+        expect(second_1099r.gross_distribution_amount).to eq 4000
       end
     end
 
-    describe "#TaxableAmt" do
+    describe "#taxable_amount" do
       it "returns the value" do
-        expect(first_1099r.TaxableAmt).to eq 1000
-        expect(second_1099r.TaxableAmt).to eq 3000
+        expect(first_1099r.taxable_amount).to eq 1000
+        expect(second_1099r.taxable_amount).to eq 3000
       end
     end
 
-    describe "#FederalIncomeTaxWithheldAmt" do
+    describe "#federal_income_tax_withheld_amount" do
       it "returns the value" do
-        expect(first_1099r.FederalIncomeTaxWithheldAmt).to eq 300
-        expect(second_1099r.FederalIncomeTaxWithheldAmt).to eq 0
+        expect(first_1099r.federal_income_tax_withheld_amount).to eq 300
+        expect(second_1099r.federal_income_tax_withheld_amount).to eq 0
       end
     end
 
-    describe "#F1099RDistributionCd" do
+    describe "#distribution_code" do
       it "returns the value" do
-        expect(first_1099r.F1099RDistributionCd).to eq "7"
-        expect(second_1099r.F1099RDistributionCd).to eq nil
+        expect(first_1099r.distribution_code).to eq "7"
+        expect(second_1099r.distribution_code).to eq nil
       end
     end
 
-    describe "#StandardOrNonStandardCd" do
+    describe "#standard" do
       it "returns the value" do
-        expect(first_1099r.StandardOrNonStandardCd).to eq "S"
-        expect(second_1099r.StandardOrNonStandardCd).to eq "N"
+        expect(first_1099r.standard).to eq "S"
+        expect(second_1099r.standard).to eq "N"
       end
     end
 
-    describe "#StateTaxWithheldAmt" do
+    describe "#state_tax_withheld_amount" do
       it "returns the value" do
-        expect(first_1099r.StateTaxWithheldAmt).to eq 0
-        expect(second_1099r.StateTaxWithheldAmt).to eq 0
+        expect(first_1099r.state_tax_withheld_amount).to eq 0
+        expect(second_1099r.state_tax_withheld_amount).to eq 0
       end
     end
-    describe "#StateAbbreviationCd" do
+    describe "#state_code" do
       it "returns the value" do
-        expect(first_1099r.StateAbbreviationCd).to eq nil
-        expect(second_1099r.StateAbbreviationCd).to eq "NC"
+        expect(first_1099r.state_code).to eq nil
+        expect(second_1099r.state_code).to eq "NC"
       end
     end
-    describe "#PayerStateIdNumber" do
+    describe "#payer_state_identification_number" do
       it "returns the value" do
-        expect(first_1099r.PayerStateIdNumber).to eq nil
-        expect(second_1099r.PayerStateIdNumber).to eq nil
+        expect(first_1099r.payer_state_identification_number).to eq nil
+        expect(second_1099r.payer_state_identification_number).to eq nil
       end
     end
-    describe "#StateDistributionAmt" do
+    describe "#state_distribution_amount" do
       it "returns the value" do
-        expect(first_1099r.StateDistributionAmt).to eq 0
-        expect(second_1099r.StateDistributionAmt).to eq 2000
-      end
-    end
-
-    describe "#RecipientSSN" do
-      it "returns the value" do
-        expect(first_1099r.RecipientSSN).to eq '400001032'
-        expect(second_1099r.RecipientSSN).to eq '400001032'
+        expect(first_1099r.state_distribution_amount).to eq 0
+        expect(second_1099r.state_distribution_amount).to eq 2000
       end
     end
 
-    describe "#RecipientNm" do
+    describe "#recipient_ssn" do
       it "returns the value" do
-        expect(first_1099r.RecipientNm).to eq 'Susan Miranda'
-        expect(second_1099r.RecipientNm).to eq 'Susan Miranda'
+        expect(first_1099r.recipient_ssn).to eq '400001032'
+        expect(second_1099r.recipient_ssn).to eq '400001032'
+      end
+    end
+
+    describe "#recipient_name" do
+      it "returns the value" do
+        expect(first_1099r.recipient_name).to eq 'Susan Miranda'
+        expect(second_1099r.recipient_name).to eq 'Susan Miranda'
       end
     end
 
     # TODO: Once we have better 1099R example, replace with one that has values for these
-    describe "#TxblAmountNotDeterminedInd" do
+    describe "#taxable_amount_not_determined" do
       it "returns the value" do
-        expect(first_1099r.TxblAmountNotDeterminedInd).to eq nil
-        expect(second_1099r.TxblAmountNotDeterminedInd).to eq nil
+        expect(first_1099r.taxable_amount_not_determined).to eq nil
+        expect(second_1099r.taxable_amount_not_determined).to eq nil
       end
     end
 
-    describe "#TotalDistributionInd" do
+    describe "#total_distribution" do
       it "returns the value" do
-        expect(first_1099r.TotalDistributionInd).to eq nil
-        expect(second_1099r.TotalDistributionInd).to eq nil
+        expect(first_1099r.total_distribution).to eq nil
+        expect(second_1099r.total_distribution).to eq nil
       end
     end
 
-    describe "#CapitalGainAmt" do
+    describe "#capital_gain_amount" do
       it "returns the value" do
-        expect(first_1099r.CapitalGainAmt).to eq 0
-        expect(second_1099r.CapitalGainAmt).to eq 0
+        expect(first_1099r.capital_gain_amount).to eq 0
+        expect(second_1099r.capital_gain_amount).to eq 0
       end
     end
 
-    describe "#DesignatedROTHAcctFirstYr" do
+    describe "#designated_roth_account_first_year" do
       it "returns the value" do
-        expect(first_1099r.DesignatedROTHAcctFirstYr).to eq nil
-        expect(second_1099r.DesignatedROTHAcctFirstYr).to eq nil
+        expect(first_1099r.designated_roth_account_first_year).to eq nil
+        expect(second_1099r.designated_roth_account_first_year).to eq nil
       end
     end
   end
