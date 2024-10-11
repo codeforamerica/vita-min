@@ -11,7 +11,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     describe "XML schema" do
 
       context "with one dep" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('nj_zeus_one_dep')) }
+        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_one_dep')) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -19,7 +19,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with two deps" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('nj_zeus_two_deps')) }
+        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_deps')) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -27,7 +27,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with many deps" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('nj_zeus_many_deps')) }
+        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps')) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -35,7 +35,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with many w2s" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s')) }
+        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_w2s')) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -43,7 +43,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with two w2s" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('nj_zeus_two_w2s')) }
+        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s')) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
