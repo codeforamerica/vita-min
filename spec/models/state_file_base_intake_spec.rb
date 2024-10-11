@@ -49,7 +49,7 @@ describe StateFileBaseIntake do
 
   describe "#synchronize_df_1099_rs_to_database" do
     it "reads in 1099Rs and adds all of them to the database" do
-      xml = StateFile::XmlReturnSampleService.new.read('az_alexis_hoh_w2_and_1099')
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099')
       intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
       expect(intake.state_file1099_rs).to be_blank
       intake.synchronize_df_1099_rs_to_database
