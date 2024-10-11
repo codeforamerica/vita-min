@@ -491,15 +491,15 @@ IT214_LINE_33:
 IT227_PART_2_LINE_1:
   label: ''
 MD502_LINE_1:
-  label: "Adjusted gross income from your federal return"
+  label: "1 Adjusted gross income from your federal return"
 MD502_LINE_1A:
-  label: "Wages, salaries and/or tips"
+  label: "1a Wages, salaries and/or tips"
 MD502_LINE_1B:
-  label: "Earned income"
+  label: "1b Earned income"
 MD502_LINE_1D:
-  label: "Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
+  label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
-  label: "Place a Y in this box if the amount of your investment income is more than $11,600"
+  label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
