@@ -70,12 +70,12 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
-#  tenant_access_kitchen_bath                             :integer          default(0), not null
-#  tenant_building_multi_unit                             :integer          default(0), not null
-#  tenant_home_subject_to_property_taxes                  :integer          default(0), not null
-#  tenant_more_than_one_main_home_in_nj                   :integer          default(0), not null
-#  tenant_same_home_spouse                                :integer          default(0), not null
-#  tenant_shared_rent_not_spouse                          :integer          default(0), not null
+#  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
+#  tenant_building_multi_unit                             :integer          default("unfilled"), not null
+#  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
+#  tenant_more_than_one_main_home_in_nj                   :integer          default("unfilled"), not null
+#  tenant_same_home_spouse                                :integer          default("unfilled"), not null
+#  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
 #  withdraw_amount                                        :integer

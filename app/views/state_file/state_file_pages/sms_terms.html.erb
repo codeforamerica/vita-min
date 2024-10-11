@@ -1,0 +1,31 @@
+<% content_for :page_title, t(".header") %>
+
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item width-three-fourths">
+      <main role="main">
+          <h1 class="h2"><%= t(".header") %></h1>
+          <div class="white-group">
+            <ol class="list--numbered" style="padding-left: 2rem">
+              <li><p><%= t(".body_1") %></p></li>
+              <li><p><%= t(".body_2_html") %></p></li>
+              <li><p><%= t(".body_3_html") %></p></li>
+              <li>
+                <p><strong><%= t(".body_4") %></strong></p>
+                <ol class="list--numbered" style="list-style-type: lower-alpha; padding-left: 2rem;">
+                  <li><p><%= t(".major_carriers") %></p></li>
+                  <li><p><%= t(".minor_carriers") %></p></li>
+                  <li><p><%= t(".carrier_disclaimer") %></p></li>
+                </ol>
+              </li>
+              <li>
+                <p><%= t(".body_5a") %></p>
+                <p><%= t(".body_5b_html") %></p>
+              </li>
+              <li><p><%= t(".body_6_html", link: url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: 'privacy_policy')) %></p></li>
+            </ol>
+          </div>
+      </main>
+    </div>
+  </div>
+</section>

@@ -30,6 +30,7 @@
 #
 FactoryBot.define do
   factory :state_file1099_g do
+    recipient { 'primary' }
     had_box_11 { 'yes' }
     payer_name {'Business'}
     payer_street_address {'123 Main St'}
