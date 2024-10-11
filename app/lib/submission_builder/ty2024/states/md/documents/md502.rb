@@ -12,6 +12,17 @@ module SubmissionBuilder
               build_xml_doc("Form502") do |xml|
                 xml.ResidencyStatusPrimary true
                 income_section(xml)
+                xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
+                xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
+                if @submission.data_source.direct_file_data.claimed_as_dependent?
+                  xml.FilingStatus 'DependentTaxpayer'
+                else
+                  xml.FilingStatus filing_status
+                end
+                xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
+                if @submission.data_source.filing_status_mfs?
+                  xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
+                end
               end
             end
 
@@ -33,6 +44,19 @@ module SubmissionBuilder
 
             def calculated_fields
               @md502_fields ||= intake.tax_calculator.calculate
+            end
+
+            # from MDIndividualeFileTypes.xsd
+            FILING_STATUS_OPTIONS = {
+              head_of_household: 'HeadOfHousehold',
+              married_filing_jointly: 'Joint',
+              married_filing_separately: 'MarriedFilingSeparately',
+              qualifying_widow: 'QualifyingWidow',
+              single: "Single",
+            }.freeze
+
+            def filing_status
+              FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
             end
           end
         end

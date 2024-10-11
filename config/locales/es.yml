@@ -2206,19 +2206,6 @@ es:
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
           lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
           maximum_records: Ha proporcionado la cantidad máxima de registros.
-      az_retirement_income:
-        edit:
-          amount_label: Ingrese la cantidad ganada
-          primary_received_pension: Recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
-          primary_received_pension_amount: "¿Cuál es el monto total imponible de los pagadores calificados? Puede encontrarlo en el formulario 1099-R en el cuadro 2a. Si tiene varios pagadores calificados, sume las casillas 2a de todos los formularios correspondientes."
-          received_military_retirement_payment:
-            one: Recibió beneficios, anualidades y/o pensiones como pago jubilado o anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
-            other: Usted o su cónyuge recibieron beneficios, anualidades y/o pensiones como jubilado o pago de anticipo de los servicios uniformados de los Estados Unidos O Es cónyuge sobreviviente de un veterano militar fallecido y está recibiendo pagos de los servicios uniformados de los Estados Unidos.
-          received_military_retirement_payment_amount: "¿Cuál es la base imponible (casilla 2a) de este pagador?"
-          should_not_exceed_taxable_pensions_total_html: "<strong>Nota:</strong> esto no debe exceder %{total}"
-          spouse_received_pension: Su cónyuge recibió una distribución de un plan de pensiones federal, de Arizona o gubernamental calificado.
-          spouse_received_pension_amount: "¿Cuál es el monto total imponible de su cónyuge según los pagadores calificados? Puede encontrar esto en el formulario 1099-R en el cuadro 2a para los pagadores que califican."
-          title: Arizona permite una resta para ciertos tipos de ingresos de jubilación y pensión. Seleccione cualquiera de las siguientes situaciones que se apliquen a usted.
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2562,11 +2549,6 @@ es:
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
-      nj_renter_rent_paid:
-        edit:
-          helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
-          label: Alquiler pagado en %{filing_year}
-          title: Ingrese el alquiler pagado en %{filing_year}.
       nj_review:
         edit:
           county: Condado
@@ -2574,6 +2556,23 @@ es:
           municipality: Municipio
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
+      nj_tenant_eligibility:
+        edit:
+          helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
+          helper_heading: "¿Qué no está incluido aquí?"
+          label: "¿Se aplica a usted alguna de estas situaciones?"
+          tenant_access_kitchen_bath: "¿Tuviste acceso a las instalaciones de cocina y baño?"
+          tenant_building_multi_unit: Si usted alquiló su vivienda principal en un edificio que tenía más de una unidad de vivienda.
+          tenant_home_subject_to_property_taxes: Su vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
+          tenant_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
+          tenant_same_home_spouse: "¿Usted y su cónyuge vivían en la misma casa?"
+          tenant_shared_rent_not_spouse: "¿Ocupó y compartió el alquiler de su vivienda principal (apartamento/unidad de alquiler) con alguien que no era su cónyuge durante el año?"
+          title: Dijiste que eras inquilino en %{filing_year}.
+      nj_tenant_rent_paid:
+        edit:
+          helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
+          label: Alquiler pagado en %{filing_year}
+          title: Ingrese el alquiler pagado en %{filing_year}.
       nj_unsupported_property_tax:
         edit:
           helper_1_html: "<strong>¿Qué es este crédito?</strong> Si califica, puede deducir hasta $15,000 en gastos de impuestos a la propiedad de su ingreso tributable, o recibir hasta $50 en crédito."
@@ -2967,6 +2966,7 @@ es:
       footer:
         faq: Preguntas Frecuentes
         privacy_policy: Política de Privacidad
+        sms_terms: Términos de SMS
         state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
       login_options:
         email_signin: Iniciar sesión con email
@@ -3046,8 +3046,8 @@ es:
         questions_1_html: 'Si tienes alguna pregunta, comentario, inquietud o queja sobre el Sitio, contáctanos por correo electrónico en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> o por correo postal a:'
         questions_2: Haremos todo lo posible para resolver el problema.
         questions_header: Preguntas
-        transactional_sms: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los términos de SMS de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
         transactional_sms_header: Mensajes de texto transaccionales (SMS)
+        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar tu exclusión. Consulta los <a href='%{link}' target="_blank" rel="noopener nofollow">términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
         using_info_collected_html: |
           <h3>Uso de la información que hemos recopilado</h3>
           <p>Usamos tu información para nuestros fines empresariales, como</p>
@@ -3062,6 +3062,18 @@ es:
           </ul>
         your_info: Valoramos y respetamos tu privacidad y te ofrecemos opciones sobre cómo recopilamos, usamos y compartimos tu información.
         your_info_header: Tus opciones con respecto a tu información
+      sms_terms:
+        body_1: Cuando optes por el servicio, te enviaremos un mensaje SMS para confirmar tu registro. También le enviaremos mensajes de texto con actualizaciones sobre su declaración de impuestos (la frecuencia de los mensajes variará) y/o códigos OTP/2FA (un mensaje por solicitud).
+        body_2_html: Puedes cancelar el servicio de SMS en cualquier momento. Simplemente <strong>envíe "STOP" al 46207</strong>. Después de enviarnos el mensaje SMS "STOP", le enviaremos un mensaje SMS para confirmar que se ha cancelado su suscripción. Después de esto, ya no recibirás más mensajes SMS de nuestra parte. Si desea unirse nuevamente, simplemente <strong>responda "START"</strong> y comenzaremos a enviarle mensajes SMS nuevamente.
+        body_3_html: Si en algún momento olvida qué palabras clave son compatibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviarnos el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo utilizar nuestro servicio y cómo cancelar la suscripción.
+        body_4: 'Podemos enviar mensajes a los siguientes operadores de telefonía móvil:'
+        body_5a: Como siempre, se pueden aplicar tarifas de mensajes y datos para cualquier mensaje que le enviemos a usted y a nosotros. Si tiene alguna pregunta sobre su plan de mensajes de texto o de datos, lo mejor es comunicarse con su proveedor de servicios inalámbricos.
+        body_5b_html: Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org" target="_blank" rel="noopener nofollow">help@fileyourstatetaxes.org</a></strong>.
+        body_6_html: 'Si tiene alguna pregunta sobre la privacidad, lea nuestra política de privacidad: <a href="%{link}" target="_blank" rel="noopener nofollow">https://FileYourStateTaxes.org/privacy-policy</a>'
+        carrier_disclaimer: Los proveedores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o retrasados.
+        header: FileYourStateTaxes términos y condiciones de mensajería de texto
+        major_carriers: 'Principales operadores: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile.'
+        minor_carriers: 'Operadores secundarios: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC or 5 Star Wireless).'
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.

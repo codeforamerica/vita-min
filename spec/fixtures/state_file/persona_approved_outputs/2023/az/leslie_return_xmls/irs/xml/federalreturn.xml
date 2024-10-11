@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000007</PrimarySSN>
+      <NameLine1Txt>LESLIE&lt;KNOPE</NameLine1Txt>
+      <PrimaryNameControlTxt>KNOP</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>3756 supercalifragilistic roadway</AddressLine1Txt>
+        <CityNm>Tucson</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>85705</ZIPCd>
+      </USAddress>
+      <PhoneNum>4085555559</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>me@me.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="7">
+    <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
+      <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <PrimaryBlindInd>X</PrimaryBlindInd>
+      <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>April</DependentFirstNm>
+        <DependentLastNm>Ludgate</DependentLastNm>
+        <DependentNameControlTxt>LUDG</DependentNameControlTxt>
+        <DependentSSN>300000014</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">20000</WagesAmt>
+      <WagesSalariesAndTipsAmt>20000</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>100</TaxableInterestAmt>
+      <SocSecBnftAmt>25000</SocSecBnftAmt>
+      <TaxableSocSecAmt>11810</TaxableSocSecAmt>
+      <TotalAdditionalIncomeAmt>10000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>41910</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>41910</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>30700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>30700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>11210</TaxableIncomeAmt>
+      <TaxAmt>1123</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>1123</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>1123</CTCODCAmt>
+      <TotalCreditsAmt>1123</TotalCreditsAmt>
+      <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">10</Form1099WithheldTaxAmt>
+      <WithholdingTaxAmt>110</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">741</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">877</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>1618</RefundableCreditsAmt>
+      <TotalPaymentsAmt>1728</TotalPaymentsAmt>
+      <OverpaidAmt>1728</OverpaidAmt>
+      <RefundAmt>1728</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Deputy Director</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>10000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>10000</TotalAdditionalIncomeAmt>
+    </IRS1040Schedule1>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>41910</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>41910</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>1123</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>1123</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>877</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1600</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>877</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>20000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>17500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>2625</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>877</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>LUDG</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>April</PersonFirstNm>
+          <PersonLastNm>Ludgate</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000014</QualifyingChildSSN>
+        <ChildBirthYr>2019</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000007</EmployeeSSN>
+      <EmployerEIN>001245768</EmployerEIN>
+      <EmployerNameControlTxt>BENW</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Ben Wyatt Campaign</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Elm court</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Leslie Knope</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>321 Creek drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>15</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>400000007</EmployeeSSN>
+      <EmployerEIN>001245767</EmployerEIN>
+      <EmployerNameControlTxt>CITY</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>City of Pawnee</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Elm court</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Leslie Knope</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>321 Creek drive</AddressLine1Txt>
+        <CityNm>Flagstaff</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86001</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>10000</WagesAmt>
+      <WithholdingAmt>100</WithholdingAmt>
+      <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>AZ</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>10000</StateWagesAmt>
+          <StateIncomeTaxAmt>5</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>345678912</EIN>
+        <WithholdingAmt>10</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>

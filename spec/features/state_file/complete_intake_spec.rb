@@ -227,11 +227,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text  I18n.t("state_file.questions.az_retirement_income.edit.title")
-      check "state_file_az_retirement_income_form_received_military_retirement_payment"
-      fill_in "state_file_az_retirement_income_form_received_military_retirement_payment_amount", with: "100"
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
@@ -371,6 +366,24 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Raleigh", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
+      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
+      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
@@ -405,11 +418,83 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Boise", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
+      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
+      click_on I18n.t("general.continue")
+
+      # TODO: uncomment when the name dob page is added; test fails without a name
+      # expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileIdIntake.last.primary.full_name))
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho")
+    end
+  end
+
+  context "MD", :flow_explorer_screenshot, js: true do
+    before do
+      # TODO: replace fixture used here with one that has all the characteristics we want to test
+      allow_any_instance_of(DirectFileData).to receive(:fed_unemployment).and_return 100
+    end
+
+    it "has content", required_schema: "md" do
+      visit "/"
+      click_on "Start Test MD"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.md.title")
+      click_on I18n.t('general.get_started'), id: "firstCta"
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
+      click_on "Continue"
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer("Transfer Minimal")
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Baltimore", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
+      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileMdIntake.last.primary.full_name))
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
+      check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
+      click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
+
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland")
     end
   end
 end

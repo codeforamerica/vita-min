@@ -3,14 +3,14 @@ require 'rails_helper'
 describe SubmissionBuilder::StateReturn do
   states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc", "id")
   states_requiring_w2s.each do |state_code|
-    describe '#combined_w2s', required_schema: state_code do
+    describe "#combined_w2s", required_schema: state_code do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
       let(:intake) { create("state_file_#{state_code}_intake".to_sym, filing_status: filing_status) }
       let(:submission) { create(:efile_submission, data_source: intake) }
       let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
       let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
 
-      context "when there are w2s present" do
+      context "#{state_code}: when there are w2s present" do
         let(:filing_status) { 'single' }
 
         context "when the intake does not have any state_file_w2s" do
@@ -91,6 +91,27 @@ describe SubmissionBuilder::StateReturn do
               end
             end
           end
+        end
+      end
+    end
+  end
+
+  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("nj")
+  states_requiring_1099gs.each do |state_code|
+    describe "#form1099gs", required_schema: state_code do
+      context "#{state_code}: when there are 1099gs present" do
+        let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
+        let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
+        let(:submission) { create(:efile_submission, data_source: intake) }
+        let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
+        let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
+        let!(:form1099g_1) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
+        let!(:form1099g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 200) }
+
+        it "builds all 1099gs from intake" do
+          xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
+
+          expect(xml.css("State1099G").count).to eq 2
         end
       end
     end

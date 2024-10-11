@@ -283,10 +283,6 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def total_1099r_state_tax_withheld
-    form1099rs.sum(&:StateTaxWithheldAmt)
-  end
-
   def total_w2_state_tax_withheld
     w2s.sum(&:StateIncomeTaxAmt)
   end

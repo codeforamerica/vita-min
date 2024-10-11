@@ -10,7 +10,7 @@ module StateFile
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         case current_intake.household_rent_own
         when 'rent'
-          NjRenterRentPaidController.to_path_helper(options)
+          NjTenantEligibilityController.to_path_helper(options)
         when 'own'
           NjHomeownerEligibilityController.to_path_helper(options)
         when 'both'

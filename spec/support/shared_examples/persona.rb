@@ -26,10 +26,11 @@ shared_examples :persona do
     efile_submission.submission_bundle.open do |submission_bundle|
       Zip::File.open(submission_bundle.path) do |zipfile|
 
-        generated_files = zipfile.entries.map { |entry| entry.name }
-        Dir.glob(File.join(approved_submission_bundle_path, "/**/*.xml")).each do |approved_xml_file_path|
-          approved_xml = File.join(*Pathname(approved_xml_file_path).each_filename.to_a[-2..-1])
-          expect(generated_files).to include approved_xml
+        generated_paths = zipfile.entries.map(&:name)
+        approved_paths = Dir.glob(File.join(approved_submission_bundle_path, "/**/*.xml"))
+        approved_paths.each do |approved|
+          clipped_path = File.join(approved.split('/') - approved_submission_bundle_path.split('/'))
+          expect(generated_paths).to include(clipped_path)
         end
 
         zipfile.entries.each do |submission_bundle_file|

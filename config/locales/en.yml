@@ -2237,19 +2237,6 @@ en:
           delete_confirmation: Are you sure you want to delete this contribution?
           lets_review: Great! Thanks for sharing that information. Let’s review.
           maximum_records: You have provided the maximum amount of records.
-      az_retirement_income:
-        edit:
-          amount_label: Enter amount earned
-          primary_received_pension: You received a distribution from a qualifying federal, Arizona, or government pension plan
-          primary_received_pension_amount: What is your total taxable amount from qualifying payer(s). You can find this on form 1099-R in box 2a. If you have multiple qualifying payers, add together boxes 2a from all corresponding forms.
-          received_military_retirement_payment:
-            one: You received benefits, annuities, and/or pensions as a retired or retainer pay of the uniformed services of the United States OR You are a surviving spouse of a deceased military veteran, and are receiving payments from the uniformed services of the United States
-            other: You or your spouse received benefits, annuities, and/or pensions as a retired or retainer pay of the uniformed services of the United States OR You are a surviving spouse of a deceased military veteran, and are receiving payments from the uniformed services of the United States
-          received_military_retirement_payment_amount: What is the taxable amount (box 2a) from this payer?
-          should_not_exceed_taxable_pensions_total_html: "<strong>Note:</strong> this should not exceed %{total}"
-          spouse_received_pension: Your spouse received a distribution from a qualifying federal, Arizona, or government pension plan
-          spouse_received_pension_amount: What is your spouse’s total taxable amount from qualifying payer(s). You can find this on 1099-R in box 2a for qualifying payer(s).
-          title: Arizona allows for a subtraction for certain types of retirement and pension income. Select any of the following situations that apply to you.
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2588,11 +2575,6 @@ en:
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
-      nj_renter_rent_paid:
-        edit:
-          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
-          label: Rent paid in %{filing_year}
-          title: Enter your rent paid in %{filing_year}.
       nj_review:
         edit:
           county: County
@@ -2600,6 +2582,23 @@ en:
           municipality: Municipality
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+      nj_tenant_eligibility:
+        edit:
+          helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
+          helper_heading: What is not included here?
+          label: Did any of these apply to you?
+          tenant_access_kitchen_bath: Did you have access to kitchen and bath facilities?
+          tenant_building_multi_unit: If you rented your main home in a building that had more than one dwelling unit.
+          tenant_home_subject_to_property_taxes: Your main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
+          tenant_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          tenant_same_home_spouse: Did you and your spouse live in the same home?
+          tenant_shared_rent_not_spouse: Did you occupy and share rent for your main home (apartment/rental unit) with someone who was not your spouse during the year?
+          title: You said you were a tenant in %{filing_year}.
+      nj_tenant_rent_paid:
+        edit:
+          helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
+          label: Rent paid in %{filing_year}
+          title: Enter your rent paid in %{filing_year}.
       nj_unsupported_property_tax:
         edit:
           helper_1_html: "<strong>What is this credit?</strong> If you qualify, you can deduct up to $15,000 in property tax expenses from your taxable income, or receive up to $50 in credit."
@@ -2978,6 +2977,7 @@ en:
       footer:
         faq: FAQ
         privacy_policy: Privacy Policy
+        sms_terms: SMS Terms
         state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with the IRS Direct File tool.
       login_options:
         email_signin: Sign in with email
@@ -3057,8 +3057,8 @@ en:
         questions_1_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> or by mail at:'
         questions_2: We will do our best to resolve the issue.
         questions_header: Questions
-        transactional_sms: You may unsubscribe to transactional messages by texting back STOP at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see FileYourStateTaxes’s SMS terms for additional details and opt-out instructions for these services. Data obtained through the SMS program will not be shared with any third-parties for their marketing reasons/purposes.
         transactional_sms_header: Transactional SMS (Text) Messages
+        transactional_sms_html: You may unsubscribe to transactional messages by texting back STOP at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see FileYourStateTaxes’s <a href='%{link}' target="_blank" rel="noopener nofollow">SMS terms</a> for additional details and opt-out instructions for these services. Data obtained through the SMS program will not be shared with any third-parties for their marketing reasons/purposes.
         using_info_collected_html: |
           <h3>Using information we have collected</h3>
           <p>We use your information for our business purposes, such as</p>
@@ -3073,6 +3073,18 @@ en:
           </ul>
         your_info: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
         your_info_header: Your choices regarding your information
+      sms_terms:
+        body_1: When you opt-in to the service, we will send you an SMS message to confirm your signup. We will also text you updates on your tax return (message frequency will vary) and/or OTP/2FA codes (one message per request).
+        body_2_html: You can cancel the SMS service at any time. Just <strong>text "STOP" to 46207</strong>. After you send the SMS message "STOP" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just <strong>reply "START"</strong> and we will start sending SMS messages to you again.
+        body_3_html: If at any time you forget what keywords are supported, just <strong>text "HELP" to 46207</strong>. After you send the SMS message "HELP" to us, we will respond with instructions on how to use our service as well as how to unsubscribe.
+        body_4: 'We are able to deliver messages to the following mobile phone carriers:'
+        body_5a: As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider.
+        body_5b_html: For all questions about the services provided by this short code, you can send an email to <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
+        body_6_html: 'If you have any questions regarding privacy, please read our privacy policy: <a href="%{link}" target="_blank" rel="noopener nofollow">https://FileYourStateTaxes.org/privacy-policy</a>'
+        carrier_disclaimer: Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages.
+        header: FileYourStateTaxes text messaging terms and conditions
+        major_carriers: 'Major carriers: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile.'
+        minor_carriers: 'Minor carriers: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless).'
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
