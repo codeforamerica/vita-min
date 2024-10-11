@@ -116,4 +116,25 @@ describe SubmissionBuilder::StateReturn do
       end
     end
   end
+
+  states_requiring_1099rs = StateFile::StateInformationService.active_state_codes.excluding("nj") # why is nj excluded?
+  states_requiring_1099rs.each do |state_code|
+    describe "#form1099rs", required_schema: state_code do
+      context "#{state_code}: when there are 1099rs present" do
+        let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
+        let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
+        let(:submission) { create(:efile_submission, data_source: intake) }
+        let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
+        let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
+        let!(:form1099r_1) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 100) }
+        let!(:form1099r_2) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 200) }
+
+        it "builds all 1099gs from intake" do
+          xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
+
+          expect(xml.css("IRS1099R").count).to eq 2
+        end
+      end
+    end
+  end
 end
