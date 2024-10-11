@@ -12,8 +12,6 @@ module PdfFiller
       # Most PDF fields are grabbed right off the XML
       builder = StateFile::StateInformationService.submission_builder_class(:md)
       @xml_document = builder.new(submission).document
-      @calculator = submission.data_source.tax_calculator
-      @calculator.calculate
     end
 
     def hash_for_pdf
