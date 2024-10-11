@@ -46,16 +46,16 @@ module SubmissionBuilder
             # from MDIndividualeFileTypes.xsd
             RELATIONSHIP_OPTIONS = {
               "DAUGHTER": "CH",
-              "STEPCHILD": "CH",
+              "STEPCHILD": "SD",
               "FOSTER CHILD": "FC",
               "GRANDCHILD": "GC",
               "SISTER": "SR",
               "HALF SISTER": "CH",
               "NEPHEW": "NP",
-              "STEPBROTHER": "CH",
+              "STEPBROTHER": "BR",
               "PARENT": "PT",
               "GRANDPARENT": "GP",
-              "NONE": "NN",
+              "NONE": "OT",
             }.freeze
 
             def relationship(dependent)
