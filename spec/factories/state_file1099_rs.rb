@@ -41,6 +41,5 @@
 #
 FactoryBot.define do
   factory :state_file1099_r do
-    
   end
 end
