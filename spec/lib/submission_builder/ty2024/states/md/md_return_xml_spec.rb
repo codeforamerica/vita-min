@@ -16,37 +16,39 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
     end
 
-    it "includes attached documents" do
-      expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
-      expect(xml.document.at('ReturnDataState Form502B')).to be_an_instance_of Nokogiri::XML::Element
-    end
-
-    context "502R" do
-      let(:intake) { create(:state_file_md_intake)}
-
-      context "when taxable pensions/IRAs/annuities are present" do
-        before do
-          intake.direct_file_data.fed_taxable_pensions = 1
-        end
-
-        it "attaches a 502R" do
-          expect(xml.at("Form502R")).to be_present
-          expect(instance.pdf_documents).to be_any { |included_document|
-            included_document.pdf == PdfFiller::Md502RPdf
-          }
-        end
+    context "attached documents" do
+      it "includes documents that are always attached" do
+        expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
+        expect(xml.document.at('ReturnDataState Form502B')).to be_an_instance_of Nokogiri::XML::Element
       end
 
-      context "when taxable pensions/IRAs/annuities are not present" do
-        before do
-          intake.direct_file_data.fed_taxable_pensions = 0
+      context "502R" do
+        let(:intake) { create(:state_file_md_intake)}
+
+        context "when taxable pensions/IRAs/annuities are present" do
+          before do
+            intake.direct_file_data.fed_taxable_pensions = 1
+          end
+
+          it "attaches a 502R" do
+            expect(xml.at("Form502R")).to be_present
+            expect(instance.pdf_documents).to be_any { |included_document|
+              included_document.pdf == PdfFiller::Md502RPdf
+            }
+          end
         end
 
-        it "does not attach a 502R" do
-          expect(xml.at("Form502R")).not_to be_present
-          expect(instance.pdf_documents).not_to be_any { |included_document|
-            included_document.pdf == PdfFiller::Md502RPdf
-          }
+        context "when taxable pensions/IRAs/annuities are not present" do
+          before do
+            intake.direct_file_data.fed_taxable_pensions = 0
+          end
+
+          it "does not attach a 502R" do
+            expect(xml.at("Form502R")).not_to be_present
+            expect(instance.pdf_documents).not_to be_any { |included_document|
+              included_document.pdf == PdfFiller::Md502RPdf
+            }
+          end
         end
       end
     end
@@ -55,7 +57,6 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       let(:intake) { create(:state_file_md_intake)}
 
       context "when all relevant values are present in the DF XML" do
-
         before do
           intake.direct_file_data.fed_agi = 100
           intake.direct_file_data.fed_wages_salaries_tips = 101
