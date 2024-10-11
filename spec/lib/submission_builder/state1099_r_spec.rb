@@ -28,8 +28,7 @@ describe SubmissionBuilder::State1099R do
         intake.direct_file_data.primary_ssn = primary_ssn
       end
 
-      it "generates xml with the right values" do
-        # TODO
+      xit "generates xml with the right values" do
       end
     end
   end

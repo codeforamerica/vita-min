@@ -86,7 +86,7 @@ module SubmissionBuilder
       SubmissionBuilder::State1099G
     end
 
-    def form1099gs
+    def form1099rs
       @submission.data_source.state_file1099_rs.map do |form1099r|
         {
           xml: form1099r_builder,
