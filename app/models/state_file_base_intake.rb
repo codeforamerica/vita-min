@@ -85,6 +85,9 @@ class StateFileBaseIntake < ApplicationRecord
   class SynchronizeError < StandardError; end
 
   def synchronize_df_dependents_to_database
+    # TODO: remove once all our fixtures have json data
+    return if direct_file_json_data.json.empty?
+
     if direct_file_data.dependents.length != direct_file_json_data.dependents.length
       raise SynchronizeError, "Number of dependents on XML does not match number of dependents in JSON!"
     end

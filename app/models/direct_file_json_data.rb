@@ -4,6 +4,10 @@ class DirectFileJsonData
     @json = JSON.parse(json || "{}")
   end
 
+  def json
+    @json
+  end
+
   def primary_filer
     @json["filers"]&.detect { |filer| filer["isPrimaryFiler"] }
   end
