@@ -3,11 +3,11 @@
 # Table name: state_file1099_rs
 #
 #  id                                 :bigint           not null, primary key
-#  capital_gain_amount                :integer
+#  capital_gain_amount                :decimal(12, 2)
 #  designated_roth_account_first_year :integer
 #  distribution_code                  :string
-#  federal_income_tax_withheld_amount :integer
-#  gross_distribution_amount          :integer
+#  federal_income_tax_withheld_amount :decimal(12, 2)
+#  gross_distribution_amount          :decimal(12, 2)
 #  intake_type                        :string           not null
 #  payer_address_line1                :string
 #  payer_address_line2                :string
@@ -23,10 +23,10 @@
 #  recipient_ssn                      :string
 #  standard                           :boolean
 #  state_code                         :string
-#  state_distribution_amount          :integer
+#  state_distribution_amount          :decimal(12, 2)
 #  state_specific_followup_type       :string
-#  state_tax_withheld_amount          :integer
-#  taxable_amount                     :integer
+#  state_tax_withheld_amount          :decimal(12, 2)
+#  taxable_amount                     :decimal(12, 2)
 #  taxable_amount_not_determined      :boolean
 #  total_distribution                 :boolean
 #  created_at                         :datetime         not null

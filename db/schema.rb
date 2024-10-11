@@ -1622,12 +1622,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_07_205126) do
   end
 
   create_table "state_file1099_rs", force: :cascade do |t|
-    t.integer "capital_gain_amount"
+    t.decimal "capital_gain_amount", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.integer "designated_roth_account_first_year"
     t.string "distribution_code"
-    t.integer "federal_income_tax_withheld_amount"
-    t.integer "gross_distribution_amount"
+    t.decimal "federal_income_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "gross_distribution_amount", precision: 12, scale: 2
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "payer_address_line1"
@@ -1644,11 +1644,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_07_205126) do
     t.string "recipient_ssn"
     t.boolean "standard"
     t.string "state_code"
-    t.integer "state_distribution_amount"
+    t.decimal "state_distribution_amount", precision: 12, scale: 2
     t.bigint "state_specific_followup_id"
     t.string "state_specific_followup_type"
-    t.integer "state_tax_withheld_amount"
-    t.integer "taxable_amount"
+    t.decimal "state_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "taxable_amount", precision: 12, scale: 2
     t.boolean "taxable_amount_not_determined"
     t.boolean "total_distribution"
     t.datetime "updated_at", null: false
@@ -2088,6 +2088,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_07_205126) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "tenant_access_kitchen_bath", default: 0, null: false
+    t.integer "tenant_building_multi_unit", default: 0, null: false
+    t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "tenant_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "tenant_same_home_spouse", default: 0, null: false
+    t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
