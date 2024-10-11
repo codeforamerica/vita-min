@@ -13,6 +13,11 @@ module Efile
       end
 
       def calculate
+        set_line(:MD502_LINE_1, @direct_file_data, :fed_agi)
+        set_line(:MD502_LINE_1A, @direct_file_data, :fed_wages_salaries_tips)
+        set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
+        set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
+        set_line(:MD502_LINE_1E, :calculate_line_1e)
         set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
         set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_dependent_exemption_amount)
         @md502b.calculate
@@ -28,6 +33,11 @@ module Efile
       end
 
       private
+
+      def calculate_line_1e
+        total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
+        total_interest > 11_600
+      end
 
       def get_dependent_exemption_count
         @md502b.calculate.fetch(:MD502B_LINE_3)
