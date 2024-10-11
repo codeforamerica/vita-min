@@ -82,12 +82,23 @@ class StateFileBaseIntake < ApplicationRecord
     update(attributes_to_update) if attributes_to_update.present?
   end
 
+  class SynchronizeError < StandardError; end
+
   def synchronize_df_dependents_to_database
+    if direct_file_data.dependents.length != direct_file_json_data.dependents.length
+      raise SynchronizeError, "Number of dependents on XML does not match number of dependents in JSON!"
+    end
+
     direct_file_data.dependents.each do |direct_file_dependent|
       dependent = dependents.find { |d| d.ssn == direct_file_dependent.ssn } || dependents.build
       dependent.assign_attributes(direct_file_dependent.attributes)
 
       dependent_json = direct_file_json_data.find_matching_json_dependent(dependent)
+
+      if dependent_json.nil?
+        raise SynchronizeError, "Could not find matching dependent #{dependent.id} with #{state_name} intake id: #{id}"
+      end
+
       if dependent_json.present?
         json_attributes = {
           middle_initial: dependent_json["middleInitial"],
