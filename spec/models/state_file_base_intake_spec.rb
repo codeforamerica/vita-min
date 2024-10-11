@@ -47,8 +47,8 @@ describe StateFileBaseIntake do
     end
 
     it "raises error if xml dependent is not found in JSON" do
-      xml = StateFile::XmlReturnSampleService.new.read('id_ernest_hoh')
-      json = StateFile::JsonReturnSampleService.new.read('id_ernest_hoh')
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh')
+      json = StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh')
       intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
 
       expect(intake.dependents).to be_blank
