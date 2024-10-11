@@ -7,8 +7,6 @@ describe SubmissionBuilder::StateReturn do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
       let(:intake) { create("state_file_#{state_code}_intake".to_sym, filing_status: filing_status) }
       let(:submission) { create(:efile_submission, data_source: intake) }
-      let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
-      let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
 
       context "#{state_code}: when there are w2s present" do
         let(:filing_status) { 'single' }
@@ -103,8 +101,6 @@ describe SubmissionBuilder::StateReturn do
         let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
         let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
         let(:submission) { create(:efile_submission, data_source: intake) }
-        let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
-        let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
         let!(:form1099g_1) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
         let!(:form1099g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 200) }
 
@@ -124,8 +120,6 @@ describe SubmissionBuilder::StateReturn do
         let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
         let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
         let(:submission) { create(:efile_submission, data_source: intake) }
-        let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
-        let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
         let!(:form1099r_1) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 100) }
         let!(:form1099r_2) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 200) }
 
