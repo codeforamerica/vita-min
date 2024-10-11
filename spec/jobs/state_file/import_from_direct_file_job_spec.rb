@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
-    let(:xml_result) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
+    let(:xml_result) { StateFile::XmlReturnSampleService.new.read('id_ernest_hoh') }
     let(:direct_file_intake_json) { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
     let(:json_result) do
       {
@@ -29,11 +29,11 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
         expect(intake.raw_direct_file_intake_data).to eq direct_file_intake_json
-        expect(intake.dependents.count).to eq(5)
+        expect(intake.dependents.count).to eq(3)
         expected_hashed_ssn = OpenSSL::HMAC.hexdigest(
           "SHA256",
           EnvironmentCredentials.dig(:duplicate_hashing_key),
-          "ssn|123456789"
+          "ssn|400000010"
         )
         expect(intake.hashed_ssn).to eq expected_hashed_ssn
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
