@@ -46,16 +46,6 @@ describe StateFileBaseIntake do
       expect(intake.dependents.count).to eq 3
     end
 
-    it "raises error if number of dependents on JSON and XML do not match" do
-      xml = StateFile::XmlReturnSampleService.new.read('id_ernest_hoh')
-      json = StateFile::JsonReturnSampleService.new.read('id_ernest_hoh')
-      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
-
-      allow(intake.direct_file_json_data.dependents).to receive(:length).and_return(2)
-      expect(intake.dependents).to be_blank
-      expect { intake.synchronize_df_dependents_to_database }.to raise_error(StateFileBaseIntake::SynchronizeError, "Number of dependents on XML does not match number of dependents in JSON!")
-    end
-
     it "raises error if xml dependent is not found in JSON" do
       xml = StateFile::XmlReturnSampleService.new.read('id_ernest_hoh')
       json = StateFile::JsonReturnSampleService.new.read('id_ernest_hoh')

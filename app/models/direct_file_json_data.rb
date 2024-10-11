@@ -1,19 +1,19 @@
 class DirectFileJsonData
 
   def initialize(json)
-    @json = JSON.parse(json || "{}")
+    @data = JSON.parse(json || "{}")
   end
 
-  def json
-    @json
+  def data
+    @data
   end
 
   def primary_filer
-    @json["filers"]&.detect { |filer| filer["isPrimaryFiler"] }
+    data["filers"]&.detect { |filer| filer["isPrimaryFiler"] }
   end
 
   def spouse_filer
-    @json["filers"]&.detect { |filer| !filer["isPrimaryFiler"] }
+    data["filers"]&.detect { |filer| !filer["isPrimaryFiler"] }
   end
 
   def first_name(person)
@@ -65,7 +65,7 @@ class DirectFileJsonData
   end
 
   def dependents
-    @json["familyAndHousehold"]
+    data["familyAndHousehold"]
   end
 
   def find_matching_json_dependent(dependent)
