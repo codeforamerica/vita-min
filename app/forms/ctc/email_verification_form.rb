@@ -9,6 +9,11 @@ module Ctc
 
       hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(@intake.email_address, verification_code)
 
+      puts "Looking for EmailAccessToken with #{@intake.email_address} & #{verification_code}"
+      puts "hashed verification code is #{hashed_verification_code}"
+      puts "token is #{Devise.token_generator.digest(EmailAccessToken, :token, hashed_verification_code)}"
+      puts "existing tokens are: #{EmailAccessToken.all.pluck(:token)}"
+
       valid_code = EmailAccessToken.lookup(hashed_verification_code).exists?
 
       errors.add(:verification_code, I18n.t("views.ctc.questions.verification.error_message")) unless valid_code
