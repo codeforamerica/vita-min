@@ -57,13 +57,17 @@ module SubmissionBuilder
       supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
     end
 
+    def w2_class
+      SubmissionBuilder::ReturnW2
+    end
+
     def combined_w2s
       @submission.data_source.direct_file_data.w2s.map.with_index do |w2, i|
         intake = @submission.data_source
         intake_w2 = intake.state_file_w2s.find { |w2| w2.w2_index == i } if intake.state_file_w2s.present?
 
         {
-          xml: SubmissionBuilder::ReturnW2,
+          xml: w2_class,
           pdf: w2_pdf,
           include: true,
           kwargs: { w2: w2, intake_w2: intake_w2 }

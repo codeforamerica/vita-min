@@ -46,6 +46,10 @@ module PdfFiller
           "6cDependent#{index+1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
           )
       end
+      if @submission.data_source.primary_esigned_yes?
+        answers["DateSign 2"] = @submission.data_source.primary_esigned_at.strftime("%m-%d-%Y")
+        answers["TaxpayerPhoneNo"] = @submission.data_source.direct_file_data.phone_number
+      end
       answers
     end
 

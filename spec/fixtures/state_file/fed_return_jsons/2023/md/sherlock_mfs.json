@@ -1,0 +1,19 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Sherlock",
+      "middleInitial": null,
+      "lastName": "Holmes",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Nate",
+      "middleInitial": "T",
+      "lastName": "Great",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": false
+    }
+  ]
+}

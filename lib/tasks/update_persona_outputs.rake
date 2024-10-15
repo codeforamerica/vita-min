@@ -25,4 +25,35 @@ namespace :update_persona_outputs do
       end
     end
   end
+
+  desc "Update the XML output of all personas for a state"
+  task generate_xmls: :environment do
+    # overloading the env to use our test environment values
+    # otherwise we get the dev environment values and the persona tests break
+    ENV['VITA_MIN_EFIN'] = '123456'
+    ENV['VITA_MIN_SIN'] = '11111111'
+
+    STATE_PERSONAS.each do |us_state, personas|
+      personas.each do |persona_name|
+        intake = FactoryBot.create(persona_name, federal_submission_id: "1016422024018atw000x")
+        FactoryBot.create(:state_file_efile_device_info, :filled, :initial_creation, intake: intake)
+        FactoryBot.create(:state_file_efile_device_info, :filled, :submission, intake: intake)
+        efile_submission = FactoryBot.create(:efile_submission, :accepted, :for_state, data_source: intake)
+        efile_submission.generate_irs_submission_id!
+        SubmissionBundle.new(efile_submission).build
+
+        zip_path = ActiveStorage::Blob.service.path_for(efile_submission.submission_bundle.key)
+        Zip::File.open(zip_path) do |zf|
+          zf.each do |file|
+            file_path = "spec/fixtures/state_file/persona_approved_outputs/2023/#{us_state}/#{persona_name}_return_xmls/#{file.name}"
+            FileUtils.mkdir_p(File.join(*Pathname(file_path).each_filename.to_a[..-2]))
+            File.write(
+              file_path,
+              file.get_input_stream.read
+            )
+          end
+        end
+      end
+    end
+  end
 end

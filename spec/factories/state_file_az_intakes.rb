@@ -2,86 +2,80 @@
 #
 # Table name: state_file_az_intakes
 #
-#  id                                          :bigint           not null, primary key
-#  account_number                              :string
-#  account_type                                :integer
-#  armed_forces_member                         :integer          default("unfilled"), not null
-#  armed_forces_wages_amount                   :decimal(12, 2)
-#  bank_name                                   :string
-#  charitable_cash_amount                      :decimal(12, 2)
-#  charitable_contributions                    :integer          default("unfilled"), not null
-#  charitable_noncash_amount                   :decimal(12, 2)
-#  consented_to_terms_and_conditions           :integer          default("unfilled"), not null
-#  contact_preference                          :integer          default("unfilled"), not null
-#  current_sign_in_at                          :datetime
-#  current_sign_in_ip                          :inet
-#  current_step                                :string
-#  date_electronic_withdrawal                  :date
-#  df_data_import_failed_at                    :datetime
-#  df_data_imported_at                         :datetime
-#  eligibility_529_for_non_qual_expense        :integer          default("unfilled"), not null
-#  eligibility_lived_in_state                  :integer          default("unfilled"), not null
-#  eligibility_married_filing_separately       :integer          default("unfilled"), not null
-#  eligibility_out_of_state_income             :integer          default("unfilled"), not null
-#  email_address                               :citext
-#  email_address_verified_at                   :datetime
-#  failed_attempts                             :integer          default(0), not null
-#  federal_return_status                       :string
-#  has_prior_last_names                        :integer          default("unfilled"), not null
-#  hashed_ssn                                  :string
-#  household_excise_credit_claimed             :integer          default("unfilled"), not null
-#  household_excise_credit_claimed_amount      :decimal(12, 2)
-#  last_sign_in_at                             :datetime
-#  last_sign_in_ip                             :inet
-#  locale                                      :string           default("en")
-#  locked_at                                   :datetime
-#  made_az321_contributions                    :integer          default("unfilled"), not null
-#  message_tracker                             :jsonb
-#  payment_or_deposit_type                     :integer          default("unfilled"), not null
-#  phone_number                                :string
-#  phone_number_verified_at                    :datetime
-#  primary_birth_date                          :date
-#  primary_esigned                             :integer          default("unfilled"), not null
-#  primary_esigned_at                          :datetime
-#  primary_first_name                          :string
-#  primary_last_name                           :string
-#  primary_middle_initial                      :string
-#  primary_received_pension                    :integer          default("unfilled"), not null
-#  primary_received_pension_amount             :decimal(12, 2)
-#  primary_suffix                              :string
-#  primary_was_incarcerated                    :integer          default("unfilled"), not null
-#  prior_last_names                            :string
-#  raw_direct_file_data                        :text
-#  raw_direct_file_intake_data                 :jsonb
-#  received_military_retirement_payment        :integer          default("unfilled"), not null
-#  received_military_retirement_payment_amount :decimal(12, 2)
-#  referrer                                    :string
-#  routing_number                              :string
-#  sign_in_count                               :integer          default(0), not null
-#  source                                      :string
-#  spouse_birth_date                           :date
-#  spouse_esigned                              :integer          default("unfilled"), not null
-#  spouse_esigned_at                           :datetime
-#  spouse_first_name                           :string
-#  spouse_last_name                            :string
-#  spouse_middle_initial                       :string
-#  spouse_received_pension                     :integer          default("unfilled"), not null
-#  spouse_received_pension_amount              :decimal(12, 2)
-#  spouse_suffix                               :string
-#  spouse_was_incarcerated                     :integer          default("unfilled"), not null
-#  ssn_no_employment                           :integer          default("unfilled"), not null
-#  tribal_member                               :integer          default("unfilled"), not null
-#  tribal_wages_amount                         :decimal(12, 2)
-#  unfinished_intake_ids                       :text             default([]), is an Array
-#  unsubscribed_from_email                     :boolean          default(FALSE), not null
-#  was_incarcerated                            :integer          default("unfilled"), not null
-#  withdraw_amount                             :integer
-#  created_at                                  :datetime         not null
-#  updated_at                                  :datetime         not null
-#  federal_submission_id                       :string
-#  primary_state_id_id                         :bigint
-#  spouse_state_id_id                          :bigint
-#  visitor_id                                  :string
+#  id                                     :bigint           not null, primary key
+#  account_number                         :string
+#  account_type                           :integer
+#  armed_forces_member                    :integer          default("unfilled"), not null
+#  armed_forces_wages_amount              :decimal(12, 2)
+#  bank_name                              :string
+#  charitable_cash_amount                 :decimal(12, 2)
+#  charitable_contributions               :integer          default("unfilled"), not null
+#  charitable_noncash_amount              :decimal(12, 2)
+#  consented_to_terms_and_conditions      :integer          default("unfilled"), not null
+#  contact_preference                     :integer          default("unfilled"), not null
+#  current_sign_in_at                     :datetime
+#  current_sign_in_ip                     :inet
+#  current_step                           :string
+#  date_electronic_withdrawal             :date
+#  df_data_import_failed_at               :datetime
+#  df_data_imported_at                    :datetime
+#  eligibility_529_for_non_qual_expense   :integer          default("unfilled"), not null
+#  eligibility_lived_in_state             :integer          default("unfilled"), not null
+#  eligibility_married_filing_separately  :integer          default("unfilled"), not null
+#  eligibility_out_of_state_income        :integer          default("unfilled"), not null
+#  email_address                          :citext
+#  email_address_verified_at              :datetime
+#  failed_attempts                        :integer          default(0), not null
+#  federal_return_status                  :string
+#  has_prior_last_names                   :integer          default("unfilled"), not null
+#  hashed_ssn                             :string
+#  household_excise_credit_claimed        :integer          default("unfilled"), not null
+#  household_excise_credit_claimed_amount :decimal(12, 2)
+#  last_sign_in_at                        :datetime
+#  last_sign_in_ip                        :inet
+#  locale                                 :string           default("en")
+#  locked_at                              :datetime
+#  made_az321_contributions               :integer          default("unfilled"), not null
+#  message_tracker                        :jsonb
+#  payment_or_deposit_type                :integer          default("unfilled"), not null
+#  phone_number                           :string
+#  phone_number_verified_at               :datetime
+#  primary_birth_date                     :date
+#  primary_esigned                        :integer          default("unfilled"), not null
+#  primary_esigned_at                     :datetime
+#  primary_first_name                     :string
+#  primary_last_name                      :string
+#  primary_middle_initial                 :string
+#  primary_suffix                         :string
+#  primary_was_incarcerated               :integer          default("unfilled"), not null
+#  prior_last_names                       :string
+#  raw_direct_file_data                   :text
+#  raw_direct_file_intake_data            :jsonb
+#  referrer                               :string
+#  routing_number                         :string
+#  sign_in_count                          :integer          default(0), not null
+#  source                                 :string
+#  spouse_birth_date                      :date
+#  spouse_esigned                         :integer          default("unfilled"), not null
+#  spouse_esigned_at                      :datetime
+#  spouse_first_name                      :string
+#  spouse_last_name                       :string
+#  spouse_middle_initial                  :string
+#  spouse_suffix                          :string
+#  spouse_was_incarcerated                :integer          default("unfilled"), not null
+#  ssn_no_employment                      :integer          default("unfilled"), not null
+#  tribal_member                          :integer          default("unfilled"), not null
+#  tribal_wages_amount                    :decimal(12, 2)
+#  unfinished_intake_ids                  :text             default([]), is an Array
+#  unsubscribed_from_email                :boolean          default(FALSE), not null
+#  was_incarcerated                       :integer          default("unfilled"), not null
+#  withdraw_amount                        :integer
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
+#  federal_submission_id                  :string
+#  primary_state_id_id                    :bigint
+#  spouse_state_id_id                     :bigint
+#  visitor_id                             :string
 #
 # Indexes
 #
@@ -119,13 +113,8 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
-    trait :with_1099r_subtractions do
-      received_military_retirement_payment { "yes" }
-      primary_received_pension { "yes" }
-      spouse_received_pension { "yes" }
-      received_military_retirement_payment_amount { 100 }
-      primary_received_pension_amount { 200 }
-      spouse_received_pension_amount { 300 }
+    trait :with_1099_rs_synced do
+      after(:create, &:synchronize_df_1099_rs_to_database)
     end
 
     trait :with_spouse do
@@ -221,11 +210,11 @@ FactoryBot.define do
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_superman') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_goldwater') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_goldwater') }
     end
 
     factory :state_file_az_refund_intake do
@@ -258,7 +247,7 @@ FactoryBot.define do
 
     factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('az_johnny_mfj_8_deps') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
