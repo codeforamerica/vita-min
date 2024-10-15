@@ -19,7 +19,22 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
     context "attached documents" do
       it "includes documents that are always attached" do
         expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
-        expect(xml.document.at('ReturnDataState Form502B')).to be_an_instance_of Nokogiri::XML::Element
+      end
+
+      context "502B" do
+        context "when there are dependents" do
+          let!(:dependent) { create :state_file_dependent, dob: StateFileDependent.senior_cutoff_date + 20.years, intake: intake }
+
+          it "includes the document" do
+            expect(xml.document.at('ReturnDataState Form502B')).to be_an_instance_of Nokogiri::XML::Element
+          end
+        end
+
+        context "when there are no dependents" do
+          it "does not include the document" do
+            expect(xml.document.at('ReturnDataState Form502B')).to be_nil
+          end
+        end
       end
 
       context "502R" do

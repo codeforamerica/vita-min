@@ -41,7 +41,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502b,
                 pdf: PdfFiller::Md502bPdf,
-                include: true
+                include: @submission.data_source.dependents.count.positive?
               },
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502R,
