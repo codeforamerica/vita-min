@@ -125,18 +125,27 @@ module SubmissionBuilder
                     elsif intake.household_rent_own_own?
                       xml.Homeowner "X"
                     end
+
+                    if calculated_fields.fetch(:NJ1040_LINE_41)
+                      xml.PropertyTaxCredit calculated_fields.fetch(:NJ1040_LINE_41)
+                    end
+
+                    if calculated_fields.fetch(:NJ1040_LINE_56)
+                      xml.PropertyTaxDeduction calculated_fields.fetch(:NJ1040_LINE_56)
+                    end
                   end
 
                   if calculated_fields.fetch(:NJ1040_LINE_42) > 0
                     xml.NewJerseyTaxableIncome calculated_fields.fetch(:NJ1040_LINE_42)
                   end
-                  
+
+                  xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
+
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)
                   xml.NJChildTCNumOfDep calculated_fields.fetch(:NJ1040_LINE_65_DEPENDENTS) if line_65
                   xml.NJChildTaxCredit line_65 if line_65
-
                 end
               end
             end

@@ -395,6 +395,32 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "property tax deduction - line 41" do
+      context 'when taking property tax credit' do
+        let(:intake) { create(:state_file_nj_intake,
+                              :df_data_many_w2s,
+                              household_rent_own: 'own',
+                              property_tax_paid: 15_000,
+        ) }
+
+        it "fills PropertyTaxCredit with property tax deduction amount" do
+          expect(xml.at("PropertyTaxCredit").text).to eq(15000.to_s)
+        end
+      end
+
+      context 'when not taking property tax credit' do
+        let(:intake) { create(:state_file_nj_intake,
+                              :df_data_many_w2s,
+                              household_rent_own: 'own',
+                              property_tax_paid: 0,
+                              ) }
+
+        it "fills PropertyTaxCredit with property tax deduction amount" do
+          expect(xml.at("PropertyTaxCredit")).to eq(nil)
+        end
+      end
+    end
+
     describe "new jersey taxable income - line 42" do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
       it "fills NewJerseyTaxableIncome with taxable income" do
@@ -404,6 +430,33 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_8_not_blind = 0
         expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind)
         expect(xml.at("NewJerseyTaxableIncome").text).to eq(expected_total.to_s)
+      end
+    end
+
+    describe "tax amount - line 43" do
+      let(:intake) { create(:state_file_nj_intake,
+                            :df_data_many_w2s,
+                            household_rent_own: 'own',
+                            property_tax_paid: 15_000,
+                            ) }
+
+      it "fills Tax with rounded tax amount based on tax rate and line 42" do
+        property_tax = 15_000
+        line_42 = 200_000 - 1_000 - property_tax
+        tax_rate = 0.0637
+        expect(xml.at("Tax").text).to eq((line_42 * tax_rate).round.to_s)
+      end
+    end
+
+    describe "property tax credit - line 56" do
+      let(:intake) { create(:state_file_nj_intake,
+                            :df_data_many_w2s,
+                            household_rent_own: 'own',
+                            property_tax_paid: 0,
+                            ) }
+
+      it "fills with $50 tax deduction when no property tax credit" do
+        expect(xml.at("PropertyTaxDeduction").text).to eq(50.to_s)
       end
     end
     
