@@ -42,7 +42,7 @@ describe StateFileBaseIntake do
       expect(intake.dependents).to be_blank
       intake.synchronize_df_dependents_to_database
 
-      expect(intake.dependents.first.relationship).to eq "Grandparent"
+      expect(intake.dependents.first.relationship).to eq "grandParent"
       expect(intake.dependents.count).to eq 3
     end
   end
