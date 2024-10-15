@@ -8,6 +8,7 @@ module PdfFiller
 
     def initialize(submission)
       @submission = submission
+      @intake = submission.data_source
 
       # Most PDF fields are grabbed right off the XML
       builder = StateFile::StateInformationService.submission_builder_class(:md)
@@ -29,20 +30,18 @@ module PdfFiller
         "No. total dependents": @xml_document.at("Form502B Dependents Count")&.text,
       }
 
-      dependent_attrs = @xml_document.at("Form502B Dependents").css("Dependent").each_with_index.reduce({}) do |acc, (dependent, i)|
-        acc["First Name #{i + 1}"] = dependent.at("Name FirstName")&.text
-        acc["MI #{i + 1}"] = dependent.at("Name MiddleInitial")&.text
-        acc["Last Name #{i + 1}"] = dependent.at("Name LastName")&.text
-        acc["DEPENDENTS SSN #{i + 1}"] = dependent.at("SSN")&.text
-        acc["RELATIONSHIP #{i + 1}"] = dependent.at("RelationToTaxpayer")&.text
-        acc["REGULAR #{i + 1}"] = "Yes"
-        acc["65 OR OLDER #{i + 1}"] = xml_value_to_bool(dependent.at("Over65"), "CheckboxType") ? "2" : "Off"
-        dob_field_name = i == 0 ? "DOB date 1_af_date" : "DOB date 1_af_date #{i + 1}"
-        acc[dob_field_name] = dependent.at("DependentDOB")&.text
-        acc
+      @intake.dependents.each_with_index do |dependent, i|
+        answers["First Name #{i + 1}"] = dependent.first_name
+        answers["MI #{i + 1}"] = dependent.middle_initial
+        answers["Last Name #{i + 1}"] = dependent.last_name
+        answers["DEPENDENTS SSN #{i + 1}"] = dependent.ssn
+        answers["RELATIONSHIP #{i + 1}"] = dependent.relationship
+        answers["REGULAR #{i + 1}"] = "Yes"
+        answers["65 OR OLDER #{i + 1}"] = dependent.senior? ? "2" : "Off"
+        dob_field_name = i.zero? ? "DOB date 1_af_date" : "DOB date 1_af_date #{i + 1}"
+        answers[dob_field_name] = dependent.dob
       end
-      answers.merge!(dependent_attrs)
-
+      
       answers
     end
   end
