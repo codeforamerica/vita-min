@@ -46,6 +46,7 @@
 #  phone_number                                           :string
 #  phone_number_verified_at                               :datetime
 #  primary_birth_date                                     :date
+#  primary_disabled                                       :integer          default("unfilled"), not null
 #  primary_esigned                                        :integer          default("unfilled"), not null
 #  primary_esigned_at                                     :datetime
 #  primary_first_name                                     :string
@@ -63,6 +64,7 @@
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
+#  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
 #  spouse_first_name                                      :string
