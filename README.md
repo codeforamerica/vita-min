@@ -140,6 +140,11 @@ bin/setup
 
 > ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
 
+#### Github Auth for Deploys
+We run the `bin/release` script that utilizes GitHub cli. Check if you already have Github cli installed (ex: `gh` in your terminal should return set of commands, if you have it installed). `brew install gh` if you get an `command not found` error.
+Run `gh auth login` and follow directions to login (choose Github.com, SSH, login with web browser). If you do not set this up, you will have to manually write up the release notes in Github.
+
+
 #### Download the GYR Efiler
 
 Download the GYR Efiler to run tests locally by executing:
