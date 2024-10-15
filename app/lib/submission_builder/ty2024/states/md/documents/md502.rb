@@ -10,7 +10,6 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("Form502", documentId: "Form502") do |xml|
-                income_section(xml)
                 if @submission.data_source.direct_file_data.claimed_as_dependent?
                   xml.FilingStatus do
                     xml.DependentTaxpayer "X"
@@ -24,7 +23,6 @@ module SubmissionBuilder
                     xml.send(filing_status, "X")
                   end
                 end
-                xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
                 if has_exemptions
                   xml.Exemptions do
                     if has_dependent_exemption
@@ -35,6 +33,8 @@ module SubmissionBuilder
                     end
                   end
                 end
+                income_section(xml)
+                xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
               end
             end
 
