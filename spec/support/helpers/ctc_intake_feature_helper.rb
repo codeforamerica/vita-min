@@ -118,7 +118,7 @@ module CtcIntakeFeatureHelper
     puts mail.html_part.body.to_s
     puts "==="
 
-    code = mail.html_part.body.to_s.match(/(\d{6})[.]/)[1]
+    code = mail.html_part.body.to_s.match(%r{<strong> (\d{6})\.</strong>})[1]
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: "000001"
     click_on I18n.t("views.ctc.questions.verification.verify")
