@@ -191,6 +191,10 @@ module Efile
         calculate_line_29 - calculate_line_38
       end
 
+      def is_ineligible_or_unsupported_for_property_tax
+        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
+      end
+
       def should_use_property_tax_deduction
         return false if calculate_tax_liability_with_deduction.nil?
         calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
@@ -209,7 +213,7 @@ module Efile
       end
 
       def calculate_line_56
-        if should_use_property_tax_deduction
+        if should_use_property_tax_deduction || is_ineligible_or_unsupported_for_property_tax
           nil
         else
           is_mfs_same_home ? 25 : 50
