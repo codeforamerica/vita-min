@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PdfFiller::Id40Pdf do
   include PdfSpecHelper
-  
+
   let!(:intake) {
     create(:state_file_id_intake,
            :single_filer_with_json, # includes phone number data
