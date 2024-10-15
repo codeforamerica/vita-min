@@ -1782,7 +1782,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_182343) do
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
-    t.integer "eligibility_withdrew_hsa_fthb", default: 0, null: false
+    t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
