@@ -41,5 +41,26 @@
 #
 FactoryBot.define do
   factory :state_file1099_r do
+    payer_name { "Dorothy Red" }
+    payer_name_control { "DORO" }
+    payer_address_line1 { "123 Sesame ST" }
+    payer_address_line2 { "Apt 202" }
+    payer_city_name { "Long Island" }
+    payer_zip { "12345"}
+    payer_identification_number { "22345"}
+    recipient_ssn { "123456789"}
+    recipient_name { "Dorothy Jane Red"}
+    gross_distribution_amount { 100.25 }
+    taxable_amount { 50.5 }
+    taxable_amount_not_determined { true }
+    total_distribution { true }
+    federal_income_tax_withheld_amount { 10.55 }
+    state_tax_withheld_amount { 100.5 }
+    state_code { 'AZ' }
+    state_distribution_amount { 155.15 }
+    standard { false }
+    distribution_code { '7' }
+    designated_roth_account_first_year { 1993 }
+    payer_state_identification_number { "222222222" }
   end
 end
