@@ -46,8 +46,8 @@ module SubmissionBuilder
             ]
 
             supported_docs += combined_w2s
-            supported_docs += form1099gs
             supported_docs += form1099rs
+            supported_docs += form1099gs
             supported_docs
           end
         end

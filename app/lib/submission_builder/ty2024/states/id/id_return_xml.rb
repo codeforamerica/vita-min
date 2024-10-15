@@ -36,9 +36,9 @@ module SubmissionBuilder
                 include: true
               },
             ]
-            
-            supported_docs += form1099gs
+
             supported_docs += form1099rs
+            supported_docs += form1099gs
             supported_docs
           end
         end
