@@ -112,6 +112,8 @@ class StateFileAzIntake < StateFileBaseIntake
   enum primary_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_received_pension
   enum spouse_received_pension: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_received_pension
   enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :az321_contributions, length: { maximum: 10 }
