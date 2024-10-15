@@ -5,7 +5,7 @@
       "lastName": "Lee",
       "middleInitial": null,
       "tin": "300-00-0006",
-      "dateOfBirth": null,
+      "dateOfBirth": "1970-02-03",
       "relationship": "parent",
       "eligibleDependent": true,
       "isClaimedDependent": true
@@ -15,7 +15,7 @@
       "lastName": "Currie",
       "middleInitial": null,
       "tin": "300-00-0007",
-      "dateOfBirth": null,
+      "dateOfBirth": "1950-02-03",
       "relationship": "grandParent",
       "eligibleDependent": true,
       "isClaimedDependent": true
@@ -25,8 +25,8 @@
       "lastName": "Sands",
       "middleInitial": null,
       "tin": "300-00-0002",
-      "dateOfBirth": null,
-      "relationship": "nephew",
+      "dateOfBirth": "2019-02-03",
+      "relationship": "childOfSibling",
       "eligibleDependent": true,
       "isClaimedDependent": true
     },
@@ -35,8 +35,8 @@
       "lastName": "Rose",
       "middleInitial": null,
       "tin": "300-00-0001",
-      "dateOfBirth": null,
-      "relationship": "daughter",
+      "dateOfBirth": "2020-02-03",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true
     },
@@ -45,7 +45,7 @@
       "lastName": "Schitt",
       "middleInitial": null,
       "tin": "300-00-0005",
-      "dateOfBirth": null,
+      "dateOfBirth": "1969-02-03",
       "relationship": "parent",
       "eligibleDependent": true,
       "isClaimedDependent": true
@@ -56,7 +56,7 @@
       "middleInitial": null,
       "tin": "300-00-0004",
       "dateOfBirth": "2021-01-01",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true
     },
@@ -65,7 +65,7 @@
       "lastName": "Kurtz",
       "middleInitial": null,
       "tin": "300-00-0008",
-      "dateOfBirth": null,
+      "dateOfBirth": "1952-02-03",
       "relationship": "grandParent",
       "eligibleDependent": true,
       "isClaimedDependent": true
@@ -76,7 +76,7 @@
       "middleInitial": null,
       "tin": "300-00-0003",
       "dateOfBirth": "2019-01-01",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true
     }
