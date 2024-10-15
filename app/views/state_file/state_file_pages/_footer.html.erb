@@ -19,10 +19,16 @@
           </li>
 
           <li>
+            <%= link_to t(".faq"), state_faq_path(us_state: 'us') %>
+          </li>
+
+          <li>
             <%= link_to t(".privacy_policy"), state_file_privacy_policy_path %>
           </li>
 
-          <li><%= link_to t(".faq"), state_faq_path(us_state: 'us') %></li>
+          <li>
+            <%= link_to t(".sms_terms"), state_file_sms_terms_path %>
+          </li>
 
           <li>
             <% if I18n.locale != :en %>

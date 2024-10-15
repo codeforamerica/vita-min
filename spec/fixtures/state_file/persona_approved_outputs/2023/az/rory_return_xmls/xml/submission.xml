@@ -15,27 +15,27 @@
     <TransmissionDetail>
       <InitialCreation>
         <IPAddress>
-          <IPv4AddressTxt>64.252.72.8</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-07-02T15:46:07+00:00</IPTs>
-        <DeviceId>86F2271DDDCB7FA16753BB5BC7FC8968B05CB9DC</DeviceId>
+        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
       <Submission>
         <IPAddress>
-          <IPv4AddressTxt>64.252.73.225</IPv4AddressTxt>
+          <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-07-02T15:47:49+00:00</IPTs>
-        <DeviceId>86F2271DDDCB7FA16753BB5BC7FC8968B05CB9DC</DeviceId>
+        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
-      <TotActiveTimePrepSubmissionTs>3</TotActiveTimePrepSubmissionTs>
-      <TotalPreparationSubmissionTs>3</TotalPreparationSubmissionTs>
+      <TotActiveTimePrepSubmissionTs>0</TotActiveTimePrepSubmissionTs>
+      <TotalPreparationSubmissionTs>0</TotalPreparationSubmissionTs>
     </TransmissionDetail>
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-07-02T15:47:49+00:00</ReturnTs>
+    <ReturnTs>2024-10-03T23:00:38+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
@@ -53,6 +53,7 @@
         </TaxpayerName>
         <TaxpayerSSN>400000009</TaxpayerSSN>
         <DateOfBirth>2002-02-03</DateOfBirth>
+        <USPhone>4546567676</USPhone>
       </Primary>
       <USAddress>
         <AddressLine1Txt>2556 Stars Hollow ct</AddressLine1Txt>
@@ -81,6 +82,8 @@
       </Additions>
       <AzAdjSubtotal>7000</AzAdjSubtotal>
       <Subtractions>
+        <ExecFedStateLocGovPen>0</ExecFedStateLocGovPen>
+        <SubExclBenAnnPen>0</SubExclBenAnnPen>
         <USSSRailRoadBnft>0</USSSRailRoadBnft>
         <WageAmIndian>0</WageAmIndian>
         <CompNtnlGrdArmdFrcs>0</CompNtnlGrdArmdFrcs>

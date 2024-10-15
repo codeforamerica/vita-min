@@ -198,11 +198,11 @@
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>12345.67</WagesAmt>
+      <WagesAmt>12345</WagesAmt>
       <WithholdingAmt>1000</WithholdingAmt>
-      <SocialSecurityWagesAmt>12345.67</SocialSecurityWagesAmt>
+      <SocialSecurityWagesAmt>12345</SocialSecurityWagesAmt>
       <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>12345.67</MedicareWagesAndTipsAmt>
+      <MedicareWagesAndTipsAmt>12345</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>414HSUB</Desc>
@@ -212,10 +212,10 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>12345.67</StateWagesAmt>
+          <StateWagesAmt>12345</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>12345.67</LocalWagesAndTipsAmt>
+            <LocalWagesAndTipsAmt>12345</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>
@@ -228,7 +228,7 @@
       <EmployerEIN>001245768</EmployerEIN>
       <EmployerNameControlTxt>BTB</EmployerNameControlTxt>
       <EmployerName>
-        <BusinessNameLine1Txt>Brendan T. Byrne State Forest</BusinessNameLine1Txt>
+        <BusinessNameLine1Txt>Brendan T Byrne State Forest</BusinessNameLine1Txt>
       </EmployerName>
       <EmployerUSAddress>
         <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>

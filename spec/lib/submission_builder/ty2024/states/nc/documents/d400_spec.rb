@@ -69,7 +69,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       end
 
       context "CTC-related values" do
-        let(:intake) { create(:state_file_nc_intake, filing_status: "head_of_household", raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("nc_shiloh_hoh")) }
+        let(:intake) { create(:state_file_nc_intake, filing_status: "head_of_household", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_shiloh_hoh")) }
         let(:child_deduction) { 2000 }
 
         before do

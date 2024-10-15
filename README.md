@@ -87,6 +87,14 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 brew install git-duet/tap/git-duet
 ```
 
+After installation, add the following line to your `~/.zshrc` or `~/.bash_profile` file:
+
+```sh
+export GIT_DUET_CO_AUTHORED_BY=1
+```
+
+This will ensure that git-duet adds co-author information to your commit messages.
+
 #### Adding Credential Files
 
 You need to add the following credential files under the `config/credentials` folder:
@@ -122,7 +130,19 @@ bin/setup
 ```
 > ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
 
+> ℹ️ **Note:** If you encounter Ruby version problems or issues with `foreman` during setup, you may need to initialize `rbenv`. Run the following command in your terminal:
+>
+> ```sh
+> rbenv init
+> ```
+>
+> This will set up rbenv in your shell. You may need to restart your terminal to apply the changes.
+
 > ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
+
+#### Github Auth for Deploys
+Our release script utilizes Github cli. Check if you already have Github cli installed (ex: `gh` in your terminal should return a set of commands, if you have it installed). `brew install gh` if you get an `command not found` error.
+Run `gh auth login` and follow directions to login (choose Github.com, SSH, login with web browser). If you do not set this up, you will have to manually write up the release notes in Github.
 
 #### Download the GYR Efiler
 

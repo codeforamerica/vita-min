@@ -1,0 +1,40 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Yolko",
+      "middleInitial": null,
+      "lastName": "Ono",
+      "dateOfBirth": "1920-01-01",
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Mary",
+      "middleInitial": null,
+      "lastName": "Shelley",
+      "dateOfBirth": "1920-01-01",
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    },
+    {
+      "firstName": "Shelley",
+      "middleInitial": null,
+      "lastName": "Duvall",
+      "dateOfBirth": "1920-01-01",
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Shelby",
+      "middleInitial": null,
+      "lastName": "Silverstein",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    }
+  ]
+}

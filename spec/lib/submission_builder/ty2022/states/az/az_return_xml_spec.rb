@@ -133,7 +133,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     end
 
     context "new df xml" do
-      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('az_superman')) }
+      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman')) }
 
       it "does not error" do
         # xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
@@ -197,29 +197,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
         expect(xml.css("Subtractions IntUSObligations").text).to eq "100"
-      end
-    end
-
-    context "when 1099-rs are present" do
-      let(:intake) do
-        create(:state_file_az_intake,
-               raw_direct_file_data: StateFile::XmlReturnSampleService.new.read('az_richard_retirement_1099r'),
-               filing_status: "married_filing_jointly",
-               primary_received_pension: "yes",
-               primary_received_pension_amount: 2000.6,
-               spouse_received_pension: "yes",
-               spouse_received_pension_amount: 2600,
-               received_military_retirement_payment: "yes",
-               received_military_retirement_payment_amount: 1000.1
-        )
-      end
-
-      it "it calculates the total subtraction amounts" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-        expect(xml.css('ExecFedStateLocGovPen').text).to eq "4501"
-        expect(xml.css('SubExclBenAnnPen').text).to eq "1000"
-        expect(xml.css('TotalSubtractions').text).to eq "114499"
-        expect(xml.css('AzIncTaxWithheld').text).to eq "33"
       end
     end
   end

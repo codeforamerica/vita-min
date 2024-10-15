@@ -7,6 +7,12 @@ class DfXmlAccessor
     @node = node || default_node
   end
 
+  def to_h
+    selectors.to_h do |selector|
+      [selector, send(selector)]
+    end
+  end
+
   def self.selectors
     raise NotImplementedError, "Must define SELECTORS"
   end

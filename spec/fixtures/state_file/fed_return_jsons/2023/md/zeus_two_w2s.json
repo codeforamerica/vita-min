@@ -1,0 +1,29 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Kronos",
+      "middleInitial": "T",
+      "lastName": "Athens",
+      "dateOfBirth": "1920-01-01",
+      "relationship": "parent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Zeus",
+      "middleInitial": "L",
+      "lastName": "Thunder",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Hera",
+      "middleInitial": null,
+      "lastName": "Thunder",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": false
+    }
+  ]
+}

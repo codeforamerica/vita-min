@@ -67,11 +67,15 @@
 #  created_at                        :datetime         not null
 #  updated_at                        :datetime         not null
 #  federal_submission_id             :string
+#  primary_state_id_id               :bigint
+#  spouse_state_id_id                :bigint
 #  visitor_id                        :string
 #
 # Indexes
 #
-#  index_state_file_nc_intakes_on_hashed_ssn  (hashed_ssn)
+#  index_state_file_nc_intakes_on_hashed_ssn           (hashed_ssn)
+#  index_state_file_nc_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_nc_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 FactoryBot.define do
   factory :state_file_nc_intake do
@@ -104,27 +108,27 @@ FactoryBot.define do
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_spiderman') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_cookiemonster') }
     end
 
     trait :single do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('tucker_single') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('tucker_single') }
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('shiloh_hoh') }
     end
 
     trait :married_filing_separately do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('sheldon_mfs') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('sheldon_mfs') }
     end
 
     trait :qualified_widow do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('laney_qss') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('laney_qss') }
     end
   end
 end

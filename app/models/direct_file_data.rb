@@ -20,6 +20,7 @@ class DirectFileData < DfXmlAccessor
     fed_agi: 'IRS1040 AdjustedGrossIncomeAmt',
     fed_wages: 'IRS1040 WagesAmt',
     fed_wages_salaries_tips: 'IRS1040 WagesSalariesAndTipsAmt',
+    fed_tax_exempt_interest: 'IRS1040 TaxExemptInterestAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
     fed_taxable_pensions: 'IRS1040 TotalTaxablePensionsAmt',
     fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
@@ -205,6 +206,15 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def fed_tax_exempt_interest
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_tax_exempt_interest=(value)
+    create_or_destroy_df_xml_node(__method__, value)
+    write_df_xml_value(__method__, value)
+  end
+
   def fed_taxable_income
     df_xml_value(__method__)&.to_i || 0
   end
@@ -218,6 +228,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_taxable_pensions=(value)
+    create_or_destroy_df_xml_node(__method__, value)
     write_df_xml_value(__method__, value)
   end
 
@@ -270,10 +281,6 @@ class DirectFileData < DfXmlAccessor
 
   def fed_total_adjustments=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def total_1099r_state_tax_withheld
-    form1099rs.sum(&:StateTaxWithheldAmt)
   end
 
   def total_w2_state_tax_withheld

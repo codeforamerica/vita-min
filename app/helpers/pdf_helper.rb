@@ -1,4 +1,10 @@
 module PdfHelper
+  def formatted_date(date_str, format)
+    return if date_str.nil?
+
+    Date.parse(date_str)&.strftime(format)
+  end
+
   def yes_no_unfilled_to_checkbox(value)
     value == "yes" ? "1" : nil
   end
