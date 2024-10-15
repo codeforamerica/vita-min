@@ -70,7 +70,7 @@ RSpec.describe PdfFiller::Md502bPdf do
 
         expect(pdf_fields["No. regular dependents"]).to eq "2"
         expect(pdf_fields["No. 65orOver dependents"]).to eq "1"
-        expect(pdf_fields["No. total dependents"]).to eq "2"
+        expect(pdf_fields["No. total dependents"]).to eq "3"
 
         expect(pdf_fields["First Name 1"]).to eq "Janiss"
         expect(pdf_fields["MI 1"]).to eq "J"

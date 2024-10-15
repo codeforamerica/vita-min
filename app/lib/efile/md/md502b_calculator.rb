@@ -27,7 +27,7 @@ module Efile
       end
 
       def calculate_line_3
-        line_or_zero(:MD502B_LINE_1)
+        line_or_zero(:MD502B_LINE_1) + line_or_zero(:MD502B_LINE_2)
       end
     end
   end

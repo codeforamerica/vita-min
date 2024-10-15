@@ -27,9 +27,9 @@ describe Efile::Md::Md502bCalculator do
   end
 
   describe "Line 3: Total dependent count" do
-    it "returns the correct value" do
+    it "returns sums lines 1 and 2" do
       instance.calculate
-      expect(instance.lines[:MD502B_LINE_3].value).to eq(2)
+      expect(instance.lines[:MD502B_LINE_3].value).to eq(3)
     end
   end
 end
