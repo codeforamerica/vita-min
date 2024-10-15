@@ -486,6 +486,13 @@ describe DirectFileData do
     end
   end
 
+  describe '#spouse_is_a_dependent?' do
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_bert") }
+    it 'returns true' do
+      expect(described_class.new(xml).spouse_is_a_dependent?).to eq(true)
+    end
+  end
+
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
       xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r")
