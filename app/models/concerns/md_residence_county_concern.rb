@@ -2,7 +2,8 @@ module MdResidenceCountyConcern
   extend ActiveSupport::Concern
 
   COUNTIES_AND_SUBDIVISIONS = {
-    "ALLEGANY" => {
+    "Allegany" => {
+      "Allegany - unincorporated" => "0100",
       "Town of Barton" => "0101",
       "Bel Air" => "0112",
       "Bowling Green" => "0115",
@@ -19,17 +20,20 @@ module MdResidenceCountyConcern
       "Potomac Park" => "0109",
       "Town of Westernport" => "0107"
     },
-    "ANNE ARUNDEL" => {
+    "Anne Arundel" => {
+      "Anne Arundel - unincorporated" => "0200",
       "City of Annapolis" => "0201",
       "Town of Highland Beach" => "0203"
     },
-    "BALTIMORE COUNTY" => {},
-    "BALTIMORE CITY" => {"BALTIMORE CITY" => "0400"},
-    "CALVERT" => {
+    "Baltimore County" =>
+      {"Baltimore County - unincorporated" => "0300"},
+    "Baltimore City" =>
+      {"altimore City - unincorporated" => "0400"},
+    "Calvert" => {
       "Town of Chesapeake Beach" => "0501",
       "Town of North Beach" => "0502"
     },
-    "CAROLINE" => {
+    "Caroline" => {
       "Town of Denton" => "0602",
       "Town of Federalsburg" => "0603",
       "Town of Goldsboro" => "0604",
@@ -220,25 +224,11 @@ module MdResidenceCountyConcern
     }
   }
 
-  def political_subdivision_name
-    COUNTIES_AND_SUBDIVISIONS[residence_county]&.key(political_subdivision)
-  end
-
   def counties_for_select
     COUNTIES_AND_SUBDIVISIONS.keys
   end
 
-  def subdivisions_for_select(county = nil)
-    county ||= residence_county
-    return [] unless county
-    COUNTIES_AND_SUBDIVISIONS[county].map { |name, code| [name, code] }
-  end
-
-  def residence_county_hash
-    {
-      county_name: residence_county,
-      subdivision_code: political_subdivision,
-      subdivision_name: political_subdivision_name
-    }
+  def subdivisions_for_select
+    COUNTIES_AND_SUBDIVISIONS.values.flat_map(&:keys).uniq
   end
 end

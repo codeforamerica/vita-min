@@ -2458,6 +2458,11 @@ es:
           title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
           title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
           your_dob: Tu fecha de nacimiento
+      md_county:
+        edit:
+          county: Condado
+          political_subdivision: Subdivisión política
+          title_html: Seleccione el <b>condado</b> y la <b>subdivisión política</b> donde vivía el 31 de diciembre de %{filing_year}
       nc_county:
         edit:
           county: Condado
