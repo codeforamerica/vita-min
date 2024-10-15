@@ -460,6 +460,21 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
+    context 'when married filing separately, same home - homeowner' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :married_filing_separately,
+          homeowner_same_home_spouse: 'yes',
+          )
+      }
+
+      it 'when 40a > 7500, property tax deduction is 7500' do
+        allow(instance).to receive(:calculate_line_40a).and_return 7501
+        expect(instance.calculate_property_tax_deduction).to eq(7500)
+      end
+    end
+
     context 'when married filing separately, not same home' do
       let(:intake) {
         create(
@@ -592,7 +607,7 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_049)
       end
 
-      context 'when MFS living in same home' do
+      context 'when MFS living in same home - tenant' do
         let(:intake) {
           create(
             :state_file_nj_intake,
@@ -606,12 +621,40 @@ describe Efile::Nj::Nj1040Calculator do
         end
       end
 
-      context 'when not MFS or MFS in separate home' do
+      context 'when MFS living in same home - homeowner' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            homeowner_same_home_spouse: 'yes',
+            )
+        }
+
+        it 'sets line 56 to $25' do
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(25)
+        end
+      end
+
+      context 'when not MFS or MFS in separate home - tenant' do
         let(:intake) {
           create(
             :state_file_nj_intake,
             :married_filing_separately,
             tenant_same_home_spouse: 'no',
+            )
+        }
+
+        it 'sets line 56 to $50' do
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(50)
+        end
+      end
+
+      context 'when not MFS or MFS in separate home - homeowner' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            homeowner_same_home_spouse: 'no',
             )
         }
 
