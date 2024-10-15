@@ -206,6 +206,37 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 40a
+      if get_property_tax.present?
+        answers.merge!(insert_digits_into_fields(get_property_tax.to_i, [
+          "24539a#2",
+          "245",
+          "37",
+          "283",
+          "undefined_113",
+          "282",
+          "281",
+          "undefined_112",
+          "280",
+          "39",
+        ]))
+      end
+
+      # line 41
+      if @xml_document.at("PropertyTaxCredit").present?
+        property_tax_deduction = @xml_document.at("PropertyTaxCredit").text.to_i
+        answers.merge!(insert_digits_into_fields(property_tax_deduction, [
+          "Text18",
+          "Text2",
+          "Text1",
+          "undefined_118",
+          "undefined_117",
+          "41",
+          "undefined_116",
+        ]))
+      end
+
+      # line 42
       if @xml_document.at("NewJerseyTaxableIncome").present?
         nj_taxable_income = @xml_document.at("NewJerseyTaxableIncome").text.to_i
         answers.merge!(insert_digits_into_fields(nj_taxable_income, [
@@ -223,20 +254,34 @@ module PdfFiller
                                                  ]))
       end
 
-      if get_property_tax.present?
-        answers.merge!(insert_digits_into_fields(get_property_tax.to_i, [
-                                                   "24539a#2",
-                                                   "245",
-                                                   "37",
-                                                   "283",
-                                                   "undefined_113",
-                                                   "282",
-                                                   "281",
-                                                   "undefined_112",
-                                                   "280",
-                                                   "39",
-                                                 ]))
+      # line 43
+      if @xml_document.at("Tax").present?
+        tax = @xml_document.at("Tax").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+          "Text63",
+          "Text46",
+          "Text45",
+          "Text44",
+          "Text43",
+          "undefined_120",
+          "undefined_119",
+          "42",
+          "4036y54ethdf",
+          "Enter Code4332243ew",
+        ]))
       end
+
+      # line 56
+      if @xml_document.at("PropertyTaxDeduction").present?
+        tax = @xml_document.at("PropertyTaxDeduction").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+          "Text164",
+          "Text163",
+          "Text162",
+          "Text161",
+        ]))
+      end
+
 
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
         answers.merge!({
