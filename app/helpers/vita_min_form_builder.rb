@@ -64,7 +64,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       label_contents(
         label_text,
         options[:help_text],
-        options[:optional],
+        optional: options[:optional],
         ),
       class: label_class,
       )
