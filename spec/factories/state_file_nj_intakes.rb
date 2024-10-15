@@ -190,15 +190,14 @@ FactoryBot.define do
       end
     end
 
-<<<<<<< HEAD
     trait :fed_credit_for_child_and_dependent_care do
       after(:build) do |intake|
         intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
       end
-=======
+    end
+    
     trait :spouse_disabled do
       spouse_disabled { "yes" }
->>>>>>> 4ffc27edb (NJ 67 - Added disabled exemption)
     end
   end
 end
