@@ -56,10 +56,35 @@ module SubmissionBuilder
               "PARENT": "PT",
               "GRANDPARENT": "GP",
               "NONE": "OT",
+              "biologicalChild": "CH",
+              "adoptedChild": "CH",
+              "stepChild": "SD",
+              "fosterChild": "FC",
+              "grandChildOrOtherDescendentOfChild": "GC",
+              "childInLaw": "CH",
+              "sibling": "SR",
+              "childOfSibling": "NP",
+              "halfSibling": "SR",
+              "childOfHalfSibling": "NP",
+              "stepSibling": "BR",
+              "childOfStepSibling": "NP",
+              "otherDescendantOfSibling": "NP",
+              "siblingInLaw": "SR",
+              "parent": "PT",
+              "grandParent": "GP",
+              "otherAncestorOfParent": "GP",
+              "stepParent": "PT",
+              "parentInLaw": "PT",
+              "noneOfTheAbove": "OT",
+              "siblingOfParent": "UL",
+              "otherDescendantOfHalfSibling": "NP",
+              "otherDescendantOfStepSibling": "NP",
+              "fosterParent": "PT",
+              "siblingsSpouse": "OT",
             }.freeze
 
             def relationship(dependent)
-              RELATIONSHIP_OPTIONS[dependent.relationship.upcase.to_sym]
+              RELATIONSHIP_OPTIONS[dependent.relationship.to_sym]
             end
           end
         end

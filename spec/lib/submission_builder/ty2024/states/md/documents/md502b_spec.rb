@@ -40,7 +40,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
           middle_initial: "J",
           last_name: "Jawplyn",
           ssn: "123456789",
-          relationship: "DAUGHTER",
+          relationship: "biologicalChild",
           dob: young_dob,
         )
       end
@@ -52,7 +52,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
           middle_initial: "F",
           last_name: "Jimplin",
           ssn: "234567890",
-          relationship: "GRANDPARENT",
+          relationship: "otherAncestorOfParent",
           dob: old_dob,
         )
       end
