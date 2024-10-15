@@ -13,9 +13,9 @@
       <% if current_state_code == "md" %>
         <div class="white-group">
           <%= t(".md.pin.title") %>
-          <%= f.cfa_input_field(:primary_pin, t(".md.pin.primary_pin", primary_name: current_intake.primary.full_name), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:primary_signature_pin, t(".md.pin.primary_signature_pin", primary_name: current_intake.primary.full_name), classes: ["form-width--long"]) %>
           <% if current_intake.spouse.full_name.present? %>
-            <%= f.cfa_input_field(:spouse_pin, t(".md.pin.spouse_pin", spouse_name: current_intake.spouse.full_name), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:spouse_signature_pin, t(".md.pin.spouse_signature_pin", spouse_name: current_intake.spouse.full_name), classes: ["form-width--long"]) %>
           <% end %>
         </div>
       <% end %>

@@ -3,11 +3,15 @@ module StateFile
     set_attributes_for :state_file_efile_device_info, :device_id
     set_attributes_for :intake,
                        :primary_esigned,
-                       :spouse_esigned
+                       :spouse_esigned,
+                       :primary_signature_pin,
+                       :spouse_signature_pin
 
     validates :primary_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}
     validates :spouse_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}, if: -> { @intake.ask_spouse_esign? }
     validate :validate_intake_already_submitted
+    validates :primary_signature_pin, presence: true, signature_pin: true
+    validates :spouse_signature_pin, presence: true, signature_pin: true, if: -> { @intake.spouse.full_name.present? }
 
     def save
       return false unless valid?
@@ -15,6 +19,8 @@ module StateFile
       @intake.update!(attrs)
       @intake.touch(:primary_esigned_at) if @intake.primary_esigned_yes?
       @intake.touch(:spouse_esigned_at) if @intake.spouse_esigned_yes? && @intake.ask_spouse_esign?
+      # @intake.touch(:primary_signature_pin_at)
+      # @intake.touch(:spouse_signature_pin_at) if @intake.spouse.full_name.present?
 
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info&.update!(attributes_for(:state_file_efile_device_info))

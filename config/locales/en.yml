@@ -2451,8 +2451,8 @@ en:
               <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
             pin:
               title: Choose a 5-digit signature PIN. This number will be your personal electronic signature.
-              primary_pin: <strong>%{primary_name}'s 5-digit PIN</strong>
-              spouse_pin: <strong>%{spouse_name}'s 5-digit PIN</strong>
+              primary_signature_pin: <strong>%{primary_name}'s 5-digit PIN</strong>
+              spouse_signature_pin: <strong>%{spouse_name}'s 5-digit PIN</strong>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
@@ -3133,6 +3133,7 @@ en:
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
     signature_pin_zeros: 00000 is not a valid PIN.
+    signature_pin_matching: Signature PINs cannot be identical.
     ssn: Please enter a valid social security number.
     urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
     zip: Please enter a valid 5-digit zip code.
