@@ -568,6 +568,7 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before(:each) do
+        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.77
@@ -597,6 +598,7 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before do
+        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.21
@@ -642,6 +644,34 @@ describe Efile::Nj::Nj1040Calculator do
         it 'sets line 56 to $50' do
           expect(instance.lines[:NJ1040_LINE_56].value).to eq(50)
         end
+      end
+    end
+
+    context 'when ineligible for property tax' do
+      let(:intake) {
+        create(:state_file_nj_intake)
+      }
+      before(:each) do
+        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return true
+        allow(instance).to receive(:calculate_line_39).and_return 20_000
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
+        instance.calculate
+      end
+
+      it 'sets line 41 to nil' do
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
+      end
+
+      it 'sets line 42 to line 39' do
+        expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
+      end
+
+      it 'sets line 43 to tax liability without deduction' do
+        expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_000)
+      end
+
+      it 'sets line 56 to nil' do
+        expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
       end
     end
   end
