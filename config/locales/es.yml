@@ -2720,9 +2720,11 @@ es:
           medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
+          primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           spouse_disabled: Spouse disabled
+          spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
       nj_sales_use_tax:
         edit:
@@ -2764,6 +2766,12 @@ es:
           helper_5: Obtenga más información sobre este proceso y otras opciones de presentación aquí.
           helper_6: Continúe viendo para qué más podría calificar.
           title: Parece que no podemos ayudarte con este crédito/deducción de impuestos sobre la propiedad.
+      nj_veterans_exemption:
+        edit:
+          instructions_html: Se le considera un veterano si es un ex miembro de las Fuerzas Armadas de los Estados Unidos dado de <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorablemente</a>. <br><br> Si es la primera vez que solicita <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">esta exención</a>, debe proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">un formulario</a> a la División de Impuestos de Nueva Jersey. Puede hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">en línea</a>.
+          primary_veteran_question: "¿Eres un veterano?"
+          spouse_veteran_question: "¿Su cónyuge es un veterano?"
+          title: En NJ, los veteranos son elegibles para una exención de impuestos.
       ny_county:
         edit:
           county: Condado

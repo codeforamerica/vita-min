@@ -562,16 +562,10 @@ NCD400_S_LINE_41:
   label: 'Total Deductions - Add Lines 17 through 22, 23f, 24f, and 25 through 40 (Enter the total here and on Form D-400, Line 9)'
 NJ1040_LINE_6_SPOUSE:
   label: '6 Spouse Regular Exemption'
-NJ1040_LINE_6:
-  label: '6 Sum all regular exemptions, multiply by 1000'
 NJ1040_LINE_7_SELF:
   label: '7 Primary Senior 65+ Exemption'
 NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
-NJ1040_LINE_7:
-  label: '7 Sum all Senior 65+ Exemption, multiply by 1000'
-NJ1040_LINE_8:
-  label: '8 Sum all Blind/Disabled Exemption, multiply by 1000'
 NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:

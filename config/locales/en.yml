@@ -2746,9 +2746,11 @@ en:
           medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
+          primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           spouse_disabled: My spouse has a disability
+          spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
       nj_sales_use_tax:
         edit:
@@ -2790,6 +2792,12 @@ en:
           helper_5: Learn more about this process and other filing options here.
           helper_6: Please continue to see what else you might qualify for.
           title: Looks like we can’t help you with this Property Tax Credit / Deduction.
+      nj_veterans_exemption:
+        edit:
+          instructions_html: You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces. <br><br> If you’re a first-time filer for <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">a form</a> to the NJ Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>.
+          primary_veteran_question: Are you a veteran?
+          spouse_veteran_question: Is your spouse a veteran?
+          title: In NJ, veterans are eligible for a tax exemption.
       ny_county:
         edit:
           county: County
