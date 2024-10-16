@@ -3,7 +3,8 @@ class DfJsonPerson < DfJsonWrapper
     first_name: { type: :string, key: "firstName" },
     middle_initial: { type: :string, key: "middleInitial" },
     last_name: { type: :string, key: "lastName" },
-    dob: { type: :date, key: "dateOfBirth" }
+    dob: { type: :date, key: "dateOfBirth" },
+    tin: { type: :string, key: "tin" }
   }
 
   define_json_readers
@@ -45,9 +46,10 @@ class DfJsonInterestReport < DfJsonWrapper
 end
 
 class DirectFileJsonData
+  attr_reader :data
 
   def initialize(json)
-    @json = JSON.parse(json || "{}")
+    @data = JSON.parse(json || "{}")
   end
 
   def primary_filer
@@ -60,23 +62,28 @@ class DirectFileJsonData
 
   def find_matching_json_dependent(dependent)
     dependents.find do |json_dependent|
-      # TODO: find match based on SSN
-      json_dependent.first_name == dependent.first_name
+      next unless json_dependent.present?
+
+      json_tin = json_dependent.tin&.tr("-", "")
+      xml_ssn = dependent.ssn
+
+      next unless json_tin && xml_ssn
+      json_tin == xml_ssn
     end
   end
 
   def interest_reports
-    @json["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
+    @data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
   end
 
   private
 
   def filers
-    @json["filers"]&.map { |filer| DfJsonFiler.new(filer)} || []
+    @data["filers"]&.map { |filer| DfJsonFiler.new(filer)} || []
   end
 
   def dependents
-    @json["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent)} || []
+    @data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent)} || []
   end
 
 end
