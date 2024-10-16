@@ -7,7 +7,8 @@
       "dateOfBirth": "1920-01-01",
       "relationship": "grandParent",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "tin": "300-00-0015"
     },
     {
       "firstName": "Mary",
@@ -16,7 +17,8 @@
       "dateOfBirth": "1920-01-01",
       "relationship": "grandParent",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "tin": "300-00-0016"
     },
     {
       "firstName": "Shelley",
@@ -25,7 +27,8 @@
       "dateOfBirth": "1920-01-01",
       "relationship": "grandParent",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "tin": "300-00-0017"
     }
   ],
   "filers": [
@@ -34,7 +37,8 @@
       "middleInitial": null,
       "lastName": "Silverstein",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": true,
+      "tin": "400-00-0010"
     }
   ]
 }
