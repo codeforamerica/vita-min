@@ -46,5 +46,21 @@
     </div>
   <% end %>
 
+    <% if current_intake.primary_veteran != "unfilled" || current_intake.spouse_veteran != "unfilled"%>
+    <div id="disabled_exemption" class="white-group">
+      <div class="spacing-below-5">
+        <% if current_intake.primary_veteran != "unfilled" %>
+          <p class="text--bold spacing-below-5"><%=t(".primary_veteran") %></p>
+          <p><%= current_intake.primary_veteran %></p>
+        <% end %>
+        <% if current_intake.spouse_veteran != "unfilled" %>
+          <p class="text--bold spacing-below-5"><%=t(".spouse_veteran") %></p>
+          <p><%= current_intake.spouse_veteran  %></p>
+        <% end %>
+        <%= link_to t("general.edit"), StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

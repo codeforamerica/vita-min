@@ -72,6 +72,13 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
+      def calculate_line_29
+        primary_veteran = @intake.primary_veteran == "yes"
+        spouse_veteran = @intake.spouse_veteran == "yes"
+        number_of_line_9_exemptions = number_of_true_checkboxes([primary_veteran, spouse_veteran])
+        number_of_line_9_exemptions * 6_0000
+      end
+
       def calculate_line_13
         line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
       end
