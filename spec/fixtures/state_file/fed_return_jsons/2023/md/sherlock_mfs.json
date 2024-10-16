@@ -6,14 +6,16 @@
       "middleInitial": null,
       "lastName": "Holmes",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": true,
+      "tin": "400-00-0008"
     },
     {
       "firstName": "Nate",
       "middleInitial": "T",
       "lastName": "Great",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": false
+      "isPrimaryFiler": false,
+      "tin": "600-00-0009"
     }
   ]
 }

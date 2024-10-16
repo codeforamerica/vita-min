@@ -28,6 +28,10 @@ RSpec.describe Diy::FileYourselfController do
   end
 
   describe "#update" do
+    before do
+      allow(controller).to receive(:open_for_diy?).and_return(true)
+    end
+
     context "with valid params" do
       let(:params) do
         {

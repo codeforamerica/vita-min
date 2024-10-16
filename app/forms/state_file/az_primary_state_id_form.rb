@@ -1,6 +1,5 @@
 module StateFile
   class AzPrimaryStateIdForm < StateIdForm
-    include DateHelper
     set_attributes_for :state_id, :id_type, :id_number, :state, :non_expiring
 
     set_attributes_for :dates,
