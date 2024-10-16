@@ -23,7 +23,7 @@
       <div class="question-with-follow-up__follow-up" id="answer-mfj">
         <div class="white-group">
             <%= f.cfa_radio_set(
-                  :eligibility_homebuyer_withdrawal,
+                  :eligibility_homebuyer_withdrawal_mfj,
                   label_text: t(".eligibility_first_time_homebuyer_withdrawal_label_text", year: MultiTenantService.statefile.current_tax_year),
                   collection: [
                     { value: "yes", label: t("general.affirmative") },

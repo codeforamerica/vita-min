@@ -12,7 +12,7 @@ describe StateFile::Questions::EligibleController do
     it 'succeeds' do
       get :edit
       expect(response).to be_successful
-      expect(response_html).to have_text "Good news, you can use"
+      expect(response_html).to have_text "You can use this tool to file your"
     end
   end
 end

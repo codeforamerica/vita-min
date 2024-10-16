@@ -60,6 +60,7 @@ describe 'EfileError' do
       "federal-info",
       "income-review",
       "initiate-data-transfer",
+      "md-eligibility-filing-status",
       "md-review",
       "name-dob",
       "nc-county",
