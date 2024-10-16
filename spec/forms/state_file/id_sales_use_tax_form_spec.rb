@@ -92,7 +92,7 @@ RSpec.describe StateFile::IdSalesUseTaxForm do
   describe "#save" do
     let(:form) { described_class.new(intake, valid_params) }
 
-    context "they have made untaxed-out-of-state-purchases and will calculate manually" do
+    context "has unpaid sales use tax" do
       let(:valid_params) do
         { has_unpaid_sales_use_tax: "yes",
           total_purchase_amount: 1699.51 }
@@ -104,6 +104,21 @@ RSpec.describe StateFile::IdSalesUseTaxForm do
 
         expect(intake.has_unpaid_sales_use_tax).to eq "yes"
         expect(intake.total_purchase_amount).to eq 1699.51
+      end
+    end
+
+    context "no longer has unpaid sales use tax (switched after selecting 'yes' and inputting value)" do
+      let(:valid_params) do
+        { has_unpaid_sales_use_tax: "no",
+          total_purchase_amount: 1699.51 }
+      end
+
+      it "saves values" do
+        expect(form.valid?).to eq true
+        form.save
+
+        expect(intake.has_unpaid_sales_use_tax).to eq "no"
+        expect(intake.total_purchase_amount).to eq nil
       end
     end
   end
