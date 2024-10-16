@@ -1,4 +1,4 @@
-class DfJsonPerson < DfJsonAccessor
+class DfJsonPerson < DfJsonWrapper
   def self.selectors = {
     first_name: { type: :string, key: "firstName" },
     middle_initial: { type: :string, key: "middleInitial" },
@@ -6,7 +6,7 @@ class DfJsonPerson < DfJsonAccessor
     dob: { type: :date, key: "dateOfBirth" }
   }
 
-  define_json_accessors
+  define_json_readers
 end
 
 class DfJsonFiler < DfJsonPerson
@@ -14,7 +14,7 @@ class DfJsonFiler < DfJsonPerson
     is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
   })
 
-  define_json_accessors
+  define_json_readers
 end
 
 class DfJsonDependent < DfJsonPerson
@@ -24,10 +24,10 @@ class DfJsonDependent < DfJsonPerson
     is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
   })
 
-  define_json_accessors
+  define_json_readers
 end
 
-class DfJsonInterestReport < DfJsonAccessor
+class DfJsonInterestReport < DfJsonWrapper
   def self.selectors = {
     amount_1099: { type: :money_amount, key: "1099Amount" },
     has_1099: { type: :boolean, key: "has1099" },
@@ -41,7 +41,7 @@ class DfJsonInterestReport < DfJsonAccessor
     tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
   }
 
-  define_json_accessors
+  define_json_readers
 end
 
 class DirectFileJsonData

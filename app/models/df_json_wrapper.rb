@@ -1,10 +1,10 @@
-class DfJsonAccessor
+class DfJsonWrapper
 
   def initialize(json)
     @json = json
   end
 
-  def self.define_json_accessors
+  def self.define_json_readers
     self.selectors.each do |selector_name, selector_info|
       selector_type = selector_info[:type]
       case selector_type
@@ -29,7 +29,8 @@ class DfJsonAccessor
   end
 
   def df_json_value(selector_name)
-    @json[selectors[selector_name][:key]]
+    key_path = selectors[selector_name][:key].split
+    @json.dig(*key_path)
   end
 
   def self.selectors
