@@ -24,18 +24,19 @@ module Efile
         set_line(:NJ1040_LINE_39, :calculate_line_39)
         set_line(:NJ1040_LINE_40A, :calculate_line_40a)
         set_line(:NJ1040_LINE_42, :calculate_line_42)
+        set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
         @lines.transform_values(&:value)
       end
 
-      def refund_or_owed_amount
-        0
-      end
-
       def analytics_attrs
         {
         }
+      end
+
+      def refund_or_owed_amount
+        0
       end
 
       private
@@ -71,31 +72,8 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
-      def calculate_line_40a
-        is_mfs = @intake.filing_status == :married_filing_separately
-
-        case @intake.household_rent_own
-        when "own"
-          if @intake.property_tax_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.property_tax_paid
-        when "rent"
-          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
-        else
-          return nil
-        end
-
-        is_mfs ? (property_tax_paid / 2.0).round : property_tax_paid.round
-      end
-
       def calculate_line_13
         line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
-      end
-
-      def calculate_line_41
-        # TODO: replace dummy value
-        0
       end
 
       def calculate_line_15
@@ -105,10 +83,10 @@ module Efile
 
         sum = 0
         @direct_file_data.w2s.each do |w2|
-          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_f
+          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_i
           sum += state_wage
         end
-        sum.round
+        sum
       end
 
       def calculate_line_27
@@ -125,6 +103,27 @@ module Efile
 
       def calculate_line_39
         calculate_line_29 - calculate_line_38
+      end
+
+      def calculate_line_40a
+        case @intake.household_rent_own
+        when "own"
+          if @intake.property_tax_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        @intake.filing_status_mfs? ? (property_tax_paid / 2.0).round : property_tax_paid.round
+      end
+
+      def calculate_line_41
+        # TODO: replace dummy value
+        0
       end
 
       def calculate_line_42
@@ -157,6 +156,22 @@ module Efile
       def number_of_dependents_age_5_younger
         # TODO: revise once we have lines 10 and 11
         @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
+      end
+      
+      def calculate_line_64
+        federal_child_and_dependent_care_credit = @direct_file_data.fed_credit_for_child_and_dependent_care_amount
+        nj_taxable_income = calculate_line_42
+        if nj_taxable_income <= 30_000
+          federal_child_and_dependent_care_credit * 0.5
+        elsif nj_taxable_income <= 60_000
+          federal_child_and_dependent_care_credit * 0.4
+        elsif nj_taxable_income <= 90_000
+          federal_child_and_dependent_care_credit * 0.3
+        elsif nj_taxable_income <= 120_000
+          federal_child_and_dependent_care_credit * 0.2
+        elsif nj_taxable_income <= 150_000
+          federal_child_and_dependent_care_credit * 0.1
+        end
       end
 
       def is_over_65(birth_date)

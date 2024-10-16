@@ -70,6 +70,12 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
+#  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
+#  tenant_building_multi_unit                             :integer          default("unfilled"), not null
+#  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
+#  tenant_more_than_one_main_home_in_nj                   :integer          default("unfilled"), not null
+#  tenant_same_home_spouse                                :integer          default("unfilled"), not null
+#  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
 #  withdraw_amount                                        :integer
@@ -120,23 +126,23 @@ FactoryBot.define do
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_two_w2s') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_w2s') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_w2s') }
     end
 
     trait :df_data_minimal do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_minimal') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_minimal') }
     end
 
     trait :df_data_many_deps do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_many_deps') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps') }
     end
 
     trait :df_data_one_dep do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nj_zeus_one_dep') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_one_dep') }
     end
 
     trait :married_filing_jointly do
@@ -177,6 +183,12 @@ FactoryBot.define do
     trait :spouse_blind do
       after(:build) do |intake|
         intake.direct_file_data.spouse_blind
+      end
+    end
+
+    trait :fed_credit_for_child_and_dependent_care do
+      after(:build) do |intake|
+        intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
       end
     end
   end

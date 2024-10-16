@@ -1,0 +1,44 @@
+{
+        "familyAndHousehold": [
+                {
+                        "firstName": "Gloria",
+                        "middleInitial": "T",
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1920-01-01",
+                        "relationship": "grandParent",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true,
+                        "tin": "300-00-0015"
+                },
+                {
+                        "firstName": "Patrick",
+                        "middleInitial": "G",
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1919-01-01",
+                        "relationship": "grandParent",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true,
+                        "tin": "300-00-0016"
+                },
+                {
+                        "firstName": "Jack",
+                        "middleInitial": "G",
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1919-01-01",
+                        "relationship": "grandParent",
+                        "eligibleDependent": true,
+                        "isClaimedDependent": true,
+                        "tin": "300-00-0017"
+                }
+        ],
+        "filers": [
+                {
+                        "firstName": "Ernest",
+                        "middleInitial": null,
+                        "lastName": "Hemingway",
+                        "dateOfBirth": "1980-01-01",
+                        "isPrimaryFiler": true,
+                        "tin": "400-00-0010"
+                }
+        ]
+}

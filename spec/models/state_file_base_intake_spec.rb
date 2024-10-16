@@ -1,14 +1,75 @@
 require "rails_helper"
 
 describe StateFileBaseIntake do
+  describe "#synchronize_filers_to_database" do
+    context "when filing status is single" do
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+
+      it "updates primary filer information" do
+        intake.synchronize_filers_to_database
+
+        expect(intake.primary_first_name).to eq("Lana")
+        expect(intake.primary_middle_initial).to be_nil
+        expect(intake.primary_last_name).to eq("Turner")
+        expect(intake.primary_birth_date).to eq(Date.parse("1980-01-01"))
+      end
+    end
+
+    context "when filing status is married filing jointly" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      it "updates both primary and spouse filer information" do
+        intake.synchronize_filers_to_database
+
+        expect(intake.primary_first_name).to eq("Paul")
+        expect(intake.primary_middle_initial).to eq("S")
+        expect(intake.primary_last_name).to eq("Revere")
+        expect(intake.primary_birth_date).to eq(Date.parse("1980-01-01"))
+
+        expect(intake.spouse_first_name).to eq("Sydney")
+        expect(intake.spouse_middle_initial).to be_nil
+        expect(intake.spouse_last_name).to eq("Revere")
+        expect(intake.spouse_birth_date).to eq(Date.parse("1980-01-01"))
+      end
+    end
+  end
+
   describe "#synchronize_df_dependents_to_database" do
     it "reads in dependents and adds all of them to the database" do
-      xml = StateFile::XmlReturnSampleService.new.read('ny_five_dependents')
-      intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh')
+      json = StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh')
+      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
       expect(intake.dependents).to be_blank
       intake.synchronize_df_dependents_to_database
 
-      expect(intake.dependents.count).to eq 5
+      expect(intake.dependents.first.relationship).to eq "Grandparent"
+      expect(intake.dependents.count).to eq 3
+    end
+
+    it "raises error if xml dependent is not found in JSON" do
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh')
+      json = StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh')
+      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
+
+      expect(intake.dependents).to be_blank
+      # need to add dependents to the db first to get the dependent id for error message checking
+      intake.synchronize_df_dependents_to_database
+
+      expect(intake.dependents.length).to eq(3)
+      allow(intake.direct_file_json_data).to receive(:find_matching_json_dependent).and_return(nil)
+      expect { intake.synchronize_df_dependents_to_database }.to raise_error(StateFileBaseIntake::SynchronizeError, "Could not find matching dependent #{intake.dependents.first.id} with #{intake.state_name} intake id: #{intake.id}")
+    end
+  end
+
+  describe "#synchronize_df_1099_rs_to_database" do
+    it "reads in 1099Rs and adds all of them to the database" do
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099')
+      intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
+      expect(intake.state_file1099_rs).to be_blank
+      intake.synchronize_df_1099_rs_to_database
+
+      expect(intake.state_file1099_rs.first.state_tax_withheld_amount).to eq 10
+      expect(intake.state_file1099_rs.count).to eq 1
     end
   end
 
@@ -25,6 +86,13 @@ describe StateFileBaseIntake do
         expect(intake.timedout?(15.minutes.ago)).to eq true
         expect(intake.timedout?(16.minutes.ago)).to eq true
       end
+    end
+  end
+
+  describe "#direct_file_json_data" do
+    let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+    it "returns the json data from Direct File that contains personal information" do
+      expect(intake.direct_file_json_data.primary_first_name).to eq('Lana')
     end
   end
 

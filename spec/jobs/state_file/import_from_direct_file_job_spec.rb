@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
-    let(:intake) { create :minimal_state_file_az_intake, raw_direct_file_data: nil }
-    let(:xml_result) { StateFile::XmlReturnSampleService.new.read('ny_five_dependents') }
-    let(:direct_file_intake_json) { '{"familyAndHousehold":[{"firstName":"Sammy","lastName":"Smith","middleInitial":null,"dateOfBirth":"2013-01-21"}],"filers":[{"firstName":"Samuel","lastName":"Smith","middleInitial":null,"dateOfBirth":"1985-09-29"},{"firstName":"Judy","lastName":"Johnson","middleInitial":null,"dateOfBirth":"1985-10-18"}]}'.to_json }
+    let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
+    let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
+    let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
     let(:json_result) do
       {
         "xml" => xml_result,
@@ -24,16 +24,16 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        expect(IrsApiService).to have_received(:import_federal_data).with(auth_code, "az")
+        expect(IrsApiService).to have_received(:import_federal_data).with(auth_code, "id")
         expect(intake.federal_submission_id).to eq "91873649812736"
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
         expect(intake.raw_direct_file_intake_data).to eq direct_file_intake_json
-        expect(intake.dependents.count).to eq(5)
+        expect(intake.dependents.count).to eq(3)
         expected_hashed_ssn = OpenSSL::HMAC.hexdigest(
           "SHA256",
           EnvironmentCredentials.dig(:duplicate_hashing_key),
-          "ssn|123456789"
+          "ssn|400000010"
         )
         expect(intake.hashed_ssn).to eq expected_hashed_ssn
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
@@ -72,7 +72,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.df_data_import_failed_at).to be_present
         expect(intake.raw_direct_file_data).to_not be_present
         expect(intake.df_data_import_errors.count).to eq(1)
-        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake az #{intake.id}.")
+        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake id #{intake.id}.")
       end
     end
   end

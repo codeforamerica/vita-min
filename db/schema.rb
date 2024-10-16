@@ -9,8 +9,7 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_07_205126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1621,6 +1620,41 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
   end
 
+  create_table "state_file1099_rs", force: :cascade do |t|
+    t.decimal "capital_gain_amount", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.integer "designated_roth_account_first_year"
+    t.string "distribution_code"
+    t.decimal "federal_income_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "gross_distribution_amount", precision: 12, scale: 2
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "payer_address_line1"
+    t.string "payer_address_line2"
+    t.string "payer_city_name"
+    t.string "payer_identification_number"
+    t.string "payer_name"
+    t.string "payer_name_control"
+    t.string "payer_state_code"
+    t.string "payer_state_identification_number"
+    t.string "payer_zip"
+    t.string "phone_number"
+    t.string "recipient_name"
+    t.string "recipient_ssn"
+    t.boolean "standard"
+    t.string "state_code"
+    t.decimal "state_distribution_amount", precision: 12, scale: 2
+    t.bigint "state_specific_followup_id"
+    t.string "state_specific_followup_type"
+    t.decimal "state_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "taxable_amount", precision: 12, scale: 2
+    t.boolean "taxable_amount_not_determined"
+    t.boolean "total_distribution"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file1099_rs_on_intake"
+    t.index ["state_specific_followup_type", "state_specific_followup_id"], name: "index_state_file1099_rs_on_state_specific_followup"
+  end
+
   create_table "state_file_analytics", force: :cascade do |t|
     t.integer "canceled_data_transfer_count", default: 0
     t.datetime "created_at", null: false
@@ -1646,6 +1680,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
+  create_table "state_file_az1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
@@ -1694,16 +1733,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.integer "primary_received_pension", default: 0, null: false
-    t.decimal "primary_received_pension_amount", precision: 12, scale: 2
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
-    t.integer "received_military_retirement_payment", default: 0, null: false
-    t.decimal "received_military_retirement_payment_amount", precision: 12, scale: 2
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1714,8 +1749,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.integer "spouse_received_pension", default: 0, null: false
-    t.decimal "spouse_received_pension_amount", precision: 12, scale: 2
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_was_incarcerated", default: 0, null: false
@@ -1766,6 +1799,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.inet "ip_address"
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
+  end
+
+  create_table "state_file_id1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_id_intakes", force: :cascade do |t|
@@ -1823,6 +1861,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.integer "withdraw_amount"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
+  end
+
+  create_table "state_file_md1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
@@ -1893,6 +1936,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.index ["spouse_state_id_id"], name: "index_state_file_md_intakes_on_spouse_state_id_id"
   end
 
+  create_table "state_file_nc1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "state_file_nc_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
@@ -1930,6 +1978,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.integer "primary_veteran", default: 0, null: false
     t.text "raw_direct_file_data"
@@ -1947,6 +1996,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_veteran", default: 0, null: false
     t.string "ssn"
@@ -1960,6 +2010,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.integer "withdraw_amount"
     t.string "zip_code"
     t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_nc_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_nc_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_nj1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_nj_intakes", force: :cascade do |t|
@@ -2034,6 +2091,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_194429) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "tenant_access_kitchen_bath", default: 0, null: false
+    t.integer "tenant_building_multi_unit", default: 0, null: false
+    t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "tenant_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "tenant_same_home_spouse", default: 0, null: false
+    t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false

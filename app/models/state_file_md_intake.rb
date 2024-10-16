@@ -73,7 +73,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

@@ -609,7 +609,8 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         property_over_limit: "unfilled",
         public_housing: "unfilled",
-        raw_direct_file_data: StateFile::XmlReturnSampleService.new.old_sample,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.old_xml_sample,
+        raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.old_json_sample,
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district_id: 441,
@@ -655,12 +656,9 @@ class FlowsController < ApplicationController
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
-        raw_direct_file_data: StateFile::XmlReturnSampleService.new.az_xml_sample(filing_status),
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.az_xml_sample(filing_status),
+        raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.old_json_sample,
         df_data_imported_at: 2.hours.ago,
-        primary_received_pension: "yes",
-        received_military_retirement_payment: "yes",
-        received_military_retirement_payment_amount: 100,
-        spouse_received_pension: "yes",
       )
       status_specific_attributes = case filing_status
                                    when :married_filing_jointly, :married_filing_separately
