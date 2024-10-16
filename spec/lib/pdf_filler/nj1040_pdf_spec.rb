@@ -1057,7 +1057,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
 
-      context 'when not taking property tax credit' do
+      context 'when not taking property tax deduction' do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
