@@ -1,11 +1,8 @@
 class DirectFileJsonData
+  attr_reader :data
 
   def initialize(json)
     @data = JSON.parse(json || "{}")
-  end
-
-  def data
-    @data
   end
 
   def primary_filer
