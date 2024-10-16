@@ -1,48 +1,32 @@
 class DfJsonPerson < DfJsonWrapper
-  def self.selectors = {
-    first_name: { type: :string, key: "firstName" },
-    middle_initial: { type: :string, key: "middleInitial" },
-    last_name: { type: :string, key: "lastName" },
-    dob: { type: :date, key: "dateOfBirth" },
-    tin: { type: :string, key: "tin" }
-  }
-
-  define_json_readers
+  json_reader first_name: { type: :string, key: "firstName" },
+              middle_initial: { type: :string, key: "middleInitial" },
+              last_name: { type: :string, key: "lastName" },
+              dob: { type: :date, key: "dateOfBirth" },
+              tin: { type: :string, key: "tin" }
 end
 
 class DfJsonFiler < DfJsonPerson
-  def self.selectors = super.merge({
-    is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
-  })
-
-  define_json_readers
+  json_reader is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
 end
 
 class DfJsonDependent < DfJsonPerson
-  def self.selectors = super.merge({
-    relationship: { type: :string, key: "relationship" },
-    eligible_dependent: { type: :boolean, key: "eligibleDependent" },
-    is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
-  })
-
-  define_json_readers
+  json_reader relationship: { type: :string, key: "relationship" },
+              eligible_dependent: { type: :boolean, key: "eligibleDependent" },
+              is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
 end
 
 class DfJsonInterestReport < DfJsonWrapper
-  def self.selectors = {
-    amount_1099: { type: :money_amount, key: "1099Amount" },
-    has_1099: { type: :boolean, key: "has1099" },
-    interest_on_government_bonds: { type: :money_amount, key: "interestOnGovernmentBonds" },
-    amount_no_1099: { type: :money_amount, key: "no1099Amount" },
-    recipient_tin: { type: :string, key: "recipientTin" },
-    tax_exempt_interest: { type: :money_amount, key: "taxExemptInterest" },
-    payer: { type: :string, key: "payer" },
-    payer_tin: { type: :string, key: "payerTin" },
-    tax_withheld: { type: :money_amount, key: "taxWithheld" },
-    tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
-  }
-
-  define_json_readers
+  json_reader amount_1099: { type: :money_amount, key: "1099Amount" },
+              has_1099: { type: :boolean, key: "has1099" },
+              interest_on_government_bonds: { type: :money_amount, key: "interestOnGovernmentBonds" },
+              amount_no_1099: { type: :money_amount, key: "no1099Amount" },
+              recipient_tin: { type: :string, key: "recipientTin" },
+              tax_exempt_interest: { type: :money_amount, key: "taxExemptInterest" },
+              payer: { type: :string, key: "payer" },
+              payer_tin: { type: :string, key: "payerTin" },
+              tax_withheld: { type: :money_amount, key: "taxWithheld" },
+              tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
 end
 
 class DirectFileJsonData
@@ -79,11 +63,11 @@ class DirectFileJsonData
   private
 
   def filers
-    data["filers"]&.map { |filer| DfJsonFiler.new(filer)} || []
+    data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
   end
 
   def dependents
-    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent)} || []
+    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end
 
 end
