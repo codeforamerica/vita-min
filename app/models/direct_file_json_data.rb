@@ -1,3 +1,49 @@
+class DfJsonPerson < DfJsonAccessor
+  def self.selectors = {
+    first_name: { type: :string, key: "firstName" },
+    middle_initial: { type: :string, key: "middleInitial" },
+    last_name: { type: :string, key: "lastName" },
+    dob: { type: :date, key: "dateOfBirth" }
+  }
+
+  define_json_accessors
+end
+
+class DfJsonFiler < DfJsonPerson
+  def self.selectors = super.merge({
+    is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
+  })
+
+  define_json_accessors
+end
+
+class DfJsonDependent < DfJsonPerson
+  def self.selectors = super.merge({
+    relationship: { type: :string, key: "relationship" },
+    eligible_dependent: { type: :boolean, key: "eligibleDependent" },
+    is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
+  })
+
+  define_json_accessors
+end
+
+class DfJsonInterestReport < DfJsonAccessor
+  def self.selectors = {
+    amount_1099: { type: :money_amount, key: "1099Amount" },
+    has_1099: { type: :boolean, key: "has1099" },
+    interest_on_government_bonds: { type: :money_amount, key: "interestOnGovernmentBonds" },
+    amount_no_1099: { type: :money_amount, key: "no1099Amount" },
+    recipient_tin: { type: :string, key: "recipientTin" },
+    tax_exempt_interest: { type: :money_amount, key: "taxExemptInterest" },
+    payer: { type: :string, key: "payer" },
+    payer_tin: { type: :string, key: "payerTin" },
+    tax_withheld: { type: :money_amount, key: "taxWithheld" },
+    tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
+  }
+
+  define_json_accessors
+end
+
 class DirectFileJsonData
 
   def initialize(json)
@@ -5,71 +51,32 @@ class DirectFileJsonData
   end
 
   def primary_filer
-    @json["filers"]&.detect { |filer| filer["isPrimaryFiler"] }
+    filers.find(&:is_primary_filer)
   end
 
   def spouse_filer
-    @json["filers"]&.detect { |filer| !filer["isPrimaryFiler"] }
-  end
-
-  def first_name(person)
-    person && person["firstName"]
-  end
-
-  def primary_first_name
-    first_name(primary_filer)
-  end
-
-  def spouse_first_name
-    first_name(spouse_filer)
-  end
-
-  def middle_initial(person)
-    person && person["middleInitial"]
-  end
-
-  def primary_middle_initial
-    middle_initial(primary_filer)
-  end
-
-  def spouse_middle_initial
-    middle_initial(spouse_filer)
-  end
-
-  def last_name(person)
-    person && person["lastName"]
-  end
-
-  def primary_last_name
-    last_name(primary_filer)
-  end
-
-  def spouse_last_name
-    last_name(spouse_filer)
-  end
-
-  def dob(person)
-    person && person["dateOfBirth"] && Date.parse(person["dateOfBirth"])
-  end
-
-  def primary_dob
-    dob(primary_filer)
-  end
-
-  def spouse_dob
-    dob(spouse_filer)
-  end
-
-  def dependents
-    @json["familyAndHousehold"]
+    filers.find { |filer| !filer.is_primary_filer }
   end
 
   def find_matching_json_dependent(dependent)
-    return nil unless dependents.respond_to?(:find)
-
     dependents.find do |json_dependent|
       # TODO: find match based on SSN
-      json_dependent["firstName"] == dependent.first_name
+      json_dependent.first_name == dependent.first_name
     end
   end
+
+  def interest_reports
+    @json["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
+  end
+
+  private
+
+  def filers
+    @json["filers"]&.map { |filer| DfJsonFiler.new(filer)} || []
+  end
+
+  def dependents
+    @json["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent)} || []
+  end
+
 end
