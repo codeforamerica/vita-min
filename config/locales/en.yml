@@ -2455,6 +2455,13 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      income_review:
+        edit:
+          help_text: We will ask about any missing information.
+          review_and_edit_state_info: Review and edit state info
+          state_info_to_be_collected: State info to be collected
+          title: Here are the income forms we transferred from your federal tax return.
+          unemployment_title: Unemployment benefits (1099-G)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2956,13 +2963,6 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
-      income_review:
-        edit:
-          title: "Here are the income forms we transferred from your federal tax return."
-          help_text: "We will ask about any missing information."
-          unemployment_title: "Unemployment benefits (1099-G)"
-          state_info_to_be_collected: "State info to be collected"
-          review_and_edit_state_info: "Review and edit state info"
     state_file_pages:
       about_page:
         closed_subheader_html: |
