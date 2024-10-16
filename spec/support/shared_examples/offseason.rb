@@ -4,6 +4,7 @@ shared_examples :a_normal_page_when_intake_is_open do |controller, action: :edit
       allow(Rails.configuration).to receive(:start_of_unique_links_only_intake).and_return(1.minute.ago)
       allow(Rails.configuration).to receive(:start_of_open_intake).and_return(1.minute.ago)
       allow(Rails.configuration).to receive(:end_of_intake).and_return(1.minute.from_now)
+      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(1.minute.from_now)
     end
 
     it "renders normally" do
