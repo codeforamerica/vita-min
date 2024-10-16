@@ -436,15 +436,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "tax amount - line 43" do
       let(:intake) { create(:state_file_nj_intake,
                             :df_data_many_w2s,
+                            :married_filing_jointly,
                             household_rent_own: 'own',
                             property_tax_paid: 15_000,
                             ) }
 
       it "fills Tax with rounded tax amount based on tax rate and line 42" do
-        property_tax = 15_000
-        line_42 = 200_000 - 1_000 - property_tax
-        tax_rate = 0.0637
-        expect(xml.at("Tax").text).to eq((line_42 * tax_rate).round.to_s)
+        expected = 7_615 # (200,000 - 2,000 - 15,000) * 0.0637 - 4,042 rounded
+        expect(xml.at("Tax").text).to eq(expected.to_s)
       end
     end
 

@@ -16,163 +16,163 @@ describe Efile::Nj::Nj1040Calculator do
     instance.calculate
   end
 
-  describe 'get_tax_rate' do
+  describe 'get_tax_rate_and_subtraction_amount' do
     context 'when filing status is single' do
       let(:intake) { create(:state_file_nj_intake) }
-      it "when income > 0 and <= 20,000, tax rate is .014" do
-        expect(instance.get_tax_rate(0)).to eq(0)
-        expect(instance.get_tax_rate(1)).to eq(0.014)
-        expect(instance.get_tax_rate(19_999)).to eq(0.014)
-        expect(instance.get_tax_rate(20_000)).to eq(0.014)
+      it "when income > 0 and <= 20,000, tax rate is .014 and subtraction is 0" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(1)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014,0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014,0])
       end
 
-      it "when income > 20,000 and <= 35,000, tax rate is .0175" do
-        expect(instance.get_tax_rate(20_001)).to eq(0.0175)
-        expect(instance.get_tax_rate(34_999)).to eq(0.0175)
-        expect(instance.get_tax_rate(35_000)).to eq(0.0175)
+      it "when income > 20,000 and <= 35,000, tax rate is .0175 and subtraction is 70.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(34_999)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(35_000)).to eq([0.0175, 70.00])
       end
 
-      it "when income > 35,000 and <= 40,000, tax rate is .035" do
-        expect(instance.get_tax_rate(35_001)).to eq(0.035)
-        expect(instance.get_tax_rate(39_999)).to eq(0.035)
-        expect(instance.get_tax_rate(40_000)).to eq(0.035)
+      it "when income > 35,000 and <= 40,000, tax rate is .035 and subtraction is 682.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(35_001)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(39_999)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(40_000)).to eq([0.035, 682.50])
       end
 
-      it "when income > 40,000 and <= 75,000, tax rate is .05525" do
-        expect(instance.get_tax_rate(40_001)).to eq(0.05525)
-        expect(instance.get_tax_rate(74_999)).to eq(0.05525)
-        expect(instance.get_tax_rate(75_000)).to eq(0.05525)
+      it "when income > 40,000 and <= 75,000, tax rate is .05525 and subtraction is 1,492.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(40_001)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(74_999)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(75_000)).to eq([0.05525, 1_492.50])
       end
 
-      it "when income > 75,000 and <= 500,000, tax rate is .0637" do
-        expect(instance.get_tax_rate(75_001)).to eq(0.0637)
-        expect(instance.get_tax_rate(499_999)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_000)).to eq(0.0637)
+      it "when income > 75,000 and <= 500,000, tax rate is .0637 and subtraction is 2,126.25" do
+        expect(instance.get_tax_rate_and_subtraction_amount(75_001)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(499_999)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 2_126.25])
       end
 
-      it "when income > 500,000 and <= 1,000,000, tax rate is .0897" do
-        expect(instance.get_tax_rate(500_001)).to eq(0.0897)
-        expect(instance.get_tax_rate(999_999)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_000)).to eq(0.0897)
+      it "when income > 500,000 and <= 1,000,000, tax rate is .0897 and subtraction is 15,126.25" do
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(999_999)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 15_126.25])
       end
 
-      it "when income > 1,000,000, tax rate is .1075" do
-        expect(instance.get_tax_rate(1_000_001)).to eq(0.1075)
-        expect(instance.get_tax_rate(5_000_000)).to eq(0.1075)
-        expect(instance.get_tax_rate(100_000_000)).to eq(0.1075)
+      it "when income > 1,000,000, tax rate is .1075 and subtraction is 32,926.25" do
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 32_926.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(5_000_000)).to eq([0.1075, 32_926.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(100_000_000)).to eq([0.1075, 32_926.25])
       end
     end
 
     context 'when filing status is MFS' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
       it "returns same tax rates as single" do
-        expect(instance.get_tax_rate(0)).to eq(0)
-        expect(instance.get_tax_rate(20_000)).to eq(0.014)
-        expect(instance.get_tax_rate(20_001)).to eq(0.0175)
-        expect(instance.get_tax_rate(35_000)).to eq(0.0175)
-        expect(instance.get_tax_rate(35_001)).to eq(0.035)
-        expect(instance.get_tax_rate(40_000)).to eq(0.035)
-        expect(instance.get_tax_rate(40_001)).to eq(0.05525)
-        expect(instance.get_tax_rate(75_000)).to eq(0.05525)
-        expect(instance.get_tax_rate(75_001)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_000)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_001)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_000)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_001)).to eq(0.1075)
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(35_000)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(35_001)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(40_000)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(40_001)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(75_000)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(75_001)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 32_926.25])
       end
     end
 
     context 'when filing status is married filing jointly' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-      it "when income > 0 and <= 20,000, tax rate is .014" do
-        expect(instance.get_tax_rate(0)).to eq(0)
-        expect(instance.get_tax_rate(1)).to eq(0.014)
-        expect(instance.get_tax_rate(19_999)).to eq(0.014)
-        expect(instance.get_tax_rate(20_000)).to eq(0.014)
+      it "when income > 0 and <= 20,000, tax rate is .014, subtraction is 0" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(1)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
       end
 
-      it "when income > 20,000 and <= 50,000, tax rate is .0175" do
-        expect(instance.get_tax_rate(20_001)).to eq(0.0175)
-        expect(instance.get_tax_rate(49_999)).to eq(0.0175)
-        expect(instance.get_tax_rate(50_000)).to eq(0.0175)
+      it "when income > 20,000 and <= 50,000, tax rate is .0175, subtraction is 70.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(49_999)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_000)).to eq([0.0175, 70.00])
       end
 
-      it "when income > 50,000 and <= 70,000, tax rate is .0245" do
-        expect(instance.get_tax_rate(50_001)).to eq(0.0245)
-        expect(instance.get_tax_rate(69_999)).to eq(0.0245)
-        expect(instance.get_tax_rate(70_000)).to eq(0.0245)
+      it "when income > 50,000 and <= 70,000, tax rate is .0245, subtraction is 420.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(50_001)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(69_999)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_000)).to eq([0.0245, 420.00])
       end
 
-      it "when income > 70,000 and <= 80,000, tax rate is .035" do
-        expect(instance.get_tax_rate(70_001)).to eq(0.035)
-        expect(instance.get_tax_rate(79_999)).to eq(0.035)
-        expect(instance.get_tax_rate(80_000)).to eq(0.035)
+      it "when income > 70,000 and <= 80,000, tax rate is .035, subtraction is 1,154.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(70_001)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(79_999)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_000)).to eq([0.035, 1_154.50])
       end
 
-      it "when income > 80,000 and <= 150,000, tax rate is .05525" do
-        expect(instance.get_tax_rate(80_001)).to eq(0.05525)
-        expect(instance.get_tax_rate(149_999)).to eq(0.05525)
-        expect(instance.get_tax_rate(150_000)).to eq(0.05525)
+      it "when income > 80,000 and <= 150,000, tax rate is .05525, subtraction is 2,775.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(80_001)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(149_999)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_000)).to eq([0.05525, 2_775.00])
       end
 
-      it "when income > 150,000 and <= 500,000, tax rate is .0637" do
-        expect(instance.get_tax_rate(150_001)).to eq(0.0637)
-        expect(instance.get_tax_rate(499_999)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_000)).to eq(0.0637)
+      it "when income > 150,000 and <= 500,000, tax rate is .0637, subtraction is 4,042.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(150_001)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(499_999)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 4_042.50])
       end
 
-      it "when income > 500,000 and <= 1,000,000, tax rate is .0897" do
-        expect(instance.get_tax_rate(500_001)).to eq(0.0897)
-        expect(instance.get_tax_rate(999_999)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_000)).to eq(0.0897)
+      it "when income > 500,000 and <= 1,000,000, tax rate is .0897, subtraction is 17,042.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(999_999)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 17_042.50])
       end
 
-      it "when income > 1,000,000, tax rate is .1075" do
-        expect(instance.get_tax_rate(1_000_001)).to eq(0.1075)
-        expect(instance.get_tax_rate(5_000_000)).to eq(0.1075)
-        expect(instance.get_tax_rate(100_000_000)).to eq(0.1075)
+      it "when income > 1,000,000, tax rate is .1075, subtraction is 34,842.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 34_842.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(5_000_000)).to eq([0.1075, 34_842.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(100_000_000)).to eq([0.1075, 34_842.50])
       end
     end
 
     context 'when filing status is head of household' do
       let(:intake) { create(:state_file_nj_intake, :head_of_household) }
       it "returns same tax rates as MFJ" do
-        expect(instance.get_tax_rate(0)).to eq(0)
-        expect(instance.get_tax_rate(20_000)).to eq(0.014)
-        expect(instance.get_tax_rate(20_001)).to eq(0.0175)
-        expect(instance.get_tax_rate(50_000)).to eq(0.0175)
-        expect(instance.get_tax_rate(50_001)).to eq(0.0245)
-        expect(instance.get_tax_rate(70_000)).to eq(0.0245)
-        expect(instance.get_tax_rate(70_001)).to eq(0.035)
-        expect(instance.get_tax_rate(80_000)).to eq(0.035)
-        expect(instance.get_tax_rate(80_001)).to eq(0.05525)
-        expect(instance.get_tax_rate(150_000)).to eq(0.05525)
-        expect(instance.get_tax_rate(150_001)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_000)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_001)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_000)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_001)).to eq(0.1075)
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_000)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_001)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_000)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_001)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_000)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_001)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_000)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_001)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 34_842.50])
       end
     end
 
     context 'when filing status is qualifying widower' do
       let(:intake) { create(:state_file_nj_intake, :qualifying_widow) }
       it "returns same tax rates as MFJ" do
-        expect(instance.get_tax_rate(0)).to eq(0)
-        expect(instance.get_tax_rate(20_000)).to eq(0.014)
-        expect(instance.get_tax_rate(20_001)).to eq(0.0175)
-        expect(instance.get_tax_rate(50_000)).to eq(0.0175)
-        expect(instance.get_tax_rate(50_001)).to eq(0.0245)
-        expect(instance.get_tax_rate(70_000)).to eq(0.0245)
-        expect(instance.get_tax_rate(70_001)).to eq(0.035)
-        expect(instance.get_tax_rate(80_000)).to eq(0.035)
-        expect(instance.get_tax_rate(80_001)).to eq(0.05525)
-        expect(instance.get_tax_rate(150_000)).to eq(0.05525)
-        expect(instance.get_tax_rate(150_001)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_000)).to eq(0.0637)
-        expect(instance.get_tax_rate(500_001)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_000)).to eq(0.0897)
-        expect(instance.get_tax_rate(1_000_001)).to eq(0.1075)
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_000)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_001)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_000)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_001)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_000)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_001)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_000)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_001)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 34_842.50])
       end
     end
   end
@@ -548,7 +548,8 @@ describe Efile::Nj::Nj1040Calculator do
     it 'subtracts property_tax_deduction from line 39 times tax rate' do
       allow(instance).to receive(:calculate_line_39).and_return 36_000
       allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
-      expect(instance.calculate_tax_liability_with_deduction).to eq(34_000 * 0.0175)
+      expected = 525 # 34,000 * 0.0175 - 70
+      expect(instance.calculate_tax_liability_with_deduction).to eq(expected)
     end
   end
 
@@ -558,7 +559,8 @@ describe Efile::Nj::Nj1040Calculator do
     }
     it 'returns line 39 times tax rate' do
       allow(instance).to receive(:calculate_line_39).and_return 36_000
-      expect(instance.calculate_tax_liability_without_deduction).to eq(36_000 * 0.035)
+      expected = 577.50 # 36,000 * 0.035 - 682.50
+      expect(instance.calculate_tax_liability_without_deduction).to eq(expected)
     end
   end
 
