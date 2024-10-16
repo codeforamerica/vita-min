@@ -170,9 +170,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
@@ -204,6 +201,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
@@ -341,9 +341,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
@@ -366,6 +363,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: MultiTenantService.statefile.current_tax_year, count: 2)
       choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
