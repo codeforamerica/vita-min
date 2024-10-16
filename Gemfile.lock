@@ -369,7 +369,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mutex_m (0.2.0)
     nenv (0.3.0)
-    net-imap (0.4.12)
+    net-imap (0.4.17)
       date
       net-protocol
     net-pop (0.1.2)
