@@ -1,0 +1,4 @@
+<% county, subdivisions = county_and_subdivisions %>
+<div class="white-group" data-county="<%= county %>">
+  <%= f.vita_min_state_file_select(:political_subdivision, t('.political_subdivision'), subdivisions, include_blank: true) %>
+</div>

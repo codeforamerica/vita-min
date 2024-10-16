@@ -231,4 +231,8 @@ module MdResidenceCountyConcern
   def subdivisions_for_select
     COUNTIES_AND_SUBDIVISIONS.values.flat_map(&:keys).uniq
   end
+
+  def counties_and_subdivisions_array
+    COUNTIES_AND_SUBDIVISIONS.to_a
+  end
 end
