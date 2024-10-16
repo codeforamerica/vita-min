@@ -473,7 +473,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.md.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
+      # select optoins that allow us to proceed
+      click_on "Continue"
+
+      #click continue on eligibility & check the messaging is correct here?
+      # select mfj
+      choose I18n.t("general.affirmative")
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
+
+      click_on "Continue"
+
       click_on "Continue"
 
       step_through_initial_authentication(contact_preference: :email)
