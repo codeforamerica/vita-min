@@ -127,11 +127,11 @@ module SubmissionBuilder
                     end
 
                     if calculated_fields.fetch(:NJ1040_LINE_41)
-                      xml.PropertyTaxCredit calculated_fields.fetch(:NJ1040_LINE_41)
+                      xml.PropertyTaxDeduction calculated_fields.fetch(:NJ1040_LINE_41)
                     end
 
                     if calculated_fields.fetch(:NJ1040_LINE_56)
-                      xml.PropertyTaxDeduction calculated_fields.fetch(:NJ1040_LINE_56)
+                      xml.PropertyTaxCredit calculated_fields.fetch(:NJ1040_LINE_56)
                     end
                   end
 

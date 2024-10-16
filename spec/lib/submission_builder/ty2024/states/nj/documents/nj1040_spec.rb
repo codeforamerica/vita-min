@@ -396,27 +396,27 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "property tax deduction - line 41" do
-      context 'when taking property tax credit' do
+      context 'when taking property tax deduction' do
         let(:intake) { create(:state_file_nj_intake,
                               :df_data_many_w2s,
                               household_rent_own: 'own',
                               property_tax_paid: 15_000,
         ) }
 
-        it "fills PropertyTaxCredit with property tax deduction amount" do
-          expect(xml.at("PropertyTaxCredit").text).to eq(15000.to_s)
+        it "fills PropertyTaxDeduction with property tax deduction amount" do
+          expect(xml.at("PropertyTaxDeduction").text).to eq(15000.to_s)
         end
       end
 
-      context 'when not taking property tax credit' do
+      context 'when not taking property tax deduction' do
         let(:intake) { create(:state_file_nj_intake,
                               :df_data_many_w2s,
                               household_rent_own: 'own',
                               property_tax_paid: 0,
                               ) }
 
-        it "fills PropertyTaxCredit with property tax deduction amount" do
-          expect(xml.at("PropertyTaxCredit")).to eq(nil)
+        it "leaves PropertyTaxDeduction empty" do
+          expect(xml.at("PropertyTaxDeduction")).to eq(nil)
         end
       end
     end
@@ -455,8 +455,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
                             property_tax_paid: 0,
                             ) }
 
-      it "fills with $50 tax deduction when no property tax credit" do
-        expect(xml.at("PropertyTaxDeduction").text).to eq(50.to_s)
+      it "fills with $50 tax credit when no property tax deduction" do
+        expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
       end
     end
     

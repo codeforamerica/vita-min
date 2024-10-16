@@ -223,8 +223,8 @@ module PdfFiller
       end
 
       # line 41
-      if @xml_document.at("PropertyTaxCredit").present?
-        property_tax_deduction = @xml_document.at("PropertyTaxCredit").text.to_i
+      if @xml_document.at("PropertyTaxDeduction").present?
+        property_tax_deduction = @xml_document.at("PropertyTaxDeduction").text.to_i
         answers.merge!(insert_digits_into_fields(property_tax_deduction, [
           "Text18",
           "Text2",
@@ -272,8 +272,8 @@ module PdfFiller
       end
 
       # line 56
-      if @xml_document.at("PropertyTaxDeduction").present?
-        tax = @xml_document.at("PropertyTaxDeduction").text.to_i
+      if @xml_document.at("PropertyTaxCredit").present?
+        tax = @xml_document.at("PropertyTaxCredit").text.to_i
         answers.merge!(insert_digits_into_fields(tax, [
           "Text164",
           "Text163",
