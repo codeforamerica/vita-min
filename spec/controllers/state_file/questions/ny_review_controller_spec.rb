@@ -8,7 +8,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
 
     context "when the client is estimated to owe taxes" do
       # Not being an NYC full year resident and increased unemployment contributions result in owed amount
-      let(:intake) { create :state_file_ny_owed_intake}
+      let(:intake) { create :state_file_ny_owed_intake }
 
       it "assigns the correct values to @refund_or_tax_owed_label and @refund_or_owed_amount" do
         get :edit
