@@ -1,26 +1,31 @@
-<% content_for :page_title, t(".title") %>
+<% title = t(".title") %>
+<% content_for :page_title, title %>
 <% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
   <p><%= t(".help_text") %></p>
 
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
-    <div id="w2s" class="white-group">
-      <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%= t(".unemployment_title") %></p>
-        <% if current_intake.state_file1099_gs.count > 0 %>
-          <% current_intake.state_file1099_gs.each do |state_1099g| %>
-            <% recipient = current_intake.send(state_1099g.recipient) %>
-            <p><%= recipient.full_name %></p>
-            <p><%= state_1099g.payer_name %></p>
-            <%#= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, id: w2.w2_index, return_to_review: "y"), class: "button--small" %>
-          <% end %>
-        <% else %>
-          <p class="text--red-bold spacing-below-5">
-            <%= t(".state_info_to_be_collected") %>
-          </p>
+    <div class="white-group">
+      <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
+      <% if current_intake.state_file1099_gs.count > 0 %>
+        <% current_intake.state_file1099_gs.each do |state_1099g| %>
+          <% recipient = current_intake.send(state_1099g.recipient) %>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= recipient.full_name %></p>
+            <p class="spacing-below-5"><%= state_1099g.payer_name %></p>
+            <%= link_to t(".review_and_edit_state_info"),
+                        StateFile::Questions::UnemploymentController.to_path_helper(action: :edit, id: state_1099g.id),
+                        class: "button--small"
+            %>
+          </div>
         <% end %>
-      </div>
+      <% else %>
+        <p class="text--red-bold spacing-above-15 spacing-below-0">
+          <%= t(".state_info_to_be_collected") %>
+        </p>
+      <% end %>
     </div>
   <% end %>
 
-  <%= link_to t("general.continue"), next_path, class: "button button--wide text--centered" %>
+  <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered" %>
 <% end %>

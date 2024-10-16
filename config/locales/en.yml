@@ -2962,6 +2962,7 @@ en:
           help_text: "We will ask about any missing information."
           unemployment_title: "Unemployment benefits (1099-G)"
           state_info_to_be_collected: "State info to be collected"
+          review_and_edit_state_info: "Review and edit state info"
     state_file_pages:
       about_page:
         closed_subheader_html: |

@@ -31,15 +31,17 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
       context "when there are state 1099Gs" do
         it "shows a summary of each" do
-          create(:state_file1099_g, intake: intake, payer_name: "Payeur", recipient: :primary)
-          create(:state_file1099_g, intake: intake, payer_name: "Payure", recipient: :spouse)
+          primary_1099g = create(:state_file1099_g, intake: intake, payer_name: "Payeur", recipient: :primary)
+          spouse_1099g = create(:state_file1099_g, intake: intake, payer_name: "Payure", recipient: :spouse)
           get :edit
 
           expect(response.body).to have_text "Unemployment benefits (1099-G)"
           expect(response.body).to have_text "Payeur"
           expect(response.body).to have_text "Filer Oftaxes"
+          expect(response.body).to have_link(href: edit_unemployment_path(id: primary_1099g.id))
           expect(response.body).to have_text "Payure"
           expect(response.body).to have_text "Mary Taxfiler"
+          expect(response.body).to have_link(href: edit_unemployment_path(id: spouse_1099g.id))
         end
       end
 
