@@ -29,6 +29,7 @@
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit_max_four_one_commercial :integer          default("unfilled"), not null
 #  homeowner_more_than_one_main_home_in_nj                :integer          default("unfilled"), not null
+#  homeowner_same_home_spouse                             :integer          default(0), not null
 #  homeowner_shared_ownership_not_spouse                  :integer          default("unfilled"), not null
 #  household_rent_own                                     :integer          default("unfilled"), not null
 #  last_sign_in_at                                        :datetime
@@ -60,6 +61,8 @@
 #  referrer                                               :string
 #  rent_paid                                              :integer
 #  routing_number                                         :string
+#  sales_use_tax                                          :integer
+#  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
@@ -78,6 +81,7 @@
 #  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases                         :integer          default("unfilled"), not null
 #  withdraw_amount                                        :integer
 #  created_at                                             :datetime         not null
 #  updated_at                                             :datetime         not null
