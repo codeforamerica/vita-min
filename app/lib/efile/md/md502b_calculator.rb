@@ -13,6 +13,7 @@ module Efile
         set_line(:MD502B_LINE_1, :calculate_line_1)
         set_line(:MD502B_LINE_2, :calculate_line_2)
         set_line(:MD502B_LINE_3, :calculate_line_3)
+        @lines.transform_values(&:value)
       end
 
       private
