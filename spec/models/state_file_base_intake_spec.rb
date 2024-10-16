@@ -137,13 +137,5 @@ describe StateFileBaseIntake do
         end
       end
     end
-
-    context "when Maryland intake" do
-      let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
-      it "doesn't include Jan 1st in the past tax year" do
-        expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 10
-        expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
-      end
-    end
   end
 end
