@@ -2956,6 +2956,12 @@ en:
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
+      income_review:
+        edit:
+          title: "Here are the income forms we transferred from your federal tax return."
+          help_text: "We will ask about any missing information."
+          unemployment_title: "Unemployment benefits (1099-G)"
+          state_info_to_be_collected: "State info to be collected"
     state_file_pages:
       about_page:
         closed_subheader_html: |
