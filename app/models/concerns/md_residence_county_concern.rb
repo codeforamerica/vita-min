@@ -28,12 +28,14 @@ module MdResidenceCountyConcern
     "Baltimore County" =>
       {"Baltimore County - unincorporated" => "0300"},
     "Baltimore City" =>
-      {"altimore City - unincorporated" => "0400"},
+      {"Baltimore City - unincorporated" => "0400"},
     "Calvert" => {
+      "Calvert - unincorporated" => "0500",
       "Town of Chesapeake Beach" => "0501",
       "Town of North Beach" => "0502"
     },
     "Caroline" => {
+      "Caroline - unincorporated" => "0600",
       "Town of Denton" => "0602",
       "Town of Federalsburg" => "0603",
       "Town of Goldsboro" => "0604",
@@ -45,7 +47,8 @@ module MdResidenceCountyConcern
       "Town of Ridgely" => "0609",
       "Town of Templeville" => "0610"
     },
-    "CARROLL" => {
+    "Carroll" => {
+      "Carroll - unincorporated" => "0700",
       "Town of Hampstead" => "0701",
       "Town of Manchester" => "0702",
       "Town of Mt. Airy" => "0703",
@@ -55,7 +58,8 @@ module MdResidenceCountyConcern
       "Town of Union Bridge" => "0707",
       "City of Westminster" => "0709"
     },
-    "CECIL" => {
+    "Cecil" => {
+      "Cecil - unincorporated" => "0800",
       "Town of Cecilton" => "0801",
       "Town of Charlestown" => "0802",
       "Town of Chesapeake City" => "0803",
@@ -65,12 +69,14 @@ module MdResidenceCountyConcern
       "Town of Port Deposit" => "0807",
       "Town of Rising Sun" => "0808"
     },
-    "CHARLES" => {
+    "Charles" => {
+      "Charles - unincorporated" => "0900",
       "Town of Indian Head" => "0901",
       "Town of La Plata" => "0902",
       "Port Tobacco Village" => "0903"
     },
-    "DORCHESTER" => {
+    "Dorchester" => {
+      "Dorchester - unincorporated" => "1000",
       "Town of Brookview" => "1008",
       "City of Cambridge" => "1001",
       "Town of Church Creek" => "1002",
@@ -81,7 +87,8 @@ module MdResidenceCountyConcern
       "Town of Secretary" => "1005",
       "Town of Vienna" => "1006"
     },
-    "FREDERICK" => {
+    "Frederick" => {
+      "Frederick - unincorporated" => "1100",
       "City of Brunswick" => "1101",
       "Town of Burkittsville" => "1102",
       "Town of Emmitsburg" => "1103",
@@ -95,7 +102,8 @@ module MdResidenceCountyConcern
       "Town of Walkersville" => "1111",
       "Town of Woodsboro" => "1112"
     },
-    "GARRETT" => {
+    "Garrett" => {
+      "Garrett - unincorporated" => "1200",
       "Town of Accident" => "1201",
       "Town of Deer Park" => "1203",
       "Town of Friendsville" => "1204",
@@ -105,20 +113,25 @@ module MdResidenceCountyConcern
       "Town of Mountain Lake Park" => "1208",
       "Town of Oakland" => "1209"
     },
-    "HARFORD" => {
+    "Harford" => {
+      "Harford - unincorporated" => "1300",
       "City of Aberdeen" => "1301",
       "Town of Bel Air" => "1302",
       "City of Havre de Grace" => "1303"
     },
-    "HOWARD" => {},
-    "KENT" => {
+    "Howard" => {
+      "Howard - unincorporated" => "1400"
+    },
+    "Kent" => {
+      "Kent - unincorporated" => "1500",
       "Town of Betterton" => "1501",
       "Town of Chestertown" => "1502",
       "Town of Galena" => "1503",
       "Town of Millington" => "1504",
       "Town of Rock Hall" => "1505"
     },
-    "MONTGOMERY" => {
+    "Montgomery" => {
+      "Montgomery - unincorporated" => "1600",
       "Town of Barnesville" => "1601",
       "Town of Brookeville" => "1602",
       "Town of Chevy Chase" => "1615",
@@ -142,7 +155,8 @@ module MdResidenceCountyConcern
       "City of Takoma Park" => "1611",
       "Town of Washington Grove" => "1612"
     },
-    "PRINCE GEORGE'S" => {
+    "Prince george's" => {
+      "Prince george's - unincorporated" => "1700",
       "Town of Berwyn Heights" => "1701",
       "Town of Bladensburg" => "1702",
       "City of Bowie" => "1704",
@@ -171,7 +185,8 @@ module MdResidenceCountyConcern
       "Town of University Park" => "1723",
       "Town of Upper Marlboro" => "1724"
     },
-    "QUEEN ANNE'S" => {
+    "Queen anne's" => {
+      "Queen anne's - unincorporated" => "1800",
       "Town of Barclay" => "1805",
       "Town of Centreville" => "1801",
       "Town of Church Hill" => "1802",
@@ -181,21 +196,25 @@ module MdResidenceCountyConcern
       "Town of Sudlersville" => "1804",
       "Town of Templeville" => "1806"
     },
-    "ST. MARY'S" => {
+    "St. mary's" => {
+      "St. mary's - unincorporated" => "1900",
       "Town of Leonardtown" => "1902"
     },
-    "SOMERSET" => {
+    "Somerset" => {
+      "Somerset - unincorporated" => "2000",
       "City of Crisfield" => "2001",
       "Town of Princess Anne" => "2002"
     },
-    "TALBOT" => {
+    "Talbot" => {
+      "Talbot - unincorporated" => "2100",
       "Town of Easton" => "2101",
       "Town of Oxford" => "2102",
       "Town of Queen Anne" => "2105",
       "Town of St. Michaels" => "2103",
       "Town of Trappe" => "2104"
     },
-    "WASHINGTON" => {
+    "Washington" => {
+      "Washington - unincorporated" => "2200",
       "Town of Boonsboro" => "2201",
       "Town of Clearspring" => "2202",
       "Town of Funkstown" => "2203",
@@ -206,7 +225,8 @@ module MdResidenceCountyConcern
       "Town of Smithsburg" => "2208",
       "Town of Williamsport" => "2209"
     },
-    "WICOMICO" => {
+    "Wicomico" => {
+      "Wicomico - unincorporated" => "2300",
       "Town of Delmar" => "2301",
       "City of Fruitland" => "2308",
       "Town of Hebron" => "2302",
@@ -216,7 +236,8 @@ module MdResidenceCountyConcern
       "Town of Sharptown" => "2305",
       "Town of Willards" => "2306"
     },
-    "WORCESTER" => {
+    "Worcester" => {
+      "Worcester - unincorporated" => "2400",
       "Town of Berlin" => "2401",
       "Town of Ocean City" => "2402",
       "Pocomoke City" => "2403",
@@ -226,10 +247,6 @@ module MdResidenceCountyConcern
 
   def counties_for_select
     COUNTIES_AND_SUBDIVISIONS.keys
-  end
-
-  def subdivisions_for_select
-    COUNTIES_AND_SUBDIVISIONS.values.flat_map(&:keys).uniq
   end
 
   def counties_and_subdivisions_array

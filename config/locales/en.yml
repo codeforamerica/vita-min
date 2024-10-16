@@ -2488,6 +2488,7 @@ en:
       md_county:
         edit:
           county: County
+          political_subdivision: Political subdivision
           title_html: Select the <b>county</b> and <b>political subdivision</b> where you lived on December 31, %{filing_year}
         subdivision_dropdown:
           political_subdivision: Political subdivision

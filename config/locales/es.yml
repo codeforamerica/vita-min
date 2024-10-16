@@ -2461,6 +2461,7 @@ es:
       md_county:
         edit:
           county: Condado
+          political_subdivision: Subdivisión política
           title_html: Seleccione el <b>condado</b> y la <b>subdivisión política</b> donde vivía el 31 de diciembre de %{filing_year}
         subdivision_dropdown:
           political_subdivision: Subdivisión política
