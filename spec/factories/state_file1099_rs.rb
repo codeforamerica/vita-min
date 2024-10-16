@@ -55,12 +55,12 @@ FactoryBot.define do
     taxable_amount_not_determined { true }
     total_distribution { true }
     federal_income_tax_withheld_amount { 10.55 }
-    state_tax_withheld_amount { 100.5 }
-    state_code { 'AZ' }
-    state_distribution_amount { 155.15 }
-    standard { false }
     distribution_code { '7' }
     designated_roth_account_first_year { 1993 }
+    state_tax_withheld_amount { 100.5 }
+    state_code { 'AZ' }
     payer_state_identification_number { "222222222" }
+    state_distribution_amount { 155.15 }
+    standard { false }
   end
 end

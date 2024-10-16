@@ -8,7 +8,8 @@ describe SubmissionBuilder::State1099R do
         create(
           :state_file1099_r,
           intake: intake,
-          state_code: state_code
+          state_code: state_code.upcase,
+          payer_state_code: state_code.upcase
           )
       end
       let(:intake) do
