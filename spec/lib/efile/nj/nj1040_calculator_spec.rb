@@ -345,18 +345,35 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe 'line 40a - total property taxes paid' do
     context 'when homeowner' do
-      context 'when married filing separately' do
+      context 'when married filing separately living in the same home' do
         let(:intake) { 
           create(
             :state_file_nj_intake,
             :married_filing_separately,
             household_rent_own: 'own',
-            property_tax_paid: 12345
+            property_tax_paid: 12345,
+            homeowner_same_home_spouse: 'yes'
           )
         }
 
         it 'sets line 40a to property_tax_paid divided by 2, rounded' do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(6173)
+        end
+      end
+
+      context 'when married filing separately NOT living in the same home' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'own',
+            property_tax_paid: 12345,
+            homeowner_same_home_spouse: 'no'
+          )
+        }
+
+        it 'sets line 40a to property_tax_paid' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
         end
       end
 
@@ -390,18 +407,35 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'when renter' do
-      context 'when married filing separately' do
+      context 'when married filing separately living in the same home' do
         let(:intake) { 
           create(
             :state_file_nj_intake,
             :married_filing_separately,
             household_rent_own: 'rent',
+            tenant_same_home_spouse: 'yes',
             rent_paid: 12345
           )
         }
 
         it 'sets line 40a to 0.18 * rent_paid, then divided by 2, then rounded' do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(1111)
+        end
+      end
+
+      context 'when married filing separately NOT living in the same home' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'rent',
+            tenant_same_home_spouse: 'no',
+            rent_paid: 12345
+          )
+        }
+
+        it 'sets line 40a to 0.18 * rent_paid, rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(2222)
         end
       end
 
