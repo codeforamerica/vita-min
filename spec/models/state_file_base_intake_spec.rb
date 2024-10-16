@@ -78,7 +78,7 @@ describe StateFileBaseIntake do
   describe "#direct_file_json_data" do
     let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
     it "returns the json data from Direct File that contains personal information" do
-      expect(intake.direct_file_json_data.primary_first_name).to eq('Lana')
+      expect(intake.direct_file_json_data.primary_filer.first_name).to eq('Lana')
     end
   end
 

@@ -64,19 +64,19 @@ class StateFileBaseIntake < ApplicationRecord
 
     if direct_file_json_data.primary_filer.present?
       attributes_to_update.merge!(
-        primary_first_name: direct_file_json_data.primary_first_name,
-        primary_middle_initial: direct_file_json_data.primary_middle_initial,
-        primary_last_name: direct_file_json_data.primary_last_name,
-        primary_birth_date: direct_file_json_data.primary_dob
+        primary_first_name: direct_file_json_data.primary_filer.first_name,
+        primary_middle_initial: direct_file_json_data.primary_filer.middle_initial,
+        primary_last_name: direct_file_json_data.primary_filer.last_name,
+        primary_birth_date: direct_file_json_data.primary_filer.dob
       )
     end
 
     if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
       attributes_to_update.merge!(
-        spouse_first_name: direct_file_json_data.spouse_first_name,
-        spouse_middle_initial: direct_file_json_data.spouse_middle_initial,
-        spouse_last_name: direct_file_json_data.spouse_last_name,
-        spouse_birth_date: direct_file_json_data.spouse_dob
+        spouse_first_name: direct_file_json_data.spouse_filer.first_name,
+        spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
+        spouse_last_name: direct_file_json_data.spouse_filer.last_name,
+        spouse_birth_date: direct_file_json_data.spouse_filer.dob
       )
     end
 
