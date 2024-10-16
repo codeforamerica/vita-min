@@ -18,9 +18,9 @@ module Efile
         set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
         set_line(:MD502_LINE_1E, :calculate_line_1e)
+        @md502b.calculate
         set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
         set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_dependent_exemption_amount)
-        @md502b.calculate
         @lines.transform_values(&:value)
       end
 
@@ -40,7 +40,7 @@ module Efile
       end
 
       def get_dependent_exemption_count
-        @md502b.calculate.fetch(:MD502B_LINE_3)
+        @lines[:MD502B_LINE_3].value
       end
 
       def calculate_dependent_exemption_amount
