@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_10_182434) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_193237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1883,7 +1883,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_182434) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
-    t.integer "eligibility_filing_status", default: 0, null: false
+    t.integer "eligibility_filing_status_mfj", default: 0, null: false
+    t.integer "eligibility_home_different_areas", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
