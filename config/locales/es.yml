@@ -2428,6 +2428,16 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
+          sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
+          sales_use_tax_helper_text: Ingrese el monto total
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso
+          title: "¿Hizo alguna compra en %{year} sin pagar impuestos sobre las ventas o el uso?"
+          unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
+          use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
+          use_tax_title: "¿Qué son los impuestos sobre el uso?"
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.

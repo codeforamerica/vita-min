@@ -448,6 +448,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      click_on I18n.t("general.affirmative")
+      fill_in 'state_file.questions.id_sales_use_tax.edit.total_purchase_amount', with: "290"
+
+      # ID Review page
+      click_on I18n.t("general.continue")
+
       # TODO: uncomment when the name dob page is added; test fails without a name
       # expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileIdIntake.last.primary.full_name))
       click_on I18n.t("general.continue")

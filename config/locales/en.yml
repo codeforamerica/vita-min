@@ -2455,6 +2455,16 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_sales_use_tax:
+        edit:
+          title: Did you make any purchases in %{year} without paying sales or use tax?
+          subtitle_html: "This includes online purchases where sales or use tax was <b>not</b> applied."
+          unpaid_sales_use_tax_label_html: "Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied."
+          sales_use_tax_helper_text: Enter total amount
+          sales_tax_title: What are sales taxes?
+          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
+          use_tax_title: What are use taxes?
+          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
