@@ -32,10 +32,25 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id40,
-                pdf: PdfFiller::Id40Pdf,
+                pdf:  PdfFiller::Id40Pdf,
                 include: true
               },
+              {
+                xml: nil, # TODO 39RForm xml to be added in future story
+                pdf:  PdfFiller::Id39rPdf,
+                include: @submission.data_source.dependents.count > 4
+              },
             ]
+            # For dependents 1-7: First 4 dependents listed on ID40, next 3 dependents are added to first ID39R form
+            # For more than 7 dependents total (the State XML field can handle a max of 20): additional copies of ID Form 39R PDF is used to handle these cases
+            @submission.data_source.dependents.drop(7).take(13).each_slice(3) do |dependents|
+              supported_docs << {
+                xml: nil,
+                pdf: PdfFiller::Id39rAdditionalDependentsPdf,
+                include: true,
+                kwargs: { dependents: dependents }
+              }
+            end
 
             supported_docs += form1099rs
             supported_docs += form1099gs
