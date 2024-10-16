@@ -1111,22 +1111,23 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         create :efile_submission, tax_return: nil, data_source: create(
           :state_file_nj_intake,
           :df_data_many_w2s,
+          :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
       ) }
 
-      it "writes rounded tax amount $11,720.80 based on income $199,000 with 15,000 property tax deduction and 0.0637 tax rate" do
+      it "writes rounded tax amount $7,615.10 based on income $200,000 with 2,000 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
         # millions
         expect(pdf_fields["Enter Code4332243ew"]).to eq ""
         expect(pdf_fields["4036y54ethdf"]).to eq ""
         # thousands
         expect(pdf_fields["42"]).to eq ""
-        expect(pdf_fields["undefined_119"]).to eq "1"
-        expect(pdf_fields["undefined_120"]).to eq "1"
+        expect(pdf_fields["undefined_119"]).to eq ""
+        expect(pdf_fields["undefined_120"]).to eq "7"
         # hundreds
-        expect(pdf_fields["Text43"]).to eq "7"
-        expect(pdf_fields["Text44"]).to eq "2"
-        expect(pdf_fields["Text45"]).to eq "1"
+        expect(pdf_fields["Text43"]).to eq "6"
+        expect(pdf_fields["Text44"]).to eq "1"
+        expect(pdf_fields["Text45"]).to eq "5"
         # decimals
         expect(pdf_fields["Text46"]).to eq "0"
         expect(pdf_fields["Text63"]).to eq "0"

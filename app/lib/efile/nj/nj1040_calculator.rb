@@ -42,47 +42,47 @@ module Efile
         0
       end
 
-      def get_tax_rate(income)
+      def get_tax_rate_and_subtraction_amount(income)
 
         if @intake.filing_status_mfs? || @intake.filing_status_single?
           case income
           when 1..20_000
-            0.014
+            [0.014, 0]
           when 20_000..35_000
-            0.0175
+            [0.0175, 70.00]
           when 35_000..40_000
-            0.035
+            [0.035, 682.50]
           when 40_000..75_000
-            0.05525
+            [0.05525, 1_492.50]
           when 75_000..500_000
-            0.0637
+            [0.0637, 2_126.25]
           when 500_000..1_000_000
-            0.0897
+            [0.0897, 15_126.25]
           when 1_000_000..Float::INFINITY
-            0.1075
+            [0.1075, 32_926.25]
           else
-            0
+            [0, 0]
           end
         else
           case income
           when 1..20_000
-            0.014
+            [0.014, 0]
           when 20_000..50_000
-            0.0175
+            [0.0175, 70.00]
           when 50_000..70_000
-            0.0245
+            [0.0245, 420.00]
           when 70_000..80_000
-            0.035
+            [0.035, 1_154.50]
           when 80_000..150_000
-            0.05525
+            [0.05525, 2_775.00]
           when 150_000..500_000
-            0.0637
+            [0.0637, 4_042.50]
           when 500_000..1_000_000
-            0.0897
+            [0.0897, 17_042.50]
           when 1_000_000..Float::INFINITY
-            0.1075
+            [0.1075, 34_842.50]
           else
-            0
+            [0, 0]
           end
         end
       end
@@ -99,12 +99,14 @@ module Efile
       def calculate_tax_liability_with_deduction
         return nil if calculate_property_tax_deduction.nil?
         income = calculate_line_39 - calculate_property_tax_deduction
-        income * get_tax_rate(income)
+        (rate, subtraction) = get_tax_rate_and_subtraction_amount(income)
+        ((income * rate) - subtraction).round(2)
       end
 
       def calculate_tax_liability_without_deduction
         income = calculate_line_39
-        income * get_tax_rate(income)
+        (rate, subtraction) = get_tax_rate_and_subtraction_amount(income)
+        ((income * rate) - subtraction).round(2)
       end
 
       private
