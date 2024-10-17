@@ -183,7 +183,7 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when gross income is 10_000' do
+    context 'when medical expenses exceed 2% of gross income' do
       let(:gross_income) { 10_000 }
       it 'sets line 31 to medical expenses minus $200' do
         expect(instance.lines[:NJ1040_LINE_31].value).to eq(123_256)
@@ -194,7 +194,7 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when gross income is 100_000_000' do
+    context 'when medical expenses do not exceed 2% of gross income' do
       let(:gross_income) { 100_000_000 }
       it 'does not set a value for line 31' do
         expect(instance.lines[:NJ1040_LINE_31].value).to eq(nil)

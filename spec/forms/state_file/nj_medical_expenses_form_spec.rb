@@ -9,7 +9,7 @@ RSpec.describe StateFile::NjMedicalExpensesForm do
     context "invalid params" do
       context "must be numeric" do
         let(:invalid_params) do
-          { :medical_expenses => "awefwaefw" }
+          { medical_expenses: "awefwaefw" }
         end
 
         it "is invalid" do
@@ -20,7 +20,7 @@ RSpec.describe StateFile::NjMedicalExpensesForm do
 
       context "must be an integer only" do
         let(:invalid_params) do
-          { :medical_expenses => 123.45 }
+          { medical_expenses: 123.45 }
         end
 
         it "is invalid" do
@@ -31,7 +31,7 @@ RSpec.describe StateFile::NjMedicalExpensesForm do
 
       context "cannot be negative" do
         let(:invalid_params) do
-          { :medical_expenses => "-123" }
+          { medical_expenses: "-123" }
         end
 
         it "is invalid" do
