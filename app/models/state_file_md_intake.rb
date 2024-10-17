@@ -89,15 +89,15 @@ class StateFileMdIntake < StateFileBaseIntake
     }
   end
 
+  def ask_for_signature_pin?
+    true
+  end
+
   def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)
     # overwriting the base intake method b/c
     # MD always considers individuals to attain their age on their DOB
     raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
 
     MultiTenantService.statefile.current_tax_year - dob.year
-  end 
-
-  def ask_for_signature_pin?
-    true
   end
 end

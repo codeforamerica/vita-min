@@ -2423,9 +2423,9 @@ es:
               <p>Al utilizar un sistema informático y un software para preparar y/o presentar mi(s) declaración(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y el software a la Contraloría. de Maryland.</p>
               <p>Bajo pena de perjurio, declaro que he comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaración Electrónica (ERO) o que ingresé en línea y que los nombres y montos descritos anteriormente concuerdan con los montos que se muestran en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland de 2024. A mi leal saber y entender, mi declaración es verdadera, correcta y completa. Doy mi consentimiento para que mi originador de declaraciones electrónicas o mi proveedor de software de declaraciones electrónicas envíen mi declaración, incluidos los anexos y estados de cuenta adjuntos, a la División de Administración de Ingresos de Maryland.</p>
             pin:
+              primary_signature_pin: "<strong>PIN de 5 dígitos de %{primary_name}</strong>"
+              spouse_signature_pin: "<strong>PIN de 5 dígitos de %{spouse_name}</strong>"
               title: Elija un PIN de firma de 5 dígitos. Este número será su firma electrónica personal.
-              primary_signature_pin: <strong>PIN de 5 dígitos de %{primary_name}</strong>
-              spouse_signature_pin: <strong>PIN de 5 dígitos de %{spouse_name}</strong>
           ny:
             body_html: |
               <p>Al marcar la(s) casilla(s) que se muestran a continuación y presionar "Enviar", entiendo y acepto que estoy presentando para la presentación mi declaración de impuestos electrónica del impuesto sobre la renta personal del estado de Nueva York (NYS) para el año 2023. Declaro, bajo pena de perjurio, que he examinado la información en mi declaración de impuestos electrónica de NYS, incluida toda la información transferida a mi declaración de NYS desde mi declaración federal, y todas las programaciones, anexos y declaraciones adjuntas proporcionadas con la declaración, y certifico que mi declaración electrónica de NYS es verdadera, correcta y completa. Al ejecutar el Formulario TR-579-IT y proporcionarlo al ERO, he autorizado al ERO (Code for America) a presentar mi declaración de impuestos electrónica de NYS para el año 2023 ante el Departamento de Impuestos de NYS a través del Sistema de Presentación Electrónica Modernizada del IRS (Servicio de Impuestos Internos).</p>
@@ -3121,8 +3121,8 @@ es:
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
     signature_pin: El PIN debe ser un número de 5 dígitos.
-    signature_pin_zeros: 00000 no es un pin válido
     signature_pin_matching: Los PIN de firma no pueden ser idénticos.
+    signature_pin_zeros: 00000 no es un pin válido
     ssn: Por favor, ingrese un número de seguro social válido.
     urbanization: Sólo se aceptan los números 0-9, las letras A-Z y a-z, los espacios y los guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.

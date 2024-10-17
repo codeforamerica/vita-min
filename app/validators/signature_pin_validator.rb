@@ -9,7 +9,7 @@ class SignaturePinValidator < ActiveModel::EachValidator
       record.errors.add(attr_name, I18n.t("validators.signature_pin_zeros"))
     end
 
-    if record.primary_signature_pin == record.spouse_signature_pin
+    if record.primary_signature_pin.present? && record.primary_signature_pin == record.spouse_signature_pin
       record.errors.add(attr_name,I18n.t("validators.signature_pin_matching") )
     end
   end
