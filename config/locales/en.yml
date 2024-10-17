@@ -2411,6 +2411,22 @@ en:
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+          child_care_deduction: Child and Dependent Care Deduction
+          interest_from_obligations: Interest from U.S government obligations
+          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+          id_child_tax_credit: Idaho Child Tax Credit
+          id_grocery_credit: Idaho Grocery Credit
+        id_unsupported:
+          id_college_savings_program: Idaho College Savings Program Subtraction
+          id_youth_rehab_contributions: Credit for Idaho Youth and Rehabilitation Facility Contributions
+          maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
+          long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
+          earned_on_reservation: Income earned on a reservation by an American Indian
+          education_contribution_credit: Educational Entity Contributions credit
+          itemized_deductions: Itemized deductions
+          dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
+          voluntary_donations: All voluntary donations
+          change_in_filing_status: Change in filing status from federal to state return
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
