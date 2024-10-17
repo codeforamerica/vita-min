@@ -23,6 +23,10 @@ module SubmissionBuilder
                 if @submission.data_source.filing_status_mfs?
                   xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
                 end
+                xml.Subtractions do
+                  xml.ChildAndDependentCareExpenses @submission.data_source.direct_file_data.dependent_care_expenses
+                  xml.SocialSecurityRailRoadBenefits  @submission.data_source.direct_file_data.fed_taxable_ssb
+                end
               end
             end
 
