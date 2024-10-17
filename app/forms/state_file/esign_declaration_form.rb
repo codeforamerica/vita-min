@@ -19,8 +19,6 @@ module StateFile
       @intake.update!(attrs)
       @intake.touch(:primary_esigned_at) if @intake.primary_esigned_yes?
       @intake.touch(:spouse_esigned_at) if @intake.spouse_esigned_yes? && @intake.ask_spouse_esign?
-      # @intake.touch(:primary_signature_pin_at)
-      # @intake.touch(:spouse_signature_pin_at) if @intake.spouse.full_name.present?
 
       efile_info = StateFileEfileDeviceInfo.find_by(event_type: "submission", intake: @intake)
       efile_info&.update!(attributes_for(:state_file_efile_device_info))

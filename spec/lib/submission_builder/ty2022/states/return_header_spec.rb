@@ -131,7 +131,6 @@ describe SubmissionBuilder::ReturnHeader do
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
-
             expect(doc.at("Filer Secondary DateOfBirth").text).to eq spouse_birth_date.strftime("%F")
             expect(doc.at('Filer Secondary TaxpayerSSN').content).to eq spouse_ssn
             expect(doc.at('Filer Secondary TaxpayerName FirstName').content).to eq spouse_first_name
@@ -139,6 +138,52 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
           end
         end
+      end
+    end
+  end
+
+  context "MD filer personal info includes signature PINs" do
+    let(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        primary_signature_pin: primary_signature_pin,
+        primary_esigned_at: primary_esigned_at,
+        spouse_signature_pin: spouse_signature_pin,
+        spouse_esigned_at: spouse_esigned_at
+      )
+    }
+    let(:primary_signature_pin) { "12345" }
+    let(:primary_esigned_at) { Time.now.strftime("%Y-%m-%d") }
+    let(:spouse_signature_pin) { "23456" }
+    let(:spouse_esigned_at) { Time.now.strftime("%Y-%m-%d") }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+    context "single filer" do
+      let(:filing_status) { "single" }
+      
+      it "generates xml with primary signature PIN only" do
+        expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
+        expect(doc.at('Filer Primary DateSigned').content).to eq primary_esigned_at
+        expect(doc.at('Filer Secondary TaxpayerPIN')).not_to be_present
+        expect(doc.at('Filer Secondary DateSigned')).not_to be_present
+      end
+    end
+
+    context "filer with spouse" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      before do
+        intake.spouse_first_name = "Secondary"
+        intake.direct_file_data.spouse_ssn = "200000030"
+      end
+
+      it "generates xml with primary and spouse signature PINs" do
+        expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
+        expect(doc.at('Filer Primary DateSigned').content).to eq primary_esigned_at
+        expect(doc.at('Filer Secondary TaxpayerPIN').content).to eq spouse_signature_pin
+        expect(doc.at('Filer Secondary DateSigned').content).to eq spouse_esigned_at
       end
     end
   end
