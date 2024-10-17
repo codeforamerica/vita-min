@@ -38,7 +38,7 @@ RSpec.describe StateFile::Questions::W2Controller do
 
   describe "#update" do
     context "with valid params" do
-      it "updates the w2 and redirects to ?" do
+      it "updates the w2 and redirects to income review" do
         expect {
           post :update, params: params
         }.not_to change(StateFileW2, :count)
@@ -52,17 +52,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(state_file_w2.local_income_tax_amount).to eq 30
         expect(state_file_w2.locality_nm).to eq "BOOPVILLE"
 
-        # TODO: add this
-        # expect(response).to redirect_to(StateFile::Questions::W2Controller.to_path_helper(action: :index))
-      end
-
-      context "when the client got here from the review flow" do
-        # can't use shared example here because it's written for the default update in QuestionsController
-        it "redirects to the review page" do
-          post :update, params: params.merge(return_to_review: "y")
-
-          expect(response).to redirect_to(StateFile::Questions::AzReviewController.to_path_helper)
-        end
+        expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper)
       end
 
       context "hacking" do

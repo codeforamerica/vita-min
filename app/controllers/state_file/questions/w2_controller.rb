@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class W2Controller < QuestionsController
-      include ReturnToReviewConcern
       before_action :load_w2
 
       def self.show?(_)
@@ -15,7 +14,7 @@ module StateFile
 
         if @w2.valid?
           @w2.save
-          redirect_to next_path
+          redirect_to StateFile::Questions::IncomeReviewController.to_path_helper
         else
           render :edit
         end

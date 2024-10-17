@@ -83,6 +83,8 @@ describe StateFileBaseIntake do
       expect(intake.state_file_w2s.count).to eq 1
       w2 = intake.state_file_w2s.first
 
+      expect(w2.employer_name).to eq "Rose Apothecary"
+      expect(w2.employee_name).to eq "Alexis Rose"
       expect(w2.employer_state_id_num).to eq "12345"
       expect(w2.local_income_tax_amount).to eq 1000
       expect(w2.local_wages_and_tips_amount).to eq 1350
