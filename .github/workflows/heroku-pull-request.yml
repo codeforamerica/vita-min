@@ -29,8 +29,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Do we need to create the app?
+        run: >
+          if heroku apps:info -a ${{ env.HEROKU_APP_NAME }} > /dev/null 2>&1; then
+            echo "App exists; continuing";
+            echo "APP_EXISTS=true" >> $GITHUB_ENV;
+          else
+            echo "No app found; creating";
+            echo "APP_EXISTS=false" >> $GITHUB_ENV;
+          fi
+
       - name: Create Heroku app
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.APP_EXISTS == 'false' && github.event.action != 'closed' }}
         run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
 
       - name: Save app name and PR number as heroku environment variable
