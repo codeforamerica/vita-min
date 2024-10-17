@@ -34,6 +34,10 @@ module SubmissionBuilder
                   end
                 end
                 income_section(xml)
+                xml.Subtractions do
+                  xml.ChildAndDependentCareExpenses @submission.data_source.direct_file_data.fed_credit_for_child_and_dependent_care_amount
+                  xml.SocialSecurityRailRoadBenefits  @submission.data_source.direct_file_data.fed_taxable_ssb
+                end
                 xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
               end
             end
