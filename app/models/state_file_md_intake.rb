@@ -95,5 +95,9 @@ class StateFileMdIntake < StateFileBaseIntake
     raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
 
     MultiTenantService.statefile.current_tax_year - dob.year
+  end 
+
+  def ask_for_signature_pin?
+    true
   end
 end
