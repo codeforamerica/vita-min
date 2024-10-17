@@ -42,7 +42,7 @@
 FactoryBot.define do
   factory :state_file1099_r do
     payer_name { "Dorothy Red" }
-    payer_name_control { "DORO" }
+    payer_name_control { "DORO RED" }
     payer_address_line1 { "123 Sesame ST" }
     payer_address_line2 { "Apt 202" }
     payer_city_name { "Long Island" }
