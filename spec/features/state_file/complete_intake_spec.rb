@@ -203,6 +203,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
@@ -362,6 +365,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
@@ -424,6 +430,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
+      filing_year = Rails.configuration.statefile_current_tax_year
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance")
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
+
+      find('#state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
+      find('#state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
+      click_on I18n.t("general.continue")
+
       step_through_initial_authentication(contact_preference: :email)
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
@@ -432,6 +446,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
 
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
@@ -484,6 +501,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer("Transfer Minimal")
 
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)

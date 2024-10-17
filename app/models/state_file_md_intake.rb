@@ -75,6 +75,9 @@
 class StateFileMdIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
@@ -87,5 +90,11 @@ class StateFileMdIntake < StateFileBaseIntake
       eligibility_lived_in_state: "no",
       eligibility_out_of_state_income: "yes",
     }
+  end
+
+  def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)
+    # overwriting the base intake method b/c
+    # MD always considers individuals to attain their age on their DOB
+    MultiTenantService.statefile.current_tax_year - dob.year
   end
 end

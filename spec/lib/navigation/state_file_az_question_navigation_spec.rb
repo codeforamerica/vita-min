@@ -24,6 +24,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::NameDobController,
         StateFile::Questions::AzSeniorDependentsController,
         StateFile::Questions::AzPriorLastNamesController,
+        StateFile::Questions::IncomeReviewController,
         StateFile::Questions::W2Controller,
         StateFile::Questions::UnemploymentController,
         StateFile::Questions::AzSubtractionsController,
@@ -60,10 +61,10 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
     it "returns the correct progress" do
       progress = Navigation::StateFileAzQuestionNavigation.get_progress(StateFile::Questions::FederalInfoController)
       expect(progress).to eq({
-         title: "Section 5: Complete your state tax return",
-         step_number: 4,
-         number_of_steps: 6
-      })
+                               title: "Section 5: Complete your state tax return",
+                               step_number: 4,
+                               number_of_steps: 6
+                             })
     end
   end
 end
