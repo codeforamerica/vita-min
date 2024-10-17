@@ -103,8 +103,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
   enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :az321_contributions, length: { maximum: 10 }

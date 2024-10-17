@@ -25,6 +25,8 @@ class StateFileBaseIntake < ApplicationRecord
   alias_attribute :sms_phone_number, :phone_number
 
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
@@ -62,19 +64,19 @@ class StateFileBaseIntake < ApplicationRecord
 
     if direct_file_json_data.primary_filer.present?
       attributes_to_update.merge!(
-        primary_first_name: direct_file_json_data.primary_first_name,
-        primary_middle_initial: direct_file_json_data.primary_middle_initial,
-        primary_last_name: direct_file_json_data.primary_last_name,
-        primary_birth_date: direct_file_json_data.primary_dob
+        primary_first_name: direct_file_json_data.primary_filer.first_name,
+        primary_middle_initial: direct_file_json_data.primary_filer.middle_initial,
+        primary_last_name: direct_file_json_data.primary_filer.last_name,
+        primary_birth_date: direct_file_json_data.primary_filer.dob
       )
     end
 
     if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
       attributes_to_update.merge!(
-        spouse_first_name: direct_file_json_data.spouse_first_name,
-        spouse_middle_initial: direct_file_json_data.spouse_middle_initial,
-        spouse_last_name: direct_file_json_data.spouse_last_name,
-        spouse_birth_date: direct_file_json_data.spouse_dob
+        spouse_first_name: direct_file_json_data.spouse_filer.first_name,
+        spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
+        spouse_last_name: direct_file_json_data.spouse_filer.last_name,
+        spouse_birth_date: direct_file_json_data.spouse_filer.dob
       )
     end
 
@@ -96,9 +98,9 @@ class StateFileBaseIntake < ApplicationRecord
 
       if dependent_json.present?
         json_attributes = {
-          middle_initial: dependent_json["middleInitial"],
-          relationship: dependent_json["relationship"]&.humanize,
-          dob: dependent_json["dateOfBirth"]
+          middle_initial: dependent_json.middle_initial,
+          relationship: dependent_json.relationship&.humanize,
+          dob: dependent_json.dob
         }
         dependent.assign_attributes(json_attributes)
       end

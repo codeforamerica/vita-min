@@ -4,7 +4,7 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::IdEligibilityResidenceController)
+        # eligibility
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
         Navigation::NavigationStep.new(StateFile::Questions::ContactPreferenceController),

@@ -1820,8 +1820,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_210854) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
-    t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
-    t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
