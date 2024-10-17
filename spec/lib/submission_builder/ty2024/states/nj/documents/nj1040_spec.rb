@@ -37,6 +37,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled")).to eq(nil)
       end
 
+      it "populates line 9 XML fields" do
+        expect(xml.at("Exemptions YouVeteran")).to eq(nil)
+        expect(xml.at("Exemptions SpouseCuPartnerVeteran")).to eq(nil)
+      end
+
       context "when filer is blind" do
         let(:intake) { create(:state_file_nj_intake, :primary_blind) }
         it "populates line 8 XML fields" do
@@ -57,6 +62,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "populates line 7 XML fields" do
           expect(xml.at("Exemptions YouOver65")).to eq(nil)
           expect(xml.at("Exemptions SpouseCuPartner65OrOver")).to eq(nil)
+        end
+      end
+
+      context "when filer is a veteran" do
+        let(:intake) { create(:state_file_nj_intake, :primary_veteran) }
+        it "sets YouVeteran XML to true" do
+          expect(xml.at("Exemptions YouVeteran").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerVeteran")).to eq(nil)
         end
       end
     end
@@ -126,6 +139,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "populates line 8 XML fields" do
           expect(xml.at("Exemptions YouBlindOrDisabled").text).to eq("X")
           expect(xml.at("Exemptions SpouseCuPartnerBlindOrDisabled").text).to eq("X")
+        end
+      end
+
+      context "when filer and their spouse are both veterans" do
+        let(:intake) { create(:state_file_nj_intake, :primary_veteran, :spouse_veteran) }
+        it "checks both line 9 XML fields" do
+          expect(xml.at("Exemptions YouVeteran").text).to eq("X")
+          expect(xml.at("Exemptions SpouseCuPartnerVeteran").text).to eq("X")
         end
       end
 

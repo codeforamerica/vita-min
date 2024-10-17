@@ -16,6 +16,7 @@ module Efile
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_7, :calculate_line_7)
         set_line(:NJ1040_LINE_8, :calculate_line_8)
+        set_line(:NJ1040_LINE_9, :calculate_line_9)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
@@ -72,8 +73,13 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
+      def calculate_line_9
+        number_of_line_9_exemptions = number_of_true_checkboxes([@intake.primary_veteran_yes?, @intake.spouse_veteran_yes?])
+        number_of_line_9_exemptions * 6_000
+      end
+
       def calculate_line_13
-        line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
+        line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) + line_or_zero(:NJ1040_LINE_9)
       end
 
       def calculate_line_15
