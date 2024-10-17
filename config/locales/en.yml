@@ -2475,6 +2475,15 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_county:
+        edit:
+          county: County
+          political_subdivision: Political subdivision
+          title_html: Select the <b>county</b> and <b>political subdivision</b> where you lived on December 31, %{filing_year}
+      md_review:
+        edit:
+          county: County
+          political_subdivision: Political subdivision
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2492,13 +2501,6 @@ en:
           title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
           title2: First, we need some more information about you and the people in your family.
           your_dob: Your date of birth
-      md_county:
-        edit:
-          county: County
-          political_subdivision: Political subdivision
-          title_html: Select the <b>county</b> and <b>political subdivision</b> where you lived on December 31, %{filing_year}
-        subdivision_dropdown:
-          political_subdivision: Political subdivision
       nc_county:
         edit:
           county: County

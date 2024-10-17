@@ -10,19 +10,20 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("Form502") do |xml|
-                xml.ResidencyStatusPrimary true
-                income_section(xml)
-                xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
-                xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
+                xml.MarylandSubdivisionCode intake.subdivision_code
+                xml.CityTownOrTaxingArea intake.political_subdivision
+                xml.MarylandCounty county_abbreviation
                 if @submission.data_source.direct_file_data.claimed_as_dependent?
-                  xml.FilingStatus 'DependentTaxpayer'
+                  xml.FilingStatus do
+                    xml.DependentTaxpayer "X"
+                  end
                 else
-                  xml.FilingStatus filing_status
+                  xml.FilingStatus do
+                    xml.send(filing_status, "X")
+                  end
                 end
-                xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
-                if @submission.data_source.filing_status_mfs?
-                  xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
-                end
+                income_section(xml)
+                xml.DaytimePhoneNumber intake.direct_file_data.phone_number if intake.direct_file_data.phone_number.present?
               end
             end
 
@@ -58,8 +59,39 @@ module SubmissionBuilder
             }.freeze
 
             def filing_status
-              FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
+              FILING_STATUS_OPTIONS[intake.filing_status]
             end
+
+            def county_abbreviation
+              COUNTY_ABBREVIATIONS[intake.residence_county]
+            end
+
+            COUNTY_ABBREVIATIONS = {
+              "Allegany" => "AL",
+              "Anne Arundel" => "AA",
+              "Baltimore County" => "BL",
+              "Baltimore City" => "BC",
+              "Calvert" => "CV",
+              "Caroline" => "CL",
+              "Carroll" => "CR",
+              "Cecil" => "CC",
+              "Charles" => "CH",
+              "Dorchester" => "DR",
+              "Frederick" => "FR",
+              "Garrett" => "GR",
+              "Harford" => "HR",
+              "Howard" => "HW",
+              "Kent" => "KN",
+              "Montgomery" => "MG",
+              "Prince George's" => "PG",
+              "Queen Anne's" => "QA",
+              "St. Mary's" => "SM",
+              "Somerset" => "SS",
+              "Talbot" => "TB",
+              "Washington" => "WH",
+              "Wicomico" => "WC",
+              "Worcester" => "WR"
+            }.freeze
           end
         end
       end

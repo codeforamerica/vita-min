@@ -10,7 +10,7 @@
       <%= f.vita_min_state_file_select(:residence_county, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:political_subdivision, t('.political_subdivision'), [], include_blank: true, prompt: t('general.select_prompt')) %>
+      <%= f.vita_min_state_file_select(:subdivision_code, t('.political_subdivision'), [], include_blank: true, prompt: t('general.select_prompt')) %>
     </div>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
@@ -23,8 +23,9 @@
   <script>
       document.addEventListener('DOMContentLoaded', function() {
           const countySelect = document.getElementById('state_file_md_county_form_residence_county');
-          const subdivisionSelect = document.getElementById('state_file_md_county_form_political_subdivision');
+          const subdivisionSelect = document.getElementById('state_file_md_county_form_subdivision_code');
           const allSubdivisions = <%= raw @subdivisions_by_county.to_json %>;
+          const selectedSubdivision = '<%= @form.subdivision_code %>';
 
           function populateSubdivisions(county) {
               subdivisionSelect.innerHTML = '<option value="">' + '<%= t('general.select_prompt') %>' + '</option>';
@@ -32,14 +33,15 @@
                   const subdivisions = allSubdivisions.find(item => item[0] === county)[1];
                   Object.entries(subdivisions).forEach(([name, value]) => {
                       const option = new Option(name, value);
+                      option.selected = (value === selectedSubdivision);
                       subdivisionSelect.add(option);
                   });
               } else {
-                  // Show all subdivisions when no county is selected
                   allSubdivisions.forEach(countyData => {
                       const [countyName, subdivisions] = countyData;
                       Object.entries(subdivisions).forEach(([name, value]) => {
                           const option = new Option(`${countyName} - ${name}`, value);
+                          option.selected = (value === selectedSubdivision);
                           subdivisionSelect.add(option);
                       });
                   });
@@ -50,8 +52,7 @@
               populateSubdivisions(this.value);
           });
 
-          // Initial population of all subdivisions
-          populateSubdivisions(null);
+          populateSubdivisions(countySelect.value);
       });
   </script>
 <% end %>
