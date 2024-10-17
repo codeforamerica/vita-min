@@ -101,7 +101,8 @@ module Efile
       def calculate_line_31
         two_percent_gross = calculate_line_29 * 0.02
         difference_with_med_expenses = @intake.medical_expenses - two_percent_gross
-        return difference_with_med_expenses.round if difference_with_med_expenses.positive?
+        rounded_difference = difference_with_med_expenses.round
+        return rounded_difference if rounded_difference.positive?
         nil
       end
 

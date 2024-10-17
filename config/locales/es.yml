@@ -2584,6 +2584,7 @@ es:
         edit:
           county: Condado
           household_rent_own: Vivienda en alquiler o en propiedad propia
+          medical_expenses: Gastos médicos
           municipality: Municipio
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
