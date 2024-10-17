@@ -280,7 +280,7 @@ module Efile
 
       def is_mfs_same_home
         is_mfs = @intake.filing_status_mfs?
-        is_same_home = @intake.tenant_same_home_spouse == 'yes' || @intake.homeowner_same_home_spouse == 'yes'
+        is_same_home = @intake.tenant_same_home_spouse_yes? || @intake.homeowner_same_home_spouse_yes?
         is_mfs && is_same_home
       end
     end
