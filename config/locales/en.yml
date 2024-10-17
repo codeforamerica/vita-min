@@ -2356,6 +2356,8 @@ en:
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
             eligibility_yonkers: lived or earned income in Yonkers in 2023
+            eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
+            eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
@@ -2513,6 +2515,17 @@ en:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
           subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
+      id_eligibility_residence:
+        edit:
+          withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
+          withdrew_msa_fthb_list:
+            bullet_1_html: <strong>Medical Savings Account</strong> and use it for non-qualifying expenses
+            bullet_2_html: <strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs
+          emergency_rental_assistance: 'In 2024, did you (or your spouse if filing together) receive emergency rental assistance?'
+          emergency_rental_assistance_explanation: 'The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.'
+          subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
+          subtitle_2: Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{filing_year} Idaho taxes
       nc_primary_state_id:
         edit:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
