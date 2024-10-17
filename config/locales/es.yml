@@ -2428,6 +2428,13 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      income_review:
+        edit:
+          help_text: Le preguntaremos sobre cualquier información faltante.
+          review_and_edit_state_info: Revisar y editar información del estado
+          state_info_to_be_collected: Información estatal que se recopilará.
+          title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
+          unemployment_title: Beneficios de desempleo (1099-G)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.

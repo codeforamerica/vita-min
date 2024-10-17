@@ -92,7 +92,7 @@ describe StateFileBaseIntake do
   describe "#direct_file_json_data" do
     let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
     it "returns the json data from Direct File that contains personal information" do
-      expect(intake.direct_file_json_data.primary_first_name).to eq('Lana')
+      expect(intake.direct_file_json_data.primary_filer.first_name).to eq('Lana')
     end
   end
 
@@ -117,6 +117,25 @@ describe StateFileBaseIntake do
     it "returns an instance of the calculator class from the information service" do
       intake = create(:state_file_az_intake)
       expect(intake.tax_calculator).to be_an_instance_of(Efile::Az::Az140Calculator)
+    end
+  end
+
+  describe "#calculate_age" do
+    let(:intake) { create :state_file_az_intake, primary_birth_date: dob }
+    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+
+    context "when following federal guidelines" do
+      context "when calculating age for benefit one ages into" do
+        it "includes Jan 1st b-days for the past tax year" do
+          expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 11
+        end
+      end
+
+      context "when calculating age for benefits one ages out of" do
+        it "doesn't include Jan 1st for the past tax year" do
+          expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
+        end
+      end
     end
   end
 end
