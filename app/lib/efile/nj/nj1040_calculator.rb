@@ -67,10 +67,8 @@ module Efile
       end
 
       def calculate_line_8
-        primary_disabled = @intake.primary_disabled == "yes"
-        spouse_disabled = @intake.spouse_disabled == "yes"
-        number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind? || primary_disabled,
-                                                                 @direct_file_data.is_spouse_blind? || spouse_disabled])
+        number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind? || @intake.primary_disabled_yes?,
+                                                                 @direct_file_data.is_spouse_blind? || @intake.spouse_disabled_yes?])
         number_of_line_8_exemptions * 1_000
       end
 
