@@ -11,7 +11,9 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form502", documentId: "Form502") do |xml|
                 xml.MarylandSubdivisionCode intake.subdivision_code
-                xml.CityTownOrTaxingArea intake.political_subdivision
+                unless intake.political_subdivision == "Baltimore County - unincorporated"
+                  xml.CityTownOrTaxingArea intake.political_subdivision
+                end
                 xml.MarylandCounty county_abbreviation
                 if @submission.data_source.direct_file_data.claimed_as_dependent?
                   xml.FilingStatus do

@@ -24,7 +24,7 @@ module NcResidenceCountyConcern
     "069" => "Pamlico", "070" => "Pasquotank", "071" => "Pender", "072" => "Perquimans",
     "073" => "Person", "074" => "Pitt", "075" => "Polk", "076" => "Randolph",
     "077" => "Richmond", "078" => "Robeson", "079" => "Rockingham", "080" => "Rowan",
-    "081" => "Rutherford", "082" => "Sampson", "083" => "Scotland", "084" => "Stanly",
+    "081" => "Rutherford", "082" => "Sampson", "e083" => "Scotland", "084" => "Stanly",
     "085" => "Stokes", "086" => "Surry", "087" => "Swain", "088" => "Transylvania",
     "089" => "Tyrrell", "090" => "Union", "091" => "Vance", "092" => "Wake",
     "093" => "Warren", "094" => "Washington", "095" => "Watauga", "096" => "Wayne",
