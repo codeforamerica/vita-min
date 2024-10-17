@@ -76,4 +76,14 @@ require 'rails_helper'
 
 RSpec.describe StateFileMdIntake, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
+
+  describe "#calculate_age" do
+    let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+
+    it "doesn't include Jan 1st in the past tax year" do
+      expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 10
+      expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
+    end
+  end
 end

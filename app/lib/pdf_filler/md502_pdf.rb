@@ -41,11 +41,13 @@ module PdfFiller
         "Enter 9": @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         "Enter 11": @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
+        "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
       }
     end
 
     def spouse_ssn_if_mfs
-      filing_status(:filing_status_mfs?) ? @xml_document.at('MFSSpouseSSN')&.text : nil
+      filing_status(:filing_status_mfs?) ? @xml_document.at('FilingStatus MarriedFilingSeparately')['spouseSSN'] : nil
     end
 
     def claimed_as_dependent?

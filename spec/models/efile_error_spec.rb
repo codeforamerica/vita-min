@@ -58,6 +58,7 @@ describe 'EfileError' do
       "email-address",
       "esign-declaration",
       "federal-info",
+      "income-review",
       "initiate-data-transfer",
       "md-review",
       "name-dob",
