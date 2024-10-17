@@ -130,7 +130,7 @@ describe SubmissionBuilder::StateReturn do
 
   states_requiring_1099rs = StateFile::StateInformationService.active_state_codes.excluding(["nc", "nj", "ny"])
   states_requiring_1099rs.each do |state_code|
-      describe "#form1099rs", required_schema: state_code do
+    describe "#form1099rs", required_schema: state_code do
       context "#{state_code}: when there are 1099rs present" do
         let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
         let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
