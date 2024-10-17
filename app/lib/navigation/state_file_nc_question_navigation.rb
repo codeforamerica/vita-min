@@ -35,7 +35,6 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::NcSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::NcPrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSpouseStateIdController),
