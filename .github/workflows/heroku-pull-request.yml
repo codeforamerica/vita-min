@@ -34,10 +34,10 @@ jobs:
           if heroku apps:info -a ${{ env.HEROKU_APP_NAME }} > /dev/null 2>&1; then
             echo "App exists; continuing";
             echo "APP_EXISTS=true" >> $GITHUB_ENV;
-          else;
+          else
             echo "No app found; creating";
             echo "APP_EXISTS=false" >> $GITHUB_ENV;
-          fi;
+          fi
 
       - name: Create Heroku app
         if: ${{ env.APP_EXISTS == 'false' && github.event.action != 'closed' }}
