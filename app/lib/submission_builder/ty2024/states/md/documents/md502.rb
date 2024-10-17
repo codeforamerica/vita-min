@@ -19,9 +19,23 @@ module SubmissionBuilder
                   xml.FilingStatus do
                     xml.DependentTaxpayer "X"
                   end
+                elsif @submission.data_source.filing_status == :married_filing_separately
+                  xml.FilingStatus do
+                    xml.MarriedFilingSeparately "X", spouseSSN: @submission.data_source.direct_file_data.spouse_ssn
+                  end
                 else
                   xml.FilingStatus do
                     xml.send(filing_status, "X")
+                  end
+                end
+                if has_exemptions
+                  xml.Exemptions do
+                    if has_dependent_exemption
+                      xml.Dependents do
+                        xml.Count calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_COUNT)
+                        xml.Amount calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_AMOUNT)
+                      end
+                    end
                   end
                 end
                 income_section(xml)
@@ -51,11 +65,23 @@ module SubmissionBuilder
               @md502_fields ||= intake.tax_calculator.calculate
             end
 
+            def has_dependent_exemption
+              [
+                :MD502_DEPENDENT_EXEMPTION_COUNT,
+                :MD502_DEPENDENT_EXEMPTION_AMOUNT
+              ].any? do |line|
+                calculated_fields.fetch(line) > 0
+              end
+            end
+
+            def has_exemptions
+              has_dependent_exemption
+            end
+
             # from MDIndividualeFileTypes.xsd
             FILING_STATUS_OPTIONS = {
               head_of_household: 'HeadOfHousehold',
               married_filing_jointly: 'Joint',
-              married_filing_separately: 'MarriedFilingSeparately',
               qualifying_widow: 'QualifyingWidow',
               single: "Single",
             }.freeze

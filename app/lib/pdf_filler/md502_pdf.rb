@@ -42,11 +42,17 @@ module PdfFiller
         'Check Box - 5': filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         '6. Check here': claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
+        "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
+        "6. Check here": claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
+        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
+        "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
       }
     end
 
     def spouse_ssn_if_mfs
-      filing_status(:filing_status_mfs?) ? @xml_document.at('Secondary TaxpayerSSN')&.text : nil
+      filing_status(:filing_status_mfs?) ? @xml_document.at('FilingStatus MarriedFilingSeparately')['spouseSSN'] : nil
     end
 
     def claimed_as_dependent?
