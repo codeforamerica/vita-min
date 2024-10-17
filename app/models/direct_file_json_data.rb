@@ -57,17 +57,17 @@ class DirectFileJsonData
   end
 
   def interest_reports
-    data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
+    data["interestReports"]&.map { |interest_report| DirectFileJsonData::DfJsonInterestReport.new(interest_report) } || []
   end
 
   private
 
   def filers
-    data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
+    data["filers"]&.map { |filer| DirectFileJsonData::DfJsonFiler.new(filer) } || []
   end
 
   def dependents
-    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
+    data["familyAndHousehold"]&.map { |dependent| DirectFileJsonData::DfJsonDependent.new(dependent) } || []
   end
 
 end
