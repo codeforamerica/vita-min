@@ -82,15 +82,25 @@ class StateFileDependent < ApplicationRecord
   end
 
   def under_17?
-    age < 17
+    calculate_age(inclusive_of_jan_1: false) < 17
   end
 
   def senior?
-    age >= 65
+    calculate_age(inclusive_of_jan_1: true) >= 65
   end
 
-  def age
-    MultiTenantService.statefile.current_tax_year - dob.year
+  def calculate_age(inclusive_of_jan_1: true)
+    # federal guidelines: you qualify for age related benefits the day before your birthday
+    # that means for a given tax year those born on Jan 1st the following tax-year will be included
+    # this does not apply for benefits you age out of or any age calculations for Maryland
+    raise StandardError, "Dependent ##{id} is missing date-of-birth" if dob.nil?
+
+    birth_year = dob.year
+    if inclusive_of_jan_1 && intake&.state_code != 'md'
+      birthday_is_jan_1 = dob.month == 1 && dob.day == 1
+      birth_year -= 1 if birthday_is_jan_1
+    end
+    MultiTenantService.statefile.current_tax_year - birth_year
   end
 
   def eligible_for_child_tax_credit
