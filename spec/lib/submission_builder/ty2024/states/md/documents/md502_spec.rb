@@ -16,6 +16,21 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "County information" do
+
+        before do
+          intake.residence_county = "Allegany"
+          intake.political_subdivision = "Town Of Barton"
+          intake.subdivision_code = "0101"
+        end
+
+        it "output correct information" do
+          expect(xml.at("Form502 MarylandSubdivisionCode").text).to eq("0101")
+          expect(xml.at("Form502 CityTownOrTaxingArea").text).to eq("Town Of Barton")
+          expect(xml.at("Form502 MarylandCounty").text).to eq("AL")
+        end
+      end
+
       context "Income section" do
         context "when all relevant values are present in the DF XML" do
           before do

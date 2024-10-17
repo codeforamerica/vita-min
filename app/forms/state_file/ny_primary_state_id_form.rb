@@ -18,6 +18,7 @@ module StateFile
 
     validates :first_three_doc_num, alphanumeric: true, length: {is: 3}, if: -> { state == "NY" && id_type != "no_id" }
 
+
     private
 
     def self.record_type

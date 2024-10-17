@@ -10,6 +10,11 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("Form502", documentId: "Form502") do |xml|
+                xml.MarylandSubdivisionCode intake.subdivision_code
+                unless intake.political_subdivision == "Baltimore County - unincorporated"
+                  xml.CityTownOrTaxingArea intake.political_subdivision
+                end
+                xml.MarylandCounty county_abbreviation
                 if @submission.data_source.direct_file_data.claimed_as_dependent?
                   xml.FilingStatus do
                     xml.DependentTaxpayer "X"
@@ -34,7 +39,7 @@ module SubmissionBuilder
                   end
                 end
                 income_section(xml)
-                xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
+                xml.DaytimePhoneNumber intake.direct_file_data.phone_number if intake.direct_file_data.phone_number.present?
               end
             end
 
@@ -82,8 +87,39 @@ module SubmissionBuilder
             }.freeze
 
             def filing_status
-              FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
+              FILING_STATUS_OPTIONS[intake.filing_status]
             end
+
+            def county_abbreviation
+              COUNTY_ABBREVIATIONS[intake.residence_county]
+            end
+
+            COUNTY_ABBREVIATIONS = {
+              "Allegany" => "AL",
+              "Anne Arundel" => "AA",
+              "Baltimore County" => "BL",
+              "Baltimore City" => "BC",
+              "Calvert" => "CV",
+              "Caroline" => "CL",
+              "Carroll" => "CR",
+              "Cecil" => "CC",
+              "Charles" => "CH",
+              "Dorchester" => "DR",
+              "Frederick" => "FR",
+              "Garrett" => "GR",
+              "Harford" => "HR",
+              "Howard" => "HW",
+              "Kent" => "KN",
+              "Montgomery" => "MG",
+              "Prince George's" => "PG",
+              "Queen Anne's" => "QA",
+              "St. Mary's" => "SM",
+              "Somerset" => "SS",
+              "Talbot" => "TB",
+              "Washington" => "WH",
+              "Wicomico" => "WC",
+              "Worcester" => "WR"
+            }.freeze
           end
         end
       end
