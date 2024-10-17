@@ -6,9 +6,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
   <ul class="list--bulleted">
-    <li><%= t(".includes_whom") %></li>
-    <li><%= t(".percent_income") %></li>
-    <li><%= t(".no_reimbursed") %></li>
+    <%= t(".description") %>
   </ul>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
