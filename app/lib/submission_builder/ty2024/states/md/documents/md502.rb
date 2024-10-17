@@ -9,7 +9,7 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def document
-              build_xml_doc("Form502") do |xml|
+              build_xml_doc("Form502", documentId: "Form502") do |xml|
                 xml.MarylandSubdivisionCode intake.subdivision_code
                 xml.CityTownOrTaxingArea intake.political_subdivision
                 xml.MarylandCounty county_abbreviation

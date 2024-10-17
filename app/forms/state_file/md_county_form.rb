@@ -4,7 +4,7 @@ module StateFile
 
     validates :residence_county,
               inclusion: { in: MdResidenceCountyConcern::COUNTIES_AND_SUBDIVISIONS.keys },
-              allow_blank: true
+              presence: true
     validates :subdivision_code,
               presence: true,
               inclusion: { in: :valid_subdivisions }
