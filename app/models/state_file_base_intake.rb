@@ -99,7 +99,7 @@ class StateFileBaseIntake < ApplicationRecord
       if dependent_json.present?
         json_attributes = {
           middle_initial: dependent_json.middle_initial,
-          relationship: dependent_json.relationship&.humanize,
+          relationship: dependent_json.relationship,
           dob: dependent_json.dob
         }
         dependent.assign_attributes(json_attributes)
