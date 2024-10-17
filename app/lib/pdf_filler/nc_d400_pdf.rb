@@ -80,11 +80,5 @@ module PdfFiller
     def checkbox_value(condition)
       condition ? 'Yes' : 'Off'
     end
-
-    def formatted_date(date_str, format)
-      return if date_str.nil?
-
-      Date.parse(date_str)&.strftime(format)
-    end
   end
 end

@@ -131,7 +131,7 @@ module SubmissionBuilder
                     xml.NewJerseyTaxableIncome calculated_fields.fetch(:NJ1040_LINE_42)
                   end
                   
-                  xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64) if calculated_fields.fetch(:NJ1040_LINE_64)
+                  xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)
                   xml.NJChildTCNumOfDep calculated_fields.fetch(:NJ1040_LINE_65_DEPENDENTS) if line_65

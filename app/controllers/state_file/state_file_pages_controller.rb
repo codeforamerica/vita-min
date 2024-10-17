@@ -14,9 +14,9 @@ module StateFile
       return render "public_pages/page_not_found", status: 404 if Rails.env.production?
 
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
-      @xml_samples = XmlReturnSampleService.new.samples[current_state_code].map do |sample_name|
-        [XmlReturnSampleService.label(sample_name),
-         transfer_url(XmlReturnSampleService.key(current_state_code, sample_name), params[:redirect])]
+      @xml_samples = DirectFileApiResponseSampleService.new.xml_samples[current_state_code].map do |sample_name|
+        [DirectFileApiResponseSampleService.label(sample_name),
+         transfer_url(DirectFileApiResponseSampleService.key(current_state_code, sample_name), params[:redirect])]
       end
       render layout: nil
     end
@@ -26,6 +26,8 @@ module StateFile
     def about_page; end
 
     def privacy_policy; end
+
+    def sms_terms; end
 
     def coming_soon
       redirect_to root_path unless before_state_file_launch?

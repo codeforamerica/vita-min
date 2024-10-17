@@ -3,6 +3,8 @@
 ## Is PM acceptance required? (delete one)
 - Yes - don't merge until JIRA issue is accepted!
 - No - merge after code review approval
+
+**Reminder**: merge main into this branch and get green tests before merging to main
 ## What was done?
 - Explain the implementation goals being solved or the feature with the reviewer in mind
 - Mention any relevant issues or insights to be shared with the reviewer.

@@ -164,6 +164,7 @@ module StateFile
       )
       @intake.update(hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn))
       @intake.synchronize_df_dependents_to_database
+      @intake.synchronize_df_1099_rs_to_database
     end
 
     def self.existing_attributes(intake)

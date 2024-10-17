@@ -199,11 +199,11 @@
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>50000.33</WagesAmt>
+      <WagesAmt>50000</WagesAmt>
       <WithholdingAmt>1000</WithholdingAmt>
-      <SocialSecurityWagesAmt>50000.33</SocialSecurityWagesAmt>
+      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
       <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>50000.33</MedicareWagesAndTipsAmt>
+      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>414HSUB</Desc>
@@ -213,10 +213,10 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>98765</EmployerStateIdNum>
-          <StateWagesAmt>50000.33</StateWagesAmt>
+          <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>50000.33</LocalWagesAndTipsAmt>
+            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>
@@ -229,7 +229,7 @@
       <EmployerEIN>001245768</EmployerEIN>
       <EmployerNameControlTxt>BTB</EmployerNameControlTxt>
       <EmployerName>
-        <BusinessNameLine1Txt>Brendan T. Byrne State Forest</BusinessNameLine1Txt>
+        <BusinessNameLine1Txt>Brendan T Byrne State Forest</BusinessNameLine1Txt>
       </EmployerName>
       <EmployerUSAddress>
         <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>
@@ -245,11 +245,11 @@
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>50000.33</WagesAmt>
+      <WagesAmt>50000</WagesAmt>
       <WithholdingAmt>1000</WithholdingAmt>
-      <SocialSecurityWagesAmt>50000.33</SocialSecurityWagesAmt>
+      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
       <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>50000.33</MedicareWagesAndTipsAmt>
+      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>414HSUB</Desc>
@@ -259,10 +259,10 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>50000.33</StateWagesAmt>
+          <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>50000.33</LocalWagesAndTipsAmt>
+            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>
@@ -291,11 +291,11 @@
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>50000.33</WagesAmt>
+      <WagesAmt>50000</WagesAmt>
       <WithholdingAmt>1000</WithholdingAmt>
-      <SocialSecurityWagesAmt>50000.33</SocialSecurityWagesAmt>
+      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
       <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>50000.33</MedicareWagesAndTipsAmt>
+      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>414HSUB</Desc>
@@ -305,10 +305,10 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>54321</EmployerStateIdNum>
-          <StateWagesAmt>50000.33</StateWagesAmt>
+          <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>50000.33</LocalWagesAndTipsAmt>
+            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>
@@ -319,7 +319,7 @@
     <IRSW2 documentName="IRSW2" documentId="W20004">
       <EmployeeSSN>400000018</EmployeeSSN>
       <EmployerEIN>001245770</EmployerEIN>
-      <EmployerNameControlTxt>ATLCB</EmployerNameControlTxt>
+      <EmployerNameControlTxt>ATLC</EmployerNameControlTxt>
       <EmployerName>
         <BusinessNameLine1Txt>Atlantic City Beach</BusinessNameLine1Txt>
       </EmployerName>
@@ -337,11 +337,11 @@
         <StateAbbreviationCd>NJ</StateAbbreviationCd>
         <ZIPCd>08037</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>50000.33</WagesAmt>
+      <WagesAmt>50000</WagesAmt>
       <WithholdingAmt>1000</WithholdingAmt>
-      <SocialSecurityWagesAmt>50000.33</SocialSecurityWagesAmt>
+      <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
       <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>50000.33</MedicareWagesAndTipsAmt>
+      <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>414HSUB</Desc>
@@ -351,10 +351,10 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>54321</EmployerStateIdNum>
-          <StateWagesAmt>50000.33</StateWagesAmt>
+          <StateWagesAmt>50000</StateWagesAmt>
           <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>50000.33</LocalWagesAndTipsAmt>
+            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>

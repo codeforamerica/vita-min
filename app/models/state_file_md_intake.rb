@@ -73,7 +73,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income

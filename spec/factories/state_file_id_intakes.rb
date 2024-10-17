@@ -85,19 +85,19 @@ FactoryBot.define do
     #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
 
     trait :single_filer_with_json do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_lana_single') }
-      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_lana_single') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
     end
 
     trait :mfj_filer_with_json do
       filing_status { "married_filing_jointly" }
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_paul_mfj') }
-      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_paul_mfj') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_paul_mfj') }
     end
 
     trait :with_dependents do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_ernest_hoh') }
-      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
     end
   end
 end
