@@ -88,10 +88,4 @@ class StateFileMdIntake < StateFileBaseIntake
       eligibility_out_of_state_income: "yes",
     }
   end
-
-  def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)
-    # overwriting the base intake method b/c
-    # MD always considers individuals to attain their age on their DOB
-    MultiTenantService.statefile.current_tax_year - dob.year
-  end
 end
