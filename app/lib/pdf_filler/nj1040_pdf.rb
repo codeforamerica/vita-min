@@ -71,7 +71,13 @@ module PdfFiller
         'Check Box44': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
         undefined_10: get_line_8_exemption_count,
         'x  1000_3': get_line_8_exemption_count * 1000,
-        
+
+        # line 9 exemptions
+        'Check Box45': pdf_checkbox_value(@xml_document.at("Exemptions YouVeteran")),
+        'Check Box46': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerVeteran")),
+        undefined_11: get_line_9_exemption_count,
+        'x  6000': get_line_9_exemption_count * 6000,
+
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year,
         Group182: household_rent_own,
@@ -313,6 +319,10 @@ module PdfFiller
 
     def get_line_8_exemption_count
       get_total_exemption_count(["Exemptions YouBlindOrDisabled", "Exemptions SpouseCuPartnerBlindOrDisabled"])
+    end
+
+    def get_line_9_exemption_count
+      get_total_exemption_count(["Exemptions YouVeteran", "Exemptions SpouseCuPartnerVeteran"])
     end
 
     def get_total_exemption_count(xml_selector_string_array)
