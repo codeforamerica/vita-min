@@ -34,11 +34,12 @@ jobs:
           if heroku apps:info -a ${{ env.HEROKU_APP_NAME }} > /dev/null 2>&1; then \
             echo "CREATE_APP=true" >> $GITHUB_ENV \
           else \
-            echo "CREATE_APP=false" >> $GITHUB_ENV
+            echo "CREATE_APP=false" >> $GITHUB_ENV \
+          ; echo $GITHUB_ENV
 
       - name: Create Heroku app
-        if: env.CREATE_APP
-        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
+        if: ${{ env.CREATE_APP }} == 'true' && github.event.action != 'closed'
+        run: echo ${{ env.CREATE_APP }}; heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
 
       - name: Save app name and PR number as heroku environment variable
         if: github.event.action == 'opened' || github.event.action == 'reopened'
