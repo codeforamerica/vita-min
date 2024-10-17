@@ -1,5 +1,5 @@
 module StateFile
-  class NjDisabledExemptionForm < QuestionsForm
+  class NjVeteransExemptionForm < QuestionsForm
     set_attributes_for :intake,
                        :primary_veteran,
                        :spouse_veteran

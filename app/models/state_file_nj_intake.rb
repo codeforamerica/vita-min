@@ -54,7 +54,7 @@
 #  primary_signature                                      :string
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
-#  primary_veteran                                        :integer         default("unfilled"), not null
+#  primary_veteran                                        :integer          default("unfilled"), not null
 #  property_tax_paid                                      :integer
 #  raw_direct_file_data                                   :text
 #  raw_direct_file_intake_data                            :jsonb

@@ -73,10 +73,10 @@ module SubmissionBuilder
                     if @submission.data_source.direct_file_data.is_spouse_blind?
                       xml.SpouseCuPartnerBlindOrDisabled "X"
                     end
-                    if intake.primary_veteran == "yes"
+                    if intake.primary_veteran_yes?
                       xml.YouVeteran "X"
                     end
-                    if intake.spouse_veteran == "yes"
+                    if intake.spouse_veteran_yes?
                       xml.SpouseCuPartnerVeteran "X"
                     end
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)

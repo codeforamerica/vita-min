@@ -46,14 +46,14 @@
     </div>
   <% end %>
 
-    <% if current_intake.primary_veteran != "unfilled" || current_intake.spouse_veteran != "unfilled"%>
+    <% if !current_intake.primary_veteran_unfilled? || !current_intake.spouse_veteran_unfilled? %>
     <div id="disabled_exemption" class="white-group">
       <div class="spacing-below-5">
-        <% if current_intake.primary_veteran != "unfilled" %>
+        <% if !current_intake.primary_veteran_unfilled? %>
           <p class="text--bold spacing-below-5"><%=t(".primary_veteran") %></p>
           <p><%= current_intake.primary_veteran %></p>
         <% end %>
-        <% if current_intake.spouse_veteran != "unfilled" %>
+        <% if !current_intake.spouse_veteran_unfilled? %>
           <p class="text--bold spacing-below-5"><%=t(".spouse_veteran") %></p>
           <p><%= current_intake.spouse_veteran  %></p>
         <% end %>
