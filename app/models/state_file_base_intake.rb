@@ -29,7 +29,7 @@ class StateFileBaseIntake < ApplicationRecord
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
+  enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
   scope :with_df_data_and_no_federal_submission, lambda {
@@ -45,6 +45,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
     state_code.to_s
   end
+
   delegate :state_code, to: :class
 
   def state_name
@@ -115,6 +116,23 @@ class StateFileBaseIntake < ApplicationRecord
       state_file1099_r.assign_attributes(direct_file_1099_r.to_h)
       state_file1099_r.assign_attributes(intake: self)
       state_file1099_r.save!
+    end
+  end
+
+  def synchronize_df_w2s_to_database
+    direct_file_data.w2s.each_with_index do |direct_file_w2, i|
+      state_file_w2 = state_file_w2s[i] || state_file_w2s.build
+      state_file_w2.assign_attributes(
+        employer_state_id_num: direct_file_w2.EmployerStateIdNum,
+        local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
+        local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
+        locality_nm: direct_file_w2.LocalityNm,
+        state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
+        state_wages_amount: direct_file_w2.StateWagesAmt,
+        state_file_intake: self,
+        w2_index: i
+      )
+      state_file_w2.save!
     end
   end
 
@@ -211,8 +229,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_state_specific_w2_requirements(w2)
-  end
+  def validate_state_specific_w2_requirements(w2); end
 
   def invalid_df_w2?(df_w2)
     return true if df_w2.StateWagesAmt == 0
@@ -306,7 +323,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def save_nil_enums_with_unfilled
-    keys_with_unfilled = self.defined_enums.map{ |e| e.first if e.last.include?("unfilled") }
+    keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }
     keys_with_unfilled.each do |key|
       if self.send(key) == nil
         self.send("#{key}=", "unfilled")
