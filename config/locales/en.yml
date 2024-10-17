@@ -2428,7 +2428,6 @@ en:
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
-          subheading: All subtractions and credits are subject to eligibility requirements.
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2546,6 +2545,17 @@ en:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
           subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
+      id_eligibility_residence:
+        edit:
+          withdrew_msa_fthb: "In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:"
+          withdrew_msa_fthb_list:
+            bullet_1_html: <strong>Medical Savings Account</strong> and use it for non-qualifying expenses
+            bullet_2_html: <strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs
+          emergency_rental_assistance: "In 2024, did you (or your spouse if filing together) receive emergency rental assistance?"
+          emergency_rental_assistance_explanation: "The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic."
+          subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
+          subtitle_2: Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{filing_year} Idaho taxes
       nc_primary_state_id:
         edit:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
