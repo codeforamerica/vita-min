@@ -209,7 +209,7 @@
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
     <IRS1099R documentId="IRS1099R0001">
-      <PayerNameControlTxt>ALEXISPAYER</PayerNameControlTxt>
+      <PayerNameControlTxt>ALEX</PayerNameControlTxt>
       <PayerName>
         <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
       </PayerName>

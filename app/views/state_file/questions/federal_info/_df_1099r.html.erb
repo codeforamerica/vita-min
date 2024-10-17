@@ -3,6 +3,7 @@
   <div class="federal-info-controller-subform-content">
     <%= render 'node_xml_reveal', xml: f.object.to_pretty_s %>
 
+    <p class="text--error">For payer_name_control, only use A-Z, 0-9, hyphen and ampersand. Only up to 4 characters are allowed. Spaces and symbols are not allowed.</p>
     <table>
       <%= f.state_file_nested_xml_field :payer_name_control %>
       <%= f.state_file_nested_xml_field :payer_name %>
