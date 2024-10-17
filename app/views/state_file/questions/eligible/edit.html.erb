@@ -28,7 +28,15 @@
         </ul>
       <% elsif current_state_code == "nc" %>
         <p>Copy needed...</p>
-      <% end %>
+    <% elsif current_state_code == "id" %>
+      <ul class="list--bulleted">
+        <li><%= t(".child_care_deduction") %></li>
+        <li><%= t(".interest_from_obligations") %></li>
+        <li><%= t(".social_security_retirement_deduction") %></li>
+        <li><%= t(".id_child_tax_credit") %></li>
+        <li><%= t(".id_grocery_credit") %></li>
+      </ul>
+    <% end %>
   </div>
 
   <div class="reveal">
@@ -38,6 +46,8 @@
         <%= render partial: "state_file/questions/eligible/az_unsupported" %>
       <% elsif current_state_code == "ny" %>
         <%= render partial: "state_file/questions/eligible/ny_unsupported" %>
+      <% elsif current_state_code == "id" %>
+        <%= render partial: "state_file/questions/eligible/id_unsupported" %>
       <% end %>
       <div class="with-top-separator">
         <p class="text--bold"><%=t('.want_to_claim_heading') %></p>
