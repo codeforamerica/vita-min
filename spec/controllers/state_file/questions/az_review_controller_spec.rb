@@ -4,7 +4,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
   describe "#edit" do
     context "when the client is estimated to owe taxes" do
       # Higher adjusted agi to result in an owed amount
-      let(:intake) { create :state_file_az_owed_intake}
+      let(:intake) { create :state_file_az_owed_intake }
       before do
         sign_in intake
       end

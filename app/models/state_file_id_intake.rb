@@ -14,8 +14,8 @@
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
 #  df_data_imported_at               :datetime
-#  eligibility_lived_in_state        :integer          default("unfilled"), not null
-#  eligibility_out_of_state_income   :integer          default("unfilled"), not null
+#  eligibility_emergency_rental_assistance :integer          default("unfilled"), not null
+#  eligibility_withdrew_msa_fthb           :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
@@ -65,9 +65,15 @@
 #
 class StateFileIdIntake < StateFileBaseIntake
   enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
+  enum eligibility_withdrew_msa_fthb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_msa_fthb
+  enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
+
   def disqualifying_df_data_reason; end
 
   def disqualifying_eligibility_rules
-    {}
+    {
+      eligibility_withdrew_msa_fthb: "yes",
+      eligibility_emergency_rental_assistance: "yes"
+    }
   end
 end

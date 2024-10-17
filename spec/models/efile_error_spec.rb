@@ -60,6 +60,7 @@ describe 'EfileError' do
       "federal-info",
       "id-review",
       "id-sales-use-tax",
+      "income-review",
       "initiate-data-transfer",
       "md-review",
       "name-dob",

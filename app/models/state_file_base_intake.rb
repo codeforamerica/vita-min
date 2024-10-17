@@ -25,8 +25,6 @@ class StateFileBaseIntake < ApplicationRecord
   alias_attribute :sms_phone_number, :phone_number
 
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
@@ -358,5 +356,17 @@ class StateFileBaseIntake < ApplicationRecord
       self.withdraw_amount = nil
       self.date_electronic_withdrawal = nil
     end
+  end
+
+  def calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date)
+    # federal guidelines: you qualify for age related benefits the day before your birthday
+    # that means for a given tax year those born on Jan 1st the following tax-year will be included
+    # this does not apply for benefits you age out of or any age calculations for Maryland
+    birth_year = dob.year
+    if inclusive_of_jan_1
+      birthday_is_jan_1 = dob.month == 1 && dob.day == 1
+      birth_year -= 1 if birthday_is_jan_1
+    end
+    MultiTenantService.statefile.current_tax_year - birth_year
   end
 end

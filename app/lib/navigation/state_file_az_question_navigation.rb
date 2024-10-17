@@ -32,6 +32,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSeniorDependentsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
+        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
