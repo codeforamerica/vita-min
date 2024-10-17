@@ -31,6 +31,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCountyController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMunicipalityController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjMedicalExpensesController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHouseholdRentOwnController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerEligibilityController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantEligibilityController),
