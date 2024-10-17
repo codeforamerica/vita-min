@@ -5,7 +5,8 @@ module StateFile
                        :homeowner_main_home_multi_unit,
                        :homeowner_main_home_multi_unit_max_four_one_commercial,
                        :homeowner_more_than_one_main_home_in_nj,
-                       :homeowner_shared_ownership_not_spouse
+                       :homeowner_shared_ownership_not_spouse,
+                       :homeowner_same_home_spouse
 
     def save
       @intake.update(attributes_for(:intake))
