@@ -30,7 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Do we need to create the app?
-        run: heroku apps:info -a ${{ env.HEROKU_APP_NAME }}; if $? -eq 0; then echo "CREATE_APP=false" >> $GITHUB_ENV; else echo "CREATE_APP=true" >> $GITHUB_ENV; fi;
+        run: heroku apps:info -a ${{ env.HEROKU_APP_NAME }} > /dev/null; if $? -eq 0; then echo "CREATE_APP=false" >> $GITHUB_ENV; else echo "CREATE_APP=true" >> $GITHUB_ENV; fi;
 
       - name: Create Heroku app
         if: ${{ env.CREATE_APP == 'true' && github.event.action != 'closed' }}
