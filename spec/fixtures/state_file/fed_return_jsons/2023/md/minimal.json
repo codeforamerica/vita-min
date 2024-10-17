@@ -6,7 +6,8 @@
       "middleInitial": "T",
       "lastName": "Yarn Mat",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": true,
+      "tin": "123-45-6789"
     }
   ]
 }

@@ -1982,6 +1982,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_143141) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.integer "primary_veteran", default: 0, null: false
     t.text "raw_direct_file_data"
@@ -1999,6 +2000,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_143141) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_veteran", default: 0, null: false
     t.string "ssn"
@@ -2012,6 +2014,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_143141) do
     t.integer "withdraw_amount"
     t.string "zip_code"
     t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_nc_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_nc_intakes_on_spouse_state_id_id"
   end
 
   create_table "state_file_nj1099_r_followups", force: :cascade do |t|

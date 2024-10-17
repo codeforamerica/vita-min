@@ -11,6 +11,7 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form502") do |xml|
                 xml.ResidencyStatusPrimary true
+                income_section(xml)
                 xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
                 xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
                 if @submission.data_source.direct_file_data.claimed_as_dependent?
@@ -26,6 +27,18 @@ module SubmissionBuilder
             end
 
             private
+
+            def income_section(root_xml)
+              root_xml.Income do |income|
+                income.FederalAdjustedGrossIncome calculated_fields.fetch(:MD502_LINE_1)
+                income.WagesSalariesAndTips calculated_fields.fetch(:MD502_LINE_1A)
+                income.EarnedIncome calculated_fields.fetch(:MD502_LINE_1B)
+                income.TaxablePensionsIRAsAnnuities calculated_fields.fetch(:MD502_LINE_1D)
+                if calculated_fields.fetch(:MD502_LINE_1E)
+                  income.InvestmentIncomeIndicator "X"
+                end
+              end
+            end
 
             def intake
               @submission.data_source

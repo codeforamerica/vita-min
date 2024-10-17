@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory "johnny", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_johnny_mfj_8_deps") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_johnny_mfj_8_deps") }
     primary_first_name { "Johnny" }
     primary_middle_initial { "L" }
     primary_last_name { "Rose" }
@@ -100,7 +100,7 @@ FactoryBot.define do
   end
 
   factory "leslie", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_leslie_qss_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_leslie_qss_v2") }
     primary_first_name { "LESLIE" }
     primary_last_name { "KNOPE" }
     primary_birth_date { "1955-12-12" }
@@ -150,7 +150,7 @@ FactoryBot.define do
   end
 
   factory "martha", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_martha_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_martha_v2") }
     primary_first_name { "MARTHA" }
     primary_last_name { "WASHINGTON" }
     primary_birth_date { "1980-01-01" }
@@ -210,7 +210,7 @@ FactoryBot.define do
   end
 
   factory "rory", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("az_rory_claimedasdep_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimedasdep_v2") }
     primary_first_name { "RORY" }
     primary_last_name { "GILMORE" }
     primary_birth_date { "2002-02-03" }

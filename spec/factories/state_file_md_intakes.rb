@@ -81,7 +81,7 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
-    raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("md_minimal") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal") }
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
@@ -99,7 +99,7 @@ FactoryBot.define do
     end
 
     trait :with_spouse do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read("md_nate_mfj") }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -108,25 +108,25 @@ FactoryBot.define do
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_two_w2s') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_zeus_two_w2s') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_zeus_many_w2s') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_zeus_many_w2s') }
     end
 
     trait :head_of_household do
       filing_status { 'head_of_household' }
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_shelby_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_shelby_hoh') }
     end
 
     trait :qualifying_widow do
       filing_status { 'qualifying_widow' }
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_laney_qss') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_laney_qss') }
     end
 
     trait :claimed_as_dependent do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('md_riley_claimedasdep') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_riley_claimedasdep') }
     end
   end
 end

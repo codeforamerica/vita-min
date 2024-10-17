@@ -2455,6 +2455,13 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      income_review:
+        edit:
+          help_text: We will ask about any missing information.
+          review_and_edit_state_info: Review and edit state info
+          state_info_to_be_collected: State info to be collected
+          title: Here are the income forms we transferred from your federal tax return.
+          unemployment_title: Unemployment benefits (1099-G)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2513,6 +2520,11 @@ en:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
           subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
+      nc_primary_state_id:
+        edit:
+          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          why_ask_this: Why are you asking for this information?
       nc_review:
         edit:
           amount: Amount
@@ -2534,6 +2546,11 @@ en:
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
+      nc_spouse_state_id:
+        edit:
+          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
           title_html:

@@ -1,15 +1,16 @@
 class DirectFileJsonData
+  attr_reader :data
 
   def initialize(json)
-    @json = JSON.parse(json || "{}")
+    @data = JSON.parse(json || "{}")
   end
 
   def primary_filer
-    @json["filers"]&.detect { |filer| filer["isPrimaryFiler"] }
+    data["filers"]&.detect { |filer| filer["isPrimaryFiler"] }
   end
 
   def spouse_filer
-    @json["filers"]&.detect { |filer| !filer["isPrimaryFiler"] }
+    data["filers"]&.detect { |filer| !filer["isPrimaryFiler"] }
   end
 
   def first_name(person)
@@ -61,15 +62,20 @@ class DirectFileJsonData
   end
 
   def dependents
-    @json["familyAndHousehold"]
+    data["familyAndHousehold"]
   end
 
   def find_matching_json_dependent(dependent)
     return nil unless dependents.respond_to?(:find)
 
     dependents.find do |json_dependent|
-      # TODO: find match based on SSN
-      json_dependent["firstName"] == dependent.first_name
+      next unless json_dependent.present?
+
+      json_tin = json_dependent["tin"]&.tr("-", "")
+      xml_ssn = dependent.ssn
+
+      next unless json_tin && xml_ssn
+      json_tin == xml_ssn
     end
   end
 end
