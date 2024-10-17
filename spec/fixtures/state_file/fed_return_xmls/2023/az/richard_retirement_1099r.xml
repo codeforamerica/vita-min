@@ -121,7 +121,7 @@
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRS1099R>
     <IRS1099R documentId="IRS1099R0001">
-      <PayerNameControlTxt>PAYE DEUX</PayerNameControlTxt>
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
       <PayerName>
         <BusinessNameLine1Txt>Second Payer Name</BusinessNameLine1Txt>
       </PayerName>
