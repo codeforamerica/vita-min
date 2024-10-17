@@ -15,6 +15,7 @@ spec_vars = {
 
 describe SubmissionBuilder::StateReturn do
   states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc", "id")
+  # TODO? refactor so it just looks at w2 count; move w2 testing for NJ into own file
   states_requiring_w2s.each do |state_code|
     describe "#w2s", required_schema: state_code do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
