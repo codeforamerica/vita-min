@@ -37,6 +37,7 @@
 #  primary_last_name                 :string
 #  primary_middle_initial            :string
 #  primary_signature                 :string
+#  primary_signature_pin             :text
 #  primary_ssn                       :string
 #  primary_suffix                    :string
 #  raw_direct_file_data              :text
@@ -51,6 +52,7 @@
 #  spouse_first_name                 :string
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
+#  spouse_signature_pin              :text
 #  spouse_ssn                        :string
 #  spouse_suffix                     :string
 #  street_address                    :string
