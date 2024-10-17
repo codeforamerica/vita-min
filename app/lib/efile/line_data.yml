@@ -174,6 +174,8 @@ ID40_LINE_6C:
   label: '6c Dependents count for household count'
 ID40_LINE_6D:
   label: '6d Total household count'
+ID40_LINE_29:
+  label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
