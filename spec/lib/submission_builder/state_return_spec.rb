@@ -128,7 +128,7 @@ describe SubmissionBuilder::StateReturn do
     end
   end
 
-  states_requiring_1099rs = StateFile::StateInformationService.active_state_codes.excluding(["nj", "ny"]) # why is nj excluded?
+  states_requiring_1099rs = StateFile::StateInformationService.active_state_codes.excluding(["nj", "ny"])
   states_requiring_1099rs.each do |state_code|
     describe "#form1099rs", required_schema: state_code do
       context "#{state_code}: when there are 1099rs present" do

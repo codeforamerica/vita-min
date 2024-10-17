@@ -8,7 +8,7 @@ module SubmissionBuilder
 
       build_xml_doc("IRS1099R", documentId: "IRS1099R-#{form1099r.id}") do |xml|
         xml.PayerNameControlTxt form1099r.payer_name_control
-        if form1099r.payer_name && form1099r.payer_name != ''
+        if form1099r.payer_name.present?
           xml.PayerName do
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099r.payer_name.tr('-', ' '), 75)
           end
