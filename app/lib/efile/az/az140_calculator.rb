@@ -30,7 +30,7 @@ module Efile
         set_line(:AZ140_CCWS_LINE_5c, -> { 0 })
         set_line(:AZ140_CCWS_LINE_6c, :calculate_ccws_line_6c)
         set_line(:AZ140_CCWS_LINE_7c, :calculate_ccws_line_7c)
-        set_line(:AZ140_LINE_8, :calculate_line_8)
+        set_line(:AZ140_LINE_8, @direct_file_data, :fed_65_primary_spouse)
         set_line(:AZ140_LINE_9, @direct_file_data, :blind_primary_spouse)
         set_line(:AZ140_LINE_10A, @intake, :federal_dependent_count_under_17)
         set_line(:AZ140_LINE_10B, @intake, :federal_dependent_count_over_17_non_qualifying_senior)
@@ -100,13 +100,6 @@ module Efile
 
       def calculate_line_2c
         @intake.charitable_noncash_amount&.round
-      end
-
-      def calculate_line_8
-        # Age 65 or over (you and/or spouse) count
-        [@intake.primary_birth_date, @intake.spouse_birth_date].count do |dob|
-          dob && (@intake.calculate_age(inclusive_of_jan_1: true, dob: dob) >= 65)
-        end
       end
 
       def calculate_line_14

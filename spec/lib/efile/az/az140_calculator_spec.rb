@@ -185,8 +185,6 @@ describe Efile::Az::Az140Calculator do
       intake.charitable_cash_amount = 50
       intake.charitable_noncash_amount = 50
       intake.charitable_contributions = 'yes'
-      allow(instance).to receive(:calculate_line_42).and_return 10_000
-      allow(instance).to receive(:calculate_line_43).and_return 2_000
     end
 
     # 31% of 100 (50+50)
@@ -194,67 +192,29 @@ describe Efile::Az::Az140Calculator do
       instance.calculate
       expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
       expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
-      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_969)
-    end
-  end
-
-  describe "Line 8" do
-    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 31) }
-
-    context "when both primary and spouse are older than 65" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }
-
-      it "returns 2" do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
-      end
-    end
-
-    context "when only the primary is over 65" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date + 2.months) }
-
-      it "returns 1" do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_8].value).to eq(1)
-      end
-    end
-
-    context "when born a day after the senior cutoff date" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date + 1.day, spouse_birth_date: senior_cutoff_date + 1.day) }
-
-      it "it counts them" do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
-      end
+      expect(instance.lines[:AZ140_LINE_45].value).to eq(98392) # Charitable contribitions affect this; before was 98423
     end
   end
 
   describe 'the Az flat tax rate is 2.5%' do
     context 'when the filer has an income of $25,000' do
       before do
-        allow(instance).to receive(:calculate_line_42).and_return 25_000
-        allow(instance).to receive(:calculate_line_43).and_return 2_000
-        allow(instance).to receive(:calculate_line_44).and_return 2_000
+        intake.direct_file_data.fed_agi = 25_000
       end
-
       it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(21_000) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(525)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(3423) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(86)
       end
     end
-
     context 'when the filer has an income of $150,000' do
       before do
-        allow(instance).to receive(:calculate_line_42).and_return 150_000
-        allow(instance).to receive(:calculate_line_43).and_return 2_000
-        allow(instance).to receive(:calculate_line_44).and_return 2_000
+        intake.direct_file_data.fed_agi = 150_000
       end
-
       it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(146000) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(3650)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(128423) # Deductions mean this is taxable
+        expect(instance.lines[:AZ140_LINE_46].value).to eq(3211)
       end
     end
   end
