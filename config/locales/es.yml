@@ -2324,14 +2324,14 @@ es:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
+            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
             eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2023
             eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
-            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
             eligibility_withdrew_msa_fthb: retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
-            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
+            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
             permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
@@ -2371,36 +2371,36 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
           dependent_credit: Crédito por Dependientes
           empire_state_ctc: Crédito Empire State por hijos
           family_income_credit: Crédito por ingresos familiares
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
           increased_deduction: Una deducción aumentada por donaciones caritativas
           increased_excise_credit: Aumento en el crédito por impuesto de consumo
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
           nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
           nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
           title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
-          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
-          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
-          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
-          id_grocery_credit: Crédito de Alimentos de Idaho
         id_unsupported:
-          id_college_savings_program: Subvención del Programa de Ahorros Universitarios de Idaho
-          id_youth_rehab_contributions: Crédito por Contribuciones a Instalaciones de Rehabilitación Juvenil de Idaho
-          maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
-          long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
+          change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
+          dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
           earned_on_reservation: Ingresos Ganados en una Reserva por un Nativo Americano
           education_contribution_credit: Crédito por Contribuciones a Entidades Educativas
+          id_college_savings_program: Subvención del Programa de Ahorros Universitarios de Idaho
+          id_youth_rehab_contributions: Crédito por Contribuciones a Instalaciones de Rehabilitación Juvenil de Idaho
           itemized_deductions: Deducciones Detalladas
-          dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
+          long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
+          maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
-          change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
         ny_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
@@ -2446,6 +2446,17 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_eligibility_residence:
+        edit:
+          emergency_rental_assistance: En 2024, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
+          emergency_rental_assistance_explanation: El programa de Asistencia de Alquiler de Emergencia (ERA, por sus siglas en inglés) es un programa federal que otorga dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Fue creado en respuesta a la pandemia de Covid-19.
+          subtitle_1: Para la temporada fiscal de %{filing_year}, esta herramienta solo podrá servir a personas con situaciones fiscales específicas.
+          subtitle_2: Por favor, responda las siguientes preguntas para saber si puede utilizarla.
+          title: Primero, veamos si puede utilizar esta herramienta para presentar sus impuestos de Idaho de %{filing_year}
+          withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
+          withdrew_msa_fthb_list:
+            bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
+            bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
@@ -2504,17 +2515,6 @@ es:
           lived_in_state_html: "¿Usted (y su cónyuge, si presentan la declaración juntos) vivieron en %{state} durante <strong>todo</strong> el %{filing_year}?"
           subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
-      id_eligibility_residence:
-        edit:
-          withdrew_msa_fthb: 'En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?'
-          withdrew_msa_fthb_list:
-            bullet_1_html: <strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados
-            bullet_2_html: <strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda
-          emergency_rental_assistance: 'En 2024, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?'
-          emergency_rental_assistance_explanation: 'El programa de Asistencia de Alquiler de Emergencia (ERA, por sus siglas en inglés) es un programa federal que otorga dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Fue creado en respuesta a la pandemia de Covid-19.'
-          subtitle_1: Para la temporada fiscal de %{filing_year}, esta herramienta solo podrá servir a personas con situaciones fiscales específicas.
-          subtitle_2: Por favor, responda las siguientes preguntas para saber si puede utilizarla.
-          title: Primero, veamos si puede utilizar esta herramienta para presentar sus impuestos de Idaho de %{filing_year
       nc_primary_state_id:
         edit:
           encourage_sharing: Se le recomienda compartir esta información, pero no es obligatorio para presentar su declaración de impuestos de Carolina del Norte.
