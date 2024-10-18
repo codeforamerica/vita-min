@@ -31,6 +31,7 @@ module StateFile
 
         intake.synchronize_df_dependents_to_database
         intake.synchronize_df_1099_rs_to_database
+        intake.synchronize_df_w2s_to_database
         intake.synchronize_filers_to_database
 
         # Clear this timestamp if it failed before but succeeded this time
