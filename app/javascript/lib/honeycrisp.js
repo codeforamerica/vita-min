@@ -129,7 +129,7 @@ var revealer = (function() {
             $('.reveal').each(function(index, revealer) {
                 var self = revealer;
                 $(self).addClass('is-hiding-content');
-                $(self).find('.reveal__link').click(function(e) {
+                $(self).find('.reveal__button').click(function(e) {
                     e.preventDefault();
                     $(self).toggleClass('is-hiding-content');
                 });

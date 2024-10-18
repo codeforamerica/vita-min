@@ -54,7 +54,7 @@
             <%= decorated_controller_action.pretty_name %>
             <% if decorated_controller_action.methods(false).include?(:show?) %>
               <div class="reveal">
-                <span class="text--small"><a href="#" class="reveal__link"><%= 'Show Conditions' %></a></span>
+                <span class="text--small"><a href="#" class="reveal__button"><%= 'Show Conditions' %></a></span>
                 <div class="reveal__content">
                   <pre><%= decorated_controller_action.__getobj__.method(:show?).source %></pre>
                 </div>
