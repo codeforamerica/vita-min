@@ -9,7 +9,7 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form502", documentId: "Form502") do |xml|
                 xml.MarylandSubdivisionCode intake.subdivision_code
-                unless intake.political_subdivision.end_with?("- unincorporated")
+                unless intake.political_subdivision&.end_with?("- unincorporated")
                   xml.CityTownOrTaxingArea intake.political_subdivision
                 end
                 xml.MarylandCounty county_abbreviation
