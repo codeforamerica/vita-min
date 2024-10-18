@@ -13,6 +13,9 @@ RSpec.describe SignaturePinValidator do
     assert_invalid("1234567")
   end
 
+  specify do
+    assert_invalid("1234")
+  end
 
   specify do
     assert_invalid("!@#$%")
