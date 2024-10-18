@@ -275,6 +275,39 @@ RSpec.describe StateFile::EsignDeclarationForm do
   describe "#validations with signature pin" do
     let!(:intake) { create :state_file_md_intake, primary_esigned: "unfilled", primary_esigned_at: nil, spouse_esigned: "unfilled", filing_status: "married_filing_jointly", primary_signature_pin: "unfilled", spouse_signature_pin: "unfilled" }
 
+    context "when filing" do 
+      before do
+        allow(intake).to receive(:filing_status_single?).and_return(true)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "pin cannot be 00000" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            primary_signature_pin: "00000",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+
+      it "pin cannot be less than 5 digits" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            primary_signature_pin: "1234",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+    end
+
     context "when married-filing-jointly and spouse is deceased" do
       before do
         allow(intake).to receive(:filing_status_mfj?).and_return(true)
@@ -282,7 +315,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
         allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
       end
 
-      it "does not require spouse signature" do
+      it "does not require spouse signature and pin" do
         form = StateFile::EsignDeclarationForm.new(
           intake,
           {
@@ -305,7 +338,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
         allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
       end
 
-      it "does require spouse signature" do
+      it "does require spouse signature and pin" do
         form = StateFile::EsignDeclarationForm.new(
           intake,
           {
@@ -335,21 +368,6 @@ RSpec.describe StateFile::EsignDeclarationForm do
             primary_esigned: "yes",
             spouse_esigned: "yes",
             primary_signature_pin: "12344",
-            spouse_signature_pin: "12344",
-            device_id: device_id,
-          }
-        )
-
-        expect(form).not_to be_valid
-      end
-
-      it "it cannot be 00000" do
-        form = StateFile::EsignDeclarationForm.new(
-          intake,
-          {
-            primary_esigned: "yes",
-            spouse_esigned: "yes",
-            primary_signature_pin: "00000",
             spouse_signature_pin: "12344",
             device_id: device_id,
           }
