@@ -1,7 +1,7 @@
 name: Heroku Pull Request
 on:
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
 
 jobs:
   heroku-pull-request:
@@ -23,11 +23,6 @@ jobs:
           heroku_email: jheath@codeforamerica.org
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
-
-      - name: Clean up unused old heroku apps, including this one if it's being closed
-        run: .github/remove_old_heroku_review_apps.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Do we need to create the app?
         run: >
@@ -87,11 +82,9 @@ jobs:
         run: heroku addons:create heroku-postgresql:essential-0 --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
-        if: github.event.action != 'closed'
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Disable Reline autocomplete
-        if: github.event.action != 'closed'
         run: |
           echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > .irbrc && \
             git add .irbrc && \
@@ -100,7 +93,6 @@ jobs:
             git commit -m "Disable Reline autocomplete"
 
       - name: Push to Heroku
-        if: github.event.action != 'closed'
         run: git push heroku ${{ github.head_ref }}:main --force
 
       - name: Wait for deploy to finish
