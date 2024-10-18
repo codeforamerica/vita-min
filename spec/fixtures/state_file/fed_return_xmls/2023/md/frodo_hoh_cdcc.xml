@@ -50,6 +50,7 @@
       <TotalExemptionsCnt>3</TotalExemptionsCnt>
       <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
       <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
       <TotalIncomeAmt>50000</TotalIncomeAmt>
       <AdjustedGrossIncomeAmt>50000</AdjustedGrossIncomeAmt>
       <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
