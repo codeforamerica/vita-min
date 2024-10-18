@@ -2235,8 +2235,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_215227) do
 
   create_table "state_file_w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "employee_name"
-    t.string "employer_name"
+    t.string "employee_name", null: false
+    t.string "employer_name", null: false
     t.string "employer_state_id_num"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
     t.decimal "local_wages_and_tips_amount", precision: 12, scale: 2

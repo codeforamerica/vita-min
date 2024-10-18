@@ -3,10 +3,6 @@ module StateFile
     class W2Controller < QuestionsController
       before_action :load_w2
 
-      def self.show?(_)
-        false
-      end
-
       def edit; end
 
       def update

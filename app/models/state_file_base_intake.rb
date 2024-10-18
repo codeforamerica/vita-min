@@ -121,7 +121,7 @@ class StateFileBaseIntake < ApplicationRecord
 
   def synchronize_df_w2s_to_database
     direct_file_data.w2s.each_with_index do |direct_file_w2, i|
-      state_file_w2 = state_file_w2s[i] || state_file_w2s.build
+      state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
       state_file_w2.assign_attributes(
         employer_name: direct_file_w2.EmployerNm,
         employee_name: direct_file_w2.EmployeeNm,
