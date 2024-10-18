@@ -157,5 +157,13 @@ RSpec.describe PdfFiller::Id40Pdf do
         end
       end
     end
+
+    describe "state use tax" do
+      let(:intake) { create(:state_file_id_intake, has_unpaid_sales_use_tax: "yes", total_purchase_amount: 1200.50) }
+
+      it "sets the correct filing status field" do
+        expect(pdf_fields['OtherTaxesL29']).to eq '72'
+      end
+    end
   end
 end

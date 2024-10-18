@@ -12,6 +12,7 @@ module Efile
         set_line(:ID40_LINE_6B, :calculate_line_6b)
         set_line(:ID40_LINE_6C, :calculate_line_6c)
         set_line(:ID40_LINE_6D, :calculate_line_6d)
+        set_line(:ID40_LINE_29, :calculate_line_29)
         @lines.transform_values(&:value)
       end
 
@@ -39,6 +40,14 @@ module Efile
 
       def calculate_line_6d
         line_or_zero(:ID40_LINE_6A) + line_or_zero(:ID40_LINE_6B) + line_or_zero(:ID40_LINE_6C)
+      end
+
+      def calculate_line_29
+        if @intake.has_unpaid_sales_use_tax? && !@intake.total_purchase_amount.nil?
+          (@intake.total_purchase_amount * 0.06).round
+        else
+          0
+        end
       end
     end
   end
