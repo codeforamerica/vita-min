@@ -64,6 +64,43 @@ RSpec.describe StateFile::EsignDeclarationForm do
       end
     end
 
+    context "when has agreed to esign and add pin in maryland" do
+      let!(:intake) {
+        create :state_file_md_intake,
+               primary_esigned: "unfilled",
+               primary_esigned_at: nil,
+               spouse_esigned: "unfilled",
+               spouse_esigned_at: nil,
+               filing_status: :married_filing_jointly,
+               primary_signature_pin: "unfilled",
+               spouse_signature_pin: "unfilled"
+      }
+      let(:params) do
+        {
+          primary_esigned: "yes",
+          spouse_esigned: "yes",
+          primary_signature_pin: "12345",
+          spouse_signature_pin: "12344",
+          device_id: device_id
+        }
+      end
+
+      it "esigns the return and enters signature pins" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        form.save
+
+        intake.reload
+        expect(intake.primary_esigned).to eq "yes"
+        expect(intake.primary_esigned_at).to be_present
+        expect(intake.spouse_esigned).to eq "yes"
+        expect(intake.spouse_esigned_at).to be_present
+        expect(intake.primary_signature_pin).to eq "12345"
+        expect(intake.spouse_signature_pin).to eq "12344"
+        expect(intake.submission_efile_device_info.device_id).to eq device_id
+      end
+    end
+
     context "when they don't have an existing efile submission" do
       it "creates a new efile submission" do
         form = described_class.new(intake, params)
@@ -226,6 +263,94 @@ RSpec.describe StateFile::EsignDeclarationForm do
           {
             primary_esigned: "yes",
             spouse_esigned: "unfilled",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+    end
+  end
+
+  describe "#validations with signature pin" do
+    let!(:intake) { create :state_file_md_intake, primary_esigned: "unfilled", primary_esigned_at: nil, spouse_esigned: "unfilled", filing_status: "married_filing_jointly", primary_signature_pin: "unfilled", spouse_signature_pin: "unfilled" }
+
+    context "when married-filing-jointly and spouse is deceased" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(true)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "does not require spouse signature" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: nil,
+            primary_signature_pin: "12344",
+            spouse_signature_pin: nil,
+            device_id: device_id,
+          }
+        )
+
+        expect(form).to be_valid
+      end
+    end
+
+    context "when married-filing-jointly and spouse is not deceased" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(false)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "does require spouse signature" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: "unfilled",
+            primary_signature_pin: "12344",
+            spouse_signature_pin: "unfilled",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+    end
+
+    context "when married-filing-jointly and spouse enters pin" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(false)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "does require pin to be unique" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: "yes",
+            primary_signature_pin: "12344",
+            spouse_signature_pin: "12344",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+
+      it "it cannot be 00000" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: "yes",
+            primary_signature_pin: "00000",
+            spouse_signature_pin: "12344",
             device_id: device_id,
           }
         )

@@ -11,18 +11,19 @@ module StateFile
     validates :spouse_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}, if: -> { @intake.ask_spouse_esign? }
     validate :validate_intake_already_submitted
     validates :primary_signature_pin, presence: true, signature_pin: true, if: -> { @intake.ask_for_signature_pin? }
-    validates :spouse_signature_pin, presence: true, signature_pin: true, if: -> { @intake.ask_for_signature_pin?  && @intake.spouse.full_name.present? }
+    validates :spouse_signature_pin, presence: true, signature_pin: true, if: -> { @intake.ask_for_signature_pin?  && @intake.ask_spouse_esign? }
 
     def save
       return false unless valid?
-      attrs = @intake.ask_spouse_esign? ? attributes_for(:intake) : attributes_for(:intake).except(:spouse_esigned)
-      attrs = @intake.ask_for_signature_pin? ? attrs : attrs.except(:primary_signature_pin, :spouse_signature_pin)
-      if  @intake.ask_for_signature_pin?
-        attrs.merge!(
-          primary_signature_pin: primary_signature_pin,
-          spouse_signature_pin: spouse_signature_pin
-        )
+      attrs = attributes_for(:intake)
+      attrs.except!(:spouse_esigned) unless @intake.ask_spouse_esign?
+      attrs.except!(:primary_signature_pin, :spouse_signature_pin) unless @intake.ask_for_signature_pin?
+
+      if @intake.ask_for_signature_pin?
+        attrs[:primary_signature_pin] = primary_signature_pin
+	      attrs[:spouse_signature_pin] = spouse_signature_pin
       end
+
       @intake.update!(attrs)
       @intake.touch(:primary_esigned_at) if @intake.primary_esigned_yes?
       @intake.touch(:spouse_esigned_at) if @intake.spouse_esigned_yes? && @intake.ask_spouse_esign?
