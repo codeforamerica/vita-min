@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::MdReviewController do
-  let(:intake) { create :state_file_md_intake}
+  let(:intake) { create :state_file_md_intake }
 
   before do
     sign_in intake

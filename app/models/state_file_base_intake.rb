@@ -64,24 +64,26 @@ class StateFileBaseIntake < ApplicationRecord
 
     if direct_file_json_data.primary_filer.present?
       attributes_to_update.merge!(
-        primary_first_name: direct_file_json_data.primary_first_name,
-        primary_middle_initial: direct_file_json_data.primary_middle_initial,
-        primary_last_name: direct_file_json_data.primary_last_name,
-        primary_birth_date: direct_file_json_data.primary_dob
+        primary_first_name: direct_file_json_data.primary_filer.first_name,
+        primary_middle_initial: direct_file_json_data.primary_filer.middle_initial,
+        primary_last_name: direct_file_json_data.primary_filer.last_name,
+        primary_birth_date: direct_file_json_data.primary_filer.dob
       )
     end
 
     if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
       attributes_to_update.merge!(
-        spouse_first_name: direct_file_json_data.spouse_first_name,
-        spouse_middle_initial: direct_file_json_data.spouse_middle_initial,
-        spouse_last_name: direct_file_json_data.spouse_last_name,
-        spouse_birth_date: direct_file_json_data.spouse_dob
+        spouse_first_name: direct_file_json_data.spouse_filer.first_name,
+        spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
+        spouse_last_name: direct_file_json_data.spouse_filer.last_name,
+        spouse_birth_date: direct_file_json_data.spouse_filer.dob
       )
     end
 
     update(attributes_to_update) if attributes_to_update.present?
   end
+
+  class SynchronizeError < StandardError; end
 
   def synchronize_df_dependents_to_database
     direct_file_data.dependents.each do |direct_file_dependent|
@@ -89,11 +91,16 @@ class StateFileBaseIntake < ApplicationRecord
       dependent.assign_attributes(direct_file_dependent.attributes)
 
       dependent_json = direct_file_json_data.find_matching_json_dependent(dependent)
+
+      if direct_file_json_data.data.present? && dependent_json.nil?
+        raise SynchronizeError, "Could not find matching dependent #{dependent.id} with #{state_name} intake id: #{id}"
+      end
+
       if dependent_json.present?
         json_attributes = {
-          middle_initial: dependent_json["middleInitial"],
-          relationship: dependent_json["relationship"]&.humanize,
-          dob: dependent_json["dateOfBirth"]
+          middle_initial: dependent_json.middle_initial,
+          relationship: dependent_json.relationship,
+          dob: dependent_json.dob
         }
         dependent.assign_attributes(json_attributes)
       end
@@ -351,5 +358,19 @@ class StateFileBaseIntake < ApplicationRecord
       self.withdraw_amount = nil
       self.date_electronic_withdrawal = nil
     end
+  end
+
+  def calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date)
+    # federal guidelines: you qualify for age related benefits the day before your birthday
+    # that means for a given tax year those born on Jan 1st the following tax-year will be included
+    # this does not apply for benefits you age out of or any age calculations for Maryland
+    raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
+
+    birth_year = dob.year
+    if inclusive_of_jan_1
+      birthday_is_jan_1 = dob.month == 1 && dob.day == 1
+      birth_year -= 1 if birthday_is_jan_1
+    end
+    MultiTenantService.statefile.current_tax_year - birth_year
   end
 end

@@ -5,9 +5,10 @@
       "middleInitial": null,
       "lastName": "Ludgate",
       "dateOfBirth": "1998-01-01",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "tin": "300-00-0014"
     }
   ],
   "filers": [
@@ -16,7 +17,8 @@
       "middleInitial": "J",
       "lastName": "Knope",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": true,
+      "tin": "400-00-0007"
     }
   ]
 }
