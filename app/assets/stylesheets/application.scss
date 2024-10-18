@@ -264,6 +264,11 @@ ul.with-bullets {
   color: $color-red;
 }
 
+.text--grey-bold {
+  font-weight: bold;
+  color: $color-grey-medium;
+}
+
 pre {
   white-space: pre-wrap;
 }
