@@ -93,15 +93,15 @@ RSpec.describe StateFileMdIntake, type: :model do
 
   describe "#eligibility_filing_status" do
     subject(:intake) do
-      create(:state_file_md_intake, eligibility_filing_status: :mfj)
+      create(:state_file_md_intake, eligibility_filing_status_mfj: :yes)
     end
 
     it "defines a correct enum" do
-      expect(intake.eligibility_filing_status_before_type_cast).to eq(1)
-      intake.update(eligibility_filing_status: :non_mfj)
-      expect(intake.eligibility_filing_status_before_type_cast).to eq(2)
-      intake.update(eligibility_filing_status: :unfilled)
-      expect(intake.eligibility_filing_status_before_type_cast).to eq(0)
+      expect(intake.eligibility_filing_status_mfj_before_type_cast).to eq(1)
+      intake.update(eligibility_filing_status_mfj: :no)
+      expect(intake.eligibility_filing_status_mfj_before_type_cast).to eq(2)
+      intake.update(eligibility_filing_status_mfj: :unfilled)
+      expect(intake.eligibility_filing_status_mfj_before_type_cast).to eq(0)
     end
   end
 end
