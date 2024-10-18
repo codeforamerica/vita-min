@@ -9,7 +9,7 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def document
-              build_xml_doc("Form502CR") do |xml|
+              build_xml_doc("Form502CR", documentId: "Form502CR") do |xml|
                 xml.ChildAndDependentCare do |child_dependent_care|
                   child_dependent_care.FederalAdjustedGrossIncome calculated_fields.fetch(:MD502_LINE_1)
                   child_dependent_care.FederalChildCareCredit calculated_fields.fetch(:MD502CR_PART_B_LINE_2)
