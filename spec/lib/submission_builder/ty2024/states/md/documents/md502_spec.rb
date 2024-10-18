@@ -17,17 +17,32 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
 
       context "County information" do
+        context "with incorporated subdivision" do
+          before do
+            intake.residence_county = "Allegany"
+            intake.political_subdivision = "Town Of Barton"
+            intake.subdivision_code = "0101"
+          end
 
-        before do
-          intake.residence_county = "Allegany"
-          intake.political_subdivision = "Town Of Barton"
-          intake.subdivision_code = "0101"
+          it "outputs correct information" do
+            expect(xml.at("Form502 MarylandSubdivisionCode").text).to eq("0101")
+            expect(xml.at("Form502 CityTownOrTaxingArea").text).to eq("Town Of Barton")
+            expect(xml.at("Form502 MarylandCounty").text).to eq("AL")
+          end
         end
 
-        it "output correct information" do
-          expect(xml.at("Form502 MarylandSubdivisionCode").text).to eq("0101")
-          expect(xml.at("Form502 CityTownOrTaxingArea").text).to eq("Town Of Barton")
-          expect(xml.at("Form502 MarylandCounty").text).to eq("AL")
+        context "with unincorporated subdivision" do
+          before do
+            intake.residence_county = "Anne Arundel"
+            intake.political_subdivision = "Anne Arundel - unincorporated"
+            intake.subdivision_code = "0200"
+          end
+
+          it "outputs correct information without CityTownOrTaxingArea" do
+            expect(xml.at("Form502 MarylandSubdivisionCode").text).to eq("0200")
+            expect(xml.at("Form502 CityTownOrTaxingArea")).to be_nil
+            expect(xml.at("Form502 MarylandCounty").text).to eq("AA")
+          end
         end
       end
 
