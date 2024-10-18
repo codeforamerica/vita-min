@@ -348,6 +348,9 @@ describe DirectFileData do
         @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS8859', @doc))
         @doc.at("IRS8859").add_child(Nokogiri::XML::Node.new('DCHmByrCurrentYearCreditAmt', @doc))
         @doc.at("IRS8859 DCHmByrCurrentYearCreditAmt").content = "4000"
+        @doc.at("ReturnData").add_child(Nokogiri::XML::Node.new('IRS2441', @doc))
+        @doc.at("IRS2441").add_child(Nokogiri::XML::Node.new('TotalQlfdExpensesOrLimitAmt', @doc))
+        @doc.at("IRS2441 TotalQlfdExpensesOrLimitAmt").content = "1200"
         @direct_file_data = DirectFileData.new(@doc.to_s)
       end
 
@@ -357,6 +360,7 @@ describe DirectFileData do
         expect(@direct_file_data.fed_mortgage_interest_credit_amount).to eq(2000)
         expect(@direct_file_data.fed_adoption_credit_amount).to eq(3000)
         expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to eq(4000)
+        expect(@direct_file_data.total_qualifying_dependent_care_expenses).to eq(1200)
       end
     end
 
