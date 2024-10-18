@@ -9,7 +9,7 @@
   <div class="spacing-above-15 spacing-below-60">
     <div class="reveal">
       <p>
-        <a href="#" class="reveal__link" data-track-click="w2_havent_received_reveal"><%= t("views.ctc.questions.w2s.reveal.title") %></a>
+        <a href="#" class="reveal__button" data-track-click="w2_havent_received_reveal"><%= t("views.ctc.questions.w2s.reveal.title") %></a>
       </p>
       <div class="reveal__content">
         <p class="text--line-breaks"><%= t("views.ctc.questions.w2s.reveal.content_html") %></p>
@@ -18,7 +18,7 @@
 
     <div class="reveal">
       <p>
-        <a href="#" class="reveal__link" data-track-click="w2_have_1099"><%= t("views.ctc.questions.w2s.reveal_1099.title") %></a>
+        <a href="#" class="reveal__button" data-track-click="w2_have_1099"><%= t("views.ctc.questions.w2s.reveal_1099.title") %></a>
       </p>
       <div class="reveal__content">
         <p><%= t("views.ctc.questions.w2s.reveal_1099.content_html", url: root_with_source_url(host: MultiTenantService.new(:gyr).host, source: "gctc_w2_referral")) %></p>
