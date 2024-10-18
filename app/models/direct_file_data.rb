@@ -38,7 +38,7 @@ class DirectFileData < DfXmlAccessor
     fed_gross_income_exclusion_amount: 'IRS1040Schedule1 GrossIncomeExclusionAmt',
     fed_total_income_exclusion_amount: 'IRS1040Schedule1 TotalIncomeExclusionAmt',
     fed_foreign_tax_credit_amount: 'IRS1040Schedule3 ForeignTaxCreditAmt',
-    fed_credit_for_child_and_dependent_care_amount: 'IRS1040Schedule3 CreditForChildAndDepdCareAmt',
+    fed_credit_for_child_and_dependent_care_amount: 'ReturnData IRS1040Schedule3 CreditForChildAndDepdCareAmt',
     fed_education_credit_amount: 'IRS1040Schedule3 EducationCreditAmt',
     fed_retirement_savings_contribution_credit_amount: 'IRS1040Schedule3 RtrSavingsContributionsCrAmt',
     fed_energy_efficiency_home_improvement_credit_amount: 'IRS1040Schedule3 EgyEffcntHmImprvCrAmt',
@@ -384,6 +384,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_credit_for_child_and_dependent_care_amount=(value)
+    create_or_destroy_df_xml_node(__method__, true)
     write_df_xml_value(__method__, value)
   end
 

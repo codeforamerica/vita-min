@@ -9,9 +9,9 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
     let(:instance) {described_class.new(submission)}
     let(:build_response) { instance.build }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+    let(:intake) { create(:state_file_md_intake)}
 
     context "502R" do
-      let(:intake) { create(:state_file_md_intake)}
 
       context "when taxable pensions/IRAs/annuities are present" do
         before do
@@ -38,6 +38,16 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
           }
         end
       end
+    end
+
+    context "502CR" do
+      it "attaches a 502CR" do
+        expect(xml.at("Form502CR")).to be_present
+        expect(instance.pdf_documents).to be_any { |included_documents|
+          included_documents.pdf = PdfFiller::Md502CrPdf
+        }
+      end
+
     end
 
     it "generates basic components of return" do
