@@ -125,5 +125,10 @@ FactoryBot.define do
     trait :claimed_as_dependent do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_riley_claimedasdep') }
     end
+
+    trait :df_data_1099_int do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_1099_int') }
+    end
   end
 end

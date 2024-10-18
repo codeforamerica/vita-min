@@ -73,7 +73,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
-  encrypts :account_number, :routing_number, :raw_direct_file_data
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -87,5 +87,13 @@ class StateFileMdIntake < StateFileBaseIntake
       eligibility_lived_in_state: "no",
       eligibility_out_of_state_income: "yes",
     }
+  end
+
+  def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)
+    # overwriting the base intake method b/c
+    # MD always considers individuals to attain their age on their DOB
+    raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
+
+    MultiTenantService.statefile.current_tax_year - dob.year
   end
 end

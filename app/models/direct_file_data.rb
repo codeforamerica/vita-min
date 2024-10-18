@@ -69,7 +69,8 @@ class DirectFileData < DfXmlAccessor
     interest_reported_amount: 'IRS1040 InterestReported', # fake
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
-    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt'
+    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
+    spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
   }.freeze
 
   def initialize(raw_xml)
@@ -133,6 +134,14 @@ class DirectFileData < DfXmlAccessor
 
   def spouse_deceased?
     surviving_spouse == "X"
+  end
+
+  def spouse_claimed_dependent=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_is_a_dependent?
+    spouse_claimed_dependent == "X"
   end
 
   def sum_of_1099r_payments_received
@@ -500,18 +509,6 @@ class DirectFileData < DfXmlAccessor
 
   def primary_has_itin?
     primary_ssn.start_with?("9")
-  end
-
-  def fed_65_primary_spouse
-    elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
-    value = 0
-
-    elements_to_check.each do |element_name|
-      if parsed_xml.at(element_name)
-        value += 1
-      end
-    end
-    value
   end
 
   def fed_w2_state

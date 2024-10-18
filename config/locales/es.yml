@@ -2428,6 +2428,13 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      income_review:
+        edit:
+          help_text: Le preguntaremos sobre cualquier información faltante.
+          review_and_edit_state_info: Revisar y editar información del estado
+          state_info_to_be_collected: Información estatal que se recopilará.
+          title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
+          unemployment_title: Beneficios de desempleo (1099-G)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2526,6 +2533,12 @@ es:
         edit:
           county: Condado
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      nj_disabled_exemption:
+        edit:
+          instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
+          primary_disabled_question: "¿Está usted discapacitado según la definición de Nueva Jersey?"
+          spouse_disabled_question: "¿Su cónyuge está discapacitado según la definición de Nueva Jersey?"
+          title: Exención para discapacitados
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: Mi vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
@@ -2564,8 +2577,10 @@ es:
           county: Condado
           household_rent_own: Vivienda en alquiler o en propiedad propia
           municipality: Municipio
+          primary_disabled: Primary disabled
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
+          spouse_disabled: Spouse disabled
       nj_tenant_eligibility:
         edit:
           helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)

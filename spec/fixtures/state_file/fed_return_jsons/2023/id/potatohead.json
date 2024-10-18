@@ -1,0 +1,21 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Potato",
+      "lastName": "Head",
+      "middleInitial": null,
+      "tin": "400-00-0030",
+      "dateOfBirth": null,
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Sophie",
+      "lastName": "Cave",
+      "middleInitial": null,
+      "tin": "600-00-0030",
+      "dateOfBirth": null,
+      "isPrimaryFiler": false
+    }
+  ]
+}
