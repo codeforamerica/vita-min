@@ -38,9 +38,13 @@ module PdfFiller
         "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
         "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         "6. Check here": claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
-        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        "Check Box 15": @xml_document.at('Exemptions Primary Standard')&.text,
+        "Check Box 18": @xml_document.at('Exemptions Spouse Standard')&.text,
+        "Text Field 15": @xml_document.at('Exemptions Standard Count')&.text,
+        "Enter A $": @xml_document.at('Exemptions Amount Count')&.text,
         "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
         "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
+        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
     end
 

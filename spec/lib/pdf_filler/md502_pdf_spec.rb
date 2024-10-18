@@ -169,7 +169,7 @@ RSpec.describe PdfFiller::Md502Pdf do
       let(:dependent_exemption_amount) { 3200 }
       before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_total_dependent_exemption_amount).and_return dependent_exemption_amount
       end
 
       it "sets correct filing status for dependent taxpayer and does not set other filing_status" do

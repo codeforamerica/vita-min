@@ -127,7 +127,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           it "omits the whole exemptions section" do
             [
               :get_dependent_exemption_count,
-              :calculate_dependent_exemption_amount
+              :calculate_total_dependent_exemption_amount
             ].each do |method|
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
             end
@@ -139,7 +139,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         context "dependents section" do
           before do
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_total_dependent_exemption_amount).and_return dependent_exemption_amount
           end
 
           context "when there are values" do
