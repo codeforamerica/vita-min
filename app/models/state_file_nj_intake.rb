@@ -55,6 +55,7 @@
 #  primary_signature                                      :string
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
+#  primary_veteran                                        :integer          default("unfilled"), not null
 #  property_tax_paid                                      :integer
 #  raw_direct_file_data                                   :text
 #  raw_direct_file_intake_data                            :jsonb
@@ -72,6 +73,7 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
+#  spouse_veteran                                         :integer          default("unfilled"), not null
 #  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
 #  tenant_building_multi_unit                             :integer          default("unfilled"), not null
 #  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
@@ -116,6 +118,9 @@ class StateFileNjIntake < StateFileBaseIntake
 
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
+  
+  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
+  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

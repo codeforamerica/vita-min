@@ -55,6 +55,7 @@
 #  primary_signature                                      :string
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
+#  primary_veteran                                        :integer          default("unfilled"), not null
 #  property_tax_paid                                      :integer
 #  raw_direct_file_data                                   :text
 #  raw_direct_file_intake_data                            :jsonb
@@ -72,6 +73,7 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
+#  spouse_veteran                                         :integer          default("unfilled"), not null
 #  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
 #  tenant_building_multi_unit                             :integer          default("unfilled"), not null
 #  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
@@ -192,14 +194,22 @@ FactoryBot.define do
       end
     end
 
+    trait :spouse_disabled do
+      spouse_disabled { "yes" }
+    end
+
     trait :fed_credit_for_child_and_dependent_care do
       after(:build) do |intake|
         intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
       end
     end
-    
-    trait :spouse_disabled do
-      spouse_disabled { "yes" }
+
+    trait :primary_veteran do
+      primary_veteran { "yes" }
+    end
+
+    trait :spouse_veteran do
+      spouse_veteran { "yes" }
     end
   end
 end
