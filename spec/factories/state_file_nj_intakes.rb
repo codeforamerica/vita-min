@@ -46,6 +46,7 @@
 #  phone_number                                           :string
 #  phone_number_verified_at                               :datetime
 #  primary_birth_date                                     :date
+#  primary_disabled                                       :integer          default("unfilled"), not null
 #  primary_esigned                                        :integer          default("unfilled"), not null
 #  primary_esigned_at                                     :datetime
 #  primary_first_name                                     :string
@@ -63,6 +64,7 @@
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
+#  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
 #  spouse_first_name                                      :string
@@ -180,6 +182,10 @@ FactoryBot.define do
       end
     end
 
+    trait :primary_disabled do
+      primary_disabled { "yes" }
+    end
+
     trait :spouse_blind do
       after(:build) do |intake|
         intake.direct_file_data.spouse_blind
@@ -190,6 +196,10 @@ FactoryBot.define do
       after(:build) do |intake|
         intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
       end
+    end
+    
+    trait :spouse_disabled do
+      spouse_disabled { "yes" }
     end
   end
 end

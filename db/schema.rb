@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_11_143141) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2069,6 +2069,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_143141) do
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.date "primary_birth_date"
+    t.integer "primary_disabled", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -2087,6 +2088,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_143141) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"

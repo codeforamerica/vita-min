@@ -102,6 +102,34 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_8].value).to eq(2000)
       end
     end
+
+    context 'when filer is disabled but not blind' do
+      let(:intake) { create(:state_file_nj_intake, :primary_disabled)}
+      it 'sets line 8 deductions to 1000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+      end
+    end
+
+    context 'when filer is disabled and blind' do
+      let(:intake) { create(:state_file_nj_intake, :primary_disabled, :primary_blind)}
+      it 'sets line 8 deductions to 1000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+      end
+    end
+
+    context 'when spouse is disabled' do
+      let(:intake) { create(:state_file_nj_intake, :spouse_disabled)}
+      it 'sets line 8 deductions to 1000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+      end
+    end
+
+    context 'when spouse and primary are disabled' do
+      let(:intake) { create(:state_file_nj_intake, :spouse_disabled, :primary_disabled)}
+      it 'sets line 8 deductions to 2000' do
+        expect(instance.lines[:NJ1040_LINE_8].value).to eq(2000)
+      end
+    end
   end
 
   describe 'line 13 - total exemptions' do
