@@ -36,7 +36,7 @@ RSpec.describe StateFile::MdCountyForm, type: :model do
       before { form.residence_county = "Anne Arundel" }
 
       it "returns subdivisions for the selected county" do
-        expect(form.valid_subdivisions).to eq(["0201", "0203"])
+        expect(form.valid_subdivisions).to eq(["0200", "0201", "0203"])
       end
     end
 
