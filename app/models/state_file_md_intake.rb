@@ -97,7 +97,17 @@ class StateFileMdIntake < StateFileBaseIntake
     MultiTenantService.statefile.current_tax_year - dob.year
   end
 
-  # do we need this??
+  def filing_status
+    {
+      1 => :single,
+      2 => :married_filing_jointly,
+      3 => :married_filing_separately,
+      4 => :head_of_household,
+      5 => :qualifying_widow,
+      6 => :dependent,
+    }[direct_file_data&.filing_status]
+  end
+
   def filing_status_dependent?
     filing_status == :dependent
   end

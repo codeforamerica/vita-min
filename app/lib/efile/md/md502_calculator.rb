@@ -22,9 +22,9 @@ module Efile
         set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
         set_line(:MD502_LINE_A_CHECKED_COUNT, :calculate_line_a_checked_count)
         set_line(:MD502_LINE_A_AMOUNT, :calculate_line_a_amount)
-        set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
-        set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_dependent_exemption_amount)
         @md502b.calculate
+        set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
+        set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_total_dependent_exemption_amount)
         @lines.transform_values(&:value)
       end
 
@@ -44,17 +44,18 @@ module Efile
       end
 
       def calculate_line_a_yourself
-        @submission.data_source.direct_file_data.claimed_as_dependent? ? nil : "X"
+        # should we use filing_status_dependent? instead
+        @direct_file_data.claimed_as_dependent? ? nil : "X"
       end
 
       def calculate_line_a_spouse
-        @submission.data_source.direct_file_data.filing_status_mfj? ? nil : "X"
+        filing_status_mfj? ? "X" : nil
       end
 
       def calculate_line_a_checked_count
         count = 0
-        count += 1 if @lines[:MD502B_LINE_A_YOURSELF].present?
-        count += 1 if @lines[:MD502B_LINE_A_SPOUSE].present?
+        count += 1 if @lines[:MD502_LINE_A_YOURSELF].value.present?
+        count += 1 if @lines[:MD502_LINE_A_SPOUSE].value.present?
         count
       end
 
@@ -62,14 +63,14 @@ module Efile
         # Exemption amount
         income_ranges = if filing_status_single? || filing_status_mfs?
                           [
-                            [0..100_000, 3200],
+                            [-Float::INFINITY..100_000, 3200],
                             [100_001..125_000, 1600],
                             [125_001..150_000, 800],
                             [150_001..Float::INFINITY, 0]
                           ]
                         elsif filing_status_hoh? || filing_status_mfj? || filing_status_qw?
                           [
-                            [0..100_000, 3200],
+                            [-Float::INFINITY..100_000, 3200],
                             [100_001..125_000, 3200],
                             [125_001..150_000, 3200],
                             [150_001..175_000, 1600],
@@ -77,7 +78,7 @@ module Efile
                             [200_001..Float::INFINITY, 0]
                           ]
                         else
-                          [[0..Float::INFINITY, 0]]
+                          [[-Float::INFINITY..Float::INFINITY, 0]]
                         end
 
         income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }
@@ -86,12 +87,15 @@ module Efile
       end
 
       def get_dependent_exemption_count
-        @lines[:MD502B_LINE_3].value
+        line_or_zero(:MD502B_LINE_3)
       end
 
-      def calculate_dependent_exemption_amount
-        amount_per_child = line_or_zero(:MD502_LINE_A_AMOUNT)
-        amount_per_child * line_or_zero(:MD502_DEPENDENT_EXEMPTION_COUNT)
+      def calculate_total_dependent_exemption_amount
+        line_or_zero(:MD502_LINE_A_AMOUNT) * line_or_zero(:MD502_DEPENDENT_EXEMPTION_COUNT)
+      end
+
+      def filing_status_dependent?
+        @filing_status == :dependent
       end
     end
   end
