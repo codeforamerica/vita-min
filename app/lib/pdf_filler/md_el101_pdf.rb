@@ -17,9 +17,11 @@ module PdfFiller
     def hash_for_pdf
       {
         'First Name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
+        'Middle Initial': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
         'Last Name': @xml_document.at('Primary TaxpayerName LastName')&.text,
         'SSNTaxpayer Identification Number': @xml_document.at('Primary TaxpayerSSN')&.text,
         'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
+        'Spouse Middle Initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
         'SSNTaxpayer Identification Number_2': @xml_document.at('Secondary TaxpayerSSN')&.text,
         'Primary signature': [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text].join(' '),
