@@ -147,6 +147,9 @@
       <StudentLoanInterestDedAmt>1300</StudentLoanInterestDedAmt>
       <TotalAdjustmentsAmt>1500</TotalAdjustmentsAmt>
     </IRS1040Schedule1>
+    <IRS1040Schedule3>
+      <CreditForChildAndDepdCareAmt>1000</CreditForChildAndDepdCareAmt>
+    </IRS1040Schedule3>
     <IRS1040Schedule8812 documentName="IRS1040Schedule8812" documentId="IRS8812001">
       <AdjustedGrossIncomeAmt>56300</AdjustedGrossIncomeAmt>
       <ModifiedAGIAmt>56300</ModifiedAGIAmt>

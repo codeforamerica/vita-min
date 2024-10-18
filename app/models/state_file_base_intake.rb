@@ -262,6 +262,10 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
 
+    def age
+      birth_date.present? ? MultiTenantService.statefile.current_tax_year - birth_date.year : 0
+    end
+
     def full_name
       [@first_name, @middle_initial, @last_name, @suffix].map(&:presence).compact.join(' ')
     end

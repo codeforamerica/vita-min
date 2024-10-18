@@ -24,7 +24,7 @@ module DfXmlCrudMethods
         elsif after && current_node.at(after)
           current_node.at(after).add_next_sibling("<#{node_name}/>")
         else
-          current_node.add_child("<#{node_name}/>").first
+          current_node = current_node.add_child("<#{node_name}/>").first
         end
       end
       current_node
