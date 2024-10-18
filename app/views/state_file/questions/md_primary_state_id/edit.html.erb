@@ -1,0 +1,24 @@
+<% title = t("state_file.questions.primary_state_id.edit.title") %>
+<% content_for :page_title, title %>
+
+<%# Must be above :card content_for %>
+<% content_for :info_box do %>
+  <div class="reveal">
+    <p><a href="#" class="reveal__link"><%= t(".why_ask_this") %></a></p>
+    <div class="reveal__content">
+      <div>
+        <p>
+          <%=  t('.protect_identity') %>
+        </p>
+        <p>
+          <%= t('.encourage_sharing') %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {} %>
+<% end %>
