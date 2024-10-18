@@ -6,7 +6,7 @@ module SubmissionBuilder
       module Nj
         class NjReturnXml < SubmissionBuilder::StateReturn
 
-          def w2_builder
+          def w2_class
             SubmissionBuilder::Ty2024::States::Nj::Documents::NjW2
           end
 
@@ -43,7 +43,7 @@ module SubmissionBuilder
               },
             ]
 
-            supported_docs += w2s
+            supported_docs += combined_w2s
             supported_docs
           end
         end

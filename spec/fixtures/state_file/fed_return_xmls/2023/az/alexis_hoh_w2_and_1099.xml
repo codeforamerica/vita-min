@@ -162,7 +162,6 @@
       <EmployeeNm>Alexis Rose</EmployeeNm>
       <EmployeeUSAddress>
         <AddressLine1Txt>321 Roland St</AddressLine1Txt>
-        <AddressLine2Txt>Apt B</AddressLine2Txt>
         <CityNm>Phoenix</CityNm>
         <StateAbbreviationCd>AZ</StateAbbreviationCd>
         <ZIPCd>85034</ZIPCd>

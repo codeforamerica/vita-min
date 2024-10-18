@@ -91,27 +91,6 @@ describe StateFileBaseIntake do
       expect(w2.locality_nm).to eq "SOMECITY"
       expect(w2.state_income_tax_amount).to eq 500
       expect(w2.state_wages_amount).to eq 35000
-      expect(w2.employee_ssn).to eq "400000003"
-      expect(w2.employer_ein).to eq "234567891"
-      expect(w2.employer_name_control_txt).to eq "ROSE"
-      expect(w2.employer_street_address).to eq "123 Twyla Road"
-      expect(w2.employer_city).to eq "Phoenix"
-      expect(w2.employer_state).to eq "AZ"
-      expect(w2.employer_zip).to eq "85034"
-      expect(w2.employee_address_line_1).to eq "321 Roland St"
-      expect(w2.employee_address_line_2).to eq "Apt B"
-      expect(w2.employee_city).to eq "Phoenix"
-      expect(w2.employee_state).to eq "AZ"
-      expect(w2.employee_zip).to eq "85034"
-      expect(w2.wages_amount).to eq "35000"
-      expect(w2.withholding_amount).to eq "3000"
-      expect(w2.social_security_wages_amount).to eq "35000"
-      expect(w2.social_security_tax_amount).to eq "2170"
-      expect(w2.medicare_wages_and_tips_amount).to eq "35000"
-      expect(w2.medicare_tax_withheld_amount).to eq "508"
-      expect(w2.other_deductions_benefits_desc).to eq ""
-      expect(w2.other_deductions_benefits_amount).to eq ""
-      expect(w2.standard_or_nonstandard_code).to eq ""
     end
   end
 

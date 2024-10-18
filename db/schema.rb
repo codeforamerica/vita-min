@@ -2233,39 +2233,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_215227) do
 
   create_table "state_file_w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "employee_address_line_1"
-    t.string "employee_address_line_2"
-    t.string "employee_city"
     t.string "employee_name"
-    t.string "employee_ssn"
-    t.string "employee_state"
-    t.string "employee_zip"
-    t.string "employer_city"
-    t.string "employer_ein"
     t.string "employer_name"
-    t.string "employer_name_control_txt"
-    t.string "employer_state"
     t.string "employer_state_id_num"
-    t.string "employer_street_address"
-    t.string "employer_zip"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
     t.decimal "local_wages_and_tips_amount", precision: 12, scale: 2
     t.string "locality_nm"
-    t.string "medicare_tax_withheld_amount"
-    t.string "medicare_wages_and_tips_amount"
-    t.string "other_deductions_benefits_amount"
-    t.string "other_deductions_benefits_desc"
-    t.string "social_security_tax_amount"
-    t.string "social_security_wages_amount"
-    t.string "standard_or_nonstandard_code"
     t.bigint "state_file_intake_id"
     t.string "state_file_intake_type"
     t.decimal "state_income_tax_amount", precision: 12, scale: 2
     t.decimal "state_wages_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.integer "w2_index"
-    t.string "wages_amount"
-    t.string "withholding_amount"
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 
