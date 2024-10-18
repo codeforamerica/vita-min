@@ -8,6 +8,16 @@ module SubmissionBuilder
           class Md502 < SubmissionBuilder::Document
             include SubmissionBuilder::FormattingMethods
 
+            # from MDIndividualeFileTypes.xsd
+            FILING_STATUS_OPTIONS = {
+              single: "Single",
+              married_filing_jointly: 'Joint',
+              married_filing_separately: 'MarriedFilingSeparately',
+              head_of_household: 'HeadOfHousehold',
+              qualifying_widow: 'QualifyingWidow',
+              dependent: 'DependentTaxpayer'
+            }.freeze
+
             def document
               build_xml_doc("Form502", documentId: "Form502") do |xml|
                 if @submission.data_source.direct_file_data.claimed_as_dependent?
@@ -25,6 +35,18 @@ module SubmissionBuilder
                 end
                 if has_exemptions
                   xml.Exemptions do
+                    xml.Primary do
+                      xml.Standard calculated_fields.fetch(:MD502_LINE_A_YOURSELF)
+                    end
+                    if @submission.data_source.filing_status_mfj?
+                      xml.Spouse do
+                        xml.Standard calculated_fields.fetch(:MD502_LINE_A_SPOUSE)
+                      end
+                    end
+                    xml.Standard do
+                      xml.Count calculated_fields.fetch(:MD502_LINE_A_CHECKED_COUNT)
+                      xml.amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
+                    end
                     if has_dependent_exemption
                       xml.Dependents do
                         xml.Count calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_COUNT)
@@ -72,14 +94,6 @@ module SubmissionBuilder
             def has_exemptions
               has_dependent_exemption
             end
-
-            # from MDIndividualeFileTypes.xsd
-            FILING_STATUS_OPTIONS = {
-              head_of_household: 'HeadOfHousehold',
-              married_filing_jointly: 'Joint',
-              qualifying_widow: 'QualifyingWidow',
-              single: "Single",
-            }.freeze
 
             def filing_status
               FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
