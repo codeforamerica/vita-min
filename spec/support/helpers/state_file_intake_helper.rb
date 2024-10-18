@@ -29,7 +29,17 @@ module StateFileIntakeHelper
     end
     click_on "Continue"
 
-    expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
+    long_state_name = case us_state
+    when "az"
+      "Arizona"
+    when "nc"
+      "North Carolina"
+    when "ny"
+      "New York"
+    else
+      "please change in state_file_intake_helper.rb"
+    end
+    expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: long_state_name)
     click_on "Continue"
   end
 
