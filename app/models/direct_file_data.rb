@@ -71,7 +71,7 @@ class DirectFileData < DfXmlAccessor
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
-    dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
+    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
   }.freeze
 
   def initialize(raw_xml)
@@ -642,11 +642,11 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def dependent_care_expenses
+  def total_qualifying_dependent_care_expenses
     df_xml_value(__method__)&.to_i || 0
   end
 
-  def dependent_care_expenses=(value)
+  def total_qualifying_dependent_care_expenses=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -851,7 +851,7 @@ class DirectFileData < DfXmlAccessor
       fed_dc_homebuyer_credit_amount
       fed_adjustments_claimed
       fed_taxable_pensions
-      dependent_care_expenses
+      total_qualifying_dependent_care_expenses
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

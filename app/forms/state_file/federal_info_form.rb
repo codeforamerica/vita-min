@@ -25,7 +25,7 @@ module StateFile
                        :total_state_tax_withheld,
                        :total_exempt_primary_spouse,
                        :interest_reported_amount,
-                       :dependent_care_expenses
+                       :total_qualifying_dependent_care_expenses
 
     validate :direct_file_data_must_be_imported
     validate :dependent_detail_ssns_must_be_unique
