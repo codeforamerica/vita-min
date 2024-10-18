@@ -559,7 +559,6 @@ Rails.application.routes.draw do
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
-          post "md_county/subdivision_dropdown", to: "md_county#subdivision_dropdown"
         end
       end
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SubmissionBuilder
   module Ty2024
     module States
@@ -15,13 +13,13 @@ module SubmissionBuilder
                   xml.CityTownOrTaxingArea intake.political_subdivision
                 end
                 xml.MarylandCounty county_abbreviation
-                if @submission.data_source.direct_file_data.claimed_as_dependent?
+                if intake.direct_file_data.claimed_as_dependent?
                   xml.FilingStatus do
                     xml.DependentTaxpayer "X"
                   end
-                elsif @submission.data_source.filing_status == :married_filing_separately
+                elsif intake.filing_status == :married_filing_separately
                   xml.FilingStatus do
-                    xml.MarriedFilingSeparately "X", spouseSSN: @submission.data_source.direct_file_data.spouse_ssn
+                    xml.MarriedFilingSeparately "X", spouseSSN: intake.direct_file_data.spouse_ssn
                   end
                 else
                   xml.FilingStatus do
