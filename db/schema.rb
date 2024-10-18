@@ -1899,6 +1899,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.string "political_subdivision"
     t.date "primary_birth_date"
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
@@ -1912,6 +1913,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
+    t.string "residence_county"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
@@ -1925,6 +1927,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.string "street_address"
+    t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
