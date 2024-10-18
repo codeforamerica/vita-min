@@ -16,8 +16,12 @@ module StateFile
     def save
       return false unless valid?
       attrs = attributes_for(:intake)
-      attrs.except!(:spouse_esigned) unless @intake.ask_spouse_esign?
-      attrs.except!(:primary_signature_pin, :spouse_signature_pin) unless @intake.ask_for_signature_pin?
+      spouse_esigned = @intake.ask_spouse_esign?
+      signature_pin_needed = @intake.ask_for_signature_pin?
+
+      attrs.except!(:spouse_esigned) unless spouse_esigned
+      attrs.except!(:primary_signature_pin, :spouse_signature_pin) unless signature_pin_needed
+      attrs.except!(:spouse_signature_pin) unless spouse_esigned && signature_pin_needed
 
       if @intake.ask_for_signature_pin?
         attrs[:primary_signature_pin] = primary_signature_pin
@@ -78,5 +82,7 @@ module StateFile
         self.errors.add(:base, :already_submitted, message: I18n.t("state_file.questions.esign_declaration.edit.already_submitted"))
       end
     end
+
+    
   end
 end

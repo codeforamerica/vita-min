@@ -40,8 +40,8 @@ module SubmissionBuilder
               end
               xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
               xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
-              xml.TaxpayerPIN @submission.data_source.spouse_signature_pin if @submission.data_source.ask_for_signature_pin?
-              xml.DateSigned date_type(@submission.data_source.spouse_esigned_at) if @submission.data_source.ask_for_signature_pin?
+              xml.TaxpayerPIN @submission.data_source.spouse_signature_pin if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
+              xml.DateSigned date_type(@submission.data_source.spouse_esigned_at) if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
               xml.DateOfDeath @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.direct_file_data.spouse_date_of_death.present?
             end
           end
