@@ -90,6 +90,21 @@ module SubmissionBuilder
       SubmissionBuilder::State1099G
     end
 
+    def form1099rs
+      @submission.data_source.state_file1099_rs.map do |form1099r|
+        {
+          xml: form1099r_builder,
+          pdf: nil,
+          include: true,
+          kwargs: { form1099r: form1099r }
+        }
+      end
+    end
+
+    def form1099r_builder
+      SubmissionBuilder::State1099R
+    end
+
     # default to nil
     def w2_pdf; end
 
