@@ -2481,6 +2481,9 @@ es:
             title: "¿Qué son los gastos calificados y no calificados?"
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
           withdraw_529_html: ¿Retiró usted (o su cónyuge, si presentan una declaración juntos) dinero de un <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">Cuenta de ahorros para la universidad 529</a> y usarla para gastos no calificados en %{filing_year}?
+
+
+
       nc_eligibility_residence:
         edit:
           lived_in_state_html: "¿Usted (y su cónyuge, si presentan la declaración juntos) vivieron en %{state} durante <strong>todo</strong> el %{filing_year}?"
