@@ -70,6 +70,7 @@
 @import "components/info-box";
 @import "components/form-cards";
 @import "components/offboarding";
+@import "components/external-link";
 @import "pages/form_13614c";
 @import "pages/provider-list";
 @import "pages/provider-details";
@@ -243,6 +244,10 @@ main {
   @include sr-only;
 }
 
+a[href^='http']:not([href*="fileyourstatetaxes.org" i]) {
+  @include external-link;
+}
+
 ul.with-bullets {
   margin-left: 20px;
   list-style-type: disc;
@@ -282,7 +287,7 @@ pre {
   position: fixed;
   transform: translateY(-100%);
   transition: transform 0.3s;
-  z-index: 3;
+  z-index: 1001;
 }
 
 .admin .skip-link {
