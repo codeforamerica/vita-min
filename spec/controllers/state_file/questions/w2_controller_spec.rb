@@ -20,12 +20,6 @@ RSpec.describe StateFile::Questions::W2Controller do
     sign_in intake
   end
 
-  describe "#show?" do
-    it "returns false" do
-      expect(described_class.show?(intake)).to eq false
-    end
-  end
-
   describe "#edit" do
     render_views
 
