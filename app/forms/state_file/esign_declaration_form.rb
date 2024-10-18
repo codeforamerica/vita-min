@@ -21,7 +21,7 @@ module StateFile
 
       if @intake.ask_for_signature_pin?
         attrs[:primary_signature_pin] = primary_signature_pin
-	      attrs[:spouse_signature_pin] = spouse_signature_pin
+        attrs[:spouse_signature_pin] = spouse_signature_pin
       end
 
       @intake.update!(attrs)

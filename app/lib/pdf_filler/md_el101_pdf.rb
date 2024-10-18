@@ -22,7 +22,7 @@ module PdfFiller
         'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
         'SSNTaxpayer Identification Number_2': @xml_document.at('Secondary TaxpayerSSN')&.text,
-        'Primary signature': [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at  ('Primary TaxpayerName LastName')&.text].join(' '),
+        'Primary signature': [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text].join(' '),
         'Primary Date Signed': @xml_document.at('Primary DateSigned')&.text,
         'Spouses signature': [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text].join(' '),
         'Spouse Date Signed': @xml_document.at('Secondary DateSigned')&.text,
