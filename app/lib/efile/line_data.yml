@@ -584,3 +584,13 @@ NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
+MD502_DEPENDENT_EXEMPTION_COUNT:
+  label: 'Dependent exemption count'
+MD502_DEPENDENT_EXEMPTION_AMOUNT:
+  label: 'Dependent exemption amount'
+MD502B_LINE_1:
+  label: '1 Total number of Regular dependents'
+MD502B_LINE_2:
+  label: '2 Total number of dependents 65 or over'
+MD502B_LINE_3:
+  label: '3 Total Dependent exemption count'
