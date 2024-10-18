@@ -1,7 +1,7 @@
 name: Heroku Pull Request
 on:
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
 
 jobs:
   heroku-pull-request:
@@ -24,41 +24,46 @@ jobs:
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
 
-      - name: Clean up unused old heroku apps, including this one if it's being closed
-        run: .github/remove_old_heroku_review_apps.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Do we need to create the app?
+        run: >
+          if heroku apps:info -a ${{ env.HEROKU_APP_NAME }} > /dev/null 2>&1; then
+            echo "App exists; skipping setup";
+            echo "RUN_APP_SETUP=false" >> $GITHUB_ENV;
+          else
+            echo "No app found; running app creation and setup";
+            echo "RUN_APP_SETUP=true" >> $GITHUB_ENV;
+          fi
 
       - name: Create Heroku app
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
 
       - name: Save app name and PR number as heroku environment variable
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku config:set HEROKU_APP_NAME=${{ env.HEROKU_APP_NAME }} HEROKU_PR_NUMBER=${{ github.event.number }} -a ${{ env.HEROKU_APP_NAME }}
 
       - name: Add nodejs buildpack
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 heroku/nodejs
 
       - name: Add ruby buildpack
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 heroku/ruby
 
       - name: Add activestorage-preview buildpack
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview
 
       - name: Add jvm buildpack
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 heroku/jvm
 
       - name: Add heroku-buildpack-run buildpack
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 https://github.com/weibeld/heroku-buildpack-run.git
 
       - name: Copy environment variables to Heroku app
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: |
           heroku config:set -a ${{ env.HEROKU_APP_NAME }} \
             RAILS_ENV=heroku \
@@ -73,15 +78,13 @@ jobs:
             HEROKU_PLATFORM_KEY=${{ secrets.HEROKU_PLATFORM_KEY }}
 
       - name: Create database
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku addons:create heroku-postgresql:essential-0 --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Add Heroku remote
-        if: github.event.action != 'closed'
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Disable Reline autocomplete
-        if: github.event.action != 'closed'
         run: |
           echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > .irbrc && \
             git add .irbrc && \
@@ -90,31 +93,30 @@ jobs:
             git commit -m "Disable Reline autocomplete"
 
       - name: Push to Heroku
-        if: github.event.action != 'closed'
         run: git push heroku ${{ github.head_ref }}:main --force
 
       - name: Wait for deploy to finish
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku pg:wait --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Setup database
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku run rails heroku:postdeploy
 
       - name: Setup hostnames (GYR, CTC and StateFile)
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku run rails heroku:review_app_setup
 
       - name: Start the worker process
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku ps:scale worker=1 --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Get heroku generated url
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: echo "HEROKU_URL=$(heroku apps:info -s --app ${{ env.HEROKU_APP_NAME }} | grep web_url | cut -d= -f2)" >> $GITHUB_ENV
 
       - name: Add comment to PR
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: ${{ env.RUN_APP_SETUP == 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
