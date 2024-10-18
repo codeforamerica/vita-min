@@ -55,8 +55,16 @@ var radioSelector = (function() {
                 }
 
                 $(this).find('input').click(function (e) {
-                    $(this).closest('.radio-button').siblings().removeClass('is-selected')
-                    $(this).closest('.radio-button').addClass('is-selected')
+                    var allRadioButtons;
+                    if ($(this).closest('.cfa-radio-button').length > 0) {
+                        // FormBuilder V2
+                        allRadioButtons = $(this).closest('.cfa-radio-button').siblings().children('.is-selected');
+                    } else {
+                        // FormBuilder V1 & GCF
+                        allRadioButtons = $(this).closest('.radio-button').siblings();
+                    }
+                    allRadioButtons.removeClass('is-selected');
+                    $(this).closest('.radio-button').addClass('is-selected');
                 })
             })
         }
@@ -76,10 +84,10 @@ var checkboxSelector = (function() {
 
                 $(this).find('input').click(function(e) {
                     if($(this).is(':checked')) {
-                        $(this).parent().addClass('is-selected');
+                        $(this).closest('.checkbox').addClass('is-selected');
                     }
                     else {
-                        $(this).parent().removeClass('is-selected');
+                        $(this).closest('.checkbox').removeClass('is-selected');
                     }
                 })
             })
@@ -98,28 +106,32 @@ var followUpQuestion = (function() {
 
                 // set initial state of follow-ups based on the page
                 $(this).find('input').each(function(index, input) {
-                    if($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
-                        $($(this).attr('data-follow-up')).show();
+                    if($(this).attr('data-follow-up') != null) {
+                        $($(this).attr('data-follow-up')).toggle($(this).is(':checked'));
                     }
                 });
 
                 // add click listeners to initial question inputs
-                $(self).find('> .question-with-follow-up__question input').click(function(e) {
-                    // reset follow ups
-                    $(self).find('> .question-with-follow-up__follow-up input').attr('checked', false);
-                    $(self).find('> .question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
-                    $(self).find('> .question-with-follow-up__follow-up').hide();
+                $(self).find('.question-with-follow-up__question input').click(function(e) {fUQ.update($(self))})
+            });
+        },
+        update: function ($container){
+            // reset follow ups
+            $container.find('.question-with-follow-up__follow-up input').attr('disabled', true);
+            $container.find('.question-with-follow-up__follow-up').hide();
 
-                    // show the current follow up
-                    if($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
-                        $($(this).attr('data-follow-up')).show();
-                    }
-                })
+            $container.find('.question-with-follow-up__question input').each(function(index, input) {
+                // if any of the inputs with a data-follow-up is checked then show the follow-up
+                if($(input).is(':checked') && $(input).attr('data-follow-up') != null) {
+                    $container.find('.question-with-follow-up__follow-up input').attr('disabled', false);
+                    $($(this).attr('data-follow-up')).show();
+                }
             });
         }
     }
     return {
-        init: fUQ.init
+        init: fUQ.init,
+        update: fUQ.update
     }
 })();
 
@@ -129,9 +141,19 @@ var revealer = (function() {
             $('.reveal').each(function(index, revealer) {
                 var self = revealer;
                 $(self).addClass('is-hiding-content');
-                $(self).find('.reveal__button').click(function(e) {
+                var revealButton = $(self).find('.reveal__button')
+                revealButton.each(function(i, link) {
+                    link.setAttribute('aria-expanded', false)
+                })
+                revealButton.click(function(e) {
                     e.preventDefault();
                     $(self).toggleClass('is-hiding-content');
+
+                    if (this.getAttribute('aria-expanded') === 'false') {
+                        this.setAttribute('aria-expanded', 'true');
+                    } else {
+                        this.setAttribute('aria-expanded', 'false')
+                    }
                 });
             });
         }
@@ -146,23 +168,10 @@ var immediateUpload = (function() {
         var $formInputs = $('input[type="file"][data-upload-immediately]');
 
         $formInputs.each(function(index, formInput) {
-            let $formInput = $(formInput);
-            var $form = $formInput.closest('form');
-            let requiredSelectId = $formInput.data('requires-value-for');
-            if (requiredSelectId) {
-                let $select = $(`#${requiredSelectId}`);
-                let handleSelectChange = function(event) {
-                    let hasRequiredValue = $select.val() == '';
-                    formInput.disabled = hasRequiredValue;
-                    $form.toggleClass('file-selection-disabled', hasRequiredValue)
-                };
-                handleSelectChange();
-                $select.change(handleSelectChange);
-            }
+            var $form = $(formInput).closest('form');
             $form.find("button[type=submit]").hide();
-            $form.find("input[type=submit]").hide();
             $form.find('label[for=' + formInput.id + ']').show();
-            $formInput.addClass('file-upload__input');
+            $(formInput).addClass('file-upload__input');
         }).change(function(event) {
             $(this).closest('form').submit();
             var dataUploading = $formInputs.data("uploading");
@@ -216,7 +225,15 @@ var noneOfTheAbove = (function() {
             $noneCheckbox.click(function(e) {
                 $otherCheckboxes.prop('checked', false);
                 $otherCheckboxes.parent().removeClass('is-selected');
+
+                // If we just unchecked an <input> with a follow-up, let's reset the follow-up questions
+                // so it hides properly.
+                var $enclosingFollowUp = $noneCheckbox.closest('.question-with-follow-up');
+                if ($enclosingFollowUp) {
+                    followUpQuestion.update($enclosingFollowUp);
+                }
             });
+
         }
     };
     return {
@@ -333,4 +350,3 @@ var Honeycrisp = function(){
 }();
 
 Honeycrisp.init();
-
