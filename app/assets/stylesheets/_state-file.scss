@@ -516,7 +516,7 @@
     }
   }
 
-  .reveal__link {
+  .reveal__button {
     color: black;
     line-height: 2.4rem;
     padding-left: 3rem;
@@ -525,13 +525,13 @@
     background-position-y: 0.3rem;
   }
 
-  .reveal__link:after {
+  .reveal__button:after {
     content: "\e5ce";
     font-size: 2.4rem;
     font-weight: normal;
   }
 
-  .reveal.is-hiding-content .reveal__link:after {
+  .reveal.is-hiding-content .reveal__button:after {
     content: "\e5cf";
     font-size: 2.5rem;
     font-weight: normal;
