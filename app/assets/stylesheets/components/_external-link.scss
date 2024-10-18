@@ -1,18 +1,8 @@
 // Taken from USWDS
 // https://github.com/uswds/uswds/blob/ae7129cafeeff2089e9ccfd4b286c50e8d7d0b5f/packages/uswds-core/src/styles/mixins/general/external-link.scss#L6
 
-$external-link-size: 1.75ex;
 $theme-external-link-sr-label-tab-same: "External.";
 $theme-external-link-sr-label-tab-new: "External, opens in a new tab";
-$icon-object: (
-  "name": "launch",
-  "color": currentColor,
-  "height": $external-link-size,
-  "svg-height": 24,
-  "svg-width": 24,
-  "position-x": center,
-  "position-y": center,
-);
 
 @mixin external-link($contrast-bg: "default") {
   display: inline-block;
