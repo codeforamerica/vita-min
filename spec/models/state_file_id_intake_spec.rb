@@ -64,5 +64,5 @@
 require 'rails_helper'
 
 RSpec.describe StateFileIdIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it_behaves_like :state_file_base_intake, factory: :state_file_id_intake
 end
