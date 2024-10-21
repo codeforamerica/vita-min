@@ -2554,6 +2554,7 @@ es:
           homeowner_main_home_multi_unit: "¿Su vivienda principal era una unidad de una propiedad de varias unidades de su propiedad?"
           homeowner_main_home_multi_unit_max_four_one_commercial: Mi vivienda principal era una unidad en una propiedad de varias unidades que poseía, la propiedad no tenía más de cuatro unidades y no más de una de ellas era una unidad comercial.
           homeowner_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
+          homeowner_same_home_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
           homeowner_shared_ownership_not_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
           label: "¿Se aplica a usted alguna de estas situaciones?"
           title: Dijiste que eras propietario de una vivienda en %{filing_year}.

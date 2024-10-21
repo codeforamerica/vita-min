@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_16_210854) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2051,6 +2051,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_210854) do
     t.integer "homeowner_main_home_multi_unit", default: 0, null: false
     t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
     t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_same_home_spouse", default: 0, null: false
     t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"

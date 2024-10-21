@@ -143,8 +143,6 @@ module Efile
       end
 
       def calculate_line_40a
-        is_mfs = @intake.filing_status_mfs?
-
         case @intake.household_rent_own
         when "own"
           if @intake.property_tax_paid.nil?
@@ -160,7 +158,7 @@ module Efile
           return nil
         end
 
-        is_mfs ? (property_tax_paid / 2.0).round : property_tax_paid.round
+        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
       def calculate_line_13
@@ -285,7 +283,7 @@ module Efile
 
       def is_mfs_same_home
         is_mfs = @intake.filing_status_mfs?
-        is_same_home = @intake.tenant_same_home_spouse == 'yes'
+        is_same_home = @intake.tenant_same_home_spouse_yes? || @intake.homeowner_same_home_spouse_yes?
         is_mfs && is_same_home
       end
     end
