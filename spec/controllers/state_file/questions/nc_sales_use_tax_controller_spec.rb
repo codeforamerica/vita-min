@@ -23,7 +23,8 @@ RSpec.describe StateFile::Questions::NcSalesUseTaxController do
         {
           state_file_nc_sales_use_tax_form: {
             untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "automated"        }
+            sales_use_tax_calculation_method: "automated"
+          }
         }
       end
     end
