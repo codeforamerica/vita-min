@@ -1,0 +1,49 @@
+<% title = t(".title_html", filing_year: @filing_year) %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.vita_min_state_file_select(:residence_county, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt'), id: "county-select") %>
+    </div>
+    <div class="white-group">
+      <%= f.vita_min_state_file_select(:political_subdivision, t(".political_subdivision"), @subdivisions, label_class: 'form-label--bold', prompt: t('general.select_prompt'),  id: "subdivision-select") %>
+    </div>
+    <%= render 'political_subdivision', collection: @counties_and_subdivisions, f: f %>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const countyDropdown = document.querySelector("#residence_county");
+          const subdivisionDropdown = document.querySelector("#political_subdivision");
+
+          countyDropdown.addEventListener("change", function() {
+              const selectedCounty = this.value;
+              fetchSubdivisions(selectedCounty);
+          });
+
+          function fetchSubdivisions(county) {
+              fetch(`/subdivisions?county=${county}`)
+                .then(response => response.json())
+                .then(data => {
+                    subdivisionDropdown.innerHTML = "";
+                    data.subdivisions.forEach(subdivision => {
+                        const option = document.createElement("option");
+                        option.value = subdivision.value;
+                        option.text = subdivision.text;
+                        subdivisionDropdown.appendChild(option);
+                    });
+                });
+          }
+      });
+  </script>
+<% end %>

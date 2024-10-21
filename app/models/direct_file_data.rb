@@ -69,7 +69,11 @@ class DirectFileData < DfXmlAccessor
     interest_reported_amount: 'IRS1040 InterestReported', # fake
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
-    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt'
+    qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
+    total_qualified_expenses_or_limit_amount: 'IRS2441 TotalQlfdExpensesOrLimitAmt',
+    excluded_benefits_amount: 'IRS2441 ExcludedBenefitsAmt',
+    primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
+    spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
   }.freeze
 
   def initialize(raw_xml)

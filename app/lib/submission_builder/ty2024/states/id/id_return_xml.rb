@@ -35,6 +35,11 @@ module SubmissionBuilder
                 pdf: PdfFiller::Id40Pdf,
                 include: true
               },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39r,
+                pdf: PdfFiller::Id39rPdf,
+                include: true
+              },
             ]
             
             supported_docs += form1099gs
