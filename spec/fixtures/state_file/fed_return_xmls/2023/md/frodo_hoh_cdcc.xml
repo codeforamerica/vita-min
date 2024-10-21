@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>111001111</PrimarySSN>
+      <NameLine1Txt>FRODO R&lt;BAGGINS</NameLine1Txt>
+      <PrimaryNameControlTxt>LESLIE</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>123 Bag End</AddressLine1Txt>
+        <CityNm>new york</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </USAddress>
+      <PhoneNum>2035552341</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>adf@djkgd.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Sam</DependentFirstNm>
+        <DependentLastNm>Baggins</DependentLastNm>
+        <DependentNameControlTxt>BAGG</DependentNameControlTxt>
+        <DependentSSN>222001111</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Rosie</DependentFirstNm>
+        <DependentLastNm>Baggins</DependentLastNm>
+        <DependentNameControlTxt>BAGG</DependentNameControlTxt>
+        <DependentSSN>123001234</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>3</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
+      <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <TotalIncomeAmt>50000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>50000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <TaxableIncomeAmt>29200</TaxableIncomeAmt>
+      <TaxAmt>3193</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>3193</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>3193</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>400</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>3593</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">609</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">807</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>1416</RefundableCreditsAmt>
+      <TotalPaymentsAmt>2416</TotalPaymentsAmt>
+      <OverpaidAmt>2416</OverpaidAmt>
+      <RefundAmt>2416</RefundAmt>
+      <RoutingTransitNum>021000021</RoutingTransitNum>
+      <BankAccountTypeCd>1</BankAccountTypeCd>
+      <DepositorAccountNum>123456</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Tester</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentName="IRS1040Schedule8812" documentId="IRS8812001">
+      <AdjustedGrossIncomeAmt>50000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>50000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>4000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>4000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>4000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>3193</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>3193</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>807</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>3200</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>807</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>50000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>47500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>7125</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>807</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentName="IRS1040ScheduleEIC" documentId="IRSEIC0001">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BAGG</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Sam</PersonFirstNm>
+          <PersonLastNm>baggins</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>222001111</QualifyingChildSSN>
+        <ChildBirthYr>2015</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BAGG</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Rosie</PersonFirstNm>
+          <PersonLastNm>baggins</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>123001234</QualifyingChildSSN>
+        <ChildBirthYr>2018</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRS2441 documentId="IRS24414">
+      <CareProviderGrp>
+        <CareProviderPersonName>
+          <PersonFirstNm>Mrs</PersonFirstNm>
+          <PersonLastNm>Doubtfire</PersonLastNm>
+        </CareProviderPersonName>
+        <CareProviderNameControlTxt>DOUB</CareProviderNameControlTxt>
+        <USAddress>
+          <AddressLine1Txt>543</AddressLine1Txt>
+          <CityNm>Great Falls</CityNm>
+          <StateAbbreviationCd>ME</StateAbbreviationCd>
+          <ZIPCd>40332</ZIPCd>
+        </USAddress>
+        <SSN>111111111</SSN>
+        <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+        <PaidAmt>2000</PaidAmt>
+      </CareProviderGrp>
+      <QualifyingPersonGrp>
+        <QualifyingPersonName>
+          <PersonFirstNm>Sam</PersonFirstNm>
+          <PersonLastNm>Baggins</PersonLastNm>
+        </QualifyingPersonName>
+        <QualifyingPersonNameControlTxt>BAGG</QualifyingPersonNameControlTxt>
+        <QualifyingPersonSSN>222001111</QualifyingPersonSSN>
+      </QualifyingPersonGrp>
+      <QualifyingPersonGrp>
+        <QualifyingPersonName>
+          <PersonFirstNm>Rosie</PersonFirstNm>
+          <PersonLastNm>Baggins</PersonLastNm>
+        </QualifyingPersonName>
+        <QualifyingPersonNameControlTxt>BAGG</QualifyingPersonNameControlTxt>
+        <QualifyingPersonSSN>123001234</QualifyingPersonSSN>
+        <QualifiedCareExpensesPaidAmt>2000</QualifiedCareExpensesPaidAmt>
+      </QualifyingPersonGrp>
+      <TotalQlfdExpensesOrLimitAmt>2000</TotalQlfdExpensesOrLimitAmt>
+      <PrimaryEarnedIncomeAmt>50000</PrimaryEarnedIncomeAmt>
+      <SpouseEarnedIncomeAmt>50000</SpouseEarnedIncomeAmt>
+      <SmallerOfExpensesOrIncomeAmt>2000</SmallerOfExpensesOrIncomeAmt>
+      <AdjustedGrossIncomeAmt>50000</AdjustedGrossIncomeAmt>
+      <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+      <CalculatedTentativeExpenseAmt>400</CalculatedTentativeExpenseAmt>
+      <TotalEligCDCCAmt>400</TotalEligCDCCAmt>
+      <TaxLiabLmtFromCrLmtWrkshtAmt>3193</TaxLiabLmtFromCrLmtWrkshtAmt>
+      <CreditForChildAndDepdCareAmt>400</CreditForChildAndDepdCareAmt>
+      <DependentCareBenefitsAmt>2000</DependentCareBenefitsAmt>
+      <AdjustedDepdCareBenefitsAmt>2000</AdjustedDepdCareBenefitsAmt>
+      <QualifiedExpensesAmt>2000</QualifiedExpensesAmt>
+      <SmallerOfAdjOrQualifiedAmt>2000</SmallerOfAdjOrQualifiedAmt>
+      <EarnedIncomeAmt>48000</EarnedIncomeAmt>
+      <SpouseIncomeAmt>48000</SpouseIncomeAmt>
+      <TentativeExclusionAmt>2000</TentativeExclusionAmt>
+      <SpecifiedAmt>5000</SpecifiedAmt>
+      <PropshpPrtshpLessAdjBnftAmt>2000</PropshpPrtshpLessAdjBnftAmt>
+      <ExcludedBenefitsAmt>2000</ExcludedBenefitsAmt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <AllowedCaredForAmt>6000</AllowedCaredForAmt>
+      <SumOfDedAndExcludedBenefitsAmt>2000</SumOfDedAndExcludedBenefitsAmt>
+      <NetAllowableAmt>4000</NetAllowableAmt>
+      <TotalQualifiedExpensesAmt>2000</TotalQualifiedExpensesAmt>
+      <SmallerOfTotalQlfyExpensesAmt>2000</SmallerOfTotalQlfyExpensesAmt>
+    </IRS2441>
+    <IRSW2 documentName="IRSW2" documentId="W20001">
+      <EmployeeSSN>111001111</EmployeeSSN>
+      <EmployerEIN>001111111</EmployerEIN>
+      <EmployerNameControlTxt>USDS</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>USDS</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1600 Pennsylvania Ave</AddressLine1Txt>
+        <CityNm>Washington</CityNm>
+        <StateAbbreviationCd>DC</StateAbbreviationCd>
+        <ZIPCd>20009</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Frodo R Baggins</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Bag End</AddressLine1Txt>
+        <CityNm>new york</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>50000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
