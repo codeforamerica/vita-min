@@ -499,6 +499,39 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'should_use_property_tax_deduction' do
+    context "calculate_tax_liability_with_deduction is nil" do
+      it "returns false" do
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return nil
+        expect(instance.should_use_property_tax_deduction).to eq false
+      end
+    end
+
+    context "calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction is > 50" do
+      it "returns true" do
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 100
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 49
+        expect(instance.should_use_property_tax_deduction).to eq true
+      end
+    end
+
+    context "calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction is = 50" do
+      it "returns true" do
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 100
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 50
+        expect(instance.should_use_property_tax_deduction).to eq true
+      end
+    end
+
+    context "calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction is < 50" do
+      it "returns false" do
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 100
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 51
+        expect(instance.should_use_property_tax_deduction).to eq false
+      end
+    end
+  end
+
   describe 'calculate_property_tax_deduction' do
     context 'when married filing separately, same home' do
       let(:intake) {
@@ -576,19 +609,38 @@ describe Efile::Nj::Nj1040Calculator do
       it 'when 40a > 15000, property tax deduction is 15000' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_001
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+        expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a = 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_000
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+        expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a < 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 14_999
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_41].value).to eq(14_999)
+        expect(instance.calculate_property_tax_deduction).to eq(14_999)
+      end
+    end
+  end
+
+  describe "calculate_line_41" do
+    context "when should_use_property_tax_deduction is true" do
+      it "returns calculate_property_tax_deduction" do
+        allow(instance).to receive(:should_use_property_tax_deduction).and_return true
+        allow(instance).to receive(:calculate_property_tax_deduction).and_return 15_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+      end
+    end
+
+    context "when should_use_property_tax_deduction is false" do
+      it "returns nil" do
+        allow(instance).to receive(:should_use_property_tax_deduction).and_return false
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to be_nil
       end
     end
   end
@@ -759,7 +811,7 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 42 - new jersey taxable income' do
-    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s, :primary_over_65, :primary_blind) }
+    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
     it 'sets line 42 to line 39 (taxable income)' do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
     end

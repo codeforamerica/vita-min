@@ -265,19 +265,19 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "wages" do
-      context "when no w2 wages (line 15 is -1)" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      let(:intake) { create(:state_file_nj_intake) }
 
+      context "when no w2 wages (line 15 is -1)" do
         it "does not include WagesSalariesTips item" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return -1
           expect(xml.at("WagesSalariesTips")).to eq(nil)
         end
       end
 
       context "when w2 wages exist" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
-
         it "includes the sum in WagesSalariesTips item" do
           expected_sum = 50000 + 50000 + 50000 + 50000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_sum
           expect(xml.at("WagesSalariesTips").text).to eq(expected_sum.to_s)
         end
       end
@@ -300,6 +300,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "fills TotalIncome with the value from Line 15" do
           expected_line_15_w2_wages = 200_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
           expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
           expect(xml.at("TotalIncome").text).to eq(expected_line_15_w2_wages.to_s)
         end
@@ -318,6 +319,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "fills TotalIncome with the value from Line 15" do
           expected_line_15_w2_wages = 200_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
           expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
           expect(xml.at("GrossIncome").text).to eq(expected_line_15_w2_wages.to_s)
         end
@@ -349,6 +351,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
         expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind)
         expect(xml.at("TaxableIncome").text).to eq(expected_total.to_s)
       end
@@ -404,6 +407,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         ) }
 
         it "fills PropertyTaxDeduction with property tax deduction amount" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_41).and_return 15000
           expect(xml.at("PropertyTaxDeduction").text).to eq(15000.to_s)
         end
       end
@@ -429,6 +433,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_7_not_over_65 = 0
         line_8_not_blind = 0
         expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind)
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
         expect(xml.at("NewJerseyTaxableIncome").text).to eq(expected_total.to_s)
       end
     end
@@ -443,6 +448,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       it "fills Tax with rounded tax amount based on tax rate and line 42" do
         expected = 7_615 # (200,000 - 2,000 - 15,000) * 0.0637 - 4,042 rounded
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_43).and_return expected
         expect(xml.at("Tax").text).to eq(expected.to_s)
       end
     end
@@ -462,6 +468,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "child and dependent care credit - line 64" do
       let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care) }
       it "adds 40% of federal credit for an income of 60k or less" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_64).and_return 400
         expect(xml.at("ChildDependentCareCredit").text).to eq('400')
       end
     end
@@ -482,6 +489,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
           intake.dependents.first.update(dob: five_years)
           intake.dependents.reload
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_65).and_return 600
           expect(xml.at("Body NJChildTCNumOfDep").text).to eq(1.to_s)
           expect(xml.at("Body NJChildTaxCredit").text).to eq(600.to_s)
         end

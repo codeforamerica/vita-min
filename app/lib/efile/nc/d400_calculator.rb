@@ -140,7 +140,7 @@ module Efile
       def calculate_line_20a
         @intake.state_file_w2s.reduce(0) do |sum, w2|
           if w2.employee_ssn == @intake.primary.ssn
-            sum += w2.state_income_tax_amount
+            sum += w2.state_income_tax_amount.to_i
           end
           sum
         end
@@ -149,7 +149,7 @@ module Efile
       def calculate_line_20b
         @intake.state_file_w2s.reduce(0) do |sum, w2|
           if w2.employee_ssn == @intake.spouse.ssn
-            sum += w2.state_income_tax_amount
+            sum += w2.state_income_tax_amount.to_i
           end
           sum
         end

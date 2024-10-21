@@ -109,6 +109,11 @@ module Efile
         ((income * rate) - subtraction).round(2)
       end
 
+      def should_use_property_tax_deduction
+        return false if calculate_tax_liability_with_deduction.nil?
+        calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -196,11 +201,6 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
-      end
-
-      def should_use_property_tax_deduction
-        return false if calculate_tax_liability_with_deduction.nil?
-        calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
       end
 
       def calculate_line_41
