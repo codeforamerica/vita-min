@@ -2051,6 +2051,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_190718) do
     t.integer "homeowner_main_home_multi_unit", default: 0, null: false
     t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
     t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_same_home_spouse", default: 0, null: false
     t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"

@@ -2581,6 +2581,7 @@ en:
           homeowner_main_home_multi_unit: Was your main home a unit in a multi-unit property that you owned?
           homeowner_main_home_multi_unit_max_four_one_commercial: My main home was a unit in a multi-unit property I owned, the property had no more than four units, and no more than one of those was a commercial unit.
           homeowner_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          homeowner_same_home_spouse: Did you and your spouse live in the same home?
           homeowner_shared_ownership_not_spouse: Did you share ownership of your main home with someone who is not your spouse?
           label: Did any of these apply to you?
           title: You said you were a homeowner in %{filing_year}.

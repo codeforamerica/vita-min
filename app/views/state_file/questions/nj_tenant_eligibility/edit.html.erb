@@ -22,7 +22,7 @@
         <%= f.cfa_checkbox(:tenant_more_than_one_main_home_in_nj, t(".tenant_more_than_one_main_home_in_nj"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.cfa_checkbox(:tenant_shared_rent_not_spouse, t(".tenant_shared_rent_not_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
 
-        <% if current_intake.filing_status == :married_filing_separately %>
+        <% if current_intake.filing_status_mfs? %>
           <%= f.cfa_checkbox(:tenant_same_home_spouse, t(".tenant_same_home_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <% end %>
       </div>
