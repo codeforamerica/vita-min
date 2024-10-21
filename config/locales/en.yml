@@ -2641,12 +2641,12 @@ en:
           title: Looks like you’re not eligible for this credit.
       nj_medical_expenses:
         edit:
-          help_text: Estimates are ok. For example, $3000.
           description_html: |-
             <p>This includes expenses for yourself, your spouse, and your dependents.</p>
             <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
             <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
           do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          help_text: Estimates are ok. For example, $3000.
           label: Non-reimbursed medical expenses paid in %{filing_year}
           learn_more_content_html: |-
             <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
