@@ -152,6 +152,9 @@ module Efile
           end
           property_tax_paid = @intake.property_tax_paid
         when "rent"
+          if @intake.rent_paid.nil?
+            return nil
+          end
           property_tax_paid = @intake.rent_paid * RENT_CONVERSION
         else
           return nil
