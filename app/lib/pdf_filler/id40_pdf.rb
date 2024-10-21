@@ -17,30 +17,15 @@ module PdfFiller
     def output_file
       pdf_tempfile = super
 
-      blank_page_pdf_file = Tempfile.new(
-        [source_pdf_name, "blank_page", ".pdf"],
-        "tmp/",
-        )
-      Prawn::Document.generate(blank_page_pdf_file.path)
-
-      strikethrough_page_pdf_file = Tempfile.new(
+      strikethrough_pdf_file = Tempfile.new(
         [source_pdf_name, "strikethrough_page", ".pdf"],
         "tmp/",
         )
-      Prawn::Document.generate(strikethrough_page_pdf_file.path) do
+      Prawn::Document.generate(strikethrough_pdf_file.path) do
+        start_new_page
         self.line_width = 1
         stroke { line [502, 531], [522, 531] }
       end
-
-      strikethrough_pdf_file = Tempfile.new(
-        [source_pdf_name, "strikethrough_full_pdf", ".pdf"],
-        "tmp/",
-        )
-      PdfForms.new.cat(blank_page_pdf_file.path, strikethrough_page_pdf_file.path, strikethrough_pdf_file.path)
-      blank_page_pdf_file.close
-      blank_page_pdf_file.unlink
-      strikethrough_page_pdf_file.close
-      strikethrough_page_pdf_file.unlink
 
       combined_pdf_file = Tempfile.new(
         [source_pdf_name, "combined_with_strikethrough_full_pdf", ".pdf"],
