@@ -177,5 +177,17 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter C $ "]).to eq dependent_exemption_amount.to_s
       end
     end
+
+    context "subtractions" do
+      before do
+        intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
+        intake.direct_file_data.fed_taxable_ssb = 240
+      end
+
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
+        expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
+      end
+    end
   end
 end

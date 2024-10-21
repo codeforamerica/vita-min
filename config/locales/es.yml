@@ -2428,6 +2428,16 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
+          sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
+          sales_use_tax_helper_text: Ingrese el monto total
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso
+          title: "¿Hizo alguna compra en %{year} sin pagar impuestos sobre las ventas o el uso?"
+          unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
+          use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
+          use_tax_title: "¿Qué son los impuestos sobre el uso?"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
@@ -2502,7 +2512,6 @@ es:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
-          not_a_number: Por favor ingresa únicamente números.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
@@ -3111,6 +3120,7 @@ es:
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
+    not_a_number: Por favor ingresa únicamente números.
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.

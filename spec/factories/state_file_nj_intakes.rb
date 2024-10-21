@@ -153,6 +153,14 @@ FactoryBot.define do
       spouse_ssn { "123456789" }
     end
 
+    trait :head_of_household do
+      filing_status { "head_of_household" }
+    end
+
+    trait :qualifying_widow do
+      filing_status { "qualifying_widow" }
+    end
+
     trait :married_filing_separately do
       transient do
         filing_status { 'married_filing_separately' }

@@ -1827,6 +1827,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_215227) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1856,6 +1857,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_215227) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_suffix"
+    t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"

@@ -1,0 +1,34 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Sam",
+      "middleInitial": "T",
+      "lastName": "Baggins",
+      "dateOfBirth": "2021-01-01",
+      "relationship": "daughter",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "tin": "222-00-1111"
+    },
+    {
+      "firstName": "Rosie",
+      "middleInitial": "T",
+      "lastName": "Baggins",
+      "dateOfBirth": "2019-01-01",
+      "relationship": "daughter",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "tin": "123-00-1234"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Frodo",
+      "middleInitial": "R",
+      "lastName": "Baggins",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true,
+      "tin": "400-00-0030"
+    }
+  ]
+}
