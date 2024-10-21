@@ -1,6 +1,6 @@
 module StateFile
-	class MdPrimaryStateIdForm < StateIdForm
-		set_attributes_for :state_id, :id_type, :id_number, :state, :non_expiring
+  class MdPrimaryStateIdForm < StateIdForm
+    set_attributes_for :state_id, :id_type, :id_number, :state, :non_expiring
 
     set_attributes_for :dates,
                        :issue_date_day,
@@ -10,10 +10,10 @@ module StateFile
                        :expiration_date_month,
                        :expiration_date_year
 
-		private
+    private
 
-		def self.record_type
-			:primary_state_id
-		end
-	end
+    def self.record_type
+      :primary_state_id
+    end
+  end
 end
