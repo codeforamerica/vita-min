@@ -55,7 +55,7 @@
 #  updated_at                              :datetime         not null
 #  federal_submission_id                   :string
 #  visitor_id                              :string
-#
+
 # Indexes
 #
 #  index_state_file_id_intakes_on_email_address  (email_address)
@@ -64,6 +64,7 @@
 class StateFileIdIntake < StateFileBaseIntake
   enum eligibility_withdrew_msa_fthb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_msa_fthb
   enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
+  enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
 
   def disqualifying_df_data_reason; end
 

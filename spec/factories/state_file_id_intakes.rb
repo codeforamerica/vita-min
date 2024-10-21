@@ -55,7 +55,6 @@
 #  updated_at                              :datetime         not null
 #  federal_submission_id                   :string
 #  visitor_id                              :string
-#
 # Indexes
 #
 #  index_state_file_id_intakes_on_email_address  (email_address)

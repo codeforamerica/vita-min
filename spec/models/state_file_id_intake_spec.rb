@@ -55,7 +55,6 @@
 #  updated_at                              :datetime         not null
 #  federal_submission_id                   :string
 #  visitor_id                              :string
-#
 # Indexes
 #
 #  index_state_file_id_intakes_on_email_address  (email_address)
@@ -64,5 +63,5 @@
 require 'rails_helper'
 
 RSpec.describe StateFileIdIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it_behaves_like :state_file_base_intake, factory: :state_file_id_intake
 end
