@@ -2445,6 +2445,7 @@ es:
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
+          retirement_income_title: Ingresos de jubilación (1099-R)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.

@@ -1,0 +1,17 @@
+<% content_for :page_title, 'hi' %>
+
+<% content_for :card do %>
+  <h1 class="form-question"><%= "hi" %></h1>
+  <%= form_with model: @state_file1099_r, url: { action: :update }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          NOTHING
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
