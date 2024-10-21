@@ -5,9 +5,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
-  <ul class="list--bulleted">
-    <%= t(".description_html") %>
-  </ul>
+  <%= t(".description_html") %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">

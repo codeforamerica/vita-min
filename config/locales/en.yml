@@ -2641,11 +2641,12 @@ en:
           title: Looks like you’re not eligible for this credit.
       nj_medical_expenses:
         edit:
+          help_text: Estimates are ok. For example, $3000.
           description_html: |-
-            <li>This includes expenses for yourself, your spouse, and your dependents.</li>
-            <li>Only expenses that exceed 2% of your gross income may be deducted.</li>
-            <li>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</li>
-          help_text: If you do not want to claim this deduction, click “Continue”.
+            <p>This includes expenses for yourself, your spouse, and your dependents.</p>
+            <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
+            <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
+          do_not_claim: If you do not want to claim this deduction, click “Continue”.
           label: Non-reimbursed medical expenses paid in %{filing_year}
           learn_more_content_html: |-
             <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
@@ -2660,7 +2661,7 @@ en:
             Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
             oopener noreferrer">if the child was your dependent.</a>
           learn_more_title: What are medical expenses?
-          title: You can deduct medical expenses
+          title: You can deduct medical expenses.
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
