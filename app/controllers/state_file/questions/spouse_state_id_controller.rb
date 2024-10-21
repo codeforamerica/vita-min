@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzSpouseStateIdController < QuestionsController
+    class SpouseStateIdController < QuestionsController
       include ReturnToReviewConcern
 
       def self.show?(intake)

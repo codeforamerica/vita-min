@@ -1,16 +1,9 @@
 module StateFile
   class PrimaryStateIdForm < StateIdForm
-    set_attributes_for :state_id, :id_type, :id_number, :state, :non_expiring
-
-    set_attributes_for :dates,
-                       :issue_date_day,
-                       :issue_date_month,
-                       :issue_date_year,
-                       :expiration_date_day,
-                       :expiration_date_month,
-                       :expiration_date_year
-
-    private
+    def self.existing_attributes(intake)
+      intake.build_primary_state_id unless intake.primary_state_id
+      HashWithIndifferentAccess.new(intake.primary_state_id.attributes)
+    end
 
     def self.record_type
       :primary_state_id

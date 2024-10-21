@@ -41,7 +41,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzSpouseStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::AzReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
