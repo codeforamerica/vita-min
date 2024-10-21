@@ -297,7 +297,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "total income - line 27" do
       context "when filer submits w2 wages" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "fills TotalIncome with the value from Line 15" do
           expected_line_15_w2_wages = 200_000
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
@@ -316,7 +315,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "gross income - line 29" do
       context "when filer submits w2 wages" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "fills TotalIncome with the value from Line 15" do
           expected_line_15_w2_wages = 200_000
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
@@ -345,7 +343,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "taxable income - line 39" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
       it "fills TaxableIncome with gross income minus total exemptions/deductions" do
         expected_line_15_w2_wages = 200_000
         line_6_single_filer = 1_000
@@ -400,12 +397,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "property tax deduction - line 41" do
       context 'when taking property tax deduction' do
-        let(:intake) { create(:state_file_nj_intake,
-                              :df_data_many_w2s,
-                              household_rent_own: 'own',
-                              property_tax_paid: 15_000,
-        ) }
-
         it "fills PropertyTaxDeduction with property tax deduction amount" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_41).and_return 15000
           expect(xml.at("PropertyTaxDeduction").text).to eq(15000.to_s)
@@ -426,7 +417,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "new jersey taxable income - line 42" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
       it "fills NewJerseyTaxableIncome with taxable income" do
         expected_line_15_w2_wages = 200_000
         line_6_single_filer = 1_000
@@ -439,13 +429,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "tax amount - line 43" do
-      let(:intake) { create(:state_file_nj_intake,
-                            :df_data_many_w2s,
-                            :married_filing_jointly,
-                            household_rent_own: 'own',
-                            property_tax_paid: 15_000,
-                            ) }
-
       it "fills Tax with rounded tax amount based on tax rate and line 42" do
         expected = 7_615 # (200,000 - 2,000 - 15,000) * 0.0637 - 4,042 rounded
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_43).and_return expected
@@ -466,7 +449,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
     
     describe "child and dependent care credit - line 64" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care) }
       it "adds 40% of federal credit for an income of 60k or less" do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_64).and_return 400
         expect(xml.at("ChildDependentCareCredit").text).to eq('400')
@@ -483,7 +465,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context "when taxpayer is eligible" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
         it 'returns 600 for incomes less than or equal to 50k' do
           intake.synchronize_df_dependents_to_database
           five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
