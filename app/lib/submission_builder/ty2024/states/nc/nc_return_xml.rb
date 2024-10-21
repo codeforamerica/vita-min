@@ -37,6 +37,7 @@ module SubmissionBuilder
             ]
 
             supported_docs += form1099gs
+            supported_docs += form1099ints
             supported_docs
           end
 
