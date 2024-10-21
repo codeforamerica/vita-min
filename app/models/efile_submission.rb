@@ -34,9 +34,9 @@ class EfileSubmission < ApplicationRecord
   validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
 
   include Statesman::Adapters::ActiveRecordQueries[
-    transition_class: EfileSubmissionTransition,
-    initial_state: EfileSubmissionStateMachine.initial_state,
-  ]
+            transition_class: EfileSubmissionTransition,
+            initial_state: EfileSubmissionStateMachine.initial_state,
+          ]
 
   scope :most_recent_by_current_year_tax_return, lambda {
     joins(:tax_return).where("efile_submissions.id = (SELECT MAX(efile_submissions.id) FROM efile_submissions
@@ -100,7 +100,7 @@ class EfileSubmission < ApplicationRecord
   # This election can only be made if the original return rejected with reject code SEIC-F1040-501-02 or R0000-504-02.
   def imperfect_return_resubmission?
     return false unless previously_transmitted_submission.present?
-    
+
     previously_transmitted_submission.efile_submission_transitions.collect(&:efile_errors).flatten.any? { |error| ["SEIC-F1040-501-02", "R0000-504-02"].include? error.code }
   end
 
@@ -196,7 +196,11 @@ class EfileSubmission < ApplicationRecord
       pdf_documents = bundle_class.new(self).pdf_documents
       output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
       filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
-      PdfForms.new.cat(*filled_out_documents.push(output_file.path))
+      PdfForms.new.cat(*filled_out_documents, output_file.path)
+      filled_out_documents.each do |document|
+        document.close
+        document.try(:unlink)
+      end
       output_file
     end
   end

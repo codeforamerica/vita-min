@@ -14,6 +14,47 @@ module PdfFiller
       @xml_document = builder.new(submission).document
     end
 
+    def output_file
+      pdf_tempfile = super
+
+      blank_page_pdf_file = Tempfile.new(
+        [source_pdf_name, "blank_page", ".pdf"],
+        "tmp/",
+        )
+      Prawn::Document.generate(blank_page_pdf_file.path)
+
+      strikethrough_page_pdf_file = Tempfile.new(
+        [source_pdf_name, "strikethrough_page", ".pdf"],
+        "tmp/",
+        )
+      Prawn::Document.generate(strikethrough_page_pdf_file.path) do
+        self.line_width = 1
+        stroke { line [502, 531], [522, 531] }
+      end
+
+      strikethrough_pdf_file = Tempfile.new(
+        [source_pdf_name, "strikethrough_full_pdf", ".pdf"],
+        "tmp/",
+        )
+      PdfForms.new.cat(blank_page_pdf_file.path, strikethrough_page_pdf_file.path, strikethrough_pdf_file.path)
+      blank_page_pdf_file.close
+      blank_page_pdf_file.unlink
+      strikethrough_page_pdf_file.close
+      strikethrough_page_pdf_file.unlink
+
+      combined_pdf_file = Tempfile.new(
+        [source_pdf_name, "combined_with_strikethrough_full_pdf", ".pdf"],
+        "tmp/",
+        )
+      PdfForms.new.multistamp(pdf_tempfile.path, strikethrough_pdf_file.path, combined_pdf_file.path)
+      pdf_tempfile.close
+      pdf_tempfile.unlink
+      strikethrough_pdf_file.close
+      strikethrough_pdf_file.unlink
+
+      combined_pdf_file
+    end
+
     def hash_for_pdf
       answers = {
         'YearBeginning' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%Y"),

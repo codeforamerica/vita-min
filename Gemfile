@@ -75,6 +75,7 @@ gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
+gem 'prawn'
 
 # Use Flipper for feature flagging
 gem 'flipper'
