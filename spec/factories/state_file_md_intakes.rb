@@ -87,8 +87,6 @@ FactoryBot.define do
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
 
-    eligibility_filing_status_mfj { "unfilled" }
-
     after(:build) do |intake, evaluator|
       numeric_status = {
         single: 1,

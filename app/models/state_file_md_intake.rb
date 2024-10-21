@@ -81,10 +81,10 @@ class StateFileMdIntake < StateFileBaseIntake
 
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum eligibility_filing_status_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: true
-  enum eligibility_homebuyer_withdrawal: { unfilled: 0, yes: 1, no: 2 }, _prefix: true
-  enum eligibility_homebuyer_withdrawal_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: true
-  enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: true
+  enum eligibility_filing_status_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_filing_status_mfj
+  enum eligibility_homebuyer_withdrawal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal
+  enum eligibility_homebuyer_withdrawal_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal_mfj
+  enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_home_different_areas
 
 
   def disqualifying_df_data_reason
