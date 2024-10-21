@@ -177,5 +177,18 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter C $ "]).to eq dependent_exemption_amount.to_s
       end
     end
+
+    context "line A exemptions" do
+      # before do
+      #
+      # end
+
+      its "sets correct fields for line A" do
+        expect(pdf_fields["Check Box 15"]).to eq "X" # yourself
+        expect(pdf_fields["Check Box 18"]).to eq "X" # spouse
+        expect(pdf_fields["Text Field 15"]).to eq "X" # exemption count
+        expect(pdf_fields["Enter A $"]).to eq "X" # exemption amount
+      end
+    end
   end
 end

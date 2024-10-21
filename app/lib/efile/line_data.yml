@@ -586,6 +586,14 @@ MD502_DEPENDENT_EXEMPTION_COUNT:
   label: 'Dependent exemption count'
 MD502_DEPENDENT_EXEMPTION_AMOUNT:
   label: 'Dependent exemption amount'
+MD502_LINE_A_YOURSELF:
+  label: 'A Yourself exemption'
+MD502_LINE_A_SPOUSE:
+  label: 'A Spouse exemption'
+MD502_LINE_A_CHECKED_COUNT:
+  label: 'A Yourself & Spouse exemption checked count'
+MD502_LINE_A_AMOUNT:
+  label: 'A Exemption amount'
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:
