@@ -16,6 +16,167 @@ describe Efile::Nj::Nj1040Calculator do
     instance.calculate
   end
 
+  describe 'get_tax_rate_and_subtraction_amount' do
+    context 'when filing status is single' do
+      let(:intake) { create(:state_file_nj_intake) }
+      it "when income > 0 and <= 20,000, tax rate is .014 and subtraction is 0" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(1)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014,0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014,0])
+      end
+
+      it "when income > 20,000 and <= 35,000, tax rate is .0175 and subtraction is 70.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(34_999)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(35_000)).to eq([0.0175, 70.00])
+      end
+
+      it "when income > 35,000 and <= 40,000, tax rate is .035 and subtraction is 682.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(35_001)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(39_999)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(40_000)).to eq([0.035, 682.50])
+      end
+
+      it "when income > 40,000 and <= 75,000, tax rate is .05525 and subtraction is 1,492.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(40_001)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(74_999)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(75_000)).to eq([0.05525, 1_492.50])
+      end
+
+      it "when income > 75,000 and <= 500,000, tax rate is .0637 and subtraction is 2,126.25" do
+        expect(instance.get_tax_rate_and_subtraction_amount(75_001)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(499_999)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 2_126.25])
+      end
+
+      it "when income > 500,000 and <= 1,000,000, tax rate is .0897 and subtraction is 15,126.25" do
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(999_999)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 15_126.25])
+      end
+
+      it "when income > 1,000,000, tax rate is .1075 and subtraction is 32,926.25" do
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 32_926.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(5_000_000)).to eq([0.1075, 32_926.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(100_000_000)).to eq([0.1075, 32_926.25])
+      end
+    end
+
+    context 'when filing status is MFS' do
+      let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
+      it "returns same tax rates as single" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(35_000)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(35_001)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(40_000)).to eq([0.035, 682.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(40_001)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(75_000)).to eq([0.05525, 1_492.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(75_001)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 2_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 15_126.25])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 32_926.25])
+      end
+    end
+
+    context 'when filing status is married filing jointly' do
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+      it "when income > 0 and <= 20,000, tax rate is .014, subtraction is 0" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(1)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+      end
+
+      it "when income > 20,000 and <= 50,000, tax rate is .0175, subtraction is 70.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(49_999)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_000)).to eq([0.0175, 70.00])
+      end
+
+      it "when income > 50,000 and <= 70,000, tax rate is .0245, subtraction is 420.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(50_001)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(69_999)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_000)).to eq([0.0245, 420.00])
+      end
+
+      it "when income > 70,000 and <= 80,000, tax rate is .035, subtraction is 1,154.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(70_001)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(79_999)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_000)).to eq([0.035, 1_154.50])
+      end
+
+      it "when income > 80,000 and <= 150,000, tax rate is .05525, subtraction is 2,775.00" do
+        expect(instance.get_tax_rate_and_subtraction_amount(80_001)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(149_999)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_000)).to eq([0.05525, 2_775.00])
+      end
+
+      it "when income > 150,000 and <= 500,000, tax rate is .0637, subtraction is 4,042.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(150_001)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(499_999)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 4_042.50])
+      end
+
+      it "when income > 500,000 and <= 1,000,000, tax rate is .0897, subtraction is 17,042.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(999_999)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 17_042.50])
+      end
+
+      it "when income > 1,000,000, tax rate is .1075, subtraction is 34,842.50" do
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 34_842.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(5_000_000)).to eq([0.1075, 34_842.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(100_000_000)).to eq([0.1075, 34_842.50])
+      end
+    end
+
+    context 'when filing status is head of household' do
+      let(:intake) { create(:state_file_nj_intake, :head_of_household) }
+      it "returns same tax rates as MFJ" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_000)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_001)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_000)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_001)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_000)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_001)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_000)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_001)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 34_842.50])
+      end
+    end
+
+    context 'when filing status is qualifying widower' do
+      let(:intake) { create(:state_file_nj_intake, :qualifying_widow) }
+      it "returns same tax rates as MFJ" do
+        expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_001)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_000)).to eq([0.0175, 70.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(50_001)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_000)).to eq([0.0245, 420.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(70_001)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_000)).to eq([0.035, 1_154.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(80_001)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_000)).to eq([0.05525, 2_775.00])
+        expect(instance.get_tax_rate_and_subtraction_amount(150_001)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_000)).to eq([0.0637, 4_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(500_001)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_000)).to eq([0.0897, 17_042.50])
+        expect(instance.get_tax_rate_and_subtraction_amount(1_000_001)).to eq([0.1075, 34_842.50])
+      end
+    end
+  end
+
   describe 'line 6 exemptions' do
     context 'when filing status is single' do
       let(:intake) { create(:state_file_nj_intake) }
@@ -297,6 +458,222 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'sets line 40a to nil' do
         expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+      end
+    end
+  end
+
+  describe 'calculate_property_tax_deduction' do
+    context 'when married filing separately, same home' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :married_filing_separately,
+          tenant_same_home_spouse: 'yes',
+        )
+      }
+
+      it 'when 40a > 7500, property tax deduction is 7500' do
+        allow(instance).to receive(:calculate_line_40a).and_return 7501
+        expect(instance.calculate_property_tax_deduction).to eq(7500)
+      end
+
+      it 'when 40a = 7500, property tax deduction is line 40a' do
+        allow(instance).to receive(:calculate_line_40a).and_return 7500
+        expect(instance.calculate_property_tax_deduction).to eq(7500)
+      end
+
+      it 'when 40a < 7500, property tax deduction is line 40a' do
+        allow(instance).to receive(:calculate_line_40a).and_return 7499
+        expect(instance.calculate_property_tax_deduction).to eq(7499)
+      end
+    end
+
+    context 'when married filing separately, not same home' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :married_filing_separately,
+          tenant_same_home_spouse: 'no',
+          )
+      }
+
+      it 'when 40a > 15000, property tax deduction is 15000' do
+        allow(instance).to receive(:calculate_line_40a).and_return 15_001
+        expect(instance.calculate_property_tax_deduction).to eq(15_000)
+      end
+
+      it 'when 40a = 15000, property tax deduction is line 40a' do
+        allow(instance).to receive(:calculate_line_40a).and_return 15_000
+        expect(instance.calculate_property_tax_deduction).to eq(15_000)
+      end
+
+      it 'when 40a < 15000, property tax deduction is line 40a' do
+        allow(instance).to receive(:calculate_line_40a).and_return 14_999
+        expect(instance.calculate_property_tax_deduction).to eq(14_999)
+      end
+    end
+
+    context 'when any status other than MFS' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :married_filing_jointly
+          )
+      }
+
+      it 'when 40a > 15000, property tax deduction is 15000' do
+        allow(instance).to receive(:calculate_line_40a).and_return 15_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+      end
+
+      it 'when 40a = 15000, property tax deduction is line 40a' do
+        allow(instance).to receive(:calculate_line_40a).and_return 15_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+      end
+
+      it 'when 40a < 15000, property tax deduction is line 40a' do
+        allow(instance).to receive(:calculate_line_40a).and_return 14_999
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(14_999)
+      end
+    end
+  end
+
+  describe 'calculate_tax_liability_with_deduction' do
+    let(:intake) {
+      create(:state_file_nj_intake)
+    }
+    it 'subtracts property_tax_deduction from line 39 times tax rate' do
+      allow(instance).to receive(:calculate_line_39).and_return 36_000
+      allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
+      expected = 525 # 34,000 * 0.0175 - 70
+      expect(instance.calculate_tax_liability_with_deduction).to eq(expected)
+    end
+  end
+
+  describe 'calculate_tax_liability_without_deduction' do
+    let(:intake) {
+      create(:state_file_nj_intake)
+    }
+    it 'returns line 39 times tax rate' do
+      allow(instance).to receive(:calculate_line_39).and_return 36_000
+      expected = 577.50 # 36,000 * 0.035 - 682.50
+      expect(instance.calculate_tax_liability_without_deduction).to eq(expected)
+    end
+  end
+
+  describe 'lines 41, 42, 43, 56 - property tax deduction' do
+    context 'when without_deduction - with_deduction >= $50' do
+      let(:intake) {
+        create(:state_file_nj_intake)
+      }
+      before(:each) do
+        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
+        allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
+        allow(instance).to receive(:calculate_line_39).and_return 20_000
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.77
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_050.77
+        instance.calculate
+      end
+
+      it 'sets line 41 to property_tax_deduction' do
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(2_000)
+      end
+
+      it 'sets line 42 to line 39 minus property_tax_deduction' do
+        expect(instance.lines[:NJ1040_LINE_42].value).to eq(18_000)
+      end
+
+      it 'sets line 43 to with_deduction rounded' do
+        expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_001)
+      end
+
+      it 'sets line 56 to nil' do
+        expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+      end
+    end
+
+    context 'when without_deduction - with_deduction < $50' do
+      let(:intake) {
+        create(:state_file_nj_intake)
+      }
+      before do
+        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
+        allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
+        allow(instance).to receive(:calculate_line_39).and_return 20_000
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.21
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_049.21
+        instance.calculate
+      end
+
+      it 'sets line 41 to nil' do
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
+      end
+
+      it 'sets line 42 to line 39' do
+        expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
+      end
+
+      it 'sets line 43 to without_deduction, rounded' do
+        expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_049)
+      end
+
+      context 'when MFS living in same home' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            tenant_same_home_spouse: 'yes',
+            )
+        }
+
+        it 'sets line 56 to $25' do
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(25)
+        end
+      end
+
+      context 'when not MFS or MFS in separate home' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            tenant_same_home_spouse: 'no',
+            )
+        }
+
+        it 'sets line 56 to $50' do
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(50)
+        end
+      end
+    end
+
+    context 'when ineligible for property tax' do
+      let(:intake) {
+        create(:state_file_nj_intake)
+      }
+      before(:each) do
+        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return true
+        allow(instance).to receive(:calculate_line_39).and_return 20_000
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
+        instance.calculate
+      end
+
+      it 'sets line 41 to nil' do
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
+      end
+
+      it 'sets line 42 to line 39' do
+        expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
+      end
+
+      it 'sets line 43 to tax liability without deduction' do
+        expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_000)
+      end
+
+      it 'sets line 56 to nil' do
+        expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
       end
     end
   end

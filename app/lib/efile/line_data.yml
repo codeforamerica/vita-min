@@ -510,6 +510,14 @@ MD502_LINE_1D:
   label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
   label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
+MD502CR_PART_B_LINE_2:
+  label: "2 Enter your federal Child and Dependent Care Credit from federal Form 2441"
+MD502CR_PART_B_LINE_3:
+  label: "3 Enter the decimal amount from the chart in the instructions that applies to the amount on line 1"
+MD502CR_PART_B_LINE_4:
+  label: "4 Multiply line 2 by line 3. Enter here and on Part AA, line 2"
+MD502CR_PART_M_LINE_1:
+  label: "1 Enter the credit claimed here and on Part AA, line 13 (See Instructions)"
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
@@ -576,8 +584,14 @@ NJ1040_LINE_39:
   label: "39 Taxable Income (Subtract line 38 from line 29)"
 NJ1040_LINE_40A:
   label: '40A Total Property Taxes (18% of Rent) Paid (See instructions page 25)'
+NJ1040_LINE_41:
+  label: '41 Property Tax Deduction (From Worksheet H) (See instructions)'
 NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
+NJ1040_LINE_43:
+  label: '43 Tax on amount on line 42 (Tax Table page 54)'
+NJ1040_LINE_56:
+  label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
