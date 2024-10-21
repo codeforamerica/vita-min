@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::SpouseStateIdForm do
-  let!(:intake) { create :state_file_az_intake, spouse_state_id: nil }
+  let!(:intake) { create :state_file_md_intake, spouse_state_id: nil }
   let(:valid_params) do
     {
       "id_type" => "driver_license",

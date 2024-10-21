@@ -1,5 +1,5 @@
 module StateFile
-  class NyPrimaryStateIdForm < StateIdForm
+  class NyPrimaryStateIdForm < QuestionsForm
     include DateHelper
     set_attributes_for :state_id,
                        :id_type,
