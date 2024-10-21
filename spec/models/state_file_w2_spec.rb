@@ -4,6 +4,7 @@
 #
 #  id                          :bigint           not null, primary key
 #  employee_name               :string           not null
+#  employee_ssn                :string
 #  employer_name               :string           not null
 #  employer_state_id_num       :string
 #  local_income_tax_amount     :decimal(12, 2)

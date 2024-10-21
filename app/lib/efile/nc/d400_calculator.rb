@@ -138,18 +138,18 @@ module Efile
       end
 
       def calculate_line_20a
-        @direct_file_data.w2s.reduce(0) do |sum, w2|
-          if w2.EmployeeSSN == @direct_file_data.primary_ssn
-            sum += w2.StateIncomeTaxAmt
+        @intake.state_file_w2s.reduce(0) do |sum, w2|
+          if w2.employee_ssn == @intake.primary.ssn
+            sum += w2.state_income_tax_amount
           end
           sum
         end
       end
 
       def calculate_line_20b
-        @direct_file_data.w2s.reduce(0) do |sum, w2|
-          if w2.EmployeeSSN == @direct_file_data.spouse_ssn
-            sum += w2.StateIncomeTaxAmt
+        @intake.state_file_w2s.reduce(0) do |sum, w2|
+          if w2.employee_ssn == @intake.spouse.ssn
+            sum += w2.state_income_tax_amount
           end
           sum
         end

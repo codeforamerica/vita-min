@@ -125,6 +125,7 @@ class StateFileBaseIntake < ApplicationRecord
       state_file_w2.assign_attributes(
         employer_name: direct_file_w2.EmployerNm,
         employee_name: direct_file_w2.EmployeeNm,
+        employee_ssn: direct_file_w2.EmployeeSSN,
         employer_state_id_num: direct_file_w2.EmployerStateIdNum,
         local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,

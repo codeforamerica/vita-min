@@ -4,6 +4,7 @@
 #
 #  id                          :bigint           not null, primary key
 #  employee_name               :string           not null
+#  employee_ssn                :string
 #  employer_name               :string           not null
 #  employer_state_id_num       :string
 #  local_income_tax_amount     :decimal(12, 2)
@@ -40,6 +41,7 @@ class StateFileW2 < ApplicationRecord
   XML
 
   belongs_to :state_file_intake, polymorphic: true
+  encrypts :employee_ssn
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
