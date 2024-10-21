@@ -2573,7 +2573,6 @@ en:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
-          not_a_number: Please enter numbers only.
           select_one: "Select one of the following:"
           state_specific:
             nc:

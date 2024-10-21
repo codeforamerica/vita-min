@@ -2546,7 +2546,6 @@ es:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
-          not_a_number: Por favor ingresa únicamente números.
           select_one: "Selecciona una de las siguientes opciones:"
           state_specific:
             nc:
