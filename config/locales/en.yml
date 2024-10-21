@@ -2641,7 +2641,7 @@ en:
           title: Looks like you’re not eligible for this credit.
       nj_medical_expenses:
         edit:
-          description: |-
+          description_html: |-
             <li>This includes expenses for yourself, your spouse, and your dependents.</li>
             <li>Only expenses that exceed 2% of your gross income may be deducted.</li>
             <li>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</li>
