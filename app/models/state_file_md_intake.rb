@@ -94,10 +94,11 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
+
   def disqualifying_eligibility_rules
     # eligibility_filing_status_mfj is not strictly a disqualifier and just leads us to other questions
     {
-      eligibility_homebuyer_withdrawal: "yes",
+      eligibility_homebuyer_withdrawal_mfj: "yes",
       eligibility_home_different_areas: "yes",
     }
   end
