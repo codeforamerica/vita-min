@@ -33,7 +33,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::MdReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
-        Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdTaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
