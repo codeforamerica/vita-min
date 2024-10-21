@@ -168,10 +168,23 @@ var immediateUpload = (function() {
         var $formInputs = $('input[type="file"][data-upload-immediately]');
 
         $formInputs.each(function(index, formInput) {
-            var $form = $(formInput).closest('form');
+            let $formInput = $(formInput);
+            var $form = $formInput.closest('form');
+            let requiredSelectId = $formInput.data('requires-value-for');
+            if (requiredSelectId) {
+                let $select = $(`#${requiredSelectId}`);
+                let handleSelectChange = function(event) {
+                    let hasRequiredValue = $select.val() == '';
+                    formInput.disabled = hasRequiredValue;
+                    $form.toggleClass('file-selection-disabled', hasRequiredValue)
+                };
+                handleSelectChange();
+                $select.change(handleSelectChange);
+            }
             $form.find("button[type=submit]").hide();
+            $form.find("input[type=submit]").hide();
             $form.find('label[for=' + formInput.id + ']').show();
-            $(formInput).addClass('file-upload__input');
+            $formInput.addClass('file-upload__input');
         }).change(function(event) {
             $(this).closest('form').submit();
             var dataUploading = $formInputs.data("uploading");
