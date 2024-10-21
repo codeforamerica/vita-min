@@ -2511,7 +2511,6 @@ es:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
-          not_a_number: Por favor ingresa únicamente números.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
@@ -3127,6 +3126,7 @@ es:
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
+    not_a_number: Por favor ingresa únicamente números.
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.

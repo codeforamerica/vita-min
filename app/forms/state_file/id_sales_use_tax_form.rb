@@ -8,7 +8,7 @@ module StateFile
       numericality: {
         allow_blank: true,
         greater_than_or_equal_to: 0,
-        message: I18n.t("state_file.questions.nc_sales_use_tax.edit.not_a_number")
+        message: I18n.t("validators.not_a_number")
       },
       if: -> { has_unpaid_sales_use_tax == "yes" }
 
