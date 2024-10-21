@@ -19,7 +19,7 @@ module StateFile
       return unless eligibility_filing_status_mfj == "yes"
 
       if eligibility_homebuyer_withdrawal_mfj == "yes" || eligibility_home_different_areas == "yes"
-        @intake.errors.add(:eligibility_homebuyer_withdrawal_mfj) #  I18n.t("views.state_file.md_eligibility_filing_status_form.errors.mfj_non_homebuyer_non_cross_county_filers")
+        self.errors.add(:eligibility_homebuyer_withdrawal_mfj)
         return false
       end
     end
