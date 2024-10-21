@@ -37,7 +37,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NyPermanentAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::NySalesUseTaxController),
-        Navigation::NavigationStep.new(StateFile::Questions::NyPrimaryStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NySpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NyThirdPartyDesigneeController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),

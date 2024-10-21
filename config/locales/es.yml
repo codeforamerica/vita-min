@@ -2449,7 +2449,7 @@ es:
             <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
       md_primary_state_id:
-        edit:
+        md_primary:
           encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           why_ask_this: "¿Por qué pides esta información?"
@@ -2497,7 +2497,7 @@ es:
           subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
       nc_primary_state_id:
-        edit:
+        nc_primary:
           encourage_sharing: Se le recomienda compartir esta información, pero no es obligatorio para presentar su declaración de impuestos de Carolina del Norte.
           protect_identity: Para proteger su identidad y combatir el fraude fiscal, muchas agencias estatales piden a las personas que proporcionen su licencia de conducir o número de identificación estatal.
           why_ask_this: "¿Por qué me pides esta información?"

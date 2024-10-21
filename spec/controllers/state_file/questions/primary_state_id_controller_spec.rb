@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StateFile::Questions::AzPrimaryStateIdController do
+describe StateFile::Questions::PrimaryStateIdController do
 
   let(:intake) { create :state_file_az_refund_intake}
   before do
