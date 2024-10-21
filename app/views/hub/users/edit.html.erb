@@ -44,15 +44,18 @@
         <p id="current-role"><%= [user_role_name(@user), user_group(@user)].compact.join(", ") %></p>
 
         <div class="reassign-roles">
-          <%= render('components/molecules/reveal', title: t(".reassign")) do %>
-            <ul class="list--bulleted">
-              <% User.roles.each do |role_type| %>
-                <% if can?(:manage, role_type.constantize)  %>
-                  <li><%= link_to role_name_from_role_type(role_type), edit_role_hub_user_path(role: role_type) %></li>
+          <div class="reveal">
+            <p><a href="#" class="reveal__button"><%=  t(".reassign") %></a></p>
+            <div class="reveal__content">
+              <ul class="list--bulleted">
+                <% User.roles.each do |role_type| %>
+                  <% if can?(:manage, role_type.constantize)  %>
+                    <li><%= link_to role_name_from_role_type(role_type), edit_role_hub_user_path(role: role_type) %></li>
+                  <% end %>
                 <% end %>
-            <% end %>
-            </ul>
-          <% end %>
+              </ul>
+            </div>
+          </div>
         </div>
 
       <% end %>

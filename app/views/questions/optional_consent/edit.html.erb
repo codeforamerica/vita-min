@@ -15,9 +15,12 @@
     <%= f.simplified_cfa_checkbox(:global_carryforward_consented, t("views.questions.optional_consent.global_carryforward_html", global_carryforward_url: global_carryforward_path), options: { checked_value: true, unchecked_value: false, checked: true }) %>
 
     <div class="reveal-shrink-wrapper">
-      <%= render("components/molecules/reveal", title: t("views.questions.optional_consent.legal_details_title")) do %>
-        <%= t("views.questions.optional_consent.legal_details_html") %>
-      <% end %>
+      <div class="reveal">
+        <p><a href="#" class="reveal__button"><%=  t("views.questions.optional_consent.legal_details_title") %></a></p>
+        <div class="reveal__content">
+          <p><%=t("views.questions.optional_consent.legal_details_html") %></p>
+        </div>
+      </div>
     </div>
 
     <div class="spacing-above-60">
