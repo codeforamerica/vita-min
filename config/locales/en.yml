@@ -2455,6 +2455,16 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
+          sales_tax_title: What are sales taxes?
+          sales_use_tax_helper_text: Enter total amount
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          title: Did you make any purchases in %{year} without paying sales or use tax?
+          unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
+          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
+          use_tax_title: What are use taxes?
       income_review:
         edit:
           help_text: We will ask about any missing information.
@@ -2528,7 +2538,6 @@ en:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
-          not_a_number: Please enter numbers only.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
@@ -3128,6 +3137,7 @@ en:
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
     must_enter_amount: If someone claimed this credit you must enter an amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
+    not_a_number: Please enter numbers only.
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
