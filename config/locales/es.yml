@@ -2460,8 +2460,8 @@ es:
           title: Ahora completemos tu declaración de impuestos estatales
       md_county:
         edit:
-          county_html: Condado
-          political_subdivision_html: Subdivisión política
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
           title_html: Seleccione el <strong>condado</strong> y la <strong>subdivisión política</strong> donde vivía el 31 de diciembre de %{filing_year}
       md_review:
         edit:

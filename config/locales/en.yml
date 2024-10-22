@@ -2487,8 +2487,8 @@ en:
           title: Now, let’s complete your state tax return
       md_county:
         edit:
-          county_html: <strong>County</strong>
-          political_subdivision_html: <strong>Political subdivision</strong>
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_review:
         edit:
