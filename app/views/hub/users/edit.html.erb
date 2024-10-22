@@ -43,7 +43,7 @@
 
         <p id="current-role"><%= [user_role_name(@user), user_group(@user)].compact.join(", ") %></p>
 
-        <div style="width: 375px">
+        <div class="reassign-roles">
           <%= render('components/molecules/reveal', title: t(".reassign")) do %>
             <ul class="list--bulleted">
               <% User.roles.each do |role_type| %>

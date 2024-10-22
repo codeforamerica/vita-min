@@ -24,6 +24,13 @@ body.hub {
     width: 100%;
     overflow-x: auto;
   }
+
+  .reassign-roles {
+    width: 375px;
+    .reveal__button {
+      width: 100%;
+    }
+  }
 }
 
 // TODO: Move these styles into .hub
