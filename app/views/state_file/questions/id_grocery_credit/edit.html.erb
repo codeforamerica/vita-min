@@ -24,9 +24,9 @@
             <div class="">
               <div class="white-group">
               <div class="tight-checkboxes spacing-above-0 spacing-below-0">
-                <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#primary-months" }) %>
+                <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#primary_months_eligible_for_grocery_credit" }) %>
                 <% if current_intake.filing_status_mfj? %>
-                  <%= f.cfa_checkbox(:spouse, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#spouse-months" }) %>
+                  <%= f.cfa_checkbox(:spouse, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#spouse_months_eligible_for_grocery_credit" }) %>
                 <% end %>
                 <% current_intake.dependents.each do |dependent| %>
                   <% key = "dependent_#{dependent.id}".to_sym %>
@@ -36,15 +36,15 @@
             </div>
           </div>
 
-          <div class="" id="primary-months" style="display: none">
+          <div class="" id="primary_months_eligible_for_grocery_credit" style="display: none">
             <div class="white-group">
-              <%= f.cfa_select(:primary_months, "Primary Months", (1..12).to_a, include_blank: true) %>
+              <%= f.cfa_select(:primary_months_eligible_for_grocery_credit, "Primary Months", (1..12).to_a, include_blank: true) %>
             </div>
           </div>
 
-          <div class="" id="spouse-months" style="display: none">
+          <div class="" id="spouse_months_eligible_for_grocery_credit" style="display: none">
             <div class="white-group">
-              <%= f.cfa_select(:spouse_months, "Spouse Months", (1..12).to_a, include_blank: true) %>
+              <%= f.cfa_select(:spouse_months_eligible_for_grocery_credit, "Spouse Months", (1..12).to_a, include_blank: true) %>
             </div>
           </div>
 
