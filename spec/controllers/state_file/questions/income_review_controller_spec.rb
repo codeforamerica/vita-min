@@ -66,6 +66,43 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     end
   end
 
+  describe "SSA-1099 card" do
+    render_views
+    before do
+      intake.direct_file_data.fed_ssb = fed_ssb
+      intake.direct_file_data.fed_taxable_ssb = fed_taxable_ssb
+      intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
+    end
+
+    context "they have social security benefits greater than zero" do
+      let(:fed_ssb) { 10 }
+      let(:fed_taxable_ssb) { 0 }
+      it "shows the SSA card" do
+        get :edit
+        expect(response.body).to have_text "Social Security benefits (SSA-1099)"
+      end
+    end
+
+    context "they have _taxable_ social security benefit greater than zero" do
+      let(:fed_ssb) { 0 }
+      let(:fed_taxable_ssb) { 10 }
+      it "shows the SSA card" do
+        get :edit
+        expect(response.body).to have_text "Social Security benefits (SSA-1099)"
+      end
+    end
+
+    context "they have no social security benefit income" do
+      let(:fed_ssb) { 0 }
+      let(:fed_taxable_ssb) { 0 }
+
+      it "doesn't show the SSA card" do
+        get :edit
+        expect(response.body).not_to have_text "Social Security benefits (SSA-1099)"
+      end
+    end
+  end
+
   describe "1099R" do
     render_views
 
