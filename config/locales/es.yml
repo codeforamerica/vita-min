@@ -2463,7 +2463,9 @@ es:
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          no_info_needed: No se necesita información estatal adicional
           review_and_edit_state_info: Revisar y editar información del estado
+          ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)

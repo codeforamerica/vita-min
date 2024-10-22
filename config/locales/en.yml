@@ -2490,7 +2490,9 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
+          ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
