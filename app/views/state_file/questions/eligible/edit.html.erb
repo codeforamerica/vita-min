@@ -1,9 +1,16 @@
-<% title1 = t(".title1") %>
+<% title1 = t(".title1", year:  MultiTenantService.new(:statefile).current_tax_year, state: current_intake.state_name) %>
 
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
-  <h2 class="h2"><%= t(".title2_html") %></h2>
+  <p><%= t(".title2") %></p>
+  <p><%= t(".title3_html") %></p>
+
+
+  <div class="notice--warning">
+    <%= t(".review_warning") %>
+  </div>
+
 
   <div class="white-group">
     <%= render partial: "state_file/questions/eligible/#{current_state_code}_supported" %>

@@ -63,6 +63,7 @@ describe 'EfileError' do
       "id-sales-use-tax",
       "income-review",
       "initiate-data-transfer",
+      "md-eligibility-filing-status",
       "md-review",
       "name-dob",
       "nc-county",

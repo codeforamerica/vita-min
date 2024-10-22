@@ -2351,6 +2351,9 @@ en:
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
+            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
+            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_lived_in_state: did not live in %{state} for all of 2023
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2023
@@ -2430,6 +2433,31 @@ en:
           nyc_school_tax_credit: NYC School Tax Credit
           nys_eic: NYS/NYC Earned Income Credit
           nys_hh_credit: NYS/NYC Household Credit
+          nyc_school_tax_credit: NYC School Tax Credit
+          nys_eic: NYS/NYC Earned Income Credit
+          nys_hh_credit: NYS/NYC Household Credit
+          review_warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
+          title1: You can use this tool to file your %{year} %{state} state taxes
+          title2: Let's make sure this is the right service for you.
+          title3_html: Here are the subtractions and credits you <strong>may</strong> be able to claim to maximize your refund.
+          want_to_claim_heading: Want to claim these credits or deductions?
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+        md_additional_credits:
+          heading1: 'Subtractions:'
+          heading2: 'Credits:'
+          sub1: Subtraction for Child and Dependent Care Expenses
+          sub10: Senior Tax Credit
+          sub11: State and local Poverty Level Credits
+          sub12: Credit for Child and Dependent Care Expenses
+          sub2: Pension exclusion (if you're 65 years or older, or if you're under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub3: Military retirement exclusion
+          sub4: Public safety retirement exclusion
+          sub5: Taxable Social Security and Railroad Retirement benefits
+          sub6: Interest income from obligations of the US or US possessions
+          sub7: Two-income subtraction for married filing jointly taxpayers
+          sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
+          sub9: State Child Tax Credit (for children under 6)
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2500,7 +2528,9 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
+          ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
@@ -2517,6 +2547,19 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: Are you married and filing a joint state return?
+          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
+          eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
+          eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
+          permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
+          permanent_home_heading: What is a permanent home?
+          subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{year} Maryland taxes
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
