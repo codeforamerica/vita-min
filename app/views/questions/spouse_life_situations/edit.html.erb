@@ -6,14 +6,15 @@
       <%= content_for(:page_title) %>
     </h1>
     <p>
-      <%= t('views.questions.spouse_life_situations.help_text') %>
+      <%=t('views.questions.spouse_life_situations.help_text') %>
     </p>
-
-    <%= f.cfa_checkbox(:spouse_had_disability, t('views.questions.spouse_life_situations.options.had_disability'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    <%= f.cfa_checkbox(:spouse_was_blind, t('views.questions.spouse_life_situations.options.was_blind'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    <%= f.cfa_checkbox(:spouse_was_full_time_student, t('views.questions.spouse_life_situations.options.was_full_time_student'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    <%= f.cfa_checkbox(:spouse_not_us_citizen, t('views.questions.spouse_life_situations.options.was_not_citizen'), options: { checked_value: "yes", unchecked_value: "no" }) %>
-    <%= f.cfa_checkbox(:no_life_situations_apply, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+    <div class="form-card__stacked-checkboxes spacing-above-0">
+      <%= f.cfa_checkbox(:spouse_had_disability, t('views.questions.spouse_life_situations.options.had_disability'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:spouse_was_blind, t('views.questions.spouse_life_situations.options.was_blind'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:spouse_was_full_time_student, t('views.questions.spouse_life_situations.options.was_full_time_student'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:spouse_not_us_citizen, t('views.questions.spouse_life_situations.options.was_not_citizen'), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <%= f.cfa_checkbox(:no_life_situations_apply, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
+    </div>
 
     <%= f.continue %>
   <% end %>
