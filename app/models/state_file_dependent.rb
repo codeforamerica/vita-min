@@ -2,31 +2,33 @@
 #
 # Table name: state_file_dependents
 #
-#  id                :bigint           not null, primary key
-#  ctc_qualifying    :boolean
-#  dob               :date
-#  eic_disability    :integer          default("unfilled")
-#  eic_qualifying    :boolean
-#  eic_student       :integer          default("unfilled")
-#  first_name        :string
-#  intake_type       :string           not null
-#  last_name         :string
-#  middle_initial    :string
-#  months_in_home    :integer
-#  needed_assistance :integer          default("unfilled"), not null
-#  odc_qualifying    :boolean
-#  passed_away       :integer          default("unfilled"), not null
-#  relationship      :string
-#  ssn               :string
-#  suffix            :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  intake_id         :bigint           not null
+#  id                                    :bigint           not null, primary key
+#  ctc_qualifying                        :boolean
+#  dob                                   :date
+#  eic_disability                        :integer          default("unfilled")
+#  eic_qualifying                        :boolean
+#  eic_student                           :integer          default("unfilled")
+#  first_name                            :string
+#  id_months_eligible_for_grocery_credit :integer          default(0), not null
+#  intake_type                           :string           not null
+#  last_name                             :string
+#  middle_initial                        :string
+#  months_in_home                        :integer
+#  needed_assistance                     :integer          default("unfilled"), not null
+#  odc_qualifying                        :boolean
+#  passed_away                           :integer          default("unfilled"), not null
+#  relationship                          :string
+#  ssn                                   :string
+#  suffix                                :string
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  intake_id                             :bigint           not null
 #
 # Indexes
 #
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
+
 class StateFileDependent < ApplicationRecord
   # TODO: once we have added all the json fixtures for all the states we can remove RELATIONSHIP_LABELS used to map xml relationship to gender-neutral terms in relationship colum.
   #

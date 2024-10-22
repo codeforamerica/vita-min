@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_22_201741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1776,6 +1776,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.boolean "eic_qualifying"
     t.integer "eic_student", default: 0
     t.string "first_name"
+    t.integer "id_months_eligible_for_grocery_credit", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
@@ -1827,6 +1828,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1842,6 +1844,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_months_eligible_for_grocery_credit", default: 0, null: false
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1855,7 +1858,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_months_eligible_for_grocery_credit", default: 0, null: false
     t.string "spouse_suffix"
+    t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
@@ -1874,6 +1879,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.string "city"
+    t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1883,6 +1889,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
+    t.integer "eligibility_filing_status_mfj", default: 0, null: false
+    t.integer "eligibility_home_different_areas", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal_mfj", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
@@ -2049,6 +2059,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "homeowner_main_home_multi_unit", default: 0, null: false
     t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
     t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_same_home_spouse", default: 0, null: false
     t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"
