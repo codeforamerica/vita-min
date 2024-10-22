@@ -154,7 +154,7 @@ RSpec.feature "Income Review", active_job: true do
       expect(page).to have_text "Payer 2 Name"
 
       within(".retirement-income") do |element|
-        element.second(:link, "Review and edit state info").click
+        element.all(:link, "Review and edit state info")[1].click
       end
 
       # placeholder values shown for nil values
@@ -211,7 +211,7 @@ RSpec.feature "Income Review", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Can't be blank"
-      fill_in "state_file1099_r_payer_state_identification_number", with: "nc111111111"
+      fill_in "state_file1099_r_payer_state_identification_number", with: "md111111111"
 
       click_on I18n.t("general.continue")
 
