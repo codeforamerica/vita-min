@@ -269,7 +269,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "az322_contribution_date_of_contribution", Date.new(2023, 6, 21)
       click_on I18n.t("general.continue")
 
-      screensho_after do
+      screenshot_after do
         expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
       end
       click_on I18n.t("general.continue")
