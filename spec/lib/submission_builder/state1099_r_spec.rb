@@ -37,7 +37,7 @@ describe SubmissionBuilder::State1099R do
         expect(doc.at("DesignatedROTHAcctFirstYr").text).to eq "1993"
         expect(doc.at("F1099RStateTaxGrp StateTaxWithheldAmt").text).to eq "101"
         expect(doc.at("F1099RStateTaxGrp StateAbbreviationCd").text).to eq "#{state_code.upcase}"
-        expect(doc.at("F1099RStateTaxGrp PayerStateIdNum").text).to eq "222222222"
+        expect(doc.at("F1099RStateTaxGrp PayerStateIdNum").text).to eq "az2222222"
         expect(doc.at("F1099RStateTaxGrp StateDistributionAmt").text).to eq "155"
         expect(doc.at("StandardOrNonStandardCd").text).to eq "N"
       end
