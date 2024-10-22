@@ -123,7 +123,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.w2s.each_with_index do |direct_file_w2, i|
       state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
       state_file_w2.assign_attributes(
-        employer_name: direct_file_w2.EmployerNm,
+        employer_name: direct_file_w2.EmployerName,
         employee_name: direct_file_w2.EmployeeNm,
         employee_ssn: direct_file_w2.EmployeeSSN,
         employer_state_id_num: direct_file_w2.EmployerStateIdNum,
