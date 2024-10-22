@@ -26,6 +26,17 @@ module SubmissionBuilder
       date.strftime("%F")
     end
 
+    def date_type_for_timezone(date)
+      return nil unless date.present?
+      date = case @submission.data_source.state_code
+             when 'ny', 'md', 'nc', 'nj'
+               date.in_time_zone('America/New_York')
+             else
+               date.in_time_zone('America/Phoenix')
+             end
+      date.strftime("%F")
+    end
+
     def person_name_type(name, length: 20)
       return "" unless name.present?
 

@@ -154,9 +154,9 @@ describe SubmissionBuilder::ReturnHeader do
       )
     }
     let(:primary_signature_pin) { "12345" }
-    let(:primary_esigned_at) { Time.now.strftime("%Y-%m-%d") }
+    let(:primary_esigned_at) { DateTime.tomorrow.beginning_of_day } # Setting esigned_at to midnight UTC time to check if the date is correctly filled into the XML as the day before in EST time
     let(:spouse_signature_pin) { "23456" }
-    let(:spouse_esigned_at) { Time.now.strftime("%Y-%m-%d") }
+    let(:spouse_esigned_at) { DateTime.tomorrow.beginning_of_day }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
 
@@ -165,7 +165,7 @@ describe SubmissionBuilder::ReturnHeader do
       
       it "generates xml with primary signature PIN only" do
         expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
-        expect(doc.at('Filer Primary DateSigned').content).to eq primary_esigned_at
+        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary TaxpayerPIN')).not_to be_present
         expect(doc.at('Filer Secondary DateSigned')).not_to be_present
       end
@@ -181,9 +181,9 @@ describe SubmissionBuilder::ReturnHeader do
 
       it "generates xml with primary and spouse signature PINs" do
         expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
-        expect(doc.at('Filer Primary DateSigned').content).to eq primary_esigned_at
+        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary TaxpayerPIN').content).to eq spouse_signature_pin
-        expect(doc.at('Filer Secondary DateSigned').content).to eq spouse_esigned_at
+        expect(doc.at('Filer Secondary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
       end
     end
   end
