@@ -23,16 +23,6 @@
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
             <div class="white-group">
-              <% household_members = [] %>
-              <% household_members.push({ value: :primary, label: current_intake.primary.full_name, input_html: { "data-follow-up": "#primary-months" } }) %>
-              <% if current_intake.filing_status_mfj? %>
-                <% household_members.push({ value: :spouse, label: current_intake.spouse.full_name, input_html: { "data-follow-up": "#spouse-months" } }) %>
-              <% end %>
-              <% current_intake.dependents.each do |dependent| %>
-                <% key = "dependent_#{dependent.id}".to_sym %>
-                <% household_members.push({ value: key, label: dependent.full_name, input_html: { "data-follow-up": "##{key}-months" } }) %>
-              <% end %>
-
               <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-0">
                 <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#primary-months" }) %>
                 <% if current_intake.filing_status_mfj? %>
