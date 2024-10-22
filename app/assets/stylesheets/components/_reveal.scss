@@ -11,9 +11,6 @@
   .reveal {
     max-width: $width-form-long;
   }
-  .reveal__button {
-    width: 100%;
-  }
 }
 
 .reveal > p:first-of-type {
@@ -26,6 +23,7 @@
   font-weight: $font-weight-bold;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 
   &:focus {
     box-shadow: none;
