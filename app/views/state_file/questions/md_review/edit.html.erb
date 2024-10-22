@@ -4,9 +4,9 @@
 
   <div id="county-and-subdivision" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".county") %></p>
+      <p class="spacing-below-5"><%=t(".county_html") %></p>
       <p><%=current_intake.residence_county %></p>
-      <p class="text--bold spacing-below-5"><%=t(".political_subdivision") %></p>
+      <p class="spacing-below-5"><%=t(".political_subdivision_html") %></p>
       <p><%=current_intake.political_subdivision %></p>
       <%= link_to t("general.edit"), StateFile::Questions::MdCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>

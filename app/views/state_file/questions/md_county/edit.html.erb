@@ -7,10 +7,10 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:residence_county, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+      <%= f.vita_min_state_file_select(:residence_county, t(".county_html"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:subdivision_code, t('.political_subdivision'), [], include_blank: true, prompt: t('general.select_prompt')) %>
+      <%= f.vita_min_state_file_select(:subdivision_code, t('.political_subdivision_html'), [], include_blank: true, prompt: t('general.select_prompt')) %>
     </div>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>

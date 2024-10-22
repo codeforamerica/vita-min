@@ -2477,13 +2477,13 @@ en:
           title: Now, let’s complete your state tax return
       md_county:
         edit:
-          county: County
-          political_subdivision: Political subdivision
-          title_html: Select the <b>county</b> and <b>political subdivision</b> where you lived on December 31, %{filing_year}
+          county_html: <strong>County</strong>
+          political_subdivision_html: <strong>Political subdivision</strong>
+          title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_review:
         edit:
-          county: County
-          political_subdivision: Political subdivision
+          county_html: County
+          political_subdivision_html: Political subdivision
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
