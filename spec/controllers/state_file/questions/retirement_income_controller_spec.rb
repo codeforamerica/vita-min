@@ -48,7 +48,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       }
     end
 
-    it "updates the dependent and redirects to the income review page" do
+    it "updates the 1099R information and redirects to the income review page" do
       post :update, params: params
 
       expect(response).to redirect_to(edit_income_review_path(id: params[:id]))
