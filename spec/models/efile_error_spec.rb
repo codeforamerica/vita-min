@@ -63,6 +63,7 @@ describe 'EfileError' do
       "income-review",
       "initiate-data-transfer",
       "md-county",
+      "md-eligibility-filing-status",
       "md-review",
       "name-dob",
       "nc-county",

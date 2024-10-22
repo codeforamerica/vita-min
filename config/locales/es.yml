@@ -2324,11 +2324,16 @@ es:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
+            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia
+            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
+            eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
+            eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
             eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2023
             eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
+            eligibility_withdrew_msa_fthb: Retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
@@ -2378,11 +2383,28 @@ es:
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
           nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
           nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
-          title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
-          title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
+          review_warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
+          title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
+          title2: Asegurémonos de que este sea el servicio adecuado para usted.
+          title3_html: Estas son las deducciones y los créditos que <strong>podría</strong> reclamar para maximizar su reembolso.
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+        md_additional_credits:
+          heading1: 'Sustracciones:'
+          heading2: 'Créditos:'
+          sub1: Reducción de gastos de cuidado de hijos y dependientes
+          sub10: Crédito fiscal para adultos mayores
+          sub11: Créditos estatales y locales por nivel de pobreza
+          sub12: Crédito por gastos de cuidado de niños y dependientes
+          sub2: Exclusión de pensión (si tiene 65 años o más, o si tiene menos de 65 años y anteriormente calificó para la exclusión debido a una discapacidad permanente)
+          sub3: Exclusión de jubilación militar
+          sub4: Exclusión de jubilación de seguridad pública
+          sub5: Beneficios de jubilación ferroviaria y de seguridad social sujetos a impuestos
+          sub6: Ingresos por intereses de obligaciones de los EE. UU. o posesiones de los EE. UU.
+          sub7: Reducción de dos ingresos para contribuyentes casados que presentan declaraciones conjuntas
+          sub8: Créditos fiscales estatales y locales por ingresos del trabajo (si solicitó el Crédito fiscal federal por ingresos del trabajo)
+          sub9: Crédito fiscal estatal por hijos (para niños menores de 6 años)
         ny_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
@@ -2441,7 +2463,9 @@ es:
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          no_info_needed: No se necesita información estatal adicional
           review_and_edit_state_info: Revisar y editar información del estado
+          ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
@@ -2458,6 +2482,19 @@ es:
             <p>Recibirás dos correos electrónicos del IRS: uno por una declaración enviada y otro por una declaración aceptada. Revisa tu correo electrónico para ver si recibiste uno de aceptación.</p>
             <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: "¿Está casado y presenta una declaración estatal conjunta?"
+          eligibility_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_mfj_two_different_areas_label_text: "¿Retiró dinero de una cuenta de comprador de vivienda por primera vez y lo utilizó para algo que no fuera comprar una casa en Maryland en %{year}?"
+          eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivíamos en el mismo condado, ciudad, pueblo o área fiscal.
+          eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en diferentes condados, ciudades, pueblos o áreas impositivas.
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          permanent_home_copy: No puede utilizar este servicio si usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes y no se trata de una situación temporal.
+          permanent_home_copy2: Si abandona su hogar permanente para trabajar o cuidar a alguien, pero planea regresar, su hogar permanente no ha cambiado. Se considera que usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes solo si se quedan en estos hogares separados y no es una situación temporal.
+          permanent_home_heading: "¿Qué es una vivienda permanente?"
+          subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
+          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
       md_county:
         edit:
           county_html: "<strong>Condado</strong>"
