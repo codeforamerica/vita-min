@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Income Review", active_job: true do
-  include MockTwilio
   include StateFileIntakeHelper
 
   before do
