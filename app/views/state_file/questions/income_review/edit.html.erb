@@ -5,7 +5,7 @@
   <p><%= t(".help_text") %></p>
 
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
-    <div class="white-group">
+    <div class="white-group unemployment">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
       <% if current_intake.state_file1099_gs.count > 0 %>
         <% current_intake.state_file1099_gs.each do |state_1099g| %>
@@ -28,7 +28,7 @@
   <% end %>
 
   <% if current_intake.state_file1099_rs.present? %>
-    <div class="white-group">
+    <div class="white-group retirement-income">
       <p class="text--bold spacing-below-0"><%= t(".retirement_income_title") %></p>
       <% if current_intake.state_file1099_rs.count > 0 %>
         <% current_intake.state_file1099_rs.each do |state_1099r| %>
