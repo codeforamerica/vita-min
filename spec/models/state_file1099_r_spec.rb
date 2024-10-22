@@ -41,6 +41,55 @@
 #
 require 'rails_helper'
 
-RSpec.describe StateFile1099R, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe StateFile1099R do
+  describe "validation" do
+    let!(:state_file1099_r) {
+      create(:state_file1099_r, intake: create(:state_file_nc_intake), payer_state_identification_number: 'nc_123', state_distribution_amount: '100')
+    }
+
+    context "retirement_income_intake" do
+      let(:context) { :retirement_income_intake }
+
+      it "validates state_tax_withheld_amount" do
+        state_file1099_r.state_tax_withheld_amount = 'string'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.state_tax_withheld_amount = nil
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.state_tax_withheld_amount = '-1'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.state_tax_withheld_amount = '0'
+        expect(state_file1099_r.valid?(context)).to eq true
+        state_file1099_r.state_tax_withheld_amount = '1'
+        expect(state_file1099_r.valid?(context)).to eq true
+      end
+
+      it "validates state_distribution_amount" do
+        state_file1099_r.state_distribution_amount = 'string'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.state_distribution_amount = nil
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.state_distribution_amount = '-1'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.state_distribution_amount = '0'
+        expect(state_file1099_r.valid?(context)).to eq true
+        state_file1099_r.state_distribution_amount = '1'
+        expect(state_file1099_r.valid?(context)).to eq true
+      end
+
+      it "validates payer_state_identification_number" do
+        state_file1099_r.payer_state_identification_number = nil
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.payer_state_identification_number = '-1'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.payer_state_identification_number = '1231578123'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.payer_state_identification_number = 'az31578123'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.payer_state_identification_number = 'nc31578123'
+        expect(state_file1099_r.valid?(context)).to eq true
+        state_file1099_r.payer_state_identification_number = 'nc31578123123125412'
+        expect(state_file1099_r.valid?(context)).to eq false
+      end
+    end
+  end
 end

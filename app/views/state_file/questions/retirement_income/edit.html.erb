@@ -1,7 +1,8 @@
-<% content_for :page_title, 'hi' %>
+<% @main_heading = t("state_file.questions.retirement_income.edit.title", employer_name: @state_file1099_r.payer_name) %>
+<% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
-  <h1 class="form-question"><%= "hi" %></h1>
+  <h1 class="form-question"><%= @main_heading %></h1>
   <%= form_with model: @state_file1099_r, url: { action: :update }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
@@ -9,9 +10,22 @@
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          NOTHING
+          <div class="form-group">
+            <p class="form-question"><strong><%= @state_file1099_r.recipient_name %></strong></p>
+            <p class="form-question"><%= @state_file1099_r.payer_name %></p>
+          </div>
+          <div class="form-question spacing-below-15">
+            <%= f.vita_min_money_field(:state_distribution_amount, t(".box14_html"), classes: ["form-width--long"]) %>
+          </div>
+          <div class="form-question spacing-below-15">
+            <%= f.cfa_input_field(:payer_state_identification_number, t(".box15_html"), classes: ["form-width--long"]) %>
+          </div>
+          <div class="form-question spacing-below-15">
+            <%= f.vita_min_money_field(:state_tax_withheld_amount, t(".box16_html"), classes: ["form-width--long"]) %>
+          </div>
         </div>
       </div>
     </div>
+    <%= f.submit t("general.continue"), :class => "button button--primary button--wide" %>
   <% end %>
 <% end %>

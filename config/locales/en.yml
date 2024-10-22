@@ -2782,6 +2782,12 @@ en:
             label: ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      retirement_income:
+        edit:
+          title: Please review your job (W2) details for %{employer_name}.
+          box14_html: <b>Box 14</b>, State tax withheld
+          box15_html: <b>Box 15</b>, State/Payer’s State Number
+          box16_html: <b>Box 16</b>, State income tax
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.

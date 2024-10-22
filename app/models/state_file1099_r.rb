@@ -47,5 +47,19 @@ class StateFile1099R < ApplicationRecord
   encrypts :recipient_ssn
 
   # Not adding validations for fields we just copy over from the DF XML, since we have no recourse if they fail
+  with_options on: :retirement_income_intake do
+    validates :state_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0 }
+    validates :state_distribution_amount, numericality: { greater_than_or_equal_to: 0 }
+    validate :payer_state_identification_number, :has_valid_identification_number
+    validates :payer_state_identification_number, presence: true, length: { maximum: 16 }
+  end
 
+  def has_valid_identification_number
+    return if payer_state_identification_number.blank?
+
+    incorrectly_formatted = payer_state_identification_number.match(/^#{intake.state_code}.{,14}$/i).nil?
+    if incorrectly_formatted
+      errors.add(:payer_state_identification_number, "First two letters must be #{intake.state_code}")
+    end
+  end
 end

@@ -59,7 +59,7 @@ FactoryBot.define do
     designated_roth_account_first_year { 1993 }
     state_tax_withheld_amount { 100.5 }
     state_code { 'AZ' }
-    payer_state_identification_number { "222222222" }
+    payer_state_identification_number { "az2222222" }
     state_distribution_amount { 155.15 }
     standard { false }
   end
