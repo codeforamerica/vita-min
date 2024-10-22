@@ -54,7 +54,7 @@ module StateFile
     end
 
     def intake_already_submitted?
-      if Rails.env.development? || Rails.env.heroku?
+      if Rails.env.development? || Rails.env.heroku? || Rails.env.demo?
         return false
       end
       if Flipper.enabled?(:prevent_duplicate_accepted_statefile_submissions)
