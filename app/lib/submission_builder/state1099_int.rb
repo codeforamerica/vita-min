@@ -13,7 +13,7 @@ module SubmissionBuilder
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099int.payer.tr('-', ' '), 75)
           end
         end
-        xml.PayerEIN form1099int.payer_tin
+        xml.PayerEIN form1099int.payer_tin.tr('-', '')
         xml.RecipientSSN form1099int.recipient_tin.tr('-', '')
         recipient = if form1099int.recipient_tin.tr('-', '') == intake.primary.ssn
                       intake.primary

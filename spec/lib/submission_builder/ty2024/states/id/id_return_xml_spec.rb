@@ -80,5 +80,29 @@ describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "i
         expect(additional_docs.first[:kwargs][:dependents].size).to eq(3)
       end
     end
+
+    context 'with 1099-INT document content' do
+      let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:id_return_xml) { described_class.new(submission) }
+      let(:build_response) { described_class.build(submission) }
+      let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+
+      it "includes 1099-INT with correct values" do
+        int_doc = xml.at("State1099Int")
+
+        expect(int_doc).to be_present
+        expect(int_doc.at("PayerName")['payerNameControl']).to eq "THEP"
+        expect(int_doc.at("PayerName/BusinessNameLine1Txt").text).to eq "The payer name"
+        expect(int_doc.at("RecipientSSN").text).to eq "123456789"
+        expect(int_doc.at("RecipientName").text).to eq "Tim Interest"
+        expect(int_doc.at("InterestIncome").text).to eq "1.0"
+        expect(int_doc.at("InterestOnBondsAndTreasury").text).to eq "2.0"
+        expect(int_doc.at("FederalTaxWithheld").text).to eq "5.0"
+        expect(int_doc.at("TaxExemptInterest").text).to eq "4.0"
+        expect(int_doc.at("TaxExemptCUSIP").text).to eq "123456789"
+      end
+
+    end
   end
 end

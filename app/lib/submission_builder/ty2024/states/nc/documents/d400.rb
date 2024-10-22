@@ -20,9 +20,8 @@ module SubmissionBuilder
                 xml.ResidencyStatusPrimary true
                 xml.ResidencyStatusSpouse true if @submission.data_source.filing_status_mfj?
                 xml.VeteranInfoPrimary @submission.data_source.primary_veteran_yes? ? 1 : 0
-                if @submission.data_source.filing_status_mfj?
-                  xml.VeteranInfoSpouse @submission.data_source.spouse_veteran_yes? ? 1 : 0
-                end
+                xml.VeteranInfoSpouse @submission.data_source.spouse_veteran_yes? & @submission.data_source.filing_status_mfj? ? 1 : 0
+                xml.FederalExtension 0
                 xml.FilingStatus filing_status
                 if @submission.data_source.filing_status_mfs?
                   xml.MFSSpouseName @submission.data_source.direct_file_data.spouse_name
@@ -35,14 +34,14 @@ module SubmissionBuilder
                 # line 7 AdditionsToFAGI is blank
                 xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
                 xml.DeductionsFromFAGI calculated_fields.fetch(:NCD400_LINE_9)
-                xml.NumChildrenAllowed @submission.data_source.direct_file_data.qualifying_children_under_age_ssn_count
+                xml.NumChildrenAllowed @submission.data_source.direct_file_data.qualifying_children_under_age_ssn_count if @submission.data_source.direct_file_data.qualifying_children_under_age_ssn_count.present?
                 xml.ChildDeduction calculated_fields.fetch(:NCD400_LINE_10B)
                 xml.NCStandardDeduction calculated_fields.fetch(:NCD400_LINE_11)
                 xml.NCAGIAddition calculated_fields.fetch(:NCD400_LINE_12A)
                 xml.NCAGISubtraction calculated_fields.fetch(:NCD400_LINE_12B)
                 xml.NCTaxableInc calculated_fields.fetch(:NCD400_LINE_14)
-                xml.SubTaxCredFromIncTax calculated_fields.fetch(:NCD400_LINE_15) # l17 = l15 - l16 and l16 is 0/blank
                 xml.NCIncTax calculated_fields.fetch(:NCD400_LINE_17)
+                xml.SubTaxCredFromIncTax calculated_fields.fetch(:NCD400_LINE_15) # l17 = l15 - l16 and l16 is 0/blank
                 # line 16 TaxCredits is blank
                 xml.UseTax calculated_fields.fetch(:NCD400_LINE_18)
                 if @submission.data_source.untaxed_out_of_state_purchases_no?
