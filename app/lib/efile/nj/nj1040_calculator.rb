@@ -11,10 +11,8 @@ module Efile
 
       def calculate
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
-        set_line(:NJ1040_LINE_6, :calculate_line_6)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
-        set_line(:NJ1040_LINE_7, :calculate_line_7)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
