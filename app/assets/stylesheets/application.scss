@@ -244,7 +244,7 @@ main {
   @include sr-only;
 }
 
-a[href^='http']:not([href*="fileyourstatetaxes.org" i]) {
+a[href^='http']:not([href*=request_domain i]) {
   @include external-link;
 }
 

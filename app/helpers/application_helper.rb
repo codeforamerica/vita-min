@@ -1,6 +1,5 @@
 require "ordinalize_full/integer"
 module ApplicationHelper
-
   def number_in_words(number)
     number.ordinalize_in_full
   end
@@ -146,5 +145,9 @@ module ApplicationHelper
 
   def ctc_prior_tax_year
     MultiTenantService.new(:ctc).prior_tax_year
+  end
+
+  def request_domain
+    request.domain
   end
 end
