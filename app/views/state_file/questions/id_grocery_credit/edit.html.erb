@@ -1,0 +1,71 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title_html") %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
+
+    <div class="question-with-follow-up spacing-below-25">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%=
+            f.cfa_radio_set(
+              :situations_applied_to_household,
+              collection: [
+                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#select-household-members" } },
+                { value: :no, label: t("general.negative") },
+              ]
+            )
+          %>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="select-household-members">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <div class="white-group">
+              <% household_members = [] %>
+              <% household_members.push({ value: :primary, label: current_intake.primary.full_name, input_html: { "data-follow-up": "#primary-months" } }) %>
+              <% if current_intake.filing_status_mfj? %>
+                <% household_members.push({ value: :spouse, label: current_intake.spouse.full_name, input_html: { "data-follow-up": "#spouse-months" } }) %>
+              <% end %>
+              <% current_intake.dependents.each do |dependent| %>
+                <% key = "dependent_#{dependent.id}".to_sym %>
+                <% household_members.push({ value: key, label: dependent.full_name, input_html: { "data-follow-up": "##{key}-months" } }) %>
+              <% end %>
+
+              <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-0">
+                <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#primary-months" }) %>
+                <% if current_intake.filing_status_mfj? %>
+                  <%= f.cfa_checkbox(:spouse, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#spouse-months" }) %>
+                <% end %>
+                <% current_intake.dependents.each do |dependent| %>
+                  <% key = "dependent_#{dependent.id}".to_sym %>
+                  <%= f.cfa_checkbox(key, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "##{key}-months" }) %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="question-with-follow-up__follow-up" id="primary-months">
+              <div class="white-group">
+                <%= f.cfa_input_field(:primary_months, "Primary Months", classes: ["form-width--long"]) %>
+              </div>
+            </div>
+
+            <div class="question-with-follow-up__follow-up" id="spouse-months">
+              <div class="white-group">
+                <%= f.cfa_input_field(:spouse_months, "Spouse Months", classes: ["form-width--long"]) %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

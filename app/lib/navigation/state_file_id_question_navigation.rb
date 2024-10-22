@@ -28,6 +28,8 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
