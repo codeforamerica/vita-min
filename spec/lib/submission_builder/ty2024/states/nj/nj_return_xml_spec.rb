@@ -9,9 +9,24 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     let(:xml) { Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml) }
 
     describe "XML schema" do
+      context "with JSON data" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+
+        it "fills primary details" do
+          expect(xml.document.at('Primary TaxpayerName FirstName').text).to eq("Ernie")
+          expect(xml.document.at('Primary TaxpayerName LastName').text).to eq("Muppet")
+          expect(xml.document.at('Primary DateOfBirth').text).to eq("1980-01-01")
+        end
+
+        it "fills secondary details" do
+          expect(xml.document.at('Secondary TaxpayerName FirstName').text).to eq("Bert")
+          expect(xml.document.at('Secondary TaxpayerName LastName').text).to eq("Muppet")
+          expect(xml.document.at('Secondary DateOfBirth').text).to eq("1990-01-01")
+        end
+      end
 
       context "with one dep" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_one_dep')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, municipality_code: "0101") }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -19,7 +34,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with two deps" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_deps')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps, municipality_code: "0101") }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -27,7 +42,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with many deps" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, municipality_code: "0101") }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
