@@ -592,6 +592,8 @@ NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
 NJ1040_LINE_43:
   label: '43 Tax on amount on line 42 (Tax Table page 54)'
+NJ1040_LINE_51:
+  label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00 .'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_64:

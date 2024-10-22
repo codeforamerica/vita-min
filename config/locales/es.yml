@@ -2697,6 +2697,7 @@ es:
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
       nj_review:
         edit:
+          amount: Cantidad
           county: Condado
           household_rent_own: Vivienda en alquiler o en propiedad propia
           medical_expenses: Gastos médicos
@@ -2705,6 +2706,23 @@ es:
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           spouse_disabled: Spouse disabled
+          use_tax_applied: Impuesto sobre el uso del consumidor aplicado
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: Seleccione una de las siguientes
+          manual_use_tax_label: Ingrese el impuesto sobre el uso calculado. (Redondee al número entero más cercano)
+          subtitle_html: |
+            Esto incluye:
+             <ul class="list--bulleted">
+               <li>Artículos adquiridos o servicios prestados fuera del estado, donde no hubo impuesto a las ventas o la tasa del impuesto a las ventas fue inferior a la tasa de New Jersey del 6,625 %.</li>
+               <li>Compras en línea en las que no se aplicó impuesto sobre ventas o uso.</li>
+               <li>Compras realizadas por usted o su cónyuge.</li>
+               <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
+             </ul>
+          title: Debe compartir detalles sobre cualquier compra fuera del estado que no esté gravada.
+          use_tax_method_automated: Todas mis compras fueron de menos de $1000 cada una. Calcule el monto del impuesto al consumo para mí.
+          use_tax_method_manual: Hice una compra no gravada por más de $1000 o preferiría calcular mi impuesto sobre el uso manualmente.
+          use_tax_radio_label: "¿Realizó alguna compra fuera del estado que no pagó impuestos?"
       nj_tenant_eligibility:
         edit:
           helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
