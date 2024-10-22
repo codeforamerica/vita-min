@@ -439,11 +439,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.child_care_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.interest_from_obligations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.social_security_retirement_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.id_child_tax_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.id_grocery_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
 
       find('a.reveal__link').click
 

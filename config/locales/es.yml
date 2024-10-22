@@ -2354,6 +2354,11 @@ es:
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           vita_link: Solicitar asistencia de un voluntario VITA
       eligible:
+        az_supported:
+          dependent_credit: Crédito por Dependientes
+          family_income_credit: Crédito por ingresos familiares
+          increased_deduction: Una deducción aumentada por donaciones caritativas
+          increased_excise_credit: Aumento en el crédito por impuesto de consumo
         az_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
@@ -2371,25 +2376,18 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
-          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
-          dependent_credit: Crédito por Dependientes
-          empire_state_ctc: Crédito Empire State por hijos
-          family_income_credit: Crédito por ingresos familiares
-          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
-          id_grocery_credit: Crédito de Alimentos de Idaho
-          increased_deduction: Una deducción aumentada por donaciones caritativas
-          increased_excise_credit: Aumento en el crédito por impuesto de consumo
-          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
-          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
-          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
-          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
           title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+        id_supported:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
         id_unsupported:
           change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
           dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
@@ -2401,6 +2399,11 @@ es:
           long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
+        ny_supported:
+          empire_state_ctc: Crédito Empire State por hijos
+          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
+          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
+          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
         ny_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
