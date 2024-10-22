@@ -11,6 +11,9 @@
   .reveal {
     max-width: $width-form-long;
   }
+  .reveal__button {
+    width: 100%;
+  }
 }
 
 .reveal > p:first-of-type {

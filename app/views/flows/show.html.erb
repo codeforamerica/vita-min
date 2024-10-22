@@ -13,9 +13,9 @@
 
 <% if @flow_params.form %>
   <div class="reveal">
-    <a href="#" class="reveal__button">
+    <button class="reveal__button">
       <h3 class="spacing-below-0">Magic Intake Generator 🧙</h3>
-    </a>
+    </button>
     <div class="reveal__content">
       <p>This attempts to generate an intake so you can test specific pages. It might not work perfectly.</p>
       <%= form_for @flow_params.form, url: generate_flows_path(type: params[:id]), html: { class: 'flow-explorer-form' } do |f| %>
