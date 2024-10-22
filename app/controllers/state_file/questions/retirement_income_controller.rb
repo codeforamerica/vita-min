@@ -1,10 +1,6 @@
 module StateFile
   module Questions
     class RetirementIncomeController < QuestionsController
-      include ReturnToReviewConcern
-      def review_step
-        "StateFile::Questions::IncomeReviewController".constantize
-      end
       def edit
         @state_file1099_r = current_intake.state_file1099_rs.find(params[:id])
       end
@@ -15,9 +11,9 @@ module StateFile
 
         if @state_file1099_r.valid?(:retirement_income_intake)
           @state_file1099_r.save(context: :retirement_income_intake)
-          redirect_to edit_income_review_path, return_to_review: params[:return_to_review]
+          redirect_to edit_income_review_path
         else
-          render :edit, return_to_review: params[:return_to_review]
+          render :edit
         end
       end
 
