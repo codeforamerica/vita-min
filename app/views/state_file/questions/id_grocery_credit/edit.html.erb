@@ -19,35 +19,44 @@
           %>
         </div>
       </div>
-      <div class="question-with-follow-up__follow-up" id="select-household-members">
-        <div class="question-with-follow-up">
-          <div class="question-with-follow-up__question">
-            <div class="white-group">
-              <div class="form-card__stacked-checkboxes spacing-above-0 spacing-below-0">
-                <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#primary-months" }) %>
+        <div class="question-with-follow-up__follow-up" id="select-household-members">
+          <div class="">
+            <div class="">
+              <div class="white-group">
+              <div class="tight-checkboxes spacing-above-0 spacing-below-0">
+                <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#primary-months" }) %>
                 <% if current_intake.filing_status_mfj? %>
-                  <%= f.cfa_checkbox(:spouse, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#spouse-months" }) %>
+                  <%= f.cfa_checkbox(:spouse, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#spouse-months" }) %>
                 <% end %>
                 <% current_intake.dependents.each do |dependent| %>
                   <% key = "dependent_#{dependent.id}".to_sym %>
-                  <%= f.cfa_checkbox(key, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "##{key}-months" }) %>
+                  <%= f.cfa_checkbox(key, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "##{key}-months" }) %>
                 <% end %>
               </div>
             </div>
           </div>
 
-          <div class="question-with-follow-up__follow-up" id="primary-months">
+          <div class="" id="primary-months" style="display: none">
             <div class="white-group">
-              <%= f.cfa_input_field(:primary_months, "Primary Months", classes: ["form-width--long"]) %>
+              <%= f.cfa_select(:primary_months, "Primary Months", (1..12).to_a, include_blank: true) %>
             </div>
           </div>
 
-          <div class="question-with-follow-up__follow-up" id="spouse-months">
+          <div class="" id="spouse-months" style="display: none">
             <div class="white-group">
-              <%= f.cfa_input_field(:spouse_months, "Spouse Months", classes: ["form-width--long"]) %>
+              <%= f.cfa_select(:spouse_months, "Spouse Months", (1..12).to_a, include_blank: true) %>
             </div>
           </div>
 
+          <% current_intake.dependents.each do |dependent| %>
+            <% key = "dependent_#{dependent.id}".to_sym %>
+
+            <div class="" id="<%= key %>-months" style="display: none">
+              <div class="white-group">
+                <%= f.cfa_select(key, "#{dependent.full_name} Months", (1..12).to_a, include_blank: true) %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -58,4 +67,28 @@
     <% end %>
     <%= f.continue %>
   <% end %>
+<% end %>
+
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function registerToggle(selector) {
+          const checkbox = document.querySelector(selector);
+          const toggleInput = document.querySelector(checkbox.dataset.toggle);
+
+          checkbox.addEventListener('change', function () {
+            console.log(checkbox.checked);
+            toggleInput.style.display = checkbox.checked ? 'block' : 'none';
+          });
+        }
+
+        registerToggle('#state_file_id_grocery_credit_form_primary')
+        registerToggle('#state_file_id_grocery_credit_form_spouse')
+
+        <% current_intake.dependents.each do |dependent| %>
+          registerToggle("<%= "#state_file_id_grocery_credit_form_dependent_#{dependent.id}" %>")
+        <% end %>
+      });
+  </script>
 <% end %>
