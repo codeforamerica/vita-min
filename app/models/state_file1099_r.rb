@@ -48,10 +48,20 @@ class StateFile1099R < ApplicationRecord
 
   # Not adding validations for fields we just copy over from the DF XML, since we have no recourse if they fail
   with_options on: :retirement_income_intake do
-    validates :state_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0 }
-    validates :state_distribution_amount, numericality: { greater_than_or_equal_to: 0 }
-    validate :payer_state_identification_number, :has_valid_identification_number
+    validate :less_than_gross_distribution, if: -> { gross_distribution_amount.present? }
+    # validates :state_tax_withheld_amount, numericality: { less_than_or_equal_to: gross_distribution_amount }, if: -> { gross_distribution_amount.present?}
+    # validates :state_distribution_amount, numericality: { less_than_or_equal_to: gross_distribution_amount }, if: -> { gross_distribution_amount.present?}
+    validate :has_valid_identification_number
     validates :payer_state_identification_number, presence: true, length: { maximum: 16 }
+  end
+  def less_than_gross_distribution
+    if state_tax_withheld_amount.present? && state_tax_withheld_amount > gross_distribution_amount
+      errors.add(:state_tax_withheld_amount, I18n.t("activerecord.errors.models.state_file_1099_r.errors.must_be_less_than_gross_distribution"))
+    end
+
+    if state_distribution_amount.present? && state_distribution_amount > gross_distribution_amount
+      errors.add(:state_distribution_amount, I18n.t("activerecord.errors.models.state_file_1099_r.errors.must_be_less_than_gross_distribution"))
+    end
   end
 
   def has_valid_identification_number

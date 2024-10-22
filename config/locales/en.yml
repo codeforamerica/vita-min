@@ -10,6 +10,9 @@ en:
   activerecord:
     errors:
       models:
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
         az321_contribution:
           attributes:
             charity_code:

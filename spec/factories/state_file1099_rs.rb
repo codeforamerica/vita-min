@@ -57,10 +57,14 @@ FactoryBot.define do
     federal_income_tax_withheld_amount { 10.55 }
     distribution_code { '7' }
     designated_roth_account_first_year { 1993 }
+    payer_state_identification_number {}
     state_tax_withheld_amount { 100.5 }
     state_code { 'AZ' }
-    payer_state_identification_number { "az2222222" }
     state_distribution_amount { 155.15 }
     standard { false }
+  end
+
+  after(:create) do |form1099r|
+    form1099r.update(payer_state_identification_number: "#{form1099r.state_code}12315")
   end
 end
