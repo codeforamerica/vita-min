@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1827,6 +1827,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1856,6 +1857,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_suffix"
+    t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
@@ -2052,6 +2054,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "homeowner_main_home_multi_unit", default: 0, null: false
     t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
     t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_same_home_spouse", default: 0, null: false
     t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"

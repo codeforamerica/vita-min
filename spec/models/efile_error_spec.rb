@@ -58,6 +58,8 @@ describe 'EfileError' do
       "email-address",
       "esign-declaration",
       "federal-info",
+      "id-review",
+      "id-sales-use-tax",
       "income-review",
       "initiate-data-transfer",
       "md-county",
