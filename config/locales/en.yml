@@ -2509,6 +2509,11 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_county:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
+          title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?
@@ -2522,11 +2527,6 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
-      md_county:
-        edit:
-          county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
-          title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_review:
         edit:
           county_html: County
