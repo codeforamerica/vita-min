@@ -6,48 +6,14 @@
   <h2 class="h2"><%= t(".title2_html") %></h2>
 
   <div class="white-group">
-      <% if current_state_code == "az" %>
-        <ul class="list--bulleted">
-          <li><%= t(".increased_deduction") %></li>
-          <li><a href="https://azdor.gov/individuals/income-tax-filing-assistance/deductions-and-exemptions" target="_blank" rel="noopener nofollow"><%= t(".dependent_credit") %></a></li>
-          <li><a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow"><%= t(".family_income_credit") %></a></li>
-          <li><a href="https://azdor.gov/forms/tax-credits-forms/credit-increased-excise-taxes" target="_blank" rel="noopener nofollow"><%= t(".increased_excise_credit") %></a></li>
-        </ul>
-      <% elsif current_state_code == 'nj' %>
-        <ul class="list--bulleted">
-          <li>To do</li>
-          <li>Add links here</li>
-          <li>To supported credits and deductions</li>
-        </ul>
-      <% elsif current_state_code == "ny" %>
-        <ul class="list--bulleted">
-          <li><a href="https://www.tax.ny.gov/pit/credits/household_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_hh_credit") %></a></li>
-          <li><a href="https://www.tax.ny.gov/pit/credits/empire_state_child_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".empire_state_ctc") %></a></li>
-          <li><a href="https://www.tax.ny.gov/pit/credits/earned_income_credit.htm" target="_blank" rel="noopener nofollow"><%= t(".nys_eic") %></a></li>
-          <li><%= t(".nyc_school_tax_credit") %></li>
-        </ul>
-      <% elsif current_state_code == "nc" %>
-        <p>Copy needed...</p>
-    <% elsif current_state_code == "id" %>
-      <ul class="list--bulleted">
-        <li><%= t(".child_care_deduction") %></li>
-        <li><%= t(".interest_from_obligations") %></li>
-        <li><%= t(".social_security_retirement_deduction") %></li>
-        <li><%= t(".id_child_tax_credit") %></li>
-        <li><a href=" https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit" target="_blank" rel="noopener nofollow"><%= t(".id_grocery_credit") %></a></li>
-      </ul>
-    <% end %>
+    <%= render partial: "state_file/questions/eligible/#{current_state_code}_supported" %>
   </div>
 
   <div class="reveal">
     <p><a href="#" class="reveal__link"><%= t('.not_supported') %></a></p>
     <div class="reveal__content">
-      <% if current_state_code == "az" %>
-        <%= render partial: "state_file/questions/eligible/az_unsupported" %>
-      <% elsif current_state_code == "ny" %>
-        <%= render partial: "state_file/questions/eligible/ny_unsupported" %>
-      <% elsif current_state_code == "id" %>
-        <%= render partial: "state_file/questions/eligible/id_unsupported" %>
+      <% unless current_intake.disqualifying_eligibility_rules.empty? %>
+        <%= render partial: "state_file/questions/eligible/#{current_state_code}_unsupported" %>
       <% end %>
       <div class="with-top-separator">
         <p class="text--bold"><%=t('.want_to_claim_heading') %></p>
