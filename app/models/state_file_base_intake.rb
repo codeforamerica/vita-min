@@ -234,21 +234,6 @@ class StateFileBaseIntake < ApplicationRecord
 
   def validate_state_specific_w2_requirements(w2); end
 
-  def invalid_df_w2?(df_w2)
-    return true if df_w2.StateWagesAmt == 0
-    if df_w2.LocalityNm.blank?
-      return true if df_w2.LocalWagesAndTipsAmt != 0 || df_w2.LocalIncomeTaxAmt != 0
-    end
-    return true if df_w2.LocalIncomeTaxAmt != 0 && df_w2.LocalWagesAndTipsAmt == 0
-    return true if df_w2.StateIncomeTaxAmt != 0 && df_w2.StateWagesAmt == 0
-    return true if df_w2.StateWagesAmt != 0 && df_w2.EmployerStateIdNum.blank?
-    return true if df_w2.EmployerStateIdNum.present? && df_w2.StateAbbreviationCd.blank?
-    return true if df_w2.StateIncomeTaxAmt > df_w2.StateWagesAmt
-    return true if df_w2.LocalIncomeTaxAmt > df_w2.LocalWagesAndTipsAmt
-    return true if df_w2.StateIncomeTaxAmt + df_w2.LocalIncomeTaxAmt > df_w2.WagesAmt
-    false
-  end
-
   def validate_state_specific_1099_g_requirements(state_file1099_g)
     unless /\A\d{9}\z/.match(state_file1099_g.payer_tin)
       state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin.invalid"))
