@@ -15,8 +15,6 @@ module Efile
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_7, :calculate_line_7)
-        set_line(:NJ1040_LINE_8, :calculate_line_8)
-        set_line(:NJ1040_LINE_9, :calculate_line_9)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
@@ -109,25 +107,10 @@ module Efile
         ((income * rate) - subtraction).round(2)
       end
 
-      private
-
-      def line_6_spouse_checkbox
-        @intake.filing_status_mfj?
-      end
-
       def calculate_line_6
         self_exemption = 1
         number_of_line_6_exemptions = self_exemption + number_of_true_checkboxes([line_6_spouse_checkbox])
         number_of_line_6_exemptions * 1_000
-      end
-
-      def line_7_self_checkbox
-        is_over_65(@intake.primary_birth_date)
-      end
-
-      def line_7_spouse_checkbox
-        return false unless @intake.spouse_birth_date.present?
-        is_over_65(@intake.spouse_birth_date)
       end
 
       def calculate_line_7
@@ -142,32 +125,28 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
-      def calculate_line_40a
-        case @intake.household_rent_own
-        when "own"
-          if @intake.property_tax_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.property_tax_paid
-        when "rent"
-          if @intake.rent_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
-        else
-          return nil
-        end
-
-        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
-      end
-
       def calculate_line_9
         number_of_line_9_exemptions = number_of_true_checkboxes([@intake.primary_veteran_yes?, @intake.spouse_veteran_yes?])
         number_of_line_9_exemptions * 6_000
       end
 
+      private
+
+      def line_6_spouse_checkbox
+        @intake.filing_status_mfj?
+      end
+
+      def line_7_self_checkbox
+        is_over_65(@intake.primary_birth_date)
+      end
+
+      def line_7_spouse_checkbox
+        return false unless @intake.spouse_birth_date.present?
+        is_over_65(@intake.spouse_birth_date)
+      end
+
       def calculate_line_13
-        line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) + line_or_zero(:NJ1040_LINE_9)
+        line_or_zero(:NJ1040_LINE_6) + calculate_line_7 + calculate_line_8 + calculate_line_9
       end
 
       def calculate_line_15
@@ -197,6 +176,25 @@ module Efile
 
       def calculate_line_39
         calculate_line_29 - calculate_line_38
+      end
+
+      def calculate_line_40a
+        case @intake.household_rent_own
+        when "own"
+          if @intake.property_tax_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          if @intake.rent_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
       def is_ineligible_or_unsupported_for_property_tax
