@@ -2468,11 +2468,11 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
-          retirement_income_title: Retirement income (1099-R)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2784,10 +2784,10 @@ en:
           info_link: View where to find this information
       retirement_income:
         edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State income tax"
           title: Please review your job (W2) details for %{employer_name}.
-          box14_html: <b>Box 14</b>, State tax withheld
-          box15_html: <b>Box 15</b>, State/Payer’s State Number
-          box16_html: <b>Box 16</b>, State income tax
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.

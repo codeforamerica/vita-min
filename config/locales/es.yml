@@ -2441,11 +2441,11 @@ es:
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          retirement_income_title: Ingresos de jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar información del estado
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
-          retirement_income_title: Ingresos de jubilación (1099-R)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2772,10 +2772,10 @@ es:
           info_link: Vea dónde encontrar esta información
       retirement_income:
         edit:
+          box14_html: "<b>Box 14</b>, Impuesto estatal retenido"
+          box15_html: "<b>Box 15</b>, Estado/Número de estado del pagador"
+          box16_html: "<b>Box 14</b>, impuesto estatal sobre la renta"
           title: Revise los detalles de su trabajo (W2) para %{employer_name}.
-          box14_html: <b>Box 14</b>, Impuesto estatal retenido
-          box15_html: <b>Box 15</b>, Estado/Número de estado del pagador
-          box16_html: <b>Box 14</b>, impuesto estatal sobre la renta
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
