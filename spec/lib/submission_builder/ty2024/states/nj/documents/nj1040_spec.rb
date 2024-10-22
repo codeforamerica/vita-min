@@ -305,12 +305,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemption - lines 13 and 30" do
-      let(:intake) { create(:state_file_nj_intake) }
-      it "totals lines 6-8 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
+      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
+      it "totals lines 6-9 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
         line_6_single_filer = 1_000
-        line_7_not_over_65 = 0
-        line_8_not_blind = 0
-        expected_sum = line_6_single_filer + line_7_not_over_65 + line_8_not_blind
+        line_7_over_65 = 1_000
+        line_8_blind = 1_000
+        line_9_veteran = 6_000
+        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
         expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
       end
@@ -353,12 +354,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemptions and deductions - line 38" do
-      let(:intake) { create(:state_file_nj_intake) }
+      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
       it "fills TotalExemptDeductions with total exemptions and deductions" do
         line_6_single_filer = 1_000
-        line_7_not_over_65 = 0
-        line_8_not_blind = 0
-        expected_sum = line_6_single_filer + line_7_not_over_65 + line_8_not_blind
+        line_7_over_65 = 1_000
+        line_8_blind = 1_000
+        line_9_veteran = 6_000
+        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
         expect(xml.at("TotalExemptDeductions").text).to eq(expected_sum.to_s)
       end
     end
@@ -370,7 +372,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
-        expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind)
+        line_9_not_veteran = 0
+        expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind + line_9_not_veteran)
         expect(xml.at("TaxableIncome").text).to eq(expected_total.to_s)
       end
     end
@@ -418,11 +421,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "property tax deduction - line 41" do
       context 'when taking property tax deduction' do
-        let(:intake) { create(:state_file_nj_intake,
+        let(:intake) { 
+          create(:state_file_nj_intake,
                               :df_data_many_w2s,
                               household_rent_own: 'own',
                               property_tax_paid: 15_000,
-        ) }
+        )
+        }
 
         it "fills PropertyTaxDeduction with property tax deduction amount" do
           expect(xml.at("PropertyTaxDeduction").text).to eq(15000.to_s)
@@ -430,11 +435,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context 'when not taking property tax deduction' do
-        let(:intake) { create(:state_file_nj_intake,
+        let(:intake) { 
+          create(:state_file_nj_intake,
                               :df_data_many_w2s,
                               household_rent_own: 'own',
                               property_tax_paid: 0,
-                              ) }
+                              )
+        }
 
         it "leaves PropertyTaxDeduction empty" do
           expect(xml.at("PropertyTaxDeduction")).to eq(nil)
@@ -455,12 +462,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "tax amount - line 43" do
-      let(:intake) { create(:state_file_nj_intake,
+      let(:intake) { 
+        create(:state_file_nj_intake,
                             :df_data_many_w2s,
                             :married_filing_jointly,
                             household_rent_own: 'own',
                             property_tax_paid: 15_000,
-                            ) }
+                            )
+      }
 
       it "fills Tax with rounded tax amount based on tax rate and line 42" do
         expected = 7_615 # (200,000 - 2,000 - 15,000) * 0.0637 - 4,042 rounded
@@ -469,11 +478,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "property tax credit - line 56" do
-      let(:intake) { create(:state_file_nj_intake,
+      let(:intake) { 
+        create(:state_file_nj_intake,
                             :df_data_many_w2s,
                             household_rent_own: 'own',
                             property_tax_paid: 0,
-                            ) }
+                            )
+      }
 
       it "fills with $50 tax credit when no property tax deduction" do
         expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
