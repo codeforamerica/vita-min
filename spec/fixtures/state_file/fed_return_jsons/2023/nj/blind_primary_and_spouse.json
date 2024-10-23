@@ -7,7 +7,7 @@
       "lastName": "Muppet",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true,
-      "tin": "400-00-0030"
+      "tin": "400-00-0031"
     },
     {
       "firstName": "Bert",
@@ -15,7 +15,7 @@
       "lastName": "Muppet",
       "dateOfBirth": "1990-01-01",
       "isPrimaryFiler": false,
-      "tin": "600-00-0030"
+      "tin": "600-00-0031"
     }
   ]
 }
