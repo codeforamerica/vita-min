@@ -2503,8 +2503,8 @@ es:
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
       md_review:
         edit:
-          county_html: Condado
-          political_subdivision_html: Subdivisión política
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}

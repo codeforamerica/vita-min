@@ -2530,8 +2530,8 @@ en:
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
       md_review:
         edit:
-          county_html: County
-          political_subdivision_html: Political subdivision
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
