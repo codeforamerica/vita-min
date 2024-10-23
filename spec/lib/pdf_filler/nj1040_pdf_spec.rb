@@ -318,6 +318,69 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "Line 9 exemptions" do
+      context "neither primary nor spouse are veterans" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            )
+        }
+        it "does not check the either the self or spouse veteran checkboxes" do
+          expect(pdf_fields["Check Box45"]).to eq "Off"
+          expect(pdf_fields["Check Box46"]).to eq "Off"
+          expect(pdf_fields["x  6000"]).to eq "0"
+          expect(pdf_fields["undefined_11"]).to eq "0"
+        end
+      end
+
+      context "primary is veteran but spouse is not" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :primary_veteran
+          )
+        }
+        it "checks the self veteran exemption but not the spouse checkbox" do
+          expect(pdf_fields["Check Box45"]).to eq "Yes"
+          expect(pdf_fields["Check Box46"]).to eq "Off"
+          expect(pdf_fields["x  6000"]).to eq "6000"
+          expect(pdf_fields["undefined_11"]).to eq "1"
+        end
+      end
+
+      context "primary is not veteran but spouse is veteran" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :spouse_veteran
+          )
+        }
+        it "checks the spouse veteran exemption but not the self checkbox" do
+          expect(pdf_fields["Check Box45"]).to eq "Off"
+          expect(pdf_fields["Check Box46"]).to eq "Yes"
+          expect(pdf_fields["x  6000"]).to eq "6000"
+          expect(pdf_fields["undefined_11"]).to eq "1"
+        end
+      end
+
+      context "primary and spouse are both veterans" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :married_filing_jointly,
+            :primary_veteran,
+            :spouse_veteran
+          )
+        }
+        it "claims both the self and spouse veteran exemptions" do
+          expect(pdf_fields["Check Box45"]).to eq "Yes"
+          expect(pdf_fields["Check Box46"]).to eq "Yes"
+          expect(pdf_fields["x  6000"]).to eq "12000"
+          expect(pdf_fields["undefined_11"]).to eq "2"
+        end
+      end
+    end
+
     describe "name field" do
       name_field = "Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different"
       context "single filer" do
@@ -691,7 +754,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :state_file_nj_intake
         )
       }
-      it "totals line 6-8 and writes it to line 13" do
+      it "totals line 6-9 and writes it to line 13" do
         # thousands
         expect(pdf_fields["undefined_15"]).to eq ""
         expect(pdf_fields["undefined_16"]).to eq "1"
@@ -704,7 +767,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text53"]).to eq "0"
       end
 
-      it "totals line 6-8 and writes it to line 30" do
+      it "totals line 6-9 and writes it to line 30" do
         # thousands
         expect(pdf_fields["30"]).to eq ""
         expect(pdf_fields["210"]).to eq ""
@@ -1041,7 +1104,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
              :df_data_many_w2s,
              household_rent_own: 'own',
              property_tax_paid: 15_000,
-          ) }
+          )
+        }
 
         it "fills line 41 with $15,000 property tax deduction amount" do
           # thousands
@@ -1064,7 +1128,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :df_data_many_w2s,
             household_rent_own: 'own',
             property_tax_paid: 0,
-          ) }
+          )
+        }
 
         it "does not fill fields" do
           # thousands
@@ -1114,7 +1179,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
-      ) }
+      )
+      }
 
       it "writes rounded tax amount $7,615.10 based on income $200,000 with 2,000 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
         # millions
@@ -1141,7 +1207,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :df_data_many_w2s,
           household_rent_own: 'own',
           property_tax_paid: 0,
-          ) }
+          )
+      }
 
       it "writes $50.00 property tax credit" do
         # hundreds
