@@ -20,7 +20,7 @@
 #  email_address_verified_at                  :datetime
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
-#  has_unpaid_sales_use_tax                   :integer          default(0), not null
+#  has_unpaid_sales_use_tax                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
@@ -66,6 +66,8 @@
 #  index_state_file_id_intakes_on_hashed_ssn     (hashed_ssn)
 #
 class StateFileIdIntake < StateFileBaseIntake
+  enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
+
   def disqualifying_df_data_reason; end
 
   def disqualifying_eligibility_rules

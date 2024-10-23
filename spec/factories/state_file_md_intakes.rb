@@ -7,7 +7,6 @@
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
 #  city                                 :string
-#  confirmed_permanent_address          :integer          default(0), not null
 #  consented_to_terms_and_conditions    :integer          default("unfilled"), not null
 #  contact_preference                   :integer          default("unfilled"), not null
 #  current_sign_in_at                   :datetime
@@ -16,10 +15,10 @@
 #  date_electronic_withdrawal           :date
 #  df_data_import_failed_at             :datetime
 #  df_data_imported_at                  :datetime
-#  eligibility_filing_status_mfj        :integer          default(0), not null
-#  eligibility_home_different_areas     :integer          default(0), not null
-#  eligibility_homebuyer_withdrawal     :integer          default(0), not null
-#  eligibility_homebuyer_withdrawal_mfj :integer          default(0), not null
+#  eligibility_filing_status_mfj        :integer          default("unfilled"), not null
+#  eligibility_home_different_areas     :integer          default("unfilled"), not null
+#  eligibility_homebuyer_withdrawal     :integer          default("unfilled"), not null
+#  eligibility_homebuyer_withdrawal_mfj :integer          default("unfilled"), not null
 #  eligibility_lived_in_state           :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income      :integer          default("unfilled"), not null
 #  email_address                        :citext

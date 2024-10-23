@@ -174,6 +174,8 @@ ID40_LINE_6C:
   label: '6c Dependents count for household count'
 ID40_LINE_6D:
   label: '6d Total household count'
+ID40_LINE_29:
+  label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
@@ -582,8 +584,14 @@ NJ1040_LINE_39:
   label: "39 Taxable Income (Subtract line 38 from line 29)"
 NJ1040_LINE_40A:
   label: '40A Total Property Taxes (18% of Rent) Paid (See instructions page 25)'
+NJ1040_LINE_41:
+  label: '41 Property Tax Deduction (From Worksheet H) (See instructions)'
 NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
+NJ1040_LINE_43:
+  label: '43 Tax on amount on line 42 (Tax Table page 54)'
+NJ1040_LINE_56:
+  label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:

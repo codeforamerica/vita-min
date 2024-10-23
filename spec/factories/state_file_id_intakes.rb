@@ -20,7 +20,7 @@
 #  email_address_verified_at                  :datetime
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
-#  has_unpaid_sales_use_tax                   :integer          default(0), not null
+#  has_unpaid_sales_use_tax                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet

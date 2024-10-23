@@ -7,7 +7,6 @@
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
 #  city                                 :string
-#  confirmed_permanent_address          :integer          default(0), not null
 #  consented_to_terms_and_conditions    :integer          default("unfilled"), not null
 #  contact_preference                   :integer          default("unfilled"), not null
 #  current_sign_in_at                   :datetime
@@ -16,10 +15,10 @@
 #  date_electronic_withdrawal           :date
 #  df_data_import_failed_at             :datetime
 #  df_data_imported_at                  :datetime
-#  eligibility_filing_status_mfj        :integer          default(0), not null
-#  eligibility_home_different_areas     :integer          default(0), not null
-#  eligibility_homebuyer_withdrawal     :integer          default(0), not null
-#  eligibility_homebuyer_withdrawal_mfj :integer          default(0), not null
+#  eligibility_filing_status_mfj        :integer          default("unfilled"), not null
+#  eligibility_home_different_areas     :integer          default("unfilled"), not null
+#  eligibility_homebuyer_withdrawal     :integer          default("unfilled"), not null
+#  eligibility_homebuyer_withdrawal_mfj :integer          default("unfilled"), not null
 #  eligibility_lived_in_state           :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income      :integer          default("unfilled"), not null
 #  email_address                        :citext
@@ -80,6 +79,14 @@
 class StateFileMdIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum eligibility_filing_status_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_filing_status_mfj
+  enum eligibility_homebuyer_withdrawal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal
+  enum eligibility_homebuyer_withdrawal_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal_mfj
+  enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_home_different_areas
+
+
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
@@ -87,10 +94,13 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
+
   def disqualifying_eligibility_rules
+    # eligibility_filing_status_mfj is not strictly a disqualifier and just leads us to other questions
     {
-      eligibility_lived_in_state: "no",
-      eligibility_out_of_state_income: "yes",
+      eligibility_homebuyer_withdrawal_mfj: "yes",
+      eligibility_homebuyer_withdrawal: "yes",
+      eligibility_home_different_areas: "yes",
     }
   end
 

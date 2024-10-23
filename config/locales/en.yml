@@ -2350,11 +2350,16 @@ en:
           body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
+            eligibility_emergency_rental_assistance: received emergency rental assistance
+            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
+            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_lived_in_state: did not live in %{state} for all of 2023
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2023
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
             eligibility_yonkers: lived or earned income in Yonkers in 2023
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
@@ -2404,11 +2409,28 @@ en:
           nyc_school_tax_credit: NYC School Tax Credit
           nys_eic: NYS/NYC Earned Income Credit
           nys_hh_credit: NYS/NYC Household Credit
-          title1: Good news, you can use this tool this year to file your state taxes.
-          title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
+          review_warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
+          title1: You can use this tool to file your %{year} %{state} state taxes
+          title2: Let's make sure this is the right service for you.
+          title3_html: Here are the subtractions and credits you <strong>may</strong> be able to claim to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+        md_additional_credits:
+          heading1: 'Subtractions:'
+          heading2: 'Credits:'
+          sub1: Subtraction for Child and Dependent Care Expenses
+          sub10: Senior Tax Credit
+          sub11: State and local Poverty Level Credits
+          sub12: Credit for Child and Dependent Care Expenses
+          sub2: Pension exclusion (if you're 65 years or older, or if you're under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub3: Military retirement exclusion
+          sub4: Public safety retirement exclusion
+          sub5: Taxable Social Security and Railroad Retirement benefits
+          sub6: Interest income from obligations of the US or US possessions
+          sub7: Two-income subtraction for married filing jointly taxpayers
+          sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
+          sub9: State Child Tax Credit (for children under 6)
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2460,10 +2482,22 @@ en:
           title: You might be eligible for the Idaho Grocery Credit!
           title_html: You might be eligible for the <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Idaho Grocery Credit</a>!
           select_household_members: "Select the members of household these situations apply to:"
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
+          sales_tax_title: What are sales taxes?
+          sales_use_tax_helper_text: Enter total amount
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          title: Did you make any purchases in %{year} without paying sales or use tax?
+          unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
+          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
+          use_tax_title: What are use taxes?
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
+          ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
@@ -2480,6 +2514,19 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: Are you married and filing a joint state return?
+          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
+          eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
+          eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
+          permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
+          permanent_home_heading: What is a permanent home?
+          subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{year} Maryland taxes
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2533,7 +2580,6 @@ en:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
-          not_a_number: Please enter numbers only.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
@@ -2576,6 +2622,7 @@ en:
           homeowner_main_home_multi_unit: Was your main home a unit in a multi-unit property that you owned?
           homeowner_main_home_multi_unit_max_four_one_commercial: My main home was a unit in a multi-unit property I owned, the property had no more than four units, and no more than one of those was a commercial unit.
           homeowner_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          homeowner_same_home_spouse: Did you and your spouse live in the same home?
           homeowner_shared_ownership_not_spouse: Did you share ownership of your main home with someone who is not your spouse?
           label: Did any of these apply to you?
           title: You said you were a homeowner in %{filing_year}.
@@ -3133,6 +3180,7 @@ en:
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
     must_enter_amount: If someone claimed this credit you must enter an amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
+    not_a_number: Please enter numbers only.
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.

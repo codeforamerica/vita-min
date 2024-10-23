@@ -29,7 +29,7 @@
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit_max_four_one_commercial :integer          default("unfilled"), not null
 #  homeowner_more_than_one_main_home_in_nj                :integer          default("unfilled"), not null
-#  homeowner_same_home_spouse                             :integer          default(0), not null
+#  homeowner_same_home_spouse                             :integer          default("unfilled"), not null
 #  homeowner_shared_ownership_not_spouse                  :integer          default("unfilled"), not null
 #  household_rent_own                                     :integer          default("unfilled"), not null
 #  last_sign_in_at                                        :datetime
@@ -107,6 +107,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum homeowner_main_home_multi_unit_max_four_one_commercial: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_main_home_multi_unit_max_four_one_commercial
   enum homeowner_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_more_than_one_main_home_in_nj
   enum homeowner_shared_ownership_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_shared_ownership_not_spouse
+  enum homeowner_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_same_home_spouse
 
   enum tenant_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_home_subject_to_property_taxes
   enum tenant_building_multi_unit: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_building_multi_unit

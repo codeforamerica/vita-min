@@ -162,6 +162,23 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
         end
       end
+
+      context "subtractions section" do
+        context "when all relevant values are present in the DF XML" do
+          before do
+            intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
+            intake.direct_file_data.fed_taxable_ssb = 240
+          end
+
+          it "outputs child and dependent care expenses" do
+            expect(xml.at("Form502 Subtractions ChildAndDependentCareExpenses").text.to_i).to eq(intake.direct_file_data.total_qualifying_dependent_care_expenses)
+          end
+
+          it "outputs Taxable Social Security and RR benefits" do
+            expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
+          end
+        end
+      end
     end
   end
 end

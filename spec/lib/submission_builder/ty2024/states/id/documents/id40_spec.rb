@@ -76,5 +76,27 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.css('DependentGrid')[2].at("DependentDOB").text).to eq "1919-01-01"
       end
     end
+
+    context "sales use tax" do
+      context "when has unpaid sales use tax" do
+        before do
+          intake.update(has_unpaid_sales_use_tax: true, total_purchase_amount: 225)
+        end
+
+        it "fills out StateUseTax field with calculated value" do
+          expect(xml.at("StateUseTax").text).to eq '14'
+        end
+      end
+
+      context "when does not unpaid sales use tax" do
+        before do
+          intake.update(has_unpaid_sales_use_tax: false)
+        end
+
+        it "fills out StateUseTax field with 0" do
+          expect(xml.at("StateUseTax").text).to eq '0'
+        end
+      end
+    end
   end
 end

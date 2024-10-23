@@ -18,6 +18,9 @@
       <div class="question-with-follow-up__follow-up" id="homeowner_multi_unit_followup">
         <%= f.cfa_checkbox(:homeowner_main_home_multi_unit_max_four_one_commercial, t(".homeowner_main_home_multi_unit_max_four_one_commercial"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       </div>
+      <% if current_intake.filing_status_mfs? %>
+        <%= f.cfa_checkbox(:homeowner_same_home_spouse, t(".homeowner_same_home_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <% end %>
     </div>
 
     <% if params[:return_to_review].present? %>

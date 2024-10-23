@@ -20,7 +20,7 @@
 #  email_address_verified_at                  :datetime
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
-#  has_unpaid_sales_use_tax                   :integer          default(0), not null
+#  has_unpaid_sales_use_tax                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
@@ -68,5 +68,5 @@
 require 'rails_helper'
 
 RSpec.describe StateFileIdIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it_behaves_like :state_file_base_intake, factory: :state_file_id_intake
 end

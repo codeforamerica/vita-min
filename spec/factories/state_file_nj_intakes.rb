@@ -29,7 +29,7 @@
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit_max_four_one_commercial :integer          default("unfilled"), not null
 #  homeowner_more_than_one_main_home_in_nj                :integer          default("unfilled"), not null
-#  homeowner_same_home_spouse                             :integer          default(0), not null
+#  homeowner_same_home_spouse                             :integer          default("unfilled"), not null
 #  homeowner_shared_ownership_not_spouse                  :integer          default("unfilled"), not null
 #  household_rent_own                                     :integer          default("unfilled"), not null
 #  last_sign_in_at                                        :datetime
@@ -152,6 +152,14 @@ FactoryBot.define do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }
       spouse_ssn { "123456789" }
+    end
+
+    trait :head_of_household do
+      filing_status { "head_of_household" }
+    end
+
+    trait :qualifying_widow do
+      filing_status { "qualifying_widow" }
     end
 
     trait :married_filing_separately do
