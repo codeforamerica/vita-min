@@ -1,22 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe PdfFiller::Id39rPdf do
-  include PdfSpecHelper
-
+RSpec.describe Efile::Id::Id39rCalculator do
   let(:intake) { create(:state_file_id_intake) }
-  let(:submission) { create(:efile_submission, tax_return: nil, data_source: intake) }
-  let(:pdf) { described_class.new(submission) }
-  let(:file_path) { described_class.new(submission).output_file.path }
-  let(:pdf_fields) { filled_in_values(file_path) }
-
-  describe "#hash_for_pdf" do
-    it 'uses field names that exist in the pdf' do
-      missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
-      expect(missing_fields).to eq([])
-    end
+  let(:instance) do
+    described_class.new(
+      value_access_tracker: Efile::ValueAccessTracker.new(include_source: true),
+      lines: {},
+      year: MultiTenantService.statefile.current_tax_year,
+      intake: intake
+    )
   end
 
-  describe "child care credit amount" do
+  describe "#calculate_libe_b_6" do
     context "when TotalQlfdExpensesOrLimitAmt is least" do
       before do
         intake.direct_file_data.total_qualified_expenses_or_limit_amount = 200
@@ -26,7 +21,8 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
 
       it 'should expect to fill with qualified expenses amount' do
-        expect(pdf_fields["BL6"]).to eq "200"
+        instance.calculate
+        expect(instance.lines[:ID39R_LINE_B_6].value).to eq 200
       end
     end
 
@@ -39,7 +35,8 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
 
       it 'should expect to fill with excluded benefits amount' do
-        expect(pdf_fields["BL6"]).to eq "200"
+        instance.calculate
+        expect(instance.lines[:ID39R_LINE_B_6].value).to eq 200
       end
     end
 
@@ -52,7 +49,8 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
 
       it 'should expect to fill with excluded benefits amount' do
-        expect(pdf_fields["BL6"]).to eq "0"
+        instance.calculate
+        expect(instance.lines[:ID39R_LINE_B_6].value).to eq 0
       end
     end
 
@@ -65,7 +63,8 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
 
       it 'should expect to fill with primary earned income amount' do
-        expect(pdf_fields["BL6"]).to eq "200"
+        instance.calculate
+        expect(instance.lines[:ID39R_LINE_B_6].value).to eq 200
       end
     end
 
@@ -78,7 +77,8 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
 
       it 'should expect to fill with primary earned income amount' do
-        expect(pdf_fields["BL6"]).to eq "200"
+        instance.calculate
+        expect(instance.lines[:ID39R_LINE_B_6].value).to eq 200
       end
     end
   end
