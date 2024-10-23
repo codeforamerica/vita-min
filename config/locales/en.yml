@@ -2513,6 +2513,7 @@ en:
         edit:
           county_html: "<strong>County</strong>"
           political_subdivision_html: "<strong>Political subdivision</strong>"
+          title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
         edit:

@@ -6,8 +6,9 @@ module StateFile
               inclusion: { in: MdResidenceCountyConcern::COUNTIES_AND_SUBDIVISIONS.keys },
               presence: true
     validates :subdivision_code,
-              presence: true,
-              inclusion: { in: :valid_subdivisions }
+              inclusion: { in: :valid_subdivisions },
+              presence: true
+
 
     def save
       @intake.update(attributes_for(:intake))

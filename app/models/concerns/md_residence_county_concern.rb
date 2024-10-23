@@ -230,13 +230,13 @@ module MdResidenceCountyConcern
     "Wicomico" => {
       "Wicomico - unincorporated" => "2300",
       "Town Of Delmar" => "2301",
-      "City Of Fruitland" => "2302",
-      "Town Of Hebron" => "2303",
-      "Town Of Mardela Springs" => "2304",
-      "Town Of Pittsville" => "2305",
-      "City Of Salisbury" => "2306",
-      "Town Of Sharptown" => "2307",
-      "Town Of Willards" => "2308"
+      "City Of Fruitland" => "2308",
+      "Town Of Hebron" => "2302",
+      "Town Of Mardela Springs" => "2303",
+      "Town Of Pittsville" => "2307",
+      "City Of Salisbury" => "2304",
+      "Town Of Sharptown" => "2305",
+      "Town Of Willards" => "2306"
     },
     "Worcester" => {
       "Worcester - unincorporated" => "2400",
