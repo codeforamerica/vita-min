@@ -1,4 +1,4 @@
-<% title1 = t(".title1") %>
+<% title1 = t(".title1", year:  MultiTenantService.new(:statefile).current_tax_year, state: current_intake.state_name) %>
 
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
