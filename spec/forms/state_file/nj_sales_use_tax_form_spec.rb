@@ -103,7 +103,7 @@ RSpec.describe StateFile::NjSalesUseTaxForm do
           }
         end
 
-        it "is valid" do
+        it "is invalid" do
           expect(form.valid?).to eq false
           expect(form.errors[:sales_use_tax]).to include "Round to the nearest whole number"
         end
