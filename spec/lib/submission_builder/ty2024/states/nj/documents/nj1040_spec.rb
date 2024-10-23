@@ -331,6 +331,33 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "line 31 medical expenses" do
+      context "with an income of 200k" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s, medical_expenses: 10_000) }
+        it "fills MedicalExpenses with medical expenses exceeding two percent gross income" do
+          expected_line_15_w2_wages = 200_000
+          two_percent_gross = expected_line_15_w2_wages * 0.02
+          expected_value = 10_000 - two_percent_gross
+          expect(xml.at("MedicalExpenses").text).to eq(expected_value.round.to_s)
+        end
+      end
+
+      context "with no income" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, medical_expenses: 10_000) }
+        it "fills MedicalExpenses with full medical expesnse amount" do
+          expected_value = 10_000
+          expect(xml.at("MedicalExpenses").text).to eq(expected_value.round.to_s)
+        end
+      end
+
+      context "with no medical expenses" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, medical_expenses: 0) }
+        it "does not fill MedicalExpenses" do
+          expect(xml.at("MedicalExpenses")).to eq(nil)
+        end
+      end
+    end
+
     describe "total exemptions and deductions - line 38" do
       let(:intake) { create(:state_file_nj_intake) }
       it "fills TotalExemptDeductions with total exemptions and deductions" do

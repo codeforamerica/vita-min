@@ -899,6 +899,54 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 31 medical expenses" do
+      context "with a gross income of 200k" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            medical_expenses: 567_890
+          )
+        }
+        it "writes sum $563,890.00 to fill boxes on line 31" do
+          # thousands
+          expect(pdf_fields["31"]).to eq "5"
+          expect(pdf_fields["215"]).to eq "6"
+          expect(pdf_fields["216"]).to eq "3"
+          # hundreds
+          expect(pdf_fields["undefined_92"]).to eq "8"
+          expect(pdf_fields["217"]).to eq "9"
+          expect(pdf_fields["218"]).to eq "0"
+          # decimals
+          expect(pdf_fields["undefined_93"]).to eq "0"
+          expect(pdf_fields["219"]).to eq "0"
+        end
+      end
+
+      context "when medical expenses do not exceed 2% gross income" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            medical_expenses: 4000
+          )
+        }
+        it "does not fill line 31" do
+          # thousands
+          expect(pdf_fields["31"]).to eq ""
+          expect(pdf_fields["215"]).to eq ""
+          expect(pdf_fields["216"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_92"]).to eq ""
+          expect(pdf_fields["217"]).to eq ""
+          expect(pdf_fields["218"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_93"]).to eq ""
+          expect(pdf_fields["219"]).to eq ""
+        end
+      end
+    end
+
     describe "line 38 total exemptions and deductions" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(

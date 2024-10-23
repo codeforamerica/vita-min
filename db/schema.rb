@@ -2062,6 +2062,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.integer "medical_expenses", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
