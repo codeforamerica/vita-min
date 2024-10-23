@@ -38,7 +38,7 @@ class DirectFileData < DfXmlAccessor
     fed_gross_income_exclusion_amount: 'IRS1040Schedule1 GrossIncomeExclusionAmt',
     fed_total_income_exclusion_amount: 'IRS1040Schedule1 TotalIncomeExclusionAmt',
     fed_foreign_tax_credit_amount: 'IRS1040Schedule3 ForeignTaxCreditAmt',
-    fed_credit_for_child_and_dependent_care_amount: 'IRS1040Schedule3 CreditForChildAndDepdCareAmt',
+    fed_credit_for_child_and_dependent_care_amount: 'ReturnData IRS1040Schedule3 CreditForChildAndDepdCareAmt',
     fed_education_credit_amount: 'IRS1040Schedule3 EducationCreditAmt',
     fed_retirement_savings_contribution_credit_amount: 'IRS1040Schedule3 RtrSavingsContributionsCrAmt',
     fed_energy_efficiency_home_improvement_credit_amount: 'IRS1040Schedule3 EgyEffcntHmImprvCrAmt',
@@ -71,6 +71,7 @@ class DirectFileData < DfXmlAccessor
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
+    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
   }.freeze
 
   def initialize(raw_xml)
@@ -393,6 +394,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_credit_for_child_and_dependent_care_amount=(value)
+    create_or_destroy_df_xml_node(__method__, true)
     write_df_xml_value(__method__, value)
   end
 
@@ -641,6 +643,14 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def total_qualifying_dependent_care_expenses
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def total_qualifying_dependent_care_expenses=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def w2_nodes
     parsed_xml.css('IRSW2')
   end
@@ -842,6 +852,7 @@ class DirectFileData < DfXmlAccessor
       fed_dc_homebuyer_credit_amount
       fed_adjustments_claimed
       fed_taxable_pensions
+      total_qualifying_dependent_care_expenses
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

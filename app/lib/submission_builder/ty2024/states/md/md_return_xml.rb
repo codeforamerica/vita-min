@@ -52,6 +52,11 @@ module SubmissionBuilder
                 xml: nil,
                 pdf: PdfFiller::MdEl101Pdf,
                 include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr,
+                pdf: PdfFiller::Md502CrPdf,
+                include: true,
               }
             ]
 
