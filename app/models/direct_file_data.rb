@@ -728,6 +728,22 @@ class DirectFileData < DfXmlAccessor
       'unfilled'
     end
   end
+
+  def total_qualified_expenses_or_limit_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def excluded_benefits_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
     
   class DfW2 < DfW2Accessor
     def w2_box12
