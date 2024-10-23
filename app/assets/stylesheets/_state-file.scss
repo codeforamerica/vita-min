@@ -751,7 +751,12 @@ $state-colors: (
     .icon-wrapper--intercom {
       padding-right: $s10;
     }
+
+    .hide--#{$state_key} {
+      display: none;
+    }
   }
+
 
   .us-state--nj {
     .main-header {

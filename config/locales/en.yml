@@ -2083,7 +2083,7 @@ en:
             <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
             <li>Email address or phone number</li>
             <li>Driver’s license or state-issued ID</li>
-            <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+            <li class="hide--nj">Form 1099-G (If you received unemployment benefits in 2023.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
         id:
