@@ -2140,6 +2140,19 @@ en:
         mistake: Is this a mistake?
         title: You've opted out of email notifications from FileYourStateTaxes.
     questions:
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: Are you married and filing a joint state return?
+          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
+          eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
+          eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
+          permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
+          permanent_home_heading: What is a permanent home?
+          subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{year} Maryland taxes
       az_charitable_contributions:
         edit:
           charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)'
@@ -2408,6 +2421,21 @@ en:
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+        md_additional_credits:
+          heading1: 'Subtractions:'
+          heading2: 'Credits:'
+          sub1: Subtraction for Child and Dependent Care Expenses
+          sub10: Senior Tax Credit
+          sub11: State and local Poverty Level Credits
+          sub12: Credit for Child and Dependent Care Expenses
+          sub2: Pension exclusion (if you're 65 years or older, or if you're under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub3: Military retirement exclusion
+          sub4: Public safety retirement exclusion
+          sub5: Taxable Social Security and Railroad Retirement benefits
+          sub6: Interest income from obligations of the US or US possessions
+          sub7: Two-income subtraction for married filing jointly taxpayers
+          sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
+          sub9: State Child Tax Credit (for children under 6)
         id_supported:
           child_care_deduction: Child and Dependent Care Deduction
           id_child_tax_credit: Idaho Child Tax Credit
@@ -2504,6 +2532,8 @@ en:
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
+          ssa_title: Social Security benefits (SSA-1099)
+          no_info_needed: No additional state info needed
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
