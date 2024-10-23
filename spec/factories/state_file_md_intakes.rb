@@ -34,6 +34,7 @@
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
 #  phone_number                         :string
 #  phone_number_verified_at             :datetime
+#  political_subdivision                :string
 #  primary_birth_date                   :date
 #  primary_esigned                      :integer          default("unfilled"), not null
 #  primary_esigned_at                   :datetime
@@ -46,6 +47,7 @@
 #  raw_direct_file_data                 :text
 #  raw_direct_file_intake_data          :jsonb
 #  referrer                             :string
+#  residence_county                     :string
 #  routing_number                       :string
 #  sign_in_count                        :integer          default(0), not null
 #  source                               :string
@@ -58,6 +60,7 @@
 #  spouse_ssn                           :string
 #  spouse_suffix                        :string
 #  street_address                       :string
+#  subdivision_code                     :string
 #  unfinished_intake_ids                :text             default([]), is an Array
 #  unsubscribed_from_email              :boolean          default(FALSE), not null
 #  withdraw_amount                      :decimal(12, 2)
