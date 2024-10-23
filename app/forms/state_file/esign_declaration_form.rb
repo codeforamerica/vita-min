@@ -82,7 +82,5 @@ module StateFile
         self.errors.add(:base, :already_submitted, message: I18n.t("state_file.questions.esign_declaration.edit.already_submitted"))
       end
     end
-
-    
   end
 end

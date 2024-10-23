@@ -131,6 +131,7 @@ describe SubmissionBuilder::ReturnHeader do
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
+
             expect(doc.at("Filer Secondary DateOfBirth").text).to eq spouse_birth_date.strftime("%F")
             expect(doc.at('Filer Secondary TaxpayerSSN').content).to eq spouse_ssn
             expect(doc.at('Filer Secondary TaxpayerName FirstName').content).to eq spouse_first_name
@@ -153,10 +154,11 @@ describe SubmissionBuilder::ReturnHeader do
         spouse_esigned_at: spouse_esigned_at
       )
     }
+    let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
     let(:primary_signature_pin) { "12345" }
-    let(:primary_esigned_at) { DateTime.tomorrow.beginning_of_day } # Setting esigned_at to midnight UTC time to check if the date is correctly filled into the XML as the day before in EST time
+    let(:primary_esigned_at) { tomorrow_midnight }
     let(:spouse_signature_pin) { "23456" }
-    let(:spouse_esigned_at) { DateTime.tomorrow.beginning_of_day }
+    let(:spouse_esigned_at) { tomorrow_midnight }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
 
@@ -165,8 +167,11 @@ describe SubmissionBuilder::ReturnHeader do
       
       it "generates xml with primary signature PIN only" do
         expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
-        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary TaxpayerPIN')).not_to be_present
+      end
+
+      it "handles timezone correctly for signature date when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
+        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary DateSigned')).not_to be_present
       end
     end
@@ -181,8 +186,11 @@ describe SubmissionBuilder::ReturnHeader do
 
       it "generates xml with primary and spouse signature PINs" do
         expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
-        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary TaxpayerPIN').content).to eq spouse_signature_pin
+      end
+
+      it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
+        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
       end
     end
