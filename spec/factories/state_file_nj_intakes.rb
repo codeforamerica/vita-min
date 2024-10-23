@@ -128,6 +128,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
     end

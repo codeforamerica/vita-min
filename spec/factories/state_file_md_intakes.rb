@@ -95,6 +95,10 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     trait :with_spouse do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
       filing_status { 'married_filing_jointly' }

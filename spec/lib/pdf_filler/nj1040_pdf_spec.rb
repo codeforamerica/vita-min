@@ -636,13 +636,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_many_w2s
+            :df_data_many_w2s,
+            :with_w2s_synced
           )
         }
 
         it "includes the sum 200,000 split into each box on line 15" do
-          submission.data_source.synchronize_df_w2s_to_database
-
           # millions
           expect(pdf_fields["15"]).to eq ""
           expect(pdf_fields["undefined_36"]).to eq ""
@@ -664,13 +663,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_2_w2s
+            :df_data_2_w2s,
+            :with_w2s_synced
           )
         }
 
         it "includes the sum 62,345 split into each box on line 15" do
-          submission.data_source.synchronize_df_w2s_to_database
-
           # millions
           expect(pdf_fields["15"]).to eq ""
           expect(pdf_fields["undefined_36"]).to eq ""
@@ -800,12 +798,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_many_w2s
+            :df_data_many_w2s,
+            :with_w2s_synced
           )
         }
         it "fills in the total income boxes in the PDF on line 27 with the rounded value" do
-          submission.data_source.synchronize_df_w2s_to_database
-
           # millions
           expect(pdf_fields["263"]).to eq ""
           expect(pdf_fields["27"]).to eq ""
@@ -856,12 +853,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_many_w2s
+            :df_data_many_w2s,
+            :with_w2s_synced
           )
         }
         it "fills in the gross income boxes in the PDF on line 29 with the rounded value" do
-          submission.data_source.synchronize_df_w2s_to_database
-
           # millions
           expect(pdf_fields["270"]).to eq ""
           expect(pdf_fields["29"]).to eq ""
@@ -933,12 +929,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "line 39 taxable income" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake, :df_data_many_w2s
+          :state_file_nj_intake, :df_data_many_w2s, :with_w2s_synced
         )
       }
       it "writes taxable income $199,000 (200,000-1000) to fill boxes on line 39" do
-        submission.data_source.synchronize_df_w2s_to_database
-
         # millions
         expect(pdf_fields["279"]).to eq ""
         expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
@@ -992,6 +986,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
+            :with_w2s_synced,
             household_rent_own: 'own',
             property_tax_paid: 12345678
           )
@@ -1049,13 +1044,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
              :state_file_nj_intake,
              :df_data_many_w2s,
+             :with_w2s_synced,
              household_rent_own: 'own',
              property_tax_paid: 15_000,
           ) }
 
         it "fills line 41 with $15,000 property tax deduction amount" do
-          submission.data_source.synchronize_df_w2s_to_database
-
           # thousands
           expect(pdf_fields["undefined_116"]).to eq "1"
           expect(pdf_fields["41"]).to eq "5"
@@ -1096,12 +1090,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "line 42 new jersey taxable income" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake, :df_data_many_w2s
+          :state_file_nj_intake, :df_data_many_w2s, :with_w2s_synced
         )
       }
       it "writes new jersey taxable income $199,000 (200,000-1000) to fill boxes on line 39" do
-        submission.data_source.synchronize_df_w2s_to_database
-
         # millions
         expect(pdf_fields["Enter Code4332"]).to eq ""
         expect(pdf_fields["40"]).to eq ""
@@ -1125,14 +1117,13 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         create :efile_submission, tax_return: nil, data_source: create(
           :state_file_nj_intake,
           :df_data_many_w2s,
+          :with_w2s_synced,
           :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
       ) }
 
       it "writes rounded tax amount $7,615.10 based on income $200,000 with 2,000 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
-        submission.data_source.synchronize_df_w2s_to_database
-
         # millions
         expect(pdf_fields["Enter Code4332243ew"]).to eq ""
         expect(pdf_fields["4036y54ethdf"]).to eq ""
@@ -1171,14 +1162,12 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 64 child and dependent care credit" do
       let(:intake) {
-        create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care)
+        create(:state_file_nj_intake, :df_data_one_dep, :with_w2s_synced, :fed_credit_for_child_and_dependent_care)
       }
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: intake
       }
       it "adds 40% of federal credit for an income of 60k or less" do
-        submission.data_source.synchronize_df_w2s_to_database
-
         digits_in_pdf = ""
         digit_fields = [
           'undefined_168',
@@ -1201,7 +1190,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       let(:intake) {
         create(
           :state_file_nj_intake,
-          :df_data_one_dep
+          :df_data_one_dep,
+          :with_w2s_synced
         )
       }
       let(:submission) {
@@ -1216,8 +1206,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       it "adds 600 per dependent for nj taxable incomes less than or equal to 50k" do
-        submission.data_source.synchronize_df_w2s_to_database
-
         digits_in_pdf = ""
         digit_fields = ["undefined_162",
                         "Text182",
