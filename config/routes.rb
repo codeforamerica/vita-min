@@ -566,7 +566,6 @@ Rails.application.routes.draw do
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
       resources :retirement_income, only: [:edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
-      resources :income_review, only: [:edit], module: 'state_file/questions', path: 'questions/income_review'
       resources :az_qualifying_organization_contributions,
         only: [
           :index, :new, :create, :edit,

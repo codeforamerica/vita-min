@@ -10,15 +10,15 @@ en:
   activerecord:
     errors:
       models:
-        state_file_1099_r:
-          errors:
-            must_be_less_than_gross_distribution: Must be less than gross distribution amount
         az321_contribution:
           attributes:
             charity_code:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be in the current tax year
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN

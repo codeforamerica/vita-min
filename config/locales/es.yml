@@ -16,6 +16,9 @@ es:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
               inclusion: La fecha debe estar en el año fiscal actual
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
   attributes:
     confirm_primary_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
