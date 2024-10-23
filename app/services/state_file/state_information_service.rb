@@ -90,7 +90,7 @@ module StateFile
         tax_payment_info_url: "",
         tax_payment_url: "",
         tax_refund_url: "",
-        timezone: 'America/Phoenix',
+        timezone: 'America/Boise',
         vita_link: "",
         voucher_form_name: "",
         voucher_path: "",
