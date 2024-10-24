@@ -31,6 +31,9 @@ module PdfFiller
         'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
+        'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
+        'Enter zip code + 5': @submission.data_source.residence_county,
         "Check Box - 1": filing_status(:filing_status_single?) ? 'Yes' : 'Off',
         "Check Box - 2": filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
         "Check Box - 3": filing_status(:filing_status_mfs?) ? 'No' : 'Off', # "No" is the checked option
@@ -38,12 +41,16 @@ module PdfFiller
         "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
         "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         "6. Check here": claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
+        "Enter 9": @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
+        "Enter 11": @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
+        "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
       }
     end
 
     def spouse_ssn_if_mfs
-      filing_status(:filing_status_mfs?) ? @xml_document.at('MFSSpouseSSN')&.text : nil
+      filing_status(:filing_status_mfs?) ? @xml_document.at('FilingStatus MarriedFilingSeparately')['spouseSSN'] : nil
     end
 
     def claimed_as_dependent?

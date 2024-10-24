@@ -29,12 +29,14 @@
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit_max_four_one_commercial :integer          default("unfilled"), not null
 #  homeowner_more_than_one_main_home_in_nj                :integer          default("unfilled"), not null
+#  homeowner_same_home_spouse                             :integer          default("unfilled"), not null
 #  homeowner_shared_ownership_not_spouse                  :integer          default("unfilled"), not null
 #  household_rent_own                                     :integer          default("unfilled"), not null
 #  last_sign_in_at                                        :datetime
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
+#  medical_expenses                                       :integer          default(0), not null
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
@@ -46,6 +48,7 @@
 #  phone_number                                           :string
 #  phone_number_verified_at                               :datetime
 #  primary_birth_date                                     :date
+#  primary_disabled                                       :integer          default("unfilled"), not null
 #  primary_esigned                                        :integer          default("unfilled"), not null
 #  primary_esigned_at                                     :datetime
 #  primary_first_name                                     :string
@@ -63,6 +66,7 @@
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
+#  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
 #  spouse_first_name                                      :string
@@ -104,6 +108,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum homeowner_main_home_multi_unit_max_four_one_commercial: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_main_home_multi_unit_max_four_one_commercial
   enum homeowner_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_more_than_one_main_home_in_nj
   enum homeowner_shared_ownership_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_shared_ownership_not_spouse
+  enum homeowner_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_same_home_spouse
 
   enum tenant_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_home_subject_to_property_taxes
   enum tenant_building_multi_unit: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_building_multi_unit
@@ -111,6 +116,9 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_more_than_one_main_home_in_nj
   enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
+
+  enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
+  enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -126,3 +134,4 @@ class StateFileNjIntake < StateFileBaseIntake
     }
   end
 end
+

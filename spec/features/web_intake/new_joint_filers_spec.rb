@@ -103,7 +103,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "Let's verify that contact info with a code!")
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
-      code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+      code = mail.html_part.body.to_s.match(%r{<strong> (\d{6})\.</strong>})[1]
       fill_in "Enter 6 digit code", with: code
       click_on "Verify"
     end

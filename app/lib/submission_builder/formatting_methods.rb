@@ -26,6 +26,12 @@ module SubmissionBuilder
       date.strftime("%F")
     end
 
+    def date_type_for_timezone(date)
+      return nil unless date.present?
+      timezone = StateFile::StateInformationService.timezone(@submission.data_source.state_code)
+      date.in_time_zone(timezone)
+    end
+
     def person_name_type(name, length: 20)
       return "" unless name.present?
 

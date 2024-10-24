@@ -7,7 +7,8 @@
       "dateOfBirth": "1920-01-01",
       "relationship": "parent",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "tin": "300-00-0029"
     }
   ],
   "filers": [
@@ -15,15 +16,17 @@
       "firstName": "Zeus",
       "middleInitial": "L",
       "lastName": "Thunder",
-      "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "dateOfBirth": "1950-01-01",
+      "isPrimaryFiler": true,
+      "tin": "400-00-0015"
     },
     {
       "firstName": "Hera",
       "middleInitial": null,
       "lastName": "Thunder",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": false
+      "isPrimaryFiler": false,
+      "tin": "600-00-0013"
     }
   ]
 }

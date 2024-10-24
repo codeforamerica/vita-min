@@ -1,18 +1,16 @@
-<% title = t(".title_html", filing_year: @filing_year) %>
-<% content_for :page_title, title %>
+<% content_for :page_title, t(".title", filing_year: @filing_year)  %>
+
 
 <% content_for :card do %>
-  <h1 class="h2"><%= title %></h1>
+  <h1 class="h2"><%= t(".title_html", filing_year: @filing_year) %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:residence_county, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt'), id: "county-select") %>
+      <%= f.vita_min_state_file_select(:residence_county, t(".county_html"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:political_subdivision, t(".political_subdivision"), @subdivisions, label_class: 'form-label--bold', prompt: t('general.select_prompt'),  id: "subdivision-select") %>
+      <%= f.vita_min_state_file_select(:subdivision_code, t('.political_subdivision_html'), [], include_blank: true, prompt: t('general.select_prompt')) %>
     </div>
-    <%= render 'political_subdivision', collection: @counties_and_subdivisions, f: f %>
-
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
@@ -22,28 +20,38 @@
 
 <% content_for :script do %>
   <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const countyDropdown = document.querySelector("#residence_county");
-          const subdivisionDropdown = document.querySelector("#political_subdivision");
+      document.addEventListener('DOMContentLoaded', function() {
+          const countySelect = document.getElementById('state_file_md_county_form_residence_county');
+          const subdivisionSelect = document.getElementById('state_file_md_county_form_subdivision_code');
+          const allSubdivisions = <%= raw @subdivisions_by_county.to_json %>;
+          const selectedSubdivision = '<%= @form.subdivision_code %>';
 
-          countyDropdown.addEventListener("change", function() {
-              const selectedCounty = this.value;
-              fetchSubdivisions(selectedCounty);
+          function populateSubdivisions(county) {
+              subdivisionSelect.innerHTML = '<option value="">' + '<%= t('general.select_prompt') %>' + '</option>';
+              if (county) {
+                  const subdivisions = allSubdivisions.find(item => item[0] === county)[1];
+                  Object.entries(subdivisions).forEach(([name, value]) => {
+                      const option = new Option(name, value);
+                      option.selected = (value === selectedSubdivision);
+                      subdivisionSelect.add(option);
+                  });
+              } else {
+                  allSubdivisions.forEach(countyData => {
+                      const [countyName, subdivisions] = countyData;
+                      Object.entries(subdivisions).forEach(([name, value]) => {
+                          const option = new Option(`${countyName} - ${name}`, value);
+                          option.selected = (value === selectedSubdivision);
+                          subdivisionSelect.add(option);
+                      });
+                  });
+              }
+          }
+
+          countySelect.addEventListener('change', function() {
+              populateSubdivisions(this.value);
           });
 
-          function fetchSubdivisions(county) {
-              fetch(`/subdivisions?county=${county}`)
-                .then(response => response.json())
-                .then(data => {
-                    subdivisionDropdown.innerHTML = "";
-                    data.subdivisions.forEach(subdivision => {
-                        const option = document.createElement("option");
-                        option.value = subdivision.value;
-                        option.text = subdivision.text;
-                        subdivisionDropdown.appendChild(option);
-                    });
-                });
-          }
+          populateSubdivisions(countySelect.value);
       });
   </script>
 <% end %>

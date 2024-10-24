@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SubmissionBuilder
   module Ty2024
     module States
@@ -9,20 +7,41 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def document
-              build_xml_doc("Form502") do |xml|
-                xml.ResidencyStatusPrimary true
-                income_section(xml)
-                xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
-                xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
-                if @submission.data_source.direct_file_data.claimed_as_dependent?
-                  xml.FilingStatus 'DependentTaxpayer'
+              build_xml_doc("Form502", documentId: "Form502") do |xml|
+                xml.MarylandSubdivisionCode intake.subdivision_code
+                unless intake.political_subdivision&.end_with?("- unincorporated")
+                  xml.CityTownOrTaxingArea intake.political_subdivision
+                end
+                xml.MarylandCounty county_abbreviation
+                if intake.direct_file_data.claimed_as_dependent?
+                  xml.FilingStatus do
+                    xml.DependentTaxpayer "X"
+                  end
+                elsif intake.filing_status == :married_filing_separately
+                  xml.FilingStatus do
+                    xml.MarriedFilingSeparately "X", spouseSSN: intake.direct_file_data.spouse_ssn
+                  end
                 else
-                  xml.FilingStatus filing_status
+                  xml.FilingStatus do
+                    xml.send(filing_status, "X")
+                  end
+                end
+                if has_exemptions
+                  xml.Exemptions do
+                    if has_dependent_exemption
+                      xml.Dependents do
+                        xml.Count calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_COUNT)
+                        xml.Amount calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_AMOUNT)
+                      end
+                    end
+                  end
+                end
+                income_section(xml)
+                xml.Subtractions do
+                  xml.ChildAndDependentCareExpenses @submission.data_source.direct_file_data.total_qualifying_dependent_care_expenses
+                  xml.SocialSecurityRailRoadBenefits  @submission.data_source.direct_file_data.fed_taxable_ssb
                 end
                 xml.DaytimePhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
-                if @submission.data_source.filing_status_mfs?
-                  xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
-                end
               end
             end
 
@@ -34,7 +53,9 @@ module SubmissionBuilder
                 income.WagesSalariesAndTips calculated_fields.fetch(:MD502_LINE_1A)
                 income.EarnedIncome calculated_fields.fetch(:MD502_LINE_1B)
                 income.TaxablePensionsIRAsAnnuities calculated_fields.fetch(:MD502_LINE_1D)
-                income.InvestmentIncomeIndicator calculated_fields.fetch(:MD502_LINE_1E) ? "X" : ""
+                if calculated_fields.fetch(:MD502_LINE_1E)
+                  income.InvestmentIncomeIndicator "X"
+                end
               end
             end
 
@@ -46,18 +67,61 @@ module SubmissionBuilder
               @md502_fields ||= intake.tax_calculator.calculate
             end
 
+            def has_dependent_exemption
+              [
+                :MD502_DEPENDENT_EXEMPTION_COUNT,
+                :MD502_DEPENDENT_EXEMPTION_AMOUNT
+              ].any? do |line|
+                calculated_fields.fetch(line) > 0
+              end
+            end
+
+            def has_exemptions
+              has_dependent_exemption
+            end
+
             # from MDIndividualeFileTypes.xsd
             FILING_STATUS_OPTIONS = {
               head_of_household: 'HeadOfHousehold',
               married_filing_jointly: 'Joint',
-              married_filing_separately: 'MarriedFilingSeparately',
               qualifying_widow: 'QualifyingWidow',
               single: "Single",
             }.freeze
 
             def filing_status
-              FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
+              FILING_STATUS_OPTIONS[intake.filing_status]
             end
+
+            def county_abbreviation
+              COUNTY_ABBREVIATIONS[intake.residence_county]
+            end
+
+            COUNTY_ABBREVIATIONS = {
+              "Allegany" => "AL",
+              "Anne Arundel" => "AA",
+              "Baltimore County" => "BL",
+              "Baltimore City" => "BC",
+              "Calvert" => "CV",
+              "Caroline" => "CL",
+              "Carroll" => "CR",
+              "Cecil" => "CC",
+              "Charles" => "CH",
+              "Dorchester" => "DR",
+              "Frederick" => "FR",
+              "Garrett" => "GR",
+              "Harford" => "HR",
+              "Howard" => "HW",
+              "Kent" => "KN",
+              "Montgomery" => "MG",
+              "Prince George's" => "PG",
+              "Queen Anne's" => "QA",
+              "St. Mary's" => "SM",
+              "Somerset" => "SS",
+              "Talbot" => "TB",
+              "Washington" => "WH",
+              "Wicomico" => "WC",
+              "Worcester" => "WR"
+            }.freeze
           end
         end
       end

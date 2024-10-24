@@ -17,6 +17,20 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "county information" do
+      before do
+        intake.residence_county = "Allegany"
+        intake.political_subdivision = "Town Of Barton"
+        intake.subdivision_code = "0101"
+      end
+
+      it "output correct information" do
+        expect(pdf_fields["Enter 4 Digit Political Subdivision Code (See Instruction 6)"]).to eq("0101")
+        expect(pdf_fields["Enter Maryland Political Subdivision (See Instruction 6)"]).to eq("Town Of Barton")
+        expect(pdf_fields["Enter zip code + 5"]).to eq("Allegany")
+      end
+    end
+
     describe "income from interest" do
       context "when total interest is > $11,600" do
         before do
@@ -161,6 +175,32 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Check Box - 5"]).to eq "Off"
           expect(pdf_fields["6. Check here"]).to eq "No"
         end
+      end
+    end
+
+    context "exemptions" do
+      let(:dependent_count) { 1 }
+      let(:dependent_exemption_amount) { 3200 }
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
+      end
+
+      it "sets correct filing status for dependent taxpayer and does not set other filing_status" do
+        expect(pdf_fields["Text Field 16"]).to eq dependent_count.to_s
+        expect(pdf_fields["Enter C $ "]).to eq dependent_exemption_amount.to_s
+      end
+    end
+
+    context "subtractions" do
+      before do
+        intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
+        intake.direct_file_data.fed_taxable_ssb = 240
+      end
+
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
+        expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
       end
     end
   end

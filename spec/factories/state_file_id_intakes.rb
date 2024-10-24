@@ -20,6 +20,7 @@
 #  email_address_verified_at         :datetime
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
+#  has_unpaid_sales_use_tax          :integer          default("unfilled"), not null
 #  hashed_ssn                        :string
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
@@ -49,6 +50,7 @@
 #  spouse_last_name                  :string
 #  spouse_middle_initial             :string
 #  spouse_suffix                     :string
+#  total_purchase_amount             :decimal(12, 2)
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  withdraw_amount                   :integer
 #  created_at                        :datetime         not null
@@ -85,19 +87,19 @@ FactoryBot.define do
     #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
 
     trait :single_filer_with_json do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_lana_single') }
-      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_lana_single') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
     end
 
     trait :mfj_filer_with_json do
       filing_status { "married_filing_jointly" }
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_paul_mfj') }
-      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_paul_mfj') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_paul_mfj') }
     end
 
     trait :with_dependents do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('id_ernest_hoh') }
-      raw_direct_file_intake_data { StateFile::JsonReturnSampleService.new.read('id_ernest_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
     end
   end
 end

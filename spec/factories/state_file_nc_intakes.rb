@@ -108,27 +108,27 @@ FactoryBot.define do
     end
 
     trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_spiderman') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_spiderman') }
     end
 
     trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('nc_cookiemonster') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_cookiemonster') }
     end
 
     trait :single do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('tucker_single') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('tucker_single') }
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('shiloh_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('shiloh_hoh') }
     end
 
     trait :married_filing_separately do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('sheldon_mfs') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('sheldon_mfs') }
     end
 
     trait :qualified_widow do
-      raw_direct_file_data { StateFile::XmlReturnSampleService.new.read('laney_qss') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('laney_qss') }
     end
   end
 end

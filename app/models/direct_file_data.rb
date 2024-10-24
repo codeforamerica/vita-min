@@ -38,7 +38,7 @@ class DirectFileData < DfXmlAccessor
     fed_gross_income_exclusion_amount: 'IRS1040Schedule1 GrossIncomeExclusionAmt',
     fed_total_income_exclusion_amount: 'IRS1040Schedule1 TotalIncomeExclusionAmt',
     fed_foreign_tax_credit_amount: 'IRS1040Schedule3 ForeignTaxCreditAmt',
-    fed_credit_for_child_and_dependent_care_amount: 'IRS1040Schedule3 CreditForChildAndDepdCareAmt',
+    fed_credit_for_child_and_dependent_care_amount: 'ReturnData IRS1040Schedule3 CreditForChildAndDepdCareAmt',
     fed_education_credit_amount: 'IRS1040Schedule3 EducationCreditAmt',
     fed_retirement_savings_contribution_credit_amount: 'IRS1040Schedule3 RtrSavingsContributionsCrAmt',
     fed_energy_efficiency_home_improvement_credit_amount: 'IRS1040Schedule3 EgyEffcntHmImprvCrAmt',
@@ -74,6 +74,7 @@ class DirectFileData < DfXmlAccessor
     excluded_benefits_amount: 'IRS2441 ExcludedBenefitsAmt',
     primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
     spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
+    spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
   }.freeze
 
   def initialize(raw_xml)
@@ -137,6 +138,14 @@ class DirectFileData < DfXmlAccessor
 
   def spouse_deceased?
     surviving_spouse == "X"
+  end
+
+  def spouse_claimed_dependent=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_is_a_dependent?
+    spouse_claimed_dependent == "X"
   end
 
   def sum_of_1099r_payments_received
@@ -388,6 +397,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_credit_for_child_and_dependent_care_amount=(value)
+    create_or_destroy_df_xml_node(__method__, true)
     write_df_xml_value(__method__, value)
   end
 
@@ -503,18 +513,6 @@ class DirectFileData < DfXmlAccessor
 
   def primary_has_itin?
     primary_ssn.start_with?("9")
-  end
-
-  def fed_65_primary_spouse
-    elements_to_check = ['Primary65OrOlderInd', 'Spouse65OrOlderInd']
-    value = 0
-
-    elements_to_check.each do |element_name|
-      if parsed_xml.at(element_name)
-        value += 1
-      end
-    end
-    value
   end
 
   def fed_w2_state
@@ -645,6 +643,14 @@ class DirectFileData < DfXmlAccessor
   end
 
   def qualifying_children_under_age_ssn_count=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def total_qualifying_dependent_care_expenses
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def total_qualifying_dependent_care_expenses=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -865,6 +871,7 @@ class DirectFileData < DfXmlAccessor
       fed_dc_homebuyer_credit_amount
       fed_adjustments_claimed
       fed_taxable_pensions
+      total_qualifying_dependent_care_expenses
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end
