@@ -2324,11 +2324,13 @@ es:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
+            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
             eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2023
             eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
+            eligibility_withdrew_msa_fthb: retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
@@ -2352,6 +2354,11 @@ es:
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           vita_link: Solicitar asistencia de un voluntario VITA
       eligible:
+        az_supported:
+          dependent_credit: Crédito por Dependientes
+          family_income_credit: Crédito por ingresos familiares
+          increased_deduction: Una deducción aumentada por donaciones caritativas
+          increased_excise_credit: Aumento en el crédito por impuesto de consumo
         az_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
@@ -2369,20 +2376,49 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
-          dependent_credit: Crédito por Dependientes
-          empire_state_ctc: Crédito Empire State por hijos
-          family_income_credit: Crédito por ingresos familiares
-          increased_deduction: Una deducción aumentada por donaciones caritativas
-          increased_excise_credit: Aumento en el crédito por impuesto de consumo
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
-          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
-          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
-          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
-          title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
+          title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
           title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+        id_supported:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
+        id_unsupported:
+          change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
+          dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
+          earned_on_reservation: Ingresos Ganados en una Reserva por un Nativo Americano
+          education_contribution_credit: Crédito por Contribuciones a Entidades Educativas
+          id_college_savings_program: Subvención del Programa de Ahorros Universitarios de Idaho
+          id_youth_rehab_contributions: Crédito por Contribuciones a Instalaciones de Rehabilitación Juvenil de Idaho
+          itemized_deductions: Deducciones Detalladas
+          long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
+          maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
+          voluntary_donations: Todas las Donaciones Voluntarias
+        md_supported:
+          heading1: 'Sustracciones:'
+          heading2: 'Créditos:'
+          sub1: Reducción de gastos de cuidado de hijos y dependientes
+          sub10: Crédito fiscal para adultos mayores
+          sub11: Créditos estatales y locales por nivel de pobreza
+          sub12: Crédito por gastos de cuidado de niños y dependientes
+          sub2: Exclusión de pensión (si tiene 65 años o más, o si tiene menos de 65 años y anteriormente calificó para la exclusión debido a una discapacidad permanente)
+          sub3: Exclusión de jubilación militar
+          sub4: Exclusión de jubilación de seguridad pública
+          sub5: Beneficios de jubilación ferroviaria y de seguridad social sujetos a impuestos
+          sub6: Ingresos por intereses de obligaciones de los EE. UU. o posesiones de los EE. UU.
+          sub7: Reducción de dos ingresos para contribuyentes casados que presentan declaraciones conjuntas
+          sub8: Créditos fiscales estatales y locales por ingresos del trabajo (si solicitó el Crédito fiscal federal por ingresos del trabajo)
+          sub9: Crédito fiscal estatal por hijos (para niños menores de 6 años)
+        ny_supported:
+          empire_state_ctc: Crédito Empire State por hijos
+          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
+          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
+          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
         ny_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
@@ -2418,20 +2454,51 @@ es:
               </ul>
               <p>Si he presentado una declaración de saldo adeudado, entiendo que si el ADOR no recibe el pago completo y oportuno de mi responsabilidad tributaria antes del 15 de abril de 2024, seguiré siendo responsable de la responsabilidad tributaria y todos los intereses y penalidades aplicables.</p><p>Consiento que mi Originador de Declaraciones Electrónicas (ERO) o Proveedor de Servicios en Línea (OLSP) envíe mi declaración electrónica de impuestos sobre el ingreso individual de Arizona y los horarios y declaraciones adjuntas a ADOR, y consiento que mi ERO o OLSP envíe dicha información a ADOR a través de un transmisor. Consiento que ADOR envíe a mi ERO, OLSP y/o transmisor un acuse de recibo de la transmisión y una indicación de si se acepta o no la transmisión de mi declaración, y, si se rechaza, la razón o razones del rechazo. Si se retrasa el procesamiento de mi declaración o reembolso, autorizo a ADOR a divulgar a mi ERO, OLSP y/ o transmisor la razón o razones del retraso, o cuando se envió el reembolso. Si ADOR se comunica con mi ERO para obtener una copia de mi declaración, cualquier documento o horario de mi declaración, y/o este formulario de autorización, autorizo a mi ERO a proporcionar copias de los documentos solicitados a ADOR.</p>
               <p>Yo declaro bajo pena de perjurio que, según mi leal saber y entender, la declaración es verdadera, correcta y completa.</p>
+          md:
+            body_html: |
+              <p>Al utilizar un sistema informático y un software para preparar y/o presentar mi(s) declaración(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y el software a la Contraloría. de Maryland.</p>
+              <p>Bajo pena de perjurio, declaro que he comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaración Electrónica (ERO) o que ingresé en línea y que los nombres y montos descritos anteriormente concuerdan con los montos que se muestran en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland de 2024. A mi leal saber y entender, mi declaración es verdadera, correcta y completa. Doy mi consentimiento para que mi originador de declaraciones electrónicas o mi proveedor de software de declaraciones electrónicas envíen mi declaración, incluidos los anexos y estados de cuenta adjuntos, a la División de Administración de Ingresos de Maryland.</p>
           ny:
             body_html: |
               <p>Al marcar la(s) casilla(s) que se muestran a continuación y presionar "Enviar", entiendo y acepto que estoy presentando para la presentación mi declaración de impuestos electrónica del impuesto sobre la renta personal del estado de Nueva York (NYS) para el año 2023. Declaro, bajo pena de perjurio, que he examinado la información en mi declaración de impuestos electrónica de NYS, incluida toda la información transferida a mi declaración de NYS desde mi declaración federal, y todas las programaciones, anexos y declaraciones adjuntas proporcionadas con la declaración, y certifico que mi declaración electrónica de NYS es verdadera, correcta y completa. Al ejecutar el Formulario TR-579-IT y proporcionarlo al ERO, he autorizado al ERO (Code for America) a presentar mi declaración de impuestos electrónica de NYS para el año 2023 ante el Departamento de Impuestos de NYS a través del Sistema de Presentación Electrónica Modernizada del IRS (Servicio de Impuestos Internos).</p>
               <p>Además, entiendo y acepto que al utilizar un sistema informático y software para preparar y transmitir mi declaración de impuestos electrónicamente, he consentido a la divulgación a NYS de toda la información relacionada con la transmisión de mi declaración de impuestos de NYS electrónicamente. Si estoy pagando mis impuestos personales del estado de Nueva York adeudados o recibiendo un reembolso de impuestos mediante transferencia electrónica de fondos, certifico que el titular de la cuenta autoriza al Departamento de Impuestos de NYS y a sus agentes financieros designados a iniciar una transferencia electrónica de fondos desde la cuenta de la institución financiera indicada en la declaración electrónica de NYS 2023, y autoriza a la institución financiera a debitar la cantidad de esa cuenta (si se debe impuestos) o acreditar la cuenta con un depósito directo (si se debe un reembolso).</p>
               <p>Dado que Nueva York no admite Transacciones ACH Internacionales (IAT), atestiguo que la fuente de estos fondos se encuentra dentro de los Estados Unidos. Entiendo y acepto que puedo revocar esta autorización de pago comunicándome con el Departamento de Impuestos en no más de cinco (5) días hábiles antes de la fecha de pago.</p>
+          pin:
+            primary_signature_pin: "<strong>PIN de 5 dígitos de %{primary_name}</strong>"
+            spouse_signature_pin: "<strong>PIN de 5 dígitos de %{spouse_name}</strong>"
+            title: Elija un PIN de firma de 5 dígitos. Este número será su firma electrónica personal.
           primary_esign: He leído y acepto la certificación anterior
           resubmit: Volver a enviar tu declaración estatal
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_eligibility_residence:
+        edit:
+          emergency_rental_assistance: En 2024, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
+          emergency_rental_assistance_explanation: El programa de Asistencia de Alquiler de Emergencia (ERA, por sus siglas en inglés) es un programa federal que otorga dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Fue creado en respuesta a la pandemia de Covid-19.
+          subtitle_1: Para la temporada fiscal de %{filing_year}, esta herramienta solo podrá servir a personas con situaciones fiscales específicas.
+          subtitle_2: Por favor, responda las siguientes preguntas para saber si puede utilizarla.
+          title: Primero, veamos si puede utilizar esta herramienta para presentar sus impuestos de Idaho de %{filing_year}
+          withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
+          withdrew_msa_fthb_list:
+            bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
+            bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
+          sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
+          sales_use_tax_helper_text: Ingrese el monto total
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso
+          title: "¿Hizo alguna compra en %{year} sin pagar impuestos sobre las ventas o el uso?"
+          unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
+          use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
+          use_tax_title: "¿Qué son los impuestos sobre el uso?"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          no_info_needed: No se necesita información estatal adicional
           review_and_edit_state_info: Revisar y editar información del estado
+          ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
@@ -2448,6 +2515,29 @@ es:
             <p>Recibirás dos correos electrónicos del IRS: uno por una declaración enviada y otro por una declaración aceptada. Revisa tu correo electrónico para ver si recibiste uno de aceptación.</p>
             <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
+      md_county:
+        edit:
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
+          title: Seleccione el condado y la subdivisión política donde vivía el 31 de diciembre de %{filing_year}
+          title_html: Seleccione el <strong>condado</strong> y la <strong>subdivisión política</strong> donde vivía el 31 de diciembre de %{filing_year}
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: "¿Está casado y presenta una declaración estatal conjunta?"
+          eligibility_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_mfj_two_different_areas_label_text: "¿Retiró dinero de una cuenta de comprador de vivienda por primera vez y lo utilizó para algo que no fuera comprar una casa en Maryland en %{year}?"
+          eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivíamos en el mismo condado, ciudad, pueblo o área fiscal.
+          eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en diferentes condados, ciudades, pueblos o áreas impositivas.
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          permanent_home_copy: No puede utilizar este servicio si usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes y no se trata de una situación temporal.
+          permanent_home_copy2: Si abandona su hogar permanente para trabajar o cuidar a alguien, pero planea regresar, su hogar permanente no ha cambiado. Se considera que usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes solo si se quedan en estos hogares separados y no es una situación temporal.
+          permanent_home_heading: "¿Qué es una vivienda permanente?"
+          subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
+          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
+      md_review:
+        edit:
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
@@ -2501,7 +2591,6 @@ es:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
-          not_a_number: Por favor ingresa únicamente números.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
@@ -2545,6 +2634,7 @@ es:
           homeowner_main_home_multi_unit: "¿Su vivienda principal era una unidad de una propiedad de varias unidades de su propiedad?"
           homeowner_main_home_multi_unit_max_four_one_commercial: Mi vivienda principal era una unidad en una propiedad de varias unidades que poseía, la propiedad no tenía más de cuatro unidades y no más de una de ellas era una unidad comercial.
           homeowner_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
+          homeowner_same_home_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
           homeowner_shared_ownership_not_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
           label: "¿Se aplica a usted alguna de estas situaciones?"
           title: Dijiste que eras propietario de una vivienda en %{filing_year}.
@@ -2566,6 +2656,29 @@ es:
         edit:
           helper_description: Continúe viendo para qué más podemos ayudarlo a calificar.
           title: Parece que no eres elegible para este crédito.
+      nj_medical_expenses:
+        edit:
+          description_html: |-
+            <p>This includes expenses for yourself, your spouse, and your dependents.</p>
+            <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
+            <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
+          do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          help_text: Estimates are ok. For example, $3000.
+          label: Non-reimbursed medical expenses paid in %{filing_year}
+          learn_more_content_html: |-
+            <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
+            <li>Hospital care</li>
+            <li>Nursing care</li>
+            <li>Medicines and drugs</li><li>Prosthetic devices</li>
+            <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+            <li>Amounts paid for transportation primarily for and essential to medical care</li>
+            <li>Insurance (including amounts paid as premiums under Part B of Title XVIII of the Social Security Act, relating to supplementary medical insurance for the aged) covering medical care</li>
+          learn_more_meaning: Medical expenses means non-reimbursed payments for costs such as
+          learn_more_note_html: |-
+            Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
+            oopener noreferrer">if the child was your dependent.</a>
+          learn_more_title: What are medical expenses?
+          title: You can deduct medical expenses.
       nj_municipality:
         edit:
           helper_description_html: Si el lugar donde usted vive no aparece en la lista, utilice la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidad del estado de New Jersey</a> para obtener el nombre de su municipio.
@@ -2576,6 +2689,7 @@ es:
         edit:
           county: Condado
           household_rent_own: Vivienda en alquiler o en propiedad propia
+          medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
           property_tax_paid: Impuestos sobre la propiedad pagados
@@ -3120,10 +3234,12 @@ es:
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
+    not_a_number: Por favor ingresa únicamente números.
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
     signature_pin: El PIN debe ser un número de 5 dígitos.
+    signature_pin_matching: Los PIN de firma no pueden ser idénticos.
     signature_pin_zeros: 00000 no es un pin válido
     ssn: Por favor, ingrese un número de seguro social válido.
     urbanization: Sólo se aceptan los números 0-9, las letras A-Z y a-z, los espacios y los guiones.
@@ -4707,7 +4823,7 @@ es:
           trusted_support:
             body: Somos un servicio virtual gratuito apoyado por el IRS, el Departamento del Tesoro de EE.UU. y la Casa Blanca que ayuda a los hogares de bajos ingresos de todo Estados Unidos a recibir servicios fiscales de alta calidad desde la comodidad de su hogar.
             title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
-        closed_banner: GetYourRefund reabrirá sus servicios el {start_of_open_intake}.
+        closed_banner: GetYourRefund reabrirá sus servicios el %{start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
           faq_cta: Lee nuestras preguntas frecuentes

@@ -131,7 +131,97 @@ RSpec.describe StateFile::MdTaxRefundForm do
         end
       end
 
-      # Keep the other context tests for invalid routing numbers, account numbers, etc.
+      context "missing account type" do
+        let(:account_type) { nil }
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_type
+        end
+      end
+
+      context "account number is letters" do
+        let(:account_number) { "ABC" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_number
+        end
+      end
+
+      context "account number is too long" do
+        let(:account_number) { '1234567891011121314' }
+
+        it 'is not valid' do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_number
+        end
+      end
+
+      context "routing number is letters" do
+        let(:routing_number) { "ABC123456" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number
+        end
+      end
+
+      context "routing number is 3 numbers long" do
+        let(:routing_number) { "123" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number
+        end
+      end
+
+      context "routing number does not match the regex" do
+        let(:routing_number) { "339999999" }
+        let(:routing_number_confirmation) { "339999999" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number
+        end
+      end
+
+      context "account number confirmation is not equal to the account number" do
+        let(:account_number_confirmation) { "1234" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :account_number_confirmation
+        end
+      end
+
+      context "routing number confirmation is not equal to the routing number" do
+        let(:routing_number_confirmation) { "999999999" }
+
+        it "is not valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number_confirmation
+        end
+      end
+
+      context "when the routing and account number are the same" do
+        let(:routing_number) { "123456789" }
+        let(:account_number) { "123456789" }
+
+        it "is not valid and returns error" do
+          form = described_class.new(intake, params)
+
+          expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number, :account_number
+        end
+      end
     end
   end
 end

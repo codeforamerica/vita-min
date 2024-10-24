@@ -25,8 +25,6 @@ class StateFileBaseIntake < ApplicationRecord
   alias_attribute :sms_phone_number, :phone_number
 
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
   enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
@@ -203,6 +201,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def ask_for_signature_pin?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -260,6 +262,10 @@ class StateFileBaseIntake < ApplicationRecord
         @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
         @ssn = intake.direct_file_data.spouse_ssn
       end
+    end
+
+    def age
+      birth_date.present? ? MultiTenantService.statefile.current_tax_year - birth_date.year : 0
     end
 
     def full_name
