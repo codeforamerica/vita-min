@@ -38,6 +38,7 @@ module PdfFiller
         y_d400wf_sv1yes: checkbox_value(@submission.data_source.spouse_veteran_yes?),
         y_d400wf_sv1no: checkbox_value(@submission.data_source.spouse_veteran_no?),
         y_d400wf_rs2yes: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
+        y_d400wf_fedex1no: 'Yes',
         y_d400wf_fstat1: @submission.data_source.filing_status_single? ? 'Yes' : 'Off',
         y_d400wf_fstat2: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
         y_d400wf_fstat3: @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',

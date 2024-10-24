@@ -23,7 +23,7 @@ module SubmissionBuilder
                 if @submission.data_source.filing_status_mfj?
                   xml.VeteranInfoSpouse @submission.data_source.spouse_veteran_yes? ? 1 : 0
                 end
-                # xml.FederalExtension 0
+                xml.FederalExtension 0
                 xml.FilingStatus filing_status
                 if @submission.data_source.filing_status_mfs?
                   xml.MFSSpouseName @submission.data_source.direct_file_data.spouse_name
