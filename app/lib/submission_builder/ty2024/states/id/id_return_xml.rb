@@ -37,7 +37,7 @@ module SubmissionBuilder
               },
               {
                 xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39r,
-                pdf:  PdfFiller::Id39rPdf,
+                pdf: PdfFiller::Id39rPdf,
                 include: @submission.data_source.dependents.count > 4
               },
             ]

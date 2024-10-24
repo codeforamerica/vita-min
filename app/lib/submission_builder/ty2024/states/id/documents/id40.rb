@@ -36,6 +36,7 @@ module SubmissionBuilder
             end
 
             private
+
             def filing_status
               FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
             end
