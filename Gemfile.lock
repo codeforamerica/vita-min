@@ -126,9 +126,18 @@ GEM
       aws-sigv4 (~> 1.6)
     aws-sigv4 (1.6.1)
       aws-eventstream (~> 1, >= 1.0.2)
-    axe-matchers (2.6.1)
-      dumb_delegator (~> 0.8)
-      virtus (~> 1.0)
+    axe-core-api (4.10.1)
+      dumb_delegator
+      ostruct
+      virtus
+    axe-core-capybara (4.10.1)
+      axe-core-api (= 4.10.1)
+      dumb_delegator
+    axe-core-rspec (4.10.1)
+      axe-core-api (= 4.10.1)
+      dumb_delegator
+      ostruct
+      virtus
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -227,11 +236,10 @@ GEM
       multi_json
     domain_name (0.6.20231109)
     drb (2.2.1)
-    dumb_delegator (0.8.1)
+    dumb_delegator (1.0.0)
     easy_translate (0.5.1)
       thread
       thread_safe
-    equalizer (0.0.11)
     erubi (1.13.0)
     erubis (2.7.0)
     excon (0.104.0)
@@ -412,6 +420,7 @@ GEM
     ordinalize_full (3.1.0)
       i18n (~> 1.8)
     orm_adapter (0.5.0)
+    ostruct (0.6.0)
     package_json (0.1.0)
     paper_trail (15.1.0)
       activerecord (>= 6.1)
@@ -687,11 +696,10 @@ GEM
       activemodel (>= 3.2)
       mail (~> 2.5)
     version_gem (1.1.3)
-    virtus (1.0.5)
+    virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
-      equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.9)
       rack (>= 2.0.9)
     warning (1.3.0)
@@ -727,7 +735,8 @@ DEPENDENCIES
   awesome_print
   aws-sdk-route53
   aws-sdk-s3
-  axe-matchers
+  axe-core-capybara
+  axe-core-rspec
   bootsnap (>= 1.5.1)
   bundle-audit
   business_time
