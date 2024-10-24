@@ -2399,7 +2399,7 @@ es:
           long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
-        md_additional_credits:
+        md_supported:
           heading1: 'Sustracciones:'
           heading2: 'Créditos:'
           sub1: Reducción de gastos de cuidado de hijos y dependientes
