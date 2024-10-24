@@ -1,0 +1,93 @@
+<%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <% if params[:return_to_review].present? %>
+    <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+  <% end %>
+  <div class="question-with-follow-up spacing-below-25">
+    <div class="question-with-follow-up__question spacing-below-15">
+      <div class="white-group">
+        <div class="form-question spacing-below-15">
+          <strong><%= t("state_file.questions.primary_state_id.state_id.id_type_question.label") %></strong>
+        </div>
+        <%=
+          f.cfa_radio_set(
+            :id_type,
+            collection: [
+              { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
+              { value: :dmv_bmv, label: t("state_file.questions.primary_state_id.state_id.id_type_question.dmv"), input_html: { "data-follow-up": "#id-details-fields" } },
+              { value: :no_id, label: t("state_file.questions.primary_state_id.state_id.id_type_question.no_id") },
+            ]
+          )
+        %>
+      </div>
+    </div>
+
+    <div class="question-with-follow-up__follow-up" id="id-details-fields">
+      <div class="white-group form-group-tight">
+        <%= f.cfa_input_field(:id_number, t("state_file.questions.primary_state_id.state_id.id_details.number"), classes: ["form-width--long"]) %>
+        <%= f.cfa_date_select(:issue_date,
+                              t("state_file.questions.primary_state_id.state_id.id_details.issue"),
+                              options: {
+                                start_year: Time.now.year,
+                                end_year: 2000,
+                              }
+            ) %>
+        <span id="fields_to_clear">
+          <%= f.cfa_date_select(:expiration_date,
+                                t("state_file.questions.primary_state_id.state_id.id_details.expiration"),
+                                options: {
+                                  start_year: Time.now.year - 2,
+                                  end_year: Time.now.year + 50,
+                                }) %>
+        </span>
+        <span id="checkbox">
+          <%= f.cfa_checkbox(:non_expiring, t("state_file.questions.primary_state_id.state_id.id_details.no_expiration_date")) %>
+        </span>
+        <div onchange="$('#first_3_doc_num_container')[event.target.value == 'NY' ? 'show' : 'hide']()">
+          <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true) %>
+        </div>
+        <div id="first_3_doc_num_container"  style="display: <%=options[:include_first_three_doc_num] ? 'block' : 'none'%>">
+          <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num_html"), classes: ["form-width--short"]) %>
+        </div>
+        <% if options[:info_link] %>
+          <div class="spacing-above-25">
+            <a class="info-link" href="<%= options[:info_link] %>" target="_blank" rel="nofollow noopener"><%= t('state_file.questions.primary_state_id.state_id.info_link') %></a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= content_for :info_box %>
+  <%= f.continue %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          // Function to clear selections in fields_to_clear
+          function clearFieldsToClear() {
+              $('#fields_to_clear select').each(function() {
+                  $(this).val('');
+              });
+          }
+
+          // Check initially if the checkbox is checked and clear fields if it is
+          if ($('#checkbox input').is(':checked')) {
+              clearFieldsToClear();
+          }
+
+          // Attach a change event listener to the selects within fields_to_clear
+          $('#fields_to_clear select').change(function() {
+              if ($('#checkbox input').is(':checked')) {
+                  clearFieldsToClear();
+              }
+          });
+
+          // Attach a change event listener to the checkbox as well
+          $('#checkbox input').change(function() {
+              if (this.checked) {
+                  clearFieldsToClear();
+              }
+          });
+      });
+  </script>
+<% end %>

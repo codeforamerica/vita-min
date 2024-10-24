@@ -1,4 +1,4 @@
-<% title = t("state_file.questions.primary_state_id.edit.title") %>
+<% title = t("state_file.questions.spouse_state_id.edit.title_html") %>
 <% content_for :page_title, title %>
 
 <%# Must be above :card content_for %>
@@ -20,7 +20,5 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {
-    info_link: "https://www.ncdot.gov/dmv/license-id/Pages/new-license-id-cards.aspx"
-  } %>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {} %>
 <% end %>

@@ -1,18 +1,18 @@
 require "rails_helper"
 
-RSpec.describe StateFile::AzPrimaryStateIdForm do
-  let!(:intake) { create :state_file_az_intake, primary_state_id: nil }
+RSpec.describe StateFile::SpouseStateIdForm do
+  let!(:intake) { create :state_file_md_intake, spouse_state_id: nil }
   let(:valid_params) do
     {
-        "id_type" => "driver_license",
-        "id_number" => "123456789",
-        "issue_date_month" => "3",
-        "issue_date_day" => "6",
-        "issue_date_year" => "2016",
-        "expiration_date_month" => "4",
-        "expiration_date_day" => "5",
-        "expiration_date_year" => "2026",
-        "state" => "AZ",
+      "id_type" => "driver_license",
+      "id_number" => "123456789",
+      "issue_date_month" => "3",
+      "issue_date_day" => "6",
+      "issue_date_year" => "2016",
+      "expiration_date_month" => "4",
+      "expiration_date_day" => "5",
+      "expiration_date_year" => "2026",
+      "state" => "AZ"
     }
   end
 
@@ -24,12 +24,12 @@ RSpec.describe StateFile::AzPrimaryStateIdForm do
         form.save
 
         intake.reload
-        expect(intake.primary_state_id).to be_present
-        expect(intake.primary_state_id.id_type).to eq "driver_license"
-        expect(intake.primary_state_id.id_number).to eq "123456789"
-        expect(intake.primary_state_id.issue_date).to eq Date.parse("March 6, 2016")
-        expect(intake.primary_state_id.expiration_date).to eq Date.parse("April 5, 2026")
-        expect(intake.primary_state_id.state).to eq "AZ"
+        expect(intake.spouse_state_id).to be_present
+        expect(intake.spouse_state_id.id_type).to eq "driver_license"
+        expect(intake.spouse_state_id.id_number).to eq "123456789"
+        expect(intake.spouse_state_id.issue_date).to eq Date.parse("March 6, 2016")
+        expect(intake.spouse_state_id.expiration_date).to eq Date.parse("April 5, 2026")
+        expect(intake.spouse_state_id.state).to eq "AZ"
       end
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe StateFile::AzPrimaryStateIdForm do
           expiration_date_month: "",
           expiration_date_day: "",
           expiration_date_year: "",
-          state: "",
+          state: ""
         }
       end
 
@@ -68,7 +68,7 @@ RSpec.describe StateFile::AzPrimaryStateIdForm do
           expiration_date_month: "",
           expiration_date_day: "",
           expiration_date_year: "",
-          state: "",
+          state: ""
         }
       end
 
