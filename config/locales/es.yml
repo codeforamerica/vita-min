@@ -2047,7 +2047,7 @@ es:
             <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
             <li>Dirección de correo electrónico o número de teléfono.</li>
             <li>Licencia de conducir o identificación emitida por el estado.</li>
-            <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
+            <li class="hide--nj">Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
             <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
           </ul>
         id:
