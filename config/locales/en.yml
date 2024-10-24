@@ -2477,6 +2477,11 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_grocery_credit:
+        edit:
+          title: You might be eligible for the Idaho Grocery Credit!
+          title_html: You might be eligible for the <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Idaho Grocery Credit</a>!
+          select_household_members: "Select the members of household these situations apply to:"
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.

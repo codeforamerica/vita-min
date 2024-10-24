@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_24_001907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1776,6 +1776,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.boolean "eic_qualifying"
     t.integer "eic_student", default: 0
     t.string "first_name"
+    t.integer "id_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.integer "id_months_ineligible_for_grocery_credit", default: 0
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
@@ -1829,6 +1831,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.string "federal_submission_id"
     t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
+    t.integer "household_has_grocery_credit_ineligible_months", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1841,8 +1844,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
+    t.integer "primary_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_months_ineligible_for_grocery_credit", default: 0
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1854,8 +1859,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
+    t.integer "spouse_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_months_ineligible_for_grocery_credit", default: 0
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
