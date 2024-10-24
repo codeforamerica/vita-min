@@ -71,7 +71,68 @@
         </FilingSecurityInformation>
     </ReturnHeader>
     <ReturnData documentCnt="8">
-        <IRS1040 documentId="IRS10400001">
+      <IRS2441 documentId="IRS24414">
+        <CareProviderGrp>
+          <CareProviderPersonName>
+            <PersonFirstNm>Mrs</PersonFirstNm>
+            <PersonLastNm>Doubtfire</PersonLastNm>
+            </CareProviderPersonName>
+          <CareProviderNameControlTxt>DOUB</CareProviderNameControlTxt>
+          <USAddress>
+            <AddressLine1Txt>543</AddressLine1Txt>
+            <CityNm>Great Falls</CityNm>
+            <StateAbbreviationCd>ME</StateAbbreviationCd>
+            <ZIPCd>40332</ZIPCd>
+            </USAddress>
+          <SSN>111111111</SSN>
+          <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+          <PaidAmt>2000</PaidAmt>
+          </CareProviderGrp>
+        <QualifyingPersonGrp>
+          <QualifyingPersonName>
+            <PersonFirstNm>Uno</PersonFirstNm>
+            <PersonLastNm>testerface</PersonLastNm>
+            </QualifyingPersonName>
+          <QualifyingPersonNameControlTxt>TEST</QualifyingPersonNameControlTxt>
+          <QualifyingPersonSSN>222001111</QualifyingPersonSSN>
+          </QualifyingPersonGrp>
+        <QualifyingPersonGrp>
+          <QualifyingPersonName>
+            <PersonFirstNm>Duo</PersonFirstNm>
+            <PersonLastNm>testerface</PersonLastNm>
+            </QualifyingPersonName>
+          <QualifyingPersonNameControlTxt>TEST</QualifyingPersonNameControlTxt>
+          <QualifyingPersonSSN>123001234</QualifyingPersonSSN>
+          <QualifiedCareExpensesPaidAmt>2000</QualifiedCareExpensesPaidAmt>
+          </QualifyingPersonGrp>
+        <TotalQlfdExpensesOrLimitAmt>2000</TotalQlfdExpensesOrLimitAmt>
+        <PrimaryEarnedIncomeAmt>50000</PrimaryEarnedIncomeAmt>
+        <SpouseEarnedIncomeAmt>50000</SpouseEarnedIncomeAmt>
+        <SmallerOfExpensesOrIncomeAmt>2000</SmallerOfExpensesOrIncomeAmt>
+        <AdjustedGrossIncomeAmt>50000</AdjustedGrossIncomeAmt>
+        <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+        <CalculatedTentativeExpenseAmt>400</CalculatedTentativeExpenseAmt>
+        <TotalEligCDCCAmt>400</TotalEligCDCCAmt>
+        <TaxLiabLmtFromCrLmtWrkshtAmt>3193</TaxLiabLmtFromCrLmtWrkshtAmt>
+        <CreditForChildAndDepdCareAmt>400</CreditForChildAndDepdCareAmt>
+        <DependentCareBenefitsAmt>2000</DependentCareBenefitsAmt>
+        <AdjustedDepdCareBenefitsAmt>2000</AdjustedDepdCareBenefitsAmt>
+        <QualifiedExpensesAmt>2000</QualifiedExpensesAmt>
+        <SmallerOfAdjOrQualifiedAmt>2000</SmallerOfAdjOrQualifiedAmt>
+        <EarnedIncomeAmt>48000</EarnedIncomeAmt>
+        <SpouseIncomeAmt>48000</SpouseIncomeAmt>
+        <TentativeExclusionAmt>2000</TentativeExclusionAmt>
+        <SpecifiedAmt>5000</SpecifiedAmt>
+        <PropshpPrtshpLessAdjBnftAmt>2000</PropshpPrtshpLessAdjBnftAmt>
+        <ExcludedBenefitsAmt>2000</ExcludedBenefitsAmt>
+        <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+        <AllowedCaredForAmt>6000</AllowedCaredForAmt>
+        <SumOfDedAndExcludedBenefitsAmt>2000</SumOfDedAndExcludedBenefitsAmt>
+        <NetAllowableAmt>4000</NetAllowableAmt>
+        <TotalQualifiedExpensesAmt>2000</TotalQualifiedExpensesAmt>
+        <SmallerOfTotalQlfyExpensesAmt>2000</SmallerOfTotalQlfyExpensesAmt>
+      </IRS2441>
+      <IRS1040 documentId="IRS10400001">
             <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
             <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
             <Primary65OrOlderInd>X</Primary65OrOlderInd>

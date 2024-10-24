@@ -32,7 +32,7 @@ describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "i
                           { xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id40, pdf: PdfFiller::Id40Pdf, include: true }
                         )
         expect(docs).to include(
-                          { xml: nil, pdf: PdfFiller::Id39rPdf, include: false }
+                          { xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39r, pdf: PdfFiller::Id39rPdf, include: false }
                         )
       end
 
@@ -52,7 +52,7 @@ describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "i
         docs = id_return_xml.send(:supported_documents)
         expect(docs).to include(
                           { xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id40, pdf: PdfFiller::Id40Pdf, include: true },
-                          { xml: nil, pdf: PdfFiller::Id39rPdf, include: true }
+                          { xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39r, pdf: PdfFiller::Id39rPdf, include: true }
                         )
       end
 
@@ -72,7 +72,7 @@ describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "i
         docs = id_return_xml.send(:supported_documents)
         expect(docs).to include(
                           { xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id40, pdf: PdfFiller::Id40Pdf, include: true },
-                          { xml: nil, pdf: PdfFiller::Id39rPdf, include: true }
+                          { xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39r, pdf: PdfFiller::Id39rPdf, include: true }
                         )
 
         additional_docs = docs.select { |doc| doc[:pdf] == PdfFiller::Id39rAdditionalDependentsPdf }
