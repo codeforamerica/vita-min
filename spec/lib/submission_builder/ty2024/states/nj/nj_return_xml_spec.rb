@@ -31,6 +31,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
         end
+
+        it "fills details from json" do
+          expect(xml.document.at('Dependents DependentsName FirstName').text).to eq("KRONOS")
+          expect(xml.document.at('Dependents DependentsName LastName').text).to eq("ATHENS")
+          expect(xml.document.at('Dependents DependentsSSN').text).to eq("300000029")
+          expect(xml.document.at('Dependents BirthYear').text).to eq(Time.now.year.to_s)
+        end
       end
 
       context "with two deps" do
