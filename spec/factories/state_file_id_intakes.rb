@@ -22,7 +22,7 @@
 #  federal_return_status                          :string
 #  has_unpaid_sales_use_tax                       :integer          default("unfilled"), not null
 #  hashed_ssn                                     :string
-#  household_has_grocery_credit_ineligible_months :integer          default(0), not null
+#  household_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
 #  last_sign_in_at                                :datetime
 #  last_sign_in_ip                                :inet
 #  locale                                         :string           default("en")
