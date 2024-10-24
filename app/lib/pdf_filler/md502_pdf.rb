@@ -47,9 +47,9 @@ module PdfFiller
         "Enter A $": @xml_document.at('Exemptions Amount Count')&.text,
         "Enter 9": @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         "Enter 11": @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
+        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
         "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
-        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
     end
 

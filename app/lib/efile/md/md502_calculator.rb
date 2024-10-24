@@ -22,14 +22,13 @@ module Efile
         set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
         set_line(:MD502_LINE_A_CHECKED_COUNT, :calculate_line_a_checked_count)
         set_line(:MD502_LINE_A_AMOUNT, :calculate_line_a_amount)
-        @md502b.calculate
-        set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
-        set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_total_dependent_exemption_amount)
-
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
+        @md502b.calculate
+        set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
+        set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_total_dependent_exemption_amount)
         @lines.transform_values(&:value)
       end
 
@@ -195,7 +194,7 @@ module Efile
       end
 
       def get_dependent_exemption_count
-        line_or_zero(:MD502B_LINE_3)
+        @lines[:MD502B_LINE_3].value
       end
 
       def calculate_total_dependent_exemption_amount
