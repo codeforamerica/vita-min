@@ -17,6 +17,20 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "county information" do
+      before do
+        intake.residence_county = "Allegany"
+        intake.political_subdivision = "Town Of Barton"
+        intake.subdivision_code = "0101"
+      end
+
+      it "output correct information" do
+        expect(pdf_fields["Enter 4 Digit Political Subdivision Code (See Instruction 6)"]).to eq("0101")
+        expect(pdf_fields["Enter Maryland Political Subdivision (See Instruction 6)"]).to eq("Town Of Barton")
+        expect(pdf_fields["Enter zip code + 5"]).to eq("Allegany")
+      end
+    end
+
     describe "income from interest" do
       context "when total interest is > $11,600" do
         before do

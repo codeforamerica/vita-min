@@ -2481,11 +2481,19 @@ en:
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+          md:
+            body_html: |
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
+              <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
               <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
+          pin:
+            primary_signature_pin: "<strong>%{primary_name}'s 5-digit PIN</strong>"
+            spouse_signature_pin: "<strong>%{spouse_name}'s 5-digit PIN</strong>"
+            title: Choose a 5-digit signature PIN. This number will be your personal electronic signature.
           primary_esign: I have read the certification above and agree
           resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
@@ -2534,6 +2542,12 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_county:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
+          title: Select the county and political subdivision where you lived on December 31, %{filing_year}
+          title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?
@@ -2547,6 +2561,10 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_review:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2664,6 +2682,29 @@ en:
         edit:
           helper_description: Please continue to see what else we can guide you to qualify for.
           title: Looks like you’re not eligible for this credit.
+      nj_medical_expenses:
+        edit:
+          description_html: |-
+            <p>This includes expenses for yourself, your spouse, and your dependents.</p>
+            <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
+            <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
+          do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          help_text: Estimates are ok. For example, $3000.
+          label: Non-reimbursed medical expenses paid in %{filing_year}
+          learn_more_content_html: |-
+            <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
+            <li>Hospital care</li>
+            <li>Nursing care</li>
+            <li>Medicines and drugs</li><li>Prosthetic devices</li>
+            <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+            <li>Amounts paid for transportation primarily for and essential to medical care</li>
+            <li>Insurance (including amounts paid as premiums under Part B of Title XVIII of the Social Security Act, relating to supplementary medical insurance for the aged) covering medical care</li>
+          learn_more_meaning: Medical expenses means non-reimbursed payments for costs such as
+          learn_more_note_html: |-
+            Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
+            oopener noreferrer">if the child was your dependent.</a>
+          learn_more_title: What are medical expenses?
+          title: You can deduct medical expenses.
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
@@ -2674,6 +2715,7 @@ en:
         edit:
           county: County
           household_rent_own: Rent or own home
+          medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
           property_tax_paid: Property taxes paid
@@ -3205,6 +3247,7 @@ en:
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
+    signature_pin_matching: Signature PINs cannot be identical.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
     urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
@@ -4777,7 +4820,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closed_banner: GetYourRefund will reopen {start_of_open_intake}.
+        closed_banner: GetYourRefund will reopen %{start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ

@@ -201,6 +201,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def ask_for_signature_pin?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
