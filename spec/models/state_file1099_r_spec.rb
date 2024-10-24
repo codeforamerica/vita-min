@@ -113,19 +113,28 @@ RSpec.describe StateFile1099R do
 
       end
 
-      it "validates payer_state_identification_number" do
-        state_file1099_r.payer_state_identification_number = nil
-        expect(state_file1099_r.valid?(context)).to eq false
-        state_file1099_r.payer_state_identification_number = '-1'
-        expect(state_file1099_r.valid?(context)).to eq false
-        state_file1099_r.payer_state_identification_number = '1231578123'
-        expect(state_file1099_r.valid?(context)).to eq false
-        state_file1099_r.payer_state_identification_number = 'az31578123'
-        expect(state_file1099_r.valid?(context)).to eq false
-        state_file1099_r.payer_state_identification_number = 'nc31578123'
-        expect(state_file1099_r.valid?(context)).to eq true
-        state_file1099_r.payer_state_identification_number = 'nc31578123123125412'
-        expect(state_file1099_r.valid?(context)).to eq false
+      context "payer_state_identification_number" do
+        it "validates present when has state_tax_withheld_amount" do
+          state_file1099_r.state_tax_withheld_amount = nil
+          state_file1099_r.payer_state_identification_number = nil
+          expect(state_file1099_r.valid?(context)).to eq true
+
+          state_file1099_r.state_tax_withheld_amount = 0
+          state_file1099_r.payer_state_identification_number = nil
+          expect(state_file1099_r.valid?(context)).to eq true
+
+          state_file1099_r.state_tax_withheld_amount = 20
+          state_file1099_r.payer_state_identification_number = nil
+          expect(state_file1099_r.valid?(context)).to eq false
+        end
+
+        it "validates <= 16 digits" do
+          state_file1099_r.payer_state_identification_number = "1231578123"
+          expect(state_file1099_r.valid?(context)).to eq true
+
+          state_file1099_r.payer_state_identification_number = "12345678901234567"
+          expect(state_file1099_r.valid?(context)).to eq false
+        end
       end
     end
   end

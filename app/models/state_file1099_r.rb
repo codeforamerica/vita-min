@@ -40,7 +40,6 @@
 #  index_state_file1099_rs_on_state_specific_followup  (state_specific_followup_type,state_specific_followup_id)
 #
 class StateFile1099R < ApplicationRecord
-
   belongs_to :intake, polymorphic: true
   belongs_to :state_specific_followup, polymorphic: true, optional: true, dependent: :destroy
 
@@ -52,8 +51,7 @@ class StateFile1099R < ApplicationRecord
     validates :gross_distribution_amount, numericality: { greater_than: 0 }
     validates :state_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
     validates :state_distribution_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
-    validate :has_valid_identification_number
-    validates :payer_state_identification_number, presence: true, length: { maximum: 16 }
+    validates :payer_state_identification_number, presence: true, length: { maximum: 16 }, if: -> { state_tax_withheld_amount&.positive? }
   end
 
   def less_than_gross_distribution
@@ -62,15 +60,6 @@ class StateFile1099R < ApplicationRecord
       if value.present? && value > gross_distribution_amount
         errors.add(attr_name, I18n.t("activerecord.errors.models.state_file_1099_r.errors.must_be_less_than_gross_distribution"))
       end
-    end
-  end
-
-  def has_valid_identification_number
-    return if payer_state_identification_number.blank?
-
-    incorrectly_formatted = payer_state_identification_number.match(/^#{intake.state_code}.{,14}$/i).nil?
-    if incorrectly_formatted
-      errors.add(:payer_state_identification_number, "First two letters must be #{intake.state_code}")
     end
   end
 end
