@@ -3,7 +3,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%= t(".#{current_state_code}.body_html") %>
+  <%= I18n.exists?(".#{current_state_code}.body_html") ? t(".#{current_state_code}.body_html") : t(".az.body_html")%>
   
   <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_esign_declaration_form" }, 
   local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
