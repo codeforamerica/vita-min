@@ -66,4 +66,38 @@ describe Efile::Id::Id40Calculator do
       expect(instance.lines[:ID40_LINE_6D].value).to eq(4)
     end
   end
+
+  describe "Line 29: State Use Tax" do
+    let(:purchase_amount) { nil }
+
+    before do
+      intake.update(total_purchase_amount: purchase_amount)
+    end
+
+    context "when taxpayer has unpaid sales use tax" do
+      it "returns 0 if no purchase amount" do
+        allow(intake).to receive(:has_unpaid_sales_use_tax?).and_return(true)
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_29].value).to eq(0)
+      end
+
+      context "has valid purchase amount" do
+        let(:purchase_amount) { 100 }
+
+        it "returns 0.06 times the purchase amount if present" do
+          allow(intake).to receive(:has_unpaid_sales_use_tax?).and_return(true)
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_29].value).to eq(6)
+        end
+      end
+    end
+
+    context "when taxpayer does not have unpaid sales use tax" do
+      it "returns 0" do
+        allow(intake).to receive(:has_unpaid_sales_use_tax?).and_return(false)
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_29].value).to eq(0)
+      end
+    end
+  end
 end

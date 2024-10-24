@@ -9,6 +9,45 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
     let(:instance) {described_class.new(submission)}
     let(:build_response) { instance.build }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+    let(:intake) { create(:state_file_md_intake)}
+
+    context "502R" do
+
+      context "when taxable pensions/IRAs/annuities are present" do
+        before do
+          intake.direct_file_data.fed_taxable_pensions = 1
+        end
+
+        it "attaches a 502R" do
+          expect(xml.at("Form502R")).to be_present
+          expect(instance.pdf_documents).to be_any { |included_document|
+            included_document.pdf == PdfFiller::Md502RPdf
+          }
+        end
+      end
+
+      context "when taxable pensions/IRAs/annuities are not present" do
+        before do
+          intake.direct_file_data.fed_taxable_pensions = 0
+        end
+
+        it "does not attach a 502R" do
+          expect(xml.at("Form502R")).not_to be_present
+          expect(instance.pdf_documents).not_to be_any { |included_document|
+            included_document.pdf == PdfFiller::Md502RPdf
+          }
+        end
+      end
+    end
+
+    context "502CR" do
+      it "attaches a 502CR" do
+        expect(xml.at("Form502CR")).to be_present
+        expect(instance.pdf_documents).to be_any { |included_documents|
+          included_documents.pdf = PdfFiller::Md502CrPdf
+        }
+      end
+    end
 
     it "generates basic components of return" do
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })

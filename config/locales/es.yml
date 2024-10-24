@@ -2324,11 +2324,16 @@ es:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
+            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia
+            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
+            eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
+            eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
             eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2023
             eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
+            eligibility_withdrew_msa_fthb: Retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
@@ -2378,11 +2383,28 @@ es:
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
           nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
           nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
-          title1: "¡Buenas noticias! Puedes usar esta herramienta este año para presentar tus impuestos estatales."
-          title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
+          review_warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
+          title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
+          title2: Asegurémonos de que este sea el servicio adecuado para usted.
+          title3_html: Estas son las deducciones y los créditos que <strong>podría</strong> reclamar para maximizar su reembolso.
           want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+        md_additional_credits:
+          heading1: 'Sustracciones:'
+          heading2: 'Créditos:'
+          sub1: Reducción de gastos de cuidado de hijos y dependientes
+          sub10: Crédito fiscal para adultos mayores
+          sub11: Créditos estatales y locales por nivel de pobreza
+          sub12: Crédito por gastos de cuidado de niños y dependientes
+          sub2: Exclusión de pensión (si tiene 65 años o más, o si tiene menos de 65 años y anteriormente calificó para la exclusión debido a una discapacidad permanente)
+          sub3: Exclusión de jubilación militar
+          sub4: Exclusión de jubilación de seguridad pública
+          sub5: Beneficios de jubilación ferroviaria y de seguridad social sujetos a impuestos
+          sub6: Ingresos por intereses de obligaciones de los EE. UU. o posesiones de los EE. UU.
+          sub7: Reducción de dos ingresos para contribuyentes casados que presentan declaraciones conjuntas
+          sub8: Créditos fiscales estatales y locales por ingresos del trabajo (si solicitó el Crédito fiscal federal por ingresos del trabajo)
+          sub9: Crédito fiscal estatal por hijos (para niños menores de 6 años)
         ny_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
@@ -2428,10 +2450,22 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
+          sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
+          sales_use_tax_helper_text: Ingrese el monto total
+          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso
+          title: "¿Hizo alguna compra en %{year} sin pagar impuestos sobre las ventas o el uso?"
+          unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
+          use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
+          use_tax_title: "¿Qué son los impuestos sobre el uso?"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          no_info_needed: No se necesita información estatal adicional
           review_and_edit_state_info: Revisar y editar información del estado
+          ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
@@ -2448,11 +2482,34 @@ es:
             <p>Recibirás dos correos electrónicos del IRS: uno por una declaración enviada y otro por una declaración aceptada. Revisa tu correo electrónico para ver si recibiste uno de aceptación.</p>
             <p>Esta transferencia segura desde IRS Direct File generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatales
+      md_county:
+        edit:
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
+          title: Seleccione el condado y la subdivisión política donde vivía el 31 de diciembre de %{filing_year}
+          title_html: Seleccione el <strong>condado</strong> y la <strong>subdivisión política</strong> donde vivía el 31 de diciembre de %{filing_year}
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: "¿Está casado y presenta una declaración estatal conjunta?"
+          eligibility_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_mfj_two_different_areas_label_text: "¿Retiró dinero de una cuenta de comprador de vivienda por primera vez y lo utilizó para algo que no fuera comprar una casa en Maryland en %{year}?"
+          eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivíamos en el mismo condado, ciudad, pueblo o área fiscal.
+          eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en diferentes condados, ciudades, pueblos o áreas impositivas.
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          permanent_home_copy: No puede utilizar este servicio si usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes y no se trata de una situación temporal.
+          permanent_home_copy2: Si abandona su hogar permanente para trabajar o cuidar a alguien, pero planea regresar, su hogar permanente no ha cambiado. Se considera que usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes solo si se quedan en estos hogares separados y no es una situación temporal.
+          permanent_home_heading: "¿Qué es una vivienda permanente?"
+          subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
+          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
       md_primary_state_id:
         md_primary:
           encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           why_ask_this: "¿Por qué pides esta información?"
+      md_review:
+        edit:
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
       md_spouse_state_id:
         md_spouse:
           encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
@@ -2511,7 +2568,6 @@ es:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
-          not_a_number: Por favor ingresa únicamente números.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
@@ -2555,6 +2611,7 @@ es:
           homeowner_main_home_multi_unit: "¿Su vivienda principal era una unidad de una propiedad de varias unidades de su propiedad?"
           homeowner_main_home_multi_unit_max_four_one_commercial: Mi vivienda principal era una unidad en una propiedad de varias unidades que poseía, la propiedad no tenía más de cuatro unidades y no más de una de ellas era una unidad comercial.
           homeowner_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
+          homeowner_same_home_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
           homeowner_shared_ownership_not_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
           label: "¿Se aplica a usted alguna de estas situaciones?"
           title: Dijiste que eras propietario de una vivienda en %{filing_year}.
@@ -2576,6 +2633,29 @@ es:
         edit:
           helper_description: Continúe viendo para qué más podemos ayudarlo a calificar.
           title: Parece que no eres elegible para este crédito.
+      nj_medical_expenses:
+        edit:
+          description_html: |-
+            <p>This includes expenses for yourself, your spouse, and your dependents.</p>
+            <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
+            <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
+          do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          help_text: Estimates are ok. For example, $3000.
+          label: Non-reimbursed medical expenses paid in %{filing_year}
+          learn_more_content_html: |-
+            <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
+            <li>Hospital care</li>
+            <li>Nursing care</li>
+            <li>Medicines and drugs</li><li>Prosthetic devices</li>
+            <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+            <li>Amounts paid for transportation primarily for and essential to medical care</li>
+            <li>Insurance (including amounts paid as premiums under Part B of Title XVIII of the Social Security Act, relating to supplementary medical insurance for the aged) covering medical care</li>
+          learn_more_meaning: Medical expenses means non-reimbursed payments for costs such as
+          learn_more_note_html: |-
+            Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
+            oopener noreferrer">if the child was your dependent.</a>
+          learn_more_title: What are medical expenses?
+          title: You can deduct medical expenses.
       nj_municipality:
         edit:
           helper_description_html: Si el lugar donde usted vive no aparece en la lista, utilice la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidad del estado de New Jersey</a> para obtener el nombre de su municipio.
@@ -2586,6 +2666,7 @@ es:
         edit:
           county: Condado
           household_rent_own: Vivienda en alquiler o en propiedad propia
+          medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
           property_tax_paid: Impuestos sobre la propiedad pagados
@@ -3127,6 +3208,7 @@ es:
     must_be_associated_with_tax_return: "%{document_type} debe estar asociado con un año fiscal"
     must_enter_amount: Si alguien reclamó este crédito deberá ingresar un monto.
     must_not_be_associated_with_tax_return: "%{document_type} no puede asociarse a un año fiscal en particular. "
+    not_a_number: Por favor ingresa únicamente números.
     pdf_file_corrupted: Archivo está dañado. Genera un nuevo PDF e intenta subirlo de nuevo.
     pdf_file_type: "%{document_type} debe ser un archivo PDF"
     routing_number: Este número de ruta bancaria no es válido para transacciones de depósito directo. Utilice una cuenta bancaria diferente o cambie a pagos con cheque.
