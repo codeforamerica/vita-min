@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_23_203020) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1872,7 +1872,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_23_203020) do
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
-    t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"

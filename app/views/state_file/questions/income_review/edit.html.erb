@@ -4,6 +4,15 @@
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".help_text") %></p>
 
+  <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
+    <div class="white-group">
+      <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
+      <p class="text--grey-bold spacing-above-15 spacing-below-0">
+        <%= t(".interest_income_body") %>
+      </p>
+    </div>
+  <% end %>
+
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
     <div class="white-group">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>

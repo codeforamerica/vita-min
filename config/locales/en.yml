@@ -2523,6 +2523,8 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          interest_income_body: No additional state info needed
+          interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)

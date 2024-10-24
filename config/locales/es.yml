@@ -2496,6 +2496,8 @@ es:
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          interest_income_body: No se necesita información estatal adicional
+          interest_income_title: Ingresos por intereses (1099-INT)
           no_info_needed: No se necesita información estatal adicional
           review_and_edit_state_info: Revisar y editar información del estado
           ssa_title: Beneficios del Seguro Social (SSA-1099)
