@@ -20,7 +20,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <IPTs>2024-10-24T18:25:13+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
@@ -28,7 +28,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <IPTs>2024-10-24T18:25:13+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
@@ -38,7 +38,7 @@
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-10-03T23:00:38+00:00</ReturnTs>
+    <ReturnTs>2024-10-24T18:25:13+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
@@ -208,15 +208,10 @@
       <SocialSecurityTaxAmt>3720</SocialSecurityTaxAmt>
       <MedicareWagesAndTipsAmt>60000</MedicareWagesAndTipsAmt>
       <MedicareTaxWithheldAmt>870</MedicareTaxWithheldAmt>
-      <W2StateLocalTaxGrp>
-        <W2StateTaxGrp>
-          <StateAbbreviationCd>AZ</StateAbbreviationCd>
-          <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>60000</StateWagesAmt>
-          <StateIncomeTaxAmt>200</StateIncomeTaxAmt>
-          <W2LocalTaxGrp/>
-        </W2StateTaxGrp>
-      </W2StateLocalTaxGrp>
+      <W2StateLocalTaxGrp><W2StateTaxGrp><StateAbbreviationCd>AZ</StateAbbreviationCd>
+  <EmployerStateIdNum>12345</EmployerStateIdNum>
+  <StateWagesAmt>60000</StateWagesAmt>
+  <StateIncomeTaxAmt>200</StateIncomeTaxAmt></W2StateTaxGrp></W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
   </ReturnDataState>

@@ -17,7 +17,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <IPTs>2024-10-24T18:25:14+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
@@ -25,7 +25,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-03T23:00:38+00:00</IPTs>
+        <IPTs>2024-10-24T18:25:14+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
@@ -35,7 +35,7 @@
   </AuthenticationHeader>
   <ReturnHeaderState>
     <Jurisdiction>NYST</Jurisdiction>
-    <ReturnTs>2024-10-03T23:00:38+00:00</ReturnTs>
+    <ReturnTs>2024-10-24T18:25:14+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
@@ -174,18 +174,10 @@
       <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
       <AllocatedTipsAmt>0</AllocatedTipsAmt>
       <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
-      <W2StateLocalTaxGrp>
-        <W2StateTaxGrp>
-          <StateAbbreviationCd>NY</StateAbbreviationCd>
-          <EmployerStateIdNum>001234561</EmployerStateIdNum>
-          <StateWagesAmt>17725</StateWagesAmt>
-          <StateIncomeTaxAmt>210</StateIncomeTaxAmt>
-          <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
-          </W2LocalTaxGrp>
-        </W2StateTaxGrp>
-      </W2StateLocalTaxGrp>
+      <W2StateLocalTaxGrp><W2StateTaxGrp><StateAbbreviationCd>NY</StateAbbreviationCd>
+  <EmployerStateIdNum>001234561</EmployerStateIdNum>
+  <StateWagesAmt>17725</StateWagesAmt>
+  <StateIncomeTaxAmt>210</StateIncomeTaxAmt></W2StateTaxGrp></W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
           <IRSW2 documentId="W20002" documentName="IRSW2">
@@ -221,21 +213,13 @@
         <Desc>414HSUB</Desc>
         <Amt>54</Amt>
       </OtherDeductionsBenefitsGrp>
-      <W2StateLocalTaxGrp>
-        <W2StateTaxGrp>
-          <StateAbbreviationCd>NY</StateAbbreviationCd>
-          <EmployerStateIdNum>001234520</EmployerStateIdNum>
-          <StateWagesAmt>1775</StateWagesAmt>
-          <StateIncomeTaxAmt>35</StateIncomeTaxAmt>
-          <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
-          </W2LocalTaxGrp>
-        </W2StateTaxGrp>
-      </W2StateLocalTaxGrp>
+      <W2StateLocalTaxGrp><W2StateTaxGrp><StateAbbreviationCd>NY</StateAbbreviationCd>
+  <EmployerStateIdNum>001234520</EmployerStateIdNum>
+  <StateWagesAmt>1775</StateWagesAmt>
+  <StateIncomeTaxAmt>35</StateIncomeTaxAmt></W2StateTaxGrp></W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
-          <State1099G xmlns:efile="http://www.irs.gov/efile" documentId="State1099G-16">
+          <State1099G xmlns:efile="http://www.irs.gov/efile" documentId="State1099G-14">
             <PayerName payerNameControl="NEWY">
               <BusinessNameLine1Txt>NEW YORK STATE DEPT OF LABOR</BusinessNameLine1Txt>
             </PayerName>
