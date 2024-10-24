@@ -77,6 +77,20 @@ describe StateFile::NjHomeownerEligibilityHelper do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::ADVANCE)
         end
       end
+
+      context "when NO to homeowner_same_home_spouse" do
+        let(:intake) { create :state_file_nj_intake, homeowner_same_home_spouse: "no" }
+        it "returns advance" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::ADVANCE)
+        end
+      end
+
+      context "when YES to homeowner_same_home_spouse" do
+        let(:intake) { create :state_file_nj_intake, homeowner_same_home_spouse: "yes" }
+        it "returns advance" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::ADVANCE)
+        end
+      end
     end
 
     describe "multiple checkbox interactions" do
