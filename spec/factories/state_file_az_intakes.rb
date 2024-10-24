@@ -315,5 +315,10 @@ FactoryBot.define do
         intake.dependents.reload
       end
     end
+
+    trait :df_data_1099_int do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_troy_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_troy_1099_int') }
+    end
   end
 end

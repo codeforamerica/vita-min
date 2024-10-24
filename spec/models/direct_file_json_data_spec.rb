@@ -12,7 +12,7 @@ describe DirectFileJsonData do
         expect(interest_report.has_1099).to be(true)
         expect(interest_report.interest_on_government_bonds).to eq(2)
         expect(interest_report.amount_no_1099).to eq(3)
-        expect(interest_report.recipient_tin).to eq("100-23-4567")
+        expect(interest_report.recipient_tin).to eq("123-45-6789")
         expect(interest_report.tax_exempt_interest).to eq(4)
         expect(interest_report.payer).to eq("The payer name")
         expect(interest_report.payer_tin).to eq("101-23-4567")

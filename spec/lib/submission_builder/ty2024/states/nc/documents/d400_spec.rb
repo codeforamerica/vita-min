@@ -41,6 +41,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('ResidencyStatusPrimary')&.text).to eq "true"
         expect(xml.document.at('ResidencyStatusSpouse')).to be_nil
         expect(xml.document.at('VeteranInfoSpouse')).to be_nil
+        expect(xml.document.at('FederalExtension')&.text).to eq "0"
         expect(xml.document.at('FilingStatus')&.text).to eq "Single"
         expect(xml.document.at('FAGI')&.text).to eq "10000"
         expect(xml.document.at('FAGIPlusAdditions')&.text).to eq "10000"
