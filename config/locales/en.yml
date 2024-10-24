@@ -2966,10 +2966,10 @@ en:
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_html: |
-            <p>
-              <strong>Your refund or taxes owed</strong> <br/>
-              $0
-            </p>
+            <h2 class="text--body text--bold spacing-below-5">
+              Your refund or taxes owed <br/>
+              <span class="text--normal">$0</>
+            </h2>
             Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name

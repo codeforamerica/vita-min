@@ -2954,10 +2954,10 @@ es:
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_html: |
-            <p>
-            <strong>Tu reembolso estimado o tus impuestos estimados a pagar</strong><br/>
-            $0
-            </p>
+            <h2 class="text--body text--bold spacing-below-5">
+              Tu reembolso estimado o tus impuestos estimados a pagar<br/>
+              <span class="text--normal">$0</>
+            </h2>
             Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
