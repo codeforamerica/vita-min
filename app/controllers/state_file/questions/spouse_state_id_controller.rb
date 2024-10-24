@@ -29,7 +29,7 @@ module StateFile
       private
 
       def state_specific_view
-        "state_file/questions/#{current_state_code}_primary_state_id/_#{current_state_code}_primary"
+        "state_file/questions/#{current_state_code}_spouse_state_id/_#{current_state_code}_spouse"
       end
     end
   end
