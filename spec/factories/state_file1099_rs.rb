@@ -57,17 +57,10 @@ FactoryBot.define do
     federal_income_tax_withheld_amount { 10.55 }
     distribution_code { '7' }
     designated_roth_account_first_year { 1993 }
-    payer_state_identification_number {}
+    payer_state_identification_number { "#{intake&.state_code&.downcase}12315" }
+    state_code { intake&.state_code&.upcase }
     state_tax_withheld_amount { 50.5 }
     state_distribution_amount { 55.15 }
     standard { false }
-
-    after(:build) do |form1099r|
-      form1099r.update(state_code: form1099r.intake.state_code.upcase) if form1099r.intake.present?
-    end
-
-    after(:create) do |form1099r|
-      form1099r.update(payer_state_identification_number: "#{form1099r.state_code.downcase}12315")
-    end
   end
 end

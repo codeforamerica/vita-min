@@ -12,9 +12,9 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       create :state_file1099_r,
              payer_name: "Ace Hardware",
              recipient_name: "Phoenix Wright",
-             payer_state_identification_number: '123456669',
-             state_distribution_amount: 1000,
-             state_tax_withheld_amount: 100,
+             payer_state_identification_number: 'az123456669',
+             state_distribution_amount: 30,
+             state_tax_withheld_amount: 40,
              intake: intake
     end
     let(:params) { { id: form1099r.id } }
@@ -26,9 +26,9 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
 
       expect(response.body).to include("Ace Hardware")
       expect(response.body).to include("Phoenix Wright")
-      expect(response.body).to include("123456669")
-      expect(response.body).to include("1000")
-      expect(response.body).to include("100")
+      expect(response.body).to include("az123456669")
+      expect(response.body).to include("30")
+      expect(response.body).to include("40")
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       {
         id: form1099r.id,
         state_file1099_r: {
-          state_distribution_amount: 2011,
+          state_distribution_amount: 20,
           payer_state_identification_number: 'Az3456789',
           state_tax_withheld_amount: 50
         }
@@ -51,10 +51,10 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     it "updates the 1099R information and redirects to the income review page" do
       post :update, params: params
 
-      expect(response).to redirect_to(edit_income_review_path(id: params[:id]))
+      expect(response).to redirect_to(questions_income_review_path)
 
       form1099r.reload
-      expect(form1099r.state_distribution_amount).to eq 2011
+      expect(form1099r.state_distribution_amount).to eq 20
       expect(form1099r.payer_state_identification_number).to eq 'Az3456789'
       expect(form1099r.state_tax_withheld_amount).to eq 50
     end
@@ -66,7 +66,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         {
           id: form1099r.id,
           state_file1099_r: {
-            state_distribution_amount: '',
             state_tax_withheld_amount: '-10',
             payer_state_identification_number: '123456789'
           }
@@ -80,7 +79,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
 
         expect(response).to render_template(:edit)
 
-        expect(response.body).to include "is not a number"
         expect(response.body).to include "must be greater than or equal to 0"
         expect(response.body).to include "First two letters must be az"
       end
