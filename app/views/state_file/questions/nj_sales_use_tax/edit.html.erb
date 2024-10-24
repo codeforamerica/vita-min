@@ -3,7 +3,10 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <p><%= t(".subtitle_html") %></p>
+  <p><%= t(".subtitle") %></p>
+  <ul class="list--bulleted">
+    <%= t(".subtitle_list_html") %>
+  </ul>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">

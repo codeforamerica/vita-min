@@ -113,7 +113,7 @@ module Efile
 
       def calculate_use_tax(nj_gross_income)
         case nj_gross_income
-        when 0..15_000
+        when -Float::INFINITY..15_000
           14
         when 15_000..30_000
           44
@@ -129,8 +129,6 @@ module Efile
           170
         when 200_000..Float::INFINITY
           [0.000852 * nj_gross_income, 494].min.round
-        else
-          0
         end
       end
 

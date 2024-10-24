@@ -179,7 +179,9 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe 'calculate_use_tax' do
     let(:intake) { create(:state_file_nj_intake) }
-    it "when income >= 0 and <= 15,000, use tax is $14" do
+    it "when income <= 15,000, use tax is $14" do
+      expect(instance.calculate_use_tax(-1000)).to eq(14)
+      expect(instance.calculate_use_tax(-1)).to eq(14)
       expect(instance.calculate_use_tax(0)).to eq(14)
       expect(instance.calculate_use_tax(1)).to eq(14)
       expect(instance.calculate_use_tax(14_999)).to eq(14)
