@@ -70,11 +70,11 @@ class DirectFileData < DfXmlAccessor
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
-    total_qualified_expenses_or_limit_amount: 'IRS2441 TotalQlfdExpensesOrLimitAmt',
     excluded_benefits_amount: 'IRS2441 ExcludedBenefitsAmt',
     primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
     spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
+    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
   }.freeze
 
   def initialize(raw_xml)
@@ -733,10 +733,6 @@ class DirectFileData < DfXmlAccessor
     else
       'unfilled'
     end
-  end
-
-  def total_qualified_expenses_or_limit_amount=(value)
-    write_df_xml_value(__method__, value)
   end
 
   def excluded_benefits_amount=(value)

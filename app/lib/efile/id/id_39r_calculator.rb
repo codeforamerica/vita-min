@@ -18,7 +18,7 @@ module Efile
 
       def calculate_line_b_6
         [
-          @direct_file_data.total_qualified_expenses_or_limit_amount,
+          @direct_file_data.total_qualifying_dependent_care_expenses,
           [12_000 - @direct_file_data.excluded_benefits_amount, 0].max,
           @direct_file_data.primary_earned_income_amount,
           @direct_file_data.spouse_earned_income_amount,
