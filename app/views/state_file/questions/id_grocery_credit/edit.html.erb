@@ -10,7 +10,7 @@
         <div class="white-group">
           <%=
             f.cfa_radio_set(
-              :situations_applied_to_household,
+              :household_has_grocery_credit_ineligible_months,
               collection: [
                 { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#select-household-members" } },
                 { value: :no, label: t("general.negative") },
@@ -19,41 +19,40 @@
           %>
         </div>
       </div>
-        <div class="question-with-follow-up__follow-up" id="select-household-members">
+      <div class="question-with-follow-up__follow-up" id="select-household-members">
+        <div class="">
           <div class="">
-            <div class="">
-              <div class="white-group">
+            <div class="white-group">
               <div class="tight-checkboxes spacing-above-0 spacing-below-0">
-                <%= f.cfa_checkbox(:primary, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#primary_months_eligible_for_grocery_credit" }) %>
+                <%= f.cfa_checkbox(:primary_has_grocery_credit_ineligible_months, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#primary_months_ineligible_for_grocery_credit" }) %>
                 <% if current_intake.filing_status_mfj? %>
-                  <%= f.cfa_checkbox(:spouse, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#spouse_months_eligible_for_grocery_credit" }) %>
+                  <%= f.cfa_checkbox(:spouse_has_grocery_credit_ineligible_months, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#spouse_months_ineligible_for_grocery_credit" }) %>
                 <% end %>
-                <% current_intake.dependents.each do |dependent| %>
-                  <% key = "dependent_#{dependent.id}".to_sym %>
-                  <%= f.cfa_checkbox(key, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "##{key}-months" }) %>
+                <%= f.fields_for :dependents do |ff| %>
+                  <% dependent = ff.object %>
+                  <%= ff.cfa_checkbox(:id_has_grocery_credit_ineligible_months, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#dependent-#{dependent.id}-months" }) %>
                 <% end %>
               </div>
             </div>
           </div>
 
-          <div class="" id="primary_months_eligible_for_grocery_credit" style="display: none">
+          <div class="" id="primary_months_ineligible_for_grocery_credit" style="display: none">
             <div class="white-group">
-              <%= f.cfa_select(:primary_months_eligible_for_grocery_credit, "Primary Months", (1..12).to_a, include_blank: true) %>
+              <%= f.cfa_select(:primary_months_ineligible_for_grocery_credit, "Primary Months", (1..12).to_a, include_blank: true) %>
             </div>
           </div>
 
-          <div class="" id="spouse_months_eligible_for_grocery_credit" style="display: none">
+          <div class="" id="spouse_months_ineligible_for_grocery_credit" style="display: none">
             <div class="white-group">
-              <%= f.cfa_select(:spouse_months_eligible_for_grocery_credit, "Spouse Months", (1..12).to_a, include_blank: true) %>
+              <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, "Spouse Months", (1..12).to_a, include_blank: true) %>
             </div>
           </div>
 
-          <% current_intake.dependents.each do |dependent| %>
-            <% key = "dependent_#{dependent.id}".to_sym %>
-
-            <div class="" id="<%= key %>-months" style="display: none">
+          <%= f.fields_for :dependents do |ff| %>
+            <% dependent = ff.object %>
+            <div class="" id="dependent-<%= dependent.id %>-months" style="display: none">
               <div class="white-group">
-                <%= f.cfa_select(key, "#{dependent.full_name} Months", (1..12).to_a, include_blank: true) %>
+                <%= ff.cfa_select(:id_months_ineligible_for_grocery_credit, "#{dependent.full_name} Months", (1..12).to_a, include_blank: true) %>
               </div>
             </div>
           <% end %>
@@ -73,22 +72,23 @@
 <% content_for :script do %>
   <script>
       document.addEventListener("DOMContentLoaded", function () {
-        function registerToggle(selector) {
-          const checkbox = document.querySelector(selector);
-          const toggleInput = document.querySelector(checkbox.dataset.toggle);
+          function registerAndCheckToggle(selector) {
+              const checkbox = document.querySelector(selector);
+              const toggleInput = document.querySelector(checkbox.dataset.toggle);
 
-          checkbox.addEventListener('change', function () {
-            console.log(checkbox.checked);
-            toggleInput.style.display = checkbox.checked ? 'block' : 'none';
-          });
-        }
+              function checkToggle() { toggleInput.style.display = checkbox.checked ? 'block' : 'none'; }
+              checkToggle();
+              checkbox.addEventListener('change', function () {
+                  checkToggle();
+              });
+          }
 
-        registerToggle('#state_file_id_grocery_credit_form_primary')
-        registerToggle('#state_file_id_grocery_credit_form_spouse')
+          registerAndCheckToggle('#state_file_id_grocery_credit_form_primary_has_grocery_credit_ineligible_months')
+          registerAndCheckToggle('#state_file_id_grocery_credit_form_spouse_has_grocery_credit_ineligible_months')
 
-        <% current_intake.dependents.each do |dependent| %>
-          registerToggle("<%= "#state_file_id_grocery_credit_form_dependent_#{dependent.id}" %>")
-        <% end %>
+          <% current_intake.dependents.each_with_index do |dependent, index| %>
+            registerAndCheckToggle("<%= "#state_file_id_grocery_credit_form_dependents_attributes_#{index}_id_has_grocery_credit_ineligible_months" %>")
+          <% end %>
       });
   </script>
 <% end %>

@@ -2,27 +2,28 @@
 #
 # Table name: state_file_dependents
 #
-#  id                                    :bigint           not null, primary key
-#  ctc_qualifying                        :boolean
-#  dob                                   :date
-#  eic_disability                        :integer          default("unfilled")
-#  eic_qualifying                        :boolean
-#  eic_student                           :integer          default("unfilled")
-#  first_name                            :string
-#  id_months_eligible_for_grocery_credit :integer          default(0), not null
-#  intake_type                           :string           not null
-#  last_name                             :string
-#  middle_initial                        :string
-#  months_in_home                        :integer
-#  needed_assistance                     :integer          default("unfilled"), not null
-#  odc_qualifying                        :boolean
-#  passed_away                           :integer          default("unfilled"), not null
-#  relationship                          :string
-#  ssn                                   :string
-#  suffix                                :string
-#  created_at                            :datetime         not null
-#  updated_at                            :datetime         not null
-#  intake_id                             :bigint           not null
+#  id                                      :bigint           not null, primary key
+#  ctc_qualifying                          :boolean
+#  dob                                     :date
+#  eic_disability                          :integer          default("unfilled")
+#  eic_qualifying                          :boolean
+#  eic_student                             :integer          default("unfilled")
+#  first_name                              :string
+#  id_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
+#  id_months_ineligible_for_grocery_credit :integer          default(0)
+#  intake_type                             :string           not null
+#  last_name                               :string
+#  middle_initial                          :string
+#  months_in_home                          :integer
+#  needed_assistance                       :integer          default("unfilled"), not null
+#  odc_qualifying                          :boolean
+#  passed_away                             :integer          default("unfilled"), not null
+#  relationship                            :string
+#  ssn                                     :string
+#  suffix                                  :string
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
+#  intake_id                               :bigint           not null
 #
 # Indexes
 #
@@ -52,6 +53,7 @@ class StateFileDependent < ApplicationRecord
   enum passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away
   enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
   enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
+  enum id_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :id_has_grocery_credit_ineligible_months
 
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
