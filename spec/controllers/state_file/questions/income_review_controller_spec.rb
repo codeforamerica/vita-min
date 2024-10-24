@@ -115,7 +115,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
     context "when filer has 1099-INT info in json" do
       let(:intake) do
-        create(:state_file_md_intake, :df_data_1099_int)  # Intake with 1099-INT data
+        create(:state_file_md_intake, :df_data_1099_int)
       end
 
       it "shows the interest income card" do
