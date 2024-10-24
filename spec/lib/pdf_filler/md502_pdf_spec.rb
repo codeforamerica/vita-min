@@ -17,6 +17,20 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "county information" do
+      before do
+        intake.residence_county = "Allegany"
+        intake.political_subdivision = "Town Of Barton"
+        intake.subdivision_code = "0101"
+      end
+
+      it "output correct information" do
+        expect(pdf_fields["Enter 4 Digit Political Subdivision Code (See Instruction 6)"]).to eq("0101")
+        expect(pdf_fields["Enter Maryland Political Subdivision (See Instruction 6)"]).to eq("Town Of Barton")
+        expect(pdf_fields["Enter zip code + 5"]).to eq("Allegany")
+      end
+    end
+
     describe "income from interest" do
       context "when total interest is > $11,600" do
         before do
@@ -188,6 +202,18 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Check Box 18"]).to eq "X" # spouse
         expect(pdf_fields["Text Field 15"]).to eq "X" # exemption count
         expect(pdf_fields["Enter A $"]).to eq "X" # exemption amount
+      end
+    end
+
+    context "subtractions" do
+      before do
+        intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
+        intake.direct_file_data.fed_taxable_ssb = 240
+      end
+
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
+        expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
       end
     end
   end

@@ -2350,11 +2350,13 @@ en:
           body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
+            eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
             eligibility_lived_in_state: did not live in %{state} for all of 2023
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2023
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
             eligibility_yonkers: lived or earned income in Yonkers in 2023
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
@@ -2378,6 +2380,11 @@ en:
             title: What are my other state filing options?
           vita_link: Get started with VITA now
       eligible:
+        az_supported:
+          dependent_credit: Dependent Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
         az_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
@@ -2395,20 +2402,49 @@ en:
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
-          dependent_credit: Dependent Credit
-          empire_state_ctc: Empire State Child Credit
-          family_income_credit: Family Income Credit
-          increased_deduction: An increased deduction for charitable contributions
-          increased_excise_credit: Increased Excise Credit
           not_supported: What credits and deductions does this tool not support this year?
-          nyc_school_tax_credit: NYC School Tax Credit
-          nys_eic: NYS/NYC Earned Income Credit
-          nys_hh_credit: NYS/NYC Household Credit
-          title1: Good news, you can use this tool this year to file your state taxes.
+          title1: You can use this tool to file your %{year} %{state} state taxes
           title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+        id_supported:
+          child_care_deduction: Child and Dependent Care Deduction
+          id_child_tax_credit: Idaho Child Tax Credit
+          id_grocery_credit: Idaho Grocery Credit
+          interest_from_obligations: Interest from U.S government obligations
+          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+        id_unsupported:
+          change_in_filing_status: Change in filing status from federal to state return
+          dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
+          earned_on_reservation: Income earned on a reservation by an American Indian
+          education_contribution_credit: Educational Entity Contributions credit
+          id_college_savings_program: Idaho College Savings Program Subtraction
+          id_youth_rehab_contributions: Credit for Idaho Youth and Rehabilitation Facility Contributions
+          itemized_deductions: Itemized deductions
+          long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
+          maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
+          voluntary_donations: All voluntary donations
+        md_additional_credits:
+          heading1: 'Subtractions:'
+          heading2: 'Credits:'
+          sub1: Subtraction for Child and Dependent Care Expenses
+          sub10: Senior Tax Credit
+          sub11: State and local Poverty Level Credits
+          sub12: Credit for Child and Dependent Care Expenses
+          sub2: Pension exclusion (if you're 65 years or older, or if you're under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub3: Military retirement exclusion
+          sub4: Public safety retirement exclusion
+          sub5: Taxable Social Security and Railroad Retirement benefits
+          sub6: Interest income from obligations of the US or US possessions
+          sub7: Two-income subtraction for married filing jointly taxpayers
+          sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
+          sub9: State Child Tax Credit (for children under 6)
+        ny_supported:
+          empire_state_ctc: Empire State Child Credit
+          nyc_school_tax_credit: NYC School Tax Credit
+          nys_eic: NYS/NYC Earned Income Credit
+          nys_hh_credit: NYS/NYC Household Credit
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2445,20 +2481,51 @@ en:
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+          md:
+            body_html: |
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
+              <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
               <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
+          pin:
+            primary_signature_pin: "<strong>%{primary_name}'s 5-digit PIN</strong>"
+            spouse_signature_pin: "<strong>%{spouse_name}'s 5-digit PIN</strong>"
+            title: Choose a 5-digit signature PIN. This number will be your personal electronic signature.
           primary_esign: I have read the certification above and agree
           resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_eligibility_residence:
+        edit:
+          emergency_rental_assistance: In 2024, did you (or your spouse if filing together) receive emergency rental assistance?
+          emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
+          subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
+          subtitle_2: Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{filing_year} Idaho taxes
+          withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
+          withdrew_msa_fthb_list:
+            bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
+            bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
+          sales_tax_title: What are sales taxes?
+          sales_use_tax_helper_text: Enter total amount
+          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          title: Did you make any purchases in %{year} without paying sales or use tax?
+          unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
+          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
+          use_tax_title: What are use taxes?
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
+          ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
@@ -2475,6 +2542,29 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_county:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
+          title: Select the county and political subdivision where you lived on December 31, %{filing_year}
+          title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
+      md_eligibility_filing_status:
+        edit:
+          eligibility_filing_status_label_text: Are you married and filing a joint state return?
+          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
+          eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
+          eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
+          permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
+          permanent_home_heading: What is a permanent home?
+          subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_review:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2528,7 +2618,6 @@ en:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
-          not_a_number: Please enter numbers only.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
@@ -2571,6 +2660,7 @@ en:
           homeowner_main_home_multi_unit: Was your main home a unit in a multi-unit property that you owned?
           homeowner_main_home_multi_unit_max_four_one_commercial: My main home was a unit in a multi-unit property I owned, the property had no more than four units, and no more than one of those was a commercial unit.
           homeowner_more_than_one_main_home_in_nj: Did you have more than one main home in New Jersey during the year?
+          homeowner_same_home_spouse: Did you and your spouse live in the same home?
           homeowner_shared_ownership_not_spouse: Did you share ownership of your main home with someone who is not your spouse?
           label: Did any of these apply to you?
           title: You said you were a homeowner in %{filing_year}.
@@ -2592,6 +2682,29 @@ en:
         edit:
           helper_description: Please continue to see what else we can guide you to qualify for.
           title: Looks like you’re not eligible for this credit.
+      nj_medical_expenses:
+        edit:
+          description_html: |-
+            <p>This includes expenses for yourself, your spouse, and your dependents.</p>
+            <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
+            <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
+          do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          help_text: Estimates are ok. For example, $3000.
+          label: Non-reimbursed medical expenses paid in %{filing_year}
+          learn_more_content_html: |-
+            <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
+            <li>Hospital care</li>
+            <li>Nursing care</li>
+            <li>Medicines and drugs</li><li>Prosthetic devices</li>
+            <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+            <li>Amounts paid for transportation primarily for and essential to medical care</li>
+            <li>Insurance (including amounts paid as premiums under Part B of Title XVIII of the Social Security Act, relating to supplementary medical insurance for the aged) covering medical care</li>
+          learn_more_meaning: Medical expenses means non-reimbursed payments for costs such as
+          learn_more_note_html: |-
+            Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
+            oopener noreferrer">if the child was your dependent.</a>
+          learn_more_title: What are medical expenses?
+          title: You can deduct medical expenses.
       nj_municipality:
         edit:
           helper_description_html: If the place where you live is not listed, use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your municipality.
@@ -2602,6 +2715,7 @@ en:
         edit:
           county: County
           household_rent_own: Rent or own home
+          medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
           property_tax_paid: Property taxes paid
@@ -3128,10 +3242,12 @@ en:
     must_be_associated_with_tax_return: "%{document_type} must be associated with a tax year."
     must_enter_amount: If someone claimed this credit you must enter an amount.
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
+    not_a_number: Please enter numbers only.
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
+    signature_pin_matching: Signature PINs cannot be identical.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
     urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
@@ -4704,7 +4820,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closed_banner: GetYourRefund will reopen {start_of_open_intake}.
+        closed_banner: GetYourRefund will reopen %{start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ

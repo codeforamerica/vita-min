@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1820,13 +1820,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
-    t.integer "eligibility_lived_in_state", default: 0, null: false
-    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
+    t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1856,6 +1857,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.string "spouse_suffix"
+    t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
@@ -1883,6 +1885,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
+    t.integer "eligibility_filing_status_mfj", default: 0, null: false
+    t.integer "eligibility_home_different_areas", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal_mfj", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
@@ -1899,6 +1905,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.string "political_subdivision"
     t.date "primary_birth_date"
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
@@ -1906,12 +1913,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_signature"
+    t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
+    t.string "residence_county"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
@@ -1921,10 +1930,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.string "street_address"
+    t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
@@ -2049,12 +2060,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_153728) do
     t.integer "homeowner_main_home_multi_unit", default: 0, null: false
     t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
     t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_same_home_spouse", default: 0, null: false
     t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.integer "medical_expenses", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"

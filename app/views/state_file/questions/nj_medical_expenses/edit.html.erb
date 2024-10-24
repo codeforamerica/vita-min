@@ -1,0 +1,41 @@
+<%
+  title = t(".title", filing_year: @filing_year)
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+  <%= t(".description_html") %>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.vita_min_money_field(
+        :medical_expenses,
+        t('.label', filing_year: @filing_year),
+        help_text: t('.help_text'),
+        classes: ["form-width--long"],
+        options: { placeholder: "" }
+    ) %>
+    </div>
+
+    <p><%= t(".do_not_claim") %></p>
+
+    <div class="reveal">
+        <h2 style="margin-bottom: 0">
+            <a class="reveal__link" aria-controls="nj-medical-details" aria-expanded="false">
+                <%= t('.learn_more_title') %>
+            </a>
+        </h2>
+        <div class="reveal__content" id="nj-medical-details">
+            <p><%= t('.learn_more_meaning') %>:</p>
+            <ul class="list--bulleted"><%= t('.learn_more_content_html') %></ul>
+            <p><%= t('.learn_more_note_html') %></p>
+        </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

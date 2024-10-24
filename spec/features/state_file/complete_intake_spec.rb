@@ -29,7 +29,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # name dob page
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: "ny")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
@@ -170,7 +170,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: "az")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
@@ -341,7 +341,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: "nc")
       expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
       expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
@@ -430,6 +430,36 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
+      filing_year = Rails.configuration.statefile_current_tax_year
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance")
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
+
+      find('#state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
+      find('#state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
+
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
+
+      find('a.reveal__link').click
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.maintaining_elderly_disabled_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.long_term_care_insurance_subtraction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.earned_on_reservation")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.education_contribution_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.itemized_deductions")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.dependents_not_claimed_fed_return")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.voluntary_donations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.change_in_filing_status")
+
+      click_on I18n.t("general.continue")
+
       step_through_initial_authentication(contact_preference: :email)
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
@@ -457,6 +487,16 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
+      # 1099G Review
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.affirmative")
+      fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
+
+      # ID Review page
+      click_on I18n.t("general.continue")
+
       # TODO: uncomment when the name dob page is added; test fails without a name
       # expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileIdIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
@@ -482,7 +522,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.md.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
+      # select optoins that allow us to proceed
+      click_on "Continue"
+
+      #click continue on eligibility & check the messaging is correct here?
+      # select mfj
+      choose I18n.t("general.affirmative")
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
+
+      click_on "Continue"
+
       click_on "Continue"
 
       step_through_initial_authentication(contact_preference: :email)
@@ -493,6 +544,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer("Transfer Minimal")
 
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+      select("Allegany", from: "County")
+      select("Town Of Barton", from: "Political subdivision")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
@@ -519,6 +575,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
+      fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 

@@ -31,6 +31,9 @@ module PdfFiller
         'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
+        'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
+        'Enter zip code + 5': @submission.data_source.residence_county,
         "Check Box - 1": filing_status(:filing_status_single?) ? 'Yes' : 'Off',
         "Check Box - 2": filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
         "Check Box - 3": filing_status(:filing_status_mfs?) ? 'No' : 'Off', # "No" is the checked option
@@ -42,6 +45,8 @@ module PdfFiller
         "Check Box 18": @xml_document.at('Exemptions Spouse Standard')&.text,
         "Text Field 15": @xml_document.at('Exemptions Standard Count')&.text,
         "Enter A $": @xml_document.at('Exemptions Amount Count')&.text,
+        "Enter 9": @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
+        "Enter 11": @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
         "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
         "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,

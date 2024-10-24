@@ -16,6 +16,36 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "County information" do
+        context "with incorporated subdivision" do
+          before do
+            intake.residence_county = "Allegany"
+            intake.political_subdivision = "Town Of Barton"
+            intake.subdivision_code = "0101"
+          end
+
+          it "outputs correct information" do
+            expect(xml.at("Form502 MarylandSubdivisionCode").text).to eq("0101")
+            expect(xml.at("Form502 CityTownOrTaxingArea").text).to eq("Town Of Barton")
+            expect(xml.at("Form502 MarylandCounty").text).to eq("AL")
+          end
+        end
+
+        context "with unincorporated subdivision" do
+          before do
+            intake.residence_county = "Anne Arundel"
+            intake.political_subdivision = "Anne Arundel - unincorporated"
+            intake.subdivision_code = "0200"
+          end
+
+          it "outputs correct information without CityTownOrTaxingArea" do
+            expect(xml.at("Form502 MarylandSubdivisionCode").text).to eq("0200")
+            expect(xml.at("Form502 CityTownOrTaxingArea")).to be_nil
+            expect(xml.at("Form502 MarylandCounty").text).to eq("AA")
+          end
+        end
+      end
+
       context "Income section" do
         context "when all relevant values are present in the DF XML" do
           before do
@@ -159,6 +189,23 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             it "omits the whole section" do
               expect(xml.document.at("Exemptions Dependents")).to be_nil
             end
+          end
+        end
+      end
+
+      context "subtractions section" do
+        context "when all relevant values are present in the DF XML" do
+          before do
+            intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
+            intake.direct_file_data.fed_taxable_ssb = 240
+          end
+
+          it "outputs child and dependent care expenses" do
+            expect(xml.at("Form502 Subtractions ChildAndDependentCareExpenses").text.to_i).to eq(intake.direct_file_data.total_qualifying_dependent_care_expenses)
+          end
+
+          it "outputs Taxable Social Security and RR benefits" do
+            expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
           end
         end
       end
