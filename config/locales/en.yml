@@ -2467,11 +2467,19 @@ en:
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+          md:
+            body_html: |
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
+              <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
               <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
+          pin:
+            primary_signature_pin: "<strong>%{primary_name}'s 5-digit PIN</strong>"
+            spouse_signature_pin: "<strong>%{spouse_name}'s 5-digit PIN</strong>"
+            title: Choose a 5-digit signature PIN. This number will be your personal electronic signature.
           primary_esign: I have read the certification above and agree
           resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
@@ -3214,6 +3222,7 @@ en:
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
+    signature_pin_matching: Signature PINs cannot be identical.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
     urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
