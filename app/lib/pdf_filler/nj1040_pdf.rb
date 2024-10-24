@@ -285,6 +285,21 @@ module PdfFiller
         ]))
       end
 
+      # line 51
+      if @xml_document.at("SalesAndUseTax").present?
+        tax = @xml_document.at("SalesAndUseTax").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+          "50_7",
+          "Text134",
+          "Text133",
+          "Text132",
+          "Text131",
+          "50_3",
+          "50_2",
+          "50",
+        ]))
+      end
+
       # line 56
       if @xml_document.at("PropertyTaxCredit").present?
         tax = @xml_document.at("PropertyTaxCredit").text.to_i
