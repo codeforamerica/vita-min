@@ -3,7 +3,6 @@
 # Table name: state_file_md_intakes
 #
 #  id                                   :bigint           not null, primary key
-#  account_holder_name                  :string
 #  account_number                       :string
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
