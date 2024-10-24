@@ -1,6 +1,7 @@
 class DfW2Accessor < DfXmlAccessor
   SELECTORS = {
     EmployeeSSN: 'EmployeeSSN',
+    EmployeeNm: 'EmployeeNm',
     EmployerEIN: 'EmployerEIN',
     EmployerName: 'EmployerName BusinessNameLine1Txt',
     EmployerStateIdNum: 'EmployerStateIdNum',

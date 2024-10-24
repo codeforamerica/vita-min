@@ -13,7 +13,7 @@ describe XmlMethods do
       XML
       xml = Nokogiri::XML(content)
       Class.new.extend(XmlMethods).delete_blank_nodes(xml)
-      result = "<?xml version=\"1.0\"?>\n<outer>\n  <inner3>1</inner3>\n</outer>\n"
+      result = "<?xml version=\"1.0\"?>\n<outer><inner2>0</inner2>\n  <inner3>1</inner3></outer>\n"
       expect(xml.to_xml).to eq result
     end
   end

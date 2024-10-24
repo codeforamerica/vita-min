@@ -110,6 +110,11 @@ module Efile
         ((income * rate) - subtraction).round(2)
       end
 
+      def should_use_property_tax_deduction
+        return false if calculate_tax_liability_with_deduction.nil?
+        calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -167,13 +172,13 @@ module Efile
       end
 
       def calculate_line_15
-        if @direct_file_data.w2s.empty?
+        if @intake.state_file_w2s.empty?
           return -1
         end
 
         sum = 0
-        @direct_file_data.w2s.each do |w2|
-          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_i
+        @intake.state_file_w2s.each do |w2|
+          state_wage = w2.state_wages_amount
           sum += state_wage
         end
         sum
@@ -205,11 +210,6 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
-      end
-
-      def should_use_property_tax_deduction
-        return false if calculate_tax_liability_with_deduction.nil?
-        calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
       end
 
       def calculate_line_41

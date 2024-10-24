@@ -27,7 +27,6 @@ RSpec.describe Navigation::StateFileNyQuestionNavigation do
         StateFile::Questions::NyCountyController,
         StateFile::Questions::NySchoolDistrictController,
         StateFile::Questions::NyPermanentAddressController,
-        StateFile::Questions::W2Controller,
         StateFile::Questions::NySalesUseTaxController,
         StateFile::Questions::NyPrimaryStateIdController,
         StateFile::Questions::NySpouseStateIdController,

@@ -13,6 +13,7 @@ FactoryBot.define do
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_w2s_to_database
 
       intake.dependents.where(first_name: "David").first.update(
         dob: Date.new(2015, 1, 1),
@@ -107,6 +108,7 @@ FactoryBot.define do
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_w2s_to_database
 
       intake.dependents.where(first_name: "April").first.update(
         dob: Date.new(2019, 8, 8),
@@ -161,6 +163,7 @@ FactoryBot.define do
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_w2s_to_database
 
       intake.dependents.where(first_name: "Nelly").first.update(
         dob: Date.new(2004, 6, 6),
@@ -211,6 +214,7 @@ FactoryBot.define do
 
   factory "rory", class: StateFileAzIntake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimedasdep_v2") }
+
     primary_first_name { "RORY" }
     primary_last_name { "GILMORE" }
     primary_birth_date { "2002-02-03" }
@@ -224,5 +228,7 @@ FactoryBot.define do
     charitable_contributions { "no" }
 
     payment_or_deposit_type { "mail" }
+
+    after(:create, &:synchronize_df_w2s_to_database)
   end
 end

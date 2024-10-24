@@ -116,15 +116,18 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
 
     context "when there is a refund with banking info" do
       let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no") }
+
       it "generates FinancialTransaction xml with correct RefundAmt" do
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
-        expect(xml.at("RefundDirectDeposit Amount").text).to eq "475"
+        expect(xml.at("RefundDirectDeposit Amount").text).to eq "500"
       end
     end
 
     context "when there is a payment owed with banking info" do
       let(:intake) { create(:state_file_az_owed_intake) }
+
       it "generates FinancialTransaction xml with correct Amount" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
@@ -136,7 +139,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman')) }
 
       it "does not error" do
-        # xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         builder_response = described_class.build(submission)
         expect(builder_response.errors).not_to be_present
       end

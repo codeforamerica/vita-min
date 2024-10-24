@@ -17,6 +17,10 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
     before do
       allow(IrsApiService).to receive(:import_federal_data).and_return(json_result)
       allow(DfDataTransferJobChannel).to receive(:broadcast_job_complete)
+      allow(intake).to receive(:synchronize_df_dependents_to_database).and_call_original
+      allow(intake).to receive(:synchronize_df_1099_rs_to_database).and_call_original
+      allow(intake).to receive(:synchronize_df_w2s_to_database).and_call_original
+      allow(intake).to receive(:synchronize_filers_to_database).and_call_original
     end
 
     context "with a successful direct file response" do
@@ -25,6 +29,10 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(IrsApiService).to have_received(:import_federal_data).with(auth_code, "id")
+        expect(intake).to have_received(:synchronize_df_dependents_to_database)
+        expect(intake).to have_received(:synchronize_df_1099_rs_to_database)
+        expect(intake).to have_received(:synchronize_df_w2s_to_database)
+        expect(intake).to have_received(:synchronize_filers_to_database)
         expect(intake.federal_submission_id).to eq "91873649812736"
         expect(intake.federal_return_status).to eq "accepted"
         expect(intake.raw_direct_file_data).to eq xml_result
