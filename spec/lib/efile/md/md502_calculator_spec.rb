@@ -266,15 +266,15 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-    describe "#calculate_line_a_yourself" do
-      context 'primary not claimed as a dependent' do
+  describe "#calculate_line_a_yourself" do
+    context 'primary not claimed as a dependent' do
       before do
         intake.direct_file_data.primary_claim_as_dependent = ""
       end
 
       it "checks the value" do
         instance.calculate
-        expect(instance.lines[:MD502_LINE_A_YOURSELF].value).to eq "X"
+        expect(instance.lines[:MD502_LINE_A_PRIMARY].value).to eq "X"
       end
     end
 
@@ -285,7 +285,7 @@ describe Efile::Md::Md502Calculator do
 
       it "returns nil" do
         instance.calculate
-        expect(instance.lines[:MD502_LINE_A_YOURSELF].value).to eq nil
+        expect(instance.lines[:MD502_LINE_A_PRIMARY].value).to eq nil
       end
     end
   end
@@ -314,7 +314,7 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  describe "#calculate_line_a_checked_count" do
+  describe "#calculate_line_a_count" do
     context "when line a yourself and spouse are both checked" do
       before do
         intake.direct_file_data.filing_status = 2 # married_filing_jointly
@@ -323,7 +323,7 @@ describe Efile::Md::Md502Calculator do
 
       it "returns 2" do
         instance.calculate
-        expect(instance.lines[:MD502_LINE_A_CHECKED_COUNT].value).to eq 2
+        expect(instance.lines[:MD502_LINE_A_COUNT].value).to eq 2
       end
     end
 
@@ -335,7 +335,7 @@ describe Efile::Md::Md502Calculator do
 
       it "returns 1" do
         instance.calculate
-        expect(instance.lines[:MD502_LINE_A_CHECKED_COUNT].value).to eq 1
+        expect(instance.lines[:MD502_LINE_A_COUNT].value).to eq 1
       end
     end
 
@@ -347,7 +347,7 @@ describe Efile::Md::Md502Calculator do
 
       it "returns 1" do
         instance.calculate
-        expect(instance.lines[:MD502_LINE_A_CHECKED_COUNT].value).to eq 0
+        expect(instance.lines[:MD502_LINE_A_COUNT].value).to eq 0
       end
     end
   end
@@ -390,61 +390,283 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_b_primary_senior" do
+    context "when primary is 65+" do
+      before do
+        intake.primary_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 31)
+      end
 
+      it "returns X" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_PRIMARY_SENIOR].value).to eq "X"
+      end
+    end
+
+    context "when primary is 65 the day after the current tax year" do
+      # Maryland, unlike other states that follow federal guidelines, does not include Jan 1st b-days for senior benefits
+      before do
+        intake.primary_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1)
+      end
+
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_PRIMARY_SENIOR].value).to eq nil
+      end
+    end
+
+    context "when primary is 30 years old at the end of the tax year" do
+      # Maryland, unlike other states that follow federal guidelines, does not include Jan 1st b-days for senior benefits
+      before do
+        intake.primary_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 30), 12, 31)
+      end
+
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_PRIMARY_SENIOR].value).to eq nil
+      end
+    end
   end
 
   describe "#calculate_line_b_spouse_senior" do
+    let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: filing_status) }
+    context "when married filed jointly" do
+      let(:filing_status) { "married_filing_jointly" }
+      context "when spouse is 65+ at the end of the current tax year" do
+        before do
+          intake.spouse_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 70), 12, 31)
+        end
+
+        it "returns the checked value" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_SENIOR].value).to eq 'X'
+        end
+      end
+
+      context "when spouse is younger than 65" do
+        before do
+          intake.spouse_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1)
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_SENIOR].value).to eq nil
+        end
+      end
+    end
+
+    context "when qualifying widow" do
+      let(:filing_status) { "qualifying_widow" }
+      context "when spouse is 65+ at the end of the current tax year" do
+        before do
+          intake.spouse_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 70), 12, 31)
+        end
+
+        it "returns the checked value" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_SENIOR].value).to eq 'X'
+        end
+      end
+
+      context "when spouse is younger than 65" do
+        before do
+          intake.spouse_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1)
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_SENIOR].value).to eq nil
+        end
+      end
+    end
+
+    context "when single" do
+      let(:filing_status) { "single" }
+      context "when spouse is 65+ at the end of the current tax year" do
+        before do
+          intake.spouse_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 70), 12, 31)
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_SENIOR].value).to eq nil
+        end
+      end
+
+      context "when spouse is younger than 65" do
+        before do
+          intake.spouse_birth_date = Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1)
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_SENIOR].value).to eq nil
+        end
+      end
+    end
 
   end
 
   describe "#calculate_line_b_primary_blind" do
+    context "when primary is blind" do
+      before do
+        allow(intake.direct_file_data).to receive(:is_primary_blind?).and_return true
+      end
 
+      it "returns the checked value" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_PRIMARY_BLIND].value).to eq 'X'
+      end
+    end
+
+    context "when primary is NOT blind" do
+      before do
+        allow(intake.direct_file_data).to receive(:is_primary_blind?).and_return false
+      end
+
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_PRIMARY_BLIND].value).to eq nil
+      end
+    end
   end
 
   describe "#calculate_line_b_spouse_blind" do
+    context "when married-filing-jointly" do
+      let(:filing_status) { "married_filing_jointly" }
+      context "when spouse is blind" do
+        before do
+          allow(intake.direct_file_data).to receive(:is_spouse_blind?).and_return true
+        end
 
+        it "returns the checked value" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_BLIND].value).to eq 'X'
+        end
+      end
+
+      context "when spouse is NOT blind" do
+        before do
+          allow(intake.direct_file_data).to receive(:is_spouse_blind?).and_return false
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_BLIND].value).to eq nil
+        end
+      end
+    end
+
+    context "when single" do
+      context "when spouse is blind" do
+        before do
+          allow(intake.direct_file_data).to receive(:is_spouse_blind?).and_return true
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_BLIND].value).to eq nil
+        end
+      end
+
+      context "when spouse is NOT blind" do
+        before do
+          allow(intake.direct_file_data).to receive(:is_spouse_blind?).and_return false
+        end
+
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_B_SPOUSE_BLIND].value).to eq nil
+        end
+      end
+    end
   end
 
-  describe "#calculate_line_b_checked_count" do
+  describe "#calculate_line_b_count" do
+    context "when all line b boxes checked" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_senior).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_blind).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_blind).and_return 'X'
+      end
 
+      it 'returns 4' do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_COUNT].value).to eq 4
+      end
+    end
+
+    context "when only 2 line b boxes checked" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_senior).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_blind).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_blind).and_return 'X'
+      end
+
+      it 'returns 2' do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_B_COUNT].value).to eq 2
+      end
+    end
   end
 
   describe "#calculate_line_b_amount" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_count).and_return 2
+    end
 
+    it 'returns the checked count times 1000' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_B_AMOUNT].value).to eq 2_000
+    end
   end
 
-  describe "#calculate_line_d_exemption_total" do
+  describe "#calculate_line_c_count" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_3).and_return 2
+    end
 
+    it "gets line 3 from 502b" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_C_COUNT].value).to eq 2
+    end
   end
 
-  describe "#calculate_line_d_exemption_total_dollar_amount" do
+  describe "#calculate_line_c_amount" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_amount).and_return 3_200
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_count).and_return 3
+    end
 
+    it "multiplies the exemption amount by the dependent exemption count" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_C_AMOUNT].value).to eq(3_200 * 3)
+    end
   end
 
-  context "exemptions" do
-    context "dependent exemptions" do
-      describe "Dependent exemption count" do
-        before do
-          allow_any_instance_of(Efile::Md::Md502bCalculator).to receive(:calculate_line_3).and_return 2
-        end
+  describe "#calculate_line_d_count_total" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_count).and_return "1"
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_count).and_return "2"
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_count).and_return '3'
+    end
 
-        it "gets line 3 from 502b" do
-          instance.calculate
-          expect(instance.lines[:MD502_DEPENDENT_EXEMPTION_COUNT].value).to eq 2
-        end
-      end
+    it 'the sums the counts from line A-C' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_D_COUNT_TOTAL].value).to eq 6
+    end
+  end
 
-      describe "#calculate_total_dependent_exemption_amount" do
-        before do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_amount).and_return 3_200
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return 3
-        end
+  describe "#calculate_line_d_amount_total" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_amount).and_return nil
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_amount).and_return 2000
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_amount).and_return 1200
+    end
 
-        it "multiplies the exemption amount by the dependent exemption count" do
-          instance.calculate
-          expect(instance.lines[:MD502_DEPENDENT_EXEMPTION_AMOUNT].value).to eq(3_200 * 3)
-        end
-      end
+    it 'the sums the amount from line A-C' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_D_AMOUNT_TOTAL].value).to eq 3200
     end
   end
 end

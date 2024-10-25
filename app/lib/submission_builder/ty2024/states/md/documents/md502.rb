@@ -61,7 +61,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       if has_exemptions?
         xml.Exemptions do
           xml.Primary do
-            add_element_if_present(xml, "Standard", :MD502_LINE_A_YOURSELF)
+            add_element_if_present(xml, "Standard", :MD502_LINE_A_PRIMARY)
             add_element_if_present(xml, "Over65", :MD502_LINE_B_PRIMARY_SENIOR)
             add_element_if_present(xml, "Blind", :MD502_LINE_B_PRIMARY_BLIND)
           end
@@ -73,22 +73,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
             end
           end
           xml.Standard do
-            xml.Count calculated_fields.fetch(:MD502_LINE_A_CHECKED_COUNT)
+            xml.Count calculated_fields.fetch(:MD502_LINE_A_COUNT)
             xml.Amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
           end
           xml.Additional do
-            xml.Count calculated_fields.fetch(:MD502_LINE_B_CHECKED_COUNT)
+            xml.Count calculated_fields.fetch(:MD502_LINE_B_COUNT)
             xml.Amount calculated_fields.fetch(:MD502_LINE_B_AMOUNT)
           end
           if has_dependent_exemption?
             xml.Dependents do
-              xml.Count calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_COUNT)
-              xml.Amount calculated_fields.fetch(:MD502_DEPENDENT_EXEMPTION_AMOUNT)
+              xml.Count calculated_fields.fetch(:MD502_LINE_C_COUNT)
+              xml.Amount calculated_fields.fetch(:MD502_LINE_C_AMOUNT)
             end
           end
           xml.Total do
-            xml.Count calculated_fields.fetch(:MD502_LINE_D_EXEMPTION_TOTAL)
-            xml.Amount calculated_fields.fetch(:MD502_LINE_D_EXEMPTION_TOTAL_DOLLAR_AMOUNT)
+            xml.Count calculated_fields.fetch(:MD502_LINE_D_COUNT_TOTAL)
+            xml.Amount calculated_fields.fetch(:MD502_LINE_D_AMOUNT_TOTAL)
           end
         end
       end
@@ -121,8 +121,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
 
   def has_dependent_exemption?
     [
-      :MD502_DEPENDENT_EXEMPTION_COUNT,
-      :MD502_DEPENDENT_EXEMPTION_AMOUNT
+      :MD502_LINE_C_COUNT,
+      :MD502_LINE_C_AMOUNT
     ].any? do |line|
       calculated_fields.fetch(line) > 0
     end
@@ -130,8 +130,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
 
   def has_exemptions?
     has_line_a_or_b_exemptions = [
-      :MD502_LINE_A_CHECKED_COUNT,
-      :MD502_LINE_B_CHECKED_COUNT
+      :MD502_LINE_A_COUNT,
+      :MD502_LINE_B_COUNT
     ].any? do |line|
       calculated_fields.fetch(line) > 0
     end

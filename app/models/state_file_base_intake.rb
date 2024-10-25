@@ -370,16 +370,16 @@ class StateFileBaseIntake < ApplicationRecord
 
   # check that maryland still doesn't include
   def primary_senior?
-    calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date) >= 65
+    calculate_age(inclusive_of_jan_1: true, dob: primary_birth_date) >= 65
   end
 
   def spouse_senior?
     return nil unless spouse_birth_date.present?
 
-    calculate_age(inclusive_of_jan_1: true, dob: spouse.birth_date) >= 65
+    calculate_age(inclusive_of_jan_1: true, dob: spouse_birth_date) >= 65
   end
 
-  def calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date)
+  def calculate_age(inclusive_of_jan_1: true, dob: primary_birth_date)
     # federal guidelines: you qualify for age related benefits the day before your birthday
     # that means for a given tax year those born on Jan 1st the following tax-year will be included
     # this does not apply for benefits you age out of or any age calculations for Maryland

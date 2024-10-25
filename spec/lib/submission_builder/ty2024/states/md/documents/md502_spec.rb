@@ -156,10 +156,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         context "when there are no exemptions" do
           it "omits the whole exemptions section" do
             [
-              :get_dependent_exemption_count,
-              :calculate_total_dependent_exemption_amount,
-              :calculate_line_a_checked_count,
-              :calculate_line_b_checked_count
+              :calculate_line_c_count,
+              :calculate_line_c_amount,
+              :calculate_line_a_count,
+              :calculate_line_b_count
             ].each do |method|
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
             end
@@ -202,8 +202,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         context "line C: dependents section" do
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_total_dependent_exemption_amount).and_return dependent_exemption_amount
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_count).and_return dependent_count
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_amount).and_return dependent_exemption_amount
           end
 
           context "when there are values" do
@@ -230,8 +230,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly", spouse_birth_date: 65.years.ago, primary_birth_date: 65.years.ago) }
 
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_exemption_total).and_return "X"
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_exemption_total_dollar_amount).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_count_total).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_amount_total).and_return "X"
           end
 
           it "fills out line B" do
