@@ -598,10 +598,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test NJ"
 
-      expect(page).to have_text "File your New Jersey taxes for free"
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.nj.title")
       click_on "Get Started", id: "firstCta"
 
-      # step_through_eligibility_screener(us_state: "nj") - to do after eligibility
       click_on I18n.t("general.continue")
 
       step_through_initial_authentication(contact_preference: :email)
@@ -611,31 +610,25 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer("Transfer Minimal")
 
-      expect(page).to have_text "Your federal tax return is now transferred."
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      # County
       select "Atlantic"
       click_on I18n.t("general.continue")
 
-      # Municipality
       select "Atlantic City"
       click_on I18n.t("general.continue")
 
-      # Medical expenses
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
       click_on I18n.t("general.continue")
 
-      # Homeowner tenant
-      choose "Neither"
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
       click_on I18n.t("general.continue")
 
-      # Disabled
-      choose "No"
+      choose I18n.t('general.negative')
       click_on I18n.t("general.continue")
 
-      # Review
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
     end
