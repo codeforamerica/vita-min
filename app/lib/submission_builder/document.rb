@@ -5,8 +5,8 @@ module SubmissionBuilder
 
     def initialize(submission, validate: true, kwargs: {})
       @submission = submission
-      @intake = submission.data_source
-      @direct_file_data = submission.data_source.direct_file_data
+      @intake = submission&.data_source
+      @direct_file_data = submission&.data_source&.direct_file_data
       @validate = validate
       @schema_version = determine_default_schema_version_by_tax_year
       @kwargs = kwargs
