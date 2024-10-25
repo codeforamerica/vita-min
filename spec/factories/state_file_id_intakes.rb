@@ -14,6 +14,7 @@
 #  date_electronic_withdrawal                     :date
 #  df_data_import_failed_at                       :datetime
 #  df_data_imported_at                            :datetime
+#  donate_grocery_credit                          :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                     :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                :integer          default("unfilled"), not null
 #  email_address                                  :citext
@@ -87,6 +88,10 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    after(:create) do |intake|
+      intake.synchronize_df_dependents_to_database
     end
 
     #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one

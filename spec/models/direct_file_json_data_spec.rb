@@ -63,10 +63,6 @@ describe DirectFileJsonData do
     let(:direct_file_json_data) { intake.direct_file_json_data }
     let(:dependents) { intake.dependents }
 
-    before do
-      intake.synchronize_df_dependents_to_database
-    end
-
     it "should be able to find matching dependent from xml in json" do
       expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).first_name).to eq("Gloria")
       expect(direct_file_json_data.find_matching_json_dependent(dependents[1]).first_name).to eq("Patrick")

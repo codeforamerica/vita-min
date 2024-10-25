@@ -14,6 +14,7 @@
 #  date_electronic_withdrawal                     :date
 #  df_data_import_failed_at                       :datetime
 #  df_data_imported_at                            :datetime
+#  donate_grocery_credit                          :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                     :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                :integer          default("unfilled"), not null
 #  email_address                                  :citext
@@ -73,6 +74,7 @@ class StateFileIdIntake < StateFileBaseIntake
   enum household_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_has_grocery_credit_ineligible_months
   enum primary_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_has_grocery_credit_ineligible_months
   enum spouse_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_has_grocery_credit_ineligible_months
+  enum donate_grocery_credit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :donate_grocery_credit
 
   def disqualifying_df_data_reason; end
 
