@@ -264,6 +264,8 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
 
+    # uh-oh gotta change this to use new age calculations
+    # and all the places where we might call primary.age or spouse.age
     def age
       birth_date.present? ? MultiTenantService.statefile.current_tax_year - birth_date.year : 0
     end
@@ -364,6 +366,17 @@ class StateFileBaseIntake < ApplicationRecord
       self.withdraw_amount = nil
       self.date_electronic_withdrawal = nil
     end
+  end
+
+  # check that maryland still doesn't include
+  def primary_senior?
+    calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date) >= 65
+  end
+
+  def spouse_senior?
+    return nil unless spouse_birth_date.present?
+
+    calculate_age(inclusive_of_jan_1: true, dob: spouse.birth_date) >= 65
   end
 
   def calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date)

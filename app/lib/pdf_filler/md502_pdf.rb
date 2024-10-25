@@ -41,15 +41,23 @@ module PdfFiller
         "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
         "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         "6. Check here": claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
-        "Check Box 15": @xml_document.at('Exemptions Primary Standard')&.text,
-        "Check Box 18": @xml_document.at('Exemptions Spouse Standard')&.text,
+        "Check Box 15": checkbox_value(@xml_document.at('Exemptions Primary Standard')&.text), # exemptions
+        "Check Box 18": checkbox_value(@xml_document.at('Exemptions Spouse Standard')&.text),
+        "Check Box 20": checkbox_value(@xml_document.at('Exemptions Primary Over65')&.text),
+        "Check Box 21": checkbox_value(@xml_document.at('Exemptions Spouse Over65')&.text),
+        "B. Check this box if you are blind": checkbox_value(@xml_document.at('Exemptions Spouse Blind')&.text),
+        "B. Check this box if your spouse is blind": checkbox_value(@xml_document.at('Exemptions Spouse Blind')&.text),
+        "B. Enter number exemptions checked B": @xml_document.at('Exemptions Additional Count')&.text,
+        "Enter B $ ": @xml_document.at('Exemptions Additional Amount')&.text,
         "Text Field 15": @xml_document.at('Exemptions Standard Count')&.text,
-        "Enter A $": @xml_document.at('Exemptions Amount Count')&.text,
+        "Enter A $": @xml_document.at('Exemptions Standard Amount')&.text, # exemptions
         "Enter 9": @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         "Enter 11": @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
         "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
+        "Text Field 17": @xml_document.at('Exemptions Total Count')&.text,
+        "D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ": @xml_document.at('Exemptions Total Amount')&.text,
       }
     end
 
@@ -63,6 +71,10 @@ module PdfFiller
 
     def filing_status(method)
       claimed_as_dependent? ? false : @submission.data_source.send(method)
+    end
+
+    def checkbox_value(value)
+      value.present? ? 'Yes' : 'Off'
     end
   end
 end

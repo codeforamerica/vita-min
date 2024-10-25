@@ -91,6 +91,7 @@ FactoryBot.define do
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
+    primary_birth_date { Date.new(1950, 01, 01) }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

@@ -389,6 +389,38 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_b_primary_senior" do
+
+  end
+
+  describe "#calculate_line_b_spouse_senior" do
+
+  end
+
+  describe "#calculate_line_b_primary_blind" do
+
+  end
+
+  describe "#calculate_line_b_spouse_blind" do
+
+  end
+
+  describe "#calculate_line_b_checked_count" do
+
+  end
+
+  describe "#calculate_line_b_amount" do
+
+  end
+
+  describe "#calculate_line_d_exemption_total" do
+
+  end
+
+  describe "#calculate_line_d_exemption_total_dollar_amount" do
+
+  end
+
   context "exemptions" do
     context "dependent exemptions" do
       describe "Dependent exemption count" do

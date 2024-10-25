@@ -22,6 +22,14 @@ module Efile
         set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
         set_line(:MD502_LINE_A_CHECKED_COUNT, :calculate_line_a_checked_count)
         set_line(:MD502_LINE_A_AMOUNT, :calculate_line_a_amount)
+        set_line(:MD502_LINE_B_PRIMARY_SENIOR, :calculate_line_b_primary_senior)
+        set_line(:MD502_LINE_B_SPOUSE_SENIOR, :calculate_line_b_spouse_senior)
+        set_line(:MD502_LINE_B_PRIMARY_BLIND, :calculate_line_b_primary_blind)
+        set_line(:MD502_LINE_B_SPOUSE_BLIND, :calculate_line_b_spouse_blind)
+        set_line(:MD502_LINE_B_CHECKED_COUNT, :calculate_line_b_checked_count)
+        set_line(:MD502_LINE_B_AMOUNT, :calculate_line_b_amount)
+        set_line(:MD502_LINE_D_EXEMPTION_TOTAL, :calculate_line_d_exemption_total)
+        set_line(:MD502_LINE_D_EXEMPTION_TOTAL_DOLLAR_AMOUNT, :calculate_line_d_exemption_total_dollar_amount)
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
@@ -137,6 +145,7 @@ module Efile
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
         if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
+          # change these
           if @intake.primary.age >= 65 && @intake.spouse.age >= 65
             credit = 1750
           elsif (@intake.primary.age >= 65) ^ (@intake.spouse.age >= 65)
@@ -160,10 +169,7 @@ module Efile
       end
 
       def calculate_line_a_checked_count
-        count = 0
-        count += 1 if @lines[:MD502_LINE_A_YOURSELF].value.present?
-        count += 1 if @lines[:MD502_LINE_A_SPOUSE].value.present?
-        count
+        [@lines[:MD502_LINE_A_YOURSELF]&.value, @lines[:MD502_LINE_A_SPOUSE]&.value,].count(&:itself)
       end
 
       def calculate_line_a_amount
@@ -191,6 +197,49 @@ module Efile
         income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }
 
         income_ranges[income_range_index][1]
+      end
+
+      def calculate_line_b_primary_senior
+        #make jan 1st test case
+        @intake.primary_senior? ? "X" : nil
+      end
+
+      def calculate_line_b_spouse_senior
+        return nil unless filing_status_mfj? || filing_status_qw?
+
+        @intake.spouse_senior? ? "X" : nil
+      end
+
+      def calculate_line_b_primary_blind
+        @direct_file_data.is_primary_blind? ? "X" : nil
+      end
+
+      def calculate_line_b_spouse_blind
+        return nil unless filing_status_mfj? || filing_status_qw?
+
+        @direct_file_data.is_spouse_blind? ? "X" : nil
+      end
+
+      def calculate_line_b_checked_count
+        [
+          @lines[:MD502_LINE_B_PRIMARY_SENIOR]&.value,
+          @lines[:MD502_LINE_B_SPOUSE_SENIOR]&.value,
+          @lines[:MD502_LINE_B_PRIMARY_BLIND]&.value,
+          @lines[:MD502_LINE_B_SPOUSE_BLIND]&.value
+        ].count(&:itself)
+      end
+
+      def calculate_line_b_amount
+        line_or_zero(:MD502_LINE_B_CHECKED_COUNT) * 1000
+      end
+
+      def calculate_line_d_exemption_total
+        # add line A, B and C
+        line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_DEPENDENT_EXEMPTION_AMOUNT)
+      end
+
+      def calculate_line_d_exemption_total_dollar_amount
+        line_or_zero(:MD502_LINE_D_EXEMPTION_TOTAL)
       end
 
       def get_dependent_exemption_count
