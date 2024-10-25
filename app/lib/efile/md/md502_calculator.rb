@@ -148,7 +148,6 @@ module Efile
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
         if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
-          # change these
           if @intake.primary.age >= 65 && @intake.spouse.age >= 65
             credit = 1750
           elsif (@intake.primary.age >= 65) ^ (@intake.spouse.age >= 65)
@@ -163,7 +162,6 @@ module Efile
       end
 
       def calculate_line_a_primary
-        # should we use filing_status_dependent? instead
         @direct_file_data.claimed_as_dependent? ? nil : "X"
       end
 
