@@ -1,5 +1,5 @@
 module StateFile
-  module NcStateIdConcern
+  module StateIdConcern
     extend ActiveSupport::Concern
 
     included do
