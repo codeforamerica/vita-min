@@ -123,12 +123,11 @@ module Efile
       end
 
       def line_7_self_checkbox
-        is_over_65(@intake.primary_birth_date)
+        Efile::Nj::NjStateWages.is_over_65(@intake.primary_birth_date)
       end
 
       def line_7_spouse_checkbox
-        return false unless @intake.spouse_birth_date.present?
-        is_over_65(@intake.spouse_birth_date)
+        Efile::Nj::NjStateWages.is_over_65(@intake.spouse_birth_date)
       end
 
       def calculate_line_7
@@ -167,16 +166,7 @@ module Efile
       end
 
       def calculate_line_15
-        if @direct_file_data.w2s.empty?
-          return -1
-        end
-
-        sum = 0
-        @direct_file_data.w2s.each do |w2|
-          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_i
-          sum += state_wage
-        end
-        sum
+        Efile::Nj::NjStateWages.calculate_state_wages(@intake)
       end
 
       def calculate_line_27
@@ -274,11 +264,6 @@ module Efile
       def number_of_dependents_age_5_younger
         # TODO: revise once we have lines 10 and 11
         @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
-      end
-
-      def is_over_65(birth_date)
-        over_65_birth_year = MultiTenantService.new(:statefile).current_tax_year - 65
-        birth_date <= Date.new(over_65_birth_year, 12, 31)
       end
 
       def age_on_last_day_of_tax_year(dob)
