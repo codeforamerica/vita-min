@@ -8,7 +8,7 @@
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
       <PrimarySSN>400000031</PrimarySSN>
-      <SpouseSSN>600000031</SpouseSSN>
+      <SpouseSSN>123456789</SpouseSSN>
       <NameLine1Txt>BERT &amp; ERNIE&lt;MUPPET</NameLine1Txt>
       <PrimaryNameControlTxt>MUPP</PrimaryNameControlTxt>
       <SpouseNameControlTxt>BERT</SpouseNameControlTxt>
