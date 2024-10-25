@@ -46,3 +46,4 @@ module Navigation
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end
 end
+  
