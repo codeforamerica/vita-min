@@ -176,6 +176,12 @@ ID40_LINE_6D:
   label: '6d Total household count'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_43_WORKSHEET:
+  label: '43. Grocery Credit. Computed amount from worksheet on page 11'
+ID40_LINE_43_DONATE:
+  label: 'To donate your grocery credit to the Cooperative Welfare Fund, check the box and enter zero on line 43'
+ID40_LINE_43:
+  label: 'To receive your grocery credit, enter the computed amount on line 43'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:

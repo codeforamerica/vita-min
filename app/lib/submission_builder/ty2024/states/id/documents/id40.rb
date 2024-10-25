@@ -32,6 +32,10 @@ module SubmissionBuilder
                   end
                 end
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
+
+                xml.WorksheetGroceryCredit calculated_fields.fetch(:ID40_LINE_43_WORKSHEET)
+                xml.GroceryCredit calculated_fields.fetch(:ID40_LINE_43)
+                xml.DonateGroceryCredit calculated_fields.fetch(:ID40_LINE_43_DONATE)
               end
             end
 

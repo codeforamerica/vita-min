@@ -2482,6 +2482,14 @@ en:
           title: You might be eligible for the Idaho Grocery Credit!
           title_html: You might be eligible for the <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Idaho Grocery Credit</a>!
           select_household_members: "Select the members of household these situations apply to:"
+      id_grocery_credit_review:
+        edit:
+          title: You will receive $%{grocery_credit_amount} from the Idaho Grocery Credit!
+          title_html: You will receive <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
+          would_you_like_to_donate: Would you like to donate your credit to the Cooperative Welfare Fund?
+          donate_impact_heading: How will donating my credit impact my tax return?
+          donate_impact_content_p1: Donating your grocery credit may result in a smaller refund or increase in taxes owed on your ID state return.
+          donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money in the fund is appropriated for public assistance and welfare purposes.
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.

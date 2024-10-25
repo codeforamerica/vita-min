@@ -47,9 +47,8 @@ describe Efile::Id::Id40Calculator do
   end
 
   describe "Line 6c: Dependents" do
-    before do
-      3.times { intake.dependents.create! }
-    end
+    let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
     it "returns the number of dependents" do
       instance.calculate
       expect(instance.lines[:ID40_LINE_6C].value).to eq(3)
@@ -58,6 +57,7 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 6d: Total Exemptions" do
     it "sums lines 6a, 6b, and 6c" do
+      allow(instance).to receive(:line_or_zero).and_return(nil)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6A).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6B).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6C).and_return(2)
@@ -112,6 +112,19 @@ describe Efile::Id::Id40Calculator do
       intake.spouse_months_ineligible_for_grocery_credit = spouse_ineligible_months
     end
 
+    context "primary is claimed as dependent" do
+      let(:primary_ineligible_months) { 12 }
+      let(:spouse_ineligible_months) { 12 }
+      before do
+        allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq(0)
+      end
+    end
+
     context "primary has ineligible months" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
       let(:primary_ineligible_months) { 3 }
@@ -126,6 +139,7 @@ describe Efile::Id::Id40Calculator do
         end
 
       end
+
       context "primary is under 65" do
         before do
           intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
@@ -141,6 +155,7 @@ describe Efile::Id::Id40Calculator do
     context "spouse has ineligible months" do
       let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
       let(:spouse_ineligible_months) { 3 }
+
       context "spouse is 65 or older" do
         before do
           intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 66, 1, 1)
@@ -150,8 +165,8 @@ describe Efile::Id::Id40Calculator do
           instance.calculate
           expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 11.67).round)
         end
-
       end
+
       context "spouse is under 65" do
         before do
           intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
@@ -174,12 +189,29 @@ describe Efile::Id::Id40Calculator do
         intake.dependents[1].id_months_ineligible_for_grocery_credit = 0
 
         intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
-        intake.dependents[2].id_months_ineligible_for_grocery_credit = 8
+        intake.dependents[2].id_months_ineligible_for_grocery_credit = nil
       end
 
       it "claims the correct credit" do
         instance.calculate
-        expect(instance.lines[:ID40_LINE_43].value).to eq(((9 + 12 + 4) * 10).round)
+        expect(instance.lines[:ID40_LINE_43].value).to eq(((9 + 12 + 12) * 10).round)
+      end
+    end
+
+    context "donate the credit" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+      let(:primary_ineligible_months) { 0 }
+      let(:spouse_ineligible_months) { 0 }
+
+      before do
+        intake.donate_grocery_credit_yes!
+      end
+
+      it "checks the box and doesn't claim the credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43_WORKSHEET].value).to eq(240)
+        expect(instance.lines[:ID40_LINE_43_DONATE].value).to eq(true)
+        expect(instance.lines[:ID40_LINE_43].value).to eq(0)
       end
     end
   end

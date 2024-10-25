@@ -4,5 +4,8 @@ module StateFile
 
     validates :donate_grocery_credit, inclusion: { in: %w[yes no], message: :blank }
 
+    def save
+      @intake.update(attributes_for(:intake))
+    end
   end
 end
