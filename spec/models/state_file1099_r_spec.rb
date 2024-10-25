@@ -41,6 +41,101 @@
 #
 require 'rails_helper'
 
-RSpec.describe StateFile1099R, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe StateFile1099R do
+  describe "validation" do
+    context "retirement_income_intake" do
+      let!(:state_file1099_r) { create(:state_file1099_r, intake: create(:state_file_nc_intake)) }
+      let(:context) { :retirement_income_intake }
+
+      context "state_tax_withheld_amount and state_distribution_amount must be less than gross_distribution_amount" do
+        let(:state_file1099_r) {
+          create :state_file1099_r,
+                 intake: create(:state_file_nc_intake),
+                 gross_distribution_amount: gross_distribution_amount,
+                 state_tax_withheld_amount: state_tax_withheld_amount,
+                 state_distribution_amount: state_distribution_amount
+        }
+
+        context "when the gross_distribution_amount is present" do
+          let(:gross_distribution_amount) { 100 }
+
+          context "other values are less" do
+            let(:state_tax_withheld_amount) { 50 }
+            let(:state_distribution_amount) { 50 }
+
+            it "is valid" do
+              expect(state_file1099_r).to be_valid(context)
+            end
+          end
+
+          context "other values are greater" do
+            let(:state_tax_withheld_amount) { 200 }
+            let(:state_distribution_amount) { 200 }
+
+            it "is invalid" do
+              expect(state_file1099_r).not_to be_valid(context)
+              expect(state_file1099_r.errors[:state_tax_withheld_amount]).to be_present
+              expect(state_file1099_r.errors[:state_distribution_amount]).to be_present
+            end
+          end
+        end
+      end
+
+      it "validates gross_distribution_amount is present and a positive number" do
+        state_file1099_r.state_tax_withheld_amount = 0
+        state_file1099_r.state_distribution_amount = 0
+
+        state_file1099_r.gross_distribution_amount = 'string'
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.gross_distribution_amount = nil
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.gross_distribution_amount = -1
+        expect(state_file1099_r.valid?(context)).to eq false
+        state_file1099_r.gross_distribution_amount = 0
+        expect(state_file1099_r.valid?(context)).to eq false
+
+        state_file1099_r.gross_distribution_amount = 1
+        expect(state_file1099_r.valid?(context)).to eq true
+      end
+
+      it "validates state_tax_withheld_amount and state_distribution_amount are positive numbers if present" do
+        [:state_distribution_amount, :state_tax_withheld_amount].each do |attr|
+          ['string', -1].each do |val|
+            state_file1099_r.send("#{attr}=", val)
+            expect(state_file1099_r.valid?(context)).to eq false
+          end
+
+          [nil, 0, 1].each do |val|
+            state_file1099_r.send("#{attr}=", val)
+            expect(state_file1099_r.valid?(context)).to eq true
+          end
+        end
+
+      end
+
+      context "payer_state_identification_number" do
+        it "validates present when has state_tax_withheld_amount" do
+          state_file1099_r.state_tax_withheld_amount = nil
+          state_file1099_r.payer_state_identification_number = nil
+          expect(state_file1099_r.valid?(context)).to eq true
+
+          state_file1099_r.state_tax_withheld_amount = 0
+          state_file1099_r.payer_state_identification_number = nil
+          expect(state_file1099_r.valid?(context)).to eq true
+
+          state_file1099_r.state_tax_withheld_amount = 20
+          state_file1099_r.payer_state_identification_number = nil
+          expect(state_file1099_r.valid?(context)).to eq false
+        end
+
+        it "validates <= 16 digits" do
+          state_file1099_r.payer_state_identification_number = "1231578123"
+          expect(state_file1099_r.valid?(context)).to eq true
+
+          state_file1099_r.payer_state_identification_number = "12345678901234567"
+          expect(state_file1099_r.valid?(context)).to eq false
+        end
+      end
+    end
+  end
 end

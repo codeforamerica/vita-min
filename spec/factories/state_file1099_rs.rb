@@ -57,10 +57,10 @@ FactoryBot.define do
     federal_income_tax_withheld_amount { 10.55 }
     distribution_code { '7' }
     designated_roth_account_first_year { 1993 }
-    state_tax_withheld_amount { 100.5 }
-    state_code { 'AZ' }
-    payer_state_identification_number { "222222222" }
-    state_distribution_amount { 155.15 }
+    payer_state_identification_number { "#{intake&.state_code&.downcase}12315" }
+    state_code { intake&.state_code&.upcase }
+    state_tax_withheld_amount { 50.5 }
+    state_distribution_amount { 55.15 }
     standard { false }
   end
 end
