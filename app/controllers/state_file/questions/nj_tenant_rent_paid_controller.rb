@@ -6,7 +6,7 @@ module StateFile
       before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
 
       def self.show?(intake)
-        intake.household_rent_own == 'rent' && StateFile::NjTenantEligibilityHelper.determine_eligibility(intake) == StateFile::NjTenantEligibilityHelper::ADVANCE
+        intake.household_rent_own_rent? && StateFile::NjTenantEligibilityHelper.determine_eligibility(intake) == StateFile::NjTenantEligibilityHelper::ADVANCE
       end
     end
   end

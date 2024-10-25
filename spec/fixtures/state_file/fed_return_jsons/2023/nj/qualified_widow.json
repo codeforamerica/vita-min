@@ -1,0 +1,21 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "John",
+      "middleInitial": null,
+      "lastName": "Smith",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true,
+      "tin": "400-00-0001"
+    },
+    {
+      "firstName": "Deceased",
+      "middleInitial": "",
+      "lastName": "Smith",
+      "dateOfBirth": "1990-01-01",
+      "isPrimaryFiler": false,
+      "tin": "600-00-0003"
+    }
+  ]
+}

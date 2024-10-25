@@ -103,11 +103,9 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nj', 'zeus_one_dep.xml')) }
-    primary_first_name { "New" }
-    primary_last_name { "Jerseyan" }
-    primary_birth_date { Date.new(1990, 1, 1) }
-
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
+    
     after(:build) do |intake, evaluator|
       numeric_status = {
         single: 1,
@@ -115,14 +113,23 @@ FactoryBot.define do
         married_filing_separately: 3,
         head_of_household: 4,
         qualifying_widow: 5,
-      }[evaluator.filing_status.to_sym] || evaluator.filing_status
+        }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.direct_file_data.primary_ssn = evaluator.primary_ssn || intake.direct_file_data.primary_ssn
       intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn || intake.direct_file_data.spouse_ssn
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
+      
+    after(:create) do |intake, evaluator|
+      intake.synchronize_filers_to_database
+      supplied_attributes = evaluator.instance_variable_get(:@cached_attributes)
+      overrides = {}
+      supplied_attributes.each do |key, _value|
+        supplied_attribute = supplied_attributes[key]
+        overrides[key] = supplied_attribute if intake.has_attribute?(key)
+      end
+      intake.update(overrides)
 
-    after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
         dependent.update(dob: i.years.ago)
@@ -131,22 +138,44 @@ FactoryBot.define do
 
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_w2s') }
     end
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_many_w2s') }
     end
 
     trait :df_data_minimal do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_minimal') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_minimal') }
     end
 
     trait :df_data_many_deps do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_many_deps') }
     end
 
     trait :df_data_one_dep do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_one_dep') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
+    end
+
+    trait :df_data_two_deps do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_deps') }
+    end
+
+    trait :df_data_mfj do
+      filing_status { "married_filing_jointly" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly') }
+    end
+
+    trait :df_data_mfs do
+      filing_status { "married_filing_separately" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_separately') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_separately') }
     end
 
     trait :married_filing_jointly do
