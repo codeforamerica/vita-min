@@ -172,7 +172,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_jointly") }
 
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_yourself).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_primary).and_return "X"
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_spouse).and_return "X"
           end
 

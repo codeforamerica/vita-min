@@ -178,7 +178,42 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
-    context "exemptions" do
+    context "Line A Exemptions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_primary).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_spouse).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_amount).and_return 3200
+      end
+
+      it "sets the correct fields for line A" do
+        expect(pdf_fields["Check Box 15"]).to eq "Yes" # primary
+        expect(pdf_fields["Check Box 18"]).to eq "Off" # spouse
+        expect(pdf_fields["Text Field 15"]).to eq "1" # exemption count
+        expect(pdf_fields["Enter A $"]).to eq "3200" # exemption amount
+      end
+    end
+
+    context "Line B Exemptions" do
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
+
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_senior).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_blind).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_blind).and_return 'X'
+      end
+
+      it "sets the correct fields for line B" do
+        expect(pdf_fields["Check Box 20"]).to eq "Yes" # primary 65+
+        expect(pdf_fields["Check Box 21"]).to eq "Off" # spouse 65+
+        expect(pdf_fields["B. Check this box if you are blind"]).to eq "Off" # primary blind
+        expect(pdf_fields["B. Check this box if your spouse is blind"]).to eq "Yes" # spouse blind
+        expect(pdf_fields["B. Enter number exemptions checked B"]).to eq "2" # exemption count
+        expect(pdf_fields["Enter B $ "]).to eq "2000" # exemption amount
+      end
+    end
+
+    context "Line C exemptions" do
       let(:dependent_count) { 1 }
       let(:dependent_exemption_amount) { 3200 }
       before do
@@ -192,16 +227,15 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
-    context "line A exemptions" do
-      # before do
-      #
-      # end
+    context "Line D Exemptions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_count_total).and_return 3
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_amount_total).and_return 3_200
+      end
 
-      its "sets correct fields for line A" do
-        expect(pdf_fields["Check Box 15"]).to eq "X" # yourself
-        expect(pdf_fields["Check Box 18"]).to eq "X" # spouse
-        expect(pdf_fields["Text Field 15"]).to eq "X" # exemption count
-        expect(pdf_fields["Enter A $"]).to eq "X" # exemption amount
+      it "sets the correct fields for line B" do
+        expect(pdf_fields["Text Field 17"]).to eq "3" # exemption count total
+        expect(pdf_fields["D. Enter Dollar Amount Total Exemptions (Add A, B and C.) "]).to eq "3200" # exemption amount total
       end
     end
 

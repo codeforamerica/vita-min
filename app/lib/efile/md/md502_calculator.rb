@@ -20,7 +20,7 @@ module Efile
         set_line(:MD502_LINE_1E, :calculate_line_1e)
 
         # Exemptions
-        set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_yourself)
+        set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_primary)
         set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
         set_line(:MD502_LINE_A_COUNT, :calculate_line_a_count)
         set_line(:MD502_LINE_A_AMOUNT, :calculate_line_a_amount)
@@ -162,7 +162,7 @@ module Efile
         credit
       end
 
-      def calculate_line_a_yourself
+      def calculate_line_a_primary
         # should we use filing_status_dependent? instead
         @direct_file_data.claimed_as_dependent? ? nil : "X"
       end

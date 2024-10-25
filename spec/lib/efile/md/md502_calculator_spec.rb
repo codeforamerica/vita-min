@@ -266,7 +266,7 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  describe "#calculate_line_a_yourself" do
+  describe "#calculate_line_a_primary" do
     context 'primary not claimed as a dependent' do
       before do
         intake.direct_file_data.primary_claim_as_dependent = ""
