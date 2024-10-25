@@ -35,8 +35,34 @@ module StateFile
     end
 
     def save
-      attributes_to_save = attributes_for(:intake).merge({ dependents_attributes: dependents_attributes.to_h }).compact
       @intake.update!(attributes_to_save)
+    end
+
+    def attributes_to_save
+      base_attrs = attributes_for(:intake)
+      updated_dependent_data = dependents_attributes.select do |k, v|
+        month_key = v.keys.include?('id_has_grocery_credit_ineligible_months')
+        credit_count_key = v.keys.include?('id_months_ineligible_for_grocery_credit')
+        has_matching_yes = dependents_attributes.any? do |k2, v2|
+          v['id'] == v2['id'] && v2['id_has_grocery_credit_ineligible_months'] == 'yes'
+        end
+        month_key || (credit_count_key && has_matching_yes)
+      end
+
+      if base_attrs[:household_has_grocery_credit_ineligible_months] == 'no'
+        base_attrs.delete :primary_months_ineligible_for_grocery_credit
+        base_attrs.delete :spouse_months_ineligible_for_grocery_credit
+        updated_dependent_data = {}
+      end
+
+      if base_attrs[:primary_has_grocery_credit_ineligible_months] == 'no'
+        base_attrs.delete :primary_months_ineligible_for_grocery_credit
+      end
+      if base_attrs[:spouse_has_grocery_credit_ineligible_months] == 'no'
+        base_attrs.delete :spouse_months_ineligible_for_grocery_credit
+      end
+
+      base_attrs.merge({ dependents_attributes: updated_dependent_data.to_h }).compact
     end
 
     def valid?
