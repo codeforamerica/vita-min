@@ -6,7 +6,6 @@
   <h1 class="h2"><%= t('.title_html', grocery_credit_amount: grocery_credit_amount) %></h1>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-
     <div class="white-group">
       <p class="spacing-below-0"><%= t(".would_you_like_to_donate") %></p>
       <%=
@@ -23,7 +22,6 @@
         <p><%= t('.donate_warning_p1') %>
         <p><%= t('.donate_warning_p2') %>
       </div>
-
     </div>
 
     <div class="reveal">
@@ -33,7 +31,6 @@
         <p><%= t('.donate_impact_content_p2') %></p>
       </div>
     </div>
-
 
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>

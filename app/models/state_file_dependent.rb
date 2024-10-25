@@ -61,7 +61,6 @@ class StateFileDependent < ApplicationRecord
   validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
 
-  validates :id_has_grocery_credit_ineligible_months, inclusion: { in: %w[yes no], message: "DEPENDENT WHY" }, on: :id_grocery_credit_form
   validates :id_months_ineligible_for_grocery_credit, numericality: {
     greater_than_or_equal_to: 0,
     message: :blank

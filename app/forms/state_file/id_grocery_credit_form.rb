@@ -12,22 +12,22 @@ module StateFile
       :spouse_months_ineligible_for_grocery_credit
     )
 
-    # validates :household_has_grocery_credit_ineligible_months, inclusion: { in: ["OOGA BOOGA"], message: "WHOOPS" }
+    validates :household_has_grocery_credit_ineligible_months, inclusion: { in: %w[yes no], message: :blank }
 
-    validates :primary_has_grocery_credit_ineligible_months, inclusion: { in: %w[yes no], message: :blank }
     validates :primary_months_ineligible_for_grocery_credit,
               numericality: {
                 greater_than_or_equal_to: 0,
                 message: :blank
               },
               if: -> { primary_has_grocery_credit_ineligible_months == "yes" }
-    validates :spouse_has_grocery_credit_ineligible_months, inclusion: { in: %w[yes no], message: :blank }
     validates :spouse_months_ineligible_for_grocery_credit,
               numericality: {
                 greater_than_or_equal_to: 0,
                 message: :blank
               },
               if: -> { spouse_has_grocery_credit_ineligible_months == "yes" }
+
+    # TODO: wipe out submitted "ineligible_months" params for any filer, spouse or dependent that doesn't have has_grocery_credit_ineligible_months == yes
 
     def initialize(intake = nil, params = nil)
       super

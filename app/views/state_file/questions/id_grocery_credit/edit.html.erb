@@ -1,6 +1,22 @@
 <% content_for :page_title, t('.title') %>
 
 <% content_for :card do %>
+  <style>
+      .grocery-credit-checkbox .checkbox {
+          min-height: auto;
+          padding-top: 0;
+          padding-bottom: 0;
+      }
+
+      .grocery-credit-checkbox .checkbox input[type='checkbox'] {
+          top: 0.25rem;
+      }
+
+      .grocery-credit-checkbox .form-group {
+          margin-bottom: 1.5rem;
+      }
+  </style>
+
   <h1 class="h2"><%= t(".title_html") %></h1>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
@@ -23,7 +39,7 @@
         <div class="">
           <div class="">
             <div class="white-group">
-              <div class="tight-checkboxes spacing-above-0 spacing-below-0">
+              <div class="grocery-credit-checkbox spacing-above-0 spacing-below-0">
                 <%= f.cfa_checkbox(:primary_has_grocery_credit_ineligible_months, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#primary_months_ineligible_for_grocery_credit" }) %>
                 <% if current_intake.filing_status_mfj? %>
                   <%= f.cfa_checkbox(:spouse_has_grocery_credit_ineligible_months, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-toggle": "#spouse_months_ineligible_for_grocery_credit" }) %>

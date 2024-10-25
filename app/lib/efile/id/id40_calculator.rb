@@ -61,8 +61,6 @@ module Efile
       def calculate_grocery_credit
         return 0 if @intake.direct_file_data.claimed_as_dependent?
 
-        # TODO: what if they check the box for having ineligible months, enter a number of months, then uncheck the box & submit?
-
         primary_eligible_months = 12
         if @intake.spouse_has_grocery_credit_ineligible_months_yes?
           primary_eligible_months -= @intake.primary_months_ineligible_for_grocery_credit
