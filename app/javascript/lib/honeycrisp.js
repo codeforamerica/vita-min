@@ -103,16 +103,26 @@ var followUpQuestion = (function() {
                     }
                 });
 
+                let reset_other_follow_ups = $(this).attr('data-reset-other-follow-ups') !== "false";
+                let hide_other_follow_ups = $(this).attr('data-hide-other-follow-ups') !== "false";
+
                 // add click listeners to initial question inputs
                 $(self).find('> .question-with-follow-up__question input').click(function(e) {
-                    // reset follow ups
-                    $(self).find('> .question-with-follow-up__follow-up input').attr('checked', false);
-                    $(self).find('> .question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
-                    $(self).find('> .question-with-follow-up__follow-up').hide();
+                    if (reset_other_follow_ups) {
+                        $(self).find('> .question-with-follow-up__follow-up input').attr('checked', false);
+                        $(self).find('> .question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
+                    }
+                    if (hide_other_follow_ups) {
+                        $(self).find('> .question-with-follow-up__follow-up').hide();
+                    }
 
-                    // show the current follow up
-                    if($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
-                        $($(this).attr('data-follow-up')).show();
+                    // toggle the current follow up
+                    if($(this).attr('data-follow-up') != null) {
+                        if ($(this).is(':checked')) {
+                            $($(this).attr('data-follow-up')).show();
+                        } else {
+                            $($(this).attr('data-follow-up')).hide();
+                        }
                     }
                 })
             });
