@@ -5,6 +5,11 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
+        @id39r = Efile::Id::Id39RCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -13,6 +18,7 @@ module Efile
         set_line(:ID40_LINE_6C, :calculate_line_6c)
         set_line(:ID40_LINE_6D, :calculate_line_6d)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        @id39r.calculate
         @lines.transform_values(&:value)
       end
 
