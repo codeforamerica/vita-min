@@ -2490,6 +2490,8 @@ en:
           donate_impact_heading: How will donating my credit impact my tax return?
           donate_impact_content_p1: Donating your grocery credit may result in a smaller refund or increase in taxes owed on your ID state return.
           donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money in the fund is appropriated for public assistance and welfare purposes.
+          donate_warning_p1: Your donation will be subtracted from your total state refund.
+          donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
