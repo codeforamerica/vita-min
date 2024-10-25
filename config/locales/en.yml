@@ -2565,6 +2565,9 @@ en:
         edit:
           county_html: "<strong>County</strong>"
           political_subdivision_html: "<strong>Political subdivision</strong>"
+      md_tax_refund:
+        md_bank_details:
+          account_holder_name: Account Holder Name
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
