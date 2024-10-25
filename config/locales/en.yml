@@ -2570,14 +2570,14 @@ en:
         edit:
           county_html: "<strong>County</strong>"
           political_subdivision_html: "<strong>Political subdivision</strong>"
-      md_tax_refund:
-        md_bank_details:
-          account_holder_name: Account Holder Name
       md_spouse_state_id:
         md_spouse:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           why_ask_this: Why are you asking for this information?
+      md_tax_refund:
+        md_bank_details:
+          account_holder_name: Account Holder Name
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
