@@ -2538,6 +2538,9 @@ es:
         edit:
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
+      md_tax_refund:
+        md_bank_details:
+          account_holder_name: Nombre del titular de la cuenta
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
@@ -2947,9 +2950,6 @@ es:
           register_to_vote: Regístrate para votar.
           title: "¡Tu declaración de impuestos del estado de %{state_name}de 2023 ha sido enviada!"
           title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año 2023 ha sido enviada de nuevo!"
-      md_tax_refund:
-        md_bank_details:
-          account_holder_name: "Nombre del titular de la cuenta"
       tax_refund:
         bank_details:
           account_number: Número de cuenta

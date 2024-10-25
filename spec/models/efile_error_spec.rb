@@ -66,6 +66,7 @@ describe 'EfileError' do
       "md-county",
       "md-eligibility-filing-status",
       "md-review",
+      "md-tax-refund",
       "name-dob",
       "nc-county",
       "nc-eligibility-out-of-state-income",
