@@ -2534,10 +2534,20 @@ es:
           permanent_home_heading: "¿Qué es una vivienda permanente?"
           subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
+      md_primary_state_id:
+        md_primary:
+          encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          why_ask_this: "¿Por qué pides esta información?"
       md_review:
         edit:
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
+      md_spouse_state_id:
+        md_spouse:
+          encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          why_ask_this: "¿Por qué pides esta información?"
       name_dob:
         edit:
           dependent_months_lived_label: Número de meses que vivió contigo en %{year}
@@ -2577,7 +2587,7 @@ es:
           subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
       nc_primary_state_id:
-        edit:
+        nc_primary:
           encourage_sharing: Se le recomienda compartir esta información, pero no es obligatorio para presentar su declaración de impuestos de Carolina del Norte.
           protect_identity: Para proteger su identidad y combatir el fraude fiscal, muchas agencias estatales piden a las personas que proporcionen su licencia de conducir o número de identificación estatal.
           why_ask_this: "¿Por qué me pides esta información?"
@@ -2603,7 +2613,7 @@ es:
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
           use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
       nc_spouse_state_id:
-        edit:
+        nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
