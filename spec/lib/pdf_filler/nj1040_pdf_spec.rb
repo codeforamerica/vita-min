@@ -911,6 +911,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :df_data_many_w2s,
+            :with_w2s_synced,
             medical_expenses: 567_890
           )
         }
@@ -934,6 +935,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :df_data_many_w2s,
+            :with_w2s_synced,
             medical_expenses: 4000
           )
         }
