@@ -25,8 +25,6 @@ class StateFileBaseIntake < ApplicationRecord
   alias_attribute :sms_phone_number, :phone_number
 
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
   enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
@@ -221,6 +219,10 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def ask_months_in_home?
+    false
+  end
+
+  def ask_for_signature_pin?
     false
   end
 

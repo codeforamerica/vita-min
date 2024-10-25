@@ -20,6 +20,7 @@ module Efile
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
+        set_line(:NJ1040_LINE_31, :calculate_line_31)
         set_line(:NJ1040_LINE_38, :calculate_line_38)
         set_line(:NJ1040_LINE_39, :calculate_line_39)
         set_line(:NJ1040_LINE_40A, :calculate_line_40a)
@@ -191,8 +192,16 @@ module Efile
         calculate_line_27
       end
 
+      def calculate_line_31
+        two_percent_gross = calculate_line_29 * 0.02
+        difference_with_med_expenses = @intake.medical_expenses - two_percent_gross
+        rounded_difference = difference_with_med_expenses.round
+        return rounded_difference if rounded_difference.positive?
+        nil
+      end
+
       def calculate_line_38
-        calculate_line_13
+        calculate_line_13 + line_or_zero(:NJ1040_LINE_31)
       end
 
       def calculate_line_39

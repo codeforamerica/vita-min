@@ -326,7 +326,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             create :efile_submission, tax_return: nil, data_source: create(
               :state_file_nj_intake,
               primary_first_name: "Grace",
-              primary_last_name: "Hopper"
+              primary_last_name: "Hopper",
+              primary_middle_initial: ""
             )
           }
           it 'fills pdf with LastName FirstName' do
@@ -362,6 +363,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :state_file_nj_intake,
               primary_first_name: "Grace",
               primary_last_name: "Hopper",
+              primary_middle_initial: "",
               primary_suffix: "JR"
             )
           }
@@ -475,7 +477,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it 'enters single dependent into PDF' do
           # dependent 1
-          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "ATHENS KRONOS"
+          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "ATHENS KRONOS T"
           expect(pdf_fields["undefined_18"]).to eq "3"
           expect(pdf_fields["undefined_19"]).to eq "0"
           expect(pdf_fields["undefined_20"]).to eq "0"
@@ -903,6 +905,54 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 31 medical expenses" do
+      context "with a gross income of 200k" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            medical_expenses: 567_890
+          )
+        }
+        it "writes sum $563,890.00 to fill boxes on line 31" do
+          # thousands
+          expect(pdf_fields["31"]).to eq "5"
+          expect(pdf_fields["215"]).to eq "6"
+          expect(pdf_fields["216"]).to eq "3"
+          # hundreds
+          expect(pdf_fields["undefined_92"]).to eq "8"
+          expect(pdf_fields["217"]).to eq "9"
+          expect(pdf_fields["218"]).to eq "0"
+          # decimals
+          expect(pdf_fields["undefined_93"]).to eq "0"
+          expect(pdf_fields["219"]).to eq "0"
+        end
+      end
+
+      context "when medical expenses do not exceed 2% gross income" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            medical_expenses: 4000
+          )
+        }
+        it "does not fill line 31" do
+          # thousands
+          expect(pdf_fields["31"]).to eq ""
+          expect(pdf_fields["215"]).to eq ""
+          expect(pdf_fields["216"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_92"]).to eq ""
+          expect(pdf_fields["217"]).to eq ""
+          expect(pdf_fields["218"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_93"]).to eq ""
+          expect(pdf_fields["219"]).to eq ""
+        end
+      end
+    end
+
     describe "line 38 total exemptions and deductions" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
@@ -1047,7 +1097,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
              :with_w2s_synced,
              household_rent_own: 'own',
              property_tax_paid: 15_000,
-          ) }
+          )
+        }
 
         it "fills line 41 with $15,000 property tax deduction amount" do
           # thousands
@@ -1070,7 +1121,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :df_data_many_w2s,
             household_rent_own: 'own',
             property_tax_paid: 0,
-          ) }
+          )
+        }
 
         it "does not fill fields" do
           # thousands
@@ -1121,7 +1173,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
-      ) }
+      )
+      }
 
       it "writes rounded tax amount $7,615.10 based on income $200,000 with 2,000 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
         # millions
@@ -1148,7 +1201,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :df_data_many_w2s,
           household_rent_own: 'own',
           property_tax_paid: 0,
-          ) }
+          )
+      }
 
       it "writes $50.00 property tax credit" do
         # hundreds
