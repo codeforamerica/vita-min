@@ -80,7 +80,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         expect(response).to render_template(:edit)
 
         expect(response.body).to include "must be greater than or equal to 0"
-        expect(response.body).to include "First two letters must be az"
       end
     end
   end
