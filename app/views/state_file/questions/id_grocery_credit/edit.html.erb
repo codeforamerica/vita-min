@@ -15,15 +15,31 @@
       .grocery-credit-checkbox .form-group {
           margin-bottom: 1.5rem;
       }
+
+      ul.list--bulleted {
+          padding-left: 3rem !important;
+      }
   </style>
 
   <h1 class="h2"><%= t(".title_html") %></h1>
+
+  <% household_size = 1 %>
+  <% household_size += 1 if current_intake.filing_status_mfj? %>
+  <% household_size += current_intake.dependents.count %>
+  <p><%= t(".see_if_you_qualify", count: household_size) %></p>
+  <p><%= t(".answers_confidential_html") %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
 
     <div class="question-with-follow-up spacing-below-25" data-reset-other-follow-ups="false">
       <div class="question-with-follow-up__question">
         <div class="white-group">
+          <p class="spacing-below-0"><%= t(".situations_question") %></p>
+          <ul class="list--bulleted spacing-below-0">
+            <li><%= t(".situation_snap") %></li>
+            <li><%= t(".situation_incarceration") %></li>
+            <li><%= t(".situation_undocumented") %></li>
+          </ul>
           <%=
             f.cfa_radio_set(
               :household_has_grocery_credit_ineligible_months,
@@ -39,6 +55,7 @@
         <div class="question-with-follow-up" data-hide-other-follow-ups="false">
           <div class="question-with-follow-up__question">
             <div class="white-group">
+              <p class="spacing-below-15"><strong><%= t(".select_household_members") %></strong></p>
               <div class="grocery-credit-checkbox spacing-above-0 spacing-below-0">
                 <%= f.cfa_checkbox(:primary_has_grocery_credit_ineligible_months, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#primary_months_ineligible_for_grocery_credit" }) %>
                 <% if current_intake.filing_status_mfj? %>
@@ -53,23 +70,43 @@
           </div>
           <div class="question-with-follow-up__follow-up" id="primary_months_ineligible_for_grocery_credit">
             <div class="white-group">
-              <%= f.cfa_select(:primary_months_ineligible_for_grocery_credit, "Primary Months", (1..12).to_a, include_blank: true) %>
+              <p><%= t(".need_to_know_you_html") %></p>
+              <p><%= t(".example_months") %></p>
+              <%= f.cfa_select(:primary_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, label_class: 'form-label--bold', include_blank: t('general.select_prompt')) %>
             </div>
           </div>
           <div class="question-with-follow-up__follow-up" id="spouse_months_ineligible_for_grocery_credit">
             <div class="white-group">
-              <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, "Spouse Months", (1..12).to_a, include_blank: true) %>
+              <p><%= t(".need_to_know_spouse_html") %></p>
+              <p><%= t(".example_months") %></p>
+              <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
             </div>
           </div>
           <%= f.fields_for :dependents do |ff| %>
             <% dependent = ff.object %>
             <div class="question-with-follow-up__follow-up" id="dependent_<%= dependent.id %>_months_ineligible_for_grocery_credit">
               <div class="white-group">
-                <%= ff.cfa_select(:id_months_ineligible_for_grocery_credit, "#{dependent.full_name} Months", (1..12).to_a, include_blank: true) %>
+                <p><%= t(".need_to_know_dependent_html") %></p>
+                <p><%= t(".example_months") %></p>
+                <%= ff.cfa_select(:id_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
               </div>
             </div>
           <% end %>
         </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__link"><%= t('.why_are_you_asking_heading') %></a></p>
+      <div class="reveal__content">
+        <p><%= t('.why_are_you_asking_p1') %></p>
+        <ul>
+          <li><%= t('.why_are_you_asking_li1') %></li>
+          <li><%= t('.why_are_you_asking_li2') %></li>
+          <li><%= t('.why_are_you_asking_li3') %></li>
+        </ul>
+        <p><%= t('.why_are_you_asking_p2') %></p>
+        <p><%= t('.why_are_you_asking_p3') %></p>
       </div>
     </div>
 

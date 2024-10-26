@@ -2450,6 +2450,41 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_grocery_credit:
+        edit:
+          answers_confidential_html: "<strong>Nota:</strong> Sus respuestas son confidenciales y solo se utilizan para verificar la elegibilidad del crédito."
+          example_months: Por ejemplo, si usted experimentó 2 de estas situaciones en el mes de abril, eso contaría como 1 mes en total.
+          need_to_know_dependent_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a su dependiente.
+          need_to_know_spouse_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a su cónyuge.
+          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que se aplicaron estas situaciones en su caso.
+          see_if_you_qualify:
+            one: Para ver si usted califica, necesitamos más información sobre usted.
+            other: Para ver si califica, necesitamos más información sobre usted y su hogar.
+          select_household_members: 'Seleccione los miembros del hogar a los que se aplican estas situaciones:'
+          situation_incarceration: experimentó encarcelamiento
+          situation_snap: recibió cupones de alimentos / SNAP-EBT
+          situation_undocumented: Vivió en los Estados Unidos indocumentado
+          situations_question: "¿Se aplica alguna de las siguientes situaciones a su hogar?"
+          title: "¡Usted podría ser elegible para el Crédito de comestibles de Idaho!"
+          title_html: "¡Usted podría ser elegible para el <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Crédito de comestibles de Idaho</a>!"
+          total_number_months: Número total de meses
+          why_are_you_asking_heading: "¿Por qué preguntas esto?"
+          why_are_you_asking_li1: recibiendo cupones de alimentos
+          why_are_you_asking_li2: experimentando el encarcelamiento
+          why_are_you_asking_li3: viviendo en los estados unidos indocumentado
+          why_are_you_asking_p1: 'Se aplican ciertas restricciones para este crédito mensual. Las siguientes situaciones lo descalifican para el crédito mensual:'
+          why_are_you_asking_p2: Este crédito se reduce cada mes que una persona experimente una situación anterior.
+          why_are_you_asking_p3: Sus respuestas solo se utilizan para calcular el dinero extra para su declaración de impuestos y no se compartirán.
+      id_grocery_credit_review:
+        edit:
+          donate_impact_content_p1: Donar su crédito de supermercado puede resultar en un reembolso menor o un aumento en los impuestos adeudados en su declaración estatal de identificación.
+          donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal, y todo el dinero del fondo se destina a fines de asistencia y bienestar público.
+          donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
+          donate_warning_p1: Su donación se descontará del reembolso estatal total.
+          donate_warning_p2: Su elección de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
+          title: "¡Recibirás $%{grocery_credit_amount} del Crédito de comestibles de Idaho!"
+          title_html: "¡Recibirás <strong>$%{grocery_credit_amount}</strong> del Crédito de comestibles de Idaho!"
+          would_you_like_to_donate: "¿Quieres donar tu crédito al Fondo de Bienestar Cooperativo?"
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
