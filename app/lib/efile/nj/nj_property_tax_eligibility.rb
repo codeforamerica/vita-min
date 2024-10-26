@@ -17,15 +17,18 @@ module Efile
 
           return NOT_INELIGIBLE if state_wages > wage_minimum
 
-          if intake.direct_file_data.is_primary_blind? ||
-              intake.direct_file_data.is_spouse_blind? ||
-              intake.primary_disabled_yes? ||
-              intake.spouse_disabled_yes? ||
-              Efile::Nj::NjSenior.is_over_65(intake.primary_birth_date) ||
-              Efile::Nj::NjSenior.is_over_65(intake.spouse_birth_date)
+          meets_exception = intake.direct_file_data.is_primary_blind? ||
+                            intake.primary_disabled_yes? ||
+                            Efile::Nj::NjSenior.is_over_65(intake.primary_birth_date)
 
-            return INELIGIBLE_FOR_DEDUCTION 
-          end
+          spouse_meets_exception = intake.filing_status == :married_filing_jointly &&
+                              (
+                                intake.direct_file_data.is_spouse_blind? ||
+                                intake.spouse_disabled_yes? ||
+                                Efile::Nj::NjSenior.is_over_65(intake.spouse_birth_date)
+                              )
+
+          return INELIGIBLE_FOR_DEDUCTION if meets_exception || spouse_meets_exception
 
           INELIGIBLE
         end

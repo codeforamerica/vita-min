@@ -24,6 +24,7 @@ describe Efile::Nj::NjPropertyTaxEligibility do
       { filing_status: :married_filing_separately, income: 10_000, expected: :ineligible },
       { filing_status: :head_of_household, income: 20_000, expected: :ineligible },
       { filing_status: :qualifying_widow, income: 20_000, expected: :ineligible },
+
       { filing_status: :single, income: 9_999, expected: :ineligible },
       { filing_status: :married_filing_jointly, income: 19_999, expected: :ineligible },
       { filing_status: :married_filing_separately, income: 9_999, expected: :ineligible },
