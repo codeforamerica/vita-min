@@ -69,33 +69,43 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
-  describe 'the Az flat tax rate is 2.5%' do
-    context 'when the filer has an income of $25,000' do
-      before do
-        allow(instance).to receive(:calculate_line_42).and_return 25_000
-        allow(instance).to receive(:calculate_line_43).and_return 2_000
-        allow(instance).to receive(:calculate_line_44).and_return 2_000
-      end
+  describe "Line 45: Arizona taxable income" do
+    context "line 42 - (line 43 + 44) is more than 0" do
+      it "enters the amount" do
+        allow(instance).to receive(:calculate_line_42).and_return 3_000
+        allow(instance).to receive(:calculate_line_43).and_return 1_000
+        allow(instance).to receive(:calculate_line_44).and_return 1_000
 
-      it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(21_000) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(525)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(1_000)
       end
     end
 
-    context 'when the filer has an income of $150,000' do
-      before do
-        allow(instance).to receive(:calculate_line_42).and_return 150_000
-        allow(instance).to receive(:calculate_line_43).and_return 2_000
-        allow(instance).to receive(:calculate_line_44).and_return 2_000
-      end
+    context "line 42 - (line 43 + 44) is less than 0" do
+      it "enters 0" do
+        allow(instance).to receive(:calculate_line_42).and_return 1_000
+        allow(instance).to receive(:calculate_line_43).and_return 1_000
+        allow(instance).to receive(:calculate_line_44).and_return 1_000
 
-      it 'the tax is 2.5%' do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(146000) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(3650)
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(0)
       end
+    end
+  end
+
+  describe "Line 46: tax" do
+    it "multiplies line 45 by 0.025" do
+      allow(instance).to receive(:calculate_line_45).and_return 20_000
+
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_46].value).to eq(500)
+    end
+
+    it "rounds the result" do
+      allow(instance).to receive(:calculate_line_45).and_return 20_500
+
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_46].value).to eq(513)
     end
   end
 
