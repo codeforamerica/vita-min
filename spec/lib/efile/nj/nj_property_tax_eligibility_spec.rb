@@ -6,30 +6,27 @@ describe Efile::Nj::NjPropertyTaxEligibility do
       { filing_status: :single, income: 11_000, expected: :not_ineligible },
       { filing_status: :married_filing_separately, income: 11_000, expected: :not_ineligible },
       { filing_status: :married_filing_jointly, income: 21_000, expected: :not_ineligible },
-      { filing_status: :single, income: 10_000, over_65: true, expected: :ineligible_for_deduction },
-      { filing_status: :single, income: 10_000, over_65: false, expected: :ineligible },
+      { filing_status: :single, income: 10_000, primary_over_65: true, expected: :ineligible_for_deduction },
+      { filing_status: :single, income: 10_000, expected: :ineligible },
+      { filing_status: :single, income: 9_999, primary_blind: true, expected: :ineligible_for_deduction },
+      { filing_status: :married_filing_jointly, income: 19_999, spouse_blind: true, expected: :ineligible_for_deduction },
+      { filing_status: :single, income: 9_999, primary_disabled: true, expected: :ineligible_for_deduction },
+      { filing_status: :married_filing_jointly, income: 19_999, spouse_disabled: true, expected: :ineligible_for_deduction },
+      { filing_status: :married_filing_jointly, income: 9_999, spouse_over_65: true, expected: :ineligible_for_deduction },
     ].each do |test_case|
       context "when filing #{test_case[:filing_status]} with income #{test_case[:income]}" do
         let(:intake) do
-          if test_case[:filing_status] == :married_filing_separately
-            if test_case[:over_65]
-              create(:state_file_nj_intake, :married_filing_separately, :primary_over_65)
-            else
-              create(:state_file_nj_intake, :married_filing_separately)
-            end
-          elsif test_case[:filing_status] == :married_filing_jointly
-            if test_case[:over_65]
-              create(:state_file_nj_intake, :married_filing_jointly, :primary_over_65)
-            else
-              create(:state_file_nj_intake, :married_filing_jointly)
-            end
-          else
-            if test_case[:over_65]
-              create(:state_file_nj_intake, :primary_over_65)
-            else
-              create(:state_file_nj_intake)
-            end
-          end
+          traits = []
+          traits << :married_filing_separately if test_case[:filing_status] == :married_filing_separately
+          traits << :married_filing_jointly if test_case[:filing_status] == :married_filing_jointly
+          traits << :primary_over_65 if test_case[:primary_over_65]
+          traits << :primary_blind if test_case[:primary_blind]
+          traits << :primary_disabled if test_case[:primary_disabled]
+          traits << :spouse_blind if test_case[:spouse_blind]
+          traits << :spouse_disabled if test_case[:spouse_disabled]
+          traits << :mfj_spouse_over_65 if test_case[:spouse_over_65]
+
+          create(:state_file_nj_intake, *traits)
         end
 
         it "returns #{test_case[:expected]}" do
