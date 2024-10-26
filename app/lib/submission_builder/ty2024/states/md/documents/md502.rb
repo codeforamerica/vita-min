@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SubmissionBuilder
   module Ty2024
     module States
@@ -10,13 +8,18 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("Form502", documentId: "Form502") do |xml|
-                if @submission.data_source.direct_file_data.claimed_as_dependent?
+                xml.MarylandSubdivisionCode intake.subdivision_code
+                unless intake.political_subdivision&.end_with?("- unincorporated")
+                  xml.CityTownOrTaxingArea intake.political_subdivision
+                end
+                xml.MarylandCounty county_abbreviation
+                if intake.direct_file_data.claimed_as_dependent?
                   xml.FilingStatus do
                     xml.DependentTaxpayer "X"
                   end
-                elsif @submission.data_source.filing_status == :married_filing_separately
+                elsif intake.filing_status == :married_filing_separately
                   xml.FilingStatus do
-                    xml.MarriedFilingSeparately "X", spouseSSN: @submission.data_source.direct_file_data.spouse_ssn
+                    xml.MarriedFilingSeparately "X", spouseSSN: intake.direct_file_data.spouse_ssn
                   end
                 else
                   xml.FilingStatus do
@@ -86,8 +89,39 @@ module SubmissionBuilder
             }.freeze
 
             def filing_status
-              FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
+              FILING_STATUS_OPTIONS[intake.filing_status]
             end
+
+            def county_abbreviation
+              COUNTY_ABBREVIATIONS[intake.residence_county]
+            end
+
+            COUNTY_ABBREVIATIONS = {
+              "Allegany" => "AL",
+              "Anne Arundel" => "AA",
+              "Baltimore County" => "BL",
+              "Baltimore City" => "BC",
+              "Calvert" => "CV",
+              "Caroline" => "CL",
+              "Carroll" => "CR",
+              "Cecil" => "CC",
+              "Charles" => "CH",
+              "Dorchester" => "DR",
+              "Frederick" => "FR",
+              "Garrett" => "GR",
+              "Harford" => "HR",
+              "Howard" => "HW",
+              "Kent" => "KN",
+              "Montgomery" => "MG",
+              "Prince George's" => "PG",
+              "Queen Anne's" => "QA",
+              "St. Mary's" => "SM",
+              "Somerset" => "SS",
+              "Talbot" => "TB",
+              "Washington" => "WH",
+              "Wicomico" => "WC",
+              "Worcester" => "WR"
+            }.freeze
           end
         end
       end

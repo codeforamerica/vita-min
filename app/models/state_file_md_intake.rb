@@ -34,6 +34,7 @@
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
 #  phone_number                         :string
 #  phone_number_verified_at             :datetime
+#  political_subdivision                :string
 #  primary_birth_date                   :date
 #  primary_esigned                      :integer          default("unfilled"), not null
 #  primary_esigned_at                   :datetime
@@ -41,11 +42,13 @@
 #  primary_last_name                    :string
 #  primary_middle_initial               :string
 #  primary_signature                    :string
+#  primary_signature_pin                :text
 #  primary_ssn                          :string
 #  primary_suffix                       :string
 #  raw_direct_file_data                 :text
 #  raw_direct_file_intake_data          :jsonb
 #  referrer                             :string
+#  residence_county                     :string
 #  routing_number                       :string
 #  sign_in_count                        :integer          default(0), not null
 #  source                               :string
@@ -55,9 +58,11 @@
 #  spouse_first_name                    :string
 #  spouse_last_name                     :string
 #  spouse_middle_initial                :string
+#  spouse_signature_pin                 :text
 #  spouse_ssn                           :string
 #  spouse_suffix                        :string
 #  street_address                       :string
+#  subdivision_code                     :string
 #  unfinished_intake_ids                :text             default([]), is an Array
 #  unsubscribed_from_email              :boolean          default(FALSE), not null
 #  withdraw_amount                      :decimal(12, 2)
@@ -77,6 +82,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
+  include MdResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
@@ -102,6 +108,10 @@ class StateFileMdIntake < StateFileBaseIntake
       eligibility_homebuyer_withdrawal: "yes",
       eligibility_home_different_areas: "yes",
     }
+  end
+
+  def ask_for_signature_pin?
+    true
   end
 
   def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)

@@ -584,6 +584,8 @@ NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:
   label: "29 New Jersey Gross Income (Subtract line 28c from line 27) (See instructions)"
+NJ1040_LINE_31:
+  label: "Medical Expenses (See Worksheet F and instructions)"
 NJ1040_LINE_38:
   label: "38 Total Exemptions and Deductions (Add lines 30 through 37c)"
 NJ1040_LINE_39:

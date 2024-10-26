@@ -109,6 +109,11 @@ module SubmissionBuilder
                   end
 
                   xml.TotalExemptionAmountB calculated_fields.fetch(:NJ1040_LINE_13)
+
+                  if calculated_fields.fetch(:NJ1040_LINE_31)
+                    xml.MedicalExpenses calculated_fields.fetch(:NJ1040_LINE_31)
+                  end
+
                   xml.TotalExemptDeductions calculated_fields.fetch(:NJ1040_LINE_38)
 
                   if calculated_fields.fetch(:NJ1040_LINE_39) > 0

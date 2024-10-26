@@ -15,8 +15,8 @@
 #  df_data_import_failed_at                       :datetime
 #  df_data_imported_at                            :datetime
 #  donate_grocery_credit                          :integer          default("unfilled"), not null
-#  eligibility_lived_in_state                     :integer          default("unfilled"), not null
-#  eligibility_out_of_state_income                :integer          default("unfilled"), not null
+#  eligibility_emergency_rental_assistance        :integer          default("unfilled"), not null
+#  eligibility_withdrew_msa_fthb                  :integer          default("unfilled"), not null
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
 #  failed_attempts                                :integer          default(0), not null
@@ -70,6 +70,8 @@
 #  index_state_file_id_intakes_on_hashed_ssn     (hashed_ssn)
 #
 class StateFileIdIntake < StateFileBaseIntake
+  enum eligibility_withdrew_msa_fthb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_msa_fthb
+  enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
   enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
   enum household_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_has_grocery_credit_ineligible_months
   enum primary_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_has_grocery_credit_ineligible_months
@@ -79,6 +81,9 @@ class StateFileIdIntake < StateFileBaseIntake
   def disqualifying_df_data_reason; end
 
   def disqualifying_eligibility_rules
-    {}
+    {
+      eligibility_withdrew_msa_fthb: "yes",
+      eligibility_emergency_rental_assistance: "yes"
+    }
   end
 end

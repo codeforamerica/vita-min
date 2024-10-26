@@ -1823,8 +1823,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
     t.integer "donate_grocery_credit", default: 0, null: false
-    t.integer "eligibility_lived_in_state", default: 0, null: false
-    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
+    t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
@@ -1913,6 +1913,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.string "political_subdivision"
     t.date "primary_birth_date"
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
@@ -1920,12 +1921,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_signature"
+    t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
+    t.string "residence_county"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
@@ -1935,10 +1938,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.string "street_address"
+    t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
@@ -2070,6 +2075,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.integer "medical_expenses", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
