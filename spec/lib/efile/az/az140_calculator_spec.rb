@@ -69,6 +69,52 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 43 and 43S: standard deduction" do
+    let(:intake) { create(:state_file_az_intake, filing_status: filing_status) }
+
+    context "single" do
+      let(:filing_status) { "single" }
+
+      it "sets the standard deduction correctly" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_43].value).to eq(13_850)
+        expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+      end
+    end
+
+    context "mfj" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      it "sets the standard deduction correctly" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_43].value).to eq(27_700)
+        expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+      end
+    end
+
+    context "hoh" do
+      context "actually hoh" do
+        let(:filing_status) { "head_of_household" }
+
+        it "sets the standard deduction correctly" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+          expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+        end
+      end
+
+      context "actually qss" do
+        let(:filing_status) { "qualifying_widow" }
+
+        it "sets the standard deduction to the same amount as hoh" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+          expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+        end
+      end
+    end
+  end
+
   describe "Line 45: Arizona taxable income" do
     context "line 42 - (line 43 + 44) is more than 0" do
       it "enters the amount" do
@@ -106,20 +152,6 @@ describe Efile::Az::Az140Calculator do
 
       instance.calculate
       expect(instance.lines[:AZ140_LINE_46].value).to eq(513)
-    end
-  end
-
-  # Check for standard deduction line 43
-  describe 'Standard deductions' do
-    let(:intake) { create(:state_file_az_intake) }
-    before do
-      intake.direct_file_data.filing_status = 5 # qualifying_widow
-    end
-
-    it 'sets the standard deduction correctly for QSS' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
-      expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
     end
   end
 
