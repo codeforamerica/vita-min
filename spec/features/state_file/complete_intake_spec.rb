@@ -445,7 +445,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
 
-      find('a.reveal__link').click
+      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
 
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
