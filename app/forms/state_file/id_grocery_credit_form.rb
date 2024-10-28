@@ -27,8 +27,6 @@ module StateFile
               },
               if: -> { spouse_has_grocery_credit_ineligible_months == "yes" }
 
-    # TODO: wipe out submitted "ineligible_months" params for any filer, spouse or dependent that doesn't have has_grocery_credit_ineligible_months == yes
-
     def initialize(intake = nil, params = nil)
       super
       if params.present?
