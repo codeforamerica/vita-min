@@ -177,6 +177,62 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'calculate_use_tax' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it "when income <= 15,000, use tax is $14" do
+      expect(instance.calculate_use_tax(-1000)).to eq(14)
+      expect(instance.calculate_use_tax(-1)).to eq(14)
+      expect(instance.calculate_use_tax(0)).to eq(14)
+      expect(instance.calculate_use_tax(1)).to eq(14)
+      expect(instance.calculate_use_tax(14_999)).to eq(14)
+      expect(instance.calculate_use_tax(15_000)).to eq(14)
+    end
+
+    it "when income > 15,000 and <= 30,000, use tax is $44" do
+      expect(instance.calculate_use_tax(15_001)).to eq(44)
+      expect(instance.calculate_use_tax(29_999)).to eq(44)
+      expect(instance.calculate_use_tax(30_000)).to eq(44)
+    end
+
+    it "when income > 30,000 and <= 50,000, use tax is $64" do
+      expect(instance.calculate_use_tax(30_001)).to eq(64)
+      expect(instance.calculate_use_tax(49_999)).to eq(64)
+      expect(instance.calculate_use_tax(50_000)).to eq(64)
+    end
+
+    it "when income > 50,000 and <= 75,000, use tax is $84" do
+      expect(instance.calculate_use_tax(50_001)).to eq(84)
+      expect(instance.calculate_use_tax(74_999)).to eq(84)
+      expect(instance.calculate_use_tax(75_000)).to eq(84)
+    end
+
+    it "when income > 75,000 and <= 100,000, use tax is $106" do
+      expect(instance.calculate_use_tax(75_001)).to eq(106)
+      expect(instance.calculate_use_tax(99_999)).to eq(106)
+      expect(instance.calculate_use_tax(100_000)).to eq(106)
+    end
+
+    it "when income > 100,000 and <= 150,000, use tax is $134" do
+      expect(instance.calculate_use_tax(100_001)).to eq(134)
+      expect(instance.calculate_use_tax(149_999)).to eq(134)
+      expect(instance.calculate_use_tax(150_000)).to eq(134)
+    end
+
+    it "when income > 150,000 and <= 200,000, use tax is $170" do
+      expect(instance.calculate_use_tax(150_001)).to eq(170)
+      expect(instance.calculate_use_tax(199_999)).to eq(170)
+      expect(instance.calculate_use_tax(200_000)).to eq(170)
+    end
+
+    it "when income > 200,000, use tax is 0.0852% or $494, whichever is less, rounded" do
+      expect(instance.calculate_use_tax(200_001)).to eq(170)
+      expect(instance.calculate_use_tax(500_000)).to eq(426)
+      expect(instance.calculate_use_tax(579_000)).to eq(493)
+      expect(instance.calculate_use_tax(579_813)).to eq(494)
+      expect(instance.calculate_use_tax(1_000_000)).to eq(494)
+    end
+  end
+
   describe 'line 6 exemptions' do
     context 'when filing status is single' do
       let(:intake) { create(:state_file_nj_intake) }
@@ -808,6 +864,23 @@ describe Efile::Nj::Nj1040Calculator do
     let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s, :primary_over_65, :primary_blind) }
     it 'sets line 42 to line 39 (taxable income)' do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
+    end
+  end
+
+  describe 'line 51 - sales and use tax' do
+    
+    context 'when sales_use_tax exists (already calculated automated or manual)' do
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400 )}
+      it 'sets line 51 to the sales_use_tax' do
+        expect(instance.lines[:NJ1040_LINE_51].value).to eq 400
+      end
+    end
+
+    context 'when sales_use_tax is nil' do
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: nil )}
+      it 'sets line 51 to 0' do
+        expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
+      end
     end
   end
 

@@ -326,7 +326,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             create :efile_submission, tax_return: nil, data_source: create(
               :state_file_nj_intake,
               primary_first_name: "Grace",
-              primary_last_name: "Hopper"
+              primary_last_name: "Hopper",
+              primary_middle_initial: ""
             )
           }
           it 'fills pdf with LastName FirstName' do
@@ -362,6 +363,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :state_file_nj_intake,
               primary_first_name: "Grace",
               primary_last_name: "Hopper",
+              primary_middle_initial: "",
               primary_suffix: "JR"
             )
           }
@@ -475,7 +477,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it 'enters single dependent into PDF' do
           # dependent 1
-          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "ATHENS KRONOS"
+          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "ATHENS KRONOS T"
           expect(pdf_fields["undefined_18"]).to eq "3"
           expect(pdf_fields["undefined_19"]).to eq "0"
           expect(pdf_fields["undefined_20"]).to eq "0"
@@ -1089,7 +1091,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
              :df_data_many_w2s,
              household_rent_own: 'own',
              property_tax_paid: 15_000,
-          ) }
+          )
+        }
 
         it "fills line 41 with $15,000 property tax deduction amount" do
           # thousands
@@ -1112,7 +1115,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :df_data_many_w2s,
             household_rent_own: 'own',
             property_tax_paid: 0,
-          ) }
+          )
+        }
 
         it "does not fill fields" do
           # thousands
@@ -1162,7 +1166,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
-      ) }
+      )
+      }
 
       it "writes rounded tax amount $7,615.10 based on income $200,000 with 2,000 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
         # millions
@@ -1182,6 +1187,28 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 51 - use tax" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake,
+          sales_use_tax: 123
+        ) }
+
+      it "writes $123.00 property tax credit" do
+        # thousands
+        expect(pdf_fields["50"]).to eq ""
+        expect(pdf_fields["50_2"]).to eq ""
+        expect(pdf_fields["50_3"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text131"]).to eq "1"
+        expect(pdf_fields["Text132"]).to eq "2"
+        expect(pdf_fields["Text133"]).to eq "3"
+        # decimals
+        expect(pdf_fields["Text134"]).to eq "0"
+        expect(pdf_fields["50_7"]).to eq "0"
+      end
+    end
+
     describe "line 56 - property tax credit" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
@@ -1189,7 +1216,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :df_data_many_w2s,
           household_rent_own: 'own',
           property_tax_paid: 0,
-          ) }
+          )
+      }
 
       it "writes $50.00 property tax credit" do
         # hundreds

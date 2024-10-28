@@ -2523,6 +2523,8 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          interest_income_body: No additional state info needed
+          interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
@@ -2561,10 +2563,20 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_primary_state_id:
+        md_primary:
+          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          why_ask_this: Why are you asking for this information?
       md_review:
         edit:
           county_html: "<strong>County</strong>"
           political_subdivision_html: "<strong>Political subdivision</strong>"
+      md_spouse_state_id:
+        md_spouse:
+          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          why_ask_this: Why are you asking for this information?
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2604,7 +2616,7 @@ en:
           subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
       nc_primary_state_id:
-        edit:
+        nc_primary:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
@@ -2629,7 +2641,7 @@ en:
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
       nc_spouse_state_id:
-        edit:
+        nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
@@ -2713,6 +2725,7 @@ en:
           title: Select the municipality where you lived on December 31, %{filing_year}
       nj_review:
         edit:
+          amount: Amount
           county: County
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
@@ -2721,6 +2734,21 @@ en:
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           spouse_disabled: My spouse has a disability
+          use_tax_applied: Consumer Use Tax Applied
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: Select one of the following
+          manual_use_tax_label: Enter calculated use tax. (Round to the nearest whole number)
+          subtitle: 'This includes:'
+          subtitle_list_html: |
+            <li>Items purchased or services performed out-of-state, where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</li>
+            <li>Online purchases where sales or use tax was not applied.</li>
+            <li>Purchases made by you or your spouse.</li>
+            <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
+          title: You need to share details about any untaxed out-of-state purchases.
+          use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
+          use_tax_method_manual: I had an untaxed purchase over $1000, or I would prefer to calculate my use tax manually.
+          use_tax_radio_label: Did you have any untaxed out-of-state purchases?
       nj_tenant_eligibility:
         edit:
           helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)

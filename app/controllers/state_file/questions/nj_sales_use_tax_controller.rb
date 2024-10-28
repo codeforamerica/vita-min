@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzPrimaryStateIdController < QuestionsController
+    class NjSalesUseTaxController < QuestionsController
       include ReturnToReviewConcern
     end
   end
