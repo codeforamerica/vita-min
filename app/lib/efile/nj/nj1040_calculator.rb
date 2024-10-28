@@ -299,8 +299,6 @@ module Efile
       end
 
       def number_of_dependents_age_5_younger
-        # TODO: revise once we have lines 10 and 11
-
         dep_age_5_younger_count = @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
         [dep_age_5_younger_count, MAX_NJ_CTC_DEPENDENTS].min
       end
