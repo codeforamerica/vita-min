@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <% if current_intake.household_rent_own == 'own' && !current_intake.property_tax_paid.nil?%>
+  <% if current_intake.household_rent_own_own? && !current_intake.property_tax_paid.nil?%>
     <div id="property_tax_paid" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".property_tax_paid") %></p>
@@ -36,7 +36,7 @@
     </div>
   <% end %>
 
-  <% if current_intake.household_rent_own == 'rent' %>
+  <% if current_intake.household_rent_own_rent? %>
     <div id="rent_paid" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".rent_paid") %></p>
@@ -70,6 +70,18 @@
         <%= t("general.edit") %>
         <span class="sr-only"><%= t(".medical_expenses") %></span>
       <% end %>
+    </div>
+  </div>
+
+  <div id="use-tax" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied") %></p>
+      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.untaxed_out_of_state_purchases_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
+        <p><%=number_to_currency(current_intake.sales_use_tax, precision: 0)%></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 

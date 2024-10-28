@@ -3,15 +3,31 @@ module StateFile
     set_attributes_for :state_file_efile_device_info, :device_id
     set_attributes_for :intake,
                        :primary_esigned,
-                       :spouse_esigned
+                       :spouse_esigned,
+                       :primary_signature_pin,
+                       :spouse_signature_pin
 
     validates :primary_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}
     validates :spouse_esigned, acceptance: { accept: 'yes', message: ->(_object, _data) { I18n.t("views.ctc.questions.confirm_legal.error") }}, if: -> { @intake.ask_spouse_esign? }
     validate :validate_intake_already_submitted
+    validates :primary_signature_pin, presence: true, signature_pin: true, if: -> { @intake.ask_for_signature_pin? }
+    validates :spouse_signature_pin, presence: true, signature_pin: true, if: -> { @intake.ask_for_signature_pin?  && @intake.ask_spouse_esign? }
 
     def save
       return false unless valid?
-      attrs = @intake.ask_spouse_esign? ? attributes_for(:intake) : attributes_for(:intake).except(:spouse_esigned)
+      attrs = attributes_for(:intake)
+      spouse_esigned = @intake.ask_spouse_esign?
+      signature_pin_needed = @intake.ask_for_signature_pin?
+
+      attrs.except!(:spouse_esigned) unless spouse_esigned
+      attrs.except!(:primary_signature_pin, :spouse_signature_pin) unless signature_pin_needed
+      attrs.except!(:spouse_signature_pin) unless spouse_esigned && signature_pin_needed
+
+      if @intake.ask_for_signature_pin?
+        attrs[:primary_signature_pin] = primary_signature_pin
+        attrs[:spouse_signature_pin] = spouse_signature_pin
+      end
+
       @intake.update!(attrs)
       @intake.touch(:primary_esigned_at) if @intake.primary_esigned_yes?
       @intake.touch(:spouse_esigned_at) if @intake.spouse_esigned_yes? && @intake.ask_spouse_esign?

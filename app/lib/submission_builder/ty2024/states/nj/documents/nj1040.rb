@@ -146,6 +146,8 @@ module SubmissionBuilder
 
                   xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
 
+                  xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
+
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)
