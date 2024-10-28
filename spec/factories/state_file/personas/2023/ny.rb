@@ -21,6 +21,8 @@ FactoryBot.define do
     permanent_zip { "12083" }
 
     after(:create) do |intake|
+      intake.synchronize_df_w2s_to_database
+
       create(
         :state_file1099_g,
         intake: intake,

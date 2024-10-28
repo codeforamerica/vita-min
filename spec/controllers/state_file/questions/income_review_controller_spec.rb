@@ -18,9 +18,36 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   before do
     sign_in intake
   end
+  render_views
+
+  describe "W-2s card" do
+    context "when there are no w2s" do
+      it "does not show the card" do
+        get :edit
+
+        expect(response.body).not_to have_text "Jobs (W-2)"
+      end
+    end
+
+    context "when there are w2s" do
+      let!(:state_file_w2_1) { create :state_file_w2, employee_name: "Egg Person", employer_name: "First Enterprises", state_file_intake: intake }
+      let!(:state_file_w2_2) { create :state_file_w2, employee_name: "Chicken Person", employer_name: "First Corporation", state_file_intake: intake }
+
+      it "shows a summary of each W2" do
+        get :edit
+
+        expect(response.body).to have_text "Jobs (W-2)"
+        expect(response.body).to have_text "Egg Person"
+        expect(response.body).to have_text "Chicken Person"
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_1.id))
+        expect(response.body).to have_text "First Enterprises"
+        expect(response.body).to have_text "First Corporation"
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id))
+      end
+    end
+  end
 
   describe "unemployment card" do
-    render_views
     before do
       intake.direct_file_data.fed_unemployment = fed_unemployment
       intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
@@ -99,6 +126,28 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       it "doesn't show the SSA card" do
         get :edit
         expect(response.body).not_to have_text "Social Security benefits (SSA-1099)"
+      end
+    end
+  end
+
+  describe "1099-INT card" do
+    render_views
+
+    context "when filer has no 1099-INT" do
+      it "does not show the interest income card" do
+        get :edit
+        expect(response.body).not_to have_text "Interest income (1099-INT)"
+      end
+    end
+
+    context "when filer has 1099-INT info in json" do
+      let(:intake) do
+        create(:state_file_md_intake, :df_data_1099_int)
+      end
+
+      it "shows the interest income card" do
+        get :edit
+        expect(response.body).to have_text "Interest income (1099-INT)"
       end
     end
   end

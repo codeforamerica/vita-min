@@ -2523,12 +2523,15 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          interest_income_body: No additional state info needed
+          interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
+          w2s_title: Jobs (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2723,6 +2726,7 @@ en:
           title: Select the municipality where you lived on December 31, %{filing_year}
       nj_review:
         edit:
+          amount: Amount
           county: County
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
@@ -2731,6 +2735,21 @@ en:
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           spouse_disabled: My spouse has a disability
+          use_tax_applied: Consumer Use Tax Applied
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: Select one of the following
+          manual_use_tax_label: Enter calculated use tax. (Round to the nearest whole number)
+          subtitle: 'This includes:'
+          subtitle_list_html: |
+            <li>Items purchased or services performed out-of-state, where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</li>
+            <li>Online purchases where sales or use tax was not applied.</li>
+            <li>Purchases made by you or your spouse.</li>
+            <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
+          title: You need to share details about any untaxed out-of-state purchases.
+          use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
+          use_tax_method_manual: I had an untaxed purchase over $1000, or I would prefer to calculate my use tax manually.
+          use_tax_radio_label: Did you have any untaxed out-of-state purchases?
       nj_tenant_eligibility:
         edit:
           helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
@@ -2936,7 +2955,6 @@ en:
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
-        w2: W-2 state and local tax information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -3085,13 +3103,7 @@ en:
           locality_nm_missing_error: Please select locality name
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          w2s_error: Update W-2s before continuing.
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-        index:
-          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
-          updated: You've updated this W-2
-          w2_for: 'W-2 for: %{employer_name}'
-          wages_amount: 'Total wages amount: $%{wages_amount}'
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
