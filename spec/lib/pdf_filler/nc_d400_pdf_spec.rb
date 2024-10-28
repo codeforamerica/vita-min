@@ -35,6 +35,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_rs1yes']).to eq 'Yes'
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Off'
           expect(pdf_fields['y_d400wf_county']).to eq 'Alama'
+          expect(pdf_fields['y_d400wf_fedex1no']).to eq 'Yes'
         end
 
         it "sets other fields to the correct values" do

@@ -2,10 +2,9 @@
   "familyAndHousehold": [],
   "filers": [
     {
-      "firstName": "Todd",
-      "lastName": "Interest",
+      "firstName": "Troy",
       "middleInitial": "T",
-      "tin": "123-45-6789",
+      "lastName": "Interest",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
     }

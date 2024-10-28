@@ -27,6 +27,7 @@ module Efile
         set_line(:NJ1040_LINE_41, :calculate_line_41)
         set_line(:NJ1040_LINE_42, :calculate_line_42)
         set_line(:NJ1040_LINE_43, :calculate_line_43)
+        set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
@@ -113,6 +114,27 @@ module Efile
       def should_use_property_tax_deduction
         return false if calculate_tax_liability_with_deduction.nil?
         calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
+      end
+
+      def calculate_use_tax(nj_gross_income)
+        case nj_gross_income
+        when -Float::INFINITY..15_000
+          14
+        when 15_000..30_000
+          44
+        when 30_000..50_000
+          64
+        when 50_000..75_000
+          84
+        when 75_000..100_000
+          106
+        when 100_000..150_000
+          134
+        when 150_000..200_000
+          170
+        when 200_000..Float::INFINITY
+          [0.000852 * nj_gross_income, 494].min.round
+        end
       end
 
       private
@@ -222,6 +244,10 @@ module Efile
 
       def calculate_line_43
         should_use_property_tax_deduction ? calculate_tax_liability_with_deduction.round : calculate_tax_liability_without_deduction.round
+      end
+
+      def calculate_line_51
+        @intake.sales_use_tax || 0
       end
 
       def calculate_line_56

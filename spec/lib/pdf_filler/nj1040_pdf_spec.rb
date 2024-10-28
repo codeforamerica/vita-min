@@ -1196,6 +1196,28 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 51 - use tax" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake,
+          sales_use_tax: 123
+        ) }
+
+      it "writes $123.00 property tax credit" do
+        # thousands
+        expect(pdf_fields["50"]).to eq ""
+        expect(pdf_fields["50_2"]).to eq ""
+        expect(pdf_fields["50_3"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text131"]).to eq "1"
+        expect(pdf_fields["Text132"]).to eq "2"
+        expect(pdf_fields["Text133"]).to eq "3"
+        # decimals
+        expect(pdf_fields["Text134"]).to eq "0"
+        expect(pdf_fields["50_7"]).to eq "0"
+      end
+    end
+
     describe "line 56 - property tax credit" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(

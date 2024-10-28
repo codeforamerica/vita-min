@@ -463,6 +463,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "use tax - line 51" do
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 123) }
+      it "fills SalesAndUseTax with sales_use_tax" do
+        expect(xml.at("SalesAndUseTax").text).to eq(123.to_s)
+      end
+    end
+
     describe "property tax credit - line 56" do
       let(:intake) { create(:state_file_nj_intake,
                             :df_data_many_w2s,

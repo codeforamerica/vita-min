@@ -81,6 +81,7 @@ describe 'EfileError' do
       "nj-medical-expenses",
       "nj-municipality",
       "nj-review",
+      "nj-sales-use-tax",
       "nj-tenant-eligibility",
       "nj-tenant-rent-paid",
       "nj-unsupported-property-tax",

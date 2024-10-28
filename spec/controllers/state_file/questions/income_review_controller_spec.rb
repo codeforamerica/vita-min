@@ -129,4 +129,26 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
     end
   end
+
+  describe "1099-INT card" do
+    render_views
+
+    context "when filer has no 1099-INT" do
+      it "does not show the interest income card" do
+        get :edit
+        expect(response.body).not_to have_text "Interest income (1099-INT)"
+      end
+    end
+
+    context "when filer has 1099-INT info in json" do
+      let(:intake) do
+        create(:state_file_md_intake, :df_data_1099_int)
+      end
+
+      it "shows the interest income card" do
+        get :edit
+        expect(response.body).to have_text "Interest income (1099-INT)"
+      end
+    end
+  end
 end
