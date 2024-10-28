@@ -116,19 +116,24 @@ FactoryBot.define do
     end
 
     trait :single do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('tucker_single') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tucker_single') }
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('shiloh_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_shiloh_hoh') }
     end
 
     trait :married_filing_separately do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('sheldon_mfs') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
     end
 
     trait :qualified_widow do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('laney_qss') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_laney_qss') }
+    end
+
+    trait :df_data_1099_int do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
     end
   end
 end

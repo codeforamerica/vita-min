@@ -105,6 +105,21 @@ module SubmissionBuilder
       SubmissionBuilder::State1099R
     end
 
+    def form1099ints
+      @submission.data_source.direct_file_json_data.interest_reports.each_with_index.map do |form1099int, index|
+        {
+          xml: form1099int_builder,
+          pdf: nil,
+          include: true,
+          kwargs: { form1099int: form1099int, index: index, intake: @submission.data_source}
+        }
+      end
+    end
+
+    def form1099int_builder
+      SubmissionBuilder::State1099Int
+    end
+
     # default to nil
     def w2_pdf; end
 
