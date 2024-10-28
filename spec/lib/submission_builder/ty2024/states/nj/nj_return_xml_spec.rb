@@ -48,8 +48,16 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
 
-      context "with many deps" do
+      context "with many deps all under 5 yrs old" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, municipality_code: "0101") }
+
+        before do
+          five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
+          intake.synchronize_df_dependents_to_database
+          intake.dependents.each do |d| d.update(dob: five_years) end
+          intake.dependents.reload
+        end
+
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
