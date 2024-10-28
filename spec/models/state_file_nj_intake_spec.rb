@@ -36,6 +36,7 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
+#  medical_expenses                                       :integer          default(0), not null
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
@@ -62,6 +63,8 @@
 #  referrer                                               :string
 #  rent_paid                                              :integer
 #  routing_number                                         :string
+#  sales_use_tax                                          :integer
+#  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
@@ -81,6 +84,7 @@
 #  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases                         :integer          default("unfilled"), not null
 #  withdraw_amount                                        :integer
 #  created_at                                             :datetime         not null
 #  updated_at                                             :datetime         not null

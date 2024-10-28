@@ -20,6 +20,31 @@
     </div>
   <% end %>
 
+  <% if current_intake.state_file_w2s.present? %>
+    <div class="white-group">
+      <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
+      <% current_intake.state_file_w2s.each do |w2| %>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
+          <p class="spacing-below-5"><%= w2.employer_name %></p>
+          <%= link_to t(".review_and_edit_state_info"),
+                      StateFile::Questions::W2Controller.to_path_helper(action: :edit, id: w2.id),
+                      class: "button--small"
+          %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
+    <div class="white-group">
+      <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
+      <p class="text--grey-bold spacing-above-15 spacing-below-0">
+        <%= t(".interest_income_body") %>
+      </p>
+    </div>
+  <% end %>
+
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
     <div class="white-group unemployment">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>

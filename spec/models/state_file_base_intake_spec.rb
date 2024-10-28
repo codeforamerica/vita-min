@@ -73,6 +73,28 @@ describe StateFileBaseIntake do
     end
   end
 
+  describe "#synchronize_df_w2s_to_database" do
+    it "reads in w2s and adds all of them to the database" do
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099')
+      intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
+      expect(intake.state_file_w2s).to be_blank
+      intake.synchronize_df_w2s_to_database
+
+      expect(intake.state_file_w2s.count).to eq 1
+      w2 = intake.state_file_w2s.first
+
+      expect(w2.employer_name).to eq "Rose Apothecary"
+      expect(w2.employee_name).to eq "Alexis Rose"
+      expect(w2.employee_ssn).to eq "400000003"
+      expect(w2.employer_state_id_num).to eq "12345"
+      expect(w2.local_income_tax_amount).to eq 1000
+      expect(w2.local_wages_and_tips_amount).to eq 1350
+      expect(w2.locality_nm).to eq "SOMECITY"
+      expect(w2.state_income_tax_amount).to eq 500
+      expect(w2.state_wages_amount).to eq 35000
+    end
+  end
+
   describe "#timedout?" do
     let!(:intake) { create :state_file_az_intake }
     let!(:efile_submission) { create :efile_submission, data_source_id: intake.id, data_source_type: "StateFileAzIntake" }

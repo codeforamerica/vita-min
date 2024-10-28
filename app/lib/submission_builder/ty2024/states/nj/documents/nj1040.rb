@@ -109,6 +109,11 @@ module SubmissionBuilder
                   end
 
                   xml.TotalExemptionAmountB calculated_fields.fetch(:NJ1040_LINE_13)
+
+                  if calculated_fields.fetch(:NJ1040_LINE_31)
+                    xml.MedicalExpenses calculated_fields.fetch(:NJ1040_LINE_31)
+                  end
+
                   xml.TotalExemptDeductions calculated_fields.fetch(:NJ1040_LINE_38)
 
                   if calculated_fields.fetch(:NJ1040_LINE_39) > 0
@@ -140,6 +145,8 @@ module SubmissionBuilder
                   end
 
                   xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
+
+                  xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
 
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 

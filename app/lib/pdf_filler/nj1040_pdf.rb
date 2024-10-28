@@ -124,6 +124,20 @@ module PdfFiller
                                                  ]))
       end
 
+      if @xml_document.at("Body MedicalExpenses")
+        medical_expenses = @xml_document.at("Body MedicalExpenses").text.to_i
+        answers.merge!(insert_digits_into_fields(medical_expenses, [
+                                                   "219",
+                                                   "undefined_93",
+                                                   "218",
+                                                   "217",
+                                                   "undefined_92",
+                                                   "216",
+                                                   "215",
+                                                   "31"
+                                                 ]))
+      end
+
       if @xml_document.at("TotalExemptDeductions")
         total_exemptions = @xml_document.at("TotalExemptDeductions").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -268,6 +282,21 @@ module PdfFiller
           "42",
           "4036y54ethdf",
           "Enter Code4332243ew",
+        ]))
+      end
+
+      # line 51
+      if @xml_document.at("SalesAndUseTax").present?
+        tax = @xml_document.at("SalesAndUseTax").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+          "50_7",
+          "Text134",
+          "Text133",
+          "Text132",
+          "Text131",
+          "50_3",
+          "50_2",
+          "50",
         ]))
       end
 

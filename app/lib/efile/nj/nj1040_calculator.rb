@@ -20,12 +20,14 @@ module Efile
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
+        set_line(:NJ1040_LINE_31, :calculate_line_31)
         set_line(:NJ1040_LINE_38, :calculate_line_38)
         set_line(:NJ1040_LINE_39, :calculate_line_39)
         set_line(:NJ1040_LINE_40A, :calculate_line_40a)
         set_line(:NJ1040_LINE_41, :calculate_line_41)
         set_line(:NJ1040_LINE_42, :calculate_line_42)
         set_line(:NJ1040_LINE_43, :calculate_line_43)
+        set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
@@ -109,6 +111,32 @@ module Efile
         ((income * rate) - subtraction).round(2)
       end
 
+      def should_use_property_tax_deduction
+        return false if calculate_tax_liability_with_deduction.nil?
+        calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
+      end
+
+      def calculate_use_tax(nj_gross_income)
+        case nj_gross_income
+        when -Float::INFINITY..15_000
+          14
+        when 15_000..30_000
+          44
+        when 30_000..50_000
+          64
+        when 50_000..75_000
+          84
+        when 75_000..100_000
+          106
+        when 100_000..150_000
+          134
+        when 150_000..200_000
+          170
+        when 200_000..Float::INFINITY
+          [0.000852 * nj_gross_income, 494].min.round
+        end
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -166,13 +194,13 @@ module Efile
       end
 
       def calculate_line_15
-        if @direct_file_data.w2s.empty?
+        if @intake.state_file_w2s.empty?
           return -1
         end
 
         sum = 0
-        @direct_file_data.w2s.each do |w2|
-          state_wage = w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_i
+        @intake.state_file_w2s.each do |w2|
+          state_wage = w2.state_wages_amount
           sum += state_wage
         end
         sum
@@ -186,8 +214,16 @@ module Efile
         calculate_line_27
       end
 
+      def calculate_line_31
+        two_percent_gross = calculate_line_29 * 0.02
+        difference_with_med_expenses = @intake.medical_expenses - two_percent_gross
+        rounded_difference = difference_with_med_expenses.round
+        return rounded_difference if rounded_difference.positive?
+        nil
+      end
+
       def calculate_line_38
-        calculate_line_13
+        calculate_line_13 + line_or_zero(:NJ1040_LINE_31)
       end
 
       def calculate_line_39
@@ -196,11 +232,6 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
-      end
-
-      def should_use_property_tax_deduction
-        return false if calculate_tax_liability_with_deduction.nil?
-        calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction >= 50
       end
 
       def calculate_line_41
@@ -213,6 +244,10 @@ module Efile
 
       def calculate_line_43
         should_use_property_tax_deduction ? calculate_tax_liability_with_deduction.round : calculate_tax_liability_without_deduction.round
+      end
+
+      def calculate_line_51
+        @intake.sales_use_tax || 0
       end
 
       def calculate_line_56

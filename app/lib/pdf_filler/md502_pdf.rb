@@ -31,6 +31,9 @@ module PdfFiller
         'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
+        'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
+        'Enter zip code + 5': @submission.data_source.residence_county,
         "Check Box - 1": filing_status(:filing_status_single?) ? 'Yes' : 'Off',
         "Check Box - 2": filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
         "Check Box - 3": filing_status(:filing_status_mfs?) ? 'No' : 'Off', # "No" is the checked option

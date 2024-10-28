@@ -152,6 +152,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
   enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 
   before_save do
 
@@ -256,14 +258,6 @@ class StateFileNyIntake < StateFileBaseIntake
         state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin_ny_invalid"))
       end
     end
-  end
-
-  def invalid_df_w2?(df_w2)
-    if nyc_residency_full_year?
-      return true if df_w2.LocalWagesAndTipsAmt == 0 || df_w2.LocalityNm.blank?
-    end
-    return true if df_w2.LocalityNm.present? && !self.class.locality_nm_valid?(df_w2.LocalityNm)
-    super
   end
 
   private

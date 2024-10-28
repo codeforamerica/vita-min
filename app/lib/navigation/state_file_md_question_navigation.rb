@@ -28,10 +28,12 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
         # Federal info does not show to users
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
-        Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::MdReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),

@@ -578,6 +578,8 @@ NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:
   label: "29 New Jersey Gross Income (Subtract line 28c from line 27) (See instructions)"
+NJ1040_LINE_31:
+  label: "Medical Expenses (See Worksheet F and instructions)"
 NJ1040_LINE_38:
   label: "38 Total Exemptions and Deductions (Add lines 30 through 37c)"
 NJ1040_LINE_39:
@@ -590,6 +592,8 @@ NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
 NJ1040_LINE_43:
   label: '43 Tax on amount on line 42 (Tax Table page 54)'
+NJ1040_LINE_51:
+  label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_64:
