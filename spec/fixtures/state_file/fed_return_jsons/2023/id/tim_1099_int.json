@@ -3,8 +3,9 @@
   "filers": [
     {
       "firstName": "Tim",
-      "middleInitial": "T",
       "lastName": "Interest",
+      "middleInitial": "T",
+      "tin": "123-45-6789",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
     }
