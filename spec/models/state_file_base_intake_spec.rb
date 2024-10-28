@@ -144,7 +144,7 @@ describe StateFileBaseIntake do
 
   describe "#calculate_age" do
     let(:intake) { create :state_file_az_intake, primary_birth_date: dob }
-    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+    let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 10), 1, 1) }
 
     context "when following federal guidelines" do
       context "when calculating age for benefit one ages into" do
