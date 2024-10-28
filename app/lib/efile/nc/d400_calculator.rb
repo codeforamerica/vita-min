@@ -41,10 +41,10 @@ module Efile
       end
 
       def calculate_use_tax(nc_taxable_income)
-        return 0 if nc_taxable_income < 0
+        return 0 if nc_taxable_income.nil?
 
         brackets = [
-          [0, 2200, 1], [2200, 3700, 2], [3700, 5200, 3], [5200, 6700, 4],
+          [-Float::INFINITY, 2200, 1], [2200, 3700, 2], [3700, 5200, 3], [5200, 6700, 4],
           [6700, 8100, 5], [8100, 9600, 6], [9600, 11100, 7], [11100, 12600, 8],
           [12600, 14100, 9], [14100, 15600, 10], [15600, 17000, 11], [17000, 18500, 12],
           [18500, 20000, 13], [20000, 21500, 14], [21500, 23000, 15], [23000, 24400, 16],
@@ -119,6 +119,7 @@ module Efile
         # Line 15 minus Line 16 (line 16 is 0/blank)
         line_or_zero(:NCD400_LINE_15)
       end
+
       def calculate_line_18
         # Consumer use tax
         if @intake.untaxed_out_of_state_purchases_yes?
