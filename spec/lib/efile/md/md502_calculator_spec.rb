@@ -376,6 +376,18 @@ describe Efile::Md::Md502Calculator do
       end
     end
 
+    context "when filing status mfj and fed agi is 50_000" do
+      before do
+        intake.direct_file_data.filing_status = 2 # mfj
+        intake.direct_file_data.fed_agi = 150_001
+      end
+
+      it "returns 3200 (1600 per exemption)" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_A_AMOUNT].value).to eq 3200
+      end
+    end
+
     context "when filing status hoh and fed agi is negative" do
       before do
         intake.direct_file_data.filing_status = 4 # hoh

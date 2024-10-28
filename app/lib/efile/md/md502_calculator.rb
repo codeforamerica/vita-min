@@ -169,11 +169,7 @@ module Efile
         filing_status_mfj? ? "X" : nil
       end
 
-      def calculate_line_a_count
-        [@lines[:MD502_LINE_A_PRIMARY]&.value, @lines[:MD502_LINE_A_SPOUSE]&.value,].count(&:itself)
-      end
-
-      def calculate_line_a_amount
+      def calculate_exemption_amount
         # Exemption amount
         income_ranges = if filing_status_single? || filing_status_mfs?
                           [
@@ -198,6 +194,14 @@ module Efile
         income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }
 
         income_ranges[income_range_index][1]
+      end
+
+      def calculate_line_a_count
+        [@lines[:MD502_LINE_A_PRIMARY]&.value, @lines[:MD502_LINE_A_SPOUSE]&.value,].count(&:itself)
+      end
+
+      def calculate_line_a_amount
+        calculate_exemption_amount * line_or_zero(:MD502_LINE_A_COUNT)
       end
 
       def calculate_line_b_primary_senior
@@ -239,7 +243,8 @@ module Efile
       end
 
       def calculate_line_c_amount
-        line_or_zero(:MD502_LINE_A_AMOUNT) * line_or_zero(:MD502_LINE_C_COUNT)
+        # dependent exemption amount
+        calculate_exemption_amount * line_or_zero(:MD502_LINE_C_COUNT)
       end
 
       def calculate_line_d_count_total
