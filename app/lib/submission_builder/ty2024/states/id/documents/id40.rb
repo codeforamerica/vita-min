@@ -31,6 +31,7 @@ module SubmissionBuilder
                     xml.DependentDOB date_type(dependent.dob)
                   end
                 end
+                xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
               end
             end
 

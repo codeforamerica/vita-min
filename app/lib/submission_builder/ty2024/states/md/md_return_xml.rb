@@ -47,10 +47,21 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502R,
                 pdf: PdfFiller::Md502RPdf,
                 include: has_income_from_taxable_pensions_iras_annuities
+              },
+              {
+                xml: nil,
+                pdf: PdfFiller::MdEl101Pdf,
+                include: true
+              },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr,
+                pdf: PdfFiller::Md502CrPdf,
+                include: true,
               }
             ]
 
             supported_docs += combined_w2s
+            supported_docs += form1099rs
             supported_docs += form1099gs
             supported_docs
           end

@@ -4,7 +4,7 @@ module StateFile
       include ReturnToReviewConcern
 
       def self.show?(intake)
-        intake.household_rent_own == 'neither'
+        intake.household_rent_own_neither?
       end
     end
   end

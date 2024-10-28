@@ -67,10 +67,10 @@ module SubmissionBuilder
                     if calculated_fields.fetch(:NJ1040_LINE_7_SPOUSE)
                       xml.SpouseCuPartner65OrOver "X"
                     end
-                    if @submission.data_source.direct_file_data.is_primary_blind?
+                    if @submission.data_source.direct_file_data.is_primary_blind? || intake.primary_disabled_yes?
                       xml.YouBlindOrDisabled "X"
                     end
-                    if @submission.data_source.direct_file_data.is_spouse_blind?
+                    if @submission.data_source.direct_file_data.is_spouse_blind? || intake.spouse_disabled_yes?
                       xml.SpouseCuPartnerBlindOrDisabled "X"
                     end
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
@@ -109,6 +109,11 @@ module SubmissionBuilder
                   end
 
                   xml.TotalExemptionAmountB calculated_fields.fetch(:NJ1040_LINE_13)
+
+                  if calculated_fields.fetch(:NJ1040_LINE_31)
+                    xml.MedicalExpenses calculated_fields.fetch(:NJ1040_LINE_31)
+                  end
+
                   xml.TotalExemptDeductions calculated_fields.fetch(:NJ1040_LINE_38)
 
                   if calculated_fields.fetch(:NJ1040_LINE_39) > 0
@@ -125,18 +130,27 @@ module SubmissionBuilder
                     elsif intake.household_rent_own_own?
                       xml.Homeowner "X"
                     end
+
+                    if calculated_fields.fetch(:NJ1040_LINE_41)
+                      xml.PropertyTaxDeduction calculated_fields.fetch(:NJ1040_LINE_41)
+                    end
+
+                    if calculated_fields.fetch(:NJ1040_LINE_56)
+                      xml.PropertyTaxCredit calculated_fields.fetch(:NJ1040_LINE_56)
+                    end
                   end
 
                   if calculated_fields.fetch(:NJ1040_LINE_42) > 0
                     xml.NewJerseyTaxableIncome calculated_fields.fetch(:NJ1040_LINE_42)
                   end
-                  
+
+                  xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
+
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)
                   xml.NJChildTCNumOfDep calculated_fields.fetch(:NJ1040_LINE_65_DEPENDENTS) if line_65
                   xml.NJChildTaxCredit line_65 if line_65
-
                 end
               end
             end

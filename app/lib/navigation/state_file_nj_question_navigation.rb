@@ -28,9 +28,9 @@ module Navigation
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-                                          Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCountyController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMunicipalityController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjMedicalExpensesController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHouseholdRentOwnController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerEligibilityController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantEligibilityController),
@@ -40,6 +40,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController),
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                           Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjDisabledExemptionController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjReviewController),

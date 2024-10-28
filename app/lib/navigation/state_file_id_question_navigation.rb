@@ -4,7 +4,9 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        # eligibility
+        Navigation::NavigationStep.new(StateFile::Questions::IdEligibilityResidenceController),
+        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
         Navigation::NavigationStep.new(StateFile::Questions::ContactPreferenceController),
@@ -28,6 +30,8 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdSalesUseTaxController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [

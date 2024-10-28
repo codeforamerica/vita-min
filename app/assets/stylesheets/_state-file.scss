@@ -761,6 +761,10 @@ $state-colors: (
     .slab--footer {
       background-color: $color-nj-blue-darker;
     }
+
+    .review-header #household-info div:last-of-type {
+      display: none;
+    }
   }
 
   .loading-container {

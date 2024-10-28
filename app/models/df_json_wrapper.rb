@@ -14,7 +14,7 @@ class DfJsonWrapper
         end
       when :date
         define_method(selector_name) do
-          Date.parse(df_json_value(key))
+          Date.parse(df_json_value(key)) if df_json_value(key).present?
         end
       when :string, :boolean
         define_method(selector_name) do

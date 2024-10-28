@@ -20,6 +20,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
             homeowner_home_subject_to_property_taxes: :yes,
             homeowner_more_than_one_main_home_in_nj: :no,
             homeowner_shared_ownership_not_spouse: :yes,
+            homeowner_same_home_spouse: :yes,
           }
         }
       }
@@ -31,6 +32,25 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
         expect(intake.homeowner_home_subject_to_property_taxes).to eq "yes"
         expect(intake.homeowner_more_than_one_main_home_in_nj).to eq "no"
         expect(intake.homeowner_shared_ownership_not_spouse).to eq "yes"
+        expect(intake.homeowner_same_home_spouse).to eq "yes"
+      end
+    end
+
+    context "when a user is MFS" do
+      let(:intake) { create :state_file_nj_intake, :df_data_mfs }
+
+      it "shows the homeowner_same_home_spouse checkbox" do
+        get :edit
+        expect(response.body).to include("Did you and your spouse live in the same home?")
+      end
+    end
+
+    context "when a user is not MFS" do
+      let(:intake) { create :state_file_nj_intake, :df_data_mfj }
+
+      it "does not show the homeowner_same_home_spouse checkbox" do
+        get :edit
+        expect(response.body).not_to include("Did you and your spouse live in the same home?")
       end
     end
   end

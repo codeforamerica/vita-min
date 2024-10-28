@@ -152,6 +152,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
   enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 
   before_save do
 

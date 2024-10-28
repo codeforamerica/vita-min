@@ -1,0 +1,29 @@
+name: Heroku Pull Request
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  heroku-pull-request:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_APP_NAME: gyr-review-app-${{ github.event.number }}
+
+    steps:
+      - name: Login to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.13
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: jheath@codeforamerica.org
+          heroku_app_name: ${{ env.HEROKU_APP_NAME }}
+          justlogin: true
+
+      - name: Predestroy the app associated with the closed PR
+        run: heroku run rails heroku:review_app_predestroy --app=${{ env.HEROKU_APP_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Actually destroy the Heroku app associated with the closed PR
+        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

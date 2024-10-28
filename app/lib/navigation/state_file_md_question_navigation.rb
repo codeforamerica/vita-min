@@ -4,6 +4,7 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
+        Navigation::NavigationStep.new(StateFile::Questions::MdEligibilityFilingStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
@@ -27,10 +28,13 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
         # Federal info does not show to users
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::MdReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
@@ -44,4 +48,3 @@ module Navigation
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end
 end
-  

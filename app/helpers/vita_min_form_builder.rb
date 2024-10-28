@@ -282,11 +282,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       method,
       label_text,
       options: {},
-      classes: []
+      classes: [],
+      help_text: nil
     )
     text_field_options = standard_options.merge(
       class: (classes + ["text-input money-input"]).join(" "),
-      ).merge(options).merge(error_attributes(method: method)).merge(placeholder: '0.00')
+      ).merge(error_attributes(method: method)).merge(placeholder: '0.00').merge(options)
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
@@ -301,6 +302,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       prefix: '$',
       options: options,
       wrapper_classes: wrapper_classes,
+      help_text: help_text
       )
 
     html_output = <<~HTML

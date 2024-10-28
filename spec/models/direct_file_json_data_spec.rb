@@ -87,7 +87,7 @@ describe DirectFileJsonData do
       before do
 
         allow(direct_file_json_data).to receive(:dependents).and_return(
-          [DfJsonDependent.new({
+          [DirectFileJsonData::DfJsonDependent.new({
              "firstName" => "Gloria",
              "middleInitial" => "T",
              "lastName" => "Hemingway",
