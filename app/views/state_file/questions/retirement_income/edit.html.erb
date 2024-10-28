@@ -15,13 +15,13 @@
             <p class="form-question"><%= @state_file1099_r.payer_name %></p>
           </div>
           <div class="form-question spacing-below-15">
-            <%= f.vita_min_money_field(:state_distribution_amount, t(".box14_html"), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:state_tax_withheld_amount, t(".box14_html"), classes: ["form-width--long"]) %>
           </div>
           <div class="form-question spacing-below-15">
             <%= f.cfa_input_field(:payer_state_identification_number, t(".box15_html"), classes: ["form-width--long"]) %>
           </div>
           <div class="form-question spacing-below-15">
-            <%= f.vita_min_money_field(:state_tax_withheld_amount, t(".box16_html"), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:state_distribution_amount, t(".box16_html"), classes: ["form-width--long"]) %>
           </div>
         </div>
       </div>
