@@ -118,6 +118,10 @@ FactoryBot.define do
       after(:create, &:synchronize_df_1099_rs_to_database)
     end
 
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     trait :with_spouse do
       filing_status { 'married_filing_jointly' }
       spouse_first_name { "Spouth" }

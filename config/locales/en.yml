@@ -2531,6 +2531,7 @@ en:
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
+          w2s_title: Jobs (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2954,7 +2955,6 @@ en:
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
-        w2: W-2 state and local tax information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -3103,13 +3103,7 @@ en:
           locality_nm_missing_error: Please select locality name
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          w2s_error: Update W-2s before continuing.
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-        index:
-          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
-          updated: You've updated this W-2
-          w2_for: 'W-2 for: %{employer_name}'
-          wages_amount: 'Total wages amount: $%{wages_amount}'
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.

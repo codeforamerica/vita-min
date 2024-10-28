@@ -6,6 +6,9 @@ RSpec.describe PdfFiller::NcD400Pdf do
   let(:intake) { create(:state_file_nc_intake) }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
+  before do
+    intake.synchronize_df_w2s_to_database
+  end
 
   describe '#hash_for_pdf' do
     let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
@@ -105,6 +108,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
         before do
           submission.data_source.direct_file_data.spouse_date_of_death = "2024-09-30"
           submission.data_source.direct_file_data.w2s[0].EmployeeSSN = submission.data_source.spouse.ssn
+          intake.synchronize_df_w2s_to_database
         end
 
         it 'sets static fields to the correct values' do

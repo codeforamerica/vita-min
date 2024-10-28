@@ -2504,6 +2504,7 @@ es:
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
+          w2s_title: Empleos (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2942,7 +2943,6 @@ es:
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado
-        w2: Información fiscal estatal y local W-2
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
@@ -3092,13 +3092,7 @@ es:
           locality_nm_missing_error: Selecciona el nombre de la localidad
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
-          w2s_error: Actualiza los formularios W-2 antes de continuar.
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-        index:
-          title: Notamos algunas discrepancias con la información del W-2 que ingresó en la herramienta Direct File para los siguientes W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
-          updated: Has actualizado este W-2
-          w2_for: 'W-2 para: %{employer_name}'
-          wages_amount: 'Cantidad total de salarios: $%{wages_amount}'
       waiting_to_load_data:
         edit:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
