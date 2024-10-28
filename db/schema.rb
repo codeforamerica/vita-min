@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_173228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2095,6 +2095,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.string "referrer"
     t.integer "rent_paid"
     t.string "routing_number"
+    t.integer "sales_use_tax"
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -2115,6 +2117,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
