@@ -71,7 +71,7 @@ module PdfFiller
         'Check Box44': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
         undefined_10: get_line_8_exemption_count,
         'x  1000_3': get_line_8_exemption_count * 1000,
-        
+
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year,
         Group182: household_rent_own,
@@ -327,6 +327,21 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 58
+      if @xml_document.at("EarnedIncomeCredit EarnedIncomeCreditAmount").present?
+        tax = @xml_document.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+          "Text172",
+          "Text171",
+          "Text170",
+          "undefined_153",
+          "undefined_152",
+          "58",
+        ]))
+        answers.merge!({
+          'Check Box168': pdf_checkbox_value(@xml_document.at("EarnedIncomeCredit EICFederalAmt")),
+        })
+      end
 
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
         answers.merge!({
@@ -599,10 +614,10 @@ module PdfFiller
     def get_line_64_nj_child_dependent_care
       @xml_document.at('ChildDependentCareCredit')&.text.to_i
     end
-    
+
     def get_line_65_nj_ctc
       @xml_document.at("Body NJChildTaxCredit")&.text.to_i
     end
-    
+
   end
 end

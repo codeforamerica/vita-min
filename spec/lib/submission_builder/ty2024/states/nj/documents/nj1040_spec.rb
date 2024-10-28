@@ -508,7 +508,28 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
       end
     end
-    
+
+    describe "earned income tax credit - line 58" do
+      context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
+        let(:intake) { create(:state_file_nj_intake) }
+
+        it "fills EarnedIncomeCreditAmount with $596 for 40% of federal tax credit and checks EICFederalAmt" do
+          expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(596.to_s)
+          expect(xml.at("EarnedIncomeCredit EICFederalAmt").text).to eq('X')
+        end
+      end
+
+      context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+        it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
+          expect(xml.at("EarnedIncomeCredit")).to eq(nil)
+          expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
+          expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+        end
+      end
+    end
+
     describe "child and dependent care credit - line 64" do
       it "adds 40% of federal credit for an income of 60k or less" do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_64).and_return 400

@@ -31,6 +31,7 @@ module Efile
         set_line(:NJ1040_LINE_43, :calculate_line_43)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
+        set_line(:NJ1040_LINE_58, :calculate_line_58)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -247,7 +248,7 @@ module Efile
         should_use_property_tax_deduction ? calculate_property_tax_deduction : nil
       end
 
-      def calculate_line_42
+      def calculate_line_42 
         should_use_property_tax_deduction ? calculate_line_39 - calculate_property_tax_deduction : calculate_line_39
       end
 
@@ -265,6 +266,10 @@ module Efile
         else
           is_mfs_same_home ? 25 : 50
         end
+      end
+
+      def calculate_line_58
+        (@direct_file_data.fed_eic * 0.4).round
       end
 
       def calculate_line_64
