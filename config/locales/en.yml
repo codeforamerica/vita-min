@@ -2922,7 +2922,7 @@ en:
         edit:
           box14_html: "<b>Box 14</b>, State tax withheld"
           box15_html: "<b>Box 15</b>, State/Payer’s State Number"
-          box16_html: "<b>Box 16</b>, State income tax"
+          box16_html: "<b>Box 16</b>, State distribution"
           title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
