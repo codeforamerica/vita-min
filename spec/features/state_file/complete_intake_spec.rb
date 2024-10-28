@@ -150,56 +150,46 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
-  context "AZ", :flow_explorer_screenshot, js: true, screenshot: true do
+  context "AZ", :flow_explorer_screenshot, js: true do
     it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
-      end
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "az")
 
       step_through_initial_authentication(contact_preference: :email)
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
-      end
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Old sample")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
-        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
-        expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      end
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
+      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
+      expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
       fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
       select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
 
-      screenshot_after do
-        within "#dependent-0" do
-          expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
-          expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_first_name", disabled: true)
-          expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_last_name", disabled: true)
+      within "#dependent-0" do
+        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
+        expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_first_name", disabled: true)
+        expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_last_name", disabled: true)
 
-          select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-          select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
-        end
-        within "#dependent-1" do
-          select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1940, 10, 31)
-          select "12", from: "state_file_name_dob_form_dependents_attributes_1_months_in_home"
-        end
-        click_on I18n.t("general.continue")
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
+        select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
       end
+      within "#dependent-1" do
+        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1940, 10, 31)
+        select "12", from: "state_file_name_dob_form_dependents_attributes_1_months_in_home"
+      end
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
@@ -208,21 +198,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
-      end
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
-      end
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -236,31 +220,23 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
-      end
+      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
-      end
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
       check "state_file_az_subtractions_form_tribal_member"
       fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
       check "state_file_az_subtractions_form_armed_forces_member"
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
-      end
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
       fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: MultiTenantService.statefile.current_tax_year)
-      end
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
       fill_in "az322_contribution_ctds_code", with: "123456789"
@@ -269,14 +245,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "az322_contribution_date_of_contribution", Date.new(2023, 6, 21)
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
-      end
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: Rails.configuration.statefile_current_tax_year)
-      end
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: Rails.configuration.statefile_current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in "az321_contribution_charity_name", with: "Center for Ants"
       fill_in "az321_contribution_charity_code", with: "21134"
@@ -285,15 +257,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
-      end
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
 
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
-      end
+      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_az_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
@@ -303,30 +271,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       within "#prior-last-names" do
         click_on I18n.t("general.edit")
       end
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       click_on I18n.t("general.continue")
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
-        expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      end
+      expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
+      expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
       fill_in "state_file_tax_refund_form_bank_name", with: "bank name"
       choose "Checking"
       fill_in "state_file_tax_refund_form_routing_number", with: "019456124"
@@ -335,26 +293,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
       click_on I18n.t("general.continue")
 
-      screenshot_after do
-        expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
-        expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
-      end
+      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
+      expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
       check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      screenshot_after do
-        expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
-        expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
-      end
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
+      expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Main XML Doc"
 
-      screenshot_after do
-        expect(page.body).to include('efile:ReturnState')
-        expect(page.body).to include('<FirstName>Titus</FirstName>')
-        expect(page.body).to include('<QualParentsAncestors>')
-        expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
-        expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
-      end
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
+      expect(page.body).to include('<QualParentsAncestors>')
+      expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
+      expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
 
       assert_flow_explorer_sample_params_includes_everything('az')
 
