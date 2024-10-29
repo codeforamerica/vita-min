@@ -28,4 +28,23 @@ describe Efile::Id::Id39RCalculator do
       end
     end
   end
+
+  describe "Section B Line 18: Health Insurance Premium" do
+    context "when there are health insurance premiums" do
+      before do
+        intake.update(has_health_insurance_premium: "yes", health_insurance_paid_amount: 12.55)
+      end
+      it "sums the interest from government bonds across all reports" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_18].value).to eq(13)
+      end
+    end
+
+    context "when there are no interest reports" do
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_18].value).to eq(0)
+      end
+    end
+  end
 end
