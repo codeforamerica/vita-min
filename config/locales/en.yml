@@ -3087,23 +3087,25 @@ en:
           verification_code_label: Enter the 6-digit code
       w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Employer’s State ID number<br />
-            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
-          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
-          box17_html: "<strong>Box 17</strong>: State income tax"
-          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
-          box19_html: "<strong>Box 19</strong>: Local income tax"
-          box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          box14_html: "<strong>Box 14,</strong> Other"
+          box14_stpickup_explanation_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_stpickup_help_text: For tax year %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box15_html: "<strong>Box 15,</strong> Employer’s State ID number"
+          box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box17_html: "<strong>Box 17,</strong> State income tax"
+          box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
+          box19_html: "<strong>Box 19,</strong> Local income tax"
+          box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
-          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+          instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
+          what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
