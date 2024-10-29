@@ -168,6 +168,8 @@ module StateFile
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
         voucher_path: "",
+        w2_supported_box_14_codes: [],
+        w2_include_local_income_boxes: false
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -191,6 +193,8 @@ module StateFile
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
+        w2_supported_box_14_codes: [],
+        w2_include_local_income_boxes: false
       }
     }.with_indifferent_access)
   end
