@@ -1074,6 +1074,7 @@ describe Efile::Nj::Nj1040Calculator do
         instance.calculate
         expect(intake.dependents.count).to eq(1)
         expect(instance.lines[:NJ1040_LINE_65].value).to eq(nil)
+        expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(0)
       end
     end
 
@@ -1095,6 +1096,7 @@ describe Efile::Nj::Nj1040Calculator do
           instance.calculate
           expect(intake.dependents.count).to eq(11)
           expect(instance.lines[:NJ1040_LINE_65].value).to eq(1000)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(1)
         end
 
         it 'returns 800 for 1 eligible dependent and a taxable income of 40k' do
@@ -1102,6 +1104,7 @@ describe Efile::Nj::Nj1040Calculator do
           instance.calculate
           expect(intake.dependents.count).to eq(11)
           expect(instance.lines[:NJ1040_LINE_65].value).to eq(800)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(1)
         end
       end
 
@@ -1113,16 +1116,18 @@ describe Efile::Nj::Nj1040Calculator do
           intake.dependents.reload
         end
 
-        it 'returns 11000 for 11 eligible dependents and a taxable income of 10k' do
+        it 'returns $9000 ($1000*9) for 11 eligible dependents (reduced to max 9) and a taxable income of 10k' do
           allow(instance).to receive(:calculate_line_42).and_return 10_000
           instance.calculate
-          expect(instance.lines[:NJ1040_LINE_65].value).to eq(11_000)
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(9_000)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(9)
         end
 
-        it 'returns 8800 for 11 dependents and a taxable income of 40k' do
+        it 'returns $7200 ($800*9) for 11 dependents (reduced to max 9) and a taxable income of 40k' do
           allow(instance).to receive(:calculate_line_42).and_return 40_000
           instance.calculate
-          expect(instance.lines[:NJ1040_LINE_65].value).to eq(8800)
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(7_200)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(9)
         end
       end
     end
