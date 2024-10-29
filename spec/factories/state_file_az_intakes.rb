@@ -127,6 +127,7 @@ FactoryBot.define do
       spouse_first_name { "Spouth" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Carolinian" }
+      spouse_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 60), 12, 1) }
     end
 
 

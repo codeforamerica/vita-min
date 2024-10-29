@@ -2079,6 +2079,15 @@ es:
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          help_text_html: |
+            <strong>Lo que necesitarás para comenzar</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+              <li>Dirección de correo electrónico o número de teléfono.</li>
+              <li>Licencia de conducir o identificación emitida por el estado.</li>
+              <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
+            </ul>
           supported_by: Respaldada por el New Jersey Office of Innovation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
@@ -2963,12 +2972,8 @@ es:
           household_info: Información del hogar
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
-          taxes_owed_html: |
-            <p>
-            <strong>Tu reembolso estimado o tus impuestos estimados a pagar</strong><br/>
-            $0
-            </p>
-            Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
+          taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
+          taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
           your_refund: Tu reembolso

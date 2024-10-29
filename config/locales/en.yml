@@ -2113,6 +2113,15 @@ en:
         nj:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool. It takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with the IRS Direct File tool.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
+          help_text_html: |
+            <strong>What you’ll need:</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>Email address or phone number</li>
+              <li>Driver’s license or state-issued ID</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+            </ul>
           supported_by: Supported by the New Jersey Office of Innovation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
@@ -2975,12 +2984,8 @@ en:
           household_info: Household information
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
-          taxes_owed_html: |
-            <p>
-              <strong>Your refund or taxes owed</strong> <br/>
-              $0
-            </p>
-            Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
+          taxes_owed_header: Your refund or taxes owed
+          taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
           your_refund: Your refund amount
