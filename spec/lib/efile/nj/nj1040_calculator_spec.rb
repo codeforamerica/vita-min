@@ -408,7 +408,7 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'with interest on government bonds' do
       let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-      it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+      it 'sets line 16a to 300 (fed taxable interest 500 minus sum of bond interest 200)' do
         expect(instance.lines[:NJ1040_LINE_16A].value).to eq(300)
       end
     end
