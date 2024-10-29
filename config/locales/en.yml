@@ -2530,7 +2530,9 @@ en:
               <li><b>Salary reduction plans:</b> Premiums deducted from your paycheck before taxes do not qualify.</li>
               <li><b>Social Security Medicare A and B:</b> No deduction for employer-required Medicare A payments.</li>
             </ul>
-          health_insurance_premium_question: Did you pay health insurance premiums for yourself%{spouse_text}%{dependents_text} in 2024?
+          health_insurance_premium_question:
+            one: Did you pay health insurance premiums for yourself in %{year}?
+            other: Did you pay health insurance premiums for yourself and your household in %{year}?
           medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
           medicaid_title: Do Medicaid payments count?
           qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including Medicaid, dental, and vision, as long as they haven’t been deducted from your income pre-tax.

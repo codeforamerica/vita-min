@@ -23,12 +23,10 @@
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <% spouse_text = current_intake.filing_status_mfj? ? ', your spouse' : ""  %>
-          <% dependents_text = current_intake.dependents.present? ? ', and/or your dependents' : ""  %>
           <%=
             f.cfa_radio_set(
               :has_health_insurance_premium,
-              label_text: t('.health_insurance_premium_question', spouse_text: spouse_text, dependents_text: dependents_text),
+              label_text: t('.health_insurance_premium_question', count: intake.household_count, year: MultiTenantService.statefile.current_tax_year),
               collection: [
                 { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-field" } },
                 { value: :no, label: t("general.negative") },
@@ -43,8 +41,8 @@
         </div>
 
         <div class="white-group">
-          <div class="spacing-below-15"><%= t(".qualifying_amount_help_text", year: MultiTenantService.new(:statefile).current_tax_year) %></div>
-          <p class="text--help text--small spacing-below-0"><b><%= t(".amount_paid_helper_text", year: MultiTenantService.new(:statefile).current_tax_year) %></b></p>
+          <div class="spacing-below-15"><%= t(".qualifying_amount_help_text", year: MultiTenantService.statefile.current_tax_year) %></div>
+          <p class="text--help text--small spacing-below-0"><b><%= t(".amount_paid_helper_text", year: MultiTenantService.statefile.current_tax_year) %></b></p>
           <%= f.vita_min_money_field(:health_insurance_paid_amount, "", classes: ["form-width--long"]) %>
         </div>
       </div>

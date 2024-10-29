@@ -2502,7 +2502,9 @@ es:
               <li><b>Planes de reducción salarial:</b> Las primas deducidas de su cheque de pago antes de impuestos no califican.</li>
               <li><b>Seguro Social Medicare A y B:</b> Sin deducción por pagos de Medicare A requeridos por el empleador.</li>
             </ul>
-          health_insurance_premium_question: "¿Pagó usted primas de seguro médico%{spouse_text}%{dependents_text}en 2024?"
+          health_insurance_premium_question:
+            one: ¿Pagó usted primas de seguro médico en %{year}?
+            other: ¿Pagó primas de seguro médico para usted y su hogar en %{year}?
           medicaid_content: Sí, si tiene Medicaid, la prima de su seguro médico cuenta.  Consulte su carta mensual del Departamento de Salud y Bienestar de Idaho para conocer el monto de su prima. Podría ser tan bajo como $0, dependiendo de sus ingresos y otros factores.
           medicaid_title: "¿Cuentan los pagos de Medicaid?"
           qualifications_content: Puede deducir las primas de seguro médico pagadas para usted, su cónyuge y sus dependientes, incluidos Medicaid, dental y de la vista, siempre que no se hayan deducido de sus ingresos antes de impuestos.
