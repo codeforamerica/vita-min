@@ -2550,6 +2550,9 @@ en:
               <li><b>Salary reduction plans:</b> Premiums deducted from your paycheck before taxes do not qualify.</li>
               <li><b>Social Security Medicare A and B:</b> No deduction for employer-required Medicare A payments.</li>
             </ul>
+      id_review:
+        edit:
+          health_insurance_premium_title: "Idaho Health Insurance Premium Subtraction"
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.

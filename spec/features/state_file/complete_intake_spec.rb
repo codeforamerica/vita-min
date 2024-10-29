@@ -495,18 +495,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # Health Insurance Premium
       expect(page).to have_text I18n.t('state_file.questions.id_health_insurance_premium.edit.title')
       choose I18n.t("general.affirmative")
-      fill_in 'state_file_id_health_insurance_premium_health_insurance_paid', with: "1234.60"
+      fill_in 'state_file_id_health_insurance_premium_form_health_insurance_paid_amount', with: "1234.60"
       click_on I18n.t("general.continue")
 
       # Sales/Use Tax
       expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
+      click_on I18n.t("general.continue")
 
       # ID Review page
-      click_on I18n.t("general.continue")
       expect(page).to have_text "Idaho Health Insurance Premium Subtraction"
-      expect(page).to have_text "1234.60"
+      expect(page).to have_text "$1,234.60"
 
       # TODO: uncomment when the name dob page is added; test fails without a name
       # expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileIdIntake.last.primary.full_name))

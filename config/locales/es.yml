@@ -2522,6 +2522,9 @@ es:
               <li><b>Planes de reducción salarial:</b> Las primas deducidas de su cheque de pago antes de impuestos no califican.</li>
               <li><b>Seguro Social Medicare A y B:</b> Sin deducción por pagos de Medicare A requeridos por el empleador.</li>
             </ul>
+      id_review:
+        edit:
+          health_insurance_premium_title: "Resta de primas de seguro médico de Idaho"
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
