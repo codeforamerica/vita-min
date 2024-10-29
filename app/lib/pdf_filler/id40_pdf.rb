@@ -1,6 +1,7 @@
 module PdfFiller
   class Id40Pdf
     include PdfHelper
+    include SubmissionBuilder::FormattingMethods
 
     def source_pdf_name
       "idform40-TY-2023"
@@ -48,7 +49,7 @@ module PdfFiller
           )
       end
       if @submission.data_source.primary_esigned_yes?
-        answers["DateSign 2"] = @submission.data_source.primary_esigned_at.strftime("%m-%d-%Y")
+        answers["DateSign 2"] = date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%m-%d-%Y")
         answers["TaxpayerPhoneNo"] = @submission.data_source.direct_file_data.phone_number
       end
       answers
