@@ -2794,6 +2794,17 @@ en:
           title: Did you live at this address on December 31, 2023?
           where_did_you_live: Where did you live on December 31, 2023?
           zip_label: Zip Code
+      md_permanent_address:
+        edit:
+          address_header: Address
+          apartment_number_label: Apartment/Unit Number
+          city_label: City
+          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, 2023
+          state_label: State
+          street_address_label: Street Address
+          title: Did you live at this address on December 31, 2023?
+          where_did_you_live: Where did you live on December 31, 2023?
+          zip_label: Zip Code
       ny_review:
         edit:
           empire_state_child_credit: Empire State child credit
