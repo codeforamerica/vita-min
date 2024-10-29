@@ -4,9 +4,9 @@
 #
 #  id                          :bigint           not null, primary key
 #  box_14_stpickup             :decimal(12, 2)
-#  employee_name               :string           not null
+#  employee_name               :string
 #  employee_ssn                :string
-#  employer_name               :string           not null
+#  employer_name               :string
 #  employer_state_id_num       :string
 #  local_income_tax_amount     :decimal(12, 2)
 #  local_wages_and_tips_amount :decimal(12, 2)

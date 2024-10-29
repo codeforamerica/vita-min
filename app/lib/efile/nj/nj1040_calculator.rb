@@ -4,6 +4,7 @@ module Efile
       attr_reader :lines
 
       RENT_CONVERSION = 0.18
+      MAX_NJ_CTC_DEPENDENTS = 9
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -18,6 +19,7 @@ module Efile
         set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
+        set_line(:NJ1040_LINE_16A, :calculate_line_16a)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
@@ -45,7 +47,6 @@ module Efile
       end
 
       def get_tax_rate_and_subtraction_amount(income)
-
         if @intake.filing_status_mfs? || @intake.filing_status_single?
           case income
           when 1..20_000
@@ -170,25 +171,6 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
-      def calculate_line_40a
-        case @intake.household_rent_own
-        when "own"
-          if @intake.property_tax_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.property_tax_paid
-        when "rent"
-          if @intake.rent_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
-        else
-          return nil
-        end
-
-        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
-      end
-
       def calculate_line_13
         line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
       end
@@ -204,6 +186,14 @@ module Efile
           sum += state_wage
         end
         sum
+      end
+
+      def calculate_line_16a
+        interest_reports = @intake.direct_file_json_data.interest_reports
+        interest_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
+        interest_sum = interest_on_gov_bonds.sum
+        return nil unless interest_sum.positive?
+        (@intake.direct_file_data.fed_taxable_income - interest_sum).round
       end
 
       def calculate_line_27
@@ -232,6 +222,25 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
+      end
+
+      def calculate_line_40a
+        case @intake.household_rent_own
+        when "own"
+          if @intake.property_tax_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          if @intake.rent_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
       def calculate_line_41
@@ -298,8 +307,8 @@ module Efile
       end
 
       def number_of_dependents_age_5_younger
-        # TODO: revise once we have lines 10 and 11
-        @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
+        dep_age_5_younger_count = @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
+        [dep_age_5_younger_count, MAX_NJ_CTC_DEPENDENTS].min
       end
 
       def is_over_65(birth_date)

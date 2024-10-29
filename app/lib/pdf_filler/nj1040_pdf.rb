@@ -97,6 +97,22 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
+      if @xml_document.at("TaxableInterestIncome")
+        taxable_interest_income = @xml_document.at("TaxableInterestIncome").text.to_i
+        answers.merge!(insert_digits_into_fields(taxable_interest_income, [
+                                                   "112",
+                                                   "111",
+                                                   "110",
+                                                   "109",
+                                                   "108",
+                                                   "Text107",
+                                                   "undefined_41",
+                                                   "undefined_40",
+                                                   "undefined_39",
+                                                   "undefined_43"
+                                                 ]))
+      end
+
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -223,31 +239,31 @@ module PdfFiller
       # line 40a
       if get_property_tax.present?
         answers.merge!(insert_digits_into_fields(get_property_tax.to_i, [
-          "24539a#2",
-          "245",
-          "37",
-          "283",
-          "undefined_113",
-          "282",
-          "281",
-          "undefined_112",
-          "280",
-          "39",
-        ]))
+                                                   "24539a#2",
+                                                   "245",
+                                                   "37",
+                                                   "283",
+                                                   "undefined_113",
+                                                   "282",
+                                                   "281",
+                                                   "undefined_112",
+                                                   "280",
+                                                   "39",
+                                                 ]))
       end
 
       # line 41
       if @xml_document.at("PropertyTaxDeduction").present?
         property_tax_deduction = @xml_document.at("PropertyTaxDeduction").text.to_i
         answers.merge!(insert_digits_into_fields(property_tax_deduction, [
-          "Text18",
-          "Text2",
-          "Text1",
-          "undefined_118",
-          "undefined_117",
-          "41",
-          "undefined_116",
-        ]))
+                                                   "Text18",
+                                                   "Text2",
+                                                   "Text1",
+                                                   "undefined_118",
+                                                   "undefined_117",
+                                                   "41",
+                                                   "undefined_116",
+                                                 ]))
       end
 
       # line 42
@@ -272,43 +288,43 @@ module PdfFiller
       if @xml_document.at("Tax").present?
         tax = @xml_document.at("Tax").text.to_i
         answers.merge!(insert_digits_into_fields(tax, [
-          "Text63",
-          "Text46",
-          "Text45",
-          "Text44",
-          "Text43",
-          "undefined_120",
-          "undefined_119",
-          "42",
-          "4036y54ethdf",
-          "Enter Code4332243ew",
-        ]))
+                                                   "Text63",
+                                                   "Text46",
+                                                   "Text45",
+                                                   "Text44",
+                                                   "Text43",
+                                                   "undefined_120",
+                                                   "undefined_119",
+                                                   "42",
+                                                   "4036y54ethdf",
+                                                   "Enter Code4332243ew",
+                                                 ]))
       end
 
       # line 51
       if @xml_document.at("SalesAndUseTax").present?
         tax = @xml_document.at("SalesAndUseTax").text.to_i
         answers.merge!(insert_digits_into_fields(tax, [
-          "50_7",
-          "Text134",
-          "Text133",
-          "Text132",
-          "Text131",
-          "50_3",
-          "50_2",
-          "50",
-        ]))
+                                                   "50_7",
+                                                   "Text134",
+                                                   "Text133",
+                                                   "Text132",
+                                                   "Text131",
+                                                   "50_3",
+                                                   "50_2",
+                                                   "50",
+                                                 ]))
       end
 
       # line 56
       if @xml_document.at("PropertyTaxCredit").present?
         tax = @xml_document.at("PropertyTaxCredit").text.to_i
         answers.merge!(insert_digits_into_fields(tax, [
-          "Text164",
-          "Text163",
-          "Text162",
-          "Text161",
-        ]))
+                                                   "Text164",
+                                                   "Text163",
+                                                   "Text162",
+                                                   "Text161",
+                                                 ]))
       end
 
 

@@ -689,6 +689,48 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 16a taxable interest income" do
+      context 'with interest reports, but no interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: intake
+        }
+
+        it 'does not set line 16a' do
+          ["112",
+           "111",
+           "110",
+           "109",
+           "108",
+           "Text107",
+           "undefined_41",
+           "undefined_40",
+           "undefined_39",
+           "undefined_43"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
+        end
+      end 
+  
+      context 'with interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: intake
+        }
+
+        it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          expect(pdf_fields["undefined_43"]).to eq ""
+          expect(pdf_fields["undefined_39"]).to eq ""
+          expect(pdf_fields["undefined_40"]).to eq ""
+          expect(pdf_fields["undefined_41"]).to eq ""
+          expect(pdf_fields["Text107"]).to eq ""
+          expect(pdf_fields["108"]).to eq "3"
+          expect(pdf_fields["109"]).to eq "0"
+          expect(pdf_fields["110"]).to eq "0"
+          expect(pdf_fields["111"]).to eq "0"
+          expect(pdf_fields["112"]).to eq "0"
+        end
+      end
+    end
+
     describe "line 13/30 total exemptions" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
@@ -1201,7 +1243,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         create :efile_submission, tax_return: nil, data_source: create(
           :state_file_nj_intake,
           sales_use_tax: 123
-        ) }
+        )
+      }
 
       it "writes $123.00 property tax credit" do
         # thousands

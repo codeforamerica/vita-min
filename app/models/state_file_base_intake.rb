@@ -269,10 +269,6 @@ class StateFileBaseIntake < ApplicationRecord
       end
     end
 
-    def age
-      birth_date.present? ? MultiTenantService.statefile.current_tax_year - birth_date.year : 0
-    end
-
     def full_name
       [@first_name, @middle_initial, @last_name, @suffix].map(&:presence).compact.join(' ')
     end
@@ -371,7 +367,17 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date)
+  def primary_senior?
+    calculate_age(inclusive_of_jan_1: true, dob: primary_birth_date) >= 65
+  end
+
+  def spouse_senior?
+    return nil unless spouse_birth_date.present?
+
+    calculate_age(inclusive_of_jan_1: true, dob: spouse_birth_date) >= 65
+  end
+
+  def calculate_age(inclusive_of_jan_1: true, dob: primary_birth_date)
     # federal guidelines: you qualify for age related benefits the day before your birthday
     # that means for a given tax year those born on Jan 1st the following tax-year will be included
     # this does not apply for benefits you age out of or any age calculations for Maryland

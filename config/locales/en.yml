@@ -16,6 +16,9 @@ en:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be in the current tax year
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2110,6 +2113,15 @@ en:
         nj:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool. It takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with the IRS Direct File tool.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
+          help_text_html: |
+            <strong>What you’ll need:</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>Email address or phone number</li>
+              <li>Driver’s license or state-issued ID</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+            </ul>
           supported_by: Supported by the New Jersey Office of Innovation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
@@ -2526,6 +2538,7 @@ en:
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
+          retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
@@ -2914,6 +2927,12 @@ en:
             label: ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State distribution"
+          title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
@@ -2965,12 +2984,8 @@ en:
           household_info: Household information
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
-          taxes_owed_html: |
-            <p>
-              <strong>Your refund or taxes owed</strong> <br/>
-              $0
-            </p>
-            Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
+          taxes_owed_header: Your refund or taxes owed
+          taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
           your_refund: Your refund amount
