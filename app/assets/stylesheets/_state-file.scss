@@ -208,6 +208,22 @@
       }
     }
 
+    .tight-checkboxes {
+      .checkbox {
+        min-height: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .checkbox input[type='checkbox'] {
+        top: 0.25rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+    }
+
     .radio-button {
       border: none;
       background-color: transparent;
@@ -298,6 +314,11 @@
   .bulleted ul {
     padding-left: 3rem;
     list-style: disc;
+
+    li {
+      list-style: disc;
+      margin-top: 2rem;
+    }
   }
 
   .button {
