@@ -3102,6 +3102,7 @@ en:
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
