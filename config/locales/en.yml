@@ -2521,26 +2521,6 @@ en:
             bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
       id_health_insurance_premium:
         edit:
-          title: You might be eligible for the Idaho Health Insurance Premium Deduction!
-          subtitle:
-            one: To see if you qualify, we need more information about you.
-            other: To see if you qualify, we need more information about you and your household.
-          health_insurance_premium_question: Did you pay health insurance premiums for yourself%{spouse_text}%{dependents_text} in 2024?
-          what_is_title: What is a health insurance premium?
-          what_is_content_html: |
-            A health insurance premium is the monthly fee you pay for your health coverage.
-
-            You can find your premium amounts on your:
-            <ul>
-              <li>Monthly pay stub</li>
-              <li>Form 1095-C</li>
-              <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
-            </ul>
-          qualifications_title: Which health coverage premiums qualify?
-          qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including Medicaid, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
-          medicaid_title: Do Medicaid payments count?
-          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
-          qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
           amount_paid_helper_text: Total amount paid in %{year}
           do_not_include_notice_html: |
             Some health insurance premiums do not qualify for this subtraction. <b>Do not include</b> any premiums paid using the following:
@@ -2550,9 +2530,29 @@ en:
               <li><b>Salary reduction plans:</b> Premiums deducted from your paycheck before taxes do not qualify.</li>
               <li><b>Social Security Medicare A and B:</b> No deduction for employer-required Medicare A payments.</li>
             </ul>
+          health_insurance_premium_question: Did you pay health insurance premiums for yourself%{spouse_text}%{dependents_text} in 2024?
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_title: Do Medicaid payments count?
+          qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including Medicaid, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
+          qualifications_title: Which health coverage premiums qualify?
+          qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
+          subtitle:
+            one: To see if you qualify, we need more information about you.
+            other: To see if you qualify, we need more information about you and your household.
+          title: You might be eligible for the Idaho Health Insurance Premium Deduction!
+          what_is_content_html: |
+            A health insurance premium is the monthly fee you pay for your health coverage.
+
+            You can find your premium amounts on your:
+            <ul>
+              <li>Monthly pay stub</li>
+              <li>Form 1095-C</li>
+              <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
+            </ul>
+          what_is_title: What is a health insurance premium?
       id_review:
         edit:
-          health_insurance_premium_title: "Idaho Health Insurance Premium Subtraction"
+          health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
