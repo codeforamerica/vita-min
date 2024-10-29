@@ -201,7 +201,7 @@ module Efile
 
         sum = 0
         @intake.state_file_w2s.each do |w2|
-          state_wage = w2.state_wages_amount
+          state_wage = w2.state_wages_amount.to_i
           sum += state_wage
         end
         sum
