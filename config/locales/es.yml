@@ -2076,6 +2076,15 @@ es:
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          help_text_html: |
+            <strong>Lo que necesitarás para comenzar</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+              <li>Dirección de correo electrónico o número de teléfono.</li>
+              <li>Licencia de conducir o identificación emitida por el estado.</li>
+              <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
+            </ul>
           supported_by: Respaldada por el New Jersey Office of Innovation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
@@ -2534,6 +2543,7 @@ es:
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
+          w2s_title: Empleos (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2972,7 +2982,6 @@ es:
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado
-        w2: Información fiscal estatal y local W-2
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
@@ -2983,12 +2992,8 @@ es:
           household_info: Información del hogar
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
-          taxes_owed_html: |
-            <p>
-            <strong>Tu reembolso estimado o tus impuestos estimados a pagar</strong><br/>
-            $0
-            </p>
-            Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
+          taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
+          taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
           your_refund: Tu reembolso
@@ -3122,13 +3127,7 @@ es:
           locality_nm_missing_error: Selecciona el nombre de la localidad
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
-          w2s_error: Actualiza los formularios W-2 antes de continuar.
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-        index:
-          title: Notamos algunas discrepancias con la información del W-2 que ingresó en la herramienta Direct File para los siguientes W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
-          updated: Has actualizado este W-2
-          w2_for: 'W-2 para: %{employer_name}'
-          wages_amount: 'Cantidad total de salarios: $%{wages_amount}'
       waiting_to_load_data:
         edit:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
