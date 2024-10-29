@@ -148,13 +148,13 @@ module Efile
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
         if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
-          if @intake.primary.age >= 65 && @intake.spouse.age >= 65
+          if @intake.primary_senior? && @intake.spouse_senior?
             credit = 1750
-          elsif (@intake.primary.age >= 65) ^ (@intake.spouse.age >= 65)
+          elsif @intake.primary_senior? ^ @intake.spouse_senior?
             credit = 1000
           end
         elsif (filing_status_single? || filing_status_mfs?) && agi <= 100_000
-          if @intake.primary.age >= 65
+          if @intake.primary_senior?
             credit = 1000
           end
         end
