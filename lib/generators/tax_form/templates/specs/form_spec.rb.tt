@@ -1,0 +1,4 @@
+require "rails_helper"
+
+RSpec.describe StateFile::<%= class_name %>Form do
+end

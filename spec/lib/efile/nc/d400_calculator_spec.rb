@@ -190,43 +190,51 @@ describe Efile::Nc::D400Calculator do
   end
 
   describe "Line 20a: North Carolina Income Tax Withheld" do
-    let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
+    let(:intake) { create(:state_file_nc_intake) }
+    let(:primary_ssn_from_fixture) { intake.primary.ssn }
+    let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: primary_ssn_from_fixture) }
+    let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 200, employee_ssn: other_ssn) }
 
     context "only one w2 matches primary ssn" do
+      let(:other_ssn) { "222334444" }
+
       it "sums StateIncomeTaxAmt for only the matching ssn" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20A].value).to eq(15)
+        expect(instance.lines[:NCD400_LINE_20A].value).to eq(100)
       end
     end
 
     context "more than one w2 matches primary ssn" do
-      it "sums StateIncomeTaxAmt for all matching ssn's" do
-        intake.direct_file_data.w2s[1].EmployeeSSN = intake.direct_file_data.primary_ssn
+      let(:other_ssn) { primary_ssn_from_fixture }
 
+      it "sums StateIncomeTaxAmt for all matching ssn's" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20A].value).to eq(715)
+        expect(instance.lines[:NCD400_LINE_20A].value).to eq(300)
       end
     end
   end
 
   describe "Line 20b: North Carolina Income Tax Withheld: Spouse's tax withheld" do
-    let(:intake) { create(:state_file_nc_intake, :df_data_2_w2s) }
+    let(:intake) { create(:state_file_nc_intake) }
+    let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+    let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: spouse_ssn_from_fixture) }
+    let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: other_ssn) }
 
-    context "only one w2 matches primary ssn" do
+    context "only one w2 matches spouse ssn" do
+      let(:other_ssn) { "222334444" }
+
       it "sums StateIncomeTaxAmt for only the matching ssn" do
-        intake.direct_file_data.w2s[0].EmployeeSSN = intake.direct_file_data.spouse_ssn
-
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20B].value).to eq(15)
+        expect(instance.lines[:NCD400_LINE_20B].value).to eq(100)
       end
     end
 
-    context "more than one w2 matches primary ssn" do
-      it "sums StateIncomeTaxAmt for all matching ssn's" do
-        intake.direct_file_data.w2s.each { |w2| w2.EmployeeSSN = intake.direct_file_data.spouse_ssn }
+    context "more than one w2 matches spouse ssn" do
+      let(:other_ssn) { spouse_ssn_from_fixture }
 
+      it "sums StateIncomeTaxAmt for all matching ssn's" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20B].value).to eq(715)
+        expect(instance.lines[:NCD400_LINE_20B].value).to eq(200)
       end
     end
   end

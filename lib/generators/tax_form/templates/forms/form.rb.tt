@@ -1,0 +1,8 @@
+module StateFile
+  class <%= class_name %>Form < QuestionForm
+    # set_attributes_for :some_model, :some_property, :another_property
+
+    # def save
+    # end
+  end
+end

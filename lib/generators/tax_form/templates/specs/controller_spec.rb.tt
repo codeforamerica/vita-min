@@ -1,0 +1,4 @@
+require "rails_helper"
+
+RSpec.describe StateFile::Questions::<%= class_name %>Controller do
+end

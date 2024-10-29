@@ -22,8 +22,8 @@ describe Efile::Nj::Nj1040Calculator do
       it "when income > 0 and <= 20,000, tax rate is .014 and subtraction is 0" do
         expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
         expect(instance.get_tax_rate_and_subtraction_amount(1)).to eq([0.014, 0])
-        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014,0])
-        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014,0])
+        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
       end
 
       it "when income > 20,000 and <= 35,000, tax rate is .0175 and subtraction is 70.00" do
@@ -177,6 +177,62 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'calculate_use_tax' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it "when income <= 15,000, use tax is $14" do
+      expect(instance.calculate_use_tax(-1000)).to eq(14)
+      expect(instance.calculate_use_tax(-1)).to eq(14)
+      expect(instance.calculate_use_tax(0)).to eq(14)
+      expect(instance.calculate_use_tax(1)).to eq(14)
+      expect(instance.calculate_use_tax(14_999)).to eq(14)
+      expect(instance.calculate_use_tax(15_000)).to eq(14)
+    end
+
+    it "when income > 15,000 and <= 30,000, use tax is $44" do
+      expect(instance.calculate_use_tax(15_001)).to eq(44)
+      expect(instance.calculate_use_tax(29_999)).to eq(44)
+      expect(instance.calculate_use_tax(30_000)).to eq(44)
+    end
+
+    it "when income > 30,000 and <= 50,000, use tax is $64" do
+      expect(instance.calculate_use_tax(30_001)).to eq(64)
+      expect(instance.calculate_use_tax(49_999)).to eq(64)
+      expect(instance.calculate_use_tax(50_000)).to eq(64)
+    end
+
+    it "when income > 50,000 and <= 75,000, use tax is $84" do
+      expect(instance.calculate_use_tax(50_001)).to eq(84)
+      expect(instance.calculate_use_tax(74_999)).to eq(84)
+      expect(instance.calculate_use_tax(75_000)).to eq(84)
+    end
+
+    it "when income > 75,000 and <= 100,000, use tax is $106" do
+      expect(instance.calculate_use_tax(75_001)).to eq(106)
+      expect(instance.calculate_use_tax(99_999)).to eq(106)
+      expect(instance.calculate_use_tax(100_000)).to eq(106)
+    end
+
+    it "when income > 100,000 and <= 150,000, use tax is $134" do
+      expect(instance.calculate_use_tax(100_001)).to eq(134)
+      expect(instance.calculate_use_tax(149_999)).to eq(134)
+      expect(instance.calculate_use_tax(150_000)).to eq(134)
+    end
+
+    it "when income > 150,000 and <= 200,000, use tax is $170" do
+      expect(instance.calculate_use_tax(150_001)).to eq(170)
+      expect(instance.calculate_use_tax(199_999)).to eq(170)
+      expect(instance.calculate_use_tax(200_000)).to eq(170)
+    end
+
+    it "when income > 200,000, use tax is 0.0852% or $494, whichever is less, rounded" do
+      expect(instance.calculate_use_tax(200_001)).to eq(170)
+      expect(instance.calculate_use_tax(500_000)).to eq(426)
+      expect(instance.calculate_use_tax(579_000)).to eq(493)
+      expect(instance.calculate_use_tax(579_813)).to eq(494)
+      expect(instance.calculate_use_tax(1_000_000)).to eq(494)
+    end
+  end
+
   describe 'line 6 exemptions' do
     context 'when filing status is single' do
       let(:intake) { create(:state_file_nj_intake) }
@@ -307,48 +363,74 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 15 - state wages' do
-    context 'when no federal w2s' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+    let(:intake) { create(:state_file_nj_intake) }
 
+    context 'when no state file w2s' do
       it 'sets line 15 to -1 to indicate the sum does not exist' do
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(-1)
       end
     end
 
-    context 'when 2 federal w2s' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
-
+    context 'when 2 state file w2s' do
       it 'sets line 15 to the sum of all state wage amounts' do
+        create(:state_file_w2, state_file_intake: intake, state_wages_amount: 12345)
+        create(:state_file_w2, state_file_intake: intake, state_wages_amount: 50000)
+        instance.calculate
         expected_sum = 12345 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
     end
 
-    context 'when many federal w2s' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
-
+    context 'when many state file w2s' do
       it 'sets line 15 to the sum of all state wage amounts' do
+        4.times { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 50000) }
+        instance.calculate
         expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
     end
   end
 
+  describe 'line 16a taxable interest income' do
+    context 'with no interest reports' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it 'does not set line 16a' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
+      end
+    end
+
+    context 'with interest reports, but no interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+      it 'does not set line 16a' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
+      end
+    end 
+
+    context 'with interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      it 'sets line 16a to 300 (fed taxable interest 500 minus sum of bond interest 200)' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(300)
+      end
+    end
+  end
+
   describe 'line 27 - total income' do
-    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+    let(:intake) { create(:state_file_nj_intake) }
+
     it 'sets line 27 to the sum of all state wage amounts' do
-      line_15_w2_wages = 12345 + 50000
-      expect(instance.lines[:NJ1040_LINE_15].value).to eq(line_15_w2_wages)
-      expect(instance.lines[:NJ1040_LINE_27].value).to eq(line_15_w2_wages)
+      allow(instance).to receive(:calculate_line_15).and_return 50000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_27].value).to eq(50000)
     end
   end
 
   describe 'line 29 - gross income' do
-    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+    let(:intake) { create(:state_file_nj_intake) }
+
     it 'sets line 29 to the sum of all state wage amounts' do
-      line_15_w2_wages = 12345 + 50000
-      expect(instance.lines[:NJ1040_LINE_15].value).to eq(line_15_w2_wages)
-      expect(instance.lines[:NJ1040_LINE_29].value).to eq(line_15_w2_wages)
+      allow(instance).to receive(:calculate_line_15).and_return 50000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(50000)
     end
   end
 
@@ -545,6 +627,39 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'should_use_property_tax_deduction' do
+    context "calculate_tax_liability_with_deduction is nil" do
+      it "returns false" do
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return nil
+        expect(instance.should_use_property_tax_deduction).to eq false
+      end
+    end
+
+    context "calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction is > 50" do
+      it "returns true" do
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 100
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 49
+        expect(instance.should_use_property_tax_deduction).to eq true
+      end
+    end
+
+    context "calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction is = 50" do
+      it "returns true" do
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 100
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 50
+        expect(instance.should_use_property_tax_deduction).to eq true
+      end
+    end
+
+    context "calculate_tax_liability_without_deduction - calculate_tax_liability_with_deduction is < 50" do
+      it "returns false" do
+        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 100
+        allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 51
+        expect(instance.should_use_property_tax_deduction).to eq false
+      end
+    end
+  end
+
   describe 'calculate_property_tax_deduction' do
     context 'when married filing separately, same home' do
       let(:intake) {
@@ -622,19 +737,38 @@ describe Efile::Nj::Nj1040Calculator do
       it 'when 40a > 15000, property tax deduction is 15000' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_001
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+        expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a = 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_000
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+        expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a < 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 14_999
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_41].value).to eq(14_999)
+        expect(instance.calculate_property_tax_deduction).to eq(14_999)
+      end
+    end
+  end
+
+  describe "calculate_line_41" do
+    context "when should_use_property_tax_deduction is true" do
+      it "returns calculate_property_tax_deduction" do
+        allow(instance).to receive(:should_use_property_tax_deduction).and_return true
+        allow(instance).to receive(:calculate_property_tax_deduction).and_return 15_000
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(15_000)
+      end
+    end
+
+    context "when should_use_property_tax_deduction is false" do
+      it "returns nil" do
+        allow(instance).to receive(:should_use_property_tax_deduction).and_return false
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to be_nil
       end
     end
   end
@@ -667,7 +801,7 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) {
         create(:state_file_nj_intake)
       }
-      before(:each) do
+      before do
         allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
@@ -779,7 +913,7 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) {
         create(:state_file_nj_intake)
       }
-      before(:each) do
+      before do
         allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return true
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
@@ -805,9 +939,26 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 42 - new jersey taxable income' do
-    let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s, :primary_over_65, :primary_blind) }
+    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
     it 'sets line 42 to line 39 (taxable income)' do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
+    end
+  end
+
+  describe 'line 51 - sales and use tax' do
+    
+    context 'when sales_use_tax exists (already calculated automated or manual)' do
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400)}
+      it 'sets line 51 to the sales_use_tax' do
+        expect(instance.lines[:NJ1040_LINE_51].value).to eq 400
+      end
+    end
+
+    context 'when sales_use_tax is nil' do
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: nil)}
+      it 'sets line 51 to 0' do
+        expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
+      end
     end
   end
 
@@ -946,6 +1097,7 @@ describe Efile::Nj::Nj1040Calculator do
         instance.calculate
         expect(intake.dependents.count).to eq(1)
         expect(instance.lines[:NJ1040_LINE_65].value).to eq(nil)
+        expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(0)
       end
     end
 
@@ -967,6 +1119,7 @@ describe Efile::Nj::Nj1040Calculator do
           instance.calculate
           expect(intake.dependents.count).to eq(11)
           expect(instance.lines[:NJ1040_LINE_65].value).to eq(1000)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(1)
         end
 
         it 'returns 800 for 1 eligible dependent and a taxable income of 40k' do
@@ -974,6 +1127,7 @@ describe Efile::Nj::Nj1040Calculator do
           instance.calculate
           expect(intake.dependents.count).to eq(11)
           expect(instance.lines[:NJ1040_LINE_65].value).to eq(800)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(1)
         end
       end
 
@@ -985,16 +1139,18 @@ describe Efile::Nj::Nj1040Calculator do
           intake.dependents.reload
         end
 
-        it 'returns 11000 for 11 eligible dependents and a taxable income of 10k' do
+        it 'returns $9000 ($1000*9) for 11 eligible dependents (reduced to max 9) and a taxable income of 10k' do
           allow(instance).to receive(:calculate_line_42).and_return 10_000
           instance.calculate
-          expect(instance.lines[:NJ1040_LINE_65].value).to eq(11_000)
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(9_000)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(9)
         end
 
-        it 'returns 8800 for 11 dependents and a taxable income of 40k' do
+        it 'returns $7200 ($800*9) for 11 dependents (reduced to max 9) and a taxable income of 40k' do
           allow(instance).to receive(:calculate_line_42).and_return 40_000
           instance.calculate
-          expect(instance.lines[:NJ1040_LINE_65].value).to eq(8800)
+          expect(instance.lines[:NJ1040_LINE_65].value).to eq(7_200)
+          expect(instance.lines[:NJ1040_LINE_65_DEPENDENTS].value).to eq(9)
         end
       end
     end
