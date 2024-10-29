@@ -16,6 +16,9 @@ en:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be in the current tax year
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2535,6 +2538,7 @@ en:
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
+          retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
@@ -2923,6 +2927,12 @@ en:
             label: ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State distribution"
+          title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
