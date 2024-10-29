@@ -3,10 +3,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title_html") %></h1>
 
-  <% household_size = 1 %>
-  <% household_size += 1 if current_intake.filing_status_mfj? %>
-  <% household_size += current_intake.dependents.count %>
-  <p><%= t(".see_if_you_qualify", count: household_size) %></p>
+  <p><%= t(".see_if_you_qualify", count: current_intake.household_count) %></p>
   <p><%= t(".answers_confidential_html") %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>

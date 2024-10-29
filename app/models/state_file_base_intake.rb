@@ -181,6 +181,10 @@ class StateFileBaseIntake < ApplicationRecord
     filing_status_mfj? ? 2 : 1
   end
 
+  def household_count
+    filer_count + dependents.count
+  end
+
   def primary
     Person.new(self, :primary)
   end
