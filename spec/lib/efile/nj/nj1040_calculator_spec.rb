@@ -463,8 +463,22 @@ describe Efile::Nj::Nj1040Calculator do
           )
         }
 
-        it 'sets line 40a to property_tax_paid' do
+        it 'sets line 40a to property_tax_paid when potentially eligible for property tax deduction or credit' do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE)
+          instance.calculate
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
+        end
+
+        it 'sets line 40a to nil when ineligible for property tax deduction or credit' do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE)
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+
+        it 'sets line 40a to nil when ineligible for property tax deduction' do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION)
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
         end
       end
 
@@ -477,7 +491,21 @@ describe Efile::Nj::Nj1040Calculator do
           )
         }
 
-        it 'sets line 40a to nil' do
+        it 'sets line 40a to nil when potentially eligible for property tax deduction or credit' do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE)
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+
+        it 'sets line 40a to nil when ineligible for property tax deduction or credit' do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE)
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+
+        it 'sets line 40a to nil when ineligible for property tax deduction' do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION)
+          instance.calculate
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
         end
       end
