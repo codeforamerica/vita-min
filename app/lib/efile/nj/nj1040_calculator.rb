@@ -190,10 +190,10 @@ module Efile
 
       def calculate_line_16a
         interest_reports = @intake.direct_file_json_data.interest_reports
-        interest_on_gov_bonds = interest_reports&.map { |report| report.interest_on_government_bonds }
+        interest_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
         interest_sum = interest_on_gov_bonds.sum
         return nil unless interest_sum.positive?
-        @intake.direct_file_data.fed_taxable_income - interest_sum
+        (@intake.direct_file_data.fed_taxable_income - interest_sum).round
       end
 
       def calculate_line_27

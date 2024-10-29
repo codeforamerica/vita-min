@@ -269,7 +269,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when no w2 wages (line 15 is -1)" do
         it "does not include WagesSalariesTips item" do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return -1
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(-1)
           expect(xml.at("WagesSalariesTips")).to eq(nil)
         end
       end
@@ -292,6 +292,29 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expected_sum = line_6_single_filer + line_7_not_over_65 + line_8_not_blind
         expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
+      end
+    end
+
+    describe 'line 16a taxable interest income' do
+      context 'with no interest reports' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it 'does not set line 16a' do
+          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
+        end
+      end
+  
+      context 'with interest reports, but no interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+        it 'does not set line 16a' do
+          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
+        end
+      end 
+  
+      context 'with interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          expect(xml.at("Body TaxableInterestIncome").text).to eq("300")
+        end
       end
     end
 
@@ -431,11 +454,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context 'when not taking property tax deduction' do
-        let(:intake) { create(:state_file_nj_intake,
+        let(:intake) { 
+          create(:state_file_nj_intake,
                               :df_data_many_w2s,
                               household_rent_own: 'own',
                               property_tax_paid: 0,
-                              ) }
+                              )
+        }
 
         it "leaves PropertyTaxDeduction empty" do
           expect(xml.at("PropertyTaxDeduction")).to eq(nil)
@@ -471,11 +496,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "property tax credit - line 56" do
-      let(:intake) { create(:state_file_nj_intake,
+      let(:intake) { 
+        create(:state_file_nj_intake,
                             :df_data_many_w2s,
                             household_rent_own: 'own',
                             property_tax_paid: 0,
-                            ) }
+                            )
+      }
 
       it "fills with $50 tax credit when no property tax deduction" do
         expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
