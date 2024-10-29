@@ -101,6 +101,11 @@ module SubmissionBuilder
                   if calculated_fields.fetch(:NJ1040_LINE_15) >= 0
                     xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
                   end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_16A)&.positive?
+                    xml.TaxableInterestIncome calculated_fields.fetch(:NJ1040_LINE_16A)
+                  end
+
                   if calculated_fields.fetch(:NJ1040_LINE_27) > 0
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
                   end

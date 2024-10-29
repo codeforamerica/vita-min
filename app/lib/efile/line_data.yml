@@ -576,6 +576,8 @@ NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:
   label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
+NJ1040_LINE_16A:
+  label: 'Taxable interest income (Enclose federal Schedule B if over $1,500) (See instructions)'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:
