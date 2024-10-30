@@ -498,7 +498,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.title')
       click_on I18n.t("state_file.questions.id_primary_state_id.id_primary.why_ask_this")
       # expect Idaho specific help text
       expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.protect_identity')
