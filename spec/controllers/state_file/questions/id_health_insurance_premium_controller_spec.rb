@@ -21,9 +21,9 @@ RSpec.describe StateFile::Questions::IdHealthInsurancePremiumController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          state_file_id_sales_use_tax_form: {
-            has_unpaid_sales_use_tax: "yes",
-            total_purchase_amount: "100"
+          state_file_id_health_insurance_premium_form: {
+            has_health_insurance_premium: "yes",
+            health_insurance_paid_amount: "123"
           }
         }
       end
