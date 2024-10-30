@@ -282,6 +282,10 @@
       padding-left: 1.5rem;
     }
 
+    .list--bulleted-indented {
+      padding-left: 2.5rem;
+    }
+
     .money-input-form-group {
 
       .money-input-group {
@@ -314,11 +318,6 @@
   .bulleted ul {
     padding-left: 3rem;
     list-style: disc;
-
-    li {
-      list-style: disc;
-      margin-top: 2rem;
-    }
   }
 
   .button {

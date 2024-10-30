@@ -12,13 +12,11 @@
       <div class="question-with-follow-up__question">
         <div class="white-group">
           <p class="spacing-below-0"><%= t(".situations_question") %></p>
-          <div class="bulleted">
-            <ul>
-              <li><%= t(".situation_snap") %></li>
-              <li><%= t(".situation_incarceration") %></li>
-              <li><%= t(".situation_undocumented") %></li>
-            </ul>
-          </div>
+          <ul class="list--bulleted list--bulleted-indented">
+            <li><%= t(".situation_snap") %></li>
+            <li><%= t(".situation_incarceration") %></li>
+            <li><%= t(".situation_undocumented") %></li>
+          </ul>
           <%=
             f.cfa_radio_set(
               :household_has_grocery_credit_ineligible_months,
