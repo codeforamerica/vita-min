@@ -178,6 +178,8 @@ ID40_LINE_6D:
   label: '6d Total household count'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_46:
+  label: '46 Idaho income tax withheld. Include Form W-2s and any 1099s that show Idaho withholding'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
