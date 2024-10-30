@@ -99,12 +99,20 @@ FactoryBot.define do
     trait :single_filer_with_json do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
+
+      after(:create) do |intake|
+        intake.synchronize_filers_to_database
+      end
     end
 
     trait :mfj_filer_with_json do
       filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_paul_mfj') }
+
+      after(:create) do |intake|
+        intake.synchronize_filers_to_database
+      end
     end
 
     trait :with_dependents do
@@ -112,6 +120,7 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
 
       after(:create) do |intake|
+        intake.synchronize_filers_to_database
         intake.synchronize_df_dependents_to_database
       end
     end

@@ -74,12 +74,12 @@ module Efile
 
         credit += grocery_credit_for_household_member(
           @intake.primary_has_grocery_credit_ineligible_months_yes? ? @intake.primary_months_ineligible_for_grocery_credit : 0,
-          @intake.primary.age >= 65 ? 11.67 : 10)
+          @intake.primary_senior? ? 11.67 : 10)
 
         if filing_status_mfj?
           credit += grocery_credit_for_household_member(
             @intake.spouse_has_grocery_credit_ineligible_months_yes? ? @intake.spouse_months_ineligible_for_grocery_credit : 0,
-            @intake.spouse.age >= 65 ? 11.67 : 10)
+            @intake.spouse_senior? ? 11.67 : 10)
         end
 
         @intake.dependents.each do |dependent|

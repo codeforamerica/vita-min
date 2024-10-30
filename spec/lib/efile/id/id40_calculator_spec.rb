@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Id::Id40Calculator do
-  let(:intake) { create(:state_file_id_intake) }
+  let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -136,7 +136,7 @@ describe Efile::Id::Id40Calculator do
 
       context "primary is under 65" do
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
+          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 63, 1, 1)
         end
 
         it "claims the correct credit" do
@@ -170,7 +170,7 @@ describe Efile::Id::Id40Calculator do
 
       context "spouse is under 65" do
         before do
-          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
+          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 63, 1, 1)
         end
 
         it "claims the correct credit" do
