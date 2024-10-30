@@ -19,6 +19,9 @@ module Efile
         set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
         set_line(:MD502_LINE_1E, :calculate_line_1e)
 
+        set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE
+        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE
+
         # Exemptions
         set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_primary)
         set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
@@ -51,12 +54,23 @@ module Efile
         {}
       end
 
+      def gross_income_amount
+        if @direct_file_data.claimed_as_dependent?
+          (@direct_file_data.fed_agi + line_or_zero(:MD502_LINE_7)) - line_or_zero(:MD502_LINE_15)
+        else
+          (@direct_file_data.fed_agi - @direct_file_data.fed_taxable_ssb) + line_or_zero(:MD502_LINE_7)
+        end
+      end
+
       private
 
       def calculate_line_1e
         total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
         total_interest > 11_600
       end
+
+      def calculate_line_7; end
+      def calculate_line_15; end
 
       def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY

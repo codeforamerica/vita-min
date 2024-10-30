@@ -681,4 +681,35 @@ describe Efile::Md::Md502Calculator do
       expect(instance.lines[:MD502_LINE_D_AMOUNT_TOTAL].value).to eq 3200
     end
   end
+
+  describe "#gross_income_amount" do
+    let(:intake) { create(:state_file_md_intake, :head_of_household) } # needs to have fed_taxable_ssb element in order to set it; shelby_hoh has it
+    before do
+      intake.direct_file_data.fed_agi = 20_000
+      intake.direct_file_data.fed_taxable_ssb = 10_000
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 5_000
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 2_500
+      instance.calculate
+    end
+
+    context "not claimed as dependent" do
+      before do
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return false
+      end
+
+      it "returns (FAGI - taxable SSB) + line 7" do
+        expect(instance.gross_income_amount).to eq 15_000
+      end
+    end
+  end
+
+  context "dependent taxpayer" do
+    before do
+      allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
+    end
+
+    it "returns (FAGI + line 7) - line 15" do
+      expect(instance.gross_income_amount).to eq 22_500
+    end
+  end
 end
