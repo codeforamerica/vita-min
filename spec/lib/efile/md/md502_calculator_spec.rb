@@ -812,7 +812,7 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  describe "#calculate_deduction_amount" do
+  describe "#calculate_line_17" do
     context "when method is standard" do
       [
         [["single", "married_filing_separately", "dependent"], [
@@ -843,7 +843,7 @@ describe Efile::Md::Md502Calculator do
 
                 it "returns the value corresponding to #{agi_limit} MD AGI limit" do
                   calculator_instance.calculate
-                  expect(calculator_instance.lines[:MD502_DEDUCTION_AMOUNT].value).to eq(deduction_amount)
+                  expect(calculator_instance.lines[:MD502_LINE_17].value).to eq(deduction_amount)
                 end
               end
             end
@@ -859,7 +859,7 @@ describe Efile::Md::Md502Calculator do
 
       it "returns 0" do
         instance.calculate
-        expect(instance.lines[:MD502_DEDUCTION_AMOUNT].value).to eq 0
+        expect(instance.lines[:MD502_LINE_17].value).to eq 0
       end
     end
   end

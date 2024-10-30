@@ -266,7 +266,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         context "amount" do
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_amount).and_return 300
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 300
           end
 
           it "fills out the deduction amount from the calculator if method is standard" do

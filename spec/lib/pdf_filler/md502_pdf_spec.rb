@@ -266,7 +266,7 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       context "amount" do
         before do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_amount).and_return 500
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 500
         end
 
         it "fills out amount if method is standard" do
