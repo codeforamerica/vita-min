@@ -12,7 +12,7 @@ module StateFile
     validates :permanent_street, presence: true, irs_street_address_type: { maximum: nil }, if: -> { confirmed_permanent_address == "no" }
     validates :permanent_apartment, irs_street_address_type: { maximum: nil }
     validates :permanent_city, presence: true, irs_street_address_type: { maximum: nil }, if: -> { confirmed_permanent_address == "no" }
-    validates :permanent_zip, presence: true, zip_code: true, if: -> { confirmed_permanent_address == "no" }
+    validates :permanent_zip, presence: true, zip_code: { zip_code_lengths: [5, 9, 12].freeze }, if: -> { confirmed_permanent_address == "no" }
 
     def initialize(intake = nil, params = nil)
       if params[:confirmed_permanent_address] == "yes"
@@ -32,8 +32,8 @@ module StateFile
                                         permanent_zip: @intake.direct_file_data.mailing_zip,
                                       } : {}
       attributes_from_direct_file[:permanent_address_outside_md] = @intake.direct_file_data.mailing_state != 'MD' && confirmed_permanent_address == "yes" ? "yes" : "no"
-
-      @intake.update(attributes_for(:intake).merge(attributes_from_direct_file))
+      attributes_from_form = attributes_for(:intake).except(:permanent_zip).merge({permanent_zip: permanent_zip&.delete('-')})
+      @intake.update(attributes_from_form.merge(attributes_from_direct_file))
     end
   end
 end

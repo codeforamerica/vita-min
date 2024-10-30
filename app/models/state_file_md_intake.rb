@@ -100,6 +100,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_home_different_areas
   enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
 
+
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
@@ -121,26 +122,11 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
-  def calculate_age(inclusive_of_jan_1: false, dob: primary_birth_date)
+  def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)
     # overwriting the base intake method b/c
     # MD always considers individuals to attain their age on their DOB
     raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
 
     MultiTenantService.statefile.current_tax_year - dob.year
-  end
-
-  def filing_status
-    {
-      1 => :single,
-      2 => :married_filing_jointly,
-      3 => :married_filing_separately,
-      4 => :head_of_household,
-      5 => :qualifying_widow,
-      6 => :dependent,
-    }[direct_file_data&.filing_status]
-  end
-
-  def filing_status_dependent?
-    filing_status == :dependent
   end
 end

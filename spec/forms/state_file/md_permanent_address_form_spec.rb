@@ -85,7 +85,54 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         it "is invalid" do
           expect(form.valid?).to eq false
 
-          expect(form.errors[:permanent_zip]).to include "Please enter a valid 5-digit zip code."
+          expect(form.errors[:permanent_zip]).to include "Please enter a valid 5-digit zip code plus optional 4 or 7 digits."
+        end
+
+
+      end
+
+      context "zip code is valid with multiple lengths" do
+        let(:invalid_params) do
+          {
+            confirmed_permanent_address: "no",
+            permanent_city: "Boop York",
+            permanent_street: "123 Beep Blvd",
+            permanent_apartment: "",
+            permanent_zip: zip_code
+          }
+        end
+
+        context "when zip code is 5 digits" do
+          let(:zip_code) { "12345" }
+
+          it "is valid" do
+            expect(form.valid?).to eq true
+          end
+        end
+
+        context "when zip code is 9 digits" do
+          let(:zip_code) { "12345-6789" }
+
+          it "is valid" do
+            expect(form.valid?).to eq true
+          end
+        end
+
+        context "when zip code is 12 digits" do
+          let(:zip_code) { "12345-6789-123" }
+
+          it "is valid" do
+            expect(form.valid?).to eq true
+          end
+        end
+
+        context "when zip code is invalid length" do
+          let(:zip_code) { "123" }
+
+          it "is invalid" do
+            expect(form.valid?).to eq false
+            expect(form.errors[:permanent_zip]).to include "Please enter a valid 5-digit zip code plus optional 4 or 7 digits."
+          end
         end
       end
 
