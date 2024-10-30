@@ -251,7 +251,7 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
-    context "deductions" do
+    context "deduction" do
       context "method" do
         it "checks box if standard deduction" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
@@ -261,6 +261,22 @@ RSpec.describe PdfFiller::Md502Pdf do
         it "does not check box if non-standard deduction" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
           expect(pdf_fields["Check Box 34"]).to eq "Off"
+        end
+      end
+
+      context "amount" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_amount).and_return 500
+        end
+
+        it "fills out amount if method is standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(pdf_fields["Enter 17a "]).to eq "500"
+        end
+
+        it "leaves amount blank if method is not standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(pdf_fields["Enter 17a "]).to be_nil
         end
       end
     end

@@ -21,6 +21,7 @@ module Efile
 
         set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
 
         # Exemptions
         set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_primary)
@@ -40,9 +41,10 @@ module Efile
         set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
 
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
+        set_line(:MD502_DEDUCTION_AMOUNT, :calculate_deduction_amount)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
-        set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
+        set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
         @lines.transform_values(&:value)
@@ -72,7 +74,10 @@ module Efile
       end
 
       def calculate_line_7; end
+
       def calculate_line_15; end
+
+      def calculate_line_16; end
 
       def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY
@@ -305,6 +310,38 @@ module Efile
           "S"
         else
           "N"
+        end
+      end
+
+      DEDUCTION_TABLES = {
+        s_mfs_d: {
+          12000 => 1_800,
+          17999 => ->(x) { x * 0.15 },
+          18000 => 2_700,
+        },
+        mfj_hoh_qss: {
+          24333 => 3_650,
+          36332 => ->(x) { x * 0.15 },
+          36333 => 5_450,
+        }
+      }.freeze
+      FILING_STATUS_GROUPS = {
+        s_mfs_d: [:single, :married_filing_separately, :dependent],
+        mfj_hoh_qss: [:married_filing_jointly, :head_of_household, :qualifying_widow]
+      }.freeze
+      def calculate_deduction_amount
+        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+          status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(@intake.filing_status) }[0]
+          deduction_table = DEDUCTION_TABLES[status_group_key]
+          md_agi = line_or_zero(:MD502_LINE_16)
+          amount_or_method = deduction_table.find { |agi_limit, _| md_agi <= agi_limit }[1]
+          if amount_or_method.is_a?(Proc)
+            amount_or_method.call(md_agi)
+          else
+            amount_or_method
+          end
+        else
+          0
         end
       end
 

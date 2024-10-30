@@ -258,10 +258,26 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "standard or itemized deduction" do
+      context "deduction" do
         it "fills out the deduction method from calculator" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
           expect(xml.at("Form502 Deduction Method").text).to eq "S"
+        end
+
+        context "amount" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_amount).and_return 300
+          end
+
+          it "fills out the deduction amount from the calculator if method is standard" do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+            expect(xml.at("Form502 Deduction Amount").text).to eq "300"
+          end
+
+          it "leaves amount blank if method is not standard" do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+            expect(xml.at("Form502 Deduction Amount")).to be_nil
+          end
         end
       end
     end

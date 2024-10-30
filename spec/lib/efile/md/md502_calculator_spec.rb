@@ -687,8 +687,8 @@ describe Efile::Md::Md502Calculator do
     before do
       intake.direct_file_data.fed_agi = 20_000
       intake.direct_file_data.fed_taxable_ssb = 10_000
-      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 5_000
-      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 2_500
+      allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return 5_000
+      allow_any_instance_of(described_class).to receive(:calculate_line_15).and_return 2_500
       instance.calculate
     end
 
@@ -808,6 +808,58 @@ describe Efile::Md::Md502Calculator do
           instance.calculate
           expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
         end
+      end
+    end
+  end
+
+  describe "#calculate_deduction_amount" do
+    context "when method is standard" do
+      [
+        [["single", "married_filing_separately", "dependent"], [
+          [12_000, 1_800],
+          [17_999, 17_999 * 0.15],
+          [18_000, 2_700],
+        ]],
+        [["married_filing_jointly", "head_of_household", "qualifying_widow"], [
+          [24_333, 3_650],
+          [36_332, 36_332 * 0.15],
+          [36_333, 5_450],
+        ]]
+      ].each do |filing_statuses, agis_to_deductions|
+        filing_statuses.each do |filing_status|
+          context "#{filing_status}" do
+            before do
+              allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+            end
+
+            agis_to_deductions.each do |agi_limit, deduction_amount|
+              context "agi is #{agi_limit}" do
+                let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
+                let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
+
+                before do
+                  allow_any_instance_of(described_class).to receive(:calculate_line_16).and_return agi_limit
+                end
+
+                it "returns the value corresponding to #{agi_limit} MD AGI limit" do
+                  calculator_instance.calculate
+                  expect(calculator_instance.lines[:MD502_DEDUCTION_AMOUNT].value).to eq(deduction_amount)
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    context "non-standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:MD502_DEDUCTION_AMOUNT].value).to eq 0
       end
     end
   end
