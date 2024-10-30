@@ -63,7 +63,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     fill_in "Return header phone number (primary)", with: "5551112222"
 
     # W2
-    fill_in "WagesAmt", with: 500
+    fill_in "WagesAmt", with: 1500
     fill_in "WithholdingAmt", with: 300
     fill_in "StateWagesAmt", with: 1000
     fill_in "StateIncomeTaxAmt", with: 100
@@ -98,7 +98,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     expect(StateFileAzIntake.last.direct_file_data.interest_reported_amount).to eq 200
 
-    expect(StateFileAzIntake.last.direct_file_data.w2s[0].WagesAmt).to eq 500
+    expect(StateFileAzIntake.last.direct_file_data.w2s[0].WagesAmt).to eq 1500
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].WithholdingAmt).to eq 300
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].StateWagesAmt).to eq 1000
     expect(StateFileAzIntake.last.direct_file_data.w2s[0].StateIncomeTaxAmt).to eq 100

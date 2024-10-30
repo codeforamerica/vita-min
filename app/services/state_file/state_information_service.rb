@@ -76,7 +76,7 @@ module StateFile
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
-        w2_supported_box_14codes: [],
+        w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false
       },
       id: {

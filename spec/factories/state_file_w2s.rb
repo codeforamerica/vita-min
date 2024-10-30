@@ -29,7 +29,7 @@ FactoryBot.define do
     employee_name { "Jajko" }
     employer_name { "Biszkoptowy Enterprises" }
     employer_state_id_num { "12345" }
-    state_wages_amount { 10000 }
+    state_wages_amount { 1000 }
     state_income_tax_amount { 350 }
     local_wages_and_tips_amount { 100 }
     local_income_tax_amount { 100 }
