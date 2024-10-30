@@ -962,6 +962,24 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 58 - earned income tax credit' do
+    context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
+      let(:intake) { create(:state_file_nj_intake) }
+
+      it 'sets line 58 to 40% of federal EITC (40% of $1490)' do
+        expect(instance.lines[:NJ1040_LINE_58].value).to eq(596)
+      end
+    end
+
+    context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+      it 'sets line 58 to 0' do
+        expect(instance.lines[:NJ1040_LINE_58].value).to eq(0)
+      end
+    end
+  end
+
   describe 'line 64 - child and dependent care credit' do
     let(:intake) { 
       create(
