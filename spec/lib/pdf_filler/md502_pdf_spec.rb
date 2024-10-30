@@ -250,5 +250,19 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
       end
     end
+
+    context "deductions" do
+      context "method" do
+        it "checks box if standard deduction" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(pdf_fields["Check Box 34"]).to eq "Yes"
+        end
+
+        it "does not check box if non-standard deduction" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(pdf_fields["Check Box 34"]).to eq "Off"
+        end
+      end
+    end
   end
 end
