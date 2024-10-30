@@ -40,7 +40,7 @@ describe Efile::Id::Id39RCalculator do
       end
     end
 
-    context "when there are no interest reports" do
+    context "when there are no health insurance premiums" do
       it "returns 0" do
         instance.calculate
         expect(instance.lines[:ID39R_B_LINE_18].value).to eq(0)

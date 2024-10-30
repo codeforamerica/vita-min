@@ -73,7 +73,7 @@ RSpec.describe StateFile::IdHealthInsurancePremiumForm do
 
     context "valid params" do
 
-      context "with a non integer sales-use-tax" do
+      context "with a non integer health insurance paid amount" do
         let(:params) do
           {
             has_health_insurance_premium: "yes",
@@ -92,7 +92,7 @@ RSpec.describe StateFile::IdHealthInsurancePremiumForm do
   describe "#save" do
     let(:form) { described_class.new(intake, valid_params) }
 
-    context "has unpaid sales use tax" do
+    context "has health_insurance_premium" do
       let(:valid_params) do
         { has_health_insurance_premium: "yes",
           health_insurance_paid_amount: 1699.51 }
@@ -107,7 +107,7 @@ RSpec.describe StateFile::IdHealthInsurancePremiumForm do
       end
     end
 
-    context "no longer has unpaid sales use tax (switched after selecting 'yes' and inputting value)" do
+    context "no longer has health insurance premium (switched after selecting 'yes' and inputting value)" do
       let(:valid_params) do
         { has_health_insurance_premium: "no",
           health_insurance_paid_amount: 1699.51 }
