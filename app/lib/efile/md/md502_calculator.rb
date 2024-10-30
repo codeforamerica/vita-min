@@ -13,16 +13,6 @@ module Efile
       end
 
       def calculate
-        set_line(:MD502_LINE_1, @direct_file_data, :fed_agi)
-        set_line(:MD502_LINE_1A, @direct_file_data, :fed_wages_salaries_tips)
-        set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
-        set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
-        set_line(:MD502_LINE_1E, :calculate_line_1e)
-
-        set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-
         # Exemptions
         set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_primary)
         set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
@@ -40,6 +30,21 @@ module Efile
         set_line(:MD502_LINE_D_COUNT_TOTAL, :calculate_line_d_count_total)
         set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
 
+        # Income
+        set_line(:MD502_LINE_1, @direct_file_data, :fed_agi)
+        set_line(:MD502_LINE_1A, @direct_file_data, :fed_wages_salaries_tips)
+        set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
+        set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
+        set_line(:MD502_LINE_1E, :calculate_line_1e)
+
+        # Additions
+        set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+
+        # Subtractions
+        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+
+        # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
         set_line(:MD502_DEDUCTION_AMOUNT, :calculate_deduction_amount)
 
