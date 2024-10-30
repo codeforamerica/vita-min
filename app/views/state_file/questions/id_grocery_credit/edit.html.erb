@@ -54,13 +54,15 @@
               <%= f.cfa_select(:primary_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, label_class: 'form-label--bold', include_blank: t('general.select_prompt')) %>
             </div>
           </div>
-          <div class="question-with-follow-up__follow-up" id="spouse_months_ineligible_for_grocery_credit">
-            <div class="white-group">
-              <p><%= t(".need_to_know_spouse_html") %></p>
-              <p><%= t(".example_months") %></p>
-              <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
+          <% if current_intake.filing_status_mfj? %>
+            <div class="question-with-follow-up__follow-up" id="spouse_months_ineligible_for_grocery_credit">
+              <div class="white-group">
+                <p><%= t(".need_to_know_spouse_html") %></p>
+                <p><%= t(".example_months") %></p>
+                <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
+              </div>
             </div>
-          </div>
+          <% end %>
           <%= f.fields_for :dependents do |ff| %>
             <% dependent = ff.object %>
             <div class="question-with-follow-up__follow-up" id="dependent_<%= dependent.id %>_months_ineligible_for_grocery_credit">

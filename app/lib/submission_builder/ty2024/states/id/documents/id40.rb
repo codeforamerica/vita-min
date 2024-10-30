@@ -25,7 +25,7 @@ module SubmissionBuilder
                   xml.DependentGrid do
                     xml.DependentFirstName sanitize_for_xml(dependent.first_name, 20)
                     xml.DependentLastName sanitize_for_xml(dependent.last_name, 20)
-                    unless dependent.ssn.nil?  # this will produce invalid xml if it's missing
+                    unless dependent.ssn.nil?
                       xml.DependentSSN dependent.ssn.delete('-')
                     end
                     xml.DependentDOB date_type(dependent.dob)
