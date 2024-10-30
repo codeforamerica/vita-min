@@ -512,6 +512,10 @@ MD502_LINE_1D:
   label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
   label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
+MD502_LINE_7:
+  label: 'TBD'
+MD502_LINE_15:
+  label: 'TBD'
 MD502CR_PART_B_LINE_2:
   label: "2 Enter your federal Child and Dependent Care Credit from federal Form 2441"
 MD502CR_PART_B_LINE_3:
@@ -634,6 +638,8 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_DEDUCTION_METHOD:
+  label: 'Itemized, standard or non-taxable deduction method'
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:
