@@ -39,6 +39,8 @@ module Efile
         set_line(:MD502_LINE_D_COUNT_TOTAL, :calculate_line_d_count_total)
         set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
 
+        set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
+
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
@@ -270,6 +272,40 @@ module Efile
         # Add line A, B and C amounts
         line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_LINE_C_AMOUNT)
 
+      end
+
+      FILING_MINIMUMS_NON_SENIOR = {
+        single: 14_600,
+        dependent: 14_600,
+        married_filing_jointly: 29_200,
+        married_filing_separately: 14_600,
+        head_of_household: 21_900,
+        qualifying_widow: 29_200
+      }
+
+      FILING_MINIMUMS_SENIOR = {
+        single: 16_550,
+        dependent: 16_550,
+        married_filing_jointly: 30_750,
+        married_filing_separately: 14_600,
+        head_of_household: 23_850,
+        qualifying_widow: 30_750
+      }
+
+      def calculate_deduction_method
+        gross_income_amount = @intake.tax_calculator.gross_income_amount
+        filing_minimum = if @intake.primary_senior? && @intake.spouse_senior? && @intake.filing_status_mfj?
+                           32_300
+                         elsif @intake.primary_senior?
+                           FILING_MINIMUMS_SENIOR[@intake.filing_status]
+                         else
+                           FILING_MINIMUMS_NON_SENIOR[@intake.filing_status]
+                         end
+        if gross_income_amount >= filing_minimum
+          "S"
+        else
+          "N"
+        end
       end
 
       def filing_status_dependent?
