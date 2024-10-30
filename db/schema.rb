@@ -2250,7 +2250,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
   end
 
   create_table "state_file_w2s", force: :cascade do |t|
-    t.decimal "box_14_stpickup", precision: 12, scale: 2
+    t.decimal "box14_stpickup", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"

@@ -7,7 +7,7 @@ RSpec.describe StateFile::Questions::W2Controller do
       id: state_file_w2.id,
       state_file_w2: {
         employer_state_id_num: "12345",
-        box_14_stpickup: 230,
+        box14_stpickup: 230,
         state_wages_amount: 10000,
         state_income_tax_amount: 500,
         local_wages_and_tips_amount: 40,
@@ -87,7 +87,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         state_file_w2.reload
         expect(state_file_w2.state_file_intake).to eq intake
         expect(state_file_w2.employer_state_id_num).to eq "12345"
-        expect(state_file_w2.box_14_stpickup).to eq 230
+        expect(state_file_w2.box14_stpickup).to eq 230
         expect(state_file_w2.state_wages_amount).to eq 10000
         expect(state_file_w2.state_income_tax_amount).to eq 500
         expect(state_file_w2.local_wages_and_tips_amount).to eq 40
@@ -106,7 +106,7 @@ RSpec.describe StateFile::Questions::W2Controller do
               employer_state_id_num: "12345",
               state_wages_amount: 10000,
               state_income_tax_amount: 500,
-              box_14_stpickup: 230
+              box14_stpickup: 230
             }
           }
         end
@@ -114,7 +114,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         it "updates Box 14 fields" do
           post :update, params: params
           state_file_w2.reload
-          expect(state_file_w2.box_14_stpickup).to eq 230
+          expect(state_file_w2.box14_stpickup).to eq 230
         end
       end
 
