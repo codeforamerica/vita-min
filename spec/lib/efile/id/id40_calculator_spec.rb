@@ -57,7 +57,7 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 6d: Total Exemptions" do
     it "sums lines 6a, 6b, and 6c" do
-      allow(instance).to receive(:line_or_zero).and_return(nil)
+      allow(instance).to receive(:line_or_zero).and_call_original
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6A).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6B).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6C).and_return(2)
