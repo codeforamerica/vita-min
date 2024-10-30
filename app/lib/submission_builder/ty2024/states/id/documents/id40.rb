@@ -32,6 +32,7 @@ module SubmissionBuilder
                   end
                 end
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
+                xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
               end
             end
 
