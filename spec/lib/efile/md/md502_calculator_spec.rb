@@ -10,34 +10,6 @@ describe Efile::Md::Md502Calculator do
     )
   end
 
-  describe "#calculate_line_1e" do
-    let(:filing_status) { "single" }
-
-    context 'when total interest is greater than $11,600' do
-      before do
-        intake.direct_file_data.fed_taxable_income = 11_599
-        intake.direct_file_data.fed_tax_exempt_interest = 2
-      end
-
-      it 'returns true' do
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_1E].value).to be_truthy
-      end
-    end
-
-    context 'when total interest is less than or equal to $11,600' do
-      before do
-        intake.direct_file_data.fed_taxable_income = 11_599
-        intake.direct_file_data.fed_tax_exempt_interest = 1
-      end
-
-      it 'returns true' do
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_1E].value).to be_falsey
-      end
-    end
-  end
-
   describe "#calculate_md502_cr_part_b_line_3" do
     before do
       intake.direct_file_data.fed_agi = agi
@@ -679,6 +651,34 @@ describe Efile::Md::Md502Calculator do
     it 'the sums the amount from line A-C' do
       instance.calculate
       expect(instance.lines[:MD502_LINE_D_AMOUNT_TOTAL].value).to eq 3200
+    end
+  end
+
+  describe "#calculate_line_1e" do
+    let(:filing_status) { "single" }
+
+    context 'when total interest is greater than $11,600' do
+      before do
+        intake.direct_file_data.fed_taxable_income = 11_599
+        intake.direct_file_data.fed_tax_exempt_interest = 2
+      end
+
+      it 'returns true' do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_1E].value).to be_truthy
+      end
+    end
+
+    context 'when total interest is less than or equal to $11,600' do
+      before do
+        intake.direct_file_data.fed_taxable_income = 11_599
+        intake.direct_file_data.fed_tax_exempt_interest = 1
+      end
+
+      it 'returns true' do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_1E].value).to be_falsey
+      end
     end
   end
 
