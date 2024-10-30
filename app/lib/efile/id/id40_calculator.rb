@@ -30,7 +30,7 @@ module Efile
       end
 
       def grocery_credit_amount
-        calculate_grocery_credit
+        line_or_zero(:ID40_LINE_43_WORKSHEET)
       end
 
       def analytics_attrs
