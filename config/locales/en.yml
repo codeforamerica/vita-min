@@ -2921,8 +2921,9 @@ en:
           title: Enter your phone number
       primary_state_id:
         edit:
-          ny_subtitle: This information is required for all NY residents with a state-issued ID.
-          title: Please share some details from your state-issued ID
+          ny_subtitle: We need some details from .
+          subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
+          title: We need some details from your state-issued ID, if you have one
         state_id:
           id_details:
             expiration: Expiration Date
@@ -3002,7 +3003,7 @@ en:
           your_tax_owed: Your taxes owed
       spouse_state_id:
         edit:
-          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return

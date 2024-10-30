@@ -2910,7 +2910,8 @@ es:
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
-          title: Comparte algunos detalles de tu identificación emitida por el estado
+          subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
+          title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
         state_id:
           id_details:
             expiration: Fecha de Vencimiento
@@ -2990,7 +2991,7 @@ es:
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:
         edit:
-          title_html: Proporciona la información para la identificación emitida por el estado de <strong>tu cónyuge</strong>
+          title_html: Necesitamos algunos detalles del documento de identidad oficial de <strong>su cónyuge</strong>, si tiene uno
       submission_confirmation:
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
