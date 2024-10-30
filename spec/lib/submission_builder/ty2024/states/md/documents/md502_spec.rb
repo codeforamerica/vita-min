@@ -284,15 +284,21 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
       # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
       context "tax computation section" do
-        it "fills out the amount from the calculator if method is standard" do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+        before do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 40
-          expect(xml.at("Form502 NetIncome").text).to eq "40"
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 50
         end
 
-        it "leaves amount blank if method is not standard" do
+        it "fills out amounts from the calculator if method is standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(xml.at("Form502 NetIncome").text).to eq "40"
+          expect(xml.at("Form502 ExemptionAmount").text).to eq "50"
+        end
+
+        it "leaves amounts blank if method is not standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
           expect(xml.at("Form502 NetIncome")).to be_nil
+          expect(xml.at("Form502 ExemptionAmount")).to be_nil
         end
       end
     end

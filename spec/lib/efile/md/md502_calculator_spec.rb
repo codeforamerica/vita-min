@@ -862,11 +862,14 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_18" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_17).and_return 5
+      allow_any_instance_of(described_class).to receive(:calculate_line_16).and_return 10
+    end
+
     context "deduction method is standard" do
       it "subtracts line 17 from line 16" do
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
-        allow_any_instance_of(described_class).to receive(:calculate_line_17).and_return 5
-        allow_any_instance_of(described_class).to receive(:calculate_line_16).and_return 10
         instance.calculate
         expect(instance.lines[:MD502_LINE_18].value).to eq 5
       end
@@ -877,6 +880,28 @@ describe Efile::Md::Md502Calculator do
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
         instance.calculate
         expect(instance.lines[:MD502_LINE_18].value).to eq 0
+      end
+    end
+  end
+
+  describe "#calculate_line_19" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_d_amount_total).and_return 50
+    end
+
+    context "deduction method is standard" do
+      it "copies over total exemption amount" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_19].value).to eq 50
+      end
+    end
+
+    context "deduction method is non-standard" do
+      it "returns 0" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_19].value).to eq 0
       end
     end
   end

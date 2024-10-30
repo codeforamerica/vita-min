@@ -48,6 +48,7 @@ module Efile
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
         set_line(:MD502_LINE_17, :calculate_line_17)
         set_line(:MD502_LINE_18, :calculate_line_18)
+        set_line(:MD502_LINE_19, :calculate_line_19)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
@@ -335,6 +336,7 @@ module Efile
         s_mfs_d: [:single, :married_filing_separately, :dependent],
         mfj_hoh_qss: [:married_filing_jointly, :head_of_household, :qualifying_widow]
       }.freeze
+
       def calculate_line_17
         if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
           status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(@intake.filing_status) }[0]
@@ -354,6 +356,14 @@ module Efile
       def calculate_line_18
         if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
           line_or_zero(:MD502_LINE_16) - line_or_zero(:MD502_LINE_17)
+        else
+          0
+        end
+      end
+
+      def calculate_line_19
+        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+          line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
         else
           0
         end

@@ -61,6 +61,7 @@ module PdfFiller
         'Check Box 34': @xml_document.at('Form502 Deduction Method')&.text == "S" ? "Yes" : "Off",
         'Enter 17a ': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
         'Enter 18': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 NetIncome')&.text : nil,
+        'Enter 19 ': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
       }
     end
 
