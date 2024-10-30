@@ -98,6 +98,8 @@ RSpec.describe StateFile::IdGroceryCreditForm do
         form = described_class.new(intake, invalid_params)
         expect(form).not_to be_valid
         expect(form.dependents.first.errors).to include :id_months_ineligible_for_grocery_credit
+        expect(form.dependents.second.errors).to be_empty
+        expect(form.dependents.third.errors).to be_empty
       end
     end
   end
