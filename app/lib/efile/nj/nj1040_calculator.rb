@@ -248,7 +248,7 @@ module Efile
         should_use_property_tax_deduction ? calculate_property_tax_deduction : nil
       end
 
-      def calculate_line_42 
+      def calculate_line_42
         should_use_property_tax_deduction ? calculate_line_39 - calculate_property_tax_deduction : calculate_line_39
       end
 
