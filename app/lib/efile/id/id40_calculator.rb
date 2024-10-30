@@ -58,33 +58,32 @@ module Efile
         end
       end
 
+      def grocery_credit_for_household_member(ineligible_months, credit_per_month)
+        (12 - ineligible_months) * credit_per_month
+      end
+
       def calculate_grocery_credit
         return 0 if @intake.direct_file_data.claimed_as_dependent?
 
-        primary_eligible_months = 12
-        if @intake.spouse_has_grocery_credit_ineligible_months_yes?
-          primary_eligible_months -= @intake.primary_months_ineligible_for_grocery_credit
-        end
-        primary_credit_per_month = @intake.primary.age >= 65 ? 11.67 : 10
-        primary_credit = primary_eligible_months * primary_credit_per_month
+        credit = 0
 
-        spouse_eligible_months = 12
-        if @intake.spouse_has_grocery_credit_ineligible_months_yes?
-          spouse_eligible_months -= @intake.spouse_months_ineligible_for_grocery_credit
-        end
-        spouse_credit_per_month = @intake.spouse.age >= 65 ? 11.67 : 10
-        spouse_credit = spouse_eligible_months * spouse_credit_per_month
+        credit += grocery_credit_for_household_member(
+          @intake.primary_has_grocery_credit_ineligible_months_yes? ? @intake.primary_months_ineligible_for_grocery_credit : 0,
+          @intake.primary.age >= 65 ? 11.67 : 10)
 
-        dependents_credit = @intake.dependents.sum do |dependent|
-          dependent_eligible_months = 12
-          if dependent.id_has_grocery_credit_ineligible_months_yes?
-            dependent_eligible_months -= dependent.id_months_ineligible_for_grocery_credit
-          end
-          dependent_credit_per_month = 10
-          dependent_eligible_months * dependent_credit_per_month
+        if filing_status_mfj?
+          credit += grocery_credit_for_household_member(
+            @intake.spouse_has_grocery_credit_ineligible_months_yes? ? @intake.spouse_months_ineligible_for_grocery_credit : 0,
+            @intake.spouse.age >= 65 ? 11.67 : 10)
         end
 
-        (primary_credit + spouse_credit + dependents_credit).round
+        @intake.dependents.each do |dependent|
+          credit += grocery_credit_for_household_member(
+            dependent.id_has_grocery_credit_ineligible_months_yes? ? dependent.id_months_ineligible_for_grocery_credit : 0,
+            10)
+        end
+
+        credit.round
       end
 
       def calculate_line_43_donate

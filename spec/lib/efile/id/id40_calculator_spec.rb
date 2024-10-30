@@ -102,19 +102,8 @@ describe Efile::Id::Id40Calculator do
   end
 
   describe "Line 43: Grocery Credit" do
-    let(:primary_ineligible_months) { 12 }
-    let(:spouse_ineligible_months) { 12 }
-
-    before do
-      intake.primary_has_grocery_credit_ineligible_months = primary_ineligible_months > 0 ? "yes" : "no"
-      intake.spouse_has_grocery_credit_ineligible_months = spouse_ineligible_months > 0 ? "yes" : "no"
-      intake.primary_months_ineligible_for_grocery_credit = primary_ineligible_months
-      intake.spouse_months_ineligible_for_grocery_credit = spouse_ineligible_months
-    end
-
     context "primary is claimed as dependent" do
-      let(:primary_ineligible_months) { 12 }
-      let(:spouse_ineligible_months) { 12 }
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
       before do
         allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
       end
@@ -127,7 +116,12 @@ describe Efile::Id::Id40Calculator do
 
     context "primary has ineligible months" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
-      let(:primary_ineligible_months) { 3 }
+
+      before do
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 3
+      end
+
       context "primary is 65 or older" do
         before do
           intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 66, 1, 1)
@@ -154,7 +148,14 @@ describe Efile::Id::Id40Calculator do
 
     context "spouse has ineligible months" do
       let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
-      let(:spouse_ineligible_months) { 3 }
+
+      before do
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 12
+
+        intake.spouse_has_grocery_credit_ineligible_months_yes!
+        intake.spouse_months_ineligible_for_grocery_credit = 3
+      end
 
       context "spouse is 65 or older" do
         before do
@@ -181,7 +182,11 @@ describe Efile::Id::Id40Calculator do
 
     context "dependent has ineligible months" do
       let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
       before do
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 12
+
         intake.dependents[0].id_has_grocery_credit_ineligible_months_yes!
         intake.dependents[0].id_months_ineligible_for_grocery_credit = 3
 
@@ -200,10 +205,9 @@ describe Efile::Id::Id40Calculator do
 
     context "donate the credit" do
       let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
-      let(:primary_ineligible_months) { 0 }
-      let(:spouse_ineligible_months) { 0 }
 
       before do
+        intake.household_has_grocery_credit_ineligible_months_no!
         intake.donate_grocery_credit_yes!
       end
 
