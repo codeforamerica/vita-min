@@ -500,6 +500,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       click_on I18n.t("state_file.questions.id_primary_state_id.id_primary.why_ask_this")
+      # expect Idaho specific help text
       expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.protect_identity')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"

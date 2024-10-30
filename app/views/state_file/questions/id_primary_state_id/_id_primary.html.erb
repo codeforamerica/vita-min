@@ -1,4 +1,4 @@
-<% title = t("state_file.questions.primary_state_id.edit.title") %>
+<% title = t(".title") %>
 <% content_for :page_title, title %>
 
 <%# Must be above :card content_for %>
@@ -20,6 +20,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
+  <p> <%= t(".subtitle") %></p>
   <%= render 'state_file/questions/primary_state_id/state_id', options: {
     info_link: "https://itd.idaho.gov/news/idahos-new-license-and-id-card-are-here/"
   } %>

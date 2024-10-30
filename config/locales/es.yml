@@ -2499,6 +2499,8 @@ es:
         id_primary:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
+          title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
           why_ask_this: "¿Por qué pides esta información?"
       id_sales_use_tax:
         edit:
@@ -2514,6 +2516,7 @@ es:
         id_spouse:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          title_html: Necesitamos algunos detalles del documento de identidad oficial de <strong>su cónyuge</strong>, si tiene uno
           why_ask_this: "¿Por qué pides esta información?"
       income_review:
         edit:
@@ -2910,8 +2913,7 @@ es:
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
-          subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
-          title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
+          title: Comparte algunos detalles de tu identificación emitida por el estado
         state_id:
           id_details:
             expiration: Fecha de Vencimiento
@@ -2991,7 +2993,7 @@ es:
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:
         edit:
-          title_html: Necesitamos algunos detalles del documento de identidad oficial de <strong>su cónyuge</strong>, si tiene uno
+          title_html: Proporciona la información para la identificación emitida por el estado de <strong>tu cónyuge</strong>
       submission_confirmation:
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
