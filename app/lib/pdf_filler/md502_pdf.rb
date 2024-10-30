@@ -62,6 +62,7 @@ module PdfFiller
         'Enter 17a ': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
         'Enter 18': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 NetIncome')&.text : nil,
         'Enter 19 ': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
+        'Enter 20': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
       }
     end
 

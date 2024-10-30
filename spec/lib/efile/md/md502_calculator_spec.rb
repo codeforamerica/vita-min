@@ -905,4 +905,27 @@ describe Efile::Md::Md502Calculator do
       end
     end
   end
+
+  describe "#calculate_line_20" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_19).and_return 10
+      allow_any_instance_of(described_class).to receive(:calculate_line_18).and_return 20
+    end
+
+    context "deduction method is standard" do
+      it "subtracts line 19 from line 18" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_20].value).to eq 10
+      end
+    end
+
+    context "deduction method is non-standard" do
+      it "returns 0" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_20].value).to eq 0
+      end
+    end
+  end
 end

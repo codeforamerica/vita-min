@@ -287,18 +287,21 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         before do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 40
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 50
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 60
         end
 
         it "fills out amounts from the calculator if method is standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
           expect(xml.at("Form502 NetIncome").text).to eq "40"
           expect(xml.at("Form502 ExemptionAmount").text).to eq "50"
+          expect(xml.at("Form502 StateTaxComputation TaxableNetIncome").text).to eq "60"
         end
 
         it "leaves amounts blank if method is not standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
           expect(xml.at("Form502 NetIncome")).to be_nil
           expect(xml.at("Form502 ExemptionAmount")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
         end
       end
     end
