@@ -1281,6 +1281,61 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 58 - earned income tax credit" do
+      context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake
+          )
+        }
+
+        it "fills line 58 with $596 for 40% of federal tax credit and checks federal checkbox" do
+          # thousands
+          expect(pdf_fields["58"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_152"]).to eq "5"
+          expect(pdf_fields["undefined_153"]).to eq "9"
+          expect(pdf_fields["Text170"]).to eq "6"
+          # decimals
+          expect(pdf_fields["Text171"]).to eq "0"
+          expect(pdf_fields["Text172"]).to eq "0"
+
+          # federal checkbox
+          expect(pdf_fields["Check Box168"]).to eq "Yes"
+
+          # NJ CU checkbox
+          expect(pdf_fields["Check Box169"]).to eq "Off"
+        end
+      end
+
+      context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake, :df_data_minimal
+          )
+        }
+
+        it "does not fill line 58 and does not check any checkboxes" do
+          # thousands
+          expect(pdf_fields["58"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_152"]).to eq ""
+          expect(pdf_fields["undefined_153"]).to eq ""
+          expect(pdf_fields["Text170"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text171"]).to eq ""
+          expect(pdf_fields["Text172"]).to eq ""
+
+          # federal checkbox
+          expect(pdf_fields["Check Box168"]).to eq "Off"
+
+          # NJ CU checkbox
+          expect(pdf_fields["Check Box169"]).to eq "Off"
+        end
+      end
+    end
+
+
     describe "line 64 child and dependent care credit" do
       let(:intake) {
         create(:state_file_nj_intake, :df_data_one_dep, :with_w2s_synced, :fed_credit_for_child_and_dependent_care)
