@@ -2495,6 +2495,11 @@ es:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
             bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_primary_state_id:
+        id_primary:
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          why_ask_this: "¿Por qué pides esta información?"
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
@@ -2505,6 +2510,11 @@ es:
           unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
           use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
           use_tax_title: "¿Qué son los impuestos sobre el uso?"
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          why_ask_this: "¿Por qué pides esta información?"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
