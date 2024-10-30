@@ -548,6 +548,10 @@ MD502_LINE_16:
   label: 'TBD'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
+MD502_LINE_17:
+  label: 'Deduction amount'
+MD502_LINE_18:
+  label: 'Net income'
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

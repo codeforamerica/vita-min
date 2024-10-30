@@ -258,7 +258,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "deduction" do
+      context "deduction section" do
         it "fills out the deduction method from calculator" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
           expect(xml.at("Form502 Deduction Method").text).to eq "S"
@@ -278,6 +278,19 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
             expect(xml.at("Form502 Deduction Amount")).to be_nil
           end
+        end
+      end
+
+      context "tax computation section" do
+        it "fills out the amount from the calculator if method is standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 40
+          expect(xml.at("Form502 NetIncome").text).to eq "40"
+        end
+
+        it "leaves amount blank if method is not standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(xml.at("Form502 NetIncome")).to be_nil
         end
       end
     end

@@ -47,6 +47,7 @@ module Efile
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
         set_line(:MD502_LINE_17, :calculate_line_17)
+        set_line(:MD502_LINE_18, :calculate_line_18)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
@@ -72,17 +73,6 @@ module Efile
       end
 
       private
-
-      def calculate_line_1e
-        total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
-        total_interest > 11_600
-      end
-
-      def calculate_line_7; end
-
-      def calculate_line_15; end
-
-      def calculate_line_16; end
 
       def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY
@@ -284,6 +274,17 @@ module Efile
 
       end
 
+      def calculate_line_1e
+        total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
+        total_interest > 11_600
+      end
+
+      def calculate_line_7; end
+
+      def calculate_line_15; end
+
+      def calculate_line_16; end
+
       FILING_MINIMUMS_NON_SENIOR = {
         single: 14_600,
         dependent: 14_600,
@@ -345,6 +346,14 @@ module Efile
           else
             amount_or_method
           end
+        else
+          0
+        end
+      end
+
+      def calculate_line_18
+        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+          line_or_zero(:MD502_LINE_16) - line_or_zero(:MD502_LINE_17)
         else
           0
         end

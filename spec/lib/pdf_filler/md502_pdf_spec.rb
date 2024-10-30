@@ -276,8 +276,16 @@ RSpec.describe PdfFiller::Md502Pdf do
 
         it "leaves amount blank if method is not standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
-          expect(pdf_fields["Enter 17a "]).to be_nil
+          expect(pdf_fields["Enter 17a "]).to be_empty
         end
+      end
+    end
+
+    context "tax computation" do
+      it "fills out the amounts" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 50
+        expect(pdf_fields["Enter 18"]).to eq "50"
       end
     end
   end
