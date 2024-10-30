@@ -454,31 +454,28 @@ describe Efile::Nj::Nj1040Calculator do
         end
       end
 
-      context 'when filing status is not MFS' do
-        let(:intake) { 
-          create(
-            :state_file_nj_intake,
-            household_rent_own: 'own',
-            property_tax_paid: 12345
-          )
-        }
-
-        it 'sets line 40a to property_tax_paid' do
-          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
-        end
-      end
-
-      context 'when property tax paid is nil (not eligible)' do
-        let(:intake) {
-          create(
-            :state_file_nj_intake,
-            household_rent_own: 'own',
-            property_tax_paid: nil
-          )
-        }
-
-        it 'sets line 40a to nil' do
-          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+      [12345, nil].each do |property_tax_paid|
+        context "when property_tax_paid is #{property_tax_paid || 'nil'}" do
+          let(:intake) { 
+            create(
+              :state_file_nj_intake,
+              household_rent_own: 'own',
+              property_tax_paid: property_tax_paid
+            )
+          }
+          {
+            Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE => property_tax_paid,
+            Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE => nil,
+            Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION => nil
+          }.each do |eligibility, expected_value|
+            context "when eligibility is #{eligibility}" do    
+              it "sets line 40a to #{expected_value.inspect}" do
+                allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(eligibility)
+                instance.calculate
+                expect(instance.lines[:NJ1040_LINE_40A].value).to eq(expected_value)
+              end
+            end
+          end
         end
       end
     end
@@ -516,17 +513,28 @@ describe Efile::Nj::Nj1040Calculator do
         end
       end
 
-      context 'when filing status is not MFS' do
-        let(:intake) { 
-          create(
-            :state_file_nj_intake,
-            household_rent_own: 'rent',
-            rent_paid: 54321
-          )
-        }
-
-        it 'sets line 40a to 0.18 * rent_paid, rounded' do
-          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(9778)
+      [54321, nil].each do |rent_paid|
+        context "when rent_paid is #{rent_paid || 'nil'}" do
+          let(:intake) { 
+            create(
+              :state_file_nj_intake,
+              household_rent_own: 'rent',
+              rent_paid: rent_paid
+            )
+          }
+          {
+            Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE => rent_paid.nil? ? nil: 9778,
+            Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE => nil,
+            Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION => nil
+          }.each do |eligibility, expected_value|
+            context "when eligibility is #{eligibility}" do    
+              it "sets line 40a to #{expected_value.inspect}" do
+                allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(eligibility)
+                instance.calculate
+                expect(instance.lines[:NJ1040_LINE_40A].value).to eq(expected_value)
+              end
+            end
+          end
         end
       end
     end
@@ -635,6 +643,16 @@ describe Efile::Nj::Nj1040Calculator do
         allow(instance).to receive(:calculate_line_40a).and_return 14_999
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_41].value).to eq(14_999)
+      end
+    end
+
+    context 'when not eligible for property tax deduction' do
+      let(:intake) { create(:state_file_nj_intake) }
+
+      it 'sets line 41 to nil' do
+        allow(instance).to receive(:calculate_line_40a).and_return nil
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
       end
     end
   end
