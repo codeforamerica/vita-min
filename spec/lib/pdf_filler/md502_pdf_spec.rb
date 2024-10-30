@@ -264,6 +264,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
       end
 
+      # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
       context "amount" do
         before do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 500
@@ -281,11 +282,20 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
+    # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
     context "tax computation" do
-      it "fills out the amounts" do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+      before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 50
+      end
+
+      it "fills out amount if deduction method is standard" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
         expect(pdf_fields["Enter 18"]).to eq "50"
+      end
+
+      it "leaves amount blank if deduction method is not standard" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+        expect(pdf_fields["Enter 18"]).to be_empty
       end
     end
   end
