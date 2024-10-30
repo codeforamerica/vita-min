@@ -124,6 +124,16 @@ FactoryBot.define do
       spouse_last_name { "Lando" }
     end
 
+    factory :state_file_md_refund_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_wages = 2_000
+        intake.direct_file_data.fed_taxable_income = 2_000
+        intake.direct_file_data.fed_taxable_ssb = 0
+        intake.direct_file_data.fed_unemployment = 0
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_zeus_two_w2s') }
     end
