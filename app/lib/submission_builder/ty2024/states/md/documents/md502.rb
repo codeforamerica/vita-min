@@ -97,6 +97,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
       end
+      xml.Deduction do
+        xml.Method deduction_method
+      end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end
@@ -144,6 +147,38 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
 
   def county_abbreviation
     COUNTY_ABBREVIATIONS[@intake.residence_county]
+  end
+
+  FILING_MINIMUMS_NON_SENIOR = {
+    single: 14_600,
+    married_filing_jointly: 29_200,
+    married_filing_separately: 14_600,
+    head_of_household: 21_900,
+    qualifying_widow: 29_200
+  }
+
+  FILING_MINIMUMS_SENIOR = {
+    single: 16_550,
+    married_filing_jointly: 30_750,
+    married_filing_separately: 14_600,
+    head_of_household: 23_850,
+    qualifying_widow: 30_750
+  }
+
+  def deduction_method
+    gross_income_amount = @intake.tax_calculator.gross_income_amount
+    filing_minimum = if @intake.primary_senior? && @intake.spouse_senior? && @intake.filing_status_mfj?
+                       32_300
+                     elsif @intake.primary_senior?
+                       FILING_MINIMUMS_SENIOR[@intake.filing_status]
+                     else
+                       FILING_MINIMUMS_NON_SENIOR[@intake.filing_status]
+                     end
+    if gross_income_amount >= filing_minimum
+      "S"
+    else
+      "N"
+    end
   end
 
   def add_element_if_present(xml, tag, line_id)

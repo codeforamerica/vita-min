@@ -257,6 +257,91 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
         end
       end
+
+      context "standard or itemized deduction" do
+        context "taxpayers under 65" do
+          let(:primary_birth_date) { 40.years.ago }
+          let(:spouse_birth_date) { 41.years.ago }
+
+          {
+            single: 14_600,
+            married_filing_jointly: 29_200,
+            married_filing_separately: 14_600,
+            head_of_household: 21_900,
+            qualifying_widow: 29_200
+          }.each do |filing_status, filing_minimum|
+            context "#{filing_status}" do
+              let(:intake) { create(:state_file_md_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date, filing_status: filing_status) }
+              let(:submission) { create(:efile_submission, data_source: intake) }
+              let(:build_response) { described_class.build(submission, validate: false) }
+              let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+
+              it "returns S when gross income is greater than or equal to state filing minimum" do
+                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum
+                expect(xml.at("Form502 Deduction Method").text).to eq "S"
+              end
+
+              it "returns N when gross income is less than state filing minimum" do
+                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum - 10
+                expect(xml.at("Form502 Deduction Method").text).to eq "N"
+              end
+            end
+          end
+        end
+
+        context "taxpayers over 65" do
+          context "primary over 65" do
+            let(:primary_birth_date) { 66.years.ago }
+            let(:spouse_birth_date) { 60.years.ago }
+
+            {
+              single: 16_550,
+              married_filing_jointly: 30_750,
+              married_filing_separately: 14_600,
+              head_of_household: 23_850,
+              qualifying_widow: 30_750
+            }.each do |filing_status, filing_minimum|
+              context "#{filing_status}" do
+                let(:intake) { create(:state_file_md_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date, filing_status: filing_status) }
+                let(:submission) { create(:efile_submission, data_source: intake) }
+                let(:build_response) { described_class.build(submission, validate: false) }
+                let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+
+                it "returns S when gross income is greater than or equal to state filing minimum" do
+                  allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum
+                  expect(xml.at("Form502 Deduction Method").text).to eq "S"
+                end
+
+                it "returns N when gross income is less than state filing minimum" do
+                  allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum - 10
+                  expect(xml.at("Form502 Deduction Method").text).to eq "N"
+                end
+              end
+            end
+          end
+
+          context "primary and spouse both over 65" do
+            let(:primary_birth_date) { 66.years.ago }
+            let(:spouse_birth_date) { 66.years.ago }
+            let(:filing_status) { "married_filing_jointly" }
+            let(:filing_minimum) { 32_300 }
+            let(:intake) { create(:state_file_md_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date, filing_status: filing_status) }
+            let(:submission) { create(:efile_submission, data_source: intake) }
+            let(:build_response) { described_class.build(submission, validate: false) }
+            let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+
+            it "returns S when gross income is greater than or equal to state filing minimum" do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum
+              expect(xml.at("Form502 Deduction Method").text).to eq "S"
+            end
+
+            it "returns N when gross income is less than state filing minimum" do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum - 10
+              expect(xml.at("Form502 Deduction Method").text).to eq "N"
+            end
+          end
+        end
+      end
     end
   end
 end
