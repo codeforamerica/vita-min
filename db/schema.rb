@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2103,6 +2103,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.string "referrer"
     t.integer "rent_paid"
     t.string "routing_number"
+    t.integer "sales_use_tax"
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -2123,6 +2125,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
     t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
@@ -2256,6 +2259,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_002538) do
 
   create_table "state_file_w2s", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "employee_name"
+    t.string "employee_ssn"
+    t.string "employer_name"
     t.string "employer_state_id_num"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
     t.decimal "local_wages_and_tips_amount", precision: 12, scale: 2

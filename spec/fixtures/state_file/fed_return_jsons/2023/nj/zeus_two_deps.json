@@ -38,5 +38,30 @@
       "isPrimaryFiler": false,
       "tin": "600-00-0013"
     }
-  ]
+  ],
+  "interestReports": [
+    {
+      "1099Amount": "0.00",
+      "has1099": false,
+      "interestOnGovernmentBonds": "100.00",
+      "no1099Amount": "800.00",
+      "recipientTin": "100-23-4567",
+      "taxExemptInterest": "0.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "taxWithheld": "0.00",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789"
+    },
+    {
+      "1099Amount": "0.00",
+      "has1099": false,
+      "interestOnGovernmentBonds": "100.00",
+      "no1099Amount": "800.00",
+      "recipientTin": "100-23-4567",
+      "taxExemptInterest": "0.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "taxWithheld": "0.00",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789"
+    }]
 }

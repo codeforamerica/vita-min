@@ -140,6 +140,10 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     trait :mfj_with_complete_spouse do
       transient do
         filing_status { 'married_filing_jointly' }

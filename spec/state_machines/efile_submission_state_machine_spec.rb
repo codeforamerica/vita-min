@@ -37,6 +37,8 @@ describe EfileSubmissionStateMachine do
       let(:submission) { create(:efile_submission, :queued, :for_state) }
       before do
         submission.update(data_source: create(:state_file_az_intake))
+        allow_any_instance_of(StateFile::StateInformationService.calculator_class(submission.data_source.state_code))
+          .to receive(:refund_or_owed_amount).and_return(-2000)
       end
 
       it "updates state file analytics record with submission data" do
@@ -44,7 +46,7 @@ describe EfileSubmissionStateMachine do
 
         expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
         expect(submission.data_source.state_file_analytics.filing_status).to eq 1
-        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2011
+        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2000
       end
     end
 

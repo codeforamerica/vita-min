@@ -1,4 +1,6 @@
 require "rails_helper"
+require 'axe-capybara'
+require 'axe-rspec'
 
 RSpec.feature "Completing a state file intake", active_job: true do
   include MockTwilio
@@ -123,7 +125,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Good news, you're getting a New York state tax refund of $1468. How would you like to receive your refund?"
-      expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
+      expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
@@ -281,7 +283,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
-      expect(page).to_not have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
+      expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
@@ -434,8 +436,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance")
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
 
-      find('#state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
-      find('#state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
+      find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
+      find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
 
       click_on I18n.t("general.continue")
 
@@ -534,7 +536,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # select optoins that allow us to proceed
       click_on "Continue"
 
-      #click continue on eligibility & check the messaging is correct here?
+      # click continue on eligibility & check the messaging is correct here?
       # select mfj
       choose I18n.t("general.affirmative")
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
@@ -596,6 +598,47 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland")
+    end
+  end
+
+  context "NJ", :flow_explorer_screenshot, js: true do
+    it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
+      visit "/"
+      click_on "Start Test NJ"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.nj.title")
+      click_on "Get Started", id: "firstCta"
+
+      click_on I18n.t("general.continue")
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer("Transfer Minimal")
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      select "Atlantic"
+      click_on I18n.t("general.continue")
+
+      select "Atlantic City"
+      click_on I18n.t("general.continue")
+
+      fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      click_on I18n.t("general.continue")
+
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
+      click_on I18n.t("general.continue")
+      click_on I18n.t("general.continue")
+
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
+      expect(page).to be_axe_clean.within "main"
+      click_on I18n.t("general.continue")
     end
   end
 end

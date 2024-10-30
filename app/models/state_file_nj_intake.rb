@@ -63,6 +63,8 @@
 #  referrer                                               :string
 #  rent_paid                                              :integer
 #  routing_number                                         :string
+#  sales_use_tax                                          :integer
+#  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
@@ -82,6 +84,7 @@
 #  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases                         :integer          default("unfilled"), not null
 #  withdraw_amount                                        :integer
 #  created_at                                             :datetime         not null
 #  updated_at                                             :datetime         not null
@@ -122,6 +125,14 @@ class StateFileNjIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
+
+  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
+  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
+
+  def calculate_sales_use_tax
+    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
+    calculator.calculate_use_tax(nj_gross_income)
+  end
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

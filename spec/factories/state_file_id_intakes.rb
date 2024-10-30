@@ -89,6 +89,11 @@ FactoryBot.define do
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
 
     trait :single_filer_with_json do
@@ -109,6 +114,13 @@ FactoryBot.define do
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
       end
+    end
+
+    trait :df_data_1099_int do
+      primary_first_name { "Tim" }
+      primary_last_name { "Interest" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_tim_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_tim_1099_int') }
     end
   end
 end
