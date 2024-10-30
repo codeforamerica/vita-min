@@ -14,7 +14,7 @@ spec_vars = {
 }
 
 describe SubmissionBuilder::StateReturn do
-  states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("nc", "id")
+  states_requiring_w2s = StateFile::StateInformationService.active_state_codes.excluding("id", "nc")
   states_requiring_w2s.each do |state_code|
     describe "#combined_w2s", required_schema: state_code do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(state_code) }
@@ -109,7 +109,7 @@ describe SubmissionBuilder::StateReturn do
     end
   end
 
-  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("nj")
+  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("id", "nc", "nj")
   states_requiring_1099gs.each do |state_code|
     describe "#form1099gs", required_schema: state_code do
       context "#{state_code}: when there are 1099gs present" do
@@ -128,7 +128,7 @@ describe SubmissionBuilder::StateReturn do
     end
   end
 
-  states_requiring_1099rs = StateFile::StateInformationService.active_state_codes.excluding(["nc", "nj", "ny"])
+  states_requiring_1099rs = StateFile::StateInformationService.active_state_codes.excluding(["id", "nc", "nj", "ny"])
   states_requiring_1099rs.each do |state_code|
     describe "#form1099rs", required_schema: state_code do
       context "#{state_code}: when there are 1099rs present" do
