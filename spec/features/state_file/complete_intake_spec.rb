@@ -492,6 +492,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # 1099G Review
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
+      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
+      select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
+      select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
+      select("Idaho", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
