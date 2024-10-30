@@ -185,6 +185,11 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_separately') }
     end
 
+    trait :df_data_exempt_interest do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_exempt_interest_over_10k') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_exempt_interest_over_10k') }
+    end
+
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }

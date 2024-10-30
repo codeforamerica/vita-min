@@ -414,6 +414,29 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 16b tax exempt interest income' do
+    context 'with federal tax exempt interest income and interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_exempt_interest) }
+      it 'calculates the sum' do
+        expect(instance.calculate_tax_exempt_interest_income).to eq(10_001)
+      end
+    end
+
+    context 'with no tax exempt interest income' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it 'does not set line 16b' do
+        expect(instance.lines[:NJ1040_LINE_16B].value).to eq(nil)
+      end
+    end
+
+    context 'with tax exempt interest income and interest on government bonds less than 10k' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      it 'sets line 1b to the sum' do
+        expect(instance.lines[:NJ1040_LINE_16B].value).to eq(201)
+      end
+    end
+  end
+
   describe 'line 27 - total income' do
     let(:intake) { create(:state_file_nj_intake) }
 

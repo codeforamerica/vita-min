@@ -20,6 +20,7 @@ module Efile
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
+        set_line(:NJ1040_LINE_16B, :calculate_line_16b)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
@@ -139,6 +140,10 @@ module Efile
         end
       end
 
+      def calculate_tax_exempt_interest_income
+        @intake.direct_file_data.fed_tax_exempt_interest + interest_on_gov_bonds
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -190,11 +195,12 @@ module Efile
       end
 
       def calculate_line_16a
-        interest_reports = @intake.direct_file_json_data.interest_reports
-        interest_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
-        interest_sum = interest_on_gov_bonds.sum
-        return nil unless interest_sum.positive?
-        (@intake.direct_file_data.fed_taxable_income - interest_sum).round
+        return nil unless interest_on_gov_bonds.positive?
+        @intake.direct_file_data.fed_taxable_income - interest_on_gov_bonds
+      end
+
+      def calculate_line_16b
+        calculate_tax_exempt_interest_income if calculate_tax_exempt_interest_income.positive?
       end
 
       def calculate_line_27
@@ -328,6 +334,12 @@ module Efile
 
       def number_of_true_checkboxes(checkbox_array_for_line)
         checkbox_array_for_line.sum { |a| a == true ? 1 : 0 }
+      end
+
+      def interest_on_gov_bonds
+        interest_reports = @intake.direct_file_json_data.interest_reports
+        interests_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
+        interests_on_gov_bonds.sum.round
       end
 
       def is_mfs_same_home

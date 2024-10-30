@@ -318,6 +318,22 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe 'line 16b tax exempt interest income' do
+      context 'with no tax exempt interest income' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it 'does not set line 16b' do
+          expect(xml.at("Body TaxexemptInterestIncome")).to eq(nil)
+        end
+      end
+  
+      context 'with tax exempt interest income and interest on government bonds less than 10k' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it 'sets line 16b to the sum' do
+          expect(xml.at("Body TaxexemptInterestIncome").text).to eq('201')
+        end
+      end
+    end
+
     describe "total income - line 27" do
       context "when filer submits w2 wages" do
         it "fills TotalIncome with the value from Line 15" do
