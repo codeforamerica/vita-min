@@ -38,7 +38,7 @@ describe SubmissionBuilder::StateReturn do
                 expect(w2_xml.at(vars[:employer_state_id_num_name]).text).to eq state_file_w2.employer_state_id_num
                 expect(w2_xml.at("LocalIncomeTaxAmt").text).to eq state_file_w2.local_income_tax_amount.round.to_s
                 expect(w2_xml.at("LocalWagesAndTipsAmt").text).to eq state_file_w2.local_wages_and_tips_amount.round.to_s
-                expect(w2_xml.at(vars[:locality_name]).text).to eq state_file_w2.locality_nm
+                expect(w2_xml.at(vars[:locality_name]).text).to eq state_file_w2.locality_nm if state_file_w2.locality_nm.present?
                 expect(w2_xml.at("StateIncomeTaxAmt").text).to eq state_file_w2.state_income_tax_amount.round.to_s
                 expect(w2_xml.at("StateWagesAmt").text).to eq state_file_w2.state_wages_amount.round.to_s
               end
