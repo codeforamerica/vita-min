@@ -223,7 +223,6 @@ module Efile
       end
 
       def calculate_line_40a
-        return nil unless Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(@intake) == Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE
         case @intake.household_rent_own
         when "own"
           if @intake.property_tax_paid.nil?
