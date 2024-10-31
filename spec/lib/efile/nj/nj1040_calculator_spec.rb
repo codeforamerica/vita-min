@@ -686,7 +686,7 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before(:each) do
-        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
+        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::ADVANCE
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.77
@@ -716,7 +716,7 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before do
-        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
+        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::ADVANCE
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.21
@@ -793,12 +793,12 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when ineligible for property tax' do
+    context 'when ineligible for property tax deduction or credit due to housing details' do
       let(:intake) {
         create(:state_file_nj_intake)
       }
       before(:each) do
-        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return true
+        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
         instance.calculate
