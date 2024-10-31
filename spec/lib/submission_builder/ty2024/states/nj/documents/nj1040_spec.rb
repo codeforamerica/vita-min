@@ -277,7 +277,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when no w2 wages (line 15 is -1)" do
         it "does not include WagesSalariesTips item" do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return -1
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(-1)
           expect(xml.at("WagesSalariesTips")).to eq(nil)
         end
       end
@@ -300,6 +300,45 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expected_sum = line_6_single_filer + line_7_not_over_65 + line_8_not_blind
         expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
+      end
+    end
+
+    describe 'line 16a taxable interest income' do
+      context 'with no interest reports' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it 'does not set line 16a' do
+          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
+        end
+      end
+  
+      context 'with interest reports, but no interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+        it 'does not set line 16a' do
+          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
+        end
+      end 
+  
+      context 'with interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          expect(xml.at("Body TaxableInterestIncome").text).to eq("300")
+        end
+      end
+    end
+
+    describe 'line 16b tax exempt interest income' do
+      context 'with no tax exempt interest income' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it 'does not set line 16b' do
+          expect(xml.at("Body TaxexemptInterestIncome")).to eq(nil)
+        end
+      end
+  
+      context 'with tax exempt interest income and interest on government bonds less than 10k' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it 'sets line 16b to the sum' do
+          expect(xml.at("Body TaxexemptInterestIncome").text).to eq('201')
+        end
       end
     end
 
@@ -440,11 +479,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context 'when not taking property tax deduction' do
-        let(:intake) { create(:state_file_nj_intake,
+        let(:intake) { 
+          create(:state_file_nj_intake,
                               :df_data_many_w2s,
                               household_rent_own: 'own',
                               property_tax_paid: 0,
-                              ) }
+                              )
+        }
 
         it "leaves PropertyTaxDeduction empty" do
           expect(xml.at("PropertyTaxDeduction")).to eq(nil)
@@ -480,17 +521,40 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "property tax credit - line 56" do
-      let(:intake) { create(:state_file_nj_intake,
+      let(:intake) { 
+        create(:state_file_nj_intake,
                             :df_data_many_w2s,
                             household_rent_own: 'own',
                             property_tax_paid: 0,
-                            ) }
+                            )
+      }
 
       it "fills with $50 tax credit when no property tax deduction" do
         expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
       end
     end
-    
+
+    describe "earned income tax credit - line 58" do
+      context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
+        let(:intake) { create(:state_file_nj_intake) }
+
+        it "fills EarnedIncomeCreditAmount with $596 for 40% of federal tax credit and checks EICFederalAmt" do
+          expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(596.to_s)
+          expect(xml.at("EarnedIncomeCredit EICFederalAmt").text).to eq('X')
+        end
+      end
+
+      context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+        it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
+          expect(xml.at("EarnedIncomeCredit")).to eq(nil)
+          expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
+          expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+        end
+      end
+    end
+
     describe "child and dependent care credit - line 64" do
       it "adds 40% of federal credit for an income of 60k or less" do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_64).and_return 400

@@ -24,6 +24,7 @@ module StateFile
 
       def load_w2
         @w2 = current_intake.state_file_w2s.find(params[:id])
+        @box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(current_state_code)
       end
     end
   end

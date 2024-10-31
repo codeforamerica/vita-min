@@ -22,8 +22,8 @@ describe Efile::Nj::Nj1040Calculator do
       it "when income > 0 and <= 20,000, tax rate is .014 and subtraction is 0" do
         expect(instance.get_tax_rate_and_subtraction_amount(0)).to eq([0, 0])
         expect(instance.get_tax_rate_and_subtraction_amount(1)).to eq([0.014, 0])
-        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014,0])
-        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014,0])
+        expect(instance.get_tax_rate_and_subtraction_amount(19_999)).to eq([0.014, 0])
+        expect(instance.get_tax_rate_and_subtraction_amount(20_000)).to eq([0.014, 0])
       end
 
       it "when income > 20,000 and <= 35,000, tax rate is .0175 and subtraction is 70.00" do
@@ -385,6 +385,52 @@ describe Efile::Nj::Nj1040Calculator do
       it 'sets line 15 to the sum of all state wage amounts' do
         expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
+      end
+    end
+  end
+
+  describe 'line 16a taxable interest income' do
+    context 'with no interest reports' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it 'does not set line 16a' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
+      end
+    end
+
+    context 'with interest reports, but no interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+      it 'does not set line 16a' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
+      end
+    end 
+
+    context 'with interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      it 'sets line 16a to 300 (fed taxable interest 500 minus sum of bond interest 200)' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(300)
+      end
+    end
+  end
+
+  describe 'line 16b tax exempt interest income' do
+    context 'with federal tax exempt interest income and interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_exempt_interest) }
+      it 'calculates the sum' do
+        expect(instance.calculate_tax_exempt_interest_income).to eq(10_001)
+      end
+    end
+
+    context 'with no tax exempt interest income' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it 'does not set line 16b' do
+        expect(instance.lines[:NJ1040_LINE_16B].value).to eq(nil)
+      end
+    end
+
+    context 'with tax exempt interest income and interest on government bonds less than 10k' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      it 'sets line 1b to the sum' do
+        expect(instance.lines[:NJ1040_LINE_16B].value).to eq(201)
       end
     end
   end
@@ -776,7 +822,7 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) {
         create(:state_file_nj_intake)
       }
-      before(:each) do
+      before do
         allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
@@ -888,7 +934,7 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) {
         create(:state_file_nj_intake)
       }
-      before(:each) do
+      before do
         allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return true
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
@@ -923,16 +969,34 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 51 - sales and use tax' do
     
     context 'when sales_use_tax exists (already calculated automated or manual)' do
-      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400 )}
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400)}
       it 'sets line 51 to the sales_use_tax' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 400
       end
     end
 
     context 'when sales_use_tax is nil' do
-      let(:intake) { create(:state_file_nj_intake, sales_use_tax: nil )}
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: nil)}
       it 'sets line 51 to 0' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
+      end
+    end
+  end
+
+  describe 'line 58 - earned income tax credit' do
+    context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
+      let(:intake) { create(:state_file_nj_intake) }
+
+      it 'sets line 58 to 40% of federal EITC (40% of $1490)' do
+        expect(instance.lines[:NJ1040_LINE_58].value).to eq(596)
+      end
+    end
+
+    context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+      it 'sets line 58 to 0' do
+        expect(instance.lines[:NJ1040_LINE_58].value).to eq(0)
       end
     end
   end

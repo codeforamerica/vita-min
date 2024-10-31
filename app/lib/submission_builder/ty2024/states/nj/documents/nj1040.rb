@@ -101,10 +101,20 @@ module SubmissionBuilder
                   if calculated_fields.fetch(:NJ1040_LINE_15) >= 0
                     xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
                   end
-                  if calculated_fields.fetch(:NJ1040_LINE_27) > 0
+
+                  if calculated_fields.fetch(:NJ1040_LINE_16A)&.positive?
+                    xml.TaxableInterestIncome calculated_fields.fetch(:NJ1040_LINE_16A)
+                  end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_16B)&.positive?
+                    xml.TaxexemptInterestIncome calculated_fields.fetch(:NJ1040_LINE_16B)
+                  end
+                  
+                  if calculated_fields.fetch(:NJ1040_LINE_27).positive?
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
                   end
-                  if calculated_fields.fetch(:NJ1040_LINE_29) > 0
+
+                  if calculated_fields.fetch(:NJ1040_LINE_29).positive?
                     xml.GrossIncome calculated_fields.fetch(:NJ1040_LINE_29)
                   end
 
@@ -116,7 +126,7 @@ module SubmissionBuilder
 
                   xml.TotalExemptDeductions calculated_fields.fetch(:NJ1040_LINE_38)
 
-                  if calculated_fields.fetch(:NJ1040_LINE_39) > 0
+                  if calculated_fields.fetch(:NJ1040_LINE_39).positive?
                     xml.TaxableIncome calculated_fields.fetch(:NJ1040_LINE_39)
                   end
 
@@ -140,13 +150,20 @@ module SubmissionBuilder
                     end
                   end
 
-                  if calculated_fields.fetch(:NJ1040_LINE_42) > 0
+                  if calculated_fields.fetch(:NJ1040_LINE_42).positive?
                     xml.NewJerseyTaxableIncome calculated_fields.fetch(:NJ1040_LINE_42)
                   end
 
                   xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
 
                   xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
+
+                  if calculated_fields.fetch(:NJ1040_LINE_58).positive?
+                    xml.EarnedIncomeCredit do
+                      xml.EarnedIncomeCreditAmount calculated_fields.fetch(:NJ1040_LINE_58)
+                      xml.EICFederalAmt 'X'
+                    end
+                  end
 
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 

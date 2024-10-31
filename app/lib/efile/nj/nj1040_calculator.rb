@@ -19,6 +19,8 @@ module Efile
         set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
+        set_line(:NJ1040_LINE_16A, :calculate_line_16a)
+        set_line(:NJ1040_LINE_16B, :calculate_line_16b)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
@@ -30,6 +32,7 @@ module Efile
         set_line(:NJ1040_LINE_43, :calculate_line_43)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
+        set_line(:NJ1040_LINE_58, :calculate_line_58)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -46,7 +49,6 @@ module Efile
       end
 
       def get_tax_rate_and_subtraction_amount(income)
-
         if @intake.filing_status_mfs? || @intake.filing_status_single?
           case income
           when 1..20_000
@@ -138,6 +140,10 @@ module Efile
         end
       end
 
+      def calculate_tax_exempt_interest_income
+        @intake.direct_file_data.fed_tax_exempt_interest + interest_on_gov_bonds
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -171,25 +177,6 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
-      def calculate_line_40a
-        case @intake.household_rent_own
-        when "own"
-          if @intake.property_tax_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.property_tax_paid
-        when "rent"
-          if @intake.rent_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
-        else
-          return nil
-        end
-
-        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
-      end
-
       def calculate_line_13
         line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
       end
@@ -205,6 +192,15 @@ module Efile
           sum += state_wage
         end
         sum
+      end
+
+      def calculate_line_16a
+        return nil unless interest_on_gov_bonds.positive?
+        @intake.direct_file_data.fed_taxable_income - interest_on_gov_bonds
+      end
+
+      def calculate_line_16b
+        calculate_tax_exempt_interest_income if calculate_tax_exempt_interest_income.positive?
       end
 
       def calculate_line_27
@@ -235,6 +231,25 @@ module Efile
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
       end
 
+      def calculate_line_40a
+        case @intake.household_rent_own
+        when "own"
+          if @intake.property_tax_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          if @intake.rent_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
+      end
+
       def calculate_line_41
         should_use_property_tax_deduction ? calculate_property_tax_deduction : nil
       end
@@ -257,6 +272,10 @@ module Efile
         else
           is_mfs_same_home ? 25 : 50
         end
+      end
+
+      def calculate_line_58
+        (@direct_file_data.fed_eic * 0.4).round
       end
 
       def calculate_line_64
@@ -315,6 +334,12 @@ module Efile
 
       def number_of_true_checkboxes(checkbox_array_for_line)
         checkbox_array_for_line.sum { |a| a == true ? 1 : 0 }
+      end
+
+      def interest_on_gov_bonds
+        interest_reports = @intake.direct_file_json_data.interest_reports
+        interests_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
+        interests_on_gov_bonds&.sum&.round
       end
 
       def is_mfs_same_home

@@ -103,5 +103,30 @@
 require 'rails_helper'
 
 RSpec.describe StateFileNjIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#disqualifying_df_data_reason" do
+    context "when federal non taxable interest income exceeds 10k" do
+      let(:intake) { create :state_file_nj_intake, :df_data_minimal }
+      before do
+        intake.direct_file_data.fed_tax_exempt_interest = 10_001
+      end
+
+      it "returns exempt_interest_exceeds_10k" do
+        expect(intake.disqualifying_df_data_reason).to eq :exempt_interest_exceeds_10k
+      end
+    end
+
+    context "when gov bonds are 10k and federal tax exempt interest amt is 1" do
+      let(:intake) { create :state_file_nj_intake, :df_data_exempt_interest }
+      it "returns exempt_interest_exceeds_10k" do
+        expect(intake.disqualifying_df_data_reason).to eq :exempt_interest_exceeds_10k
+      end
+    end
+
+    context "when there are no disqualifying reasons" do
+      let(:intake) { create :state_file_nj_intake, :df_data_two_deps }
+      it "returns nil" do
+        expect(intake.disqualifying_df_data_reason).to eq nil
+      end
+    end
+  end
 end

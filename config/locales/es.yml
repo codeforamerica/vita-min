@@ -16,6 +16,9 @@ es:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
               inclusion: La fecha debe estar en el año fiscal actual
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
   attributes:
     confirm_primary_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
@@ -2312,6 +2315,7 @@ es:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
+            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
             has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
@@ -2508,6 +2512,7 @@ es:
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
           no_info_needed: No se necesita información estatal adicional
+          retirement_income_title: Ingresos de jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar información del estado
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recopilará.
@@ -2911,6 +2916,12 @@ es:
             label: Tu tipo de identificación
             no_id: No tengo licencia de conducir ni identificación estatal
           info_link: Vea dónde encontrar esta información
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, Impuesto estatal retenido"
+          box15_html: "<b>Box 15</b>, Estado/Número de estado del pagador"
+          box16_html: "<b>Box 16</b>, distribución estatal"
+          title: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
@@ -3081,23 +3092,27 @@ es:
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Número de identificación del estado del empleador<br />
-            Si Box 15 está en blanco en tu W-2, ingresa el número de la <strong>Box b Número de identificación del empleador (EIN)</strong> aquí en su lugar.
+          box14_html: "<strong>Casilla 14,</strong> Otros"
+          box14_stpickup_explanation_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
+          box14_stpickup_help_text: Para el año fiscal %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en la Casilla 14, déjala en blanco.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box15_html: "<strong>Box 15</strong>: Número de identificación del estado del empleador"
           box16_html: "<strong>Box 16</strong>: Salarios estatales, propinas, etc."
           box17_html: "<strong>Box 17</strong>: Impuesto sobre la renta estatal"
           box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
           employer_state_id_error: El EIN debe ser un número. No incluya un guión.
-          instructions_1: Revise la información a continuación y asegúrese de que coincida con los impuestos estatales y locales en su W-2 de %{employer_name} a %{total_wages_amt}.
-          instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
+          instructions_1_html: Revisa los detalles de tus ingresos estatales para <strong>%{employer}</strong>
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
+          save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
+          state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
+          what_is_box14: "¿Qué podría haber en la Casilla 14?"
       waiting_to_load_data:
         edit:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.

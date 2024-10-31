@@ -16,6 +16,9 @@ en:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be in the current tax year
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2338,6 +2341,7 @@ en:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
+            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
             has_out_of_state_w2: you earned income in another state in 2023.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.
@@ -2535,6 +2539,7 @@ en:
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
+          retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
@@ -2923,6 +2928,12 @@ en:
             label: ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State distribution"
+          title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
@@ -3092,23 +3103,27 @@ en:
           verification_code_label: Enter the 6-digit code
       w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Employer’s State ID number<br />
-            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
-          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
-          box17_html: "<strong>Box 17</strong>: State income tax"
-          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
-          box19_html: "<strong>Box 19</strong>: Local income tax"
-          box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          box14_html: "<strong>Box 14,</strong> Other"
+          box14_stpickup_explanation_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_stpickup_help_text: For tax year %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box15_html: "<strong>Box 15,</strong> Employer’s State ID number"
+          box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box17_html: "<strong>Box 17,</strong> State income tax"
+          box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
+          box19_html: "<strong>Box 19,</strong> Local income tax"
+          box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
-          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+          instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
+          state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
+          what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
