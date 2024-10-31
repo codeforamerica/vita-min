@@ -114,10 +114,29 @@ describe Efile::Id::Id40Calculator do
       end
     end
 
+    context "household does not have ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_no!
+        intake.primary_has_grocery_credit_ineligible_months_no!
+        intake.dependents[0].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[1].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq((12 * 4 * 10).round)
+      end
+    end
+
     context "primary has ineligible months" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
 
       before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
         intake.primary_has_grocery_credit_ineligible_months_yes!
         intake.primary_months_ineligible_for_grocery_credit = 3
       end
@@ -150,6 +169,8 @@ describe Efile::Id::Id40Calculator do
       let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
 
       before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
         intake.primary_has_grocery_credit_ineligible_months_yes!
         intake.primary_months_ineligible_for_grocery_credit = 12
 
@@ -184,6 +205,8 @@ describe Efile::Id::Id40Calculator do
       let(:intake) { create(:state_file_id_intake, :with_dependents) }
 
       before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
         intake.primary_has_grocery_credit_ineligible_months_yes!
         intake.primary_months_ineligible_for_grocery_credit = 12
 

@@ -63,29 +63,31 @@ module Efile
         end
       end
 
-      def grocery_credit_for_household_member(ineligible_months, credit_per_month)
-        (12 - ineligible_months) * credit_per_month
-      end
-
       def calculate_grocery_credit
         return 0 if @intake.direct_file_data.claimed_as_dependent?
 
         credit = 0
 
-        credit += grocery_credit_for_household_member(
-          @intake.primary_has_grocery_credit_ineligible_months_yes? ? @intake.primary_months_ineligible_for_grocery_credit : 0,
-          @intake.primary_senior? ? 11.67 : 10)
+        primary_eligible_months = 12
+        if @intake.household_has_grocery_credit_ineligible_months_yes? && @intake.primary_has_grocery_credit_ineligible_months_yes?
+          primary_eligible_months -= @intake.primary_months_ineligible_for_grocery_credit
+        end
+        credit += primary_eligible_months * (@intake.primary_senior? ? 11.67 : 10)
 
         if filing_status_mfj?
-          credit += grocery_credit_for_household_member(
-            @intake.spouse_has_grocery_credit_ineligible_months_yes? ? @intake.spouse_months_ineligible_for_grocery_credit : 0,
-            @intake.spouse_senior? ? 11.67 : 10)
+          spouse_eligible_months = 12
+          if @intake.household_has_grocery_credit_ineligible_months_yes? && @intake.spouse_has_grocery_credit_ineligible_months_yes?
+            spouse_eligible_months -= @intake.spouse_months_ineligible_for_grocery_credit
+          end
+          credit += spouse_eligible_months * (@intake.spouse_senior? ? 11.67 : 10)
         end
 
         @intake.dependents.each do |dependent|
-          credit += grocery_credit_for_household_member(
-            dependent.id_has_grocery_credit_ineligible_months_yes? ? dependent.id_months_ineligible_for_grocery_credit : 0,
-            10)
+          dependent_eligible_months = 12
+          if @intake.household_has_grocery_credit_ineligible_months_yes? && dependent.id_has_grocery_credit_ineligible_months_yes?
+            dependent_eligible_months -= dependent.id_months_ineligible_for_grocery_credit
+          end
+          credit += dependent_eligible_months * 10
         end
 
         credit.round
