@@ -271,12 +271,12 @@ RSpec.describe PdfFiller::Md502Pdf do
 
         it "fills out amount if method is standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
-          expect(pdf_fields["Enter 17a "]).to eq "500"
+          expect(pdf_fields["Enter 17"]).to eq "500"
         end
 
         it "leaves amount blank if method is not standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
-          expect(pdf_fields["Enter 17a "]).to be_empty
+          expect(pdf_fields["Enter 17"]).to be_empty
         end
       end
     end

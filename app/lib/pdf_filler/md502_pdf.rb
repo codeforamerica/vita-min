@@ -59,7 +59,7 @@ module PdfFiller
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         'Check Box 34': @xml_document.at('Form502 Deduction Method')&.text == "S" ? "Yes" : "Off",
-        'Enter 17a ': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
+        'Enter 17': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
         'Enter 18': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 NetIncome')&.text : nil,
         'Enter 19 ': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
         'Enter 20': @xml_document.at('Form502 Deduction Method')&.text == "S" ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
