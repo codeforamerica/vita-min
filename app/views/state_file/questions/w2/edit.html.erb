@@ -9,17 +9,19 @@
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
       <% if @box14_codes.present? %>
-        <p class="spacing-below-5"><%= t(".box14_html") %></p>
-        <% @box14_codes.each do |code| %>
-          <div class="form-question spacing-below-25">
-            <% field_name = "box14_#{code.downcase}" %>
-            <%= f.vita_min_money_field(
-                  field_name.to_sym,
-                  t(".box14_#{code.downcase}_html"),
-                  classes: ["form-width--long"]
-                ) %>
-              <%= t(".box14_#{code.downcase}_help_text", year: MultiTenantService.statefile.current_tax_year) %>
-          </div>
+        <fieldset>
+          <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
+          <% @box14_codes.each do |code| %>
+            <div class="form-question spacing-below-25">
+              <% field_name = "box14_#{code.downcase}" %>
+              <%= f.vita_min_money_field(
+                    field_name.to_sym,
+                    t(".box14_#{code.downcase}_html"),
+                    classes: ["form-width--long"]
+                  ) %>
+                  <%= t(".box14_#{code.downcase}_help_text", year: MultiTenantService.statefile.current_tax_year, default: nil) %>
+            </div>
+          </fieldset>
         <% end %>
       <% end %>
       <div class="form-question spacing-below-25">
@@ -44,7 +46,7 @@
       <% end %>
     </div>
 
-    <% if @box14_codes.present? %>
+    <% if @box14_codes.present? && current_state_code != 'nj' %>
       <div class="reveal spacing-above-35">
         <p><button href="#" class="reveal__button"><%= t(".what_is_box14") %></button></p>
         <div class="reveal__content">

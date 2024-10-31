@@ -31,6 +31,8 @@ module Efile
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
+        set_line(:NJ1040_LINE_59, :calculate_line_59)
+        set_line(:NJ1040_LINE_61, :calculate_line_61)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -274,6 +276,62 @@ module Efile
 
       def calculate_line_58
         (@direct_file_data.fed_eic * 0.4).round
+      end
+
+      def get_personal_excess(ssn, excess_type, threshold)
+        persons_w2s = @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == ssn }
+        has_multiple_w2s = persons_w2s.count > 1
+        excess_contribution_count = 0
+        total_contribution = 0
+
+        return 0 unless has_multiple_w2s
+
+        # TODO: what should happen when a w2 exceeds the limit by itself? see ticket conversation
+        persons_w2s.each do |w2|
+          contribution = w2[excess_type] || 0
+          total_contribution += contribution
+          excess_contribution_count += 1 if contribution.positive?
+        end
+
+        if excess_contribution_count > 1 && total_contribution > threshold
+          return total_contribution - threshold
+        end
+        0
+      end
+
+      def calculate_line_59
+        primary_excess = 0
+        spouse_excess = 0
+        total_excess = 0
+        excess_threshold = 179.78
+
+        primary_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, excess_threshold)
+        primary_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, excess_threshold)
+
+        if @intake.filing_status_mfj?
+          spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, excess_threshold)
+          spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, excess_threshold)
+        end
+
+        total_excess += primary_excess
+        total_excess += spouse_excess
+        total_excess if total_excess.positive?
+      end
+
+      def calculate_line_61
+        total_excess = 0
+        excess_threshold = 145.26
+        spouse_excess = 0
+
+        primary_excess = get_personal_excess(@intake.primary.ssn, :box14_fli, excess_threshold)
+        
+        if @intake.filing_status_mfj?
+          spouse_excess = get_personal_excess(@intake.spouse.ssn, :box14_fli, excess_threshold)
+        end
+
+        total_excess += primary_excess
+        total_excess += spouse_excess
+        total_excess if total_excess.positive?
       end
 
       def calculate_line_64

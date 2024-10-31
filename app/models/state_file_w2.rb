@@ -3,7 +3,10 @@
 # Table name: state_file_w2s
 #
 #  id                          :bigint           not null, primary key
+#  box14_fli                   :decimal(12, 2)
 #  box14_stpickup              :decimal(12, 2)
+#  box14_ui_hc_wd              :decimal(12, 2)
+#  box14_ui_wf_swf             :decimal(12, 2)
 #  employee_name               :string
 #  employee_ssn                :string
 #  employer_name               :string
