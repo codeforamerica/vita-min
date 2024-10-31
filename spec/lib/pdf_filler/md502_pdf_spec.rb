@@ -264,7 +264,6 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
       end
 
-      # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
       context "amount" do
         before do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 500
@@ -282,7 +281,6 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
-    # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
     context "tax computation" do
       before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 50

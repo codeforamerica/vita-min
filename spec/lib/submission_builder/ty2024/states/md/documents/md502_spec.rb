@@ -264,7 +264,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 Deduction Method").text).to eq "S"
         end
 
-        # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
         context "amount" do
           before do
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 300
@@ -282,7 +281,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      # TODO answer Q: if the amount is 0, should this be left blank? if so, it can stop caring about the deduction method
       context "tax computation section" do
         before do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 40
