@@ -584,7 +584,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         }
 
         it "is empty" do
-          expect(xml.at("PropertyTaxCredit").text).to eq(nil)
+          expect(xml.at("PropertyTaxCredit")).to eq(nil)
         end
       end
 
