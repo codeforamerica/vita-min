@@ -17,6 +17,7 @@ module PdfFiller
     def hash_for_pdf
       answers = {
         "BL6" => @xml_document.at('Form39R ChildCareCreditAmt')&.text
+        "BL3" => @xml_document.at('IncomeUSObligations')&.text
       }
       @submission.data_source.dependents.drop(4).first(3).each_with_index do |dependent, index|
         answers.merge!(

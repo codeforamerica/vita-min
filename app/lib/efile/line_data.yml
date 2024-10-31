@@ -168,6 +168,8 @@ NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 ID39R_LINE_B_6:
   label: 'Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
+ID39R_B_LINE_3:
+  label: 'Interest from U.S. government obligations'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
@@ -576,6 +578,8 @@ NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:
   label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
+NJ1040_LINE_16A:
+  label: 'Taxable interest income (Enclose federal Schedule B if over $1,500) (See instructions)'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:
@@ -594,18 +598,46 @@ NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
 NJ1040_LINE_43:
   label: '43 Tax on amount on line 42 (Tax Table page 54)'
+NJ1040_LINE_51:
+  label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
+NJ1040_LINE_58:
+  label: '58 New Jersey Earned Income Tax Credit (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
-MD502_DEPENDENT_EXEMPTION_COUNT:
-  label: 'Dependent exemption count'
-MD502_DEPENDENT_EXEMPTION_AMOUNT:
-  label: 'Dependent exemption amount'
+MD502_LINE_A_PRIMARY:
+  label: 'A Primary exemption'
+MD502_LINE_A_SPOUSE:
+  label: 'A Spouse exemption'
+MD502_LINE_A_COUNT:
+  label: 'A Primary & Spouse exemption checked count'
+MD502_LINE_A_AMOUNT:
+  label: 'A Exemption amount'
+MD502_LINE_B_PRIMARY_SENIOR:
+  label: 'B Primary filer 65 or older'
+MD502_LINE_B_SPOUSE_SENIOR:
+  label: 'B Spouse 65 or older'
+MD502_LINE_B_PRIMARY_BLIND:
+  label: 'B Primary blind'
+MD502_LINE_B_SPOUSE_BLIND:
+  label: 'B Spouse blind'
+MD502_LINE_B_COUNT:
+  label: 'B Spouse blind'
+MD502_LINE_B_AMOUNT:
+  label: 'B Spouse blind'
+MD502_LINE_C_COUNT:
+  label: 'C Dependent exemption count'
+MD502_LINE_C_AMOUNT:
+  label: 'C Dependent exemption amount'
+MD502_LINE_D_COUNT_TOTAL:
+  label: 'D Total Exemption Count: add lines A, B and C counts'
+MD502_LINE_D_AMOUNT_TOTAL:
+  label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

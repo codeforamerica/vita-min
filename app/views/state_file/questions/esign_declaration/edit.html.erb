@@ -3,7 +3,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%# Possibly use <%= t(".#{current_state_code}.body_html") once we have all the copies for the different states %> %>
+  <%# Possibly use <%= t(".#{current_state_code}.body_html") once we have all the copies for the different states %>
   <% if current_state_code == "md" %>
     <%= t(".md.body_html") %>
   <% elsif current_state_code == "ny" %>
@@ -17,7 +17,7 @@
     <div class="spacing-above-60">
       <%= f.hidden_field(:device_id) %>
       <% if current_intake.ask_for_signature_pin? %>
-        <div class="white-group">
+        <div class="white-group">int
           <%= t(".pin.title") %>
           <%= f.cfa_input_field(:primary_signature_pin, t(".pin.primary_signature_pin", primary_name: current_intake.primary.full_name), classes: ["form-width--long"]) %>
           <% if current_intake.ask_spouse_esign? %>

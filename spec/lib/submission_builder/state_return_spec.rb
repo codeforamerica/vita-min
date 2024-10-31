@@ -73,7 +73,7 @@ describe SubmissionBuilder::StateReturn do
               # w2 at index 1 is filled in with info from client
               w2_from_db = xml.css(vars[:w2_node_name])[1]
               expect(w2_from_db.at(vars[:employer_state_id_num_name]).text).to eq state_file_w2.employer_state_id_num
-              expect(w2_from_db.at("LocalIncomeTaxAmt")).to be_nil
+              expect(w2_from_db.at("LocalIncomeTaxAmt").text).to eq state_file_w2.local_income_tax_amount.round.to_s
               expect(w2_from_db.at("LocalWagesAndTipsAmt").text).to eq state_file_w2.local_wages_and_tips_amount.round.to_s
               expect(w2_from_db.at(vars[:locality_name]).text).to eq state_file_w2.locality_nm
               expect(w2_from_db.at("StateIncomeTaxAmt").text).to eq state_file_w2.state_income_tax_amount.round.to_s

@@ -5,7 +5,7 @@ module XmlMethods
       delete_blank_nodes(child)
     end
     content = node.inner_html.strip
-    if content == "" || content == "0"
+    if content == ""
       node.remove
       return
     end

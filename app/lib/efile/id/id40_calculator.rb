@@ -20,6 +20,7 @@ module Efile
         set_line(:ID40_LINE_6C, :calculate_line_6c)
         set_line(:ID40_LINE_6D, :calculate_line_6d)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        @id39r.calculate
         @lines.transform_values(&:value)
       end
 

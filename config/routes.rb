@@ -23,7 +23,6 @@ Rails.application.routes.draw do
     scope context, as: context do
       navigation.controllers.uniq.each do |controller_class|
         next if controller_class.navigation_actions.length > 1
-        next if controller_class == StateFile::Questions::W2Controller
 
         { get: :edit, put: :update }.each do |method, action|
           resource_name = controller_class.respond_to?(:resource_name) ? controller_class.resource_name : nil
@@ -565,6 +564,7 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+      resources :retirement_income, only: [:edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
       resources :az_qualifying_organization_contributions,
         only: [
           :index, :new, :create, :edit,
@@ -586,7 +586,7 @@ Rails.application.routes.draw do
 
       match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-      resources :w2, only: [:index, :edit, :update, :create], module: 'state_file/questions', path: 'questions/w2'
+      resources :w2, only: [:edit, :update], module: 'state_file/questions', path: 'questions/w2'
 
       active_state_codes.each do |code|
         navigation_class = StateFile::StateInformationService.navigation_class(code)

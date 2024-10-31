@@ -29,8 +29,8 @@ describe 'EfileError' do
   end
 
   it 'converts paths to controllers' do
-    controller = EfileError.path_to_controller("w2")
-    expect(controller).to eq StateFile::Questions::W2Controller
+    controller = EfileError.path_to_controller("name-dob")
+    expect(controller).to eq StateFile::Questions::NameDobController
   end
 
   it 'returns the expected array of paths' do
@@ -39,13 +39,11 @@ describe 'EfileError' do
       "az-eligibility-out-of-state-income",
       "az-eligibility-residence",
       "az-excise-credit",
-      "az-primary-state-id",
       "az-prior-last-names",
       "az-public-school-contributions",
       'az-qualifying-organization-contributions',
       "az-review",
       "az-senior-dependents",
-      "az-spouse-state-id",
       "az-subtractions",
       "canceled-data-transfer",
       "code-verified",
@@ -58,6 +56,7 @@ describe 'EfileError' do
       "email-address",
       "esign-declaration",
       "federal-info",
+      "id-eligibility-residence",
       "id-review",
       "id-sales-use-tax",
       "income-review",
@@ -69,10 +68,8 @@ describe 'EfileError' do
       "nc-county",
       "nc-eligibility-out-of-state-income",
       "nc-eligibility-residence",
-      "nc-primary-state-id",
       "nc-review",
       "nc-sales-use-tax",
-      "nc-spouse-state-id",
       "nc-subtractions",
       "nc-veteran-status",
       "nj-county",
@@ -84,6 +81,7 @@ describe 'EfileError' do
       "nj-medical-expenses",
       "nj-municipality",
       "nj-review",
+      "nj-sales-use-tax",
       "nj-tenant-eligibility",
       "nj-tenant-rent-paid",
       "nj-unsupported-property-tax",
@@ -100,14 +98,15 @@ describe 'EfileError' do
       "ny-third-party-designee",
       "nyc-residency",
       "phone-number",
+      "primary-state-id",
       "return-status",
+      "spouse-state-id",
       "submission-confirmation",
       "tax-refund",
       "taxes-owed",
       "terms-and-conditions",
       "unemployment",
       "verification-code",
-      "w2",
       "waiting-to-load-data"
     ]
   end

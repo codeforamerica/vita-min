@@ -325,15 +325,14 @@ module Efile
         (result || 0).round
       end
 
+      # NY income tax withheld: sum of tax withheld from all income documents
       def calculate_line_72
-        # NY income tax withheld
-        # sum of tax withheld from all income documents
-        @direct_file_data.total_w2_state_tax_withheld +
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round }
       end
 
       def calculate_line_73
-        @direct_file_data.total_w2_local_tax_withheld
+        @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round }
       end
 
       def calculate_line_76
