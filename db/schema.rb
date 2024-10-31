@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1846,6 +1846,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
+    t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
     t.integer "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1876,6 +1877,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.string "city"
+    t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1903,6 +1905,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
+    t.integer "permanent_address_outside_md", default: 0, null: false
+    t.string "permanent_apartment"
+    t.string "permanent_city"
+    t.string "permanent_street"
+    t.string "permanent_zip"
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"

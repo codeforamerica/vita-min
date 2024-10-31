@@ -39,6 +39,7 @@
 #  primary_suffix                          :string
 #  raw_direct_file_data                    :text
 #  raw_direct_file_intake_data             :jsonb
+#  received_id_public_assistance           :integer          default(0), not null
 #  referrer                                :string
 #  routing_number                          :integer
 #  sign_in_count                           :integer          default(0), not null

@@ -39,6 +39,7 @@
 #  primary_suffix                          :string
 #  raw_direct_file_data                    :text
 #  raw_direct_file_intake_data             :jsonb
+#  received_id_public_assistance           :integer          default(0), not null
 #  referrer                                :string
 #  routing_number                          :integer
 #  sign_in_count                           :integer          default(0), not null
@@ -73,6 +74,7 @@ class StateFileIdIntake < StateFileBaseIntake
   enum eligibility_withdrew_msa_fthb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_msa_fthb
   enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
   enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
+  enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
 
   def disqualifying_df_data_reason; end
 
