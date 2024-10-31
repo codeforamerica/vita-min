@@ -84,7 +84,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
       end
     end
 
-    context "when not eligible for property tax deduction or credit" do
+    context "when not eligible for property tax deduction or credit due to income" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
       it "does not show" do
         allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE)
@@ -92,7 +92,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
       end
     end
 
-    context "when not eligible for property tax deduction" do
+    context "when not eligible for property tax deduction but could be for credit" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
       it "shows" do
         allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION)

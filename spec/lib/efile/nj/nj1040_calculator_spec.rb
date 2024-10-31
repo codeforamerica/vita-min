@@ -550,7 +550,7 @@ describe Efile::Nj::Nj1040Calculator do
             Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE => nil,
             Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION => nil
           }.each do |eligibility, expected_value|
-            context "when eligibility is #{eligibility}" do    
+            context "when property tax eligibility due to income and disability is #{eligibility}" do    
               it "sets line 40a to #{expected_value.inspect}" do
                 allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(eligibility)
                 instance.calculate
@@ -609,7 +609,7 @@ describe Efile::Nj::Nj1040Calculator do
             Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE => nil,
             Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION => nil
           }.each do |eligibility, expected_value|
-            context "when eligibility is #{eligibility}" do    
+            context "when property tax eligibility due to income and disability is #{eligibility}" do    
               it "sets line 40a to #{expected_value.inspect}" do
                 allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return(eligibility)
                 instance.calculate
