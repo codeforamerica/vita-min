@@ -2,14 +2,22 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_schema: "nj" do
   describe ".document" do
-    let(:intake) { create(:state_file_nj_intake, filing_status: "single", municipality_code: "0101") }
+    let(:intake) { create(:state_file_nj_intake, filing_status: "single") }
     let(:submission) { create(:efile_submission, data_source: intake) }
-    let(:build_response) { described_class.build(submission, validate: false) }
+    let(:build_response) { described_class.build(submission, validate: true) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    it "includes municipality code with a prepending 0" do
-      xml = described_class.build(submission).document
-      expect(xml.document.at("CountyCode").to_s).to include("00101")
+    after(:each) do
+      expect(build_response.errors).not_to be_present
+    end
+
+    context "with municipality code" do
+      let(:intake) { create(:state_file_nj_intake, municipality_code: "0304") }
+
+      it "includes municipality code with a prepending 0" do
+        xml = described_class.build(submission).document
+        expect(xml.document.at("CountyCode").to_s).to include("00304")
+      end
     end
 
     context "when filer has no spouse" do
@@ -372,7 +380,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "line 31 medical expenses" do
       context "with an income of 200k" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s, :with_w2s_synced, medical_expenses: 10_000) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s, medical_expenses: 10_000) }
         it "fills MedicalExpenses with medical expenses exceeding two percent gross income" do
           expected_line_15_w2_wages = 200_000
           two_percent_gross = expected_line_15_w2_wages * 0.02
@@ -464,7 +472,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "property tax deduction - line 41" do
       context 'when taking property tax deduction' do
         it "fills PropertyTaxDeduction with property tax deduction amount" do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_41).and_return 15000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_property_tax_deduction).and_return 15000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:should_use_property_tax_deduction).and_return true
           expect(xml.at("PropertyTaxDeduction").text).to eq(15000.to_s)
         end
       end

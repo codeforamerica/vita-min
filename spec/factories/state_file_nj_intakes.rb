@@ -110,6 +110,7 @@ FactoryBot.define do
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
     
     after(:build) do |intake, evaluator|
+      intake.municipality_code = "0101"
       numeric_status = {
         single: 1,
         married_filing_jointly: 2,
@@ -133,14 +134,11 @@ FactoryBot.define do
       end
       intake.update(overrides)
 
+      intake.synchronize_df_w2s_to_database
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
         dependent.update(dob: i.years.ago)
       end
-    end
-
-    trait :with_w2s_synced do
-      after(:create, &:synchronize_df_w2s_to_database)
     end
 
     trait :df_data_2_w2s do
