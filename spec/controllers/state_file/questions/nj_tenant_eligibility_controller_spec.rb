@@ -81,30 +81,6 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
         expect(described_class.show?(intake)).to eq false
       end
     end
-
-    context "when not eligible for property tax deduction or credit due to income" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
-      it "does not show" do
-        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE)
-        expect(described_class.show?(intake)).to eq false
-      end
-    end
-
-    context "when not eligible for property tax deduction but could be for credit" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
-      it "shows" do
-        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION)
-        expect(described_class.show?(intake)).to eq true
-      end
-    end
-
-    context "when potentially eligible for property tax deduction or credit" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
-      it "shows" do
-        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE)
-        expect(described_class.show?(intake)).to eq true
-      end
-    end
   end
 
   describe "#next_path" do
@@ -126,6 +102,14 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
       let(:intake) { create :state_file_nj_intake, tenant_home_subject_to_property_taxes: "yes" }
       it "next path is rent paid page" do
         expect(subject.next_path).to eq(StateFile::Questions::NjTenantRentPaidController.to_path_helper)
+      end
+    end
+
+    context "when not eligible for property tax deduction but could be for credit" do
+      let(:intake) {create :state_file_nj_intake, :df_data_minimal, :primary_disabled, household_rent_own: "own" }
+      it "next path is whichever comes next overall" do
+        allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
+        expect(subject.next_path).to eq("/mocked/super/path")
       end
     end
   end

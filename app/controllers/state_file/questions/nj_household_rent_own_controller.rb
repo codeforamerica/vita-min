@@ -8,6 +8,11 @@ module StateFile
       def next_path
         options = {}
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+
+        if Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(current_intake) == Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE
+          return NjIneligiblePropertyTaxController.to_path_helper(options)
+        end
+        
         case current_intake.household_rent_own
         when 'rent'
           NjTenantEligibilityController.to_path_helper(options)
