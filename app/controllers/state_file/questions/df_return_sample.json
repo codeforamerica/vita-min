@@ -1,1 +1,24 @@
-{}
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Tessa",
+      "middleInitial": null,
+      "lastName": "Testerson",
+      "dateOfBirth": "2000-01-01",
+      "relationship": "daughter",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "tin": "555-00-4444"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Testy",
+      "middleInitial": "T",
+      "lastName": "Testerson",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true,
+      "tin": "555-00-2222"
+    }
+  ]
+}
