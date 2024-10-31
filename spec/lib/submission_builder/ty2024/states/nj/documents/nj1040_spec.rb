@@ -430,11 +430,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "property tax - lines 40a and 40b" do
       context "when taxpayer is a renter with income above property tax minimum" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'rent', rent_paid: 54321) }
-
-        before do
-          allow(Efile::Nj::NjStateWages).to receive(:calculate_state_wages).and_return 20_001
-        end
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s, # income above minimum
+            household_rent_own: 'rent',
+            rent_paid: 54321
+          )
+        }
 
         it "adds a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant").text).to eq("X")
@@ -447,11 +450,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context "when taxpayer is a homeowner with income above property tax minimum" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'own', property_tax_paid: 12345) }
-
-        before do
-          allow(Efile::Nj::NjStateWages).to receive(:calculate_state_wages).and_return 20_001
-        end
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s, # income above minimum
+            household_rent_own: 'own',
+            property_tax_paid: 12345
+          )
+        }
 
         it "adds a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner").text).to eq("X")
@@ -515,16 +521,12 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context 'when not eligible for property tax deduction due to income' do
         let(:intake) {
           create(:state_file_nj_intake,
-            :df_data_minimal,
+            :df_data_minimal, # income below minimum
             :primary_over_65,
             household_rent_own: 'rent',
             rent_paid: 54321
           )
         }
-
-        before do
-          allow(Efile::Nj::NjStateWages).to receive(:calculate_state_wages).and_return 9_999
-        end
 
         it "leaves PropertyTaxDeduction empty" do
           expect(xml.at("PropertyTaxDeduction")).to eq(nil)
