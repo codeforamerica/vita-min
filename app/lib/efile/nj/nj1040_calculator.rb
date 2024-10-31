@@ -339,7 +339,7 @@ module Efile
       def interest_on_gov_bonds
         interest_reports = @intake.direct_file_json_data.interest_reports
         interests_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
-        interests_on_gov_bonds.sum.round
+        interests_on_gov_bonds&.sum&.round
       end
 
       def is_mfs_same_home
