@@ -97,6 +97,13 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
       end
+      if has_eic?
+        xml.StateTaxComputation do
+          add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
+          add_element_if_present(xml, "NoFedEICInd", :MD502_LINE_22A)
+          add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
+        end
+      end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end
@@ -136,6 +143,16 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
+  end
+
+  def has_eic?
+    [
+      :MD502_LINE_22,
+      :MD502_LINE_22A,
+      :MD502_LINE_22B
+    ].any? do |line|
+      calculated_fields.fetch(line)&.present?
+    end
   end
 
   def filing_status

@@ -13,6 +13,7 @@ module Efile
       end
 
       def calculate
+        # MD502
         set_line(:MD502_LINE_1, @direct_file_data, :fed_agi)
         set_line(:MD502_LINE_1A, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
@@ -36,8 +37,13 @@ module Efile
         set_line(:MD502_LINE_D_COUNT_TOTAL, :calculate_line_d_count_total)
         set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
 
+        set_line(:MD502_LINE_22, :calculate_line_22)
+        set_line(:MD502_LINE_22A, :calculate_line_22a)
+        set_line(:MD502_LINE_22B, :calculate_line_22b)
+
+        # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
-        set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
+        set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
         @lines.transform_values(&:value)
@@ -53,11 +59,132 @@ module Efile
 
       private
 
+      def filing_status_dependent?
+        @filing_status == :dependent
+      end
+
       def calculate_line_1e
         total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
         total_interest > 11_600
       end
 
+      def calculate_line_a_primary
+        @direct_file_data.claimed_as_dependent? ? nil : "X"
+      end
+
+      def calculate_line_a_spouse
+        filing_status_mfj? ? "X" : nil
+      end
+
+      def calculate_exemption_amount
+        # Exemption amount
+        income_ranges = if filing_status_single? || filing_status_mfs?
+                          [
+                            [-Float::INFINITY..100_000, 3200],
+                            [100_001..125_000, 1600],
+                            [125_001..150_000, 800],
+                            [150_001..Float::INFINITY, 0]
+                          ]
+                        elsif filing_status_hoh? || filing_status_mfj? || filing_status_qw?
+                          [
+                            [-Float::INFINITY..100_000, 3200],
+                            [100_001..125_000, 3200],
+                            [125_001..150_000, 3200],
+                            [150_001..175_000, 1600],
+                            [175_001..200_000, 800],
+                            [200_001..Float::INFINITY, 0]
+                          ]
+                        else
+                          [[-Float::INFINITY..Float::INFINITY, 0]]
+                        end
+
+        income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }
+
+        income_ranges[income_range_index][1]
+      end
+
+      def calculate_line_a_count
+        [@lines[:MD502_LINE_A_PRIMARY]&.value, @lines[:MD502_LINE_A_SPOUSE]&.value,].count(&:itself)
+      end
+
+      def calculate_line_a_amount
+        calculate_exemption_amount * line_or_zero(:MD502_LINE_A_COUNT)
+      end
+
+      def calculate_line_b_primary_senior
+        @intake.primary_senior? ? "X" : nil
+      end
+
+      def calculate_line_b_spouse_senior
+        return nil unless filing_status_mfj? || filing_status_qw?
+
+        @intake.spouse_senior? ? "X" : nil
+      end
+
+      def calculate_line_b_primary_blind
+        @direct_file_data.is_primary_blind? ? "X" : nil
+      end
+
+      def calculate_line_b_spouse_blind
+        return nil unless filing_status_mfj? || filing_status_qw?
+
+        @direct_file_data.is_spouse_blind? ? "X" : nil
+      end
+
+      def calculate_line_b_count
+        [
+          @lines[:MD502_LINE_B_PRIMARY_SENIOR]&.value,
+          @lines[:MD502_LINE_B_SPOUSE_SENIOR]&.value,
+          @lines[:MD502_LINE_B_PRIMARY_BLIND]&.value,
+          @lines[:MD502_LINE_B_SPOUSE_BLIND]&.value
+        ].count(&:itself)
+      end
+
+      def calculate_line_b_amount
+        line_or_zero(:MD502_LINE_B_COUNT) * 1000
+      end
+
+      def calculate_line_c_count
+        # dependent exemption count 
+        @lines[:MD502B_LINE_3].value
+      end
+
+      def calculate_line_c_amount
+        # dependent exemption amount
+        calculate_exemption_amount * line_or_zero(:MD502_LINE_C_COUNT)
+      end
+
+      def calculate_line_d_count_total
+        # Add line A, B and C counts
+        line_or_zero(:MD502_LINE_A_COUNT) + line_or_zero(:MD502_LINE_B_COUNT) + line_or_zero(:MD502_LINE_C_COUNT)
+      end
+
+      def calculate_line_d_amount_total
+        # Add line A, B and C amounts
+        line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_LINE_C_AMOUNT)
+
+      end
+
+      def calculate_line_22
+        # Earned Income Credit (EIC)
+        puts "******"
+        puts @direct_file_data.fed_eic_qc_claimed
+        if (filing_status_mfj? || filing_status_mfs?) #&& @direct_file_data.fed_eic_qc_claimed
+          @direct_file_data.fed_eic * 0.50
+        elsif (filing_status_single? || filing_status_hoh? || filing_status_qw?) #&& !@direct_file_data.fed_eic_qc_claimed
+          [@direct_file_data.fed_eic, 600].min
+        end
+      end
+
+      def calculate_line_22a
+        line_or_zero(:MD502_LINE_22) > 0 ? "X" : nil
+      end
+
+      def calculate_line_22b
+        @direct_file_data.fed_eic_qc_claimed ? "X" : nil
+      end
+
+      # should we move these md502 ones into their own calculator?
       def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY
           $0 $30,001 0.3200 $0 $50,001
@@ -159,107 +286,6 @@ module Efile
           end
         end
         credit
-      end
-
-      def calculate_line_a_primary
-        @direct_file_data.claimed_as_dependent? ? nil : "X"
-      end
-
-      def calculate_line_a_spouse
-        filing_status_mfj? ? "X" : nil
-      end
-
-      def calculate_exemption_amount
-        # Exemption amount
-        income_ranges = if filing_status_single? || filing_status_mfs?
-                          [
-                            [-Float::INFINITY..100_000, 3200],
-                            [100_001..125_000, 1600],
-                            [125_001..150_000, 800],
-                            [150_001..Float::INFINITY, 0]
-                          ]
-                        elsif filing_status_hoh? || filing_status_mfj? || filing_status_qw?
-                          [
-                            [-Float::INFINITY..100_000, 3200],
-                            [100_001..125_000, 3200],
-                            [125_001..150_000, 3200],
-                            [150_001..175_000, 1600],
-                            [175_001..200_000, 800],
-                            [200_001..Float::INFINITY, 0]
-                          ]
-                        else
-                          [[-Float::INFINITY..Float::INFINITY, 0]]
-                        end
-
-        income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }
-
-        income_ranges[income_range_index][1]
-      end
-
-      def calculate_line_a_count
-        [@lines[:MD502_LINE_A_PRIMARY]&.value, @lines[:MD502_LINE_A_SPOUSE]&.value,].count(&:itself)
-      end
-
-      def calculate_line_a_amount
-        calculate_exemption_amount * line_or_zero(:MD502_LINE_A_COUNT)
-      end
-
-      def calculate_line_b_primary_senior
-        @intake.primary_senior? ? "X" : nil
-      end
-
-      def calculate_line_b_spouse_senior
-        return nil unless filing_status_mfj? || filing_status_qw?
-
-        @intake.spouse_senior? ? "X" : nil
-      end
-
-      def calculate_line_b_primary_blind
-        @direct_file_data.is_primary_blind? ? "X" : nil
-      end
-
-      def calculate_line_b_spouse_blind
-        return nil unless filing_status_mfj? || filing_status_qw?
-
-        @direct_file_data.is_spouse_blind? ? "X" : nil
-      end
-
-      def calculate_line_b_count
-        [
-          @lines[:MD502_LINE_B_PRIMARY_SENIOR]&.value,
-          @lines[:MD502_LINE_B_SPOUSE_SENIOR]&.value,
-          @lines[:MD502_LINE_B_PRIMARY_BLIND]&.value,
-          @lines[:MD502_LINE_B_SPOUSE_BLIND]&.value
-        ].count(&:itself)
-      end
-
-      def calculate_line_b_amount
-        line_or_zero(:MD502_LINE_B_COUNT) * 1000
-      end
-
-      def calculate_line_c_count
-        # dependent exemption count 
-        @lines[:MD502B_LINE_3].value
-      end
-
-      def calculate_line_c_amount
-        # dependent exemption amount
-        calculate_exemption_amount * line_or_zero(:MD502_LINE_C_COUNT)
-      end
-
-      def calculate_line_d_count_total
-        # Add line A, B and C counts
-        line_or_zero(:MD502_LINE_A_COUNT) + line_or_zero(:MD502_LINE_B_COUNT) + line_or_zero(:MD502_LINE_C_COUNT)
-      end
-
-      def calculate_line_d_amount_total
-        # Add line A, B and C amounts
-        line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_LINE_C_AMOUNT)
-
-      end
-
-      def filing_status_dependent?
-        @filing_status == :dependent
       end
     end
   end

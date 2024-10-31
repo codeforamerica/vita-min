@@ -29,6 +29,7 @@ class DirectFileData < DfXmlAccessor
     fed_taxable_ssb: 'IRS1040 TaxableSocSecAmt',
     fed_ssb: 'IRS1040 SocSecBnftAmt',
     fed_eic: 'IRS1040 EarnedIncomeCreditAmt',
+    fed_eic_qc_claimed: 'IRS1040ScheduleEIC QualifyingChildInformation',
     fed_refund_amt: 'IRS1040 RefundAmt',
     fed_puerto_rico_income_exclusion_amount: "IRS1040 ExcldSect933PuertoRicoIncmAmt",
     total_exempt_primary_spouse: 'IRS1040 TotalExemptPrimaryAndSpouseCnt',
@@ -462,12 +463,23 @@ class DirectFileData < DfXmlAccessor
     df_xml_value(__method__)&.to_i || 0
   end
 
+  def fed_eic=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'WithholdingTaxAmt')
+    write_df_xml_value(__method__, value.to_i)
+  end
+
   def fed_refund_amt
     df_xml_value(__method__)&.to_i || 0
   end
 
   def fed_eic_qc_claimed
-    parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
+    # parsed_xml.at('IRS1040ScheduleEIC QualifyingChildInformation') != nil
+    df_xml_value(__method__).present?
+  end
+
+  def fed_eic_qc_claimed=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'EstimatedTaxPaymentsAmt')
+    write_df_xml_value(__method__, value)
   end
 
   def total_exempt_primary_spouse

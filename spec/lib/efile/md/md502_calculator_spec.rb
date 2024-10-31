@@ -681,4 +681,36 @@ describe Efile::Md::Md502Calculator do
       expect(instance.lines[:MD502_LINE_D_AMOUNT_TOTAL].value).to eq 3200
     end
   end
+
+  describe "#calculate_line_22" do
+    let(:intake) { 
+      create(
+      :state_file_md_intake,
+      filing_status: filing_status,
+      raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("laney_qss"))
+    }
+    before do
+      intake.direct_file_data.fed_eic = 25
+      # different xml
+      # intake.direct_file_data.fed_eic_qc_claimed = true
+      instance.calculate
+    end
+
+    context "when mfj and at least one qualifying child" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      it 'EIC is half the federal EIC' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 12.5
+      end
+    end
+
+    context "when mfj and no qualifying child" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      it 'EIC is nil do' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq nil
+      end
+    end
+
+  end
 end
