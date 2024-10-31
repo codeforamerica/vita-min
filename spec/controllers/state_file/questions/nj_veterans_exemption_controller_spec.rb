@@ -23,7 +23,7 @@ RSpec.describe StateFile::Questions::NjVeteransExemptionController do
     end
 
     context "when a user is not MFJ" do
-      let(:intake) { create :state_file_nj_intake }
+      let(:intake) { create :state_file_nj_intake, :df_data_minimal }
 
       it "does not show the spouse_veteran checkbox" do
         get :edit

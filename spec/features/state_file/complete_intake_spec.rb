@@ -619,14 +619,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select "Atlantic City"
       click_on I18n.t("general.continue")
 
+      # disabled exemption
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
+      # veterans exemption
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
       click_on I18n.t("general.continue")
 
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
-      click_on I18n.t("general.continue")
-
-      choose I18n.t('general.negative')
       click_on I18n.t("general.continue")
 
       expect(page).to be_axe_clean.within "main"
