@@ -71,7 +71,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with many w2s" do
-        let(:intake) { create(:state_file_nj_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_w2s')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -81,7 +81,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with two w2s" do
-        let(:intake) { create(:state_file_nj_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
