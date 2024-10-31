@@ -80,7 +80,7 @@ class TwilioService
 
     def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil)
       arguments = {
-        messaging_service_sid: ENV['MESSAGING_SERVICE_SID'] || EnvironmentCredentials.dig(:twilio, :messaging_service_sid),
+        messaging_service_sid: ENV['MESSAGING_SERVICE_SID'] || EnvironmentCredentials.dig(:twilio, :gyr, :messaging_service_sid),
         to: to,
         body: body
       }

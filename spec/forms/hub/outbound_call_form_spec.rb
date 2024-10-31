@@ -42,9 +42,11 @@ describe Hub::OutboundCallForm do
       allow(twilio_double).to receive(:calls).and_return(twilio_calls_double)
       allow(twilio_calls_double).to receive(:create).and_return(twilio_response_double)
       @test_environment_credentials.merge!(twilio: {
-        voice_phone_number: twilio_phone_number,
         account_sid: "abc",
         auth_token: "123",
+        gyr: {
+          voice_phone_number: twilio_phone_number,
+        },
       })
       allow(DatadogApi).to receive(:increment)
       allow(DatadogApi).to receive(:gauge)

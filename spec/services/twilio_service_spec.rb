@@ -230,7 +230,7 @@ describe TwilioService do
     let(:fake_messages_resource) { double }
     let(:fake_message) { double }
     before do
-      @test_environment_credentials.merge!(twilio: { messaging_service_sid: "service_sid" })
+      @test_environment_credentials.merge!(twilio: { gyr: { messaging_service_sid: "service_sid" } })
       allow(TwilioService).to receive(:client).and_return fake_client
       allow(fake_client).to receive(:messages).and_return fake_messages_resource
       allow(fake_messages_resource).to receive(:create).and_return fake_message

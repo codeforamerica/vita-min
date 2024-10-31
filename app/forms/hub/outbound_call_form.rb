@@ -17,7 +17,7 @@ module Hub
       @user = kwargs[:user]
       @client = Hub::ClientsController::HubClientPresenter.new(kwargs[:client])
 
-      self.twilio_phone_number = EnvironmentCredentials.dig(:twilio, :voice_phone_number)
+      self.twilio_phone_number = EnvironmentCredentials.dig(:twilio, :gyr, :voice_phone_number)
       self.user_phone_number = @user&.phone_number
       self.client_phone_number = @client&.phone_number
       super(attrs)
