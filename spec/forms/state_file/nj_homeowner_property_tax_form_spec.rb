@@ -4,11 +4,11 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
   let(:intake) { create :state_file_nj_intake }
 
   describe "validations" do
-    let(:form) { described_class.new(intake, invalid_params) }
+    let(:form) { described_class.new(intake, params) }
 
     context "invalid params" do
       context "all fields are required" do
-        let(:invalid_params) do
+        let(:params) do
           { :property_tax_paid => nil }
         end
 
@@ -19,7 +19,7 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
       end
 
       context "must be numeric" do
-        let(:invalid_params) do
+        let(:params) do
           { :property_tax_paid => "123A" }
         end
 
@@ -30,7 +30,7 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
       end
 
       context "cannot be negative" do
-        let(:invalid_params) do
+        let(:params) do
           { :property_tax_paid => "-123" }
         end
 
@@ -41,7 +41,7 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
       end
 
       context "cannot be zero" do
-        let(:invalid_params) do
+        let(:params) do
           { :property_tax_paid => "0" }
         end
 
@@ -54,7 +54,7 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
 
     context "valid params" do
       context "can be a decimal" do
-        let(:invalid_params) do
+        let(:params) do
           { :property_tax_paid => "123.45" }
         end
 
@@ -64,7 +64,7 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
       end
 
       context "can be an integer" do
-        let(:invalid_params) do
+        let(:params) do
           { :property_tax_paid => "123" }
         end
 

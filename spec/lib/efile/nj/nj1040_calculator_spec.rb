@@ -497,9 +497,9 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when medical expenses exceed 2% of gross income' do
       let(:gross_income) { 10_000 }
-      let(:medical_expenses) { 201 }
+      let(:medical_expenses) { 201.11 }
 
-      it 'sets line 31 to medical expenses minus $200' do
+      it 'sets line 31 to medical expenses minus $200, rounded' do
         expect(instance.lines[:NJ1040_LINE_31].value).to eq(1)
       end
 
