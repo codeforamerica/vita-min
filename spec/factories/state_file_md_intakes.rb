@@ -33,7 +33,7 @@
 #  locked_at                            :datetime
 #  message_tracker                      :jsonb
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
-#  permanent_address_outside_md         :integer          default(0), not null
+#  permanent_address_outside_md         :integer          default("unfilled"), not null
 #  permanent_apartment                  :string
 #  permanent_city                       :string
 #  permanent_street                     :string
@@ -122,16 +122,6 @@ FactoryBot.define do
       spouse_first_name { "Marty" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
-    end
-
-    factory :state_file_md_refund_intake do
-      after(:build) do |intake, evaluator|
-        intake.direct_file_data.fed_wages = 2_000
-        intake.direct_file_data.fed_taxable_income = 2_000
-        intake.direct_file_data.fed_taxable_ssb = 0
-        intake.direct_file_data.fed_unemployment = 0
-        intake.raw_direct_file_data = intake.direct_file_data.to_s
-      end
     end
 
     trait :df_data_2_w2s do

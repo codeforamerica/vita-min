@@ -33,7 +33,7 @@
 #  locked_at                            :datetime
 #  message_tracker                      :jsonb
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
-#  permanent_address_outside_md         :integer          default(0), not null
+#  permanent_address_outside_md         :integer          default("unfilled"), not null
 #  permanent_apartment                  :string
 #  permanent_city                       :string
 #  permanent_street                     :string
