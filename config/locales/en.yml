@@ -2762,6 +2762,7 @@ en:
           primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+          rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_disabled: My spouse has a disability
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
