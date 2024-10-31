@@ -366,25 +366,23 @@ describe Efile::Nj::Nj1040Calculator do
     let(:intake) { create(:state_file_nj_intake) }
 
     context 'when no state file w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
       it 'sets line 15 to -1 to indicate the sum does not exist' do
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(-1)
       end
     end
 
     context 'when 2 state file w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
       it 'sets line 15 to the sum of all state wage amounts' do
-        create(:state_file_w2, state_file_intake: intake, state_wages_amount: 12345)
-        create(:state_file_w2, state_file_intake: intake, state_wages_amount: 50000)
-        instance.calculate
         expected_sum = 12345 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
     end
 
     context 'when many state file w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
       it 'sets line 15 to the sum of all state wage amounts' do
-        4.times { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 50000) }
-        instance.calculate
         expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
@@ -410,6 +408,29 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
       it 'sets line 16a to 300 (fed taxable interest 500 minus sum of bond interest 200)' do
         expect(instance.lines[:NJ1040_LINE_16A].value).to eq(300)
+      end
+    end
+  end
+
+  describe 'line 16b tax exempt interest income' do
+    context 'with federal tax exempt interest income and interest on government bonds' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_exempt_interest) }
+      it 'calculates the sum' do
+        expect(instance.calculate_tax_exempt_interest_income).to eq(10_001)
+      end
+    end
+
+    context 'with no tax exempt interest income' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it 'does not set line 16b' do
+        expect(instance.lines[:NJ1040_LINE_16B].value).to eq(nil)
+      end
+    end
+
+    context 'with tax exempt interest income and interest on government bonds less than 10k' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      it 'sets line 1b to the sum' do
+        expect(instance.lines[:NJ1040_LINE_16B].value).to eq(201)
       end
     end
   end

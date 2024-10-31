@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Nj1040Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_nj_intake) }
+  let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
 
   describe '#hash_for_pdf' do
     let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
+    let(:intake) { create(:state_file_nj_intake)}
 
     it 'uses field names that exist in the pdf' do
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
@@ -443,12 +444,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "address fields" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake,
-        )
-      }
-
       it 'enters values into PDF' do
         # address values from zeus_one_dep.xml
         expect(pdf_fields["SpousesCU Partners SSN if filing jointly"]).to eq "391 US-206 B"
@@ -466,9 +461,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :state_file_nj_intake,
             :df_data_one_dep
           )
-        }
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: intake
         }
 
         before do
@@ -517,9 +509,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :state_file_nj_intake,
             :df_data_many_deps
           )
-        }
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: intake
         }
 
         before do
@@ -613,12 +602,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 15 wages" do
       context "when no w2 wages" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal
-          )
-        }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
 
         it "does not fill in any box on line 15" do
           expect(pdf_fields["15"]).to eq ""
@@ -638,8 +622,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_many_w2s,
-            :with_w2s_synced
+            :df_data_many_w2s
           )
         }
 
@@ -665,8 +648,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_2_w2s,
-            :with_w2s_synced
+            :df_data_2_w2s
           )
         }
 
@@ -692,9 +674,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "line 16a taxable interest income" do
       context 'with interest reports, but no interest on government bonds' do
         let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: intake
-        }
 
         it 'does not set line 16a' do
           ["112",
@@ -712,9 +691,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
   
       context 'with interest on government bonds' do
         let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: intake
-        }
 
         it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
           expect(pdf_fields["undefined_43"]).to eq ""
@@ -731,12 +707,39 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 16b tax exempt interest income" do
+      context "with no tax exempt interest income" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it 'does not set line 16b' do
+          ["117",
+           "116",
+           "115",
+           "114",
+           "113",
+           "undefined_44",
+           "16a",
+           "undefined_42",
+           "16b"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
+        end
+      end
+
+      context "with tax exempt interest income and interest on government bonds less than 10k" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it 'sets line 16b to the sum' do
+          expect(pdf_fields["16b"]).to eq ""
+          expect(pdf_fields["undefined_42"]).to eq ""
+          expect(pdf_fields["16a"]).to eq ""
+          expect(pdf_fields["undefined_44"]).to eq ""
+          expect(pdf_fields["113"]).to eq "2"
+          expect(pdf_fields["114"]).to eq "0"
+          expect(pdf_fields["115"]).to eq "1"
+          expect(pdf_fields["116"]).to eq "0"
+          expect(pdf_fields["117"]).to eq "0"
+        end
+      end
+    end
+
     describe "line 13/30 total exemptions" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake
-        )
-      }
       it "totals line 6-8 and writes it to line 13" do
         # thousands
         expect(pdf_fields["undefined_15"]).to eq ""
@@ -842,8 +845,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_many_w2s,
-            :with_w2s_synced
+            :df_data_many_w2s
           )
         }
         it "fills in the total income boxes in the PDF on line 27 with the rounded value" do
@@ -866,12 +868,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when taxpayer provides total income of 0" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal
-          )
-        }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
         it "does not fill in any of the boxes on line 27" do
           # millions
           expect(pdf_fields["263"]).to eq ""
@@ -897,8 +895,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :df_data_many_w2s,
-            :with_w2s_synced
+            :df_data_many_w2s
           )
         }
         it "fills in the gross income boxes in the PDF on line 29 with the rounded value" do
@@ -921,12 +918,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when taxpayer provides total income of 0" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal
-          )
-        }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
         it "does not fill in any of the boxes on line 29" do
           # millions
           expect(pdf_fields["270"]).to eq ""
@@ -953,7 +946,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :df_data_many_w2s,
-            :with_w2s_synced,
             medical_expenses: 567_890
           )
         }
@@ -977,7 +969,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
             :df_data_many_w2s,
-            :with_w2s_synced,
             medical_expenses: 4000
           )
         }
@@ -1023,7 +1014,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "line 39 taxable income" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake, :df_data_many_w2s, :with_w2s_synced
+          :state_file_nj_intake, :df_data_many_w2s
         )
       }
       it "writes taxable income $199,000 (200,000-1000) to fill boxes on line 39" do
@@ -1080,7 +1071,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake,
-            :with_w2s_synced,
             household_rent_own: 'own',
             property_tax_paid: 12345678
           )
@@ -1138,7 +1128,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           create :efile_submission, tax_return: nil, data_source: create(
              :state_file_nj_intake,
              :df_data_many_w2s,
-             :with_w2s_synced,
              household_rent_own: 'own',
              property_tax_paid: 15_000,
           )
@@ -1186,7 +1175,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "line 42 new jersey taxable income" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake, :df_data_many_w2s, :with_w2s_synced
+          :state_file_nj_intake, :df_data_many_w2s
         )
       }
       it "writes new jersey taxable income $199,000 (200,000-1000) to fill boxes on line 39" do
@@ -1213,7 +1202,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         create :efile_submission, tax_return: nil, data_source: create(
           :state_file_nj_intake,
           :df_data_many_w2s,
-          :with_w2s_synced,
           :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
@@ -1338,10 +1326,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 64 child and dependent care credit" do
       let(:intake) {
-        create(:state_file_nj_intake, :df_data_one_dep, :with_w2s_synced, :fed_credit_for_child_and_dependent_care)
-      }
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: intake
+        create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care)
       }
       it "adds 40% of federal credit for an income of 60k or less" do
         digits_in_pdf = ""
@@ -1366,12 +1351,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       let(:intake) {
         create(
           :state_file_nj_intake,
-          :df_data_one_dep,
-          :with_w2s_synced
+          :df_data_one_dep
         )
-      }
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: intake
       }
       before do
         intake.dependents.first.update(dob: Date.new(2023, 1, 1))

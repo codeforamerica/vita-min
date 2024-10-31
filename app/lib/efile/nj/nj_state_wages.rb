@@ -7,7 +7,7 @@ module Efile
         return NO_WAGES if intake.state_file_w2s.empty?
 
         intake.state_file_w2s.sum do |w2|
-          w2.state_wages_amount
+          w2.state_wages_amount.to_i
         end
       end
     end
