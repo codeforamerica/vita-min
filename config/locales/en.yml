@@ -2341,6 +2341,7 @@ en:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
+            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
             has_out_of_state_w2: you earned income in another state in 2023.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.

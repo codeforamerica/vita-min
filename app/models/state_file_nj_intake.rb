@@ -139,6 +139,9 @@ class StateFileNjIntake < StateFileBaseIntake
     return :has_out_of_state_w2 if w2_states.any? do |state|
       !(state.text || '').casecmp(state_code).zero?
     end
+
+    tax_exempt_interest_income = calculator.calculate_tax_exempt_interest_income
+    return :exempt_interest_exceeds_10k if tax_exempt_interest_income > 10_000
   end
 
   def disqualifying_eligibility_rules

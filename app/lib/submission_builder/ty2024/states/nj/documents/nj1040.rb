@@ -106,6 +106,10 @@ module SubmissionBuilder
                     xml.TaxableInterestIncome calculated_fields.fetch(:NJ1040_LINE_16A)
                   end
 
+                  if calculated_fields.fetch(:NJ1040_LINE_16B)&.positive?
+                    xml.TaxexemptInterestIncome calculated_fields.fetch(:NJ1040_LINE_16B)
+                  end
+                  
                   if calculated_fields.fetch(:NJ1040_LINE_27).positive?
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
                   end

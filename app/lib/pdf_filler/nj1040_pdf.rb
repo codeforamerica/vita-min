@@ -97,22 +97,7 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
-      if @xml_document.at("TaxableInterestIncome")
-        taxable_interest_income = @xml_document.at("TaxableInterestIncome").text.to_i
-        answers.merge!(insert_digits_into_fields(taxable_interest_income, [
-                                                   "112",
-                                                   "111",
-                                                   "110",
-                                                   "109",
-                                                   "108",
-                                                   "Text107",
-                                                   "undefined_41",
-                                                   "undefined_40",
-                                                   "undefined_39",
-                                                   "undefined_43"
-                                                 ]))
-      end
-
+      # lines 13 and 30
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -126,6 +111,7 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 13
       if @xml_document.at("Body TotalExemptionAmountB")
         total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -169,6 +155,7 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 15
       if @xml_document.at("WagesSalariesTips").present?
         wages = @xml_document.at("WagesSalariesTips").text.to_i
         answers.merge!(insert_digits_into_fields(wages, [
@@ -182,6 +169,39 @@ module PdfFiller
                                                    "undefined_37",
                                                    "undefined_36",
                                                    "15"
+                                                 ]))
+      end
+
+      # line 16a
+      if @xml_document.at("TaxableInterestIncome")
+        taxable_interest_income = @xml_document.at("TaxableInterestIncome").text.to_i
+        answers.merge!(insert_digits_into_fields(taxable_interest_income, [
+                                                   "112",
+                                                   "111",
+                                                   "110",
+                                                   "109",
+                                                   "108",
+                                                   "Text107",
+                                                   "undefined_41",
+                                                   "undefined_40",
+                                                   "undefined_39",
+                                                   "undefined_43"
+                                                 ]))
+      end
+
+      # line 16b
+      if @xml_document.at("TaxexemptInterestIncome")
+        tax_exempt_interest_income = @xml_document.at("TaxexemptInterestIncome").text.to_i
+        answers.merge!(insert_digits_into_fields(tax_exempt_interest_income, [
+                                                   "117",
+                                                   "116",
+                                                   "115",
+                                                   "114",
+                                                   "113",
+                                                   "undefined_44",
+                                                   "16a",
+                                                   "undefined_42",
+                                                   "16b"
                                                  ]))
       end
 
@@ -219,6 +239,7 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 39
       if @xml_document.at("TaxableIncome").present?
         taxable_income = @xml_document.at("TaxableIncome").text.to_i
         answers.merge!(insert_digits_into_fields(taxable_income, [
