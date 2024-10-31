@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Nj1040Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_nj_intake) }
+  let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
 
   describe '#hash_for_pdf' do
     let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
+    let(:intake) { create(:state_file_nj_intake)}
 
     it 'uses field names that exist in the pdf' do
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
@@ -443,12 +444,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "address fields" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake,
-        )
-      }
-
       it 'enters values into PDF' do
         # address values from zeus_one_dep.xml
         expect(pdf_fields["SpousesCU Partners SSN if filing jointly"]).to eq "391 US-206 B"
@@ -466,9 +461,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :state_file_nj_intake,
             :df_data_one_dep
           )
-        }
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: intake
         }
 
         before do
@@ -517,9 +509,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             :state_file_nj_intake,
             :df_data_many_deps
           )
-        }
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: intake
         }
 
         before do
@@ -613,12 +602,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 15 wages" do
       context "when no w2 wages" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal
-          )
-        }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
 
         it "does not fill in any box on line 15" do
           expect(pdf_fields["15"]).to eq ""
@@ -687,12 +671,75 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 16a taxable interest income" do
+      context 'with interest reports, but no interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
+
+        it 'does not set line 16a' do
+          ["112",
+           "111",
+           "110",
+           "109",
+           "108",
+           "Text107",
+           "undefined_41",
+           "undefined_40",
+           "undefined_39",
+           "undefined_43"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
+        end
+      end 
+  
+      context 'with interest on government bonds' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+
+        it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          expect(pdf_fields["undefined_43"]).to eq ""
+          expect(pdf_fields["undefined_39"]).to eq ""
+          expect(pdf_fields["undefined_40"]).to eq ""
+          expect(pdf_fields["undefined_41"]).to eq ""
+          expect(pdf_fields["Text107"]).to eq ""
+          expect(pdf_fields["108"]).to eq "3"
+          expect(pdf_fields["109"]).to eq "0"
+          expect(pdf_fields["110"]).to eq "0"
+          expect(pdf_fields["111"]).to eq "0"
+          expect(pdf_fields["112"]).to eq "0"
+        end
+      end
+    end
+
+    describe "line 16b tax exempt interest income" do
+      context "with no tax exempt interest income" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it 'does not set line 16b' do
+          ["117",
+           "116",
+           "115",
+           "114",
+           "113",
+           "undefined_44",
+           "16a",
+           "undefined_42",
+           "16b"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
+        end
+      end
+
+      context "with tax exempt interest income and interest on government bonds less than 10k" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it 'sets line 16b to the sum' do
+          expect(pdf_fields["16b"]).to eq ""
+          expect(pdf_fields["undefined_42"]).to eq ""
+          expect(pdf_fields["16a"]).to eq ""
+          expect(pdf_fields["undefined_44"]).to eq ""
+          expect(pdf_fields["113"]).to eq "2"
+          expect(pdf_fields["114"]).to eq "0"
+          expect(pdf_fields["115"]).to eq "1"
+          expect(pdf_fields["116"]).to eq "0"
+          expect(pdf_fields["117"]).to eq "0"
+        end
+      end
+    end
+
     describe "line 13/30 total exemptions" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake
-        )
-      }
       it "totals line 6-8 and writes it to line 13" do
         # thousands
         expect(pdf_fields["undefined_15"]).to eq ""
@@ -821,12 +868,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when taxpayer provides total income of 0" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal
-          )
-        }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
         it "does not fill in any of the boxes on line 27" do
           # millions
           expect(pdf_fields["263"]).to eq ""
@@ -875,12 +918,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when taxpayer provides total income of 0" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal
-          )
-        }
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
         it "does not fill in any of the boxes on line 29" do
           # millions
           expect(pdf_fields["270"]).to eq ""
@@ -1187,6 +1226,29 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 51 - use tax" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake,
+          sales_use_tax: 123
+        )
+      }
+
+      it "writes $123.00 property tax credit" do
+        # thousands
+        expect(pdf_fields["50"]).to eq ""
+        expect(pdf_fields["50_2"]).to eq ""
+        expect(pdf_fields["50_3"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text131"]).to eq "1"
+        expect(pdf_fields["Text132"]).to eq "2"
+        expect(pdf_fields["Text133"]).to eq "3"
+        # decimals
+        expect(pdf_fields["Text134"]).to eq "0"
+        expect(pdf_fields["50_7"]).to eq "0"
+      end
+    end
+
     describe "line 56 - property tax credit" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
@@ -1207,12 +1269,64 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 58 - earned income tax credit" do
+      context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake
+          )
+        }
+
+        it "fills line 58 with $596 for 40% of federal tax credit and checks federal checkbox" do
+          # thousands
+          expect(pdf_fields["58"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_152"]).to eq "5"
+          expect(pdf_fields["undefined_153"]).to eq "9"
+          expect(pdf_fields["Text170"]).to eq "6"
+          # decimals
+          expect(pdf_fields["Text171"]).to eq "0"
+          expect(pdf_fields["Text172"]).to eq "0"
+
+          # federal checkbox
+          expect(pdf_fields["Check Box168"]).to eq "Yes"
+
+          # NJ CU checkbox
+          expect(pdf_fields["Check Box169"]).to eq "Off"
+        end
+      end
+
+      context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake, :df_data_minimal
+          )
+        }
+
+        it "does not fill line 58 and does not check any checkboxes" do
+          # thousands
+          expect(pdf_fields["58"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_152"]).to eq ""
+          expect(pdf_fields["undefined_153"]).to eq ""
+          expect(pdf_fields["Text170"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text171"]).to eq ""
+          expect(pdf_fields["Text172"]).to eq ""
+
+          # federal checkbox
+          expect(pdf_fields["Check Box168"]).to eq "Off"
+
+          # NJ CU checkbox
+          expect(pdf_fields["Check Box169"]).to eq "Off"
+        end
+      end
+    end
+
+
     describe "line 64 child and dependent care credit" do
       let(:intake) {
         create(:state_file_nj_intake, :df_data_one_dep, :fed_credit_for_child_and_dependent_care)
-      }
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: intake
       }
       it "adds 40% of federal credit for an income of 60k or less" do
         digits_in_pdf = ""
@@ -1239,9 +1353,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :state_file_nj_intake,
           :df_data_one_dep
         )
-      }
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: intake
       }
       before do
         intake.dependents.first.update(dob: Date.new(2023, 1, 1))

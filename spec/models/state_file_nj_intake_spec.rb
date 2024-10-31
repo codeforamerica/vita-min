@@ -63,6 +63,8 @@
 #  referrer                                               :string
 #  rent_paid                                              :integer
 #  routing_number                                         :string
+#  sales_use_tax                                          :integer
+#  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
@@ -82,6 +84,7 @@
 #  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases                         :integer          default("unfilled"), not null
 #  withdraw_amount                                        :integer
 #  created_at                                             :datetime         not null
 #  updated_at                                             :datetime         not null
@@ -100,5 +103,30 @@
 require 'rails_helper'
 
 RSpec.describe StateFileNjIntake, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#disqualifying_df_data_reason" do
+    context "when federal non taxable interest income exceeds 10k" do
+      let(:intake) { create :state_file_nj_intake, :df_data_minimal }
+      before do
+        intake.direct_file_data.fed_tax_exempt_interest = 10_001
+      end
+
+      it "returns exempt_interest_exceeds_10k" do
+        expect(intake.disqualifying_df_data_reason).to eq :exempt_interest_exceeds_10k
+      end
+    end
+
+    context "when gov bonds are 10k and federal tax exempt interest amt is 1" do
+      let(:intake) { create :state_file_nj_intake, :df_data_exempt_interest }
+      it "returns exempt_interest_exceeds_10k" do
+        expect(intake.disqualifying_df_data_reason).to eq :exempt_interest_exceeds_10k
+      end
+    end
+
+    context "when there are no disqualifying reasons" do
+      let(:intake) { create :state_file_nj_intake, :df_data_two_deps }
+      it "returns nil" do
+        expect(intake.disqualifying_df_data_reason).to eq nil
+      end
+    end
+  end
 end

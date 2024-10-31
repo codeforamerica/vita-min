@@ -8,10 +8,6 @@ module Efile
       @filing_status = intake.filing_status.to_sym
       @dependent_count = intake.dependents.length
       @direct_file_data = intake.direct_file_data
-      intake.state_file_w2s.each do |w2|
-        dest_w2 = @direct_file_data.w2s[w2.w2_index]
-        dest_w2.node.at("W2StateLocalTaxGrp").inner_html = w2.state_tax_group_xml_node
-      end
       @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
       @lines = HashWithIndifferentAccess.new
     end

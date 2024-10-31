@@ -160,15 +160,10 @@ describe Efile::Az::Az140Calculator do
       # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
       create(:state_file_az_intake,
              :with_1099_rs_synced,
+             :with_w2s_synced,
              raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099'))
     }
-    let(:state_file1099_g) {
-      create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100)
-    }
-
-    before do
-      intake.state_file1099_gs.append(state_file1099_g)
-    end
+    let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
 
     it 'sums the AZ tax withheld from w2s, 1099gs and 1099rs' do
       instance.calculate

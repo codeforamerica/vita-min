@@ -91,6 +91,7 @@ FactoryBot.define do
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
+    primary_birth_date { Date.new(1950, 01, 01) } # matches the bday in md_minimal.json
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -102,6 +103,10 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
     end
 
     trait :with_spouse do

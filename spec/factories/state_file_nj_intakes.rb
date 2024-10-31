@@ -63,6 +63,8 @@
 #  referrer                                               :string
 #  rent_paid                                              :integer
 #  routing_number                                         :string
+#  sales_use_tax                                          :integer
+#  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
@@ -82,6 +84,7 @@
 #  tenant_shared_rent_not_spouse                          :integer          default("unfilled"), not null
 #  unfinished_intake_ids                                  :text             default([]), is an Array
 #  unsubscribed_from_email                                :boolean          default(FALSE), not null
+#  untaxed_out_of_state_purchases                         :integer          default("unfilled"), not null
 #  withdraw_amount                                        :integer
 #  created_at                                             :datetime         not null
 #  updated_at                                             :datetime         not null
@@ -107,6 +110,7 @@ FactoryBot.define do
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
     
     after(:build) do |intake, evaluator|
+      intake.municipality_code = "0101"
       numeric_status = {
         single: 1,
         married_filing_jointly: 2,
@@ -130,6 +134,7 @@ FactoryBot.define do
       end
       intake.update(overrides)
 
+      intake.synchronize_df_w2s_to_database
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
         dependent.update(dob: i.years.ago)
@@ -176,6 +181,11 @@ FactoryBot.define do
       filing_status { "married_filing_separately" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_separately') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_separately') }
+    end
+
+    trait :df_data_exempt_interest do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_exempt_interest_over_10k') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_exempt_interest_over_10k') }
     end
 
     trait :married_filing_jointly do
@@ -236,7 +246,7 @@ FactoryBot.define do
         intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 1000
       end
     end
-    
+
     trait :spouse_disabled do
       spouse_disabled { "yes" }
     end
