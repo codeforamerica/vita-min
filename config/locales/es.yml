@@ -2337,6 +2337,9 @@ es:
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
+            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
+            eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
+            eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
