@@ -273,7 +273,6 @@ module Efile
       def calculate_line_d_amount_total
         # Add line A, B and C amounts
         line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_LINE_C_AMOUNT)
-
       end
 
       def calculate_line_1e
@@ -372,7 +371,7 @@ module Efile
 
       def calculate_line_20
         if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
-          line_or_zero(:MD502_LINE_18) - line_or_zero(:MD502_LINE_19)
+          [line_or_zero(:MD502_LINE_18) - line_or_zero(:MD502_LINE_19), 0].max
         else
           0
         end

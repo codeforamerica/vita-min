@@ -918,6 +918,14 @@ describe Efile::Md::Md502Calculator do
         instance.calculate
         expect(instance.lines[:MD502_LINE_20].value).to eq 10
       end
+
+      it "replaces a negative number with 0" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_19).and_return 20
+        allow_any_instance_of(described_class).to receive(:calculate_line_18).and_return 10
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_20].value).to eq 0
+      end
     end
 
     context "deduction method is non-standard" do
