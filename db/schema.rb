@@ -2071,7 +2071,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_144351) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
-    t.integer "medical_expenses", default: 0, null: false
+    t.decimal "medical_expenses", precision: 12, scale: 2, default: "0.0", null: false
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
@@ -2093,14 +2093,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_144351) do
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
+    t.decimal "property_tax_paid", precision: 12, scale: 2
     t.integer "primary_veteran", default: 0, null: false
-    t.integer "property_tax_paid"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
-    t.integer "rent_paid"
+    t.decimal "rent_paid", precision: 12, scale: 2
     t.string "routing_number"
-    t.integer "sales_use_tax"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"

@@ -2768,7 +2768,7 @@ en:
       nj_sales_use_tax:
         edit:
           followup_radio_label: Select one of the following
-          manual_use_tax_label: Enter calculated use tax. (Round to the nearest whole number)
+          manual_use_tax_label: Enter total calculated use tax
           subtitle: 'This includes:'
           subtitle_list_html: |
             <li>Items purchased or services performed out-of-state, where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</li>

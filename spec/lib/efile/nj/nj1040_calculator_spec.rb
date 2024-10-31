@@ -420,7 +420,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'does not set line 16a' do
         expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
       end
-    end 
+    end
 
     context 'with interest on government bonds' do
       let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
@@ -987,9 +987,9 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 51 - sales and use tax' do
     
     context 'when sales_use_tax exists (already calculated automated or manual)' do
-      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400)}
-      it 'sets line 51 to the sales_use_tax' do
-        expect(instance.lines[:NJ1040_LINE_51].value).to eq 400
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400.77 )}
+      it 'sets line 51 to the rounded sales_use_tax' do
+        expect(instance.lines[:NJ1040_LINE_51].value).to eq 401
       end
     end
 
