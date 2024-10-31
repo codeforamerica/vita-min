@@ -565,13 +565,13 @@ describe Efile::Nj::Nj1040Calculator do
             :state_file_nj_intake,
             :married_filing_separately,
             household_rent_own: 'own',
-            property_tax_paid: 12345,
+            property_tax_paid: 12345.77,
             homeowner_same_home_spouse: 'no'
           )
         }
 
-        it 'sets line 40a to property_tax_paid' do
-          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
+        it 'sets line 40a to property_tax_paid rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12346)
         end
       end
 
