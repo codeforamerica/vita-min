@@ -2522,6 +2522,10 @@ en:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
             bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+      id_review:
+        edit:
+          purchases_without_sales_tax: Purchases without paying sales or use tax
+          state_details_title: State Details
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.

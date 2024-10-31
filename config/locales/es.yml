@@ -2495,6 +2495,10 @@ es:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
             bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_review:
+        edit:
+          purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
+          state_details_title: Detalles del estado
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.

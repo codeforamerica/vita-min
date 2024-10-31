@@ -2,5 +2,16 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
+  <section class="review-section">
+    <p class="section-header"><%= t(".state_details_title") %></p>
+    <div id="sales-use-tax" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%= t(".purchases_without_sales_tax") %></p>
+        <p><%= current_intake.total_purchase_amount %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::IdSalesUseTaxController.to_path_helper(return_to_review: 'y'), class: "button--small" %>
+      </div>
+    </div>
+  </section>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
