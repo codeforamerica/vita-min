@@ -37,7 +37,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
     end
 
     context "when a user is MFS" do
-      let(:intake) { create :state_file_nj_intake, :married_filing_separately }
+      let(:intake) { create :state_file_nj_intake, :df_data_mfs }
 
       it "shows the homeowner_same_home_spouse checkbox" do
         get :edit
@@ -46,11 +46,11 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
     end
 
     context "when a user is not MFS" do
-      let(:intake) { create :state_file_nj_intake, :married_filing_jointly }
+      let(:intake) { create :state_file_nj_intake, :df_data_mfj }
 
       it "does not show the homeowner_same_home_spouse checkbox" do
         get :edit
-        expect(response.body).to_not include("Did you and your spouse live in the same home?")
+        expect(response.body).not_to include("Did you and your spouse live in the same home?")
       end
     end
   end

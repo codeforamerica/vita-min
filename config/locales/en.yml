@@ -16,6 +16,9 @@ en:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be in the current tax year
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2110,6 +2113,15 @@ en:
         nj:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool. It takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with the IRS Direct File tool.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
+          help_text_html: |
+            <strong>What you’ll need:</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>Email address or phone number</li>
+              <li>Driver’s license or state-issued ID</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+            </ul>
           supported_by: Supported by the New Jersey Office of Innovation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
@@ -2350,10 +2362,7 @@ en:
           body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
-            eligibility_emergency_rental_assistance: received emergency rental assistance
-            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
-            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
-            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
             eligibility_lived_in_state: did not live in %{state} for all of 2023
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2023
@@ -2383,6 +2392,11 @@ en:
             title: What are my other state filing options?
           vita_link: Get started with VITA now
       eligible:
+        az_supported:
+          dependent_credit: Dependent Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
         az_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
@@ -2400,23 +2414,30 @@ en:
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
-          dependent_credit: Dependent Credit
-          empire_state_ctc: Empire State Child Credit
-          family_income_credit: Family Income Credit
-          increased_deduction: An increased deduction for charitable contributions
-          increased_excise_credit: Increased Excise Credit
           not_supported: What credits and deductions does this tool not support this year?
-          nyc_school_tax_credit: NYC School Tax Credit
-          nys_eic: NYS/NYC Earned Income Credit
-          nys_hh_credit: NYS/NYC Household Credit
-          review_warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
           title1: You can use this tool to file your %{year} %{state} state taxes
-          title2: Let's make sure this is the right service for you.
-          title3_html: Here are the subtractions and credits you <strong>may</strong> be able to claim to maximize your refund.
+          title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
-        md_additional_credits:
+        id_supported:
+          child_care_deduction: Child and Dependent Care Deduction
+          id_child_tax_credit: Idaho Child Tax Credit
+          id_grocery_credit: Idaho Grocery Credit
+          interest_from_obligations: Interest from U.S government obligations
+          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+        id_unsupported:
+          change_in_filing_status: Change in filing status from federal to state return
+          dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
+          earned_on_reservation: Income earned on a reservation by an American Indian
+          education_contribution_credit: Educational Entity Contributions credit
+          id_college_savings_program: Idaho College Savings Program Subtraction
+          id_youth_rehab_contributions: Credit for Idaho Youth and Rehabilitation Facility Contributions
+          itemized_deductions: Itemized deductions
+          long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
+          maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
+          voluntary_donations: All voluntary donations
+        md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
           sub1: Subtraction for Child and Dependent Care Expenses
@@ -2431,6 +2452,11 @@ en:
           sub7: Two-income subtraction for married filing jointly taxpayers
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
+        ny_supported:
+          empire_state_ctc: Empire State Child Credit
+          nyc_school_tax_credit: NYC School Tax Credit
+          nys_eic: NYS/NYC Earned Income Credit
+          nys_hh_credit: NYS/NYC Household Credit
         ny_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2467,16 +2493,35 @@ en:
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+          md:
+            body_html: |
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
+              <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
               <p>In addition, I understand and agree that by using a computer system and software to prepare and transmit my tax return electronically, I have consented to the disclosure to NYS of all information pertaining to the transmission of my NYS tax return electronically. If I am paying my New York State personal income taxes owed or receiving a tax refund by electronic funds transfer, I certify that the account holder authorizes the NYS Tax Department and its designated financial agents to initiate an electronic funds transfer from the financial institution account indicated on the 2023 NYS electronic return, and authorizes the financial institution to debit the amount from that account (if tax is owed) or credit the account with a direct deposit (where a refund is due).</p>
               <p>As New York does not support International ACH Transactions (IAT), I attest the source for these funds is within the United States. I understand and agree that I may revoke this authorization for payment only by contacting the Tax Department no later than two (2) business days prior to the payment date.</p>
+          pin:
+            primary_signature_pin: "<strong>%{primary_name}'s 5-digit PIN</strong>"
+            spouse_signature_pin: "<strong>%{spouse_name}'s 5-digit PIN</strong>"
+            title: Choose a 5-digit signature PIN. This number will be your personal electronic signature.
           primary_esign: I have read the certification above and agree
           resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_eligibility_residence:
+        edit:
+          emergency_rental_assistance: In 2024, did you (or your spouse if filing together) receive emergency rental assistance?
+          emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
+          subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
+          subtitle_2: Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this tool to file your %{filing_year} Idaho taxes
+          withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
+          withdrew_msa_fthb_list:
+            bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
+            bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2490,12 +2535,16 @@ en:
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          interest_income_body: No additional state info needed
+          interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
+          retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
+          w2s_title: Jobs (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2509,6 +2558,12 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+      md_county:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
+          title: Select the county and political subdivision where you lived on December 31, %{filing_year}
+          title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?
@@ -2522,6 +2577,20 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_primary_state_id:
+        md_primary:
+          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          why_ask_this: Why are you asking for this information?
+      md_review:
+        edit:
+          county_html: "<strong>County</strong>"
+          political_subdivision_html: "<strong>Political subdivision</strong>"
+      md_spouse_state_id:
+        md_spouse:
+          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          why_ask_this: Why are you asking for this information?
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2561,7 +2630,7 @@ en:
           subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
       nc_primary_state_id:
-        edit:
+        nc_primary:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
@@ -2586,7 +2655,7 @@ en:
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
       nc_spouse_state_id:
-        edit:
+        nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
@@ -2670,6 +2739,7 @@ en:
           title: Select the municipality where you lived on December 31, %{filing_year}
       nj_review:
         edit:
+          amount: Amount
           county: County
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
@@ -2678,6 +2748,21 @@ en:
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           spouse_disabled: My spouse has a disability
+          use_tax_applied: Consumer Use Tax Applied
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: Select one of the following
+          manual_use_tax_label: Enter calculated use tax. (Round to the nearest whole number)
+          subtitle: 'This includes:'
+          subtitle_list_html: |
+            <li>Items purchased or services performed out-of-state, where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</li>
+            <li>Online purchases where sales or use tax was not applied.</li>
+            <li>Purchases made by you or your spouse.</li>
+            <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
+          title: You need to share details about any untaxed out-of-state purchases.
+          use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
+          use_tax_method_manual: I had an untaxed purchase over $1000, or I would prefer to calculate my use tax manually.
+          use_tax_radio_label: Did you have any untaxed out-of-state purchases?
       nj_tenant_eligibility:
         edit:
           helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
@@ -2842,6 +2927,12 @@ en:
             label: ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State distribution"
+          title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
@@ -2883,7 +2974,6 @@ en:
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
-        w2: W-2 state and local tax information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2894,12 +2984,8 @@ en:
           household_info: Household information
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
-          taxes_owed_html: |
-            <p>
-              <strong>Your refund or taxes owed</strong> <br/>
-              $0
-            </p>
-            Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
+          taxes_owed_header: Your refund or taxes owed
+          taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
           your_refund: Your refund amount
@@ -3016,29 +3102,27 @@ en:
           verification_code_label: Enter the 6-digit code
       w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Employer’s State ID number<br />
-            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
-          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
-          box17_html: "<strong>Box 17</strong>: State income tax"
-          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
-          box19_html: "<strong>Box 19</strong>: Local income tax"
-          box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          box14_html: "<strong>Box 14,</strong> Other"
+          box14_stpickup_explanation_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_stpickup_help_text: For tax year %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box15_html: "<strong>Box 15,</strong> Employer’s State ID number"
+          box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box17_html: "<strong>Box 17,</strong> State income tax"
+          box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
+          box19_html: "<strong>Box 19,</strong> Local income tax"
+          box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
-          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+          instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          w2s_error: Update W-2s before continuing.
+          state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-        index:
-          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
-          updated: You've updated this W-2
-          w2_for: 'W-2 for: %{employer_name}'
-          wages_amount: 'Total wages amount: $%{wages_amount}'
+          what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
@@ -3204,6 +3288,7 @@ en:
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
+    signature_pin_matching: Signature PINs cannot be identical.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
     urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
@@ -4776,7 +4861,7 @@ en:
           trusted_support:
             body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
-        closed_banner: GetYourRefund will reopen {start_of_open_intake}.
+        closed_banner: GetYourRefund will reopen %{start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ

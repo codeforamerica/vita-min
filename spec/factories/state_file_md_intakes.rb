@@ -34,6 +34,7 @@
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
 #  phone_number                         :string
 #  phone_number_verified_at             :datetime
+#  political_subdivision                :string
 #  primary_birth_date                   :date
 #  primary_esigned                      :integer          default("unfilled"), not null
 #  primary_esigned_at                   :datetime
@@ -41,11 +42,13 @@
 #  primary_last_name                    :string
 #  primary_middle_initial               :string
 #  primary_signature                    :string
+#  primary_signature_pin                :text
 #  primary_ssn                          :string
 #  primary_suffix                       :string
 #  raw_direct_file_data                 :text
 #  raw_direct_file_intake_data          :jsonb
 #  referrer                             :string
+#  residence_county                     :string
 #  routing_number                       :string
 #  sign_in_count                        :integer          default(0), not null
 #  source                               :string
@@ -55,9 +58,11 @@
 #  spouse_first_name                    :string
 #  spouse_last_name                     :string
 #  spouse_middle_initial                :string
+#  spouse_signature_pin                 :text
 #  spouse_ssn                           :string
 #  spouse_suffix                        :string
 #  street_address                       :string
+#  subdivision_code                     :string
 #  unfinished_intake_ids                :text             default([]), is an Array
 #  unsubscribed_from_email              :boolean          default(FALSE), not null
 #  withdraw_amount                      :decimal(12, 2)
@@ -86,6 +91,7 @@ FactoryBot.define do
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
+    primary_birth_date { Date.new(1950, 01, 01) } # matches the bday in md_minimal.json
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -97,6 +103,10 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
     end
 
     trait :with_spouse do

@@ -9,25 +9,55 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     let(:xml) { Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml) }
 
     describe "XML schema" do
+      context "with JSON data" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+
+        it "fills primary details" do
+          expect(xml.document.at('Primary TaxpayerName FirstName').text).to eq("Ernie")
+          expect(xml.document.at('Primary TaxpayerName LastName').text).to eq("Muppet")
+          expect(xml.document.at('Primary DateOfBirth').text).to eq("1980-01-01")
+        end
+
+        it "fills secondary details" do
+          expect(xml.document.at('Secondary TaxpayerName FirstName').text).to eq("Bert")
+          expect(xml.document.at('Secondary TaxpayerName LastName').text).to eq("Muppet")
+          expect(xml.document.at('Secondary DateOfBirth').text).to eq("1990-01-01")
+        end
+      end
 
       context "with one dep" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_one_dep')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, municipality_code: "0101") }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
+        end
+
+        it "fills details from json" do
+          expect(xml.document.at('Dependents DependentsName FirstName').text).to eq("KRONOS")
+          expect(xml.document.at('Dependents DependentsName LastName').text).to eq("ATHENS")
+          expect(xml.document.at('Dependents DependentsSSN').text).to eq("300000029")
+          expect(xml.document.at('Dependents BirthYear').text).to eq(Time.now.year.to_s)
         end
       end
 
       context "with two deps" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_deps')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps, municipality_code: "0101") }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
         end
       end
 
-      context "with many deps" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps')) }
+      context "with many deps all under 5 yrs old" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, municipality_code: "0101") }
+
+        before do
+          five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
+          intake.synchronize_df_dependents_to_database
+          intake.dependents.each do |d| d.update(dob: five_years) end
+          intake.dependents.reload
+        end
+
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present

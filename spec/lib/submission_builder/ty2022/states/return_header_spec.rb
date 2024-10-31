@@ -142,4 +142,57 @@ describe SubmissionBuilder::ReturnHeader do
       end
     end
   end
+
+  context "MD filer personal info includes signature PINs" do
+    let(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        primary_signature_pin: primary_signature_pin,
+        primary_esigned_at: primary_esigned_at,
+        spouse_signature_pin: spouse_signature_pin,
+        spouse_esigned_at: spouse_esigned_at
+      )
+    }
+    let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
+    let(:primary_signature_pin) { "12345" }
+    let(:primary_esigned_at) { tomorrow_midnight }
+    let(:spouse_signature_pin) { "23456" }
+    let(:spouse_esigned_at) { tomorrow_midnight }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+    context "single filer" do
+      let(:filing_status) { "single" }
+      
+      it "generates xml with primary signature PIN only" do
+        expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
+        expect(doc.at('Filer Secondary TaxpayerPIN')).not_to be_present
+      end
+
+      it "handles timezone correctly for signature date when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
+        expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+        expect(doc.at('Filer Secondary DateSigned')).not_to be_present
+      end
+    end
+
+    context "filer with spouse" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      before do
+        intake.spouse_first_name = "Secondary"
+        intake.direct_file_data.spouse_ssn = "200000030"
+      end
+
+      it "generates xml with primary and spouse signature PINs" do
+        expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
+        expect(doc.at('Filer Secondary TaxpayerPIN').content).to eq spouse_signature_pin
+      end
+
+      it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
+        expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+        expect(doc.at('Filer Secondary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+      end
+    end
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1820,8 +1820,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
-    t.integer "eligibility_lived_in_state", default: 0, null: false
-    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
+    t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "failed_attempts", default: 0, null: false
@@ -1905,6 +1905,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
+    t.string "political_subdivision"
     t.date "primary_birth_date"
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
@@ -1912,12 +1913,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_signature"
+    t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
+    t.string "residence_county"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
@@ -1927,10 +1930,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.string "street_address"
+    t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
@@ -2090,6 +2095,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.string "referrer"
     t.integer "rent_paid"
     t.string "routing_number"
+    t.integer "sales_use_tax"
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -2110,6 +2117,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
     t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
@@ -2242,7 +2250,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171609) do
   end
 
   create_table "state_file_w2s", force: :cascade do |t|
+    t.decimal "box14_stpickup", precision: 12, scale: 2
     t.datetime "created_at", null: false
+    t.string "employee_name"
+    t.string "employee_ssn"
+    t.string "employer_name"
     t.string "employer_state_id_num"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
     t.decimal "local_wages_and_tips_amount", precision: 12, scale: 2

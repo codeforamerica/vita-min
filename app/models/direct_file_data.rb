@@ -293,14 +293,6 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def total_w2_state_tax_withheld
-    w2s.sum(&:StateIncomeTaxAmt)
-  end
-
-  def total_w2_local_tax_withheld
-    w2s.sum(&:LocalIncomeTaxAmt)
-  end
-
   def fed_ctc_claimed
     (fed_ctc || 0).positive? || (fed_qualify_child || 0).positive?
   end
@@ -814,7 +806,6 @@ class DirectFileData < DfXmlAccessor
       cell_phone_number
       phone_number
       tax_payer_email
-      total_w2_state_tax_withheld
       fed_tax_amt
       fed_agi
       fed_wages

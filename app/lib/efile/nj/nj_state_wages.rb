@@ -4,10 +4,10 @@ module Efile
       NO_WAGES = -1
 
       def self.calculate_state_wages(intake)
-        return NO_WAGES if intake.direct_file_data.w2s.empty?
+        return NO_WAGES if intake.state_file_w2s.empty?
 
-        intake.direct_file_data.w2s.sum do |w2|
-          w2.node.at("W2StateLocalTaxGrp StateWagesAmt").text.to_i
+        intake.state_file_w2s.sum do |w2|
+          w2.state_wages_amount
         end
       end
     end

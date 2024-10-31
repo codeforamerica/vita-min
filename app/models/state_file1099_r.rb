@@ -40,12 +40,26 @@
 #  index_state_file1099_rs_on_state_specific_followup  (state_specific_followup_type,state_specific_followup_id)
 #
 class StateFile1099R < ApplicationRecord
-
   belongs_to :intake, polymorphic: true
   belongs_to :state_specific_followup, polymorphic: true, optional: true, dependent: :destroy
 
   encrypts :recipient_ssn
 
   # Not adding validations for fields we just copy over from the DF XML, since we have no recourse if they fail
+  with_options on: :retirement_income_intake do
+    validate :less_than_gross_distribution, if: -> { gross_distribution_amount.present? }
+    validates :gross_distribution_amount, numericality: { greater_than: 0 }
+    validates :state_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+    validates :state_distribution_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+    validates :payer_state_identification_number, presence: true, length: { maximum: 16 }, if: -> { state_tax_withheld_amount&.positive? }
+  end
 
+  def less_than_gross_distribution
+    [:state_tax_withheld_amount, :state_distribution_amount].each do |attr_name|
+      value = send(attr_name)
+      if value.present? && value > gross_distribution_amount
+        errors.add(attr_name, I18n.t("activerecord.errors.models.state_file_1099_r.errors.must_be_less_than_gross_distribution"))
+      end
+    end
+  end
 end

@@ -3,8 +3,9 @@
   "filers": [
     {
       "firstName": "Todd",
-      "middleInitial": "T",
       "lastName": "Interest",
+      "middleInitial": "T",
+      "tin": "123-45-6789",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
     }
@@ -17,7 +18,7 @@
       "no1099Amount": "3.00",
       "payer": "The payer name",
       "payerTin": "101-23-4567",
-      "recipientTin": "100-23-4567",
+      "recipientTin": "123-45-6789",
       "taxExemptAndTaxCreditBondCusipNo": "123456789",
       "taxExemptInterest": "4.00",
       "taxWithheld": "5.00"

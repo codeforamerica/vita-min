@@ -16,9 +16,12 @@ module StateFile
       :tax_payment_info_url,
       :tax_payment_url,
       :tax_refund_url,
+      :timezone,
       :vita_link,
       :voucher_form_name,
       :voucher_path,
+      :w2_supported_box14_codes,
+      :w2_include_local_income_boxes,
     ].freeze
 
     class << self
@@ -69,9 +72,12 @@ module StateFile
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
         tax_payment_url: "AZTaxes.gov",
         tax_refund_url: "https://aztaxes.gov/home/checkrefund",
+        timezone: 'America/Phoenix',
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -88,9 +94,12 @@ module StateFile
         tax_payment_info_url: "",
         tax_payment_url: "",
         tax_refund_url: "",
+        timezone: 'America/Boise',
         vita_link: "",
         voucher_form_name: "",
         voucher_path: "",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -107,9 +116,12 @@ module StateFile
         tax_payment_info_url: "",
         tax_payment_url: "",
         tax_refund_url: "",
+        timezone: 'America/New_York',
         vita_link: "",
         voucher_form_name: "",
         voucher_path: "",
+        w2_supported_box14_codes: ["STPICKUP"],
+        w2_include_local_income_boxes: true
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -128,9 +140,12 @@ module StateFile
         tax_payment_info_url: "",
         tax_payment_url: "",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
+        timezone: 'America/New_York',
         vita_link: "",
         voucher_form_name: "Form D-400V",
         voucher_path: "/pdfs/d400v-TY2023.pdf",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -149,9 +164,12 @@ module StateFile
         tax_payment_info_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
         tax_payment_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
+        timezone: 'America/New_York',
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
         voucher_path: "",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -171,9 +189,12 @@ module StateFile
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_payment_url: "Tax.NY.gov",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
+        timezone: 'America/New_York',
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       }
     }.with_indifferent_access)
   end

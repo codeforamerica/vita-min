@@ -3,6 +3,10 @@
 # Table name: state_file_w2s
 #
 #  id                          :bigint           not null, primary key
+#  box14_stpickup              :decimal(12, 2)
+#  employee_name               :string
+#  employee_ssn                :string
+#  employer_name               :string
 #  employer_state_id_num       :string
 #  local_income_tax_amount     :decimal(12, 2)
 #  local_wages_and_tips_amount :decimal(12, 2)
@@ -36,10 +40,11 @@ class StateFileW2 < ApplicationRecord
     </W2LocalTaxGrp>
   </W2StateTaxGrp>
   XML
+
   belongs_to :state_file_intake, polymorphic: true
+  encrypts :employee_ssn
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-
   validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
   validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }
   validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
@@ -51,7 +56,6 @@ class StateFileW2 < ApplicationRecord
   validate :validate_tax_amts
   validate :state_specific_validation
   before_validation :locality_nm_to_upper_case
-
 
   def state_specific_validation
     state_file_intake.validate_state_specific_w2_requirements(self) if state_file_intake.present?
@@ -75,6 +79,9 @@ class StateFileW2 < ApplicationRecord
       if state_income_tax_amount.present? && local_income_tax_amount.present? && (state_income_tax_amount + local_income_tax_amount > w2.WagesAmt)
         errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
         errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+      end
+      if state_wages_amount.present? && state_wages_amount > w2.WagesAmt
+        errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2.WagesAmt))
       end
     end
   end
