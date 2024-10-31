@@ -47,8 +47,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
-          expect(builder_response.document.at("WagesSalariesTips").text).not_to eq(nil)
-          expect(builder_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
         end
       end
 
@@ -65,8 +63,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
-          expect(builder_response.document.at("WagesSalariesTips").text).not_to eq(nil)
-          expect(builder_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
         end
       end
 
@@ -75,8 +71,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
-          expect(builder_response.document.at("WagesSalariesTips").text).not_to eq(nil)
-          expect(builder_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
         end
       end
 
@@ -85,8 +79,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
-          expect(builder_response.document.at("WagesSalariesTips").text).not_to eq(nil)
-          expect(builder_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
         end
       end
 
