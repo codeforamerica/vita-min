@@ -73,6 +73,7 @@ FactoryBot.define do
   factory :minimal_state_file_id_intake, class: "StateFileIdIntake"
   factory :state_file_id_intake do
     raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
+    raw_direct_file_intake_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.json')) }
 
     transient do
       filing_status { "single" }
@@ -90,6 +91,10 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    after(:create) do |intake|
+      intake.synchronize_filers_to_database
+    end
+
     trait :with_w2s_synced do
       after(:create, &:synchronize_df_w2s_to_database)
     end
@@ -100,19 +105,12 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
 
-      after(:create) do |intake|
-        intake.synchronize_filers_to_database
-      end
     end
 
     trait :mfj_filer_with_json do
       filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_paul_mfj') }
-
-      after(:create) do |intake|
-        intake.synchronize_filers_to_database
-      end
     end
 
     trait :with_dependents do
@@ -120,7 +118,6 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
 
       after(:create) do |intake|
-        intake.synchronize_filers_to_database
         intake.synchronize_df_dependents_to_database
       end
     end
