@@ -40,26 +40,39 @@ module StateFile
 
     def attributes_to_save
       base_attrs = attributes_for(:intake)
-      updated_dependent_data = dependents_attributes.select do |k, v|
-        month_key = v.keys.include?('id_has_grocery_credit_ineligible_months')
-        credit_count_key = v.keys.include?('id_months_ineligible_for_grocery_credit')
-        has_matching_yes = dependents_attributes.any? do |k2, v2|
-          v['id'] == v2['id'] && v2['id_has_grocery_credit_ineligible_months'] == 'yes'
-        end
-        month_key || (credit_count_key && has_matching_yes)
-      end
+      updated_dependent_data = dependents_attributes
 
+      # set household member "has months" answers to no if household "has months" answer is no
       if base_attrs[:household_has_grocery_credit_ineligible_months] == 'no'
-        base_attrs.delete :primary_months_ineligible_for_grocery_credit
-        base_attrs.delete :spouse_months_ineligible_for_grocery_credit
-        updated_dependent_data = {}
+        base_attrs[:primary_has_grocery_credit_ineligible_months] = 'no'
+        base_attrs[:spouse_has_grocery_credit_ineligible_months] = 'no'
+        updated_dependent_data = updated_dependent_data.to_h do |k, v|
+          if v.key?(:id_has_grocery_credit_ineligible_months)
+            [k, v.merge(id_has_grocery_credit_ineligible_months: 'no')]
+          else
+            [k, v]
+          end
+        end
       end
 
+      # set household months to nil/0 if their "has months" answer is no
       if base_attrs[:primary_has_grocery_credit_ineligible_months] == 'no'
-        base_attrs.delete :primary_months_ineligible_for_grocery_credit
+        base_attrs[:primary_months_ineligible_for_grocery_credit] = ''
       end
       if base_attrs[:spouse_has_grocery_credit_ineligible_months] == 'no'
-        base_attrs.delete :spouse_months_ineligible_for_grocery_credit
+        base_attrs[:spouse_months_ineligible_for_grocery_credit] = ''
+      end
+
+      updated_dependent_data = updated_dependent_data.to_h do |k, v|
+        credit_count_key = v.key?(:id_months_ineligible_for_grocery_credit)
+        has_matching_no = updated_dependent_data.any? do |_, v2|
+          v[:id] == v2[:id] && v2[:id_has_grocery_credit_ineligible_months] == 'no'
+        end
+        if credit_count_key && has_matching_no
+          [k, v.merge(id_months_ineligible_for_grocery_credit: '')]
+        else
+          [k, v]
+        end
       end
 
       base_attrs.merge({ dependents_attributes: updated_dependent_data.to_h }).compact
