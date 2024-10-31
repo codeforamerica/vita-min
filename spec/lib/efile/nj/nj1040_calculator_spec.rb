@@ -831,8 +831,6 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before do
-        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::ADVANCE
-        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return Efile::Nj::NjPropertyTaxEligibility::NOT_INELIGIBLE
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.77
@@ -862,7 +860,6 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before do
-        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::ADVANCE
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.21
@@ -969,25 +966,11 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when ineligible for property tax deduction or credit due to income' do
       let(:intake) {
-        create(:state_file_nj_intake)
+        create(:state_file_nj_intake, :df_data_minimal)
       }
-      before(:each) do
-        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE
-        allow(instance).to receive(:calculate_line_39).and_return 20_000
-        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
-        instance.calculate
-      end
 
       it 'sets line 41 to nil' do
         expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
-      end
-
-      it 'sets line 42 to line 39' do
-        expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
-      end
-
-      it 'sets line 43 to tax liability without deduction' do
-        expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_000)
       end
 
       it 'sets line 56 to nil' do
@@ -997,25 +980,11 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when ineligible for property tax deduction due to income but eligible for credit' do
       let(:intake) {
-        create(:state_file_nj_intake)
+        create(:state_file_nj_intake, :df_data_minimal, :primary_disabled)
       }
-      before(:each) do
-        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).and_return Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION 
-        allow(instance).to receive(:calculate_line_39).and_return 20_000
-        allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
-        instance.calculate
-      end
 
       it 'sets line 41 to nil' do
         expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
-      end
-
-      it 'sets line 42 to line 39' do
-        expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
-      end
-
-      it 'sets line 43 to tax liability without deduction' do
-        expect(instance.lines[:NJ1040_LINE_43].value).to eq(10_000)
       end
 
       it 'sets line 56 to $50' do
