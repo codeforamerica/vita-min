@@ -25,18 +25,7 @@ RSpec.describe StateFile::NjTenantRentPaidForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:rent_paid]).to include "Round to the nearest whole number"
-        end
-      end
-
-      context "must be an integer only" do
-        let(:invalid_params) do
-          { :rent_paid => "123.45" }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:rent_paid]).to include "Round to the nearest whole number"
+          expect(form.errors[:rent_paid]).to include "Please enter numbers only."
         end
       end
 
@@ -59,6 +48,28 @@ RSpec.describe StateFile::NjTenantRentPaidForm do
         it "is invalid" do
           expect(form.valid?).to eq false
           expect(form.errors[:rent_paid]).to include "must be greater than or equal to 1"
+        end
+      end
+    end
+
+    context "valid params" do
+      context "can be a decimal" do
+        let(:invalid_params) do
+          { :rent_paid => "123.45" }
+        end
+
+        it "is valid" do
+          expect(form.valid?).to eq true
+        end
+      end
+
+      context "can be an integer" do
+        let(:invalid_params) do
+          { :rent_paid => "123" }
+        end
+
+        it "is valid" do
+          expect(form.valid?).to eq true
         end
       end
     end

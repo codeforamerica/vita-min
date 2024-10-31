@@ -89,7 +89,7 @@
     <div id="rent_paid" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-5"><%=t(".rent_paid") %></h2>
-        <p><%= number_to_currency(current_intake.rent_paid) %></p>
+        <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
         <%= link_to StateFile::Questions::NjTenantRentPaidController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
           <%= t("general.edit") %>
           <span class="sr-only"><%= t(".rent_paid") %></span>
