@@ -632,7 +632,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
-      click_on I18n.t("general.continue")
 
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
