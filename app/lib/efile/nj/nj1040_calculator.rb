@@ -184,7 +184,7 @@ module Efile
       end
 
       def calculate_line_15
-        if @direct_file_data.w2s.empty?
+        if @intake.state_file_w2s.empty?
           return -1
         end
 
@@ -222,7 +222,7 @@ module Efile
       end
 
       def calculate_line_38
-        calculate_line_13
+        calculate_line_13 + line_or_zero(:NJ1040_LINE_31)
       end
 
       def calculate_line_39
