@@ -236,7 +236,6 @@ es:
       blank: No puede estar en blanco.
       invalid: es invalido
       only_letters: Sólo se aceptan cartas
-      round_to_whole_number: Redondea al número entero más próximo
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -2771,13 +2770,14 @@ es:
           primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
+          rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_disabled: Spouse disabled
           spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
       nj_sales_use_tax:
         edit:
           followup_radio_label: Seleccione una de las siguientes
-          manual_use_tax_label: Ingrese el impuesto sobre el uso calculado. (Redondee al número entero más cercano)
+          manual_use_tax_label: Enter total calculated use tax
           subtitle: 'Esto incluye:'
           subtitle_list_html: |
             <li>Artículos adquiridos o servicios prestados fuera del estado, donde no hubo impuesto a las ventas o la tasa del impuesto a las ventas fue inferior a la tasa de New Jersey del 6,625 %.</li>
