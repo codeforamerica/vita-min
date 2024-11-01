@@ -5,11 +5,10 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
-        @id39r = Efile::Id::Id39rCalculator.new(
+        @id39r = Efile::Id::Id39RCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           intake: @intake,
-          year: year,
         )
       end
 

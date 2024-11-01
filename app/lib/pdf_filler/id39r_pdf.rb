@@ -21,10 +21,10 @@ module PdfFiller
       }
       @submission.data_source.dependents.drop(4).first(3).each_with_index do |dependent, index|
         answers.merge!(
-          "FR#{index+1}FirstName" => dependent.first_name,
-          "FR#{index+1}LastName" => dependent.last_name,
-          "FR#{index+1}SSN" => dependent.ssn,
-          "FR#{index+1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
+          "FR#{index + 1}FirstName" => dependent.first_name,
+          "FR#{index + 1}LastName" => dependent.last_name,
+          "FR#{index + 1}SSN" => dependent.ssn,
+          "FR#{index + 1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
           )
       end
       answers
