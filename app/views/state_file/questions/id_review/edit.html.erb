@@ -2,5 +2,13 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
+  <div id="health-insurance-premium" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".health_insurance_premium_title") %></p>
+      <p><%=number_to_currency(current_intake.health_insurance_paid_amount || 0, precision: 2)%></p>
+      <%= link_to t("general.edit"), StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

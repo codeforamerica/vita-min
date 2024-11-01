@@ -168,6 +168,8 @@ NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 ID39R_B_LINE_3:
   label: 'Interest from U.S. government obligations'
+ID39R_B_LINE_18:
+  label: 'Health insurance premium paid amount for household'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
