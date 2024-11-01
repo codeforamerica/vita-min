@@ -11,7 +11,6 @@
           <%=
             f.cfa_radio_set(
               :has_unpaid_sales_use_tax,
-              label_text: t('.unpaid_sales_use_tax_label_html'),
               collection: [
                 { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-field" } },
                 { value: :no, label: t("general.negative") },
