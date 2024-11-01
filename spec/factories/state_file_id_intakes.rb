@@ -77,6 +77,16 @@ FactoryBot.define do
 
     transient do
       filing_status { "single" }
+
+      primary_birth_date { "1980-01-01" }
+      primary_first_name { "PrimaryFirst" }
+      primary_middle_initial { "M" }
+      primary_last_name { "PrimaryLast" }
+
+      # spouse_birth_date { "1980-01-01" }
+      # spouse_first_name { "SpouseFirst" }
+      # spouse_middle_initial { "M" }
+      # spouse_last_name { "SpouseLast" }
     end
 
     after(:build) do |intake, evaluator|
@@ -89,6 +99,27 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+
+      intake.direct_file_json_data.primary_filer.dob = evaluator.primary_birth_date
+      intake.direct_file_json_data.primary_filer.first_name = evaluator.primary_first_name
+      intake.direct_file_json_data.primary_filer.middle_initial = evaluator.primary_middle_initial
+      intake.direct_file_json_data.primary_filer.last_name = evaluator.primary_last_name
+
+      if intake.direct_file_json_data.spouse_filer.present?
+        intake.direct_file_json_data.spouse_filer.dob = evaluator.spouse_birth_date
+        intake.direct_file_json_data.spouse_filer.first_name = evaluator.spouse_first_name
+        intake.direct_file_json_data.spouse_filer.middle_initial = evaluator.spouse_middle_initial
+        intake.direct_file_json_data.spouse_filer.last_name = evaluator.spouse_last_name
+      else
+        # this is necessary because we occasionally use xmls that include a spouse with a json without a spouse,
+        # or change an intake's filing status and add spouse info after loading an xml without one
+        intake.spouse_birth_date = evaluator.spouse_birth_date
+        intake.spouse_first_name = evaluator.spouse_first_name
+        intake.spouse_middle_initial = evaluator.spouse_middle_initial
+        intake.spouse_last_name = evaluator.spouse_last_name
+      end
+
+      intake.raw_direct_file_intake_data = intake.direct_file_json_data.to_s
     end
 
     after(:create) do |intake|

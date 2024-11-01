@@ -14,7 +14,7 @@
   "filers": [
     {
       "firstName": "Testy",
-      "middleInitial": "T",
+      "middleInitial": null,
       "lastName": "Testerson",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true,
