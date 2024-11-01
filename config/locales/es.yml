@@ -16,6 +16,9 @@ es:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
               inclusion: La fecha debe estar en el año fiscal actual
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
   attributes:
     confirm_primary_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
@@ -2076,6 +2079,15 @@ es:
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
+          help_text_html: |
+            <strong>Lo que necesitarás para comenzar</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+              <li>Dirección de correo electrónico o número de teléfono.</li>
+              <li>Licencia de conducir o identificación emitida por el estado.</li>
+              <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
+            </ul>
           supported_by: Respaldada por el New Jersey Office of Innovation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
@@ -2303,6 +2315,7 @@ es:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
+            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
             has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
@@ -2483,6 +2496,13 @@ es:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
             bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_primary_state_id:
+        id_primary:
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
+          title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
+          why_ask_this: "¿Por qué pides esta información?"
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
@@ -2493,15 +2513,25 @@ es:
           unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
           use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
           use_tax_title: "¿Qué son los impuestos sobre el uso?"
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          title_html: Necesitamos algunos detalles del documento de identidad oficial de <strong>su cónyuge</strong>, si tiene uno
+          why_ask_this: "¿Por qué pides esta información?"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
+          interest_income_body: No se necesita información estatal adicional
+          interest_income_title: Ingresos por intereses (1099-INT)
           no_info_needed: No se necesita información estatal adicional
+          retirement_income_title: Ingresos de jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar información del estado
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recopilará.
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
+          w2s_title: Empleos (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2697,14 +2727,32 @@ es:
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
       nj_review:
         edit:
+          amount: Cantidad
           county: Condado
           household_rent_own: Vivienda en alquiler o en propiedad propia
           medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
+          primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           spouse_disabled: Spouse disabled
+          spouse_veteran: Mi cónyuge es un veterano
+          use_tax_applied: Impuesto sobre el uso del consumidor aplicado
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: Seleccione una de las siguientes
+          manual_use_tax_label: Ingrese el impuesto sobre el uso calculado. (Redondee al número entero más cercano)
+          subtitle: 'Esto incluye:'
+          subtitle_list_html: |
+            <li>Artículos adquiridos o servicios prestados fuera del estado, donde no hubo impuesto a las ventas o la tasa del impuesto a las ventas fue inferior a la tasa de New Jersey del 6,625 %.</li>
+            <li>Compras en línea en las que no se aplicó impuesto sobre ventas o uso.</li>
+            <li>Compras realizadas por usted o su cónyuge.</li>
+            <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
+          title: Debe compartir detalles sobre cualquier compra fuera del estado que no esté gravada.
+          use_tax_method_automated: Todas mis compras fueron de menos de $1000 cada una. Calcule el monto del impuesto al consumo para mí.
+          use_tax_method_manual: Hice una compra no gravada por más de $1000 o preferiría calcular mi impuesto sobre el uso manualmente.
+          use_tax_radio_label: "¿Realizó alguna compra fuera del estado que no pagó impuestos?"
       nj_tenant_eligibility:
         edit:
           helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
@@ -2731,6 +2779,12 @@ es:
           helper_5: Obtenga más información sobre este proceso y otras opciones de presentación aquí.
           helper_6: Continúe viendo para qué más podría calificar.
           title: Parece que no podemos ayudarte con este crédito/deducción de impuestos sobre la propiedad.
+      nj_veterans_exemption:
+        edit:
+          instructions_html: Se le considera un veterano si es un ex miembro de las Fuerzas Armadas de los Estados Unidos dado de <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorablemente</a>. <br><br> Si es la primera vez que solicita <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">esta exención</a>, debe proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">un formulario</a> a la División de Impuestos de Nueva Jersey. Puede hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">en línea</a>.
+          primary_veteran_question: "¿Eres un veterano?"
+          spouse_veteran_question: "¿Su cónyuge es un veterano?"
+          title: En NJ, los veteranos son elegibles para una exención de impuestos.
       ny_county:
         edit:
           county: Condado
@@ -2883,6 +2937,12 @@ es:
             label: Tu tipo de identificación
             no_id: No tengo licencia de conducir ni identificación estatal
           info_link: Vea dónde encontrar esta información
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, Impuesto estatal retenido"
+          box15_html: "<b>Box 15</b>, Estado/Número de estado del pagador"
+          box16_html: "<b>Box 16</b>, distribución estatal"
+          title: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
@@ -2924,7 +2984,6 @@ es:
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado
-        w2: Información fiscal estatal y local W-2
       shared:
         review_footer:
           download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
@@ -2935,12 +2994,8 @@ es:
           household_info: Información del hogar
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
-          taxes_owed_html: |
-            <p>
-            <strong>Tu reembolso estimado o tus impuestos estimados a pagar</strong><br/>
-            $0
-            </p>
-            Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
+          taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
+          taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
           your_refund: Tu reembolso
@@ -3058,29 +3113,27 @@ es:
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Número de identificación del estado del empleador<br />
-            Si Box 15 está en blanco en tu W-2, ingresa el número de la <strong>Box b Número de identificación del empleador (EIN)</strong> aquí en su lugar.
+          box14_html: "<strong>Casilla 14,</strong> Otros"
+          box14_stpickup_explanation_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
+          box14_stpickup_help_text: Para el año fiscal %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en la Casilla 14, déjala en blanco.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box15_html: "<strong>Box 15</strong>: Número de identificación del estado del empleador"
           box16_html: "<strong>Box 16</strong>: Salarios estatales, propinas, etc."
           box17_html: "<strong>Box 17</strong>: Impuesto sobre la renta estatal"
           box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
           employer_state_id_error: El EIN debe ser un número. No incluya un guión.
-          instructions_1: Revise la información a continuación y asegúrese de que coincida con los impuestos estatales y locales en su W-2 de %{employer_name} a %{total_wages_amt}.
-          instructions_2: Si alguna de estas casillas está en blanco en tu W-2, déjalas en blanco aquí.
+          instructions_1_html: Revisa los detalles de tus ingresos estatales para <strong>%{employer}</strong>
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
+          save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
-          w2s_error: Actualiza los formularios W-2 antes de continuar.
+          state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-        index:
-          title: Notamos algunas discrepancias con la información del W-2 que ingresó en la herramienta Direct File para los siguientes W-2. No se preocupe si tiene varios W-2 y no todos se enumeran a continuación.
-          updated: Has actualizado este W-2
-          w2_for: 'W-2 para: %{employer_name}'
-          wages_amount: 'Cantidad total de salarios: $%{wages_amount}'
+          what_is_box14: "¿Qué podría haber en la Casilla 14?"
       waiting_to_load_data:
         edit:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.

@@ -29,8 +29,8 @@ describe 'EfileError' do
   end
 
   it 'converts paths to controllers' do
-    controller = EfileError.path_to_controller("w2")
-    expect(controller).to eq StateFile::Questions::W2Controller
+    controller = EfileError.path_to_controller("name-dob")
+    expect(controller).to eq StateFile::Questions::NameDobController
   end
 
   it 'returns the expected array of paths' do
@@ -81,9 +81,11 @@ describe 'EfileError' do
       "nj-medical-expenses",
       "nj-municipality",
       "nj-review",
+      "nj-sales-use-tax",
       "nj-tenant-eligibility",
       "nj-tenant-rent-paid",
       "nj-unsupported-property-tax",
+      "nj-veterans-exemption",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
       "ny-eligibility-out-of-state-income",
@@ -106,7 +108,6 @@ describe 'EfileError' do
       "terms-and-conditions",
       "unemployment",
       "verification-code",
-      "w2",
       "waiting-to-load-data"
     ]
   end

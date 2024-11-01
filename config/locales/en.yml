@@ -16,6 +16,9 @@ en:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be in the current tax year
+        state_file_1099_r:
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -2110,6 +2113,15 @@ en:
         nj:
           built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool. It takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with the IRS Direct File tool.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
+          help_text_html: |
+            <strong>What you’ll need:</strong>
+            <br />
+            <ul class="list--bulleted">
+              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>Email address or phone number</li>
+              <li>Driver’s license or state-issued ID</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+            </ul>
           supported_by: Supported by the New Jersey Office of Innovation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
@@ -2329,6 +2341,7 @@ en:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
+            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
             has_out_of_state_w2: you earned income in another state in 2023.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.
@@ -2510,6 +2523,13 @@ en:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
             bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+      id_primary_state_id:
+        id_primary:
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
+          title: We need some details from your state-issued ID, if you have one
+          why_ask_this: Why are you asking for this information?
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2520,15 +2540,25 @@ en:
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
           use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
           use_tax_title: What are use taxes?
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
+          why_ask_this: Why are you asking for this information?
       income_review:
         edit:
           help_text: We will ask about any missing information.
+          interest_income_body: No additional state info needed
+          interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
+          retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
+          w2s_title: Jobs (W-2)
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
@@ -2723,14 +2753,32 @@ en:
           title: Select the municipality where you lived on December 31, %{filing_year}
       nj_review:
         edit:
+          amount: Amount
           county: County
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
+          primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           spouse_disabled: My spouse has a disability
+          spouse_veteran: My spouse is a veteran
+          use_tax_applied: Consumer Use Tax Applied
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: Select one of the following
+          manual_use_tax_label: Enter calculated use tax. (Round to the nearest whole number)
+          subtitle: 'This includes:'
+          subtitle_list_html: |
+            <li>Items purchased or services performed out-of-state, where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</li>
+            <li>Online purchases where sales or use tax was not applied.</li>
+            <li>Purchases made by you or your spouse.</li>
+            <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
+          title: You need to share details about any untaxed out-of-state purchases.
+          use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
+          use_tax_method_manual: I had an untaxed purchase over $1000, or I would prefer to calculate my use tax manually.
+          use_tax_radio_label: Did you have any untaxed out-of-state purchases?
       nj_tenant_eligibility:
         edit:
           helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
@@ -2757,6 +2805,12 @@ en:
           helper_5: Learn more about this process and other filing options here.
           helper_6: Please continue to see what else you might qualify for.
           title: Looks like we can’t help you with this Property Tax Credit / Deduction.
+      nj_veterans_exemption:
+        edit:
+          instructions_html: You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces. <br><br> If you’re a first-time filer for <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">a form</a> to the NJ Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>.
+          primary_veteran_question: Are you a veteran?
+          spouse_veteran_question: Is your spouse a veteran?
+          title: In NJ, veterans are eligible for a tax exemption.
       ny_county:
         edit:
           county: County
@@ -2895,6 +2949,12 @@ en:
             label: ID Type
             no_id: No driver’s license or state ID
           info_link: View where to find this information
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State distribution"
+          title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
@@ -2936,7 +2996,6 @@ en:
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
-        w2: W-2 state and local tax information
       shared:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
@@ -2947,12 +3006,8 @@ en:
           household_info: Household information
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
-          taxes_owed_html: |
-            <p>
-              <strong>Your refund or taxes owed</strong> <br/>
-              $0
-            </p>
-            Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
+          taxes_owed_header: Your refund or taxes owed
+          taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
           your_refund: Your refund amount
@@ -3069,29 +3124,27 @@ en:
           verification_code_label: Enter the 6-digit code
       w2:
         edit:
-          box15_html: |
-            <strong>Box 15</strong>: Employer’s State ID number<br />
-            If Box 15 is blank on your W-2, enter the number from <strong>Box b Employer Identification number (EIN)</strong> here instead.
-          box16_html: "<strong>Box 16</strong>: State wages, tips, etc."
-          box17_html: "<strong>Box 17</strong>: State income tax"
-          box18_html: "<strong>Box 18</strong>: Local wages, tips, etc."
-          box19_html: "<strong>Box 19</strong>: Local income tax"
-          box20_locality_name: "<strong>Box 20</strong>: Locality name"
+          box14_html: "<strong>Box 14,</strong> Other"
+          box14_stpickup_explanation_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_stpickup_help_text: For tax year %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box15_html: "<strong>Box 15,</strong> Employer’s State ID number"
+          box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box17_html: "<strong>Box 17,</strong> State income tax"
+          box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
+          box19_html: "<strong>Box 19,</strong> Local income tax"
+          box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN must be a number. Do not include a dash.
-          instructions_1: Please review the information below and make sure it matches the state and local taxes on your W-2 from %{employer_name} for %{total_wages_amt}.
-          instructions_2: If any of these boxes are blank on your W-2, leave them blank here.
+          instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          w2s_error: Update W-2s before continuing.
+          state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-        index:
-          title: We noticed some discrepancies with the W-2 information you entered on the Direct File tool for the following W-2s. Do not worry if you have multiple W-2s and not all of them are listed below.
-          updated: You've updated this W-2
-          w2_for: 'W-2 for: %{employer_name}'
-          wages_amount: 'Total wages amount: $%{wages_amount}'
+          what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
