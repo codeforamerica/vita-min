@@ -10,6 +10,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
+
+        @md502_su = Efile::Md::Md502SuCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -40,6 +46,8 @@ module Efile
         set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
+
+        @md502_su.calculate
         @lines.transform_values(&:value)
       end
 
