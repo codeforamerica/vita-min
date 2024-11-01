@@ -12,7 +12,7 @@ module StateFile
 
       def next_path
         options = {}
-        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?   
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         
         case StateFile::NjHomeownerEligibilityHelper.determine_eligibility(current_intake)
         when StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
