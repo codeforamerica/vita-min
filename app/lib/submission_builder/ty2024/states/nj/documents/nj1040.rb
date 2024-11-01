@@ -73,6 +73,12 @@ module SubmissionBuilder
                     if @submission.data_source.direct_file_data.is_spouse_blind? || intake.spouse_disabled_yes?
                       xml.SpouseCuPartnerBlindOrDisabled "X"
                     end
+                    if intake.primary_veteran_yes?
+                      xml.YouVeteran "X"
+                    end
+                    if intake.spouse_veteran_yes?
+                      xml.SpouseCuPartnerVeteran "X"
+                    end
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
                     xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
@@ -106,6 +112,10 @@ module SubmissionBuilder
                     xml.TaxableInterestIncome calculated_fields.fetch(:NJ1040_LINE_16A)
                   end
 
+                  if calculated_fields.fetch(:NJ1040_LINE_16B)&.positive?
+                    xml.TaxexemptInterestIncome calculated_fields.fetch(:NJ1040_LINE_16B)
+                  end
+                  
                   if calculated_fields.fetch(:NJ1040_LINE_27).positive?
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
                   end

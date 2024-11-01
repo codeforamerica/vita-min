@@ -3,6 +3,7 @@
 # Table name: state_file_w2s
 #
 #  id                          :bigint           not null, primary key
+#  box14_stpickup              :decimal(12, 2)
 #  employee_name               :string
 #  employee_ssn                :string
 #  employer_name               :string
@@ -78,6 +79,9 @@ class StateFileW2 < ApplicationRecord
       if state_income_tax_amount.present? && local_income_tax_amount.present? && (state_income_tax_amount + local_income_tax_amount > w2.WagesAmt)
         errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
         errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+      end
+      if state_wages_amount.present? && state_wages_amount > w2.WagesAmt
+        errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2.WagesAmt))
       end
     end
   end
