@@ -171,7 +171,7 @@ describe SubmissionBuilder::ReturnHeader do
       end
 
       it "handles timezone correctly for signature date when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
-        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
+        expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary DateSigned')).not_to be_present
       end
     end
@@ -190,8 +190,8 @@ describe SubmissionBuilder::ReturnHeader do
       end
 
       it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
-        expect(doc.at('Filer Primary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
-        expect(doc.at('Filer Secondary DateSigned').content).to eq Date.today.strftime("%Y-%m-%d")
+        expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+        expect(doc.at('Filer Secondary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
       end
     end
   end
