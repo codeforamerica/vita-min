@@ -57,6 +57,7 @@ module PdfFiller
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
+        'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
     end

@@ -681,4 +681,15 @@ describe Efile::Md::Md502Calculator do
       expect(instance.lines[:MD502_LINE_D_AMOUNT_TOTAL].value).to eq 3200
     end
   end
+
+  describe "#calculate_line_13" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+    end
+
+    it 'the sums the amount from line A-C' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_13].value).to eq 100
+    end
+  end
 end

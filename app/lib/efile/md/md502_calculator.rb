@@ -24,6 +24,8 @@ module Efile
         set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
         set_line(:MD502_LINE_1E, :calculate_line_1e)
+        @md502_su.calculate
+        set_line(:MD502_LINE_13, :calculate_line_13)
 
         # Exemptions
         set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_primary)
@@ -47,7 +49,6 @@ module Efile
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
 
-        @md502_su.calculate
         @lines.transform_values(&:value)
       end
 
@@ -264,6 +265,10 @@ module Efile
         # Add line A, B and C amounts
         line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_LINE_C_AMOUNT)
 
+      end
+
+      def calculate_line_13
+        @lines[:MD502_SU_LINE_1].value
       end
 
       def filing_status_dependent?
