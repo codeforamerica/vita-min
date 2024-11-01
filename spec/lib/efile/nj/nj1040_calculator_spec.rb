@@ -237,14 +237,14 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when filing status is single' do
       let(:intake) { create(:state_file_nj_intake) }
       it "sets line 6 to 1000" do
-        expect(instance.lines[:NJ1040_LINE_6].value).to eq(1000)
+        expect(instance.calculate_line_6).to eq(1000)
       end
     end
 
     context 'when filing status is married filing jointly' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       it "sets line 6 to 2000" do
-        expect(instance.lines[:NJ1040_LINE_6].value).to eq(2000)
+        expect(instance.calculate_line_6).to eq(2000)
       end
     end
   end
@@ -256,7 +256,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'checks both 65+ checkboxes and sets line 7 to 2000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(true)
-        expect(instance.lines[:NJ1040_LINE_7].value).to eq(2000)
+        expect(instance.calculate_line_7).to eq(2000)
       end
     end
 
@@ -266,7 +266,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'only checks the spouse 65+ checkbox and sets line 7 to 1000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(true)
-        expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
+        expect(instance.calculate_line_7).to eq(1000)
       end
     end
 
@@ -276,7 +276,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'only checks the self 65+ checkbox and sets line 7 to 1000' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(true)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
-        expect(instance.lines[:NJ1040_LINE_7].value).to eq(1000)
+        expect(instance.calculate_line_7).to eq(1000)
       end
     end
 
@@ -286,7 +286,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'checks neither checkbox and sets line 7 to 0' do
         expect(instance.lines[:NJ1040_LINE_7_SELF].value).to eq(false)
         expect(instance.lines[:NJ1040_LINE_7_SPOUSE].value).to eq(false)
-        expect(instance.lines[:NJ1040_LINE_7].value).to eq(0)
+        expect(instance.calculate_line_7).to eq(0)
       end
     end
   end
@@ -295,70 +295,88 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when filer is not blind and spouse is not blind' do
       let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       it 'sets line 8 deductions to 0' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(0)
+        expect(instance.calculate_line_8).to eq(0)
       end
     end
 
     context 'when filer is blind and spouse is not blind' do
       let(:intake) { create(:state_file_nj_intake, :primary_blind) }
       it 'sets line 8 deductions to 1000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+        expect(instance.calculate_line_8).to eq(1000)
       end
     end
 
     context 'when filer is not blind and spouse is blind' do
       let(:intake) { create(:state_file_nj_intake, :spouse_blind) }
       it 'sets line 8 deductions to 1000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+        expect(instance.calculate_line_8).to eq(1000)
       end
     end
 
     context 'when filer is blind and spouse is blind' do
       let(:intake) { create(:state_file_nj_intake, :primary_blind, :spouse_blind) }
       it 'sets line 8 deductions to 2000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(2000)
+        expect(instance.calculate_line_8).to eq(2000)
       end
     end
 
     context 'when filer is disabled but not blind' do
       let(:intake) { create(:state_file_nj_intake, :primary_disabled)}
       it 'sets line 8 deductions to 1000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+        expect(instance.calculate_line_8).to eq(1000)
       end
     end
 
     context 'when filer is disabled and blind' do
       let(:intake) { create(:state_file_nj_intake, :primary_disabled, :primary_blind)}
       it 'sets line 8 deductions to 1000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+        expect(instance.calculate_line_8).to eq(1000)
       end
     end
 
     context 'when spouse is disabled' do
       let(:intake) { create(:state_file_nj_intake, :spouse_disabled)}
       it 'sets line 8 deductions to 1000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(1000)
+        expect(instance.calculate_line_8).to eq(1000)
       end
     end
 
     context 'when spouse and primary are disabled' do
       let(:intake) { create(:state_file_nj_intake, :spouse_disabled, :primary_disabled)}
       it 'sets line 8 deductions to 2000' do
-        expect(instance.lines[:NJ1040_LINE_8].value).to eq(2000)
+        expect(instance.calculate_line_8).to eq(2000)
+      end
+    end
+  end
+
+  describe 'line 9 - veterans exemption' do
+    context 'when filer is a veteran' do
+      let(:intake) { create(:state_file_nj_intake, :primary_veteran) }
+      it 'sets line 9 deductions to 6000' do
+        expect(instance.calculate_line_9).to eq(6000)
+      end
+    end
+
+    context 'when filer and their spouse are both veterans' do
+      let(:intake) { create(:state_file_nj_intake, :primary_veteran, :spouse_veteran) }
+      it 'sets line 9 deductions to 12000' do
+        expect(instance.calculate_line_9).to eq(12000)
       end
     end
   end
 
   describe 'line 13 - total exemptions' do
-    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
-    it 'sets line 13 to the sum of lines 6-8' do
+    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
+    it 'sets line 13 to the sum of lines 6-9' do
       self_exemption = 1_000
-      expect(instance.lines[:NJ1040_LINE_6].value).to eq(self_exemption)
+      expect(instance.calculate_line_6).to eq(self_exemption)
       self_over_65 = 1_000
-      expect(instance.lines[:NJ1040_LINE_7].value).to eq(self_over_65)
+      expect(instance.calculate_line_7).to eq(self_over_65)
       self_blind = 1_000
-      expect(instance.lines[:NJ1040_LINE_8].value).to eq(self_blind)
-      expect(instance.lines[:NJ1040_LINE_13].value).to eq(self_exemption + self_over_65 + self_blind)
+      expect(instance.calculate_line_8).to eq(self_blind)
+      self_veteran = 6_000
+      expect(instance.calculate_line_9).to eq(self_veteran)
+      expect(instance.lines[:NJ1040_LINE_13].value).to eq(self_exemption + self_over_65 + self_blind + self_veteran)
     end
   end
 

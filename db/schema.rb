@@ -2089,6 +2089,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
+    t.integer "primary_veteran", default: 0, null: false
     t.integer "property_tax_paid"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -2109,6 +2110,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
     t.integer "tenant_access_kitchen_bath", default: 0, null: false
     t.integer "tenant_building_multi_unit", default: 0, null: false
     t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
