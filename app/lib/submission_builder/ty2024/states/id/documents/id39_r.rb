@@ -9,7 +9,7 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form39R") do |xml|
                 xml.IncomeUSObligations calculated_fields.fetch(:ID39R_B_LINE_3)
-                xml.ChildCareCreditAmt calculated_fields.fetch(:ID39R_LINE_B_6)
+                xml.ChildCareCreditAmt calculated_fields.fetch(:ID39R_B_LINE_6)
               end
             end
 
