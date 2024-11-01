@@ -93,6 +93,18 @@ describe StateFileBaseIntake do
       expect(w2.state_income_tax_amount).to eq 500
       expect(w2.state_wages_amount).to eq 35000
     end
+
+    it "reads in w2s and removes dash/hyphen from employer_state_id_num" do
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r')
+      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml)
+      expect(intake.state_file_w2s).to be_blank
+      intake.synchronize_df_w2s_to_database
+
+      expect(intake.state_file_w2s.count).to eq 2
+      w2 = intake.state_file_w2s.first
+
+      expect(w2.employer_state_id_num).to eq "000000005"
+    end
   end
 
   describe "#timedout?" do
