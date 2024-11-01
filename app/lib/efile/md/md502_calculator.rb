@@ -338,7 +338,7 @@ module Efile
       }.freeze
 
       def calculate_line_17
-        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+        if deduction_method_is_standard?
           status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(@intake.filing_status) }[0]
           deduction_table = DEDUCTION_TABLES[status_group_key]
           md_agi = line_or_zero(:MD502_LINE_16)
@@ -354,7 +354,7 @@ module Efile
       end
 
       def calculate_line_18
-        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+        if deduction_method_is_standard?
           line_or_zero(:MD502_LINE_16) - line_or_zero(:MD502_LINE_17)
         else
           0
@@ -362,7 +362,7 @@ module Efile
       end
 
       def calculate_line_19
-        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+        if deduction_method_is_standard?
           line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
         else
           0
@@ -370,7 +370,7 @@ module Efile
       end
 
       def calculate_line_20
-        if @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+        if deduction_method_is_standard?
           [line_or_zero(:MD502_LINE_18) - line_or_zero(:MD502_LINE_19), 0].max
         else
           0
@@ -379,6 +379,10 @@ module Efile
 
       def filing_status_dependent?
         @filing_status == :dependent
+      end
+
+      def deduction_method_is_standard?
+        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
       end
     end
   end
