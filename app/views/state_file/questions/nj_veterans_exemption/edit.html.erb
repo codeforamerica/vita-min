@@ -3,7 +3,7 @@
     content_for :page_title, title
 %>
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title") %></h1>
+  <h1 class="h2"><%= title %></h1>
   <p class="p"><%= t(".instructions_html") %></p>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
