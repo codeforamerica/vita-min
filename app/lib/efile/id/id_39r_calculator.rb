@@ -13,7 +13,7 @@ module Efile
       end
 
       def calculate
-        set_line(:ID39R_LINE_B_6, :calculate_line_b_6)
+        set_line(:ID39R_B_LINE_6, :calculate_line_b_6)
       end
 
       def calculate_line_b_6
