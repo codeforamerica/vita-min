@@ -1,0 +1,57 @@
+<% title = t('.title', year: MultiTenantService.statefile.current_tax_year) %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle", count: current_intake.household_count) %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="reveal">
+      <p><a href="#" class="reveal__button"><%= t('.what_is_title') %></a></p>
+      <div class="reveal__content"><%= t('.what_is_content_html') %></div>
+    </div>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__button"><%= t('.qualifications_title') %></a></p>
+      <div class="reveal__content"><%= t('.qualifications_content') %></div>
+    </div>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__button"><%= t('.medicaid_title') %></a></p>
+      <div class="reveal__content"><%= t('.medicaid_content') %></div>
+    </div>
+
+    <div class="question-with-follow-up spacing-below-25">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%=
+            f.cfa_radio_set(
+              :has_health_insurance_premium,
+              label_text: t('.health_insurance_premium_question', count: current_intake.household_count, year: MultiTenantService.statefile.current_tax_year),
+              collection: [
+                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-field" } },
+                { value: :no, label: t("general.negative") },
+              ]
+            )
+          %>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="sut-field">
+        <div class="notice--warning">
+          <p><%= t('.do_not_include_notice_html') %></p>
+        </div>
+
+        <div class="white-group">
+          <div class="spacing-below-15"><%= t(".qualifying_amount_help_text", year: MultiTenantService.statefile.current_tax_year) %></div>
+          <p class="text--help text--small spacing-below-0"><b><%= t(".amount_paid_helper_text", year: MultiTenantService.statefile.current_tax_year) %></b></p>
+          <%= f.vita_min_money_field(:health_insurance_paid_amount, "", classes: ["form-width--long"]) %>
+        </div>
+      </div>
+
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

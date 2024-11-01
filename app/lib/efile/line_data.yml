@@ -168,6 +168,8 @@ NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 ID39R_B_LINE_3:
   label: 'Interest from U.S. government obligations'
+ID39R_B_LINE_18:
+  label: 'Health insurance premium paid amount for household'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
@@ -178,6 +180,8 @@ ID40_LINE_6D:
   label: '6d Total household count'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_46:
+  label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:

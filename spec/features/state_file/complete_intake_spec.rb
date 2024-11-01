@@ -447,7 +447,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
 
-      find('a.reveal__link').click
+      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
 
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
@@ -492,10 +492,16 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # 1099G Review
       click_on I18n.t("general.continue")
 
+      # Health Insurance Premium
+      expect(page).to have_text I18n.t('state_file.questions.id_health_insurance_premium.edit.title')
+      choose I18n.t("general.affirmative")
+      fill_in 'state_file_id_health_insurance_premium_form_health_insurance_paid_amount', with: "1234.60"
+      click_on I18n.t("general.continue")
+
+      # Sales/Use Tax
       expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
-
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.title')
@@ -510,6 +516,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # ID Review page
+      expect(page).to have_text "Idaho Health Insurance Premium Subtraction"
+      expect(page).to have_text "$1,234.60"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")

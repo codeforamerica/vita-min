@@ -11,7 +11,6 @@
           <%=
             f.cfa_radio_set(
               :has_unpaid_sales_use_tax,
-              label_text: t('.unpaid_sales_use_tax_label_html'),
               collection: [
                 { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-field" } },
                 { value: :no, label: t("general.negative") },
@@ -29,12 +28,12 @@
       </div>
 
       <div class="reveal">
-        <p><a href="#" class="reveal__link"><%= t('.sales_tax_title') %></a></p>
+        <p><a href="#" class="reveal__button"><%= t('.sales_tax_title') %></a></p>
         <div class="reveal__content"><%= t('.sales_tax_content') %></div>
       </div>
 
       <div class="reveal">
-        <p><a href="#" class="reveal__link"><%= t('.use_tax_title') %></a></p>
+        <p><a href="#" class="reveal__button"><%= t('.use_tax_title') %></a></p>
         <div class="reveal__content"><%= t('.use_tax_content') %></div>
       </div>
     </div>
