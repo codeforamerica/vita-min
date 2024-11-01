@@ -496,11 +496,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
 
-      # ID Review page
       click_on I18n.t("general.continue")
 
-      # TODO: uncomment when the name dob page is added; test fails without a name
-      # expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileIdIntake.last.primary.full_name))
+      expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.title')
+      click_on I18n.t("state_file.questions.id_primary_state_id.id_primary.why_ask_this")
+      # expect Idaho specific help text
+      expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.protect_identity')
+      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
+      select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
+      select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
+      select("Idaho", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
+      click_on I18n.t("general.continue")
+
+      # ID Review page
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
@@ -619,14 +628,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select "Atlantic City"
       click_on I18n.t("general.continue")
 
+      # disabled exemption
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
+      # veterans exemption
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
       click_on I18n.t("general.continue")
 
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
-      click_on I18n.t("general.continue")
-      click_on I18n.t("general.continue")
-
-      choose I18n.t('general.negative')
       click_on I18n.t("general.continue")
 
       expect(page).to be_axe_clean.within "main"

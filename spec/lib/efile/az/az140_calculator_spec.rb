@@ -9,6 +9,152 @@ describe Efile::Az::Az140Calculator do
     )
   end
 
+  context "when claiming multiple dependents of different classifications" do
+    let(:intake) { create(:state_file_az_johnny_intake) }
+
+    it "counts the dependents correctly by their classifications" do
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_10A].value).to eq(4)
+      expect(instance.lines[:AZ140_LINE_10B].value).to eq(3)
+      expect(instance.lines[:AZ140_LINE_11A].value).to eq(1)
+    end
+  end
+
+  context 'sets line 7c correctly' do
+    before do
+      intake.charitable_cash_amount = 50
+      intake.charitable_noncash_amount = 50
+      intake.charitable_contributions = 'yes'
+      allow(instance).to receive(:calculate_line_42).and_return 10_000
+      allow(instance).to receive(:calculate_line_43).and_return 2_000
+    end
+
+    # 31% of 100 (50+50)
+    it 'sets the credit to the maximum amount' do
+      instance.calculate
+      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_969)
+    end
+  end
+
+  describe "Line 8" do
+    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 31) }
+
+    context "when both primary and spouse are older than 65" do
+      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }
+
+      it "returns 2" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
+      end
+    end
+
+    context "when only the primary is over 65" do
+      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date + 2.months) }
+
+      it "returns 1" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_8].value).to eq(1)
+      end
+    end
+
+    context "when born a day after the senior cutoff date" do
+      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date + 1.day, spouse_birth_date: senior_cutoff_date + 1.day) }
+
+      it "it counts them" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
+      end
+    end
+  end
+
+  describe "Line 43 and 43S: standard deduction" do
+    let(:intake) { create(:state_file_az_intake, filing_status: filing_status) }
+
+    context "single" do
+      let(:filing_status) { "single" }
+
+      it "sets the standard deduction correctly" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_43].value).to eq(13_850)
+        expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+      end
+    end
+
+    context "mfj" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      it "sets the standard deduction correctly" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_43].value).to eq(27_700)
+        expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+      end
+    end
+
+    context "hoh" do
+      context "actually hoh" do
+        let(:filing_status) { "head_of_household" }
+
+        it "sets the standard deduction correctly" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+          expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+        end
+      end
+
+      context "actually qss" do
+        let(:filing_status) { "qualifying_widow" }
+
+        it "sets the standard deduction to the same amount as hoh" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+          expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
+        end
+      end
+    end
+  end
+
+  describe "Line 45: Arizona taxable income" do
+    context "line 42 - (line 43 + 44) is more than 0" do
+      it "enters the amount" do
+        allow(instance).to receive(:calculate_line_42).and_return 3_000
+        allow(instance).to receive(:calculate_line_43).and_return 1_000
+        allow(instance).to receive(:calculate_line_44).and_return 1_000
+
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(1_000)
+      end
+    end
+
+    context "line 42 - (line 43 + 44) is less than 0" do
+      it "enters 0" do
+        allow(instance).to receive(:calculate_line_42).and_return 1_000
+        allow(instance).to receive(:calculate_line_43).and_return 1_000
+        allow(instance).to receive(:calculate_line_44).and_return 1_000
+
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_45].value).to eq(0)
+      end
+    end
+  end
+
+  describe "Line 46: tax" do
+    it "multiplies line 45 by 0.025" do
+      allow(instance).to receive(:calculate_line_45).and_return 20_000
+
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_46].value).to eq(500)
+    end
+
+    it "rounds the result" do
+      allow(instance).to receive(:calculate_line_45).and_return 20_500
+
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_46].value).to eq(513)
+    end
+  end
+
   describe 'Line 53: AZ Income Tax Withheld' do
     let(:intake) {
       # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
@@ -172,137 +318,6 @@ describe Efile::Az::Az140Calculator do
         expect(instance.lines[:AZ140_LINE_50].value).to eq(0)
         expect(instance.lines[:AZ140_LINE_56].value).to eq(0)
       end
-    end
-  end
-
-  context 'sets line 7c correctly' do
-    before do
-      intake.charitable_cash_amount = 50
-      intake.charitable_noncash_amount = 50
-      intake.charitable_contributions = 'yes'
-      allow(instance).to receive(:calculate_line_42).and_return 10_000
-      allow(instance).to receive(:calculate_line_43).and_return 2_000
-    end
-
-    # 31% of 100 (50+50)
-    it 'sets the credit to the maximum amount' do
-      instance.calculate
-      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
-      expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
-      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_969)
-    end
-  end
-
-  describe "Line 8" do
-    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 31) }
-
-    context "when both primary and spouse are older than 65" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }
-
-      it "returns 2" do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
-      end
-    end
-
-    context "when only the primary is over 65" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date + 2.months) }
-
-      it "returns 1" do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_8].value).to eq(1)
-      end
-    end
-
-    context "when born a day after the senior cutoff date" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date + 1.day, spouse_birth_date: senior_cutoff_date + 1.day) }
-
-      it "it counts them" do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_8].value).to eq(2)
-      end
-    end
-  end
-
-  describe 'the Az flat tax rate is 2.5%' do
-    context 'when the filer has an income of $25,000' do
-      before do
-        allow(instance).to receive(:calculate_line_42).and_return 25_000
-        allow(instance).to receive(:calculate_line_43).and_return 2_000
-        allow(instance).to receive(:calculate_line_44).and_return 2_000
-      end
-
-      it 'the tax is 2.5%' do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(21_000) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(525)
-      end
-    end
-
-    context 'when the filer has an income of $150,000' do
-      before do
-        allow(instance).to receive(:calculate_line_42).and_return 150_000
-        allow(instance).to receive(:calculate_line_43).and_return 2_000
-        allow(instance).to receive(:calculate_line_44).and_return 2_000
-      end
-
-      it 'the tax is 2.5%' do
-        instance.calculate
-        expect(instance.lines[:AZ140_LINE_45].value).to eq(146000) # Deductions mean this is taxable
-        expect(instance.lines[:AZ140_LINE_46].value).to eq(3650)
-      end
-    end
-  end
-
-  context "when claiming multiple dependents of different classifications" do
-    let(:intake) { create(:state_file_az_johnny_intake) }
-
-    it "counts the dependents correctly by their classifications" do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_10A].value).to eq(4)
-      expect(instance.lines[:AZ140_LINE_10B].value).to eq(3)
-      expect(instance.lines[:AZ140_LINE_11A].value).to eq(1)
-    end
-  end
-
-  # Check for filing status lines 4-7
-  describe '#filing_status' do
-    context 'when is single' do
-      let(:intake) { create(:state_file_az_intake) }
-      before do
-        intake.direct_file_data.filing_status = 1 # single
-      end
-
-      it 'sets filing_status to single' do
-        instance.calculate
-        expect(intake.filing_status).to eq(:single)
-      end
-    end
-
-    context 'when filing_status is qualifying_widow / QSS' do
-      let(:intake) { create(:state_file_az_intake) }
-      before do
-        intake.direct_file_data.filing_status = 5 # qualifying_widow
-      end
-
-      it 'sets filing_status to hoh' do
-        instance.calculate
-        expect(intake.filing_status).to eq(:head_of_household)
-      end
-    end
-  end
-
-  # Check for standard deduction line 43
-  describe 'Standard deductions' do
-    let(:intake) { create(:state_file_az_intake) }
-    before do
-      intake.direct_file_data.filing_status = 5 # qualifying_widow
-    end
-
-    it 'sets the standard deduction correctly for QSS' do
-      instance.calculate
-      expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
-      expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
     end
   end
 end
