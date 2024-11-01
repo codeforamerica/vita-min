@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_30_144351) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2093,8 +2093,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_144351) do
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
-    t.decimal "property_tax_paid", precision: 12, scale: 2
     t.integer "primary_veteran", default: 0, null: false
+    t.decimal "property_tax_paid", precision: 12, scale: 2
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
