@@ -236,7 +236,6 @@ es:
       blank: No puede estar en blanco.
       invalid: es invalido
       only_letters: Sólo se aceptan cartas
-      round_to_whole_number: Redondea al número entero más próximo
       whole_number: Debe ser un número entero
   forms:
     errors:
