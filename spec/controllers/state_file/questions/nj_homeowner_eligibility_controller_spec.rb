@@ -111,31 +111,96 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
 
   describe "#next_path" do
     context "when ineligible hard no" do
-      let(:intake) { create :state_file_nj_intake, homeowner_home_subject_to_property_taxes: "no" }
-      it "next path is ineligible page" do
-        expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+      context "when income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: "own",
+            homeowner_home_subject_to_property_taxes: "no"
+          )
+        }
+        it "next path is ineligible page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+        end
+      end
+      
+      context "when not eligible for property tax deduction but could be for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "own",
+            homeowner_home_subject_to_property_taxes: "no"
+          )
+        }
+        it "next path is ineligible page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+        end
       end
     end
 
     context "when unsupported soft no" do
-      let(:intake) { create :state_file_nj_intake, homeowner_more_than_one_main_home_in_nj: "yes" }
-      it "next path is unsupported page" do
-        expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+      context "when income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: "own",
+            homeowner_more_than_one_main_home_in_nj: "yes"
+          )
+        }
+        it "next path is unsupported page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        end
+      end
+
+      context "when not eligible for property tax deduction but could be for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "own",
+            homeowner_more_than_one_main_home_in_nj: "yes"
+          )
+        }
+        it "next path is unsupported page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        end
       end
     end
 
     context "when advance state" do
-      let(:intake) { create :state_file_nj_intake, homeowner_home_subject_to_property_taxes: "yes" }
-      it "next path is property tax page" do
-        expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper)
+      context "when income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: "own",
+            homeowner_home_subject_to_property_taxes: "yes"
+          )
+        }
+        it "next path is property tax page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper)
+        end
       end
-    end
-
-    context "when not eligible for property tax deduction but could be for credit" do
-      let(:intake) {create :state_file_nj_intake, :df_data_minimal, :primary_disabled, household_rent_own: "own" }
-      it "next path is whichever comes next overall" do
-        allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
-        expect(subject.next_path).to eq("/mocked/super/path")
+      
+      context "when not eligible for property tax deduction but could be for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "own",
+            homeowner_home_subject_to_property_taxes: "yes"
+          )
+        }
+        it "next path is whichever comes next overall" do
+          allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
+          expect(subject.next_path).to eq("/mocked/super/path")
+        end
       end
     end
   end

@@ -12,11 +12,7 @@ module StateFile
 
       def next_path
         options = {}
-        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
-
-        if Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(current_intake) == Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION
-          return super
-        end
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?   
         
         case StateFile::NjHomeownerEligibilityHelper.determine_eligibility(current_intake)
         when StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
@@ -24,7 +20,11 @@ module StateFile
         when StateFile::NjHomeownerEligibilityHelper::UNSUPPORTED
           NjUnsupportedPropertyTaxController.to_path_helper(options)
         else
-          NjHomeownerPropertyTaxController.to_path_helper(options)
+          if Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(current_intake) == Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE_FOR_DEDUCTION
+            super
+          else
+            NjHomeownerPropertyTaxController.to_path_helper(options)
+          end
         end
       end
     end
