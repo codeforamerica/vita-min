@@ -2523,6 +2523,13 @@ en:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
             bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+      id_primary_state_id:
+        id_primary:
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
+          title: We need some details from your state-issued ID, if you have one
+          why_ask_this: Why are you asking for this information?
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2533,6 +2540,12 @@ en:
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
           use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
           use_tax_title: What are use taxes?
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
+          why_ask_this: Why are you asking for this information?
       income_review:
         edit:
           help_text: We will ask about any missing information.
@@ -2746,9 +2759,11 @@ en:
           medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
+          primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           spouse_disabled: My spouse has a disability
+          spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
       nj_sales_use_tax:
         edit:
@@ -2790,6 +2805,12 @@ en:
           helper_5: Learn more about this process and other filing options here.
           helper_6: Please continue to see what else you might qualify for.
           title: Looks like we can’t help you with this Property Tax Credit / Deduction.
+      nj_veterans_exemption:
+        edit:
+          instructions_html: You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces. <br><br> If you’re a first-time filer for <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">a form</a> to the NJ Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>.
+          primary_veteran_question: Are you a veteran?
+          spouse_veteran_question: Is your spouse a veteran?
+          title: In NJ, veterans are eligible for a tax exemption.
       ny_county:
         edit:
           county: County

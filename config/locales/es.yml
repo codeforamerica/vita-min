@@ -2496,6 +2496,13 @@ es:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
             bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_primary_state_id:
+        id_primary:
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
+          title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
+          why_ask_this: "¿Por qué pides esta información?"
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
@@ -2506,6 +2513,12 @@ es:
           unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
           use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
           use_tax_title: "¿Qué son los impuestos sobre el uso?"
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          title_html: Necesitamos algunos detalles del documento de identidad oficial de <strong>su cónyuge</strong>, si tiene uno
+          why_ask_this: "¿Por qué pides esta información?"
       income_review:
         edit:
           help_text: Le preguntaremos sobre cualquier información faltante.
@@ -2720,9 +2733,11 @@ es:
           medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
+          primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           spouse_disabled: Spouse disabled
+          spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
       nj_sales_use_tax:
         edit:
@@ -2764,6 +2779,12 @@ es:
           helper_5: Obtenga más información sobre este proceso y otras opciones de presentación aquí.
           helper_6: Continúe viendo para qué más podría calificar.
           title: Parece que no podemos ayudarte con este crédito/deducción de impuestos sobre la propiedad.
+      nj_veterans_exemption:
+        edit:
+          instructions_html: Se le considera un veterano si es un ex miembro de las Fuerzas Armadas de los Estados Unidos dado de <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorablemente</a>. <br><br> Si es la primera vez que solicita <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">esta exención</a>, debe proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">un formulario</a> a la División de Impuestos de Nueva Jersey. Puede hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">en línea</a>.
+          primary_veteran_question: "¿Eres un veterano?"
+          spouse_veteran_question: "¿Su cónyuge es un veterano?"
+          title: En NJ, los veteranos son elegibles para una exención de impuestos.
       ny_county:
         edit:
           county: Condado

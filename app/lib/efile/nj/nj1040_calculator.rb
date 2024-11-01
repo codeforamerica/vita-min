@@ -12,11 +12,8 @@ module Efile
 
       def calculate
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
-        set_line(:NJ1040_LINE_6, :calculate_line_6)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
-        set_line(:NJ1040_LINE_7, :calculate_line_7)
-        set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
@@ -144,12 +141,6 @@ module Efile
         @intake.direct_file_data.fed_tax_exempt_interest + interest_on_gov_bonds
       end
 
-      private
-
-      def line_6_spouse_checkbox
-        @intake.filing_status_mfj?
-      end
-
       def calculate_line_6
         self_exemption = 1
         number_of_line_6_exemptions = self_exemption + number_of_true_checkboxes([line_6_spouse_checkbox])
@@ -176,8 +167,19 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
+      def calculate_line_9
+        number_of_line_9_exemptions = number_of_true_checkboxes([@intake.primary_veteran_yes?, @intake.spouse_veteran_yes?])
+        number_of_line_9_exemptions * 6_000
+      end
+
+      private
+
+      def line_6_spouse_checkbox
+        @intake.filing_status_mfj?
+      end
+
       def calculate_line_13
-        line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
+        calculate_line_6 + calculate_line_7 + calculate_line_8 + calculate_line_9
       end
 
       def calculate_line_15
