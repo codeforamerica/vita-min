@@ -1,6 +1,7 @@
 module PdfFiller
   class NcD400Pdf
     include PdfHelper
+    include SubmissionBuilder::FormattingMethods
 
     def source_pdf_name
       "ncD400-TY2024"
@@ -73,8 +74,8 @@ module PdfFiller
         y_d400wf_li27_pg2_good: @xml_document.at('TotalAmountDue')&.text,
         y_d400wf_li28_pg2_good: @xml_document.at('Overpayment')&.text,
         y_d400wf_li34_pg2_good: @xml_document.at('RefundAmt')&.text,
-        y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? @submission.data_source.primary_esigned_at.to_date : "",
-        y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? @submission.data_source.spouse_esigned_at.to_date : ""
+        y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? date_type_for_timezone(@submission.data_source.primary_esigned_at)&.to_date : "",
+        y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.to_date : ""
       }
     end
 
