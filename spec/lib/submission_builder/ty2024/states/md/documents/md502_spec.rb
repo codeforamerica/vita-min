@@ -302,10 +302,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
         end
       end
-    end
-  end
-end
-
 
       context "EIC section" do
         context "when qualifies for EIC" do
@@ -349,6 +345,7 @@ end
 
         context "when they don't qualify for state EIC and don't have qualifying children" do
           before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return nil
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return nil
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return nil
           end

@@ -103,7 +103,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.NetIncome calculated_fields.fetch(:MD502_LINE_18) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
       xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
-      if has_state_tax_computation? #change this method
+      if has_state_tax_computation?
         xml.StateTaxComputation do
           xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
@@ -152,13 +152,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   end
 
   def has_state_tax_computation?
-    [
-      :MD502_LINE_20,
-      :MD502_LINE_22,
-      :MD502_LINE_22B
-    ].any? do |line|
-      calculated_fields.fetch(line)&.present?
-    end
+    calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S" || calculated_fields.fetch(:MD502_LINE_22) > 0
   end
 
   def filing_status
