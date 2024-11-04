@@ -1776,6 +1776,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.boolean "eic_qualifying"
     t.integer "eic_student", default: 0
     t.string "first_name"
+    t.integer "id_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.integer "id_months_ineligible_for_grocery_credit", default: 0
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
@@ -1820,6 +1822,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
+    t.integer "donate_grocery_credit", default: 0, null: false
     t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
     t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
@@ -1831,6 +1834,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
     t.decimal "health_insurance_paid_amount", precision: 12, scale: 2
+    t.integer "household_has_grocery_credit_ineligible_months", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1843,9 +1847,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
+    t.integer "primary_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.bigint "primary_state_id_id"
+    t.integer "primary_months_ineligible_for_grocery_credit", default: 0
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1857,9 +1862,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
+    t.integer "spouse_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.bigint "spouse_state_id_id"
+    t.integer "spouse_months_ineligible_for_grocery_credit", default: 0
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -1946,8 +1952,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
+    t.bigint "spouse_student_loan_interest_ded_amount_cents", default: 0, null: false
     t.string "spouse_suffix"
     t.string "street_address"
+    t.bigint "student_loan_interest_ded_amount_cents", default: 0, null: false
     t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
