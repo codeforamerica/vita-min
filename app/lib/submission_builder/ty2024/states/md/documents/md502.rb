@@ -100,7 +100,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       if has_eic?
         xml.StateTaxComputation do
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
-          add_element_if_present(xml, "NoFedEICInd", :MD502_LINE_22A)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
         end
       end
@@ -148,7 +147,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def has_eic?
     [
       :MD502_LINE_22,
-      :MD502_LINE_22A,
       :MD502_LINE_22B
     ].any? do |line|
       calculated_fields.fetch(line)&.present?

@@ -38,7 +38,6 @@ module Efile
         set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
 
         set_line(:MD502_LINE_22, :calculate_line_22)
-        set_line(:MD502_LINE_22A, :calculate_line_22a)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
         # MD502-CR
@@ -167,24 +166,17 @@ module Efile
 
       def calculate_line_22
         # Earned Income Credit (EIC)
-        puts "******"
-        puts @direct_file_data.fed_eic_qc_claimed
-        if (filing_status_mfj? || filing_status_mfs?) #&& @direct_file_data.fed_eic_qc_claimed
+        if (filing_status_mfj? || filing_status_mfs?) && @direct_file_data.fed_eic_qc_claimed
           @direct_file_data.fed_eic * 0.50
-        elsif (filing_status_single? || filing_status_hoh? || filing_status_qw?) #&& !@direct_file_data.fed_eic_qc_claimed
+        elsif (filing_status_single? || filing_status_hoh? || filing_status_qw?) && !@direct_file_data.fed_eic_qc_claimed
           [@direct_file_data.fed_eic, 600].min
         end
-      end
-
-      def calculate_line_22a
-        line_or_zero(:MD502_LINE_22) > 0 ? "X" : nil
       end
 
       def calculate_line_22b
         @direct_file_data.fed_eic_qc_claimed ? "X" : nil
       end
 
-      # should we move these md502 ones into their own calculator?
       def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY
           $0 $30,001 0.3200 $0 $50,001

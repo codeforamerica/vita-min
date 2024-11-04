@@ -250,5 +250,31 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
       end
     end
+
+    context "EIC" do
+      context "there are qualifying children and state EIC" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return "X"
+        end
+
+        it "fills out EIC fields correctly" do
+          expect(pdf_fields["Text Box 34"]).to eq "100"
+          expect(pdf_fields["Check Box 37"]).to eq "Yes"
+        end
+      end
+
+      context "there are NOT qualifying children and no state EIC" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return nil
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return nil
+        end
+
+        it "doesn't fill out the EIC fields" do
+          expect(pdf_fields["Text Box 34"]).to eq ""
+          expect(pdf_fields["Check Box 37"]).to eq "Off"
+        end
+      end
+    end
   end
 end

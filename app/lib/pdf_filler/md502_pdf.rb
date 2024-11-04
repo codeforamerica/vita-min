@@ -58,8 +58,7 @@ module PdfFiller
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
-        'Check Box 36': @xml_document.at('Form502 StateTaxComputation NoFedEICInd')&.text,
-        'Check Box 37': @xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text,
+        'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
     end
