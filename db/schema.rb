@@ -1777,7 +1777,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.integer "eic_student", default: 0
     t.string "first_name"
     t.integer "id_has_grocery_credit_ineligible_months", default: 0, null: false
-    t.integer "id_months_ineligible_for_grocery_credit"
+    t.integer "id_months_ineligible_for_grocery_credit", default: 0
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
@@ -1850,8 +1850,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.integer "primary_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.integer "primary_months_ineligible_for_grocery_credit"
-    t.bigint "primary_state_id_id"
+    t.integer "primary_months_ineligible_for_grocery_credit", default: 0
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1866,8 +1865,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.integer "spouse_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.integer "spouse_months_ineligible_for_grocery_credit"
-    t.bigint "spouse_state_id_id"
+    t.integer "spouse_months_ineligible_for_grocery_credit", default: 0
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -1954,8 +1952,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
+    t.bigint "spouse_student_loan_interest_ded_amount_cents", default: 0, null: false
     t.string "spouse_suffix"
     t.string "street_address"
+    t.bigint "student_loan_interest_ded_amount_cents", default: 0, null: false
     t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false

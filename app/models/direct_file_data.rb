@@ -735,7 +735,7 @@ class DirectFileData < DfXmlAccessor
   def spouse_earned_income_amount=(value)
     write_df_xml_value(__method__, value)
   end
-    
+
   class DfW2 < DfW2Accessor
     def w2_box12
       @node.css('EmployersUseGrp').map do |node|
