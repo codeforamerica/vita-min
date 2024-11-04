@@ -3,7 +3,7 @@ module StateFile
     class IdPermanentBuildingFundController < QuestionsController
       include ReturnToReviewConcern
       def self.show?(intake)
-        true
+        intake.has_filing_requirement? && !intake.has_blind_filer?
       end
     end
   end

@@ -18,6 +18,8 @@ module Efile
         set_line(:ID40_LINE_6C, :calculate_line_6c)
         set_line(:ID40_LINE_6D, :calculate_line_6d)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        set_line(:ID40_LINE_32A, :calculate_line_32a)
+        set_line(:ID40_LINE_32B, :calculate_line_32b)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -54,6 +56,17 @@ module Efile
         else
           0
         end
+      end
+
+      def calculate_line_32a
+        if @intake.has_filing_requirement? && !@intake.has_blind_filer? && @intake.received_id_public_assistance_no?
+          10
+        else
+          0
+        end
+      end
+      def calculate_line_32b
+        @intake.received_id_public_assistance_yes?
       end
     end
   end

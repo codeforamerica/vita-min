@@ -32,6 +32,8 @@ module SubmissionBuilder
                   end
                 end
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
+                xml.PermanentBuildingFund calculated_fields.fetch(:ID40_LINE_32A)
+                xml.PublicAssistanceIndicator calculated_fields.fetch(:ID40_LINE_32B)
               end
             end
 

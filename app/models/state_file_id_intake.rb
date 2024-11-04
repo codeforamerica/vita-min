@@ -39,7 +39,7 @@
 #  primary_suffix                          :string
 #  raw_direct_file_data                    :text
 #  raw_direct_file_intake_data             :jsonb
-#  received_id_public_assistance           :integer          default(0), not null
+#  received_id_public_assistance           :integer          default("unfilled"), not null
 #  referrer                                :string
 #  routing_number                          :integer
 #  sign_in_count                           :integer          default(0), not null
@@ -83,5 +83,13 @@ class StateFileIdIntake < StateFileBaseIntake
       eligibility_withdrew_msa_fthb: "yes",
       eligibility_emergency_rental_assistance: "yes"
     }
+  end
+
+  def has_blind_filer?
+    direct_file_data.is_primary_blind? || filing_status_mfj? && direct_file_data.is_spouse_blind?
+  end
+
+  def has_filing_requirement?
+    direct_file_data.total_income_amount >= direct_file_data.total_itemized_or_standard_deduction_amount
   end
 end

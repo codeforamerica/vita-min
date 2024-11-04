@@ -39,7 +39,7 @@
 #  primary_suffix                          :string
 #  raw_direct_file_data                    :text
 #  raw_direct_file_intake_data             :jsonb
-#  received_id_public_assistance           :integer          default(0), not null
+#  received_id_public_assistance           :integer          default("unfilled"), not null
 #  referrer                                :string
 #  routing_number                          :integer
 #  sign_in_count                           :integer          default(0), not null
@@ -112,6 +112,18 @@ FactoryBot.define do
       primary_last_name { "Interest" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_tim_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_tim_1099_int') }
+    end
+
+    trait :primary_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.primary_blind = "X"
+      end
+    end
+
+    trait :spouse_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.spouse_blind = "X"
+      end
     end
   end
 end

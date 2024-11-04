@@ -31,6 +31,8 @@ describe DirectFileData do
     ["fed_housing_deduction_amount", 700],
     ["fed_gross_income_exclusion_amount", 900],
     ["qualifying_children_under_age_ssn_count", "1"],
+    ["total_income_amount", 40000],
+    ["total_itemized_or_standard_deduction_amount", 20800]
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
