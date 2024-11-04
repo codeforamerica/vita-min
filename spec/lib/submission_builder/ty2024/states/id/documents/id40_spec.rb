@@ -98,5 +98,18 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         end
       end
     end
+
+    context "with income forms" do
+      # Miranda has two W-2s with state tax withheld amount (507, 1502) and two 1099Rs with no state tax withheld
+      let(:intake) {
+        create(:state_file_id_intake,
+               :with_w2s_synced,
+               raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
+      }
+
+      it "should fill out the state tax withheld amount" do
+        expect(xml.at("TaxWithheld").text).to eq "2009"
+      end
+    end
   end
 end

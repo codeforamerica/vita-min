@@ -51,6 +51,13 @@ RSpec.describe PdfFiller::Id39rPdf do
         expect(pdf_fields["BL3"]).to eq "2"
       end
     end
+
+    context "fills out Health Insurance Premium amount" do
+      let(:intake) { create(:state_file_id_intake, has_health_insurance_premium: "yes", health_insurance_paid_amount:  15.30) }
+      it "correctly fills answers" do
+        expect(pdf_fields["BL18"]).to eq "15"
+      end
+    end
   end
 end
 

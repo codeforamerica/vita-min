@@ -168,6 +168,8 @@ NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 ID39R_B_LINE_3:
   label: 'Interest from U.S. government obligations'
+ID39R_B_LINE_18:
+  label: 'Health insurance premium paid amount for household'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
@@ -178,6 +180,8 @@ ID40_LINE_6D:
   label: '6d Total household count'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_46:
+  label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
@@ -612,22 +616,18 @@ NCD400_S_LINE_41:
   label: 'Total Deductions - Add Lines 17 through 22, 23f, 24f, and 25 through 40 (Enter the total here and on Form D-400, Line 9)'
 NJ1040_LINE_6_SPOUSE:
   label: '6 Spouse Regular Exemption'
-NJ1040_LINE_6:
-  label: '6 Sum all regular exemptions, multiply by 1000'
 NJ1040_LINE_7_SELF:
   label: '7 Primary Senior 65+ Exemption'
 NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
-NJ1040_LINE_7:
-  label: '7 Sum all Senior 65+ Exemption, multiply by 1000'
-NJ1040_LINE_8:
-  label: '8 Sum all Blind/Disabled Exemption, multiply by 1000'
 NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:
   label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
 NJ1040_LINE_16A:
   label: 'Taxable interest income (Enclose federal Schedule B if over $1,500) (See instructions)'
+NJ1040_LINE_16B:  
+  label: 'Tax-exempt interest income (Enclose schedule) (See instructions) Do not include on line 16a'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:
@@ -650,6 +650,8 @@ NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
+NJ1040_LINE_58:
+  label: '58 New Jersey Earned Income Tax Credit (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
