@@ -181,7 +181,7 @@ describe StateFileDependent do
     end
   end
 
-  describe "#calculate_age" do
+  describe "#calculate_dependent_age" do
     let(:dependent) { create :state_file_dependent, dob: dob, intake: intake }
     let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
     let(:intake) { create :state_file_az_intake }
@@ -189,13 +189,13 @@ describe StateFileDependent do
     context "when following federal guidelines" do
       context "when calculating age for benefit one ages into" do
         it "includes Jan 1st b-days for the past tax year" do
-          expect(dependent.calculate_age(inclusive_of_jan_1: true)).to eq 11
+          expect(dependent.calculate_dependent_age(inclusive_of_jan_1: true)).to eq 11
         end
       end
 
       context "when calculating age for benefits one ages out of" do
         it "doesn't include Jan 1st for the past tax year" do
-          expect(dependent.calculate_age(inclusive_of_jan_1: false)).to eq 10
+          expect(dependent.calculate_dependent_age(inclusive_of_jan_1: false)).to eq 10
         end
       end
     end
@@ -203,8 +203,8 @@ describe StateFileDependent do
     context "when Maryland intake" do
       let(:intake) { create :state_file_md_intake }
       it "doesn't include Jan 1st in the past tax year" do
-        expect(dependent.calculate_age(inclusive_of_jan_1: true)).to eq 10
-        expect(dependent.calculate_age(inclusive_of_jan_1: false)).to eq 10
+        expect(dependent.calculate_dependent_age(inclusive_of_jan_1: true)).to eq 10
+        expect(dependent.calculate_dependent_age(inclusive_of_jan_1: false)).to eq 10
       end
     end
   end

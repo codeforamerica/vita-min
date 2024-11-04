@@ -376,16 +376,18 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def spouse_senior?
-    return nil unless spouse_birth_date.present?
+    return nil unless filing_status_mfj?
 
     calculate_age(inclusive_of_jan_1: true, dob: spouse_birth_date) >= 65
   end
 
   def calculate_age(inclusive_of_jan_1: true, dob: primary_birth_date)
-    # federal guidelines: you qualify for age related benefits the day before your birthday
-    # that means for a given tax year those born on Jan 1st the following tax-year will be included
-    # this does not apply for benefits you age out of or any age calculations for Maryland
-    raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
+    # In tax returns, all ages are calculated based on the last day of the current tax year
+    # Federal exception: for age related benefits, the day before your birthday is when you become older
+    # - Those born on Jan 1st become older on Dec 31st (so are a year older than their birth year would indicate)
+    # - This does not apply for benefits you age out of, such as turning 17 and not being a dependent anymore
+    # - Maryland does not follow the "older on the day before your birthday" rule in any circumstance
+    raise StandardError, "Missing date-of-birth" if dob.nil?
 
     birth_year = dob.year
     if inclusive_of_jan_1
