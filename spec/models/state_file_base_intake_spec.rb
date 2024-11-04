@@ -158,17 +158,15 @@ describe StateFileBaseIntake do
     let(:intake) { create :state_file_az_intake, primary_birth_date: dob }
     let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 10), 1, 1) }
 
-    context "when following federal guidelines" do
-      context "when calculating age for benefit one ages into" do
-        it "includes Jan 1st b-days for the past tax year" do
-          expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 11
-        end
+    context "when calculating age inclusive of Jan 1" do
+      it "Jan 1 birthdays are older at the end of this tax year" do
+        expect(intake.calculate_age(dob, true)).to eq 11
       end
+    end
 
-      context "when calculating age for benefits one ages out of" do
-        it "doesn't include Jan 1st for the past tax year" do
-          expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
-        end
+    context "when calculating age not inclusive of Jan 1" do
+      it "Jan 1 birthdays are not older at the end of this tax year" do
+        expect(intake.calculate_age(dob, false)).to eq 10
       end
     end
   end

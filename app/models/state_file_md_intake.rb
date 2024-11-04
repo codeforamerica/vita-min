@@ -114,12 +114,12 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
-  def calculate_age(inclusive_of_jan_1: false, dob: primary_birth_date)
+  def calculate_age(dob, inclusive_of_jan_1)
     # overwriting the base intake method b/c
     # MD always considers individuals to attain their age on their DOB
-    raise StandardError, "Missing date-of-birth" if dob.nil?
+    inclusive_of_jan_1 = false
 
-    MultiTenantService.statefile.current_tax_year - dob.year
+    super
   end
 
   def filing_status

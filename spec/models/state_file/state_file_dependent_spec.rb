@@ -181,30 +181,52 @@ describe StateFileDependent do
     end
   end
 
-  describe "#calculate_dependent_age" do
-    let(:dependent) { create :state_file_dependent, dob: dob, intake: intake }
-    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+  describe "#under_17?" do
+    let(:dob_jan_1_16_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 16), 1, 1) }
+    let(:dependent_17_next_year) { create :state_file_dependent, dob: dob_jan_1_16_years_ago, intake: intake }
+
+    let(:dob_jan_1_17_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 17), 1, 1) }
+    let(:dependent_17_this_year) { create :state_file_dependent, dob: dob_jan_1_17_years_ago, intake: intake }
+
     let(:intake) { create :state_file_az_intake }
 
-    context "when following federal guidelines" do
-      context "when calculating age for benefit one ages into" do
-        it "includes Jan 1st b-days for the past tax year" do
-          expect(dependent.calculate_dependent_age(inclusive_of_jan_1: true)).to eq 11
-        end
-      end
-
-      context "when calculating age for benefits one ages out of" do
-        it "doesn't include Jan 1st for the past tax year" do
-          expect(dependent.calculate_dependent_age(inclusive_of_jan_1: false)).to eq 10
-        end
+    context "when following federal guidelines for benefits dependents age out of" do
+      it "Jan 1st b-days are considered older on Jan 1st" do
+        expect(dependent_17_next_year.under_17?).to eq true
+        expect(dependent_17_this_year.under_17?).to eq false
       end
     end
 
-    context "when Maryland intake" do
+    context "when following Maryland guidelines" do
       let(:intake) { create :state_file_md_intake }
-      it "doesn't include Jan 1st in the past tax year" do
-        expect(dependent.calculate_dependent_age(inclusive_of_jan_1: true)).to eq 10
-        expect(dependent.calculate_dependent_age(inclusive_of_jan_1: false)).to eq 10
+      it "Jan 1st b-days are considered older on Jan 1st" do
+        expect(dependent_17_next_year.under_17?).to eq true
+        expect(dependent_17_this_year.under_17?).to eq false
+      end
+    end
+  end
+
+  describe "#senior?" do
+    let(:dob_jan_1_64_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+    let(:dependent_65_next_year) { create :state_file_dependent, dob: dob_jan_1_64_years_ago, intake: intake }
+
+    let(:dob_jan_1_65_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+    let(:dependent_65_this_year) { create :state_file_dependent, dob: dob_jan_1_65_years_ago, intake: intake }
+
+    let(:intake) { create :state_file_az_intake }
+
+    context "when following federal guidelines for benefits dependents age into" do
+      it "Jan 1st b-days are considered older on Dec 31st" do
+        expect(dependent_65_next_year.senior?).to eq true
+        expect(dependent_65_this_year.senior?).to eq true
+      end
+    end
+
+    context "when following Maryland guidelines" do
+      let(:intake) { create :state_file_md_intake }
+      it "Jan 1st b-days are considered older on Jan 1st" do
+        expect(dependent_65_next_year.senior?).to eq false
+        expect(dependent_65_this_year.senior?).to eq true
       end
     end
   end

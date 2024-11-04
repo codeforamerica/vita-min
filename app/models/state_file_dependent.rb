@@ -82,15 +82,15 @@ class StateFileDependent < ApplicationRecord
   end
 
   def under_17?
-    calculate_dependent_age(inclusive_of_jan_1: false) < 17
+    calculate_age(false) < 17
   end
 
   def senior?
-    calculate_dependent_age(inclusive_of_jan_1: true) >= 65
+    calculate_age(true) >= 65
   end
 
-  def calculate_dependent_age(inclusive_of_jan_1: true)
-    intake.calculate_age(inclusive_of_jan_1: inclusive_of_jan_1, dob: dob)
+  def calculate_age(inclusive_of_jan_1)
+    intake.calculate_age(dob, inclusive_of_jan_1)
   end
 
   def eligible_for_child_tax_credit
