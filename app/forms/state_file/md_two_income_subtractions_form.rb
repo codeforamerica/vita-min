@@ -22,6 +22,3 @@ module StateFile
     end
   end
 end
-
-# Total entered in primary and/or spouse box must equal the student loan interest deduction from the federal return
-# If it does not, block them from proceeding and show error copy: “The total of you and/or your spouse’s student loan interest deduction must equal [federal student loan interest deduction amount]
