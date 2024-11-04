@@ -41,7 +41,8 @@ module PdfFiller
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',
-        'PymntOtherCreditL43Amount' => @xml_document.at('GroceryCredit')&.text
+        'PymntOtherCreditL43Amount' => @xml_document.at('GroceryCredit')&.text,
+        'PymntOtherCreditL46' => @xml_document.at('TaxWithheld')&.text,
       }
       @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(

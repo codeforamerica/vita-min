@@ -21,6 +21,7 @@ module Efile
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
+        set_line(:ID40_LINE_46, :calculate_line_46)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -99,6 +100,12 @@ module Efile
 
       def calculate_line_43
         @lines[:ID40_LINE_43_DONATE]&.value ? 0 : line_or_zero(:ID40_LINE_43_WORKSHEET)
+      end
+
+      def calculate_line_46
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end

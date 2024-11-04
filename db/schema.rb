@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1830,8 +1830,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_health_insurance_premium", default: 0, null: false
     t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
+    t.decimal "health_insurance_paid_amount", precision: 12, scale: 2
     t.integer "household_has_grocery_credit_ineligible_months", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1849,6 +1851,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.integer "primary_months_ineligible_for_grocery_credit", default: 0
+    t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1864,6 +1867,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.integer "spouse_months_ineligible_for_grocery_credit", default: 0
+    t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -1872,6 +1876,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.integer "withdraw_amount"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_id_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_id_intakes_on_spouse_state_id_id"
   end
 
   create_table "state_file_md1099_r_followups", force: :cascade do |t|
@@ -2075,7 +2081,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
-    t.integer "medical_expenses", default: 0, null: false
+    t.decimal "medical_expenses", precision: 12, scale: 2, default: "0.0", null: false
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
@@ -2097,13 +2103,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
-    t.integer "property_tax_paid"
+    t.integer "primary_veteran", default: 0, null: false
+    t.decimal "property_tax_paid", precision: 12, scale: 2
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
-    t.integer "rent_paid"
+    t.decimal "rent_paid", precision: 12, scale: 2
     t.string "routing_number"
-    t.integer "sales_use_tax"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
@@ -2117,6 +2124,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
     t.integer "tenant_access_kitchen_bath", default: 0, null: false
     t.integer "tenant_building_multi_unit", default: 0, null: false
     t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
@@ -2258,6 +2266,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_28_231420) do
   end
 
   create_table "state_file_w2s", force: :cascade do |t|
+    t.decimal "box14_stpickup", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"

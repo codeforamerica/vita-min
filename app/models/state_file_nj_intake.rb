@@ -36,7 +36,7 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :integer          default(0), not null
+#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
@@ -57,13 +57,14 @@
 #  primary_signature                                      :string
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
-#  property_tax_paid                                      :integer
+#  primary_veteran                                        :integer          default("unfilled"), not null
+#  property_tax_paid                                      :decimal(12, 2)
 #  raw_direct_file_data                                   :text
 #  raw_direct_file_intake_data                            :jsonb
 #  referrer                                               :string
-#  rent_paid                                              :integer
+#  rent_paid                                              :decimal(12, 2)
 #  routing_number                                         :string
-#  sales_use_tax                                          :integer
+#  sales_use_tax                                          :decimal(12, 2)
 #  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
@@ -76,6 +77,7 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
+#  spouse_veteran                                         :integer          default("unfilled"), not null
 #  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
 #  tenant_building_multi_unit                             :integer          default("unfilled"), not null
 #  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
@@ -126,6 +128,9 @@ class StateFileNjIntake < StateFileBaseIntake
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
 
+  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
+  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
+
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
 
@@ -139,6 +144,9 @@ class StateFileNjIntake < StateFileBaseIntake
     return :has_out_of_state_w2 if w2_states.any? do |state|
       !(state.text || '').casecmp(state_code).zero?
     end
+
+    tax_exempt_interest_income = calculator.calculate_tax_exempt_interest_income
+    return :exempt_interest_exceeds_10k if tax_exempt_interest_income > 10_000
   end
 
   def disqualifying_eligibility_rules

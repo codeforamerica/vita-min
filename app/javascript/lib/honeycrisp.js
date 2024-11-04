@@ -1,41 +1,39 @@
-var incrementer = (function() {
+var incrementer = (function () {
     var i = {
-        increment: function(input) {
+        increment: function (input) {
             var max = parseInt($(input).attr('max'));
             var value = parseInt($(input).val());
-            if(max != undefined) {
-                if(value < max) {
-                    $(input).val(value+1);
+            if (max != undefined) {
+                if (value < max) {
+                    $(input).val(value + 1);
                 }
-            }
-            else {
-                $(input).val(parseInt($(input).val())+1);
+            } else {
+                $(input).val(parseInt($(input).val()) + 1);
             }
         },
-        decrement: function(input) {
+        decrement: function (input) {
             var min = parseInt($(input).attr('min'));
             var value = parseInt($(input).val());
-            if(min != undefined) {
-                if(value > min) {
-                    $(input).val(value-1);
+            if (min != undefined) {
+                if (value > min) {
+                    $(input).val(value - 1);
                 }
-            }
-            else {
-                $(input).val(value-1);
+            } else {
+                $(input).val(value - 1);
             }
 
         },
-        init: function() {
-            $('.incrementer').each(function(index, incrementer) {
+        init: function () {
+            $('.incrementer').each(function (index, incrementer) {
                 var addButton = $(incrementer).find('.incrementer__add');
                 var subtractButton = $(incrementer).find('.incrementer__subtract');
                 var input = $(incrementer).find('.text-input');
 
-                $(addButton).click(function(e) {
+                $(addButton).click(function (e) {
                     i.increment(input);
                 });
 
-                $(subtractButton).click(function(e) {
+                $(subtractButton).click(function (e) {
                     i.decrement(input);
                 });
             });
@@ -46,17 +44,25 @@ var incrementer = (function() {
     }
 })();
 
-var radioSelector = (function() {
+var radioSelector = (function () {
     var rs = {
-        init: function() {
-            $('.radio-button').each(function(index, button){
-                if($(this).find('input').is(':checked')) {
+        init: function () {
+            $('.radio-button').each(function (index, button) {
+                if ($(this).find('input').is(':checked')) {
                     $(this).addClass('is-selected');
                 }
 
                 $(this).find('input').click(function (e) {
-                    $(this).closest('.radio-button').siblings().removeClass('is-selected')
-                    $(this).closest('.radio-button').addClass('is-selected')
+                    var allRadioButtons;
+                    if ($(this).closest('.cfa-radio-button').length > 0) {
+                        // FormBuilder V2
+                        allRadioButtons = $(this).closest('.cfa-radio-button').siblings().children('.is-selected');
+                    } else {
+                        // FormBuilder V1 & GCF
+                        allRadioButtons = $(this).closest('.radio-button').siblings();
+                    }
+                    allRadioButtons.removeClass('is-selected');
+                    $(this).closest('.radio-button').addClass('is-selected');
                 })
             })
         }
@@ -66,20 +72,19 @@ var radioSelector = (function() {
     }
 })();
 
-var checkboxSelector = (function() {
+var checkboxSelector = (function () {
     var cs = {
-        init: function() {
-            $('.checkbox').each(function(index, button){
-                if($(this).find('input').is(':checked')) {
+        init: function () {
+            $('.checkbox').each(function (index, button) {
+                if ($(this).find('input').is(':checked')) {
                     $(this).addClass('is-selected');
                 }
 
-                $(this).find('input').click(function(e) {
-                    if($(this).is(':checked')) {
-                        $(this).parent().addClass('is-selected');
-                    }
-                    else {
-                        $(this).parent().removeClass('is-selected');
+                $(this).find('input').click(function (e) {
+                    if ($(this).is(':checked')) {
+                        $(this).closest('.checkbox').addClass('is-selected');
+                    } else {
+                        $(this).closest('.checkbox').removeClass('is-selected');
                     }
                 })
             })
@@ -90,15 +95,15 @@ var checkboxSelector = (function() {
     }
 })();
 
-var followUpQuestion = (function() {
+var followUpQuestion = (function () {
     var fUQ = {
-        init: function() {
-            $('.question-with-follow-up').each(function(index, question) {
+        init: function () {
+            $('.question-with-follow-up').each(function (index, question) {
                 var self = this;
 
                 // set initial state of follow-ups based on the page
-                $(this).find('input').each(function(index, input) {
-                    if($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
+                $(this).find('input').each(function (index, input) {
+                    if ($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
                         $($(this).attr('data-follow-up')).show();
                     }
                 });
@@ -107,7 +112,7 @@ var followUpQuestion = (function() {
                 let hide_other_follow_ups = $(this).attr('data-hide-other-follow-ups') !== "false";
 
                 // add click listeners to initial question inputs
-                $(self).find('> .question-with-follow-up__question input').click(function(e) {
+                $(self).find('> .question-with-follow-up__question input').click(function (e) {
                     if (reset_other_follow_ups) {
                         $(self).find('> .question-with-follow-up__follow-up input').attr('checked', false);
                         $(self).find('> .question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
@@ -117,31 +122,59 @@ var followUpQuestion = (function() {
                     }
 
                     // toggle the current follow up
-                    if($(this).attr('data-follow-up') != null) {
+                    if ($(this).attr('data-follow-up') != null) {
                         if ($(this).is(':checked')) {
                             $($(this).attr('data-follow-up')).show();
                         } else {
                             $($(this).attr('data-follow-up')).hide();
                         }
                     }
-                })
+                    fUQ.update($(self));
+                });
+            });
+        },
+        update: function ($container) {
+            // reset follow ups
+            $container.find('.question-with-follow-up__follow-up input').attr('disabled', true);
+            $container.find('.question-with-follow-up__follow-up').hide();
+
+            $container.find('.question-with-follow-up__question input').each(function (index, input) {
+                // if any of the inputs with a data-follow-up is checked then show the follow-up
+                if ($(input).is(':checked') && $(input).attr('data-follow-up') != null) {
+                    $container.find('.question-with-follow-up__follow-up input').attr('disabled', false);
+                    var followUpSelector = $(this).attr('data-follow-up');
+                    if (/^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
+                        $(followUpSelector).show();
+                    }
+                }
             });
         }
     }
     return {
-        init: fUQ.init
+        init: fUQ.init,
+        update: fUQ.update
     }
 })();
 
-var revealer = (function() {
+var revealer = (function () {
     var rv = {
-        init: function() {
-            $('.reveal').each(function(index, revealer) {
+        init: function () {
+            $('.reveal').each(function (index, revealer) {
                 var self = revealer;
                 $(self).addClass('is-hiding-content');
-                $(self).find('.reveal__link').click(function(e) {
+                var revealButton = $(self).find('.reveal__button')
+                revealButton.each(function (i, link) {
+                    link.setAttribute('aria-expanded', false)
+                })
+                revealButton.click(function (e) {
                     e.preventDefault();
                     $(self).toggleClass('is-hiding-content');
+
+                    if (this.getAttribute('aria-expanded') === 'false') {
+                        this.setAttribute('aria-expanded', 'true');
+                    } else {
+                        this.setAttribute('aria-expanded', 'false')
+                    }
                 });
             });
         }
@@ -151,17 +184,17 @@ var revealer = (function() {
     }
 })();
 
-var immediateUpload = (function() {
-    var uploader = function() {
+var immediateUpload = (function () {
+    var uploader = function () {
         var $formInputs = $('input[type="file"][data-upload-immediately]');
 
-        $formInputs.each(function(index, formInput) {
+        $formInputs.each(function (index, formInput) {
             let $formInput = $(formInput);
             var $form = $formInput.closest('form');
             let requiredSelectId = $formInput.data('requires-value-for');
             if (requiredSelectId) {
                 let $select = $(`#${requiredSelectId}`);
-                let handleSelectChange = function(event) {
+                let handleSelectChange = function (event) {
                     let hasRequiredValue = $select.val() == '';
                     formInput.disabled = hasRequiredValue;
                     $form.toggleClass('file-selection-disabled', hasRequiredValue)
@@ -173,7 +206,7 @@ var immediateUpload = (function() {
             $form.find("input[type=submit]").hide();
             $form.find('label[for=' + formInput.id + ']').show();
             $formInput.addClass('file-upload__input');
-        }).change(function(event) {
+        }).change(function (event) {
             $(this).closest('form').submit();
             var dataUploading = $formInputs.data("uploading");
             if (dataUploading) {
@@ -187,18 +220,18 @@ var immediateUpload = (function() {
     }
 })();
 
-var inputGroupSelector = (function() {
+var inputGroupSelector = (function () {
     var igs = {
-        init: function() {
-            $('.text-input-group .text-input').each(function(index, input) {
-                if($(this).attr('autofocus')) {
+        init: function () {
+            $('.text-input-group .text-input').each(function (index, input) {
+                if ($(this).attr('autofocus')) {
                     $(this).parent().addClass('is-focused');
                 }
-                $(this).focusin(function() {
+                $(this).focusin(function () {
                     $(this).parent().addClass('is-focused');
                 })
 
-                $(this).focusout(function() {
+                $(this).focusout(function () {
                     $(this).parent().removeClass('is-focused');
                 })
 
@@ -210,23 +243,31 @@ var inputGroupSelector = (function() {
     }
 })();
 
-var noneOfTheAbove = (function() {
+var noneOfTheAbove = (function () {
     var noneOf = {
         init: function () {
             var $noneCheckbox = $('#none__checkbox');
             var $otherCheckboxes = $('input[type=checkbox]').not('#none__checkbox');
 
             // Uncheck None if another checkbox is checked
-            $otherCheckboxes.click(function(e) {
+            $otherCheckboxes.click(function (e) {
                 $noneCheckbox.prop('checked', false);
                 $noneCheckbox.parent().removeClass('is-selected');
             });
 
             // Uncheck all others if None is checked
-            $noneCheckbox.click(function(e) {
+            $noneCheckbox.click(function (e) {
                 $otherCheckboxes.prop('checked', false);
                 $otherCheckboxes.parent().removeClass('is-selected');
+
+                // If we just unchecked an <input> with a follow-up, let's reset the follow-up questions
+                // so it hides properly.
+                var $enclosingFollowUp = $noneCheckbox.closest('.question-with-follow-up');
+                if ($enclosingFollowUp) {
+                    followUpQuestion.update($enclosingFollowUp);
+                }
             });
+
         }
     };
     return {
@@ -247,20 +288,19 @@ var showMore = (function () {
     }
 })();
 
-var accordion = (function() {
+var accordion = (function () {
     var ac = {
-        init: function() {
-            $('.accordion').each(function(index, accordion) {
+        init: function () {
+            $('.accordion').each(function (index, accordion) {
                 var self = accordion;
                 $(self).addClass('accordion--is-closed');
                 $(self).find('.accordion__button').attr('aria-expanded', "false");
-                $(self).find('.accordion__button').click(function(e) {
+                $(self).find('.accordion__button').click(function (e) {
                     e.preventDefault();
                     $(self).toggleClass('accordion--is-closed');
-                    if($(self).find('.accordion__button').attr('aria-expanded') == "false") {
+                    if ($(self).find('.accordion__button').attr('aria-expanded') == "false") {
                         $(self).find('.accordion__button').attr('aria-expanded', "true");
-                    }
-                    else {
+                    } else {
                         $(self).find('.accordion__button').attr('aria-expanded', "false");
                     }
                 });
@@ -284,7 +324,7 @@ var selectBodyBottomMargin = (function () {
     }
 })();
 
-var autoformatEventHandler = function(characterMap, maxDigits) {
+var autoformatEventHandler = function (characterMap, maxDigits) {
     return function (_e) {
         var input = $(this);
         var unformattedValue = input.val()
@@ -302,22 +342,22 @@ var autoformatEventHandler = function(characterMap, maxDigits) {
     }
 };
 
-function formatNumericInput(selector, characterMap, maxDigits){
+function formatNumericInput(selector, characterMap, maxDigits) {
     var handler = autoformatEventHandler(characterMap, maxDigits);
-    $(selector).each(function (_index, input){
+    $(selector).each(function (_index, input) {
         handler.call(this, null); // format existing value on page load (not yet tested, need JS testing first)
         $(input).on('input', handler);
     });
 }
 
 var numericFormatters = {
-    init: function(){
+    init: function () {
         formatNumericInput('.phone-input', {0: '(', 3: ') ', 6: '-'}, 10);
         formatNumericInput('.ssn-input', {3: '-', 5: '-'}, 9);
     }
 };
 
-var honeycrispInit = function() {
+var honeycrispInit = function () {
     incrementer.init();
     radioSelector.init();
     checkboxSelector.init();
@@ -332,9 +372,9 @@ var honeycrispInit = function() {
     numericFormatters.init();
 }
 
-var Honeycrisp = function(){
+var Honeycrisp = function () {
     return {
-        init: function() {
+        init: function () {
             $(document).ready(function () {
                 honeycrispInit();
             });
@@ -343,4 +383,3 @@ var Honeycrisp = function(){
 }();
 
 Honeycrisp.init();
-
