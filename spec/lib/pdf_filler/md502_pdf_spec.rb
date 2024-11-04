@@ -251,6 +251,58 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
+    context "deduction" do
+      context "method" do
+        it "checks box if standard deduction" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(pdf_fields["Check Box 34"]).to eq "Yes"
+        end
+
+        it "does not check box if non-standard deduction" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(pdf_fields["Check Box 34"]).to eq "Off"
+        end
+      end
+
+      context "amount" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 500
+        end
+
+        it "fills out amount if method is standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(pdf_fields["Enter 17"]).to eq "500"
+        end
+
+        it "leaves amount blank if method is not standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(pdf_fields["Enter 17"]).to be_empty
+        end
+      end
+    end
+
+    context "tax computation" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 50
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 60
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 70
+      end
+
+      it "fills out amount if deduction method is standard" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+        expect(pdf_fields["Enter 18"]).to eq "50"
+        expect(pdf_fields["Enter 19 "]).to eq "60"
+        expect(pdf_fields["Enter 20"]).to eq "70"
+      end
+
+      it "leaves amount blank if deduction method is not standard" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+        expect(pdf_fields["Enter 18"]).to be_empty
+        expect(pdf_fields["Enter 19 "]).to be_empty
+        expect(pdf_fields["Enter 20"]).to be_empty
+      end
+    end
+
     context "EIC" do
       context "there are qualifying children and state EIC" do
         before do

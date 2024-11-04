@@ -11,9 +11,8 @@ module StateFile
       presence: true,
       numericality: {
         allow_blank: true,
-        only_integer: true,
         greater_than_or_equal_to: 0,
-        message: :round_to_whole_number
+        message: I18n.t("validators.not_a_number")
       },
       if: -> { sales_use_tax_calculation_method == "manual" }
 

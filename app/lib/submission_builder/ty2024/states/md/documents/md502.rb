@@ -97,8 +97,15 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
       end
-      if has_eic?
+      xml.Deduction do
+        xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
+        xml.Amount calculated_fields.fetch(:MD502_LINE_17) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+      end
+      xml.NetIncome calculated_fields.fetch(:MD502_LINE_18) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+      xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+      if has_state_tax_computation? #change this method
         xml.StateTaxComputation do
+          xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
         end
@@ -144,8 +151,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
     has_dependent_exemption? || has_line_a_or_b_exemptions
   end
 
-  def has_eic?
+  def has_state_tax_computation?
     [
+      :MD502_LINE_20,
       :MD502_LINE_22,
       :MD502_LINE_22B
     ].any? do |line|

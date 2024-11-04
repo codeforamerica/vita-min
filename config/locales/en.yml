@@ -235,7 +235,6 @@ en:
       blank: Can't be blank.
       invalid: is invalid
       only_letters: Only letters are accepted
-      round_to_whole_number: Round to the nearest whole number
       whole_number: must be a whole number
   forms:
     errors:
@@ -2523,6 +2522,39 @@ en:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
             bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+      id_health_insurance_premium:
+        edit:
+          amount_paid_helper_text: Total amount paid in %{year}
+          do_not_include_notice_html: |
+            Some health insurance premiums do not qualify for this subtraction. <b>Do not include</b> any premiums paid using the following:
+
+            <ul class="list--bulleted">
+              <li><b>Idaho medical savings account:</b> Funds used from this account cannot be deducted again.</li>
+              <li><b>Salary reduction plans:</b> Premiums deducted from your paycheck before taxes do not qualify.</li>
+              <li><b>Social Security Medicare A and B:</b> No deduction for employer-required Medicare A payments.</li>
+            </ul>
+          health_insurance_premium_question:
+            one: Did you pay health insurance premiums for yourself in %{year}?
+            other: Did you pay health insurance premiums for yourself and your household in %{year}?
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_title: Do Medicaid payments count?
+          qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including Medicaid, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
+          qualifications_title: Which health coverage premiums qualify?
+          qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
+          subtitle:
+            one: To see if you qualify, we need more information about you.
+            other: To see if you qualify, we need more information about you and your household.
+          title: You might be eligible for the Idaho Health Insurance Premium Deduction!
+          what_is_content_html: |
+            A health insurance premium is the monthly fee you pay for your health coverage.
+
+            You can find your premium amounts on your:
+            <ul>
+              <li>Monthly pay stub</li>
+              <li>Form 1095-C</li>
+              <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
+            </ul>
+          what_is_title: What is a health insurance premium?
       id_primary_state_id:
         id_primary:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
@@ -2530,6 +2562,9 @@ en:
           subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
           title: We need some details from your state-issued ID, if you have one
           why_ask_this: Why are you asking for this information?
+      id_review:
+        edit:
+          health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2762,13 +2797,14 @@ en:
           primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+          rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_disabled: My spouse has a disability
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
       nj_sales_use_tax:
         edit:
           followup_radio_label: Select one of the following
-          manual_use_tax_label: Enter calculated use tax. (Round to the nearest whole number)
+          manual_use_tax_label: Enter total calculated use tax
           subtitle: 'This includes:'
           subtitle_list_html: |
             <li>Items purchased or services performed out-of-state, where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</li>
