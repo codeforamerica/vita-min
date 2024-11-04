@@ -6,7 +6,7 @@ module Efile
       def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
-        @intake = intake
+        intake = intake
         @direct_file_json_data = intake.direct_file_json_data
       end
 

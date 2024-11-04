@@ -57,6 +57,10 @@ module PdfFiller
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
+        'Text Field 9': generate_codes_for_502_su.at(0),
+        'Text Field 10': generate_codes_for_502_su.at(1),
+        'Text Field 11': generate_codes_for_502_su.at(2),
+        'Text Field 12': generate_codes_for_502_su.at(3),
         'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
       }
@@ -76,6 +80,22 @@ module PdfFiller
 
     def checkbox_value(value)
       value.present? ? 'Yes' : 'Off'
+    end
+
+    def generate_codes_for_502_su
+      calculated_fields_code_letters = {MD502_SU_LINE_AB: "ab"}
+      applicable_codes = []
+
+      if calculated_fields[:MD502_SU_LINE_1]
+        calculated_fields_code_letters.each do |calculated_field, code_letter|
+          applicable_codes << code_letter if calculated_fields[calculated_field]
+        end
+      end
+      applicable_codes
+    end
+
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end

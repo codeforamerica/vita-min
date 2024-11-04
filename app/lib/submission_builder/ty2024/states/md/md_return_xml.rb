@@ -31,6 +31,7 @@ module SubmissionBuilder
           def supported_documents
             calculated_fields = @submission.data_source.tax_calculator.calculate
             has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i.positive?
+            has_md_su_subtractions = calculated_fields.fetch(:MD502_SU_LINE_1)
 
             supported_docs = [
               {
@@ -61,7 +62,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su,
                 pdf: PdfFiller::Md502SuPdf,
-                include: true,
+                include: has_md_su_subtractions,
               }
             ]
 

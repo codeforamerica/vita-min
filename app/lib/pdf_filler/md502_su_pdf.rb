@@ -9,7 +9,6 @@ module PdfFiller
     def initialize(submission)
       @submission = submission
       builder = StateFile::StateInformationService.submission_builder_class(:md)
-      @xml_document = builder.new(submission).document
     end
 
     def hash_for_pdf

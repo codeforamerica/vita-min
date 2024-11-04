@@ -241,7 +241,6 @@ RSpec.describe PdfFiller::Md502Pdf do
 
     context "subtractions" do
       before do
-        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
         intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
         intake.direct_file_data.fed_taxable_ssb = 240
       end
@@ -249,6 +248,20 @@ RSpec.describe PdfFiller::Md502Pdf do
       it "fills out subtractions fields correctly" do
         expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
         expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
+      end
+    end
+
+    context "with 502SU Subtractions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
+      end
+
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Text Field 9"]).to eq "ab"
+        expect(pdf_fields["Text Field 10"]).to eq ""
+        expect(pdf_fields["Text Field 11"]).to eq ""
+        expect(pdf_fields["Text Field 12"]).to eq ""
         expect(pdf_fields["Enter 13"].to_i).to eq 100
       end
     end
