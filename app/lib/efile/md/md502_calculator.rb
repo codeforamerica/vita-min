@@ -384,15 +384,15 @@ module Efile
 
       def calculate_line_22
         # Earned Income Credit (EIC)
-        if (filing_status_mfj? || filing_status_mfs?) && @direct_file_data.fed_eic_qc_claimed
+        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           @direct_file_data.fed_eic * 0.50
-        elsif (filing_status_single? || filing_status_hoh? || filing_status_qw?) && !@direct_file_data.fed_eic_qc_claimed
+        elsif !@direct_file_data.fed_eic_qc_claimed && (filing_status_single? || filing_status_hoh? || filing_status_qw?)
           [@direct_file_data.fed_eic, 600].min
         end
       end
 
       def calculate_line_22b
-        @direct_file_data.fed_eic_qc_claimed ? "X" : nil
+        (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
       end
 
       def filing_status_dependent?

@@ -654,80 +654,6 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  describe "#calculate_line_22" do
-    let(:filing_status) { "married_filing_jointly" }
-    let(:df_xml_key) { "md_laney_qss" }
-    let!(:intake) {
-      create(
-        :state_file_md_intake,
-        filing_status: filing_status,
-        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
-      )
-    }
-    let(:federal_eic) { 1000 }
-
-    before do
-      intake.direct_file_data.fed_eic = federal_eic
-      instance.calculate
-    end
-
-    context "when mfj and at least one qualifying child" do
-      it 'EIC is half the federal EIC' do
-        expect(instance.lines[:MD502_LINE_22].value).to eq 500
-      end
-    end
-
-    context "when mfj and no qualifying children" do
-      let(:df_xml_key) { "md_zeus_two_w2s" }
-      it 'EIC is 0' do
-        expect(instance.lines[:MD502_LINE_22].value).to eq 0
-      end
-    end
-
-    context "when single and no qualifying children" do
-      let(:filing_status) { "single" }
-      let(:df_xml_key) { "md_zeus_two_w2s" }
-
-      context "when federal EIC is less than 600" do
-        let(:federal_eic) { 500 }
-        it "EIC is equal to the federal EIC" do
-          expect(instance.lines[:MD502_LINE_22].value).to eq 500
-        end
-      end
-
-      context "when federal EIC is more than 600" do
-        it "returns 600" do
-          expect(instance.lines[:MD502_LINE_22].value).to eq 600
-        end
-      end
-    end
-
-  end
-
-  describe "#calculate_line_22b" do
-    let(:df_xml_key) { "md_laney_qss" }
-    let!(:intake) {
-      create(
-        :state_file_md_intake,
-        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
-      )
-    }
-    context "when has at least one qualifying EIC child" do
-      it "returns X" do
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_22B].value).to eq "X"
-      end
-    end
-
-    context "when no qualifying EIC child" do
-      let(:df_xml_key) { "md_zeus_two_w2s" }
-      it "returns nil" do
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
-      end
-    end
-  end
-
   describe "#calculate_line_1e" do
     let(:filing_status) { "single" }
 
@@ -1007,6 +933,106 @@ describe Efile::Md::Md502Calculator do
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
         instance.calculate
         expect(instance.lines[:MD502_LINE_20].value).to eq 0
+      end
+    end
+  end
+
+  describe "#calculate_line_22" do
+    let(:filing_status) { "married_filing_jointly" }
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    let(:federal_eic) { 1000 }
+
+    before do
+      intake.direct_file_data.fed_eic = federal_eic
+      instance.calculate
+    end
+
+    context "when mfj and at least one qualifying child" do
+      it 'EIC is half the federal EIC' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 500
+      end
+    end
+
+    context "when mfj and no qualifying children" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'EIC is 0' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 500
+      end
+    end
+
+    context "when single and no qualifying children" do
+      let(:filing_status) { "single" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      context "when federal EIC is less than 600" do
+        let(:federal_eic) { 500 }
+        it "EIC is equal to the federal EIC" do
+          expect(instance.lines[:MD502_LINE_22].value).to eq 500
+        end
+      end
+
+      context "when federal EIC is more than 600" do
+        it "returns 600" do
+          expect(instance.lines[:MD502_LINE_22].value).to eq 600
+        end
+      end
+    end
+
+    context "when filing as a dependent and no qualifying children" do
+      let(:filing_status) { "dependent" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'EIC is nil' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_22b" do
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    context "when has at least one qualifying EIC child and MD EIC is over 0" do
+      it "returns X" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq "X"
+      end
+    end
+
+    context "when no qualifying EIC child and MD EIC is over 0" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+
+    context "when has at least one qualifying EIC child but MD EIC is 0" do
+      it "returns X" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+
+    context "when no qualifying EIC child and MD EIC is 0" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it "returns X" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
       end
     end
   end
