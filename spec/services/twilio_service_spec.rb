@@ -1,6 +1,30 @@
 require 'rails_helper'
 
 describe TwilioService do
+  describe "multi-tenant support" do
+    before do
+      @test_environment_credentials.merge!(twilio: { messaging_services: {
+        gyr: 'gyr',
+        statefile: 'fystlol',
+        ctc: 'ctc'
+      }})
+    end
+
+    it "instantiates as a gyr messanger by default" do
+      actual = TwilioService.new.messaging_service_sid
+      expected = @test_environment_credentials[:twilio][:messaging_services][:gyr]
+      expect(actual).to eq expected
+    end
+
+    it "can instantiate as a messenger for all the apps the multi-tenant service knows about" do
+      MultiTenantService::SERVICE_TYPES.each do |service|
+        actual = TwilioService.new(service).messaging_service_sid
+        expected = @test_environment_credentials[:twilio][:messaging_services][service]
+        expect(actual).to eq expected
+      end
+    end
+  end
+
   describe ".valid_request?" do
     let(:request) { double }
     let(:post_data) do

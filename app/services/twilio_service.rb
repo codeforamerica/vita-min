@@ -17,7 +17,7 @@ class TwilioService
 
   attr_reader :client, :messaging_service_sid, :auth_token
 
-  def initialize(service_type)
+  def initialize(service_type = :gyr)
     creds = MultiTenantService.new(service_type).twilio_creds
     @messaging_service_sid = creds[:messaging_service_id]
     @auth_token = creds[:auth_token]
