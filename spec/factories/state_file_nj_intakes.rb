@@ -36,7 +36,7 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :integer          default(0), not null
+#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
@@ -57,14 +57,14 @@
 #  primary_signature                                      :string
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
-#  primary_veteran                                        :integer          default(0), not null
-#  property_tax_paid                                      :integer
+#  primary_veteran                                        :integer          default("unfilled"), not null
+#  property_tax_paid                                      :decimal(12, 2)
 #  raw_direct_file_data                                   :text
 #  raw_direct_file_intake_data                            :jsonb
 #  referrer                                               :string
-#  rent_paid                                              :integer
+#  rent_paid                                              :decimal(12, 2)
 #  routing_number                                         :string
-#  sales_use_tax                                          :integer
+#  sales_use_tax                                          :decimal(12, 2)
 #  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
@@ -77,7 +77,7 @@
 #  spouse_middle_initial                                  :string
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
-#  spouse_veteran                                         :integer          default(0), not null
+#  spouse_veteran                                         :integer          default("unfilled"), not null
 #  tenant_access_kitchen_bath                             :integer          default("unfilled"), not null
 #  tenant_building_multi_unit                             :integer          default("unfilled"), not null
 #  tenant_home_subject_to_property_taxes                  :integer          default("unfilled"), not null
@@ -112,6 +112,7 @@ FactoryBot.define do
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
     
     after(:build) do |intake, evaluator|
+      intake.municipality_code = "0101"
       numeric_status = {
         single: 1,
         married_filing_jointly: 2,
@@ -135,14 +136,11 @@ FactoryBot.define do
       end
       intake.update(overrides)
 
+      intake.synchronize_df_w2s_to_database
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
         dependent.update(dob: i.years.ago)
       end
-    end
-
-    trait :with_w2s_synced do
-      after(:create, &:synchronize_df_w2s_to_database)
     end
 
     trait :df_data_2_w2s do
@@ -187,6 +185,11 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_separately') }
     end
 
+    trait :df_data_exempt_interest do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_exempt_interest_over_10k') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_exempt_interest_over_10k') }
+    end
+
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }
@@ -226,7 +229,13 @@ FactoryBot.define do
 
     trait :primary_blind do
       after(:build) do |intake|
-        intake.direct_file_data.primary_blind = "X"
+        intake.direct_file_data.primary_blind
+      end
+    end
+
+    trait :spouse_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.spouse_blind
       end
     end
 
@@ -234,10 +243,8 @@ FactoryBot.define do
       primary_disabled { "yes" }
     end
 
-    trait :spouse_blind do
-      after(:build) do |intake|
-        intake.direct_file_data.spouse_blind = "X"
-      end
+    trait :spouse_disabled do
+      spouse_disabled { "yes" }
     end
 
     trait :fed_credit_for_child_and_dependent_care do
@@ -246,8 +253,12 @@ FactoryBot.define do
       end
     end
 
-    trait :spouse_disabled do
-      spouse_disabled { "yes" }
+    trait :primary_veteran do
+      primary_veteran { "yes" }
+    end
+
+    trait :spouse_veteran do
+      spouse_veteran { "yes" }
     end
   end
 end

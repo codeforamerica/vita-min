@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1827,8 +1827,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_health_insurance_premium", default: 0, null: false
     t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
+    t.decimal "health_insurance_paid_amount", precision: 12, scale: 2
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1909,11 +1911,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
-    t.integer "permanent_address_outside_md", default: 0, null: false
-    t.string "permanent_apartment"
-    t.string "permanent_city"
-    t.string "permanent_street"
-    t.string "permanent_zip"
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
@@ -2078,7 +2075,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
-    t.integer "medical_expenses", default: 0, null: false
+    t.decimal "medical_expenses", precision: 12, scale: 2, default: "0.0", null: false
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
@@ -2101,13 +2098,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.integer "primary_veteran", default: 0, null: false
-    t.integer "property_tax_paid"
+    t.decimal "property_tax_paid", precision: 12, scale: 2
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
-    t.integer "rent_paid"
+    t.decimal "rent_paid", precision: 12, scale: 2
     t.string "routing_number"
-    t.integer "sales_use_tax"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"

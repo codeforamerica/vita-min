@@ -39,7 +39,8 @@ module PdfFiller
         '6cDependents' => @xml_document.at('OtherExemption')&.text,
         '6dTotalHousehold' => @xml_document.at('TotalExemption')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
-        'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceInd')&.text == "true" ? "Yes" : "Off"
+        'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceInd')&.text == "true" ? "Yes" : "Off",
+        'PymntOtherCreditL46' => @xml_document.at('TaxWithheld')&.text
       }
       @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(

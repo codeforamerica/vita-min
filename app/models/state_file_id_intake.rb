@@ -20,8 +20,10 @@
 #  email_address_verified_at               :datetime
 #  failed_attempts                         :integer          default(0), not null
 #  federal_return_status                   :string
+#  has_health_insurance_premium            :integer          default("unfilled"), not null
 #  has_unpaid_sales_use_tax                :integer          default("unfilled"), not null
 #  hashed_ssn                              :string
+#  health_insurance_paid_amount            :decimal(12, 2)
 #  last_sign_in_at                         :datetime
 #  last_sign_in_ip                         :inet
 #  locale                                  :string           default("en")
@@ -79,6 +81,7 @@ class StateFileIdIntake < StateFileBaseIntake
   enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
   enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
   enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
+  enum has_health_insurance_premium: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_health_insurance_premium
 
   def disqualifying_df_data_reason; end
 

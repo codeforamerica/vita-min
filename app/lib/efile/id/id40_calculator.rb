@@ -20,6 +20,7 @@ module Efile
         set_line(:ID40_LINE_29, :calculate_line_29)
         set_line(:ID40_LINE_32A, :calculate_line_32a)
         set_line(:ID40_LINE_32B, :calculate_line_32b)
+        set_line(:ID40_LINE_46, :calculate_line_46)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -67,6 +68,12 @@ module Efile
       end
       def calculate_line_32b
         @intake.received_id_public_assistance_yes?
+      end
+
+      def calculate_line_46
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end
