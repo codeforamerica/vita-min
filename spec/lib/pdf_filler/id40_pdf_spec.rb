@@ -81,6 +81,7 @@ RSpec.describe PdfFiller::Id40Pdf do
 
           expect(pdf_fields['6cDependents']).to eq '2'
           expect(pdf_fields['6dTotalHousehold']).to eq '3'
+          pdf_fields['PermanentBuildingFund'].to eq '10.00'
         end
       end
     end
@@ -116,6 +117,15 @@ RSpec.describe PdfFiller::Id40Pdf do
         it "sets spouse fields correctly" do
           expect(pdf_fields['6bSpouse']).to eq '1' # Spouse not claimed as dependent, so counted here
           expect(pdf_fields['6dTotalHousehold']).to eq '2'
+        end
+      end
+
+      context "with a spouse who is blind" do
+        before do
+          submission.data_source.direct_file_data.spouse_blind = "yes"
+        end
+        it "sets permanent building fund correctly" do
+          expect(pdf_fields['PermanentBuildingFund']).to eq '0'
         end
       end
     end

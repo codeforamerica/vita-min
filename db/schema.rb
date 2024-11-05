@@ -1843,6 +1843,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1857,6 +1858,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -1865,6 +1867,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.integer "withdraw_amount"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_id_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_id_intakes_on_spouse_state_id_id"
   end
 
   create_table "state_file_md1099_r_followups", force: :cascade do |t|
@@ -2096,6 +2100,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
+    t.integer "primary_veteran", default: 0, null: false
     t.integer "property_tax_paid"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -2116,6 +2121,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
     t.integer "tenant_access_kitchen_bath", default: 0, null: false
     t.integer "tenant_building_multi_unit", default: 0, null: false
     t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
@@ -2257,6 +2263,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_193059) do
   end
 
   create_table "state_file_w2s", force: :cascade do |t|
+    t.decimal "box14_stpickup", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"
