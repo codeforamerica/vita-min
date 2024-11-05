@@ -82,11 +82,11 @@ class StateFileDependent < ApplicationRecord
   end
 
   def under_17?
-    calculate_age(false) < 17
+    calculate_age(inclusive_of_jan_1: false) < 17
   end
 
   def senior?
-    calculate_age(true) >= 65
+    calculate_age(inclusive_of_jan_1: true) >= 65
   end
 
   def calculate_age(inclusive_of_jan_1)

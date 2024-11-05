@@ -115,11 +115,8 @@ class StateFileMdIntake < StateFileBaseIntake
   end
 
   def calculate_age(dob, inclusive_of_jan_1)
-    # overwriting the base intake method b/c
-    # MD always considers individuals to attain their age on their DOB
-    inclusive_of_jan_1 = false
-
-    super
+    # MD never calculates age at the end of the year using Jan 1 inclusive
+    super(dob, false)
   end
 
   def filing_status
