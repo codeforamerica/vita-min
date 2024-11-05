@@ -376,7 +376,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def spouse_senior?
-    return nil unless filing_status_mfj?
+    return false unless filing_status_mfj?
 
     calculate_age(spouse_birth_date, true) >= 65
   end

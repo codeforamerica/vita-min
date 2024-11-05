@@ -256,7 +256,7 @@ module Efile
       end
 
       def calculate_line_c_count
-        # dependent exemption count 
+        # dependent exemption count
         @lines[:MD502B_LINE_3].value
       end
 
@@ -306,7 +306,7 @@ module Efile
 
       def calculate_deduction_method
         gross_income_amount = @intake.tax_calculator.gross_income_amount
-        filing_minimum = if @intake.primary_senior? && @intake.spouse_senior? && @intake.filing_status_mfj?
+        filing_minimum = if @intake.primary_senior? && @intake.filing_status_mfj? && @intake.spouse_senior?
                            32_300
                          elsif @intake.primary_senior?
                            FILING_MINIMUMS_SENIOR[@intake.filing_status]

@@ -103,10 +103,9 @@ module Efile
       end
 
       def calculate_line_8
-        # Age 65 or over (you and/or spouse) count
         count = 0
         count += 1 if @intake.primary_senior?
-        count += 1 if @intake.spouse_senior?
+        count += 1 if @intake.filing_status_mfj? && @intake.spouse_senior?
         count
       end
 
