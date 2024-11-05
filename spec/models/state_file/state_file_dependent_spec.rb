@@ -182,10 +182,10 @@ describe StateFileDependent do
   end
 
   describe "#under_17?" do
-    let(:dob_jan_1_16_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 16), 1, 1) }
+    let(:dob_jan_1_16_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 16), 1, 1) }
     let(:dependent_17_next_year) { create :state_file_dependent, dob: dob_jan_1_16_years_ago, intake: intake }
 
-    let(:dob_jan_1_17_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 17), 1, 1) }
+    let(:dob_jan_1_17_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 17), 1, 1) }
     let(:dependent_17_this_year) { create :state_file_dependent, dob: dob_jan_1_17_years_ago, intake: intake }
 
     let(:intake) { create :state_file_az_intake }
