@@ -152,7 +152,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   end
 
   def has_state_tax_computation?
-    calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S" || calculated_fields.fetch(:MD502_LINE_22) > 0
+    calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S" || calculated_fields.fetch(:MD502_LINE_22)&.positive?
   end
 
   def filing_status
