@@ -36,7 +36,8 @@ describe TwilioService do
     end
 
     it "passes the correct information to the Twilio RequestValidator" do
-      result = TwilioService.valid_request?(request)
+      twilio_service = TwilioService.new(:gyr)
+      result = twilio_service.valid_request?(request)
 
       expect(result).to eq true
       expect(request_validator).to have_received(:validate).with(
@@ -62,18 +63,19 @@ describe TwilioService do
       }
 
       before do
-        allow(TwilioService).to receive(:fetch_attachment).with(image_url).and_return({
+        @twilio_service = TwilioService.new(:gyr)
+        allow(@twilio_service).to receive(:fetch_attachment).with(image_url).and_return({
                                                                                         filename: "a_real_image.jpg",
                                                                                         body: "image body"
                                                                                       })
-        allow(TwilioService).to receive(:fetch_attachment).with(pdf_url).and_return({
+        allow(@twilio_service).to receive(:fetch_attachment).with(pdf_url).and_return({
                                                                                       filename: "a_real_document.pdf",
                                                                                       body: "pdf body"
                                                                                     })
       end
 
       it "creates attachment objects from params" do
-        result = TwilioService.parse_attachments(params)
+        result = @twilio_service.parse_attachments(params)
 
         expected_result = [
           {
@@ -99,7 +101,8 @@ describe TwilioService do
       }
 
       it "returns an empty array" do
-        expect(TwilioService.parse_attachments(params)).to eq []
+        twilio_service = TwilioService.new(:gyr)
+        expect(twilio_service.parse_attachments(params)).to eq []
       end
     end
 
@@ -113,7 +116,8 @@ describe TwilioService do
         }
       }
       before do
-        allow(TwilioService).to receive(:fetch_attachment).with(invalid_file_url).and_return({
+        @twilio_service = TwilioService.new(:gyr)
+        allow(@twilio_service).to receive(:fetch_attachment).with(invalid_file_url).and_return({
                                                                                                filename: "a-bad.file",
                                                                                                body: file_contents
                                                                                              })
@@ -124,7 +128,7 @@ describe TwilioService do
         let(:file_contents) { "some bad content" }
 
         it "returns modified filename, modified content, and text/plain content type" do
-          result = TwilioService.parse_attachments(params)
+          result = @twilio_service.parse_attachments(params)
           contents = <<~TEXT
             Unusable file with unknown or unsupported file type.
             File name: a-bad.file
@@ -148,7 +152,7 @@ describe TwilioService do
         let(:file_contents) { "" }
 
         it "returns modified filename, modified content, and text/plain content type" do
-          result = TwilioService.parse_attachments(params)
+          result = @twilio_service.parse_attachments(params)
           contents = <<~TEXT
             Unusable file with unknown or unsupported file type.
             File name: a-bad.file
@@ -197,18 +201,13 @@ describe TwilioService do
         body: "~the content~"
       }
 
-      expect(TwilioService.fetch_attachment(media_url)).to eq result
+      twilio_service = TwilioService.new(:gyr)
+      expect(twilio_service.fetch_attachment(media_url)).to eq result
     end
   end
 
   describe ".client" do
     let(:fake_client) { double }
-
-    around(:each) do |example|
-      TwilioService.class_variable_set(:@@_client, nil)
-      example.run
-      TwilioService.class_variable_set(:@@_client, nil)
-    end
 
     before do
       allow(Twilio::REST::Client).to receive(:new).and_return fake_client
@@ -219,8 +218,8 @@ describe TwilioService do
     end
 
     it "uses environment credentials to instantiate a twilio client" do
-      result = TwilioService.client
-      expect(result).to eq fake_client
+      result = TwilioService.new(:gyr)
+      expect(result).to be_a(TwilioService)
       expect(Twilio::REST::Client).to have_received(:new).with("account_sid", "auth_token")
     end
   end
@@ -230,15 +229,16 @@ describe TwilioService do
     let(:fake_messages_resource) { double }
     let(:fake_message) { double }
     before do
-      @test_environment_credentials.merge!(twilio: { messaging_service_sid: "service_sid" })
-      allow(TwilioService).to receive(:client).and_return fake_client
+      @test_environment_credentials.merge!(twilio: { messaging_services: Hash.new("service_sid") })
+      @twilio_service = TwilioService.new(:statefile)
+      allow(@twilio_service).to receive(:client).and_return fake_client
       allow(fake_client).to receive(:messages).and_return fake_messages_resource
       allow(fake_messages_resource).to receive(:create).and_return fake_message
       allow(DatadogApi).to receive(:increment)
     end
 
     it "sends a text message using the twilio client" do
-      result = TwilioService.send_text_message(
+      result = @twilio_service.send_text_message(
         to: "+15855551212",
         body: "hello there",
         status_callback: "http://example.com"
@@ -254,7 +254,7 @@ describe TwilioService do
     end
 
     it "adds an OutgoingMessageStatus status callback if not given" do
-      TwilioService.send_text_message(
+      @twilio_service.send_text_message(
         to: "+15855551212",
         body: "hello there"
       )
@@ -267,7 +267,7 @@ describe TwilioService do
     end
 
     it "sends a metric to Datadog" do
-      TwilioService.send_text_message(
+      @twilio_service.send_text_message(
         to: "+15855551212",
         body: "hello there"
       )
@@ -282,7 +282,7 @@ describe TwilioService do
       end
 
       it "records twilio_error on the provided record" do
-        TwilioService.send_text_message(
+        @twilio_service.send_text_message(
           to: "+15855551212",
           body: "hello there",
           status_callback: "http://example.com",
@@ -306,12 +306,13 @@ describe TwilioService do
       }
     }
     before do
-      allow(TwilioService).to receive(:client).and_return fake_client
+      @twilio_service = TwilioService.new(:gyr)
+      allow(@twilio_service).to receive(:client).and_return fake_client
       allow(fake_client).to receive_message_chain(:lookups, :v2, :phone_numbers, :fetch, :line_type_intelligence).and_return fake_metadata
     end
 
     it "sends a text message using the twilio client" do
-      result = TwilioService.get_metadata(phone_number: "+15855551212")
+      result = @twilio_service.get_metadata(phone_number: "+15855551212")
 
       expect(result).to eq fake_metadata
     end
