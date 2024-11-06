@@ -1928,6 +1928,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
+    t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1945,10 +1946,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
     t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
-    t.bigint "spouse_student_loan_interest_ded_amount_cents", default: 0, null: false
+    t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_suffix"
     t.string "street_address"
-    t.bigint "student_loan_interest_ded_amount_cents", default: 0, null: false
     t.string "subdivision_code"
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
