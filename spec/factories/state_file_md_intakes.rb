@@ -100,6 +100,7 @@ FactoryBot.define do
         married_filing_separately: 3,
         head_of_household: 4,
         qualifying_widow: 5,
+        dependent: 6,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
