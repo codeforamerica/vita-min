@@ -230,6 +230,7 @@ RSpec.describe StateFile::IdGroceryCreditForm do
           }
         }
       end
+
       it "submits the form with no ineligible months" do
         form = described_class.new(intake, valid_params)
         expect(form).to be_valid
