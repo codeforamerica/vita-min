@@ -250,5 +250,17 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
       end
     end
+
+    context "Line 40: Total state and local tax withheld" do
+      # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
+      let(:intake) {
+        create(:state_file_md_intake,
+               :with_1099_rs_synced,
+               :with_w2s_synced,
+               raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('md_allen_hoh_w2_and_1099r')) }
+      it 'outputs the total state and local tax withheld' do
+        expect(pdf_fields["Text Field 68"]).to eq('1510')
+      end
+    end
   end
 end

@@ -684,17 +684,17 @@ describe Efile::Md::Md502Calculator do
 
   describe '#calculate_line_40' do
     let(:intake) {
-      # miranda has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
+      # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
       create(:state_file_md_intake,
              :with_1099_rs_synced,
              :with_w2s_synced,
-             raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('md_miranda_1099r'))
+             raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('md_allen_hoh_w2_and_1099r'))
     }
     let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
 
-    it 'sums the AZ tax withheld from w2s, 1099gs and 1099rs' do
+    it 'sums the MD tax withheld from w2s, 1099gs and 1099rs' do
       instance.calculate
-      expect(instance.lines[:MD502_LINE_40].value).to eq(2109)
+      expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
     end
   end
 end

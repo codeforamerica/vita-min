@@ -97,6 +97,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
       end
+      xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end
