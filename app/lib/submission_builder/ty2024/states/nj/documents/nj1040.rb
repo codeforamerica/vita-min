@@ -167,6 +167,11 @@ module SubmissionBuilder
                   if calculated_fields.fetch(:NJ1040_LINE_58).positive?
                     xml.EarnedIncomeCredit do
                       xml.EarnedIncomeCreditAmount calculated_fields.fetch(:NJ1040_LINE_58)
+                    end
+                  end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_58_IRS)
+                    xml.EarnedIncomeCredit do
                       xml.EICFederalAmt 'X'
                     end
                   end

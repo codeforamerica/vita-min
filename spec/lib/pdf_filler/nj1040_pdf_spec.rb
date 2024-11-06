@@ -1365,6 +1365,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+        # TODO: does this need adapting?
+
+
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
             :state_file_nj_intake, :df_data_minimal

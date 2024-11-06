@@ -586,12 +586,39 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        context 'when taxpayer satisfies all eligibility checks' do
+          context 'when taxpayer is a qualifying child' do
+            it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
+              expect(xml.at("EarnedIncomeCredit")).to eq(nil)
+              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
+              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+            end
+          end
 
-        it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
-          expect(xml.at("EarnedIncomeCredit")).to eq(nil)
-          expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
-          expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+          context 'when spouse is a qualifying child' do
+            it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
+              expect(xml.at("EarnedIncomeCredit")).to eq(nil)
+              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
+              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+            end
+          end
+
+          context 'when neither taxpayer nor spouse is a qualifying child' do
+            it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
+              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(240)
+              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+            end
+          end
+        end
+
+        context 'when taxpayer does not satisfy one or more eligibility checks' do
+          let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+          it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
+            expect(xml.at("EarnedIncomeCredit")).to eq(nil)
+            expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
+            expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+          end
         end
       end
     end

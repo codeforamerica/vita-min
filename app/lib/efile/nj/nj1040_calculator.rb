@@ -30,6 +30,7 @@ module Efile
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
+        set_line(:NJ1040_LINE_58_IRS, :calculate_line_58_irs)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -277,7 +278,15 @@ module Efile
       end
 
       def calculate_line_58
-        (@direct_file_data.fed_eic * 0.4).round
+        if @direct_file_data.fed_eic.positive?
+          (@direct_file_data.fed_eic * 0.4).round
+        else
+          # TODO
+        end
+      end
+
+      def calculate_line_58_irs
+        @direct_file_data.fed_eic.positive?
       end
 
       def calculate_line_64
