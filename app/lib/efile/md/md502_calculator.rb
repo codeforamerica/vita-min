@@ -42,8 +42,6 @@ module Efile
         set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
         set_line(:MD502_LINE_1E, :calculate_line_1e)
-        @md502_su.calculate
-        set_line(:MD502_LINE_13, :calculate_line_13)
 
         # Additions
         set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
@@ -51,6 +49,10 @@ module Efile
         # Subtractions
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+
+        # MD502SU Subtractions
+        @md502_su.calculate
+        set_line(:MD502_LINE_13, :calculate_line_13)
 
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)

@@ -576,6 +576,10 @@ MD502CR_PART_M_LINE_1:
   label: "1 Enter the credit claimed here and on Part AA, line 13 (See Instructions)"
 MD502_SU_LINE_AB:
   label: "AB Income from U.S. Government obligations"
+MD502_SU_LINE_U:
+  label: "TBD"
+MD502_SU_LINE_V:
+  label: "TBD"
 MD502_SU_LINE_1:
   label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
 NCD400_LINE_9:
