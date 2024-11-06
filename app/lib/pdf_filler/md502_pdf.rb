@@ -59,6 +59,11 @@ module PdfFiller
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        'Check Box 34': deduction_method_is_standard? ? "Yes" : "Off",
+        'Enter 17': deduction_method_is_standard? ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
+        'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
+        'Enter 19 ': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
+        'Enter 20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
       }
     end
 
@@ -68,6 +73,10 @@ module PdfFiller
 
     def claimed_as_dependent?
       @submission.data_source.direct_file_data.claimed_as_dependent?
+    end
+
+    def deduction_method_is_standard?
+      @xml_document.at('Form502 Deduction Method')&.text == "S"
     end
 
     def filing_status(method)

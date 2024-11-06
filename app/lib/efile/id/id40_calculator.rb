@@ -8,16 +8,18 @@ module Efile
         @id39r = Efile::Id::Id39RCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
-          intake: @intake
+          intake: @intake,
         )
       end
 
       def calculate
+        @id39r.calculate
         set_line(:ID40_LINE_6A, :calculate_line_6a)
         set_line(:ID40_LINE_6B, :calculate_line_6b)
         set_line(:ID40_LINE_6C, :calculate_line_6c)
         set_line(:ID40_LINE_6D, :calculate_line_6d)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        set_line(:ID40_LINE_46, :calculate_line_46)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -54,6 +56,12 @@ module Efile
         else
           0
         end
+      end
+
+      def calculate_line_46
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end

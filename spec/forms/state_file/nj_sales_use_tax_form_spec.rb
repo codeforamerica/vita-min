@@ -105,7 +105,7 @@ RSpec.describe StateFile::NjSalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Round to the nearest whole number"
+          expect(form.errors[:sales_use_tax]).to include "Please enter numbers only."
         end
       end
 
@@ -120,11 +120,14 @@ RSpec.describe StateFile::NjSalesUseTaxForm do
 
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Round to the nearest whole number"
+          expect(form.errors[:sales_use_tax]).to include "Please enter numbers only."
         end
       end
+    end
 
-      context "with a non integer sales-use-tax" do
+    context "valid params" do
+
+      context "with a non-integer sales-use-tax" do
         let(:params) do
           {
             untaxed_out_of_state_purchases: "yes",
@@ -133,14 +136,10 @@ RSpec.describe StateFile::NjSalesUseTaxForm do
           }
         end
 
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Round to the nearest whole number"
+        it "is valid" do
+          expect(form.valid?).to eq true
         end
       end
-    end
-
-    context "valid params" do
 
       context "with an integer sales-use-tax" do
         let(:params) do
