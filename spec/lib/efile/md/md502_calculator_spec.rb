@@ -1020,7 +1020,7 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when has at least one qualifying EIC child but MD EIC is 0" do
-      it "returns X" do
+      it "returns nil" do
         allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
         instance.calculate
         expect(instance.lines[:MD502_LINE_22B].value).to eq nil
@@ -1029,7 +1029,7 @@ describe Efile::Md::Md502Calculator do
 
     context "when no qualifying EIC child and MD EIC is 0" do
       let(:df_xml_key) { "md_zeus_two_w2s" }
-      it "returns X" do
+      it "returns nil" do
         allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
         instance.calculate
         expect(instance.lines[:MD502_LINE_22B].value).to eq nil

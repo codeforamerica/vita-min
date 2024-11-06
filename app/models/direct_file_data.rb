@@ -463,7 +463,11 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_eic=(value)
-    create_or_destroy_df_xml_node(__method__, true, 'WithholdingTaxAmt')
+    if parsed_xml.at('EstimatedTaxPaymentsAmt').present?
+      create_or_destroy_df_xml_node(__method__, true, 'EstimatedTaxPaymentsAmt')
+    else
+      create_or_destroy_df_xml_node(__method__, true, 'WithholdingTaxAmt')
+    end
     write_df_xml_value(__method__, value.to_i)
   end
 

@@ -99,13 +99,15 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
-        xml.Amount calculated_fields.fetch(:MD502_LINE_17) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+        xml.Amount calculated_fields.fetch(:MD502_LINE_17) if @deduction_method_is_standard
       end
-      xml.NetIncome calculated_fields.fetch(:MD502_LINE_18) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
-      xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+      if @deduction_method_is_standard
+        xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
+        xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
+      end
       if has_state_tax_computation?
         xml.StateTaxComputation do
-          xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+          xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
         end
@@ -130,6 +132,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
 
   def calculated_fields
     @md502_fields ||= @intake.tax_calculator.calculate
+    @deduction_method_is_standard ||= @md502_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+    @md502_fields
   end
 
   def has_dependent_exemption?
@@ -152,7 +156,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   end
 
   def has_state_tax_computation?
-    calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S" || calculated_fields.fetch(:MD502_LINE_22)&.positive?
+    @deduction_method_is_standard || calculated_fields.fetch(:MD502_LINE_22)&.positive?
   end
 
   def filing_status
