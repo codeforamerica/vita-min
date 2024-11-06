@@ -21,7 +21,7 @@ module StateFile
           NjUnsupportedPropertyTaxController.to_path_helper(options)
         else
           if Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(current_intake) == Efile::Nj::NjPropertyTaxEligibility::POSSIBLY_ELIGIBLE_FOR_CREDIT
-            super
+            super # skip "rent paid" question and go to whichever is next by default
           else
             NjTenantRentPaidController.to_path_helper(options)
           end
