@@ -16,14 +16,16 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        "BL3" => @xml_document.at('IncomeUSObligations')&.text
+        "BL6" => @xml_document.at('Form39R ChildCareCreditAmt')&.text,
+        "BL3" => @xml_document.at('IncomeUSObligations')&.text,
+        "BL18" => @xml_document.at('HealthInsurancePaid')&.text,
       }
       @submission.data_source.dependents.drop(4).first(3).each_with_index do |dependent, index|
         answers.merge!(
-          "FR#{index+1}FirstName" => dependent.first_name,
-          "FR#{index+1}LastName" => dependent.last_name,
-          "FR#{index+1}SSN" => dependent.ssn,
-          "FR#{index+1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
+          "FR#{index + 1}FirstName" => dependent.first_name,
+          "FR#{index + 1}LastName" => dependent.last_name,
+          "FR#{index + 1}SSN" => dependent.ssn,
+          "FR#{index + 1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
           )
       end
       answers

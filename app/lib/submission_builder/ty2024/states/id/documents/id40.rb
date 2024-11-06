@@ -32,10 +32,12 @@ module SubmissionBuilder
                   end
                 end
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
+                xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
               end
             end
 
             private
+
             def filing_status
               FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
             end

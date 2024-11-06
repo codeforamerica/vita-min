@@ -23,7 +23,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, help_text, optional) + field_html,
+        label_contents(label_text, help_text, optional: optional) + field_html,
         (for_options || options),
         )
     formatted_label += notice_html(notice).html_safe if notice
@@ -64,7 +64,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       label_contents(
         label_text,
         options[:help_text],
-        options[:optional],
+        optional: options[:optional],
         ),
       class: label_class,
       )
