@@ -91,8 +91,8 @@ RSpec.describe StateFileMdIntake, type: :model do
     let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
 
     it "doesn't include Jan 1st in the past tax year" do
-      expect(intake.calculate_age(inclusive_of_jan_1: true, dob: dob)).to eq 10
-      expect(intake.calculate_age(inclusive_of_jan_1: false, dob: dob)).to eq 10
+      expect(intake.calculate_age(dob, true)).to eq 10
+      expect(intake.calculate_age(dob, false)).to eq 10
     end
   end
 

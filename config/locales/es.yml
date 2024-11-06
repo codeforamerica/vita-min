@@ -2537,6 +2537,8 @@ es:
       id_review:
         edit:
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
+          purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
+          state_details_title: Detalles del estado
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
