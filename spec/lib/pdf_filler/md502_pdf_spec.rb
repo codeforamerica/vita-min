@@ -302,5 +302,19 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 20"]).to be_empty
       end
     end
+
+    context "additions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_3).and_return 40
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 50
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 60
+      end
+
+      it "fills out amount if deduction method is standard" do
+        expect(pdf_fields["Enter 3"]).to eq "40"
+        expect(pdf_fields["Enter 6"]).to eq "50"
+        expect(pdf_fields["Enter 7"]).to eq "60"
+      end
+    end
   end
 end
