@@ -193,5 +193,61 @@ RSpec.describe StateFile::IdGroceryCreditForm do
         expect(third_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
       end
     end
+
+    context "when a user selects yes for household ineligibility, selects household members but does not select numbers of months, and then selects no for household eligibility" do
+      let(:valid_params) do
+        {
+          household_has_grocery_credit_ineligible_months: "no",
+          primary_has_grocery_credit_ineligible_months: "yes",
+          primary_months_ineligible_for_grocery_credit: "",
+          spouse_has_grocery_credit_ineligible_months: "yes",
+          spouse_months_ineligible_for_grocery_credit: "",
+          dependents_attributes: {
+            '0': {
+              id: first_dependent.id,
+              id_has_grocery_credit_ineligible_months: "yes"
+            },
+            '1': {
+              id: second_dependent.id,
+              id_has_grocery_credit_ineligible_months: "yes"
+            },
+            '2': {
+              id: third_dependent.id,
+              id_has_grocery_credit_ineligible_months: "yes"
+            },
+            '3': {
+              id: first_dependent.id,
+              id_months_ineligible_for_grocery_credit: ""
+            },
+            '4': {
+              id: second_dependent.id,
+              id_months_ineligible_for_grocery_credit: ""
+            },
+            '5': {
+              id: third_dependent.id,
+              id_months_ineligible_for_grocery_credit: ""
+            }
+          }
+        }
+      end
+      it "submits the form with no ineligible months" do
+        form = described_class.new(intake, valid_params)
+        expect(form).to be_valid
+        form.save
+
+        expect(intake.household_has_grocery_credit_ineligible_months).to eq("no")
+        expect(intake.primary_has_grocery_credit_ineligible_months).to eq("no")
+        expect(intake.primary_months_ineligible_for_grocery_credit).to eq(nil)
+        expect(intake.spouse_has_grocery_credit_ineligible_months).to eq("no")
+        expect(intake.spouse_months_ineligible_for_grocery_credit).to eq(nil)
+
+        expect(first_dependent.id_has_grocery_credit_ineligible_months).to eq("no")
+        expect(first_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
+        expect(second_dependent.id_has_grocery_credit_ineligible_months).to eq("no")
+        expect(second_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
+        expect(third_dependent.id_has_grocery_credit_ineligible_months).to eq("no")
+        expect(third_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
+      end
+    end
   end
 end
