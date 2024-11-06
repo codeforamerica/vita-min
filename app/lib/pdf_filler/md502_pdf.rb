@@ -95,9 +95,9 @@ module PdfFiller
       calculated_fields_code_letters = {MD502_SU_LINE_AB: "ab", MD502_SU_LINE_U: "u", MD502_SU_LINE_V: "v"}
       applicable_codes = []
 
-      if calculated_fields[:MD502_SU_LINE_1]
+      if calculated_fields.fetch(:MD502_SU_LINE_1).positive?
         calculated_fields_code_letters.each do |calculated_field, code_letter|
-          applicable_codes << code_letter if calculated_fields[calculated_field]
+          applicable_codes << code_letter if calculated_fields.fetch(calculated_field).to_i.positive?
         end
       end
       applicable_codes

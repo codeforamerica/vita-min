@@ -317,5 +317,16 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 13"].to_i).to eq 100
       end
     end
+
+    context "without 502SU Subtractions" do
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Text Field 9"]).to eq ""
+        expect(pdf_fields["Text Field 10"]).to eq ""
+        expect(pdf_fields["Text Field 11"]).to eq ""
+        expect(pdf_fields["Text Field 12"]).to eq ""
+        expect(pdf_fields["Enter 13"].to_i).to eq "0"
+      end
+    end
+
   end
 end
