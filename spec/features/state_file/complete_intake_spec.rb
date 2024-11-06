@@ -623,6 +623,80 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland")
     end
+
+    it "has mfj two income subtractions content", required_schema: "md" do
+      visit "/"
+      click_on "Start Test MD"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.md.title")
+      click_on I18n.t('general.get_started'), id: "firstCta"
+
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
+      # select optoins that allow us to proceed
+      click_on "Continue"
+
+      # click continue on eligibility & check the messaging is correct here?
+      # select mfj
+      choose I18n.t("general.affirmative")
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
+
+      click_on "Continue"
+
+      click_on "Continue"
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer("Transfer Zeus two w2s")
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+      select("Allegany", from: "County")
+      select("Town Of Barton", from: "Political subdivision")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      # md_two_income_subtractions
+      expect(page).to have_text I18n.t('state_file.questions.md_two_income_subtractions.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      fill_in 'state_file_md_two_income_subtractions_form[primary_student_loan_interest_ded_amount]', with: "1300.0"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
+      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
+      select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
+      select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
+      select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
+      click_on I18n.t("general.continue")
+
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
+      fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
+      fill_in 'state_file_esign_declaration_form_spouse_signature_pin', with: "54321"
+      check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
+      check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
+      check "state_file_esign_declaration_form_primary_esigned"
+      check "state_file_esign_declaration_form_spouse_esigned"
+      click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
+
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland")
+    end
   end
 
   context "NJ", :flow_explorer_screenshot, js: true do
