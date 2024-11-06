@@ -286,7 +286,7 @@ module Efile
         # State retirement pickup
         # DF & Formula
         # Comes from field W-2, box 14, code 'STPICKUP' (which can be edited in the FYST UI)
-        @intake.state_file_w2s.sum { |item| item.box14_stpickup.round } # is this right? just the sum of all of them
+        @intake.state_file_w2s.sum { |item| (item.box14_stpickup&.round || 0) } # is this right? just the sum of all of them
       end
 
       def calculate_line_6
