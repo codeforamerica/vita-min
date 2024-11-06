@@ -14,7 +14,7 @@
         t('.label', filing_year: @filing_year),
         help_text: t('.help_text'),
         classes: ["form-width--long"],
-        options: { placeholder: "" }
+        options: { placeholder: "0" }
     ) %>
     </div>
 
@@ -22,9 +22,9 @@
 
     <div class="reveal">
         <h2 style="margin-bottom: 0">
-            <a class="reveal__link" aria-controls="nj-medical-details" aria-expanded="false">
+            <button class="reveal__button" aria-controls="nj-medical-details" aria-expanded="false">
                 <%= t('.learn_more_title') %>
-            </a>
+            </button>
         </h2>
         <div class="reveal__content" id="nj-medical-details">
             <p><%= t('.learn_more_meaning') %>:</p>

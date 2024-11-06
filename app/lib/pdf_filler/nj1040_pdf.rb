@@ -71,7 +71,13 @@ module PdfFiller
         'Check Box44': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerBlindOrDisabled")),
         undefined_10: get_line_8_exemption_count,
         'x  1000_3': get_line_8_exemption_count * 1000,
-        
+
+        # line 9 exemptions
+        'Check Box45': pdf_checkbox_value(@xml_document.at("Exemptions YouVeteran")),
+        'Check Box46': pdf_checkbox_value(@xml_document.at("Exemptions SpouseCuPartnerVeteran")),
+        undefined_11: get_line_9_exemption_count,
+        'x  6000': get_line_9_exemption_count * 6000,
+
         Group1: filing_status,
         Group1qualwi5ab: spouse_death_year,
         Group182: household_rent_own,
@@ -97,22 +103,7 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
-      if @xml_document.at("TaxableInterestIncome")
-        taxable_interest_income = @xml_document.at("TaxableInterestIncome").text.to_i
-        answers.merge!(insert_digits_into_fields(taxable_interest_income, [
-                                                   "112",
-                                                   "111",
-                                                   "110",
-                                                   "109",
-                                                   "108",
-                                                   "Text107",
-                                                   "undefined_41",
-                                                   "undefined_40",
-                                                   "undefined_39",
-                                                   "undefined_43"
-                                                 ]))
-      end
-
+      # lines 13 and 30
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -126,6 +117,7 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 13
       if @xml_document.at("Body TotalExemptionAmountB")
         total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -169,6 +161,7 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 15
       if @xml_document.at("WagesSalariesTips").present?
         wages = @xml_document.at("WagesSalariesTips").text.to_i
         answers.merge!(insert_digits_into_fields(wages, [
@@ -182,6 +175,39 @@ module PdfFiller
                                                    "undefined_37",
                                                    "undefined_36",
                                                    "15"
+                                                 ]))
+      end
+
+      # line 16a
+      if @xml_document.at("TaxableInterestIncome")
+        taxable_interest_income = @xml_document.at("TaxableInterestIncome").text.to_i
+        answers.merge!(insert_digits_into_fields(taxable_interest_income, [
+                                                   "112",
+                                                   "111",
+                                                   "110",
+                                                   "109",
+                                                   "108",
+                                                   "Text107",
+                                                   "undefined_41",
+                                                   "undefined_40",
+                                                   "undefined_39",
+                                                   "undefined_43"
+                                                 ]))
+      end
+
+      # line 16b
+      if @xml_document.at("TaxexemptInterestIncome")
+        tax_exempt_interest_income = @xml_document.at("TaxexemptInterestIncome").text.to_i
+        answers.merge!(insert_digits_into_fields(tax_exempt_interest_income, [
+                                                   "117",
+                                                   "116",
+                                                   "115",
+                                                   "114",
+                                                   "113",
+                                                   "undefined_44",
+                                                   "16a",
+                                                   "undefined_42",
+                                                   "16b"
                                                  ]))
       end
 
@@ -219,6 +245,7 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 39
       if @xml_document.at("TaxableIncome").present?
         taxable_income = @xml_document.at("TaxableIncome").text.to_i
         answers.merge!(insert_digits_into_fields(taxable_income, [
@@ -327,6 +354,21 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 58
+      if @xml_document.at("EarnedIncomeCredit EarnedIncomeCreditAmount").present?
+        tax = @xml_document.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+                                                   "Text172",
+                                                   "Text171",
+                                                   "Text170",
+                                                   "undefined_153",
+                                                   "undefined_152",
+                                                   "58",
+                                                 ]))
+        answers.merge!({
+          'Check Box168': pdf_checkbox_value(@xml_document.at("EarnedIncomeCredit EICFederalAmt")),
+        })
+      end
 
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
         answers.merge!({
@@ -403,6 +445,10 @@ module PdfFiller
 
     def get_line_8_exemption_count
       get_total_exemption_count(["Exemptions YouBlindOrDisabled", "Exemptions SpouseCuPartnerBlindOrDisabled"])
+    end
+
+    def get_line_9_exemption_count
+      get_total_exemption_count(["Exemptions YouVeteran", "Exemptions SpouseCuPartnerVeteran"])
     end
 
     def get_total_exemption_count(xml_selector_string_array)
@@ -599,10 +645,10 @@ module PdfFiller
     def get_line_64_nj_child_dependent_care
       @xml_document.at('ChildDependentCareCredit')&.text.to_i
     end
-    
+
     def get_line_65_nj_ctc
       @xml_document.at("Body NJChildTaxCredit")&.text.to_i
     end
-    
+
   end
 end
