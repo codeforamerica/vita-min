@@ -287,11 +287,6 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_a_count" do
     context "when line a yourself and spouse are both seniors" do
       let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
-      # before do
-      #   intake.direct_file_data.filing_status = 2 # married_filing_jointly
-      #   intake.direct_file_data.primary_claim_as_dependent = ""
-      #
-      # end
 
       it "returns 2" do
         instance.calculate
