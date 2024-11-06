@@ -420,7 +420,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'does not set line 16a' do
         expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
       end
-    end 
+    end
 
     context 'with interest on government bonds' do
       let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
@@ -497,9 +497,9 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when medical expenses exceed 2% of gross income' do
       let(:gross_income) { 10_000 }
-      let(:medical_expenses) { 201 }
+      let(:medical_expenses) { 201.11 }
 
-      it 'sets line 31 to medical expenses minus $200' do
+      it 'sets line 31 to medical expenses minus $200, rounded' do
         expect(instance.lines[:NJ1040_LINE_31].value).to eq(1)
       end
 
@@ -565,13 +565,13 @@ describe Efile::Nj::Nj1040Calculator do
             :state_file_nj_intake,
             :married_filing_separately,
             household_rent_own: 'own',
-            property_tax_paid: 12345,
+            property_tax_paid: 12345.77,
             homeowner_same_home_spouse: 'no'
           )
         }
 
-        it 'sets line 40a to property_tax_paid' do
-          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12345)
+        it 'sets line 40a to property_tax_paid rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(12346)
         end
       end
 
@@ -1013,9 +1013,9 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 51 - sales and use tax' do
     
     context 'when sales_use_tax exists (already calculated automated or manual)' do
-      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400)}
-      it 'sets line 51 to the sales_use_tax' do
-        expect(instance.lines[:NJ1040_LINE_51].value).to eq 400
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400.77 )}
+      it 'sets line 51 to the rounded sales_use_tax' do
+        expect(instance.lines[:NJ1040_LINE_51].value).to eq 401
       end
     end
 

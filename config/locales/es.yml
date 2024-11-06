@@ -236,7 +236,6 @@ es:
       blank: No puede estar en blanco.
       invalid: es invalido
       only_letters: Sólo se aceptan cartas
-      round_to_whole_number: Redondea al número entero más próximo
       whole_number: Debe ser un número entero
   forms:
     errors:
@@ -2496,6 +2495,38 @@ es:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
             bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_health_insurance_premium:
+        edit:
+          amount_paid_helper_text: Importe total pagado en %{year}
+          do_not_include_notice_html: |
+            Algunas primas de seguros médicos no califican para esta resta. <b>No incluya</b> ninguna prima pagada utilizando lo siguiente:
+            <ul class="list--bulleted">
+              <li><b>Cuenta de ahorros médicos de Idaho:</b> Los fondos utilizados de esta cuenta no se pueden deducir nuevamente.</li>
+              <li><b>Planes de reducción salarial:</b> Las primas deducidas de su cheque de pago antes de impuestos no califican.</li>
+              <li><b>Seguro Social Medicare A y B:</b> Sin deducción por pagos de Medicare A requeridos por el empleador.</li>
+            </ul>
+          health_insurance_premium_question:
+            one: "¿Pagó usted primas de seguro médico en %{year}?"
+            other: "¿Pagó primas de seguro médico para usted y su hogar en %{year}?"
+          medicaid_content: Sí, si tiene Medicaid, la prima de su seguro médico cuenta.  Consulte su carta mensual del Departamento de Salud y Bienestar de Idaho para conocer el monto de su prima. Podría ser tan bajo como $0, dependiendo de sus ingresos y otros factores.
+          medicaid_title: "¿Cuentan los pagos de Medicaid?"
+          qualifications_content: Puede deducir las primas de seguro médico pagadas para usted, su cónyuge y sus dependientes, incluidos Medicaid, dental y de la vista, siempre que no se hayan deducido de sus ingresos antes de impuestos.
+          qualifications_title: "¿Qué primas de cobertura médica califican?"
+          qualifying_amount_help_text: Ingrese el monto total de las primas de seguro médico calificadas que su hogar pagó en %{year}.
+          subtitle:
+            one: Para ver si califica, necesitamos más información sobre usted.
+            other: Para ver si califica, necesitamos más información sobre usted y su hogar.
+          title: "¡Es posible que sea elegible para la deducción de la prima del seguro médico de Idaho!"
+          what_is_content_html: |
+            Una prima de seguro médico es la tarifa mensual que paga por su cobertura médica.
+
+            Puede encontrar los montos de sus primas en su:
+            <ul>
+              <li>Talón de pago mensual</li>
+              <li>Formulario 1095-C</li>
+              <li>Formulario 1095-A, restando el total de la columna C del total de la columna A.</li>
+            </ul>
+          what_is_title: "¿Qué es una prima de seguro médico?"
       id_primary_state_id:
         id_primary:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
@@ -2503,6 +2534,11 @@ es:
           subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
           title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
           why_ask_this: "¿Por qué pides esta información?"
+      id_review:
+        edit:
+          health_insurance_premium_title: Resta de primas de seguro médico de Idaho
+          purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
+          state_details_title: Detalles del estado
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
@@ -2736,13 +2772,14 @@ es:
           primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
+          rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_disabled: Spouse disabled
           spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
       nj_sales_use_tax:
         edit:
           followup_radio_label: Seleccione una de las siguientes
-          manual_use_tax_label: Ingrese el impuesto sobre el uso calculado. (Redondee al número entero más cercano)
+          manual_use_tax_label: Enter total calculated use tax
           subtitle: 'Esto incluye:'
           subtitle_list_html: |
             <li>Artículos adquiridos o servicios prestados fuera del estado, donde no hubo impuesto a las ventas o la tasa del impuesto a las ventas fue inferior a la tasa de New Jersey del 6,625 %.</li>

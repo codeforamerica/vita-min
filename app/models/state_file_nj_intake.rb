@@ -36,7 +36,7 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :integer          default(0), not null
+#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
@@ -58,13 +58,13 @@
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
-#  property_tax_paid                                      :integer
+#  property_tax_paid                                      :decimal(12, 2)
 #  raw_direct_file_data                                   :text
 #  raw_direct_file_intake_data                            :jsonb
 #  referrer                                               :string
-#  rent_paid                                              :integer
+#  rent_paid                                              :decimal(12, 2)
 #  routing_number                                         :string
-#  sales_use_tax                                          :integer
+#  sales_use_tax                                          :decimal(12, 2)
 #  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
@@ -127,7 +127,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
-  
+
   enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
   enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
 

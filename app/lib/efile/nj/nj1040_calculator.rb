@@ -256,7 +256,7 @@ module Efile
       end
 
       def calculate_line_51
-        @intake.sales_use_tax || 0
+        (@intake.sales_use_tax || 0).round
       end
 
       def calculate_line_56
