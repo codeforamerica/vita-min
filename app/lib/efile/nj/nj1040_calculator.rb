@@ -148,11 +148,11 @@ module Efile
       end
 
       def line_7_self_checkbox
-        Efile::Nj::NjSenior.is_over_65(@intake.primary_birth_date)
+        @intake.primary_senior?
       end
 
       def line_7_spouse_checkbox
-        Efile::Nj::NjSenior.is_over_65(@intake.spouse_birth_date)
+        @intake.spouse_senior?
       end
 
       def calculate_line_7

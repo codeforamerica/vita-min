@@ -19,13 +19,13 @@ module Efile
 
           meets_exception = intake.direct_file_data.is_primary_blind? ||
                             intake.primary_disabled_yes? ||
-                            Efile::Nj::NjSenior.is_over_65(intake.primary_birth_date)
+                            intake.primary_senior?
 
           spouse_meets_exception = intake.filing_status_mfj? &&
                               (
                                 intake.direct_file_data.is_spouse_blind? ||
                                 intake.spouse_disabled_yes? ||
-                                Efile::Nj::NjSenior.is_over_65(intake.spouse_birth_date)
+                                intake.spouse_senior?
                               )
 
           return POSSIBLY_ELIGIBLE_FOR_CREDIT if meets_exception || spouse_meets_exception
