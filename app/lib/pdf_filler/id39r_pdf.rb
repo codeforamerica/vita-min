@@ -18,7 +18,7 @@ module PdfFiller
       answers = {
         "AL7" => @xml_document.at('TotalAdditions')&.text,
         "BL3" => @xml_document.at('IncomeUSObligations')&.text,
-        "BL6" => @xml_document.at('Form39R ChildCareCreditAmt')&.text,
+        "BL6" => @xml_document.at('ChildCareCreditAmt')&.text,
         "BL7" => @xml_document.at('TxblSSAndRRBenefits')&.text,
         "BL8f" => @xml_document.at('RetirementBenefitsDeduction')&.text,
         "BL18" => @xml_document.at('HealthInsurancePaid')&.text,
