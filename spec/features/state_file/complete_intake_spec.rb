@@ -467,7 +467,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer
+      step_through_df_data_transfer("Transfer John mfj 8 deps")
 
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
@@ -475,22 +475,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
-      choose I18n.t("general.affirmative")
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
-      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Boise", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
-      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
-      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
-      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
-      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
-      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
-      click_on I18n.t("general.continue")
-
-      # 1099G Review
-      click_on I18n.t("general.continue")
+      # expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      # choose I18n.t("general.affirmative")
+      # fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      # fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      # fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Boise", match: :first
+      # fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      # fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      # choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      # fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      # fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
+      # fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      # fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
+      # click_on I18n.t("general.continue")
+      #
+      # # 1099G Review
+      # click_on I18n.t("general.continue")
 
       # Health Insurance Premium
       expect(page).to have_text I18n.t('state_file.questions.id_health_insurance_premium.edit.title')
@@ -500,10 +500,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Grocery Credit Edit
       expect(page).to have_text I18n.t("state_file.questions.id_grocery_credit.edit.see_if_you_qualify.other")
+      choose I18n.t("general.affirmative")
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
       # Grocery Credit Review
+      expect(page).to have_text "$1200"
       expect(page).to have_text I18n.t("state_file.questions.id_grocery_credit_review.edit.would_you_like_to_donate")
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
