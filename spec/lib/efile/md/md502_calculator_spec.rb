@@ -937,14 +937,17 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  # describe "#calculate_line_3" do
-  #   context "with w2s" do
-  #     it "returns the sum of all box14_stpickup" do
-  #       instance.calculate
-  #       expect(instance.lines[:MD502_LINE_3].value).to eq 10
-  #     end
-  #   end
-  # end
+  describe "#calculate_line_3" do
+    let!(:first_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 100.0) }
+    let!(:second_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 250.6) }
+    let!(:third_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: nil) }
+    context "with w2s" do
+      it "returns the sum of all box14_stpickup" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_3].value).to eq 351
+      end
+    end
+  end
 
   describe "#calculate_line_6" do
     it "returns the total additions" do
