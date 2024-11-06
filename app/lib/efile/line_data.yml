@@ -512,6 +512,8 @@ MD502_LINE_1D:
   label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
   label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
+MD502_LINE_40:
+  label: "Total Maryland and local tax withheld"
 MD502CR_PART_B_LINE_2:
   label: "2 Enter your federal Child and Dependent Care Credit from federal Form 2441"
 MD502CR_PART_B_LINE_3:

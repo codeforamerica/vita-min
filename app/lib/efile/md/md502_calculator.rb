@@ -35,6 +35,7 @@ module Efile
         set_line(:MD502_LINE_C_AMOUNT, :calculate_line_c_amount)
         set_line(:MD502_LINE_D_COUNT_TOTAL, :calculate_line_d_count_total)
         set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
+        set_line(:MD502_LINE_40, :calculate_line_40)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
@@ -260,6 +261,13 @@ module Efile
 
       def filing_status_dependent?
         @filing_status == :dependent
+      end
+
+      def calculate_line_40
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +    
+          @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end
