@@ -7,6 +7,7 @@
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
 #  city                                 :string
+#  confirmed_permanent_address          :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions    :integer          default("unfilled"), not null
 #  contact_preference                   :integer          default("unfilled"), not null
 #  current_sign_in_at                   :datetime
@@ -32,6 +33,11 @@
 #  locked_at                            :datetime
 #  message_tracker                      :jsonb
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
+#  permanent_address_outside_md         :integer          default("unfilled"), not null
+#  permanent_apartment                  :string
+#  permanent_city                       :string
+#  permanent_street                     :string
+#  permanent_zip                        :string
 #  phone_number                         :string
 #  phone_number_verified_at             :datetime
 #  political_subdivision                :string
