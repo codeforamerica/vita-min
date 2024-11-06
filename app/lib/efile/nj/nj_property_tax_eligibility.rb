@@ -2,8 +2,8 @@ module Efile
   module Nj
     module NjPropertyTaxEligibility
       INELIGIBLE = :ineligible
-      INELIGIBLE_FOR_DEDUCTION = :ineligible_for_deduction
-      NOT_INELIGIBLE = :not_ineligible
+      POSSIBLY_ELIGIBLE_FOR_CREDIT = :possibly_eligible_for_credit
+      POSSIBLY_ELIGIBLE_FOR_DEDUCTION_OR_CREDIT = :possibly_eligible_for_deduction_or_credit
 
       class << self
         def determine_eligibility(intake)
@@ -15,7 +15,7 @@ module Efile
             20_000
           end
 
-          return NOT_INELIGIBLE if state_wages > wage_minimum
+          return POSSIBLY_ELIGIBLE_FOR_DEDUCTION_OR_CREDIT if state_wages > wage_minimum
 
           meets_exception = intake.direct_file_data.is_primary_blind? ||
                             intake.primary_disabled_yes? ||
@@ -28,7 +28,7 @@ module Efile
                                 Efile::Nj::NjSenior.is_over_65(intake.spouse_birth_date)
                               )
 
-          return INELIGIBLE_FOR_DEDUCTION if meets_exception || spouse_meets_exception
+          return POSSIBLY_ELIGIBLE_FOR_CREDIT if meets_exception || spouse_meets_exception
 
           INELIGIBLE
         end
