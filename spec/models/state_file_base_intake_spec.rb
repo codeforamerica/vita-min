@@ -160,13 +160,13 @@ describe StateFileBaseIntake do
 
     context "when calculating age inclusive of Jan 1" do
       it "Jan 1 birthdays are older at the end of this tax year" do
-        expect(intake.calculate_age(dob, true)).to eq 11
+        expect(intake.calculate_age(dob, inclusive_of_jan_1: true)).to eq 11
       end
     end
 
     context "when calculating age not inclusive of Jan 1" do
       it "Jan 1 birthdays are not older at the end of this tax year" do
-        expect(intake.calculate_age(dob, false)).to eq 10
+        expect(intake.calculate_age(dob, inclusive_of_jan_1: false)).to eq 10
       end
     end
   end

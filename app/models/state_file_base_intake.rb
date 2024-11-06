@@ -372,16 +372,16 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def primary_senior?
-    calculate_age(primary_birth_date, true) >= 65
+    calculate_age(primary_birth_date, inclusive_of_jan_1: true) >= 65
   end
 
   def spouse_senior?
     return false unless spouse_birth_date.present?
 
-    calculate_age(spouse_birth_date, true) >= 65
+    calculate_age(spouse_birth_date, inclusive_of_jan_1: true) >= 65
   end
 
-  def calculate_age(dob, inclusive_of_jan_1)
+  def calculate_age(dob, inclusive_of_jan_1:)
     # In tax returns, all ages are calculated based on the last day of the current tax year
     # Federal exception: for age related benefits, the day before your birthday is when you become older
     # - Those born on Jan 1st become older on Dec 31st (so are a year older than their birth year would indicate)
