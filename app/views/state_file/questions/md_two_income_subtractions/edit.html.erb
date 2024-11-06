@@ -9,11 +9,11 @@
       <p class="text--bold spacing-below-5"><%= t(".subtitle") %></p>
       <p class="spacing-below-5"><%= t(".total", total_deduction: number_to_currency(@total_deduction)) %></p>
       <div class="form-question spacing-below-25">
-        <%= f.vita_min_money_field(:student_loan_interest_ded_amount_cents, "Your portion of the student loan interest deduction", classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:primary_student_loan_interest_ded_amount, "Your portion of the student loan interest deduction", classes: ["form-width--long"]) %>
       </div>
 
       <div class="form-question spacing-below-25">
-        <%= f.vita_min_money_field(:spouse_student_loan_interest_ded_amount_cents, "Your spouse's portion of the student loan interest deduction", classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:spouse_student_loan_interest_ded_amount, "Your spouse's portion of the student loan interest deduction", classes: ["form-width--long"]) %>
       </div>
     </div>
 
