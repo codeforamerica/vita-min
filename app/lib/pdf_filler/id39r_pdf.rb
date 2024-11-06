@@ -16,6 +16,7 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
+        "AL7" => @xml_document.at('TotalAdditions')&.text,
         "BL3" => @xml_document.at('IncomeUSObligations')&.text,
         "BL18" => @xml_document.at('HealthInsurancePaid')&.text,
       }

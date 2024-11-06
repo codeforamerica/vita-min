@@ -45,6 +45,13 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
     end
 
+    context "fills out Total Additions" do
+      let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
+      it "correctly fills answers" do
+        expect(pdf_fields["AL7"]).to eq "0"
+      end
+    end
+
     context "fills out Interest Income from Obligations of the US" do
       let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
       it "correctly fills answers" do

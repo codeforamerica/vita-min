@@ -11,6 +11,7 @@ module Efile
       end
 
       def calculate
+        set_line(:ID39R_A_LINE_7, -> { 0 })
         set_line(:ID39R_B_LINE_3, :calculate_sec_b_line_3)
         set_line(:ID39R_B_LINE_18, :calculate_sec_b_line_18)
         @lines.transform_values(&:value)

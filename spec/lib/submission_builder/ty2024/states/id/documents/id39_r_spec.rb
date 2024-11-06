@@ -10,6 +10,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
     context "fills out Interest Income from Obligations of the US" do
       let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
       it "correctly fills answers" do
+        expect(xml.at("TotalAdditions").text).to eq "0"
         expect(xml.at("IncomeUSObligations").text).to eq "2"
         expect(xml.at("HealthInsurancePaid").text).to eq "0"
       end
