@@ -7,12 +7,54 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    context "fills out Interest Income from Obligations of the US" do
+    context "filer with income document" do
       let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
       it "correctly fills answers" do
-        expect(xml.at("TotalAdditions").text).to eq "0"
-        expect(xml.at("IncomeUSObligations").text).to eq "2"
-        expect(xml.at("HealthInsurancePaid").text).to eq "0"
+        expect(xml.at("TotalAdditions")&.text).to eq "0"
+        expect(xml.at("IncomeUSObligations")&.text).to eq "2"
+        expect(xml.at("PensionFilingStatusAmount")&.text).to eq "0"
+        expect(xml.at("RailroadRetirement")&.text).to eq "0"
+        expect(xml.at("SocialSecurityBenefits")&.text).to eq "0"
+        expect(xml.at("PensionExclusions")&.text).to eq "0"
+        expect(xml.at("RetirementBenefitsDeduction")&.text).to eq "0"
+        expect(xml.at("HealthInsurancePaid")&.text).to eq "0"
+        expect(xml.at("TotalSubtractions")&.text).to eq "2"
+      end
+    end
+
+    context "TotalSubtractions" do
+      before do
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_3).and_return 1
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_6).and_return 2
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return 3
+        # line 8f is part of the calculation but it's always 0 for now
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return 4
+      end
+
+      it "should add up all the subtractions" do
+        expect(xml.at('TotalSubtractions')&.text).to eq "10"
+      end
+    end
+
+    context "TxblSSAndRRBenefits" do
+      context "with taxable social security benefit" do
+        before do
+          intake.direct_file_data.fed_taxable_ssb = 225
+        end
+
+        it "correctly fills answers" do
+          expect(xml.at("TxblSSAndRRBenefits").text).to eq "225"
+        end
+      end
+
+      context "without taxable social security benefit" do
+        before do
+          intake.direct_file_data.fed_taxable_ssb = nil
+        end
+
+        it "correctly fills answers" do
+          expect(xml.at("TxblSSAndRRBenefits").text).to eq "0"
+        end
       end
     end
 

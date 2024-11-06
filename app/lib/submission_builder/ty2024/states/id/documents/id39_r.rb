@@ -11,7 +11,14 @@ module SubmissionBuilder
                 xml.TotalAdditions calculated_fields.fetch(:ID39R_A_LINE_7)
                 xml.IncomeUSObligations calculated_fields.fetch(:ID39R_B_LINE_3)
                 xml.ChildCareCreditAmt calculated_fields.fetch(:ID39R_B_LINE_6)
+                xml.TxblSSAndRRBenefits calculated_fields.fetch(:ID39R_B_LINE_7)
+                xml.PensionFilingStatusAmount calculated_fields.fetch(:ID39R_B_LINE_8a)
+                xml.RailroadRetirement calculated_fields.fetch(:ID39R_B_LINE_8b)
+                xml.SocialSecurityBenefits calculated_fields.fetch(:ID39R_B_LINE_8c)
+                xml.PensionExclusions calculated_fields.fetch(:ID39R_B_LINE_8e)
+                xml.RetirementBenefitsDeduction calculated_fields.fetch(:ID39R_B_LINE_8f)
                 xml.HealthInsurancePaid calculated_fields.fetch(:ID39R_B_LINE_18)
+                xml.TotalSubtractions calculated_fields.fetch(:ID39R_B_LINE_24)
               end
             end
 
