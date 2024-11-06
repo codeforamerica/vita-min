@@ -376,6 +376,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def spouse_senior?
+    # NOTE: spouse_birth_date will always be present on a valid return, but some test data does not initialize it
     return false unless spouse_birth_date.present?
 
     calculate_age(spouse_birth_date, inclusive_of_jan_1: true) >= 65
