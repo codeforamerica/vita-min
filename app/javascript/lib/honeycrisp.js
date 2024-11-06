@@ -113,38 +113,37 @@ var followUpQuestion = (function () {
 
                 // add click listeners to initial question inputs
                 $(self).find('> .question-with-follow-up__question input').click(function (e) {
-                    if (reset_other_follow_ups) {
-                        $(self).find('> .question-with-follow-up__follow-up input').attr('checked', false);
-                        $(self).find('> .question-with-follow-up__follow-up').find('.radio-button, .checkbox').removeClass('is-selected');
-                    }
-                    if (hide_other_follow_ups) {
-                        $(self).find('> .question-with-follow-up__follow-up').hide();
-                    }
-
-                    // toggle the current follow up
-                    if ($(this).attr('data-follow-up') != null) {
-                        if ($(this).is(':checked')) {
-                            $($(this).attr('data-follow-up')).show();
-                        } else {
-                            $($(this).attr('data-follow-up')).hide();
-                        }
-                    }
                     fUQ.update($(self));
                 });
             });
         },
         update: function ($container) {
+            let reset_other_follow_ups = $container.attr('data-reset-other-follow-ups') !== "false";
+            let hide_other_follow_ups = $container.attr('data-hide-other-follow-ups') !== "false";
+
             // reset follow ups
-            $container.find('.question-with-follow-up__follow-up input').attr('disabled', true);
-            $container.find('.question-with-follow-up__follow-up').hide();
+            if (reset_other_follow_ups) {
+                $container.find('.question-with-follow-up__follow-up input').attr('disabled', true);
+            }
+
+            if (hide_other_follow_ups) {
+                console.log("hiding followups");
+                $container.find('.question-with-follow-up__follow-up').hide();
+            }
 
             $container.find('.question-with-follow-up__question input').each(function (index, input) {
                 // if any of the inputs with a data-follow-up is checked then show the follow-up
-                if ($(input).is(':checked') && $(input).attr('data-follow-up') != null) {
-                    $container.find('.question-with-follow-up__follow-up input').attr('disabled', false);
+                if ($(input).attr('data-follow-up') != null) {
                     var followUpSelector = $(this).attr('data-follow-up');
                     if (/^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
-                        $(followUpSelector).show();
+                        if ($(input).is(':checked')) {
+                            console.log("showing " + followUpSelector);
+                            $(followUpSelector).show();
+                            $(followUpSelector).find('input').attr('disabled', false);
+                        } else {
+                            $(followUpSelector).hide();
+                            $(followUpSelector).find('input').attr('disabled', true);
+                        }
                     }
                 }
             });
