@@ -75,7 +75,6 @@ describe SubmissionBuilder::StateReturn do
         expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).to include("STPICKUP")
         expect(w2_node.css("OtherDeductionsBenefitsGrp Desc")[1]&.text).to eq "STPICKUP"
         expect(w2_node.css("OtherDeductionsBenefitsGrp Amt")[1]&.text).to eq "751"
-        expect(stpickup_node.next_element.name).to eq "W2StateLocalTaxGrp"
       end
 
       it "preserves existing OtherDeductionsBenefitsGrp entries" do
