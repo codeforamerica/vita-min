@@ -67,6 +67,50 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 7: Federal Adjusted Gross Income" do
+    before do
+      intake.direct_file_data.fed_agi = 12_501
+    end
+    it "returns federal AGI from direct file data" do
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_7].value).to eq(12_501)
+    end
+  end
+
+  describe "Line 8: Additions from Form 39R" do
+    it "returns value from ID39R form line 7" do
+      allow(instance).to receive(:line_or_zero).with(:ID39R_A_LINE_7).and_return(200)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_8].value).to eq(200)
+    end
+  end
+
+  describe "Line 9: Total of lines 7 and 8" do
+    it "sums lines 7 and 8" do
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_7).and_return(5000)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_8).and_return(200)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_9].value).to eq(5200)
+    end
+  end
+
+  describe "Line 10: Subtractions from Form 39R" do
+    it "returns value from ID39R form line 24" do
+      allow(instance).to receive(:line_or_zero).with(:ID39R_B_LINE_24).and_return(300)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_10].value).to eq(300)
+    end
+  end
+
+  describe "Line 11: Idaho Adjusted Gross Income" do
+    it "subtracts line 10 from line 9" do
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_9).and_return(52000)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_10).and_return(3000)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_11].value).to eq(49000)
+    end
+  end
+
   describe "Line 29: State Use Tax" do
     let(:purchase_amount) { nil }
 
