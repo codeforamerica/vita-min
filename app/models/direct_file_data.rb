@@ -203,12 +203,7 @@ class DirectFileData < DfXmlAccessor
   def total_itemized_or_standard_deduction_amount=(value)
     write_df_xml_value(__method__, value)
   end
-  # def primary_blind=(value)
-  #   write_df_xml_value(__method__, value)
-  # end
-  # def spouse_blind=(value)
-  #   write_df_xml_value(__method__, value)
-  # end
+
   def fed_agi
     df_xml_value(__method__)&.to_i || 0
   end
