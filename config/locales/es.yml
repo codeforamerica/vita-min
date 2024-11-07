@@ -2723,8 +2723,8 @@ es:
           label: Total
           subtitle: 'Please include the sum of the following:'
           subtitle_list_1: Estimated income tax payments you made throughout the year for your New Jersey state taxes
-          subtitle_list_2: Overpayments on your 2023 return that you chose to apply to your 2024 New Jersey taxes
-          subtitle_list_2_sub: 'Note: you would have selected this option when filing your 2023 return'
+          subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
+          subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
           title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
       nj_homeowner_eligibility:
         edit:

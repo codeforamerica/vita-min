@@ -10,9 +10,9 @@
   <ul class="list--bulleted spacing-below-25">
     <li><%= t(".subtitle_list_1") %></li>
     <li>
-      <%= t(".subtitle_list_2") %>
+      <%= t(".subtitle_list_2", filing_year: @filing_year, prior_year: @prior_year) %>
       <ul class="list--bulleted">
-        <li><%= t(".subtitle_list_2_sub") %></li>
+        <li><%= t(".subtitle_list_2_sub", prior_year: @prior_year) %></li>
       </ul>
     </li>
   </ul>
