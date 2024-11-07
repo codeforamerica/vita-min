@@ -19,7 +19,7 @@ class TwilioService
 
   def initialize(service_type = :gyr)
     creds = MultiTenantService.new(service_type).twilio_creds
-    @messaging_service_sid = creds[:messaging_service_id]
+    @messaging_service_sid = creds[:messaging_service_sid]
     @auth_token = creds[:auth_token]
     @client = Twilio::REST::Client.new(creds[:account_sid], auth_token)
   end

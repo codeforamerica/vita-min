@@ -113,10 +113,10 @@ class MultiTenantService
   end
 
   def twilio_creds
-    {
-      account_sid: EnvironmentCredentials.dig(:twilio, :account_sid),
-      auth_token: EnvironmentCredentials.dig(:twilio, :auth_token),
-      messaging_service_id: EnvironmentCredentials.dig(:twilio, :messaging_services, service_type)
+    @_twlio_creds ||= {
+      account_sid: EnvironmentCredentials.dig(:twilio, service_type, :account_sid),
+      auth_token: EnvironmentCredentials.dig(:twilio, service_type, :auth_token),
+      messaging_service_sid: EnvironmentCredentials.dig(:twilio, service_type, :messaging_service_sid)
     }
   end
 

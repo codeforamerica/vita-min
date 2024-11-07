@@ -1,25 +1,39 @@
 require 'rails_helper'
 
 describe TwilioService do
-  describe "multi-tenant support" do
-    before do
-      @test_environment_credentials.merge!(twilio: { messaging_services: {
-        gyr: 'gyr',
-        statefile: 'fystlol',
-        ctc: 'ctc'
-      }})
-    end
+  before do
+    @test_environment_credentials.merge!({
+      twilio: {
+        gyr: {
+          account_sid: 'gyr_account_sid',
+          auth_token: 'gyr_token',
+          messaging_service_sid: 'gyr_messaging'
+        },
+        statefile: {
+          account_sid: 'fyst_account_sid',
+          auth_token: 'fyst_token',
+          messaging_service_sid: 'fyst_messaging'
+        },
+        ctc: {
+          account_sid: 'ctc_account_sid',
+          auth_token: 'ctc_token',
+          messaging_service_sid: 'ctc_messaging'
+        }
+      }
+    })
+  end
 
+  describe "multi-tenant support" do
     it "instantiates as a gyr messanger by default" do
       actual = TwilioService.new.messaging_service_sid
-      expected = @test_environment_credentials[:twilio][:messaging_services][:gyr]
+      expected = @test_environment_credentials[:twilio][:gyr][:messaging_service_sid]
       expect(actual).to eq expected
     end
 
     it "can instantiate as a messenger for all the apps the multi-tenant service knows about" do
       MultiTenantService::SERVICE_TYPES.each do |service|
         actual = TwilioService.new(service).messaging_service_sid
-        expected = @test_environment_credentials[:twilio][:messaging_services][service]
+        expected = @test_environment_credentials[:twilio][service][:messaging_service_sid]
         expect(actual).to eq expected
       end
     end
@@ -235,16 +249,12 @@ describe TwilioService do
 
     before do
       allow(Twilio::REST::Client).to receive(:new).and_return fake_client
-      @test_environment_credentials.merge!(twilio: {
-        account_sid: "account_sid",
-        auth_token: "auth_token",
-      })
     end
 
     it "uses environment credentials to instantiate a twilio client" do
       result = TwilioService.new(:gyr)
       expect(result).to be_a(TwilioService)
-      expect(Twilio::REST::Client).to have_received(:new).with("account_sid", "auth_token")
+      expect(Twilio::REST::Client).to have_received(:new).with("gyr_account_sid", "gyr_token")
     end
   end
 
@@ -253,7 +263,6 @@ describe TwilioService do
     let(:fake_messages_resource) { double }
     let(:fake_message) { double }
     before do
-      @test_environment_credentials.merge!(twilio: { messaging_services: Hash.new("service_sid") })
       @twilio_service = TwilioService.new(:statefile)
       allow(@twilio_service).to receive(:client).and_return fake_client
       allow(fake_client).to receive(:messages).and_return fake_messages_resource
@@ -270,7 +279,7 @@ describe TwilioService do
 
       expect(result).to eq fake_message
       expect(fake_messages_resource).to have_received(:create).with(
-        messaging_service_sid: "service_sid",
+        messaging_service_sid: "fyst_messaging",
         to: "+15855551212",
         body: "hello there",
         status_callback: "http://example.com"
@@ -284,7 +293,7 @@ describe TwilioService do
       )
 
       expect(fake_messages_resource).to have_received(:create).with(
-        messaging_service_sid: "service_sid",
+        messaging_service_sid: "fyst_messaging",
         to: "+15855551212",
         body: "hello there",
       )
