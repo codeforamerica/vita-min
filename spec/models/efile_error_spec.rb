@@ -58,6 +58,7 @@ describe 'EfileError' do
       "federal-info",
       "id-eligibility-residence",
       "id-health-insurance-premium",
+      "id-permanent-building-fund",
       "id-review",
       "id-sales-use-tax",
       "income-review",
