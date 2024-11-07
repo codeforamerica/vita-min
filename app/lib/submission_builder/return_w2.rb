@@ -24,10 +24,7 @@ module SubmissionBuilder
           stpickup_node.add_child(desc_node)
           stpickup_node.add_child(amt_node)
 
-          existing_deductions = xml_node.at(:OtherDeductionsBenefitsGrp)
-          if existing_deductions
-            existing_deductions.add_next_sibling(stpickup_node)
-          else
+          if state_local_tax_grp_node.present?
             state_local_tax_grp_node.add_previous_sibling(stpickup_node)
           end
         end
