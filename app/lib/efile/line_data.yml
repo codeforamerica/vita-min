@@ -166,6 +166,8 @@ NYC_EIC_RATE_WK_LINE_5:
   label: 'Enter the decimal from the NYC EIC rate table.'
 NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
+ID39R_B_LINE_6:
+  label: 'Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
 ID39R_B_LINE_3:
   label: 'Interest from U.S. government obligations'
 ID39R_B_LINE_18:
