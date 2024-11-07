@@ -2731,6 +2731,12 @@ en:
           primary_disabled_question: Are you disabled according to the New Jersey definition?
           spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
           title: Disabled Exemption
+      nj_eitc_qualifying_child:
+        edit:
+          instructions: We just have to make sure that you are not someone else's qualifying child for this credit first.
+          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
+          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
+          title: You may be eligible for the Earned Income Tax Credit
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2791,6 +2797,7 @@ en:
       nj_review:
         edit:
           amount: Amount
+          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: County
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
@@ -2800,6 +2807,7 @@ en:
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
+          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: My spouse has a disability
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied

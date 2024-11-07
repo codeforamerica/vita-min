@@ -61,6 +61,22 @@
     </div>
   <% end %>
 
+    <% if !current_intake.claimed_as_eitc_qualifying_child_unfilled? || !current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
+    <div id="eitc_qualifying_child" class="white-group">
+      <div class="spacing-below-5">
+        <% if !current_intake.claimed_as_eitc_qualifying_child_unfilled? %>
+          <p class="text--bold spacing-below-5"><%=t(".claimed_as_eitc_qualifying_child") %></p>
+          <p><%= current_intake.claimed_as_eitc_qualifying_child %></p>
+        <% end %>
+        <% if !current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
+          <p class="text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></p>
+          <p><%= current_intake.spouse_claimed_as_eitc_qualifying_child  %></p>
+        <% end %>
+        <%= link_to t("general.edit"), StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <div id="household_rent_own" class="white-group">
     <div class="spacing-below-5">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".household_rent_own") %></h2>

@@ -281,7 +281,10 @@ module Efile
         if @direct_file_data.fed_eic.positive?
           (@direct_file_data.fed_eic * 0.4).round
         else
-          # TODO
+          puts "no fed eitc"
+          puts "claimed_as_eitc_qualifying_child: #{@intake.claimed_as_eitc_qualifying_child}"
+          puts "spouse_claimed_as_eitc_qualifying_child: #{@intake.spouse_claimed_as_eitc_qualifying_child}"
+          0
         end
       end
 
