@@ -75,6 +75,7 @@ describe SubmissionBuilder::StateReturn do
         expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).to include("STPICKUP")
         expect(w2_node.css("OtherDeductionsBenefitsGrp Desc")[1]&.text).to eq "STPICKUP"
         expect(w2_node.css("OtherDeductionsBenefitsGrp Amt")[1]&.text).to eq "751"
+        expect(stpickup_node.next_element.name).to eq "W2StateLocalTaxGrp"
       end
 
       it "preserves existing OtherDeductionsBenefitsGrp entries" do
@@ -102,14 +103,6 @@ describe SubmissionBuilder::StateReturn do
         xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
         expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).not_to include("STPICKUP")
       end
-
-      it "preserves existing OtherDeductionsBenefitsGrp entries" do
-        xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
-        w2_node = xml.css(w2_node_name).first
-
-        expect(w2_node.css("OtherDeductionsBenefitsGrp Desc")[0]&.text).to eq "414HSUB"
-        expect(w2_node.css("OtherDeductionsBenefitsGrp Amt")[0]&.text).to eq "250"
-      end
     end
 
     context "when W2 has nil box14_stpickup" do
@@ -127,14 +120,6 @@ describe SubmissionBuilder::StateReturn do
       it "does not include STPICKUP in XML" do
         xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
         expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).not_to include("STPICKUP")
-      end
-
-      it "preserves existing OtherDeductionsBenefitsGrp entries" do
-        xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
-        w2_node = xml.css(w2_node_name).first
-
-        expect(w2_node.css("OtherDeductionsBenefitsGrp Desc")[0]&.text).to eq "414HSUB"
-        expect(w2_node.css("OtherDeductionsBenefitsGrp Amt")[0]&.text).to eq "250"
       end
     end
   end
