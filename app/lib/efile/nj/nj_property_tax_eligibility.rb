@@ -6,6 +6,18 @@ module Efile
       POSSIBLY_ELIGIBLE_FOR_DEDUCTION_OR_CREDIT = :possibly_eligible_for_deduction_or_credit
 
       class << self
+        def ineligible?(intake)
+          determine_eligibility(intake) == INELIGIBLE
+        end
+
+        def possibly_eligible_for_credit?(intake)
+          determine_eligibility(intake) == POSSIBLY_ELIGIBLE_FOR_CREDIT
+        end
+
+        def possibly_eligible_for_deduction_or_credit?(intake)
+          determine_eligibility(intake) == POSSIBLY_ELIGIBLE_FOR_DEDUCTION_OR_CREDIT
+        end
+
         def determine_eligibility(intake)
           state_wages = Efile::Nj::NjStateWages.calculate_state_wages(intake)
 

@@ -45,4 +45,46 @@ describe Efile::Nj::NjPropertyTaxEligibility do
       end
     end
   end
+
+  describe ".ineligible?" do
+    it "returns true when the intake is ineligible" do
+      intake = create(:state_file_nj_intake)
+      allow(described_class).to receive(:determine_eligibility).with(intake).and_return(described_class::INELIGIBLE)
+      expect(described_class.ineligible?(intake)).to be true
+    end
+
+    it "returns false when the intake is not ineligible" do
+      intake = create(:state_file_nj_intake)
+      allow(described_class).to receive(:determine_eligibility).with(intake).and_return(described_class::POSSIBLY_ELIGIBLE_FOR_CREDIT)
+      expect(described_class.ineligible?(intake)).to be false
+    end
+  end
+
+  describe ".possibly_eligible_for_credit?" do
+    it "returns true when the intake is possibly eligible for credit" do
+      intake = create(:state_file_nj_intake)
+      allow(described_class).to receive(:determine_eligibility).with(intake).and_return(described_class::POSSIBLY_ELIGIBLE_FOR_CREDIT)
+      expect(described_class.possibly_eligible_for_credit?(intake)).to be true
+    end
+
+    it "returns false when the intake is not possibly eligible for credit" do
+      intake = create(:state_file_nj_intake)
+      allow(described_class).to receive(:determine_eligibility).with(intake).and_return(described_class::INELIGIBLE)
+      expect(described_class.possibly_eligible_for_credit?(intake)).to be false
+    end
+  end
+
+  describe ".possibly_eligible_for_deduction_or_credit?" do
+    it "returns true when the intake is possibly eligible for deduction or credit" do
+      intake = create(:state_file_nj_intake)
+      allow(described_class).to receive(:determine_eligibility).with(intake).and_return(described_class::POSSIBLY_ELIGIBLE_FOR_DEDUCTION_OR_CREDIT)
+      expect(described_class.possibly_eligible_for_deduction_or_credit?(intake)).to be true
+    end
+
+    it "returns false when the intake is not possibly eligible for deduction or credit" do
+      intake = create(:state_file_nj_intake)
+      allow(described_class).to receive(:determine_eligibility).with(intake).and_return(described_class::INELIGIBLE)
+      expect(described_class.possibly_eligible_for_deduction_or_credit?(intake)).to be false
+    end
+  end
 end

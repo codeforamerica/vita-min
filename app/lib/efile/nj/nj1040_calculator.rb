@@ -221,7 +221,7 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax_credit
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE ||
-        Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(@intake) == Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE
+        Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
       end
 
       def calculate_line_40a
