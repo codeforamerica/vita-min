@@ -681,7 +681,7 @@ NJ1040_LINE_51:
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_57:
-  label: '57 New Jersey Estimated Tax Payments/Credit from 2022 tax return'
+  label: '57 New Jersey Estimated Tax Payments/Credit from prior year tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
 NJ1040_LINE_64:
