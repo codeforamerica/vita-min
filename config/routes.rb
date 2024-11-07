@@ -564,6 +564,7 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
+      resources :retirement_income, only: [:edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
       resources :az_qualifying_organization_contributions,
         only: [
           :index, :new, :create, :edit,

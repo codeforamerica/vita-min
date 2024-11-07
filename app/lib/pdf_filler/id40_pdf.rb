@@ -1,6 +1,7 @@
 module PdfFiller
   class Id40Pdf
     include PdfHelper
+    include SubmissionBuilder::FormattingMethods
 
     def source_pdf_name
       "idform40-TY-2023"
@@ -38,6 +39,7 @@ module PdfFiller
         '6cDependents' => @xml_document.at('OtherExemption')&.text,
         '6dTotalHousehold' => @xml_document.at('TotalExemption')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
+        'PymntOtherCreditL46' => @xml_document.at('TaxWithheld')&.text,
       }
       @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(
@@ -48,7 +50,7 @@ module PdfFiller
           )
       end
       if @submission.data_source.primary_esigned_yes?
-        answers["DateSign 2"] = @submission.data_source.primary_esigned_at.strftime("%m-%d-%Y")
+        answers["DateSign 2"] = date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%m-%d-%Y")
         answers["TaxpayerPhoneNo"] = @submission.data_source.direct_file_data.phone_number
       end
       answers

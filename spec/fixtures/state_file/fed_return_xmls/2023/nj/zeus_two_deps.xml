@@ -118,6 +118,7 @@
       <TotalExemptionsCnt>4</TotalExemptionsCnt>
       <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
       <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>1</TaxExemptInterestAmt>
       <TaxableInterestAmt>500</TaxableInterestAmt>
       <SocSecBnftAmt>8000</SocSecBnftAmt>
       <TaxableSocSecAmt>6800</TaxableSocSecAmt>

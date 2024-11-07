@@ -128,6 +128,15 @@ describe Efile::Nc::D400Calculator do
     context "they have untaxed out of state purchases and selected automated calculation" do
       let(:intake) { create(:state_file_nc_intake, untaxed_out_of_state_purchases: "yes", sales_use_tax_calculation_method: "automated") }
 
+      context "nc taxable income is negative" do
+        it "returns 1" do
+          allow(instance).to receive(:calculate_line_14).and_return -1_000
+          instance.calculate
+
+          expect(instance.lines[:NCD400_LINE_18].value).to eq 1
+        end
+      end
+
       context "nc taxable income is 2,100" do
         it "returns 1" do
           allow(instance).to receive(:calculate_line_14).and_return 2_100

@@ -4,6 +4,7 @@ module Efile
       attr_reader :lines
 
       RENT_CONVERSION = 0.18
+      MAX_NJ_CTC_DEPENDENTS = 9
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -11,13 +12,12 @@ module Efile
 
       def calculate
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
-        set_line(:NJ1040_LINE_6, :calculate_line_6)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
-        set_line(:NJ1040_LINE_7, :calculate_line_7)
-        set_line(:NJ1040_LINE_8, :calculate_line_8)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
+        set_line(:NJ1040_LINE_16A, :calculate_line_16a)
+        set_line(:NJ1040_LINE_16B, :calculate_line_16b)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
@@ -29,6 +29,7 @@ module Efile
         set_line(:NJ1040_LINE_43, :calculate_line_43)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
+        set_line(:NJ1040_LINE_58, :calculate_line_58)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -45,7 +46,6 @@ module Efile
       end
 
       def get_tax_rate_and_subtraction_amount(income)
-
         if @intake.filing_status_mfs? || @intake.filing_status_single?
           case income
           when 1..20_000
@@ -137,25 +137,14 @@ module Efile
         end
       end
 
-      private
-
-      def line_6_spouse_checkbox
-        @intake.filing_status_mfj?
+      def calculate_tax_exempt_interest_income
+        @intake.direct_file_data.fed_tax_exempt_interest + interest_on_gov_bonds
       end
 
       def calculate_line_6
         self_exemption = 1
         number_of_line_6_exemptions = self_exemption + number_of_true_checkboxes([line_6_spouse_checkbox])
         number_of_line_6_exemptions * 1_000
-      end
-
-      def line_7_self_checkbox
-        is_over_65(@intake.primary_birth_date)
-      end
-
-      def line_7_spouse_checkbox
-        return false unless @intake.spouse_birth_date.present?
-        is_over_65(@intake.spouse_birth_date)
       end
 
       def calculate_line_7
@@ -170,27 +159,28 @@ module Efile
         number_of_line_8_exemptions * 1_000
       end
 
-      def calculate_line_40a
-        case @intake.household_rent_own
-        when "own"
-          if @intake.property_tax_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.property_tax_paid
-        when "rent"
-          if @intake.rent_paid.nil?
-            return nil
-          end
-          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
-        else
-          return nil
-        end
+      def calculate_line_9
+        number_of_line_9_exemptions = number_of_true_checkboxes([@intake.primary_veteran_yes?, @intake.spouse_veteran_yes?])
+        number_of_line_9_exemptions * 6_000
+      end
 
-        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
+      private
+
+      def line_6_spouse_checkbox
+        @intake.filing_status_mfj?
+      end
+
+      def line_7_self_checkbox
+        is_over_65(@intake.primary_birth_date)
+      end
+
+      def line_7_spouse_checkbox
+        return false unless @intake.spouse_birth_date.present?
+        is_over_65(@intake.spouse_birth_date)
       end
 
       def calculate_line_13
-        line_or_zero(:NJ1040_LINE_6) + line_or_zero(:NJ1040_LINE_7) + line_or_zero(:NJ1040_LINE_8) 
+        calculate_line_6 + calculate_line_7 + calculate_line_8 + calculate_line_9
       end
 
       def calculate_line_15
@@ -200,10 +190,19 @@ module Efile
 
         sum = 0
         @intake.state_file_w2s.each do |w2|
-          state_wage = w2.state_wages_amount
+          state_wage = w2.state_wages_amount.to_i
           sum += state_wage
         end
         sum
+      end
+
+      def calculate_line_16a
+        return nil unless interest_on_gov_bonds.positive?
+        @intake.direct_file_data.fed_taxable_income - interest_on_gov_bonds
+      end
+
+      def calculate_line_16b
+        calculate_tax_exempt_interest_income if calculate_tax_exempt_interest_income.positive?
       end
 
       def calculate_line_27
@@ -230,6 +229,25 @@ module Efile
         calculate_line_29 - calculate_line_38
       end
 
+      def calculate_line_40a
+        case @intake.household_rent_own
+        when "own"
+          if @intake.property_tax_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.property_tax_paid
+        when "rent"
+          if @intake.rent_paid.nil?
+            return nil
+          end
+          property_tax_paid = @intake.rent_paid * RENT_CONVERSION
+        else
+          return nil
+        end
+
+        is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
+      end
+
       def is_ineligible_or_unsupported_for_property_tax
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
       end
@@ -247,7 +265,7 @@ module Efile
       end
 
       def calculate_line_51
-        @intake.sales_use_tax || 0
+        (@intake.sales_use_tax || 0).round
       end
 
       def calculate_line_56
@@ -256,6 +274,10 @@ module Efile
         else
           is_mfs_same_home ? 25 : 50
         end
+      end
+
+      def calculate_line_58
+        (@direct_file_data.fed_eic * 0.4).round
       end
 
       def calculate_line_64
@@ -298,8 +320,8 @@ module Efile
       end
 
       def number_of_dependents_age_5_younger
-        # TODO: revise once we have lines 10 and 11
-        @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
+        dep_age_5_younger_count = @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
+        [dep_age_5_younger_count, MAX_NJ_CTC_DEPENDENTS].min
       end
 
       def is_over_65(birth_date)
@@ -314,6 +336,12 @@ module Efile
 
       def number_of_true_checkboxes(checkbox_array_for_line)
         checkbox_array_for_line.sum { |a| a == true ? 1 : 0 }
+      end
+
+      def interest_on_gov_bonds
+        interest_reports = @intake.direct_file_json_data.interest_reports
+        interests_on_gov_bonds = interest_reports&.map(&:interest_on_government_bonds)
+        interests_on_gov_bonds&.sum&.round
       end
 
       def is_mfs_same_home

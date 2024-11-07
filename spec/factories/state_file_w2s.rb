@@ -3,9 +3,10 @@
 # Table name: state_file_w2s
 #
 #  id                          :bigint           not null, primary key
-#  employee_name               :string           not null
+#  box14_stpickup              :decimal(12, 2)
+#  employee_name               :string
 #  employee_ssn                :string
-#  employer_name               :string           not null
+#  employer_name               :string
 #  employer_state_id_num       :string
 #  local_income_tax_amount     :decimal(12, 2)
 #  local_wages_and_tips_amount :decimal(12, 2)
@@ -28,7 +29,7 @@ FactoryBot.define do
     employee_name { "Jajko" }
     employer_name { "Biszkoptowy Enterprises" }
     employer_state_id_num { "12345" }
-    state_wages_amount { 10000 }
+    state_wages_amount { 1000 }
     state_income_tax_amount { 350 }
     local_wages_and_tips_amount { 100 }
     local_income_tax_amount { 100 }

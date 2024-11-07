@@ -16,18 +16,18 @@ module PdfFiller
 
     def hash_for_pdf
       {
-        "Enter 1": @xml_document.at("Form502 Income FederalAdjustedGrossIncome")&.text,
-        "Enter 1a": @xml_document.at("Form502 Income WagesSalariesAndTips")&.text,
-        "Enter 1b": @xml_document.at("Form502 Income EarnedIncome")&.text,
-        "Enter 1dEnter 1d": @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
-        "Enter Y of income more than $11,000": @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
-        "Enter day and month of Fiscal Year beginning": formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
-        "Enter day and month of Fiscal Year Ending": formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d"),
-        "Enter social security number": @xml_document.at('Primary TaxpayerSSN')&.text,
+        'Enter 1': @xml_document.at("Form502 Income FederalAdjustedGrossIncome")&.text,
+        'Enter 1a': @xml_document.at("Form502 Income WagesSalariesAndTips")&.text,
+        'Enter 1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
+        'Enter 1dEnter 1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
+        'Enter Y of income more than $11,000': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
+        'Enter day and month of Fiscal Year beginning': formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
+        'Enter day and month of Fiscal Year Ending': formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d"),
+        'Enter social security number': @xml_document.at('Primary TaxpayerSSN')&.text,
         'Enter spouse\'s social security number': @xml_document.at('Secondary TaxpayerSSN')&.text,
-        "Enter your first name": @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        "Enter your middle initial": @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
-        "Enter your last name": @xml_document.at('Primary TaxpayerName LastName')&.text,
+        'Enter your first name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
+        'Enter your middle initial': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
+        'Enter your last name': @xml_document.at('Primary TaxpayerName LastName')&.text,
         'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
@@ -46,18 +46,35 @@ module PdfFiller
         'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
         'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
         'Enter zip code + 5': @submission.data_source.residence_county,
-        "Check Box - 1": filing_status(:filing_status_single?) ? 'Yes' : 'Off',
-        "Check Box - 2": filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
-        "Check Box - 3": filing_status(:filing_status_mfs?) ? 'No' : 'Off', # "No" is the checked option
+        'Check Box - 1': filing_status(:filing_status_single?) ? 'Yes' : 'Off',
+        'Check Box - 2': filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
+        'Check Box - 3': filing_status(:filing_status_mfs?) ? 'No' : 'Off', # "No" is the checked option
         "MARRIED FILING Enter spouse's social security number": spouse_ssn_if_mfs,
-        "Check Box - 4": filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
-        "Check Box - 5": filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
-        "6. Check here": claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
-        "Enter 9": @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
-        "Enter 11": @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
-        "Text Box 96": @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
-        "Text Field 16": @xml_document.at('Exemptions Dependents Count')&.text,
-        "Enter C $ ": @xml_document.at('Exemptions Dependents Amount')&.text,
+        'Check Box - 4': filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
+        'Check Box - 5': filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
+        '6. Check here': claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
+        'Check Box 15': checkbox_value(@xml_document.at('Exemptions Primary Standard')&.text),
+        'Check Box 18': checkbox_value(@xml_document.at('Exemptions Spouse Standard')&.text),
+        'Text Field 15': @xml_document.at('Exemptions Standard Count')&.text,
+        'Enter A $': @xml_document.at('Exemptions Standard Amount')&.text,
+        'Check Box 20': checkbox_value(@xml_document.at('Exemptions Primary Over65')&.text),
+        'Check Box 21': checkbox_value(@xml_document.at('Exemptions Spouse Over65')&.text),
+        'B. Check this box if you are blind': checkbox_value(@xml_document.at('Exemptions Primary Blind')&.text),
+        'B. Check this box if your spouse is blind': checkbox_value(@xml_document.at('Exemptions Spouse Blind')&.text),
+        'B. Enter number exemptions checked B': @xml_document.at('Exemptions Additional Count')&.text,
+        'Enter B $ ': @xml_document.at('Exemptions Additional Amount')&.text,
+        'Text Field 16': @xml_document.at('Exemptions Dependents Count')&.text,
+        'Enter C $ ': @xml_document.at('Exemptions Dependents Amount')&.text,
+        'Text Field 17': @xml_document.at('Exemptions Total Count')&.text,
+        'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
+        'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
+        'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
+        'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        'Check Box 34': deduction_method_is_standard? ? "Yes" : "Off",
+        'Enter 17': deduction_method_is_standard? ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
+        'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
+        'Enter 19 ': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
+        'Enter 20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
       }
     end
 
@@ -69,8 +86,16 @@ module PdfFiller
       @submission.data_source.direct_file_data.claimed_as_dependent?
     end
 
+    def deduction_method_is_standard?
+      @xml_document.at('Form502 Deduction Method')&.text == "S"
+    end
+
     def filing_status(method)
       claimed_as_dependent? ? false : @submission.data_source.send(method)
+    end
+
+    def checkbox_value(value)
+      value.present? ? 'Yes' : 'Off'
     end
   end
 end

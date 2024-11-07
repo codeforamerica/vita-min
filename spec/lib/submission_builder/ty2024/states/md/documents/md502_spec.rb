@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schema: "md" do
   describe ".document" do
-    let(:intake) { create(:state_file_md_intake, filing_status: "single") }
+    let(:intake) { create(:state_file_md_intake, filing_status: "single", primary_birth_date: 65.years.ago) }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
@@ -208,8 +208,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         context "when there are no exemptions" do
           it "omits the whole exemptions section" do
             [
-              :get_dependent_exemption_count,
-              :calculate_dependent_exemption_amount
+              :calculate_line_c_count,
+              :calculate_line_c_amount,
+              :calculate_line_a_count,
+              :calculate_line_b_count
             ].each do |method|
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
             end
@@ -218,10 +220,42 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
         end
 
-        context "dependents section" do
+        context "line A section" do
+          let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_jointly") }
+
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_primary).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_spouse).and_return "X"
+          end
+
+          it "fills out line A" do
+            expect(xml.document.at("Exemptions Primary Standard")&.text).to eq "X"
+            expect(xml.document.at("Exemptions Spouse Standard")&.text).to eq "X"
+          end
+        end
+
+        context "line B section" do
+          let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly") }
+
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_senior).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_blind).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_blind).and_return "X"
+          end
+
+          it "fills out line B" do
+            expect(xml.document.at("Exemptions Primary Over65")&.text).to eq "X"
+            expect(xml.document.at("Exemptions Spouse Over65")&.text).to eq "X"
+            expect(xml.document.at("Exemptions Primary Blind")&.text).to eq "X"
+            expect(xml.document.at("Exemptions Spouse Blind")&.text).to eq "X"
+          end
+        end
+
+        context "line C: dependents section" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_count).and_return dependent_count
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_amount).and_return dependent_exemption_amount
           end
 
           context "when there are values" do
@@ -243,6 +277,20 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             end
           end
         end
+
+        context "line D section" do
+          let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly", spouse_birth_date: 65.years.ago, primary_birth_date: 65.years.ago) }
+
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_count_total).and_return "X"
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_amount_total).and_return "X"
+          end
+
+          it "fills out line B" do
+            expect(xml.document.at("Exemptions Total Count")&.text).to eq "X"
+            expect(xml.document.at("Exemptions Total Amount")&.text).to eq "X"
+          end
+        end
       end
 
       context "subtractions section" do
@@ -259,6 +307,51 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           it "outputs Taxable Social Security and RR benefits" do
             expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
           end
+        end
+      end
+
+      context "deduction section" do
+        it "fills out the deduction method from calculator" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(xml.at("Form502 Deduction Method").text).to eq "S"
+        end
+
+        context "amount" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 300
+          end
+
+          it "fills out the deduction amount from the calculator if method is standard" do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+            expect(xml.at("Form502 Deduction Amount").text).to eq "300"
+          end
+
+          it "leaves amount blank if method is not standard" do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+            expect(xml.at("Form502 Deduction Amount")).to be_nil
+          end
+        end
+      end
+
+      context "tax computation section" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 40
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 50
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 60
+        end
+
+        it "fills out amounts from the calculator if method is standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(xml.at("Form502 NetIncome").text).to eq "40"
+          expect(xml.at("Form502 ExemptionAmount").text).to eq "50"
+          expect(xml.at("Form502 StateTaxComputation TaxableNetIncome").text).to eq "60"
+        end
+
+        it "leaves amounts blank if method is not standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(xml.at("Form502 NetIncome")).to be_nil
+          expect(xml.at("Form502 ExemptionAmount")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
         end
       end
     end

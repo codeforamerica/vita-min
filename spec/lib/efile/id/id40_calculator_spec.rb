@@ -100,4 +100,47 @@ describe Efile::Id::Id40Calculator do
       end
     end
   end
+
+  describe "Line 46: State Tax Withheld" do
+    context "when there are no income forms" do
+      it "should return 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_46].value).to eq(0)
+      end
+    end
+
+    context "when there are income forms" do
+      context "which have no state tax withheld" do
+        # Miranda has two W-2s with state tax withheld amount (507, 1502) and two 1099Rs with no state tax withheld
+        # but we will not sync in this context to leave values blank in db
+        let(:intake) {
+          create(:state_file_id_intake,
+                 raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
+        }
+        let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 0) }
+        let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 0) }
+
+        it "should return 0" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_46].value).to eq(0)
+        end
+      end
+
+      context "which have state tax withheld" do
+        # Miranda has two W-2s with state tax withheld amount (507, 1502) and two 1099Rs with no state tax withheld
+        let(:intake) {
+          create(:state_file_id_intake,
+                 :with_w2s_synced,
+                 raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
+        }
+        let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 10) }
+        let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 25) }
+
+        it 'sums the ID tax withheld from w2s, 1099gs and 1099rs' do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_46].value).to eq(10 + 25 + 507 + 1502)
+        end
+      end
+    end
+  end
 end
