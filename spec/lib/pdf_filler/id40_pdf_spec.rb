@@ -60,6 +60,12 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['6bSpouse']).to eq ''
         expect(pdf_fields['6cDependents']).to eq ''
         expect(pdf_fields['6dTotalHousehold']).to eq '1'
+
+        expect(pdf_fields['IncomeL7']).to eq '10000'
+        expect(pdf_fields['IncomeL8']).to eq '0'
+        expect(pdf_fields['IncomeL9']).to eq '10000'
+        expect(pdf_fields['IncomeL10']).to eq '0'
+        expect(pdf_fields['IncomeL11']).to eq '10000'
       end
 
       context "with dependents" do

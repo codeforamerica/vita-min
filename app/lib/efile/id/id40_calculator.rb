@@ -60,7 +60,7 @@ module Efile
       end
 
       def calculate_line_8
-        line_or_zero(:ID39R_B_LINE_7)
+        line_or_zero(:ID39R_A_LINE_7)
       end
 
       def calculate_line_9
