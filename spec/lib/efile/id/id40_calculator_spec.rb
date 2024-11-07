@@ -58,6 +58,7 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 6d: Total Exemptions" do
     it "sums lines 6a, 6b, and 6c" do
+      allow(instance).to receive(:line_or_zero).and_call_original
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6A).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6B).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6C).and_return(2)
@@ -79,7 +80,8 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 8: Additions from Form 39R" do
     it "returns value from ID39R form line 7" do
-      allow(instance).to receive(:line_or_zero).with(:ID39R_A_LINE_7).and_return(200)
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID39R_B_LINE_7).and_return(200)
       instance.calculate
       expect(instance.lines[:ID40_LINE_8].value).to eq(200)
     end
@@ -87,6 +89,7 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 9: Total of lines 7 and 8" do
     it "sums lines 7 and 8" do
+      allow(instance).to receive(:line_or_zero).and_call_original
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_7).and_return(5000)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_8).and_return(200)
       instance.calculate
@@ -96,6 +99,7 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 10: Subtractions from Form 39R" do
     it "returns value from ID39R form line 24" do
+      allow(instance).to receive(:line_or_zero).and_call_original
       allow(instance).to receive(:line_or_zero).with(:ID39R_B_LINE_24).and_return(300)
       instance.calculate
       expect(instance.lines[:ID40_LINE_10].value).to eq(300)
@@ -104,10 +108,11 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 11: Idaho Adjusted Gross Income" do
     it "subtracts line 10 from line 9" do
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_9).and_return(52000)
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_10).and_return(3000)
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_9).and_return(5200)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_10).and_return(300)
       instance.calculate
-      expect(instance.lines[:ID40_LINE_11].value).to eq(49000)
+      expect(instance.lines[:ID40_LINE_11].value).to eq(4900)
     end
   end
 
