@@ -123,6 +123,17 @@ FactoryBot.define do
       spouse_first_name { "Marty" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_senior_spouse do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
     trait :df_data_2_w2s do
