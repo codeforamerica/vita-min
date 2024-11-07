@@ -54,6 +54,10 @@ module StateFile
     def remove_invalid_followups(params)
       modified_dependents_attributes = params[:dependents_attributes].to_h
 
+      modified_dependents_attributes = modified_dependents_attributes.select do |k, v|
+        v.key?[:id]
+      end
+
       # set household member "has months" answers to no if household "has months" answer is no
       if params[:household_has_grocery_credit_ineligible_months] == 'no'
         params[:primary_has_grocery_credit_ineligible_months] = 'no'

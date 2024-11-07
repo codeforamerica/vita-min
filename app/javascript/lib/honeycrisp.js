@@ -103,13 +103,16 @@ var followUpQuestion = (function () {
 
                 // set initial state of follow-ups based on the page
                 $(this).find('input').each(function (index, input) {
-                    if ($(this).is(':checked') && $(this).attr('data-follow-up') != null) {
-                        $($(this).attr('data-follow-up')).show();
+                    if ($(this).attr('data-follow-up') != null) {
+                        if ($(this).is(':checked')) {
+                            $($(this).attr('data-follow-up')).find('input, select').attr('disabled', false);
+                            $($(this).attr('data-follow-up')).show();
+                        } else {
+                            $($(this).attr('data-follow-up')).find('input, select').attr('disabled', true);
+                            $($(this).attr('data-follow-up')).hide();
+                        }
                     }
                 });
-
-                let reset_other_follow_ups = $(this).attr('data-reset-other-follow-ups') !== "false";
-                let hide_other_follow_ups = $(this).attr('data-hide-other-follow-ups') !== "false";
 
                 // add click listeners to initial question inputs
                 $(self).find('> .question-with-follow-up__question input').click(function (e) {
@@ -118,7 +121,7 @@ var followUpQuestion = (function () {
             });
         },
         update: function ($container) {
-            $container.find('.question-with-follow-up__follow-up input').attr('disabled', true);
+            $container.find('.question-with-follow-up__follow-up input, .question-with-follow-up__follow-up select').attr('disabled', true);
             $container.find('.question-with-follow-up__follow-up').hide();
 
             $container.find('.question-with-follow-up__question input').each(function (index, input) {
@@ -127,7 +130,7 @@ var followUpQuestion = (function () {
                     var followUpSelector = $(this).attr('data-follow-up');
                     if (/^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
                         $(followUpSelector).show();
-                        $(followUpSelector).find('input').attr('disabled', false);
+                        $(followUpSelector).find('input, select').attr('disabled', false);
                     }
                 }
             });
