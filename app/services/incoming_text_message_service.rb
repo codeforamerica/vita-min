@@ -10,6 +10,12 @@ class IncomingTextMessageService
       consenting_clients.where(intakes: { sms_phone_number: phone_number })
     )
 
+    # "minimal" join keyword support, to be expanded in the future
+    if params["Body"].downcase == "join" || params["Body"].downcase == "start"
+      body = AutomatedMessage::JoinResponse.new.sms_body
+      SendOutgoingTextMessageWithoutClientJob.perform_later(phone_number: phone_number, body: body)
+    end
+
     client_count = clients.count
     if client_count.zero?
       body = AutomatedMessage::UnmonitoredReplies.new.sms_body(support_email: Rails.configuration.email_from[:support][:gyr])

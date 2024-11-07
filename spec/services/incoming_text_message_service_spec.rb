@@ -166,5 +166,25 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
         expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
       end
     end
+
+    context "with a JOIN or START keyword" do
+      let(:params) { incoming_message_params.merge("Body" => "JOIN") }
+      it "does not create an IncomingTextMessage" do
+        expect { described_class.process(params) }.to change(IncomingTextMessage, :count).by(0)
+      end
+
+      it "sends a response to the sender" do
+        expect(SendOutgoingTextMessageWithoutClientJob).to receive(:perform_later).with(
+          phone_number: "+15005550006",
+          body: AutomatedMessage::JoinResponse.new.sms_body
+        ).once
+
+        expect(SendOutgoingTextMessageWithoutClientJob).to receive(:perform_later).with(
+          phone_number: "+15005550006",
+          body: AutomatedMessage::UnmonitoredReplies.new.sms_body(support_email: Rails.configuration.email_from[:support][:gyr])
+        ).once
+        described_class.process(params)
+      end
+    end
   end
 end
