@@ -191,6 +191,7 @@ RSpec.describe StateFile::MdPermanentAddressForm do
       it "saves imported_permanent_address_confirmed as true" do
         expect(form.valid?).to eq true
         form.save
+        intake.reload
 
         expect(intake.confirmed_permanent_address).to eq "yes"
         expect(intake.permanent_street).to eq "Street address"
@@ -210,6 +211,7 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         it "overwrites with address fields from 1040" do
           expect(form.valid?).to eq true
           form.save
+          intake.reload
 
           expect(intake.confirmed_permanent_address).to eq "yes"
           expect(intake.permanent_street).to eq intake.direct_file_data.mailing_street
@@ -238,8 +240,8 @@ RSpec.describe StateFile::MdPermanentAddressForm do
       it "saves imported_permanent_address_confirmed as true" do
         expect(form.valid?).to eq true
         form.save
-
         intake.reload
+
         expect(intake.confirmed_permanent_address).to eq "no"
         expect(intake.permanent_street).to eq permanent_street
         expect(intake.permanent_apartment).to eq permanent_apartment

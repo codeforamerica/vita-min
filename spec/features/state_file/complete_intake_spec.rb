@@ -655,6 +655,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title")
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
       select("Allegany", from: "County")
       select("Town Of Barton", from: "Political subdivision")
