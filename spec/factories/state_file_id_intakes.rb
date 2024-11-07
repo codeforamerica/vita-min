@@ -79,8 +79,8 @@
 FactoryBot.define do
   factory :minimal_state_file_id_intake, class: "StateFileIdIntake"
   factory :state_file_id_intake do
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    raw_direct_file_intake_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.json')) }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
 
     transient do
       filing_status { "single" }

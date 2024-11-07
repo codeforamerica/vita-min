@@ -113,12 +113,14 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+
     eligibility_lived_in_state { "yes" }
     eligibility_out_of_state_income { "no" }
     eligibility_part_year_nyc_resident { "no" }
     eligibility_withdrew_529 { "no" }
     eligibility_yonkers { "no" }
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
     primary_birth_date{ Date.parse("May 1, 1979") }
