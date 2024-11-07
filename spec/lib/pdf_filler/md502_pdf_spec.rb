@@ -36,9 +36,7 @@ RSpec.describe PdfFiller::Md502Pdf do
     context "Physical address" do
       context "when the filer has confirmed their DF address is correct" do
         before do
-          # TODO: Replace with real field when it's merged to main:
-          # intake.confirmed_permanent_address_yes!
-
+          intake.confirmed_permanent_address_yes!
           intake.direct_file_data.mailing_street = "312 Poppy Street"
           intake.direct_file_data.mailing_apartment = "Apt B"
           intake.direct_file_data.mailing_city = "Annapolis"
@@ -56,15 +54,12 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       context "when the filer has entered a different physical address" do
         before do
-          # TODO: Replace with real fields when it's merged to main:
-          # intake.confirmed_permanent_address_no!
-          allow(intake).to receive(:confirmed_permanent_address_yes?).and_return(false)
-          allow(intake).to receive(:confirmed_permanent_address_no?).and_return(true)
+          intake.confirmed_permanent_address_no!
 
-          # intake.permanent_street = "313 Poppy Street"
-          # intake.permanent_apartment = "Apt A"
-          # intake.permanent_city = "Baltimore"
-          # intake.permanent_zip = "21201"
+          intake.permanent_street = "313 Poppy Street"
+          intake.permanent_apartment = "Apt A"
+          intake.permanent_city = "Baltimore"
+          intake.permanent_zip = "21201"
         end
 
         it "fills the fields with the entered address" do
