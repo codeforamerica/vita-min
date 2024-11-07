@@ -27,7 +27,7 @@ module SubmissionBuilder
           if state_local_tax_grp_node.present?
             state_local_tax_grp_node.add_previous_sibling(stpickup_node)
           else
-            xml_node.at(:StandardOrNonStandardCd)&.add_previous_sibling(stpickup_node)
+            xml_node.at(:StandardOrNonStandardCd).add_previous_sibling(stpickup_node)
           end
         end
       end
