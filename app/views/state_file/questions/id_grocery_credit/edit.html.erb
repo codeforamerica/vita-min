@@ -8,7 +8,7 @@
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
 
-    <div class="question-with-follow-up spacing-below-25" data-reset-other-follow-ups="false">
+    <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
         <div class="white-group">
           <p class="spacing-below-0"><%= t(".situations_question") %></p>
