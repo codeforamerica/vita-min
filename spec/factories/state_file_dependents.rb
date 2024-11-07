@@ -10,7 +10,7 @@
 #  eic_student                             :integer          default("unfilled")
 #  first_name                              :string
 #  id_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
-#  id_months_ineligible_for_grocery_credit :integer          default(0)
+#  id_months_ineligible_for_grocery_credit :integer
 #  intake_type                             :string           not null
 #  last_name                               :string
 #  middle_initial                          :string

@@ -41,7 +41,7 @@
 #  primary_has_grocery_credit_ineligible_months   :integer          default("unfilled"), not null
 #  primary_last_name                              :string
 #  primary_middle_initial                         :string
-#  primary_months_ineligible_for_grocery_credit   :integer          default(0)
+#  primary_months_ineligible_for_grocery_credit   :integer
 #  primary_suffix                                 :string
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
@@ -56,7 +56,7 @@
 #  spouse_has_grocery_credit_ineligible_months    :integer          default("unfilled"), not null
 #  spouse_last_name                               :string
 #  spouse_middle_initial                          :string
-#  spouse_months_ineligible_for_grocery_credit    :integer          default(0)
+#  spouse_months_ineligible_for_grocery_credit    :integer
 #  spouse_suffix                                  :string
 #  total_purchase_amount                          :decimal(12, 2)
 #  unsubscribed_from_email                        :boolean          default(FALSE), not null

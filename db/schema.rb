@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1777,7 +1777,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
     t.integer "eic_student", default: 0
     t.string "first_name"
     t.integer "id_has_grocery_credit_ineligible_months", default: 0, null: false
-    t.integer "id_months_ineligible_for_grocery_credit", default: 0
+    t.integer "id_months_ineligible_for_grocery_credit"
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
@@ -1850,7 +1850,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
     t.integer "primary_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "primary_last_name"
     t.string "primary_middle_initial"
-    t.integer "primary_months_ineligible_for_grocery_credit", default: 0
+    t.integer "primary_months_ineligible_for_grocery_credit"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
@@ -1866,7 +1866,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
     t.integer "spouse_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
-    t.integer "spouse_months_ineligible_for_grocery_credit", default: 0
+    t.integer "spouse_months_ineligible_for_grocery_credit"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
