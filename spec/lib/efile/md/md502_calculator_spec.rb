@@ -49,7 +49,7 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filer is mfj" do
-      let(:filing_status) { "married_filing_jointly" }
+      let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
 
       context 'the agi is $62,001' do
         let(:agi) { 62_001 }
@@ -263,12 +263,10 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_a_spouse" do
-    context 'married filing jointly' do
-      before do
-        intake.direct_file_data.filing_status = 2 # married_filing_jointly
-      end
+    context 'married filing jointly with a senior spouse' do
+      let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
 
-      it "checks the value" do
+      it "checks the value for senior spouse" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_A_SPOUSE].value).to eq "X"
       end
@@ -287,11 +285,8 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_a_count" do
-    context "when line a yourself and spouse are both checked" do
-      before do
-        intake.direct_file_data.filing_status = 2 # married_filing_jointly
-        intake.direct_file_data.primary_claim_as_dependent = ""
-      end
+    context "when line a yourself and spouse are both seniors" do
+      let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
 
       it "returns 2" do
         instance.calculate
@@ -349,8 +344,8 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing status mfj and fed agi is 50_000" do
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
       before do
-        intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 150_001
       end
 
@@ -515,7 +510,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_b_spouse_blind" do
     context "when married-filing-jointly" do
-      let(:filing_status) { "married_filing_jointly" }
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
       context "when spouse is blind" do
         before do
           allow(intake.direct_file_data).to receive(:is_spouse_blind?).and_return true
