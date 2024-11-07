@@ -2572,6 +2572,8 @@ en:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
           permanent_building_fund_tax: Permanent Building Fund Tax
+          purchases_without_sales_tax: Purchases without paying sales or use tax
+          state_details_title: State Details
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2633,6 +2635,17 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_permanent_address:
+        edit:
+          address_header: Address
+          apartment_number_label: Apartment/Unit Number
+          city_label: City
+          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, 2023
+          state_label: State
+          street_address_label: Street Address
+          title: Did you live at this address on December 31, 2023?
+          where_did_you_live: Where did you live on December 31, 2023?
+          zip_label: Zip Code
       md_primary_state_id:
         md_primary:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
