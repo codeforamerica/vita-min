@@ -250,5 +250,49 @@ RSpec.describe StateFile::IdGroceryCreditForm do
         expect(third_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
       end
     end
+
+    context "when the form is submitted with ids missing from some dependent params" do
+      let(:valid_params) do
+        {
+          household_has_grocery_credit_ineligible_months: "no",
+          primary_has_grocery_credit_ineligible_months: "",
+          primary_months_ineligible_for_grocery_credit: "",
+          spouse_has_grocery_credit_ineligible_months: "",
+          spouse_months_ineligible_for_grocery_credit: "",
+          dependents_attributes: {
+            '0': {
+              id_months_ineligible_for_grocery_credit: ""
+            },
+            '1': {
+              id_months_ineligible_for_grocery_credit: ""
+            },
+            '2': {
+              id_months_ineligible_for_grocery_credit: ""
+            }
+          }
+        }
+      end
+
+      it "submits the form with no ineligible months" do
+        form = described_class.new(intake, valid_params)
+        expect(form).to be_valid
+        form.save
+
+        expect(intake.dependents.count).to eq(3)
+
+        expect(intake.household_has_grocery_credit_ineligible_months).to eq("no")
+        expect(intake.primary_has_grocery_credit_ineligible_months).to eq("no")
+        expect(intake.primary_months_ineligible_for_grocery_credit).to eq(nil)
+        expect(intake.spouse_has_grocery_credit_ineligible_months).to eq("no")
+        expect(intake.spouse_months_ineligible_for_grocery_credit).to eq(nil)
+
+        expect(first_dependent.id_has_grocery_credit_ineligible_months).to eq("unfilled")
+        expect(first_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
+        expect(second_dependent.id_has_grocery_credit_ineligible_months).to eq("unfilled")
+        expect(second_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
+        expect(third_dependent.id_has_grocery_credit_ineligible_months).to eq("unfilled")
+        expect(third_dependent.id_months_ineligible_for_grocery_credit).to eq(nil)
+      end
+    end
   end
 end

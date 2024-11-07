@@ -31,13 +31,10 @@ class DirectFileJsonData
   end
 
   attr_reader :data
+  delegate :to_json, to: :data
 
   def initialize(json)
     @data = JSON.parse(json || "{}")
-  end
-
-  def to_s
-    @data.to_s
   end
 
   def primary_filer

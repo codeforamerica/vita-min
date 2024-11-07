@@ -80,11 +80,11 @@ module StateFile
       end
 
       modified_dependents_attributes = modified_dependents_attributes.to_h do |k, v|
-        credit_count_key = v.key?(:id_months_ineligible_for_grocery_credit)
+        has_months_ineligible_key = v.key?(:id_months_ineligible_for_grocery_credit)
         has_matching_no = modified_dependents_attributes.any? do |_, v2|
           v[:id] == v2[:id] && v2[:id_has_grocery_credit_ineligible_months] == 'no'
         end
-        if credit_count_key && has_matching_no
+        if has_months_ineligible_key && has_matching_no
           [k, v.merge(id_months_ineligible_for_grocery_credit: '')]
         else
           [k, v]
