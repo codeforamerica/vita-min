@@ -182,9 +182,9 @@ ID40_LINE_6D:
   label: '6d Total household count'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
-ID40_LINE32A:
+ID40_LINE_32A:
   label: 'Amount required to pay for the Permanent Building Fund Tax'
-ID40_LINE32B:
+ID40_LINE_32B:
   label: 'Checkbox that determines if the Permanent Building Fund needs to be payed'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
