@@ -1,0 +1,35 @@
+<%
+  title = t(".title", filing_year: @filing_year)
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title", filing_year: @filing_year) %></h1>
+
+  <p><%= t(".subtitle") %></p>
+  <ul class="list--bulleted spacing-below-25">
+    <li><%= t(".subtitle_list_1") %></li>
+    <li>
+      <%= t(".subtitle_list_2") %>
+      <ul class="list--bulleted">
+        <li><%= t(".subtitle_list_2_sub") %></li>
+      </ul>
+    </li>
+  </ul>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.vita_min_money_field(
+        :estimated_tax_payments,
+        t('.label'),
+        classes: ["form-width--long"],
+        options: { placeholder: "0" }
+    ) %>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

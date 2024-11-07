@@ -680,6 +680,8 @@ NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
+NJ1040_LINE_57:
+  label: '57 New Jersey Estimated Tax Payments/Credit from 2022 tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
 NJ1040_LINE_64:
