@@ -57,9 +57,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         context "when user confirms that address from DF is correct" do
           before do
-            # TODO: Replace with real field when it's merged to main:
-            # intake.confirmed_permanent_address_yes!
-
+            intake.confirmed_permanent_address_yes!
             intake.direct_file_data.mailing_street = "312 Poppy Street"
             intake.direct_file_data.mailing_apartment = "Apt B"
             intake.direct_file_data.mailing_city = "Annapolis"
@@ -77,15 +75,11 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         context "when the user has entered a different permanent address" do
           before do
-            # TODO: Replace with real fields when it's merged to main:
-            # intake.confirmed_permanent_address_no!
-            allow(intake).to receive(:confirmed_permanent_address_yes?).and_return(false)
-            allow(intake).to receive(:confirmed_permanent_address_no?).and_return(true)
-
-            # intake.permanent_street = "313 Poppy Street"
-            # intake.permanent_apartment = "Apt A"
-            # intake.permanent_city = "Baltimore"
-            # intake.permanent_zip = "21201"
+            intake.confirmed_permanent_address_no!
+            intake.permanent_street = "313 Poppy Street"
+            intake.permanent_apartment = "Apt A"
+            intake.permanent_city = "Baltimore"
+            intake.permanent_zip = "21201"
           end
 
           it "outputs their entered address as their physical address" do
