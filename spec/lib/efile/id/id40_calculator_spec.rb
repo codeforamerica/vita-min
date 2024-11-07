@@ -106,8 +106,6 @@ describe Efile::Id::Id40Calculator do
       before do
         intake.direct_file_data.total_income_amount = 40000
         intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
-        intake.direct_file_data.primary_blind = nil
-        intake.direct_file_data.spouse_blind = nil
         intake.received_id_public_assistance = "no"
       end
       it "returns 10" do
@@ -120,8 +118,6 @@ describe Efile::Id::Id40Calculator do
       before do
         intake.direct_file_data.total_income_amount = 2112
         intake.direct_file_data.total_itemized_or_standard_deduction_amount = 40000
-        intake.direct_file_data.primary_blind = nil
-        intake.direct_file_data.spouse_blind = nil
         intake.received_id_public_assistance = "no"
       end
       it "returns 0" do
@@ -134,8 +130,7 @@ describe Efile::Id::Id40Calculator do
       before do
         intake.direct_file_data.total_income_amount = 40000
         intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
-        intake.direct_file_data.primary_blind = "X"
-        intake.direct_file_data.spouse_blind = nil
+        intake.direct_file_data.set_primary_blind
         intake.received_id_public_assistance = "no"
       end
       it "returns 0" do
@@ -148,8 +143,6 @@ describe Efile::Id::Id40Calculator do
       before do
         intake.direct_file_data.total_income_amount = 40000
         intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
-        intake.direct_file_data.primary_blind = nil
-        intake.direct_file_data.spouse_blind = nil
         intake.received_id_public_assistance = "yes"
       end
       it "returns 0" do

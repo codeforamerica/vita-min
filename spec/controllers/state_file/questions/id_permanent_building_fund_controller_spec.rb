@@ -12,7 +12,6 @@ RSpec.describe StateFile::Questions::IdPermanentBuildingFundController do
       before do
         intake.direct_file_data.total_income_amount = 40000
         intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
-        intake.direct_file_data.primary_blind = nil
       end
 
       it "returns true" do
@@ -24,7 +23,6 @@ RSpec.describe StateFile::Questions::IdPermanentBuildingFundController do
       before do
         intake.direct_file_data.total_income_amount = 2112
         intake.direct_file_data.total_itemized_or_standard_deduction_amount = 40000
-        intake.direct_file_data.primary_blind = nil
       end
 
       it "returns false" do
