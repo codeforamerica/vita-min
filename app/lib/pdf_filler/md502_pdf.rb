@@ -92,7 +92,11 @@ module PdfFiller
     end
 
     def generate_codes_for_502_su
-      calculated_fields_code_letters = {MD502_SU_LINE_AB: "ab", MD502_SU_LINE_U: "u", MD502_SU_LINE_V: "v"}
+      calculated_fields_code_letters = {
+        MD502_SU_LINE_AB: "ab",
+        MD502_SU_LINE_U: "u",
+        MD502_SU_LINE_V: "v"
+      }
       applicable_codes = []
 
       if calculated_fields.fetch(:MD502_SU_LINE_1).positive?
