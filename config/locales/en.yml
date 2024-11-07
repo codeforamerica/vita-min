@@ -2555,6 +2555,12 @@ en:
               <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
             </ul>
           what_is_title: What is a health insurance premium?
+      id_permanent_building_fund:
+        edit:
+          receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
+          receive_public_assistance_single: Did you receive Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_spouse: Did you or your spouse receive Idaho public assistance payments at the end of the tax year?
+          title: You might be eligible for an exception to the permanent building fund tax!
       id_primary_state_id:
         id_primary:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
@@ -2565,6 +2571,7 @@ en:
       id_review:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
+          permanent_building_fund_tax: Permanent Building Fund Tax
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2575,10 +2582,6 @@ en:
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
           use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
           use_tax_title: What are use taxes?
-      id_permanent_building_fund:
-        edit:
-          title: You might be eligible for an exception to the permanent building fund tax!
-          receive_public_assistance: Did you [or your spouse] receive Idaho public assistance payments at the end of the tax year?
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.

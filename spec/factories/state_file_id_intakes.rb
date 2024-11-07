@@ -131,5 +131,19 @@ FactoryBot.define do
         intake.direct_file_data.spouse_blind = "X"
       end
     end
+
+    trait :filing_requirement do
+      after(:build) do |intake|
+        intake.direct_file_data.total_income_amount = 40000
+        intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+      end
+    end
+
+    trait :no_filing_requirement do
+      after(:build) do |intake|
+        intake.direct_file_data.total_income_amount = 40000
+        intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+      end
+    end
   end
 end

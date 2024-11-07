@@ -10,5 +10,15 @@
     </div>
   </div>
 
+  <% if current_intake.has_filing_requirement? && !current_intake.has_blind_filer? %>
+    <div id="permanent-building-fund" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".permanent_building_fund_tax") %></p>
+        <p><%= current_intake.received_id_public_assistance == "no" ? t("general.affirmative") : t("general.negative") %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::IdPermanentBuildingFundController  .to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
