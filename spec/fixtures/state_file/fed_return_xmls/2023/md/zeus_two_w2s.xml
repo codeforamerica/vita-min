@@ -225,19 +225,7 @@
           </W2LocalTaxGrp>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>
-      <W2StateLocalTaxGrp>
-        <W2StateTaxGrp>
-          <StateAbbreviationCd>MD</StateAbbreviationCd>
-          <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>50000</StateWagesAmt>
-          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
-          <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>50000</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
-            <LocalityNm>Hammonton</LocalityNm>
-          </W2LocalTaxGrp>
-        </W2StateTaxGrp>
-      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
     <IRSW2 documentName="IRSW2" documentId="W20002">
       <EmployeeSSN>400000016</EmployeeSSN>
