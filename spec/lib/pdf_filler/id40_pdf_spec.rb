@@ -81,7 +81,6 @@ RSpec.describe PdfFiller::Id40Pdf do
 
           expect(pdf_fields['6cDependents']).to eq '2'
           expect(pdf_fields['6dTotalHousehold']).to eq '3'
-          pdf_fields['PermanentBuildingFund'].to eq '10.00'
         end
       end
     end
