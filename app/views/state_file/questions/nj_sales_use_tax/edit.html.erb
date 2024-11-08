@@ -25,8 +25,8 @@
       </div>
       <div class="question-with-follow-up__follow-up" id="sut-method-field">
         <div class="question-with-follow-up">
-          <div class="question-with-follow-up__question">
-            <div class="white-group">
+          <div class="white-group">
+            <div class="question-with-follow-up__question">
               <%=
                 f.cfa_radio_set(
                   :sales_use_tax_calculation_method,
@@ -37,9 +37,9 @@
                   ]
                 )
               %>
-              <div class="question-with-follow-up__follow-up" id="sut-field">
+            </div>
+            <div class="question-with-follow-up__follow-up" id="sut-field">
                 <%= f.vita_min_money_field(:sales_use_tax, t(".manual_use_tax_label"), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
-              </div>
             </div>
           </div>
         </div>
