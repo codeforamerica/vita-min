@@ -290,6 +290,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       context "subtractions section" do
         context "when all relevant values are present in the DF XML" do
           before do
+            allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
             intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
             intake.direct_file_data.fed_taxable_ssb = 240
           end
@@ -300,6 +301,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
           it "outputs Taxable Social Security and RR benefits" do
             expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
+          end
+
+          it "outputs the Subtractions from Form 502SU" do
+            expect(xml.at("Form502 Subtractions Other").text.to_i).to eq(100)
           end
         end
       end
