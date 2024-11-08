@@ -558,6 +558,8 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_13:
+  label: Subtractions from attached form 502SU
 MD502_LINE_16:
   label: 'TBD'
 MD502_DEDUCTION_METHOD:
@@ -586,6 +588,14 @@ MD502CR_PART_B_LINE_4:
   label: "4 Multiply line 2 by line 3. Enter here and on Part AA, line 2"
 MD502CR_PART_M_LINE_1:
   label: "1 Enter the credit claimed here and on Part AA, line 13 (See Instructions)"
+MD502_SU_LINE_AB:
+  label: "AB Income from U.S. Government obligations"
+MD502_SU_LINE_U:
+  label: "TBD"
+MD502_SU_LINE_V:
+  label: "TBD"
+MD502_SU_LINE_1:
+  label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
@@ -638,7 +648,7 @@ NJ1040_LINE_15:
   label: '15 Wages, salaries, tips, and other employee compensation (State wages from Box 16 of enclosed W-2(s))'
 NJ1040_LINE_16A:
   label: 'Taxable interest income (Enclose federal Schedule B if over $1,500) (See instructions)'
-NJ1040_LINE_16B:  
+NJ1040_LINE_16B:
   label: 'Tax-exempt interest income (Enclose schedule) (See instructions) Do not include on line 16a'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'

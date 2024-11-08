@@ -10,6 +10,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
+
+        @md502_su = Efile::Md::Md502SuCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -43,6 +49,10 @@ module Efile
         # Subtractions
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+
+        # MD502SU Subtractions
+        @md502_su.calculate
+        set_line(:MD502_LINE_13, :calculate_line_13)
 
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
@@ -377,6 +387,10 @@ module Efile
         else
           0
         end
+      end
+
+      def calculate_line_13
+        @lines[:MD502_SU_LINE_1].value
       end
 
       def filing_status_dependent?
