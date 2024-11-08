@@ -2600,6 +2600,17 @@ es:
           permanent_home_heading: "¿Qué es una vivienda permanente?"
           subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
+      md_permanent_address:
+        edit:
+          address_header: Dirección
+          apartment_number_label: Número de apartamento/unidad
+          city_label: Cuidad
+          mark_no_hint_html: Marque "No" si la dirección indicada es un apartado postal <strong>o</strong> si vivió en una dirección diferente el 31 de diciembre de 2023
+          state_label: Estado
+          street_address_label: Dirección
+          title: "¿Viviste en esta dirección el 31 de diciembre de 2023?"
+          where_did_you_live: "¿Dónde viviste el 31 de diciembre de 2023?"
+          zip_label: Código postal
       md_primary_state_id:
         md_primary:
           encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.

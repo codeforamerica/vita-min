@@ -16,9 +16,13 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
+        "AL7" => @xml_document.at('Form39R TotalAdditions')&.text,
+        "BL3" => @xml_document.at('Form39R IncomeUSObligations')&.text,
         "BL6" => @xml_document.at('Form39R ChildCareCreditAmt')&.text,
-        "BL3" => @xml_document.at('IncomeUSObligations')&.text,
-        "BL18" => @xml_document.at('HealthInsurancePaid')&.text,
+        "BL7" => @xml_document.at('Form39R TxblSSAndRRBenefits')&.text,
+        "BL8f" => @xml_document.at('Form39R RetirementBenefitsDeduction')&.text,
+        "BL18" => @xml_document.at('Form39R HealthInsurancePaid')&.text,
+        "BL24" => @xml_document.at('Form39R TotalSubtractions')&.text,
       }
       @submission.data_source.dependents.drop(4).first(3).each_with_index do |dependent, index|
         answers.merge!(
