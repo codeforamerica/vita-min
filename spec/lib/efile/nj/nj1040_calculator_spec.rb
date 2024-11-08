@@ -1039,13 +1039,15 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
       context 'when taxpayer satisfies all eligibility checks' do
+        before do
+          allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
+          instance.calculate
+        end
+
         context 'when taxpayer is a qualifying child' do
           let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child) }
 
           it 'sets line 58 to 0' do
-            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
-            instance.calculate
-            
             expect(instance.lines[:NJ1040_LINE_58].value).to eq(0)
             expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
           end
@@ -1055,9 +1057,6 @@ describe Efile::Nj::Nj1040Calculator do
           let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :spouse_claimed_as_eitc_qualifying_child) }
 
           it 'sets line 58 to 0' do
-            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
-            instance.calculate
-
             expect(instance.lines[:NJ1040_LINE_58].value).to eq(0)
             expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
           end
@@ -1067,9 +1066,6 @@ describe Efile::Nj::Nj1040Calculator do
           let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
 
           it 'sets line 58 to flat $240 and does not check IRS box' do
-            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
-            instance.calculate
-
             expect(instance.lines[:NJ1040_LINE_58].value).to eq(240)
             expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
           end
@@ -1086,9 +1082,6 @@ describe Efile::Nj::Nj1040Calculator do
           }
 
           it 'sets line 58 to flat $240 and does not check IRS box' do
-            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
-            instance.calculate
-
             expect(instance.lines[:NJ1040_LINE_58].value).to eq(240)
             expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
           end
