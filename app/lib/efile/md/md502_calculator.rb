@@ -64,8 +64,13 @@ module Efile
         set_line(:MD502_LINE_20, :calculate_line_20)
         set_line(:MD502_LINE_21, :calculate_line_21)
 
+        # EIC
+        set_line(:MD502_LINE_22, :calculate_line_22)
+        set_line(:MD502_LINE_22B, :calculate_line_22b)
+
         set_line(:MD502_LINE_40, :calculate_line_40)
 
+        # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
@@ -447,12 +452,17 @@ module Efile
         end
       end
 
-      def filing_status_dependent?
-        @filing_status == :dependent
+      def calculate_line_22
+        # Earned Income Credit (EIC)
+        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
+          (@direct_file_data.fed_eic * 0.50).round
+        elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
+          @direct_file_data.fed_eic.round
+        end
       end
 
-      def deduction_method_is_standard?
-        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+      def calculate_line_22b
+        (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
       end
 
       def calculate_line_40
@@ -460,6 +470,14 @@ module Efile
           @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+      end
+
+      def filing_status_dependent?
+        @filing_status == :dependent
+      end
+
+      def deduction_method_is_standard?
+        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
       end
     end
   end
