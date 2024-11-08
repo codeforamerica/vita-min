@@ -947,7 +947,7 @@ describe Efile::Md::Md502Calculator do
         raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
       )
     }
-    let(:federal_eic) { 1000 }
+    let(:federal_eic) { 1001 }
 
     before do
       intake.direct_file_data.fed_eic = federal_eic
@@ -956,14 +956,14 @@ describe Efile::Md::Md502Calculator do
 
     context "when mfj and at least one qualifying child" do
       it 'EIC is half the federal EIC' do
-        expect(instance.lines[:MD502_LINE_22].value).to eq 500
+        expect(instance.lines[:MD502_LINE_22].value).to eq 501
       end
     end
 
     context "when mfj and no qualifying children" do
       let(:df_xml_key) { "md_zeus_two_w2s" }
       it 'EIC is 0' do
-        expect(instance.lines[:MD502_LINE_22].value).to eq 500
+        expect(instance.lines[:MD502_LINE_22].value).to eq 501
       end
     end
 
@@ -971,17 +971,8 @@ describe Efile::Md::Md502Calculator do
       let(:filing_status) { "single" }
       let(:df_xml_key) { "md_zeus_two_w2s" }
 
-      context "when federal EIC is less than 600" do
-        let(:federal_eic) { 500 }
-        it "EIC is equal to the federal EIC" do
-          expect(instance.lines[:MD502_LINE_22].value).to eq 500
-        end
-      end
-
-      context "when federal EIC is more than 600" do
-        it "returns 600" do
-          expect(instance.lines[:MD502_LINE_22].value).to eq 600
-        end
+      it "state EIC is 100% of the federal EIC" do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 1001
       end
     end
 
