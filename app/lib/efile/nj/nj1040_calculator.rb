@@ -174,6 +174,32 @@ module Efile
         number_of_line_9_exemptions * 6_000
       end
 
+      def line_59_primary
+        primary_excess = get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+        primary_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+        primary_excess
+      end
+
+      def line_59_spouse
+        if @intake.filing_status_mfj?
+          spouse_excess = get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+          spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+          return spouse_excess
+        end
+        0
+      end
+
+      def line_61_primary
+        get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
+      end
+
+      def line_61_spouse
+        if @intake.filing_status_mfj?
+          return get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
+        end
+        0
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -304,29 +330,13 @@ module Efile
       end
 
       def calculate_line_59
-        total_excess = 0
-
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-
-        if @intake.filing_status_mfj?
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-        end
-
+        total_excess = line_59_primary + line_59_spouse
         total_excess.round if total_excess.positive?
       end
 
       def calculate_line_61
-        total_excess = 0
-
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
-        
-        if @intake.filing_status_mfj?
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
-        end
-
-        total_excess.round if total_excess.positive?
+        total_excess = line_61_primary + line_61_spouse
+        total_excess.round if total_excess.positive? 
       end
 
       def calculate_line_64

@@ -760,3 +760,11 @@ NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
+NJ2450_COLUMN_A_TOTAL:
+  label: 'Total Deducted. UI/WF/SWF Deducted'
+NJ2450_COLUMN_C_TOTAL:
+  label: 'Total Deducted. Family Leave Insurance Deducted'
+NJ2450_COLUMN_A_EXCESS:
+  label: 'Subtract line 3 column A from line 2 column A. Enter on line 59 of the NJ-1040.'
+NJ2450_COLUMN_C_EXCESS:
+  label: 'Subtract line 3 column C from line 2 column C. Enter on line 61 of the NJ-1040.'

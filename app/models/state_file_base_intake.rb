@@ -132,6 +132,7 @@ class StateFileBaseIntake < ApplicationRecord
         box14_ui_hc_wd: box_14_values['UI/HC/WD'],
         box14_fli: box_14_values['FLI'],
         box14_stpickup: box_14_values['STPICKUP'],
+        employer_ein: direct_file_w2.EmployerEIN,
         employer_name: direct_file_w2.EmployerName,
         employee_name: direct_file_w2.EmployeeNm,
         employee_ssn: direct_file_w2.EmployeeSSN,
@@ -142,6 +143,7 @@ class StateFileBaseIntake < ApplicationRecord
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
         state_wages_amount: direct_file_w2.StateWagesAmt,
         state_file_intake: self,
+        wages: direct_file_w2.Wages,
         w2_index: i,
       )
       state_file_w2.save!
