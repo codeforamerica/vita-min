@@ -70,6 +70,9 @@ class DirectFileData < DfXmlAccessor
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
+    excluded_benefits_amount: 'IRS2441 ExcludedBenefitsAmt',
+    primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
+    spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
     total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
   }.freeze
@@ -291,14 +294,6 @@ class DirectFileData < DfXmlAccessor
 
   def fed_total_adjustments=(value)
     write_df_xml_value(__method__, value)
-  end
-
-  def total_w2_state_tax_withheld
-    w2s.sum(&:StateIncomeTaxAmt)
-  end
-
-  def total_w2_local_tax_withheld
-    w2s.sum(&:LocalIncomeTaxAmt)
   end
 
   def fed_ctc_claimed
@@ -731,6 +726,18 @@ class DirectFileData < DfXmlAccessor
       'unfilled'
     end
   end
+
+  def excluded_benefits_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
     
   class DfW2 < DfW2Accessor
     def w2_box12
@@ -814,7 +821,6 @@ class DirectFileData < DfXmlAccessor
       cell_phone_number
       phone_number
       tax_payer_email
-      total_w2_state_tax_withheld
       fed_tax_amt
       fed_agi
       fed_wages

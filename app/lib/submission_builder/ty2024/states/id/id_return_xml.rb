@@ -36,9 +36,9 @@ module SubmissionBuilder
                 include: true
               },
               {
-                xml: nil, # TODO 39RForm xml to be added in future story
+                xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39R,
                 pdf:  PdfFiller::Id39rPdf,
-                include: @submission.data_source.dependents.count > 4
+                include: true
               },
             ]
             # For dependents 1-7: First 4 dependents listed on ID40, next 3 dependents are added to first ID39R form
@@ -52,8 +52,6 @@ module SubmissionBuilder
               }
             end
 
-            supported_docs += form1099rs
-            supported_docs += form1099gs
             supported_docs
           end
         end

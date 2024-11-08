@@ -17,6 +17,60 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "US address from df" do
+      it "fills in correct fields" do
+        intake.direct_file_data.mailing_street = "312 Poppy Street"
+        intake.direct_file_data.mailing_apartment = "Apt B"
+        intake.direct_file_data.mailing_city = "Annapolis"
+        intake.direct_file_data.mailing_state = "MD"
+        intake.direct_file_data.mailing_zip = "21401"
+
+        expect(pdf_fields["Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)"]).to eq("312 Poppy Street")
+        expect(pdf_fields["Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)"]).to eq("Apt B")
+        expect(pdf_fields["Enter city or town"]).to eq("Annapolis")
+        expect(pdf_fields["Enter state"]).to eq("MD")
+        expect(pdf_fields["Enter zip code + 4"]).to eq("21401")
+      end
+    end
+
+    context "Physical address" do
+      context "when the filer has confirmed their DF address is correct" do
+        before do
+          intake.confirmed_permanent_address_yes!
+          intake.direct_file_data.mailing_street = "312 Poppy Street"
+          intake.direct_file_data.mailing_apartment = "Apt B"
+          intake.direct_file_data.mailing_city = "Annapolis"
+          intake.direct_file_data.mailing_state = "MD"
+          intake.direct_file_data.mailing_zip = "21401"
+        end
+
+        it "fills the fields with the DF address" do
+          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("312 Poppy Street")
+          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt B")
+          expect(pdf_fields["Enter city"]).to eq("Annapolis")
+          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21401")
+        end
+      end
+
+      context "when the filer has entered a different physical address" do
+        before do
+          intake.confirmed_permanent_address_no!
+
+          intake.permanent_street = "313 Poppy Street"
+          intake.permanent_apartment = "Apt A"
+          intake.permanent_city = "Baltimore"
+          intake.permanent_zip = "21201"
+        end
+
+        it "fills the fields with the entered address" do
+          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("313 Poppy Street")
+          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt A")
+          expect(pdf_fields["Enter city"]).to eq("Baltimore")
+          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21201")
+        end
+      end
+    end
+
     context "county information" do
       before do
         intake.residence_county = "Allegany"
@@ -178,17 +232,64 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
-    context "exemptions" do
+    context "Line A Exemptions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_primary).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_spouse).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_a_amount).and_return 3200
+      end
+
+      it "sets the correct fields for line A" do
+        expect(pdf_fields["Check Box 15"]).to eq "Yes" # primary
+        expect(pdf_fields["Check Box 18"]).to eq "Off" # spouse
+        expect(pdf_fields["Text Field 15"]).to eq "1" # exemption count
+        expect(pdf_fields["Enter A $"]).to eq "3200" # exemption amount
+      end
+    end
+
+    context "Line B Exemptions" do
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
+
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_senior).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_blind).and_return nil
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_spouse_blind).and_return 'X'
+      end
+
+      it "sets the correct fields for line B" do
+        expect(pdf_fields["Check Box 20"]).to eq "Yes" # primary 65+
+        expect(pdf_fields["Check Box 21"]).to eq "Off" # spouse 65+
+        expect(pdf_fields["B. Check this box if you are blind"]).to eq "Off" # primary blind
+        expect(pdf_fields["B. Check this box if your spouse is blind"]).to eq "Yes" # spouse blind
+        expect(pdf_fields["B. Enter number exemptions checked B"]).to eq "2" # exemption count
+        expect(pdf_fields["Enter B $ "]).to eq "2000" # exemption amount
+      end
+    end
+
+    context "Line C exemptions" do
       let(:dependent_count) { 1 }
       let(:dependent_exemption_amount) { 3200 }
       before do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:get_dependent_exemption_count).and_return dependent_count
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_dependent_exemption_amount).and_return dependent_exemption_amount
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_count).and_return dependent_count
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_c_amount).and_return dependent_exemption_amount
       end
 
       it "sets correct filing status for dependent taxpayer and does not set other filing_status" do
         expect(pdf_fields["Text Field 16"]).to eq dependent_count.to_s
         expect(pdf_fields["Enter C $ "]).to eq dependent_exemption_amount.to_s
+      end
+    end
+
+    context "Line D Exemptions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_count_total).and_return 3
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_d_amount_total).and_return 3_200
+      end
+
+      it "sets the correct fields for line B" do
+        expect(pdf_fields["Text Field 17"]).to eq "3" # exemption count total
+        expect(pdf_fields["D. Enter Dollar Amount Total Exemptions (Add A, B and C.) "]).to eq "3200" # exemption amount total
       end
     end
 
@@ -201,6 +302,69 @@ RSpec.describe PdfFiller::Md502Pdf do
       it "fills out subtractions fields correctly" do
         expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
         expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
+      end
+    end
+
+    context "deduction" do
+      context "method" do
+        it "checks box if standard deduction" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(pdf_fields["Check Box 34"]).to eq "Yes"
+        end
+
+        it "does not check box if non-standard deduction" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(pdf_fields["Check Box 34"]).to eq "Off"
+        end
+      end
+
+      context "amount" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return 500
+        end
+
+        it "fills out amount if method is standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+          expect(pdf_fields["Enter 17"]).to eq "500"
+        end
+
+        it "leaves amount blank if method is not standard" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+          expect(pdf_fields["Enter 17"]).to be_empty
+        end
+      end
+    end
+
+    context "tax computation" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 50
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 60
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 70
+      end
+
+      it "fills out amount if deduction method is standard" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+        expect(pdf_fields["Enter 18"]).to eq "50"
+        expect(pdf_fields["Enter 19 "]).to eq "60"
+        expect(pdf_fields["Enter 20"]).to eq "70"
+      end
+
+      it "leaves amount blank if deduction method is not standard" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+        expect(pdf_fields["Enter 18"]).to be_empty
+        expect(pdf_fields["Enter 19 "]).to be_empty
+        expect(pdf_fields["Enter 20"]).to be_empty
+      end
+    end
+
+    context "Line 40: Total state and local tax withheld" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        puts pdf_fields
+        expect(pdf_fields["Text Box 68"]).to eq "500"
       end
     end
   end

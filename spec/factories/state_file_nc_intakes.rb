@@ -101,10 +101,24 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     trait :with_spouse do
-      spouse_first_name { "Spouth" }
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Susie" }
       spouse_middle_initial { "B" }
-      spouse_last_name { "Carolinian" }
+      spouse_last_name { "Spouse" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_senior_spouse do
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Senior" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Spouse" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
     trait :df_data_2_w2s do
@@ -116,19 +130,24 @@ FactoryBot.define do
     end
 
     trait :single do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('tucker_single') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tucker_single') }
     end
 
     trait :head_of_household do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('shiloh_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_shiloh_hoh') }
     end
 
     trait :married_filing_separately do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('sheldon_mfs') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
     end
 
     trait :qualified_widow do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('laney_qss') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_laney_qss') }
+    end
+
+    trait :df_data_1099_int do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
     end
   end
 end

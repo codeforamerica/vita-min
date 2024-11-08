@@ -2,5 +2,27 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
+  <section class="review-section">
+    <p class="section-header"><%= t(".state_details_title") %></p>
+    <% if current_intake.total_purchase_amount.present? %>
+      <div id="sales-use-tax" class="white-group">
+        <div class="spacing-below-5">
+          <p class="text--bold spacing-below-5"><%= t(".purchases_without_sales_tax") %></p>
+          <p><%= number_to_currency(current_intake.total_purchase_amount) %></p>
+          <%= link_to t("general.edit"), StateFile::Questions::IdSalesUseTaxController.to_path_helper(return_to_review: 'y'), class: "button--small" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div id="health-insurance-premium" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".health_insurance_premium_title") %></p>
+        <p><%=number_to_currency(current_intake.health_insurance_paid_amount || 0, precision: 2)%></p>
+        <%= link_to t("general.edit"), StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  </section>
+
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

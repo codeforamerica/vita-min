@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module StateFile
   class StateInformationService
     GETTER_METHODS = [
@@ -20,6 +21,8 @@ module StateFile
       :vita_link,
       :voucher_form_name,
       :voucher_path,
+      :w2_supported_box14_codes,
+      :w2_include_local_income_boxes,
     ].freeze
 
     class << self
@@ -50,8 +53,6 @@ module StateFile
       end
     end
 
-    private
-
     STATES_INFO = IceNine.deep_freeze!({
       az: {
         intake_class: StateFileAzIntake,
@@ -74,6 +75,8 @@ module StateFile
         vita_link: "https://airtable.com/appnKuyQXMMCPSvVw/pag0hcyC6juDxamHo/form",
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -94,6 +97,8 @@ module StateFile
         vita_link: "",
         voucher_form_name: "",
         voucher_path: "",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -114,6 +119,8 @@ module StateFile
         vita_link: "",
         voucher_form_name: "",
         voucher_path: "",
+        w2_supported_box14_codes: ["STPICKUP"],
+        w2_include_local_income_boxes: true
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -136,6 +143,8 @@ module StateFile
         vita_link: "",
         voucher_form_name: "Form D-400V",
         voucher_path: "/pdfs/d400v-TY2023.pdf",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -145,7 +154,7 @@ module StateFile
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
         state_name: "New Jersey",
         return_type: "Resident",
-        schema_file_name: "NJIndividual2023V0.4.zip",
+        schema_file_name: "NJIndividual2024V0.1.zip",
         mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Trenton, NJ".html_safe,
@@ -158,6 +167,8 @@ module StateFile
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
         voucher_path: "",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -181,6 +192,8 @@ module StateFile
         vita_link: "https://airtable.com/appQS3abRZGjT8wII/pagtpLaX0wokBqnuA/form",
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
+        w2_supported_box14_codes: [],
+        w2_include_local_income_boxes: false
       }
     }.with_indifferent_access)
   end

@@ -27,7 +27,7 @@ class StateFileBaseIntake < ApplicationRecord
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-  enum account_type: { unfilled: 0, checking: 1, savings: 2}, _prefix: :account_type
+  enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
   scope :with_df_data_and_no_federal_submission, lambda {
@@ -43,6 +43,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
     state_code.to_s
   end
+
   delegate :state_code, to: :class
 
   def state_name
@@ -116,6 +117,26 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def synchronize_df_w2s_to_database
+    direct_file_data.w2s.each_with_index do |direct_file_w2, i|
+      state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
+      state_file_w2.assign_attributes(
+        employer_name: direct_file_w2.EmployerName,
+        employee_name: direct_file_w2.EmployeeNm,
+        employee_ssn: direct_file_w2.EmployeeSSN,
+        employer_state_id_num: direct_file_w2.EmployerStateIdNum&.delete('-'),
+        local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
+        local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
+        locality_nm: direct_file_w2.LocalityNm,
+        state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
+        state_wages_amount: direct_file_w2.StateWagesAmt,
+        state_file_intake: self,
+        w2_index: i
+      )
+      state_file_w2.save!
+    end
+  end
+
   def calculator
     unless @calculator.present?
       @calculator = tax_calculator
@@ -181,6 +202,10 @@ class StateFileBaseIntake < ApplicationRecord
     filing_status_mfj? ? 2 : 1
   end
 
+  def household_count
+    filer_count + dependents.size
+  end
+
   def primary
     Person.new(self, :primary)
   end
@@ -213,23 +238,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_state_specific_w2_requirements(w2)
-  end
-
-  def invalid_df_w2?(df_w2)
-    return true if df_w2.StateWagesAmt == 0
-    if df_w2.LocalityNm.blank?
-      return true if df_w2.LocalWagesAndTipsAmt != 0 || df_w2.LocalIncomeTaxAmt != 0
-    end
-    return true if df_w2.LocalIncomeTaxAmt != 0 && df_w2.LocalWagesAndTipsAmt == 0
-    return true if df_w2.StateIncomeTaxAmt != 0 && df_w2.StateWagesAmt == 0
-    return true if df_w2.StateWagesAmt != 0 && df_w2.EmployerStateIdNum.blank?
-    return true if df_w2.EmployerStateIdNum.present? && df_w2.StateAbbreviationCd.blank?
-    return true if df_w2.StateIncomeTaxAmt > df_w2.StateWagesAmt
-    return true if df_w2.LocalIncomeTaxAmt > df_w2.LocalWagesAndTipsAmt
-    return true if df_w2.StateIncomeTaxAmt + df_w2.LocalIncomeTaxAmt > df_w2.WagesAmt
-    false
-  end
+  def validate_state_specific_w2_requirements(w2); end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
     unless /\A\d{9}\z/.match(state_file1099_g.payer_tin)
@@ -262,10 +271,6 @@ class StateFileBaseIntake < ApplicationRecord
         @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
         @ssn = intake.direct_file_data.spouse_ssn
       end
-    end
-
-    def age
-      birth_date.present? ? MultiTenantService.statefile.current_tax_year - birth_date.year : 0
     end
 
     def full_name
@@ -312,7 +317,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def save_nil_enums_with_unfilled
-    keys_with_unfilled = self.defined_enums.map{ |e| e.first if e.last.include?("unfilled") }
+    keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }
     keys_with_unfilled.each do |key|
       if self.send(key) == nil
         self.send("#{key}=", "unfilled")
@@ -366,11 +371,24 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def calculate_age(inclusive_of_jan_1: true, dob: primary.birth_date)
-    # federal guidelines: you qualify for age related benefits the day before your birthday
-    # that means for a given tax year those born on Jan 1st the following tax-year will be included
-    # this does not apply for benefits you age out of or any age calculations for Maryland
-    raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
+  def primary_senior?
+    calculate_age(primary_birth_date, inclusive_of_jan_1: true) >= 65
+  end
+
+  def spouse_senior?
+    # NOTE: spouse_birth_date will always be present on a valid return, but some test data does not initialize it
+    return false unless spouse_birth_date.present?
+
+    calculate_age(spouse_birth_date, inclusive_of_jan_1: true) >= 65
+  end
+
+  def calculate_age(dob, inclusive_of_jan_1:)
+    # In tax returns, all ages are calculated based on the last day of the current tax year
+    # Federal exception: for age related benefits, the day before your birthday is when you become older
+    # - Those born on Jan 1st become older on Dec 31st (so are a year older than their birth year would indicate)
+    # - This does not apply for benefits you age out of, such as turning 17 and not being a dependent anymore
+    # - Maryland does not follow the "older on the day before your birthday" rule in any circumstance
+    raise StandardError, "Missing date-of-birth" if dob.nil?
 
     birth_year = dob.year
     if inclusive_of_jan_1

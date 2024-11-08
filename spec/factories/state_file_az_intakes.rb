@@ -118,13 +118,25 @@ FactoryBot.define do
       after(:create, &:synchronize_df_1099_rs_to_database)
     end
 
-    trait :with_spouse do
-      filing_status { 'married_filing_jointly' }
-      spouse_first_name { "Spouth" }
-      spouse_middle_initial { "B" }
-      spouse_last_name { "Carolinian" }
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
     end
 
+    trait :with_spouse do
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Susie" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Spouse" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_senior_spouse do
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Senior" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Spouse" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
+    end
 
     trait :with_az321_contributions do
       made_az321_contributions { "yes" }
@@ -314,6 +326,11 @@ FactoryBot.define do
         )
         intake.dependents.reload
       end
+    end
+
+    trait :df_data_1099_int do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_troy_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_troy_1099_int') }
     end
   end
 end

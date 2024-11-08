@@ -1,0 +1,26 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Troy",
+      "middleInitial": "T",
+      "lastName": "Interest",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    }
+  ],
+  "interestReports": [
+    {
+      "1099Amount": "1.00",
+      "has1099": true,
+      "interestOnGovernmentBonds": "2.00",
+      "no1099Amount": "3.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "recipientTin": "123-45-6789",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789",
+      "taxExemptInterest": "4.00",
+      "taxWithheld": "5.00"
+    }
+  ]
+}

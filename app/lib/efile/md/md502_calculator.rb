@@ -13,21 +13,50 @@ module Efile
       end
 
       def calculate
+        # Exemptions
+        set_line(:MD502_LINE_A_PRIMARY, :calculate_line_a_primary)
+        set_line(:MD502_LINE_A_SPOUSE, :calculate_line_a_spouse)
+        set_line(:MD502_LINE_A_COUNT, :calculate_line_a_count)
+        set_line(:MD502_LINE_A_AMOUNT, :calculate_line_a_amount)
+        set_line(:MD502_LINE_B_PRIMARY_SENIOR, :calculate_line_b_primary_senior)
+        set_line(:MD502_LINE_B_SPOUSE_SENIOR, :calculate_line_b_spouse_senior)
+        set_line(:MD502_LINE_B_PRIMARY_BLIND, :calculate_line_b_primary_blind)
+        set_line(:MD502_LINE_B_SPOUSE_BLIND, :calculate_line_b_spouse_blind)
+        set_line(:MD502_LINE_B_COUNT, :calculate_line_b_count)
+        set_line(:MD502_LINE_B_AMOUNT, :calculate_line_b_amount)
+        @md502b.calculate
+        set_line(:MD502_LINE_C_COUNT, :calculate_line_c_count)
+        set_line(:MD502_LINE_C_AMOUNT, :calculate_line_c_amount)
+        set_line(:MD502_LINE_D_COUNT_TOTAL, :calculate_line_d_count_total)
+        set_line(:MD502_LINE_D_AMOUNT_TOTAL, :calculate_line_d_amount_total)
+
+        # Income
         set_line(:MD502_LINE_1, @direct_file_data, :fed_agi)
         set_line(:MD502_LINE_1A, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
         set_line(:MD502_LINE_1E, :calculate_line_1e)
 
+        # Additions
+        set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+
+        # Subtractions
+        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+
+        # Deductions
+        set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
+        set_line(:MD502_LINE_17, :calculate_line_17)
+        set_line(:MD502_LINE_18, :calculate_line_18)
+        set_line(:MD502_LINE_19, :calculate_line_19)
+        set_line(:MD502_LINE_20, :calculate_line_20)
+
+        set_line(:MD502_LINE_40, :calculate_line_40)
+
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
-        set_line( :MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
+        set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
-
-        @md502b.calculate
-        set_line(:MD502_DEPENDENT_EXEMPTION_COUNT, :get_dependent_exemption_count)
-        set_line(:MD502_DEPENDENT_EXEMPTION_AMOUNT, :calculate_dependent_exemption_amount)
-
         @lines.transform_values(&:value)
       end
 
@@ -39,12 +68,15 @@ module Efile
         {}
       end
 
-      private
-
-      def calculate_line_1e
-        total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
-        total_interest > 11_600
+      def gross_income_amount
+        if @direct_file_data.claimed_as_dependent?
+          (@direct_file_data.fed_agi + line_or_zero(:MD502_LINE_7)) - line_or_zero(:MD502_LINE_15)
+        else
+          (@direct_file_data.fed_agi - @direct_file_data.fed_taxable_ssb) + line_or_zero(:MD502_LINE_7)
+        end
       end
+
+      private
 
       def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY
@@ -136,24 +168,29 @@ module Efile
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
         if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
-          if @intake.primary.age >= 65 && @intake.spouse.age >= 65
+          if @intake.primary_senior? && @intake.spouse_senior?
             credit = 1750
-          elsif (@intake.primary.age >= 65) ^ (@intake.spouse.age >= 65)
+          elsif @intake.primary_senior? ^ @intake.spouse_senior?
             credit = 1000
           end
         elsif (filing_status_single? || filing_status_mfs?) && agi <= 100_000
-          if @intake.primary.age >= 65
+          if @intake.primary_senior?
             credit = 1000
           end
         end
         credit
       end
 
-      def get_dependent_exemption_count
-        @lines[:MD502B_LINE_3].value
+      def calculate_line_a_primary
+        @direct_file_data.claimed_as_dependent? ? nil : "X"
       end
 
-      def calculate_dependent_exemption_amount
+      def calculate_line_a_spouse
+        filing_status_mfj? ? "X" : nil
+      end
+
+      def calculate_exemption_amount
+        # Exemption amount
         income_ranges = if filing_status_single? || filing_status_mfs?
                           [
                             [-Float::INFINITY..100_000, 3200],
@@ -176,9 +213,185 @@ module Efile
 
         income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }
 
-        amount_per_child = income_ranges[income_range_index][1]
+        income_ranges[income_range_index][1]
+      end
 
-        amount_per_child * line_or_zero(:MD502_DEPENDENT_EXEMPTION_COUNT)
+      def calculate_line_a_count
+        [@lines[:MD502_LINE_A_PRIMARY]&.value, @lines[:MD502_LINE_A_SPOUSE]&.value,].count(&:itself)
+      end
+
+      def calculate_line_a_amount
+        calculate_exemption_amount * line_or_zero(:MD502_LINE_A_COUNT)
+      end
+
+      def calculate_line_b_primary_senior
+        @intake.primary_senior? ? "X" : nil
+      end
+
+      def calculate_line_b_spouse_senior
+        return nil unless filing_status_mfj? || filing_status_qw?
+
+        @intake.spouse_senior? ? "X" : nil
+      end
+
+      def calculate_line_b_primary_blind
+        @direct_file_data.is_primary_blind? ? "X" : nil
+      end
+
+      def calculate_line_b_spouse_blind
+        return nil unless filing_status_mfj? || filing_status_qw?
+
+        @direct_file_data.is_spouse_blind? ? "X" : nil
+      end
+
+      def calculate_line_b_count
+        [
+          @lines[:MD502_LINE_B_PRIMARY_SENIOR]&.value,
+          @lines[:MD502_LINE_B_SPOUSE_SENIOR]&.value,
+          @lines[:MD502_LINE_B_PRIMARY_BLIND]&.value,
+          @lines[:MD502_LINE_B_SPOUSE_BLIND]&.value
+        ].count(&:itself)
+      end
+
+      def calculate_line_b_amount
+        line_or_zero(:MD502_LINE_B_COUNT) * 1000
+      end
+
+      def calculate_line_c_count
+        # dependent exemption count
+        @lines[:MD502B_LINE_3].value
+      end
+
+      def calculate_line_c_amount
+        # dependent exemption amount
+        calculate_exemption_amount * line_or_zero(:MD502_LINE_C_COUNT)
+      end
+
+      def calculate_line_d_count_total
+        # Add line A, B and C counts
+        line_or_zero(:MD502_LINE_A_COUNT) + line_or_zero(:MD502_LINE_B_COUNT) + line_or_zero(:MD502_LINE_C_COUNT)
+      end
+
+      def calculate_line_d_amount_total
+        # Add line A, B and C amounts
+        line_or_zero(:MD502_LINE_A_AMOUNT) + line_or_zero(:MD502_LINE_B_AMOUNT) + line_or_zero(:MD502_LINE_C_AMOUNT)
+      end
+
+      def calculate_line_1e
+        total_interest = @direct_file_data.fed_taxable_income + @direct_file_data.fed_tax_exempt_interest
+        total_interest > 11_600
+      end
+
+      def calculate_line_7; end
+
+      def calculate_line_15; end
+
+      def calculate_line_16; end
+
+      FILING_MINIMUMS_NON_SENIOR = {
+        single: 14_600,
+        dependent: 14_600,
+        married_filing_jointly: 29_200,
+        married_filing_separately: 14_600,
+        head_of_household: 21_900,
+        qualifying_widow: 29_200
+      }
+
+      FILING_MINIMUMS_SENIOR = {
+        single: 16_550,
+        dependent: 16_550,
+        married_filing_jointly: 30_750,
+        married_filing_separately: 14_600,
+        head_of_household: 23_850,
+        qualifying_widow: 30_750
+      }
+
+      def calculate_deduction_method
+        gross_income_amount = @intake.tax_calculator.gross_income_amount
+        filing_minimum = if @intake.primary_senior? && @intake.filing_status_mfj? && @intake.spouse_senior?
+                           32_300
+                         elsif @intake.primary_senior?
+                           FILING_MINIMUMS_SENIOR[@intake.filing_status]
+                         else
+                           FILING_MINIMUMS_NON_SENIOR[@intake.filing_status]
+                         end
+        if gross_income_amount >= filing_minimum
+          "S"
+        else
+          "N"
+        end
+      end
+
+      DEDUCTION_TABLES = {
+        s_mfs_d: {
+          12000 => 1_800,
+          17999 => ->(x) { x * 0.15 },
+          18000 => 2_700,
+        },
+        mfj_hoh_qss: {
+          24333 => 3_650,
+          36332 => ->(x) { x * 0.15 },
+          36333 => 5_450,
+        }
+      }.freeze
+      FILING_STATUS_GROUPS = {
+        s_mfs_d: [:single, :married_filing_separately, :dependent],
+        mfj_hoh_qss: [:married_filing_jointly, :head_of_household, :qualifying_widow]
+      }.freeze
+
+      def calculate_line_17
+        if deduction_method_is_standard?
+          status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(@intake.filing_status) }[0]
+          deduction_table = DEDUCTION_TABLES[status_group_key]
+          md_agi = line_or_zero(:MD502_LINE_16)
+          amount_or_method = deduction_table.find { |agi_limit, _| md_agi <= agi_limit }[1]
+          if amount_or_method.is_a?(Proc)
+            amount_or_method.call(md_agi)
+          else
+            amount_or_method
+          end
+        else
+          0
+        end
+      end
+
+      def calculate_line_18
+        if deduction_method_is_standard?
+          line_or_zero(:MD502_LINE_16) - line_or_zero(:MD502_LINE_17)
+        else
+          0
+        end
+      end
+
+      def calculate_line_19
+        if deduction_method_is_standard?
+          line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
+        else
+          0
+        end
+      end
+
+      def calculate_line_20
+        if deduction_method_is_standard?
+          [line_or_zero(:MD502_LINE_18) - line_or_zero(:MD502_LINE_19), 0].max
+        else
+          0
+        end
+      end
+
+      def filing_status_dependent?
+        @filing_status == :dependent
+      end
+
+      def deduction_method_is_standard?
+        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+      end
+
+      def calculate_line_40
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end

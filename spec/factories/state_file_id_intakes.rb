@@ -20,8 +20,10 @@
 #  email_address_verified_at               :datetime
 #  failed_attempts                         :integer          default(0), not null
 #  federal_return_status                   :string
+#  has_health_insurance_premium            :integer          default("unfilled"), not null
 #  has_unpaid_sales_use_tax                :integer          default("unfilled"), not null
 #  hashed_ssn                              :string
+#  health_insurance_paid_amount            :decimal(12, 2)
 #  last_sign_in_at                         :datetime
 #  last_sign_in_ip                         :inet
 #  locale                                  :string           default("en")
@@ -56,12 +58,16 @@
 #  created_at                              :datetime         not null
 #  updated_at                              :datetime         not null
 #  federal_submission_id                   :string
+#  primary_state_id_id                     :bigint
+#  spouse_state_id_id                      :bigint
 #  visitor_id                              :string
 #
 # Indexes
 #
-#  index_state_file_id_intakes_on_email_address  (email_address)
-#  index_state_file_id_intakes_on_hashed_ssn     (hashed_ssn)
+#  index_state_file_id_intakes_on_email_address        (email_address)
+#  index_state_file_id_intakes_on_hashed_ssn           (hashed_ssn)
+#  index_state_file_id_intakes_on_primary_state_id_id  (primary_state_id_id)
+#  index_state_file_id_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 FactoryBot.define do
   factory :minimal_state_file_id_intake, class: "StateFileIdIntake"
@@ -84,6 +90,10 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
     #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
 
     trait :single_filer_with_json do
@@ -100,6 +110,13 @@ FactoryBot.define do
     trait :with_dependents do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
+    end
+
+    trait :df_data_1099_int do
+      primary_first_name { "Tim" }
+      primary_last_name { "Interest" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_tim_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_tim_1099_int') }
     end
   end
 end

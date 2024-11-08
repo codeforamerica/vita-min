@@ -26,16 +26,6 @@
     </div>
   </div>
 
-  <% @invalid_w2s.each do |w2| %>
-    <div id="w2s" class="white-group">
-      <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t("state_file.questions.review.w2") %></p>
-        <p><%=current_intake.direct_file_data.w2s[w2.w2_index].EmployerName %></p>
-        <%= link_to t("general.edit"), StateFile::Questions::W2Controller.to_path_helper(action: :edit, id: w2.w2_index, return_to_review: "y"), class: "button--small" %>
-      </div>
-    </div>
-  <% end %>
-
   <div id="use-tax" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".out_of_state_purchases") %></p>
@@ -55,7 +45,7 @@
   <% end %>
 
   <div id="details" class="reveal">
-    <p><a href="#" class="reveal__link"><%= t('.see_detailed_return') %></a></p>
+    <p><button class="reveal__button"><%= t('.see_detailed_return') %></button></p>
     <div class="reveal__content">
       <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%=t(".fed_agi") %></p>

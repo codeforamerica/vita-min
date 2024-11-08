@@ -103,10 +103,10 @@ module Efile
       end
 
       def calculate_line_8
-        # Age 65 or over (you and/or spouse) count
-        [@intake.primary_birth_date, @intake.spouse_birth_date].count do |dob|
-          dob && (@intake.calculate_age(inclusive_of_jan_1: true, dob: dob) >= 65)
-        end
+        count = 0
+        count += 1 if @intake.primary_senior?
+        count += 1 if @intake.filing_status_mfj? && @intake.spouse_senior?
+        count
       end
 
       def calculate_line_14
@@ -258,11 +258,9 @@ module Efile
         [line_52_value, 0].max
       end
 
-      # TODO: test combination of multiple forms (w2, 1099G, 1099R) in the spec for this calculator
+      # AZ income tax withheld: sum of tax withheld from all income documents: W-2, 1099-R, 1099-G, 1099-INT
       def calculate_line_53
-        # AZ income tax withheld
-        # sum of tax withheld from all income documents: W-2, 1099-R, 1099-G, 1099-INT
-        @direct_file_data.total_w2_state_tax_withheld +
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end

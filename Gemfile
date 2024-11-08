@@ -7,7 +7,7 @@ gem 'rack', '>= 2.0.8'
 gem 'rails', '~> 7.1'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
-gem 'cfa-styleguide', '0.10.5', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '4c6f873f55704ec34fd518906f131133b290e56a'
+gem 'cfa-styleguide', '0.15.2', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '64379cc8e7cf77ed68a98e226146405864ab49b5'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 gem "activerecord-cte" # Can be removed when we move to Rails 7.1
@@ -96,7 +96,8 @@ group :development, :test do
   gem 'annotate'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'axe-matchers'
+  gem 'axe-core-rspec'
+  gem 'axe-core-capybara'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'

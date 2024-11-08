@@ -8,6 +8,7 @@
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
 #  city                                 :string
+#  confirmed_permanent_address          :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions    :integer          default("unfilled"), not null
 #  contact_preference                   :integer          default("unfilled"), not null
 #  current_sign_in_at                   :datetime
@@ -33,6 +34,11 @@
 #  locked_at                            :datetime
 #  message_tracker                      :jsonb
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
+#  permanent_address_outside_md         :integer          default("unfilled"), not null
+#  permanent_apartment                  :string
+#  permanent_city                       :string
+#  permanent_street                     :string
+#  permanent_zip                        :string
 #  phone_number                         :string
 #  phone_number_verified_at             :datetime
 #  political_subdivision                :string
@@ -92,7 +98,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum eligibility_homebuyer_withdrawal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal
   enum eligibility_homebuyer_withdrawal_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal_mfj
   enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_home_different_areas
-
+  enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
+  enum permanent_address_outside_md: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_md
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -100,7 +107,6 @@ class StateFileMdIntake < StateFileBaseIntake
       (state.text || '').upcase != state_code.upcase
     end
   end
-
 
   def disqualifying_eligibility_rules
     # eligibility_filing_status_mfj is not strictly a disqualifier and just leads us to other questions
@@ -115,6 +121,11 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
+  def calculate_age(dob, inclusive_of_jan_1)
+    # MD never calculates age at the end of the year using Jan 1 inclusive
+    super(dob, inclusive_of_jan_1: false)
+  end
+
   def sanitize_bank_details
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
@@ -126,11 +137,19 @@ class StateFileMdIntake < StateFileBaseIntake
       self.account_holder_name = nil
     end
   end
-  def calculate_age(inclusive_of_jan_1: false, dob: primary.birth_date)
-    # overwriting the base intake method b/c
-    # MD always considers individuals to attain their age on their DOB
-    raise StandardError, "Primary or spouse missing date-of-birth" if dob.nil?
 
-    MultiTenantService.statefile.current_tax_year - dob.year
+  def filing_status
+    {
+      1 => :single,
+      2 => :married_filing_jointly,
+      3 => :married_filing_separately,
+      4 => :head_of_household,
+      5 => :qualifying_widow,
+      6 => :dependent,
+    }[direct_file_data&.filing_status]
+  end
+
+  def filing_status_dependent?
+    filing_status == :dependent
   end
 end

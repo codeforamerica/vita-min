@@ -26,10 +26,12 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with one dep" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, municipality_code: "0101") }
+        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
+          expect(builder_response.document.at("WagesSalariesTips").text).not_to eq(nil)
+          expect(builder_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
         end
 
         it "fills details from json" do
@@ -41,15 +43,23 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with two deps" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps, municipality_code: "0101") }
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
         end
       end
 
-      context "with many deps" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, municipality_code: "0101") }
+      context "with many deps all under 5 yrs old" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
+
+        before do
+          five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
+          intake.synchronize_df_dependents_to_database
+          intake.dependents.each do |d| d.update(dob: five_years) end
+          intake.dependents.reload
+        end
+
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -57,7 +67,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with many w2s" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_w2s')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present
@@ -65,7 +75,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with two w2s" do
-        let(:intake) { create(:state_file_nj_intake, municipality_code: "0101", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s')) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
         it "does not error" do
           builder_response = described_class.build(submission)
           expect(builder_response.errors).not_to be_present

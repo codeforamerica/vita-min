@@ -8,6 +8,7 @@
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
 #  city                                 :string
+#  confirmed_permanent_address          :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions    :integer          default("unfilled"), not null
 #  contact_preference                   :integer          default("unfilled"), not null
 #  current_sign_in_at                   :datetime
@@ -33,6 +34,11 @@
 #  locked_at                            :datetime
 #  message_tracker                      :jsonb
 #  payment_or_deposit_type              :integer          default("unfilled"), not null
+#  permanent_address_outside_md         :integer          default("unfilled"), not null
+#  permanent_apartment                  :string
+#  permanent_city                       :string
+#  permanent_street                     :string
+#  permanent_zip                        :string
 #  phone_number                         :string
 #  phone_number_verified_at             :datetime
 #  political_subdivision                :string
@@ -92,6 +98,7 @@ FactoryBot.define do
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
+    primary_birth_date { Date.new(1950, 01, 01) } # matches the bday in md_minimal.json
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -100,9 +107,24 @@ FactoryBot.define do
         married_filing_separately: 3,
         head_of_household: 4,
         qualifying_widow: 5,
+        dependent: 6,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
+    end
+
+
+    trait :with_1099_rs_synced do
+      after(:create, &:synchronize_df_1099_rs_to_database)
+    end
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
     end
 
     trait :with_spouse do
@@ -112,6 +134,17 @@ FactoryBot.define do
       spouse_first_name { "Marty" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_senior_spouse do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
     trait :df_data_2_w2s do

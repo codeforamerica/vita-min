@@ -6,7 +6,7 @@ module StateFile
       before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
 
       def self.show?(intake)
-        intake.household_rent_own_own?
+        intake.household_rent_own_own? && !Efile::Nj::NjPropertyTaxEligibility.ineligible?(intake)
       end
 
       def next_path
@@ -19,7 +19,11 @@ module StateFile
         when StateFile::NjHomeownerEligibilityHelper::UNSUPPORTED
           NjUnsupportedPropertyTaxController.to_path_helper(options)
         else
-          NjHomeownerPropertyTaxController.to_path_helper(options)
+          if Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_credit?(current_intake)
+            super # skip "property taxes paid" question and go to whichever comes next by default
+          else
+            NjHomeownerPropertyTaxController.to_path_helper(options)
+          end
         end
       end
     end
