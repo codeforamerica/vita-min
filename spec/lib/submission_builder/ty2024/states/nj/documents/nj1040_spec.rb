@@ -683,7 +683,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
             let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
 
             it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
-              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(240)
+              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(240.to_s)
               expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
             end
           end
@@ -699,7 +699,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
             }
 
             it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
-              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(240)
+              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(240.to_s)
               expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
             end
           end
