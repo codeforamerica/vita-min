@@ -367,6 +367,48 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 Additions FedAGIAndStateAdditions")&.text).to eq "60"
         end
       end
+
+      context "EIC section" do
+        context "when qualifies for EIC" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return "X"
+          end
+          let(:intake) { create(:state_file_md_intake, :with_spouse) }
+          it "fills in EIC fields" do
+            expect(xml.at("Form502 StateTaxComputation")).to be_present
+            expect(xml.at("Form502 StateTaxComputation EarnedIncomeCredit").text).to eq("100")
+            expect(xml.at("Form502 StateTaxComputation MDEICWithQualChildInd").text).to eq("X")
+          end
+        end
+
+        context "when they qualify for state EIC but don't have qualifying children" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return nil
+          end
+          let(:intake) { create(:state_file_md_intake, :with_spouse) }
+          it "fills out EarnedIncomeCredit but not MDEICWithQualChildInd" do
+            expect(xml.at("Form502 StateTaxComputation")).to be_present
+            expect(xml.at("Form502 StateTaxComputation EarnedIncomeCredit").text).to eq("100")
+            expect(xml.at("Form502 StateTaxComputation MDEICWithQualChildInd")).not_to be_present
+          end
+        end
+
+        context "when they don't qualify for state EIC and don't have qualifying children" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return nil
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return nil
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return nil
+          end
+          let(:intake) { create(:state_file_md_intake, :with_spouse) }
+          it "fills doesn't fill out the state tax computation section" do
+            expect(xml.at("Form502 StateTaxComputation")).not_to be_present
+            expect(xml.at("Form502 StateTaxComputation EarnedIncomeCredit")).not_to be_present
+            expect(xml.at("Form502 StateTaxComputation MDEICWithQualChildInd")).not_to be_present
+          end
+        end
+      end
     end
 
     context "Line 40: Total state and local tax withheld" do
