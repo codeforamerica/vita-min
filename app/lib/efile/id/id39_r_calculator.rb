@@ -12,9 +12,13 @@ module Efile
       end
 
       def calculate
+        set_line(:ID39R_A_LINE_7, -> { 0 })
         set_line(:ID39R_B_LINE_3, :calculate_sec_b_line_3)
+        set_line(:ID39R_B_LINE_7, :calculate_sec_b_line_7)
         set_line(:ID39R_B_LINE_6, :calculate_sec_b_line_6)
+        set_line(:ID39R_B_LINE_8f, -> { 0 })
         set_line(:ID39R_B_LINE_18, :calculate_sec_b_line_18)
+        set_line(:ID39R_B_LINE_24, :calculate_sec_b_line_24)
         @lines.transform_values(&:value)
       end
 
@@ -37,9 +41,17 @@ module Efile
           @direct_file_data.spouse_earned_income_amount,
         ].min
       end
-      
+
+      def calculate_sec_b_line_7
+        @direct_file_data.fed_taxable_ssb&.round || 0
+      end
+
       def calculate_sec_b_line_18
         @intake.has_health_insurance_premium_yes? ? @intake.health_insurance_paid_amount&.round : 0
+      end
+
+      def calculate_sec_b_line_24
+        line_or_zero(:ID39R_B_LINE_3) + line_or_zero(:ID39R_B_LINE_6) + line_or_zero(:ID39R_B_LINE_7) + line_or_zero(:ID39R_B_LINE_8f) + line_or_zero(:ID39R_B_LINE_18)
       end
     end
   end
