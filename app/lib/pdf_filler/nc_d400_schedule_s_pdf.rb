@@ -19,6 +19,7 @@ module PdfFiller
         y_d400schswf_ssn: @xml_document.at('Primary TaxpayerSSN')&.text,
         y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName')&.text,
         y_d400schswf_li18_good: @xml_document.at('DedFedAGI USInterestInc')&.text,
+        y_d400schswf_li19_good: @xml_document.at('DedFedAGI TaxPortSSRRB')&.text,
         y_d400schswf_li27_good:  @xml_document.at('DedFedAGI ExmptIncFedRecInd')&.text,
         y_d400schswf_li41_good:  @xml_document.at('DedFedAGI TotDedFromFAGI')&.text,
       }

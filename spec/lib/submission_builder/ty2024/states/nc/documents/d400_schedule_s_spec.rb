@@ -17,6 +17,17 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS, requir
       end
     end
 
+    context "TaxPortSSRRB" do
+      before do
+        intake.direct_file_data.fed_taxable_ssb = 123
+      end
+
+      it "correctly fills answers" do
+        expect(xml.document.at('DedFedAGI TaxPortSSRRB').text).to eq "123"
+      end
+    end
+
+
     context "return contain tribal wages amounts " do
       before do
         intake.tribal_member = "yes"
