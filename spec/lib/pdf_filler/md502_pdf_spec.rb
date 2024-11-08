@@ -359,6 +359,20 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
+    context "additions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_3).and_return 40
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 50
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 60
+      end
+
+      it "fills out amount if deduction method is standard" do
+        expect(pdf_fields["Enter 3"]).to eq "40"
+        expect(pdf_fields["Enter 6"]).to eq "50"
+        expect(pdf_fields["Enter 7"]).to eq "60"
+      end
+    end
+
     context "Line 40: Total state and local tax withheld" do
       before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
@@ -367,6 +381,31 @@ RSpec.describe PdfFiller::Md502Pdf do
       it 'outputs the total state and local tax withheld' do
         puts pdf_fields
         expect(pdf_fields["Text Box 68"]).to eq "500"
+      end
+    end
+
+    context "with 502SU Subtractions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
+      end
+
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Text Field 9"]).to eq "ab"
+        expect(pdf_fields["Text Field 10"]).to eq ""
+        expect(pdf_fields["Text Field 11"]).to eq ""
+        expect(pdf_fields["Text Field 12"]).to eq ""
+        expect(pdf_fields["Enter 13"].to_i).to eq 100
+      end
+    end
+
+    context "without 502SU Subtractions" do
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Text Field 9"]).to eq ""
+        expect(pdf_fields["Text Field 10"]).to eq ""
+        expect(pdf_fields["Text Field 11"]).to eq ""
+        expect(pdf_fields["Text Field 12"]).to eq ""
+        expect(pdf_fields["Enter 13"].to_i).to eq 0
       end
     end
   end

@@ -108,9 +108,15 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       income_section(xml)
+      xml.Additions do
+        xml.StateRetirementPickup calculated_fields.fetch(:MD502_LINE_3)
+        xml.Total calculated_fields.fetch(:MD502_LINE_6)
+        xml.FedAGIAndStateAdditions calculated_fields.fetch(:MD502_LINE_7)
+      end
       xml.Subtractions do
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
+        xml.Other calculated_fields.fetch(:MD502_LINE_13)
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)

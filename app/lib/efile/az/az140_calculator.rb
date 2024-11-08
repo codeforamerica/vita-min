@@ -38,7 +38,7 @@ module Efile
         set_line(:AZ140_LINE_12, @direct_file_data, :fed_agi)
         set_line(:AZ140_LINE_14, :calculate_line_14)
         set_line(:AZ140_LINE_19, :calculate_line_19)
-        set_line(:AZ140_LINE_28, @direct_file_data, :interest_reported_amount)
+        set_line(:AZ140_LINE_28, :calculate_line_28)
         set_line(:AZ140_LINE_29A, :calculate_line_29A)
         set_line(:AZ140_LINE_29B, :calculate_line_29B)
         set_line(:AZ140_LINE_30, @direct_file_data, :fed_taxable_ssb)
@@ -115,6 +115,10 @@ module Efile
 
       def calculate_line_19
         line_or_zero(:AZ140_LINE_14)
+      end
+
+      def calculate_line_28
+        @intake.direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
       end
 
       def calculate_line_29A

@@ -69,6 +69,11 @@ module PdfFiller
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
+        'Text Field 9': generate_codes_for_502_su.at(0),
+        'Text Field 10': generate_codes_for_502_su.at(1),
+        'Text Field 11': generate_codes_for_502_su.at(2),
+        'Text Field 12': generate_codes_for_502_su.at(3),
+        'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         'Check Box 34': deduction_method_is_standard? ? "Yes" : "Off",
@@ -76,6 +81,9 @@ module PdfFiller
         'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
         'Enter 19 ': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
         'Enter 20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
+        'Enter 3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
+        'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
+        'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
       }
     end
@@ -98,6 +106,26 @@ module PdfFiller
 
     def checkbox_value(value)
       value.present? ? 'Yes' : 'Off'
+    end
+
+    def generate_codes_for_502_su
+      calculated_fields_code_letters = {
+        MD502_SU_LINE_AB: "ab",
+        MD502_SU_LINE_U: "u",
+        MD502_SU_LINE_V: "v"
+      }
+      applicable_codes = []
+
+      if calculated_fields.fetch(:MD502_SU_LINE_1).positive?
+        calculated_fields_code_letters.each do |calculated_field, code_letter|
+          applicable_codes << code_letter if calculated_fields.fetch(calculated_field).to_i.positive?
+        end
+      end
+      applicable_codes
+    end
+
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end
