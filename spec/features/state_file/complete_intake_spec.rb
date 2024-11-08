@@ -645,6 +645,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+      click_on I18n.t("general.continue")
+
       select "Atlantic"
       click_on I18n.t("general.continue")
 
