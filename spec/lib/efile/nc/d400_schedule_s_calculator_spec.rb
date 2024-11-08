@@ -70,4 +70,18 @@ describe Efile::Nc::D400ScheduleSCalculator do
       end
     end
   end
+
+  describe 'Line 41: Sum of lines 17-22, 23f, 24f, 25-40' do
+    before do
+      # unrepresented lines are not implemented yet or OOS
+      intake.direct_file_data.fed_taxable_income = 400
+      intake.direct_file_data.fed_taxable_ssb = 400
+      allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_27).and_return 400
+    end
+
+    it "return sum" do
+      d400_calculator.calculate
+      expect(instance.lines[:NCD400_S_LINE_41].value).to eq(1200)
+    end
+  end
 end
