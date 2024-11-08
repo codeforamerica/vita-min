@@ -40,5 +40,25 @@
     </div>
   </div>
 
+  <% if current_intake.state_file1099_gs.present? %>
+    <div id="unemployment" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".primary_unemployment") %></p>
+        <p><%= number_to_currency(current_intake.total_unemployment_compensation_amount("primary").abs) %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(action: :index, return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+
+    <% if current_intake.filing_status_mfj? %>
+      <div id="spouse-unemployment" class="white-group">
+        <div class="spacing-below-5">
+          <p class="text--bold spacing-below-5"><%=t(".spouse_unemployment") %></p>
+          <p><%= number_to_currency(current_intake.total_unemployment_compensation_amount("spouse").abs) %></p>
+          <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(action: :index, return_to_review: "y"), class: "button--small" %>
+        </div>
+      </div>
+    <% end %>
+  <%end %>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

@@ -371,6 +371,10 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def total_unemployment_compensation_amount(recipient)
+    self.state_file1099_gs.sum {|g| g.recipient == recipient ? g.unemployment_compensation_amount : 0 }
+  end
+
   def primary_senior?
     calculate_age(primary_birth_date, inclusive_of_jan_1: true) >= 65
   end

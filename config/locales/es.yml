@@ -2671,7 +2671,9 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          primary_unemployment: Compensación por desempleo
           primary_veteran: Información del Veterano
+          spouse_unemployment: Compensación por desempleo del cónyuge
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           use_tax_applied: Impuesto de Uso Aplicado

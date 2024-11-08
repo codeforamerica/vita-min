@@ -2699,7 +2699,9 @@ en:
       nc_review:
         edit:
           amount: Amount
+          primary_unemployment: Unemployment compensation
           primary_veteran: Veteran Info
+          spouse_unemployment: Spouse's unemployment compensation
           spouse_veteran: Spouse Veteran Info
           state_credit: Amount earned as member of a federally recognized Indian tribe
           use_tax_applied: Consumer Use Tax Applied

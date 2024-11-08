@@ -170,4 +170,34 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe "#total_unemployment_compensation_amount" do
+    let(:intake) { create :state_file_az_intake }
+
+    context "when there are 1099gs" do
+      let!(:primary_1099g) { create :state_file1099_g, recipient: 'primary', intake: intake, unemployment_compensation_amount: 20 }
+      let!(:primary_1099g_2) { create :state_file1099_g, recipient: 'primary', intake: intake, unemployment_compensation_amount: 15 }
+      let!(:spouse_1099g) { create :state_file1099_g, recipient: 'spouse', intake: intake, unemployment_compensation_amount: 200 }
+      let!(:spouse_1099g_2) { create :state_file1099_g, recipient: 'spouse', intake: intake, unemployment_compensation_amount: 150 }
+
+      context "when calculating the recipient's unemployment" do
+        it 'calculates' do
+          expect(intake.total_unemployment_compensation_amount('primary')).to eq 35
+        end
+      end
+
+      context "when calculating the spouse's unemployment" do
+        it 'calculates' do
+          expect(intake.total_unemployment_compensation_amount('spouse')).to eq 350
+        end
+      end
+    end
+
+    context "when there are no 1099gs" do
+      it 'returns 0' do
+        expect(intake.total_unemployment_compensation_amount('primary')).to eq 0
+        expect(intake.total_unemployment_compensation_amount('spouse')).to eq 0
+      end
+    end
+  end
 end

@@ -409,6 +409,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text(I18n.t("state_file.questions.nc_review.edit.primary_unemployment"))
+      within '#unemployment' do
+        expect(page).to have_text('123')
+      end
       click_on I18n.t("general.continue")
 
       expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 1000, state_name: "North Carolina"))
