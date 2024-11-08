@@ -526,8 +526,12 @@ MD502_LINE_1D:
   label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
   label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
+MD502_LINE_3:
+  label: '3 State Retirement Pickup'
+MD502_LINE_6:
+  label: '6 Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)'
 MD502_LINE_7:
-  label: 'TBD'
+  label: '7 Total federal adjusted gross income and Maryland additions: add line 1 and line 6'
 MD502_LINE_15:
   label: 'TBD'
 MD502_LINE_A_PRIMARY:

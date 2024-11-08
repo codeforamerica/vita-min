@@ -44,7 +44,9 @@ module Efile
         set_line(:MD502_LINE_1E, :calculate_line_1e)
 
         # Additions
-        set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_3, :calculate_line_3)
+        set_line(:MD502_LINE_6, :calculate_line_6)
+        set_line(:MD502_LINE_7, :calculate_line_7)
 
         # Subtractions
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
@@ -297,7 +299,20 @@ module Efile
         total_interest > 11_600
       end
 
-      def calculate_line_7; end
+      def calculate_line_3
+        # State retirement pickup
+        @intake.state_file_w2s.sum { |item| (item.box14_stpickup || 0) }.round(0)
+      end
+
+      def calculate_line_6
+        # Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)
+        line_or_zero(:MD502_LINE_3)
+      end
+
+      def calculate_line_7
+        # Total federal AGI and Maryland additions: add line 1 and line 6
+        line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
+      end
 
       def calculate_line_15; end
 

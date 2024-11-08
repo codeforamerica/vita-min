@@ -943,6 +943,38 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_3" do
+    let!(:first_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 100.0) }
+    let!(:second_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 250.6) }
+    let!(:third_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: nil) }
+    context "with w2s" do
+      it "returns the sum of all box14_stpickup" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_3].value).to eq 351
+      end
+    end
+  end
+
+  describe "#calculate_line_6" do
+    it "returns the total additions" do
+      allow_any_instance_of(described_class).to receive(:calculate_line_3).and_return 550
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_6].value).to eq 550
+    end
+  end
+
+  describe "#calculate_line_7" do
+    before do
+      intake.direct_file_data.fed_agi = 100
+      allow_any_instance_of(described_class).to receive(:calculate_line_6).and_return 200
+      instance.calculate
+    end
+
+    it "returns the sum of line 1 and 6" do
+      expect(instance.lines[:MD502_LINE_7].value).to eq 300
+    end
+  end
+
   describe "#calculate_line_22" do
     let(:filing_status) { "married_filing_jointly" }
     let(:df_xml_key) { "md_laney_qss" }
