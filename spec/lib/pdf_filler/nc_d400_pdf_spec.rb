@@ -118,9 +118,9 @@ RSpec.describe PdfFiller::NcD400Pdf do
         end
 
         it "sets fields specific to filing status" do
-          expect(pdf_fields['y_d400wf_fname2']).to eq 'Spouth'
+          expect(pdf_fields['y_d400wf_fname2']).to eq 'Susie'
           expect(pdf_fields['y_d400wf_mi2']).to eq 'B'
-          expect(pdf_fields['y_d400wf_lname2']).to eq 'Carolinian'
+          expect(pdf_fields['y_d400wf_lname2']).to eq 'Spouse'
           expect(pdf_fields['y_d400wf_ssn2']).to eq '600000030'
           expect(pdf_fields['y_d400wf_dead2']).to eq '09-30-24'
 

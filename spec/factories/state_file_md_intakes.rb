@@ -112,6 +112,16 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+
+    trait :with_1099_rs_synced do
+      after(:create, &:synchronize_df_1099_rs_to_database)
+    end
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
+
     trait :with_w2s_synced do
       after(:create, &:synchronize_df_w2s_to_database)
     end
@@ -123,6 +133,17 @@ FactoryBot.define do
       spouse_first_name { "Marty" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_senior_spouse do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
     trait :df_data_2_w2s do
