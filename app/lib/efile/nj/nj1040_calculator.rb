@@ -224,7 +224,7 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax_credit
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE ||
-        Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
+          Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
       end
 
       def calculate_line_40a
@@ -315,7 +315,7 @@ module Efile
 
         total_excess += primary_excess
         total_excess += spouse_excess
-        total_excess if total_excess.positive?
+        total_excess.round if total_excess.positive?
       end
 
       def calculate_line_61
@@ -331,7 +331,7 @@ module Efile
 
         total_excess += primary_excess
         total_excess += spouse_excess
-        total_excess if total_excess.positive?
+        total_excess.round if total_excess.positive?
       end
 
       def calculate_line_64

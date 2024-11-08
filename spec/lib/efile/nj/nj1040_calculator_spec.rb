@@ -1160,7 +1160,7 @@ describe Efile::Nj::Nj1040Calculator do
 
         expect(first_w2.box14_ui_wf_swf).to eq(contribution_1)
         expect(second_w2.box14_ui_wf_swf).to eq(contribution_2)
-        expected_sum = contribution_1 + contribution_2 - EXCESS_UI_WF_SWF_UI_HC_WD_MAX
+        expected_sum = (contribution_1 + contribution_2 - EXCESS_UI_WF_SWF_UI_HC_WD_MAX).round
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
       end
     end
@@ -1196,7 +1196,7 @@ describe Efile::Nj::Nj1040Calculator do
 
           expect(w2_3.box14_ui_wf_swf).to eq(contribution_1)
           expect(w2_4.box14_ui_wf_swf).to eq(contribution_2)
-          expected_sum = contribution_1 + contribution_2 - EXCESS_UI_WF_SWF_UI_HC_WD_MAX
+          expected_sum = (contribution_1 + contribution_2 - EXCESS_UI_WF_SWF_UI_HC_WD_MAX).round
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
         end
       end
@@ -1217,7 +1217,7 @@ describe Efile::Nj::Nj1040Calculator do
           expect(w2_2.box14_ui_wf_swf).to eq(contribution_2)
           expect(w2_3.box14_ui_wf_swf).to eq(contribution_3)
           expect(w2_4.box14_ui_wf_swf).to eq(contribution_4)
-          expected_sum = contribution_1 + contribution_2 + contribution_3 + contribution_4 - (EXCESS_UI_WF_SWF_UI_HC_WD_MAX * 2)
+          expected_sum = (contribution_1 + contribution_2 + contribution_3 + contribution_4 - (EXCESS_UI_WF_SWF_UI_HC_WD_MAX * 2)).round
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
         end
       end
@@ -1238,14 +1238,16 @@ describe Efile::Nj::Nj1040Calculator do
     context 'with multiple w2s but excess contribution only from one employer' do
       let(:intake) { create(:state_file_nj_intake, :df_data_box_14) }
       before do
-        create :state_file_w2, state_file_intake: intake 
+        create :state_file_w2, state_file_intake: intake, box14_fli: 0
       end
 
       it 'does not fill line 61' do
         expect(intake.state_file_w2s.count).to eq(2)
-        first_w2 = intake.state_file_w2s.first 
+        first_w2 = intake.state_file_w2s.all[0]
         second_w2 = intake.state_file_w2s.all[1]
         first_w2.update_attribute(:box14_fli, EXCESS_FLI_MAX + 1)
+        second_w2.update_attribute(:box14_fli, nil)
+        instance.calculate
 
         expect(first_w2.box14_fli).to eq(EXCESS_FLI_MAX + 1)
         expect(second_w2.box14_fli).to eq(nil)
@@ -1302,7 +1304,7 @@ describe Efile::Nj::Nj1040Calculator do
 
         expect(first_w2.box14_fli).to eq(contribution_1)
         expect(second_w2.box14_fli).to eq(contribution_2)
-        expected_sum = contribution_1 + contribution_2 - EXCESS_FLI_MAX
+        expected_sum = (contribution_1 + contribution_2 - EXCESS_FLI_MAX).round
         expect(instance.lines[:NJ1040_LINE_61].value).to eq(expected_sum)
       end
     end
@@ -1338,7 +1340,7 @@ describe Efile::Nj::Nj1040Calculator do
 
           expect(w2_3.box14_fli).to eq(contribution_1)
           expect(w2_4.box14_fli).to eq(contribution_2)
-          expected_sum = contribution_1 + contribution_2 - EXCESS_FLI_MAX
+          expected_sum = (contribution_1 + contribution_2 - EXCESS_FLI_MAX).round
           expect(instance.lines[:NJ1040_LINE_61].value).to eq(expected_sum)
         end
       end
@@ -1359,7 +1361,7 @@ describe Efile::Nj::Nj1040Calculator do
           expect(w2_2.box14_fli).to eq(contribution_2)
           expect(w2_3.box14_fli).to eq(contribution_3)
           expect(w2_4.box14_fli).to eq(contribution_4)
-          expected_sum = contribution_1 + contribution_2 + contribution_3 + contribution_4 - (EXCESS_FLI_MAX * 2)
+          expected_sum = (contribution_1 + contribution_2 + contribution_3 + contribution_4 - (EXCESS_FLI_MAX * 2)).round
           expect(instance.lines[:NJ1040_LINE_61].value).to eq(expected_sum)
         end
       end
