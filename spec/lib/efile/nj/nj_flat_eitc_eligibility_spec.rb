@@ -4,7 +4,10 @@ describe Efile::Nj::NjFlatEitcEligibility do
   describe ".possibly_eligible?" do
     [
       { traits: [], expected: false },
+      { traits: [:married_filing_separately], expected: false },
+
       { traits: [:df_data_minimal], expected: true },
+      { traits: [:df_data_minimal, :married_filing_jointly], expected: true },
     ].each do |test_case|
       context "when filing with #{test_case}" do
         let(:intake) do
