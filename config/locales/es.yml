@@ -1402,9 +1402,6 @@ es:
     document_upload:
       id_type: Tipo de Identificación
   messages:
-    join_keyword_response:
-      sms:
-        body: Bienvenido a los mensajes de FileYourStateTaxes. Pueden aplicarse tarifas por mensajes y datos. La frecuencia de los mensajes varía. Responda "HELP" para obtener ayuda, "STOP" para cancelar la suscripción.
     closing_soon:
       email:
         body: 'Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
@@ -1472,6 +1469,9 @@ es:
         subject: Esta conversación ha sido enviada a los especialistas del servicio al cliente de GetYourRefund
       sms:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
+    join_keyword_response:
+      sms:
+        body: Bienvenido a los mensajes de FileYourStateTaxes. Pueden aplicarse tarifas por mensajes y datos. La frecuencia de los mensajes varía. Responda "HELP" para obtener ayuda, "STOP" para cancelar la suscripción.
     new_photos_requested:
       admin_note: Se solicitaron nuevas fotos
       email:

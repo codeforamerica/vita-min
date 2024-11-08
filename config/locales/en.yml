@@ -1404,9 +1404,6 @@ en:
     document_upload:
       id_type: ID Type
   messages:
-    join_keyword_response:
-      sms:
-        body: Welcome to FileYourStateTaxes messages. Msg&data rates may apply.  Msg frequency varies. Reply "HELP" for help, "STOP" to unsubscribe.
     closing_soon:
       email:
         body: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
@@ -1486,6 +1483,9 @@ en:
         subject: Your message has been forwarded to GetYourRefund customer support
       sms:
         body: This conversation is being forwarded to our customer service specialists. You should expect to see a message from them at a different email shortly.
+    join_keyword_response:
+      sms:
+        body: Welcome to FileYourStateTaxes messages. Msg&data rates may apply.  Msg frequency varies. Reply "HELP" for help, "STOP" to unsubscribe.
     new_photos_requested:
       admin_note: requested new photos
       email:
