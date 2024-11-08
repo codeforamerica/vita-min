@@ -76,6 +76,7 @@ describe 'EfileError' do
       "nc-veteran-status",
       "nj-county",
       "nj-disabled-exemption",
+      "nj-eitc-qualifying-child",
       "nj-homeowner-eligibility",
       "nj-homeowner-property-tax",
       "nj-household-rent-own",

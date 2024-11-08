@@ -10,4 +10,4 @@ module StateFile
       end
     end
   end
-end 
+end
