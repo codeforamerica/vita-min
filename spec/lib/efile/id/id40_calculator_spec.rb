@@ -78,21 +78,12 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
-  describe "Line 8: Additions from Form 39R" do
-    it "returns value from ID39R form line 7" do
-      allow(instance).to receive(:line_or_zero).and_call_original
-      instance.calculate
-      expect(instance.lines[:ID40_LINE_8].value).to eq(0)
-    end
-  end
-
   describe "Line 9: Total of lines 7 and 8" do
     it "sums lines 7 and 8" do
       allow(instance).to receive(:line_or_zero).and_call_original
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_7).and_return(5000)
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_8).and_return(200)
       instance.calculate
-      expect(instance.lines[:ID40_LINE_9].value).to eq(5200)
+      expect(instance.lines[:ID40_LINE_9].value).to eq(5000) # line 8 is always zero
     end
   end
 
