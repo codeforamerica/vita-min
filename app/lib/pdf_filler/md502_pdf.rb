@@ -81,6 +81,9 @@ module PdfFiller
         'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
         'Enter 19 ': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
         'Enter 20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
+        'Enter 3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
+        'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
+        'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
       }
     end
 
