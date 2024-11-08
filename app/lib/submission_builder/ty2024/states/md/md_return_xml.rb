@@ -55,14 +55,14 @@ module SubmissionBuilder
                 include: true
               },
               {
-                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr,
-                pdf: PdfFiller::Md502CrPdf,
-                include: true,
-              },
-              {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su,
                 pdf: PdfFiller::Md502SuPdf,
                 include: has_md_su_subtractions,
+              },
+              {
+                xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr,
+                pdf: PdfFiller::Md502CrPdf,
+                include: true,
               }
             ]
 
