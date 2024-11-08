@@ -655,7 +655,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
         context 'when taxpayer satisfies all eligibility checks' do
+          before do
+            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
+          end
+
           context 'when taxpayer is a qualifying child' do
+            let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child) }
+
             it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
               expect(xml.at("EarnedIncomeCredit")).to eq(nil)
               expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
@@ -664,6 +670,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           end
 
           context 'when spouse is a qualifying child' do
+            let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :spouse_claimed_as_eitc_qualifying_child) }
+
             it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
               expect(xml.at("EarnedIncomeCredit")).to eq(nil)
               expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
@@ -671,7 +679,25 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
             end
           end
 
-          context 'when neither taxpayer nor spouse is a qualifying child' do
+          context 'when single and taxpayer is not a qualifying child' do
+            let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
+
+            it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
+              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(240)
+              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
+            end
+          end
+
+          context 'when mfj and neither taxpayer nor spouse is a qualifying child' do
+            let(:intake) {
+            create(
+                :state_file_nj_intake,
+                :df_data_mfj,
+                :claimed_as_eitc_qualifying_child_no,
+                :spouse_claimed_as_eitc_qualifying_child_no
+              )
+            }
+
             it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
               expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(240)
               expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
@@ -680,9 +706,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
 
         context 'when taxpayer does not satisfy one or more eligibility checks' do
-          let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+          let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
 
           it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
+            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return false
+
             expect(xml.at("EarnedIncomeCredit")).to eq(nil)
             expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
             expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
