@@ -63,6 +63,7 @@ module PdfFiller
         'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
         'Enter 19 ': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
         'Enter 20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
+        'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
       }
     end
 

@@ -50,6 +50,7 @@ module Efile
         set_line(:MD502_LINE_18, :calculate_line_18)
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
+        set_line(:MD502_LINE_21, :calculate_line_21)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
@@ -374,6 +375,44 @@ module Efile
           [line_or_zero(:MD502_LINE_18) - line_or_zero(:MD502_LINE_19), 0].max
         else
           0
+        end
+      end
+
+      def calculate_line_21
+        # Maryland state income tax
+        taxable_net_income = line_or_zero(:MD502_LINE_20)
+
+        if deduction_method_is_standard? && taxable_net_income >= 0
+
+          ranges = if taxable_net_income < 3_000
+                     [
+                       [0..1_000, 0, 0.02],
+                       [1_000..2_000, 20, 0.03],
+                       [2_000..3_000, 50, 0.04],
+                     ]
+                   elsif filing_status_single? || filing_status_mfs? || filing_status_dependent?
+                     [
+                       [3_000..100_000, 90, 0.0475],
+                       [100_000..125_000, 4_697.5, 0.05],
+                       [125_000..150_000, 5_947.5, 0.0525],
+                       [150_000..250_000, 7_260, 0.055],
+                       [250_000..Float::INFINITY, 12_760, 0.0575]
+                     ]
+                   else # mfj, hoh or qw
+                     [
+                       [3_000..150_000, 90, 0.0475],
+                       [150_000..175_000, 7_072.5, 0.05],
+                       [175_000..225_000, 8_322.5, 0.0525],
+                       [225_000..300_000, 10_947.5, 0.055],
+                       [300_000..Float::INFINITY, 15_072.5 , 0.0575]
+                     ]
+                   end
+          range_index = ranges.find_index{ |(range, _)| range.include?(taxable_net_income)}
+
+          base = ranges[range_index][1]
+          percent = ranges[range_index][2]
+          in_excess_of = ranges[range_index][0].begin == -Float::INFINITY ? 0 : ranges[range_index][0].begin
+          (base + ((taxable_net_income - in_excess_of) * percent)).round
         end
       end
 

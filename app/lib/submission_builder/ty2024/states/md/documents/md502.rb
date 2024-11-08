@@ -105,6 +105,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
       xml.StateTaxComputation do
         xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+        add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
       end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
