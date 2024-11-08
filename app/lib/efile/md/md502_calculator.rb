@@ -10,6 +10,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
+
+        @md502_su = Efile::Md::Md502SuCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -44,6 +50,10 @@ module Efile
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
 
+        # MD502SU Subtractions
+        @md502_su.calculate
+        set_line(:MD502_LINE_13, :calculate_line_13)
+
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
         set_line(:MD502_LINE_17, :calculate_line_17)
@@ -54,6 +64,8 @@ module Efile
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
+
+        set_line(:MD502_LINE_40, :calculate_line_40)
 
         # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
@@ -261,7 +273,7 @@ module Efile
       end
 
       def calculate_line_c_count
-        # dependent exemption count 
+        # dependent exemption count
         @lines[:MD502B_LINE_3].value
       end
 
@@ -311,7 +323,7 @@ module Efile
 
       def calculate_deduction_method
         gross_income_amount = @intake.tax_calculator.gross_income_amount
-        filing_minimum = if @intake.primary_senior? && @intake.spouse_senior? && @intake.filing_status_mfj?
+        filing_minimum = if @intake.primary_senior? && @intake.filing_status_mfj? && @intake.spouse_senior?
                            32_300
                          elsif @intake.primary_senior?
                            FILING_MINIMUMS_SENIOR[@intake.filing_status]
@@ -382,6 +394,10 @@ module Efile
         end
       end
 
+      def calculate_line_13
+        @lines[:MD502_SU_LINE_1].value
+      end
+
       def calculate_line_22
         # Earned Income Credit (EIC)
         if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
@@ -393,6 +409,13 @@ module Efile
 
       def calculate_line_22b
         (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
+      end
+
+      def calculate_line_40
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
 
       def filing_status_dependent?

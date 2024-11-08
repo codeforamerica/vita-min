@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "md502-TY2023"
+      "md502-TY2023-with-paren-edit"
     end
 
     def initialize(submission)
@@ -31,6 +31,18 @@ module PdfFiller
         'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+
+        'Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)': @xml_document.at('USAddress AddressLine1Txt')&.text,
+        'Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)': @xml_document.at('USAddress AddressLine2Txt')&.text,
+        'Enter city or town': @xml_document.at('USAddress CityNm')&.text,
+        'Enter state': @xml_document.at('USAddress StateAbbreviationCd')&.text,
+        'Enter zip code + 4': @xml_document.at('USAddress ZIPCd')&.text,
+
+        'Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)': @xml_document.at('MarylandAddress AddressLine1Txt')&.text,
+        'Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)': @xml_document.at('MarylandAddress AddressLine2Txt')&.text,
+        'Enter city': @xml_document.at('MarylandAddress CityNm')&.text,
+        '2 Enter zip code + 4': @xml_document.at('MarylandAddress ZIPCd')&.text,
+
         'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
         'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
         'Enter zip code + 5': @submission.data_source.residence_county,
@@ -57,6 +69,12 @@ module PdfFiller
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
+        'Text Field 9': generate_codes_for_502_su.at(0),
+        'Text Field 10': generate_codes_for_502_su.at(1),
+        'Text Field 11': generate_codes_for_502_su.at(2),
+        'Text Field 12': generate_codes_for_502_su.at(3),
+        'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
+        'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
         'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
@@ -86,6 +104,26 @@ module PdfFiller
 
     def checkbox_value(value)
       value.present? ? 'Yes' : 'Off'
+    end
+
+    def generate_codes_for_502_su
+      calculated_fields_code_letters = {
+        MD502_SU_LINE_AB: "ab",
+        MD502_SU_LINE_U: "u",
+        MD502_SU_LINE_V: "v"
+      }
+      applicable_codes = []
+
+      if calculated_fields.fetch(:MD502_SU_LINE_1).positive?
+        calculated_fields_code_letters.each do |calculated_field, code_letter|
+          applicable_codes << code_letter if calculated_fields.fetch(calculated_field).to_i.positive?
+        end
+      end
+      applicable_codes
+    end
+
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end
