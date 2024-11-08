@@ -271,10 +271,11 @@ module Efile
       def calculate_line_58
         if @direct_file_data.fed_eic.positive?
           (@direct_file_data.fed_eic * 0.4).round
+        elsif Efile::Nj::NjFlatEitcEligibility.possibly_eligible?(@intake) &&
+          @intake.claimed_as_eitc_qualifying_child_no? &&
+          (!@intake.filing_status_mfj? || @intake.spouse_claimed_as_eitc_qualifying_child_no?)
+          240
         else
-          puts "no fed eitc"
-          puts "claimed_as_eitc_qualifying_child: #{@intake.claimed_as_eitc_qualifying_child}"
-          puts "spouse_claimed_as_eitc_qualifying_child: #{@intake.spouse_claimed_as_eitc_qualifying_child}"
           0
         end
       end

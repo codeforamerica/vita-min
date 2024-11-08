@@ -262,5 +262,21 @@ FactoryBot.define do
     trait :spouse_veteran do
       spouse_veteran { "yes" }
     end
+
+    trait :claimed_as_eitc_qualifying_child do
+      claimed_as_eitc_qualifying_child { "yes" }
+    end
+
+    trait :spouse_claimed_as_eitc_qualifying_child do
+      spouse_claimed_as_eitc_qualifying_child { "yes" }
+    end
+
+    trait :claimed_as_eitc_qualifying_child_no do
+      claimed_as_eitc_qualifying_child { "no" }
+    end
+
+    trait :spouse_claimed_as_eitc_qualifying_child_no do
+      spouse_claimed_as_eitc_qualifying_child { "no" }
+    end
   end
 end
