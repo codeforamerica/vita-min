@@ -166,12 +166,20 @@ NYC_EIC_RATE_WK_LINE_5:
   label: 'Enter the decimal from the NYC EIC rate table.'
 NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
-ID39R_B_LINE_6:
-  label: 'Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
+ID39R_A_LINE_7:
+  label: 'Total Additions (currently set to 0)'
 ID39R_B_LINE_3:
   label: 'Interest from U.S. government obligations'
+ID39R_B_LINE_6:
+  label: 'Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
+ID39R_B_LINE_7:
+  label: 'Social security and railroad benefits, if included on federal income'
+ID39R_B_LINE_8f:
+  label: 'Retirement benefits deduction (currently set to 0)'
 ID39R_B_LINE_18:
   label: 'Health insurance premium paid amount for household'
+ID39R_B_LINE_24:
+  label: 'Total subtractions (Add lines 1-4, 5e-7, 8f-23 if available)'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
@@ -564,6 +572,8 @@ MD502_LINE_19:
   label: 'Exemption amount'
 MD502_LINE_20:
   label: 'Taxable net income'
+MD502_LINE_40:
+  label: "Total Maryland and local tax withheld"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

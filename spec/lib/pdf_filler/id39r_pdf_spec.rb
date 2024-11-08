@@ -122,6 +122,13 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
     end
 
+    context "fills out Total Additions" do
+      let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
+      it "correctly fills answers" do
+        expect(pdf_fields["AL7"]).to eq "0"
+      end
+    end
+
     context "fills out Interest Income from Obligations of the US" do
       let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
       it "correctly fills answers" do
@@ -133,6 +140,25 @@ RSpec.describe PdfFiller::Id39rPdf do
       let(:intake) { create(:state_file_id_intake, has_health_insurance_premium: "yes", health_insurance_paid_amount:  15.30) }
       it "correctly fills answers" do
         expect(pdf_fields["BL18"]).to eq "15"
+      end
+    end
+
+    context "subtractions" do
+      before do
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_3).and_return 1
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_6).and_return 2
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return 3
+        # line 8f is part of the calculation but it's always 0 for now
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return 4
+      end
+
+      it "should add up all the subtractions" do
+        expect(pdf_fields["BL3"]).to eq "1"
+        expect(pdf_fields["BL6"]).to eq "2"
+        expect(pdf_fields["BL7"]).to eq "3"
+        expect(pdf_fields["BL8f"]).to eq "0"
+        expect(pdf_fields["BL18"]).to eq "4"
+        expect(pdf_fields["BL24"]).to eq "10"
       end
     end
   end
