@@ -700,7 +700,20 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "line 61 - excess FLI" do
-      
+      context "mfj with multiple w2s per spouse that individually do not exceed max and total more than max for each spouse" do 
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 100) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 101) }
+        let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 102) }
+        let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 103) }
+
+        it 'adds the sum to line 61' do
+          expected_sum = (100 + 101 + 102 + 103 - (145.26 * 2)).round
+          expect(xml.at("ExcesNjFamiInsur").text).to eq(expected_sum.to_s)
+        end
+      end
     end
 
     describe "child and dependent care credit - line 64" do
