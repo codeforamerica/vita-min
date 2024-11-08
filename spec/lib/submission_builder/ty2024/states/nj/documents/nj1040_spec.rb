@@ -453,8 +453,15 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "property tax - lines 40a and 40b" do
-      context "when taxpayer is a renter" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'rent', rent_paid: 54321) }
+      context "when taxpayer is a renter with income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s, # income above minimum
+            household_rent_own: 'rent',
+            rent_paid: 54321
+          )
+        }
 
         it "adds a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant").text).to eq("X")
@@ -466,8 +473,15 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
       end
 
-      context "when taxpayer is a homeowner" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'own', property_tax_paid: 12345) }
+      context "when taxpayer is a homeowner with income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s, # income above minimum
+            household_rent_own: 'own',
+            property_tax_paid: 12345
+          )
+        }
 
         it "adds a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner").text).to eq("X")
@@ -480,12 +494,20 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context "when taxpayer is a neither a homeowner nor a renter" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal, household_rent_own: 'neither',) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s, household_rent_own: 'neither',) }
 
         it "does not add a checked tenant or homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
         end
+
+        it 'does not add property tax on line 40a' do
+          expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")).to eq(nil)
+        end
+      end
+
+      context "when taxpayer does not have enough income to claim property tax credit or deduction" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
 
         it 'does not add property tax on line 40a' do
           expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid")).to eq(nil)
@@ -517,6 +539,21 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
                               household_rent_own: 'own',
                               property_tax_paid: 0,
                               )
+        }
+
+        it "leaves PropertyTaxDeduction empty" do
+          expect(xml.at("PropertyTaxDeduction")).to eq(nil)
+        end
+      end
+
+      context 'when not eligible for property tax deduction due to income' do
+        let(:intake) {
+          create(:state_file_nj_intake,
+            :df_data_minimal, # income below minimum
+            :primary_over_65,
+            household_rent_own: 'rent',
+            rent_paid: 54321
+          )
         }
 
         it "leaves PropertyTaxDeduction empty" do
@@ -562,16 +599,47 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "property tax credit - line 56" do
-      let(:intake) { 
-        create(:state_file_nj_intake,
-                            :df_data_many_w2s,
-                            household_rent_own: 'own',
-                            property_tax_paid: 0,
-                            )
-      }
+      context 'when no property tax paid' do
+        let(:intake) { 
+          create(:state_file_nj_intake,
+                              :df_data_many_w2s,
+                              household_rent_own: 'own',
+                              property_tax_paid: 0,
+                              )
+        }
 
-      it "fills with $50 tax credit when no property tax deduction" do
-        expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
+        it "fills with $50 tax credit" do
+          expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
+        end
+      end
+
+      context 'when not eligible for property tax deduction or credit due to income' do
+        let(:intake) {
+          create(:state_file_nj_intake,
+            :df_data_minimal,
+            household_rent_own: 'rent',
+            rent_paid: 54321
+          )
+        }
+
+        it "is empty" do
+          expect(xml.at("PropertyTaxCredit")).to eq(nil)
+        end
+      end
+
+      context 'when not eligible for property tax deduction due to income but eligible for credit' do
+        let(:intake) {
+          create(:state_file_nj_intake,
+            :df_data_minimal,
+            :primary_over_65,
+            household_rent_own: 'rent',
+            rent_paid: 54321
+          )
+        }
+
+        it "fills with $50 tax credit" do
+          expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
+        end
       end
     end
 
