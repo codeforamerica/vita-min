@@ -46,6 +46,52 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "Physical address" do
+        before do
+          intake.direct_file_data.mailing_street = "312 Poppy Street"
+          intake.direct_file_data.mailing_apartment = "Apt B"
+          intake.direct_file_data.mailing_city = "Annapolis"
+          intake.direct_file_data.mailing_state = "MD"
+          intake.direct_file_data.mailing_zip = "21401"
+        end
+
+        context "when user confirms that address from DF is correct" do
+          before do
+            intake.confirmed_permanent_address_yes!
+            intake.direct_file_data.mailing_street = "312 Poppy Street"
+            intake.direct_file_data.mailing_apartment = "Apt B"
+            intake.direct_file_data.mailing_city = "Annapolis"
+            intake.direct_file_data.mailing_zip = "21401"
+          end
+
+          it "outputs their DF address as their physical address" do
+            expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "312 Poppy Street"
+            expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt B"
+            expect(xml.at("MarylandAddress CityNm").text).to eq "Annapolis"
+            expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
+            expect(xml.at("MarylandAddress ZIPCd").text).to eq "21401"
+          end
+        end
+
+        context "when the user has entered a different permanent address" do
+          before do
+            intake.confirmed_permanent_address_no!
+            intake.permanent_street = "313 Poppy Street"
+            intake.permanent_apartment = "Apt A"
+            intake.permanent_city = "Baltimore"
+            intake.permanent_zip = "21201"
+          end
+
+          it "outputs their entered address as their physical address" do
+            expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "313 Poppy Street"
+            expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt A"
+            expect(xml.at("MarylandAddress CityNm").text).to eq "Baltimore"
+            expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
+            expect(xml.at("MarylandAddress ZIPCd").text).to eq "21201"
+          end
+        end
+      end
+
       context "Income section" do
         context "when all relevant values are present in the DF XML" do
           before do
@@ -244,6 +290,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       context "subtractions section" do
         context "when all relevant values are present in the DF XML" do
           before do
+            allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
             intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
             intake.direct_file_data.fed_taxable_ssb = 240
           end
@@ -254,6 +301,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
           it "outputs Taxable Social Security and RR benefits" do
             expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
+          end
+
+          it "outputs the Subtractions from Form 502SU" do
+            expect(xml.at("Form502 Subtractions Other").text.to_i).to eq(100)
           end
         end
       end
@@ -315,6 +366,16 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 Additions Total")&.text).to eq "50"
           expect(xml.at("Form502 Additions FedAGIAndStateAdditions")&.text).to eq "60"
         end
+      end
+    end
+
+    context "Line 40: Total state and local tax withheld" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 TaxWithheld")&.text).to eq('500')
       end
     end
   end

@@ -81,29 +81,125 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
         expect(described_class.show?(intake)).to eq false
       end
     end
+
+    context "when not eligible for property tax deduction or credit due to income" do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
+      it "does not show" do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::INELIGIBLE)
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "when not eligible for property tax deduction but could be for credit" do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
+      it "shows" do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::POSSIBLY_ELIGIBLE_FOR_CREDIT)
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "when potentially eligible for property tax deduction or credit" do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
+      it "shows" do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:determine_eligibility).with(intake).and_return(Efile::Nj::NjPropertyTaxEligibility::POSSIBLY_ELIGIBLE_FOR_DEDUCTION_OR_CREDIT)
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
   end
 
   describe "#next_path" do
     context "when ineligible hard no" do
-      let(:intake) { create :state_file_nj_intake, tenant_home_subject_to_property_taxes: "no" }
-      it "next path is ineligible page" do
-        expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+      context "when income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: "rent",
+            tenant_home_subject_to_property_taxes: "no"
+          )
+        }
+        it "next path is ineligible page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+        end
+      end
+
+      context "when not eligible for property tax deduction but could be for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "rent",
+            tenant_home_subject_to_property_taxes: "no"
+          )
+        }
+        it "next path is ineligible page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+        end
       end
     end
 
     context "when unsupported soft no" do
-      let(:intake) { create :state_file_nj_intake, tenant_more_than_one_main_home_in_nj: "yes" }
-      it "next path is unsupported page" do
-        expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+      context "when income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: "rent",
+            tenant_more_than_one_main_home_in_nj: "yes"
+          )
+        }
+        it "next path is unsupported page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        end
+      end
+
+      context "when not eligible for property tax deduction but could be for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "rent",
+            tenant_more_than_one_main_home_in_nj: "yes"
+          )
+        }
+        it "next path is unsupported page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        end
       end
     end
 
     context "when advance state" do
-      let(:intake) { create :state_file_nj_intake, tenant_home_subject_to_property_taxes: "yes" }
-      it "next path is rent paid page" do
-        expect(subject.next_path).to eq(StateFile::Questions::NjTenantRentPaidController.to_path_helper)
+      context "when income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: "rent",
+            tenant_home_subject_to_property_taxes: "yes"
+          )
+        }
+        it "next path is rent paid page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjTenantRentPaidController.to_path_helper)
+        end
+      end
+      
+      context "when not eligible for property tax deduction but could be for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "rent",
+            tenant_home_subject_to_property_taxes: "yes"
+          )
+        }
+        it "next path is whichever comes next overall" do
+          allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
+          expect(subject.next_path).to eq("/mocked/super/path")
+        end
       end
     end
   end
 end
-

@@ -49,7 +49,7 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filer is mfj" do
-      let(:filing_status) { "married_filing_jointly" }
+      let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
 
       context 'the agi is $62,001' do
         let(:agi) { 62_001 }
@@ -263,12 +263,10 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_a_spouse" do
-    context 'married filing jointly' do
-      before do
-        intake.direct_file_data.filing_status = 2 # married_filing_jointly
-      end
+    context 'married filing jointly with a senior spouse' do
+      let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
 
-      it "checks the value" do
+      it "checks the value for senior spouse" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_A_SPOUSE].value).to eq "X"
       end
@@ -287,11 +285,8 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_a_count" do
-    context "when line a yourself and spouse are both checked" do
-      before do
-        intake.direct_file_data.filing_status = 2 # married_filing_jointly
-        intake.direct_file_data.primary_claim_as_dependent = ""
-      end
+    context "when line a yourself and spouse are both seniors" do
+      let(:intake) { create(:state_file_md_intake, :with_senior_spouse) }
 
       it "returns 2" do
         instance.calculate
@@ -349,8 +344,8 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing status mfj and fed agi is 50_000" do
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
       before do
-        intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 150_001
       end
 
@@ -515,7 +510,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_b_spouse_blind" do
     context "when married-filing-jointly" do
-      let(:filing_status) { "married_filing_jointly" }
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
       context "when spouse is blind" do
         before do
           allow(intake.direct_file_data).to receive(:is_spouse_blind?).and_return true
@@ -812,6 +807,17 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_13" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+    end
+
+    it 'the sums the amount from line A-C' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_13].value).to eq 100
+    end
+  end
+
   describe "#calculate_line_17" do
     context "when method is standard" do
       [
@@ -966,6 +972,22 @@ describe Efile::Md::Md502Calculator do
 
     it "returns the sum of line 1 and 6" do
       expect(instance.lines[:MD502_LINE_7].value).to eq 300
+    end
+  end
+
+  describe '#calculate_line_40' do
+    let(:intake) {
+      # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
+      create(:state_file_md_intake,
+             :with_1099_rs_synced,
+             :with_w2s_synced,
+             raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('md_allen_hoh_w2_and_1099r'))
+    }
+    let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
+
+    it 'sums the MD tax withheld from w2s, 1099gs and 1099rs' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
     end
   end
 end
