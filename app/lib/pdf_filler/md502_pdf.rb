@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "md502-TY2023"
+      "md502-TY2023-with-paren-edit"
     end
 
     def initialize(submission)
@@ -31,6 +31,18 @@ module PdfFiller
         'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+
+        'Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)': @xml_document.at('USAddress AddressLine1Txt')&.text,
+        'Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)': @xml_document.at('USAddress AddressLine2Txt')&.text,
+        'Enter city or town': @xml_document.at('USAddress CityNm')&.text,
+        'Enter state': @xml_document.at('USAddress StateAbbreviationCd')&.text,
+        'Enter zip code + 4': @xml_document.at('USAddress ZIPCd')&.text,
+
+        'Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)': @xml_document.at('MarylandAddress AddressLine1Txt')&.text,
+        'Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)': @xml_document.at('MarylandAddress AddressLine2Txt')&.text,
+        'Enter city': @xml_document.at('MarylandAddress CityNm')&.text,
+        '2 Enter zip code + 4': @xml_document.at('MarylandAddress ZIPCd')&.text,
+
         'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
         'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
         'Enter zip code + 5': @submission.data_source.residence_county,

@@ -44,6 +44,21 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       unless @intake.political_subdivision&.end_with?("- unincorporated")
         xml.CityTownOrTaxingArea @intake.political_subdivision
       end
+      xml.MarylandAddress do
+        if @intake.confirmed_permanent_address_yes?
+          xml.AddressLine1Txt sanitize_for_xml(@intake.direct_file_data.mailing_street, 35)
+          xml.AddressLine2Txt sanitize_for_xml(@intake.direct_file_data.mailing_apartment, 35)
+          xml.CityNm sanitize_for_xml(@intake.direct_file_data.mailing_city, 22)
+          xml.StateAbbreviationCd @intake.state_code.upcase
+          xml.ZIPCd @intake.direct_file_data.mailing_zip
+        elsif @intake.confirmed_permanent_address_no?
+          xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 35)
+          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35)
+          xml.CityNm sanitize_for_xml(@intake.permanent_city, 22)
+          xml.StateAbbreviationCd @intake.state_code.upcase
+          xml.ZIPCd @intake.permanent_zip
+        end
+      end
       xml.MarylandCounty county_abbreviation
       if @intake.direct_file_data.claimed_as_dependent?
         xml.FilingStatus do

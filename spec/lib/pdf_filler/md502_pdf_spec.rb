@@ -17,6 +17,60 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "US address from df" do
+      it "fills in correct fields" do
+        intake.direct_file_data.mailing_street = "312 Poppy Street"
+        intake.direct_file_data.mailing_apartment = "Apt B"
+        intake.direct_file_data.mailing_city = "Annapolis"
+        intake.direct_file_data.mailing_state = "MD"
+        intake.direct_file_data.mailing_zip = "21401"
+
+        expect(pdf_fields["Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)"]).to eq("312 Poppy Street")
+        expect(pdf_fields["Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)"]).to eq("Apt B")
+        expect(pdf_fields["Enter city or town"]).to eq("Annapolis")
+        expect(pdf_fields["Enter state"]).to eq("MD")
+        expect(pdf_fields["Enter zip code + 4"]).to eq("21401")
+      end
+    end
+
+    context "Physical address" do
+      context "when the filer has confirmed their DF address is correct" do
+        before do
+          intake.confirmed_permanent_address_yes!
+          intake.direct_file_data.mailing_street = "312 Poppy Street"
+          intake.direct_file_data.mailing_apartment = "Apt B"
+          intake.direct_file_data.mailing_city = "Annapolis"
+          intake.direct_file_data.mailing_state = "MD"
+          intake.direct_file_data.mailing_zip = "21401"
+        end
+
+        it "fills the fields with the DF address" do
+          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("312 Poppy Street")
+          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt B")
+          expect(pdf_fields["Enter city"]).to eq("Annapolis")
+          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21401")
+        end
+      end
+
+      context "when the filer has entered a different physical address" do
+        before do
+          intake.confirmed_permanent_address_no!
+
+          intake.permanent_street = "313 Poppy Street"
+          intake.permanent_apartment = "Apt A"
+          intake.permanent_city = "Baltimore"
+          intake.permanent_zip = "21201"
+        end
+
+        it "fills the fields with the entered address" do
+          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("313 Poppy Street")
+          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt A")
+          expect(pdf_fields["Enter city"]).to eq("Baltimore")
+          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21201")
+        end
+      end
+    end
+
     context "county information" do
       before do
         intake.residence_county = "Allegany"
