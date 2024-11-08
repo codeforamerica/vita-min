@@ -442,7 +442,7 @@ module Efile
 
           base = ranges[range_index][1]
           percent = ranges[range_index][2]
-          in_excess_of = ranges[range_index][0].begin == -Float::INFINITY ? 0 : ranges[range_index][0].begin
+          in_excess_of = ranges[range_index][0].begin
           (base + ((taxable_net_income - in_excess_of) * percent)).round
         end
       end
