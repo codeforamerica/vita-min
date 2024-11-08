@@ -39,10 +39,10 @@ describe Efile::Az::Az140Calculator do
   end
 
   describe "Line 8" do
-    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 31) }
+    let(:senior_cutoff_date) { Date.new((MultiTenantService.statefile.current_tax_year - 70), 12, 31) }
 
     context "when both primary and spouse are older than 65" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }
+      let(:intake) { create(:state_file_az_intake, :with_senior_spouse, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date) }
 
       it "returns 2" do
         instance.calculate
@@ -51,7 +51,7 @@ describe Efile::Az::Az140Calculator do
     end
 
     context "when only the primary is over 65" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date, spouse_birth_date: senior_cutoff_date + 2.months) }
+      let(:intake) { create(:state_file_az_intake, :with_spouse, primary_birth_date: senior_cutoff_date) }
 
       it "returns 1" do
         instance.calculate
@@ -60,7 +60,7 @@ describe Efile::Az::Az140Calculator do
     end
 
     context "when born a day after the senior cutoff date" do
-      let(:intake) { create(:state_file_az_intake, primary_birth_date: senior_cutoff_date + 1.day, spouse_birth_date: senior_cutoff_date + 1.day) }
+      let(:intake) { create(:state_file_az_intake, :with_senior_spouse, primary_birth_date: senior_cutoff_date + 1.day, spouse_birth_date: senior_cutoff_date) }
 
       it "it counts them" do
         instance.calculate

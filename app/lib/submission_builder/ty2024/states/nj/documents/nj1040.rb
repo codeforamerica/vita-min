@@ -17,7 +17,7 @@ module SubmissionBuilder
             }.freeze
 
             def schema_file
-              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2023V0.4", "NJIndividual", "NJForms", "FormNJ1040.xsd")
+              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJIndividual", "NJForms", "FormNJ1040.xsd")
             end
 
             def document

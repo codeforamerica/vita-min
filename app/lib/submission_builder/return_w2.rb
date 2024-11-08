@@ -12,6 +12,24 @@ module SubmissionBuilder
         else
           state_local_tax_grp_node.remove
         end
+
+        if intake_w2.box14_stpickup.present? && intake_w2.box14_stpickup.positive?
+          stpickup_node = Nokogiri::XML::Node.new('OtherDeductionsBenefitsGrp', xml_node)
+
+          desc_node = Nokogiri::XML::Node.new('Desc', xml_node)
+          desc_node.content = 'STPICKUP'
+          amt_node = Nokogiri::XML::Node.new('Amt', xml_node)
+          amt_node.content = intake_w2.box14_stpickup.round.to_s
+
+          stpickup_node.add_child(desc_node)
+          stpickup_node.add_child(amt_node)
+
+          if state_local_tax_grp_node.present?
+            state_local_tax_grp_node.add_previous_sibling(stpickup_node)
+          else
+            xml_node.at(:StandardOrNonStandardCd).add_previous_sibling(stpickup_node)
+          end
+        end
       end
       locality_nm = xml_node.at(:LocalityNm)
       if locality_nm.present?

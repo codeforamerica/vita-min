@@ -26,6 +26,7 @@ module Navigation
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdPermanentAddressController),
         # Federal info does not show to users
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::MdCountyController),

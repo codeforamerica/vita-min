@@ -51,6 +51,8 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
 
+        set_line(:MD502_LINE_40, :calculate_line_40)
+
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
@@ -256,7 +258,7 @@ module Efile
       end
 
       def calculate_line_c_count
-        # dependent exemption count 
+        # dependent exemption count
         @lines[:MD502B_LINE_3].value
       end
 
@@ -306,7 +308,7 @@ module Efile
 
       def calculate_deduction_method
         gross_income_amount = @intake.tax_calculator.gross_income_amount
-        filing_minimum = if @intake.primary_senior? && @intake.spouse_senior? && @intake.filing_status_mfj?
+        filing_minimum = if @intake.primary_senior? && @intake.filing_status_mfj? && @intake.spouse_senior?
                            32_300
                          elsif @intake.primary_senior?
                            FILING_MINIMUMS_SENIOR[@intake.filing_status]
@@ -383,6 +385,13 @@ module Efile
 
       def deduction_method_is_standard?
         @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+      end
+
+      def calculate_line_40
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end
