@@ -559,19 +559,21 @@ MD502_LINE_D_COUNT_TOTAL:
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
 MD502_LINE_16:
-  label: 'TBD'
+  label: '16 TBD'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
 MD502_LINE_17:
-  label: 'Deduction amount'
+  label: '17 Deduction amount'
 MD502_LINE_18:
-  label: 'Net income'
+  label: '18 Net income'
 MD502_LINE_19:
-  label: 'Exemption amount'
+  label: '19 Exemption amount'
 MD502_LINE_20:
-  label: 'Taxable net income'
+  label: '20 Taxable net income'
+MD502_LINE_21:
+  label: '21 Maryland state income tax'
 MD502_LINE_40:
-  label: "Total Maryland and local tax withheld"
+  label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:
