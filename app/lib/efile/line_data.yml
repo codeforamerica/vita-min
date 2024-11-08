@@ -570,6 +570,8 @@ MD502_LINE_19:
   label: 'Exemption amount'
 MD502_LINE_20:
   label: 'Taxable net income'
+MD502_LINE_40:
+  label: "Total Maryland and local tax withheld"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

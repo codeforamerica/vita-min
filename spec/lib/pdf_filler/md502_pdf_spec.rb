@@ -302,5 +302,16 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 20"]).to be_empty
       end
     end
+
+    context "Line 40: Total state and local tax withheld" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        puts pdf_fields
+        expect(pdf_fields["Text Box 68"]).to eq "500"
+      end
+    end
   end
 end

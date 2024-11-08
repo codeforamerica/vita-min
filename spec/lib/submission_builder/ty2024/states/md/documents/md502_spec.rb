@@ -303,5 +303,15 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
     end
+
+    context "Line 40: Total state and local tax withheld" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 TaxWithheld")&.text).to eq('500')
+      end
+    end
   end
 end
