@@ -55,7 +55,7 @@
           <% if current_intake.filing_status_mfj? %>
             <div class="question-with-follow-up__follow-up" id="spouse_months_ineligible_for_grocery_credit">
               <div class="white-group">
-                <p><%= t(".need_to_know_spouse_html") %></p>
+                <p><%= t(".need_to_know_html", name: current_intake.spouse.full_name) %></p>
                 <p><%= t(".example_months") %></p>
                 <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
               </div>
@@ -65,7 +65,7 @@
             <% dependent = ff.object %>
             <div class="question-with-follow-up__follow-up" id="dependent_<%= dependent.id %>_months_ineligible_for_grocery_credit">
               <div class="white-group">
-                <p><%= t(".need_to_know_dependent_html") %></p>
+                <p><%= t(".need_to_know_html", name: dependent.full_name) %></p>
                 <p><%= t(".example_months") %></p>
                 <%= ff.cfa_select(:id_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
               </div>

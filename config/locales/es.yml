@@ -2499,9 +2499,8 @@ es:
         edit:
           answers_confidential_html: "<strong>Nota:</strong> Sus respuestas son confidenciales y solo se utilizan para verificar la elegibilidad del crédito."
           example_months: Por ejemplo, si usted experimentó 2 de estas situaciones en el mes de abril, eso contaría como 1 mes en total.
-          need_to_know_dependent_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a su dependiente.
-          need_to_know_spouse_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a su cónyuge.
-          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que se aplicaron estas situaciones en su caso.
+          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en 2024.
+          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en 2024.
           see_if_you_qualify:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.

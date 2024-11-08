@@ -2526,9 +2526,8 @@ en:
         edit:
           answers_confidential_html: "<strong>Note:</strong> Your answers are confidential and only used to check credit eligibility."
           example_months: For example, if you experienced 2 of these situations in the month of April, that would count as 1 total month.
-          need_to_know_dependent_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to your dependent.
-          need_to_know_spouse_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to your spouse.
-          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you.
+          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in 2024.
+          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in 2024.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
