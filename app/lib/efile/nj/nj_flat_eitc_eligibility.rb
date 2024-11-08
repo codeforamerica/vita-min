@@ -3,8 +3,9 @@ module Efile
     module NjFlatEitcEligibility
       class << self
         def possibly_eligible?(intake)
-          # TODO: much logic
-          false
+          return false if intake.direct_file_data.fed_eic.positive?
+
+          true
         end
       end
     end
