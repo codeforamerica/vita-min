@@ -6,8 +6,7 @@ module StateFile
       before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
 
       def self.show?(intake)
-        # TODO: lots of logic
-        true
+        Efile::Nj::NjFlatEitcEligibility.possibly_eligible?(intake)
       end
     end
   end
