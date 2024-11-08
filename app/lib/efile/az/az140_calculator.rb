@@ -103,10 +103,10 @@ module Efile
       end
 
       def calculate_line_8
-        # Age 65 or over (you and/or spouse) count
-        [@intake.primary_birth_date, @intake.spouse_birth_date].count do |dob|
-          dob && (@intake.calculate_age(inclusive_of_jan_1: true, dob: dob) >= 65)
-        end
+        count = 0
+        count += 1 if @intake.primary_senior?
+        count += 1 if @intake.filing_status_mfj? && @intake.spouse_senior?
+        count
       end
 
       def calculate_line_14
