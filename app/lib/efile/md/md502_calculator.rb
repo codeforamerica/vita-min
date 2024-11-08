@@ -10,6 +10,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
+
+        @md502_su = Efile::Md::Md502SuCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -44,12 +50,18 @@ module Efile
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
 
+        # MD502SU Subtractions
+        @md502_su.calculate
+        set_line(:MD502_LINE_13, :calculate_line_13)
+
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
         set_line(:MD502_LINE_17, :calculate_line_17)
         set_line(:MD502_LINE_18, :calculate_line_18)
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
+
+        set_line(:MD502_LINE_40, :calculate_line_40)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
@@ -377,12 +389,23 @@ module Efile
         end
       end
 
+      def calculate_line_13
+        @lines[:MD502_SU_LINE_1].value
+      end
+
       def filing_status_dependent?
         @filing_status == :dependent
       end
 
       def deduction_method_is_standard?
         @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+      end
+
+      def calculate_line_40
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
+          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
     end
   end

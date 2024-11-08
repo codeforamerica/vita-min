@@ -193,12 +193,12 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     end
 
     context "subtractions" do
-      let(:intake) { create(:state_file_az_intake, :with_1099int_subtraction) }
+      let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
       it "fills in the lines correctly" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
-        expect(xml.css("Subtractions IntUSObligations").text).to eq "100"
+        expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
       end
     end
   end
