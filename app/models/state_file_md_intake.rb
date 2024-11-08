@@ -3,6 +3,7 @@
 # Table name: state_file_md_intakes
 #
 #  id                                   :bigint           not null, primary key
+#  account_holder_name                  :string
 #  account_number                       :string
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
@@ -123,6 +124,18 @@ class StateFileMdIntake < StateFileBaseIntake
   def calculate_age(dob, inclusive_of_jan_1)
     # MD never calculates age at the end of the year using Jan 1 inclusive
     super(dob, inclusive_of_jan_1: false)
+  end
+
+  def sanitize_bank_details
+    if (payment_or_deposit_type || "").to_sym != :direct_deposit
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
+      self.account_holder_name = nil
+    end
   end
 
   def filing_status
