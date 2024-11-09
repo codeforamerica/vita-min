@@ -11,8 +11,8 @@ describe SubmissionBuilder::Ty2022::States::Az::Documents::Az301, required_schem
       let(:intake) { create(:state_file_az_intake, :with_az321_contributions) }
 
       it "generates XML with correct AZ-321 contribution information" do
-        expect(xml.at("NonRfndTaxCr ColumnA CtrbChrtyPrvdAstWrkgPor").text).to eq "421"
-        expect(xml.at("NonRfndTaxCr ColumnC CtrbChrtyPrvdAstWrkgPor").text).to eq "421"
+        expect(xml.at("NonRfndTaxCr ColumnA CtrbChrtyPrvdAstWrkgPor").text).to eq "470"
+        expect(xml.at("NonRfndTaxCr ColumnC CtrbChrtyPrvdAstWrkgPor").text).to eq "470"
       end
     end
 
@@ -29,15 +29,15 @@ describe SubmissionBuilder::Ty2022::States::Az::Documents::Az301, required_schem
       let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions) }
 
       it "generates XML with correct total available tax credit" do
-        expect(xml.at("NonRfndTaxCr ColumnC TotalAvailTaxCr").text).to eq "621"
+        expect(xml.at("NonRfndTaxCr ColumnC TotalAvailTaxCr").text).to eq "670"
         expect(xml.at("AppTaxCr ComputedTax").text).to eq "2461"
         expect(xml.at("AppTaxCr Subtotal").text).to eq "2461"
         expect(xml.at("AppTaxCr FamilyIncomeTax").text).to eq "0"
         expect(xml.at("AppTaxCr DiffFamilyIncTaxSubTotal").text).to eq "2461"
-        expect(xml.at("AppTaxCr NonrefunCreditsUsed CtrbChrtyPrvdAstWrkgPor").text).to eq "421"
+        expect(xml.at("AppTaxCr NonrefunCreditsUsed CtrbChrtyPrvdAstWrkgPor").text).to eq "470"
         expect(xml.at("AppTaxCr NonrefunCreditsUsed CtrbMdFePdPblcSchl").text).to eq "200"
-        expect(xml.at("AppTaxCr TxCrUsedForm301").text).to eq "621"
-        expect(xml.at("AppTaxCr TotalAvailTaxCrClm").text).to eq "621"
+        expect(xml.at("AppTaxCr TxCrUsedForm301").text).to eq "670"
+        expect(xml.at("AppTaxCr TotalAvailTaxCrClm").text).to eq "670"
       end
     end
   end

@@ -21,8 +21,8 @@ describe Efile::Az::Az301Calculator do
 
   describe 'AZ301 calculations' do
     it "enters the credit for Contributions to Qualifying Charitable Organizations" do
-      expect(instance.lines[:AZ301_LINE_6a].value).to eq(841)
-      expect(instance.lines[:AZ301_LINE_6c].value).to eq(841)
+      expect(instance.lines[:AZ301_LINE_6a].value).to eq(938)
+      expect(instance.lines[:AZ301_LINE_6c].value).to eq(938)
     end
 
     it "enters the credit for Contributions Made or Fees Paid to Public Schools" do
@@ -31,7 +31,7 @@ describe Efile::Az::Az301Calculator do
     end
 
     it "calculates total available nonrefundable tax credits" do
-      expect(instance.lines[:AZ301_LINE_26].value).to eq(1241)
+      expect(instance.lines[:AZ301_LINE_26].value).to eq(1338)
     end
 
     it "calculates AZ301 part 2 values" do
@@ -42,10 +42,10 @@ describe Efile::Az::Az301Calculator do
     end
 
     it "calculates Nonrefundable Tax Credits Used This Taxable Year correctly" do
-      expect(instance.lines[:AZ301_LINE_40].value).to eq(841)
+      expect(instance.lines[:AZ301_LINE_40].value).to eq(938)
       expect(instance.lines[:AZ301_LINE_41].value).to eq(400)
-      expect(instance.lines[:AZ301_LINE_60].value).to eq(1241)
-      expect(instance.lines[:AZ301_LINE_62].value).to eq(1241)
+      expect(instance.lines[:AZ301_LINE_60].value).to eq(1338)
+      expect(instance.lines[:AZ301_LINE_62].value).to eq(1338)
     end
   end
 end

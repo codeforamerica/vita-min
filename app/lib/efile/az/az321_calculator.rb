@@ -42,7 +42,7 @@ class Efile::Az::Az321Calculator < ::Efile::TaxCalculator
   end
 
   def calculate_line_12
-    # Single taxpayers or heads of household, enter $421. MFJ taxpayers, enter $841
+    # Single taxpayers or heads of household, enter $470. MFJ taxpayers, enter $938
     case @intake.filing_status.to_sym
     when :married_filing_jointly
       938
