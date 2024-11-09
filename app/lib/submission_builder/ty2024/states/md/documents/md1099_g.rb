@@ -8,12 +8,12 @@ module SubmissionBuilder
 
             def document
               form1099g = @kwargs[:form1099g]
-              state_abbreviation = form1099g.intake.state_code.upcase
+              state_abbreviation = "MD"
 
               build_xml_doc("MD1099G", documentId: "MD1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name && form1099g.payer_name != ''
                   xml.Payer do
-                    xml.Name payerNameControl: form1099g.payer_name.gsub(/\s+|-/, '').upcase[0..3] do
+                    xml.Name do
                       xml.BusinessNameLine1Txt sanitize_for_xml(form1099g.payer_name.tr('-', ' '), 75)
                     end
                     xml.Address do
@@ -34,11 +34,13 @@ module SubmissionBuilder
                   xml.SSN recipient.ssn
                   xml.Name sanitize_for_xml(recipient.full_name)
                   xml.Address do
-                    xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35)
-                    xml.AddressLine2Txt sanitize_for_xml(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
-                    xml.CityNm sanitize_for_xml(form1099g.recipient_city, 22)
-                    xml.StateAbbreviationCd state_abbreviation
-                    xml.ZIPCd sanitize_for_xml(form1099g.recipient_zip)
+                    xml.USAddress do
+                      xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35)
+                      xml.AddressLine2Txt sanitize_for_xml(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
+                      xml.CityNm sanitize_for_xml(form1099g.recipient_city, 22)
+                      xml.StateAbbreviationCd state_abbreviation
+                      xml.ZIPCd sanitize_for_xml(form1099g.recipient_zip)
+                    end
                   end
                 end
                 xml.UnemploymentCompensationPaid form1099g.unemployment_compensation_amount&.round
