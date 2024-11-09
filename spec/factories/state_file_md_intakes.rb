@@ -3,6 +3,7 @@
 # Table name: state_file_md_intakes
 #
 #  id                                   :bigint           not null, primary key
+#  account_holder_name                  :string
 #  account_number                       :string
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
@@ -111,6 +112,16 @@ FactoryBot.define do
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
+
+
+    trait :with_1099_rs_synced do
+      after(:create, &:synchronize_df_1099_rs_to_database)
+    end
+
+    trait :with_w2s_synced do
+      after(:create, &:synchronize_df_w2s_to_database)
+    end
+
 
     trait :with_w2s_synced do
       after(:create, &:synchronize_df_w2s_to_database)

@@ -24,7 +24,6 @@ module StateFile
                        :fed_taxable_pensions,
                        :total_state_tax_withheld,
                        :total_exempt_primary_spouse,
-                       :interest_reported_amount,
                        :total_qualifying_dependent_care_expenses
 
     validate :direct_file_data_must_be_imported

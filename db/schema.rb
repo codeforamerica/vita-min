@@ -1886,6 +1886,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
+    t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"

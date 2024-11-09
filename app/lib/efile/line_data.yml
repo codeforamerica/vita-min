@@ -532,8 +532,12 @@ MD502_LINE_1D:
   label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
   label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
+MD502_LINE_3:
+  label: '3 State Retirement Pickup'
+MD502_LINE_6:
+  label: '6 Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)'
 MD502_LINE_7:
-  label: 'TBD'
+  label: '7 Total federal adjusted gross income and Maryland additions: add line 1 and line 6'
 MD502_LINE_15:
   label: 'TBD'
 MD502_LINE_A_PRIMARY:
@@ -564,6 +568,8 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_13:
+  label: Subtractions from attached form 502SU
 MD502_LINE_16:
   label: 'TBD'
 MD502_DEDUCTION_METHOD:
@@ -576,6 +582,12 @@ MD502_LINE_19:
   label: 'Exemption amount'
 MD502_LINE_20:
   label: 'Taxable net income'
+MD502_LINE_22:
+  label: '22 Earned income credit (EIC)'
+MD502_LINE_22B:
+  label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
+MD502_LINE_40:
+  label: "Total Maryland and local tax withheld"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:
@@ -590,6 +602,14 @@ MD502CR_PART_B_LINE_4:
   label: "4 Multiply line 2 by line 3. Enter here and on Part AA, line 2"
 MD502CR_PART_M_LINE_1:
   label: "1 Enter the credit claimed here and on Part AA, line 13 (See Instructions)"
+MD502_SU_LINE_AB:
+  label: "AB Income from U.S. Government obligations"
+MD502_SU_LINE_U:
+  label: "TBD"
+MD502_SU_LINE_V:
+  label: "TBD"
+MD502_SU_LINE_1:
+  label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:

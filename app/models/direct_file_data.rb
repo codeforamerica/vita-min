@@ -66,7 +66,6 @@ class DirectFileData < DfXmlAccessor
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
-    interest_reported_amount: 'IRS1040 InterestReported', # fake
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
@@ -465,6 +464,15 @@ class DirectFileData < DfXmlAccessor
     df_xml_value(__method__)&.to_i || 0
   end
 
+  def fed_eic=(value)
+    if parsed_xml.at('EstimatedTaxPaymentsAmt').present?
+      create_or_destroy_df_xml_node(__method__, true, 'EstimatedTaxPaymentsAmt')
+    else
+      create_or_destroy_df_xml_node(__method__, true, 'WithholdingTaxAmt')
+    end
+    write_df_xml_value(__method__, value.to_i)
+  end
+
   def fed_refund_amt
     df_xml_value(__method__)&.to_i || 0
   end
@@ -620,17 +628,6 @@ class DirectFileData < DfXmlAccessor
   end
 
   def non_resident_alien=(value)
-    write_df_xml_value(__method__, value)
-  end
-
-  # fake
-  def interest_reported_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
-  # fake
-  def interest_reported_amount=(value)
-    create_or_destroy_df_xml_node(__method__, value)
     write_df_xml_value(__method__, value)
   end
 

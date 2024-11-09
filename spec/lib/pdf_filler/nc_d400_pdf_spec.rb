@@ -19,13 +19,14 @@ RSpec.describe PdfFiller::NcD400Pdf do
     end
 
     context "pulling fields from xml" do
+      let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
       let(:intake) {
         create(:state_file_nc_intake,
                filing_status: "single",
                primary_last_name: "Carolinianian",
                untaxed_out_of_state_purchases: "no",
                primary_esigned: "yes",
-               primary_esigned_at: DateTime.now)
+               primary_esigned_at: tomorrow_midnight)
       }
 
       context "single filer" do
@@ -73,8 +74,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '15'
           timezone = StateFile::StateInformationService.timezone('nc')
-          expect(pdf_fields['y_d400wf_sigdate']). to eq DateTime.now.in_time_zone(timezone).strftime('%Y-%m-%d')
-          expect(pdf_fields['y_d400wf_sigdate2']). to eq ""
+          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
+          expect(pdf_fields['y_d400wf_sigdate2']).to eq ""
         end
 
         context "CTC & cascading fields" do
@@ -104,7 +105,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
       end
 
       context "mfj filers" do
-        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: DateTime.now, spouse_esigned: "yes", spouse_esigned_at: DateTime.now)}
+        let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: tomorrow_midnight, spouse_esigned: "yes", spouse_esigned_at: tomorrow_midnight) }
 
         before do
           submission.data_source.direct_file_data.spouse_date_of_death = "2024-09-30"
@@ -134,8 +136,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li20b_pg2_good']).to eq '15'
 
           timezone = StateFile::StateInformationService.timezone('nc')
-          expect(pdf_fields['y_d400wf_sigdate']). to eq DateTime.now.in_time_zone(timezone).strftime('%Y-%m-%d')
-          expect(pdf_fields['y_d400wf_sigdate2']). to eq DateTime.now.in_time_zone(timezone).strftime('%Y-%m-%d')
+          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
+          expect(pdf_fields['y_d400wf_sigdate2']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
         end
       end
 
