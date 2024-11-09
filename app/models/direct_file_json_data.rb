@@ -3,6 +3,7 @@ class DirectFileJsonData
     json_accessor first_name: { type: :string, key: "firstName" }
     json_accessor middle_initial: { type: :string, key: "middleInitial" }
     json_accessor last_name: { type: :string, key: "lastName" }
+    json_accessor suffix: { type: :string, key: "suffix" }
     json_accessor dob: { type: :date, key: "dateOfBirth" }
     json_accessor tin: { type: :string, key: "tin" }
   end

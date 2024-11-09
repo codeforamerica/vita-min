@@ -30,7 +30,6 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-        Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::NycResidencyController),
         Navigation::NavigationStep.new(StateFile::Questions::NyCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NySchoolDistrictController),
