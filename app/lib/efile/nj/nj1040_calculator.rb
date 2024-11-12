@@ -5,6 +5,8 @@ module Efile
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
+      EXCESS_UI_WF_SWF_UI_HC_WD_MAX = 179.78
+      EXCESS_FLI_MAX = 145.26
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -300,14 +302,13 @@ module Efile
 
       def calculate_line_59
         total_excess = 0
-        excess_threshold = 179.78
 
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, excess_threshold)
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, excess_threshold)
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
 
         if @intake.filing_status_mfj?
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, excess_threshold)
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, excess_threshold)
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
         end
 
         total_excess.round if total_excess.positive?
@@ -315,12 +316,11 @@ module Efile
 
       def calculate_line_61
         total_excess = 0
-        excess_threshold = 145.26
 
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_fli, excess_threshold)
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
         
         if @intake.filing_status_mfj?
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_fli, excess_threshold)
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
         end
 
         total_excess.round if total_excess.positive?
