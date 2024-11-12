@@ -209,12 +209,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_1099int_subtraction do
-      after(:build) do |intake|
-        intake.direct_file_data.interest_reported_amount = 100
-      end
-    end
-
     trait :with_efile_device_infos do
       after(:build) do |intake|
         create :state_file_efile_device_info, :filled, :initial_creation, intake: intake

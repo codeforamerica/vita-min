@@ -84,6 +84,21 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
           expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
         end
       end
+
+      context "when not eligible for property tax deduction due to income" do
+        let(:intake) {create :state_file_nj_intake, :df_data_minimal, household_rent_own: "own" }
+        it "next path is whichever is next overall" do
+          allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
+          expect(subject.next_path).to eq("/mocked/super/path")
+        end
+      end
+
+      context "when not eligible for property tax deduction due to income but could be eligible for credit" do
+        let(:intake) {create :state_file_nj_intake, :df_data_minimal, :primary_disabled, household_rent_own: "own" }
+        it "next path is eligibility page for own/rent status" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerEligibilityController.to_path_helper)
+        end
+      end
     end
 
     context 'when return_to_review' do

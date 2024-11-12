@@ -69,6 +69,24 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 28" do
+    context "has no interest reports with interest on government bonds" do
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_28].value).to eq(0)
+      end
+    end
+
+    context "has interest reports with interest on government bonds" do
+      let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
+
+      it "returns sum of the interest on government bonds" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_28].value).to eq(2)
+      end
+    end
+  end
+
   describe "Line 43 and 43S: standard deduction" do
     let(:intake) { create(:state_file_az_intake, filing_status: filing_status) }
 

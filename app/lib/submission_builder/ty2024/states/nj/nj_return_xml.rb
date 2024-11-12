@@ -23,7 +23,7 @@ module SubmissionBuilder
           end
 
           def state_schema_version
-            "NJIndividual2023V0.4"
+            "NJIndividual2024V0.1"
           end
 
           def documents_wrapper
@@ -31,7 +31,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2023V0.4", "NJIndividual", "IndividualReturnNJ1040.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJIndividual", "IndividualReturnNJ1040.xsd")
           end
 
           def supported_documents

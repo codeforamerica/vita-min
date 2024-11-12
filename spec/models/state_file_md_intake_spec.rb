@@ -3,6 +3,7 @@
 # Table name: state_file_md_intakes
 #
 #  id                                   :bigint           not null, primary key
+#  account_holder_name                  :string
 #  account_number                       :string
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
@@ -113,6 +114,33 @@ RSpec.describe StateFileMdIntake, type: :model do
       expect(intake.eligibility_filing_status_mfj_before_type_cast).to eq(2)
       intake.update(eligibility_filing_status_mfj: :unfilled)
       expect(intake.eligibility_filing_status_mfj_before_type_cast).to eq(0)
+    end
+  end
+
+  describe "before_save" do
+    context "when payment_or_deposit_type changes to mail" do
+      let!(:intake) do
+        create :state_file_md_intake,
+               payment_or_deposit_type: "direct_deposit",
+               account_type: "checking",
+               bank_name: "Wells Fargo",
+               routing_number: "123456789",
+               account_number: "123",
+               withdraw_amount: 123,
+               date_electronic_withdrawal: Date.parse("April 1, 2023"),
+               account_holder_name: "Neil Peart"
+      end
+
+      it "clears other account fields" do
+        expect {
+          intake.update(payment_or_deposit_type: "mail")
+        }.to change(intake.reload, :account_type).to("unfilled")
+          .and change(intake.reload, :bank_name).to(nil)
+          .and change(intake.reload, :routing_number).to(nil).and change(intake.reload, :account_number).to(nil)
+          .and change(intake.reload, :withdraw_amount).to(nil)
+          .and change(intake.reload, :date_electronic_withdrawal).to(nil)
+          .and change(intake.reload, :account_holder_name).to(nil)
+      end
     end
   end
 end

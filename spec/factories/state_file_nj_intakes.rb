@@ -20,6 +20,7 @@
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
+#  estimated_tax_payments                                 :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
