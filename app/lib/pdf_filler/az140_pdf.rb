@@ -120,7 +120,6 @@ module PdfFiller
       @deductions = @xml_document.at('DeductionAmt')
       answers.merge!({
         "43" => @xml_document.at('AZDeductions')&.text,
-        "44" => @xml_document.at('IncreaseStdDed TotalIncStdDeduction')&.text,
         "45" => @xml_document.at('AZTaxableInc')&.text,
         "46" => @xml_document.at('ComputedTax')&.text,
         "48" => @xml_document.at('SubTotal')&.text,
@@ -138,7 +137,8 @@ module PdfFiller
         "3_4c" => @charitable_deductions&.at('SubTotalContributions')&.text,
         "3_5c" => @charitable_deductions&.at('TotalContributions')&.text,
         "3_6c" => @charitable_deductions&.at('SubTotal')&.text,
-        "3_7c" => @charitable_deductions&.at('TotalIncStdDeduction')&.text,
+        "3_7c" => @charitable_deductions&.at('IncreaseStdDed TotalIncStdDeduction')&.text,
+        "44" => @xml_document.at('IncreaseStdDed TotalIncStdDeduction')&.text,
       })
 
       direct_file_data = @submission.data_source.direct_file_data
