@@ -9,6 +9,8 @@ module Efile
 
           return false if investment_income_over_limit?(intake)
 
+          return false if intake.direct_file_data.fed_wages_salaries_tips <= 0
+
           true
         end
 

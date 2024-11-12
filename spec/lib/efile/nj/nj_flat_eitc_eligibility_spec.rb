@@ -6,9 +6,11 @@ describe Efile::Nj::NjFlatEitcEligibility do
       { traits: [], expected: false },
       { traits: [:married_filing_separately], expected: false },
       { traits: [:df_data_investment_income_12k], expected: false },
+      { traits: [:df_data_minimal], expected: false },
+      { traits: [:df_data_minimal, :married_filing_jointly], expected: false },
       
-      { traits: [:df_data_minimal], expected: true },
-      { traits: [:df_data_minimal, :married_filing_jointly], expected: true },
+      { traits: [:df_data_childless_eitc], expected: true },
+      { traits: [:df_data_childless_eitc, :married_filing_jointly], expected: true },
     ].each do |test_case|
       context "when filing with #{test_case}" do
         let(:intake) do
