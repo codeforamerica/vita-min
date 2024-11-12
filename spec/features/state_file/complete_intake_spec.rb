@@ -302,8 +302,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
-      save_and_open_page
+
       click_on "Main XML Doc"
+
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Titus</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
