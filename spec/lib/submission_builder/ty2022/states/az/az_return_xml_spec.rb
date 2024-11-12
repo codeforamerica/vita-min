@@ -206,13 +206,10 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
 
     context "with credits from AZ301" do
       let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions) }
-      before do
-        # allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_62).and_return 100
-      end
 
       it "generates XML with correct total available tax credit" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-
+        expect(xml.at("AppTaxCr TotalAvailTaxCrClm").text).to eq "621"
         expect(xml.at("DeductionAmt CreditsFromAZ301").text).to eq "621"
       end
     end
