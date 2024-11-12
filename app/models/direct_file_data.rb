@@ -66,10 +66,12 @@ class DirectFileData < DfXmlAccessor
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
-    interest_reported_amount: 'IRS1040 InterestReported', # fake
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
+    excluded_benefits_amount: 'IRS2441 ExcludedBenefitsAmt',
+    primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
+    spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
     total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
   }.freeze
@@ -462,6 +464,15 @@ class DirectFileData < DfXmlAccessor
     df_xml_value(__method__)&.to_i || 0
   end
 
+  def fed_eic=(value)
+    if parsed_xml.at('EstimatedTaxPaymentsAmt').present?
+      create_or_destroy_df_xml_node(__method__, true, 'EstimatedTaxPaymentsAmt')
+    else
+      create_or_destroy_df_xml_node(__method__, true, 'WithholdingTaxAmt')
+    end
+    write_df_xml_value(__method__, value.to_i)
+  end
+
   def fed_refund_amt
     df_xml_value(__method__)&.to_i || 0
   end
@@ -620,17 +631,6 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  # fake
-  def interest_reported_amount
-    df_xml_value(__method__)&.to_i || 0
-  end
-
-  # fake
-  def interest_reported_amount=(value)
-    create_or_destroy_df_xml_node(__method__, value)
-    write_df_xml_value(__method__, value)
-  end
-
   def qualifying_children_under_age_ssn_count=(value)
     write_df_xml_value(__method__, value)
   end
@@ -722,6 +722,18 @@ class DirectFileData < DfXmlAccessor
     else
       'unfilled'
     end
+  end
+
+  def excluded_benefits_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_earned_income_amount=(value)
+    write_df_xml_value(__method__, value)
   end
     
   class DfW2 < DfW2Accessor

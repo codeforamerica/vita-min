@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_04_185947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1878,10 +1878,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
+    t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.string "city"
+    t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1909,6 +1911,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
+    t.integer "permanent_address_outside_md", default: 0, null: false
+    t.string "permanent_apartment"
+    t.string "permanent_city"
+    t.string "permanent_street"
+    t.string "permanent_zip"
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
@@ -2056,6 +2063,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_01_161438) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.decimal "estimated_tax_payments", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.integer "fed_taxable_income"
     t.integer "fed_wages"

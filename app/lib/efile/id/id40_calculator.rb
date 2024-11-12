@@ -8,15 +8,21 @@ module Efile
         @id39r = Efile::Id::Id39RCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
-          intake: @intake
+          intake: @intake,
         )
       end
 
       def calculate
+        @id39r.calculate
         set_line(:ID40_LINE_6A, :calculate_line_6a)
         set_line(:ID40_LINE_6B, :calculate_line_6b)
         set_line(:ID40_LINE_6C, :calculate_line_6c)
         set_line(:ID40_LINE_6D, :calculate_line_6d)
+        set_line(:ID40_LINE_7, :calculate_line_7)
+        set_line(:ID40_LINE_8, :calculate_line_8)
+        set_line(:ID40_LINE_9, :calculate_line_9)
+        set_line(:ID40_LINE_10, :calculate_line_10)
+        set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_29, :calculate_line_29)
         set_line(:ID40_LINE_46, :calculate_line_46)
         @id39r.calculate
@@ -47,6 +53,26 @@ module Efile
 
       def calculate_line_6d
         line_or_zero(:ID40_LINE_6A) + line_or_zero(:ID40_LINE_6B) + line_or_zero(:ID40_LINE_6C)
+      end
+
+      def calculate_line_7
+        @direct_file_data.fed_agi
+      end
+
+      def calculate_line_8
+        line_or_zero(:ID39R_A_LINE_7)
+      end
+
+      def calculate_line_9
+        line_or_zero(:ID40_LINE_7) + line_or_zero(:ID40_LINE_8)
+      end
+
+      def calculate_line_10
+        line_or_zero(:ID39R_B_LINE_24)
+      end
+
+      def calculate_line_11
+        [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
       def calculate_line_29

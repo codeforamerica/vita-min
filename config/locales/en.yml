@@ -2565,6 +2565,8 @@ en:
       id_review:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
+          purchases_without_sales_tax: Purchases without paying sales or use tax
+          state_details_title: State Details
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2626,6 +2628,17 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_permanent_address:
+        edit:
+          address_header: Address
+          apartment_number_label: Apartment/Unit Number
+          city_label: City
+          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, 2023
+          state_label: State
+          street_address_label: Street Address
+          title: Did you live at this address on December 31, 2023?
+          where_did_you_live: Where did you live on December 31, 2023?
+          zip_label: Zip Code
       md_primary_state_id:
         md_primary:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
@@ -2640,6 +2653,9 @@ en:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           why_ask_this: Why are you asking for this information?
+      md_tax_refund:
+        md_bank_details:
+          account_holder_name: Account Holder Name
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2729,6 +2745,14 @@ en:
           primary_disabled_question: Are you disabled according to the New Jersey definition?
           spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
           title: Disabled Exemption
+      nj_estimated_tax_payments:
+        edit:
+          label: Total
+          subtitle: 'Please include the sum of the following:'
+          subtitle_list_1: Estimated income tax payments you made throughout the year for your New Jersey state taxes
+          subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
+          subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2790,6 +2814,7 @@ en:
         edit:
           amount: Amount
           county: County
+          estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality

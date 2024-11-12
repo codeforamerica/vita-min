@@ -841,7 +841,6 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before do
-        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.77
@@ -871,7 +870,6 @@ describe Efile::Nj::Nj1040Calculator do
         create(:state_file_nj_intake)
       }
       before do
-        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return false
         allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_with_deduction).and_return 10_000.21
@@ -948,12 +946,12 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when ineligible for property tax' do
+    context 'when ineligible for property tax deduction or credit due to housing details' do
       let(:intake) {
         create(:state_file_nj_intake)
       }
       before do
-        allow(instance).to receive(:is_ineligible_or_unsupported_for_property_tax).and_return true
+        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
         allow(instance).to receive(:calculate_line_39).and_return 20_000
         allow(instance).to receive(:calculate_tax_liability_without_deduction).and_return 10_000
         instance.calculate
@@ -975,6 +973,34 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
       end
     end
+
+    context 'when ineligible for property tax deduction or credit due to income' do
+      let(:intake) {
+        create(:state_file_nj_intake, :df_data_minimal)
+      }
+
+      it 'sets line 41 to nil' do
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
+      end
+
+      it 'sets line 56 to nil' do
+        expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+      end
+    end
+
+    context 'when ineligible for property tax deduction due to income but eligible for credit' do
+      let(:intake) {
+        create(:state_file_nj_intake, :df_data_minimal, :primary_disabled)
+      }
+
+      it 'sets line 41 to nil' do
+        expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
+      end
+
+      it 'sets line 56 to $50' do
+        expect(instance.lines[:NJ1040_LINE_56].value).to eq(50)
+      end
+    end
   end
 
   describe 'line 42 - new jersey taxable income' do
@@ -987,7 +1013,7 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 51 - sales and use tax' do
     
     context 'when sales_use_tax exists (already calculated automated or manual)' do
-      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400.77 )}
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400.77)}
       it 'sets line 51 to the rounded sales_use_tax' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 401
       end
@@ -997,6 +1023,23 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) { create(:state_file_nj_intake, sales_use_tax: nil)}
       it 'sets line 51 to 0' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
+      end
+    end
+  end
+
+  describe 'line 57 - estimated tax payments' do
+
+    context 'when estimated_tax_payments exists' do
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 400.77)}
+      it 'sets line 57 to the rounded estimated_tax_payments' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 401
+      end
+    end
+
+    context 'when estimated_tax_payments is nil' do
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: nil)}
+      it 'sets line 57 to nil' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq nil
       end
     end
   end
