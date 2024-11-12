@@ -394,8 +394,44 @@ module Efile
         @lines[:MD502_SU_LINE_1].value
       end
 
-      def calculate_line_23
-        if @direct_file_data.claimed_as_dependent?
+      def calculate_poverty_level_credit
+        return 0 if @direct_file_data.claimed_as_dependent? || @lines[:MD502_LINE_1B].value <= 0
+
+        comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
+
+        filers = 2 if
+
+        # Calculate poverty threshold based on household size
+        poverty_threshold = calculate_poverty_threshold(household_size)
+
+        # Check if eligible based on poverty threshold
+        return 0 if comparison_amount >= poverty_threshold
+
+        (@lines[:MD502_LINE_1B].value * 0.05).round
+      end
+
+      def calculate_poverty_threshold(size)
+        case size
+        when 1
+          15_060
+        when 2
+          20_440
+        when 3
+          25_820
+        when 4
+          31_200
+        when 5
+          36_580
+        when 6
+          41_960
+        when 7
+          47_340
+        when 8
+          52_720
+        else
+          # For 9 or more people: base (8 person) + additional amount per person
+          additional_members = size - 8
+          52_720 + (additional_members * 5_380)
         end
       end
 
