@@ -578,7 +578,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
-      choose I18n.t("general.negative")
+      choose I18n.t("general.affirmative")
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Baltimore", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
+      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
+      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
+      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
+      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
+      click_on I18n.t("general.continue")
       click_on I18n.t("general.continue")
 
       # md_two_income_subtractions
