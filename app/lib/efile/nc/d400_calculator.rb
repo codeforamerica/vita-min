@@ -143,7 +143,7 @@ module Efile
 
         @intake.state_file_w2s.each do |w2|
           if w2.employee_ssn == @intake.primary.ssn
-            sum += w2.state_income_tax_amount.to_i
+            sum += w2.state_income_tax_amount&.round
           end
         end
 
@@ -161,7 +161,7 @@ module Efile
 
         @intake.state_file_w2s.each do |w2|
           if w2.employee_ssn == @intake.spouse.ssn
-            sum += w2.state_income_tax_amount.to_i
+            sum += w2.state_income_tax_amount&.round
           end
         end
 
