@@ -197,6 +197,31 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 52" do
+    context "the sum of lines 49, 50, 51 is greater than line 48" do
+      it "returns 0" do
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_48).and_return 200
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_49).and_return 100
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_50).and_return 100
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_51).and_return 100
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_52].value).to eq(0)
+      end
+    end
+
+    context "the sum of lines 49, 50, and 51 are less than line 48" do
+      it "subtracts lines 49, 50, and 51 from 48" do
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_48).and_return 400
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_49).and_return 100
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_50).and_return 100
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_51).and_return 100
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_52].value).to eq(200)
+      end
+    end
+
+  end
+
   describe 'Line 53: AZ Income Tax Withheld' do
     let(:intake) {
       # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
