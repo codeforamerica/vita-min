@@ -975,6 +975,113 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_21" do
+    let(:taxable_net_income) { 500 }
+    let(:deduction_method) { "S" }
+
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return taxable_net_income
+      allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return deduction_method
+      instance.calculate
+    end
+
+    context "deduction method is standard" do
+      context "taxable net income is 500" do
+        it "MD tax is 10" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 10
+        end
+      end
+
+      context "taxable net income is 1000" do
+        let(:taxable_net_income) { 1000 }
+        it "MD tax is 20" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 20
+        end
+      end
+
+      context "taxable net income is 2500" do
+        let(:taxable_net_income) { 2500 }
+        it "MD tax is 70" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 70
+        end
+      end
+
+      context "taxable net income is 3100 and filing status is single" do
+        let(:taxable_net_income) { 3100 }
+        it "MD tax is 94.75" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 95
+        end
+      end
+
+      context "taxable net income is 100,500 and filing status is single" do
+        let(:taxable_net_income) { 100_500 }
+        it "MD tax is 4722.5" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 4723
+        end
+      end
+
+      context "taxable net income is 130,000 and filing status is single" do
+        let(:taxable_net_income) { 130_000 }
+        it "MD tax is 6,210" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 6210
+        end
+      end
+
+      context "taxable net income is 200,000 and filing status is single" do
+        let(:taxable_net_income) { 200_000 }
+        it "MD tax is 10,010" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 10_010
+        end
+      end
+
+      context "taxable net income is 300,000 and filing status is single" do
+        let(:taxable_net_income) { 300_000 }
+        it "MD tax is 15,635" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 15635
+        end
+      end
+
+      context "filing status is married-filing-jointly" do
+        let(:filing_status) { 'married_filing_jointly' }
+
+        context "taxable net income is 125,000" do
+          let(:taxable_net_income) { 125_000 }
+          it "MD tax is 5,885" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 5_885
+          end
+        end
+
+        context "taxable net income is 200,000" do
+          let(:taxable_net_income) { 200_000 }
+          it "MD tax is 9,635" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 9_635
+          end
+        end
+
+        context "taxable net income is 270,000" do
+          let(:taxable_net_income) { 270_000 }
+          it "MD tax is 13,423" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 13_423
+          end
+        end
+
+        context "taxable net income is 1,000,000" do
+          let(:taxable_net_income) { 1_000_000 }
+          it "MD tax is 55,323" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 55_323
+          end
+        end
+      end
+    end
+
+    context "deduction method is 'N'" do
+      let(:deduction_method) { "N" }
+      it "returns nil" do
+        expect(instance.lines[:MD502_LINE_21].value).to eq nil
+      end
+    end
+  end
+
   describe "#calculate_line_22" do
     let(:filing_status) { "married_filing_jointly" }
     let(:df_xml_key) { "md_laney_qss" }

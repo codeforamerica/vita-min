@@ -129,6 +129,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       if has_state_tax_computation?
         xml.StateTaxComputation do
           xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
+          add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
         end
