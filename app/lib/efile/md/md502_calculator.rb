@@ -397,6 +397,11 @@ module Efile
       def calculate_line_23
         if @direct_file_data.claimed_as_dependent?
         end
+      end
+
+      def calculate_line_24
+
+      end
 
       def filing_status_dependent?
         @filing_status == :dependent
