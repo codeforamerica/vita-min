@@ -2779,6 +2779,14 @@ en:
           primary_disabled_question: Are you disabled according to the New Jersey definition?
           spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
           title: Disabled Exemption
+      nj_estimated_tax_payments:
+        edit:
+          label: Total
+          subtitle: 'Please include the sum of the following:'
+          subtitle_list_1: Estimated income tax payments you made throughout the year for your New Jersey state taxes
+          subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
+          subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2840,6 +2848,7 @@ en:
         edit:
           amount: Amount
           county: County
+          estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality

@@ -2071,6 +2071,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.decimal "estimated_tax_payments", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.integer "fed_taxable_income"
     t.integer "fed_wages"

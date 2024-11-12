@@ -86,6 +86,7 @@ module PdfFiller
         'Enter 3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
         'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
         'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
+        'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
       }
     end
 

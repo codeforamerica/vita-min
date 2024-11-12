@@ -14,6 +14,9 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("FilingStatus").text).to eq "SINGLE"
         expect(xml.at("PrimeExemption").text).to eq "1"
         expect(xml.at("TotalExemption").text).to eq "1"
+        expect(xml.at("FederalAGI").text).to eq "32351"
+        # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses(2000)] = 24724
+        expect(xml.at("StateTotalAdjustedIncome").text).to eq "24724"
       end
     end
 

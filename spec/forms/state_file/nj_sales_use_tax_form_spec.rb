@@ -53,6 +53,16 @@ RSpec.describe StateFile::NjSalesUseTaxForm do
   describe "validations" do
     let(:form) { described_class.new(intake, params) }
 
+    it_behaves_like :nj_money_field_concern, field: :sales_use_tax do
+      let(:form_params) do
+        {
+          untaxed_out_of_state_purchases: "yes",
+          sales_use_tax_calculation_method: "manual",
+          sales_use_tax: money_field_value
+        }
+      end
+    end
+
     context "invalid params" do
       context "untaxed-out-of-state-purchases is required" do
         let(:params) do
@@ -78,83 +88,6 @@ RSpec.describe StateFile::NjSalesUseTaxForm do
           expect(form.errors[:sales_use_tax_calculation_method]).to include "Can't be blank."
         end
       end
-
-      context "if client made untaxed-out-of-state-purchases and will calculate sales use tax manually" do
-        let(:params) do
-          {
-            untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "manual",
-            sales_use_tax: ""
-          }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Can't be blank."
-        end
-      end
-
-      context "with a non numeric sales-use-tax" do
-        let(:params) do
-          {
-            untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "NaN",
-          }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter numbers only."
-        end
-      end
-
-      context "with a value less than 0" do
-        let(:params) do
-          {
-            untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "-1",
-          }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:sales_use_tax]).to include "Please enter numbers only."
-        end
-      end
-    end
-
-    context "valid params" do
-
-      context "with a non-integer sales-use-tax" do
-        let(:params) do
-          {
-            untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "30.5",
-          }
-        end
-
-        it "is valid" do
-          expect(form.valid?).to eq true
-        end
-      end
-
-      context "with an integer sales-use-tax" do
-        let(:params) do
-          {
-            untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "manual",
-            sales_use_tax: "30",
-          }
-        end
-
-        it "is valid" do
-          expect(form.valid?).to eq true
-        end
-      end
-
     end
   end
 
