@@ -72,7 +72,7 @@ module Efile
       end
 
       def calculate_line_11
-        line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10)
+        [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
       def calculate_line_29

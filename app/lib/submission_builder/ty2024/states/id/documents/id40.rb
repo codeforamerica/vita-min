@@ -32,7 +32,7 @@ module SubmissionBuilder
                   end
                 end
                 xml.FederalAGI calculated_fields.fetch(:ID40_LINE_7)
-                add_non_zero_value(xml, :StateTotalAdjustedIncome, :ID40_LINE_11)
+                xml.StateTotalAdjustedIncome calculated_fields.fetch(:ID40_LINE_11)
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
               end
