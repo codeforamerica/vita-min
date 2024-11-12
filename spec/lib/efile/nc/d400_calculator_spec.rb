@@ -204,7 +204,7 @@ describe Efile::Nc::D400Calculator do
     let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: primary_ssn_from_fixture) }
     let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 200, employee_ssn: other_ssn) }
     let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 50, recipient: 'primary') }
-    let!(:state_file1099_g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 40, recipient: 'spouse') }
+    let!(:state_file1099_g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 39.5, recipient: 'spouse') }
 
     context "only one w2 matches primary ssn" do
       let(:other_ssn) { "222334444" }
@@ -231,7 +231,7 @@ describe Efile::Nc::D400Calculator do
     let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: spouse_ssn_from_fixture) }
     let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: other_ssn) }
     let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 50, recipient: 'primary') }
-    let!(:state_file1099_g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 40, recipient: 'spouse') }
+    let!(:state_file1099_g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 39.5, recipient: 'spouse') }
 
     context "only one w2 matches spouse ssn" do
       let(:other_ssn) { "222334444" }

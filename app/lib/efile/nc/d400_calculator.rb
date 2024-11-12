@@ -149,7 +149,7 @@ module Efile
 
         @intake.state_file1099_gs.each do |state_file_1099_g|
           if state_file_1099_g.recipient_primary?
-            sum += state_file_1099_g.state_income_tax_withheld_amount.to_i
+            sum += state_file_1099_g.state_income_tax_withheld_amount&.round
           end
         end
 
@@ -167,7 +167,7 @@ module Efile
 
         @intake.state_file1099_gs.each do |state_file_1099_g|
           if state_file_1099_g.recipient_spouse?
-            sum += state_file_1099_g.state_income_tax_withheld_amount.to_i
+            sum += state_file_1099_g.state_income_tax_withheld_amount&.round
           end
         end
 
