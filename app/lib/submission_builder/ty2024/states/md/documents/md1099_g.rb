@@ -11,7 +11,7 @@ module SubmissionBuilder
               state_abbreviation = "MD"
 
               build_xml_doc("MD1099G", documentId: "MD1099G-#{form1099g.id}") do |xml|
-                if form1099g.payer_name && form1099g.payer_name != ''
+                if form1099g.payer_name.present?
                   xml.Payer do
                     xml.Name do
                       xml.BusinessNameLine1Txt sanitize_for_xml(form1099g.payer_name.tr('-', ' '), 75)
