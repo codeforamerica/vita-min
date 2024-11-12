@@ -6,49 +6,9 @@ RSpec.describe StateFile::NjMedicalExpensesForm do
   describe "validations" do
     let(:form) { described_class.new(intake, params) }
 
-    context "invalid params" do
-      context "must be numeric" do
-        let(:params) do
-          { medical_expenses: "awefwaefw" }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:medical_expenses]).to include "Please enter numbers only."
-        end
-      end
-
-      context "cannot be negative" do
-        let(:params) do
-          { medical_expenses: "-123" }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:medical_expenses]).to include "must be greater than or equal to 0"
-        end
-      end
-    end
-
-    context "valid params" do
-      context "can be a decimal" do
-        let(:params) do
-          { medical_expenses: 123.45 }
-        end
-
-        it "is valid" do
-          expect(form.valid?).to eq true
-        end
-      end
-
-      context "can be an integer" do
-        let(:params) do
-          { medical_expenses: 123 }
-        end
-
-        it "is valid" do
-          expect(form.valid?).to eq true
-        end
+    it_behaves_like :nj_money_field_concern, field: :medical_expenses do
+      let(:form_params) do
+        { medical_expenses: money_field_value }
       end
     end
   end

@@ -807,6 +807,17 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_13" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+    end
+
+    it 'the sums the amount from line A-C' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_13].value).to eq 100
+    end
+  end
+
   describe "#calculate_line_17" do
     context "when method is standard" do
       [
@@ -929,6 +940,145 @@ describe Efile::Md::Md502Calculator do
         instance.calculate
         expect(instance.lines[:MD502_LINE_20].value).to eq 0
       end
+    end
+  end
+
+  describe "#calculate_line_3" do
+    let!(:first_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 100.0) }
+    let!(:second_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 250.6) }
+    let!(:third_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: nil) }
+    context "with w2s" do
+      it "returns the sum of all box14_stpickup" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_3].value).to eq 351
+      end
+    end
+  end
+
+  describe "#calculate_line_6" do
+    it "returns the total additions" do
+      allow_any_instance_of(described_class).to receive(:calculate_line_3).and_return 550
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_6].value).to eq 550
+    end
+  end
+
+  describe "#calculate_line_7" do
+    before do
+      intake.direct_file_data.fed_agi = 100
+      allow_any_instance_of(described_class).to receive(:calculate_line_6).and_return 200
+      instance.calculate
+    end
+
+    it "returns the sum of line 1 and 6" do
+      expect(instance.lines[:MD502_LINE_7].value).to eq 300
+    end
+  end
+
+  describe "#calculate_line_22" do
+    let(:filing_status) { "married_filing_jointly" }
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    let(:federal_eic) { 1001 }
+
+    before do
+      intake.direct_file_data.fed_eic = federal_eic
+      instance.calculate
+    end
+
+    context "when mfj and at least one qualifying child" do
+      it 'EIC is half the federal EIC' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 501
+      end
+    end
+
+    context "when mfj and no qualifying children" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'EIC is 0' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 501
+      end
+    end
+
+    context "when single and no qualifying children" do
+      let(:filing_status) { "single" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      it "state EIC is 100% of the federal EIC" do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 1001
+      end
+    end
+
+    context "when filing as a dependent and no qualifying children" do
+      let(:filing_status) { "dependent" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'EIC is nil' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_22b" do
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    context "when has at least one qualifying EIC child and MD EIC is over 0" do
+      it "returns X" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq "X"
+      end
+    end
+
+    context "when no qualifying EIC child and MD EIC is over 0" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+
+    context "when has at least one qualifying EIC child but MD EIC is 0" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+
+    context "when no qualifying EIC child and MD EIC is 0" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+  end
+
+  describe '#calculate_line_40' do
+    let(:intake) {
+      # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
+      create(:state_file_md_intake,
+             :with_1099_rs_synced,
+             :with_w2s_synced,
+             raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('md_allen_hoh_w2_and_1099r'))
+    }
+    let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
+
+    it 'sums the MD tax withheld from w2s, 1099gs and 1099rs' do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
     end
   end
 end

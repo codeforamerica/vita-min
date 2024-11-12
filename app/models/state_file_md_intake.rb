@@ -3,6 +3,7 @@
 # Table name: state_file_md_intakes
 #
 #  id                                   :bigint           not null, primary key
+#  account_holder_name                  :string
 #  account_number                       :string
 #  account_type                         :integer          default("unfilled"), not null
 #  bank_name                            :string
@@ -100,14 +101,12 @@ class StateFileMdIntake < StateFileBaseIntake
   enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
   enum permanent_address_outside_md: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_md
 
-
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != state_code.upcase
     end
   end
-
 
   def disqualifying_eligibility_rules
     # eligibility_filing_status_mfj is not strictly a disqualifier and just leads us to other questions
@@ -125,6 +124,18 @@ class StateFileMdIntake < StateFileBaseIntake
   def calculate_age(dob, inclusive_of_jan_1)
     # MD never calculates age at the end of the year using Jan 1 inclusive
     super(dob, inclusive_of_jan_1: false)
+  end
+
+  def sanitize_bank_details
+    if (payment_or_deposit_type || "").to_sym != :direct_deposit
+      self.account_type = "unfilled"
+      self.bank_name = nil
+      self.routing_number = nil
+      self.account_number = nil
+      self.withdraw_amount = nil
+      self.date_electronic_withdrawal = nil
+      self.account_holder_name = nil
+    end
   end
 
   def filing_status

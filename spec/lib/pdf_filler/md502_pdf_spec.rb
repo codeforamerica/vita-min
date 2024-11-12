@@ -17,6 +17,60 @@ RSpec.describe PdfFiller::Md502Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "US address from df" do
+      it "fills in correct fields" do
+        intake.direct_file_data.mailing_street = "312 Poppy Street"
+        intake.direct_file_data.mailing_apartment = "Apt B"
+        intake.direct_file_data.mailing_city = "Annapolis"
+        intake.direct_file_data.mailing_state = "MD"
+        intake.direct_file_data.mailing_zip = "21401"
+
+        expect(pdf_fields["Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)"]).to eq("312 Poppy Street")
+        expect(pdf_fields["Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)"]).to eq("Apt B")
+        expect(pdf_fields["Enter city or town"]).to eq("Annapolis")
+        expect(pdf_fields["Enter state"]).to eq("MD")
+        expect(pdf_fields["Enter zip code + 4"]).to eq("21401")
+      end
+    end
+
+    context "Physical address" do
+      context "when the filer has confirmed their DF address is correct" do
+        before do
+          intake.confirmed_permanent_address_yes!
+          intake.direct_file_data.mailing_street = "312 Poppy Street"
+          intake.direct_file_data.mailing_apartment = "Apt B"
+          intake.direct_file_data.mailing_city = "Annapolis"
+          intake.direct_file_data.mailing_state = "MD"
+          intake.direct_file_data.mailing_zip = "21401"
+        end
+
+        it "fills the fields with the DF address" do
+          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("312 Poppy Street")
+          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt B")
+          expect(pdf_fields["Enter city"]).to eq("Annapolis")
+          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21401")
+        end
+      end
+
+      context "when the filer has entered a different physical address" do
+        before do
+          intake.confirmed_permanent_address_no!
+
+          intake.permanent_street = "313 Poppy Street"
+          intake.permanent_apartment = "Apt A"
+          intake.permanent_city = "Baltimore"
+          intake.permanent_zip = "21201"
+        end
+
+        it "fills the fields with the entered address" do
+          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("313 Poppy Street")
+          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt A")
+          expect(pdf_fields["Enter city"]).to eq("Baltimore")
+          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21201")
+        end
+      end
+    end
+
     context "county information" do
       before do
         intake.residence_county = "Allegany"
@@ -300,6 +354,82 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 18"]).to be_empty
         expect(pdf_fields["Enter 19 "]).to be_empty
         expect(pdf_fields["Enter 20"]).to be_empty
+      end
+    end
+
+    context "additions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_3).and_return 40
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 50
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 60
+      end
+
+      it "fills out amount if deduction method is standard" do
+        expect(pdf_fields["Enter 3"]).to eq "40"
+        expect(pdf_fields["Enter 6"]).to eq "50"
+        expect(pdf_fields["Enter 7"]).to eq "60"
+      end
+    end
+
+    context "EIC" do
+      context "there are qualifying children and state EIC" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return "X"
+        end
+
+        it "fills out EIC fields correctly" do
+          expect(pdf_fields["Text Box 34"]).to eq "100"
+          expect(pdf_fields["Check Box 37"]).to eq "Yes"
+        end
+      end
+
+      context "there are NOT qualifying children and no state EIC" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return nil
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return nil
+        end
+
+        it "doesn't fill out the EIC fields" do
+          expect(pdf_fields["Text Box 34"]).to eq ""
+          expect(pdf_fields["Check Box 37"]).to eq "Off"
+        end
+      end
+    end
+
+    context "Line 40: Total state and local tax withheld" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        puts pdf_fields
+        expect(pdf_fields["Text Box 68"]).to eq "500"
+      end
+    end
+
+    context "with 502SU Subtractions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
+      end
+
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Text Field 9"]).to eq "ab"
+        expect(pdf_fields["Text Field 10"]).to eq ""
+        expect(pdf_fields["Text Field 11"]).to eq ""
+        expect(pdf_fields["Text Field 12"]).to eq ""
+        expect(pdf_fields["Enter 13"].to_i).to eq 100
+      end
+    end
+
+    context "without 502SU Subtractions" do
+      it "fills out subtractions fields correctly" do
+        expect(pdf_fields["Text Field 9"]).to eq ""
+        expect(pdf_fields["Text Field 10"]).to eq ""
+        expect(pdf_fields["Text Field 11"]).to eq ""
+        expect(pdf_fields["Text Field 12"]).to eq ""
+        expect(pdf_fields["Enter 13"].to_i).to eq 0
       end
     end
   end
