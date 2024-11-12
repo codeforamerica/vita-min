@@ -189,6 +189,14 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 51" do
+    it 'populates from AZ-301 line 62' do
+      allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_62).and_return 100
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_51].value).to eq(100)
+    end
+  end
+
   describe 'Line 53: AZ Income Tax Withheld' do
     let(:intake) {
       # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r

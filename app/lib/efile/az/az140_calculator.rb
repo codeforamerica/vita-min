@@ -60,7 +60,8 @@ module Efile
         set_line(:AZ140_LINE_48, :calculate_line_48)
         set_line(:AZ140_LINE_49, :calculate_line_49)
         set_line(:AZ140_LINE_50, :calculate_line_50)
-        set_line(:AZ140_LINE_51, -> { 0 })
+        @az301.calculate
+        set_line(:AZ140_LINE_51,:calculate_line_51)
         set_line(:AZ140_LINE_52, :calculate_line_52)
         set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
@@ -76,7 +77,6 @@ module Efile
         set_line(:AZ140_LINE_80, :calculate_line_80)
         @az321.calculate
         @az322.calculate
-        @az301.calculate
         @lines.transform_values(&:value)
       end
 
@@ -255,6 +255,10 @@ module Efile
         wrksht_2_line_3 = @dependent_count + wrksht_2_line_2
         wrksht_2_line_4 = wrksht_2_line_3 * 40
         [wrksht_2_line_4, wrksht_2_line_5].min
+      end
+
+      def calculate_line_51
+        line_or_zero(:AZ301_LINE_62)
       end
 
       def calculate_line_52
