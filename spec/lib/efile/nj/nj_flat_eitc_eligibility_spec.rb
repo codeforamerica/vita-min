@@ -22,4 +22,20 @@ describe Efile::Nj::NjFlatEitcEligibility do
       end
     end
   end
+
+  describe ".investment_income_over_limit?" do
+    context "when above limit" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_investment_income_12k) }
+      it "returns true" do
+        expect(Efile::Nj::NjFlatEitcEligibility.investment_income_over_limit?(intake)).to eq(true)
+      end
+    end
+
+    context "when under limit" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it "returns false" do
+        expect(Efile::Nj::NjFlatEitcEligibility.investment_income_over_limit?(intake)).to eq(false)
+      end
+    end
+  end
 end

@@ -7,9 +7,13 @@ module Efile
 
           return false if intake.filing_status_mfs?
 
-          return false if intake.direct_file_data.fed_tax_exempt_interest + intake.direct_file_data.fed_taxable_income >= 11_600
+          return false if investment_income_over_limit?(intake)
 
           true
+        end
+
+        def investment_income_over_limit?(intake)
+          intake.direct_file_data.fed_tax_exempt_interest + intake.direct_file_data.fed_taxable_income >= 11_600
         end
       end
     end
