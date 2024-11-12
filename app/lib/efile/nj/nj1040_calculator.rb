@@ -29,6 +29,7 @@ module Efile
         set_line(:NJ1040_LINE_43, :calculate_line_43)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
+        set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
@@ -265,6 +266,10 @@ module Efile
         else
           is_mfs_same_home ? 25 : 50
         end
+      end
+
+      def calculate_line_57
+        @intake.estimated_tax_payments&.round
       end
 
       def calculate_line_58
