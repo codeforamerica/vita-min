@@ -222,18 +222,6 @@ class StateFileBaseIntake < ApplicationRecord
     Person.new(self, :spouse)
   end
 
-  def ask_spouse_dob?
-    filing_status_mfj?
-  end
-
-  def ask_spouse_name?
-    filing_status_mfj?
-  end
-
-  def ask_months_in_home?
-    false
-  end
-
   def ask_for_signature_pin?
     false
   end
@@ -271,7 +259,7 @@ class StateFileBaseIntake < ApplicationRecord
         @last_name = intake.spouse_last_name
         @middle_initial = intake.spouse_middle_initial
         @suffix = intake.spouse_suffix
-        @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
+        @birth_date = intake.spouse_birth_date
         @ssn = intake.direct_file_data.spouse_ssn
       end
     end

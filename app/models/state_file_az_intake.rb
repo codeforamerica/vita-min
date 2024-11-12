@@ -122,10 +122,6 @@ class StateFileAzIntake < StateFileBaseIntake
     self.dependents.select(&:is_qualifying_parent_or_grandparent?).length
   end
 
-  def ask_months_in_home?
-    true
-  end
-
   def disqualifying_df_data_reason
     return :married_filing_separately if direct_file_data.filing_status == 3
 
