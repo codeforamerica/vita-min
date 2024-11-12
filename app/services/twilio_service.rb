@@ -13,7 +13,7 @@ class TwilioService
     delivered
     undelivered
     failed
-  ).unshift(nil) # why do we need nil in this list, and why must it be first?
+  ).unshift(nil)
 
   attr_reader :client, :messaging_service_sid, :auth_token
 

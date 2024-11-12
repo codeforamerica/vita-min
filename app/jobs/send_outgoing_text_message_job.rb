@@ -4,7 +4,7 @@ class SendOutgoingTextMessageJob < ApplicationJob
   def perform(outgoing_text_message_id)
     outgoing_text_message = OutgoingTextMessage.find(outgoing_text_message_id)
     begin
-      message = TwilioService.new.send_text_message( # TODO: set explicit service scope; is this job for :ctc or :gyr?
+      message = TwilioService.new(:gyr).send_text_message(
         to: outgoing_text_message.to_phone_number,
         body: outgoing_text_message.body,
         status_callback: outgoing_text_message_url(outgoing_text_message, locale: nil),
