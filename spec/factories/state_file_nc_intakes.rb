@@ -43,7 +43,7 @@
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  residence_county                  :string
-#  routing_number                    :integer
+#  routing_number                    :string
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
