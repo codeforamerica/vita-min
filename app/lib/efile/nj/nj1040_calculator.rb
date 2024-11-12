@@ -281,11 +281,11 @@ module Efile
       def get_personal_excess(ssn, excess_type, threshold)
         persons_w2s = @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == ssn }
         return 0 unless persons_w2s.count > 1
+        return 0 if persons_w2s.any? { |w2| w2[excess_type] && w2[excess_type] > threshold }
 
         excess_contribution_count = 0
         total_contribution = 0
 
-        # TODO: what should happen when a w2 exceeds the limit by itself? see ticket conversation
         persons_w2s.each do |w2|
           contribution = w2[excess_type] || 0
           total_contribution += contribution

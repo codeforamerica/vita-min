@@ -1115,35 +1115,21 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    # TODO: figure out how to handle the case of multiple w2s and one having a contribution greater than the max
-    # context "with multiple w2s that have an excess contribution of more than #{EXCESS_UI_WF_SWF_UI_HC_WD_MAX}" do 
-    #   let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
-    #   it 'fills line 59' do
-    #     expect(intake.state_file_w2s.count).to eq(2)
-    #     first_w2 = intake.state_file_w2s.first 
-    #     second_w2 = intake.state_file_w2s.all[1]
-    #     first_w2.update_attribute(:box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX + 1)
-    #     second_w2.update_attribute(:box14_ui_wf_swf, 1)
-    #     instance.calculate
+    context "with multiple w2s, one of which has an excess contribution of more than #{EXCESS_UI_WF_SWF_UI_HC_WD_MAX}" do 
+      let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+      it 'does not fill line 59' do
+        expect(intake.state_file_w2s.count).to eq(2)
+        first_w2 = intake.state_file_w2s.first 
+        second_w2 = intake.state_file_w2s.all[1]
+        first_w2.update_attribute(:box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX + 1)
+        second_w2.update_attribute(:box14_ui_wf_swf, 1)
+        instance.calculate
 
-    #     expect(first_w2.box14_ui_wf_swf).to eq(1111.00)
-    #     expect(second_w2.box14_ui_wf_swf).to eq(2222.00)
-    #     expect(instance.lines[:NJ1040_LINE_59].value).to eq(1111 + 2222 - EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
-    #   end
-
-    #   it 'fills line 59 for ui hc wd' do
-    #     expect(intake.state_file_w2s.count).to eq(2)
-    #     first_w2 = intake.state_file_w2s.first 
-    #     second_w2 = intake.state_file_w2s.all[1]
-    #     first_w2.update_attribute(:box14_ui_hc_wd, 1111)
-    #     second_w2.update_attribute(:box14_ui_hc_wd, 2222)
-    #     instance.calculate
-
-    #     expect(first_w2.box14_ui_hc_wd).to eq(1111.00)
-    #     expect(second_w2.box14_ui_hc_wd).to eq(2222.00)
-    #     expect(instance.lines[:NJ1040_LINE_59].value).to eq(1111 + 2222 - EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
-    #   end
-    # end
+        expect(first_w2.box14_ui_wf_swf).to eq(EXCESS_UI_WF_SWF_UI_HC_WD_MAX + 1)
+        expect(second_w2.box14_ui_wf_swf).to eq(1.00)
+        expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
+      end
+    end
 
     context "with multiple w2s that do not individually exceed #{EXCESS_UI_WF_SWF_UI_HC_WD_MAX}, but have a total excess contribution of more than #{EXCESS_UI_WF_SWF_UI_HC_WD_MAX}" do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
@@ -1272,22 +1258,21 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    # TODO: figure out how to handle the case of multiple w2s and one having a contribution greater than the max - see line 59
-    # context "with multiple w2s that have an excess contribution of more than #{EXCESS_FLI_MAX}" do 
-    #   let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
-    #   it 'fills line 61' do
-    #     expect(intake.state_file_w2s.count).to eq(2)
-    #     first_w2 = intake.state_file_w2s.first 
-    #     second_w2 = intake.state_file_w2s.all[1]
-    #     first_w2.update_attribute(:box14_fli, EXCESS_FLI_MAX + 1)
-    #     second_w2.update_attribute(:box14_fli, 1)
-    #     instance.calculate
+    context "with multiple w2s, one of which has an excess contribution of more than #{EXCESS_FLI_MAX}" do 
+      let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
+      it 'does not fill line 61' do
+        expect(intake.state_file_w2s.count).to eq(2)
+        first_w2 = intake.state_file_w2s.first 
+        second_w2 = intake.state_file_w2s.all[1]
+        first_w2.update_attribute(:box14_fli, EXCESS_FLI_MAX + 1)
+        second_w2.update_attribute(:box14_fli, 1)
+        instance.calculate
 
-    #     expect(first_w2.box14_fli).to eq(1111.00)
-    #     expect(second_w2.box14_fli).to eq(2222.00)
-    #     expect(instance.lines[:NJ1040_LINE_61].value).to eq(1111 + 2222 - EXCESS_FLI_MAX)
-    #   end
-    # end
+        expect(first_w2.box14_fli).to eq(EXCESS_FLI_MAX + 1)
+        expect(second_w2.box14_fli).to eq(1.00)
+        expect(instance.lines[:NJ1040_LINE_61].value).to eq(nil)
+      end
+    end
 
     context "with multiple w2s that do not individually exceed #{EXCESS_FLI_MAX}, but have a total excess contribution of more than #{EXCESS_FLI_MAX}" do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
