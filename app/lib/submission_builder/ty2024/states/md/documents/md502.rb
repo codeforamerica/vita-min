@@ -108,6 +108,11 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       income_section(xml)
+      xml.Additions do
+        xml.StateRetirementPickup calculated_fields.fetch(:MD502_LINE_3)
+        xml.Total calculated_fields.fetch(:MD502_LINE_6)
+        xml.FedAGIAndStateAdditions calculated_fields.fetch(:MD502_LINE_7)
+      end
       xml.Subtractions do
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
@@ -115,12 +120,19 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
-        xml.Amount calculated_fields.fetch(:MD502_LINE_17) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+        xml.Amount calculated_fields.fetch(:MD502_LINE_17) if @deduction_method_is_standard
       end
-      xml.NetIncome calculated_fields.fetch(:MD502_LINE_18) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
-      xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
-      xml.StateTaxComputation do
-        xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+      if @deduction_method_is_standard
+        xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
+        xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
+      end
+      if has_state_tax_computation?
+        xml.StateTaxComputation do
+          xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
+          add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
+          add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
+          add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
+        end
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
@@ -143,6 +155,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
 
   def calculated_fields
     @md502_fields ||= @intake.tax_calculator.calculate
+    @deduction_method_is_standard ||= @md502_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
+    @md502_fields
   end
 
   def has_dependent_exemption?
@@ -162,6 +176,10 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
+  end
+
+  def has_state_tax_computation?
+    @deduction_method_is_standard || calculated_fields.fetch(:MD502_LINE_22)&.positive?
   end
 
   def filing_status

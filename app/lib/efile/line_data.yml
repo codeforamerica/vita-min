@@ -188,6 +188,16 @@ ID40_LINE_6C:
   label: '6c Dependents count for household count'
 ID40_LINE_6D:
   label: '6d Total household count'
+ID40_LINE_7:
+  label: 'Federal adjusted gross income from federal Form 1040 or 1040-SR, line 11'
+ID40_LINE_8:
+  label: 'Additions from Form 39R, Part A, line 7. Include Form 39R'
+ID40_LINE_9:
+  label: 'Total. Add lines 7 and 8'
+ID40_LINE_10:
+  label: 'Subtractions from Form 39R, Part B, line 24'
+ID40_LINE_11:
+  label: 'Total Adjusted Income. Subtract line 10 from line 9'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 ID40_LINE_46:
@@ -526,8 +536,12 @@ MD502_LINE_1D:
   label: "1d Taxable Pensions, IRAs, Annuities (Attach Form 502R.)"
 MD502_LINE_1E:
   label: "1e Place a Y in this box if the amount of your investment income is more than $11,600"
+MD502_LINE_3:
+  label: '3 State Retirement Pickup'
+MD502_LINE_6:
+  label: '6 Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)'
 MD502_LINE_7:
-  label: 'TBD'
+  label: '7 Total federal adjusted gross income and Maryland additions: add line 1 and line 6'
 MD502_LINE_15:
   label: 'TBD'
 MD502_LINE_A_PRIMARY:
@@ -561,19 +575,25 @@ MD502_LINE_D_AMOUNT_TOTAL:
 MD502_LINE_13:
   label: Subtractions from attached form 502SU
 MD502_LINE_16:
-  label: 'TBD'
+  label: '16 TBD'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
 MD502_LINE_17:
-  label: 'Deduction amount'
+  label: '17 Deduction amount'
 MD502_LINE_18:
-  label: 'Net income'
+  label: '18 Net income'
 MD502_LINE_19:
-  label: 'Exemption amount'
+  label: '19 Exemption amount'
 MD502_LINE_20:
-  label: 'Taxable net income'
+  label: '20 Taxable net income'
+MD502_LINE_21:
+  label: '21 Maryland state income tax'
+MD502_LINE_22:
+  label: '22 Earned income credit (EIC)'
+MD502_LINE_22B:
+  label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
 MD502_LINE_40:
-  label: "Total Maryland and local tax withheld"
+  label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:
@@ -672,6 +692,8 @@ NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
+NJ1040_LINE_57:
+  label: '57 New Jersey Estimated Tax Payments/Credit from prior year tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
 NJ1040_LINE_64:

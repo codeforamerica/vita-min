@@ -1446,6 +1446,51 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 57 - estimated tax payments" do
+      context 'when estimated_tax_payments has a value' do
+        let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 12_345_678.11) }
+
+        it "fills EstimatedPaymentTotal with rounded estimated_tax_payments" do
+          # millions
+          expect(pdf_fields["56!\#$$"]).to eq "1"
+          expect(pdf_fields["56"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_147"]).to eq "3"
+          expect(pdf_fields["undefined_148"]).to eq "4"
+          expect(pdf_fields["undefined_149"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["Text160"]).to eq "6"
+          expect(pdf_fields["55"]).to eq "7"
+          expect(pdf_fields["undefined_146"]).to eq "8"
+          # decimals
+          expect(pdf_fields["Text158"]).to eq "0"
+          expect(pdf_fields["Text159"]).to eq "0"
+        end
+      end
+
+      context 'when estimated_tax_payments is nil' do
+        let(:intake) { create(:state_file_nj_intake) }
+
+        it "does not fill EstimatedPaymentTotal" do
+          # millions
+          expect(pdf_fields["56!\#$$"]).to eq ""
+          expect(pdf_fields["56"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_147"]).to eq ""
+          expect(pdf_fields["undefined_148"]).to eq ""
+          expect(pdf_fields["undefined_149"]).to eq ""
+          # hundreds
+          expect(pdf_fields["Text160"]).to eq ""
+          expect(pdf_fields["55"]).to eq ""
+          expect(pdf_fields["undefined_146"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text158"]).to eq ""
+          expect(pdf_fields["Text159"]).to eq ""
+        end
+      end
+    end
+
+
     describe "line 58 - earned income tax credit" do
       context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
         let(:submission) {

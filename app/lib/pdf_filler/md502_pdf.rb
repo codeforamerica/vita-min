@@ -75,12 +75,18 @@ module PdfFiller
         'Text Field 12': generate_codes_for_502_su.at(3),
         'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
+        'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
+        'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         'Check Box 34': deduction_method_is_standard? ? "Yes" : "Off",
         'Enter 17': deduction_method_is_standard? ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
         'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
         'Enter 19 ': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
         'Enter 20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
+        'Enter 3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
+        'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
+        'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
+        'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
       }
     end
 

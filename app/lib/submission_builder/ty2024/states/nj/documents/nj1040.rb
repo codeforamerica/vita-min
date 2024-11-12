@@ -164,6 +164,10 @@ module SubmissionBuilder
 
                   xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
 
+                  if calculated_fields.fetch(:NJ1040_LINE_57)
+                    xml.EstimatedPaymentTotal calculated_fields.fetch(:NJ1040_LINE_57)
+                  end
+
                   if calculated_fields.fetch(:NJ1040_LINE_58).positive?
                     xml.EarnedIncomeCredit do
                       xml.EarnedIncomeCreditAmount calculated_fields.fetch(:NJ1040_LINE_58)
