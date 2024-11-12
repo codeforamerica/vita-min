@@ -106,6 +106,7 @@ module PdfFiller
         "48" => @xml_document.at('Form140/DeductionAmt/SubTotal')&.text,
         "49" => @xml_document.at('DepTaxCredit')&.text,
         "50" => @xml_document.at('FamilyIncomeTaxCredit')&.text,
+        "51" => @xml_document.at('DeductionAmt CreditsFromAZ301')&.text,
         "52" => @xml_document.at('BalanceOfTaxDue')&.text,
         "53" => @xml_document.at('AzIncTaxWithheld')&.text,
         "56" => @xml_document.at('IncrExciseTaxCr')&.text,
@@ -152,7 +153,7 @@ module PdfFiller
     def calculated_fields
       @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
-    
+
     FILING_STATUS_OPTIONS = {
       "MarriedJoint" => 'Choice1',
       "HeadHousehold" => 'Choice2', # Qualifying Widow based state_file_az_intake#filing_status
