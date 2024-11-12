@@ -943,6 +943,236 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_3" do
+    let!(:first_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 100.0) }
+    let!(:second_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: 250.6) }
+    let!(:third_state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_stpickup: nil) }
+    context "with w2s" do
+      it "returns the sum of all box14_stpickup" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_3].value).to eq 351
+      end
+    end
+  end
+
+  describe "#calculate_line_6" do
+    it "returns the total additions" do
+      allow_any_instance_of(described_class).to receive(:calculate_line_3).and_return 550
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_6].value).to eq 550
+    end
+  end
+
+  describe "#calculate_line_7" do
+    before do
+      intake.direct_file_data.fed_agi = 100
+      allow_any_instance_of(described_class).to receive(:calculate_line_6).and_return 200
+      instance.calculate
+    end
+
+    it "returns the sum of line 1 and 6" do
+      expect(instance.lines[:MD502_LINE_7].value).to eq 300
+    end
+  end
+
+  describe "#calculate_line_21" do
+    let(:taxable_net_income) { 500 }
+    let(:deduction_method) { "S" }
+
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return taxable_net_income
+      allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return deduction_method
+      instance.calculate
+    end
+
+    context "deduction method is standard" do
+      context "taxable net income is 500" do
+        it "MD tax is 10" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 10
+        end
+      end
+
+      context "taxable net income is 1000" do
+        let(:taxable_net_income) { 1000 }
+        it "MD tax is 20" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 20
+        end
+      end
+
+      context "taxable net income is 2500" do
+        let(:taxable_net_income) { 2500 }
+        it "MD tax is 70" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 70
+        end
+      end
+
+      context "taxable net income is 3100 and filing status is single" do
+        let(:taxable_net_income) { 3100 }
+        it "MD tax is 94.75" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 95
+        end
+      end
+
+      context "taxable net income is 100,500 and filing status is single" do
+        let(:taxable_net_income) { 100_500 }
+        it "MD tax is 4722.5" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 4723
+        end
+      end
+
+      context "taxable net income is 130,000 and filing status is single" do
+        let(:taxable_net_income) { 130_000 }
+        it "MD tax is 6,210" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 6210
+        end
+      end
+
+      context "taxable net income is 200,000 and filing status is single" do
+        let(:taxable_net_income) { 200_000 }
+        it "MD tax is 10,010" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 10_010
+        end
+      end
+
+      context "taxable net income is 300,000 and filing status is single" do
+        let(:taxable_net_income) { 300_000 }
+        it "MD tax is 15,635" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 15635
+        end
+      end
+
+      context "filing status is married-filing-jointly" do
+        let(:filing_status) { 'married_filing_jointly' }
+
+        context "taxable net income is 125,000" do
+          let(:taxable_net_income) { 125_000 }
+          it "MD tax is 5,885" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 5_885
+          end
+        end
+
+        context "taxable net income is 200,000" do
+          let(:taxable_net_income) { 200_000 }
+          it "MD tax is 9,635" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 9_635
+          end
+        end
+
+        context "taxable net income is 270,000" do
+          let(:taxable_net_income) { 270_000 }
+          it "MD tax is 13,423" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 13_423
+          end
+        end
+
+        context "taxable net income is 1,000,000" do
+          let(:taxable_net_income) { 1_000_000 }
+          it "MD tax is 55,323" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 55_323
+          end
+        end
+      end
+    end
+
+    context "deduction method is 'N'" do
+      let(:deduction_method) { "N" }
+      it "returns nil" do
+        expect(instance.lines[:MD502_LINE_21].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_22" do
+    let(:filing_status) { "married_filing_jointly" }
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    let(:federal_eic) { 1001 }
+
+    before do
+      intake.direct_file_data.fed_eic = federal_eic
+      instance.calculate
+    end
+
+    context "when mfj and at least one qualifying child" do
+      it 'EIC is half the federal EIC' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 501
+      end
+    end
+
+    context "when mfj and no qualifying children" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'EIC is 0' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 501
+      end
+    end
+
+    context "when single and no qualifying children" do
+      let(:filing_status) { "single" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      it "state EIC is 100% of the federal EIC" do
+        expect(instance.lines[:MD502_LINE_22].value).to eq 1001
+      end
+    end
+
+    context "when filing as a dependent and no qualifying children" do
+      let(:filing_status) { "dependent" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'EIC is nil' do
+        expect(instance.lines[:MD502_LINE_22].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_22b" do
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    context "when has at least one qualifying EIC child and MD EIC is over 0" do
+      it "returns X" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq "X"
+      end
+    end
+
+    context "when no qualifying EIC child and MD EIC is over 0" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+
+    context "when has at least one qualifying EIC child but MD EIC is 0" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+
+    context "when no qualifying EIC child and MD EIC is 0" do
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_22B].value).to eq nil
+      end
+    end
+  end
+
   describe '#calculate_line_40' do
     let(:intake) {
       # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r

@@ -41,6 +41,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEitcQualifyingChildController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),

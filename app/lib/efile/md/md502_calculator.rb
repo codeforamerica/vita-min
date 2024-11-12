@@ -44,7 +44,9 @@ module Efile
         set_line(:MD502_LINE_1E, :calculate_line_1e)
 
         # Additions
-        set_line(:MD502_LINE_7, :calculate_line_7) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_3, :calculate_line_3)
+        set_line(:MD502_LINE_6, :calculate_line_6)
+        set_line(:MD502_LINE_7, :calculate_line_7)
 
         # Subtractions
         set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
@@ -60,9 +62,15 @@ module Efile
         set_line(:MD502_LINE_18, :calculate_line_18)
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
+        set_line(:MD502_LINE_21, :calculate_line_21)
+
+        # EIC
+        set_line(:MD502_LINE_22, :calculate_line_22)
+        set_line(:MD502_LINE_22B, :calculate_line_22b)
 
         set_line(:MD502_LINE_40, :calculate_line_40)
 
+        # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
         set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
@@ -292,7 +300,20 @@ module Efile
         total_interest > 11_600
       end
 
-      def calculate_line_7; end
+      def calculate_line_3
+        # State retirement pickup
+        @intake.state_file_w2s.sum { |item| (item.box14_stpickup || 0) }.round(0)
+      end
+
+      def calculate_line_6
+        # Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)
+        line_or_zero(:MD502_LINE_3)
+      end
+
+      def calculate_line_7
+        # Total federal AGI and Maryland additions: add line 1 and line 6
+        line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
+      end
 
       def calculate_line_15; end
 
@@ -393,12 +414,55 @@ module Efile
         @lines[:MD502_SU_LINE_1].value
       end
 
-      def filing_status_dependent?
-        @filing_status == :dependent
+      def calculate_line_21
+        # Maryland state income tax
+        taxable_net_income = line_or_zero(:MD502_LINE_20)
+
+        if deduction_method_is_standard? && taxable_net_income >= 0
+
+          ranges = if taxable_net_income < 3_000
+                     [
+                       [0..1_000, 0, 0.02],
+                       [1_000..2_000, 20, 0.03],
+                       [2_000..3_000, 50, 0.04],
+                     ]
+                   elsif filing_status_single? || filing_status_mfs? || filing_status_dependent?
+                     [
+                       [3_000..100_000, 90, 0.0475],
+                       [100_000..125_000, 4_697.5, 0.05],
+                       [125_000..150_000, 5_947.5, 0.0525],
+                       [150_000..250_000, 7_260, 0.055],
+                       [250_000..Float::INFINITY, 12_760, 0.0575]
+                     ]
+                   else # mfj, hoh or qw
+                     [
+                       [3_000..150_000, 90, 0.0475],
+                       [150_000..175_000, 7_072.5, 0.05],
+                       [175_000..225_000, 8_322.5, 0.0525],
+                       [225_000..300_000, 10_947.5, 0.055],
+                       [300_000..Float::INFINITY, 15_072.5 , 0.0575]
+                     ]
+                   end
+          range_index = ranges.find_index{ |(range, _)| range.include?(taxable_net_income)}
+
+          base = ranges[range_index][1]
+          percent = ranges[range_index][2]
+          in_excess_of = ranges[range_index][0].begin
+          (base + ((taxable_net_income - in_excess_of) * percent)).round
+        end
       end
 
-      def deduction_method_is_standard?
-        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
+      def calculate_line_22
+        # Earned Income Credit (EIC)
+        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
+          (@direct_file_data.fed_eic * 0.50).round
+        elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
+          @direct_file_data.fed_eic.round
+        end
+      end
+
+      def calculate_line_22b
+        (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
       end
 
       def calculate_line_40
@@ -406,6 +470,14 @@ module Efile
           @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+      end
+
+      def filing_status_dependent?
+        @filing_status == :dependent
+      end
+
+      def deduction_method_is_standard?
+        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
       end
     end
   end

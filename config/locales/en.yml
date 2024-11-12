@@ -2653,6 +2653,9 @@ en:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           why_ask_this: Why are you asking for this information?
+      md_tax_refund:
+        md_bank_details:
+          account_holder_name: Account Holder Name
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2748,6 +2751,14 @@ en:
           primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
           spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
           title: You may be eligible for the Earned Income Tax Credit
+      nj_estimated_tax_payments:
+        edit:
+          label: Total
+          subtitle: 'Please include the sum of the following:'
+          subtitle_list_1: Estimated income tax payments you made throughout the year for your New Jersey state taxes
+          subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
+          subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2810,6 +2821,7 @@ en:
           amount: Amount
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: County
+          estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality

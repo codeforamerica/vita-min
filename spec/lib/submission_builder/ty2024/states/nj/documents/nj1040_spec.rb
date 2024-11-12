@@ -7,7 +7,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     let(:build_response) { described_class.build(submission, validate: true) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    after(:each) do
+    after do
       expect(build_response.errors).not_to be_present
     end
 
@@ -639,6 +639,24 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
         it "fills with $50 tax credit" do
           expect(xml.at("PropertyTaxCredit").text).to eq(50.to_s)
+        end
+      end
+    end
+
+    describe "estimated tax payments - line 57" do
+      context 'when estimated_tax_payments has a value' do
+        let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 596) }
+
+        it "fills EstimatedPaymentTotal with estimated_tax_payments" do
+          expect(xml.at("EstimatedPaymentTotal").text).to eq(596.to_s)
+        end
+      end
+
+      context 'when estimated_tax_payments is nil' do
+        let(:intake) { create(:state_file_nj_intake) }
+
+        it "does not fill EstimatedPaymentTotal" do
+          expect(xml.at("EstimatedPaymentTotal")).to eq(nil)
         end
       end
     end

@@ -1013,7 +1013,7 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 51 - sales and use tax' do
     
     context 'when sales_use_tax exists (already calculated automated or manual)' do
-      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400.77 )}
+      let(:intake) { create(:state_file_nj_intake, sales_use_tax: 400.77)}
       it 'sets line 51 to the rounded sales_use_tax' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 401
       end
@@ -1023,6 +1023,23 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) { create(:state_file_nj_intake, sales_use_tax: nil)}
       it 'sets line 51 to 0' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
+      end
+    end
+  end
+
+  describe 'line 57 - estimated tax payments' do
+
+    context 'when estimated_tax_payments exists' do
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 400.77)}
+      it 'sets line 57 to the rounded estimated_tax_payments' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 401
+      end
+    end
+
+    context 'when estimated_tax_payments is nil' do
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: nil)}
+      it 'sets line 57 to nil' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq nil
       end
     end
   end

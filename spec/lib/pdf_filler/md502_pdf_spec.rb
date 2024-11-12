@@ -340,6 +340,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_18).and_return 50
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 60
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 70
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 80
       end
 
       it "fills out amount if deduction method is standard" do
@@ -347,6 +348,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 18"]).to eq "50"
         expect(pdf_fields["Enter 19 "]).to eq "60"
         expect(pdf_fields["Enter 20"]).to eq "70"
+        expect(pdf_fields["Text Box 30"]).to eq "80"
       end
 
       it "leaves amount blank if deduction method is not standard" do
@@ -354,6 +356,46 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 18"]).to be_empty
         expect(pdf_fields["Enter 19 "]).to be_empty
         expect(pdf_fields["Enter 20"]).to be_empty
+      end
+    end
+
+    context "additions" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_3).and_return 40
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 50
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 60
+      end
+
+      it "fills out amount if deduction method is standard" do
+        expect(pdf_fields["Enter 3"]).to eq "40"
+        expect(pdf_fields["Enter 6"]).to eq "50"
+        expect(pdf_fields["Enter 7"]).to eq "60"
+      end
+    end
+
+    context "EIC" do
+      context "there are qualifying children and state EIC" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return "X"
+        end
+
+        it "fills out EIC fields correctly" do
+          expect(pdf_fields["Text Box 34"]).to eq "100"
+          expect(pdf_fields["Check Box 37"]).to eq "Yes"
+        end
+      end
+
+      context "there are NOT qualifying children and no state EIC" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return nil
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22b).and_return nil
+        end
+
+        it "doesn't fill out the EIC fields" do
+          expect(pdf_fields["Text Box 34"]).to eq ""
+          expect(pdf_fields["Check Box 37"]).to eq "Off"
+        end
       end
     end
 
@@ -392,6 +434,5 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 13"].to_i).to eq 0
       end
     end
-
   end
 end

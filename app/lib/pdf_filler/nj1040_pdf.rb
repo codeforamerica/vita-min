@@ -354,6 +354,23 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 57
+      if @xml_document.at("EstimatedPaymentTotal").present?
+        estimated_tax_payments = @xml_document.at("EstimatedPaymentTotal").text.to_i
+        answers.merge!(insert_digits_into_fields(estimated_tax_payments, [
+                                                   "Text159",
+                                                   "Text158",
+                                                   "undefined_146",
+                                                   "55",
+                                                   "Text160",
+                                                   "undefined_149",
+                                                   "undefined_148",
+                                                   "undefined_147",
+                                                   "56",
+                                                   "56!\#$$",
+                                                 ]))
+      end
+
       # line 58
       if @xml_document.at("EarnedIncomeCredit EarnedIncomeCreditAmount").present?
         tax = @xml_document.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text.to_i
@@ -365,9 +382,7 @@ module PdfFiller
                                                    "undefined_152",
                                                    "58",
                                                  ]))
-        answers.merge!({
-          'Check Box168': pdf_checkbox_value(@xml_document.at("EarnedIncomeCredit EICFederalAmt")),
-        })
+        answers[:'Check Box168'] = pdf_checkbox_value(@xml_document.at("EarnedIncomeCredit EICFederalAmt"))
       end
 
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'

@@ -6,71 +6,20 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxForm do
   describe "validations" do
     let(:form) { described_class.new(intake, params) }
 
-    context "invalid params" do
-      context "all fields are required" do
-        let(:params) do
-          { :property_tax_paid => nil }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:property_tax_paid]).to include "Can't be blank."
-        end
-      end
-
-      context "must be numeric" do
-        let(:params) do
-          { :property_tax_paid => "123A" }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:property_tax_paid]).to include "Please enter numbers only."
-        end
-      end
-
-      context "cannot be negative" do
-        let(:params) do
-          { :property_tax_paid => "-123" }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:property_tax_paid]).to include "must be greater than or equal to 1"
-        end
-      end
-
-      context "cannot be zero" do
-        let(:params) do
-          { :property_tax_paid => "0" }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-          expect(form.errors[:property_tax_paid]).to include "must be greater than or equal to 1"
-        end
+    it_behaves_like :nj_money_field_concern, field: :property_tax_paid, must_be_positive: true do
+      let(:form_params) do
+        { property_tax_paid: money_field_value }
       end
     end
 
-    context "valid params" do
-      context "can be a decimal" do
-        let(:params) do
-          { :property_tax_paid => "123.45" }
-        end
-
-        it "is valid" do
-          expect(form.valid?).to eq true
-        end
+    context "cannot be zero" do
+      let(:params) do
+        { :property_tax_paid => 0 }
       end
 
-      context "can be an integer" do
-        let(:params) do
-          { :property_tax_paid => "123" }
-        end
-
-        it "is valid" do
-          expect(form.valid?).to eq true
-        end
+      it "is invalid" do
+        expect(form.valid?).to eq false
+        expect(form.errors[:property_tax_paid]).to include "must be greater than or equal to 1"
       end
     end
   end
