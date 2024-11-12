@@ -386,7 +386,7 @@ module PdfFiller
       end
 
 
-      # line 59 excess ui etc contributions
+      # line 59
       if @xml_document.at("ExcessNjUiWfSwf").present?
         tax = @xml_document.at("ExcessNjUiWfSwf").text.to_i
         answers.merge!(insert_digits_into_fields(tax, [
@@ -399,7 +399,7 @@ module PdfFiller
                                                  ]))
       end
       
-      # line 61 excess fli contributions
+      # line 61
       if @xml_document.at("ExcesNjFamiInsur").present?
         tax = @xml_document.at("ExcesNjFamiInsur").text.to_i
         answers.merge!(insert_digits_into_fields(tax, [
