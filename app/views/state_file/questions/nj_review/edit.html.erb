@@ -128,9 +128,17 @@
     </div>
   </div>
 
+  <div id="estimated-tax-payments" class="white-group">
+    <div class="spacing-below-5">
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".estimated_tax_payments") %></h2>
+      <p><%= number_to_currency(current_intake.estimated_tax_payments || 0, precision: 0) %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
   <div id="use-tax" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied") %></p>
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".use_tax_applied") %></h2>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.untaxed_out_of_state_purchases_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
