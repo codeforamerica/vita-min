@@ -1545,6 +1545,83 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 59 - excess UI/WF/SWF or UI/HC/WD" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+
+      context "without excess contributions" do 
+        it "does not fill line 59" do 
+          [
+            "Text175",
+            "Text174",
+            "Text173",
+            "undefined_155",
+            "undefined_154",
+            "59"
+          ].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
+        end
+      end
+
+      context "with excess contributions" do 
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 100) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 101) }
+        let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 102) }
+        let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 103) }
+
+        it "fills line 59 with 46" do 
+          # thousands
+          expect(pdf_fields["59"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_154"]).to eq ""
+          expect(pdf_fields["undefined_155"]).to eq "4"
+          expect(pdf_fields["Text173"]).to eq "6"
+          # decimals
+          expect(pdf_fields["Text174"]).to eq "0"
+          expect(pdf_fields["Text175"]).to eq "0"
+          
+        end
+      end
+    end
+
+    describe "line 61 - excess FLI" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+
+      context "without excess contributions" do 
+        it "does not fill line 61" do 
+          [
+            "Text178",
+            "Text177",
+            "Text176",
+            "undefined_157",
+            "undefined_156",
+            "60"
+          ].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
+        end
+      end
+
+      context "with excess contributions" do 
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 100) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 101) }
+        let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 102) }
+        let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 103) }
+
+        it "fills line 61 with 115" do 
+          # thousands
+          expect(pdf_fields["60"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_156"]).to eq "1"
+          expect(pdf_fields["undefined_157"]).to eq "1"
+          expect(pdf_fields["Text176"]).to eq "5"
+          # decimals
+          expect(pdf_fields["Text177"]).to eq "0"
+          expect(pdf_fields["Text178"]).to eq "0"
+          
+        end
+      end
+    end
 
     describe "line 64 child and dependent care credit" do
       let(:intake) {
