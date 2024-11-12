@@ -98,16 +98,7 @@ module PdfFiller
         "41" => @xml_document.at('AzSubtrAmts/ExemAmtParentsAncestors')&.text,
         "42" => @xml_document.at('AZAdjGrossIncome')&.text,
         "Itemized/Standard" => 'Choice2',
-        "43" => @xml_document.at('AZDeductions')&.text,
-        "44" => @xml_document.at('TotalIncStdDeduction')&.text,
         "44C" => charitable_contributions,
-        "45" => @xml_document.at('AZTaxableInc')&.text,
-        "46" => @xml_document.at('ComputedTax')&.text,
-        "48" => @xml_document.at('Form140/DeductionAmt/SubTotal')&.text,
-        "49" => @xml_document.at('DepTaxCredit')&.text,
-        "50" => @xml_document.at('FamilyIncomeTaxCredit')&.text,
-        "51" => @xml_document.at('DeductionAmt CreditsFromAZ301')&.text,
-        "52" => @xml_document.at('BalanceOfTaxDue')&.text,
         "53" => @xml_document.at('AzIncTaxWithheld')&.text,
         "56" => @xml_document.at('IncrExciseTaxCr')&.text,
         "59" => @xml_document.at('TotalPayments')&.text,
@@ -125,6 +116,19 @@ module PdfFiller
           "Account Number" => @xml_document.at('BankAccountNumber')&.text
         })
       end
+
+      @deductions = @xml_document.at('DeductionAmt')
+      answers.merge!({
+        "43" => @xml_document.at('AZDeductions')&.text,
+        "44" => @xml_document.at('IncreaseStdDed TotalIncStdDeduction')&.text,
+        "45" => @xml_document.at('AZTaxableInc')&.text,
+        "46" => @xml_document.at('ComputedTax')&.text,
+        "48" => @xml_document.at('SubTotal')&.text,
+        "49" => @xml_document.at('DepTaxCredit')&.text,
+        "50" => @xml_document.at('FamilyIncomeTaxCredit')&.text,
+        "51" => @xml_document.at('CreditsFromAZ301')&.text,
+        "52" => @xml_document.at('BalanceOfTaxDue')&.text,
+     })
 
       @charitable_deductions = @xml_document.at('ClaimCharitableDed')
       answers.merge!({
