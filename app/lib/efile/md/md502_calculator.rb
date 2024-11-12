@@ -61,6 +61,7 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
 
+        set_line(:MD502_LINE_23, :calculate_line_23)
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
@@ -392,6 +393,10 @@ module Efile
       def calculate_line_13
         @lines[:MD502_SU_LINE_1].value
       end
+
+      def calculate_line_23
+        if @direct_file_data.claimed_as_dependent?
+        end
 
       def filing_status_dependent?
         @filing_status == :dependent
