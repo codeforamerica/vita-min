@@ -289,5 +289,13 @@ FactoryBot.define do
     trait :spouse_claimed_as_eitc_qualifying_child_no do
       spouse_claimed_as_eitc_qualifying_child { "no" }
     end
+
+    trait :primary_under_18 do
+      primary_birth_date { Date.new(2010, 1, 1) }
+    end
+
+    trait :spouse_under_18 do
+      spouse_birth_date { Date.new(2010, 1, 1) }
+    end
   end
 end

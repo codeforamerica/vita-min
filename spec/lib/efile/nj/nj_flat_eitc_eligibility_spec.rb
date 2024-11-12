@@ -8,6 +8,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
       { traits: [:df_data_investment_income_12k], expected: false },
       { traits: [:df_data_minimal], expected: false },
       { traits: [:df_data_minimal, :married_filing_jointly], expected: false },
+      { traits: [:df_data_childless_eitc, :primary_under_18], expected: false },
       
       { traits: [:df_data_childless_eitc], expected: true },
       { traits: [:df_data_childless_eitc, :married_filing_jointly], expected: true },
@@ -37,6 +38,54 @@ describe Efile::Nj::NjFlatEitcEligibility do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
       it "returns false" do
         expect(Efile::Nj::NjFlatEitcEligibility.investment_income_over_limit?(intake)).to eq(false)
+      end
+    end
+  end
+
+  describe ".meets_age_minimum?" do
+    context "when mfj" do
+      context "when only primary above 18" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly, :spouse_under_18) }
+        it "returns true" do
+          expect(Efile::Nj::NjFlatEitcEligibility.meets_age_minimum?(intake)).to eq(true)
+        end
+      end
+
+      context "when only spouse above 18" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly, :primary_under_18) }
+        it "returns true" do
+          expect(Efile::Nj::NjFlatEitcEligibility.meets_age_minimum?(intake)).to eq(true)
+        end
+      end
+
+      context "when both above 18" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        it "returns true" do
+          expect(Efile::Nj::NjFlatEitcEligibility.meets_age_minimum?(intake)).to eq(true)
+        end
+      end
+  
+      context "when both under 18" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly, :primary_under_18, :spouse_under_18) }
+        it "returns false" do
+          expect(Efile::Nj::NjFlatEitcEligibility.meets_age_minimum?(intake)).to eq(false)
+        end
+      end
+    end
+
+    context "when not mfj" do
+      context "when above 18" do
+        let(:intake) { create(:state_file_nj_intake) }
+        it "returns true" do
+          expect(Efile::Nj::NjFlatEitcEligibility.meets_age_minimum?(intake)).to eq(true)
+        end
+      end
+
+      context "when under 18" do
+        let(:intake) { create(:state_file_nj_intake, :primary_under_18) }
+        it "returns false" do
+          expect(Efile::Nj::NjFlatEitcEligibility.meets_age_minimum?(intake)).to eq(false)
+        end
       end
     end
   end
