@@ -141,9 +141,9 @@ module Efile
 
       def calculate_line_35
         # Subtotal after additions and subtractions
-        subtractions = line_or_zero(:AZ140_LINE_29A) + line_or_zero(:AZ140_LINE_29B)
-        (30..32).each do |line_num|
-          subtractions += line_or_zero("AZ140_LINE_#{line_num}")
+        subtraction_lines = ["28", "29A", "29B"] + (30..32).to_a
+        subtractions = subtraction_lines.sum do |line_num|
+          line_or_zero("AZ140_LINE_#{line_num}")
         end
         line_or_zero(:AZ140_LINE_19) - subtractions
       end

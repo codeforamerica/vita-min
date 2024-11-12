@@ -87,6 +87,22 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 35" do
+    before do
+      intake.direct_file_data.fed_taxable_ssb = 100
+    end
+    it "subtracts lines 24 through 34c from line 19" do
+      allow(instance).to receive(:calculate_line_19).and_return 700
+      allow(instance).to receive(:calculate_line_28).and_return 100
+      allow(instance).to receive(:calculate_line_29A).and_return 100
+      allow(instance).to receive(:calculate_line_29B).and_return 100
+      allow(instance).to receive(:calculate_line_31).and_return 100
+      allow(instance).to receive(:calculate_line_32).and_return 100
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_35].value).to eq(100)
+    end
+  end
+
   describe "Line 43 and 43S: standard deduction" do
     let(:intake) { create(:state_file_az_intake, filing_status: filing_status) }
 
