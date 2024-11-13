@@ -139,6 +139,62 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 32a: Permanent Building Fund" do
+    context "has filing requirement, no blind filer, and no public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :filing_requirement) }
+
+      before do
+        intake.received_id_public_assistance = "no"
+      end
+
+      it "returns 10" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(10)
+      end
+    end
+
+    context "has no filing requirement, no blind filer, and no public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :no_filing_requirement) }
+
+      before do
+        intake.received_id_public_assistance = nil
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
+      end
+    end
+
+    context "has filing requirement, blind filer, and has no public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :filing_requirement) }
+
+      before do
+        intake.direct_file_data.set_primary_blind
+        intake.received_id_public_assistance = "no"
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
+      end
+    end
+
+    context "has filing requirement, no blind filer, and has public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :filing_requirement) }
+
+      before do
+        intake.received_id_public_assistance = "yes"
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
+      end
+    end
+  end
+
+
   describe "Line 43: Grocery Credit" do
     context "primary is claimed as dependent" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }

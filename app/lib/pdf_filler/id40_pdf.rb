@@ -45,6 +45,7 @@ module PdfFiller
         'IncomeL11' => @xml_document.at('Form40 StateTotalAdjustedIncome')&.text,
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
+        'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',
         'PymntOtherCreditL43Amount' => @xml_document.at('GroceryCredit')&.text,
