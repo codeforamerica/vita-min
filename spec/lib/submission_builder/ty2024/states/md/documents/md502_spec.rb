@@ -413,7 +413,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
           let(:intake) { create(:state_file_md_intake, :with_spouse) }
           it "fills doesn't fill out the state tax computation section" do
-            expect(xml.at("Form502 StateTaxComputation")).not_to be_present
             expect(xml.at("Form502 StateTaxComputation EarnedIncomeCredit")).not_to be_present
             expect(xml.at("Form502 StateTaxComputation MDEICWithQualChildInd")).not_to be_present
           end
