@@ -351,7 +351,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "70"
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit").text).to eq "200"
           expect(xml.at("Form502 StateTaxComputation TotalCredits").text).to eq "300"
-          expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0.27"
+          expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0"
         end
 
         it "leaves amounts blank if method is not standard" do

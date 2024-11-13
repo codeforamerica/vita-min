@@ -1273,8 +1273,8 @@ describe Efile::Md::Md502Calculator do
       let(:line_21) { 100 }
       let(:line_26) { 150 }
 
-      it "returns 0.27" do
-        expect(instance.lines[:MD502_LINE_27].value).to eq(0.27)
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(0)
       end
     end
 

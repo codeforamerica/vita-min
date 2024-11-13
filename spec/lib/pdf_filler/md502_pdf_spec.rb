@@ -343,7 +343,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 80
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return 0.27
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return 0
       end
 
       it "fills out amount if deduction method is standard" do
@@ -354,7 +354,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Text Box 30"]).to eq "80"
         expect(pdf_fields["Text Box 36"]).to eq "200"
         expect(pdf_fields["Text Box 40"]).to eq "300"
-        expect(pdf_fields["Text Box 42"]).to eq "0.27"
+        expect(pdf_fields["Text Box 42"]).to eq "0"
       end
 
       it "leaves amount blank if deduction method is not standard" do
