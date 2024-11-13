@@ -203,7 +203,7 @@ RSpec.describe PdfFiller::Id40Pdf do
                    )
           }
           it "sets the correct filing status field" do
-            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Yes'
           end
         end
 
@@ -216,7 +216,7 @@ RSpec.describe PdfFiller::Id40Pdf do
                    )
           }
           it "sets the correct filing status field" do
-            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Yes'
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
           end
         end
       end
