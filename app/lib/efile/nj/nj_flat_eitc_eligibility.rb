@@ -11,7 +11,7 @@ module Efile
 
           return false if intake.direct_file_data.fed_wages_salaries_tips <= 0
 
-          return false unless meets_age_minimum?(intake)
+          return false unless meets_age_requirements?(intake)
 
           true
         end
@@ -20,13 +20,22 @@ module Efile
           intake.direct_file_data.fed_tax_exempt_interest + intake.direct_file_data.fed_taxable_income >= 11_600
         end
 
-        def meets_age_minimum?(intake)
+        def meets_age_requirements?(intake)
           minimum_age_years = 18
+          lower_age_range_years = 25
+          upper_age_range_years = 65
+
+          primary_age = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)
+
           if intake.filing_status_mfj?
-            return intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true) >= minimum_age_years ||
-              intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true) >= minimum_age_years
+            spouse_age = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
+
+            (primary_age >= minimum_age_years || spouse_age >= minimum_age_years) &&
+            ((primary_age < lower_age_range_years || primary_age >= upper_age_range_years) &&
+            (spouse_age < lower_age_range_years || spouse_age >= upper_age_range_years))
           else
-            intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true) >= minimum_age_years
+            primary_age >= minimum_age_years &&
+            (primary_age < lower_age_range_years || primary_age >= upper_age_range_years)
           end
         end
       end
