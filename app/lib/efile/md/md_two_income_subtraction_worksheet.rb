@@ -27,8 +27,6 @@ module Efile
         set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_7, :calculate_line_7)
       end
 
-      private
-
       def calculate_fed_income(is_primary_filer:)
         # NOTE: this is only income relevant for this worksheet and current tax scope
 
@@ -37,18 +35,17 @@ module Efile
         # direct_file_json_data.interest_reports.amount_no_1099 / direct_file_json_data.interest_reports.recipient_tin
         # state_file1099_rs.taxable_amount / intake_class.state_file1099_rs.recipient_ssn
         # direct_file_json_data.filers.form1099GsTotal / direct_file_json_data.filers.tin OR something else?
-        is_primary_filer
-        0
+        is_primary_filer ? 100 : 200
       end
 
       def calculate_fed_subtractions(is_primary_filer:)
-        # subtractions
         # STUB: primary_student_loan_interest_ded_amount & spouse_student_loan_interest_ded_amount
         # direct_file_json_data.filers.educatorExpenses
         # direct_file_json_data.filers.hsaTotalDeductibleAmount
-        is_primary_filer
-        0
+        is_primary_filer ? 10 : 20
       end
+
+      private
 
       def calculate_line_1(is_primary_filer:)
         calculate_fed_income(is_primary_filer: is_primary_filer) - calculate_fed_subtractions(is_primary_filer: is_primary_filer)
@@ -56,7 +53,7 @@ module Efile
 
       def calculate_line_2(is_primary_filer:)
         # intake_class.state_file_w2s.box_14_stpickup / intake_class.state_file_w2s.employee_ssn
-        0
+        is_primary_filer ? 50 : 60
       end
 
       def calculate_line_3(is_primary_filer:)
@@ -71,7 +68,7 @@ module Efile
         # direct_file_data.total_qualifying_dependent_care_expenses / 2
         # STUB: MD pension exclusion
         # STUB: MD retirement exclusion
-        0
+        is_primary_filer ? 20 : 40
       end
 
       def calculate_line_5(is_primary_filer:)
