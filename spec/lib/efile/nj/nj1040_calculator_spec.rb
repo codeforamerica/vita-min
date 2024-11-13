@@ -1088,7 +1088,7 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
     
-    context 'with only other types of excess contribution' do 
+    context 'with only non ui/wf/swf and non ui/hc/wd types of excess contribution' do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
 
       it 'does not fill line 59' do
@@ -1141,7 +1141,6 @@ describe Efile::Nj::Nj1040Calculator do
 
       context "mfj with multiple w2s per spouse that are each less than the max, total more than #{described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX} altogether, but total less than #{described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX} for each spouse" do 
         it 'does not fill line 59' do
-          instance.calculate
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
         end
       end
@@ -1159,7 +1158,7 @@ describe Efile::Nj::Nj1040Calculator do
       end
       
       context "mfj with multiple w2s per spouse that individually do not exceed #{described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX} and total more than #{described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX} for each spouse" do 
-        it 'adds the sum to line 59' do
+        it 'adds the sum for both spouses to line 59' do
           contribution_1 = described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX - 1
           contribution_2 = described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX - 2
           contribution_3 = described_class::EXCESS_UI_WF_SWF_UI_HC_WD_MAX - 3
@@ -1203,7 +1202,7 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
     
-    context 'with only other types of excess contribution' do 
+    context 'with only non fli types of excess contribution' do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
 
       it 'does not fill line 61' do
@@ -1256,7 +1255,6 @@ describe Efile::Nj::Nj1040Calculator do
 
       context "mfj with multiple w2s per spouse, each under #{described_class::EXCESS_FLI_MAX}, that total more than #{described_class::EXCESS_FLI_MAX} altogether, but total less than #{described_class::EXCESS_FLI_MAX} for each spouse" do 
         it 'does not fill line 61' do
-          instance.calculate
           expect(instance.lines[:NJ1040_LINE_61].value).to eq(nil)
         end
       end
@@ -1275,7 +1273,7 @@ describe Efile::Nj::Nj1040Calculator do
       end
       
       context "mfj with multiple w2s per spouse that individually do not exceed #{described_class::EXCESS_FLI_MAX} and total more than #{described_class::EXCESS_FLI_MAX} for each spouse" do 
-        it 'adds the sum to line 61' do
+        it 'adds the sum for both spouses to line 61' do
           contribution_1 = described_class::EXCESS_FLI_MAX - 1
           contribution_2 = described_class::EXCESS_FLI_MAX - 2
           contribution_3 = described_class::EXCESS_FLI_MAX - 3
