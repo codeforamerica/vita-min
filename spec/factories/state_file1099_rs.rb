@@ -61,6 +61,7 @@ FactoryBot.define do
     state_code { intake&.state_code&.upcase }
     state_tax_withheld_amount { 50.5 }
     state_distribution_amount { 55.15 }
+    income_source { "unfilled" }
     standard { false }
   end
 end

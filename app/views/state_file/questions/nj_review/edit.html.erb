@@ -130,7 +130,7 @@
 
   <div id="use-tax" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied") %></p>
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".use_tax_applied") %></h2>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.untaxed_out_of_state_purchases_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
@@ -139,6 +139,35 @@
       <%= link_to t("general.edit"), StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
+
+  <% if current_intake.state_file1099_rs.length.positive? %>
+    <div id="retirement-income-source" class="white-group">
+      <div class="spacing-below-5">
+        <h2 class="text--body text--bold spacing-below-25"><%=t(".retirement_income_source") %></h2>
+
+        <% current_intake.state_file1099_rs.each do |state_file1099_r| %>
+          <div class="spacing-below-5 with-top-separator">
+            <p><%= t(".retirement_income_source_doc_1099r_label") %> <b><%= state_file1099_r.payer_name %></b></p>
+            <p><%= t(".retirement_income_source_taxpayer_name_label") %> <b><%= state_file1099_r.recipient_name %></b></p>
+            <p><%= t(".retirement_income_source_taxable_amount_label") %> <b><%= number_to_currency(state_file1099_r.taxable_amount, precision: 0) %></b></p>
+            <p>
+              <%= t(".retirement_income_source_label") %>
+              <b>
+                <% if state_file1099_r.state_specific_followup.income_source == 'military_pension' %>
+                  <%= t(".retirement_income_source_military_pension") %>
+                <% elsif state_file1099_r.state_specific_followup.income_source == 'military_survivors_benefits' %>
+                  <%= t(".retirement_income_source_military_survivor_benefit") %>
+                <% else %>
+                  <%= t(".retirement_income_source_none") %>
+                <% end %>
+              </b>
+            </p>
+          </div>
+        <% end %>
+        <%= link_to t("general.edit"), StateFile::Questions::NjRetirementIncomeSourceController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
+    </div>
+  <% end %>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

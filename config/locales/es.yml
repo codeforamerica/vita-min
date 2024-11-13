@@ -2772,6 +2772,19 @@ es:
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
+      nj_retirement_income_source:
+        edit:
+          title: Only some of your retirement income might be taxed.
+          subtitle: We need more information about this 1099-R.
+          doc_1099r_label: "1099-R:"
+          taxpayer_name_label: "Taxpayer Name:"
+          taxable_amount_label: "Taxable Amount:"
+          label: "Select the source of this income:"
+          option_military_pension: U.S. military pension
+          option_military_survivor_benefit: U.S. military survivor's benefits
+          option_none_html: None of these apply <i>(Choose this if you have a civil service pension or annuity)</i>
+          helper_description_html: U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor’s benefit payments are paid by the U.S. Defense Finance and Accounting Service.<br/>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.
+          helper_heading: What counts as a U.S. military pension?
       nj_review:
         edit:
           amount: Cantidad
@@ -2783,6 +2796,14 @@ es:
           primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
+          retirement_income_source: 1099-R Retirement Income Source
+          retirement_income_source_doc_1099r_label: "1099-R:"
+          retirement_income_source_taxpayer_name_label: "Taxpayer Name:"
+          retirement_income_source_taxable_amount_label: "Taxable Amount:"
+          retirement_income_source_label: "Source:"
+          retirement_income_source_military_pension: U.S. military pension
+          retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
+          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_disabled: Spouse disabled
           spouse_veteran: Mi cónyuge es un veterano
