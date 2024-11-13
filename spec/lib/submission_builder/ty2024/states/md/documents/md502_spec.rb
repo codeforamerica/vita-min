@@ -341,7 +341,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return 0.27
         end
 
         it "fills out amounts from the calculator if method is standard" do

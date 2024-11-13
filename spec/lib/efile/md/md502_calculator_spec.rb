@@ -1282,8 +1282,8 @@ describe Efile::Md::Md502Calculator do
       let(:line_21) { 200 }
       let(:line_26) { 150 }
 
-      it "returns nil" do
-        expect(instance.lines[:MD502_LINE_27].value).to be_nil
+      it "returns the difference" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(50)
       end
     end
   end

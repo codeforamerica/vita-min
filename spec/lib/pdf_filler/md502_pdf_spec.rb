@@ -363,16 +363,6 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 19 "]).to be_empty
         expect(pdf_fields["Enter 20"]).to be_empty
       end
-
-      context "when line 27 is nil" do
-        before do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return nil
-        end
-
-        it 'leaves the field blank' do
-          expect(pdf_fields["Check Box 42"]).to be_empty
-        end
-      end
     end
 
     context "additions" do

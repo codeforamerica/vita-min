@@ -506,6 +506,8 @@ module Efile
       def calculate_line_27
         if (line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26)).negative?
           0.27
+        else
+          line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26)
         end
       end
 
