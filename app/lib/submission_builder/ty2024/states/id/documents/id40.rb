@@ -34,11 +34,10 @@ module SubmissionBuilder
                 xml.FederalAGI calculated_fields.fetch(:ID40_LINE_7)
                 xml.StateTotalAdjustedIncome calculated_fields.fetch(:ID40_LINE_11)
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
-                xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
-
                 xml.WorksheetGroceryCredit calculated_fields.fetch(:ID40_LINE_43_WORKSHEET)
                 xml.GroceryCredit calculated_fields.fetch(:ID40_LINE_43)
                 xml.DonateGroceryCredit calculated_fields.fetch(:ID40_LINE_43_DONATE)
+                xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
               end
             end
 
