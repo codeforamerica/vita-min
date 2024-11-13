@@ -83,6 +83,17 @@ FactoryBot.define do
       filing_status { 'married_filing_jointly' }
     end
 
+    factory :state_file_nc_refund_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
+    end
+
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
     primary_first_name { "North" }
     primary_middle_initial { "A" }

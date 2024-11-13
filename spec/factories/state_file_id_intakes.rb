@@ -78,6 +78,17 @@ FactoryBot.define do
       filing_status { "single" }
     end
 
+    factory :state_file_id_refund_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
+    end
+
     after(:build) do |intake, evaluator|
       numeric_status = {
         single: 1,

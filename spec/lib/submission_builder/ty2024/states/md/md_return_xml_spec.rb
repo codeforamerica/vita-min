@@ -55,6 +55,17 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
     end
 
+    context "when there is a refund with banking info" do
+      let(:intake) { create(:state_file_md_refund_intake) }
+
+      it "generates FinancialTransaction xml with correct RefundAmt" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 500
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("FinancialTransaction")).to be_present
+        expect(xml.at("RefundDirectDeposit Amount").text).to eq "500"
+      end
+    end
+
     context "attached documents" do
       it "includes documents that are always attached" do
         expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
