@@ -26,7 +26,7 @@ class TwilioService
 
   def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil)
     arguments = {
-      messaging_service_sid: ENV['MESSAGING_SERVICE_SID'] || messaging_service_sid, # why do we check the environment for this??
+      messaging_service_sid: ENV['MESSAGING_SERVICE_SID'] || messaging_service_sid,
       to: to,
       body: body
     }
@@ -45,7 +45,7 @@ class TwilioService
     outgoing_text_message&.update(status_key => "twilio_error")
 
     unless e.code == 21211 # Invalid 'To' Phone Number https://www.twilio.com/docs/api/errors/21211
-      raise # should we include the original exception here (e)??
+      raise
     end
 
     nil
