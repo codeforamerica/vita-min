@@ -285,19 +285,15 @@ module Efile
         return 0 unless persons_w2s.count > 1
         return 0 if persons_w2s.any? { |w2| w2[excess_type] && w2[excess_type] > threshold }
 
-        excess_contribution_count = 0
         total_contribution = 0
 
         persons_w2s.each do |w2|
           contribution = w2[excess_type] || 0
           total_contribution += contribution
-          excess_contribution_count += 1 if contribution.positive?
         end
 
-        if excess_contribution_count > 1 && total_contribution > threshold
-          return total_contribution - threshold
-        end
-        0
+        excess_contribution = total_contribution - threshold
+        excess_contribution.positive? ? excess_contribution : 0
       end
 
       def calculate_line_59
