@@ -2696,7 +2696,7 @@ en:
       md_two_income_subtractions:
         edit:
           description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.
-          student_loan_deduction_copy: This amount is based on interest paid on student loans and it limited to $2,500 per tax return.
+          student_loan_deduction_copy: This amount is based on interest paid on student loans and is limited to $2,500 per tax return.
           student_loan_deduction_copy2: See Form(s) 1098-E for more information.
           student_loan_deduction_heading: What is the federal student loan interest deduction?
           subtitle: Enter the portions of the federal student loan interest deduction allocated between you and your spouse.
