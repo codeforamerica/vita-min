@@ -69,6 +69,9 @@ module Efile
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
         set_line(:MD502_LINE_23, :calculate_line_23)
+        set_line(:MD502_LINE_24, :calculate_line_24)
+        set_line(:MD502_LINE_26, :calculate_line_26)
+        set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         # MD502-CR
@@ -485,10 +488,24 @@ module Efile
                               52_720 + ((household_size - 8) * 5_380)
                             end
 
-        if comparison_amount >= poverty_threshold
-          0
-        else
+        if comparison_amount < poverty_threshold
           (@lines[:MD502_LINE_1B].value * 0.05).round
+        else
+          0
+        end
+      end
+
+      def calculate_line_24
+        0 # TODO: a stub
+      end
+
+      def calculate_line_26
+        (22..25).sum { |line_num| line_or_zero("MD502_LINE_#{line_num}") }
+      end
+
+      def calculate_line_27
+        if (line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26)).negative?
+          0.27
         end
       end
 

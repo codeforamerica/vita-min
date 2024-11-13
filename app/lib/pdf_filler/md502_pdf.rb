@@ -87,6 +87,9 @@ module PdfFiller
         'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
         'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
+        'Check Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
+        'Check Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
+        'Check Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
       }
     end
 

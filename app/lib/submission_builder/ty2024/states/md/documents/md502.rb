@@ -132,6 +132,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
+          xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23)
+          xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
+          add_element_if_present(xml, "StateTaxAfterCredits", :MD502_LINE_27)
         end
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)

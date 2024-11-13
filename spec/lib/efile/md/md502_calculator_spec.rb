@@ -1173,6 +1173,121 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_23" do
+    before do
+      intake.direct_file_data.fed_wages_salaries_tips = line_1b
+      allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return(line_7)
+      instance.calculate
+    end
+
+    context "when filing as dependent" do
+      let(:filing_status) { "dependent" }
+      let(:line_1b) { 20_000 }
+      let(:line_7) { 15_000 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq(0)
+      end
+    end
+
+    context "when line 1B is not positive" do
+      let(:filing_status) { "single" }
+      let(:line_1b) { 0 }
+      let(:line_7) { 15_000 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq(0)
+      end
+    end
+
+    context "single filer with no dependents" do
+      let(:filing_status) { "single" }
+      let(:line_1b) { 14_000 }
+
+      context "when both line_1b and line_7 are below poverty threshold" do
+        let(:line_7) { 14_500 } # Max of 1b and 7 below single person house threshold of 15,060
+
+        it "returns 5% of line 1B" do
+          expect(instance.lines[:MD502_LINE_23].value).to eq(700)
+        end
+      end
+
+      context "when either amount is above poverty threshold" do
+        let(:line_7) { 15_500 }
+
+        it "returns 0" do
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # Line 7 above threshold of 15,060
+        end
+      end
+    end
+
+    context "married filing jointly with two dependent" do
+      let(:line_1b) { 30_000 }
+      let(:filing_status) { "married_filing_jointly" }
+
+      context "when both line_1b and line_7 are below poverty threshold" do
+        let(:line_7) { 30_500 } # Max of 1b and 7 is below threshold for family of 4 (31,200)
+
+        it "returns 5% of line 1B" do
+          intake.dependents.create(dob: 7.years.ago)
+          intake.dependents.create(dob: 7.years.ago)
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_23].value).to eq(1_500)
+        end
+      end
+
+      context "when either amount is above poverty threshold" do
+        let(:line_7) { 31_500 }
+
+        it "returns 0" do
+          intake.dependents.create(dob: 7.years.ago)
+          intake.dependents.create(dob: 7.years.ago)
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # line 7 is above threshold for family of 4 (31,200)
+        end
+      end
+    end
+  end
+
+  describe "#calculate_line_26" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return(100)
+      allow_any_instance_of(described_class).to receive(:calculate_line_23).and_return(200)
+      allow_any_instance_of(described_class).to receive(:calculate_line_24).and_return(300)
+      instance.calculate
+    end
+
+    it "returns the sum of lines 22 through 25" do
+      expect(instance.lines[:MD502_LINE_26].value).to eq(600)
+    end
+  end
+
+  describe "#calculate_line_27" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return(line_21)
+      allow_any_instance_of(described_class).to receive(:calculate_line_26).and_return(line_26)
+      instance.calculate
+    end
+
+    context "when line_21 minus line_27 is negative" do
+      let(:line_21) { 100 }
+      let(:line_26) { 150 }
+
+      it "returns 0.27" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(0.27)
+      end
+    end
+
+    context "when line_21 minus line_27 is positive" do
+      let(:line_21) { 200 }
+      let(:line_26) { 150 }
+
+      it "returns nil" do
+        expect(instance.lines[:MD502_LINE_27].value).to be_nil
+      end
+    end
+  end
+
   describe '#calculate_line_40' do
     let(:intake) {
       # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
