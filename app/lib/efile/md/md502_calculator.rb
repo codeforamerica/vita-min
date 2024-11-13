@@ -16,6 +16,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
+
+        @md_two_income_subtraction_worksheet = Efile::Md::MdTwoIncomeSubtractionWorksheet.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -51,6 +57,7 @@ module Efile
         # MD502SU Subtractions
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
+        set_line(:MD502_LINE_14, :calculate_line_14)
 
         # Subtractions
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
@@ -425,6 +432,11 @@ module Efile
 
       def calculate_line_13
         @lines[:MD502_SU_LINE_1].value
+      end
+
+      def calculate_line_14
+        @md_two_income_subtraction_worksheet.calculate
+        @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_7].value
       end
 
       def calculate_line_21
