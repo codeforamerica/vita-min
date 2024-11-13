@@ -57,6 +57,7 @@ module Efile
         # MD502SU Subtractions
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
+        @two_income_subtraction_worksheet.calculate
         set_line(:MD502_LINE_14, :calculate_line_14)
 
         # Subtractions
@@ -435,8 +436,8 @@ module Efile
       end
 
       def calculate_line_14
-        @md_two_income_subtraction_worksheet.calculate
-        @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_7].value
+        return 0 unless filing_status_mfj?
+        @lines[:MD_TWO_INCOME_WK_LINE_7].value
       end
 
       def calculate_line_21

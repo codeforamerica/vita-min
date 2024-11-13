@@ -14,18 +14,18 @@ module Efile
       end
 
       def calculate
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_1_PRIMARY, -> { calculate_line_1 :primary })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_2_PRIMARY, -> { calculate_line_2 :primary })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_3_PRIMARY, -> { calculate_line_3 :primary })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_4_PRIMARY, -> { calculate_line_4 :primary })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_5_PRIMARY, -> { calculate_line_5 :primary })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_1_SPOUSE, -> { calculate_line_1 :spouse })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_2_SPOUSE, -> { calculate_line_2 :spouse })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_3_SPOUSE, -> { calculate_line_3 :spouse })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_4_SPOUSE, -> { calculate_line_4 :spouse })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_5_SPOUSE, -> { calculate_line_5 :spouse })
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_6, :calculate_line_6)
-        set_line(:MD_TWO_INCOME_SUBTRACTION_WK_LINE_7, :calculate_line_7)
+        set_line(:MD_TWO_INCOME_WK_LINE_1_A, -> { calculate_line_1 :primary })
+        set_line(:MD_TWO_INCOME_WK_LINE_2_A, -> { calculate_line_2 :primary })
+        set_line(:MD_TWO_INCOME_WK_LINE_3_A, -> { calculate_line_3 :primary })
+        set_line(:MD_TWO_INCOME_WK_LINE_4_A, -> { calculate_line_4 :primary })
+        set_line(:MD_TWO_INCOME_WK_LINE_5_A, -> { calculate_line_5 :primary })
+        set_line(:MD_TWO_INCOME_WK_LINE_1_B, -> { calculate_line_1 :spouse })
+        set_line(:MD_TWO_INCOME_WK_LINE_2_B, -> { calculate_line_2 :spouse })
+        set_line(:MD_TWO_INCOME_WK_LINE_3_B, -> { calculate_line_3 :spouse })
+        set_line(:MD_TWO_INCOME_WK_LINE_4_B, -> { calculate_line_4 :spouse })
+        set_line(:MD_TWO_INCOME_WK_LINE_5_B, -> { calculate_line_5 :spouse })
+        set_line(:MD_TWO_INCOME_WK_LINE_6, :calculate_line_6)
+        set_line(:MD_TWO_INCOME_WK_LINE_7, :calculate_line_7)
       end
 
       def calculate_fed_income(primary_or_spouse)
@@ -59,8 +59,8 @@ module Efile
                                              df_filer_data.tin == @intake.send(primary_or_spouse).ssn
                                            }
         student_loan_interest = {
-          primary: 0, # TBD primary_student_loan_interest_ded_amount
-          spouse: 0, # TBD spouse_student_loan_interest_ded_amount
+          primary: 0, # TODO: primary_student_loan_interest_ded_amount
+          spouse: 0, # TODO: spouse_student_loan_interest_ded_amount
         }[primary_or_spouse]
         educator_expenses = 0 # TODO: filer_json.educatorExpenses
         hsa_deduction = 0 # TODO: filer_json.hsaTotalDeductibleAmount
@@ -79,16 +79,16 @@ module Efile
       def calculate_line_2(primary_or_spouse)
         @intake.state_file_w2s
                .select { |w2| w2.employee_ssn == @intake.send(primary_or_spouse).ssn }
-               .sum(&:box14_stpickup)
+               .sum { |w2| w2.box14_stpickup || 0 }
       end
 
       def calculate_line_3(primary_or_spouse)
         if primary_or_spouse
-          @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_1_PRIMARY].value +
-            @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_2_PRIMARY].value
+          @lines[:MD_TWO_INCOME_WK_LINE_1_A].value +
+            @lines[:MD_TWO_INCOME_WK_LINE_2_A].value
         else
-          @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_1_SPOUSE].value +
-            @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_2_SPOUSE].value
+          @lines[:MD_TWO_INCOME_WK_LINE_1_B].value +
+            @lines[:MD_TWO_INCOME_WK_LINE_2_B].value
         end
       end
 
@@ -104,22 +104,22 @@ module Efile
 
       def calculate_line_5(primary_or_spouse)
         if primary_or_spouse
-          @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_3_PRIMARY].value -
-            @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_4_PRIMARY].value
+          @lines[:MD_TWO_INCOME_WK_LINE_3_A].value -
+            @lines[:MD_TWO_INCOME_WK_LINE_4_A].value
         else
-          @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_3_SPOUSE].value -
-            @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_4_SPOUSE].value
+          @lines[:MD_TWO_INCOME_WK_LINE_3_B].value -
+            @lines[:MD_TWO_INCOME_WK_LINE_4_B].value
         end
       end
 
       def calculate_line_6
-        lower_income = [@lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_5_PRIMARY].value,
-                        @lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_5_SPOUSE].value].min
+        lower_income = [@lines[:MD_TWO_INCOME_WK_LINE_5_A].value,
+                        @lines[:MD_TWO_INCOME_WK_LINE_5_B].value].min
         [lower_income, 0].max
       end
 
       def calculate_line_7
-        [@lines[:MD_TWO_INCOME_SUBTRACTION_WK_LINE_5_PRIMARY].value, 1_200].max
+        [@lines[:MD_TWO_INCOME_WK_LINE_6].value, 1_200].min
       end
     end
   end
