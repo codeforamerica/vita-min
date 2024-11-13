@@ -117,16 +117,17 @@ module PdfFiller
         })
       end
 
-      @deductions = @xml_document.at('DeductionAmt')
+      @deductions = @xml_document.at('Form140 DeductionAmt')
+
       answers.merge!({
-        "43" => @xml_document.at('AZDeductions')&.text,
-        "45" => @xml_document.at('AZTaxableInc')&.text,
-        "46" => @xml_document.at('ComputedTax')&.text,
-        "48" => @xml_document.at('SubTotal')&.text,
-        "49" => @xml_document.at('DepTaxCredit')&.text,
-        "50" => @xml_document.at('FamilyIncomeTaxCredit')&.text,
-        "51" => @xml_document.at('CreditsFromAZ301')&.text,
-        "52" => @xml_document.at('BalanceOfTaxDue')&.text,
+        "43" => @deductions.at('AZDeductions')&.text,
+        "45" => @deductions.at('AZTaxableInc')&.text,
+        "46" => @deductions.at('ComputedTax')&.text,
+        "48" => @deductions.at('SubTotal')&.text,
+        "49" => @deductions.at('DepTaxCredit')&.text,
+        "50" => @deductions.at('FamilyIncomeTaxCredit')&.text,
+        "51" => @deductions.at('CreditsFromAZ301')&.text,
+        "52" => @deductions.at('BalanceOfTaxDue')&.text,
      })
 
       @charitable_deductions = @xml_document.at('ClaimCharitableDed')
