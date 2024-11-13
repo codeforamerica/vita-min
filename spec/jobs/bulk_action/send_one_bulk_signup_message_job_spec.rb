@@ -27,9 +27,9 @@ describe BulkAction::SendOneBulkSignupMessageJob do
     end
 
     context 'with an sms signup' do
-      let (:twilio_service) { instance_double(TwilioService) }
-      let (:message_double) { double TwilioService }
-      let (:message_type) { 'sms' }
+      let(:twilio_service) { instance_double(TwilioService) }
+      let(:message_double) { double TwilioService }
+      let(:message_type) { 'sms' }
 
       before do
         allow(TwilioService).to receive(:new).and_return twilio_service

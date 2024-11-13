@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe GetPhoneMetadataJob, type: :job do
   describe "#perform" do
-    let (:twilio_service) { instance_double(TwilioService) }
+    let(:twilio_service) { instance_double(TwilioService) }
     let(:client) { create(:client) }
     let!(:intake) { create :intake, client: client, phone_number: phone_number }
     let(:phone_number) { '+15554567899' }

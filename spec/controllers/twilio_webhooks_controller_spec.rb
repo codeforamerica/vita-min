@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TwilioWebhooksController do
-  let (:twilio_service) { instance_double(TwilioService) }
+  let(:twilio_service) { instance_double(TwilioService) }
 
   before do
     allow(TwilioService).to receive(:new).and_return(twilio_service)
