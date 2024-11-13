@@ -3207,9 +3207,10 @@ es:
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
+          box14_explanation:
+            md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Casilla 14,</strong> Otros"
-          box14_stpickup_explanation_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
           box14_stpickup_help_text: Para el año fiscal %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en la Casilla 14, déjala en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"

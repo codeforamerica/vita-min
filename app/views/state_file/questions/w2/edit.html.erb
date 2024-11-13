@@ -46,15 +46,13 @@
       <% end %>
     </div>
 
-    <% if @box14_codes.present? && current_state_code != 'nj' %>
+    <% if t(".box14_explanation.#{@state_code}_html", default: nil) %>
       <div class="reveal spacing-above-35">
         <p><button href="#" class="reveal__button"><%= t(".what_is_box14") %></button></p>
         <div class="reveal__content">
-          <% @box14_codes.each do |code| %>
             <p class="spacing-below-15">
-              <%= t(".box14_#{code.downcase}_explanation_html", year: MultiTenantService.statefile.current_tax_year) %>
+              <%= t(".box14_explanation.#{@state_code}_html", year: MultiTenantService.statefile.current_tax_year) %>
             </p>
-          <% end %>
         </div>
       </div>
     <% end %>
