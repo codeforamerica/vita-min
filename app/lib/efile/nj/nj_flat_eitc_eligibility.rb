@@ -25,17 +25,19 @@ module Efile
           lower_age_range_years = 25
           upper_age_range_years = 65
 
-          primary_age = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)
+          primary_age_exclusive = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: false)
+          primary_age_inclusive = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)
 
           if intake.filing_status_mfj?
-            spouse_age = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
+            spouse_age_exclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: false)
+            spouse_age_inclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
 
-            (primary_age >= minimum_age_years || spouse_age >= minimum_age_years) &&
-            ((primary_age < lower_age_range_years || primary_age >= upper_age_range_years) &&
-            (spouse_age < lower_age_range_years || spouse_age >= upper_age_range_years))
+            (primary_age_exclusive >= minimum_age_years || spouse_age_exclusive >= minimum_age_years) &&
+            ((primary_age_exclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years) &&
+            (spouse_age_exclusive < lower_age_range_years || spouse_age_inclusive >= upper_age_range_years))
           else
-            primary_age >= minimum_age_years &&
-            (primary_age < lower_age_range_years || primary_age >= upper_age_range_years)
+            primary_age_exclusive >= minimum_age_years &&
+            (primary_age_exclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years)
           end
         end
       end
