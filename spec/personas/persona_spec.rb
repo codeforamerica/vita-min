@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "personas", :skip do
+describe "personas" do
 
   context "2023" do
     let(:tax_year) { 2023 }

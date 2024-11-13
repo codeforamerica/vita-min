@@ -17,7 +17,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-24T22:59:21+00:00</IPTs>
+        <IPTs>2024-11-13T19:27:25+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
@@ -25,7 +25,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-24T22:59:21+00:00</IPTs>
+        <IPTs>2024-11-13T19:27:25+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
@@ -35,7 +35,7 @@
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-10-24T22:59:21+00:00</ReturnTs>
+    <ReturnTs>2024-11-13T19:27:25+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
@@ -113,10 +113,10 @@
       <AZAdjGrossIncome>21500</AZAdjGrossIncome>
       <DeductionAmt>
         <DeductionTypeIndc>Standard</DeductionTypeIndc>
-        <AZDeductions>20800</AZDeductions>
-        <AZTaxableInc>700</AZTaxableInc>
-        <ComputedTax>18</ComputedTax>
-        <SubTotal>18</SubTotal>
+        <AZDeductions>21900</AZDeductions>
+        <AZTaxableInc>0</AZTaxableInc>
+        <ComputedTax>0</ComputedTax>
+        <SubTotal>0</SubTotal>
         <DepTaxCredit>100</DepTaxCredit>
         <FamilyIncomeTaxCredit>0</FamilyIncomeTaxCredit>
         <BalanceOfTaxDue>0</BalanceOfTaxDue>
@@ -212,7 +212,7 @@
 </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
-    <State1099G xmlns="http://www.irs.gov/efile" documentId="State1099G-23">
+    <State1099G xmlns="http://www.irs.gov/efile" documentId="State1099G-3">
       <PayerName payerNameControl="ARIZ">
         <BusinessNameLine1Txt>ARIZONA DEPARTMENT OF ECONOMIC SECURITY</BusinessNameLine1Txt>
       </PayerName>
