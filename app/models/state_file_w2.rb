@@ -31,17 +31,17 @@ class StateFileW2 < ApplicationRecord
 
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML
-  <W2StateTaxGrp>
-    <StateAbbreviationCd></StateAbbreviationCd>
-    <EmployerStateIdNum></EmployerStateIdNum>
-    <StateWagesAmt></StateWagesAmt>
-    <StateIncomeTaxAmt></StateIncomeTaxAmt>
-    <W2LocalTaxGrp>
-      <LocalWagesAndTipsAmt></LocalWagesAndTipsAmt>
-      <LocalIncomeTaxAmt></LocalIncomeTaxAmt>
-      <LocalityNm></LocalityNm>
-    </W2LocalTaxGrp>
-  </W2StateTaxGrp>
+    <W2StateTaxGrp>
+      <StateAbbreviationCd></StateAbbreviationCd>
+      <EmployerStateIdNum></EmployerStateIdNum>
+      <StateWagesAmt></StateWagesAmt>
+      <StateIncomeTaxAmt></StateIncomeTaxAmt>
+      <W2LocalTaxGrp>
+        <LocalWagesAndTipsAmt></LocalWagesAndTipsAmt>
+        <LocalIncomeTaxAmt></LocalIncomeTaxAmt>
+        <LocalityNm></LocalityNm>
+      </W2LocalTaxGrp>
+    </W2StateTaxGrp>
   XML
 
   belongs_to :state_file_intake, polymorphic: true
@@ -53,6 +53,10 @@ class StateFileW2 < ApplicationRecord
   validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
   validates :local_wages_and_tips_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amount.present? }
   validates :local_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_income_tax_amount.present? }
+  validates :box14_fli, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_fli.present? }
+  validates :box14_stpickup, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_stpickup.present? }
+  validates :box14_ui_hc_wd, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_hc_wd.present? }
+  validates :box14_ui_wf_swf, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_wf_swf.present? }
   validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amount.present? && local_wages_and_tips_amount.positive? }
   validates :employer_state_id_num, presence: true, if: -> { state_wages_amount.present? && state_wages_amount.positive? }
   validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/, message: :only_letters }, if: -> { locality_nm.present? }
