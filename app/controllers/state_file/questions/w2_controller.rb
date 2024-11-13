@@ -2,8 +2,10 @@ module StateFile
   module Questions
     class W2Controller < QuestionsController
       before_action :load_w2
-
-      def edit; end
+      
+      def edit
+        @state_code = current_state_code
+      end
 
       def update
         @w2.assign_attributes(form_params)

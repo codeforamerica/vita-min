@@ -117,9 +117,19 @@ FactoryBot.define do
     end
 
     trait :with_spouse do
-      spouse_first_name { "Spouth" }
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Susie" }
       spouse_middle_initial { "B" }
-      spouse_last_name { "Carolinian" }
+      spouse_last_name { "Spouse" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_senior_spouse do
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Senior" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Spouse" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
     trait :df_data_2_w2s do

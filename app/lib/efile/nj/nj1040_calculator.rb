@@ -5,6 +5,8 @@ module Efile
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
+      EXCESS_UI_WF_SWF_MAX = 179.78 # also applies to ui hc wd
+      EXCESS_FLI_MAX = 145.26
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -29,7 +31,10 @@ module Efile
         set_line(:NJ1040_LINE_43, :calculate_line_43)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
+        set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
+        set_line(:NJ1040_LINE_59, :calculate_line_59)
+        set_line(:NJ1040_LINE_61, :calculate_line_61)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -147,6 +152,14 @@ module Efile
         number_of_line_6_exemptions * 1_000
       end
 
+      def line_7_self_checkbox
+        @intake.primary_senior?
+      end
+
+      def line_7_spouse_checkbox
+        @intake.spouse_senior?
+      end
+
       def calculate_line_7
         number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox,
                                                                  line_7_spouse_checkbox])
@@ -170,30 +183,12 @@ module Efile
         @intake.filing_status_mfj?
       end
 
-      def line_7_self_checkbox
-        is_over_65(@intake.primary_birth_date)
-      end
-
-      def line_7_spouse_checkbox
-        return false unless @intake.spouse_birth_date.present?
-        is_over_65(@intake.spouse_birth_date)
-      end
-
       def calculate_line_13
         calculate_line_6 + calculate_line_7 + calculate_line_8 + calculate_line_9
       end
 
       def calculate_line_15
-        if @intake.state_file_w2s.empty?
-          return -1
-        end
-
-        sum = 0
-        @intake.state_file_w2s.each do |w2|
-          state_wage = w2.state_wages_amount.to_i
-          sum += state_wage
-        end
-        sum
+        Efile::Nj::NjStateWages.calculate_state_wages(@intake)
       end
 
       def calculate_line_16a
@@ -229,6 +224,11 @@ module Efile
         calculate_line_29 - calculate_line_38
       end
 
+      def is_ineligible_or_unsupported_for_property_tax_credit
+        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE ||
+          Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
+      end
+
       def calculate_line_40a
         case @intake.household_rent_own
         when "own"
@@ -248,10 +248,6 @@ module Efile
         is_mfs_same_home ? (property_tax_paid / 2.0).round : property_tax_paid.round
       end
 
-      def is_ineligible_or_unsupported_for_property_tax
-        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
-      end
-
       def calculate_line_41
         should_use_property_tax_deduction ? calculate_property_tax_deduction : nil
       end
@@ -269,15 +265,61 @@ module Efile
       end
 
       def calculate_line_56
-        if should_use_property_tax_deduction || is_ineligible_or_unsupported_for_property_tax
+        if should_use_property_tax_deduction || is_ineligible_or_unsupported_for_property_tax_credit
           nil
         else
           is_mfs_same_home ? 25 : 50
         end
       end
 
+      def calculate_line_57
+        @intake.estimated_tax_payments&.round
+      end
+
       def calculate_line_58
         (@direct_file_data.fed_eic * 0.4).round
+      end
+
+      def get_personal_excess(ssn, excess_type, threshold)
+        persons_w2s = @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == ssn }
+        return 0 unless persons_w2s.count > 1
+        return 0 if persons_w2s.any? { |w2| w2[excess_type] && w2[excess_type] > threshold }
+
+        total_contribution = 0
+
+        persons_w2s.each do |w2|
+          contribution = w2[excess_type] || 0
+          total_contribution += contribution
+        end
+
+        excess_contribution = total_contribution - threshold
+        excess_contribution.positive? ? excess_contribution : 0
+      end
+
+      def calculate_line_59
+        total_excess = 0
+
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+
+        if @intake.filing_status_mfj?
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+        end
+
+        total_excess.round if total_excess.positive?
+      end
+
+      def calculate_line_61
+        total_excess = 0
+
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
+        
+        if @intake.filing_status_mfj?
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
+        end
+
+        total_excess.round if total_excess.positive?
       end
 
       def calculate_line_64
@@ -322,11 +364,6 @@ module Efile
       def number_of_dependents_age_5_younger
         dep_age_5_younger_count = @intake.dependents.count { |dependent| age_on_last_day_of_tax_year(dependent.dob) <= 5 }
         [dep_age_5_younger_count, MAX_NJ_CTC_DEPENDENTS].min
-      end
-
-      def is_over_65(birth_date)
-        over_65_birth_year = MultiTenantService.new(:statefile).current_tax_year - 65
-        birth_date <= Date.new(over_65_birth_year, 12, 31)
       end
 
       def age_on_last_day_of_tax_year(dob)

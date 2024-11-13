@@ -1776,6 +1776,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.boolean "eic_qualifying"
     t.integer "eic_student", default: 0
     t.string "first_name"
+    t.integer "id_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.integer "id_months_ineligible_for_grocery_credit"
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
@@ -1820,6 +1822,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_imported_at"
+    t.integer "donate_grocery_credit", default: 0, null: false
     t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
     t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
@@ -1831,6 +1834,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
     t.decimal "health_insurance_paid_amount", precision: 12, scale: 2
+    t.integer "household_has_grocery_credit_ineligible_months", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -1843,8 +1847,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
+    t.integer "primary_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_months_ineligible_for_grocery_credit"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
@@ -1857,8 +1863,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
+    t.integer "spouse_has_grocery_credit_ineligible_months", default: 0, null: false
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_months_ineligible_for_grocery_credit"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
@@ -1878,10 +1886,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
+    t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.string "city"
+    t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1909,6 +1919,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
+    t.integer "permanent_address_outside_md", default: 0, null: false
+    t.string "permanent_apartment"
+    t.string "permanent_city"
+    t.string "permanent_street"
+    t.string "permanent_zip"
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
@@ -2056,6 +2071,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.decimal "estimated_tax_payments", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.integer "fed_taxable_income"
     t.integer "fed_wages"
@@ -2258,7 +2274,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_152018) do
   end
 
   create_table "state_file_w2s", force: :cascade do |t|
+    t.decimal "box14_fli", precision: 12, scale: 2
     t.decimal "box14_stpickup", precision: 12, scale: 2
+    t.decimal "box14_ui_hc_wd", precision: 12, scale: 2
+    t.decimal "box14_ui_wf_swf", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"

@@ -17,7 +17,7 @@ module SubmissionBuilder
             }.freeze
 
             def schema_file
-              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2023V0.4", "NJIndividual", "NJForms", "FormNJ1040.xsd")
+              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJIndividual", "NJForms", "FormNJ1040.xsd")
             end
 
             def document
@@ -164,11 +164,23 @@ module SubmissionBuilder
 
                   xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
 
+                  if calculated_fields.fetch(:NJ1040_LINE_57)
+                    xml.EstimatedPaymentTotal calculated_fields.fetch(:NJ1040_LINE_57)
+                  end
+
                   if calculated_fields.fetch(:NJ1040_LINE_58).positive?
                     xml.EarnedIncomeCredit do
                       xml.EarnedIncomeCreditAmount calculated_fields.fetch(:NJ1040_LINE_58)
                       xml.EICFederalAmt 'X'
                     end
+                  end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_59)&.positive?
+                    xml.ExcessNjUiWfSwf calculated_fields.fetch(:NJ1040_LINE_59)
+                  end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_61)&.positive?
+                    xml.ExcesNjFamiInsur calculated_fields.fetch(:NJ1040_LINE_61)
                   end
 
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)

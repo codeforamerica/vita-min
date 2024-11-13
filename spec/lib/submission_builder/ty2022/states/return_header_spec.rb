@@ -102,6 +102,22 @@ describe SubmissionBuilder::ReturnHeader do
               intake.direct_file_data.primary_ssn = nil
               intake.direct_file_data.spouse_ssn = nil
               intake.direct_file_data.phone_number = nil
+
+              if intake.direct_file_json_data&.primary_filer.present?
+                intake.direct_file_json_data.primary_filer.dob = nil
+                intake.direct_file_json_data.primary_filer.first_name = nil
+                intake.direct_file_json_data.primary_filer.middle_initial = nil
+                intake.direct_file_json_data.primary_filer.last_name = nil
+              end
+
+              if intake.direct_file_json_data&.spouse_filer.present?
+                intake.direct_file_json_data.spouse_filer.dob = nil
+                intake.direct_file_json_data.spouse_filer.first_name = nil
+                intake.direct_file_json_data.spouse_filer.middle_initial = nil
+                intake.direct_file_json_data.spouse_filer.first_name = nil
+              end
+
+              intake.synchronize_filers_to_database
             end
 
             it "excludes fields when they are empty" do

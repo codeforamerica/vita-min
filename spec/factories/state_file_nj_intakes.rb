@@ -20,6 +20,7 @@
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
+#  estimated_tax_payments                                 :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
@@ -188,6 +189,11 @@ FactoryBot.define do
     trait :df_data_exempt_interest do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_exempt_interest_over_10k') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_exempt_interest_over_10k') }
+    end
+
+    trait :df_data_box_14 do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
     end
 
     trait :married_filing_jointly do
