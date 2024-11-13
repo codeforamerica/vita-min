@@ -141,7 +141,7 @@ FactoryBot.define do
     trait :with_az321_contributions do
       made_az321_contributions { "yes" }
 
-      after(:build) do |intake|
+      after(:create) do |intake|
         create :az321_contribution,
                amount: 505.90,
                state_file_az_intake: intake,

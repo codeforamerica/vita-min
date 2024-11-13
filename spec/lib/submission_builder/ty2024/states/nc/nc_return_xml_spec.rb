@@ -13,6 +13,8 @@ describe SubmissionBuilder::Ty2024::States::Nc::NcReturnXml, required_schema: "n
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+
+      expect(build_response.errors).not_to be_present
     end
   end
 end
