@@ -23,7 +23,8 @@ RSpec.describe PdfFiller::Id40Pdf do
 
     context "when filer signed submission agreement" do
       it 'sets signature date field to the correct value' do
-        expect(pdf_fields["DateSign 2"]).to eq tomorrow_midnight.in_time_zone("America/Boise").strftime("%m-%d-%Y")
+        timezone = StateFile::StateInformationService.timezone('id')
+        expect(pdf_fields["DateSign 2"]).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%m-%d-%Y")
         expect(pdf_fields["TaxpayerPhoneNo"]).to eq "2085551234"
       end
     end

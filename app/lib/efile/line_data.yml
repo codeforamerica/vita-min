@@ -200,6 +200,12 @@ ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_43_WORKSHEET:
+  label: '43. Grocery Credit. Computed amount from worksheet on page 11'
+ID40_LINE_43_DONATE:
+  label: 'To donate your grocery credit to the Cooperative Welfare Fund, check the box and enter zero on line 43'
+ID40_LINE_43:
+  label: 'To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
 IT201_LINE_1:

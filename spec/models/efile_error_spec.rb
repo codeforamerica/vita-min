@@ -57,6 +57,8 @@ describe 'EfileError' do
       "esign-declaration",
       "federal-info",
       "id-eligibility-residence",
+      "id-grocery-credit",
+      "id-grocery-credit-review",
       "id-health-insurance-premium",
       "id-review",
       "id-sales-use-tax",
