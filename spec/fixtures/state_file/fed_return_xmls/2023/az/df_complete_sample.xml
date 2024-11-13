@@ -33,6 +33,8 @@
       <SpouseNm>Allen</SpouseNm>
       <SpouseDeathDt>2024-07-06</SpouseDeathDt>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
       <DependentDetail>
         <DependentFirstNm>Axel</DependentFirstNm>

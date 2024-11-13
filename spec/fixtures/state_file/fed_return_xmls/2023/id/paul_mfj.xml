@@ -32,6 +32,7 @@
       <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
       <SpouseNm>Sydney Revere</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
       <SpouseClaimAsDependentInd>X</SpouseClaimAsDependentInd>
       <SpouseBlindInd>X</SpouseBlindInd>
       <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>

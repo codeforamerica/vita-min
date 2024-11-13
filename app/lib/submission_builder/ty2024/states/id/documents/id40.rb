@@ -33,6 +33,14 @@ module SubmissionBuilder
                 end
                 xml.FederalAGI calculated_fields.fetch(:ID40_LINE_7)
                 xml.StateTotalAdjustedIncome calculated_fields.fetch(:ID40_LINE_11)
+
+                if @direct_file_data.primary_over_65 == "X"
+                  xml.PrimeOver65 1
+                end
+                if @intake.filing_status_mfj? && @direct_file_data.spouse_over_65 == "X"
+                  xml.SpouseOver65 1
+                end
+
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
 

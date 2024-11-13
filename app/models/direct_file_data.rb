@@ -66,6 +66,8 @@ class DirectFileData < DfXmlAccessor
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
+    primary_over_65: 'IRS1040 Primary65OrOlderInd',
+    spouse_over_65: 'IRS1040 Spouse65OrOlderInd',
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
@@ -116,6 +118,14 @@ class DirectFileData < DfXmlAccessor
 
   def phone_number=(value)
     create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
+    write_df_xml_value(__method__, value)
+  end
+
+  def cell_phone_number=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def tax_payer_email=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -520,6 +530,14 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_w2_state=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_over_65=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_over_65=(value)
     write_df_xml_value(__method__, value)
   end
 

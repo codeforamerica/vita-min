@@ -68,6 +68,8 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['IncomeL9']).to eq '10000'
         expect(pdf_fields['IncomeL10']).to eq '0'
         expect(pdf_fields['IncomeL11']).to eq '10000'
+        expect(pdf_fields['L12aYourself ']).to eq 'Yes'
+        expect(pdf_fields['L12aSpouse']).to eq 'Off'
       end
 
       context "with dependents" do
@@ -124,6 +126,8 @@ RSpec.describe PdfFiller::Id40Pdf do
         it "sets spouse fields correctly" do
           expect(pdf_fields['6bSpouse']).to eq '1' # Spouse not claimed as dependent, so counted here
           expect(pdf_fields['6dTotalHousehold']).to eq '2'
+          expect(pdf_fields['L12aYourself ']).to eq 'Off'
+          expect(pdf_fields['L12aSpouse']).to eq 'Yes'
         end
       end
     end

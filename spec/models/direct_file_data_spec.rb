@@ -31,6 +31,8 @@ describe DirectFileData do
     ["fed_housing_deduction_amount", 700],
     ["fed_gross_income_exclusion_amount", 900],
     ["qualifying_children_under_age_ssn_count", "1"],
+    ["primary_over_65", "X"],
+    ["spouse_over_65", "X"]
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
@@ -48,6 +50,14 @@ describe DirectFileData do
             expect(direct_file_data.send(node_name)).to eq 0
           end
         end
+      end
+    end
+
+    describe "##{node_name}=" do
+      it "can write a value" do
+        # test with something that can be converted .to_i for the amount fields
+        direct_file_data.send("#{node_name}=", "123")
+        expect(direct_file_data.send(node_name).to_s).to eq "123"
       end
     end
   end

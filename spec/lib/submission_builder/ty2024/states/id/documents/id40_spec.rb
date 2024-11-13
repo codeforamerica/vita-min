@@ -18,6 +18,28 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses(2000)] = 24724
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
       end
+
+      context "primary over 65" do
+        context "when true" do
+          before do
+            intake.direct_file_data.primary_over_65 = "X"
+          end
+
+          it "fills a 1" do
+            expect(xml.at("PrimeOver65").text).to eq "1"
+          end
+        end
+
+        context "when false" do
+          before do
+            intake.direct_file_data.primary_over_65 = ""
+          end
+
+          it "does not have the node" do
+            expect(xml.at("PrimeOver65")).to be_nil
+          end
+        end
+      end
     end
 
     context "married filing jointly" do
@@ -32,6 +54,28 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("PrimeExemption").text).to eq "1"
         expect(xml.at("SpouseExemption").text).to eq "1"
         expect(xml.at("TotalExemption").text).to eq "2"
+      end
+
+      context "spouse over 65" do
+        context "when true" do
+          before do
+            intake.direct_file_data.spouse_over_65 = "X"
+          end
+
+          it "fills a 1" do
+            expect(xml.at("SpouseOver65").text).to eq "1"
+          end
+        end
+
+        context "when false" do
+          before do
+            intake.direct_file_data.spouse_over_65 = ""
+          end
+
+          it "does not have the node" do
+            expect(xml.at("SpouseOver65")).to be_nil
+          end
+        end
       end
     end
 
