@@ -188,8 +188,24 @@ ID40_LINE_6C:
   label: '6c Dependents count for household count'
 ID40_LINE_6D:
   label: '6d Total household count'
+ID40_LINE_7:
+  label: 'Federal adjusted gross income from federal Form 1040 or 1040-SR, line 11'
+ID40_LINE_8:
+  label: 'Additions from Form 39R, Part A, line 7. Include Form 39R'
+ID40_LINE_9:
+  label: 'Total. Add lines 7 and 8'
+ID40_LINE_10:
+  label: 'Subtractions from Form 39R, Part B, line 24'
+ID40_LINE_11:
+  label: 'Total Adjusted Income. Subtract line 10 from line 9'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_43_WORKSHEET:
+  label: '43. Grocery Credit. Computed amount from worksheet on page 11'
+ID40_LINE_43_DONATE:
+  label: 'To donate your grocery credit to the Cooperative Welfare Fund, check the box and enter zero on line 43'
+ID40_LINE_43:
+  label: 'To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
 IT201_LINE_1:
@@ -565,23 +581,25 @@ MD502_LINE_D_AMOUNT_TOTAL:
 MD502_LINE_13:
   label: Subtractions from attached form 502SU
 MD502_LINE_16:
-  label: 'TBD'
+  label: '16 TBD'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
 MD502_LINE_17:
-  label: 'Deduction amount'
+  label: '17 Deduction amount'
 MD502_LINE_18:
-  label: 'Net income'
+  label: '18 Net income'
 MD502_LINE_19:
-  label: 'Exemption amount'
+  label: '19 Exemption amount'
 MD502_LINE_20:
-  label: 'Taxable net income'
+  label: '20 Taxable net income'
+MD502_LINE_21:
+  label: '21 Maryland state income tax'
 MD502_LINE_22:
   label: '22 Earned income credit (EIC)'
 MD502_LINE_22B:
   label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
 MD502_LINE_40:
-  label: "Total Maryland and local tax withheld"
+  label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:
@@ -625,9 +643,9 @@ NCD400_LINE_18:
 NCD400_LINE_19:
   label: '19 Add Lines 17 and 18'
 NCD400_LINE_20A:
-  label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
+  label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum; For each 1099G, if recipient_primary? add state_income_tax_withheld_amount to sum'
 NCD400_LINE_20B:
-  label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum'
+  label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum; For each 1099G, if recipient_spouse? add state_income_tax_withheld_amount to sum'
 NCD400_LINE_23:
   label: '23 Add lines 20a through 22'
 NCD400_LINE_25:
