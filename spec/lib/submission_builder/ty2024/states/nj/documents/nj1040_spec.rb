@@ -684,34 +684,22 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "line 59 - excess UI/WF/SWF or UI/HC/WD" do
       context "mfj with multiple w2s per spouse that individually do not exceed the max and total more than the max for each spouse" do 
-        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
-        let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 100) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 101) }
-        let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 102) }
-        let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 103) }
-
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_59).and_return 123
+        end
         it 'adds the sum to line 59' do
-          expected_sum = (100 + 101 + 102 + 103 - (179.78 * 2)).round
-          expect(xml.at("ExcessNjUiWfSwf").text).to eq(expected_sum.to_s)
+          expect(xml.at("ExcessNjUiWfSwf").text).to eq('123')
         end
       end
     end
 
     describe "line 61 - excess FLI" do
       context "mfj with multiple w2s per spouse that individually do not exceed max and total more than max for each spouse" do 
-        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
-        let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 100) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 101) }
-        let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 102) }
-        let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 103) }
-
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_61).and_return 123
+        end
         it 'adds the sum to line 61' do
-          expected_sum = (100 + 101 + 102 + 103 - (145.26 * 2)).round
-          expect(xml.at("ExcesNjFamiInsur").text).to eq(expected_sum.to_s)
+          expect(xml.at("ExcesNjFamiInsur").text).to eq('123')
         end
       end
     end
