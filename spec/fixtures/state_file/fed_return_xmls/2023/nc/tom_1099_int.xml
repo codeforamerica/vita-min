@@ -42,7 +42,7 @@
       <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
       <WagesSalariesAndTipsAmt>0</WagesSalariesAndTipsAmt>
       <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
-      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <TaxableInterestAmt>100</TaxableInterestAmt>
       <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
       <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
       <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
