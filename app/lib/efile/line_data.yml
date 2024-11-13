@@ -200,6 +200,12 @@ ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_43_WORKSHEET:
+  label: '43. Grocery Credit. Computed amount from worksheet on page 11'
+ID40_LINE_43_DONATE:
+  label: 'To donate your grocery credit to the Cooperative Welfare Fund, check the box and enter zero on line 43'
+ID40_LINE_43:
+  label: 'To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
 IT201_LINE_1:
@@ -637,9 +643,9 @@ NCD400_LINE_18:
 NCD400_LINE_19:
   label: '19 Add Lines 17 and 18'
 NCD400_LINE_20A:
-  label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum'
+  label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum; For each 1099G, if recipient_primary? add state_income_tax_withheld_amount to sum'
 NCD400_LINE_20B:
-  label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum'
+  label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum; For each 1099G, if recipient_spouse? add state_income_tax_withheld_amount to sum'
 NCD400_LINE_23:
   label: '23 Add lines 20a through 22'
 NCD400_LINE_25:
@@ -648,6 +654,8 @@ NCD400_LINE_26A:
   label: '26A Owe Money: if Line 25 is less than Line 19, subtract Line 25 from Line 19.'
 NCD400_LINE_27:
   label: 'Total amount due: Sum of Lines 26a, 26d, and 26e (line 26d & 26e out of scope)'
+NCD400_S_LINE_18:
+  label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableInterestAmt)"
 NCD400_S_LINE_27:
   label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
 NCD400_LINE_28:
@@ -698,6 +706,10 @@ NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
 NJ1040_LINE_58_IRS:
   label: '58 IRS calculated federal earned income credit'
+NJ1040_LINE_59:
+  label: 'Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
+NJ1040_LINE_61:
+  label: 'Excess New Jersey Family Leave Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:

@@ -737,6 +737,28 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "line 59 - excess UI/WF/SWF or UI/HC/WD" do
+      context "mfj with multiple w2s per spouse that individually do not exceed the max and total more than the max for each spouse" do 
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_59).and_return 123
+        end
+        it 'adds the sum to line 59' do
+          expect(xml.at("ExcessNjUiWfSwf").text).to eq('123')
+        end
+      end
+    end
+
+    describe "line 61 - excess FLI" do
+      context "mfj with multiple w2s per spouse that individually do not exceed max and total more than max for each spouse" do 
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_61).and_return 123
+        end
+        it 'adds the sum to line 61' do
+          expect(xml.at("ExcesNjFamiInsur").text).to eq('123')
+        end
+      end
+    end
+
     describe "child and dependent care credit - line 64" do
       it "adds 40% of federal credit for an income of 60k or less" do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_64).and_return 400

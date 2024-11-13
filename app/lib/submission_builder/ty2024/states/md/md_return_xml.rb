@@ -28,6 +28,10 @@ module SubmissionBuilder
             SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2023v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
           end
 
+          def form1099g_builder
+            SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G
+          end
+
           def supported_documents
             calculated_fields = @submission.data_source.tax_calculator.calculate
             has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i.positive?
@@ -66,9 +70,9 @@ module SubmissionBuilder
               },
             ]
 
+            supported_docs += form1099gs # must be sequenced here
             supported_docs += combined_w2s
             supported_docs += form1099rs
-            supported_docs += form1099gs
             supported_docs += form1099ints
             supported_docs
           end

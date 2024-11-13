@@ -231,6 +231,22 @@
       }
     }
 
+    .tight-checkboxes {
+      .checkbox {
+        min-height: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .checkbox input[type='checkbox'] {
+        top: 0.25rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+    }
+
     .radio-button {
       border: none;
       background-color: transparent;
@@ -286,6 +302,10 @@
 
     .list--bulleted {
       padding-left: 1.5rem;
+    }
+
+    .list--bulleted-indented {
+      padding-left: 2.5rem;
     }
 
     .money-input-form-group {

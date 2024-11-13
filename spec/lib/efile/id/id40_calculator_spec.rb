@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Id::Id40Calculator do
-  let(:intake) { create(:state_file_id_intake) }
+  let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -47,9 +47,8 @@ describe Efile::Id::Id40Calculator do
   end
 
   describe "Line 6c: Dependents" do
-    before do
-      3.times { intake.dependents.create! }
-    end
+    let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
     it "returns the number of dependents" do
       instance.calculate
       expect(instance.lines[:ID40_LINE_6C].value).to eq(3)
@@ -136,6 +135,148 @@ describe Efile::Id::Id40Calculator do
         allow(intake).to receive(:has_unpaid_sales_use_tax?).and_return(false)
         instance.calculate
         expect(instance.lines[:ID40_LINE_29].value).to eq(0)
+      end
+    end
+  end
+
+  describe "Line 43: Grocery Credit" do
+    context "primary is claimed as dependent" do
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+      before do
+        allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq(0)
+      end
+    end
+
+    context "household does not have ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_no!
+        intake.primary_has_grocery_credit_ineligible_months_no!
+        intake.dependents[0].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[1].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq((12 * 4 * 10).round)
+      end
+    end
+
+    context "primary has ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 3
+      end
+
+      context "primary is 65 or older" do
+        before do
+          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 66, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 11.67).round)
+        end
+
+      end
+
+      context "primary is under 65" do
+        before do
+          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 63, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 10).round)
+        end
+      end
+    end
+
+    context "spouse has ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 12
+
+        intake.spouse_has_grocery_credit_ineligible_months_yes!
+        intake.spouse_months_ineligible_for_grocery_credit = 3
+      end
+
+      context "spouse is 65 or older" do
+        before do
+          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 66, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 11.67).round)
+        end
+      end
+
+      context "spouse is under 65" do
+        before do
+          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 63, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 10).round)
+        end
+      end
+    end
+
+    context "dependent has ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 12
+
+        intake.dependents[0].id_has_grocery_credit_ineligible_months_yes!
+        intake.dependents[0].id_months_ineligible_for_grocery_credit = 3
+
+        intake.dependents[1].id_has_grocery_credit_ineligible_months_unfilled!
+        intake.dependents[1].id_months_ineligible_for_grocery_credit = 0
+
+        intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[2].id_months_ineligible_for_grocery_credit = nil
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq(((9 + 12 + 12) * 10).round)
+      end
+    end
+
+    context "donate the credit" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_no!
+        intake.donate_grocery_credit_yes!
+      end
+
+      it "checks the box and doesn't claim the credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43_WORKSHEET].value).to eq(240)
+        expect(instance.lines[:ID40_LINE_43_DONATE].value).to eq(true)
+        expect(instance.lines[:ID40_LINE_43].value).to eq(0)
       end
     end
   end

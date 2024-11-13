@@ -203,6 +203,11 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_childless_eitc') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_childless_eitc') }
     end
+    
+    trait :df_data_box_14 do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
+    end
 
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }

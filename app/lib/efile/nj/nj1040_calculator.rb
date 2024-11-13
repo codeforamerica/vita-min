@@ -5,6 +5,8 @@ module Efile
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
+      EXCESS_UI_WF_SWF_MAX = 179.78 # also applies to ui hc wd
+      EXCESS_FLI_MAX = 145.26
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -32,6 +34,8 @@ module Efile
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
         set_line(:NJ1040_LINE_58_IRS, :calculate_line_58_irs)
+        set_line(:NJ1040_LINE_59, :calculate_line_59)
+        set_line(:NJ1040_LINE_61, :calculate_line_61)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
@@ -223,7 +227,7 @@ module Efile
 
       def is_ineligible_or_unsupported_for_property_tax_credit
         StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE ||
-        Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
+          Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
       end
 
       def calculate_line_40a
@@ -287,6 +291,48 @@ module Efile
 
       def calculate_line_58_irs
         @direct_file_data.fed_eic.positive?
+      end
+
+      def get_personal_excess(ssn, excess_type, threshold)
+        persons_w2s = @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == ssn }
+        return 0 unless persons_w2s.count > 1
+        return 0 if persons_w2s.any? { |w2| w2[excess_type] && w2[excess_type] > threshold }
+
+        total_contribution = 0
+
+        persons_w2s.each do |w2|
+          contribution = w2[excess_type] || 0
+          total_contribution += contribution
+        end
+
+        excess_contribution = total_contribution - threshold
+        excess_contribution.positive? ? excess_contribution : 0
+      end
+
+      def calculate_line_59
+        total_excess = 0
+
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+
+        if @intake.filing_status_mfj?
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+        end
+
+        total_excess.round if total_excess.positive?
+      end
+
+      def calculate_line_61
+        total_excess = 0
+
+        total_excess += get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
+        
+        if @intake.filing_status_mfj?
+          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
+        end
+
+        total_excess.round if total_excess.positive?
       end
 
       def calculate_line_64
