@@ -44,7 +44,7 @@ RSpec.describe GetPhoneMetadataJob, type: :job do
 
     context "when Twilio raises an exception" do
       before do
-        allow(twilio_service).to receive(:send_text_message).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
+        allow(twilio_service).to receive(:get_metadata).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
       end
 
       it "exits cleanly" do
