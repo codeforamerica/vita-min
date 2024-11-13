@@ -139,7 +139,7 @@ module PdfFiller
         "3_5c" => @charitable_deductions&.at('TotalContributions')&.text,
         "3_6c" => @charitable_deductions&.at('SubTotal')&.text,
         "3_7c" => @charitable_deductions&.at('IncreaseStdDed TotalIncStdDeduction')&.text,
-        "44" => @xml_document.at('IncreaseStdDed TotalIncStdDeduction')&.text,
+        "44" => @charitable_deductions&.at('IncreaseStdDed TotalIncStdDeduction')&.text,
       })
 
       direct_file_data = @submission.data_source.direct_file_data
