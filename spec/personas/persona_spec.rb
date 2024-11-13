@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe "personas" do
-
   context "2023" do
     let(:tax_year) { 2023 }
 
