@@ -19,7 +19,12 @@ describe Efile::Nj::NjFlatEitcEligibility do
         end
 
         it "returns #{test_case[:expected]}" do
-          allow(Efile::Nj::NjFlatEitcEligibility).to receive(:meets_age_requirements?).and_return(test_case[:meets_age_requirements]) unless test_case[:meets_age_requirements].nil?
+          unless test_case[:meets_age_requirements].nil?
+            allow(Efile::Nj::NjFlatEitcEligibility)
+              .to receive(:meets_age_requirements?)
+              .and_return(test_case[:meets_age_requirements])
+          end
+          
           result = Efile::Nj::NjFlatEitcEligibility.possibly_eligible?(intake)
           expect(result).to eq(test_case[:expected])
         end
@@ -68,8 +73,14 @@ describe Efile::Nj::NjFlatEitcEligibility do
         context "when #{test_case}" do
           let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
           it "returns #{test_case[:expected]}" do
-            allow(intake).to receive(:calculate_age).with(intake.primary_birth_date, inclusive_of_jan_1: true).and_return(test_case[:primary_age])
-            allow(intake).to receive(:calculate_age).with(intake.spouse_birth_date, inclusive_of_jan_1: true).and_return(test_case[:spouse_age])
+            allow(intake)
+              .to receive(:calculate_age)
+              .with(intake.primary_birth_date, inclusive_of_jan_1: true)
+              .and_return(test_case[:primary_age])
+            allow(intake)
+              .to receive(:calculate_age)
+              .with(intake.spouse_birth_date, inclusive_of_jan_1: true)
+              .and_return(test_case[:spouse_age])
             expect(Efile::Nj::NjFlatEitcEligibility.meets_age_requirements?(intake)).to eq(test_case[:expected])
           end
         end
@@ -91,7 +102,9 @@ describe Efile::Nj::NjFlatEitcEligibility do
         context "when #{test_case}" do
           let(:intake) { create(:state_file_nj_intake) }
           it "returns #{test_case[:expected]}" do
-            allow(intake).to receive(:calculate_age).and_return(test_case[:primary_age])
+            allow(intake)
+              .to receive(:calculate_age)
+              .and_return(test_case[:primary_age])
             expect(Efile::Nj::NjFlatEitcEligibility.meets_age_requirements?(intake)).to eq(test_case[:expected])
           end
         end
