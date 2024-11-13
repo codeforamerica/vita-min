@@ -203,7 +203,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def household_count
-    filer_count + dependents.size
+    filer_count + dependents.count
   end
 
   def primary
