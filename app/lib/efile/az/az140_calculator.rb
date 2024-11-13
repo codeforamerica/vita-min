@@ -63,8 +63,6 @@ module Efile
         set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
-        set_line(:AZ140_LINE_79, :calculate_line_79)
-        set_line(:AZ140_LINE_80, :calculate_line_80)
         @az321.calculate
         @az322.calculate
         @az301.calculate
@@ -78,6 +76,8 @@ module Efile
           set_line(:AZ140_LINE_62, -> { 0 })
           set_line(:AZ140_LINE_63, :calculate_line_63)
         end
+        set_line(:AZ140_LINE_79, :calculate_line_79)
+        set_line(:AZ140_LINE_80, :calculate_line_80)
         @lines.transform_values(&:value)
       end
 
