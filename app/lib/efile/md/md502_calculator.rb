@@ -17,7 +17,7 @@ module Efile
           intake: @intake
         )
 
-        @md_two_income_subtraction_worksheet = Efile::Md::MdTwoIncomeSubtractionWorksheet.new(
+        @two_income_subtraction_worksheet = Efile::Md::TwoIncomeSubtractionWorksheet.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           intake: @intake

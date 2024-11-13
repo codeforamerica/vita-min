@@ -63,8 +63,6 @@ class DirectFileJsonData
     data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
   end
 
-  private
-
   def filers
     data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
   end
