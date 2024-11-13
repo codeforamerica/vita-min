@@ -87,7 +87,7 @@
       "lastName": "Rose",
       "middleInitial": null,
       "tin": "400-00-0001",
-      "dateOfBirth": null,
+      "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true
     },
     {
@@ -95,7 +95,7 @@
       "lastName": "O'Hara",
       "middleInitial": null,
       "tin": "600-00-0001",
-      "dateOfBirth": null,
+      "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": false
     }
   ]

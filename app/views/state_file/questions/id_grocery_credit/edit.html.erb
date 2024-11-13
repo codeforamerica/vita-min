@@ -1,0 +1,97 @@
+<% content_for :page_title, t('.title') %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title_html") %></h1>
+
+  <p><%= t(".see_if_you_qualify", count: current_intake.household_count) %></p>
+  <p><%= t(".answers_confidential_html") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
+
+    <div class="question-with-follow-up spacing-below-25">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <p class="spacing-below-0"><%= t(".situations_question") %></p>
+          <ul class="list--bulleted list--bulleted-indented">
+            <li><%= t(".situation_snap") %></li>
+            <li><%= t(".situation_incarceration") %></li>
+            <li><%= t(".situation_undocumented") %></li>
+          </ul>
+          <%=
+            f.cfa_radio_set(
+              :household_has_grocery_credit_ineligible_months,
+              collection: [
+                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#select-household-members" } },
+                { value: :no, label: t("general.negative") },
+              ]
+            )
+          %>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="select-household-members">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <div class="white-group">
+              <p class="spacing-below-15"><strong><%= t(".select_household_members") %></strong></p>
+              <div class="tight-checkboxes spacing-above-0 spacing-below-0">
+                <%= f.cfa_checkbox(:primary_has_grocery_credit_ineligible_months, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#primary_months_ineligible_for_grocery_credit" }) %>
+                <% if current_intake.filing_status_mfj? %>
+                  <%= f.cfa_checkbox(:spouse_has_grocery_credit_ineligible_months, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#spouse_months_ineligible_for_grocery_credit" }) %>
+                <% end %>
+                <%= f.fields_for :dependents do |ff| %>
+                  <% dependent = ff.object %>
+                  <%= ff.cfa_checkbox(:id_has_grocery_credit_ineligible_months, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#dependent_#{dependent.id}_months_ineligible_for_grocery_credit" }) %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="question-with-follow-up__follow-up" id="primary_months_ineligible_for_grocery_credit">
+            <div class="white-group">
+              <p><%= t(".need_to_know_you_html") %></p>
+              <p><%= t(".example_months") %></p>
+              <%= f.cfa_select(:primary_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, label_class: 'form-label--bold', include_blank: t('general.select_prompt')) %>
+            </div>
+          </div>
+          <% if current_intake.filing_status_mfj? %>
+            <div class="question-with-follow-up__follow-up" id="spouse_months_ineligible_for_grocery_credit">
+              <div class="white-group">
+                <p><%= t(".need_to_know_html", name: current_intake.spouse.full_name) %></p>
+                <p><%= t(".example_months") %></p>
+                <%= f.cfa_select(:spouse_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
+              </div>
+            </div>
+          <% end %>
+          <%= f.fields_for :dependents do |ff| %>
+            <% dependent = ff.object %>
+            <div class="question-with-follow-up__follow-up" id="dependent_<%= dependent.id %>_months_ineligible_for_grocery_credit">
+              <div class="white-group">
+                <p><%= t(".need_to_know_html", name: dependent.full_name) %></p>
+                <p><%= t(".example_months") %></p>
+                <%= ff.cfa_select(:id_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, include_blank: t('general.select_prompt')) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.why_are_you_asking_heading') %></button></p>
+      <div class="reveal__content">
+        <p><%= t('.why_are_you_asking_p1') %></p>
+        <ul>
+          <li><%= t('.why_are_you_asking_li1') %></li>
+          <li><%= t('.why_are_you_asking_li2') %></li>
+          <li><%= t('.why_are_you_asking_li3') %></li>
+        </ul>
+        <p><%= t('.why_are_you_asking_p2') %></p>
+        <p><%= t('.why_are_you_asking_p3') %></p>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

@@ -175,6 +175,14 @@ module SubmissionBuilder
                     end
                   end
 
+                  if calculated_fields.fetch(:NJ1040_LINE_59)&.positive?
+                    xml.ExcessNjUiWfSwf calculated_fields.fetch(:NJ1040_LINE_59)
+                  end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_61)&.positive?
+                    xml.ExcesNjFamiInsur calculated_fields.fetch(:NJ1040_LINE_61)
+                  end
+
                   xml.ChildDependentCareCredit calculated_fields.fetch(:NJ1040_LINE_64).to_i if calculated_fields.fetch(:NJ1040_LINE_64)
 
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)

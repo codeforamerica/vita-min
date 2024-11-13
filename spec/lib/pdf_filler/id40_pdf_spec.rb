@@ -23,7 +23,8 @@ RSpec.describe PdfFiller::Id40Pdf do
 
     context "when filer signed submission agreement" do
       it 'sets signature date field to the correct value' do
-        expect(pdf_fields["DateSign 2"]).to eq tomorrow_midnight.in_time_zone("America/Boise").strftime("%m-%d-%Y")
+        timezone = StateFile::StateInformationService.timezone('id')
+        expect(pdf_fields["DateSign 2"]).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%m-%d-%Y")
         expect(pdf_fields["TaxpayerPhoneNo"]).to eq "2085551234"
       end
     end
@@ -170,6 +171,74 @@ RSpec.describe PdfFiller::Id40Pdf do
 
       it "sets the correct filing status field" do
         expect(pdf_fields['OtherTaxesL29']).to eq '72'
+      end
+    end
+
+    describe "permanent building fund tax" do
+      context "with a filing requirement" do
+        context "with a spouse who is blind" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :mfj_filer_with_json,
+                   :spouse_blind,
+                   :filing_requirement
+            )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+          end
+        end
+
+        context "while blind" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :mfj_filer_with_json,
+                   :primary_blind,
+                   :filing_requirement
+            )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+          end
+        end
+
+        context "when receiving public assistance" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :single_filer_with_json,
+                   :filing_requirement,
+                   received_id_public_assistance: :yes
+                   )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Yes'
+          end
+        end
+
+        context "when not receiving public assistance" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :single_filer_with_json,
+                   :filing_requirement,
+                   received_id_public_assistance: :no
+                   )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+          end
+        end
+      end
+
+      context "without a filing requirement" do
+        let(:intake) {
+          create(:state_file_id_intake,
+                 :single_filer_with_json,
+                 :no_filing_requirement,
+                 )
+        }
+        it "sets the correct filing status field" do
+          expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+        end
       end
     end
 
