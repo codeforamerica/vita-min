@@ -498,12 +498,23 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_id_health_insurance_premium_form_health_insurance_paid_amount', with: "1234.60"
       click_on I18n.t("general.continue")
 
+      # Grocery Credit Edit
+      expect(page).to have_text I18n.t("state_file.questions.id_grocery_credit.edit.see_if_you_qualify.other")
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      # Grocery Credit Review
+      expect(page).to have_text I18n.t("state_file.questions.id_grocery_credit_review.edit.would_you_like_to_donate")
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       # Sales/Use Tax
       expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
       click_on I18n.t("general.continue")
 
+      # State IDs
       expect(page).to have_text I18n.t('state_file.questions.id_primary_state_id.id_primary.title')
       click_on I18n.t("state_file.questions.id_primary_state_id.id_primary.why_ask_this")
       # expect Idaho specific help text
