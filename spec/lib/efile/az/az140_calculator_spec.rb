@@ -32,9 +32,9 @@ describe Efile::Az::Az140Calculator do
     # 31% of 100 (50+50)
     it 'sets the credit to the maximum amount' do
       instance.calculate
-      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
-      expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
-      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_969)
+      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(33)
+      expect(instance.lines[:AZ140_LINE_44].value).to eq(33)
+      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_967)
     end
   end
 
@@ -77,7 +77,7 @@ describe Efile::Az::Az140Calculator do
 
       it "sets the standard deduction correctly" do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_43].value).to eq(13_850)
+        expect(instance.lines[:AZ140_LINE_43].value).to eq(14_600)
         expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
       end
     end
@@ -87,7 +87,7 @@ describe Efile::Az::Az140Calculator do
 
       it "sets the standard deduction correctly" do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_43].value).to eq(27_700)
+        expect(instance.lines[:AZ140_LINE_43].value).to eq(29_200)
         expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
       end
     end
@@ -98,7 +98,7 @@ describe Efile::Az::Az140Calculator do
 
         it "sets the standard deduction correctly" do
           instance.calculate
-          expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+          expect(instance.lines[:AZ140_LINE_43].value).to eq(21_900)
           expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
         end
       end
@@ -108,7 +108,7 @@ describe Efile::Az::Az140Calculator do
 
         it "sets the standard deduction to the same amount as hoh" do
           instance.calculate
-          expect(instance.lines[:AZ140_LINE_43].value).to eq(20_800)
+          expect(instance.lines[:AZ140_LINE_43].value).to eq(21_900)
           expect(instance.lines[:AZ140_LINE_43S].value).to eq('Standard')
         end
       end

@@ -28,10 +28,10 @@ RSpec.describe PdfFiller::Az301Pdf do
         expect(pdf_fields['7a']).to eq '200'
         expect(pdf_fields['7c']).to eq '200'
         expect(pdf_fields['26']).to eq '670'
-        expect(pdf_fields['27']).to eq '2461'
-        expect(pdf_fields['32']).to eq '2461'
+        expect(pdf_fields['27']).to eq '2442'
+        expect(pdf_fields['32']).to eq '2442'
         expect(pdf_fields['33']).to eq '0'
-        expect(pdf_fields['34']).to eq '2461'
+        expect(pdf_fields['34']).to eq '2442'
         expect(pdf_fields['60']).to eq '670'
         expect(pdf_fields['62']).to eq '670'
       end
