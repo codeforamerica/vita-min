@@ -352,9 +352,9 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 19 "]).to eq "60"
         expect(pdf_fields["Enter 20"]).to eq "70"
         expect(pdf_fields["Text Box 30"]).to eq "80"
-        expect(pdf_fields["Check Box 36"]).to eq "200"
-        expect(pdf_fields["Check Box 40"]).to eq "300"
-        expect(pdf_fields["Check Box 42"]).to eq "0.27"
+        expect(pdf_fields["Text Box 36"]).to eq "200"
+        expect(pdf_fields["Text Box 40"]).to eq "300"
+        expect(pdf_fields["Text Box 42"]).to eq "0.27"
       end
 
       it "leaves amount blank if deduction method is not standard" do

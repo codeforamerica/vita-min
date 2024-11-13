@@ -47,13 +47,13 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       xml.MarylandAddress do
         if @intake.confirmed_permanent_address_yes?
           xml.AddressLine1Txt sanitize_for_xml(@intake.direct_file_data.mailing_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.direct_file_data.mailing_apartment, 35)
+          xml.AddressLine2Txt sanitize_for_xml(@intake.direct_file_data.mailing_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.direct_file_data.mailing_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.direct_file_data.mailing_zip
         elsif @intake.confirmed_permanent_address_no?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35)
+          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.permanent_zip
@@ -134,7 +134,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
           xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23)
           xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
-          add_element_if_present(xml, "StateTaxAfterCredits", :MD502_LINE_27)
+          xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27)
         end
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
