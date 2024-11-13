@@ -9,6 +9,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
       { traits: [:df_data_minimal], expected: false },
       { traits: [:df_data_minimal, :married_filing_jointly], expected: false },
       { traits: [:df_data_childless_eitc], meets_age_requirements: false, expected: false },
+      { traits: [:df_data_childless_eitc], is_under_income_total_limit: false, expected: false },
       
       { traits: [:df_data_childless_eitc], expected: true },
       { traits: [:df_data_childless_eitc, :mfj_spouse_over_65], expected: true },
@@ -23,6 +24,12 @@ describe Efile::Nj::NjFlatEitcEligibility do
             allow(Efile::Nj::NjFlatEitcEligibility)
               .to receive(:meets_age_requirements?)
               .and_return(test_case[:meets_age_requirements])
+          end
+
+          unless test_case[:is_under_income_total_limit].nil?
+            allow(Efile::Nj::NjFlatEitcEligibility)
+              .to receive(:is_under_income_total_limit?)
+              .and_return(test_case[:is_under_income_total_limit])
           end
           
           result = Efile::Nj::NjFlatEitcEligibility.possibly_eligible?(intake)
@@ -107,6 +114,34 @@ describe Efile::Nj::NjFlatEitcEligibility do
             expect(Efile::Nj::NjFlatEitcEligibility.meets_age_requirements?(intake)).to eq(test_case[:expected])
           end
         end
+      end
+    end
+  end
+
+  describe ".is_under_income_total_limit?" do
+    context "when mfj" do
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+      it "returns false when at limit" do
+        allow(intake.direct_file_data).to receive(:fed_income_total).and_return(24_210)
+        expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(false)
+      end
+
+      it "returns true when below limit" do
+        allow(intake.direct_file_data).to receive(:fed_income_total).and_return(24_209)
+        expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(true)
+      end
+    end
+
+    context "when not mfj" do
+      let(:intake) { create(:state_file_nj_intake) }
+      it "returns false when at limit" do
+        allow(intake.direct_file_data).to receive(:fed_income_total).and_return(17_640)
+        expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(false)
+      end
+
+      it "returns true when below limit" do
+        allow(intake.direct_file_data).to receive(:fed_income_total).and_return(17_639)
+        expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(true)
       end
     end
   end

@@ -13,6 +13,8 @@ module Efile
 
           return false unless meets_age_requirements?(intake)
 
+          return false unless is_under_income_total_limit?(intake)
+
           true
         end
 
@@ -38,6 +40,14 @@ module Efile
           else
             primary_age_exclusive >= minimum_age_years &&
             (primary_age_exclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years)
+          end
+        end
+
+        def is_under_income_total_limit?(intake)
+          if intake.filing_status_mfj?
+            intake.direct_file_data.fed_income_total < 24_210
+          else
+            intake.direct_file_data.fed_income_total < 17_640
           end
         end
       end
