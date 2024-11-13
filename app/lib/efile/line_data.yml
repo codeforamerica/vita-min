@@ -180,6 +180,8 @@ ID39R_B_LINE_18:
   label: 'Health insurance premium paid amount for household'
 ID39R_B_LINE_24:
   label: 'Total subtractions (Add lines 1-4, 5e-7, 8f-23 if available)'
+ID39R_D_LINE_4:
+  label: 'Total credits Idaho educational entity and Idaho youth and rehabilitation facility contributions, and live organ donation expenses'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
