@@ -6,8 +6,8 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <p class="text--bold spacing-below-5"><%= t(".subtitle") %></p>
-      <p class="spacing-below-5"><%= t(".total", total_deduction: number_to_currency(@total_deduction)) %></p>
+      <p class="spacing-below-5"><%= t(".subtitle") %></p>
+      <p class="text--small spacing-below-5"><%= t(".total", total_deduction: number_to_currency(@total_deduction)) %></p>
       <div class="form-question spacing-below-25">
         <%= f.vita_min_money_field(:primary_student_loan_interest_ded_amount, "Your portion of the student loan interest deduction", classes: ["form-width--long"]) %>
       </div>

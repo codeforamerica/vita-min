@@ -2695,11 +2695,11 @@ en:
           account_holder_name: Account Holder Name
       md_two_income_subtractions:
         edit:
-          description: Enter the portions of the federal student loan interest deduction allocated between you and your spouse to see if you qualify and calculate the subtraction.
+          description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.
           student_loan_deduction_copy: This amount is based on interest paid on student loans and it limited to $2,500 per tax return.
           student_loan_deduction_copy2: See Form(s) 1098-E for more information.
           student_loan_deduction_heading: What is the federal student loan interest deduction?
-          subtitle: Student loan interest deduction
+          subtitle: Enter the portions of the federal student loan interest deduction allocated between you and your spouse.
           sum_form_error: The total of you and/or your spouse's student loan interest deduction must equal %{total_deduction}
           title: You might qualify for the Maryland two-income subtraction
           total: The total student loan interest deduction for you and your spouse's federal return is %{total_deduction}.
