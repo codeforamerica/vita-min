@@ -60,10 +60,17 @@ module Efile
         set_line(:AZ140_LINE_48, :calculate_line_48)
         set_line(:AZ140_LINE_49, :calculate_line_49)
         set_line(:AZ140_LINE_50, :calculate_line_50)
-        set_line(:AZ140_LINE_52, :calculate_line_52)
         set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
+        set_line(:AZ140_LINE_79, :calculate_line_79)
+        set_line(:AZ140_LINE_80, :calculate_line_80)
+        @az321.calculate
+        @az322.calculate
+        @az301.calculate
+        # lines 51 and 52 are dependent on az301
+        set_line(:AZ140_LINE_51,:calculate_line_51)
+        set_line(:AZ140_LINE_52, :calculate_line_52)
         if line_or_zero(:AZ140_LINE_52) > line_or_zero(:AZ140_LINE_59)
           set_line(:AZ140_LINE_60, :calculate_line_60)
         else
@@ -71,12 +78,6 @@ module Efile
           set_line(:AZ140_LINE_62, -> { 0 })
           set_line(:AZ140_LINE_63, :calculate_line_63)
         end
-        set_line(:AZ140_LINE_79, :calculate_line_79)
-        set_line(:AZ140_LINE_80, :calculate_line_80)
-        @az321.calculate
-        @az322.calculate
-        @az301.calculate
-        set_line(:AZ140_LINE_51,:calculate_line_51) # this is dependent on a calculation from Az301
         @lines.transform_values(&:value)
       end
 
