@@ -23,6 +23,7 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_29, :calculate_line_29)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
@@ -80,6 +81,10 @@ module Efile
 
       def calculate_line_11
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
+      end
+
+      def calculate_line_23
+        line_or_zero(:ID39R_D_LINE_4)
       end
 
       def calculate_line_29
