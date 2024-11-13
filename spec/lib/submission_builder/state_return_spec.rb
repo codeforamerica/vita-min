@@ -49,7 +49,81 @@ describe SubmissionBuilder::StateReturn do
     end
   end
 
-  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("id", "nc", "nj")
+  describe "Maryland W2 Box 14 STPICKUP handling" do
+    let(:builder_class) { SubmissionBuilder::Ty2024::States::Md::MdReturnXml }
+    let(:intake) { create(:state_file_md_intake, :df_data_2_w2s, filing_status: 'single') }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:w2_node_name) { "IRSW2" }
+
+    context "when W2 has box14_stpickup" do
+      let!(:state_file_w2) do
+        create(
+          :state_file_w2,
+          state_file_intake: intake,
+          w2_index: 0,
+          box14_stpickup: 750.50,
+        )
+      end
+      before do
+        xml = Nokogiri::XML(intake.raw_direct_file_data)
+        intake.update(raw_direct_file_data: xml.to_xml)
+      end
+
+      it "includes STPICKUP in OtherDeductionsBenefitsGrp with rounded amount" do
+        xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
+        w2_node = xml.css(w2_node_name).first
+        expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).to include("STPICKUP")
+        expect(w2_node.css("OtherDeductionsBenefitsGrp Desc")[1]&.text).to eq "STPICKUP"
+        expect(w2_node.css("OtherDeductionsBenefitsGrp Amt")[1]&.text).to eq "751"
+      end
+
+      it "preserves existing OtherDeductionsBenefitsGrp entries" do
+        xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
+        w2_node = xml.css(w2_node_name).first
+
+        expect(w2_node.css("OtherDeductionsBenefitsGrp Desc")[0]&.text).to eq "414HSUB"
+        expect(w2_node.css("OtherDeductionsBenefitsGrp Amt")[0]&.text).to eq "250"
+      end
+    end
+
+    context "when W2 has zero box14_stpickup" do
+      let!(:state_file_w2) do
+        create(
+          :state_file_w2,
+          state_file_intake: intake,
+          w2_index: 0,
+          box14_stpickup: "0",
+          employer_state_id_num: "12345",
+          state_wages_amount: "50000"
+        )
+      end
+
+      it "does not include STPICKUP in XML" do
+        xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
+        expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).not_to include("STPICKUP")
+      end
+    end
+
+    context "when W2 has nil box14_stpickup" do
+      let!(:state_file_w2) do
+        create(
+          :state_file_w2,
+          state_file_intake: intake,
+          w2_index: 0,
+          box14_stpickup: nil,
+          employer_state_id_num: "12345",
+          state_wages_amount: "50000"
+        )
+      end
+
+      it "does not include STPICKUP in XML" do
+        xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
+        expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).not_to include("STPICKUP")
+      end
+    end
+  end
+
+  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("id", "md", "nc", "nj")
   states_requiring_1099gs.each do |state_code|
     describe "#form1099gs", required_schema: state_code do
       context "#{state_code}: when there are 1099gs present" do

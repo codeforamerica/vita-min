@@ -2522,6 +2522,40 @@ en:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
             bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+      id_grocery_credit:
+        edit:
+          answers_confidential_html: "<strong>Note:</strong> Your answers are confidential and only used to check credit eligibility."
+          example_months: For example, if you experienced 2 of these situations in the month of April, that would count as 1 total month.
+          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in 2024.
+          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in 2024.
+          see_if_you_qualify:
+            one: To see if you qualify, we need more information about you.
+            other: To see if you qualify, we need more information about you and your household.
+          select_household_members: 'Select the members of household these situations apply to:'
+          situation_incarceration: experienced incarceration
+          situation_snap: received food stamps / SNAP-EBT
+          situation_undocumented: lived in the US undocumented
+          situations_question: 'Did any of the following situations apply to your household:'
+          title: You might be eligible for the Idaho Grocery Credit!
+          title_html: You might be eligible for the <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Idaho Grocery Credit</a>!
+          total_number_months: Total number of months
+          why_are_you_asking_heading: Why are you asking this?
+          why_are_you_asking_li1: receiving food stamps
+          why_are_you_asking_li2: experiencing incarceration
+          why_are_you_asking_li3: living in the US undocumented
+          why_are_you_asking_p1: 'Certain restrictions apply for this monthly credit. The following situations disqualify you from the monthly credit:'
+          why_are_you_asking_p2: This credit is reduced each month a person experienced a situation above.
+          why_are_you_asking_p3: Your answers are only used to calculate the extra money for your tax return and will not be shared.
+      id_grocery_credit_review:
+        edit:
+          donate_impact_content_p1: Donating your grocery credit may result in a smaller refund or increase in taxes owed on your ID state return.
+          donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money in the fund is appropriated for public assistance and welfare purposes.
+          donate_impact_heading: How will donating my credit impact my tax return?
+          donate_warning_p1: Your donation will be subtracted from your total state refund.
+          donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
+          title: You will receive $%{grocery_credit_amount} from the Idaho Grocery Credit!
+          title_html: You will receive <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
+          would_you_like_to_donate: Would you like to donate your credit to the Cooperative Welfare Fund?
       id_health_insurance_premium:
         edit:
           amount_paid_helper_text: Total amount paid in %{year}
@@ -2660,6 +2694,9 @@ en:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           why_ask_this: Why are you asking for this information?
+      md_tax_refund:
+        md_bank_details:
+          account_holder_name: Account Holder Name
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}
@@ -2749,6 +2786,14 @@ en:
           primary_disabled_question: Are you disabled according to the New Jersey definition?
           spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
           title: Disabled Exemption
+      nj_estimated_tax_payments:
+        edit:
+          label: Total
+          subtitle: 'Please include the sum of the following:'
+          subtitle_list_1: Estimated income tax payments you made throughout the year for your New Jersey state taxes
+          subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
+          subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2810,6 +2855,7 @@ en:
         edit:
           amount: Amount
           county: County
+          estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality

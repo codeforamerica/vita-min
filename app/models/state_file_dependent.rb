@@ -2,31 +2,34 @@
 #
 # Table name: state_file_dependents
 #
-#  id                :bigint           not null, primary key
-#  ctc_qualifying    :boolean
-#  dob               :date
-#  eic_disability    :integer          default("unfilled")
-#  eic_qualifying    :boolean
-#  eic_student       :integer          default("unfilled")
-#  first_name        :string
-#  intake_type       :string           not null
-#  last_name         :string
-#  middle_initial    :string
-#  months_in_home    :integer
-#  needed_assistance :integer          default("unfilled"), not null
-#  odc_qualifying    :boolean
-#  passed_away       :integer          default("unfilled"), not null
-#  relationship      :string
-#  ssn               :string
-#  suffix            :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  intake_id         :bigint           not null
+#  id                                      :bigint           not null, primary key
+#  ctc_qualifying                          :boolean
+#  dob                                     :date
+#  eic_disability                          :integer          default("unfilled")
+#  eic_qualifying                          :boolean
+#  eic_student                             :integer          default("unfilled")
+#  first_name                              :string
+#  id_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
+#  id_months_ineligible_for_grocery_credit :integer
+#  intake_type                             :string           not null
+#  last_name                               :string
+#  middle_initial                          :string
+#  months_in_home                          :integer
+#  needed_assistance                       :integer          default("unfilled"), not null
+#  odc_qualifying                          :boolean
+#  passed_away                             :integer          default("unfilled"), not null
+#  relationship                            :string
+#  ssn                                     :string
+#  suffix                                  :string
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
+#  intake_id                               :bigint           not null
 #
 # Indexes
 #
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
+
 class StateFileDependent < ApplicationRecord
   # TODO: once we have added all the json fixtures for all the states we can remove RELATIONSHIP_LABELS used to map xml relationship to gender-neutral terms in relationship colum.
   #
@@ -50,12 +53,18 @@ class StateFileDependent < ApplicationRecord
   enum passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away
   enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
   enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
+  enum id_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :id_has_grocery_credit_ineligible_months
 
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :first_name, :last_name, :dob, on: :dob_form
   validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
+
+  validates :id_months_ineligible_for_grocery_credit, numericality: {
+    greater_than_or_equal_to: 0,
+    message: :blank
+  }, if: -> { id_has_grocery_credit_ineligible_months == "yes" }, on: :id_grocery_credit_form
 
   def self.senior_cutoff_date
     # Deprecated: please use `#senior?` (this method used only in tests)
@@ -89,18 +98,8 @@ class StateFileDependent < ApplicationRecord
     calculate_age(inclusive_of_jan_1: true) >= 65
   end
 
-  def calculate_age(inclusive_of_jan_1: true)
-    # federal guidelines: you qualify for age related benefits the day before your birthday
-    # that means for a given tax year those born on Jan 1st the following tax-year will be included
-    # this does not apply for benefits you age out of or any age calculations for Maryland
-    raise StandardError, "Dependent ##{id} is missing date-of-birth" if dob.nil?
-
-    birth_year = dob.year
-    if inclusive_of_jan_1 && intake&.state_code != 'md'
-      birthday_is_jan_1 = dob.month == 1 && dob.day == 1
-      birth_year -= 1 if birthday_is_jan_1
-    end
-    MultiTenantService.statefile.current_tax_year - birth_year
+  def calculate_age(inclusive_of_jan_1:)
+    intake.calculate_age(dob, inclusive_of_jan_1: inclusive_of_jan_1)
   end
 
   def eligible_for_child_tax_credit
