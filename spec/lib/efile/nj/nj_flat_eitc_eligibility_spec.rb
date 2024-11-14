@@ -10,6 +10,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
       { traits: [:df_data_minimal, :married_filing_jointly], expected: false },
       { traits: [:df_data_childless_eitc], meets_age_requirements: false, expected: false },
       { traits: [:df_data_childless_eitc], is_under_income_total_limit: false, expected: false },
+      { traits: [:df_data_childless_eitc], has_ssn_valid_for_employment: false, expected: false },
       
       { traits: [:df_data_childless_eitc], expected: true },
       { traits: [:df_data_childless_eitc, :mfj_spouse_over_65], expected: true },
@@ -30,6 +31,12 @@ describe Efile::Nj::NjFlatEitcEligibility do
             allow(Efile::Nj::NjFlatEitcEligibility)
               .to receive(:is_under_income_total_limit?)
               .and_return(test_case[:is_under_income_total_limit])
+          end
+
+          unless test_case[:has_ssn_valid_for_employment].nil?
+            allow(Efile::Nj::NjFlatEitcEligibility)
+              .to receive(:has_ssn_valid_for_employment?)
+              .and_return(test_case[:has_ssn_valid_for_employment])
           end
           
           result = Efile::Nj::NjFlatEitcEligibility.possibly_eligible?(intake)
@@ -151,6 +158,54 @@ describe Efile::Nj::NjFlatEitcEligibility do
       it "returns true when below limit" do
         allow(intake.direct_file_data).to receive(:fed_income_total).and_return(17_639)
         expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(true)
+      end
+    end
+
+    describe ".has_ssn_valid_for_employment?" do
+      context "when mfj" do
+        context "when spouse has itin" do
+          let(:intake) { create(:state_file_nj_intake, :married_filing_jointly, :spouse_itin) }
+          it "returns false" do
+            expect(Efile::Nj::NjFlatEitcEligibility.has_ssn_valid_for_employment?(intake)).to eq(false)
+          end
+        end
+
+        context "when SSN is not valid for employment" do
+          let(:intake) { create(:state_file_nj_intake, :df_data_ssn_not_valid_for_employment, :married_filing_jointly) }
+          it "returns false" do
+            expect(Efile::Nj::NjFlatEitcEligibility.has_ssn_valid_for_employment?(intake)).to eq(false)
+          end
+        end
+
+        context "returns true when SSN valid for employment" do
+          let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+          it "returns true" do
+            expect(Efile::Nj::NjFlatEitcEligibility.has_ssn_valid_for_employment?(intake)).to eq(true)
+          end
+        end
+      end
+
+      context "when not mfj" do
+        context "when taxpayer has ITIN" do
+          let(:intake) { create(:state_file_nj_intake, :primary_itin) }
+          it "returns false" do
+            expect(Efile::Nj::NjFlatEitcEligibility.has_ssn_valid_for_employment?(intake)).to eq(false)
+          end
+        end
+
+        context "when SSN is not valid for employment" do
+          let(:intake) { create(:state_file_nj_intake, :df_data_ssn_not_valid_for_employment) }
+          it "returns false" do
+            expect(Efile::Nj::NjFlatEitcEligibility.has_ssn_valid_for_employment?(intake)).to eq(false)
+          end
+        end
+
+        context "returns true when SSN valid for employment" do
+          let(:intake) { create(:state_file_nj_intake) }
+          it "returns true" do
+            expect(Efile::Nj::NjFlatEitcEligibility.has_ssn_valid_for_employment?(intake)).to eq(true)
+          end
+        end
       end
     end
   end

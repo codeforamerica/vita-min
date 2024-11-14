@@ -15,6 +15,8 @@ module Efile
 
           return false unless is_under_income_total_limit?(intake)
 
+          return false unless has_ssn_valid_for_employment?(intake)
+
           true
         end
 
@@ -49,6 +51,18 @@ module Efile
           else
             intake.direct_file_data.fed_income_total < 17_640
           end
+        end
+
+        def has_ssn_valid_for_employment?(intake)
+          return false if intake.primary.has_itin?
+          return false if intake.direct_file_json_data.primary_filer.ssnNotValidForEmployment
+
+          if intake.filing_status_mfj? && intake.direct_file_json_data.spouse_filer.present?
+            return false if intake.spouse.has_itin?
+            return false if intake.direct_file_json_data.spouse_filer.ssnNotValidForEmployment
+          end
+
+          true
         end
       end
     end

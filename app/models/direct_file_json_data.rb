@@ -5,6 +5,7 @@ class DirectFileJsonData
     json_accessor last_name: { type: :string, key: "lastName" }
     json_accessor dob: { type: :date, key: "dateOfBirth" }
     json_accessor tin: { type: :string, key: "tin" }
+    json_accessor ssnNotValidForEmployment: { type: :boolean, key: "ssnNotValidForEmployment" }
   end
 
   class DfJsonFiler < DfJsonPerson
