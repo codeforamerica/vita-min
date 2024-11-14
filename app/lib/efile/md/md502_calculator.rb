@@ -57,8 +57,8 @@ module Efile
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_11, :calculate_line_11) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         # lines 15 and 16 depend on lines 8-14
-        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_15, :calculate_line_15)
+        set_line(:MD502_LINE_16, :calculate_line_16)
 
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
