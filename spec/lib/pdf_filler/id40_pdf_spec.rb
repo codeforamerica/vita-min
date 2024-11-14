@@ -174,6 +174,74 @@ RSpec.describe PdfFiller::Id40Pdf do
       end
     end
 
+    describe "permanent building fund tax" do
+      context "with a filing requirement" do
+        context "with a spouse who is blind" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :mfj_filer_with_json,
+                   :spouse_blind,
+                   :filing_requirement
+            )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+          end
+        end
+
+        context "while blind" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :mfj_filer_with_json,
+                   :primary_blind,
+                   :filing_requirement
+            )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+          end
+        end
+
+        context "when receiving public assistance" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :single_filer_with_json,
+                   :filing_requirement,
+                   received_id_public_assistance: :yes
+                   )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Yes'
+          end
+        end
+
+        context "when not receiving public assistance" do
+          let(:intake) {
+            create(:state_file_id_intake,
+                   :single_filer_with_json,
+                   :filing_requirement,
+                   received_id_public_assistance: :no
+                   )
+          }
+          it "sets the correct filing status field" do
+            expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+          end
+        end
+      end
+
+      context "without a filing requirement" do
+        let(:intake) {
+          create(:state_file_id_intake,
+                 :single_filer_with_json,
+                 :no_filing_requirement,
+                 )
+        }
+        it "sets the correct filing status field" do
+          expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
+        end
+      end
+    end
+
     describe "tax withheld" do
       # Miranda has two W-2s with state tax withheld amount (507, 1502) and two 1099Rs with no state tax withheld
       let(:intake) {

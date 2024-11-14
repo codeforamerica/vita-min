@@ -2561,6 +2561,12 @@ es:
               <li>Formulario 1095-A, restando el total de la columna C del total de la columna A.</li>
             </ul>
           what_is_title: "¿Qué es una prima de seguro médico?"
+      id_permanent_building_fund:
+        edit:
+          receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos del programa WIC.
+          receive_public_assistance_single: "¿Recibió pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_spouse: "¿Usted o su cónyuge recibieron pagos de asistencia pública de Idaho al final del año fiscal?"
+          title: "¡Podría ser elegible para una excepción al impuesto del fondo de edificios permanentes!"
       id_primary_state_id:
         id_primary:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
@@ -2571,6 +2577,7 @@ es:
       id_review:
         edit:
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
+          permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
       id_sales_use_tax:

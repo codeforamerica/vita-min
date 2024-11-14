@@ -24,6 +24,8 @@ module Efile
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        set_line(:ID40_LINE_32A, :calculate_line_32a)
+        set_line(:ID40_LINE_32B, :calculate_line_32b)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
@@ -88,6 +90,17 @@ module Efile
         else
           0
         end
+      end
+
+      def calculate_line_32a
+        if @intake.has_filing_requirement? && !@intake.has_blind_filer? && @intake.received_id_public_assistance_no?
+          10
+        else
+          0
+        end
+      end
+      def calculate_line_32b
+        @intake.received_id_public_assistance_yes?
       end
 
       def calculate_grocery_credit
