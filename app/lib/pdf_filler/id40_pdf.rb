@@ -43,6 +43,7 @@ module PdfFiller
         'IncomeL9' => @xml_document.at('Form40 FederalAGI')&.text,
         'IncomeL10' => @xml_document.at('Form39R TotalSubtractions')&.text,
         'IncomeL11' => @xml_document.at('Form40 StateTotalAdjustedIncome')&.text,
+        'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,

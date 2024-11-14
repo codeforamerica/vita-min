@@ -162,10 +162,11 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('TotalCharityAmtContSheet').text).to eq '235'
         expect(xml.at('TotalCharityAmt').text).to eq '1211'
         expect(xml.at('AddCurYrCrAmtTotCshCont').text).to eq '1211'
-        expect(xml.at('TxPyrsStatus').text).to eq '421'
-        expect(xml.at('TotCshContrFostrChrty').text).to eq '421'
-        expect(xml.at('CurrentYrCr').text).to eq '421'
-        expect(xml.at('TotalAvailCr').text).to eq '421'
+        expect(xml.at('TxPyrsStatus').text).to eq '470'
+        expect(xml.at('TotCshContrFostrChrty').text).to eq '470'
+        expect(xml.at('CurrentYrCr').text).to eq '470'
+        expect(xml.at('TotalAvailCr').text).to eq '470'
+        expect(xml.at('DeductionAmt CreditsFromAZ301').text).to eq '470'
       end
     end
 
@@ -189,6 +190,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('SingleHOH').text).to eq '200'
         expect(xml.at('CurrentYrCr').text).to eq '200'
         expect(xml.at('TotalAvailCr').text).to eq '200'
+        expect(xml.at('DeductionAmt CreditsFromAZ301').text).to eq '200'
       end
     end
 

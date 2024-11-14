@@ -60,11 +60,15 @@ module Efile
         set_line(:AZ140_LINE_48, :calculate_line_48)
         set_line(:AZ140_LINE_49, :calculate_line_49)
         set_line(:AZ140_LINE_50, :calculate_line_50)
-        set_line(:AZ140_LINE_51, -> { 0 })
-        set_line(:AZ140_LINE_52, :calculate_line_52)
         set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
+        @az321.calculate
+        @az322.calculate
+        @az301.calculate
+        # lines 51 and 52 are dependent on az301
+        set_line(:AZ140_LINE_51,:calculate_line_51)
+        set_line(:AZ140_LINE_52, :calculate_line_52)
         if line_or_zero(:AZ140_LINE_52) > line_or_zero(:AZ140_LINE_59)
           set_line(:AZ140_LINE_60, :calculate_line_60)
         else
@@ -74,9 +78,6 @@ module Efile
         end
         set_line(:AZ140_LINE_79, :calculate_line_79)
         set_line(:AZ140_LINE_80, :calculate_line_80)
-        @az321.calculate
-        @az322.calculate
-        @az301.calculate
         @lines.transform_values(&:value)
       end
 
@@ -141,9 +142,9 @@ module Efile
 
       def calculate_line_35
         # Subtotal after additions and subtractions
-        subtractions = line_or_zero(:AZ140_LINE_29A) + line_or_zero(:AZ140_LINE_29B)
-        (30..32).each do |line_num|
-          subtractions += line_or_zero("AZ140_LINE_#{line_num}")
+        subtraction_lines = ["28", "29A", "29B"] + (30..32).to_a
+        subtractions = subtraction_lines.sum do |line_num|
+          line_or_zero("AZ140_LINE_#{line_num}")
         end
         line_or_zero(:AZ140_LINE_19) - subtractions
       end
@@ -175,11 +176,11 @@ module Efile
       def calculate_line_43
         # AZ Standard Deductions for 2023
         if filing_status_single?
-          13_850
+          14_600
         elsif filing_status_mfj?
-          27_700
+          29_200
         elsif filing_status_hoh?
-          20_800
+          21_900
         end
       end
 
@@ -257,6 +258,10 @@ module Efile
         [wrksht_2_line_4, wrksht_2_line_5].min
       end
 
+      def calculate_line_51
+        line_or_zero(:AZ301_LINE_62)
+      end
+
       def calculate_line_52
         line_52_value = line_or_zero(:AZ140_LINE_48) - (line_or_zero(:AZ140_LINE_49) + line_or_zero(:AZ140_LINE_50) + line_or_zero(:AZ140_LINE_51))
         [line_52_value, 0].max
@@ -322,7 +327,7 @@ module Efile
       end
 
       def calculate_ccws_line_7c
-        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.31).round
+        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.33).round
       end
     end
   end
