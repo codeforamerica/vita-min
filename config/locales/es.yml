@@ -2577,8 +2577,8 @@ es:
       id_review:
         edit:
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
-          permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           idaho_grocery_credit: Idaho Grocery Credit
+          permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
       id_sales_use_tax:
