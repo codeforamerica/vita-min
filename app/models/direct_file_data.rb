@@ -541,22 +541,22 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def primary_blind
+  def primary_blind=(value)
     create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(__method__, "X")
+    write_df_xml_value(__method__, value)
   end
 
-  def spouse_blind
+  def spouse_blind=(value)
     create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(__method__, "X")
+    write_df_xml_value(__method__, value)
   end
 
   def is_primary_blind?
-    parsed_xml.at('PrimaryBlindInd').present?
+    primary_blind == "X"
   end
 
   def is_spouse_blind?
-    parsed_xml.at('SpouseBlindInd').present?
+    spouse_blind == "X"
   end
 
   def blind_primary_spouse

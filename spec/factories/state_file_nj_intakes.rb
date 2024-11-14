@@ -235,13 +235,13 @@ FactoryBot.define do
 
     trait :primary_blind do
       after(:build) do |intake|
-        intake.direct_file_data.primary_blind
+        intake.direct_file_data.primary_blind = "X"
       end
     end
 
     trait :spouse_blind do
       after(:build) do |intake|
-        intake.direct_file_data.spouse_blind
+        intake.direct_file_data.spouse_blind = "X"
       end
     end
 

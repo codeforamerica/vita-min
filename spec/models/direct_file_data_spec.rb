@@ -32,7 +32,9 @@ describe DirectFileData do
     ["fed_gross_income_exclusion_amount", 900],
     ["qualifying_children_under_age_ssn_count", "1"],
     ["primary_over_65", "X"],
-    ["spouse_over_65", "X"]
+    ["spouse_over_65", "X"],
+    ["primary_blind", "X"],
+    ["spouse_blind", "X"],
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
@@ -59,6 +61,28 @@ describe DirectFileData do
         direct_file_data.send("#{node_name}=", "123")
         expect(direct_file_data.send(node_name).to_s).to eq "123"
       end
+    end
+  end
+
+  describe "#is_primary_blind?" do
+    it "returns true when value is X" do
+      expect(direct_file_data.is_primary_blind?).to eq true
+    end
+
+    it "returns false when node absent" do
+      xml.at('PrimaryBlindInd').remove
+      expect(direct_file_data.is_primary_blind?).to eq false
+    end
+  end
+
+  describe "#is_spouse_blind?" do
+    it "returns true when value is X" do
+      expect(direct_file_data.is_spouse_blind?).to eq true
+    end
+
+    it "returns false when node absent" do
+      xml.at('SpouseBlindInd').remove
+      expect(direct_file_data.is_spouse_blind?).to eq false
     end
   end
 

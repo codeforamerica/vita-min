@@ -34,7 +34,9 @@
       <SpouseDeathDt>2024-07-06</SpouseDeathDt>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <PrimaryBlindInd>X</PrimaryBlindInd>
       <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+      <SpouseBlindInd>X</SpouseBlindInd>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
       <DependentDetail>
         <DependentFirstNm>Axel</DependentFirstNm>
