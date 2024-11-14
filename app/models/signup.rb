@@ -34,7 +34,7 @@ class Signup < ApplicationRecord
       end
 
       if signup.phone_number.present?
-        TwilioService.send_text_message(to: signup.phone_number, body: message.sms_body)
+        TwilioService.new(:gyr).send_text_message(to: signup.phone_number, body: message.sms_body)
         signup.touch(sent_at_column)
       end
     end

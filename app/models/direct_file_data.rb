@@ -74,7 +74,9 @@ class DirectFileData < DfXmlAccessor
     primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
     spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
-    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
+    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt',
+    total_income_amount: 'IRS1040 TotalIncomeAmt',
+    total_itemized_or_standard_deduction_amount: 'IRS1040 TotalItemizedOrStandardDedAmt'
   }.freeze
 
   def initialize(raw_xml)
@@ -192,6 +194,13 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_tax_amt=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def total_income_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+  def total_itemized_or_standard_deduction_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -533,22 +542,22 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def primary_blind
-    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(__method__, "X")
+  def set_primary_blind
+    create_or_destroy_df_xml_node(:primary_blind, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(:primary_blind, 'X')
   end
 
-  def spouse_blind
-    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(__method__, "X")
+  def set_spouse_blind
+    create_or_destroy_df_xml_node(:spouse_blind, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(:spouse_blind, 'X')
   end
 
   def is_primary_blind?
-    parsed_xml.at('PrimaryBlindInd').present?
+    primary_blind == "X"
   end
 
   def is_spouse_blind?
-    parsed_xml.at('SpouseBlindInd').present?
+    spouse_blind == "X"
   end
 
   def blind_primary_spouse

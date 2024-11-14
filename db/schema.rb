@@ -1855,6 +1855,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_205619) do
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
+    t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
     t.integer "routing_number"
     t.integer "sign_in_count", default: 0, null: false
