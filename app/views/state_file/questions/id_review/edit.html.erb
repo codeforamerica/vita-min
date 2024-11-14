@@ -1,4 +1,3 @@
-
 <% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
@@ -30,7 +29,6 @@
     </div>
   </section>
 
-
   <% if current_intake.has_filing_requirement? && !current_intake.has_blind_filer? %>
     <div id="permanent-building-fund" class="white-group">
       <div class="spacing-below-5">
@@ -43,4 +41,3 @@
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
-
