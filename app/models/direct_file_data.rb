@@ -75,7 +75,8 @@ class DirectFileData < DfXmlAccessor
     primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
     spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
-    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt'
+    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt',
+    total_itemized_or_Standard_deduction_amount: 'IRS1040 TotalItemizedOrStandardDedAmt'
   }.freeze
 
   def initialize(raw_xml)
@@ -209,6 +210,10 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_agi=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def total_itemized_or_Standard_deduction_amount=(value)
     write_df_xml_value(__method__, value)
   end
 

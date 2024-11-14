@@ -51,6 +51,8 @@ module SubmissionBuilder
                   xml.ClaimedAsDependent 1
                 end
 
+                xml.StandardDeduction @direct_file_data.total_itemized_or_Standard_deduction_amount
+
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
 
