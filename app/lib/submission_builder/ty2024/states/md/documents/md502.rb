@@ -47,13 +47,13 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       xml.MarylandAddress do
         if @intake.confirmed_permanent_address_yes?
           xml.AddressLine1Txt sanitize_for_xml(@intake.direct_file_data.mailing_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.direct_file_data.mailing_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
+          xml.AddressLine2Txt sanitize_for_xml(@intake.direct_file_data.mailing_apartment, 35)
           xml.CityNm sanitize_for_xml(@intake.direct_file_data.mailing_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.direct_file_data.mailing_zip
         elsif @intake.confirmed_permanent_address_no?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
+          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35)
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.permanent_zip
@@ -126,14 +126,13 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
         xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
       end
-      xml.StateTaxComputation do
-        xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
-        add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
-        add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
-        add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
-        xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23)
-        xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
-        xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27)
+      if has_state_tax_computation?
+        xml.StateTaxComputation do
+          xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
+          add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
+          add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
+          add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
+        end
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
@@ -177,6 +176,10 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
+  end
+
+  def has_state_tax_computation?
+    @deduction_method_is_standard || calculated_fields.fetch(:MD502_LINE_22)&.positive?
   end
 
   def filing_status
