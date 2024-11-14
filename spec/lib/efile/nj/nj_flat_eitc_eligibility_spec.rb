@@ -219,9 +219,8 @@ describe Efile::Nj::NjFlatEitcEligibility do
     describe ".claimed_as_dependent?" do
       context "when mfj" do
         context "when spouse claimed as dependent" do
-          let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+          let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
           it "returns true" do
-            allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(true)
             expect(Efile::Nj::NjFlatEitcEligibility.claimed_as_dependent?(intake)).to eq(true)
           end
         end
@@ -229,7 +228,6 @@ describe Efile::Nj::NjFlatEitcEligibility do
         context "when neither claimed as dependent" do
           let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
           it "returns false" do
-            allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(false)
             expect(Efile::Nj::NjFlatEitcEligibility.claimed_as_dependent?(intake)).to eq(false)
           end
         end
@@ -237,9 +235,8 @@ describe Efile::Nj::NjFlatEitcEligibility do
 
       context "when not mfj" do
         context "when claimed as dependent" do
-          let(:intake) { create(:state_file_nj_intake) }
+          let(:intake) { create(:state_file_nj_intake, :df_data_claimed_as_dependent) }
           it "returns true" do
-            allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
             expect(Efile::Nj::NjFlatEitcEligibility.claimed_as_dependent?(intake)).to eq(true)
           end
         end
@@ -247,7 +244,6 @@ describe Efile::Nj::NjFlatEitcEligibility do
         context "when not claimed as dependent" do
           let(:intake) { create(:state_file_nj_intake) }
           it "returns false" do
-            allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(false)
             expect(Efile::Nj::NjFlatEitcEligibility.claimed_as_dependent?(intake)).to eq(false)
           end
         end
