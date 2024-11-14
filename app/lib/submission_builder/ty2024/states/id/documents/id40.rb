@@ -41,6 +41,13 @@ module SubmissionBuilder
                   xml.SpouseOver65 1
                 end
 
+                if @direct_file_data.primary_blind == "X"
+                  xml.PrimeBlind 1
+                end
+                if @intake.filing_status_mfj? && @direct_file_data.spouse_blind == "X"
+                  xml.SpouseBlind 1
+                end
+
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
 

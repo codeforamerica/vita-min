@@ -45,6 +45,8 @@ module PdfFiller
         'IncomeL11' => @xml_document.at('Form40 StateTotalAdjustedIncome')&.text,
         'L12aYourself ' => @xml_document.at('PrimeOver65')&.text == "1" ? "Yes" : "Off",
         'L12aSpouse' => @xml_document.at('SpouseOver65')&.text == "1" ? "Yes" : "Off",
+        'L12bYourself' => @xml_document.at('PrimeBlind')&.text == "1" ? "Yes" : "Off",
+        'L12bSpouse' => @xml_document.at('SpouseBlind')&.text == "1" ? "Yes" : "Off",
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',

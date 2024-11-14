@@ -19,24 +19,28 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
       end
 
-      context "primary over 65" do
+      context "primary over 65 or blind" do
         context "when true" do
           before do
             intake.direct_file_data.primary_over_65 = "X"
+            intake.direct_file_data.primary_blind = "X"
           end
 
           it "fills a 1" do
             expect(xml.at("PrimeOver65").text).to eq "1"
+            expect(xml.at("PrimeBlind").text).to eq "1"
           end
         end
 
         context "when false" do
           before do
             intake.direct_file_data.primary_over_65 = ""
+            intake.direct_file_data.primary_blind = ""
           end
 
           it "does not have the node" do
             expect(xml.at("PrimeOver65")).to be_nil
+            expect(xml.at("PrimeBlind")).to be_nil
           end
         end
       end
@@ -60,20 +64,24 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         context "when true" do
           before do
             intake.direct_file_data.spouse_over_65 = "X"
+            intake.direct_file_data.spouse_blind = "X"
           end
 
           it "fills a 1" do
             expect(xml.at("SpouseOver65").text).to eq "1"
+            expect(xml.at("SpouseBlind").text).to eq "1"
           end
         end
 
         context "when false" do
           before do
             intake.direct_file_data.spouse_over_65 = ""
+            intake.direct_file_data.spouse_blind = ""
           end
 
           it "does not have the node" do
             expect(xml.at("SpouseOver65")).to be_nil
+            expect(xml.at("SpouseBlind")).to be_nil
           end
         end
       end
