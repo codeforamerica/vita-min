@@ -47,6 +47,7 @@ module PdfFiller
         'L12aSpouse' => @xml_document.at('SpouseOver65')&.text == "1" ? "Yes" : "Off",
         'L12bYourself' => @xml_document.at('PrimeBlind')&.text == "1" ? "Yes" : "Off",
         'L12bSpouse' => @xml_document.at('SpouseBlind')&.text == "1" ? "Yes" : "Off",
+        'L12cDependent' => @xml_document.at('ClaimedAsDependent')&.text == "1" ? "Yes" : "Off",
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',

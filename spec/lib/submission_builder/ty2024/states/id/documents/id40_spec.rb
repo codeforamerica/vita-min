@@ -19,16 +19,18 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
       end
 
-      context "primary over 65 or blind" do
+      context "primary over 65, blind, claimed as dependent" do
         context "when true" do
           before do
             intake.direct_file_data.primary_over_65 = "X"
             intake.direct_file_data.primary_blind = "X"
+            intake.direct_file_data.primary_claim_as_dependent = "X"
           end
 
           it "fills a 1" do
             expect(xml.at("PrimeOver65").text).to eq "1"
             expect(xml.at("PrimeBlind").text).to eq "1"
+            expect(xml.at("ClaimedAsDependent").text).to eq "1"
           end
         end
 
@@ -36,11 +38,13 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
           before do
             intake.direct_file_data.primary_over_65 = ""
             intake.direct_file_data.primary_blind = ""
+            intake.direct_file_data.primary_claim_as_dependent = ""
           end
 
           it "does not have the node" do
             expect(xml.at("PrimeOver65")).to be_nil
             expect(xml.at("PrimeBlind")).to be_nil
+            expect(xml.at("ClaimedAsDependent")).to be_nil
           end
         end
       end

@@ -72,6 +72,17 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['L12aSpouse']).to eq 'Off'
         expect(pdf_fields['L12bYourself']).to eq 'Yes'
         expect(pdf_fields['L12bSpouse']).to eq 'Off'
+        expect(pdf_fields['L12cDependent']).to eq 'Off'
+      end
+
+      context "when claimed as dependent" do
+        before do
+          intake.direct_file_data.primary_claim_as_dependent = "X"
+        end
+
+        it "fills in the correct fields" do
+          expect(pdf_fields['L12cDependent']).to eq 'Yes'
+        end
       end
 
       context "with dependents" do
