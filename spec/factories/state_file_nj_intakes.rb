@@ -196,7 +196,7 @@ FactoryBot.define do
 
     trait :df_data_investment_income_12k do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_investment_income_12k') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_investment_income_12k') }
     end
 
     trait :df_data_childless_eitc do
@@ -211,7 +211,7 @@ FactoryBot.define do
 
     trait :df_data_claimed_as_dependent do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_claimed_as_dependent') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_childless_eitc') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_claimed_as_dependent') }
     end
     
     trait :df_data_box_14 do
