@@ -305,19 +305,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Main XML Doc"
 
-      #needs to be upadated with new XML
-      # expect(page.body).to include('efile:ReturnState')
-      # expect(page.body).to include('<FirstName>Titus</FirstName>')
-      # expect(page.body).to include('<QualParentsAncestors>')
-      # expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
-      # expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
-      #
-      # assert_flow_explorer_sample_params_includes_everything('az')
-      #
-      # perform_enqueued_jobs
-      # submission = EfileSubmission.last
-      # expect(submission.submission_bundle).to be_present
-      # expect(submission.current_state).to eq("queued")
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
+      expect(page.body).to include('<QualParentsAncestors>')
+      expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
+      expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
+
+      assert_flow_explorer_sample_params_includes_everything('az')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
