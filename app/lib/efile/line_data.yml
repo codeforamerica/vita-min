@@ -556,8 +556,6 @@ MD502_LINE_6:
   label: '6 Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)'
 MD502_LINE_7:
   label: '7 Total federal adjusted gross income and Maryland additions: add line 1 and line 6'
-MD502_LINE_15:
-  label: 'TBD'
 MD502_LINE_A_PRIMARY:
   label: 'A Primary exemption'
 MD502_LINE_A_SPOUSE:
@@ -586,10 +584,18 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_9:
+  label: 'TBD'
+MD502_LINE_10A:
+  label: 'TBD'
+MD502_LINE_11:
+  label: 'TBD'
 MD502_LINE_13:
-  label: Subtractions from attached form 502SU
+  label: 'Subtractions from attached form 502SU'
+MD502_LINE_15:
+  label: 'Total subtractions (Add lines 8 through 14. See instructions.)'
 MD502_LINE_16:
-  label: '16 TBD'
+  label: 'Maryland adjusted gross income (Subtract line 15 from line 7.)'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
 MD502_LINE_17:

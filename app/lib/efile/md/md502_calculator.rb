@@ -48,13 +48,17 @@ module Efile
         set_line(:MD502_LINE_6, :calculate_line_6)
         set_line(:MD502_LINE_7, :calculate_line_7)
 
-        # Subtractions
-        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-
         # MD502SU Subtractions
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
+
+        # Subtractions
+        set_line(:MD502_LINE_9, :calculate_line_9) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_11, :calculate_line_11) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        # lines 15 and 16 depend on lines 8-14
+        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
 
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
@@ -319,9 +323,20 @@ module Efile
         line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
       end
 
-      def calculate_line_15; end
+      def calculate_line_9; end
+      def calculate_line_10a; end
+      def calculate_line_11; end
 
-      def calculate_line_16; end
+      def calculate_line_15
+        subtraction_lines = [9, "10A", 11, 13]
+        subtraction_lines.sum do |line_num|
+          line_or_zero("MD502_LINE_#{line_num}")
+        end
+      end
+
+      def calculate_line_16
+        line_or_zero(:MD502_LINE_7) - line_or_zero(:MD502_LINE_15)
+      end
 
       FILING_MINIMUMS_NON_SENIOR = {
         single: 14_600,
@@ -361,12 +376,12 @@ module Efile
         s_mfs_d: {
           12000 => 1_800,
           17999 => ->(x) { x * 0.15 },
-          18000 => 2_700,
+          Float::INFINITY => 2_700,
         },
         mfj_hoh_qss: {
           24333 => 3_650,
           36332 => ->(x) { x * 0.15 },
-          36333 => 5_450,
+          Float::INFINITY => 5_450,
         }
       }.freeze
       FILING_STATUS_GROUPS = {

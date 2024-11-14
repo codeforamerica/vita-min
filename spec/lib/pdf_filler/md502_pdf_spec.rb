@@ -411,7 +411,6 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the total state and local tax withheld' do
-        puts pdf_fields
         expect(pdf_fields["Text Box 68"]).to eq "500"
       end
     end
@@ -438,6 +437,22 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Text Field 11"]).to eq ""
         expect(pdf_fields["Text Field 12"]).to eq ""
         expect(pdf_fields["Enter 13"].to_i).to eq 0
+      end
+    end
+
+    describe "Line 15" do
+      let(:total_subtractions) { 100 }
+      it "outputs the total subtractions" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return total_subtractions
+        expect(pdf_fields["Enter 15"].to_i).to eq total_subtractions
+      end
+    end
+
+    describe "Line 16" do
+      let(:state_adjusted_gross_income) { 150 }
+      it "outputs the total subtractions" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_gross_income
+        expect(pdf_fields["Enter 16"].to_i).to eq state_adjusted_gross_income
       end
     end
   end

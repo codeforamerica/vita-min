@@ -117,6 +117,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
         xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
         xml.Other calculated_fields.fetch(:MD502_LINE_13)
+        add_element_if_present(xml, "Total", :MD502_LINE_15)
+        add_element_if_present(xml, "StateAdjustedGrossIncome", :MD502_LINE_16)
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
