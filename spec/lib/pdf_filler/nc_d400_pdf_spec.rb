@@ -142,13 +142,14 @@ RSpec.describe PdfFiller::NcD400Pdf do
       end
 
       context "mfs filer" do
-        let(:intake) { create(:state_file_nc_intake, :with_spouse, :with_filers_synced, filing_status: "married_filing_separately") }
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_separately") }
         before do
+          submission.data_source.direct_file_data.spouse_name = "Stella Crumpets"
           submission.data_source.direct_file_data.spouse_ssn = "111100030"
         end
 
         it "sets fields specific to filing status" do
-          expect(pdf_fields['y_d400wf_sname2']).to eq 'Susie K Cave'
+          expect(pdf_fields['y_d400wf_sname2']).to eq 'Stella Crumpets'
           expect(pdf_fields['y_d400wf_sssn2']).to eq '111100030'
 
           expect(pdf_fields['y_d400wf_fstat1']).to eq 'Off'
