@@ -79,6 +79,8 @@
 #  index_state_file_nc_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNcIntake < StateFileBaseIntake
+  self.ignored_columns = [:df_data_import_failed]
+
   include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 

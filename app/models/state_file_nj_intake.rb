@@ -105,6 +105,7 @@
 #  index_state_file_nj_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNjIntake < StateFileBaseIntake
+  self.ignored_columns = [:df_data_import_failed]
 
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
