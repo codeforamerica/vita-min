@@ -52,8 +52,8 @@ module PdfFiller
         'TxCompL16' => @xml_document.at('StandardDeduction')&.text,
         'TxCompL17' => @xml_document.at('TaxableIncomeState')&.text,
         'TxCompL19' => @xml_document.at('TaxableIncomeState')&.text,
-        'TxCompL20' => @xml_document.at('StateIncomeTax')&.text,
-        'L21' => @xml_document.at('StateIncomeTax')&.text,
+        'TxCompL20' => round_amount_to_nearest_integer(@xml_document.at('StateIncomeTax')&.text),
+        'L21' => round_amount_to_nearest_integer(@xml_document.at('StateIncomeTax')&.text),
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',
@@ -81,6 +81,10 @@ module PdfFiller
       return if date_str.nil?
 
       Date.parse(date_str)&.strftime(format)
+    end
+
+    def round_amount_to_nearest_integer(str_value)
+      str_value.to_f.round
     end
   end
 end
