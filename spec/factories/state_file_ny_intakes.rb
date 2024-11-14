@@ -216,6 +216,7 @@ FactoryBot.define do
     factory :state_file_zeus_intake do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_zeus_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
@@ -238,6 +239,7 @@ FactoryBot.define do
     factory :state_file_taylor_intake do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_taylor_hoh_3deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_taylor_hoh_3deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
@@ -254,10 +256,12 @@ FactoryBot.define do
 
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_batman') }
     end
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_bloombito_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_bloombito_w2s') }
     end
   end
 end
