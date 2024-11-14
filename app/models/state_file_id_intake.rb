@@ -46,7 +46,7 @@
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
 #  referrer                                       :string
-#  routing_number                                 :integer
+#  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
 #  source                                         :string
 #  spouse_birth_date                              :date
