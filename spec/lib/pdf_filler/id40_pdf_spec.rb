@@ -79,9 +79,11 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['L12bSpouse']).to eq 'Off'
         expect(pdf_fields['L12cDependent']).to eq 'Off'
         expect(pdf_fields['TxCompL16']).to eq '13850'
-        expect(pdf_fields['TxCompL17']).to eq '2000'
+        expect(pdf_fields['TxCompL17']).to eq '2000' # same as L19
         expect(pdf_fields['TxCompL19']).to eq '2000'
         expect(pdf_fields['TxCompL20']).to eq '200'
+        expect(pdf_fields['TxCompL20']).to eq '200'
+        expect(pdf_fields['L21']).to eq '200' # same as L20
       end
 
       context "when claimed as dependent" do

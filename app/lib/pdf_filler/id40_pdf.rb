@@ -53,6 +53,7 @@ module PdfFiller
         'TxCompL17' => @xml_document.at('TaxableIncomeState')&.text,
         'TxCompL19' => @xml_document.at('TaxableIncomeState')&.text,
         'TxCompL20' => @xml_document.at('StateIncomeTax')&.text,
+        'L21' => @xml_document.at('StateIncomeTax')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',
