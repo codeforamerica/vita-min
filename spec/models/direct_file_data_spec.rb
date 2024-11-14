@@ -35,7 +35,7 @@ describe DirectFileData do
     ["spouse_over_65", "X"],
     ["primary_blind", "X"],
     ["spouse_blind", "X"],
-    ["total_itemized_or_Standard_deduction_amount", 20800],
+    ["total_itemized_or_standard_deduction_amount", 20800],
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do

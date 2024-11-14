@@ -50,6 +50,8 @@ module PdfFiller
         'L12cDependent' => @xml_document.at('ClaimedAsDependent')&.text == "1" ? "Yes" : "Off",
         'TxCompL15' => 0,
         'TxCompL16' => @xml_document.at('StandardDeduction')&.text,
+        'TxCompL17' => @xml_document.at('TaxableIncomeState')&.text,
+        'TxCompL19' => @xml_document.at('TaxableIncomeState')&.text,
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',

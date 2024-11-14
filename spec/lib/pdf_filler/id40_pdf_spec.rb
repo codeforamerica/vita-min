@@ -37,6 +37,9 @@ RSpec.describe PdfFiller::Id40Pdf do
                primary_last_name: "Idahoan",
               )
       }
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
+      end
 
       it 'sets static fields to the correct values' do
         expect(pdf_fields['YearBeginning']).to eq Rails.configuration.statefile_current_tax_year.to_s
@@ -75,6 +78,8 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['L12bSpouse']).to eq 'Off'
         expect(pdf_fields['L12cDependent']).to eq 'Off'
         expect(pdf_fields['TxCompL16']).to eq '13850'
+        expect(pdf_fields['TxCompL17']).to eq '2000'
+        expect(pdf_fields['TxCompL19']).to eq '2000'
       end
 
       context "when claimed as dependent" do

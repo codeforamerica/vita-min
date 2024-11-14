@@ -198,6 +198,8 @@ ID40_LINE_10:
   label: 'Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_19:
+  label: 'Taxable state income'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 ID40_LINE_43_WORKSHEET:

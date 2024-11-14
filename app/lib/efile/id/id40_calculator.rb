@@ -23,6 +23,7 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_29, :calculate_line_29)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
@@ -82,6 +83,12 @@ module Efile
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
+      # Subtract the larger of L15 or L16 from L11 but L15 is always 0
+      # L16 is pulled from df data
+      def calculate_line_19
+        [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
+      end
+
       def calculate_line_29
         if @intake.has_unpaid_sales_use_tax? && !@intake.total_purchase_amount.nil?
           (@intake.total_purchase_amount * 0.06).round
@@ -91,7 +98,7 @@ module Efile
       end
 
       def calculate_grocery_credit
-        return 0 if @intake.direct_file_data.claimed_as_dependent?
+        return 0 if @direct_file_data.claimed_as_dependent?
 
         credit = 0
 

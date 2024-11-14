@@ -9,6 +9,9 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
     context "single filer" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
+      end
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "SINGLE"
@@ -18,6 +21,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses(2000)] = 24724
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
         expect(xml.at("StandardDeduction").text).to eq "13850"
+        expect(xml.at("TaxableIncomeState").text).to eq "2000"
       end
 
       context "primary over 65, blind, claimed as dependent" do

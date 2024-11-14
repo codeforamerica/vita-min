@@ -105,6 +105,24 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 19: Idaho taxable income" do
+    before do
+      allow(instance).to receive(:calculate_line_11).and_return 50
+    end
+
+    it "enters L11 - L16 if positive number" do
+      intake.direct_file_data.total_itemized_or_standard_deduction_amount = 40
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_19].value).to eq(10)
+    end
+
+    it "enters 0 if difference is negative number" do
+      intake.direct_file_data.total_itemized_or_standard_deduction_amount = 60
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_19].value).to eq(0)
+    end
+  end
+
   describe "Line 29: State Use Tax" do
     let(:purchase_amount) { nil }
 
