@@ -15,6 +15,7 @@ module SubmissionBuilder
                 xml.RetirementBenefitsDeduction calculated_fields.fetch(:ID39R_B_LINE_8f)
                 xml.HealthInsurancePaid calculated_fields.fetch(:ID39R_B_LINE_18)
                 xml.TotalSubtractions calculated_fields.fetch(:ID39R_B_LINE_24)
+                xml.TotalSupplementalCredits calculated_fields.fetch(:ID39R_D_LINE_4)
               end
             end
 

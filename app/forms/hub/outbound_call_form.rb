@@ -26,8 +26,7 @@ module Hub
     def dial
       return false unless valid?
 
-      twilio_client = Twilio::REST::Client.new(EnvironmentCredentials.dig(:twilio, :account_sid),
-                                               EnvironmentCredentials.dig(:twilio, :auth_token))
+      twilio_client = TwilioService.new(:gyr).client
       OutboundCall.transaction do
         @outbound_call = @client.outbound_calls.create(
           user_id: @user.id,

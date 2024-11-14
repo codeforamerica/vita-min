@@ -58,7 +58,7 @@ class DirectFileJsonData
   delegate :to_json, to: :data
 
   def initialize(json)
-    @data = JSON.parse(json || "{}")
+    @data = json || {}
   end
 
   def primary_filer

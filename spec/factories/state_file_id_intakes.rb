@@ -126,7 +126,7 @@ FactoryBot.define do
         intake.spouse_last_name = evaluator.spouse_last_name if evaluator.spouse_last_name
       end
 
-      intake.raw_direct_file_intake_data = intake.direct_file_json_data.to_json
+      intake.raw_direct_file_intake_data = intake.direct_file_json_data
     end
 
     after(:create) do |intake|
