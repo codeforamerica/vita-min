@@ -12,7 +12,7 @@ module StateFile
 
         intake.update(
           raw_direct_file_data: direct_file_json['xml'],
-          raw_direct_file_intake_data: direct_file_json['directFileData'].to_json,
+          raw_direct_file_intake_data: direct_file_json['directFileData'],
           federal_submission_id: direct_file_json['submissionId'],
           federal_return_status: direct_file_json['status'],
           df_data_imported_at: Time.now
