@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module StateFile
   class StateInformationService
     GETTER_METHODS = [
@@ -51,8 +52,6 @@ module StateFile
         @_state_intake_class_names ||= state_intake_classes.map(&:to_s).freeze
       end
     end
-
-    private
 
     STATES_INFO = IceNine.deep_freeze!({
       az: {
@@ -113,8 +112,8 @@ module StateFile
         state_name: "Maryland",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
         survey_link: "",
-        tax_payment_info_url: "",
-        tax_payment_url: "",
+        tax_payment_info_url: "https://www.marylandtaxes.gov/individual/individual-payments.php",
+        tax_payment_url: "Marylandtaxes.gov",
         tax_refund_url: "",
         timezone: 'America/New_York',
         vita_link: "",
@@ -155,7 +154,7 @@ module StateFile
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
         state_name: "New Jersey",
         return_type: "Resident",
-        schema_file_name: "NJIndividual2023V0.4.zip",
+        schema_file_name: "NJIndividual2024V0.1.zip",
         mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
                               "Trenton, NJ".html_safe,
@@ -168,7 +167,7 @@ module StateFile
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
         voucher_path: "",
-        w2_supported_box14_codes: [],
+        w2_supported_box14_codes: ["UI_WF_SWF", "UI_HC_WD", "FLI"],
         w2_include_local_income_boxes: false
       },
       ny: {

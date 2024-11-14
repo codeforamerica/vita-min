@@ -30,7 +30,7 @@ describe DirectFileJsonData do
   end
 
   describe "for a single filer" do
-    let(:intake) { create :state_file_id_intake, :single_filer_with_json}
+    let(:intake) { create :state_file_id_intake, :single_filer_with_json }
     let(:direct_file_json_data) { intake.direct_file_json_data }
     it "can read value" do
       expect(direct_file_json_data.primary_filer.first_name).to eq "Lana"
@@ -41,7 +41,7 @@ describe DirectFileJsonData do
   end
 
   describe "for a mfj filer" do
-    let(:intake) { create :state_file_id_intake, :mfj_filer_with_json}
+    let(:intake) { create :state_file_id_intake, :mfj_filer_with_json }
     let(:direct_file_json_data) { intake.direct_file_json_data }
     it "can read value" do
       expect(direct_file_json_data.primary_filer.first_name).to eq "Paul"
@@ -59,13 +59,9 @@ describe DirectFileJsonData do
   end
 
   describe "#find_matching_json_dependent" do
-    let(:intake) { create :state_file_id_intake, :with_dependents}
+    let(:intake) { create :state_file_id_intake, :with_dependents }
     let(:direct_file_json_data) { intake.direct_file_json_data }
     let(:dependents) { intake.dependents }
-
-    before do
-      intake.synchronize_df_dependents_to_database
-    end
 
     it "should be able to find matching dependent from xml in json" do
       expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).first_name).to eq("Gloria")
@@ -87,16 +83,17 @@ describe DirectFileJsonData do
       before do
 
         allow(direct_file_json_data).to receive(:dependents).and_return(
-          [DirectFileJsonData::DfJsonDependent.new({
-             "firstName" => "Gloria",
-             "middleInitial" => "T",
-             "lastName" => "Hemingway",
-             "dateOfBirth" => "1920-01-01",
-             "relationship" => "grandParent",
-             "eligibleDependent" => true,
-             "isClaimedDependent" => true
-             # no ssn in json
-           })]
+          [DirectFileJsonData::DfJsonDependent.new(
+            {
+              "firstName" => "Gloria",
+              "middleInitial" => "T",
+              "lastName" => "Hemingway",
+              "dateOfBirth" => "1920-01-01",
+              "relationship" => "grandParent",
+              "eligibleDependent" => true,
+              "isClaimedDependent" => true
+              # no ssn in json
+            })]
         )
       end
 
@@ -104,6 +101,34 @@ describe DirectFileJsonData do
         intake.dependents.first.update(ssn: nil)
         expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.first)).to eq(nil)
       end
+    end
+  end
+
+  describe "#to_json" do
+    let(:intake) { create :state_file_id_intake, :single_filer_with_json }
+    let(:direct_file_json_data) { intake.direct_file_json_data }
+
+    let(:expected_output) {
+      <<-JSON
+        {
+          "familyAndHousehold": [],
+          "filers": [
+            {
+              "firstName": "Bingus",
+              "middleInitial": null,
+              "lastName": "Turner",
+              "dateOfBirth": "1980-01-01",
+              "isPrimaryFiler": true,
+              "tin": "400-00-0012"
+            }
+          ]
+        }
+      JSON
+    }
+
+    it "returns the json string that represents the input + any changes" do
+      direct_file_json_data.primary_filer.first_name = "Bingus"
+      expect(direct_file_json_data.to_json).to eq(expected_output.gsub(/\s+/, ""))
     end
   end
 end

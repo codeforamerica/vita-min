@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Efile::Id::Id40Calculator do
-  let(:intake) { create(:state_file_id_intake) }
+  let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -47,9 +47,8 @@ describe Efile::Id::Id40Calculator do
   end
 
   describe "Line 6c: Dependents" do
-    before do
-      3.times { intake.dependents.create! }
-    end
+    let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
     it "returns the number of dependents" do
       instance.calculate
       expect(instance.lines[:ID40_LINE_6C].value).to eq(3)
@@ -58,12 +57,51 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 6d: Total Exemptions" do
     it "sums lines 6a, 6b, and 6c" do
+      allow(instance).to receive(:line_or_zero).and_call_original
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6A).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6B).and_return(1)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_6C).and_return(2)
 
       instance.calculate
       expect(instance.lines[:ID40_LINE_6D].value).to eq(4)
+    end
+  end
+
+  describe "Line 7: Federal Adjusted Gross Income" do
+    before do
+      intake.direct_file_data.fed_agi = 12_501
+    end
+    it "returns federal AGI from direct file data" do
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_7].value).to eq(12_501)
+    end
+  end
+
+  describe "Line 9: Total of lines 7 and 8" do
+    it "sums lines 7 and 8" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_7).and_return(5000)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_9].value).to eq(5000) # line 8 is always zero
+    end
+  end
+
+  describe "Line 10: Subtractions from Form 39R" do
+    it "returns value from ID39R form line 24" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID39R_B_LINE_24).and_return(300)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_10].value).to eq(300)
+    end
+  end
+
+  describe "Line 11: Idaho Adjusted Gross Income" do
+    it "subtracts line 10 from line 9" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_9).and_return(5200)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_10).and_return(300)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_11].value).to eq(4900)
     end
   end
 
@@ -97,6 +135,204 @@ describe Efile::Id::Id40Calculator do
         allow(intake).to receive(:has_unpaid_sales_use_tax?).and_return(false)
         instance.calculate
         expect(instance.lines[:ID40_LINE_29].value).to eq(0)
+      end
+    end
+  end
+
+  describe "Line 32a: Permanent Building Fund" do
+    context "has filing requirement, no blind filer, and no public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :filing_requirement) }
+
+      before do
+        intake.received_id_public_assistance = "no"
+      end
+
+      it "returns 10" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(10)
+      end
+    end
+
+    context "has no filing requirement, no blind filer, and no public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :no_filing_requirement) }
+
+      before do
+        intake.received_id_public_assistance = nil
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
+      end
+    end
+
+    context "has filing requirement, blind filer, and has no public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :filing_requirement) }
+
+      before do
+        intake.direct_file_data.set_primary_blind
+        intake.received_id_public_assistance = "no"
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
+      end
+    end
+
+    context "has filing requirement, no blind filer, and has public assistance indicator" do
+      let(:intake) { create(:state_file_id_intake, :filing_requirement) }
+
+      before do
+        intake.received_id_public_assistance = "yes"
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
+      end
+    end
+  end
+
+
+  describe "Line 43: Grocery Credit" do
+    context "primary is claimed as dependent" do
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+      before do
+        allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq(0)
+      end
+    end
+
+    context "household does not have ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_no!
+        intake.primary_has_grocery_credit_ineligible_months_no!
+        intake.dependents[0].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[1].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq((12 * 4 * 10).round)
+      end
+    end
+
+    context "primary has ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 3
+      end
+
+      context "primary is 65 or older" do
+        before do
+          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 66, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 11.67).round)
+        end
+
+      end
+
+      context "primary is under 65" do
+        before do
+          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 63, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 10).round)
+        end
+      end
+    end
+
+    context "spouse has ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 12
+
+        intake.spouse_has_grocery_credit_ineligible_months_yes!
+        intake.spouse_months_ineligible_for_grocery_credit = 3
+      end
+
+      context "spouse is 65 or older" do
+        before do
+          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 66, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 11.67).round)
+        end
+      end
+
+      context "spouse is under 65" do
+        before do
+          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 63, 1, 1)
+        end
+
+        it "claims the correct credit" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_43].value).to eq((9 * 10).round)
+        end
+      end
+    end
+
+    context "dependent has ineligible months" do
+      let(:intake) { create(:state_file_id_intake, :with_dependents) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_yes!
+
+        intake.primary_has_grocery_credit_ineligible_months_yes!
+        intake.primary_months_ineligible_for_grocery_credit = 12
+
+        intake.dependents[0].id_has_grocery_credit_ineligible_months_yes!
+        intake.dependents[0].id_months_ineligible_for_grocery_credit = 3
+
+        intake.dependents[1].id_has_grocery_credit_ineligible_months_unfilled!
+        intake.dependents[1].id_months_ineligible_for_grocery_credit = 0
+
+        intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[2].id_months_ineligible_for_grocery_credit = nil
+      end
+
+      it "claims the correct credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43].value).to eq(((9 + 12 + 12) * 10).round)
+      end
+    end
+
+    context "donate the credit" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      before do
+        intake.household_has_grocery_credit_ineligible_months_no!
+        intake.donate_grocery_credit_yes!
+      end
+
+      it "checks the box and doesn't claim the credit" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_43_WORKSHEET].value).to eq(240)
+        expect(instance.lines[:ID40_LINE_43_DONATE].value).to eq(true)
+        expect(instance.lines[:ID40_LINE_43].value).to eq(0)
       end
     end
   end

@@ -23,10 +23,24 @@ RSpec.describe PdfFiller::Az140Pdf do
       expect(missing_fields).to eq([])
     end
 
-    it "fills the fields correctly" do
-      intake.direct_file_data.interest_reported_amount = 30
+    context "with interest on government bonds" do
+      before do
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_28).and_return 30
+      end
 
-      expect(pdf.hash_for_pdf["28"]).to eq "30"
+      it "fills the fields correctly" do
+        expect(pdf.hash_for_pdf["28"]).to eq "30"
+      end
+    end
+
+    context 'Nonrefundable Credits from Arizona Form 301, Part 2, line 62' do
+      before do
+        allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_62).and_return 100
+      end
+
+      it "fills the fields correctly" do
+        expect(pdf.hash_for_pdf["51"]).to eq "100"
+      end
     end
   end
 end

@@ -27,18 +27,22 @@ describe BulkAction::SendOneBulkSignupMessageJob do
     end
 
     context 'with an sms signup' do
+      let(:twilio_service) { instance_double(TwilioService) }
+      let(:message_double) { double TwilioService }
       let(:message_type) { 'sms' }
-      let(:twilio_double) { double TwilioService }
+
       before do
-        allow(TwilioService).to receive(:send_text_message).and_return twilio_double
-        allow(twilio_double).to receive(:sid).and_return "twilio_sid"
-        allow(twilio_double).to receive(:status).and_return "queued"
+        allow(TwilioService).to receive(:new).and_return twilio_service
+        allow(message_double).to receive(:sid).and_return "twilio_sid"
+        allow(message_double).to receive(:status).and_return "queued"
+        allow(twilio_service).to receive(:get_metadata)
+        allow(twilio_service).to receive(:send_text_message).and_return message_double
       end
 
       it 'sends an sms and saves the twilio message id' do
         described_class.perform_now(signup, bulk_signup_message)
         outgoing_message_status = OutgoingMessageStatus.last
-        expect(TwilioService).to have_received(:send_text_message).with(
+        expect(twilio_service).to have_received(:send_text_message).with(
           to: signup.phone_number,
           body: bulk_signup_message.message,
           status_callback: twilio_update_status_url(outgoing_message_status.id, locale: nil),
@@ -51,7 +55,7 @@ describe BulkAction::SendOneBulkSignupMessageJob do
 
       context "when phone number is a landline" do
         before do
-          allow(TwilioService).to receive(:get_metadata).and_return({ "type" => "landline" })
+          allow(twilio_service).to receive(:get_metadata).and_return({ "type" => "landline" })
           allow(DatadogApi).to receive(:increment)
         end
 
@@ -62,7 +66,7 @@ describe BulkAction::SendOneBulkSignupMessageJob do
             described_class.perform_now(signup, bulk_signup_message)
           }.not_to change(BulkSignupMessageOutgoingMessageStatus, :count)
 
-          expect(TwilioService).not_to have_received(:send_text_message)
+          expect(twilio_service).not_to have_received(:send_text_message)
           expect(DatadogApi).to have_received(:increment).with("twilio.outgoing_text_messages.bulk_signup_message_not_sent_landline")
         end
       end

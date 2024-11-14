@@ -39,7 +39,7 @@ describe ReplacementParametersService do
   end
 
   context "<<Preparer.FirstName>>" do
-    let (:body) { "Sincerely, <<Preparer.FirstName>>" }
+    let(:body) { "Sincerely, <<Preparer.FirstName>>" }
 
     it "replaces with the preparer user's first name" do
       expect(subject.process).to eq "Sincerely, #{user.first_name}"

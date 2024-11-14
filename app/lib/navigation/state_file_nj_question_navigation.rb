@@ -28,6 +28,7 @@ module Navigation
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
+                                          Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCountyController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMunicipalityController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDisabledExemptionController),
@@ -40,6 +41,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjUnsupportedPropertyTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),

@@ -230,7 +230,7 @@
       <EmployerEIN>001245768</EmployerEIN>
       <EmployerNameControlTxt>BTB</EmployerNameControlTxt>
       <EmployerName>
-        <BusinessNameLine1Txt>Brendan T. Byrne State Forest</BusinessNameLine1Txt>
+        <BusinessNameLine1Txt>Brendan T Byrne State Forest</BusinessNameLine1Txt>
       </EmployerName>
       <EmployerUSAddress>
         <AddressLine1Txt>31 Batsto Road</AddressLine1Txt>
@@ -320,7 +320,7 @@
     <IRSW2 documentName="IRSW2" documentId="W20004">
       <EmployeeSSN>400000018</EmployeeSSN>
       <EmployerEIN>001245770</EmployerEIN>
-      <EmployerNameControlTxt>ATLCB</EmployerNameControlTxt>
+      <EmployerNameControlTxt>ATLC</EmployerNameControlTxt>
       <EmployerName>
         <BusinessNameLine1Txt>Atlantic City Beach</BusinessNameLine1Txt>
       </EmployerName>

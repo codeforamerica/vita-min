@@ -31,6 +31,8 @@ describe DirectFileData do
     ["fed_housing_deduction_amount", 700],
     ["fed_gross_income_exclusion_amount", 900],
     ["qualifying_children_under_age_ssn_count", "1"],
+    ["total_income_amount", 40000],
+    ["total_itemized_or_standard_deduction_amount", 20800]
   ].each do |node_name, current_value|
     describe "##{node_name}" do
       it "returns the value" do
@@ -503,22 +505,6 @@ describe DirectFileData do
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
-    end
-  end
-
-  # fake field: will be replaced by a real one at some point pending info about df api
-  # when that time comes delete this whole spec in favor of a dynamically generated one (see top of file)
-  describe '#interest_reported_amount' do
-    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099") }
-
-    it "reads and writes" do
-      df_data = described_class.new(xml)
-      # defaults to 0
-      expect(df_data.interest_reported_amount).to eq 0
-
-      df_data.interest_reported_amount = 40
-
-      expect(df_data.interest_reported_amount).to eq 40
     end
   end
 

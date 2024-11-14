@@ -166,6 +166,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('TotCshContrFostrChrty').text).to eq '470'
         expect(xml.at('CurrentYrCr').text).to eq '470'
         expect(xml.at('TotalAvailCr').text).to eq '470'
+        expect(xml.at('DeductionAmt CreditsFromAZ301').text).to eq '470'
       end
     end
 
@@ -189,16 +190,17 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('SingleHOH').text).to eq '200'
         expect(xml.at('CurrentYrCr').text).to eq '200'
         expect(xml.at('TotalAvailCr').text).to eq '200'
+        expect(xml.at('DeductionAmt CreditsFromAZ301').text).to eq '200'
       end
     end
 
     context "subtractions" do
-      let(:intake) { create(:state_file_az_intake, :with_1099int_subtraction) }
+      let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
       it "fills in the lines correctly" do
         xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
 
-        expect(xml.css("Subtractions IntUSObligations").text).to eq "100"
+        expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
       end
     end
   end

@@ -97,7 +97,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper)
       end
 
-      context "with Box 14 fields" do
+      context "with MD Box 14 fields" do
         let(:intake) { create :state_file_md_intake }
         let(:params) do
           {
@@ -111,10 +111,35 @@ RSpec.describe StateFile::Questions::W2Controller do
           }
         end
 
-        it "updates Box 14 fields" do
+        it "updates MD Box 14 fields" do
           post :update, params: params
           state_file_w2.reload
           expect(state_file_w2.box14_stpickup).to eq 230
+        end
+      end
+
+      context "with NJ Box 14 fields" do
+        let(:intake) { create :state_file_nj_intake }
+        let(:params) do
+          {
+            id: state_file_w2.id,
+            state_file_w2: {
+              employer_state_id_num: "12345",
+              state_wages_amount: 10000,
+              state_income_tax_amount: 500,
+              box14_ui_wf_swf: 230,
+              box14_ui_hc_wd: 340,
+              box14_fli: 450,
+            }
+          }
+        end
+
+        it "updates NJ Box 14 fields" do
+          post :update, params: params
+          state_file_w2.reload
+          expect(state_file_w2.box14_ui_wf_swf).to eq 230
+          expect(state_file_w2.box14_ui_hc_wd).to eq 340
+          expect(state_file_w2.box14_fli).to eq 450
         end
       end
 

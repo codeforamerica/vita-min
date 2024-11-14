@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.describe GetPhoneMetadataJob, type: :job do
-  include MockTwilio
-
   describe "#perform" do
+    let(:twilio_service) { instance_double(TwilioService) }
     let(:client) { create(:client) }
     let!(:intake) { create :intake, client: client, phone_number: phone_number }
     let(:phone_number) { '+15554567899' }
@@ -19,7 +18,8 @@ RSpec.describe GetPhoneMetadataJob, type: :job do
 
     context "when Twilio does not raise an exception" do
       before do
-        allow(TwilioService).to receive(:get_metadata).with(phone_number: phone_number).and_return(fake_metadata)
+        allow(TwilioService).to receive(:new).and_return twilio_service
+        allow(twilio_service).to receive(:get_metadata).with(phone_number: phone_number).and_return(fake_metadata)
       end
 
       it "returns the metadata associated with the phone number" do
@@ -37,14 +37,14 @@ RSpec.describe GetPhoneMetadataJob, type: :job do
             GetPhoneMetadataJob.perform_now(intake)
           }.not_to change(intake, :phone_number_type)
 
-          expect(TwilioService).not_to have_received(:get_metadata)
+          expect(twilio_service).not_to have_received(:get_metadata)
         end
       end
     end
 
     context "when Twilio raises an exception" do
       before do
-        allow(Twilio::REST::Client).to receive(:new).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
+        allow(twilio_service).to receive(:get_metadata).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
       end
 
       it "exits cleanly" do

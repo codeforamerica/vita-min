@@ -112,6 +112,14 @@ class MultiTenantService
     filing_years(now).without(current_tax_year)
   end
 
+  def twilio_creds
+    @_twlio_creds ||= {
+      account_sid: EnvironmentCredentials.dig(:twilio, service_type, :account_sid),
+      auth_token: EnvironmentCredentials.dig(:twilio, service_type, :auth_token),
+      messaging_service_sid: EnvironmentCredentials.dig(:twilio, service_type, :messaging_service_sid)
+    }
+  end
+
   class << self
     def ctc
       new(:ctc)
