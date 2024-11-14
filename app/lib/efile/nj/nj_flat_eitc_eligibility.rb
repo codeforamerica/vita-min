@@ -17,6 +17,8 @@ module Efile
 
           return false unless has_ssn_valid_for_employment?(intake)
 
+          return false if claimed_as_dependent?(intake)
+
           true
         end
 
@@ -63,6 +65,11 @@ module Efile
           end
 
           true
+        end
+
+        def claimed_as_dependent?(intake)
+          intake.direct_file_data.claimed_as_dependent? ||
+          (intake.filing_status_mfj? && intake.direct_file_data.spouse_is_a_dependent?)
         end
       end
     end
