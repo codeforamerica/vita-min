@@ -271,6 +271,7 @@ es:
         withdraw_amount_higher_than_owed: Ingresa una cantidad menor o igual a %{owed_amount}
         withdrawal_date_deadline: Ingrese una fecha entre hoy y el 15 de abril de %{year} o antes
   general:
+    review_and_edit: Revisar y editar
     NA: N/A
     about: Acerca de nosotros
     access_denied: Usted no está autorizado a tomar esta acción.
