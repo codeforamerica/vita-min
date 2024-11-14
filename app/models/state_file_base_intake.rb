@@ -143,7 +143,7 @@ class StateFileBaseIntake < ApplicationRecord
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
         state_wages_amount: direct_file_w2.StateWagesAmt,
         state_file_intake: self,
-        wages: direct_file_w2.Wages,
+        wages: direct_file_w2.WagesAmt,
         w2_index: i,
       )
       state_file_w2.save!

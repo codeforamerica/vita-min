@@ -10,6 +10,18 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
+        @nj2450_primary = Efile::Nj::Nj2450Calculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake,
+          person: @intake.primary
+        )
+        @nj2450_spouse = Efile::Nj::Nj2450Calculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake,
+          person: @intake.spouse
+        )
       end
 
       def calculate
@@ -39,6 +51,8 @@ module Efile
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
+        @nj2450_primary.calculate if line_59_primary || line_61_primary
+        @nj2450_spouse.calculate if line_59_spouse || line_61_spouse
         @lines.transform_values(&:value)
       end
 
@@ -175,15 +189,15 @@ module Efile
       end
 
       def line_59_primary
-        primary_excess = get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
-        primary_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+        primary_excess = get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+        primary_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
         primary_excess
       end
 
       def line_59_spouse
         if @intake.filing_status_mfj?
-          spouse_excess = get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
-          spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_UI_HC_WD_MAX)
+          spouse_excess = get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+          spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
           return spouse_excess
         end
         0
