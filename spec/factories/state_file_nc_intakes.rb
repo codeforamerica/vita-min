@@ -85,7 +85,6 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
@@ -150,10 +149,6 @@ FactoryBot.define do
     trait :df_data_1099_int do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
-    end
-
-    trait :with_filers_synced do
-      after(:create, &:synchronize_filers_to_database)
     end
   end
 end

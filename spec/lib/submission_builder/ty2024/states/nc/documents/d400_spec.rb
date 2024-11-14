@@ -101,13 +101,11 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     end
 
     context "mfs filers" do
-      let(:intake) { create(:state_file_nc_intake, :with_filers_synced, filing_status: "married_filing_separately") }
+      let(:intake) { create(:state_file_nc_intake, filing_status: "married_filing_separately") }
 
       it "correctly fills spouse-specific answers" do
         expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
-        expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
-        expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "K"
-        expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Cave"
+        expect(xml.document.at('MFSSpouseName')&.text).to eq "Sophie Cave"
         expect(xml.document.at('MFSSpouseSSN')&.text).to eq "600000030"
       end
     end
