@@ -153,6 +153,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "AZ", :flow_explorer_screenshot, js: true do
+    before do
+      allow(Rails.configuration).to receive(:statefile_current_tax_year).and_return(2024)
+    end
+
     it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
