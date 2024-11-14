@@ -129,9 +129,7 @@ FactoryBot.define do
       intake.raw_direct_file_intake_data = intake.direct_file_json_data.to_json
     end
 
-    after(:create) do |intake|
-      intake.synchronize_filers_to_database
-    end
+    after(:create, &:synchronize_filers_to_database)
 
     trait :with_w2s_synced do
       after(:create, &:synchronize_df_w2s_to_database)
@@ -154,9 +152,14 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
 
-      after(:create) do |intake|
-        intake.synchronize_df_dependents_to_database
-      end
+      after(:create, &:synchronize_df_dependents_to_database)
+    end
+    
+    trait :with_qualifying_dependents do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_john_mfj_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_john_mfj_8_deps') }
+
+      after(:create, &:synchronize_df_dependents_to_database)
     end
 
     trait :df_data_1099_int do

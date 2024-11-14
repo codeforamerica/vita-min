@@ -105,6 +105,10 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 25: Child Tax Credit" do
+
+  end
+
   describe "Line 29: State Use Tax" do
     let(:purchase_amount) { nil }
 
