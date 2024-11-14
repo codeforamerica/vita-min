@@ -14,7 +14,7 @@
 #  date_electronic_withdrawal                     :date
 #  df_data_import_failed_at                       :datetime
 #  df_data_imported_at                            :datetime
-#  donate_grocery_credit                          :integer          default(0), not null
+#  donate_grocery_credit                          :integer          default("unfilled"), not null
 #  eligibility_emergency_rental_assistance        :integer          default("unfilled"), not null
 #  eligibility_withdrew_msa_fthb                  :integer          default("unfilled"), not null
 #  email_address                                  :citext
