@@ -105,8 +105,6 @@
 #  index_state_file_nj_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNjIntake < StateFileBaseIntake
-  self.ignored_columns = [:df_data_import_failed]
-
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own

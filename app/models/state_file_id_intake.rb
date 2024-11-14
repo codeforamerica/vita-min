@@ -77,8 +77,6 @@
 #  index_state_file_id_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileIdIntake < StateFileBaseIntake
-  self.ignored_columns = [:df_data_import_failed]
-
   enum donate_grocery_credit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :donate_grocery_credit
   enum eligibility_withdrew_msa_fthb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_msa_fthb
   enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
