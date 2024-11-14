@@ -26,7 +26,7 @@ RSpec.describe Questions::SpouseConsentController do
 
   describe "#update" do
     context "with valid params" do
-      let (:params) do
+      let(:params) do
         {
           spouse_consent_form: {
             birth_date_year: "1983",
@@ -64,7 +64,7 @@ RSpec.describe Questions::SpouseConsentController do
     end
 
     context "with invalid params" do
-      let (:params) do
+      let(:params) do
         {
           spouse_consent_form: {
             birth_date_year: "1983",

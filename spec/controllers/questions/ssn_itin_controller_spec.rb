@@ -53,7 +53,7 @@ RSpec.describe Questions::SsnItinController do
     end
 
     context "with invalid params" do
-      let (:params) do
+      let(:params) do
         {
           ssn_itin_form: {
             primary_ssn: nil,
