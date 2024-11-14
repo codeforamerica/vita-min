@@ -64,7 +64,7 @@ module StateFile
         navigation_class: Navigation::StateFileAzQuestionNavigation,
         pay_taxes_link: "https://www.aztaxes.gov/",
         return_type: "Form140",
-        schema_file_name: "AZIndividual2023v1.0.zip",
+        schema_file_name: "AZIndividual2024v2.0.zip",
         state_name: "Arizona",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey",
