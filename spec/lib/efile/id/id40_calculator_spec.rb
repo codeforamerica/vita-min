@@ -247,7 +247,6 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
-
   describe "Line 43: Grocery Credit" do
     context "primary is claimed as dependent" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
