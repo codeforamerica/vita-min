@@ -26,6 +26,14 @@
           ) %>    
       </div>
     <% end %>
+
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.helper_heading') %></button></p>
+      <div class="reveal__content">
+        <%= t('.helper_contents_html') %>
+      </div>
+    </div>
+
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
