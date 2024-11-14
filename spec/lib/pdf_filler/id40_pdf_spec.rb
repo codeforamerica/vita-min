@@ -68,6 +68,7 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['IncomeL9']).to eq '10000'
         expect(pdf_fields['IncomeL10']).to eq '0'
         expect(pdf_fields['IncomeL11']).to eq '10000'
+        expect(pdf_fields['CreditsL23']).to eq '0'
       end
 
       context "with dependents" do
