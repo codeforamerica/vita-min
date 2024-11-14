@@ -2589,6 +2589,12 @@ en:
               <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
             </ul>
           what_is_title: What is a health insurance premium?
+      id_permanent_building_fund:
+        edit:
+          receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
+          receive_public_assistance_single: Did you receive Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_spouse: Did you or your spouse receive Idaho public assistance payments at the end of the tax year?
+          title: You might be eligible for an exception to the permanent building fund tax!
       id_primary_state_id:
         id_primary:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
@@ -2599,6 +2605,7 @@ en:
       id_review:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
+          permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales or use tax
           state_details_title: State Details
       id_sales_use_tax:

@@ -104,13 +104,15 @@ RSpec.describe Signup, type: :model do
     end
 
     context "when a phone number is present" do
-      before do
-        allow(TwilioService).to receive(:send_text_message)
-      end
+      let(:twilio_service) { instance_double TwilioService }
       let!(:signup) { create :signup, phone_number: "+18888888888" }
+      before do
+        allow(TwilioService).to receive(:new).and_return twilio_service
+        allow(twilio_service).to receive(:send_text_message)
+      end
       it "sends a text message" do
         subject
-        expect(TwilioService).to have_received(:send_text_message).with(to: "+18888888888", body: AutomatedMessage::Ctc2022OpenMessage.new.sms_body)
+        expect(twilio_service).to have_received(:send_text_message).with(to: "+18888888888", body: AutomatedMessage::Ctc2022OpenMessage.new.sms_body)
         expect(signup.reload.ctc_2022_open_message_sent_at).to be_within(2.seconds).of(Time.zone.now)
       end
     end
