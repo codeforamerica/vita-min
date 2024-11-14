@@ -315,8 +315,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           it "outputs the sum of the Subtractions" do
             expect(xml.at("Form502 Subtractions Total").text.to_i).to eq(total_subtractions)
           end
-
-          # TODO: see how min occurs affects the appearance of this
+          
           it 'outputs the state adjusted income' do
             expect(xml.at("Form502 Subtractions StateAdjustedGrossIncome").text.to_i).to eq(state_adjusted_income)
           end
