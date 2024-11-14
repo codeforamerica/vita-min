@@ -338,9 +338,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 50
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 60
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 70
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
         end
 
         it "fills out amounts from the calculator if method is standard" do
@@ -349,9 +346,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 ExemptionAmount").text).to eq "50"
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome").text).to eq "60"
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "70"
-          expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit").text).to eq "200"
-          expect(xml.at("Form502 StateTaxComputation TotalCredits").text).to eq "300"
-          expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0"
         end
 
         it "leaves amounts blank if method is not standard" do
@@ -413,6 +407,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
           let(:intake) { create(:state_file_md_intake, :with_spouse) }
           it "fills doesn't fill out the state tax computation section" do
+            expect(xml.at("Form502 StateTaxComputation")).not_to be_present
             expect(xml.at("Form502 StateTaxComputation EarnedIncomeCredit")).not_to be_present
             expect(xml.at("Form502 StateTaxComputation MDEICWithQualChildInd")).not_to be_present
           end

@@ -68,10 +68,6 @@ module Efile
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
-        set_line(:MD502_LINE_23, :calculate_line_23)
-        set_line(:MD502_LINE_24, :calculate_line_24)
-        set_line(:MD502_LINE_26, :calculate_line_26)
-        set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         # MD502-CR
@@ -467,44 +463,6 @@ module Efile
 
       def calculate_line_22b
         (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
-      end
-
-      def calculate_line_23
-        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
-
-        comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
-
-        household_size = @intake.dependents.count + (filing_status_mfj? ? 2 : 1)
-        poverty_threshold = case household_size
-                            when 1 then 15_060
-                            when 2 then 20_440
-                            when 3 then 25_820
-                            when 4 then 31_200
-                            when 5 then 36_580
-                            when 6 then 41_960
-                            when 7 then 47_340
-                            when 8 then 52_720
-                            else
-                              52_720 + ((household_size - 8) * 5_380)
-                            end
-
-        if comparison_amount < poverty_threshold
-          (@lines[:MD502_LINE_1B].value * 0.05).round
-        else
-          0
-        end
-      end
-
-      def calculate_line_24
-        0 # TODO: a stub
-      end
-
-      def calculate_line_26
-        (22..25).sum { |line_num| line_or_zero("MD502_LINE_#{line_num}") }
-      end
-
-      def calculate_line_27
-        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0 ].max
       end
 
       def calculate_line_40
