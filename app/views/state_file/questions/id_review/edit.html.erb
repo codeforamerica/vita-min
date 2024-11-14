@@ -23,9 +23,9 @@
       </div>
 
       <div class="spacing-below-5">
-        Idaho Grocery Credit
+        <p class="text--bold spacing-below-5"><%=t(".idaho_grocery_credit") %></p>
         <%= current_intake.calculator.grocery_credit_amount %>
-        <%= link_to t("general.review_and_edit"), StateFile::Questions::IdGroceryCreditReviewController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+        <%= link_to t("general.edit"), StateFile::Questions::IdGroceryCreditReviewController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
   </section>

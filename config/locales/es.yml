@@ -271,7 +271,6 @@ es:
         withdraw_amount_higher_than_owed: Ingresa una cantidad menor o igual a %{owed_amount}
         withdrawal_date_deadline: Ingrese una fecha entre hoy y el 15 de abril de %{year} o antes
   general:
-    review_and_edit: Revisar y editar
     NA: N/A
     about: Acerca de nosotros
     access_denied: Usted no está autorizado a tomar esta acción.
@@ -2579,6 +2578,7 @@ es:
         edit:
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
           permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
+          idaho_grocery_credit: Idaho Grocery Credit
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
       id_sales_use_tax:

@@ -270,7 +270,6 @@ en:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
         withdrawal_date_deadline: Please enter a date between today and on or before April 15, %{year}
   general:
-    review_and_edit: Review and Edit
     NA: N/A
     about: About
     access_denied: You are not authorized to take this action.
@@ -2607,6 +2606,7 @@ en:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
           permanent_building_fund_tax: Permanent Building Fund Tax
+          idaho_grocery_credit: Idaho Grocery Credit
           purchases_without_sales_tax: Purchases without paying sales or use tax
           state_details_title: State Details
       id_sales_use_tax:
