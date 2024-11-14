@@ -61,25 +61,34 @@ describe Efile::Nj::NjFlatEitcEligibility do
     year_25 = current_tax_year - 25 # for 2024: 1999
     year_18 = current_tax_year - 18 # for 2024: 2006
 
+    date_older_than_65 = Date.new(year_65+1, 1, 1) # 1/1/1960
+    date_younger_than_65 = Date.new(year_65+1, 1, 2) # 1/2/1960
+
+    date_older_than_25 = Date.new(year_25, 12, 31) # 12/31/1999
+    date_younger_than_25 = Date.new(year_25+1, 1, 1) # 1/1/2000
+
+    date_older_than_18 = Date.new(year_18, 12, 31) # 12/31/2006
+    date_younger_than_18 = Date.new(year_18+1, 1, 1) # 1/1/2007
+
     context "when mfj" do
       [
         # 2024: Taxpayer is born on or before 1/1/1960. If MFJ, both taxpayers have to meet the requirement.
-        { primary_birth_date: Date.new(year_65+1, 1, 1), spouse_birth_date: Date.new(year_65+1, 1, 1), expected: true },
-        { primary_birth_date: Date.new(year_65+1, 1, 2), spouse_birth_date: Date.new(year_65+1, 1, 1), expected: false },
-        { primary_birth_date: Date.new(year_65+1, 1, 1), spouse_birth_date: Date.new(year_65+1, 1, 2), expected: false },
-        { primary_birth_date: Date.new(year_65+1, 1, 2), spouse_birth_date: Date.new(year_65+1, 1, 2), expected: false },
+        { primary_birth_date: date_older_than_65, spouse_birth_date: date_older_than_65, expected: true },
+        { primary_birth_date: date_younger_than_65, spouse_birth_date: date_older_than_65, expected: false },
+        { primary_birth_date: date_older_than_65, spouse_birth_date: date_younger_than_65, expected: false },
+        { primary_birth_date: date_younger_than_65, spouse_birth_date: date_younger_than_65, expected: false },
 
         # 2024: Taxpayer is born on or after 1/1/2000. If MFJ, both taxpayers have to meet the requirement.
-        { primary_birth_date: Date.new(year_25+1, 1, 1), spouse_birth_date: Date.new(year_25+1, 1, 1), expected: true },
-        { primary_birth_date: Date.new(year_25+1, 1, 1), spouse_birth_date: Date.new(year_25, 12, 31), expected: false },
-        { primary_birth_date: Date.new(year_25, 12, 31), spouse_birth_date: Date.new(year_25+1, 1, 1), expected: false },
-        { primary_birth_date: Date.new(year_25, 12, 31), spouse_birth_date: Date.new(year_25, 12, 31), expected: false },
+        { primary_birth_date: date_younger_than_25, spouse_birth_date: date_younger_than_25, expected: true },
+        { primary_birth_date: date_younger_than_25, spouse_birth_date: date_older_than_25, expected: false },
+        { primary_birth_date: date_older_than_25, spouse_birth_date: date_younger_than_25, expected: false },
+        { primary_birth_date: date_older_than_25, spouse_birth_date: date_older_than_25, expected: false },
 
         # 2024: taxpayer is born on or before 12/31/2006. If MFJ, only one taxpayer has to meet the requirement
-        { primary_birth_date: Date.new(year_18+1, 1, 1), spouse_birth_date: Date.new(year_18+1, 1, 1), expected: false },
-        { primary_birth_date: Date.new(year_18, 12, 31), spouse_birth_date: Date.new(year_18+1, 1, 1), expected: true },
-        { primary_birth_date: Date.new(year_18+1, 1, 1), spouse_birth_date: Date.new(year_18, 12, 31), expected: true },
-        { primary_birth_date: Date.new(year_18, 12, 31), spouse_birth_date: Date.new(year_18, 12, 31), expected: true },
+        { primary_birth_date: date_younger_than_18, spouse_birth_date: date_younger_than_18, expected: false },
+        { primary_birth_date: date_older_than_18, spouse_birth_date: date_younger_than_18, expected: true },
+        { primary_birth_date: date_younger_than_18, spouse_birth_date: date_older_than_18, expected: true },
+        { primary_birth_date: date_older_than_18, spouse_birth_date: date_older_than_18, expected: true },
       ].each do |test_case|
         context "when #{test_case}" do
           let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
@@ -96,16 +105,16 @@ describe Efile::Nj::NjFlatEitcEligibility do
     context "when not mfj" do
       [
          # 2024: Taxpayer is born on or before 1/1/1960
-        { primary_birth_date: Date.new(year_65+1, 1, 1), expected: true },
-        { primary_birth_date: Date.new(year_65+1, 1, 2), expected: false },
+        { primary_birth_date: date_older_than_65, expected: true },
+        { primary_birth_date: date_younger_than_65, expected: false },
 
         # 2024: Taxpayer is born on or after 1/1/2000
-        { primary_birth_date: Date.new(year_25+1, 1, 1), expected: true },
-        { primary_birth_date: Date.new(year_25, 12, 31), expected: false },
+        { primary_birth_date: date_younger_than_25, expected: true },
+        { primary_birth_date: date_older_than_25, expected: false },
 
         # 2024: taxpayer is born on or before 12/31/2006
-        { primary_birth_date: Date.new(year_18+1, 1, 1), expected: false },
-        { primary_birth_date: Date.new(year_18, 12, 31), expected: true },
+        { primary_birth_date: date_younger_than_18, expected: false },
+        { primary_birth_date: date_older_than_18, expected: true },
       ].each do |test_case|
         context "when #{test_case}" do
           let(:intake) { create(:state_file_nj_intake) }
