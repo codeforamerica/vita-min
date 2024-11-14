@@ -24,6 +24,7 @@ module Efile
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_19, :calculate_line_19)
+        set_line(:ID40_LINE_20, :calculate_line_20)
         set_line(:ID40_LINE_29, :calculate_line_29)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
@@ -87,6 +88,18 @@ module Efile
       # L16 is pulled from df data
       def calculate_line_19
         [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
+      end
+
+      WKSHT_LINE_2_AMTS = {
+        single: 4673,
+        married_filing_separately: 4673,
+        married_filing_jointly: 9346,
+        head_of_household: 9346,
+        qualifying_widow: 9346,
+      }.freeze
+      def calculate_line_20
+        worksheet_line_2_amount = WKSHT_LINE_2_AMTS[@filing_status]
+        [(worksheet_line_2_amount - line_or_zero(:ID40_LINE_19)) * 5.695, 0].max
       end
 
       def calculate_line_29

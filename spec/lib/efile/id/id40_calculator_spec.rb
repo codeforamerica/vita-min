@@ -123,6 +123,41 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 20: Idaho income tax" do
+    {
+      4673 => [:single, :married_filing_separately],
+      9346 => [:married_filing_jointly, :head_of_household, :qualifying_widow]
+    }.each do |amount, filing_statuses|
+      filing_statuses.each do |filing_status|
+        context "#{filing_status}" do
+          let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
+          let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
+          let(:line_19) { 1000 }
+          before do
+            allow(calculator_instance).to receive(:calculate_line_19).and_return line_19
+          end
+
+          it "calculates the correct amount" do
+            expected_result = (amount - line_19) * 5.695
+            calculator_instance.calculate
+            expect(calculator_instance.lines[:ID40_LINE_20].value).to eq expected_result
+          end
+        end
+      end
+    end
+
+    context "must be positive value" do
+      before do
+        allow(instance).to receive(:calculate_line_19).and_return 10_000
+      end
+
+      it "returns 0 when calc is negative" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_20].value).to eq 0
+      end
+    end
+  end
+
   describe "Line 29: State Use Tax" do
     let(:purchase_amount) { nil }
 

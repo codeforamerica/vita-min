@@ -53,6 +53,7 @@ module SubmissionBuilder
 
                 xml.StandardDeduction @direct_file_data.total_itemized_or_standard_deduction_amount
                 xml.TaxableIncomeState calculated_fields.fetch(:ID40_LINE_19)
+                xml.StateIncomeTax calculated_fields.fetch(:ID40_LINE_20)
 
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)

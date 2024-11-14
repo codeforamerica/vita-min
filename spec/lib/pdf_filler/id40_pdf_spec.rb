@@ -39,6 +39,7 @@ RSpec.describe PdfFiller::Id40Pdf do
       }
       before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(200)
       end
 
       it 'sets static fields to the correct values' do
@@ -80,6 +81,7 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['TxCompL16']).to eq '13850'
         expect(pdf_fields['TxCompL17']).to eq '2000'
         expect(pdf_fields['TxCompL19']).to eq '2000'
+        expect(pdf_fields['TxCompL20']).to eq '200'
       end
 
       context "when claimed as dependent" do

@@ -11,6 +11,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
       before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(200)
       end
 
       it "correctly fills answers" do
@@ -22,6 +23,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
         expect(xml.at("StandardDeduction").text).to eq "13850"
         expect(xml.at("TaxableIncomeState").text).to eq "2000"
+        expect(xml.at("StateIncomeTax").text).to eq "200"
       end
 
       context "primary over 65, blind, claimed as dependent" do
