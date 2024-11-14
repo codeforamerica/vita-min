@@ -25,7 +25,10 @@ module Efile
         set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_20, :calculate_line_20)
+        set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        set_line(:ID40_LINE_32A, :calculate_line_32a)
+        set_line(:ID40_LINE_32B, :calculate_line_32b)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
@@ -102,12 +105,27 @@ module Efile
         [(worksheet_line_2_amount - line_or_zero(:ID40_LINE_19)) * 5.695, 0].max
       end
 
+      def calculate_line_23
+        line_or_zero(:ID39R_D_LINE_4)
+      end
+
       def calculate_line_29
         if @intake.has_unpaid_sales_use_tax? && !@intake.total_purchase_amount.nil?
           (@intake.total_purchase_amount * 0.06).round
         else
           0
         end
+      end
+
+      def calculate_line_32a
+        if @intake.has_filing_requirement? && !@intake.has_blind_filer? && @intake.received_id_public_assistance_no?
+          10
+        else
+          0
+        end
+      end
+      def calculate_line_32b
+        @intake.received_id_public_assistance_yes?
       end
 
       def calculate_grocery_credit

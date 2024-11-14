@@ -80,7 +80,7 @@ RSpec.describe Questions::ConsentController do
     end
 
     context "with invalid params" do
-      let (:params) do
+      let(:params) do
         {
           consent_form: {
             birth_date_year: "1983",

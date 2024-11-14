@@ -169,6 +169,33 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
       end
     end
 
+    context "PermanentBuildingFund" do
+      context "when a client is not blind has filing requirements and does not receive public assistance" do
+        before do
+          intake.direct_file_data.total_income_amount = 40000
+          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+          intake.received_id_public_assistance = "no"
+        end
+
+        it "fills out StateUseTax field with calculated value" do
+          expect(xml.at("PermanentBuildingFund").text).to eq '10'
+        end
+      end
+
+      context "when a client is blind" do
+        before do
+          intake.direct_file_data.total_income_amount = 40000
+          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+          intake.direct_file_data.primary_blind = "X"
+          intake.received_id_public_assistance = "no"
+        end
+
+        it "fills out StateUseTax field with 0" do
+          expect(xml.at("PermanentBuildingFund").text).to eq '0'
+        end
+      end
+    end
+
     context "grocery credit" do
       let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
 
