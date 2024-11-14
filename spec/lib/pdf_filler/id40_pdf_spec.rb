@@ -41,6 +41,7 @@ RSpec.describe PdfFiller::Id40Pdf do
       it 'sets static fields to the correct values' do
         expect(pdf_fields['YearBeginning']).to eq Rails.configuration.statefile_current_tax_year.to_s
         expect(pdf_fields['YearEnding']).to eq Rails.configuration.statefile_current_tax_year.to_s
+        expect(pdf_fields['TxCompL15']).to eq "0" # always 0, not in xml
       end
 
       it "sets other fields to the correct values" do
