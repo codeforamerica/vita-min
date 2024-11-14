@@ -196,7 +196,7 @@ FactoryBot.define do
 
     trait :df_data_investment_income_12k do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_investment_income_12k') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_investment_income_12k') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_deps') }
     end
 
     trait :df_data_childless_eitc do
