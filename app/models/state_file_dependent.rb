@@ -58,7 +58,6 @@ class StateFileDependent < ApplicationRecord
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :first_name, :last_name, :dob
-  validates_presence_of :months_in_home
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
 
   validates :id_months_ineligible_for_grocery_credit, numericality: {
@@ -75,6 +74,14 @@ class StateFileDependent < ApplicationRecord
     parts = [first_name, middle_initial, last_name]
     parts << suffix if suffix.present?
     parts.compact.join(' ')
+  end
+
+  def months_in_home_for_pdf
+    months_in_home&.to_s || "<6"
+  end
+
+  def months_in_home_for_xml
+    months_in_home || 5
   end
 
   def ask_senior_questions?

@@ -53,7 +53,7 @@ module PdfFiller
           "#{prefix} Last" => dependent.last_name,
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
-          "#{prefix} Mo in Home" => dependent.months_in_home,
+          "#{prefix} Mo in Home" => dependent.months_in_home_for_pdf,
           "#{prefix}_10a check box" => dependent.under_17? ? "Yes" : nil,
           "#{prefix}_10b check box" => dependent.under_17? ? nil : "Yes",
         )
@@ -75,7 +75,7 @@ module PdfFiller
           "#{prefix} Last" => dependent.last_name,
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
-          "#{prefix} Mo in Home" => dependent.months_in_home,
+          "#{prefix} Mo in Home" => dependent.months_in_home_for_pdf,
           "#{prefix} over 65" => "Yes", # all of these dependents are 65 or older
           "#{prefix} died" => dependent.passed_away_yes? ? "Yes" : nil,
         )

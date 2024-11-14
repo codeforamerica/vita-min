@@ -16,6 +16,29 @@ class DirectFileJsonData
     json_accessor relationship: { type: :string, key: "relationship" }
     json_accessor eligible_dependent: { type: :boolean, key: "eligibleDependent" }
     json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
+
+    WORDS_TO_NUMBERS = {
+      "six" => 6,
+      "seven" => 7,
+      "eight" => 8,
+      "nine" => 9,
+      "ten" => 10,
+      "eleven" => 11,
+      "twelve" => 12
+    }
+
+    def months_in_home
+      number_word = df_json_value(["monthsLivedWithTPInUS"])
+      WORDS_TO_NUMBERS[number_word] if number_word
+    end
+
+    def months_in_home=(value)
+      numbers_to_words = WORDS_TO_NUMBERS.invert
+      if value.present? && !numbers_to_words.key?(value)
+        raise ArgumentError, "months_in_home must be in #{numbers_to_words.keys}"
+      end
+      df_json_set(["monthsLivedWithTPInUS"], numbers_to_words[value])
+    end
   end
 
   class DfJsonInterestReport < DfJsonWrapper

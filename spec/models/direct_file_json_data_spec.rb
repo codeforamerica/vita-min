@@ -105,6 +105,30 @@ describe DirectFileJsonData do
     end
   end
 
+  describe "DfJsonDependent#months_in_home" do
+    let(:intake) { create :state_file_id_intake, :with_dependents }
+    let(:direct_file_json_data) { intake.direct_file_json_data }
+    let(:dependents) { intake.dependents }
+
+    it "should translate the words in the JSON into ints" do
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).months_in_home).to eq(11)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[1]).months_in_home).to eq(6)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[2]).months_in_home).to eq(nil)
+    end
+
+    it "should should take ints 6-12 or nil as values" do
+      direct_file_json_data.find_matching_json_dependent(dependents[0]).months_in_home = 7
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).months_in_home).to eq(7)
+
+      direct_file_json_data.find_matching_json_dependent(dependents[1]).months_in_home = nil
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[1]).months_in_home).to eq(nil)
+
+      expect {
+        direct_file_json_data.find_matching_json_dependent(dependents[2]).months_in_home = 5
+      }.to raise_error(ArgumentError, "months_in_home must be in [6, 7, 8, 9, 10, 11, 12]")
+    end
+  end
+
   describe "#to_json" do
     let(:intake) { create :state_file_id_intake, :single_filer_with_json }
     let(:direct_file_json_data) { intake.direct_file_json_data }

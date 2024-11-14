@@ -99,6 +99,7 @@ class StateFileBaseIntake < ApplicationRecord
         json_attributes = {
           middle_initial: dependent_json.middle_initial,
           relationship: dependent_json.relationship,
+          months_in_home: dependent_json.months_in_home,
           dob: dependent_json.dob
         }
         dependent.assign_attributes(json_attributes)
