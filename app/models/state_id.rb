@@ -14,6 +14,8 @@
 #  updated_at          :datetime         not null
 #
 class StateId < ApplicationRecord
+  include DateAccessible
+
   date_accessor :expiration_date, :issue_date
 
   has_one :intake_as_primary, class_name: "StateFileNyIntake", foreign_key: "primary_state_id"
