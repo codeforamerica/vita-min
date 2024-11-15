@@ -2763,22 +2763,21 @@ es:
         edit:
           helper_contents_html: |-
             <p>You are the qualifying child of another taxpayer for the Earned Income Tax Credit (EITC) in 2024 if <strong>all</strong> of these are true.</p>
-            <p>1. You are that person's:</p>
+            <ol>
+            <li class="spacing-below-25"><p>1. You are that person's:</p>
             <ul><li>Child, stepchild, foster child, or a descendant of any of them, or</li>
             <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>
-            </ul>
-            <br>
-            <p>2. You were:</p>
+            </ul></li>
+            <li class="spacing-below-25"><p>2. You were:</p>
             <ul><li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>
             <li>Under age 24 at the end of the year, a student, and younger than that person (or that person's spouse, if they filed jointly), or</li>
             <li>Any age and had a permanent disability that prevented you from working and making money</li>
-            </ul>
-            <br>
-            <p>3. You lived:</p>
+            </ul></li>
+            <li class="spacing-below-25"><p>3. You lived:</p>
             <ul><li>with that person in the United States for more than 6 months in 2024.</li>
-            </ul>
-            <br>
-            <p>4. You aren't filing a joint return with your spouse for the year. Or you're filing a joint return with your spouse only to get a refund of money you paid toward taxes.</p>
+            </ul></li>
+            <li><p>4. You aren't filing a joint return with your spouse for the year. Or you're filing a joint return with your spouse only to get a refund of money you paid toward taxes.</p></li>
+            </ol>
             <p>If <strong>all</strong> of these statements are true, you are the qualifying child of another taxpayer for EITC. This is the case even if they don't claim the credit or don't meet all of the rules to claim it.</p>
           helper_heading: How do I know if I could be someone else's qualifying child for EITC?
           instructions: We just have to make sure that you are not someone else's qualifying child for this credit first.
