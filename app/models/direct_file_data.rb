@@ -266,7 +266,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_taxable_ssb=(value)
-    create_or_destroy_df_xml_node(__method__, value)
+    create_or_destroy_df_xml_node(__method__, true)
     write_df_xml_value(__method__, value)
   end
 
@@ -746,7 +746,7 @@ class DirectFileData < DfXmlAccessor
   def spouse_earned_income_amount=(value)
     write_df_xml_value(__method__, value)
   end
-    
+
   class DfW2 < DfW2Accessor
     def w2_box12
       @node.css('EmployersUseGrp').map do |node|
