@@ -135,13 +135,13 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       xml.LocalTaxComputation do
-        xml.LocalTaxRate calculated_fields.fetch(:MD502_LINE_28_LOCAL_TAX_RATE)
-        xml.LocalIncomeTax calculated_fields.fetch(:MD502_LINE_28_LOCAL_TAX_AMOUNT)
-        xml.EarnedIncomeCredit calculated_fields.fetch(:MD502_LINE_29)
-        xml.TotalCredits calculated_fields.fetch(:MD502_LINE_32)
-        xml.LocalTaxAfterCredits calculated_fields.fetch(:MD502_LINE_33)
+        add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
+        add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
+        add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
+        add_element_if_present(xml,"TotalCredits", :MD502_LINE_32)
+        add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
       end
-      xml.TotalStateAndLocalTax calculated_fields.fetch(:MD502_LINE_34)
+      add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
