@@ -22,12 +22,12 @@ describe Efile::Nj::NjFlatEitcEligibility do
         end
       end
 
-      context 'when mfj, both are an eligible age, and spouse is a qualifying child' do
+      context 'when mfj and spouse is a qualifying child' do
         let(:intake) {
           create(
             :state_file_nj_intake,
             :df_data_childless_eitc,
-            :mfj_spouse_over_65,
+            :married_filing_jointly,
             :spouse_claimed_as_eitc_qualifying_child
           )
         }
@@ -53,12 +53,12 @@ describe Efile::Nj::NjFlatEitcEligibility do
         end
       end
 
-      context 'when mfj, both are an eligible age, and neither taxpayer nor spouse is a qualifying child' do
+      context 'when mfj and neither taxpayer nor spouse is a qualifying child' do
         let(:intake) {
           create(
             :state_file_nj_intake,
             :df_data_childless_eitc,
-            :mfj_spouse_over_65,
+            :married_filing_jointly,
             :claimed_as_eitc_qualifying_child_no,
             :spouse_claimed_as_eitc_qualifying_child_no
           )
