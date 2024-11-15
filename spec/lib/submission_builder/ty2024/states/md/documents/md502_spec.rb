@@ -374,6 +374,9 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 ExemptionAmount")).to be_nil
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation TotalCredits")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
         end
       end
 
@@ -426,6 +429,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
           let(:intake) { create(:state_file_md_intake, :with_spouse) }
           it "fills doesn't fill out the state tax computation section" do
+            expect(xml.at("Form502 StateTaxComputation")).not_to be_present
             expect(xml.at("Form502 StateTaxComputation EarnedIncomeCredit")).not_to be_present
             expect(xml.at("Form502 StateTaxComputation MDEICWithQualChildInd")).not_to be_present
           end
