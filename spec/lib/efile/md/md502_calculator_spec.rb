@@ -820,9 +820,9 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_15" do
     before do
-      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_9).and_return 2
+      intake.direct_file_data.total_qualifying_dependent_care_expenses = 2
+      intake.direct_file_data.fed_taxable_ssb = 6
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
-      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_11).and_return 6
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8
     end
     it "sums lines 8 - 14" do

@@ -53,9 +53,7 @@ module Efile
         set_line(:MD502_LINE_13, :calculate_line_13)
 
         # Subtractions
-        set_line(:MD502_LINE_9, :calculate_line_9) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_11, :calculate_line_11) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         # lines 15 and 16 depend on lines 8-14
         set_line(:MD502_LINE_15, :calculate_line_15)
         set_line(:MD502_LINE_16, :calculate_line_16)
@@ -323,15 +321,15 @@ module Efile
         line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
       end
 
-      def calculate_line_9; end
       def calculate_line_10a; end
-      def calculate_line_11; end
 
       def calculate_line_15
-        subtraction_lines = [9, "10A", 11, 13]
-        subtraction_lines.sum do |line_num|
-          line_or_zero("MD502_LINE_#{line_num}")
-        end
+        [
+          @direct_file_data.total_qualifying_dependent_care_expenses, # line 9
+          @direct_file_data.fed_taxable_ssb, # line 11
+          line_or_zero(:MD502_LINE_10A),
+          line_or_zero(:MD502_LINE_13),
+        ].sum
       end
 
       def calculate_line_16
