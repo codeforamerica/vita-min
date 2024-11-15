@@ -532,7 +532,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it 'enters single dependent into PDF' do
           # dependent 1
-          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "ATHENS KRONOS T"
+          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "Athens Kronos T"
           expect(pdf_fields["undefined_18"]).to eq "3"
           expect(pdf_fields["undefined_19"]).to eq "0"
           expect(pdf_fields["undefined_20"]).to eq "0"
