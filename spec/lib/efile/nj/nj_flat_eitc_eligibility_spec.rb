@@ -71,9 +71,12 @@ describe Efile::Nj::NjFlatEitcEligibility do
       end
     end
 
-    context 'when taxpayer does not satisfy one or more eligibility checks' do
+    context 'when .possibly_eligible? is false' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
-
+      before do
+        allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return false
+      end
+      
       it 'returns false' do
         result = Efile::Nj::NjFlatEitcEligibility.eligible?(intake)
         expect(result).to eq(false)
