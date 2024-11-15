@@ -18,6 +18,7 @@
 #  df_data_import_failed_at                               :datetime
 #  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
+#  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
 #  email_address                                          :citext
@@ -177,10 +178,33 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_deps') }
     end
 
-    trait :df_data_mfj do
+    trait :df_data_mfj_spouse_claimed_dep do
       filing_status { "married_filing_jointly" }
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly_spouse_claimed_dep') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_spouse_claimed_dep') }
+    end
+
+    trait :df_data_mfj_both_claimed_dep do
+      filing_status { "married_filing_jointly" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly_both_claimed_dep') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_both_claimed_dep') }
+    end
+
+    trait :df_data_mfj_primary_claimed_dep do
+      filing_status { "married_filing_jointly" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly_primary_claimed_dep') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_primary_claimed_dep') }
+    end
+
+    trait :df_data_mfj_neither_claimed_dep do
+      filing_status { "married_filing_jointly" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly_neither_claimed_dep') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_neither_claimed_dep') }
+    end
+
+    trait :df_data_claimed_as_dependent do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_claimed_as_dependent') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_claimed_as_dependent') }
     end
 
     trait :df_data_mfs do

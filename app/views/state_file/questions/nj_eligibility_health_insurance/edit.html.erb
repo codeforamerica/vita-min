@@ -1,0 +1,28 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :eligibility_all_members_health_insurance,
+            label_text: t(".label"),
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.helper_heading') %></button></p>
+      <div class="reveal__content">
+        <p><%= t('.helper_description_html') %></p>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

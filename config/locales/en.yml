@@ -2373,6 +2373,7 @@ en:
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
             eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
             eligibility_yonkers: lived or earned income in Yonkers in 2023
+            health_insurance_eligibility: blah blah health stuff nj
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
@@ -2826,6 +2827,21 @@ en:
           primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
           spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
           title: You may be eligible for the Earned Income Tax Credit
+      nj_eligibility_health_insurance:
+        edit:
+          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in 2024?
+          title: Let’s get started.
+          helper_description_html: |
+            <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+            <ul>
+              <li>A plan through your employer</li>
+              <li>A plan bought through <a href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+              <li>Medicare</li> 
+              <li>Medicaid (NJ FamilyCare)</li>
+            </ul>
+            <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p> 
+            <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
+          helper_heading: What is health insurance with minimum essential coverage?
       nj_estimated_tax_payments:
         edit:
           label: Total

@@ -11,7 +11,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
 
     describe "XML schema" do
       context "with JSON data" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj_spouse_claimed_dep) }
 
         it "fills primary details" do
           expect(xml.document.at('Primary TaxpayerName FirstName').text).to eq("Ernie")

@@ -2077,6 +2077,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
+    t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
