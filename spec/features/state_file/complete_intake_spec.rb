@@ -47,15 +47,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose "I did not live in New York City at all in 2023"
+      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2024)
+      choose "I did not live in New York City at all in 2024"
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.ineligible_reason.nyc_maintained_home")
       click_on "Go back"
-      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose "I lived in New York City all year in 2023"
+      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2024)
+      choose "I lived in New York City all year in 2024"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
@@ -153,12 +153,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "AZ", :flow_explorer_screenshot, js: true do
-    before do
-      # TODO: remove this stub when we update Rails.configuration.statefile_current_tax_year to 2024
-      allow(Rails.configuration).to receive(:statefile_current_tax_year).and_return 2024
-      stub_const('DateAccessible::TAX_YEAR', Date.new(2024))
-    end
-
     it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"

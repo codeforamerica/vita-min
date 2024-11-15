@@ -127,7 +127,7 @@ RSpec.describe StateFileMdIntake, type: :model do
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
-               date_electronic_withdrawal: Date.parse("April 1, 2023"),
+               date_electronic_withdrawal: Date.parse("April 1, 2024"),
                account_holder_name: "Neil Peart"
       end
 
