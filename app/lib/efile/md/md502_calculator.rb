@@ -482,7 +482,6 @@ module Efile
       end
 
       def calculate_line_28_local_tax_rate
-        # Nonresidents? do we have non-residents?
         case @intake.residence_county
         when "Allegany", "Carroll", "Charles"
           0.0303
