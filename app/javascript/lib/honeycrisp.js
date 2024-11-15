@@ -121,8 +121,8 @@ var followUpQuestion = (function () {
             });
         },
         update: function ($container) {
-            $container.find('.question-with-follow-up__follow-up input, .question-with-follow-up__follow-up select').attr('disabled', true);
-            $container.find('.question-with-follow-up__follow-up').hide();
+            $container.find('> .question-with-follow-up__follow-up input, .question-with-follow-up__follow-up select').attr('disabled', true);
+            $container.find('> .question-with-follow-up__follow-up').hide();
 
             $container.find('.question-with-follow-up__question input').each(function (index, input) {
                 // if any of the inputs with a data-follow-up is checked then show the follow-up
