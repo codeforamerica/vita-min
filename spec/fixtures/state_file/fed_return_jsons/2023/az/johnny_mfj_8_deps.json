@@ -93,9 +93,10 @@
     {
       "firstName": "Johnny",
       "lastName": "Rose",
-      "middleInitial": null,
+      "middleInitial": "L",
+      "suffix": "SR",
       "tin": "400-00-0001",
-      "dateOfBirth": "1980-01-01",
+      "dateOfBirth": "1975-01-01",
       "isPrimaryFiler": true
     },
     {
@@ -103,7 +104,7 @@
       "lastName": "O'Hara",
       "middleInitial": null,
       "tin": "600-00-0001",
-      "dateOfBirth": "1980-01-01",
+      "dateOfBirth": "1975-02-02",
       "isPrimaryFiler": false
     }
   ]
