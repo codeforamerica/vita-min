@@ -51,7 +51,7 @@ describe StateFileDependent do
 
   describe "#ask_senior_questions?" do
     let(:dependent) { build(:state_file_dependent, dob: dob, months_in_home: months_in_home, relationship: relationship, intake: intake) }
-    let(:relationship) { "GRANDPARENT" }
+    let(:relationship) { "grandParent" }
     let(:dob) { described_class.senior_cutoff_date }
     let(:months_in_home) { 12 }
     let(:intake) { build :state_file_az_intake }
@@ -65,14 +65,14 @@ describe StateFileDependent do
         end
 
         context "when parent" do
-          let(:relationship) { "PARENT" }
+          let(:relationship) { "parent" }
           it "asks more questions" do
             expect(dependent.ask_senior_questions?).to be true
           end
         end
 
         context "when daughter (not parent or grandparent)" do
-          let(:relationship) { "DAUGHTER" }
+          let(:relationship) { "biologicalChild" }
           it "doesn't asks more questions" do
             expect(dependent.ask_senior_questions?).to be false
           end
@@ -118,35 +118,35 @@ describe StateFileDependent do
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
-        relationship: "GRANDPARENT"
+        relationship: "grandParent"
       )
       qualifying_parent = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
-        relationship: "PARENT"
+        relationship: "parent"
       )
       too_young = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date + 2.day,
         months_in_home: 12,
         needed_assistance: "yes",
-        relationship: "GRANDPARENT"
+        relationship: "grandParent"
       )
       jan_1_az_intake = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date + 1.day,
         months_in_home: 12,
         needed_assistance: "yes",
-        relationship: "GRANDPARENT"
+        relationship: "grandParent"
       )
       jan_1_md_intake = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date + 1.day,
         months_in_home: 12,
         needed_assistance: "yes",
-        relationship: "GRANDPARENT",
+        relationship: "grandParent",
         intake: build(:state_file_md_intake)
       )
       not_ancestor = build(
@@ -154,21 +154,21 @@ describe StateFileDependent do
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
-        relationship: "DAUGHTER"
+        relationship: "biologicalChild"
       )
       too_few_months = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 11,
         needed_assistance: "yes",
-        relationship: "GRANDPARENT"
+        relationship: "grandParent"
       )
       did_not_need_assistance = build(
         :state_file_dependent,
         dob: described_class.senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "no",
-        relationship: "GRANDPARENT"
+        relationship: "grandParent"
       )
       expect(qualifying_grandparent.is_qualifying_parent_or_grandparent?).to be true
       expect(qualifying_parent.is_qualifying_parent_or_grandparent?).to be true
@@ -233,7 +233,7 @@ describe StateFileDependent do
 
   describe "#relationship_label" do
     it "provides a correct gender neutral relationship label" do
-      dependent = build(:state_file_dependent, relationship: "STEPBROTHER")
+      dependent = build(:state_file_dependent, relationship: "stepSibling")
       expect(dependent.relationship_label).to eq "Step-Sibling"
     end
   end
@@ -278,5 +278,20 @@ describe StateFileDependent do
 
       expect(ronnie.months_in_home_for_xml).to eq(5)
     end
+  end
+
+  describe "#eligible_for_child_tax_credit" do
+    let(:intake) { create :state_file_az_intake }
+    let(:dob_jan_1_16_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 16), 1, 1) }
+    let(:dependent_17_next_year) { create :state_file_dependent, dob: dob_jan_1_16_years_ago, intake: intake, relationship: "biologicalChild" }
+    let(:dependent_17_this_year) { create :state_file_dependent, dob: dob_jan_1_16_years_ago - 1.year, intake: intake, relationship: "biologicalChild" }
+    let(:dependent_17_next_year_with_ineligible_relationship) { create :state_file_dependent, dob: dob_jan_1_16_years_ago - 1.year, intake: intake, relationship: "noneOfTheAbove" }
+
+    it "returns true only for eligible dependents" do
+      expect(dependent_17_next_year.eligible_for_child_tax_credit).to be(true)
+      expect(dependent_17_this_year.eligible_for_child_tax_credit).to be(false)
+      expect(dependent_17_next_year_with_ineligible_relationship.eligible_for_child_tax_credit).to be(false)
+    end
+
   end
 end

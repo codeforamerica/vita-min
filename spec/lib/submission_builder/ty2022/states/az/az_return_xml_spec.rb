@@ -23,7 +23,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:dob) { 12.years.ago }
 
       before do
-        create(:state_file_dependent, intake: intake, dob: dob, relationship: "DAUGHTER")
+        create(:state_file_dependent, intake: intake, dob: dob, relationship: "biologicalChild")
       end
 
       it "translates the relationship to the appropriate AZ XML relationship key" do
@@ -63,7 +63,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
             dob: dob,
             ssn: "111111111",
             needed_assistance: "yes",
-            relationship: "PARENT",
+            relationship: "parent",
             months_in_home: 12
           )
         end

@@ -31,20 +31,33 @@
 #
 
 class StateFileDependent < ApplicationRecord
-  # TODO: once we have added all the json fixtures for all the states we can remove RELATIONSHIP_LABELS used to map xml relationship to gender-neutral terms in relationship colum.
-  #
+
   RELATIONSHIP_LABELS = {
-    "DAUGHTER" => "Child",
-    "STEPCHILD" => "Child",
-    "FOSTER CHILD" => "Foster Child",
-    "GRANDCHILD" => "Grandchild",
-    "SISTER" => "Sibling",
-    "HALF SISTER" => "Half-Sibling",
-    "NEPHEW" => "Niece/Nephew",
-    "STEPBROTHER" => "Step-Sibling",
-    "PARENT" => "Parent",
-    "GRANDPARENT" => "Grandparent",
-    "NONE" => "Other",
+    "biologicalChild" => "Child",
+    "adoptedChild" => "Child",
+    "stepChild" => "Child",
+    "fosterChild" => "Foster Child",
+    "grandChildOrOtherDescendentOfChild" => "Grandchild",
+    "childInLaw" => "Child",
+    "sibling" => "Sibling",
+    "childOfSibling" => "Niece/Nephew",
+    "halfSibling" => "Half-Sibling",
+    "childOfHalfSibling" => "Niece/Nephew",
+    "stepSibling" => "Step-Sibling",
+    "childOfStepSibling" => "Niece/Nephew",
+    "otherDescendantOfSibling" => "Niece/Nephew",
+    "siblingInLaw" => "Sibling",
+    "parent" => "Parent",
+    "grandParent" => "Grandparent",
+    "otherAncestorOfParent" => "Grandparent",
+    "stepParent" => "Parent",
+    "parentInLaw" => "Parent",
+    "noneOfTheAbove" => "Other",
+    "siblingOfParent" => "?",
+    "otherDescendantOfHalfSibling" => "?",
+    "otherDescendantOfStepSibling" => "?",
+    "fosterParent" => "?",
+    "siblingsSpouse" => "?",
   }.freeze
 
   belongs_to :intake, polymorphic: true
@@ -86,7 +99,7 @@ class StateFileDependent < ApplicationRecord
 
   def ask_senior_questions?
     return false if dob.nil?
-    senior? && months_in_home == 12 && ['PARENT', 'GRANDPARENT'].include?(relationship)
+    senior? && months_in_home == 12 && ['parent', 'grandParent', 'otherAncestorOfParent'].include?(relationship)
   end
 
   def is_qualifying_parent_or_grandparent?
@@ -94,7 +107,7 @@ class StateFileDependent < ApplicationRecord
   end
 
   def is_hoh_qualifying_person?
-    relationship == 'PARENT' || (relationship != 'NONE' && (months_in_home || 0) >= 6)
+    relationship == 'parent' || (relationship != 'noneOfTheAbove' && (months_in_home || 0) >= 6)
   end
 
   def under_17?
@@ -112,11 +125,43 @@ class StateFileDependent < ApplicationRecord
   def eligible_for_child_tax_credit
     return true if ctc_qualifying
 
-    if relationship
-      child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
-    end
-    if under_17? && child_credit_qualifying_relationship
-      return true
+    if under_17?
+      if [
+        # daughter
+        "biologicalChild",
+        "adoptedChild",
+        "childInLaw",
+
+        # stepchild
+        "stepChild",
+
+        # foster_child
+        "fosterChild",
+
+        # grandchild
+        "grandChildOrOtherDescendentOfChild",
+
+        # sister
+        "sibling",
+        "siblingInLaw",
+        "siblingsSpouse",
+
+        # nephew
+        "childOfSibling",
+        "childOfHalfSibling",
+        "childOfStepSibling",
+        "otherDescendantOfSibling",
+        "otherDescendantOfHalfSibling",
+        "otherDescendantOfStepSibling",
+
+        # half_sister
+        "halfSibling",
+
+        # stepbrother
+        "stepSibling"
+      ].include?(relationship)
+        return true
+      end
     end
 
     false

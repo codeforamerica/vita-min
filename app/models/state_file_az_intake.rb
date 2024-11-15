@@ -223,7 +223,7 @@ class StateFileAzIntake < StateFileBaseIntake
       }
       if hoh_qualifying_dependent.nil?
         hoh_qualifying_dependent = hoh_qualifying_dependents.select { |dependent|
-          dependent[:relationship] == "PARENT"
+          dependent[:relationship] == "parent"
         }.max_by { |dependent| dependent.calculate_age(inclusive_of_jan_1: false) }
       end
       {
