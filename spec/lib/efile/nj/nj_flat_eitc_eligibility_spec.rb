@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Efile::Nj::NjFlatEitcEligibility do
   describe ".eligible?" do
-    context 'when taxpayer satisfies all eligibility checks' do
+    context 'when .possibly_eligible? is true' do
       before do
         allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
       end
