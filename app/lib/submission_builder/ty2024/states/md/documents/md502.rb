@@ -134,6 +134,14 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
         end
       end
+      xml.LocalTaxComputation do
+        xml.LocalTaxRate calculated_fields.fetch(:MD502_LINE_28_LOCAL_TAX_RATE)
+        xml.LocalIncomeTax calculated_fields.fetch(:MD502_LINE_28_LOCAL_TAX_AMOUNT)
+        xml.EarnedIncomeCredit calculated_fields.fetch(:MD502_LINE_29)
+        xml.TotalCredits calculated_fields.fetch(:MD502_LINE_32)
+        xml.LocalTaxAfterCredits calculated_fields.fetch(:MD502_LINE_33)
+      end
+      xml.TotalStateAndLocalTax calculated_fields.fetch(:MD502_LINE_34)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end

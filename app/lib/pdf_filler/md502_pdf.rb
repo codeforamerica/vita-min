@@ -87,6 +87,12 @@ module PdfFiller
         'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
         'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
+        'Enter local tax rate': @xml_document.at('Form502 LocalTaxComputation LocalTaxRate')&.text, #28a
+        'Text Box 44': @xml_document.at('Form502 LocalTaxComputation LocalIncomeTax')&.text, #28b
+        'Text Box 46': @xml_document.at('Form502 LocalTaxComputation EarnedIncomeCredit')&.text, #29
+        'Text Box 52': @xml_document.at('Form502 LocalTaxComputation TotalCredits')&.text, #32
+        'Text Box 54': @xml_document.at('Form502 LocalTaxComputation LocalTaxAfterCredits')&.text, #33
+        'Text Box 56': @xml_document.at('Form502 TotalStateAndLocalTax')&.text, #34
       }
     end
 
