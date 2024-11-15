@@ -70,10 +70,24 @@ module Efile
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
+<<<<<<< HEAD
         set_line(:MD502_LINE_23, :calculate_line_23)
         set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
+=======
+        set_line(:MD502_LINE_27, :calculate_line_27) # STUBBED
+
+        # Local tax
+        set_line(:MD502_LINE_28_LOCAL_TAX_RATE, :calculate_line_28_local_tax_rate)
+        set_line(:MD502_LINE_28_LOCAL_TAX_AMOUNT, :calculate_line_28_local_tax_amount)
+        set_line(:MD502_LINE_29, :calculate_line_29)
+        set_line(:MD502_LINE_30, :calculate_line_30)
+        set_line(:MD502_LINE_32, :calculate_line_32)
+        set_line(:MD502_LINE_33, :calculate_line_33)
+        set_line(:MD502_LINE_34, :calculate_line_34)
+
+>>>>>>> ec65c3aa2 (MD 502: Local tax - tax calculator, XML & PDF)
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         # MD502-CR
@@ -453,10 +467,10 @@ module Efile
                        [150_000..175_000, 7_072.5, 0.05],
                        [175_000..225_000, 8_322.5, 0.0525],
                        [225_000..300_000, 10_947.5, 0.055],
-                       [300_000..Float::INFINITY, 15_072.5 , 0.0575]
+                       [300_000..Float::INFINITY, 15_072.5, 0.0575]
                      ]
                    end
-          range_index = ranges.find_index{ |(range, _)| range.include?(taxable_net_income)}
+          range_index = ranges.find_index { |(range, _)| range.include?(taxable_net_income) }
 
           base = ranges[range_index][1]
           percent = ranges[range_index][2]
@@ -478,6 +492,7 @@ module Efile
         (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
       end
 
+<<<<<<< HEAD
       def calculate_line_23
         return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
 

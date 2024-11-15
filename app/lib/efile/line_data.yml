@@ -618,6 +618,7 @@ MD502_LINE_22:
   label: '22 Earned income credit (EIC)'
 MD502_LINE_22B:
   label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
+<<<<<<< HEAD
 MD502_LINE_23:
   label: 'Poverty level credit'
 MD502_LINE_24:
@@ -626,6 +627,24 @@ MD502_LINE_26:
   label: 'Total credits (Add lines 22 through 25.)'
 MD502_LINE_27:
   label: 'Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
+=======
+MD502_LINE_27:
+  label: '27 STUBBED PLEASE REPLACE'
+MD502_LINE_28_LOCAL_TAX_RATE:
+  label: '28 Local Tax Rate'
+MD502_LINE_28_LOCAL_TAX_AMOUNT:
+  label: '28 Local Tax Amount'
+MD502_LINE_29:
+  label: 'Earned Income Credit: federal EIC * (local tax rate * 10)'
+MD502_LINE_30:
+  label: 'Local Poverty Credit: earned income line 1b * local tax rate'
+MD502_LINE_32:
+  label: 'Total local tax credits: add lines 29-31 if deduction standard (31 out of scope)'
+MD502_LINE_33:
+  label: 'Local tax after credits: local tax amount minus total local tax credits (line 28 - line 32)'
+MD502_LINE_34:
+  label: 'Total Maryland and local tax amount (line 27 + line 33 if deduction standard)'
+>>>>>>> ec65c3aa2 (MD 502: Local tax - tax calculator, XML & PDF)
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:

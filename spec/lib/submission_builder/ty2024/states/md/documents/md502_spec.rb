@@ -435,6 +435,26 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
         end
       end
+
+      context "local tax computation section" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_rate).and_return 0.027
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_amount).and_return 8765
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_29).and_return 1200
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_32).and_return 1300
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_33).and_return 1400
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_34).and_return 1500
+        end
+
+        it "fills out local tax computation section correctly" do
+          expect(xml.at("Form502 LocalTaxComputation LocalTaxRate").text).to eq("0.027")
+          expect(xml.at("Form502 LocalTaxComputation LocalIncomeTax").text).to eq("8765")
+          expect(xml.at("Form502 LocalTaxComputation EarnedIncomeCredit").text).to eq("1200")
+          expect(xml.at("Form502 LocalTaxComputation TotalCredits").text).to eq("1300")
+          expect(xml.at("Form502 LocalTaxComputation LocalTaxAfterCredits").text).to eq("1400")
+          expect(xml.at("Form502 TotalStateAndLocalTax").text).to eq("1500")
+        end
+      end
     end
 
     context "Line 40: Total state and local tax withheld" do

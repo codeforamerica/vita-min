@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe Efile::Md::Md502Calculator do
   let(:filing_status) { "single" }
-  let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
+  let(:county) { "Allegany" }
+  let(:intake) { create(:state_file_md_intake, filing_status: filing_status, residence_county: county) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -1328,10 +1329,256 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+<<<<<<< HEAD
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
       # TEMP: stub calculator lines and test outcome of method once implemented
       expect(instance.refund_or_owed_amount).to eq(0)
+=======
+  describe "#calculate_line_28_local_tax_rate" do
+    let(:taxable_net_income) { 10_000 }
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return taxable_net_income
+      instance.calculate
+    end
+
+    context "when the county is Allegany" do
+      it "returns 0.0303" do
+        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0303)
+      end
+    end
+
+    context "when the county is Anne Arundel" do
+      let(:county) { "Anne Arundel" }
+      it "returns 0.027" do
+        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+      end
+    end
+
+    context "when the county is Frederick" do
+      let(:county) { "Frederick" }
+      context "filing status is single" do
+        let(:filing_status) { "single" }
+
+        context "when taxable net income is 10,000" do
+          let(:taxable_net_income) { 10_000 }
+          it "return .0225" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0225)
+          end
+        end
+
+        context "when taxable net income is 150,000" do
+          let(:taxable_net_income) { 150_000 }
+          it "return .0296" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0296)
+          end
+        end
+
+        context "when taxable net income is 200,000" do
+          let(:taxable_net_income) { 200_000 }
+          it "return .032" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
+          end
+        end
+      end
+
+      context "filing status is mfj" do
+        let(:filing_status) { "married_filing_jointly" }
+
+        context "when taxable net income is 15,000" do
+          let(:taxable_net_income) { 15_000 }
+          it "return .0225" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0225)
+          end
+        end
+
+        context "when taxable net income is 120,000" do
+          let(:taxable_net_income) { 90_000 }
+          it "return .0296" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0275)
+          end
+        end
+
+        context "when taxable net income is 200,000" do
+          let(:taxable_net_income) { 260_000 }
+          it "return .032" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
+          end
+        end
+      end
+    end
+  end
+
+  describe "#calculate_line_28_local_tax_amount" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return 300_000
+      instance.calculate
+    end
+
+    context "when county is Anne Arundel" do
+      let(:county) { "Anne Arundel" }
+      it "calculates the local tax" do
+        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(8375)
+      end
+    end
+
+    context "when the county is Frederick" do
+      let(:county) { "Frederick" }
+      it "calculates the local tax based on income" do
+        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(9600)
+      end
+    end
+
+    context "when the county is Allegany" do
+      it "calculates the local tax using progressive brackets" do
+        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(9090)
+      end
+    end
+  end
+
+  describe "#calculate_line_29" do
+    let(:federal_eic) { 1001 }
+
+    before do
+      intake.direct_file_data.fed_eic = federal_eic
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return 300_000
+      instance.calculate
+    end
+
+    context "when county is Anne Arundel" do
+      let(:county) { "Anne Arundel" }
+      it "uses 0.0270 as the local tax rate in the formula" do
+        # (0.027 * 10) * 1001
+        expect(instance.lines[:MD502_LINE_29].value).to eq(270)
+      end
+    end
+
+    context "when the county is Frederick" do
+      let(:county) { "Frederick" }
+      it "uses the tax rate from line 28 in the formula" do
+        # (0.032 * 10) * 1001
+        expect(instance.lines[:MD502_LINE_29].value).to eq(320)
+      end
+    end
+
+    context "when the county is Allegany" do
+      it "uses the tax rate from line 28 in the formula" do
+        # (0.0303 * 10) * 1001
+        expect(instance.lines[:MD502_LINE_29].value).to eq(303)
+      end
+    end
+  end
+
+  describe "#calculate_line_30" do
+    context "deduction method is standard" do
+      before do
+        intake.direct_file_data.fed_wages_salaries_tips = 1001
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        instance.calculate
+      end
+
+      context "when county is Allegany" do
+        it "multiplies line 22 by local tax rate" do
+          # 1001 * 0303
+          expect(instance.lines[:MD502_LINE_30].value).to eq 30
+        end
+      end
+
+      context "when county is Anne Arundel" do
+        let(:county) { "Anne Arundel" }
+        it "multiplies line 22 by 0.0270" do
+          # 1001 * .0270
+          expect(instance.lines[:MD502_LINE_30].value).to eq 27
+        end
+      end
+    end
+
+    context "deduction method is non-standard" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_30].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_32" do
+    context "deduction method is standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        allow_any_instance_of(described_class).to receive(:calculate_line_29).and_return 100
+        allow_any_instance_of(described_class).to receive(:calculate_line_30).and_return 230
+      end
+
+      it "adds line 29 and 30" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_32].value).to eq 330
+      end
+    end
+
+    context "deduction method is non-standard" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_32].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_33" do
+    context "deduction method is standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        allow_any_instance_of(described_class).to receive(:calculate_line_28_local_tax_amount).and_return 500
+        allow_any_instance_of(described_class).to receive(:calculate_line_32).and_return 200
+      end
+
+      it "subtracts line 32 from line 28" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_33].value).to eq 300
+      end
+
+      context "when local tax is negative" do
+        before do
+          allow_any_instance_of(described_class).to receive(:calculate_line_28_local_tax_amount).and_return 100
+        end
+        it "returns 0" do
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_33].value).to eq 0
+        end
+      end
+    end
+
+    context "deduction method is non-standard" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_33].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_34" do
+    context "deduction method is standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        allow_any_instance_of(described_class).to receive(:calculate_line_27).and_return 500
+        allow_any_instance_of(described_class).to receive(:calculate_line_33).and_return 200
+      end
+
+      it "add lines 27 and 33" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_34].value).to eq 700
+      end
+    end
+
+    context "deduction method is non-standard" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_34].value).to eq nil
+      end
+>>>>>>> ec65c3aa2 (MD 502: Local tax - tax calculator, XML & PDF)
     end
   end
 end
