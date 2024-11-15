@@ -2,6 +2,8 @@ module Efile
   module Id
     class Id40Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      REFUND_LINE_NUM = :ID40_LINE_56
+      OWED_LINE_NUM = :ID40_LINE_54
 
       def initialize(year:, intake:, include_source: false)
         super

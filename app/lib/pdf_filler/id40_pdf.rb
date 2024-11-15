@@ -34,7 +34,7 @@ module PdfFiller
         'FilingStatusMarriedSeparate' => @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
         'FilingStatusHead' => @submission.data_source.filing_status_hoh? ? 'Yes' : 'Off',
         'SpouseDeceased' => @submission.data_source.filing_status_qw? ? 'Yes' : 'Off',
-        '6aYourself' =>  @xml_document.at('PrimeExemption')&.text,
+        '6aYourself' => @xml_document.at('PrimeExemption')&.text,
         '6bSpouse' => @xml_document.at('SpouseExemption')&.text,
         '6cDependents' => @xml_document.at('OtherExemption')&.text,
         '6dTotalHousehold' => @xml_document.at('TotalExemption')&.text,
@@ -53,15 +53,23 @@ module PdfFiller
       }
       @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(
-          "6cDependent#{index+1}First" => dependent.first_name,
-          "6cDependent#{index+1}Last" => dependent.last_name,
-          "6cDependent#{index+1}SSN" => dependent.ssn,
-          "6cDependent#{index+1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
-          )
+          "6cDependent#{index + 1}First" => dependent.first_name,
+          "6cDependent#{index + 1}Last" => dependent.last_name,
+          "6cDependent#{index + 1}SSN" => dependent.ssn,
+          "6cDependent#{index + 1}Birthdate" => dependent.dob.strftime('%m/%d/%Y'),
+        )
       end
       if @submission.data_source.primary_esigned_yes?
         answers["DateSign 2"] = date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%m-%d-%Y")
         answers["TaxpayerPhoneNo"] = @submission.data_source.direct_file_data.phone_number
+      end
+      if @xml_document.at('RefundDirectDeposit')&.text.present?
+        answers.merge!({
+                         'DirectDepositL57Route' => @xml_document.at('RoutingTransitNumber')&.text,
+                         'DirectDepositL57Acct' => @xml_document.at('BankAccountNumber')&.text,
+                         'DirectDepositChecking' => @xml_document.at('Checking')&.text == "X" ? 'Yes' : 'Off',
+                         'DirectDepositSavings' => @xml_document.at('Savings')&.text == "X" ? 'Yes' : 'Off',
+                       })
       end
       answers
     end
