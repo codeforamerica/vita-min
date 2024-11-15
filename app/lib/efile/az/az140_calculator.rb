@@ -2,6 +2,8 @@ module Efile
   module Az
     class Az140Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      REFUND_LINE_NUM = :AZ140_LINE_79
+      OWED_LINE_NUM = :AZ140_LINE_80
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -79,10 +81,6 @@ module Efile
         set_line(:AZ140_LINE_79, :calculate_line_79)
         set_line(:AZ140_LINE_80, :calculate_line_80)
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        calculate_line_79 - calculate_line_80
       end
 
       def analytics_attrs

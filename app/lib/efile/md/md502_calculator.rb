@@ -78,10 +78,6 @@ module Efile
         @lines.transform_values(&:value)
       end
 
-      def refund_or_owed_amount
-        0
-      end
-
       def analytics_attrs
         {}
       end

@@ -16,6 +16,17 @@ module Efile
       @lines[line.to_sym]&.value.to_i
     end
 
+    def refund_or_owed_amount
+      # TEMP: we will stub the amount and allow these to be undefined for now but when the calculators are complete we should raise
+      # an error along the lines of "child classes must define these"
+      return 0 unless defined?(self.class::REFUND_LINE_NUM) && defined?(self.class::OWED_LINE_NUM)
+
+      # if amount is positive they get a refund
+      # if amount is negative they owe taxes
+      # so we subtract owed from refund since one of them should always be 0
+      line_or_zero(self.class::REFUND_LINE_NUM) - line_or_zero(self.class::OWED_LINE_NUM)
+    end
+
     private
 
     def set_line(line_id, value_fn_or_data_source, field = nil)

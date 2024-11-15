@@ -194,7 +194,6 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
-
   describe "Line 43: Grocery Credit" do
     context "primary is claimed as dependent" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
@@ -377,6 +376,13 @@ describe Efile::Id::Id40Calculator do
           expect(instance.lines[:ID40_LINE_46].value).to eq(10 + 25 + 507 + 1502)
         end
       end
+    end
+  end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      # TEMP: stub calculator lines once implemented
+      expect(instance.refund_or_owed_amount).to eq(0)
     end
   end
 end
