@@ -22,7 +22,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
         end
       end
 
-      context 'when mfj and spouse is a qualifying child' do
+      context 'when mfj, both are an eligible age, and spouse is a qualifying child' do
         let(:intake) {
           create(
             :state_file_nj_intake,
@@ -53,7 +53,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
         end
       end
 
-      context 'when mfj and neither taxpayer nor spouse is a qualifying child' do
+      context 'when mfj, both are an eligible age, and neither taxpayer nor spouse is a qualifying child' do
         let(:intake) {
           create(
             :state_file_nj_intake,
