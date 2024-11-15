@@ -5,7 +5,7 @@
       "middleInitial": "T",
       "lastName": "Baggins",
       "dateOfBirth": "2021-01-01",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "222-00-1111"
@@ -15,7 +15,7 @@
       "middleInitial": "T",
       "lastName": "Baggins",
       "dateOfBirth": "2019-01-01",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "123-00-1234"

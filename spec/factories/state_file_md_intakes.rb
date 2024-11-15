@@ -95,6 +95,8 @@ FactoryBot.define do
     end
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("md_minimal") }
+
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
