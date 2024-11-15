@@ -71,6 +71,7 @@ module PdfFiller
         'Check Box 28': check_box_if_x(@xml_document.at('MDHealthCareCoverage SecWithoutHealthCoverageInd')&.text),
         'Enter DOB if you have no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage PriDOB')&.text, "%m/%d/%Y"),
         'Enter DOB if your spouse has no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage SecDOB')&.text, "%m/%d/%Y"),
+        'Check Box 29': check_box_if_x(@xml_document.at('MDHealthCareCoverage AuthorToShareInfoHealthExchInd')&.text),
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Field 9': generate_codes_for_502_su.at(0),
