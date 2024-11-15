@@ -334,4 +334,13 @@ describe Efile::Nc::D400Calculator do
       expect(instance.lines[:NCD400_LINE_34].value).to eq 250
     end
   end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      allow(instance).to receive(:calculate_line_25).and_return 0
+      allow(instance).to receive(:calculate_line_19).and_return 10
+      instance.calculate
+      expect(instance.refund_or_owed_amount).to eq(-10)
+    end
+  end
 end
