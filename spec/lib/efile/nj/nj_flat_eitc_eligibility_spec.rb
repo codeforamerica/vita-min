@@ -175,7 +175,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
         { primary_birth_date: date_older_than_65, spouse_birth_date: date_younger_than_65, expected: false },
         { primary_birth_date: date_younger_than_65, spouse_birth_date: date_younger_than_65, expected: false },
 
-        # 2024: Taxpayer is born on or after 1/1/2000. If MFJ, both taxpayers have to meet the requirement.
+        # 2024: Taxpayer is born on or after 1/2/2000. If MFJ, both taxpayers have to meet the requirement.
         { primary_birth_date: date_younger_than_25, spouse_birth_date: date_younger_than_25, expected: true },
         { primary_birth_date: date_younger_than_25, spouse_birth_date: date_older_than_25, expected: false },
         { primary_birth_date: date_older_than_25, spouse_birth_date: date_younger_than_25, expected: false },
@@ -205,7 +205,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
         { primary_birth_date: date_older_than_65, expected: true },
         { primary_birth_date: date_younger_than_65, expected: false },
 
-        # 2024: Taxpayer is born on or after 1/1/2000
+        # 2024: Taxpayer is born on or after 1/2/2000
         { primary_birth_date: date_younger_than_25, expected: true },
         { primary_birth_date: date_older_than_25, expected: false },
 
