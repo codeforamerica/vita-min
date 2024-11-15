@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Logging in with an existing account" do
   include StateFileIntakeHelper
+  let(:twilio_service) { instance_double TwilioService }
   let(:phone_number) { "+15551231234" }
   let(:email_address) { "someone@example.com" }
   let(:ssn) { "111223333" }
@@ -22,7 +23,8 @@ RSpec.feature "Logging in with an existing account" do
     allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, verification_code).and_return(hashed_verification_code)
     # mock case for wrong code
     allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, "999999").and_return("hashed_wrong_verification_code")
-    allow(TwilioService).to receive(:send_text_message)
+    allow(TwilioService).to receive(:new).and_return twilio_service
+    allow(twilio_service).to receive(:send_text_message)
     Flipper.enable :sms_notifications
   end
 
@@ -37,7 +39,7 @@ RSpec.feature "Logging in with an existing account" do
       click_on I18n.t("state_file.questions.email_address.edit.action")
     end
 
-    expect(TwilioService).to have_received(:send_text_message).with(
+    expect(twilio_service).to have_received(:send_text_message).with(
       to: phone_number,
       body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 30 minutes.",
       status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')

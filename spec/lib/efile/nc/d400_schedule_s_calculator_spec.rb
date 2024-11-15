@@ -10,6 +10,23 @@ describe Efile::Nc::D400ScheduleSCalculator do
   end
   let(:instance) { d400_calculator.instance_variable_get(:@d400_schedule_s) }
 
+  describe "Line 18: Interest Income From obligations of the United States' Possessions" do
+    context "if there are no interest incomes" do
+      it "returns 0" do
+        d400_calculator.calculate
+        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(0)
+      end
+    end
+
+    context "if there are interest incomes with interest income from obligations of US possessions" do
+      it "returns fed_taxable_income from federal IRS Taxable Interest Amount" do
+        intake.direct_file_data.fed_taxable_income = 100
+        d400_calculator.calculate
+        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(100)
+      end
+    end
+  end
+
   describe 'Line 27: Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe' do
     context "if there are not tribal wages from intake" do
       it "returns 0 for line 27 and line 41" do

@@ -3,15 +3,25 @@ require 'rails_helper'
 describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "az" do
   describe '.build' do
     let(:intake) { create(:state_file_az_intake) }
-    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
+    let(:instance) {described_class.new(submission)}
+    let(:build_response) { instance.build }
+    let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+
+    it "generates basic components of return" do
+      expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
+      expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
+      expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+
+      expect(build_response.errors).not_to be_present
+    end
 
     context "married filing jointly" do
       let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
 
       it "generates xml" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FilingStatus").text).to eq('MarriedJoint')
         expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
         expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
@@ -27,13 +37,11 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       end
 
       it "translates the relationship to the appropriate AZ XML relationship key" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("DependentDetails RelationShip").text).to eq "CHILD"
       end
 
       context "when a dependent is under 17" do
         it "marks DepUnder17 checkbox as checked" do
-          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           under_17_node = xml.at("DepUnder17")
           expect(under_17_node).to be_present
           expect(under_17_node.text).to eq('X')
@@ -45,7 +53,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         let(:dob) { 19.years.ago }
 
         it "marks Dep17AndOlder checkbox as checked" do
-          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           over_17_node = xml.at("Dep17AndOlder")
           expect(over_17_node).to be_present
           expect(over_17_node.text).to eq('X')
@@ -69,7 +76,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         end
 
         it "claims dependent in QualParentsAncestors" do
-          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           qual_ancestors = xml.at("QualParentsAncestors")
           expect(qual_ancestors).to be_present
           expect(qual_ancestors.at("Name FirstName").text).to eq "Grammy"
@@ -84,7 +90,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
 
       context "when there are w2s present" do
         it "w2s are copied from the intake" do
-          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
           expect(xml.css('IRSW2').count).to eq 1
           expect(xml.at("IRSW2 EmployeeSSN").text).to eq "555002222"
         end
@@ -102,7 +107,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
           }
 
           it "prioritises state_file_w2s over w2s from the direct file xml, correctly updates & creates & deletes nodes" do
-            xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
             expect(xml.css('IRSW2').count).to eq 1
             w2_from_xml = xml.css('IRSW2')[0]
             expect(w2_from_xml.at("EmployerStateIdNum").text).to eq "00123"
@@ -117,9 +121,11 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     context "when there is a refund with banking info" do
       let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no") }
 
-      it "generates FinancialTransaction xml with correct RefundAmt" do
+      before do
         allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+      end
+
+      it "generates FinancialTransaction xml with correct RefundAmt" do
         expect(xml.at("FinancialTransaction")).to be_present
         expect(xml.at("RefundDirectDeposit Amount").text).to eq "500"
       end
@@ -129,7 +135,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_owed_intake) }
 
       it "generates FinancialTransaction xml with correct Amount" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
         expect(xml.at("FinancialTransaction")).to be_present
         expect(xml.at("StatePayment PaymentAmount").text).to eq "5"
       end
@@ -139,8 +144,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman')) }
 
       it "does not error" do
-        builder_response = described_class.build(submission)
-        expect(builder_response.errors).not_to be_present
+        expect(build_response.errors).not_to be_present
       end
     end
 
@@ -148,8 +152,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, :with_az321_contributions) }
 
       it "generates XML with AZ-321 contributions information" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission.reload).document.to_xml)
-
         expect(xml.css('Form321').count).to eq 1
         expect(xml.css('CharityInfo').count).to eq 4
         expect(xml.css('ContinuationPages').count).to eq 1
@@ -166,6 +168,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('TotCshContrFostrChrty').text).to eq '421'
         expect(xml.at('CurrentYrCr').text).to eq '421'
         expect(xml.at('TotalAvailCr').text).to eq '421'
+        expect(xml.at('DeductionAmt CreditsFromAZ301').text).to eq '421'
       end
     end
 
@@ -173,8 +176,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, :with_az322_contributions) }
 
       it "generates XML with contributions data" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-
         expect(xml.css('SContribMadeTo').count).to eq 5
         expect(xml.at('SContribMadeTo SchoolContrDate').text).to eq '2023-03-04'
         expect(xml.at('SContribMadeTo CTDSCode').text).to eq '123456789'
@@ -189,6 +190,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.at('SingleHOH').text).to eq '200'
         expect(xml.at('CurrentYrCr').text).to eq '200'
         expect(xml.at('TotalAvailCr').text).to eq '200'
+        expect(xml.at('DeductionAmt CreditsFromAZ301').text).to eq '200'
       end
     end
 
@@ -196,8 +198,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
       it "fills in the lines correctly" do
-        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-
         expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
       end
     end

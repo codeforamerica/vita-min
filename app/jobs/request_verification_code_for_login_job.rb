@@ -43,7 +43,7 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
                when :statefile
                  I18n.t("state_file.intake_logins.no_match_sms", url: url, locale: locale)
                end
-        TwilioService.send_text_message(
+        TwilioService.new(service_type).send_text_message(
           to: phone_number,
           body: body
         )

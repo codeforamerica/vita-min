@@ -192,6 +192,11 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_exempt_interest_over_10k') }
     end
 
+    trait :df_data_box_14 do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
+    end
+
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }
@@ -231,13 +236,13 @@ FactoryBot.define do
 
     trait :primary_blind do
       after(:build) do |intake|
-        intake.direct_file_data.primary_blind
+        intake.direct_file_data.set_primary_blind
       end
     end
 
     trait :spouse_blind do
       after(:build) do |intake|
-        intake.direct_file_data.spouse_blind
+        intake.direct_file_data.set_spouse_blind
       end
     end
 

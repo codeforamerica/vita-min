@@ -40,7 +40,7 @@ class StateFileBaseIntake < ApplicationRecord
   before_save :sanitize_bank_details
 
   def self.state_code
-    state_code, _ = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
+    state_code, = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
       state_info[:intake_class] == self
     end
     state_code.to_s
@@ -122,7 +122,15 @@ class StateFileBaseIntake < ApplicationRecord
   def synchronize_df_w2s_to_database
     direct_file_data.w2s.each_with_index do |direct_file_w2, i|
       state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
+      box_14_values = {}
+      direct_file_w2.w2_box14.each do |deduction|
+        box_14_values[deduction[:other_description]] = deduction[:other_amount]
+      end
       state_file_w2.assign_attributes(
+        box14_ui_wf_swf: box_14_values['UI/WF/SWF'],
+        box14_ui_hc_wd: box_14_values['UI/HC/WD'],
+        box14_fli: box_14_values['FLI'],
+        box14_stpickup: box_14_values['STPICKUP'],
         employer_name: direct_file_w2.EmployerName,
         employee_name: direct_file_w2.EmployeeNm,
         employee_ssn: direct_file_w2.EmployeeSSN,
@@ -133,7 +141,7 @@ class StateFileBaseIntake < ApplicationRecord
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
         state_wages_amount: direct_file_w2.StateWagesAmt,
         state_file_intake: self,
-        w2_index: i
+        w2_index: i,
       )
       state_file_w2.save!
     end
@@ -243,18 +251,13 @@ class StateFileBaseIntake < ApplicationRecord
   def validate_state_specific_w2_requirements(w2); end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
-    unless /\A\d{9}\z/.match(state_file1099_g.payer_tin)
+    unless /\A\d{9}\z/.match?(state_file1099_g.payer_tin)
       state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin.invalid"))
     end
   end
 
   class Person
-    attr_reader :first_name
-    attr_reader :middle_initial
-    attr_reader :last_name
-    attr_reader :suffix
-    attr_reader :birth_date
-    attr_reader :ssn
+    attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn
 
     def initialize(intake, primary_or_spouse)
       @primary_or_spouse = primary_or_spouse
@@ -321,7 +324,7 @@ class StateFileBaseIntake < ApplicationRecord
   def save_nil_enums_with_unfilled
     keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }
     keys_with_unfilled.each do |key|
-      if self.send(key) == nil
+      if self.send(key).nil?
         self.send("#{key}=", "unfilled")
       end
     end
@@ -333,27 +336,27 @@ class StateFileBaseIntake < ApplicationRecord
 
   def increment_failed_attempts
     super
-    if attempts_exceeded?
-      lock_access! unless access_locked?
+    if attempts_exceeded? && !access_locked?
+      lock_access!
     end
   end
 
   def controller_for_current_step
-    begin
-      if efile_submissions.present?
-        StateFile::Questions::ReturnStatusController
-      else
-        step_name = current_step.split('/').last
-        controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
-        controller_name.constantize
-      end
-    rescue
-      if hashed_ssn.present?
-        StateFile::Questions::DataReviewController
-      else
-        StateFile::Questions::TermsAndConditionsController
-      end
+    
+    if efile_submissions.present?
+      StateFile::Questions::ReturnStatusController
+    else
+      step_name = current_step.split('/').last
+      controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
+      controller_name.constantize
     end
+  rescue StandardError
+    if hashed_ssn.present?
+      StateFile::Questions::DataReviewController
+    else
+      StateFile::Questions::TermsAndConditionsController
+    end
+    
   end
 
   def self.opted_out_state_file_intakes(email)

@@ -2,6 +2,7 @@ module Efile
   module Az
     class Az140Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :AZ140_LINE_79, owed: :AZ140_LINE_80
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -60,11 +61,15 @@ module Efile
         set_line(:AZ140_LINE_48, :calculate_line_48)
         set_line(:AZ140_LINE_49, :calculate_line_49)
         set_line(:AZ140_LINE_50, :calculate_line_50)
-        set_line(:AZ140_LINE_51, -> { 0 })
-        set_line(:AZ140_LINE_52, :calculate_line_52)
         set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
+        @az321.calculate
+        @az322.calculate
+        @az301.calculate
+        # lines 51 and 52 are dependent on az301
+        set_line(:AZ140_LINE_51,:calculate_line_51)
+        set_line(:AZ140_LINE_52, :calculate_line_52)
         if line_or_zero(:AZ140_LINE_52) > line_or_zero(:AZ140_LINE_59)
           set_line(:AZ140_LINE_60, :calculate_line_60)
         else
@@ -74,14 +79,7 @@ module Efile
         end
         set_line(:AZ140_LINE_79, :calculate_line_79)
         set_line(:AZ140_LINE_80, :calculate_line_80)
-        @az321.calculate
-        @az322.calculate
-        @az301.calculate
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        calculate_line_79 - calculate_line_80
       end
 
       def analytics_attrs
@@ -141,9 +139,9 @@ module Efile
 
       def calculate_line_35
         # Subtotal after additions and subtractions
-        subtractions = line_or_zero(:AZ140_LINE_29A) + line_or_zero(:AZ140_LINE_29B)
-        (30..32).each do |line_num|
-          subtractions += line_or_zero("AZ140_LINE_#{line_num}")
+        subtraction_lines = ["28", "29A", "29B"] + (30..32).to_a
+        subtractions = subtraction_lines.sum do |line_num|
+          line_or_zero("AZ140_LINE_#{line_num}")
         end
         line_or_zero(:AZ140_LINE_19) - subtractions
       end
@@ -255,6 +253,10 @@ module Efile
         wrksht_2_line_3 = @dependent_count + wrksht_2_line_2
         wrksht_2_line_4 = wrksht_2_line_3 * 40
         [wrksht_2_line_4, wrksht_2_line_5].min
+      end
+
+      def calculate_line_51
+        line_or_zero(:AZ301_LINE_62)
       end
 
       def calculate_line_52

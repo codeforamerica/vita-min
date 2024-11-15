@@ -46,6 +46,7 @@
 #  primary_suffix                                 :string
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
+#  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
 #  routing_number                                 :integer
 #  sign_in_count                                  :integer          default(0), not null
@@ -79,8 +80,8 @@
 FactoryBot.define do
   factory :minimal_state_file_id_intake, class: "StateFileIdIntake"
   factory :state_file_id_intake do
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
-    raw_direct_file_intake_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.json')) }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
 
     transient do
       filing_status { "single" }
@@ -126,7 +127,7 @@ FactoryBot.define do
         intake.spouse_last_name = evaluator.spouse_last_name if evaluator.spouse_last_name
       end
 
-      intake.raw_direct_file_intake_data = intake.direct_file_json_data.to_json
+      intake.raw_direct_file_intake_data = intake.direct_file_json_data
     end
 
     after(:create) do |intake|
@@ -142,7 +143,6 @@ FactoryBot.define do
     trait :single_filer_with_json do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
-
     end
 
     trait :mfj_filer_with_json do
@@ -165,6 +165,32 @@ FactoryBot.define do
       primary_last_name { "Interest" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_tim_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_tim_1099_int') }
+    end
+
+    trait :primary_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.set_primary_blind
+      end
+    end
+
+    trait :spouse_blind do
+      after(:build) do |intake|
+        intake.direct_file_data.set_spouse_blind
+      end
+    end
+
+    trait :filing_requirement do
+      after(:build) do |intake|
+        intake.direct_file_data.total_income_amount = 40000
+        intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+      end
+    end
+
+    trait :no_filing_requirement do
+      after(:build) do |intake|
+        intake.direct_file_data.total_income_amount = 40000
+        intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+      end
     end
   end
 end

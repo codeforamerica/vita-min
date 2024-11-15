@@ -105,6 +105,18 @@ describe StateFileBaseIntake do
 
       expect(w2.employer_state_id_num).to eq "000000005"
     end
+
+    it "adds box 14 fields" do
+      intake = create(:state_file_nj_intake, :df_data_box_14)
+      intake.synchronize_df_w2s_to_database
+      expect(intake.state_file_w2s.count).to eq 1
+      w2 = intake.state_file_w2s.first
+
+      expect(w2.box14_fli).to eq 550.00
+      expect(w2.box14_stpickup).to eq 250.00
+      expect(w2.box14_ui_hc_wd).to eq 450.00
+      expect(w2.box14_ui_wf_swf).to eq 350.00
+    end
   end
 
   describe "#timedout?" do

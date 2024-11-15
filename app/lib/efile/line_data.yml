@@ -180,6 +180,8 @@ ID39R_B_LINE_18:
   label: 'Health insurance premium paid amount for household'
 ID39R_B_LINE_24:
   label: 'Total subtractions (Add lines 1-4, 5e-7, 8f-23 if available)'
+ID39R_D_LINE_4:
+  label: 'Total credits Idaho educational entity and Idaho youth and rehabilitation facility contributions, and live organ donation expenses'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
@@ -198,8 +200,14 @@ ID40_LINE_10:
   label: 'Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_23:
+  label: 'Total credits from Form 39R, Part D, line 4. Include Form 39R'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
+ID40_LINE_32A:
+  label: 'Amount required to pay for the Permanent Building Fund Tax'
+ID40_LINE_32B:
+  label: 'Checkbox that determines if the Permanent Building Fund needs to be payed'
 ID40_LINE_43_WORKSHEET:
   label: '43. Grocery Credit. Computed amount from worksheet on page 11'
 ID40_LINE_43_DONATE:
@@ -598,6 +606,14 @@ MD502_LINE_22:
   label: '22 Earned income credit (EIC)'
 MD502_LINE_22B:
   label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
+MD502_LINE_23:
+  label: 'Poverty level credit'
+MD502_LINE_24:
+  label: 'Other income tax credits for individuals from Part AA, line 14 of Form 502CR'
+MD502_LINE_26:
+  label: 'Total credits (Add lines 22 through 25.)'
+MD502_LINE_27:
+  label: 'Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:
@@ -654,6 +670,8 @@ NCD400_LINE_26A:
   label: '26A Owe Money: if Line 25 is less than Line 19, subtract Line 25 from Line 19.'
 NCD400_LINE_27:
   label: 'Total amount due: Sum of Lines 26a, 26d, and 26e (line 26d & 26e out of scope)'
+NCD400_S_LINE_18:
+  label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableInterestAmt)"
 NCD400_S_LINE_27:
   label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
 NCD400_LINE_28:
@@ -702,6 +720,10 @@ NJ1040_LINE_57:
   label: '57 New Jersey Estimated Tax Payments/Credit from prior year tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
+NJ1040_LINE_59:
+  label: 'Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
+NJ1040_LINE_61:
+  label: 'Excess New Jersey Family Leave Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
