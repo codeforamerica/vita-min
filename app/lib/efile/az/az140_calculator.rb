@@ -2,8 +2,7 @@ module Efile
   module Az
     class Az140Calculator < ::Efile::TaxCalculator
       attr_reader :lines
-      REFUND_LINE_NUM = :AZ140_LINE_79
-      OWED_LINE_NUM = :AZ140_LINE_80
+      set_refund_lines refund: :AZ140_LINE_79, owed: :AZ140_LINE_80
 
       def initialize(year:, intake:, include_source: false)
         super

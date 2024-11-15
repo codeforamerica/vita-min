@@ -16,15 +16,25 @@ module Efile
       @lines[line.to_sym]&.value.to_i
     end
 
+    delegate :refund_line, :owed_line, to: :class
+    class << self
+      attr_accessor :refund_line, :owed_line
+
+      def set_refund_lines(refund:, owed:)
+        self.refund_line = refund
+        self.owed_line = owed
+      end
+    end
+
+    # if amount is positive they get a refund
+    # if amount is negative they owe taxes
+    # so we subtract owed from refund since one of them should always be 0
     def refund_or_owed_amount
       # TEMP: we will stub the amount and allow these to be undefined for now but when the calculators are complete we should raise
       # an error along the lines of "child classes must define these"
-      return 0 unless defined?(self.class::REFUND_LINE_NUM) && defined?(self.class::OWED_LINE_NUM)
+      return 0 unless refund_line.present? && owed_line.present?
 
-      # if amount is positive they get a refund
-      # if amount is negative they owe taxes
-      # so we subtract owed from refund since one of them should always be 0
-      line_or_zero(self.class::REFUND_LINE_NUM) - line_or_zero(self.class::OWED_LINE_NUM)
+      line_or_zero(refund_line) - line_or_zero(owed_line)
     end
 
     private

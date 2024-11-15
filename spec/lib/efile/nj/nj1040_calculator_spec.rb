@@ -1487,7 +1487,7 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
-      # TEMP: stub calculator lines once implemented
+      # TEMP: stub calculator lines and test outcome of method once implemented
       expect(instance.refund_or_owed_amount).to eq(0)
     end
   end
