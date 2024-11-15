@@ -33,10 +33,6 @@ module Efile
         end
 
         def meets_age_requirements?(intake)
-          minimum_age_years = 18
-          lower_age_range_years = 25
-          upper_age_range_years = 65
-
           primary_age_exclusive = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: false)
           primary_age_inclusive = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)
 
@@ -44,13 +40,20 @@ module Efile
             spouse_age_exclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: false)
             spouse_age_inclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
 
-            (primary_age_exclusive >= minimum_age_years || spouse_age_exclusive >= minimum_age_years) &&
-            ((primary_age_inclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years) &&
-            (spouse_age_inclusive < lower_age_range_years || spouse_age_inclusive >= upper_age_range_years))
+            any_meets_minimum_age([primary_age_exclusive, spouse_age_exclusive]) &&
+            all_outside_fed_eitc_age_range([primary_age_inclusive, spouse_age_inclusive])
           else
-            primary_age_exclusive >= minimum_age_years &&
-            (primary_age_inclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years)
+            any_meets_minimum_age([primary_age_exclusive]) &&
+            all_outside_fed_eitc_age_range([primary_age_inclusive])
           end
+        end
+
+        def any_meets_minimum_age(ages)
+          ages.any? { |age| age >= 18 }
+        end
+
+        def all_outside_fed_eitc_age_range(ages)
+          ages.all? { |age| age < 25 || age >= 65 }
         end
 
         def is_under_income_total_limit?(intake)
