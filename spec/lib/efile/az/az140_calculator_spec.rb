@@ -387,4 +387,13 @@ describe Efile::Az::Az140Calculator do
       end
     end
   end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      allow(instance).to receive(:calculate_line_79).and_return 20
+      allow(instance).to receive(:calculate_line_80).and_return 0
+      instance.calculate
+      expect(instance.refund_or_owed_amount).to eq(20)
+    end
+  end
 end
