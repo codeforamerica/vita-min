@@ -1,4 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
+  include DateAccessible
 
   self.abstract_class = true
 
