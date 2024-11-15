@@ -23,7 +23,6 @@
 #  email_address_verified_at                              :datetime
 #  estimated_tax_payments                                 :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
-#  fed_income_total                                       :integer
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string

@@ -23,7 +23,6 @@
 #  email_address_verified_at                              :datetime
 #  estimated_tax_payments                                 :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
-#  fed_income_total                                       :integer
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
@@ -212,6 +211,11 @@ FactoryBot.define do
     trait :df_data_claimed_as_dependent do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_claimed_as_dependent') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_claimed_as_dependent') }
+    end
+
+    trait :df_data_qss do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_qualified_widow') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_qualified_widow') }
     end
     
     trait :df_data_box_14 do
