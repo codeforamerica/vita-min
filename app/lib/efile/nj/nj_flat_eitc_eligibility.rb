@@ -40,19 +40,19 @@ module Efile
             spouse_age_exclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: false)
             spouse_age_inclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
 
-            any_meets_minimum_age([primary_age_exclusive, spouse_age_exclusive]) &&
-            all_outside_fed_eitc_age_range([primary_age_inclusive, spouse_age_inclusive])
+            any_meets_minimum_age?([primary_age_exclusive, spouse_age_exclusive]) &&
+            all_outside_fed_eitc_age_range?([primary_age_inclusive, spouse_age_inclusive])
           else
-            any_meets_minimum_age([primary_age_exclusive]) &&
-            all_outside_fed_eitc_age_range([primary_age_inclusive])
+            any_meets_minimum_age?([primary_age_exclusive]) &&
+            all_outside_fed_eitc_age_range?([primary_age_inclusive])
           end
         end
 
-        def any_meets_minimum_age(ages)
+        def any_meets_minimum_age?(ages)
           ages.any? { |age| age >= 18 }
         end
 
-        def all_outside_fed_eitc_age_range(ages)
+        def all_outside_fed_eitc_age_range?(ages)
           ages.all? { |age| age < 25 || age >= 65 }
         end
 
