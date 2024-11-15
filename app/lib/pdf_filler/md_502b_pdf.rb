@@ -30,7 +30,7 @@ module PdfFiller
         "No. total dependents": @xml_document.at("Form502B Dependents Count")&.text,
       }
 
-      @intake.dependents.each_with_index do |dependent, i|
+      @intake.dependents.first(12).each_with_index do |dependent, i|
         answers["First Name #{i + 1}"] = dependent.first_name
         answers["MI #{i + 1}"] = dependent.middle_initial
         answers["Last Name #{i + 1}"] = dependent.last_name
@@ -40,9 +40,24 @@ module PdfFiller
         answers["65 OR OLDER #{i + 1}"] = dependent.senior? ? "2" : "Off"
         dob_field_name = i.zero? ? "DOB date 1_af_date" : "DOB date 1_af_date #{i + 1}"
         answers[dob_field_name] = dependent.dob
+        answers[HEALTH_INSURANCE_CHECKBOX_LABELS[i]] = dependent.did_not_have_health_insurance ? "Yes" : "Off"
       end
-      
       answers
     end
+
+    HEALTH_INSURANCE_CHECKBOX_LABELS = [
+      "Check Box 1",
+      "Check Box 2",
+      "Check Box 3",
+      "Check Box 4",
+      "Check Box 6",
+      "Check Box 5",
+      "Check Box 1 7",
+      "Check Box 1 8",
+      "Check Box 1 9",
+      "Check Box 10",
+      "Check Box 11",
+      "Check Box 1 12",
+    ].freeze
   end
 end
