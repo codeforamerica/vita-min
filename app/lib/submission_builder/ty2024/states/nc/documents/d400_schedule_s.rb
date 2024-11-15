@@ -9,6 +9,7 @@ module SubmissionBuilder
             def document
               build_xml_doc("FormNCD400ScheduleS") do |xml|
                 xml.DedFedAGI do
+                  xml.USInterestInc calculated_fields.fetch(:NCD400_S_LINE_18)
                   add_non_zero_value(xml, :ExmptIncFedRecInd, :NCD400_S_LINE_27)
                   add_non_zero_value(xml, :TotDedFromFAGI, :NCD400_S_LINE_41)
                 end

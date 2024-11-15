@@ -93,7 +93,9 @@ FactoryBot.define do
       hoh_qualifying_person_name { '' }
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
     primary_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1) }
@@ -141,7 +143,7 @@ FactoryBot.define do
     trait :with_az321_contributions do
       made_az321_contributions { "yes" }
 
-      after(:build) do |intake|
+      after(:create) do |intake|
         create :az321_contribution,
                amount: 505.90,
                state_file_az_intake: intake,
@@ -255,6 +257,7 @@ FactoryBot.define do
     factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database

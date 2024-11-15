@@ -45,6 +45,7 @@
 #  primary_suffix                                 :string
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
+#  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
 #  routing_number                                 :integer
 #  sign_in_count                                  :integer          default(0), not null
@@ -84,6 +85,7 @@ class StateFileIdIntake < StateFileBaseIntake
   enum household_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_has_grocery_credit_ineligible_months
   enum primary_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_has_grocery_credit_ineligible_months
   enum spouse_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_has_grocery_credit_ineligible_months
+  enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
 
   def disqualifying_df_data_reason; end
 
@@ -92,5 +94,13 @@ class StateFileIdIntake < StateFileBaseIntake
       eligibility_withdrew_msa_fthb: "yes",
       eligibility_emergency_rental_assistance: "yes"
     }
+  end
+
+  def has_blind_filer?
+    direct_file_data.is_primary_blind? || filing_status_mfj? && direct_file_data.is_spouse_blind?
+  end
+
+  def has_filing_requirement?
+    direct_file_data.total_income_amount >= direct_file_data.total_itemized_or_standard_deduction_amount
   end
 end

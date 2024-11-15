@@ -3,7 +3,10 @@
 # Table name: state_file_w2s
 #
 #  id                          :bigint           not null, primary key
+#  box14_fli                   :decimal(12, 2)
 #  box14_stpickup              :decimal(12, 2)
+#  box14_ui_hc_wd              :decimal(12, 2)
+#  box14_ui_wf_swf             :decimal(12, 2)
 #  employee_name               :string
 #  employee_ssn                :string
 #  employer_name               :string
@@ -47,7 +50,7 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
-    [:w2_index, :state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount].each do |field|
+    [:w2_index, :state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount, :box14_fli, :box14_stpickup, :box14_ui_hc_wd, :box14_ui_wf_swf].each do |field|
       context field do
 
         it "does not permit strings" do

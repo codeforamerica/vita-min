@@ -47,6 +47,7 @@ describe RequestVerificationCodeForLoginJob do
     end
 
     context "with a phone number" do
+      let(:twilio_service) { instance_double(TwilioService) }
       let(:locale) { "en" }
       let(:service_type) { :ctc }
       let(:params) do
@@ -60,7 +61,8 @@ describe RequestVerificationCodeForLoginJob do
 
       before do
         allow(TextMessageVerificationCodeService).to receive(:request_code)
-        allow(TwilioService).to receive(:send_text_message)
+        allow(TwilioService).to receive(:new).and_return twilio_service
+        allow(twilio_service).to receive(:send_text_message)
       end
 
       context "when the phone number is a match for an intake" do
@@ -95,7 +97,7 @@ describe RequestVerificationCodeForLoginJob do
           it "sends a no match text with spanish body" do
             described_class.perform_now(**params)
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(TwilioService).to have_received(:send_text_message)
+            expect(twilio_service).to have_received(:send_text_message)
                                        .with(a_hash_including(
                                                body: gyr_text_message_body_es,
                                                to: params[:phone_number]
@@ -109,7 +111,7 @@ describe RequestVerificationCodeForLoginJob do
           it "sends a no match text with english body" do
             described_class.perform_now(**params)
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(TwilioService).to have_received(:send_text_message)
+            expect(twilio_service).to have_received(:send_text_message)
                                        .with(a_hash_including(
                                                body: gyr_text_message_body_en,
                                                to: params[:phone_number]
@@ -123,7 +125,7 @@ describe RequestVerificationCodeForLoginJob do
           it "sends a no match text with spanish body" do
             described_class.perform_now(**params)
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(TwilioService).to have_received(:send_text_message)
+            expect(twilio_service).to have_received(:send_text_message)
                                        .with(a_hash_including(
                                                body: ctc_text_message_body_es,
                                                to: params[:phone_number]
@@ -137,7 +139,7 @@ describe RequestVerificationCodeForLoginJob do
           it "sends a no match text with english body" do
             described_class.perform_now(**params)
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(TwilioService).to have_received(:send_text_message)
+            expect(twilio_service).to have_received(:send_text_message)
                                        .with(a_hash_including(
                                                body: ctc_text_message_body_en,
                                                to: params[:phone_number]
@@ -203,6 +205,7 @@ describe RequestVerificationCodeForLoginJob do
       end
 
       context "with a phone number" do
+        let(:twilio_service) { instance_double(TwilioService) }
         let(:params) do
           {
             phone_number: "+15125551234",
@@ -212,8 +215,9 @@ describe RequestVerificationCodeForLoginJob do
           }
         end
         before do
+          allow(TwilioService).to receive(:new).and_return twilio_service
           allow(TextMessageVerificationCodeService).to receive(:request_code)
-          allow(TwilioService).to receive(:send_text_message)
+          allow(twilio_service).to receive(:send_text_message)
         end
 
         context "when the phone number is a match for an intake" do
@@ -231,7 +235,7 @@ describe RequestVerificationCodeForLoginJob do
           it "sends a no match text" do
             described_class.perform_now(**params)
             expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(TwilioService).to have_received(:send_text_message)
+            expect(twilio_service).to have_received(:send_text_message)
                                        .with(a_hash_including(
                                                body: I18n.t("state_file.intake_logins.no_match_sms", url: "http://statefile.test.localhost/en", locale: :en),
                                                to: params[:phone_number]

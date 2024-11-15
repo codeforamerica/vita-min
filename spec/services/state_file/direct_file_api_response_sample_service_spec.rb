@@ -68,7 +68,7 @@ describe StateFile::DirectFileApiResponseSampleService do
 
   describe '#read_json' do
     it 'returns file contents if the sample exists' do
-      expect(direct_file_api_response_return_sample_service.read_json(key)).to include(unique_file_contents)
+      expect(direct_file_api_response_return_sample_service.read_json(key).to_json).to include(unique_file_contents)
     end
 
     it 'returns nil if the sample does not exist' do

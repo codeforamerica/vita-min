@@ -167,7 +167,7 @@ module StateFile
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
         voucher_path: "",
-        w2_supported_box14_codes: [],
+        w2_supported_box14_codes: ["UI_WF_SWF", "UI_HC_WD", "FLI"],
         w2_include_local_income_boxes: false
       },
       ny: {
