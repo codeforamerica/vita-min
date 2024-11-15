@@ -93,7 +93,7 @@ module Efile
         [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
       end
 
-      WKSHT_LINE_2_AMTS = {
+      WK_LINE_2_AMTS = {
         single: 4673,
         married_filing_separately: 4673,
         married_filing_jointly: 9346,
@@ -101,7 +101,7 @@ module Efile
         qualifying_widow: 9346,
       }.freeze
       def calculate_line_20
-        worksheet_line_2_amount = WKSHT_LINE_2_AMTS[@filing_status]
+        worksheet_line_2_amount = WK_LINE_2_AMTS[@filing_status]
         [((worksheet_line_2_amount - line_or_zero(:ID40_LINE_19)) * 5.695).round(2), 0].max
       end
 
