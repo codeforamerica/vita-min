@@ -1526,7 +1526,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
 
         it "fills line 58 with $240 and does not check federal checkbox" do
-          allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
+          allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return true
 
           # thousands
           expect(pdf_fields["58"]).to eq ""
