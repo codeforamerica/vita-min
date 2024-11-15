@@ -62,7 +62,7 @@ class EfileError < ApplicationRecord
   end
 
   def self.default_controller
-    StateFile::Questions::NameDobController
+    StateFile::Questions::DataReviewController
   end
 
   def self.paths

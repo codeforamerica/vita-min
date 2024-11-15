@@ -420,11 +420,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           it "signs in the intake, updates the session, and redirects to the current step" do
-            intake.update(current_step: "/en/questions/name-dob")
+            intake.update(current_step: "/en/questions/data-review")
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
-            expect(response).to redirect_to questions_name_dob_path
+            expect(response).to redirect_to questions_data_review_path
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 

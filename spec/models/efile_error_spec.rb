@@ -19,18 +19,18 @@
 require 'rails_helper'
 
 describe 'EfileError' do
-  it 'returns name dob as the default controller' do
-    expect(EfileError.default_controller).to eq StateFile::Questions::NameDobController
+  it 'returns data review as the default controller' do
+    expect(EfileError.default_controller).to eq StateFile::Questions::DataReviewController
   end
 
   it 'converts controllers to paths' do
-    path = EfileError.controller_to_path(StateFile::Questions::NameDobController)
-    expect(path).to eq "name-dob"
+    path = EfileError.controller_to_path(StateFile::Questions::DataReviewController)
+    expect(path).to eq "data-review"
   end
 
   it 'converts paths to controllers' do
-    controller = EfileError.path_to_controller("name-dob")
-    expect(controller).to eq StateFile::Questions::NameDobController
+    controller = EfileError.path_to_controller("data-review")
+    expect(controller).to eq StateFile::Questions::DataReviewController
   end
 
   it 'returns the expected array of paths' do
@@ -70,7 +70,6 @@ describe 'EfileError' do
       "md-permanent-address",
       "md-review",
       "md-tax-refund",
-      "name-dob",
       "nc-county",
       "nc-eligibility-out-of-state-income",
       "nc-eligibility-residence",

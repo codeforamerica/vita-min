@@ -22,7 +22,6 @@ RSpec.describe Navigation::StateFileNyQuestionNavigation do
         StateFile::Questions::DataReviewController,
         StateFile::Questions::FederalInfoController,
         StateFile::Questions::DataTransferOffboardingController,
-        StateFile::Questions::NameDobController,
         StateFile::Questions::NycResidencyController,
         StateFile::Questions::NyCountyController,
         StateFile::Questions::NySchoolDistrictController,

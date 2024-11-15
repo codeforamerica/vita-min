@@ -21,7 +21,6 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::DataReviewController,
         StateFile::Questions::FederalInfoController,
         StateFile::Questions::DataTransferOffboardingController,
-        StateFile::Questions::NameDobController,
         StateFile::Questions::AzSeniorDependentsController,
         StateFile::Questions::AzPriorLastNamesController,
         StateFile::Questions::IncomeReviewController,
