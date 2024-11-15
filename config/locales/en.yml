@@ -2168,6 +2168,10 @@ en:
           title:
             one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
+      md_healthcare_screen:
+        edit:
+          title: Before you submit, we have a few questions to see if you qualify for additional benefits
+          subtitle: "Sharing this information <strong>won't</strong> impact your tax return."
       az_eligibility_out_of_state_income:
         edit:
           expenses_helper_heading: What are qualifying and non-qualifying expenses?

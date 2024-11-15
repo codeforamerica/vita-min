@@ -1,0 +1,30 @@
+<% filing_year = Rails.configuration.statefile_current_tax_year %>
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p class="subtitle"><%= t(".subtitle").html_safe %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+        <%= f.cfa_radio_set(
+              :had_hh_member_without_health_insurance,
+              collection: [
+                { value: "yes", label: t("general.affirmative") },
+                { value: "no", label: t("general.negative"), input_html: { "data-follow-up": "#answer-no-health-insurance" } },
+                { value: "prefer_not_to_answer", label: t("general.prefer_not_to_answer") }
+              ]
+            ) %>
+        </div>
+    </div>
+  </div>
+
+    <div class="question-with-follow-up__follow-up" id="answer-no-health-insurance">
+
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>

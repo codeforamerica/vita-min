@@ -4,6 +4,7 @@
 #
 #  id                                      :bigint           not null, primary key
 #  ctc_qualifying                          :boolean
+#  did_not_have_health_insurance           :boolean
 #  dob                                     :date
 #  eic_disability                          :integer          default("unfilled")
 #  eic_qualifying                          :boolean

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_14_212616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1771,6 +1771,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
   create_table "state_file_dependents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "ctc_qualifying"
+    t.boolean "did_not_have_health_insurance"
     t.date "dob"
     t.integer "eic_disability", default: 0
     t.boolean "eic_qualifying"
@@ -1855,6 +1856,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
+    t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
     t.integer "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1889,6 +1891,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
+    t.integer "authorize_sharing_of_health_insurance_info", default: 0, null: false
     t.string "bank_name"
     t.string "city"
     t.integer "confirmed_permanent_address", default: 0, null: false
@@ -1912,6 +1915,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "had_hh_member_without_health_insurance", default: 0, null: false
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1928,6 +1932,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
     t.date "primary_birth_date"
+    t.boolean "primary_did_not_have_health_insurance"
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -1946,6 +1951,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.boolean "spouse_did_not_have_health_insurance"
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
