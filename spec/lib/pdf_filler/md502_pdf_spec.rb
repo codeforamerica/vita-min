@@ -455,53 +455,5 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Text Box 68"]).to eq "500"
       end
     end
-<<<<<<< HEAD
-=======
-
-    context "with 502SU Subtractions" do
-      before do
-        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
-        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
-      end
-
-      it "fills out subtractions fields correctly" do
-        expect(pdf_fields["Text Field 9"]).to eq "ab"
-        expect(pdf_fields["Text Field 10"]).to eq ""
-        expect(pdf_fields["Text Field 11"]).to eq ""
-        expect(pdf_fields["Text Field 12"]).to eq ""
-        expect(pdf_fields["Enter 13"].to_i).to eq 100
-      end
-    end
-
-    context "without 502SU Subtractions" do
-      it "fills out subtractions fields correctly" do
-        expect(pdf_fields["Text Field 9"]).to eq ""
-        expect(pdf_fields["Text Field 10"]).to eq ""
-        expect(pdf_fields["Text Field 11"]).to eq ""
-        expect(pdf_fields["Text Field 12"]).to eq ""
-        expect(pdf_fields["Enter 13"].to_i).to eq 0
-      end
-    end
-
-    context "local tax computations" do
-      before do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_rate).and_return 0.027
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_amount).and_return 8765
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_29).and_return 1200
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_32).and_return 1300
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_33).and_return 1400
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_34).and_return 1500
-      end
-
-      it "fills out local tax computation fields correctly" do
-        expect(pdf_fields["Enter local tax rate"]).to eq "0.027"
-        expect(pdf_fields["Text Box 44"]).to eq "8765"
-        expect(pdf_fields["Text Box 46"]).to eq "1200"
-        expect(pdf_fields["Text Box 52"]).to eq "1300"
-        expect(pdf_fields["Text Box 54"]).to eq "1400"
-        expect(pdf_fields["Text Box 56"]).to eq "1500"
-      end
-    end
->>>>>>> ec65c3aa2 (MD 502: Local tax - tax calculator, XML & PDF)
   end
 end
