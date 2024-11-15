@@ -482,51 +482,53 @@ module Efile
       end
 
       def calculate_line_28_local_tax_rate
-        case @intake.residence_county
-        when "Allegany", "Carroll", "Charles"
-          0.0303
-        when "Baltimore City", "Baltimore County", "Caroline", "Dorchester", "Howard", "Kent", "Montgomery", "Prince", "Queen Anne", "Somerset", "Wicomico"
-          0.0320
-        when "Calvert", "St. Mary"
-          0.0300
-        when "Cecil"
-          0.0275
-        when "Garrett"
-          0.0265
-        when "Harford"
-          0.0306
-        when "Talbot"
-          0.0240
-        when "Washington"
-          0.0295
-        when "Worcester"
-          0.0295
-        when "Anne Arundel"
-          0.027
-        when "Frederick"
-          taxable_net_income = line_or_zero(:MD502_LINE_20)
-          if filing_status_dependent? || filing_status_single? || filing_status_mfs?
-            if taxable_net_income <= 25_000
-              0.0225
-            elsif taxable_net_income <= 50_000
-              0.0275
-            elsif taxable_net_income <= 150_000
-              0.0296
-            else
-              0.032
-            end
-          elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
-            if taxable_net_income <= 25_000
-              0.0225
-            elsif taxable_net_income <= 100_000
-              0.0275
-            elsif taxable_net_income <= 250_000
-              0.0296
-            else
-              0.032
-            end
-          end
-        end
+        tax_rate = case @intake.residence_county
+                   when "Allegany", "Carroll", "Charles"
+                     0.0303
+                   when "Baltimore City", "Baltimore County", "Caroline", "Dorchester", "Howard", "Kent", "Montgomery", "Prince", "Queen Anne", "Somerset", "Wicomico"
+                     0.0320
+                   when "Calvert", "St. Mary"
+                     0.0300
+                   when "Cecil"
+                     0.0275
+                   when "Garrett"
+                     0.0265
+                   when "Harford"
+                     0.0306
+                   when "Talbot"
+                     0.0240
+                   when "Washington"
+                     0.0295
+                   when "Worcester"
+                     0.0295
+                   when "Anne Arundel"
+                     0.027
+                   when "Frederick"
+                     taxable_net_income = line_or_zero(:MD502_LINE_20)
+                     if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+                       if taxable_net_income <= 25_000
+                         0.0225
+                       elsif taxable_net_income <= 50_000
+                         0.0275
+                       elsif taxable_net_income <= 150_000
+                         0.0296
+                       else
+                         0.032
+                       end
+                     elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+                       if taxable_net_income <= 25_000
+                         0.0225
+                       elsif taxable_net_income <= 100_000
+                         0.0275
+                       elsif taxable_net_income <= 250_000
+                         0.0296
+                       else
+                         0.032
+                       end
+                     end
+                   end
+
+        tax_rate&.to_d
       end
 
       def local_tax_rate
@@ -557,7 +559,7 @@ module Efile
           brackets.each do |bracket|
             if taxable_net_income > previous_threshold
               income_in_bracket = [taxable_net_income, bracket[:threshold]].min - previous_threshold
-              tax += income_in_bracket * bracket[:rate]
+              tax += income_in_bracket * bracket[:rate].to_d
               previous_threshold = bracket[:threshold]
             else
               break
