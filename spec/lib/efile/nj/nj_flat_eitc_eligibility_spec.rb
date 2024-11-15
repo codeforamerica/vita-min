@@ -22,7 +22,7 @@ describe Efile::Nj::NjFlatEitcEligibility do
         end
       end
 
-      context 'when nfj and spouse is a qualifying child' do
+      context 'when mfj and spouse is a qualifying child' do
         let(:intake) {
           create(
             :state_file_nj_intake,
