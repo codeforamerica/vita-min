@@ -67,6 +67,10 @@ module PdfFiller
         'Enter C $ ': @xml_document.at('Exemptions Dependents Amount')&.text,
         'Text Field 17': @xml_document.at('Exemptions Total Count')&.text,
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
+        'Check Box 27': check_box_if_x(@xml_document.at('MDHealthCareCoverage PriWithoutHealthCoverageInd')&.text),
+        'Check Box 28': check_box_if_x(@xml_document.at('MDHealthCareCoverage SecWithoutHealthCoverageInd')&.text),
+        'Enter DOB if you have no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage PriDOB')&.text, "%m/%d/%Y"),
+        'Enter DOB if your spouse has no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage SecDOB')&.text, "%m/%d/%Y"),
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Field 9': generate_codes_for_502_su.at(0),
@@ -108,6 +112,10 @@ module PdfFiller
 
     def checkbox_value(value)
       value.present? ? 'Yes' : 'Off'
+    end
+
+    def check_box_if_x(value)
+      value == "X" ? 'Yes' : 'Off'
     end
 
     def generate_codes_for_502_su
