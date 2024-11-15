@@ -78,8 +78,8 @@ describe Efile::Nj::NjFlatEitcEligibility do
     date_older_than_65 = Date.new(year_65+1, 1, 1) # 1/1/1960
     date_younger_than_65 = Date.new(year_65+1, 1, 2) # 1/2/1960
 
-    date_older_than_25 = Date.new(year_25, 12, 31) # 12/31/1999
-    date_younger_than_25 = Date.new(year_25+1, 1, 1) # 1/1/2000
+    date_older_than_25 = Date.new(year_25+1, 1, 1) # 1/1/2000
+    date_younger_than_25 = Date.new(year_25+1, 1, 2) # 1/2/2000
 
     date_older_than_18 = Date.new(year_18, 12, 31) # 12/31/2006
     date_younger_than_18 = Date.new(year_18+1, 1, 1) # 1/1/2007

@@ -39,11 +39,11 @@ module Efile
             spouse_age_inclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
 
             (primary_age_exclusive >= minimum_age_years || spouse_age_exclusive >= minimum_age_years) &&
-            ((primary_age_exclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years) &&
-            (spouse_age_exclusive < lower_age_range_years || spouse_age_inclusive >= upper_age_range_years))
+            ((primary_age_inclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years) &&
+            (spouse_age_inclusive < lower_age_range_years || spouse_age_inclusive >= upper_age_range_years))
           else
             primary_age_exclusive >= minimum_age_years &&
-            (primary_age_exclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years)
+            (primary_age_inclusive < lower_age_range_years || primary_age_inclusive >= upper_age_range_years)
           end
         end
 
