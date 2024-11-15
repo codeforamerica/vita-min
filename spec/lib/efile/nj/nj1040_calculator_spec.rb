@@ -1056,7 +1056,7 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-      it 'sets line 58 to 0 ' do
+      it 'sets line 58 to 0 when taxpayer not eligible' do
         allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return false
         instance.calculate
 
@@ -1064,7 +1064,7 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
       end
 
-      it 'to flat $240 and does not check IRS box when taxpayer passes eligibility checks' do
+      it 'sets line 58 to flat $240 and does not check IRS box when taxpayer eligible' do
         allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return true
         instance.calculate
 
