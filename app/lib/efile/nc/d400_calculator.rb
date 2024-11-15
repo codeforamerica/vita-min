@@ -2,7 +2,7 @@ module Efile
   module Nc
     class D400Calculator < ::Efile::TaxCalculator
       attr_reader :lines
-      set_refund_lines refund: :NCD400_LINE_25, owed: :NCD400_LINE_19
+      set_refund_owed_lines refund: :NCD400_LINE_25, owed: :NCD400_LINE_19
 
       def initialize(year:, intake:, include_source: false)
         super

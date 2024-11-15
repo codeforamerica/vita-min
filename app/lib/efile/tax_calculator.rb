@@ -20,7 +20,7 @@ module Efile
     class << self
       attr_accessor :refund_line, :owed_line
 
-      def set_refund_lines(refund:, owed:)
+      def set_refund_owed_lines(refund:, owed:)
         self.refund_line = refund
         self.owed_line = owed
       end
