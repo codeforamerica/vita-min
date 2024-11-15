@@ -295,6 +295,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             intake.update(spouse_did_not_have_health_insurance: true)
             intake.update(spouse_birth_date: DateTime.new(1972, 11, 5))
             intake.update(authorize_sharing_of_health_insurance_info: "yes")
+            intake.update(email_address: "healthy@example.com")
           end
 
           it "fills in the right lines" do
@@ -303,6 +304,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")&.text).to eq "X"
             expect(xml.document.at("MDHealthCareCoverage SecDOB")&.text).to eq "1972-11-05"
             expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage TaxpayerEmailAddress")&.text).to eq "healthy@example.com"
           end
         end
 
@@ -317,6 +319,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.document.at("MDHealthCareCoverage PriWithoutHealthCoverageInd")).to be_nil
             expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")).to be_nil
             expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage TaxpayerEmailAddress")).to be_nil
           end
         end
       end
