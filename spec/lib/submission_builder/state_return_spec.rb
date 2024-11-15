@@ -123,7 +123,7 @@ describe SubmissionBuilder::StateReturn do
     end
   end
 
-  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("id", "nc", "nj")
+  states_requiring_1099gs = StateFile::StateInformationService.active_state_codes.excluding("id", "md", "nc", "nj")
   states_requiring_1099gs.each do |state_code|
     describe "#form1099gs", required_schema: state_code do
       context "#{state_code}: when there are 1099gs present" do

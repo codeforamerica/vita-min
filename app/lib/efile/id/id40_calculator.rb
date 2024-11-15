@@ -23,7 +23,13 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_29, :calculate_line_29)
+        set_line(:ID40_LINE_32A, :calculate_line_32a)
+        set_line(:ID40_LINE_32B, :calculate_line_32b)
+        set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
+        set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
+        set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
         @id39r.calculate
         @lines.transform_values(&:value)
@@ -31,6 +37,10 @@ module Efile
 
       def refund_or_owed_amount
         0
+      end
+
+      def grocery_credit_amount
+        line_or_zero(:ID40_LINE_43_WORKSHEET)
       end
 
       def analytics_attrs
@@ -75,12 +85,65 @@ module Efile
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
+      def calculate_line_23
+        line_or_zero(:ID39R_D_LINE_4)
+      end
+
       def calculate_line_29
         if @intake.has_unpaid_sales_use_tax? && !@intake.total_purchase_amount.nil?
           (@intake.total_purchase_amount * 0.06).round
         else
           0
         end
+      end
+
+      def calculate_line_32a
+        if @intake.has_filing_requirement? && !@intake.has_blind_filer? && @intake.received_id_public_assistance_no?
+          10
+        else
+          0
+        end
+      end
+      def calculate_line_32b
+        @intake.received_id_public_assistance_yes?
+      end
+
+      def calculate_grocery_credit
+        return 0 if @intake.direct_file_data.claimed_as_dependent?
+
+        credit = 0
+
+        primary_eligible_months = 12
+        if @intake.household_has_grocery_credit_ineligible_months_yes? && @intake.primary_has_grocery_credit_ineligible_months_yes?
+          primary_eligible_months -= @intake.primary_months_ineligible_for_grocery_credit
+        end
+        credit += primary_eligible_months * (@intake.primary_senior? ? 11.67 : 10)
+
+        if filing_status_mfj?
+          spouse_eligible_months = 12
+          if @intake.household_has_grocery_credit_ineligible_months_yes? && @intake.spouse_has_grocery_credit_ineligible_months_yes?
+            spouse_eligible_months -= @intake.spouse_months_ineligible_for_grocery_credit
+          end
+          credit += spouse_eligible_months * (@intake.spouse_senior? ? 11.67 : 10)
+        end
+
+        @intake.dependents.each do |dependent|
+          dependent_eligible_months = 12
+          if @intake.household_has_grocery_credit_ineligible_months_yes? && dependent.id_has_grocery_credit_ineligible_months_yes?
+            dependent_eligible_months -= dependent.id_months_ineligible_for_grocery_credit
+          end
+          credit += dependent_eligible_months * 10
+        end
+
+        credit.round
+      end
+
+      def calculate_line_43_donate
+        @intake.donate_grocery_credit_yes?
+      end
+
+      def calculate_line_43
+        @lines[:ID40_LINE_43_DONATE]&.value ? 0 : line_or_zero(:ID40_LINE_43_WORKSHEET)
       end
 
       def calculate_line_46

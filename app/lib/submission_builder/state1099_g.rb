@@ -7,7 +7,7 @@ module SubmissionBuilder
       state_abbreviation = form1099g.intake.state_code.upcase
 
       build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
-        if form1099g.payer_name && form1099g.payer_name != ''
+        if form1099g.payer_name.present?
           xml.PayerName payerNameControl: form1099g.payer_name.gsub(/\s+|-/, '').upcase[0..3] do
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099g.payer_name.tr('-', ' '), 75)
           end

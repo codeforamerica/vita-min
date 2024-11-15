@@ -2,26 +2,30 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema: "id" do
   describe ".document" do
-    let(:intake) { create(:state_file_id_intake, filing_status: "single") }
+    let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     context "single filer" do
-      let(:intake) { create(:state_file_id_intake, filing_status: "single") }
+      let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "SINGLE"
         expect(xml.at("PrimeExemption").text).to eq "1"
         expect(xml.at("TotalExemption").text).to eq "1"
-        expect(xml.at("FederalAGI").text).to eq "32351"
+        expect(xml.at("FederalAGI").text).to eq "10000"
         # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses(2000)] = 24724
-        expect(xml.at("StateTotalAdjustedIncome").text).to eq "24724"
+        expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
       end
     end
 
     context "married filing jointly" do
-      let(:intake) { create(:state_file_id_intake, filing_status: "married_filing_jointly") }
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      before do
+        intake.direct_file_data.spouse_claimed_dependent = false
+      end
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "JOINT"
@@ -62,7 +66,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         create(:state_file_dependent, intake: intake, first_name: "Jack", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
       end
 
-      it"fills out dependent information" do
+      it "fills out dependent information" do
         expect(xml.css('OtherExemption').text).to eq "3"
         expect(xml.css('DependentGrid').count).to eq 3
 
@@ -98,6 +102,57 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
         it "fills out StateUseTax field with 0" do
           expect(xml.at("StateUseTax").text).to eq '0'
+        end
+      end
+    end
+
+    context "PermanentBuildingFund" do
+      context "when a client is not blind has filing requirements and does not receive public assistance" do
+        before do
+          intake.direct_file_data.total_income_amount = 40000
+          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+          intake.received_id_public_assistance = "no"
+        end
+
+        it "fills out StateUseTax field with calculated value" do
+          expect(xml.at("PermanentBuildingFund").text).to eq '10'
+        end
+      end
+
+      context "when a client is blind" do
+        before do
+          intake.direct_file_data.total_income_amount = 40000
+          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+          intake.direct_file_data.set_primary_blind
+          intake.received_id_public_assistance = "no"
+        end
+
+        it "fills out StateUseTax field with 0" do
+          expect(xml.at("PermanentBuildingFund").text).to eq '0'
+        end
+      end
+    end
+
+    context "grocery credit" do
+      let(:intake) { create(:state_file_id_intake, :mfj_filer_with_json) }
+
+      context "when there is a grocery credit amount" do
+        it "fills out line 43" do
+          expect(xml.at("WorksheetGroceryCredit").text.to_i).to eq 240
+          expect(xml.at("GroceryCredit").text.to_i).to eq 240
+          expect(xml.at("DonateGroceryCredit").text).to eq("false")
+        end
+      end
+
+      context "when the filer chooses to donate their grocery credit" do
+        before do
+          intake.donate_grocery_credit_yes!
+        end
+
+        it "fills out the line 43 donate checkbox" do
+          expect(xml.at("WorksheetGroceryCredit").text.to_i).to eq 240
+          expect(xml.at("GroceryCredit").text.to_i).to eq 0
+          expect(xml.at("DonateGroceryCredit").text).to eq("true")
         end
       end
     end

@@ -1,39 +1,40 @@
 class DirectFileJsonData
   class DfJsonPerson < DfJsonWrapper
-    json_reader first_name: { type: :string, key: "firstName" }
-    json_reader middle_initial: { type: :string, key: "middleInitial" }
-    json_reader last_name: { type: :string, key: "lastName" }
-    json_reader dob: { type: :date, key: "dateOfBirth" }
-    json_reader tin: { type: :string, key: "tin" }
+    json_accessor first_name: { type: :string, key: "firstName" }
+    json_accessor middle_initial: { type: :string, key: "middleInitial" }
+    json_accessor last_name: { type: :string, key: "lastName" }
+    json_accessor dob: { type: :date, key: "dateOfBirth" }
+    json_accessor tin: { type: :string, key: "tin" }
   end
 
   class DfJsonFiler < DfJsonPerson
-    json_reader is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
+    json_accessor is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
   end
 
   class DfJsonDependent < DfJsonPerson
-    json_reader relationship: { type: :string, key: "relationship" }
-    json_reader eligible_dependent: { type: :boolean, key: "eligibleDependent" }
-    json_reader is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
+    json_accessor relationship: { type: :string, key: "relationship" }
+    json_accessor eligible_dependent: { type: :boolean, key: "eligibleDependent" }
+    json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
   end
 
   class DfJsonInterestReport < DfJsonWrapper
-    json_reader amount_1099: { type: :money_amount, key: "1099Amount" }
-    json_reader has_1099: { type: :boolean, key: "has1099" }
-    json_reader interest_on_government_bonds: { type: :money_amount, key: "interestOnGovernmentBonds" }
-    json_reader amount_no_1099: { type: :money_amount, key: "no1099Amount" }
-    json_reader recipient_tin: { type: :string, key: "recipientTin" }
-    json_reader tax_exempt_interest: { type: :money_amount, key: "taxExemptInterest" }
-    json_reader payer: { type: :string, key: "payer" }
-    json_reader payer_tin: { type: :string, key: "payerTin" }
-    json_reader tax_withheld: { type: :money_amount, key: "taxWithheld" }
-    json_reader tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
+    json_accessor amount_1099: { type: :money_amount, key: "1099Amount" }
+    json_accessor has_1099: { type: :boolean, key: "has1099" }
+    json_accessor interest_on_government_bonds: { type: :money_amount, key: "interestOnGovernmentBonds" }
+    json_accessor amount_no_1099: { type: :money_amount, key: "no1099Amount" }
+    json_accessor recipient_tin: { type: :string, key: "recipientTin" }
+    json_accessor tax_exempt_interest: { type: :money_amount, key: "taxExemptInterest" }
+    json_accessor payer: { type: :string, key: "payer" }
+    json_accessor payer_tin: { type: :string, key: "payerTin" }
+    json_accessor tax_withheld: { type: :money_amount, key: "taxWithheld" }
+    json_accessor tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
   end
 
   attr_reader :data
+  delegate :to_json, to: :data
 
   def initialize(json)
-    @data = JSON.parse(json || "{}")
+    @data = json || {}
   end
 
   def primary_filer
