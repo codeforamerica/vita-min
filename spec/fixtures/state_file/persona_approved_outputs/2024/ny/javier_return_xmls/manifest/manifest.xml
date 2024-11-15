@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StateSubmissionManifest xmlns:efile="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile">
-  <SubmissionId>1234562024319sc90rm5</SubmissionId>
+  <SubmissionId>1234562024320de8kub4</SubmissionId>
   <EFIN>123456</EFIN>
-  <TaxYr>2023</TaxYr>
+  <TaxYr>2024</TaxYr>
   <GovernmentCd>NYST</GovernmentCd>
   <StateSubmissionTyp>IT201</StateSubmissionTyp>
   <SubmissionCategoryCd>IND</SubmissionCategoryCd>

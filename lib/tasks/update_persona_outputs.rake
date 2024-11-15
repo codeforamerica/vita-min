@@ -20,7 +20,7 @@ namespace :update_persona_outputs do
         intake = FactoryBot.create(persona_name, federal_submission_id: "1016422024018atw000x")
         efile_submission = FactoryBot.create(:efile_submission, :accepted, :for_state, data_source: intake)
         generated_pdf = efile_submission.generate_filing_pdf
-        path = "spec/fixtures/state_file/persona_approved_outputs/2023/#{us_state}/#{persona_name}_return.pdf"
+        path = "spec/fixtures/state_file/persona_approved_outputs/2024/#{us_state}/#{persona_name}_return.pdf"
         File.write(path, generated_pdf.read)
       end
     end
@@ -45,7 +45,7 @@ namespace :update_persona_outputs do
         zip_path = ActiveStorage::Blob.service.path_for(efile_submission.submission_bundle.key)
         Zip::File.open(zip_path) do |zf|
           zf.each do |file|
-            file_path = "spec/fixtures/state_file/persona_approved_outputs/2023/#{us_state}/#{persona_name}_return_xmls/#{file.name}"
+            file_path = "spec/fixtures/state_file/persona_approved_outputs/2024/#{us_state}/#{persona_name}_return_xmls/#{file.name}"
             FileUtils.mkdir_p(File.join(*Pathname(file_path).each_filename.to_a[..-2]))
             File.write(
               file_path,
