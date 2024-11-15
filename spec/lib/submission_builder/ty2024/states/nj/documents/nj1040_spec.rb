@@ -663,7 +663,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "earned income tax credit - line 58" do
       context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
-        let(:intake) { create(:state_file_nj_intake) }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_58).and_return 596
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_58_irs).and_return true
+        end
 
         it "fills EarnedIncomeCreditAmount with $596 for 40% of federal tax credit and checks EICFederalAmt" do
           expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(596.to_s)
@@ -672,63 +675,25 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
-        context 'when taxpayer satisfies all eligibility checks' do
+        context 'when taxpayer is eligible for NJ EITC' do
           before do
-            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_58).and_return 240
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_58_irs).and_return false
           end
 
-          context 'when taxpayer is a qualifying child' do
-            let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child) }
-
-            it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
-              expect(xml.at("EarnedIncomeCredit")).to eq(nil)
-              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
-              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
-            end
-          end
-
-          context 'when spouse is a qualifying child' do
-            let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :spouse_claimed_as_eitc_qualifying_child) }
-
-            it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
-              expect(xml.at("EarnedIncomeCredit")).to eq(nil)
-              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
-              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
-            end
-          end
-
-          context 'when single and taxpayer is not a qualifying child' do
-            let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
-
-            it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
-              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(240.to_s)
-              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
-            end
-          end
-
-          context 'when mfj and neither taxpayer nor spouse is a qualifying child' do
-            let(:intake) {
-            create(
-                :state_file_nj_intake,
-                :df_data_mfj,
-                :claimed_as_eitc_qualifying_child_no,
-                :spouse_claimed_as_eitc_qualifying_child_no
-              )
-            }
-
-            it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
-              expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(240.to_s)
-              expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
-            end
+          it "fills EarnedIncomeCreditAmount with flat $240 and does not check EICFederalAmt" do
+            expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount").text).to eq(240.to_s)
+            expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
           end
         end
 
-        context 'when taxpayer does not satisfy one or more eligibility checks' do
-          let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
+        context 'when taxpayer is not eligible for NJ EITC' do
+          before do
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_58).and_return 0
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_58_irs).and_return false
+          end
 
           it "does not fill EarnedIncomeCreditAmount and does not check EICFederalAmt" do
-            allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return false
-
             expect(xml.at("EarnedIncomeCredit")).to eq(nil)
             expect(xml.at("EarnedIncomeCredit EarnedIncomeCreditAmount")).to eq(nil)
             expect(xml.at("EarnedIncomeCredit EICFederalAmt")).to eq(nil)
