@@ -75,21 +75,21 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         within ".filter-form" do
           fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
-          select "2024", from: "year"
+          select "2023", from: "year"
           select "Mona Mandarin", from: "assigned_user_id"
           select "Ready for prep", from: "status"
           fill_in "Search", with: "Zach"
 
           click_button "Filter results"
           expect(page).to have_text("Alan's Org")
-          expect(page).to have_select("year", selected: "2024")
+          expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
           # reload page and filters persist
           visit hub_clients_path
           expect(page).to have_text("Alan's Org")
-          expect(page).to have_select("year", selected: "2024")
+          expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
@@ -117,7 +117,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           # Can navigate to another dashboard and see that pages persisted filters again.
           visit hub_clients_path
           expect(page).to have_text("Alan's Org")
-          expect(page).to have_select("year", selected: "2024")
+          expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
         end
@@ -312,11 +312,11 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page.all('.client-row').length).to eq 1
         end
         within ".filter-form" do
-          select "2024", from: "year"
+          select "2023", from: "year"
           click_button "Filter results"
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_checked_field("assigned_to_me")
-          expect(page).to have_select("year", selected: "2024")
+          expect(page).to have_select("year", selected: "2023")
         end
         expect(page).not_to have_css ".client-table"
         expect(page).to have_css ".empty-clients"

@@ -62,7 +62,7 @@ RSpec.feature "Creating new drop off clients" do
       end
 
       # fields for tax return years
-      check "2024"
+      check "2023"
       check "2021"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_0_certification_level"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_2_certification_level"
@@ -96,7 +96,7 @@ RSpec.feature "Creating new drop off clients" do
         expect(page).not_to have_text "2020"
         expect(page).to have_text "2021"
         expect(page).not_to have_text "2022"
-        expect(page).to have_text "2024"
+        expect(page).to have_text "2023"
       end
 
       within ".primary-ssn" do

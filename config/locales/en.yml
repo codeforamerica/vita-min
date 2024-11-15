@@ -3094,7 +3094,7 @@ en:
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
-          title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+          title: Unfortunately, your 2024 %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
