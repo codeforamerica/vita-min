@@ -2,6 +2,12 @@ module Efile
   module Nj
     module NjFlatEitcEligibility
       class << self
+        def eligible?(intake)
+          possibly_eligible?(intake) &&
+          intake.claimed_as_eitc_qualifying_child_no? &&
+          (!intake.filing_status_mfj? || intake.spouse_claimed_as_eitc_qualifying_child_no?)
+        end
+
         def possibly_eligible?(intake)
           return false if intake.direct_file_data.fed_eic.positive?
 

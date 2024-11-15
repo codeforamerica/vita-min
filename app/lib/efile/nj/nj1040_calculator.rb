@@ -280,9 +280,7 @@ module Efile
       def calculate_line_58
         if @direct_file_data.fed_eic.positive?
           (@direct_file_data.fed_eic * 0.4).round
-        elsif Efile::Nj::NjFlatEitcEligibility.possibly_eligible?(@intake) &&
-          @intake.claimed_as_eitc_qualifying_child_no? &&
-          (!@intake.filing_status_mfj? || @intake.spouse_claimed_as_eitc_qualifying_child_no?)
+        elsif Efile::Nj::NjFlatEitcEligibility.eligible?(@intake)
           240
         else
           0

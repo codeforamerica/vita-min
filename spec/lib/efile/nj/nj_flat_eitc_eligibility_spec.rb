@@ -1,6 +1,86 @@
 require 'rails_helper'
 
 describe Efile::Nj::NjFlatEitcEligibility do
+  describe ".eligible?" do
+    context 'when taxpayer satisfies all eligibility checks' do
+      before do
+        allow(Efile::Nj::NjFlatEitcEligibility).to receive(:possibly_eligible?).and_return true
+      end
+
+      context 'when taxpayer is a qualifying child' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_childless_eitc,
+            :claimed_as_eitc_qualifying_child
+          )
+        }
+
+        it 'returns false' do
+          result = Efile::Nj::NjFlatEitcEligibility.eligible?(intake)
+          expect(result).to eq(false)
+        end
+      end
+
+      context 'when nfj and spouse is a qualifying child' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_childless_eitc,
+            :mfj_spouse_over_65,
+            :spouse_claimed_as_eitc_qualifying_child
+          )
+        }
+
+        it 'returns false' do
+          result = Efile::Nj::NjFlatEitcEligibility.eligible?(intake)
+          expect(result).to eq(false)
+        end
+      end
+
+      context 'when single and taxpayer is not a qualifying child' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_childless_eitc,
+            :claimed_as_eitc_qualifying_child_no
+          )
+        }
+
+        it 'returns true' do
+          result = Efile::Nj::NjFlatEitcEligibility.eligible?(intake)
+          expect(result).to eq(true)
+        end
+      end
+
+      context 'when mfj and neither taxpayer nor spouse is a qualifying child' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_childless_eitc,
+            :mfj_spouse_over_65,
+            :claimed_as_eitc_qualifying_child_no,
+            :spouse_claimed_as_eitc_qualifying_child_no
+          )
+        }
+
+        it 'returns true' do
+          result = Efile::Nj::NjFlatEitcEligibility.eligible?(intake)
+          expect(result).to eq(true)
+        end
+      end
+    end
+
+    context 'when taxpayer does not satisfy one or more eligibility checks' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no) }
+
+      it 'returns false' do
+        result = Efile::Nj::NjFlatEitcEligibility.eligible?(intake)
+        expect(result).to eq(false)
+      end
+    end
+  end
+
   describe ".possibly_eligible?" do
     [
       { traits: [], expected: false },
