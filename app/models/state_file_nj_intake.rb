@@ -173,11 +173,6 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def health_insurance_eligibility
-    p '============================'
-    p self.eligibility_all_members_health_insurance_no?
-    p self.eligibility_made_less_than_threshold?
-    p self.eligibility_claimed_as_dependent?
-    p '============================'
     if self.eligibility_all_members_health_insurance_no?
       has_exception = self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
       has_exception ? "eligible" : "ineligible"
