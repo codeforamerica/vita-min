@@ -97,7 +97,10 @@ class StateFileBaseIntake < ApplicationRecord
 
       if dependent_json.present?
         json_attributes = {
+          first_name: dependent_json.first_name,
           middle_initial: dependent_json.middle_initial,
+          last_name: dependent_json.last_name,
+          suffix: dependent_json.suffix,
           relationship: dependent_json.relationship,
           months_in_home: dependent_json.months_in_home,
           dob: dependent_json.dob
