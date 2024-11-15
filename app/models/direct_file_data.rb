@@ -73,7 +73,7 @@ class DirectFileData < DfXmlAccessor
     primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
     spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
-    total_qualifying_dependent_care_expenses: 'IRS2441 TotalQlfdExpensesOrLimitAmt',
+    total_qualifying_dependent_care_expenses: 'ReturnData IRS2441 TotalQlfdExpensesOrLimitAmt',
     total_income_amount: 'IRS1040 TotalIncomeAmt',
     total_itemized_or_standard_deduction_amount: 'IRS1040 TotalItemizedOrStandardDedAmt'
   }.freeze
@@ -266,6 +266,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_taxable_ssb=(value)
+    create_or_destroy_df_xml_node(__method__, value)
     write_df_xml_value(__method__, value)
   end
 
@@ -649,6 +650,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def total_qualifying_dependent_care_expenses=(value)
+    create_or_destroy_df_xml_node(__method__, true)
     write_df_xml_value(__method__, value)
   end
 

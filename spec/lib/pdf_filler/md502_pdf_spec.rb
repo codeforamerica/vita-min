@@ -300,8 +300,8 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills out subtractions fields correctly" do
-        expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
-        expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
+        expect(pdf_fields["Enter 9"].to_i).to eq 1200
+        expect(pdf_fields["Enter 11"].to_i).to eq 240
       end
 
       context "with 502SU Subtractions" do

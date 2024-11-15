@@ -301,11 +301,11 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
 
           it "outputs child and dependent care expenses" do
-            expect(xml.at("Form502 Subtractions ChildAndDependentCareExpenses").text.to_i).to eq(intake.direct_file_data.total_qualifying_dependent_care_expenses)
+            expect(xml.at("Form502 Subtractions ChildAndDependentCareExpenses").text.to_i).to eq(1200)
           end
 
           it "outputs Taxable Social Security and RR benefits" do
-            expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
+            expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(240)
           end
 
           it "outputs the Subtractions from Form 502SU" do
