@@ -17,7 +17,7 @@ RSpec.describe Questions::OptionalConsentController do
       end
 
       context "with valid params" do
-        let (:params) do
+        let(:params) do
           {
             optional_consent_form: {
               disclose_consented: true,

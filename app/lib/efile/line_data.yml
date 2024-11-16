@@ -616,6 +616,14 @@ MD502_LINE_22:
   label: '22 Earned income credit (EIC)'
 MD502_LINE_22B:
   label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
+MD502_LINE_23:
+  label: 'Poverty level credit'
+MD502_LINE_24:
+  label: 'Other income tax credits for individuals from Part AA, line 14 of Form 502CR'
+MD502_LINE_26:
+  label: 'Total credits (Add lines 22 through 25.)'
+MD502_LINE_27:
+  label: 'Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:

@@ -46,10 +46,6 @@ module Efile
         }
       end
 
-      def refund_or_owed_amount
-        0
-      end
-
       def get_tax_rate_and_subtraction_amount(income)
         if @intake.filing_status_mfs? || @intake.filing_status_single?
           case income
