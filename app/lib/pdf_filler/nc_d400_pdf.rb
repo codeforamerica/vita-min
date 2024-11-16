@@ -16,6 +16,12 @@ module PdfFiller
     end
 
     def hash_for_pdf
+
+      mfs_spouse_first_name = @xml_document.at("MFSSpouseName FirstName")&.text || ""
+      mfs_spouse_middle_initial = @xml_document.at("MFSSpouseName MiddleInitial")&.text || ""
+      mfs_spouse_last_name = @xml_document.at("MFSSpouseName LastName")&.text || ""
+      mfs_spouse_name = [mfs_spouse_first_name, mfs_spouse_middle_initial, mfs_spouse_last_name].reject(&:empty?).join(" ")
+
       {
         y_d400wf_datebeg: formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
         y_d400wf_dateend: formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d-%y"),
@@ -45,7 +51,7 @@ module PdfFiller
         y_d400wf_fstat3: @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
         y_d400wf_fstat4: @submission.data_source.filing_status_hoh? ? 'Yes' : 'Off',
         y_d400wf_fstat5: @submission.data_source.filing_status_qw? ? 'Yes' : 'Off',
-        y_d400wf_sname2: @xml_document.at('MFSSpouseName')&.text,
+        y_d400wf_sname2: mfs_spouse_name,
         y_d400wf_sssn2: @xml_document.at('MFSSpouseSSN')&.text,
         y_d400wf_dead3: @xml_document.at('QWYearSpouseDied')&.text,
         y_d400wf_li6_good: @xml_document.at('FAGI')&.text,

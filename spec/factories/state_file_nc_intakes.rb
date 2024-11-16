@@ -152,5 +152,9 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
     end
+
+    trait :with_filers_synced do
+      after(:create, &:synchronize_filers_to_database)
+    end
   end
 end
