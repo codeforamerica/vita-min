@@ -15,6 +15,7 @@
 #  current_step                                           :string
 #  date_electronic_withdrawal                             :date
 #  df_data_import_failed_at                               :datetime
+#  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
@@ -104,7 +105,6 @@
 #  index_state_file_nj_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNjIntake < StateFileBaseIntake
-
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own
