@@ -17,7 +17,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-11-16T00:08:13+00:00</IPTs>
+        <IPTs>2024-11-16T05:22:31+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
@@ -25,7 +25,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-11-16T00:08:13+00:00</IPTs>
+        <IPTs>2024-11-16T05:22:31+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
@@ -35,10 +35,10 @@
   </AuthenticationHeader>
   <ReturnHeaderState>
     <Jurisdiction>NYST</Jurisdiction>
-    <ReturnTs>2024-11-16T00:08:13+00:00</ReturnTs>
-    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
-    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
-    <TaxYr>2023</TaxYr>
+    <ReturnTs>2024-11-16T05:22:31+00:00</ReturnTs>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <TaxYr>2024</TaxYr>
     <OriginatorGrp>
       <EFIN>123456</EFIN>
       <OriginatorTypeCd>OnlineFiler</OriginatorTypeCd>
@@ -69,9 +69,9 @@
       <filingKeys>
         <SOURCE_CD>61</SOURCE_CD>
         <EXT_TP_ID>177001011</EXT_TP_ID>
-        <LIAB_PRD_BEG_DT>2023-01-01</LIAB_PRD_BEG_DT>
-        <LIAB_PRD_END_DT>2023-12-31</LIAB_PRD_END_DT>
-        <TAX_YEAR>2023</TAX_YEAR>
+        <LIAB_PRD_BEG_DT>2024-01-01</LIAB_PRD_BEG_DT>
+        <LIAB_PRD_END_DT>2024-12-31</LIAB_PRD_END_DT>
+        <TAX_YEAR>2024</TAX_YEAR>
       </filingKeys>
       <tiPrime>
         <FIRST_NAME>JAVIER</FIRST_NAME>
@@ -233,7 +233,7 @@
 </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
-          <State1099G xmlns:efile="http://www.irs.gov/efile" documentId="State1099G-36">
+          <State1099G xmlns:efile="http://www.irs.gov/efile" documentId="State1099G-42">
             <PayerName payerNameControl="NEWY">
               <BusinessNameLine1Txt>NEW YORK STATE DEPT OF LABOR</BusinessNameLine1Txt>
             </PayerName>
