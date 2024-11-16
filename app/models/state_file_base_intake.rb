@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  self.ignored_columns = [:df_data_import_failed]
+
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true

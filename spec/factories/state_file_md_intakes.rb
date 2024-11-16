@@ -16,6 +16,7 @@
 #  current_step                         :string
 #  date_electronic_withdrawal           :date
 #  df_data_import_failed_at             :datetime
+#  df_data_import_succeeded_at          :datetime
 #  df_data_imported_at                  :datetime
 #  eligibility_filing_status_mfj        :integer          default("unfilled"), not null
 #  eligibility_home_different_areas     :integer          default("unfilled"), not null
