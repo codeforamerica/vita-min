@@ -62,8 +62,6 @@ class DirectFileJsonData
     data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
   end
 
-  private
-
   def filers
     data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
   end
@@ -71,5 +69,4 @@ class DirectFileJsonData
   def dependents
     data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end
-
 end

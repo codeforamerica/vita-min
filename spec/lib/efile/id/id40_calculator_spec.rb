@@ -106,7 +106,86 @@ describe Efile::Id::Id40Calculator do
   end
 
   describe "Line 25: Child Tax Credit" do
+    context "when there are no dependents" do
+      it "calculates correct child care credit to zero" do
+        allow(instance).to receive(:line_or_zero).and_call_original
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_25].value).to eq(0)
+      end
+    end
 
+    context "when there are dependents" do
+      let(:intake) { create(:state_file_id_intake, :with_qualifying_dependents) }
+
+      context "when worksheet line 2 is less than worksheet line 7" do
+        it "calculates correct child care credit" do
+          allow(instance).to receive(:line_or_zero).and_call_original
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_20).and_return(1150)
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_22).and_return(50)
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_23).and_return(50)
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_24).and_return(50)
+          # line 7 is 1000 (line 20 - sum(22-24)) and line 2 is 410 (two dependents * 205)
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_25].value).to eq(410)
+        end
+      end
+
+      context "when worksheet line 2 is more than worksheet line 7" do
+        it "calculates correct child care credit" do
+          allow(instance).to receive(:line_or_zero).and_call_original
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_20).and_return(200)
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_22).and_return(50)
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_23).and_return(50)
+          allow(instance).to receive(:line_or_zero).with(:ID40_LINE_24).and_return(50)
+          # line 7 is 50 (line 20 - sum(22-24)) and line 2 is 410 (two dependents * 205
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_25].value).to eq(50)
+        end
+      end
+    end
+  end
+
+  describe "Line 26: Total Credits" do
+    it "adds line 23 and 25" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_23).and_return(500)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_25).and_return(300)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_26].value).to eq(800)
+    end
+  end
+
+  describe "Line 27: Credits" do
+    context "when 26 is greater than 21" do
+      it "returns 0" do
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:ID40_LINE_21).and_return(100)
+        allow(instance).to receive(:line_or_zero).with(:ID40_LINE_26).and_return(300)
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_27].value).to eq(0)
+      end
+    end
+
+    context "when 26 is less than 21" do
+      it "subtracts 26 from 21" do
+        allow(instance).to receive(:line_or_zero).and_call_original
+        allow(instance).to receive(:line_or_zero).with(:ID40_LINE_21).and_return(500)
+        allow(instance).to receive(:line_or_zero).with(:ID40_LINE_26).and_return(300)
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_27].value).to eq(200)
+      end
+    end
+  end
+
+  describe "Line 33 and 42: Total Credits" do
+    it "adds line 29 and 32" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(500)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_32A).and_return(300)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_33].value).to eq(800)
+      expect(instance.lines[:ID40_LINE_42].value).to eq(800)
+    end
   end
 
   describe "Line 29: State Use Tax" do
