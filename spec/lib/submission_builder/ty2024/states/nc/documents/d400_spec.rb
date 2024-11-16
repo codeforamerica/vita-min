@@ -23,6 +23,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       let(:nc_agi_addition) { 18750 }
       let(:nc_agi_subtraction) { 10750 }
       let(:income_tax) { 400 }
+      let(:deduction_from_fagi) { 20 }
       before do
         intake.direct_file_data.fed_agi = 10000
         intake.tribal_member = "yes"
@@ -34,6 +35,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20a).and_return income_tax_withheld
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_20b).and_return income_tax_withheld_spouse
         allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_23).and_return tax_paid
+        allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_41).and_return deduction_from_fagi
       end
 
       it "correctly fills answers" do
@@ -45,6 +47,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('FilingStatus')&.text).to eq "Single"
         expect(xml.document.at('FAGI')&.text).to eq "10000"
         expect(xml.document.at('FAGIPlusAdditions')&.text).to eq "10000"
+        expect(xml.document.at('DeductionsFromFAGI')&.text).to eq "20"
         expect(xml.document.at('NCStandardDeduction')&.text).to eq standard_deduction.to_s
         expect(xml.document.at('NCAGIAddition')&.text).to eq nc_agi_addition.to_s
         expect(xml.document.at('NCAGISubtraction')&.text).to eq nc_agi_subtraction.to_s # 12B
