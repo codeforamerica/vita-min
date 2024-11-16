@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000013</PrimarySSN>
+      <SpouseSSN>600000010</SpouseSSN>
+      <NameLine1Txt>DONALD &amp; DONNA&lt;DILL</NameLine1Txt>
+      <PrimaryNameControlTxt>DILL</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>DILL</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>Phoenix</CityNm>
+        <StateAbbreviationCd>AZ</StateAbbreviationCd>
+        <ZIPCd>86404</ZIPCd>
+      </USAddress>
+      <PhoneNum>4805558765</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>donald@donald.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <PrimaryBlindInd>X</PrimaryBlindInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Dill</DependentFirstNm>
+        <DependentLastNm>Pickle</DependentLastNm>
+        <DependentNameControlTxt>PICK</DependentNameControlTxt>
+        <DependentSSN>300000018</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>3</TotalExemptionsCnt>
+      <TotalAdditionalIncomeAmt>23000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>23000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>23000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001"
+                              referenceDocumentName="OtherWithholdingStatement">2300
+      </Form1099WithheldTaxAmt>
+      <WithholdingTaxAmt>2300</WithholdingTaxAmt>
+      <TotalPaymentsAmt>2300</TotalPaymentsAmt>
+      <OverpaidAmt>2300</OverpaidAmt>
+      <RefundAmt>2300</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>SPEC Tax Analyst</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Pastor</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>23000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>23000</TotalAdditionalIncomeAmt>
+    </IRS1040Schedule1>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>001245767</EIN>
+        <WithholdingAmt>1300</WithholdingAmt>
+      </OtherWithholdingStmt>
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>001245767</EIN>
+        <WithholdingAmt>1000</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>

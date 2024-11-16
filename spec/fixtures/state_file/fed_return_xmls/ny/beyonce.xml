@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>14e99fab</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000001</PrimarySSN>
+      <NameLine1Txt>BEYONCEE&lt;KNOWLES</NameLine1Txt>
+      <PrimaryNameControlTxt>KNOW</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 14th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@test.testtest</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Blue Ivy</DependentFirstNm>
+        <DependentLastNm>Carter</DependentLastNm>
+        <DependentNameControlTxt>CART</DependentNameControlTxt>
+        <DependentSSN>600000010</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">150000</WagesAmt>
+      <WagesSalariesAndTipsAmt>150000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>150000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>150000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <TaxableIncomeAmt>129200</TaxableIncomeAmt>
+      <TaxAmt>22802</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>22802</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>2000</CTCODCAmt>
+      <TotalCreditsAmt>2000</TotalCreditsAmt>
+      <TaxLessCreditsAmt>20802</TaxLessCreditsAmt>
+      <TotalTaxAmt>20802</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>15000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>15000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>15000</TotalPaymentsAmt>
+      <OwedAmt>5802</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>150000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>150000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>22802</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>2000</CTCODCAmt>
+      <ClaimACTCAllFilersGrp/>
+    </IRS1040Schedule8812>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000001</EmployeeSSN>
+      <EmployerEIN>001456787</EmployerEIN>
+      <EmployerNameControlTxt>ATLA</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Atlantic Records</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 19th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10013</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Beyoncee Knowles</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 14th St</AddressLine1Txt>
+        <CityNm>New York</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10014</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>150000</WagesAmt>
+      <WithholdingAmt>15000</WithholdingAmt>
+      <SocialSecurityWagesAmt>150000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>150000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345678</EmployerStateIdNum>
+          <StateWagesAmt>150000</StateWagesAmt>
+          <StateIncomeTaxAmt>10000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>150000</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1000</LocalIncomeTaxAmt>
+            <LocalityNm>nyc</LocalityNm>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

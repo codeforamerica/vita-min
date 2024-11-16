@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000081</PrimarySSN>
+      <NameLine1Txt>BEN&lt;GABRIEL</NameLine1Txt>
+      <PrimaryNameControlTxt>GABR</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>452 CLINTON AVE</AddressLine1Txt>
+        <CityNm>ALBANY</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12206</ZIPCd>
+      </USAddress>
+      <PhoneNum>3035555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>seafoodman@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <QualifyingHOHNm>MARTHAJENNY</QualifyingHOHNm>
+      <QualifyingHOHSSN>300000045</QualifyingHOHSSN>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>EM</DependentFirstNm>
+        <DependentLastNm>MIKE</DependentLastNm>
+        <DependentNameControlTxt>MIKE</DependentNameControlTxt>
+        <DependentSSN>300000046</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>MARTHA</DependentFirstNm>
+        <DependentLastNm>JENNY</DependentLastNm>
+        <DependentNameControlTxt>JENN</DependentNameControlTxt>
+        <DependentSSN>300000045</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>RICARDO</DependentFirstNm>
+        <DependentLastNm>TIM</DependentLastNm>
+        <DependentNameControlTxt>TIM</DependentNameControlTxt>
+        <DependentSSN>900930125</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>TIFFANY</DependentFirstNm>
+        <DependentLastNm>TAHSINA</DependentLastNm>
+        <DependentNameControlTxt>TAHS</DependentNameControlTxt>
+        <DependentSSN>900500125</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+      </DependentDetail>
+      <MoreDependentsInd>X</MoreDependentsInd>
+      <ChldWhoLivedWithYouCnt>4</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>5</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">20000</WagesAmt>
+      <WagesSalariesAndTipsAmt>20000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>20000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+      <OverpaidAmt>2000</OverpaidAmt>
+      <RefundAmt>2000</RefundAmt>
+      <RoutingTransitNum>302075830</RoutingTransitNum>
+      <BankAccountTypeCd>1</BankAccountTypeCd>
+      <DepositorAccountNum>123456</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>TAX DUDE</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000081</EmployeeSSN>
+      <EmployerEIN>678912345</EmployerEIN>
+      <EmployerNameControlTxt>CODF</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>COD FOR AMERICA</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 FAKE STREET</AddressLine1Txt>
+        <CityNm>BROOKLYN</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11238</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>BENGABRIEL</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>452 CLINTON AVE</AddressLine1Txt>
+        <CityNm>ALBANY</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12206</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>20000</WagesAmt>
+      <WithholdingAmt>2000</WithholdingAmt>
+      <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1240</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>290</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>20000</StateWagesAmt>
+          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

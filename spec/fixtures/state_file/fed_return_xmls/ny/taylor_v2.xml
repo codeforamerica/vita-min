@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000020</PrimarySSN>
+      <NameLine1Txt>TAYLOR&lt;ALISON&lt;SR</NameLine1Txt>
+      <PrimaryNameControlTxt>ALIS</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>89 Pine St</AddressLine1Txt>
+        <CityNm>Rockville Centre</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11470</ZIPCd>
+      </USAddress>
+      <PhoneNum>5185553790</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>taylor@taylor.taylor</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Meredith</DependentFirstNm>
+        <DependentLastNm>Alison</DependentLastNm>
+        <DependentNameControlTxt>ALIS</DependentNameControlTxt>
+        <DependentSSN>300000033</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Olivia</DependentFirstNm>
+        <DependentLastNm>Alison</DependentLastNm>
+        <DependentNameControlTxt>ALIS</DependentNameControlTxt>
+        <DependentSSN>300000034</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Benjamin</DependentFirstNm>
+        <DependentLastNm>Alison</DependentLastNm>
+        <DependentNameControlTxt>ALIS</DependentNameControlTxt>
+        <DependentSSN>300000035</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>3</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>4</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">75000</WagesAmt>
+      <WagesSalariesAndTipsAmt>75000</WagesSalariesAndTipsAmt>
+      <TaxableInterestAmt>1000</TaxableInterestAmt>
+      <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>81000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>760</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>80240</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>20800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>20800</TotalDeductionsAmt>
+      <TaxableIncomeAmt>59440</TaxableIncomeAmt>
+      <TaxAmt>6817</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>6817</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>6000</CTCODCAmt>
+      <TotalCreditsAmt>6000</TotalCreditsAmt>
+      <TaxLessCreditsAmt>817</TaxLessCreditsAmt>
+      <TotalTaxAmt>817</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>9000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">650</Form1099WithheldTaxAmt>
+      <WithholdingTaxAmt>9650</WithholdingTaxAmt>
+      <TotalPaymentsAmt>9650</TotalPaymentsAmt>
+      <OverpaidAmt>8833</OverpaidAmt>
+      <RefundAmt>8833</RefundAmt>
+      <RoutingTransitNum>021000322</RoutingTransitNum>
+      <BankAccountTypeCd>2</BankAccountTypeCd>
+      <DepositorAccountNum>929292929292</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Teacher</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>5000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>150</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>610</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>760</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>80240</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>80240</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>6000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>6000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>6000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>6817</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>6000</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ThreeOrMoreQlfyChildrenInd>true</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+    </IRS1040Schedule8812>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000020</EmployeeSSN>
+      <EmployerEIN>001245768</EmployerEIN>
+      <EmployerNameControlTxt>NEWY</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>New York State Dept of Transportation</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>300 Fake Street</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11238</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Taylor Alison</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>89 Pine St</AddressLine1Txt>
+        <CityNm>Rockville Centre</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11470</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>75000</WagesAmt>
+      <WithholdingAmt>9000</WithholdingAmt>
+      <SocialSecurityWagesAmt>75000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>4650</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>75000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1088</MedicareTaxWithheldAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414_H</Desc>
+        <Amt>3500</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>12345</EmployerStateIdNum>
+          <StateWagesAmt>75000</StateWagesAmt>
+          <StateIncomeTaxAmt>2500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>001223344</EIN>
+        <WithholdingAmt>650</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>177001011</PrimarySSN>
+      <NameLine1Txt>JAVIER D&lt;JIMENEZ</NameLine1Txt>
+      <PrimaryNameControlTxt>JIME</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </USAddress>
+      <PhoneNum>2125555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test018@test.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="8">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">19500</WagesAmt>
+      <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
+      <TipIncomeAmt>0</TipIncomeAmt>
+      <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
+      <TaxableBenefitsAmt>0</TaxableBenefitsAmt>
+      <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
+      <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
+      <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
+      <WagesSalariesAndTipsAmt>19500</WagesSalariesAndTipsAmt>
+      <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
+      <TaxableInterestAmt>0</TaxableInterestAmt>
+      <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
+      <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
+      <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
+      <SocSecBnftAmt>0</SocSecBnftAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
+      <CapitalGainLossAmt>0</CapitalGainLossAmt>
+      <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>20000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>6150</TaxableIncomeAmt>
+      <TaxAmt>618</TaxAmt>
+      <AdditionalTaxAmt>0</AdditionalTaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>618</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
+      <TotalCreditsAmt>0</TotalCreditsAmt>
+      <TaxLessCreditsAmt>618</TaxLessCreditsAmt>
+      <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
+      <TotalTaxAmt>618</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">50</Form1099WithheldTaxAmt>
+      <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
+      <WithholdingTaxAmt>2050</WithholdingTaxAmt>
+      <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
+      <RefundableCreditsAmt>0</RefundableCreditsAmt>
+      <TotalPaymentsAmt>2050</TotalPaymentsAmt>
+      <OverpaidAmt>1432</OverpaidAmt>
+      <RefundAmt>1432</RefundAmt>
+      <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
+      <OwedAmt>0</OwedAmt>
+      <EsPenaltyAmt>0</EsPenaltyAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Waiter</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>500</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
+      <EducatorExpensesAmt>0</EducatorExpensesAmt>
+      <StudentLoanInterestDedAmt>0</StudentLoanInterestDedAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+    </IRS1040Schedule1>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>177001011</EmployeeSSN>
+      <EmployerEIN>012334561</EmployerEIN>
+      <EmployerNameControlTxt>MUSI</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Music Row</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>123 James Pl</AddressLine1Txt>
+        <CityNm>Quinton</CityNm>
+        <StateAbbreviationCd>AL</StateAbbreviationCd>
+        <ZIPCd>35130</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Javier D Jimenez</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>17725</WagesAmt>
+      <WithholdingAmt>1800</WithholdingAmt>
+      <SocialSecurityWagesAmt>17725</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1100</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>17725</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001234561</EmployerStateIdNum>
+          <StateWagesAmt>17725</StateWagesAmt>
+          <StateIncomeTaxAmt>210</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>177001011</EmployeeSSN>
+      <EmployerEIN>001234520</EmployerEIN>
+      <EmployerNameControlTxt>NYSO</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NYS Office of Employee Relations</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>Agency Bldg 2 Empire State Plaza</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12228</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Javier D Jimenez</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>1475</WagesAmt>
+      <WithholdingAmt>200</WithholdingAmt>
+      <SocialSecurityWagesAmt>1475</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>120</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>1475</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>40</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414HSUB</Desc>
+        <Amt>54</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001234520</EmployerStateIdNum>
+          <StateWagesAmt>1475</StateWagesAmt>
+          <StateIncomeTaxAmt>35</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20003" documentName="IRSW2">
+      <EmployeeSSN>177001011</EmployeeSSN>
+      <EmployerEIN>001234520</EmployerEIN>
+      <EmployerNameControlTxt>NYSO</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NYS Office of Employee Relations</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>Agency Bldg 2 Empire State Plaza</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12228</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Javier D Jimenez</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>100</WagesAmt>
+      <WithholdingAmt>0</WithholdingAmt>
+      <SocialSecurityWagesAmt>100</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>80</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>100</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>10</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414(H) (CU)</Desc>
+        <Amt>12</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001234520</EmployerStateIdNum>
+          <StateWagesAmt>100</StateWagesAmt>
+          <StateIncomeTaxAmt>35</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20004" documentName="IRSW2">
+      <EmployeeSSN>177001011</EmployeeSSN>
+      <EmployerEIN>001234520</EmployerEIN>
+      <EmployerNameControlTxt>NYSO</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NYS Office of Employee Relations</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>Agency Bldg 2 Empire State Plaza</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12228</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Javier D Jimenez</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>100</WagesAmt>
+      <WithholdingAmt>0</WithholdingAmt>
+      <SocialSecurityWagesAmt>100</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>80</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>100</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>10</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414 H random</Desc>
+        <Amt>68</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001234520</EmployerStateIdNum>
+          <StateWagesAmt>100</StateWagesAmt>
+          <StateIncomeTaxAmt>35</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20005" documentName="IRSW2">
+      <EmployeeSSN>177001011</EmployeeSSN>
+      <EmployerEIN>001234520</EmployerEIN>
+      <EmployerNameControlTxt>NYSO</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>NYS Office of Employee Relations</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>Agency Bldg 2 Empire State Plaza</AddressLine1Txt>
+        <CityNm>Albany</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12228</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Javier D Jimenez</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Main St</AddressLine1Txt>
+        <CityNm>Pleasantville</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>10572</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>100</WagesAmt>
+      <WithholdingAmt>0</WithholdingAmt>
+      <SocialSecurityWagesAmt>100</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>80</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>100</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>10</MedicareTaxWithheldAmt>
+      <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
+      <AllocatedTipsAmt>0</AllocatedTipsAmt>
+      <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>414 (H)</Desc>
+        <Amt>99</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>001234520</EmployerStateIdNum>
+          <StateWagesAmt>100</StateWagesAmt>
+          <StateIncomeTaxAmt>35</StateIncomeTaxAmt>
+          <W2LocalTaxGrp>
+            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
+          </W2LocalTaxGrp>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>270293117</EIN>
+        <WithholdingAmt>50</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v5.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>de09ad1b</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000001</PrimarySSN>
+      <SpouseSSN>400000003</SpouseSSN>
+      <NameLine1Txt>JOHN &amp; SPOUSE DECD&lt;SMITH</NameLine1Txt>
+      <PrimaryNameControlTxt>SMIT</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>SMIT</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>1 main st</AddressLine1Txt>
+        <CityNm>brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </USAddress>
+      <PhoneNum>7185555555</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test@test.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="2">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseDeathDt>2023-06-08</SpouseDeathDt>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">30000</WagesAmt>
+      <WagesSalariesAndTipsAmt>30000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>30000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>30000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>27700</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>27700</TotalDeductionsAmt>
+      <TaxableIncomeAmt>2300</TaxableIncomeAmt>
+      <TaxAmt>231</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>231</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>231</TaxLessCreditsAmt>
+      <TotalTaxAmt>231</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>3000</TotalPaymentsAmt>
+      <OverpaidAmt>2769</OverpaidAmt>
+      <RefundAmt>2769</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>lawyer</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>landscaper</SpouseOccupationTxt>
+      <SurvivingSpouseInd>X</SurvivingSpouseInd>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000001</EmployeeSSN>
+      <EmployerEIN>011457677</EmployerEIN>
+      <EmployerNameControlTxt>MAIN</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Main St Diner</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>3 Main St</AddressLine1Txt>
+        <CityNm>Brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>12121</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>john smith</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>1 Main St</AddressLine1Txt>
+        <CityNm>brooklyn</CityNm>
+        <StateAbbreviationCd>NY</StateAbbreviationCd>
+        <ZIPCd>11221</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>30000</WagesAmt>
+      <WithholdingAmt>3000</WithholdingAmt>
+      <SocialSecurityWagesAmt>30000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NY</StateAbbreviationCd>
+          <EmployerStateIdNum>123456</EmployerStateIdNum>
+          <StateWagesAmt>30000</StateWagesAmt>
+          <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>
