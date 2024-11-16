@@ -8,7 +8,6 @@ module Efile
       @filing_status = intake.filing_status.to_sym
       @dependent_count = intake.dependents.length
       @direct_file_data = intake.direct_file_data
-      @direct_file_json_data = intake.direct_file_json_data
       @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
       @lines = HashWithIndifferentAccess.new
     end

@@ -103,6 +103,4 @@ class StateFileIdIntake < StateFileBaseIntake
   def has_filing_requirement?
     direct_file_data.total_income_amount >= direct_file_data.total_itemized_or_standard_deduction_amount
   end
-
-  
 end
