@@ -37,6 +37,7 @@ module SubmissionBuilder
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.PermanentBuildingFund calculated_fields.fetch(:ID40_LINE_32A)
                 xml.PublicAssistanceIndicator calculated_fields.fetch(:ID40_LINE_32B)
+                xml.TotalTax calculated_fields.fetch(:ID40_LINE_42)
                 xml.WorksheetGroceryCredit calculated_fields.fetch(:ID40_LINE_43_WORKSHEET)
                 xml.GroceryCredit calculated_fields.fetch(:ID40_LINE_43)
                 xml.DonateGroceryCredit calculated_fields.fetch(:ID40_LINE_43_DONATE)
