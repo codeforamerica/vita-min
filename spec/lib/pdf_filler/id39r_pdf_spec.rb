@@ -161,5 +161,11 @@ RSpec.describe PdfFiller::Id39rPdf do
         expect(pdf_fields["BL24"]).to eq "10"
       end
     end
+
+    context "supplemental credits" do
+      it "should always returns 0" do
+        expect(pdf_fields["DL4"]).to eq "0"
+      end
+    end
   end
 end

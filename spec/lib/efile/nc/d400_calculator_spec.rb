@@ -203,22 +203,24 @@ describe Efile::Nc::D400Calculator do
     let(:primary_ssn_from_fixture) { intake.primary.ssn }
     let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: primary_ssn_from_fixture) }
     let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 200, employee_ssn: other_ssn) }
+    let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 50, recipient: 'primary') }
+    let!(:state_file1099_g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 39.5, recipient: 'spouse') }
 
-    context "only one w2 matches primary ssn" do
+    context "only one w2 and 1099G matches primary ssn" do
       let(:other_ssn) { "222334444" }
 
-      it "sums StateIncomeTaxAmt for only the matching ssn" do
+      it "sums StateIncomeTaxAmt (W2) for only the matching ssn" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20A].value).to eq(100)
+        expect(instance.lines[:NCD400_LINE_20A].value).to eq(150)
       end
     end
 
-    context "more than one w2 matches primary ssn" do
+    context "more than one w2 matches primary ssn and one 1099G" do
       let(:other_ssn) { primary_ssn_from_fixture }
 
-      it "sums StateIncomeTaxAmt for all matching ssn's" do
+      it "sums StateIncomeTaxAmt (W2) and state_income_tax_withheld_amount (1099G) for all matching ssn's" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20A].value).to eq(300)
+        expect(instance.lines[:NCD400_LINE_20A].value).to eq(350)
       end
     end
   end
@@ -228,22 +230,24 @@ describe Efile::Nc::D400Calculator do
     let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
     let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: spouse_ssn_from_fixture) }
     let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100, employee_ssn: other_ssn) }
+    let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 50, recipient: 'primary') }
+    let!(:state_file1099_g_2) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 39.5, recipient: 'spouse') }
 
-    context "only one w2 matches spouse ssn" do
+    context "only one w2 and 1099G matches spouse ssn" do
       let(:other_ssn) { "222334444" }
 
       it "sums StateIncomeTaxAmt for only the matching ssn" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20B].value).to eq(100)
+        expect(instance.lines[:NCD400_LINE_20B].value).to eq(140)
       end
     end
 
-    context "more than one w2 matches spouse ssn" do
+    context "more than one w2 and one 1099G matches spouse ssn" do
       let(:other_ssn) { spouse_ssn_from_fixture }
 
       it "sums StateIncomeTaxAmt for all matching ssn's" do
         instance.calculate
-        expect(instance.lines[:NCD400_LINE_20B].value).to eq(200)
+        expect(instance.lines[:NCD400_LINE_20B].value).to eq(240)
       end
     end
   end
@@ -328,6 +332,15 @@ describe Efile::Nc::D400Calculator do
 
       instance.calculate
       expect(instance.lines[:NCD400_LINE_34].value).to eq 250
+    end
+  end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      allow(instance).to receive(:calculate_line_25).and_return 0
+      allow(instance).to receive(:calculate_line_19).and_return 10
+      instance.calculate
+      expect(instance.refund_or_owed_amount).to eq(-10)
     end
   end
 end

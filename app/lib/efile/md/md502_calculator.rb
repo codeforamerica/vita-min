@@ -62,11 +62,16 @@ module Efile
         set_line(:MD502_LINE_18, :calculate_line_18)
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
+        set_line(:MD502_LINE_21, :calculate_line_21)
 
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
+        set_line(:MD502_LINE_23, :calculate_line_23)
+        set_line(:MD502_LINE_24, :calculate_line_24)
+        set_line(:MD502_LINE_26, :calculate_line_26)
+        set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         # MD502-CR
@@ -75,10 +80,6 @@ module Efile
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        0
       end
 
       def analytics_attrs
@@ -413,6 +414,44 @@ module Efile
         @lines[:MD502_SU_LINE_1].value
       end
 
+      def calculate_line_21
+        # Maryland state income tax
+        taxable_net_income = line_or_zero(:MD502_LINE_20)
+
+        if deduction_method_is_standard? && taxable_net_income >= 0
+
+          ranges = if taxable_net_income < 3_000
+                     [
+                       [0..1_000, 0, 0.02],
+                       [1_000..2_000, 20, 0.03],
+                       [2_000..3_000, 50, 0.04],
+                     ]
+                   elsif filing_status_single? || filing_status_mfs? || filing_status_dependent?
+                     [
+                       [3_000..100_000, 90, 0.0475],
+                       [100_000..125_000, 4_697.5, 0.05],
+                       [125_000..150_000, 5_947.5, 0.0525],
+                       [150_000..250_000, 7_260, 0.055],
+                       [250_000..Float::INFINITY, 12_760, 0.0575]
+                     ]
+                   else # mfj, hoh or qw
+                     [
+                       [3_000..150_000, 90, 0.0475],
+                       [150_000..175_000, 7_072.5, 0.05],
+                       [175_000..225_000, 8_322.5, 0.0525],
+                       [225_000..300_000, 10_947.5, 0.055],
+                       [300_000..Float::INFINITY, 15_072.5 , 0.0575]
+                     ]
+                   end
+          range_index = ranges.find_index{ |(range, _)| range.include?(taxable_net_income)}
+
+          base = ranges[range_index][1]
+          percent = ranges[range_index][2]
+          in_excess_of = ranges[range_index][0].begin
+          (base + ((taxable_net_income - in_excess_of) * percent)).round
+        end
+      end
+
       def calculate_line_22
         # Earned Income Credit (EIC)
         if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
@@ -424,6 +463,44 @@ module Efile
 
       def calculate_line_22b
         (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
+      end
+
+      def calculate_line_23
+        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
+
+        comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
+
+        household_size = @intake.dependents.count + (filing_status_mfj? ? 2 : 1)
+        poverty_threshold = case household_size
+                            when 1 then 15_060
+                            when 2 then 20_440
+                            when 3 then 25_820
+                            when 4 then 31_200
+                            when 5 then 36_580
+                            when 6 then 41_960
+                            when 7 then 47_340
+                            when 8 then 52_720
+                            else
+                              52_720 + ((household_size - 8) * 5_380)
+                            end
+
+        if comparison_amount < poverty_threshold
+          (@lines[:MD502_LINE_1B].value * 0.05).round
+        else
+          0
+        end
+      end
+
+      def calculate_line_24
+        0 # TODO: a stub
+      end
+
+      def calculate_line_26
+        (22..25).sum { |line_num| line_or_zero("MD502_LINE_#{line_num}") }
+      end
+
+      def calculate_line_27
+        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0 ].max
       end
 
       def calculate_line_40

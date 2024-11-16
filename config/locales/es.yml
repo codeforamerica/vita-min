@@ -2495,6 +2495,40 @@ es:
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
             bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+      id_grocery_credit:
+        edit:
+          answers_confidential_html: "<strong>Nota:</strong> Sus respuestas son confidenciales y solo se utilizan para verificar la elegibilidad del crédito."
+          example_months: Por ejemplo, si usted experimentó 2 de estas situaciones en el mes de abril, eso contaría como 1 mes en total.
+          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en 2024.
+          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en 2024.
+          see_if_you_qualify:
+            one: Para ver si usted califica, necesitamos más información sobre usted.
+            other: Para ver si califica, necesitamos más información sobre usted y su hogar.
+          select_household_members: 'Seleccione los miembros del hogar a los que se aplican estas situaciones:'
+          situation_incarceration: experimentó encarcelamiento
+          situation_snap: recibió cupones de alimentos / SNAP-EBT
+          situation_undocumented: Vivió en los Estados Unidos indocumentado
+          situations_question: "¿Se aplica alguna de las siguientes situaciones a su hogar?"
+          title: "¡Usted podría ser elegible para el Crédito de comestibles de Idaho!"
+          title_html: "¡Usted podría ser elegible para el <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Crédito de comestibles de Idaho</a>!"
+          total_number_months: Número total de meses
+          why_are_you_asking_heading: "¿Por qué preguntas esto?"
+          why_are_you_asking_li1: recibiendo cupones de alimentos
+          why_are_you_asking_li2: experimentando el encarcelamiento
+          why_are_you_asking_li3: viviendo en los estados unidos indocumentado
+          why_are_you_asking_p1: 'Se aplican ciertas restricciones para este crédito mensual. Las siguientes situaciones lo descalifican para el crédito mensual:'
+          why_are_you_asking_p2: Este crédito se reduce cada mes que una persona experimente una situación anterior.
+          why_are_you_asking_p3: Sus respuestas solo se utilizan para calcular el dinero extra para su declaración de impuestos y no se compartirán.
+      id_grocery_credit_review:
+        edit:
+          donate_impact_content_p1: Donar su crédito de supermercado puede resultar en un reembolso menor o un aumento en los impuestos adeudados en su declaración estatal de identificación.
+          donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal, y todo el dinero del fondo se destina a fines de asistencia y bienestar público.
+          donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
+          donate_warning_p1: Su donación se descontará del reembolso estatal total.
+          donate_warning_p2: Su elección de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
+          title: "¡Recibirás $%{grocery_credit_amount} del Crédito de comestibles de Idaho!"
+          title_html: "¡Recibirás <strong>$%{grocery_credit_amount}</strong> del Crédito de comestibles de Idaho!"
+          would_you_like_to_donate: "¿Quieres donar tu crédito al Fondo de Bienestar Cooperativo?"
       id_health_insurance_premium:
         edit:
           amount_paid_helper_text: Importe total pagado en %{year}
@@ -2527,6 +2561,12 @@ es:
               <li>Formulario 1095-A, restando el total de la columna C del total de la columna A.</li>
             </ul>
           what_is_title: "¿Qué es una prima de seguro médico?"
+      id_permanent_building_fund:
+        edit:
+          receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos del programa WIC.
+          receive_public_assistance_single: "¿Recibió pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_spouse: "¿Usted o su cónyuge recibieron pagos de asistencia pública de Idaho al final del año fiscal?"
+          title: "¡Podría ser elegible para una excepción al impuesto del fondo de edificios permanentes!"
       id_primary_state_id:
         id_primary:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
@@ -2537,6 +2577,7 @@ es:
       id_review:
         edit:
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
+          permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
       id_sales_use_tax:
@@ -3173,10 +3214,14 @@ es:
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
+          box14_explanation:
+            md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
+          box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Casilla 14,</strong> Otros"
-          box14_stpickup_explanation_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
           box14_stpickup_help_text: Para el año fiscal %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en la Casilla 14, déjala en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Box 15</strong>: Número de identificación del estado del empleador"
           box16_html: "<strong>Box 16</strong>: Salarios estatales, propinas, etc."
           box17_html: "<strong>Box 17</strong>: Impuesto sobre la renta estatal"

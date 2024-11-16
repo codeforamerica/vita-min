@@ -975,6 +975,113 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_21" do
+    let(:taxable_net_income) { 500 }
+    let(:deduction_method) { "S" }
+
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return taxable_net_income
+      allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return deduction_method
+      instance.calculate
+    end
+
+    context "deduction method is standard" do
+      context "taxable net income is 500" do
+        it "MD tax is 10" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 10
+        end
+      end
+
+      context "taxable net income is 1000" do
+        let(:taxable_net_income) { 1000 }
+        it "MD tax is 20" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 20
+        end
+      end
+
+      context "taxable net income is 2500" do
+        let(:taxable_net_income) { 2500 }
+        it "MD tax is 70" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 70
+        end
+      end
+
+      context "taxable net income is 3100 and filing status is single" do
+        let(:taxable_net_income) { 3100 }
+        it "MD tax is 94.75" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 95
+        end
+      end
+
+      context "taxable net income is 100,500 and filing status is single" do
+        let(:taxable_net_income) { 100_500 }
+        it "MD tax is 4722.5" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 4723
+        end
+      end
+
+      context "taxable net income is 130,000 and filing status is single" do
+        let(:taxable_net_income) { 130_000 }
+        it "MD tax is 6,210" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 6210
+        end
+      end
+
+      context "taxable net income is 200,000 and filing status is single" do
+        let(:taxable_net_income) { 200_000 }
+        it "MD tax is 10,010" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 10_010
+        end
+      end
+
+      context "taxable net income is 300,000 and filing status is single" do
+        let(:taxable_net_income) { 300_000 }
+        it "MD tax is 15,635" do
+          expect(instance.lines[:MD502_LINE_21].value).to eq 15635
+        end
+      end
+
+      context "filing status is married-filing-jointly" do
+        let(:filing_status) { 'married_filing_jointly' }
+
+        context "taxable net income is 125,000" do
+          let(:taxable_net_income) { 125_000 }
+          it "MD tax is 5,885" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 5_885
+          end
+        end
+
+        context "taxable net income is 200,000" do
+          let(:taxable_net_income) { 200_000 }
+          it "MD tax is 9,635" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 9_635
+          end
+        end
+
+        context "taxable net income is 270,000" do
+          let(:taxable_net_income) { 270_000 }
+          it "MD tax is 13,423" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 13_423
+          end
+        end
+
+        context "taxable net income is 1,000,000" do
+          let(:taxable_net_income) { 1_000_000 }
+          it "MD tax is 55,323" do
+            expect(instance.lines[:MD502_LINE_21].value).to eq 55_323
+          end
+        end
+      end
+    end
+
+    context "deduction method is 'N'" do
+      let(:deduction_method) { "N" }
+      it "returns nil" do
+        expect(instance.lines[:MD502_LINE_21].value).to eq nil
+      end
+    end
+  end
+
   describe "#calculate_line_22" do
     let(:filing_status) { "married_filing_jointly" }
     let(:df_xml_key) { "md_laney_qss" }
@@ -1066,6 +1173,121 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_23" do
+    before do
+      intake.direct_file_data.fed_wages_salaries_tips = line_1b
+      allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return(line_7)
+      instance.calculate
+    end
+
+    context "when filing as dependent" do
+      let(:filing_status) { "dependent" }
+      let(:line_1b) { 20_000 }
+      let(:line_7) { 15_000 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq(0)
+      end
+    end
+
+    context "when line 1B is not positive" do
+      let(:filing_status) { "single" }
+      let(:line_1b) { 0 }
+      let(:line_7) { 15_000 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq(0)
+      end
+    end
+
+    context "single filer with no dependents" do
+      let(:filing_status) { "single" }
+      let(:line_1b) { 14_000 }
+
+      context "when both line_1b and line_7 are below poverty threshold" do
+        let(:line_7) { 14_500 } # Max of 1b and 7 below single person house threshold of 15,060
+
+        it "returns 5% of line 1B" do
+          expect(instance.lines[:MD502_LINE_23].value).to eq(700)
+        end
+      end
+
+      context "when either amount is above poverty threshold" do
+        let(:line_7) { 15_500 }
+
+        it "returns 0" do
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # Line 7 above threshold of 15,060
+        end
+      end
+    end
+
+    context "married filing jointly with two dependent" do
+      let(:line_1b) { 30_000 }
+      let(:filing_status) { "married_filing_jointly" }
+
+      context "when both line_1b and line_7 are below poverty threshold" do
+        let(:line_7) { 30_500 } # Max of 1b and 7 is below threshold for family of 4 (31,200)
+
+        it "returns 5% of line 1B" do
+          intake.dependents.create(dob: 7.years.ago)
+          intake.dependents.create(dob: 7.years.ago)
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_23].value).to eq(1_500)
+        end
+      end
+
+      context "when either amount is above poverty threshold" do
+        let(:line_7) { 31_500 }
+
+        it "returns 0" do
+          intake.dependents.create(dob: 7.years.ago)
+          intake.dependents.create(dob: 7.years.ago)
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # line 7 is above threshold for family of 4 (31,200)
+        end
+      end
+    end
+  end
+
+  describe "#calculate_line_26" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return(100)
+      allow_any_instance_of(described_class).to receive(:calculate_line_23).and_return(200)
+      allow_any_instance_of(described_class).to receive(:calculate_line_24).and_return(300)
+      instance.calculate
+    end
+
+    it "returns the sum of lines 22 through 25" do
+      expect(instance.lines[:MD502_LINE_26].value).to eq(600)
+    end
+  end
+
+  describe "#calculate_line_27" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return(line_21)
+      allow_any_instance_of(described_class).to receive(:calculate_line_26).and_return(line_26)
+      instance.calculate
+    end
+
+    context "when line_21 minus line_27 is negative" do
+      let(:line_21) { 100 }
+      let(:line_26) { 150 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(0)
+      end
+    end
+
+    context "when line_21 minus line_27 is positive" do
+      let(:line_21) { 200 }
+      let(:line_26) { 150 }
+
+      it "returns the difference" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(50)
+      end
+    end
+  end
+
   describe '#calculate_line_40' do
     let(:intake) {
       # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
@@ -1079,6 +1301,13 @@ describe Efile::Md::Md502Calculator do
     it 'sums the MD tax withheld from w2s, 1099gs and 1099rs' do
       instance.calculate
       expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
+    end
+  end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      # TEMP: stub calculator lines and test outcome of method once implemented
+      expect(instance.refund_or_owed_amount).to eq(0)
     end
   end
 end

@@ -73,7 +73,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li27_pg2_good']).to eq '0'
           expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '15'
           expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '15'
-          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+          timezone = StateFile::StateInformationService.timezone('nc')
+          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
           expect(pdf_fields['y_d400wf_sigdate2']).to eq ""
         end
 
@@ -133,8 +134,10 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_fstat5']).to eq 'Off'
 
           expect(pdf_fields['y_d400wf_li20b_pg2_good']).to eq '15'
-          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
-          expect(pdf_fields['y_d400wf_sigdate2']).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+
+          timezone = StateFile::StateInformationService.timezone('nc')
+          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
+          expect(pdf_fields['y_d400wf_sigdate2']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
         end
       end
 

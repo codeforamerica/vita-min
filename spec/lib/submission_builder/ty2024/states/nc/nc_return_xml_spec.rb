@@ -14,6 +14,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::NcReturnXml, required_schema: "n
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.css("FormNCD400ScheduleS").count).to eq 0
+      expect(build_response.errors).not_to be_present
     end
 
     context "with DeductionsFromFAGI" do

@@ -23,6 +23,7 @@ module PdfFiller
         "BL8f" => @xml_document.at('Form39R RetirementBenefitsDeduction')&.text,
         "BL18" => @xml_document.at('Form39R HealthInsurancePaid')&.text,
         "BL24" => @xml_document.at('Form39R TotalSubtractions')&.text,
+        "DL4" => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
       }
       @submission.data_source.dependents.drop(4).first(3).each_with_index do |dependent, index|
         answers.merge!(

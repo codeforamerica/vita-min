@@ -2,6 +2,7 @@ module Efile
   module Nc
     class D400Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :NCD400_LINE_25, owed: :NCD400_LINE_19
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -33,11 +34,6 @@ module Efile
         set_line(:NCD400_LINE_28, :calculate_line_28)
         set_line(:NCD400_LINE_34, :calculate_line_34)
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        # refund if amount is positive, owed if amount is negative
-        line_or_zero(:NCD400_LINE_25) - line_or_zero(:NCD400_LINE_19)
       end
 
       def calculate_use_tax(nc_taxable_income)
@@ -139,21 +135,39 @@ module Efile
       end
 
       def calculate_line_20a
-        @intake.state_file_w2s.reduce(0) do |sum, w2|
+        sum = 0
+
+        @intake.state_file_w2s.each do |w2|
           if w2.employee_ssn == @intake.primary.ssn
-            sum += w2.state_income_tax_amount.to_i
+            sum += w2.state_income_tax_amount&.round
           end
-          sum
         end
+
+        @intake.state_file1099_gs.each do |state_file_1099_g|
+          if state_file_1099_g.recipient_primary?
+            sum += state_file_1099_g.state_income_tax_withheld_amount&.round
+          end
+        end
+
+        sum
       end
 
       def calculate_line_20b
-        @intake.state_file_w2s.reduce(0) do |sum, w2|
+        sum = 0
+
+        @intake.state_file_w2s.each do |w2|
           if w2.employee_ssn == @intake.spouse.ssn
-            sum += w2.state_income_tax_amount.to_i
+            sum += w2.state_income_tax_amount&.round
           end
-          sum
         end
+
+        @intake.state_file1099_gs.each do |state_file_1099_g|
+          if state_file_1099_g.recipient_spouse?
+            sum += state_file_1099_g.state_income_tax_withheld_amount&.round
+          end
+        end
+
+        sum
       end
 
       def calculate_line_23
