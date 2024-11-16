@@ -411,7 +411,6 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the total state and local tax withheld' do
-        puts pdf_fields
         expect(pdf_fields["Text Box 68"]).to eq "500"
       end
     end
