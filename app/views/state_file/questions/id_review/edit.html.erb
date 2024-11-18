@@ -21,9 +21,12 @@
         <%= link_to t("general.edit"), StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
 
+    </div>
+
+    <div id="grocery-credit-amount" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".idaho_grocery_credit") %></p>
-        <%= current_intake.calculator.grocery_credit_amount %>
+        <p><%= number_to_currency(current_intake.calculator.grocery_credit_amount || 0, precision: 2) %></p>
         <%= link_to t("general.edit"), StateFile::Questions::IdGroceryCreditReviewController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
     </div>
