@@ -69,26 +69,14 @@ module Efile
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
-
-<<<<<<< HEAD
+        
         set_line(:MD502_LINE_23, :calculate_line_23)
         set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
-=======
-        set_line(:MD502_LINE_27, :calculate_line_27) # STUBBED
 
-        # Local tax
-        set_line(:MD502_LINE_28_LOCAL_TAX_RATE, :calculate_line_28_local_tax_rate)
-        set_line(:MD502_LINE_28_LOCAL_TAX_AMOUNT, :calculate_line_28_local_tax_amount)
-        set_line(:MD502_LINE_29, :calculate_line_29)
-        set_line(:MD502_LINE_30, :calculate_line_30)
-        set_line(:MD502_LINE_32, :calculate_line_32)
-        set_line(:MD502_LINE_33, :calculate_line_33)
-        set_line(:MD502_LINE_34, :calculate_line_34)
-
->>>>>>> ec65c3aa2 (MD 502: Local tax - tax calculator, XML & PDF)
         set_line(:MD502_LINE_40, :calculate_line_40)
+        set_line(:MD502_LINE_42, :calculate_line_42)
 
         # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
@@ -492,7 +480,6 @@ module Efile
         (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
       end
 
-<<<<<<< HEAD
       def calculate_line_23
         return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
 
@@ -536,6 +523,15 @@ module Efile
           @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+      end
+
+      def calculate_line_42
+        # Earned Income Credit (EIC)
+        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
+          [(@direct_file_data.fed_eic * 0.45).round - line_or_zero(:MD502_LINE_21), 0].max
+        elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
+          [@direct_file_data.fed_eic - line_or_zero(:MD502_LINE_21), 0].max
+        end
       end
 
       def filing_status_dependent?
