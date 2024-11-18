@@ -535,7 +535,7 @@ describe Client do
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
 
-        context "with a product year of 2024" do
+        context "with a product year of 2023" do
           it "returns no CTC clients because the current product year for CTC is still 2022" do
             expect(client.clients_with_dupe_ssn(display_type)).to be_empty
           end
@@ -565,7 +565,7 @@ describe Client do
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
 
-        context "with a product year of 2024" do
+        context "with a product year of 2023" do
           it "returns no CTC clients because the current product year for CTC is still 2022" do
             expect(client.clients_with_dupe_ssn(display_type)).to be_empty
           end
