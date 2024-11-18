@@ -24,7 +24,7 @@ RSpec.describe PdfFiller::Nj2450Pdf do
   let(:pdf_fields) { filled_in_values(file_path) }
   let(:primary_ssn_from_fixture) { intake.primary.ssn }
   let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-  let(:fake_time) { Time.utc(MultiTenantService.statefile.current_tax_year, 2, 6, 0, 0, 0) }
+  let(:fake_time) { Time.local(MultiTenantService.statefile.current_tax_year, 2, 6, 0, 0, 0) }
 
   primary_test_cases.each.with_index do |test_case, index|
     let!(:"primary_w2_#{index}") { 
@@ -89,7 +89,7 @@ RSpec.describe PdfFiller::Nj2450Pdf do
       
       it "enters the date" do
         Timecop.freeze(fake_time) do
-          expect(pdf_fields["Date"]).to eq "2/5/2023"
+          expect(pdf_fields["Date"]).to eq "2/6/2023"
         end
       end
 
