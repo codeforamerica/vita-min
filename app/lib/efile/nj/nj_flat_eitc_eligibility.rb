@@ -66,11 +66,11 @@ module Efile
 
         def has_ssn_valid_for_employment?(intake)
           return false if intake.primary.has_itin?
-          return false if intake.direct_file_json_data.primary_filer.ssnNotValidForEmployment
+          return false if intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment
 
           if intake.filing_status_mfj? && intake.direct_file_json_data.spouse_filer.present?
             return false if intake.spouse.has_itin?
-            return false if intake.direct_file_json_data.spouse_filer.ssnNotValidForEmployment
+            return false if intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment
           end
 
           true
