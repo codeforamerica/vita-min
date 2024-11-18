@@ -15,6 +15,7 @@ class DirectFileJsonData
     json_accessor relationship: { type: :string, key: "relationship" }
     json_accessor eligible_dependent: { type: :boolean, key: "eligibleDependent" }
     json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
+    json_accessor qualifying_child: { type: boolean, key: "qualifyingChild" }
   end
 
   class DfJsonInterestReport < DfJsonWrapper
