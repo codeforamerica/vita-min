@@ -43,11 +43,13 @@ module Efile
       def column_a_excess
         difference = (column_a_total - Nj1040Calculator::EXCESS_UI_WF_SWF_MAX).round
         return difference.round if difference.positive?
+        0
       end
 
       def column_c_excess 
         difference = (column_c_total - Nj1040Calculator::EXCESS_FLI_MAX).round
         return difference.round if difference.positive?
+        0
       end
     end
   end

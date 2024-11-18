@@ -43,8 +43,8 @@ module SubmissionBuilder
               }
             ]
 
-            supported_docs += combined_w2s
             supported_docs += nj_2450s
+            supported_docs += combined_w2s
             supported_docs
           end
 

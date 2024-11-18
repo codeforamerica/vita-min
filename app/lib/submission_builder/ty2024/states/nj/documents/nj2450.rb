@@ -22,9 +22,9 @@ module SubmissionBuilder
                     xml.FedEmployerId w2.employer_ein
                     xml.Wages w2.wages&.round
                     xml.Deductions do
-                      xml.ColumnA column_a&.round
+                      xml.ColumnA column_a&.round || 0
                       xml.ColumnB 0
-                      xml.ColumnC w2.box14_fli&.round
+                      xml.ColumnC w2.box14_fli&.round || 0
                     end
                     xml.FilerIndicator filer_indicator
                   end
