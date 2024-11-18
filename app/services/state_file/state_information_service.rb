@@ -132,7 +132,7 @@ module StateFile
         navigation_class: Navigation::StateFileNcQuestionNavigation,
         pay_taxes_link: "https://www.nc.gov/working/taxes",
         return_type: "FormNCD400",
-        schema_file_name: "NCIndividual2023v1.0.zip",
+        schema_file_name: "NCIndividual2024v0.7.zip",
         state_name: "North Carolina",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
         survey_link: "",
@@ -167,7 +167,7 @@ module StateFile
         vita_link: "",
         voucher_form_name: "NJ Voucher Form",
         voucher_path: "",
-        w2_supported_box14_codes: [],
+        w2_supported_box14_codes: ["UI_WF_SWF", "UI_HC_WD", "FLI"],
         w2_include_local_income_boxes: false
       },
       ny: {

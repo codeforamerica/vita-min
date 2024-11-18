@@ -4,9 +4,13 @@ class UpdateStateFileDependentEicDisablityAndStudent < ActiveRecord::Migration[7
     add_column :state_file_dependents, :new_eic_disability, :integer, default: 0
     add_column :state_file_dependents, :new_eic_student, :integer, default: 0
 
+    # These should have been in data migrations
+    # They caused subsequent failures when new enums were added to the StateFileDependent class
+    # See also db/migrate/20240125224124_update_state_file_dependent_new_eic_disablity_and_student.rb
+
     # Backfill new columns
-    StateFileDependent.update_all("new_eic_disability = CASE WHEN eic_disability THEN 1 ELSE 2 END")
-    StateFileDependent.update_all("new_eic_student = CASE WHEN eic_student THEN 1 ELSE 2 END")
+    # StateFileDependent.update_all("new_eic_disability = CASE WHEN eic_disability THEN 1 ELSE 2 END")
+    # StateFileDependent.update_all("new_eic_student = CASE WHEN eic_student THEN 1 ELSE 2 END")
 
     # Remove old columns
     safety_assured { remove_column :state_file_dependents, :eic_disability }
@@ -19,8 +23,8 @@ class UpdateStateFileDependentEicDisablityAndStudent < ActiveRecord::Migration[7
     add_column :state_file_dependents, :eic_student, :boolean
 
     # Reverse backfill
-    StateFileDependent.update_all("eic_disability = CASE WHEN new_eic_disability = 1 THEN TRUE ELSE FALSE END")
-    StateFileDependent.update_all("eic_student = CASE WHEN new_eic_student = 2 THEN TRUE ELSE FALSE END")
+    # StateFileDependent.update_all("eic_disability = CASE WHEN new_eic_disability = 1 THEN TRUE ELSE FALSE END")
+    # StateFileDependent.update_all("eic_student = CASE WHEN new_eic_student = 2 THEN TRUE ELSE FALSE END")
 
     # Remove new columns
     remove_column :state_file_dependents, :new_eic_disability

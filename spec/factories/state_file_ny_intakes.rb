@@ -113,12 +113,14 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+
     eligibility_lived_in_state { "yes" }
     eligibility_out_of_state_income { "no" }
     eligibility_part_year_nyc_resident { "no" }
     eligibility_withdrew_529 { "no" }
     eligibility_yonkers { "no" }
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
     primary_birth_date{ Date.parse("May 1, 1979") }
@@ -214,6 +216,7 @@ FactoryBot.define do
     factory :state_file_zeus_intake do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_zeus_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
@@ -236,6 +239,7 @@ FactoryBot.define do
     factory :state_file_taylor_intake do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_taylor_hoh_3deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_taylor_hoh_3deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
@@ -252,10 +256,12 @@ FactoryBot.define do
 
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_batman') }
     end
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_bloombito_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_bloombito_w2s') }
     end
   end
 end

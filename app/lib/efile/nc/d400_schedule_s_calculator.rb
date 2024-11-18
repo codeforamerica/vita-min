@@ -7,9 +7,12 @@ module Efile
         @value_access_tracker = value_access_tracker
         @lines = lines
         @intake = intake
+        @direct_file_data = intake.direct_file_data
       end
 
       def calculate
+        set_line(:NCD400_S_LINE_18, @direct_file_data, :fed_taxable_income)
+        set_line(:NCD400_S_LINE_19, @direct_file_data, :fed_taxable_ssb)
         set_line(:NCD400_S_LINE_27, :calculate_line_27)
         set_line(:NCD400_S_LINE_41, :calculate_line_41)
       end

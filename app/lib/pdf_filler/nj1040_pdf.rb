@@ -385,6 +385,33 @@ module PdfFiller
         answers[:'Check Box168'] = pdf_checkbox_value(@xml_document.at("EarnedIncomeCredit EICFederalAmt"))
       end
 
+
+      # line 59
+      if @xml_document.at("ExcessNjUiWfSwf").present?
+        tax = @xml_document.at("ExcessNjUiWfSwf").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+                                                   "Text175",
+                                                   "Text174",
+                                                   "Text173",
+                                                   "undefined_155",
+                                                   "undefined_154",
+                                                   "59"
+                                                 ]))
+      end
+      
+      # line 61
+      if @xml_document.at("ExcesNjFamiInsur").present?
+        tax = @xml_document.at("ExcesNjFamiInsur").text.to_i
+        answers.merge!(insert_digits_into_fields(tax, [
+                                                   "Text178",
+                                                   "Text177",
+                                                   "Text176",
+                                                   "undefined_157",
+                                                   "undefined_156",
+                                                   "60"
+                                                 ]))
+      end
+
       if mfj_spouse_ssn && xml_filing_status == 'MarriedCuPartFilingJoint'
         answers.merge!({
           undefined_3: mfj_spouse_ssn[0],

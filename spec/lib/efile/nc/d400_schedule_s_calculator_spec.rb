@@ -10,6 +10,40 @@ describe Efile::Nc::D400ScheduleSCalculator do
   end
   let(:instance) { d400_calculator.instance_variable_get(:@d400_schedule_s) }
 
+  describe "Line 18: Interest Income From obligations of the United States' Possessions" do
+    context "if there are no interest incomes" do
+      it "returns 0" do
+        d400_calculator.calculate
+        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(0)
+      end
+    end
+
+    context "if there are interest incomes with interest income from obligations of US possessions" do
+      it "returns fed_taxable_income from federal IRS Taxable Interest Amount" do
+        intake.direct_file_data.fed_taxable_income = 100
+        d400_calculator.calculate
+        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(100)
+      end
+    end
+  end
+
+  describe "Line 19: Taxable Portion of Social Security and Railroad Retirement Benefits" do
+    context "if there are no interest incomes" do
+      it "returns 0" do
+        d400_calculator.calculate
+        expect(instance.lines[:NCD400_S_LINE_19]&.value).to eq(0)
+      end
+    end
+
+    context "if there are interest incomes with interest income from obligations of US possessions" do
+      it "returns fed_taxable_income from federal IRS Taxable Interest Amount" do
+        intake.direct_file_data.fed_taxable_ssb = 123
+        d400_calculator.calculate
+        expect(instance.lines[:NCD400_S_LINE_19]&.value).to eq(123)
+      end
+    end
+  end
+
   describe 'Line 27: Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe' do
     context "if there are not tribal wages from intake" do
       it "returns 0 for line 27 and line 41" do
@@ -34,6 +68,20 @@ describe Efile::Nc::D400ScheduleSCalculator do
         d400_calculator.calculate
         expect(instance.lines[:NCD400_S_LINE_41]&.value).to eq(500)
       end
+    end
+  end
+
+  describe 'Line 41: Sum of lines 17-22, 23f, 24f, 25-40' do
+    before do
+      # unrepresented lines are not implemented yet or OOS
+      intake.direct_file_data.fed_taxable_income = 400
+      intake.direct_file_data.fed_taxable_ssb = 400
+      allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_27).and_return 400
+    end
+
+    it "return sum" do
+      d400_calculator.calculate
+      expect(instance.lines[:NCD400_S_LINE_41].value).to eq(1200)
     end
   end
 end
