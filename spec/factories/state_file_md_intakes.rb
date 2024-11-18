@@ -178,5 +178,16 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_1099_int') }
     end
+
+    trait :df_data_1099_int_with_spouse do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_and_spouse_1099_int') }
+      filing_status { 'married_filing_jointly' }
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+      spouse_ssn { "987654321" }
+    end
   end
 end

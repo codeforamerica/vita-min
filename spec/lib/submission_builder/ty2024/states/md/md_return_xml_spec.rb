@@ -2,14 +2,13 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
   describe ".build" do
-    let(:intake) { create(:state_file_md_intake, filing_status: "single") }
+    let(:intake) { create(:state_file_md_intake) }
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
-    let(:instance) {described_class.new(submission)}
+    let(:instance) { described_class.new(submission) }
     let(:build_response) { instance.build }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
-    let(:intake) { create(:state_file_md_intake)}
 
 
     it "generates basic components of return" do
@@ -64,7 +63,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       end
 
       context "502R" do
-        let(:intake) { create(:state_file_md_intake)}
+        let(:intake) { create(:state_file_md_intake) }
 
         context "when taxable pensions/IRAs/annuities are present" do
           before do

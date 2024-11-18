@@ -1,0 +1,47 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Todd",
+      "lastName": "Interest",
+      "middleInitial": "T",
+      "tin": "123-45-6789",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Todd",
+      "lastName": "Spouse",
+      "middleInitial": "T",
+      "tin": "987-65-4321",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    }
+  ],
+  "interestReports": [
+    {
+      "1099Amount": "1.00",
+      "has1099": true,
+      "interestOnGovernmentBonds": "2.00",
+      "no1099Amount": "3.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "recipientTin": "123-45-6789",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789",
+      "taxExemptInterest": "4.00",
+      "taxWithheld": "5.00"
+    },
+    {
+      "1099Amount": "60.00",
+      "has1099": true,
+      "interestOnGovernmentBonds": "70.00",
+      "no1099Amount": "80.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "recipientTin": "987-65-4321",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789",
+      "taxExemptInterest": "90.00",
+      "taxWithheld": "5.00"
+    }
+  ]
+}

@@ -11,6 +11,7 @@
 #  employee_ssn                :string
 #  employer_name               :string
 #  employer_state_id_num       :string
+#  federal_wages_amount        :decimal(12, 2)
 #  local_income_tax_amount     :decimal(12, 2)
 #  local_wages_and_tips_amount :decimal(12, 2)
 #  locality_nm                 :string
