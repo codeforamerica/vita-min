@@ -95,9 +95,9 @@ module Efile
           dependent.qualifying_child? && dependent.under_17?
         end
 
-        return 0 if wrksht_line_1 == 0
+        return 0 if wrksht_line_1.zero?
 
-        wrksht_line_2 = 205 * wrksht_line_1 #410
+        wrksht_line_2 = 205 * wrksht_line_1
         total_credit = [line_or_zero(:ID40_LINE_22), line_or_zero(:ID40_LINE_23), line_or_zero(:ID40_LINE_24)].sum
         wrksht_line_7 = [line_or_zero(:ID40_LINE_20) - total_credit, 0].max
 
