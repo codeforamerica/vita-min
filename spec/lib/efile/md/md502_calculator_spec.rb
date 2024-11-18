@@ -1326,6 +1326,142 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_42" do
+    let(:filing_status) { "head_of_household" }
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    let(:federal_eic) { 1200 }
+
+    before do
+      intake.direct_file_data.fed_eic = federal_eic
+      allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 500
+      instance.calculate
+    end
+
+    context "when there is least one qualifying child" do
+      context "when federal EIC * .45 is equal to or greater than Maryland tax (line 21)" do
+        it 'refundable EIC equals (federal EIC * .45) - Maryland tax (line 21)' do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 40 # .45 of 1200 is 540. 540 - 500
+        end
+      end
+
+      context "when federal EIC * .45 is less than than Maryland tax (line 21)" do
+        before do
+          intake.direct_file_data.fed_eic = federal_eic
+          allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 600
+          instance.calculate
+        end
+        it 'refundable EIC is 0' do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 0
+        end
+      end
+    end
+
+    context "when mfj and no qualifying children" do
+      let(:filing_status) { "married_filing_jointly" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'refundable EIC equals (federal EIC * .45) - Maryland tax (line 21)' do
+        expect(instance.lines[:MD502_LINE_42].value).to eq 40
+      end
+    end
+
+    context "when single and no qualifying children" do
+      let(:filing_status) { "single" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      context "when federal EIC is equal to or greater than Maryland tax (line 21)" do
+        it "refundable EIC equals - Maryland tax (line 21)" do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 700
+        end
+      end
+
+      context "when federal EIC is less than than Maryland tax (line 21)" do
+        before do
+          intake.direct_file_data.fed_eic = federal_eic
+          allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 1500
+          instance.calculate
+        end
+        it 'refundable EIC is 0' do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 0
+        end
+      end
+    end
+
+    context "when filing as a dependent and no qualifying children" do
+      let(:filing_status) { "dependent" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'refundable EIC is nil' do
+        expect(instance.lines[:MD502_LINE_42].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_44" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_40).and_return 250
+      allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return 200
+      allow_any_instance_of(described_class).to receive(:calculate_line_43).and_return 150
+    end
+    it "sums lines 40 to 44" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_44].value).to eq(600)
+    end
+  end
+
+  describe "#calculate_line_45" do
+    context "line 39 is less than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 50
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 150
+      end
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_45].value).to eq(nil)
+      end
+    end
+
+    context "line 39 is more than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 1_000
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 900
+      end
+      it "subtracts line 39 from line 44" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_45].value).to eq(100)
+      end
+    end
+  end
+
+  describe "#calculate_line_46" do
+    context "line 39 is less than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 900
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 1_000
+      end
+      it "subtracts line 39 from line 44" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_46].value).to eq(100)
+      end
+    end
+
+    context "line 39 is more than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 150
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 50
+      end
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_46].value).to eq(nil)
+      end
+    end
+  end
+
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
       # TEMP: stub calculator lines and test outcome of method once implemented

@@ -77,6 +77,10 @@ module Efile
 
         set_line(:MD502_LINE_40, :calculate_line_40)
         set_line(:MD502_LINE_42, :calculate_line_42)
+        set_line(:MD502_LINE_43, :calculate_line_43)
+        set_line(:MD502_LINE_44, :calculate_line_44)
+        set_line(:MD502_LINE_45, :calculate_line_45)
+        set_line(:MD502_LINE_46, :calculate_line_46)
 
         # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
@@ -531,6 +535,24 @@ module Efile
           [(@direct_file_data.fed_eic * 0.45).round - line_or_zero(:MD502_LINE_21), 0].max
         elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
           [@direct_file_data.fed_eic - line_or_zero(:MD502_LINE_21), 0].max
+        end
+      end
+
+      def calculate_line_43; end
+
+      def calculate_line_44
+        [40, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
+      end
+
+      def calculate_line_45
+        if line_or_zero(:MD502_LINE_39) > line_or_zero(:MD502_LINE_44)
+          line_or_zero(:MD502_LINE_39) - line_or_zero(:MD502_LINE_44)
+        end
+      end
+
+      def calculate_line_46
+        if line_or_zero(:MD502_LINE_39) < line_or_zero(:MD502_LINE_44)
+          line_or_zero(:MD502_LINE_44) - line_or_zero(:MD502_LINE_39)
         end
       end
 
