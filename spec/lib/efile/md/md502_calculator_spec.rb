@@ -1327,4 +1327,11 @@ describe Efile::Md::Md502Calculator do
       expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
     end
   end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      # TEMP: stub calculator lines and test outcome of method once implemented
+      expect(instance.refund_or_owed_amount).to eq(0)
+    end
+  end
 end

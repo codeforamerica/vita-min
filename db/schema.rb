@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1705,6 +1705,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
@@ -1821,6 +1822,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "donate_grocery_credit", default: 0, null: false
     t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
@@ -1901,6 +1903,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_filing_status_mfj", default: 0, null: false
     t.integer "eligibility_home_different_areas", default: 0, null: false
@@ -1988,6 +1991,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
@@ -2067,6 +2071,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
@@ -2185,6 +2190,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_014709) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false

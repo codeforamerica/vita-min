@@ -35,10 +35,6 @@ module Efile
         @lines.transform_values(&:value)
       end
 
-      def refund_or_owed_amount
-        0
-      end
-
       def grocery_credit_amount
         line_or_zero(:ID40_LINE_43_WORKSHEET)
       end
