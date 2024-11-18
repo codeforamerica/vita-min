@@ -180,7 +180,8 @@ describe Efile::Id::Id40Calculator do
   describe "Line 33 and 42: Total Credits" do
     it "adds line 29 and 32" do
       allow(instance).to receive(:line_or_zero).and_call_original
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(500)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_27).and_return(200)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(300)
       allow(instance).to receive(:line_or_zero).with(:ID40_LINE_32A).and_return(300)
       instance.calculate
       expect(instance.lines[:ID40_LINE_33].value).to eq(800)

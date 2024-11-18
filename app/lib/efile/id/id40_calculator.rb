@@ -135,7 +135,7 @@ module Efile
       end
 
       def calculate_line_33
-        line_or_zero(:ID40_LINE_29) + line_or_zero(:ID40_LINE_32A)
+        line_or_zero(:ID40_LINE_27) + line_or_zero(:ID40_LINE_29) + line_or_zero(:ID40_LINE_32A)
       end
 
       def calculate_line_42
