@@ -91,10 +91,8 @@ module Efile
       end
 
       def calculate_line_25
-        wrksht_line_1 = @intake.direct_file_json_data.dependents.count do |dependent|
-          next false unless dependent.qualifying_child == true
-
-          @intake.calculate_age(dependent.dob, inclusive_of_jan_1: false) <= 16
+        wrksht_line_1 = @intake.dependents.count do |dependent|
+          dependent.qualifying_child? && dependent.under_17?
         end
 
         return 0 if wrksht_line_1 == 0
