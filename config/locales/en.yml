@@ -2364,6 +2364,9 @@ en:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2024
             eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
             eligibility_lived_in_state: did not live in %{state} for all of 2024
+            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
+            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2024
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2024
@@ -2697,6 +2700,18 @@ en:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Account Holder Name
+      md_two_income_subtractions:
+        edit:
+          description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.
+          spouse_portion_label: Your spouse's portion of the student loan interest deduction
+          student_loan_deduction_copy: This amount is based on interest paid on student loans and is limited to $2,500 per tax return.
+          student_loan_deduction_copy2: See Form(s) 1098-E for more information.
+          student_loan_deduction_heading: What is the federal student loan interest deduction?
+          subtitle: Enter the portions of the federal student loan interest deduction allocated between you and your spouse.
+          sum_form_error: The total of you and/or your spouse's student loan interest deduction must equal %{total_deduction}
+          title: You might qualify for the Maryland two-income subtraction
+          total: The total student loan interest deduction for you and your spouse's federal return is %{total_deduction}.
+          your_portion_label: Your portion of the student loan interest deduction
       name_dob:
         edit:
           dependent_months_lived_label: Number of months they lived with you in %{year}

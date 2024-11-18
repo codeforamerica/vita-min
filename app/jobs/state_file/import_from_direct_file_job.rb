@@ -34,11 +34,9 @@ module StateFile
         intake.synchronize_df_w2s_to_database
         intake.synchronize_filers_to_database
 
-        # Clear this timestamp if it failed before but succeeded this time
-        intake.update(df_data_import_failed_at: nil)
+        intake.update(df_data_import_succeeded_at: DateTime.now)
       rescue => err
         Rails.logger.error(err)
-        intake.update(df_data_import_failed_at: DateTime.now)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
       end
 

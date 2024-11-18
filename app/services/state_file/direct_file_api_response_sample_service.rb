@@ -40,7 +40,7 @@ module StateFile
     end
 
     def read_json(key)
-      File.read(path(key, 'json')) if include?(key, 'json')
+      JSON.parse(File.read(path(key, 'json'))) if include?(key, 'json')
     end
 
     def read_xml(key)
