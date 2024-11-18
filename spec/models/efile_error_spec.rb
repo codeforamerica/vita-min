@@ -70,6 +70,7 @@ describe 'EfileError' do
       "md-permanent-address",
       "md-review",
       "md-tax-refund",
+      "md-two-income-subtractions",
       "name-dob",
       "nc-county",
       "nc-eligibility-out-of-state-income",
