@@ -2,6 +2,7 @@ module Efile
   module Az
     class Az140Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :AZ140_LINE_79, owed: :AZ140_LINE_80
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -79,10 +80,6 @@ module Efile
         set_line(:AZ140_LINE_79, :calculate_line_79)
         set_line(:AZ140_LINE_80, :calculate_line_80)
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        calculate_line_79 - calculate_line_80
       end
 
       def analytics_attrs
@@ -176,11 +173,11 @@ module Efile
       def calculate_line_43
         # AZ Standard Deductions for 2023
         if filing_status_single?
-          13_850
+          14_600
         elsif filing_status_mfj?
-          27_700
+          29_200
         elsif filing_status_hoh?
-          20_800
+          21_900
         end
       end
 
@@ -327,7 +324,7 @@ module Efile
       end
 
       def calculate_ccws_line_7c
-        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.31).round
+        (line_or_zero(:AZ140_CCWS_LINE_6c) * 0.33).round
       end
     end
   end

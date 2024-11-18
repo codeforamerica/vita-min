@@ -14,6 +14,7 @@
 #  current_step                      :string
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
+#  df_data_import_succeeded_at       :datetime
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
@@ -83,7 +84,9 @@ FactoryBot.define do
       filing_status { 'married_filing_jointly' }
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
+
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
@@ -148,6 +151,10 @@ FactoryBot.define do
     trait :df_data_1099_int do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
+    end
+
+    trait :with_filers_synced do
+      after(:create, &:synchronize_filers_to_database)
     end
   end
 end
