@@ -35,7 +35,7 @@
       "middleInitial": "",
       "lastName": "Thunder",
       "dateOfBirth": "2022-02-14",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "300-00-0026"
@@ -55,7 +55,7 @@
       "middleInitial": "",
       "lastName": "Thunder",
       "dateOfBirth": "2022-02-14",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "300-00-0022"
@@ -85,7 +85,7 @@
       "middleInitial": "",
       "lastName": "Thunder",
       "dateOfBirth": "2022-02-14",
-      "relationship": "daughter",
+      "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "300-00-0023"

@@ -556,8 +556,6 @@ MD502_LINE_6:
   label: '6 Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)'
 MD502_LINE_7:
   label: '7 Total federal adjusted gross income and Maryland additions: add line 1 and line 6'
-MD502_LINE_15:
-  label: 'TBD'
 MD502_LINE_A_PRIMARY:
   label: 'A Primary exemption'
 MD502_LINE_A_SPOUSE:
@@ -586,10 +584,14 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_10A:
+  label: 'TBD'
 MD502_LINE_13:
-  label: Subtractions from attached form 502SU
+  label: 'Subtractions from attached form 502SU'
+MD502_LINE_15:
+  label: 'Total subtractions (Add lines 8 through 14. See instructions.)'
 MD502_LINE_16:
-  label: '16 TBD'
+  label: 'Maryland adjusted gross income (Subtract line 15 from line 7.)'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
 MD502_LINE_17:
@@ -678,6 +680,12 @@ NCD400_LINE_28:
   label: 'Refund/Overpayment: if Line 25 is more than Line 19, subtract Line 19 from Line 25.'
 NCD400_LINE_34:
   label: 'Total refund amount: Line 28 minus Line 33 (Line 33 is not in scope)'
+NCD400_S_LINE_18:
+  label: "Taxable Portion of Social Security and Railroad Retirement Benefits (DF IRS1040 TaxableInterestAmt)"
+NCD400_S_LINE_19:
+  label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableSocSecAmt)"
+NCD400_S_LINE_27:
+  label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
 NCD400_S_LINE_41:
   label: 'Total Deductions - Add Lines 17 through 22, 23f, 24f, and 25 through 40 (Enter the total here and on Form D-400, Line 9)'
 NJ1040_LINE_6_SPOUSE:
