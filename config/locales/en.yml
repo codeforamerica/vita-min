@@ -2363,10 +2363,10 @@ en:
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2024
             eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
-            eligibility_lived_in_state: did not live in %{state} for all of 2024
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
             eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_lived_in_state: did not live in %{state} for all of 2024
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2024
             eligibility_part_year_nyc_resident: were a part-time New York City resident in 2024
