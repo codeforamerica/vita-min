@@ -9,7 +9,7 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def schema_file
-              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2023V0.4", "NJCommon", "FormNJ2450.xsd")
+              SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJCommon", "FormNJ2450.xsd")
             end
 
             def document
