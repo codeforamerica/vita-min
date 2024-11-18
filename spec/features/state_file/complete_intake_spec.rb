@@ -308,18 +308,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on "Main XML Doc"
 
       #needs to be upadated with new XML
-      # expect(page.body).to include('efile:ReturnState')
-      # expect(page.body).to include('<FirstName>Titus</FirstName>')
-      # expect(page.body).to include('<QualParentsAncestors>')
-      # expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
-      # expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
-      #
-      # assert_flow_explorer_sample_params_includes_everything('az')
-      #
-      # perform_enqueued_jobs
-      # submission = EfileSubmission.last
-      # expect(submission.submission_bundle).to be_present
-      # expect(submission.current_state).to eq("queued")
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
+      expect(page.body).to include('<QualParentsAncestors>')
+      expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
+      expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
+
+      assert_flow_explorer_sample_params_includes_everything('az')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -584,11 +584,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title", filing_year: filing_year)
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+      expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{filing_year}"
       select("Allegany", from: "County")
       select("Town Of Barton", from: "Political subdivision")
       click_on I18n.t("general.continue")

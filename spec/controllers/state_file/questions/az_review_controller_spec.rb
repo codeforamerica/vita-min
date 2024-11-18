@@ -39,7 +39,7 @@ RSpec.describe StateFile::Questions::AzReviewController do
 
       it "shows the incarcerated question" do
         get :edit
-        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.was_incarcerated")
+        expect(response.body).to include I18n.t("state_file.questions.az_review.edit.was_incarcerated", filing_year: Rails.configuration.statefile_current_tax_year)
         expect(response.body).to include I18n.t("state_file.questions.az_review.edit.household_excise_credit_claimed")
       end
 
