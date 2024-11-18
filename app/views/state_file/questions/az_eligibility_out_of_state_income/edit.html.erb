@@ -7,7 +7,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_out_of_state_income,
-            label_text: t(".out_of_state_income_html"),
+            label_text: t(".out_of_state_income_html", filing_year: @filing_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },

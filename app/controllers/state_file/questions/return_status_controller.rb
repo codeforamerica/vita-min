@@ -15,6 +15,7 @@ module StateFile
         @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
         @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
         @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
+        @filing_year = Rails.configuration.statefile_current_tax_year
       end
 
       def prev_path

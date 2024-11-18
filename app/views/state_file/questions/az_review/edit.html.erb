@@ -59,7 +59,7 @@
   <% unless current_intake.disqualified_from_excise_credit_df? %>
     <div id="incarcerated" class="white-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated", filing_year: Rails.configuration.statefile_current_tax_year) %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
 
         <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>

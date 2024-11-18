@@ -9,7 +9,7 @@
   <% elsif current_state_code == "ny" %>
     <%= t(".ny.body_html") %>
   <% else %>
-    <%= t(".az.body_html") %>
+    <%= t(".az.body_html", filing_year: Rails.configuration.statefile_current_tax_year) %>
   <% end %>
   
   <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_esign_declaration_form" }, 

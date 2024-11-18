@@ -7,7 +7,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_withdrew_529,
-            label_text: t(".withdraw_529"),
+            label_text: t(".withdraw_529", filing_year: Rails.configuration.statefile_current_tax_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },

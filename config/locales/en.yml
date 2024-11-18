@@ -2082,10 +2082,10 @@ en:
           <strong>What you’ll need:</strong>
           <br />
           <ul class="list--bulleted">
-            <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+            <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
             <li>Email address or phone number</li>
             <li>Driver’s license or state-issued ID</li>
-            <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+            <li>Form 1099-G (If you received unemployment benefits in %{filing_year}.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
         id:
@@ -2116,7 +2116,7 @@ en:
             <strong>What you’ll need:</strong>
             <br />
             <ul class="list--bulleted">
-              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
               <li>Email address or phone number</li>
               <li>Driver’s license or state-issued ID</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
@@ -2176,13 +2176,13 @@ en:
           expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
           expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
           expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
           title: First, let's see if you can use this tool to file your taxes
-          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
+          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
       az_eligibility_residence:
         edit:
           filing_status_married_filing_separately: Are you filing as “married filing separately”?
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
           mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
           mfs_helper_heading: What does “married filing separately” mean?
           mfs_helper_no_if: 'Select no if:'
@@ -2276,11 +2276,11 @@ en:
           total_payments: Total payments
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
-          was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
+          was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
-          passed_away_label: Did %{name} pass away in 2023?
+          passed_away_label: Did %{name} pass away in %{filing_year}?
           title: Please provide some more information about the people in your family who are 65 years of age or older.
       az_subtractions:
         edit:
@@ -2342,8 +2342,8 @@ en:
           ineligible_reason:
             exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
-            has_out_of_state_w2: you earned income in another state in 2023.
-            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.
+            has_out_of_state_w2: you earned income in another state in 2024.
+            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this tool this year because %{reason}
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
@@ -2361,18 +2361,18 @@ en:
         edit:
           body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2024
             eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
-            eligibility_lived_in_state: did not live in %{state} for all of 2023
+            eligibility_lived_in_state: did not live in %{state} for all of 2024
             eligibility_married_filing_separately: are filing “married filing separately”
-            eligibility_out_of_state_income: earned income in another state in 2023
-            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
-            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_out_of_state_income: earned income in another state in 2024
+            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2024
+            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2024
             eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
-            eligibility_yonkers: lived or earned income in Yonkers in 2023
+            eligibility_yonkers: lived or earned income in Yonkers in 2024
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
-            permanent_address_outside_ny: you did not live in New York for all of 2023
+            permanent_address_outside_ny: you did not live in New York for all of 2024
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
         other_options:
           faq_link: Visit our FAQ
@@ -2484,9 +2484,9 @@ en:
           already_submitted: You have already submitted your return.
           az:
             body_html: |
-              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
+              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, %{filing_year}, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
               <ul class="list--bulleted">
-                <li><em>If I am owed a refund and I provided direct deposit information,</em> I consent that my refund be directly deposited as designated in the electronic portion of my 2023 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
+                <li><em>If I am owed a refund and I provided direct deposit information,</em> I consent that my refund be directly deposited as designated in the electronic portion of my %{filing_year} Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
                 <li><em>If I am not owed a refund or if I elected to receive my refund via mailed check,</em> I do not want direct deposit of my refund or I am not receiving a refund.</li>
                 <li><em>If I owe tax and I provided direct debit information,</em> I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
               </ul>
@@ -2674,11 +2674,11 @@ en:
           address_header: Address
           apartment_number_label: Apartment/Unit Number
           city_label: City
-          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, 2023
+          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}
           state_label: State
           street_address_label: Street Address
-          title: Did you live at this address on December 31, 2023?
-          where_did_you_live: Where did you live on December 31, 2023?
+          title: Did you live at this address on December 31, %{filing_year}?
+          where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
       md_primary_state_id:
         md_primary:
@@ -2927,7 +2927,7 @@ en:
             reveal_info_html: "<p>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.</p> \n\n<p>Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.</p>\n\n<p><strong>Select 'no' if:</strong></p>\n<ul>\n  <li>You withdrew money from a 529 account and used it for qualifying expenses, or</li>\n  <li>You didn't withdraw money from a 529 account at all.</li>\n</ul>\n"
             title: What are qualifying and non-qualifying expenses?
           title: First, let's see if you can use this tool to file your taxes
-          withdraw_529: In 2024, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
+          withdraw_529: In %{filing_year}, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
       ny_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
@@ -3059,17 +3059,17 @@ en:
           title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
-          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
+          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “%{filing_year} Tax” and 140 on your payment.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check on the status</a> of your refund.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
-          download_title: Download a copy of your 2023 %{state_name} state tax return until December 31, 2024
+          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{filing_year + 1}
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this tool.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           register_to_vote: Register to vote.
-          title: Your 2023 %{state_name} state tax return is accepted
+          title: Your %{filing_year} %{state_name} state tax return is accepted
           track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
         edit:
           download_state_return_pdf: Download your state return
@@ -3080,7 +3080,7 @@ en:
           more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: You'll receive an email update when your state tax return is accepted.
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
-          title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
+          title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
           contact_us: Contact our team of Support Specialists by clicking chat with us.
           edit_return: Edit your state return
@@ -3094,7 +3094,7 @@ en:
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
-          title: Unfortunately, your 2024 %{state_name} state tax return was rejected
+          title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
@@ -3124,8 +3124,8 @@ en:
           email_update: You'll receive an email update when your state tax return is accepted.
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote.
-          title: Your 2023 %{state_name} state tax return is now submitted!
-          title_resubmit: Your 2023 %{state_name} state tax return is now resubmitted!
+          title: Your %{filing_year} %{state_name} state tax return is now submitted!
+          title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
       tax_refund:
         bank_details:
           account_number: Account Number
@@ -3196,7 +3196,7 @@ en:
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In 2024, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
+          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year + 1}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
