@@ -36,6 +36,7 @@ describe StateFileW2 do
   let(:w2) {
     create(:state_file_w2,
       employer_state_id_num: "001245788",
+      employer_ein: '123445678',
       local_income_tax_amount: 200,
       local_wages_and_tips_amount: 8000,
       locality_nm: "NYC",
@@ -52,7 +53,7 @@ describe StateFileW2 do
       expect(w2).to be_valid
     end
 
-    [:w2_index, :state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount, :box14_fli, :box14_stpickup, :box14_ui_hc_wd, :box14_ui_wf_swf].each do |field|
+    [:w2_index, :state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount, :box14_fli, :box14_stpickup, :box14_ui_hc_wd, :box14_ui_wf_swf, :wages].each do |field|
       context field do
 
         it "does not permit strings" do
@@ -127,6 +128,20 @@ describe StateFileW2 do
     it "permits local_wages_and_tips_amt to be greater than w2.wagesAmt" do
       w2.local_wages_and_tips_amount = 1000000
       expect(w2).to be_valid
+    end
+
+    it "requires ein in the valid format" do
+      w2.employer_ein = ''
+      expect(w2).not_to be_valid
+      expect(w2.errors[:employer_ein]).to be_present
+
+      w2.employer_ein = 'RUTABAGA'
+      expect(w2).not_to be_valid
+      expect(w2.errors[:employer_ein]).to be_present
+
+      w2.employer_ein = '123445678'
+      expect(w2).to be_valid
+      expect(w2.errors[:employer_ein]).not_to be_present
     end
 
   end

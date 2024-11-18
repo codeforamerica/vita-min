@@ -59,8 +59,10 @@ class StateFileW2 < ApplicationRecord
   validates :box14_stpickup, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_stpickup.present? }
   validates :box14_ui_hc_wd, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_hc_wd.present? }
   validates :box14_ui_wf_swf, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_wf_swf.present? }
+  validates :wages, numericality: { greater_than_or_equal_to: 0 }, if: -> { wages.present? }
   validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amount.present? && local_wages_and_tips_amount.positive? }
   validates :employer_state_id_num, presence: true, if: -> { state_wages_amount.present? && state_wages_amount.positive? }
+  validates :employer_ein, presence: true, format: { with: /\A[0-9]{9}\z/, message: ->(*_args) { I18n.t('validators.ein') } }
   validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/, message: :only_letters }, if: -> { locality_nm.present? }
   validate :validate_tax_amts
   validate :state_specific_validation

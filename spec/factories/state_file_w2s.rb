@@ -39,5 +39,7 @@ FactoryBot.define do
     local_wages_and_tips_amount { 100 }
     local_income_tax_amount { 100 }
     locality_nm { "NYC" }
+    wages { 100 }
+    employer_ein { '123456789' }
   end
 end
