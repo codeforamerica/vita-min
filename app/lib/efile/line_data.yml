@@ -728,6 +728,8 @@ NJ1040_LINE_57:
   label: '57 New Jersey Estimated Tax Payments/Credit from prior year tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
+NJ1040_LINE_58_IRS:
+  label: '58 IRS calculated federal earned income credit'
 NJ1040_LINE_59:
   label: 'Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_61:

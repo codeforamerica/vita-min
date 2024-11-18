@@ -37,6 +37,7 @@ describe DirectFileJsonData do
       expect(direct_file_json_data.primary_filer.dob).to eq Date.parse("1980-01-01")
       expect(direct_file_json_data.primary_filer.middle_initial).to eq nil
       expect(direct_file_json_data.primary_filer.last_name).to eq "Turner"
+      expect(direct_file_json_data.primary_filer.ssn_not_valid_for_employment).to eq(nil)
     end
   end
 
@@ -55,6 +56,7 @@ describe DirectFileJsonData do
 
       expect(direct_file_json_data.primary_filer.dob).to eq Date.parse("1980-01-01")
       expect(direct_file_json_data.spouse_filer.dob).to eq Date.parse("1980-01-01")
+      expect(direct_file_json_data.spouse_filer.ssn_not_valid_for_employment).to eq(nil)
     end
   end
 

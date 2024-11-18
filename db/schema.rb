@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_181146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2064,6 +2064,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.integer "claimed_as_dep"
+    t.integer "claimed_as_eitc_qualifying_child", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.string "county"
@@ -2131,6 +2132,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_claimed_as_eitc_qualifying_child", default: 0, null: false
     t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
