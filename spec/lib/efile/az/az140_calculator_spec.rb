@@ -20,6 +20,42 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  context "line 5c" do
+    it "fills in value with line 13 value from Az321 calculator" do
+      allow_any_instance_of(Efile::Az::Az321Calculator).to receive(:calculate_line_13).and_return 210
+      instance.calculate
+      expect(instance.lines[:AZ140_CCWS_LINE_5c].value).to eq(210)
+    end
+  end
+
+  context "sets 6c correctly" do
+    before do
+      allow(instance).to receive(:calculate_ccws_line_4c).and_return 10_000
+    end
+
+    context "line 5c is less than 4c" do
+      before do
+        allow(instance).to receive(:calculate_ccws_line_5c).and_return 2_000
+      end
+
+      it "returns the difference" do
+        instance.calculate
+        expect(instance.lines[:AZ140_CCWS_LINE_6c].value).to eq(8_000)
+      end
+    end
+
+    context "line 5c is greater than 4c" do
+      before do
+        allow(instance).to receive(:calculate_ccws_line_5c).and_return 12_000
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:AZ140_CCWS_LINE_6c].value).to eq(0)
+      end
+    end
+  end
+
   context 'sets line 7c correctly' do
     before do
       intake.charitable_cash_amount = 50
