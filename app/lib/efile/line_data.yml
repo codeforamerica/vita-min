@@ -202,12 +202,22 @@ ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
 ID40_LINE_23:
   label: 'Total credits from Form 39R, Part D, line 4. Include Form 39R'
+ID40_LINE_25:
+  label: 'Idaho Child Tax Credit'
+ID40_LINE_26:
+  label: 'Total Credits. Add lines 22 through 25'
+ID40_LINE_27:
+  label: 'Subtract line 26 from line 21. If line 26 is more than line 21, enter zero'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 ID40_LINE_32A:
   label: 'Amount required to pay for the Permanent Building Fund Tax'
 ID40_LINE_32B:
   label: 'Checkbox that determines if the Permanent Building Fund needs to be payed'
+ID40_LINE_33:
+  label: 'Total Tax. Add lines 27 to 32'
+ID40_LINE_42:
+  label: 'Total Tax Plus Donations. Add lines 33 through 41.'
 ID40_LINE_43_WORKSHEET:
   label: '43. Grocery Credit. Computed amount from worksheet on page 11'
 ID40_LINE_43_DONATE:
