@@ -9,7 +9,7 @@ describe SchemaFileLoader do
       ["efile1040x_2023v5.0.zip", "irs"],
       ["AZIndividual2023v1.0.zip", "us_states"],
       ["MDIndividual2023v1.0.zip", "us_states"],
-      ["NCIndividual2023v1.0.zip", "us_states"],
+      ["NCIndividual2024v0.7.zip", "us_states"],
       ["NJIndividual2024V0.1.zip", "us_states"],
       ["NYSIndividual2023V4.0.zip", "us_states"],
       ["ID.MeF2023V1.0.zip", "us_states"],
@@ -85,7 +85,7 @@ describe SchemaFileLoader do
           ["testy/irs/efile1040x_2023v5.0.zip", 'irs'],
           ["testy/us_states/AZIndividual2023v1.0.zip", 'us_states'],
           ["testy/us_states/MDIndividual2023v1.0.zip", 'us_states'],
-          ["testy/us_states/NCIndividual2023v1.0.zip", 'us_states'],
+          ["testy/us_states/NCIndividual2024v0.7.zip", 'us_states'],
           ["testy/us_states/NJIndividual2024V0.1.zip", 'us_states'],
           ["testy/us_states/NYSIndividual2023V4.0.zip", 'us_states'],
           ["testy/us_states/ID.MeF2023V1.0.zip", "us_states"]
