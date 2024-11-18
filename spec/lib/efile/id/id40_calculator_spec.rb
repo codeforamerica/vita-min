@@ -132,13 +132,13 @@ describe Efile::Id::Id40Calculator do
         context "#{filing_status}" do
           let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
           let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
-          let(:line_19) { 1000 }
+          let(:line_19) { 10_000 }
           before do
             allow(calculator_instance).to receive(:calculate_line_19).and_return line_19
           end
 
           it "calculates the correct amount" do
-            expected_result = ((amount - line_19) * 5.695).round(2)
+            expected_result = ((line_19 - amount) * 5.695).round(2)
             calculator_instance.calculate
             expect(calculator_instance.lines[:ID40_LINE_20].value).to eq expected_result
           end
@@ -148,7 +148,7 @@ describe Efile::Id::Id40Calculator do
 
     context "must be positive value" do
       before do
-        allow(instance).to receive(:calculate_line_19).and_return 10_000
+        allow(instance).to receive(:calculate_line_19).and_return 2_000
       end
 
       it "returns 0 when calc is negative" do
