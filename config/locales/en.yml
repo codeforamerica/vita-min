@@ -2373,7 +2373,7 @@ en:
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
             eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
             eligibility_yonkers: lived or earned income in Yonkers in 2023
-            health_insurance_eligibility: you and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in 2024
+            health_insurance_eligibility: you and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
@@ -2831,7 +2831,7 @@ en:
         edit:
           helper_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
           helper_heading: What is health insurance with minimum essential coverage?
-          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in 2024?
+          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
           title: Let’s get started.
       nj_estimated_tax_payments:
         edit:
