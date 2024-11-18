@@ -147,60 +147,60 @@ FactoryBot.define do
                state_file_az_intake: intake,
                charity_code: "22345",
                charity_name: "Heartland",
-               date_of_contribution: Date.parse("August 22 #{Rails.configruation.statefile_current_tax_year}")
+               date_of_contribution: Date.parse("August 22 #{Rails.configuration.statefile_current_tax_year}")
         create :az321_contribution,
                amount: 234.89,
                state_file_az_intake: intake,
                charity_code: "25544",
                charity_name: "Crumbs and Whiskers",
-               date_of_contribution: Date.parse("July 31 #{Rails.configruation.statefile_current_tax_year}")
+               date_of_contribution: Date.parse("July 31 #{Rails.configuration.statefile_current_tax_year}")
         create :az321_contribution,
                amount: 234.89,
                state_file_az_intake: intake,
                charity_code: "25999",
                charity_name: "The Flying Seagull Project",
-               date_of_contribution: Date.parse("June 1 #{Rails.configruation.statefile_current_tax_year}")
+               date_of_contribution: Date.parse("June 1 #{Rails.configuration.statefile_current_tax_year}")
         create :az321_contribution,
                amount: 234.89,
                state_file_az_intake: intake,
                charity_code: "27661",
                charity_name: "Frogs Are Green",
-               date_of_contribution: Date.parse("January 15 #{Rails.configruation.statefile_current_tax_year}")
+               date_of_contribution: Date.parse("January 15 #{Rails.configuration.statefile_current_tax_year}")
       end
     end
 
     trait :with_az322_contributions do
       after(:build) do |intake|
         create(:az322_contribution,
-               date_of_contribution: "#{Rails.configruation.statefile_current_tax_year}-03-04",
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-03-04",
                ctds_code: '123456789',
                school_name: 'School A',
                district_name: 'District A',
                amount: 100,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: "#{Rails.configruation.statefile_current_tax_year}-02-01",
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-02-01",
                ctds_code: '123456789',
                school_name: 'School B',
                district_name: 'District B',
                amount: 200,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: "#{Rails.configruation.statefile_current_tax_year}-03-01",
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-03-01",
                ctds_code: '123456789',
                school_name: 'School C',
                district_name: 'District C',
                amount: 300,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: "#{Rails.configruation.statefile_current_tax_year}-04-01",
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-04-01",
                ctds_code: '123456789',
                school_name: 'School D',
                district_name: 'District D',
                amount: 400,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: "#{Rails.configruation.statefile_current_tax_year}-05-01",
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-05-01",
                ctds_code: '123456789',
                school_name: 'School E',
                district_name: 'District E',
