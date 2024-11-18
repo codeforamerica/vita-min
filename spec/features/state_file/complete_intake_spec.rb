@@ -3,6 +3,8 @@ require 'axe-capybara'
 require 'axe-rspec'
 
 RSpec.feature "Completing a state file intake", active_job: true do
+  let(:filing_year) { Rails.configuration.statefile_current_tax_year }
+
   include MockTwilio
   include StateFileIntakeHelper
 
@@ -134,7 +136,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Main XML Doc"
       expect(page.body).to include('ReturnState')
@@ -195,7 +197,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
-      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy")
+      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy", filing_year: filing_year)
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
       click_on I18n.t("general.continue")
@@ -300,7 +302,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
 
       click_on "Main XML Doc"
@@ -421,7 +423,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
     end
   end
 
@@ -433,8 +435,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      filing_year = Rails.configuration.statefile_current_tax_year
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance")
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
 
       find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
@@ -541,7 +542,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
     end
   end
 
@@ -627,7 +628,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
     end
   end
 

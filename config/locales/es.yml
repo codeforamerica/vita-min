@@ -2486,7 +2486,7 @@ es:
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
       id_eligibility_residence:
         edit:
-          emergency_rental_assistance: En 2024, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
+          emergency_rental_assistance: En %{filing_year}, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
           emergency_rental_assistance_explanation: El programa de Asistencia de Alquiler de Emergencia (ERA, por sus siglas en inglés) es un programa federal que otorga dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Fue creado en respuesta a la pandemia de Covid-19.
           subtitle_1: Para la temporada fiscal de %{filing_year}, esta herramienta solo podrá servir a personas con situaciones fiscales específicas.
           subtitle_2: Por favor, responda las siguientes preguntas para saber si puede utilizarla.
