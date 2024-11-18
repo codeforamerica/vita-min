@@ -23,17 +23,17 @@ RSpec.describe PdfFiller::Az301Pdf do
         expect(pdf_fields['FY_End']).to eq "1231#{Rails.configuration.statefile_current_tax_year}"
         expect(pdf_fields['Tp_Name']).to eq 'Ariz  Onian '
         expect(pdf_fields['Tp_SSN']).to eq '555002222'
-        expect(pdf_fields['6a']).to eq '421'
-        expect(pdf_fields['6c']).to eq '421'
+        expect(pdf_fields['6a']).to eq '470'
+        expect(pdf_fields['6c']).to eq '470'
         expect(pdf_fields['7a']).to eq '200'
         expect(pdf_fields['7c']).to eq '200'
-        expect(pdf_fields['26']).to eq '621'
-        expect(pdf_fields['27']).to eq '2461'
-        expect(pdf_fields['32']).to eq '2461'
+        expect(pdf_fields['26']).to eq '670'
+        expect(pdf_fields['27']).to eq '2442'
+        expect(pdf_fields['32']).to eq '2442'
         expect(pdf_fields['33']).to eq '0'
-        expect(pdf_fields['34']).to eq '2461'
-        expect(pdf_fields['60']).to eq '621'
-        expect(pdf_fields['62']).to eq '621'
+        expect(pdf_fields['34']).to eq '2442'
+        expect(pdf_fields['60']).to eq '670'
+        expect(pdf_fields['62']).to eq '670'
       end
     end
   end
