@@ -7,6 +7,7 @@ module SubmissionBuilder
         module Documents
           class Nj2450 < SubmissionBuilder::Document
             include SubmissionBuilder::FormattingMethods
+            include StateFile::Nj2450Helper
 
             def schema_file
               SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJCommon", "FormNJ2450.xsd")
@@ -30,12 +31,12 @@ module SubmissionBuilder
                   end
                 end
 
-                xml.ColumnATotal calculated_fields.fetch(:"NJ2450_COLUMN_A_TOTAL_#{primary_or_spouse}")
+                xml.ColumnATotal calculated_fields.fetch(line_name("NJ2450_COLUMN_A_TOTAL", person.primary_or_spouse))
                 xml.ColumnBTotal 0
-                xml.ColumnCTotal calculated_fields.fetch(:"NJ2450_COLUMN_C_TOTAL_#{primary_or_spouse}")
-                xml.ColumnAExcess calculated_fields.fetch(:"NJ2450_COLUMN_A_EXCESS_#{primary_or_spouse}")
+                xml.ColumnCTotal calculated_fields.fetch(line_name("NJ2450_COLUMN_C_TOTAL", person.primary_or_spouse))
+                xml.ColumnAExcess calculated_fields.fetch(line_name("NJ2450_COLUMN_A_EXCESS", person.primary_or_spouse))
                 xml.ColumnBExcess 0
-                xml.ColumnCExcess calculated_fields.fetch(:"NJ2450_COLUMN_C_EXCESS_#{primary_or_spouse}")
+                xml.ColumnCExcess calculated_fields.fetch(line_name("NJ2450_COLUMN_C_EXCESS", person.primary_or_spouse))
               end
             end
 
@@ -53,17 +54,12 @@ module SubmissionBuilder
               @kwargs[:person]
             end
 
-            def primary_or_spouse
-              return 'SPOUSE' if person.ssn == @intake.spouse.ssn
-              'PRIMARY'
-            end
-
             def persons_w2s
               intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == person.ssn }
             end
 
             def filer_indicator
-              person.ssn == intake.primary.ssn ? 'T' : 'S'
+              person.primary_or_spouse == :primary ? 'T' : 'S'
             end
           end
         end

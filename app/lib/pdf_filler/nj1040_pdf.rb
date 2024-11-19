@@ -1,7 +1,7 @@
 module PdfFiller
   class Nj1040Pdf
     include PdfHelper
-    include NjPdfHelper
+    include StateFile::NjPdfHelper
 
     def source_pdf_name
       "nj1040-TY2023"

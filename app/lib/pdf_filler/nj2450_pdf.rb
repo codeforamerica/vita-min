@@ -1,7 +1,7 @@
 module PdfFiller
   class Nj2450Pdf
     include PdfHelper
-    include NjPdfHelper
+    include StateFile::NjPdfHelper
     include TimeHelper
 
     W2_PDF_KEYS = [
@@ -60,7 +60,7 @@ module PdfFiller
         # Header - get from nj 1040 submission
         'Names as shown on Form NJ1040': get_name(@parent_xml_doc),
         'Social Security Number': intake.primary.ssn,
-        'Claimant Name': get_name(@parent_xml_doc, include_spouse: false, spouse_only: !is_primary),
+        'Claimant Name': get_name(@parent_xml_doc, include_spouse: false, spouse_only: person.primary_or_spouse == :spouse),
         'Claimant SSN': person.ssn,
         Address: get_address(@parent_xml_doc),
         City: @parent_xml_doc.at("ReturnHeaderState Filer USAddress CityNm")&.text,
@@ -102,14 +102,10 @@ module PdfFiller
     def person
       @kwargs[:person]
     end
-
-    def is_primary
-      person.ssn == intake.primary.ssn
-    end
     
     def get_xml_document
       nj_2450s = @parent_xml_doc.css('FormNJ2450')
-      filer_indicator = is_primary ? 'T' : 'S'
+      filer_indicator = person.primary_or_spouse == :primary ? 'T' : 'S'
       docs = nj_2450s.select { |nj_2450| nj_2450.at('FilerIndicator')&.text == filer_indicator }
       docs[0]
     end

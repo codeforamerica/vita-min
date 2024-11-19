@@ -260,7 +260,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   class Person
-    attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn
+    attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn, :primary_or_spouse
 
     def initialize(intake, primary_or_spouse)
       @primary_or_spouse = primary_or_spouse
