@@ -701,7 +701,7 @@ NCD400_LINE_28:
 NCD400_LINE_34:
   label: 'Total refund amount: Line 28 minus Line 33 (Line 33 is not in scope)'
 NCD400_S_LINE_18:
-  label: "18 Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableInterestAmt)"
+  label: "18 Taxable Portion of Social Security and Railroad Retirement Benefits (DF IRS1040 TaxableInterestAmt)"
 NCD400_S_LINE_19:
   label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableSocSecAmt)"
 NCD400_S_LINE_27:
