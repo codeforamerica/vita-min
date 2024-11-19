@@ -174,14 +174,23 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   end
 
   describe "#calculate_line_4" do
-    before do
-      instance.calculate
-    end
-
     context "no state subtractions" do
       it "calculates the state subtraction amount for primary and spouse" do
+        instance.calculate
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(0)
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(0)
+      end
+    end
+
+    context "return has qualifying dependent care expenses subtraction" do
+      before do
+        intake.direct_file_data.total_qualifying_dependent_care_expenses = 200
+      end
+
+      it "calculates the state subtraction amount for primary and spouse" do
+        instance.calculate
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(100)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(100)
       end
     end
   end
