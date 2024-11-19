@@ -68,7 +68,7 @@ module PdfFiller
         answers["DateSign 2"] = date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%m-%d-%Y")
         answers["TaxpayerPhoneNo"] = @submission.data_source.direct_file_data.phone_number
       end
-      if @xml_document.at('RefundDirectDeposit')&.text.present?
+      if @xml_document.at('RefundDirectDeposit').present?
         answers.merge!({
                          'DirectDepositL57Route' => @xml_document.at('RoutingTransitNumber')&.text,
                          'DirectDepositL57Acct' => @xml_document.at('BankAccountNumber')&.text,

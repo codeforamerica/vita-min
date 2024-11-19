@@ -4,7 +4,7 @@ RSpec.describe PdfFiller::Id40Pdf do
   include PdfSpecHelper
 
   let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
-  let!(:intake) {
+  let(:intake) {
     create(:state_file_id_intake,
            :single_filer_with_json, # includes phone number data
            primary_esigned: "yes",
@@ -35,11 +35,16 @@ RSpec.describe PdfFiller::Id40Pdf do
                :single_filer_with_json,
                primary_first_name: "Ida",
                primary_last_name: "Idahoan",
+               payment_or_deposit_type: :direct_deposit,
                routing_number: "123456789",
                account_number: "87654321",
                account_type: "checking"
         )
       }
+
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:refund_or_owed_amount).and_return 500
+      end
 
       it 'sets static fields to the correct values' do
         expect(pdf_fields['YearBeginning']).to eq Rails.configuration.statefile_current_tax_year.to_s
