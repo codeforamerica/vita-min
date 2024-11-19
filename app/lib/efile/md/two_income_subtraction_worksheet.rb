@@ -79,7 +79,7 @@ module Efile
       def calculate_line_2(primary_or_spouse)
         @intake.state_file_w2s
                .select { |w2| w2.employee_ssn == @intake.send(primary_or_spouse).ssn }
-               .sum { |w2| w2.box14_stpickup || 0 }
+               .sum { |w2| w2.box14_stpickup.round || 0 }
       end
 
       def calculate_line_3(primary_or_spouse)
