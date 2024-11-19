@@ -143,6 +143,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
         add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
         add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
+        add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
         add_element_if_present(xml,"TotalCredits", :MD502_LINE_32)
         add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
       end

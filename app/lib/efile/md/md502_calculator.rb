@@ -523,16 +523,16 @@ module Efile
       end
 
       def calculate_line_27
-        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0 ].max
+        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0].max
       end
 
       def calculate_line_28_local_tax_rate
         tax_rate = case @intake.residence_county
                    when "Allegany", "Carroll", "Charles"
                      0.0303
-                   when "Baltimore City", "Baltimore County", "Caroline", "Dorchester", "Howard", "Kent", "Montgomery", "Prince", "Queen Anne", "Somerset", "Wicomico"
+                   when "Baltimore City", "Baltimore County", "Caroline", "Dorchester", "Howard", "Kent", "Montgomery", "Prince George's", "Queen Anne's", "Somerset", "Wicomico"
                      0.0320
-                   when "Calvert", "St. Mary"
+                   when "Calvert", "St. Mary's"
                      0.0300
                    when "Cecil"
                      0.0275
@@ -545,7 +545,7 @@ module Efile
                    when "Washington"
                      0.0295
                    when "Worcester"
-                     0.0295
+                     0.0225
                    when "Anne Arundel"
                      0.027
                    when "Frederick"
