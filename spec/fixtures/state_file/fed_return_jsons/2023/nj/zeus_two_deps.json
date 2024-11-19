@@ -8,7 +8,8 @@
       "relationship": "parent",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0029"
+      "tin": "300-00-0029",
+      "qualifyingChild": false
     },
     {
       "firstName": "Aphrodite",
@@ -18,7 +19,8 @@
       "relationship": "grandchild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "900-00-0067"
+      "tin": "900-00-0067",
+      "qualifyingChild": true
     }
   ],
   "filers": [

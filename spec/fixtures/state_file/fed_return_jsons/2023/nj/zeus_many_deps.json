@@ -8,7 +8,8 @@
       "relationship": "parent",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0029"
+      "tin": "300-00-0029",
+      "qualifyingChild": false
     },
     {
       "firstName": "Aphrodite",
@@ -18,7 +19,8 @@
       "relationship": "grandchild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "900-00-0067"
+      "tin": "900-00-0067",
+      "qualifyingChild": true
     },
     {
       "firstName": "Poseidon",
@@ -28,7 +30,8 @@
       "relationship": "nephew",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "900-00-0028"
+      "tin": "900-00-0028",
+      "qualifyingChild": true
     },
     {
       "firstName": "Artemis",
@@ -38,7 +41,8 @@
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0026"
+      "tin": "300-00-0026",
+      "qualifyingChild": true
     },
     {
       "firstName": "Hades",
@@ -48,7 +52,8 @@
       "relationship": "sister",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0027"
+      "tin": "300-00-0027",
+      "qualifyingChild": false
     },
     {
       "firstName": "Ares",
@@ -58,7 +63,8 @@
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0022"
+      "tin": "300-00-0022",
+      "qualifyingChild": true
     },
     {
       "firstName": "Hercules",
@@ -68,7 +74,8 @@
       "relationship": "nephew",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0065"
+      "tin": "300-00-0065",
+      "qualifyingChild": true
     },
     {
       "firstName": "Hermes",
@@ -78,7 +85,8 @@
       "relationship": "grandchild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0024"
+      "tin": "300-00-0024",
+      "qualifyingChild": true
     },
     {
       "firstName": "Hebe",
@@ -88,7 +96,8 @@
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0023"
+      "tin": "300-00-0023",
+      "qualifyingChild": true
     },
     {
       "firstName": "Dionysus",
@@ -98,7 +107,8 @@
       "relationship": "sister",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "300-00-0068"
+      "tin": "300-00-0068",
+      "qualifyingChild": true
     },
     {
       "firstName": "Helen",
@@ -108,7 +118,8 @@
       "relationship": "nephew",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "tin": "900-00-0025"
+      "tin": "900-00-0025",
+      "qualifyingChild": true
     }
   ],
   "filers": [
