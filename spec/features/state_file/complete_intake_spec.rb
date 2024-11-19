@@ -616,6 +616,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.md_healthcare_screen.edit.title")
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
       fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")

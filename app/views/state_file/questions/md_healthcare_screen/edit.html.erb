@@ -7,24 +7,85 @@
   <p class="subtitle"><%= t(".subtitle").html_safe %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-        <%= f.cfa_radio_set(
-              :had_hh_member_without_health_insurance,
-              collection: [
-                { value: "yes", label: t("general.affirmative") },
-                { value: "no", label: t("general.negative"), input_html: { "data-follow-up": "#answer-no-health-insurance" } },
-                { value: "prefer_not_to_answer", label: t("general.prefer_not_to_answer") }
-              ]
-            ) %>
+          <p class="spacing-below-0"><%= t(".no_insurance_question").html_safe %></p>
+          <%= f.cfa_radio_set(
+                :had_hh_member_without_health_insurance,
+                collection: [
+                  { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#answer-no-health-insurance" } },
+                  { value: "no", label: t("general.negative") },
+                  { value: "prefer_not_to_answer", label: t("general.prefer_not_to_answer") }
+                ]
+              ) %>
         </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="answer-no-health-insurance">
+        <div class="white-group">
+          <p class="spacing-below-15"><%= t(".which_members_not_have_insurance", tax_year: MultiTenantService.statefile.current_tax_year).html_safe %></p>
+          <div class="tight-checkboxes spacing-above-0 spacing-below-0">
+            <%= f.cfa_checkbox(:primary_did_not_have_health_insurance, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <% if current_intake.filing_status_mfj? %>
+              <%= f.cfa_checkbox(:spouse_did_not_have_health_insurance, current_intake.spouse.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <% end %>
+            <%= f.fields_for :dependents do |ff| %>
+              <% dependent = ff.object %>
+              <%= ff.cfa_checkbox(:md_did_not_have_health_insurance, dependent.full_name, options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <% end %>
+          </div>
+          <% if @form.errors[:household_health_insurance].any? %>
+            <div class="form-group form-group--error">
+              <% @form.errors[:household_health_insurance].each do |error| %>
+                <p class="text--error"><i class="icon-warning"></i><%= error %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="white-group">
+          <p class="spacing-below-10"><%= t(".authorize_share_health_information").html_safe %></p>
+          <p class="text--small"><%= t(".authorize_follow_up") %></p>
+          <%= f.cfa_radio_set(
+                :authorize_sharing_of_health_insurance_info,
+                collection: [
+                  { value: "yes", label: t("general.affirmative") },
+                  { value: "no", label: t("general.negative") }
+                ]
+              ) %>
+        </div>
+        <div class="reveal">
+          <p>
+            <button class="reveal__button"><%= t('.what_will_be_shared') %></button>
+          </p>
+          <div class="reveal__content">
+            <p><%= t('.following_will_be_shared') %></p>
+            <ul>
+              <li><%= t('.bullet_name_ssn') %></li>
+              <li><%= t('.bullet_mailing_address') %></li>
+              <li><%= t('.bullet_filing_status') %></li>
+              <li><%= t('.bullet_number_in_household') %></li>
+              <li><%= t('.bullet_insured_status') %></li>
+              <li><%= t('.bullet_blindness_status') %></li>
+              <li><%= t('.bullet_relationship_to_primary') %></li>
+              <li><%= t('.bullet_fed_agi') %></li>
+            </ul>
+            <p class="spacing-above-15"><%= t('.information_use') %></p>
+            <p><%= t('.more_info', link: "https://marylandhealthconnection.gov/easyenrollment/").html_safe %></p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-    <div class="question-with-follow-up__follow-up" id="answer-no-health-insurance">
-
+    <div class="reveal">
+      <p>
+        <button class="reveal__button"><%= t('.why_ask_this') %></button>
+      </p>
+      <div class="reveal__content">
+        <p><%= t('.why_ask_explanation') %></p>
+      </div>
     </div>
+
     <%= f.continue %>
   <% end %>
 <% end %>

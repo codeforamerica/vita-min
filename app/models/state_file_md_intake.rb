@@ -6,7 +6,7 @@
 #  account_holder_name                        :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null
-#  authorize_sharing_of_health_insurance_info :integer          default(0), not null
+#  authorize_sharing_of_health_insurance_info :integer          default("unfilled"), not null
 #  bank_name                                  :string
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
@@ -45,7 +45,7 @@
 #  phone_number_verified_at                   :datetime
 #  political_subdivision                      :string
 #  primary_birth_date                         :date
-#  primary_did_not_have_health_insurance      :boolean
+#  primary_did_not_have_health_insurance      :integer          default("unfilled"), not null
 #  primary_esigned                            :integer          default("unfilled"), not null
 #  primary_esigned_at                         :datetime
 #  primary_first_name                         :string
@@ -63,7 +63,7 @@
 #  sign_in_count                              :integer          default(0), not null
 #  source                                     :string
 #  spouse_birth_date                          :date
-#  spouse_did_not_have_health_insurance       :boolean
+#  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
 #  spouse_esigned                             :integer          default("unfilled"), not null
 #  spouse_esigned_at                          :datetime
 #  spouse_first_name                          :string
@@ -105,7 +105,9 @@ class StateFileMdIntake < StateFileBaseIntake
   enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
   enum permanent_address_outside_md: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_md
   enum had_hh_member_without_health_insurance: { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, _prefix: :had_hh_member_without_health_insurance
-    enum authorize_sharing_of_health_insurance_info: { unfilled: 0, yes: 1, no: 2}, _prefix: :authorize_sharing_of_health_insurance_info
+  enum authorize_sharing_of_health_insurance_info: { unfilled: 0, yes: 1, no: 2}, _prefix: :authorize_sharing_of_health_insurance_info
+  enum primary_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :primary_did_not_have_health_insurance
+  enum spouse_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_did_not_have_health_insurance
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -153,6 +155,12 @@ class StateFileMdIntake < StateFileBaseIntake
       5 => :qualifying_widow,
       6 => :dependent,
     }[direct_file_data&.filing_status]
+  end
+
+  def has_dependent_without_health_insurance?
+    dependents.any? do |dependent|
+      dependent.md_did_not_have_health_insurance == "yes"
+    end
   end
 
   def filing_status_dependent?
