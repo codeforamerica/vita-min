@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  bank_name                                              :string
 #  claimed_as_dep                                         :integer
+#  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string
@@ -15,6 +16,7 @@
 #  current_step                                           :string
 #  date_electronic_withdrawal                             :date
 #  df_data_import_failed_at                               :datetime
+#  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
@@ -70,6 +72,7 @@
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
+#  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -191,6 +194,31 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_exempt_interest_over_10k') }
     end
 
+    trait :df_data_investment_income_12k do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_investment_income_12k') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_investment_income_12k') }
+    end
+
+    trait :df_data_childless_eitc do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_childless_eitc') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_childless_eitc') }
+    end
+
+    trait :df_data_ssn_not_valid_for_employment do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_childless_eitc') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_ssn_not_valid_for_employment') }
+    end
+
+    trait :df_data_claimed_as_dependent do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_claimed_as_dependent') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_claimed_as_dependent') }
+    end
+
+    trait :df_data_qss do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_qualified_widow') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_qualified_widow') }
+    end
+    
     trait :df_data_box_14 do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
@@ -235,13 +263,13 @@ FactoryBot.define do
 
     trait :primary_blind do
       after(:build) do |intake|
-        intake.direct_file_data.primary_blind
+        intake.direct_file_data.set_primary_blind
       end
     end
 
     trait :spouse_blind do
       after(:build) do |intake|
-        intake.direct_file_data.spouse_blind
+        intake.direct_file_data.set_spouse_blind
       end
     end
 
@@ -265,6 +293,30 @@ FactoryBot.define do
 
     trait :spouse_veteran do
       spouse_veteran { "yes" }
+    end
+
+    trait :claimed_as_eitc_qualifying_child do
+      claimed_as_eitc_qualifying_child { "yes" }
+    end
+
+    trait :spouse_claimed_as_eitc_qualifying_child do
+      spouse_claimed_as_eitc_qualifying_child { "yes" }
+    end
+
+    trait :claimed_as_eitc_qualifying_child_no do
+      claimed_as_eitc_qualifying_child { "no" }
+    end
+
+    trait :spouse_claimed_as_eitc_qualifying_child_no do
+      spouse_claimed_as_eitc_qualifying_child { "no" }
+    end
+
+    trait :primary_itin do
+      primary_ssn { "923516789" }
+    end
+
+    trait :spouse_itin do
+      spouse_ssn { "923516789" }
     end
   end
 end

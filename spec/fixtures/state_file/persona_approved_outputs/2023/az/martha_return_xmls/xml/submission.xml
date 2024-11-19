@@ -20,7 +20,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-24T22:59:21+00:00</IPTs>
+        <IPTs>2024-11-14T20:00:57+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </InitialCreation>
@@ -28,7 +28,7 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-10-24T22:59:21+00:00</IPTs>
+        <IPTs>2024-11-14T20:00:57+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
@@ -38,7 +38,7 @@
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-10-24T22:59:21+00:00</ReturnTs>
+    <ReturnTs>2024-11-14T20:00:57+00:00</ReturnTs>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
     <TaxYr>2023</TaxYr>
@@ -150,10 +150,10 @@
       <AZAdjGrossIncome>60000</AZAdjGrossIncome>
       <DeductionAmt>
         <DeductionTypeIndc>Standard</DeductionTypeIndc>
-        <AZDeductions>27700</AZDeductions>
+        <AZDeductions>29200</AZDeductions>
         <ClaimCharitableDed>
           <CharitableDeduction>X</CharitableDeduction>
-          <IncStdCharitableDed>62</IncStdCharitableDed>
+          <IncStdCharitableDed>66</IncStdCharitableDed>
           <IncreaseStdDed>
             <GiftByCashOrCheck>100</GiftByCashOrCheck>
             <OtherThanCashOrCheck>100</OtherThanCashOrCheck>
@@ -161,15 +161,16 @@
             <SubTotalContributions>200</SubTotalContributions>
             <TotalContributions>0</TotalContributions>
             <SubTotal>200</SubTotal>
-            <TotalIncStdDeduction>62</TotalIncStdDeduction>
+            <TotalIncStdDeduction>66</TotalIncStdDeduction>
           </IncreaseStdDed>
         </ClaimCharitableDed>
-        <AZTaxableInc>32238</AZTaxableInc>
-        <ComputedTax>806</ComputedTax>
-        <SubTotal>806</SubTotal>
+        <AZTaxableInc>30734</AZTaxableInc>
+        <ComputedTax>768</ComputedTax>
+        <SubTotal>768</SubTotal>
         <DepTaxCredit>250</DepTaxCredit>
         <FamilyIncomeTaxCredit>0</FamilyIncomeTaxCredit>
-        <BalanceOfTaxDue>556</BalanceOfTaxDue>
+        <CreditsFromAZ301>0</CreditsFromAZ301>
+        <BalanceOfTaxDue>518</BalanceOfTaxDue>
       </DeductionAmt>
       <TotalPaymentAndCredits>
         <AzIncTaxWithheld>200</AzIncTaxWithheld>
@@ -177,9 +178,9 @@
       </TotalPaymentAndCredits>
       <TotalPayments>200</TotalPayments>
       <TaxDueOrOverpayment>
-        <TaxDue>356</TaxDue>
+        <TaxDue>318</TaxDue>
       </TaxDueOrOverpayment>
-      <AmtOwed>356</AmtOwed>
+      <AmtOwed>318</AmtOwed>
     </Form140>
     <IRSW2 documentName="IRSW2" documentId="W20001">
       <EmployeeSSN>400000005</EmployeeSSN>

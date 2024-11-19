@@ -40,10 +40,17 @@ describe Efile::Md::Md502Calculator do
         end
       end
 
-      context "the agi is over $103,651" do
+      context "the agi is $103,651" do
         let(:agi) { 103_651 }
         it 'returns the correct decimal value' do
-          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.000)
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.1984e0)
+        end
+      end
+
+      context "the agi is over $107,001" do
+        let(:agi) { 107_001 }
+        it 'returns the correct decimal value' do
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.1856e0)
         end
       end
     end
@@ -58,10 +65,10 @@ describe Efile::Md::Md502Calculator do
         end
       end
 
-      context 'the agi is $161,1001' do
-        let(:agi) { 161_101 }
+      context 'the agi is $167,1001' do
+        let(:agi) { 167_101 }
         it 'returns the correct decimal value' do
-          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.000)
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.192e0)
         end
       end
     end
@@ -818,18 +825,42 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_15" do
+    before do
+      intake.direct_file_data.total_qualifying_dependent_care_expenses = 2
+      intake.direct_file_data.fed_taxable_ssb = 6
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8
+    end
+    it "sums lines 8 - 14" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_15].value).to eq 20
+    end
+  end
+
+  describe "#calculate_line_16" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 150
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 50
+    end
+    it "subtracts line 15 from line 7" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_16].value).to eq 100
+    end
+  end
+
   describe "#calculate_line_17" do
     context "when method is standard" do
       [
         [["single", "married_filing_separately", "dependent"], [
           [12_000, 1_800],
           [17_999, 17_999 * 0.15],
-          [18_000, 2_700],
+          [18_001, 2_700],
         ]],
         [["married_filing_jointly", "head_of_household", "qualifying_widow"], [
           [24_333, 3_650],
           [36_332, 36_332 * 0.15],
-          [36_333, 5_450],
+          [36_334, 5_450],
         ]]
       ].each do |filing_statuses, agis_to_deductions|
         filing_statuses.each do |filing_status|
@@ -1173,6 +1204,121 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_23" do
+    before do
+      intake.direct_file_data.fed_wages_salaries_tips = line_1b
+      allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return(line_7)
+      instance.calculate
+    end
+
+    context "when filing as dependent" do
+      let(:filing_status) { "dependent" }
+      let(:line_1b) { 20_000 }
+      let(:line_7) { 15_000 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq(0)
+      end
+    end
+
+    context "when line 1B is not positive" do
+      let(:filing_status) { "single" }
+      let(:line_1b) { 0 }
+      let(:line_7) { 15_000 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq(0)
+      end
+    end
+
+    context "single filer with no dependents" do
+      let(:filing_status) { "single" }
+      let(:line_1b) { 14_000 }
+
+      context "when both line_1b and line_7 are below poverty threshold" do
+        let(:line_7) { 14_500 } # Max of 1b and 7 below single person house threshold of 15,060
+
+        it "returns 5% of line 1B" do
+          expect(instance.lines[:MD502_LINE_23].value).to eq(700)
+        end
+      end
+
+      context "when either amount is above poverty threshold" do
+        let(:line_7) { 15_500 }
+
+        it "returns 0" do
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # Line 7 above threshold of 15,060
+        end
+      end
+    end
+
+    context "married filing jointly with two dependent" do
+      let(:line_1b) { 30_000 }
+      let(:filing_status) { "married_filing_jointly" }
+
+      context "when both line_1b and line_7 are below poverty threshold" do
+        let(:line_7) { 30_500 } # Max of 1b and 7 is below threshold for family of 4 (31,200)
+
+        it "returns 5% of line 1B" do
+          intake.dependents.create(dob: 7.years.ago)
+          intake.dependents.create(dob: 7.years.ago)
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_23].value).to eq(1_500)
+        end
+      end
+
+      context "when either amount is above poverty threshold" do
+        let(:line_7) { 31_500 }
+
+        it "returns 0" do
+          intake.dependents.create(dob: 7.years.ago)
+          intake.dependents.create(dob: 7.years.ago)
+          instance.calculate
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # line 7 is above threshold for family of 4 (31,200)
+        end
+      end
+    end
+  end
+
+  describe "#calculate_line_26" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return(100)
+      allow_any_instance_of(described_class).to receive(:calculate_line_23).and_return(200)
+      allow_any_instance_of(described_class).to receive(:calculate_line_24).and_return(300)
+      instance.calculate
+    end
+
+    it "returns the sum of lines 22 through 25" do
+      expect(instance.lines[:MD502_LINE_26].value).to eq(600)
+    end
+  end
+
+  describe "#calculate_line_27" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return(line_21)
+      allow_any_instance_of(described_class).to receive(:calculate_line_26).and_return(line_26)
+      instance.calculate
+    end
+
+    context "when line_21 minus line_27 is negative" do
+      let(:line_21) { 100 }
+      let(:line_26) { 150 }
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(0)
+      end
+    end
+
+    context "when line_21 minus line_27 is positive" do
+      let(:line_21) { 200 }
+      let(:line_26) { 150 }
+
+      it "returns the difference" do
+        expect(instance.lines[:MD502_LINE_27].value).to eq(50)
+      end
+    end
+  end
+
   describe '#calculate_line_40' do
     let(:intake) {
       # Allen has $500 state tax withheld $1000 in local income tax on a w2 & $10 state tax withheld on a 1099r
@@ -1186,6 +1332,13 @@ describe Efile::Md::Md502Calculator do
     it 'sums the MD tax withheld from w2s, 1099gs and 1099rs' do
       instance.calculate
       expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
+    end
+  end
+
+  describe "refund_or_owed_amount" do
+    it "subtracts owed amount from refund amount" do
+      # TEMP: stub calculator lines and test outcome of method once implemented
+      expect(instance.refund_or_owed_amount).to eq(0)
     end
   end
 end

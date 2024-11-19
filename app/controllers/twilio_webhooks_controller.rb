@@ -55,6 +55,6 @@ class TwilioWebhooksController < ActionController::Base
   private
 
   def validate_twilio_request
-    return head 403 unless TwilioService.valid_request?(request)
+    return head 403 unless TwilioService.new.valid_request?(request)
   end
 end

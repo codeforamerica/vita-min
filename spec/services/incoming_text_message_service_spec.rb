@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe IncomingTextMessageService, requires_default_vita_partners: true, active_job: true do
   describe ".process" do
+    let(:twilio_service) { instance_double TwilioService }
     let(:body) { "Hello, it me" }
     let(:incoming_message_params) do
       {
@@ -29,7 +30,9 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
 
     let(:current_time) { DateTime.new(2020, 9, 6) }
     before do
-      allow(TwilioService).to receive(:valid_request?).and_return true
+      allow(TwilioService).to receive(:new).and_return twilio_service
+      allow(twilio_service).to receive(:valid_request?).and_return true
+      allow(twilio_service).to receive(:parse_attachments).and_return([])
       allow(DateTime).to receive(:now).and_return current_time
       allow(ClientChannel).to receive(:broadcast_contact_record)
       allow(DatadogApi).to receive(:increment)
@@ -151,7 +154,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
 
       before do
         allow(ClientChannel).to receive(:broadcast_contact_record)
-        allow(TwilioService).to receive(:parse_attachments).and_return(parsed_attachments)
+        allow(twilio_service).to receive(:parse_attachments).and_return(parsed_attachments)
       end
 
       it "creates an incoming text message with the attachments associated" do

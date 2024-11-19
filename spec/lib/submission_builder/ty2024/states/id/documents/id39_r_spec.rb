@@ -15,6 +15,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
         expect(xml.at("RetirementBenefitsDeduction")&.text).to eq "0"
         expect(xml.at("HealthInsurancePaid")&.text).to eq "0"
         expect(xml.at("TotalSubtractions")&.text).to eq "2"
+        expect(xml.at("TotalSupplementalCredits")&.text).to eq "0"
       end
     end
 
