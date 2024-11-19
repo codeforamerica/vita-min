@@ -50,7 +50,7 @@ class IrsApiService
       http.key = cert_finder.client_key
 
       # CA chain for the IRS server certificate, so that we can verify it in mTLS
-      http.ca_file = "config/entrust_l1k_full_chain.cer"
+      # http.ca_file = "config/entrust_l1k_full_chain.cer"
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -73,14 +73,14 @@ class IrsApiService
       save_response(response, filename)
     end
 
-    undecrypted_body_json = JSON.parse(response.body)
-    if undecrypted_body_json.include?("status") && undecrypted_body_json["status"] == "error"
-      raise StandardError, "DF export-return API Response Error: #{undecrypted_body_json["error"]}"
-    end
-
     unless response.header['SESSION-KEY']
       Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
       return
+    end
+
+    undecrypted_body_json = JSON.parse(response.body)
+    if undecrypted_body_json.include?("status") && undecrypted_body_json["status"] == "error"
+      raise StandardError, "DF export-return API Response Error: #{undecrypted_body_json["error"]}"
     end
 
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
