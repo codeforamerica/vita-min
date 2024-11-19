@@ -48,7 +48,7 @@
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
-#  routing_number                                 :integer
+#  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
 #  source                                         :string
 #  spouse_birth_date                              :date
@@ -96,6 +96,17 @@ FactoryBot.define do
       spouse_first_name { nil }
       spouse_middle_initial { nil }
       spouse_last_name { nil }
+    end
+
+    factory :state_file_id_refund_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
     end
 
     after(:build) do |intake, evaluator|
