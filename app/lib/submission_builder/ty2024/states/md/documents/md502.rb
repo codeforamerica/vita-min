@@ -180,7 +180,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       :MD502_LINE_C_COUNT,
       :MD502_LINE_C_AMOUNT
     ].any? do |line|
-      calculated_fields.fetch(line).positive?
+      calculated_fields.fetch(line) > 0
     end
   end
 
@@ -189,7 +189,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       :MD502_LINE_A_COUNT,
       :MD502_LINE_B_COUNT
     ].any? do |line|
-      calculated_fields.fetch(line).positive?
+      calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
   end
