@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class MdHealthcareScreenController < QuestionsController
+    class MdHadHealthInsuranceController < QuestionsController
       def form_params
         params
           .require(:state_file_md_healthcare_screen_form)

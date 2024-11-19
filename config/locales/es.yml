@@ -2636,7 +2636,7 @@ es:
           permanent_home_heading: "¿Qué es una vivienda permanente?"
           subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
-      md_healthcare_screen:
+      md_had_health_insurance:
         edit:
           authorize_follow_up: Si responde sí, la Oficina del Contralor compartirá su información y el correo electrónico registrado con Maryland Health Connection.
           authorize_share_health_information: "¿Autoriza al Contralor de Maryland a compartir información de esta declaración de impuestos con Maryland Health Connection con el propósito de determinar la pre-elegibilidad para cobertura de atención médica sin costo o de bajo costo?"

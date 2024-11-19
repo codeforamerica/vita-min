@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::MdHealthcareScreenForm do
+RSpec.describe StateFile::MdHadHealthInsuranceForm do
   let(:intake) { create :state_file_md_intake }
 
   describe "validations" do

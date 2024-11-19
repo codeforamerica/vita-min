@@ -2664,7 +2664,7 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
-      md_healthcare_screen:
+      md_had_health_insurance:
         edit:
           authorize_follow_up: If yes, the Comptroller’s Office will share your information and the email address on file with Maryland Health Connection.
           authorize_share_health_information: Do you authorize the Comptroller of Maryland to share information from this tax return with Maryland Health Connection for the purpose of determining pre-eligibility for no-cost or low-cost health care coverage?
