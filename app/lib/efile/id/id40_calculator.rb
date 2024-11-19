@@ -37,8 +37,8 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
-        set_line(:ID40_LINE_54, :calculate_line_54)
-        set_line(:ID40_LINE_56, :calculate_line_56)
+        set_line(:ID40_LINE_54, :calculate_line_54) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:ID40_LINE_56, :calculate_line_56) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         @id39r.calculate
         @lines.transform_values(&:value)
       end
