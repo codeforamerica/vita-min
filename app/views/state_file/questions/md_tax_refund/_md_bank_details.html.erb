@@ -7,7 +7,7 @@
       <%= form.vita_min_money_field(:withdraw_amount, t('state_file.questions.tax_refund.bank_details.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
       <% if before_withdrawal_date_deadline?(current_state_code) %>
         <div class="date-select">
-          <% year = MultiTenantService.new(:statefile).current_tax_year + 1 %>
+          <% year = current_tax_year + 1 %>
           <%= form.cfa_date_select(
                 :date_electronic_withdrawal,
                 t("state_file.questions.tax_refund.bank_details.date_withdraw_text",

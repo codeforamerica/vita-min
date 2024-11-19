@@ -2046,10 +2046,10 @@ es:
           <strong>Lo que necesitarás para comenzar</strong>
           <br />
           <ul class="list--bulleted">
-            <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+            <li>Una declaración federal de %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
             <li>Dirección de correo electrónico o número de teléfono.</li>
             <li>Licencia de conducir o identificación emitida por el estado.</li>
-            <li>Formulario 1099-G (si recibiste beneficios de desempleo en 2023).</li>
+            <li>Formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year}).</li>
             <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
           </ul>
         id:
@@ -2082,7 +2082,7 @@ es:
             <strong>Lo que necesitarás para comenzar</strong>
             <br />
             <ul class="list--bulleted">
-              <li>Una declaración federal de 2023 <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
+              <li>Una declaración federal de %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
               <li>Dirección de correo electrónico o número de teléfono.</li>
               <li>Licencia de conducir o identificación emitida por el estado.</li>
               <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
@@ -2143,13 +2143,13 @@ es:
           expenses_helper_no_qualifying: Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o
           expenses_helper_nonqualifying_description: La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
           expenses_helper_qualifying_description: Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.
-          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
+          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el %{filing_year}? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
           title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
-          used_529_for_non_qual_expense_html: ¿Retiraste (o tu cónyuge, si presentan la declaración juntos) dinero de una <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">cuenta de ahorro universitario 529</a> y lo usaste para gastos que no califican en el 2023?
+          used_529_for_non_qual_expense_html: ¿Retiraste (o tu cónyuge, si presentan la declaración juntos) dinero de una <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">cuenta de ahorro universitario 529</a> y lo usaste para gastos que no califican en el %{filing_year}?
       az_eligibility_residence:
         edit:
           filing_status_married_filing_separately: "¿Estás presentando tu declaración como “Casado presentando por separado”? "
-          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
+          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el %{filing_year}?"
           mfs_helper_description: El estado civil de "casado presentando separado" es una opción para presentar la declaración de impuestos para personas que están legalmente casadas pero que deciden presentar declaraciones por separado.
           mfs_helper_heading: ¿Qué quiere decir "Casado presentando por separado”?
           mfs_helper_no_if: 'Selecciona no si:'
@@ -2158,7 +2158,7 @@ es:
           mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
           mfs_helper_yes_if: 'Selecciona ''sí'' si::'
           mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
-          subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
+          subtitle: Para la temporada de impuestos de %{current_year}, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
           title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
       az_excise_credit:
         edit:
@@ -2245,11 +2245,11 @@ es:
           total_payments: Total de pagos
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
-          was_incarcerated: Encarcelados en una prisión del condado, estatal o federal durante al menos 60 días en 2023
+          was_incarcerated: Encarcelados en una prisión del condado, estatal o federal durante al menos 60 días en %{filing_year}
       az_senior_dependents:
         edit:
           assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"
-          passed_away_label: "%{name}falleció en el 2023?"
+          passed_away_label: "%{name}falleció en el %{filing_year}?"
           title: Proporciónanos más información sobre las personas en tu familia que tienen 65 años o más.
       az_subtractions:
         edit:
@@ -2316,8 +2316,8 @@ es:
           ineligible_reason:
             exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
-            has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
-            has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
+            has_out_of_state_w2: recibiste ingresos en otro estado en el 2024
+            has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar esta herramienta este año. No te preocupes, aquí tienes otras opciones de presentación.
@@ -2335,21 +2335,21 @@ es:
         edit:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
-            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
+            eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
+            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en %{filing_year}
             eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
             eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
-            eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
+            eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
-            eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
-            eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2023
-            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
+            eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
+            eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el %{filing_year}
+            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el %{filing_year}
             eligibility_withdrew_msa_fthb: retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
-            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
-            nyc_maintained_home: no viviste en Nueva York durante todo el 2023
+            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el %{filing_year}
+            nyc_maintained_home: no viviste en Nueva York durante todo el
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
-            permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
+            permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
         other_options:
           faq_link: Visita nuestras Preguntas Frecuentes
@@ -2461,9 +2461,9 @@ es:
           already_submitted: Ya has enviado tu declaración.
           az:
             body_html: |
-              <p>Bajo pena de perjurio, declaro que he revisado una copia de mi declaración electrónica de impuestos personales a las ganancias de Arizona, así como los anexos y declaraciones adjuntas, para el año que finaliza el 31 de diciembre de 2023 y la información es verdadera, correcta y completa a mi mejor conocimiento y creencia.</p>
+              <p>Bajo pena de perjurio, declaro que he revisado una copia de mi declaración electrónica de impuestos personales a las ganancias de Arizona, así como los anexos y declaraciones adjuntas, para el año que finaliza el 31 de diciembre de %{filing_year} y la información es verdadera, correcta y completa a mi mejor conocimiento y creencia.</p>
               <ul class="list--bulleted">
-              <li><em>Si me deben un reembolso y proporcioné información para depósito directo,</em> doy mi consentimiento para que mi reembolso se deposite directamente según lo designado en la parte electrónica de mi declaración de impuestos sobre ingresos individual de Arizona de 2023. Si he presentado una declaración conjunta, esta es una designación irrevocable del otro cónyuge como agente para recibir el reembolso.</li>
+              <li><em>Si me deben un reembolso y proporcioné información para depósito directo,</em> doy mi consentimiento para que mi reembolso se deposite directamente según lo designado en la parte electrónica de mi declaración de impuestos sobre ingresos individual de Arizona de %{filing_year}. Si he presentado una declaración conjunta, esta es una designación irrevocable del otro cónyuge como agente para recibir el reembolso.</li>
               <li><em>Si no me deben un reembolso o si elegí recibir mi reembolso mediante un cheque enviado por correo,</em> no deseo el depósito directo de mi reembolso o no estoy recibiendo un reembolso.</li>
               <li><em>Si debo impuestos y proporcioné información para débito directo,</em> autorizo al Departamento de Ingresos de Arizona (ADOR) y a su Agente Financiero designado a iniciar un retiro de fondos electrónico ACH (débito directo) en la cuenta del instituto financiero indicada en el software de preparación de impuestos para el pago de mis impuestos de Arizona adeudados en esta declaración. También autorizo a las instituciones financieras involucradas en el procesamiento del pago electrónico de impuestos a recibir información confidencial necesaria para responder a consultas y resolver problemas relacionados con el pago.</li>
               </ul>
@@ -2489,7 +2489,7 @@ es:
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
       id_eligibility_residence:
         edit:
-          emergency_rental_assistance: En 2024, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
+          emergency_rental_assistance: En %{filing_year}, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
           emergency_rental_assistance_explanation: El programa de Asistencia de Alquiler de Emergencia (ERA, por sus siglas en inglés) es un programa federal que otorga dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Fue creado en respuesta a la pandemia de Covid-19.
           subtitle_1: Para la temporada fiscal de %{filing_year}, esta herramienta solo podrá servir a personas con situaciones fiscales específicas.
           subtitle_2: Por favor, responda las siguientes preguntas para saber si puede utilizarla.
@@ -2502,8 +2502,8 @@ es:
         edit:
           answers_confidential_html: "<strong>Nota:</strong> Sus respuestas son confidenciales y solo se utilizan para verificar la elegibilidad del crédito."
           example_months: Por ejemplo, si usted experimentó 2 de estas situaciones en el mes de abril, eso contaría como 1 mes en total.
-          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en 2024.
-          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en 2024.
+          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en %{filing_year}.
+          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en %{filing_year}.
           see_if_you_qualify:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.
@@ -2649,11 +2649,11 @@ es:
           address_header: Dirección
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
-          mark_no_hint_html: Marque "No" si la dirección indicada es un apartado postal <strong>o</strong> si vivió en una dirección diferente el 31 de diciembre de 2023
+          mark_no_hint_html: Marque "No" si la dirección indicada es un apartado postal <strong>o</strong> si vivió en una dirección diferente el 31 de diciembre de %{filing_year}
           state_label: Estado
           street_address_label: Dirección
-          title: "¿Viviste en esta dirección el 31 de diciembre de 2023?"
-          where_did_you_live: "¿Dónde viviste el 31 de diciembre de 2023?"
+          title: "¿Viviste en esta dirección el 31 de diciembre de %{filing_year}?"
+          where_did_you_live: "¿Dónde viviste el 31 de diciembre de %{filing_year}?"
           zip_label: Código postal
       md_primary_state_id:
         md_primary:
@@ -2924,7 +2924,7 @@ es:
               </ul>
             title: "¿Cuáles son los gastos que califican y los que no califican?"
           title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
-          withdraw_529: En el 2023, ¿contribuiste a una <u>cuenta de ahorros universitarios 529</u>, o retiraste dinero de una cuenta 529 y los usaste para gastos no calificados?
+          withdraw_529: En el %{filing_year}, ¿contribuiste a una <u>cuenta de ahorros universitarios 529</u>, o retiraste dinero de una cuenta 529 y los usaste para gastos no calificados?
       ny_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
@@ -3061,17 +3061,17 @@ es:
           title: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
       return_status:
         accepted:
-          check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "2023 Tax" y 140 en tu pago.
+          check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "%{filing_year} Tax" y 140 en tu pago.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Verifica el estado</a> de tu reembolso.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
-          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de 2023 hasta el 31 de diciembre de 2024
+          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{filing_year} hasta el 31 de diciembre de %{filing_year + 1}
           download_voucher: Descargar formulario de comprobante de pago
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
           register_to_vote: Regístrate para votar.
-          title: Tu declaración de impuestos del estado de %{state_name} para el año 2023 ha sido aceptada
+          title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
           track_your_payment_html: Puedes hacerle seguimiento a tu pago <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">aquí.</a>
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
@@ -3082,7 +3082,7 @@ es:
           more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
-          title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año 2023, y está esperando ser aceptada.
+          title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año %{filing_year}, y está esperando ser aceptada.
         rejected:
           contact_us: Contacte a nuestro equipo de expertos haciendo clic en "Chatea con nosotros".
           edit_return: Editar tu declaración estatal
@@ -3096,7 +3096,7 @@ es:
               title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
-          title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año 2023 fue rechazada
+          title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado
@@ -3126,8 +3126,8 @@ es:
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
           register_to_vote: Regístrate para votar.
-          title: "¡Tu declaración de impuestos del estado de %{state_name}de 2023 ha sido enviada!"
-          title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año 2023 ha sido enviada de nuevo!"
+          title: "¡Tu declaración de impuestos del estado de %{state_name}de %{filing_year} ha sido enviada!"
+          title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año %{filing_year} ha sido enviada de nuevo!"
       tax_refund:
         bank_details:
           account_number: Número de cuenta
@@ -3198,7 +3198,7 @@ es:
           information_html: "<strong>¿Cómo encuentro esta información?</strong>"
           money_boxes_label: Completa las siguientes casillas según lo especificado en el Formulario 1099-G.
           need_additional_information: "¡Excelente! Necesitamos información adicional sobre lo que aparece en el Formulario 1099-G. (Si tienes más de un formulario 1099-G, puedes agregarlo al final.)"
-          other_tax_filing_options_html: <strong>Recuerda:</strong> En 2024, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
+          other_tax_filing_options_html: <strong>Recuerda:</strong> En %{filing_year + 1}, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
           payer_address: Dirección del pagador
           payer_name: Nombre del pagador
           payer_question_html: 'Ingresa la <strong>información del pagador 1ubicada en la esquina superior izquierda</strong> del formulario:'
