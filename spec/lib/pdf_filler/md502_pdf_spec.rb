@@ -467,7 +467,7 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills out local tax computation fields correctly" do
-        expect(pdf_fields["Enter local tax rate"]).to eq "0.027"
+        expect(pdf_fields["Enter local tax rate"]).to eq "27"
         expect(pdf_fields["Text Box 44"]).to eq "8765"
         expect(pdf_fields["Text Box 46"]).to eq "1200"
         expect(pdf_fields["Text Box 52"]).to eq "1300"
