@@ -4,7 +4,7 @@ RSpec.describe StateFile::Questions::MdHadHealthInsuranceController do
   let(:intake) { create :state_file_md_intake}
 
   before do
-    sign_in intakegit
+    sign_in intake
   end
 
   describe "#edit" do
