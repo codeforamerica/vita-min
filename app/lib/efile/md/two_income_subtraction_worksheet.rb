@@ -55,15 +55,15 @@ module Efile
 
       def calculate_fed_subtractions(primary_or_spouse)
         filer_json = @direct_file_json_data.filers
-                                           .select { |df_filer_data|
-                                             df_filer_data.tin == @intake.send(primary_or_spouse).ssn
+                                           .find { |df_filer_data|
+                                             df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
                                            }
         student_loan_interest = {
           primary: @intake.primary_student_loan_interest_ded_amount.round,
           spouse: @intake.spouse_student_loan_interest_ded_amount.round,
         }[primary_or_spouse]
-        educator_expenses = 0 # TODO: filer_json.educatorExpenses
-        hsa_deduction = 0 # TODO: filer_json.hsaTotalDeductibleAmount
+        educator_expenses = filer_json.educator_expenses.round
+        hsa_deduction = filer_json.hsa_total_deductible_amount.round
 
         student_loan_interest +
           educator_expenses +

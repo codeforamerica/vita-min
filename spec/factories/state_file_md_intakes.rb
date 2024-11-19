@@ -134,6 +134,7 @@ FactoryBot.define do
 
     trait :with_spouse do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_nate_mfj') }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -144,6 +145,7 @@ FactoryBot.define do
 
     trait :with_senior_spouse do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_nate_mfj') }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }

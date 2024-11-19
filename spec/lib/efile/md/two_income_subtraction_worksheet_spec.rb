@@ -32,7 +32,9 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
     context "primary and spouse have only retirement income" do
       before do
-        intake.direct_file_data.w2_nodes.each do |w2_node| w2_node.content = nil end
+        intake.direct_file_data.w2_nodes.each do |w2_node|
+          w2_node.content = nil
+        end
         intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
       end
       let(:primary_ssn) { intake.primary.ssn }
@@ -48,7 +50,9 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
     context "primary and spouse have only unemployment income" do
       before do
-        intake.direct_file_data.w2_nodes.each do |w2_node| w2_node.content = nil end
+        intake.direct_file_data.w2_nodes.each do |w2_node|
+          w2_node.content = nil
+        end
         intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
       end
       let!(:primary_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :primary, unemployment_compensation_amount: 600) }
@@ -61,10 +65,58 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   end
 
   describe "#calculate_fed_subtractions" do
-    context "no fed subtractions" do
+    let(:intake) { create(:state_file_md_intake, :with_spouse) }
+    before do
+      intake.direct_file_data.primary_ssn = intake.direct_file_json_data.primary_filer&.tin&.delete("-")
+      intake.direct_file_data.spouse_ssn = intake.direct_file_json_data.spouse_filer&.tin&.delete("-")
+    end
+
+    context "primary and spouse have only student loan interest subtractions" do
       it "calculates the fed subtraction amount for primary and spouse" do
-        expect(instance.calculate_fed_subtractions(:primary)).to eq(0)
-        expect(instance.calculate_fed_subtractions(:spouse)).to eq(0)
+        intake.update(primary_student_loan_interest_ded_amount: 1.1)
+        intake.update(spouse_student_loan_interest_ded_amount: 2.2)
+        expect(instance.calculate_fed_subtractions(:primary)).to eq(1)
+        expect(instance.calculate_fed_subtractions(:spouse)).to eq(2)
+      end
+    end
+
+    context "primary and spouse have only educator expense subtractions" do
+      before do
+        intake.direct_file_json_data.primary_filer&.educator_expenses = "10.00"
+        intake.direct_file_json_data.spouse_filer&.educator_expenses = "20.00"
+      end
+
+      it "calculates the fed subtraction amount for primary and spouse" do
+        expect(instance.calculate_fed_subtractions(:primary)).to eq(10)
+        expect(instance.calculate_fed_subtractions(:spouse)).to eq(20)
+      end
+    end
+
+    context "primary and spouse have only health savings account subtractions" do
+      before do
+        intake.direct_file_json_data.primary_filer&.hsa_total_deductible_amount = "100.00"
+        intake.direct_file_json_data.spouse_filer&.hsa_total_deductible_amount = "200.00"
+      end
+
+      it "calculates the fed subtraction amount for primary and spouse" do
+        expect(instance.calculate_fed_subtractions(:primary)).to eq(100)
+        expect(instance.calculate_fed_subtractions(:spouse)).to eq(200)
+      end
+    end
+
+    context "primary and spouse have all three kinds of subtractions" do
+      before do
+        intake.direct_file_json_data.primary_filer&.educator_expenses = "10.00"
+        intake.direct_file_json_data.spouse_filer&.educator_expenses = "20.00"
+        intake.direct_file_json_data.primary_filer&.hsa_total_deductible_amount = "100.00"
+        intake.direct_file_json_data.spouse_filer&.hsa_total_deductible_amount = "200.00"
+      end
+
+      it "calculates the fed subtraction amount for primary and spouse" do
+        intake.update(primary_student_loan_interest_ded_amount: 1)
+        intake.update(spouse_student_loan_interest_ded_amount: 2)
+        expect(instance.calculate_fed_subtractions(:primary)).to eq(111)
+        expect(instance.calculate_fed_subtractions(:spouse)).to eq(222)
       end
     end
   end
@@ -76,10 +128,9 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only w2 income" do
-      let(:intake) { create(:state_file_md_intake, :with_spouse, :df_data_many_w2s) }
       it "calculates the fed income amount for primary and spouse" do
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(150_000)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(50_000)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(9_000)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(0)
       end
     end
   end

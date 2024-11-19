@@ -10,6 +10,8 @@ class DirectFileJsonData
 
   class DfJsonFiler < DfJsonPerson
     json_accessor is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
+    json_accessor educator_expenses: { type: :money_amount, key: "educatorExpenses" }
+    json_accessor hsa_total_deductible_amount: { type: :money_amount, key: "hsaTotalDeductibleAmount" }
   end
 
   class DfJsonDependent < DfJsonPerson

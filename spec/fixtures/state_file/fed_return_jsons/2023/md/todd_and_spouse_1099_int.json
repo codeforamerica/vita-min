@@ -7,7 +7,9 @@
       "middleInitial": "T",
       "tin": "123-45-6789",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": true,
+      "educatorExpenses": "20.00",
+      "hsaTotalDeductibleAmount": "200.00"
     },
     {
       "firstName": "Todd",
@@ -15,7 +17,9 @@
       "middleInitial": "T",
       "tin": "987-65-4321",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": false
+      "isPrimaryFiler": false,
+      "educatorExpenses": "10.00",
+      "hsaTotalDeductibleAmount": "100.00"
     }
   ],
   "interestReports": [
