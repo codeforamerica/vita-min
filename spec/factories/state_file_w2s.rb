@@ -30,6 +30,7 @@ FactoryBot.define do
   factory :state_file_w2 do
     w2_index { 0 }
     employee_name { "Jajko" }
+    employee_ssn { "123456789" }
     employer_name { "Biszkoptowy Enterprises" }
     employer_state_id_num { "12345" }
     state_wages_amount { 1000 }

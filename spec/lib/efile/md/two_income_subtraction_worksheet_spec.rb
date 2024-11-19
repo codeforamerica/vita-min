@@ -136,14 +136,23 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   end
 
   describe "#calculate_line_2" do
-    before do
-      instance.calculate
-    end
-
     context "no state additions" do
       it "calculates the state addition amount for primary and spouse" do
+        instance.calculate
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_2_A].value).to eq(0)
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_2_B].value).to eq(0)
+      end
+    end
+
+    context "primary and spouse have STPICKUP" do
+      let!(:primary_ssn) { intake.primary.ssn }
+      let!(:spouse_ssn) { intake.spouse.ssn }
+      let!(:primary_state_file_w2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn, box14_stpickup: 100.0) }
+      let!(:spouse_state_file_w2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn, box14_stpickup: 200.0) }
+      it "calculates the state addition amount for primary and spouse" do
+        instance.calculate
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_2_A].value).to eq(100)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_2_B].value).to eq(200)
       end
     end
   end
