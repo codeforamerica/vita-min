@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1787,6 +1787,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.integer "needed_assistance", default: 0, null: false
     t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
+    t.boolean "qualifying_child"
     t.string "relationship"
     t.string "ssn"
     t.string "suffix"
@@ -1941,6 +1942,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
+    t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
@@ -1958,6 +1960,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
+    t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_suffix"
     t.string "street_address"
     t.string "subdivision_code"
@@ -2062,6 +2065,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.integer "claimed_as_dep"
+    t.integer "claimed_as_eitc_qualifying_child", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.string "county"
@@ -2129,6 +2133,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_224054) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_claimed_as_eitc_qualifying_child", default: 0, null: false
     t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"

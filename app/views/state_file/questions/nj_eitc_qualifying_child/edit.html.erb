@@ -1,0 +1,42 @@
+<%
+    title = t(".title")
+    content_for :page_title, title
+%>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p class="p"><%= t(".instructions") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(:claimed_as_eitc_qualifying_child, 
+        label_text: t('.primary_eitc_qualifying_child_question', filing_year: @filing_year),
+        collection: [
+              { value: :yes, label: t("general.affirmative") },
+              { value: :no, label: t("general.negative") },
+        ]
+        ) %>
+    </div>
+    <% if current_intake.filing_status_mfj?%>
+      <div class="white-group">
+        <%= f.cfa_radio_set(:spouse_claimed_as_eitc_qualifying_child, 
+          label_text: t('.spouse_eitc_qualifying_child_question', filing_year: @filing_year),
+          collection: [
+                { value: :yes, label: t("general.affirmative") },
+                { value: :no, label: t("general.negative") },
+          ]
+          ) %>    
+      </div>
+    <% end %>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_heading') %></button>
+      <div class="reveal__content">
+        <%= t('.helper_contents_html') %>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
