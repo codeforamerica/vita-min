@@ -43,6 +43,7 @@ describe StateFileBaseIntake do
       intake.synchronize_df_dependents_to_database
 
       expect(intake.dependents.first.relationship).to eq "grandParent"
+      expect(intake.dependents.last.qualifying_child).to eq nil
       expect(intake.dependents.count).to eq 3
     end
 
@@ -58,6 +59,15 @@ describe StateFileBaseIntake do
       expect(intake.dependents.length).to eq(3)
       allow(intake.direct_file_json_data).to receive(:find_matching_json_dependent).and_return(nil)
       expect { intake.synchronize_df_dependents_to_database }.to raise_error(StateFileBaseIntake::SynchronizeError, "Could not find matching dependent #{intake.dependents.first.id} with #{intake.state_name} intake id: #{intake.id}")
+    end
+
+    it "saves the status of qualifying children" do
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('id_john_mfj_8_deps')
+      json = StateFile::DirectFileApiResponseSampleService.new.read_json('id_john_mfj_8_deps')
+      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
+      intake.synchronize_df_dependents_to_database
+
+      expect(intake.dependents.count(&:qualifying_child?)).to eq 2
     end
   end
 

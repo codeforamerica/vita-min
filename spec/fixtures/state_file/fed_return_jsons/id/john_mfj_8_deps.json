@@ -38,7 +38,8 @@
       "dateOfBirth": "2020-02-03",
       "relationship": "biologicalChild",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "qualifyingChild": true
     },
     {
       "firstName": "Roland",
@@ -58,7 +59,8 @@
       "dateOfBirth": "2021-01-01",
       "relationship": "biologicalChild",
       "eligibleDependent": true,
-      "isClaimedDependent": true
+      "isClaimedDependent": true,
+      "qualifyingChild": true
     },
     {
       "firstName": "Wendy",
