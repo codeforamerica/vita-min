@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::MdHealthcareScreenController do
+RSpec.describe StateFile::Questions::MdHadHealthInsuranceController do
   let(:intake) { create :state_file_md_intake}
 
   before do
-    sign_in intake
+    sign_in intakegit 
   end
 
   describe "#edit" do
