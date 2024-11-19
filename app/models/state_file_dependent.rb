@@ -18,6 +18,7 @@
 #  needed_assistance                       :integer          default("unfilled"), not null
 #  odc_qualifying                          :boolean
 #  passed_away                             :integer          default("unfilled"), not null
+#  qualifying_child                        :boolean
 #  relationship                            :string
 #  ssn                                     :string
 #  suffix                                  :string

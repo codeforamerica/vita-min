@@ -33,6 +33,7 @@ module Efile
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
+        set_line(:NJ1040_LINE_58_IRS, :calculate_line_58_irs)
         set_line(:NJ1040_LINE_59, :calculate_line_59)
         set_line(:NJ1040_LINE_61, :calculate_line_61)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
@@ -44,10 +45,6 @@ module Efile
       def analytics_attrs
         {
         }
-      end
-
-      def refund_or_owed_amount
-        0
       end
 
       def get_tax_rate_and_subtraction_amount(income)
@@ -277,7 +274,17 @@ module Efile
       end
 
       def calculate_line_58
-        (@direct_file_data.fed_eic * 0.4).round
+        if @direct_file_data.fed_eic.positive?
+          (@direct_file_data.fed_eic * 0.4).round
+        elsif Efile::Nj::NjFlatEitcEligibility.eligible?(@intake)
+          240
+        else
+          0
+        end
+      end
+
+      def calculate_line_58_irs
+        @direct_file_data.fed_eic.positive?
       end
 
       def get_personal_excess(ssn, excess_type, threshold)

@@ -141,6 +141,7 @@ module SubmissionBuilder
                 xml.SubTotal calculated_fields.fetch(:AZ140_LINE_48)
                 xml.DepTaxCredit calculated_fields.fetch(:AZ140_LINE_49)
                 xml.FamilyIncomeTaxCredit calculated_fields.fetch(:AZ140_LINE_50)
+                xml.CreditsFromAZ301 calculated_fields.fetch(:AZ140_LINE_51)
                 xml.BalanceOfTaxDue calculated_fields.fetch(:AZ140_LINE_52)
               end
               xml.TotalPaymentAndCredits do

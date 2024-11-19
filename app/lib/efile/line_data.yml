@@ -180,6 +180,8 @@ ID39R_B_LINE_18:
   label: 'Health insurance premium paid amount for household'
 ID39R_B_LINE_24:
   label: 'Total subtractions (Add lines 1-4, 5e-7, 8f-23 if available)'
+ID39R_D_LINE_4:
+  label: 'Total credits Idaho educational entity and Idaho youth and rehabilitation facility contributions, and live organ donation expenses'
 ID40_LINE_6A:
   label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
@@ -198,12 +200,24 @@ ID40_LINE_10:
   label: 'Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_23:
+  label: 'Total credits from Form 39R, Part D, line 4. Include Form 39R'
+ID40_LINE_25:
+  label: 'Idaho Child Tax Credit'
+ID40_LINE_26:
+  label: 'Total Credits. Add lines 22 through 25'
+ID40_LINE_27:
+  label: 'Subtract line 26 from line 21. If line 26 is more than line 21, enter zero'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 ID40_LINE_32A:
   label: 'Amount required to pay for the Permanent Building Fund Tax'
 ID40_LINE_32B:
   label: 'Checkbox that determines if the Permanent Building Fund needs to be payed'
+ID40_LINE_33:
+  label: 'Total Tax. Add lines 27 to 32'
+ID40_LINE_42:
+  label: 'Total Tax Plus Donations. Add lines 33 through 41.'
 ID40_LINE_43_WORKSHEET:
   label: '43. Grocery Credit. Computed amount from worksheet on page 11'
 ID40_LINE_43_DONATE:
@@ -552,8 +566,6 @@ MD502_LINE_6:
   label: '6 Total additions: add lines 2 - 5 (line 2, 4, 5 out of scope)'
 MD502_LINE_7:
   label: '7 Total federal adjusted gross income and Maryland additions: add line 1 and line 6'
-MD502_LINE_15:
-  label: 'TBD'
 MD502_LINE_A_PRIMARY:
   label: 'A Primary exemption'
 MD502_LINE_A_SPOUSE:
@@ -582,10 +594,14 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_10A:
+  label: 'TBD'
 MD502_LINE_13:
-  label: Subtractions from attached form 502SU
+  label: 'Subtractions from attached form 502SU'
+MD502_LINE_15:
+  label: 'Total subtractions (Add lines 8 through 14. See instructions.)'
 MD502_LINE_16:
-  label: '16 TBD'
+  label: 'Maryland adjusted gross income (Subtract line 15 from line 7.)'
 MD502_DEDUCTION_METHOD:
   label: 'Itemized, standard or non-taxable deduction method'
 MD502_LINE_17:
@@ -602,6 +618,14 @@ MD502_LINE_22:
   label: '22 Earned income credit (EIC)'
 MD502_LINE_22B:
   label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
+MD502_LINE_23:
+  label: 'Poverty level credit'
+MD502_LINE_24:
+  label: 'Other income tax credits for individuals from Part AA, line 14 of Form 502CR'
+MD502_LINE_26:
+  label: 'Total credits (Add lines 22 through 25.)'
+MD502_LINE_27:
+  label: 'Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
 MD502B_LINE_1:
@@ -666,6 +690,12 @@ NCD400_LINE_28:
   label: 'Refund/Overpayment: if Line 25 is more than Line 19, subtract Line 19 from Line 25.'
 NCD400_LINE_34:
   label: 'Total refund amount: Line 28 minus Line 33 (Line 33 is not in scope)'
+NCD400_S_LINE_18:
+  label: "Taxable Portion of Social Security and Railroad Retirement Benefits (DF IRS1040 TaxableInterestAmt)"
+NCD400_S_LINE_19:
+  label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableSocSecAmt)"
+NCD400_S_LINE_27:
+  label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
 NCD400_S_LINE_41:
   label: 'Total Deductions - Add Lines 17 through 22, 23f, 24f, and 25 through 40 (Enter the total here and on Form D-400, Line 9)'
 NJ1040_LINE_6_SPOUSE:
@@ -708,6 +738,8 @@ NJ1040_LINE_57:
   label: '57 New Jersey Estimated Tax Payments/Credit from prior year tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
+NJ1040_LINE_58_IRS:
+  label: '58 IRS calculated federal earned income credit'
 NJ1040_LINE_59:
   label: 'Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_61:

@@ -133,7 +133,7 @@ RSpec.describe Questions::PersonalInfoController do
     end
 
     context "with invalid params" do
-      let (:params) do
+      let(:params) do
         {
           personal_info_form: {
             timezone: "America/New_York",

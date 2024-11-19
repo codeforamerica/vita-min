@@ -82,6 +82,17 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.css('DependentGrid')[2].at("DependentLastName").text).to eq "Hemingway"
         expect(xml.css('DependentGrid')[2].at("DependentDOB").text).to eq "1919-01-01"
       end
+
+      context "when there are qualifying children" do
+        before do
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return 50
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_42).and_return 60
+        end
+        it "should fill out the child tax credit and total credit/tax amounts" do
+          expect(xml.at("IdahoChildTaxCredit").text).to eq "50"
+          expect(xml.at("TotalTax").text).to eq "60"
+        end
+      end
     end
 
     context "sales use tax" do

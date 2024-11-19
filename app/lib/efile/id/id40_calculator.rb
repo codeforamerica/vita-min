@@ -23,19 +23,21 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_23, :calculate_line_23)
+        set_line(:ID40_LINE_25, :calculate_line_25)
+        set_line(:ID40_LINE_26, :calculate_line_26)
+        set_line(:ID40_LINE_27, :calculate_line_27)
         set_line(:ID40_LINE_29, :calculate_line_29)
         set_line(:ID40_LINE_32A, :calculate_line_32a)
         set_line(:ID40_LINE_32B, :calculate_line_32b)
+        set_line(:ID40_LINE_33, :calculate_line_33)
+        set_line(:ID40_LINE_42, :calculate_line_42)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
         @id39r.calculate
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        0
       end
 
       def grocery_credit_amount
@@ -84,6 +86,32 @@ module Efile
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
+      def calculate_line_23
+        line_or_zero(:ID39R_D_LINE_4)
+      end
+
+      def calculate_line_25
+        wrksht_line_1 = @intake.dependents.count do |dependent|
+          dependent.qualifying_child? && dependent.under_17?
+        end
+
+        return 0 if wrksht_line_1.zero?
+
+        wrksht_line_2 = 205 * wrksht_line_1
+        total_credit = [line_or_zero(:ID40_LINE_22), line_or_zero(:ID40_LINE_23), line_or_zero(:ID40_LINE_24)].sum
+        wrksht_line_7 = [line_or_zero(:ID40_LINE_20) - total_credit, 0].max
+
+        [wrksht_line_2, wrksht_line_7].min
+      end
+
+      def calculate_line_26
+        line_or_zero(:ID40_LINE_23) + line_or_zero(:ID40_LINE_25)
+      end
+
+      def calculate_line_27
+        [line_or_zero(:ID40_LINE_21) - line_or_zero(:ID40_LINE_26), 0].max
+      end
+
       def calculate_line_29
         if @intake.has_unpaid_sales_use_tax? && !@intake.total_purchase_amount.nil?
           (@intake.total_purchase_amount * 0.06).round
@@ -99,8 +127,17 @@ module Efile
           0
         end
       end
+
       def calculate_line_32b
         @intake.received_id_public_assistance_yes?
+      end
+
+      def calculate_line_33
+        line_or_zero(:ID40_LINE_27) + line_or_zero(:ID40_LINE_29) + line_or_zero(:ID40_LINE_32A)
+      end
+
+      def calculate_line_42
+        line_or_zero(:ID40_LINE_33)
       end
 
       def calculate_grocery_credit

@@ -68,6 +68,7 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['IncomeL9']).to eq '10000'
         expect(pdf_fields['IncomeL10']).to eq '0'
         expect(pdf_fields['IncomeL11']).to eq '10000'
+        expect(pdf_fields['CreditsL23']).to eq '0'
       end
 
       context "with dependents" do
@@ -252,6 +253,23 @@ RSpec.describe PdfFiller::Id40Pdf do
 
       it "sets the correct tax withheld field" do
         expect(pdf_fields['PymntOtherCreditL46']).to eq '2009'
+      end
+    end
+
+    describe "credits" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return 50
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_26).and_return 60
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_27).and_return 70
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_33).and_return 80
+      end
+
+      it "sets the correct values for the fields" do
+        expect(pdf_fields['CreditsL25']).to eq '50'
+        expect(pdf_fields['CreditsL26']).to eq '60'
+        expect(pdf_fields['CreditsL27']).to eq '70'
+        expect(pdf_fields['OtherTaxesL33']).to eq '80'
+        expect(pdf_fields['DonationsL42']).to eq '80'
       end
     end
   end
