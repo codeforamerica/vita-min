@@ -48,13 +48,15 @@ module Efile
         set_line(:MD502_LINE_6, :calculate_line_6)
         set_line(:MD502_LINE_7, :calculate_line_7)
 
-        # Subtractions
-        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-
         # MD502SU Subtractions
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
+
+        # Subtractions
+        set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        # lines 15 and 16 depend on lines 8-14
+        set_line(:MD502_LINE_15, :calculate_line_15)
+        set_line(:MD502_LINE_16, :calculate_line_16)
 
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
@@ -68,6 +70,10 @@ module Efile
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
+        set_line(:MD502_LINE_23, :calculate_line_23)
+        set_line(:MD502_LINE_24, :calculate_line_24)
+        set_line(:MD502_LINE_26, :calculate_line_26)
+        set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         # MD502-CR
@@ -76,10 +82,6 @@ module Efile
         set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
         @lines.transform_values(&:value)
-      end
-
-      def refund_or_owed_amount
-        50
       end
 
       def analytics_attrs
@@ -315,9 +317,20 @@ module Efile
         line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
       end
 
-      def calculate_line_15; end
+      def calculate_line_10a; end
 
-      def calculate_line_16; end
+      def calculate_line_15
+        [
+          @direct_file_data.total_qualifying_dependent_care_expenses, # line 9
+          @direct_file_data.fed_taxable_ssb, # line 11
+          line_or_zero(:MD502_LINE_10A),
+          line_or_zero(:MD502_LINE_13),
+        ].sum
+      end
+
+      def calculate_line_16
+        line_or_zero(:MD502_LINE_7) - line_or_zero(:MD502_LINE_15)
+      end
 
       FILING_MINIMUMS_NON_SENIOR = {
         single: 14_600,
@@ -357,12 +370,12 @@ module Efile
         s_mfs_d: {
           12000 => 1_800,
           17999 => ->(x) { x * 0.15 },
-          18000 => 2_700,
+          Float::INFINITY => 2_700,
         },
         mfj_hoh_qss: {
           24333 => 3_650,
           36332 => ->(x) { x * 0.15 },
-          36333 => 5_450,
+          Float::INFINITY => 5_450,
         }
       }.freeze
       FILING_STATUS_GROUPS = {
@@ -463,6 +476,44 @@ module Efile
 
       def calculate_line_22b
         (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
+      end
+
+      def calculate_line_23
+        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
+
+        comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
+
+        household_size = @intake.dependents.count + (filing_status_mfj? ? 2 : 1)
+        poverty_threshold = case household_size
+                            when 1 then 15_060
+                            when 2 then 20_440
+                            when 3 then 25_820
+                            when 4 then 31_200
+                            when 5 then 36_580
+                            when 6 then 41_960
+                            when 7 then 47_340
+                            when 8 then 52_720
+                            else
+                              52_720 + ((household_size - 8) * 5_380)
+                            end
+
+        if comparison_amount < poverty_threshold
+          (@lines[:MD502_LINE_1B].value * 0.05).round
+        else
+          0
+        end
+      end
+
+      def calculate_line_24
+        0 # TODO: a stub
+      end
+
+      def calculate_line_26
+        (22..25).sum { |line_num| line_or_zero("MD502_LINE_#{line_num}") }
+      end
+
+      def calculate_line_27
+        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0 ].max
       end
 
       def calculate_line_40

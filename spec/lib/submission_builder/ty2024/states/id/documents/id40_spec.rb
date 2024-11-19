@@ -82,6 +82,17 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.css('DependentGrid')[2].at("DependentLastName").text).to eq "Hemingway"
         expect(xml.css('DependentGrid')[2].at("DependentDOB").text).to eq "1919-01-01"
       end
+
+      context "when there are qualifying children" do
+        before do
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return 50
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_42).and_return 60
+        end
+        it "should fill out the child tax credit and total credit/tax amounts" do
+          expect(xml.at("IdahoChildTaxCredit").text).to eq "50"
+          expect(xml.at("TotalTax").text).to eq "60"
+        end
+      end
     end
 
     context "sales use tax" do
@@ -102,6 +113,33 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
         it "fills out StateUseTax field with 0" do
           expect(xml.at("StateUseTax").text).to eq '0'
+        end
+      end
+    end
+
+    context "PermanentBuildingFund" do
+      context "when a client is not blind has filing requirements and does not receive public assistance" do
+        before do
+          intake.direct_file_data.total_income_amount = 40000
+          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+          intake.received_id_public_assistance = "no"
+        end
+
+        it "fills out StateUseTax field with calculated value" do
+          expect(xml.at("PermanentBuildingFund").text).to eq '10'
+        end
+      end
+
+      context "when a client is blind" do
+        before do
+          intake.direct_file_data.total_income_amount = 40000
+          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
+          intake.direct_file_data.set_primary_blind
+          intake.received_id_public_assistance = "no"
+        end
+
+        it "fills out StateUseTax field with 0" do
+          expect(xml.at("PermanentBuildingFund").text).to eq '0'
         end
       end
     end

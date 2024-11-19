@@ -13,6 +13,7 @@
 #  current_step                                   :string
 #  date_electronic_withdrawal                     :date
 #  df_data_import_failed_at                       :datetime
+#  df_data_import_succeeded_at                    :datetime
 #  df_data_imported_at                            :datetime
 #  donate_grocery_credit                          :integer          default("unfilled"), not null
 #  eligibility_emergency_rental_assistance        :integer          default("unfilled"), not null
@@ -45,6 +46,7 @@
 #  primary_suffix                                 :string
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
+#  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
 #  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null

@@ -13,6 +13,18 @@ describe SubmissionBuilder::Ty2024::States::Nc::NcReturnXml, required_schema: "n
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+      expect(xml.css("FormNCD400ScheduleS").count).to eq 0
+      expect(build_response.errors).not_to be_present
+    end
+
+    context "with DeductionsFromFAGI" do
+      before do
+        allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_9).and_return 5
+      end
+
+      it "includes NC D400 Schedule S Form" do
+        expect(xml.css("FormNCD400ScheduleS").count).to eq 1
+      end
     end
 
     context "when there is a refund with banking info" do

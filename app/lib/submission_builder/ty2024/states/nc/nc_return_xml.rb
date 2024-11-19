@@ -15,7 +15,7 @@ module SubmissionBuilder
           end
 
           def state_schema_version
-            "NCIndividual2023v1.0"
+            "NCIndividual2024v0.7"
           end
 
           def build_state_specific_tags(document)
@@ -25,7 +25,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "NCIndividual2023v1.0", "NCIndividual", "IndividualReturnNCD400.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "NCIndividual2024v0.7", "NCIndividual", "IndividualReturnNCD400.xsd")
           end
 
           def supported_documents

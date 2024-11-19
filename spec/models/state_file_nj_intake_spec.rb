@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  bank_name                                              :string
 #  claimed_as_dep                                         :integer
+#  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string
@@ -15,6 +16,7 @@
 #  current_step                                           :string
 #  date_electronic_withdrawal                             :date
 #  df_data_import_failed_at                               :datetime
+#  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
@@ -70,6 +72,7 @@
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
+#  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime

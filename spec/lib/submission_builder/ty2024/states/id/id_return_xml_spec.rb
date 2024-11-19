@@ -3,7 +3,7 @@ require 'rails_helper'
 describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "id" do
   describe '.build' do
     let(:intake) { create(:state_file_id_intake, filing_status: "single") }
-    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
     let(:build_response) { described_class.build(submission) }
@@ -13,6 +13,8 @@ describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "i
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+
+      expect(build_response.errors).not_to be_present
     end
 
     context "when there is a refund with banking info" do
