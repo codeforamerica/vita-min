@@ -19,8 +19,8 @@ RSpec.describe PdfFiller::Nj2450Pdf do
 
   let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
-  let(:pdf) { described_class.new(submission, { person: intake.primary }) }
-  let(:file_path) { described_class.new(submission, { person: intake.primary }).output_file.path }
+  let(:pdf) { described_class.new(submission, { primary_or_spouse: :primary }) }
+  let(:file_path) { described_class.new(submission, { primary_or_spouse: :primary }).output_file.path }
   let(:pdf_fields) { filled_in_values(file_path) }
   let(:primary_ssn_from_fixture) { intake.primary.ssn }
   let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
@@ -111,8 +111,8 @@ RSpec.describe PdfFiller::Nj2450Pdf do
     end
 
     context "spouse" do
-      let(:pdf) { described_class.new(submission, { person: intake.spouse }) }
-      let(:file_path) { described_class.new(submission, { person: intake.spouse }).output_file.path }
+      let(:pdf) { described_class.new(submission, { primary_or_spouse: :spouse }) }
+      let(:file_path) { described_class.new(submission, { primary_or_spouse: :spouse }).output_file.path }
 
       it "fills in the header fields" do
         expect(pdf_fields["Names as shown on Form NJ1040"]).to eq "Muppet Ernie & Bert K"

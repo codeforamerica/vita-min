@@ -60,8 +60,8 @@ module PdfFiller
         # Header - get from nj 1040 submission
         'Names as shown on Form NJ1040': get_name(@parent_xml_doc),
         'Social Security Number': intake.primary.ssn,
-        'Claimant Name': get_name(@parent_xml_doc, include_spouse: false, spouse_only: person.primary_or_spouse == :spouse),
-        'Claimant SSN': person.ssn,
+        'Claimant Name': get_name(@parent_xml_doc, include_spouse: false, spouse_only: primary_or_spouse == :spouse),
+        'Claimant SSN': ssn,
         Address: get_address(@parent_xml_doc),
         City: @parent_xml_doc.at("ReturnHeaderState Filer USAddress CityNm")&.text,
         State: @parent_xml_doc.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
@@ -99,13 +99,17 @@ module PdfFiller
       @submission.data_source
     end
 
-    def person
-      @kwargs[:person]
+    def ssn
+      primary_or_spouse == :primary ? intake.primary.ssn : intake.spouse&.ssn
+    end
+
+    def primary_or_spouse
+      @kwargs[:primary_or_spouse]
     end
     
     def get_xml_document
       nj_2450s = @parent_xml_doc.css('FormNJ2450')
-      filer_indicator = person.primary_or_spouse == :primary ? 'T' : 'S'
+      filer_indicator = primary_or_spouse == :primary ? 'T' : 'S'
       docs = nj_2450s.select { |nj_2450| nj_2450.at('FilerIndicator')&.text == filer_indicator }
       docs[0]
     end

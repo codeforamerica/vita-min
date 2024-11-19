@@ -14,7 +14,7 @@ module SubmissionBuilder
             end
 
             def document
-              w2s = get_persons_w2s(intake, person.ssn)
+              w2s = get_persons_w2s(intake, primary_or_spouse)
 
               build_xml_doc("FormNJ2450") do |xml|
                 w2s.each do |w2|
@@ -33,12 +33,12 @@ module SubmissionBuilder
                   end
                 end
 
-                xml.ColumnATotal calculated_fields.fetch(line_name("NJ2450_COLUMN_A_TOTAL", person.primary_or_spouse))
+                xml.ColumnATotal calculated_fields.fetch(line_name("NJ2450_COLUMN_A_TOTAL", primary_or_spouse))
                 xml.ColumnBTotal 0
-                xml.ColumnCTotal calculated_fields.fetch(line_name("NJ2450_COLUMN_C_TOTAL", person.primary_or_spouse))
-                xml.ColumnAExcess calculated_fields.fetch(line_name("NJ2450_COLUMN_A_EXCESS", person.primary_or_spouse))
+                xml.ColumnCTotal calculated_fields.fetch(line_name("NJ2450_COLUMN_C_TOTAL", primary_or_spouse))
+                xml.ColumnAExcess calculated_fields.fetch(line_name("NJ2450_COLUMN_A_EXCESS", primary_or_spouse))
                 xml.ColumnBExcess 0
-                xml.ColumnCExcess calculated_fields.fetch(line_name("NJ2450_COLUMN_C_EXCESS", person.primary_or_spouse))
+                xml.ColumnCExcess calculated_fields.fetch(line_name("NJ2450_COLUMN_C_EXCESS", primary_or_spouse))
               end
             end
 
@@ -52,12 +52,12 @@ module SubmissionBuilder
               @nj2450_fields ||= intake.tax_calculator.calculate
             end
             
-            def person
-              @kwargs[:person]
+            def primary_or_spouse
+              @kwargs[:primary_or_spouse]
             end
 
             def filer_indicator
-              person.primary_or_spouse == :primary ? 'T' : 'S'
+              primary_or_spouse == :primary ? 'T' : 'S'
             end
           end
         end

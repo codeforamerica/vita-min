@@ -6,7 +6,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450, required_sche
     let(:primary_ssn_from_fixture) { intake.primary.ssn }
     let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
     let(:submission) { create(:efile_submission, data_source: intake) }
-    let(:build_response) { described_class.build(submission, validate: true, kwargs: { person: intake.primary }) }
+    let(:build_response) { described_class.build(submission, validate: true, kwargs: { primary_or_spouse: :primary }) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     after do
@@ -46,7 +46,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450, required_sche
     context "spouse" do
       let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 99, box14_fli: 100, employer_ein: '123456789', wages: '999') }
       let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 134, box14_fli: 123, employer_ein: '923456781', wages: '888') }
-      let(:build_response) { described_class.build(submission, validate: true, kwargs: { person: intake.spouse }) }
+      let(:build_response) { described_class.build(submission, validate: true, kwargs: { primary_or_spouse: :spouse}) }
 
       it "fills body for each w2" do
         body_elements = xml.css("Body")

@@ -14,13 +14,13 @@ module Efile
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           intake: @intake,
-          person: @intake.primary
+          primary_or_spouse: :primary
         )
         @nj2450_spouse = Efile::Nj::Nj2450Calculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           intake: @intake,
-          person: @intake.spouse
+          primary_or_spouse: :spouse
         )
       end
 
@@ -198,9 +198,8 @@ module Efile
         if @intake.filing_status_mfj?
           spouse_excess = get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
           spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-          return spouse_excess
+          spouse_excess
         end
-        0
       end
 
       def line_61_primary
@@ -209,9 +208,8 @@ module Efile
 
       def line_61_spouse
         if @intake.filing_status_mfj?
-          return get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
+          get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
         end
-        0
       end
 
       private
@@ -344,12 +342,12 @@ module Efile
       end
 
       def calculate_line_59
-        total_excess = line_59_primary + line_59_spouse
+        total_excess = (line_59_primary || 0) + (line_59_spouse || 0)
         total_excess.round if total_excess.positive?
       end
 
       def calculate_line_61
-        total_excess = line_61_primary + line_61_spouse
+        total_excess = (line_61_primary || 0) + (line_61_spouse || 0)
         total_excess.round if total_excess.positive? 
       end
 
