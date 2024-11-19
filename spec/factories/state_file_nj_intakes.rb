@@ -196,10 +196,10 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_primary_claimed_dep') }
     end
 
-    trait :df_data_mfj_neither_claimed_dep do
+    trait :df_data_mfj do
       filing_status { "married_filing_jointly" }
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly_neither_claimed_dep') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_neither_claimed_dep') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly') }
     end
 
     trait :df_data_claimed_as_dependent do

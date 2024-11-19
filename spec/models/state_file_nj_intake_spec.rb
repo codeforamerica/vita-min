@@ -247,7 +247,7 @@ RSpec.describe StateFileNjIntake, type: :model do
       end
 
       context "when neither claimed as dependent" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_mfj_neither_claimed_dep) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
         it "returns false" do
           expect(intake.eligibility_claimed_as_dependent?).to eq false
         end
