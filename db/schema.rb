@@ -1860,7 +1860,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.jsonb "raw_direct_file_intake_data"
     t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
-    t.integer "routing_number"
+    t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -2026,7 +2026,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "residence_county"
-    t.integer "routing_number"
+    t.string "routing_number"
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
