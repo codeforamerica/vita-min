@@ -85,7 +85,7 @@ FactoryBot.define do
     end
 
     factory :state_file_nc_refund_intake do
-      after(:build) do |intake, evaluator|
+      after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"
@@ -95,7 +95,6 @@ FactoryBot.define do
       end
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
     primary_first_name { "North" }
