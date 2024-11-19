@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  self.ignored_columns = [:df_data_import_failed]
+
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true
@@ -71,7 +73,7 @@ class StateFileBaseIntake < ApplicationRecord
       )
     end
 
-    if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
+    if (filing_status_mfj? || filing_status_mfs?) && direct_file_json_data.spouse_filer.present?
       attributes_to_update.merge!(
         spouse_first_name: direct_file_json_data.spouse_filer.first_name,
         spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
@@ -105,7 +107,8 @@ class StateFileBaseIntake < ApplicationRecord
           suffix: dependent_json.suffix,
           relationship: dependent_json.relationship,
           months_in_home: dependent_json.months_in_home,
-          dob: dependent_json.dob
+          dob: dependent_json.dob,
+          qualifying_child: dependent_json.qualifying_child
         }
         dependent.assign_attributes(json_attributes)
       end

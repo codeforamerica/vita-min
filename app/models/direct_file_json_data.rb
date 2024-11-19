@@ -6,6 +6,7 @@ class DirectFileJsonData
     json_accessor suffix: { type: :string, key: "suffix" }
     json_accessor dob: { type: :date, key: "dateOfBirth" }
     json_accessor tin: { type: :string, key: "tin" }
+    json_accessor ssn_not_valid_for_employment: { type: :boolean, key: "ssnNotValidForEmployment" }
   end
 
   class DfJsonFiler < DfJsonPerson
@@ -16,6 +17,7 @@ class DirectFileJsonData
     json_accessor relationship: { type: :string, key: "relationship" }
     json_accessor eligible_dependent: { type: :boolean, key: "eligibleDependent" }
     json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
+    json_accessor qualifying_child: { type: :boolean, key: "qualifyingChild" }
 
     WORDS_TO_NUMBERS = {
       "six" => 6,
@@ -94,5 +96,4 @@ class DirectFileJsonData
   def dependents
     data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end
-
 end

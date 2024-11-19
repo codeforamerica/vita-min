@@ -581,6 +581,7 @@ class FlowsController < ApplicationController
         last_sign_in_at: nil,
         last_sign_in_ip: nil,
         sign_in_count: 0,
+        df_data_import_succeeded_at: 30.seconds.ago,
         hashed_ssn: SsnHashingService.hash("555002222") # hash PrimarySSN from raw_direct_file_data
       }
     end

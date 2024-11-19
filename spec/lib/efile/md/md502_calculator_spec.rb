@@ -40,10 +40,17 @@ describe Efile::Md::Md502Calculator do
         end
       end
 
-      context "the agi is over $103,651" do
+      context "the agi is $103,651" do
         let(:agi) { 103_651 }
         it 'returns the correct decimal value' do
-          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.000)
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.1984e0)
+        end
+      end
+
+      context "the agi is over $107,001" do
+        let(:agi) { 107_001 }
+        it 'returns the correct decimal value' do
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.1856e0)
         end
       end
     end
@@ -58,10 +65,10 @@ describe Efile::Md::Md502Calculator do
         end
       end
 
-      context 'the agi is $161,1001' do
-        let(:agi) { 161_101 }
+      context 'the agi is $167,1001' do
+        let(:agi) { 167_101 }
         it 'returns the correct decimal value' do
-          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.000)
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.192e0)
         end
       end
     end
@@ -818,18 +825,42 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_15" do
+    before do
+      intake.direct_file_data.total_qualifying_dependent_care_expenses = 2
+      intake.direct_file_data.fed_taxable_ssb = 6
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8
+    end
+    it "sums lines 8 - 14" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_15].value).to eq 20
+    end
+  end
+
+  describe "#calculate_line_16" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 150
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 50
+    end
+    it "subtracts line 15 from line 7" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_16].value).to eq 100
+    end
+  end
+
   describe "#calculate_line_17" do
     context "when method is standard" do
       [
         [["single", "married_filing_separately", "dependent"], [
           [12_000, 1_800],
           [17_999, 17_999 * 0.15],
-          [18_000, 2_700],
+          [18_001, 2_700],
         ]],
         [["married_filing_jointly", "head_of_household", "qualifying_widow"], [
           [24_333, 3_650],
           [36_332, 36_332 * 0.15],
-          [36_333, 5_450],
+          [36_334, 5_450],
         ]]
       ].each do |filing_statuses, agis_to_deductions|
         filing_statuses.each do |filing_status|

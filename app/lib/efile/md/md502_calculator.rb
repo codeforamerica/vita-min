@@ -48,13 +48,15 @@ module Efile
         set_line(:MD502_LINE_6, :calculate_line_6)
         set_line(:MD502_LINE_7, :calculate_line_7)
 
-        # Subtractions
-        set_line(:MD502_LINE_15, :calculate_line_15) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_LINE_16, :calculate_line_16) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-
         # MD502SU Subtractions
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
+
+        # Subtractions
+        set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        # lines 15 and 16 depend on lines 8-14
+        set_line(:MD502_LINE_15, :calculate_line_15)
+        set_line(:MD502_LINE_16, :calculate_line_16)
 
         # Deductions
         set_line(:MD502_DEDUCTION_METHOD, :calculate_deduction_method)
@@ -135,9 +137,15 @@ module Efile
           $96,001 $98,001 0.2112 $149,001 $152,001
           $98,001 $100,001 0.2080 $152,001 $155,001
           $100,001 $102,001 0.2048 $155,001 $158,001
-          $102,001 $103,651 0.2016 $158,001 $161,001
-          0 0 0.1984 $161,001 $161,101
-          $103,651 inf 0.0000 $161,101 inf
+          $102,001 $103,001 0.2016 $158,001 $161,001
+          $103,001 $104,001 0.1984 $161,001 $164,001
+          $104,001 $105,001 0.1952 $164,001 $167,001
+          $105,001 $106,001 0.1920 $167,001 $169,901
+          $106,001 $107,001 0.1888 0.0 0.0
+          $107,001 $108,001 0.1856 0.0 0.0
+          $108,001 $109,001 0.1824 0.0 0.0
+          $109,001 $109,301 0.1792 0.0 0.0
+          $109,301 inf 0.0000 $169,901 inf
         PDF_COPY
 
         row = Struct.new(:non_mfj_floor, :non_mfj_ceiling, :decimal, :mfj_floor, :mfj_ceiling)
@@ -315,9 +323,20 @@ module Efile
         line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
       end
 
-      def calculate_line_15; end
+      def calculate_line_10a; end
 
-      def calculate_line_16; end
+      def calculate_line_15
+        [
+          @direct_file_data.total_qualifying_dependent_care_expenses, # line 9
+          @direct_file_data.fed_taxable_ssb, # line 11
+          line_or_zero(:MD502_LINE_10A),
+          line_or_zero(:MD502_LINE_13),
+        ].sum
+      end
+
+      def calculate_line_16
+        line_or_zero(:MD502_LINE_7) - line_or_zero(:MD502_LINE_15)
+      end
 
       FILING_MINIMUMS_NON_SENIOR = {
         single: 14_600,
@@ -357,12 +376,12 @@ module Efile
         s_mfs_d: {
           12000 => 1_800,
           17999 => ->(x) { x * 0.15 },
-          18000 => 2_700,
+          Float::INFINITY => 2_700,
         },
         mfj_hoh_qss: {
           24333 => 3_650,
           36332 => ->(x) { x * 0.15 },
-          36333 => 5_450,
+          Float::INFINITY => 5_450,
         }
       }.freeze
       FILING_STATUS_GROUPS = {

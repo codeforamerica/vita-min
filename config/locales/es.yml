@@ -2337,6 +2337,9 @@ es:
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
+            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
+            eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
+            eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_lived_in_state: no viviste en %{state} durante todo el 2023
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2023
@@ -2669,6 +2672,18 @@ es:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Nombre del titular de la cuenta
+      md_two_income_subtractions:
+        edit:
+          description: Para saber si califica y calcular la deducción, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que tomó en su declaración de impuestos federales.
+          spouse_portion_label: La parte de la deducción de intereses del préstamo estudiantil que le corresponde a su cónyuge
+          student_loan_deduction_copy: Esta cantidad se basa en los intereses pagados por préstamos estudiantiles y está limitada a $2,500 por declaración de impuestos.
+          student_loan_deduction_copy2: Consulte el formulario 1098-E para obtener más información.
+          student_loan_deduction_heading: "¿Qué es la deducción de intereses de préstamos federales para estudiantes?"
+          subtitle: Ingrese las porciones de la deducción de intereses de préstamos estudiantiles federales asignadas entre usted y su cónyuge.
+          sum_form_error: El total de la deducción de intereses de préstamos estudiantiles de usted y/o su cónyuge debe ser igual al %{total_deduction}
+          title: Es posible que califique para la deducción por dos ingresos de Maryland
+          total: La deducción total de intereses de préstamos estudiantiles para su declaración federal y la de su cónyuge es %{total_deduction}.
+          your_portion_label: Su parte de la deducción de intereses del préstamo estudiantil
       nc_county:
         edit:
           county: Condado
@@ -2742,6 +2757,31 @@ es:
           primary_disabled_question: "¿Está usted discapacitado según la definición de Nueva Jersey?"
           spouse_disabled_question: "¿Su cónyuge está discapacitado según la definición de Nueva Jersey?"
           title: Exención para discapacitados
+      nj_eitc_qualifying_child:
+        edit:
+          helper_contents_html: |-
+            <p>You are the qualifying child of another taxpayer for the Earned Income Tax Credit (EITC) in 2024 if <strong>all</strong> of these are true.</p>
+            <ol>
+            <li class="spacing-below-25"><p>1. You are that person's:</p>
+            <ul><li>Child, stepchild, foster child, or a descendant of any of them, or</li>
+            <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>
+            </ul></li>
+            <li class="spacing-below-25"><p>2. You were:</p>
+            <ul><li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>
+            <li>Under age 24 at the end of the year, a student, and younger than that person (or that person's spouse, if they filed jointly), or</li>
+            <li>Any age and had a permanent disability that prevented you from working and making money</li>
+            </ul></li>
+            <li class="spacing-below-25"><p>3. You lived:</p>
+            <ul><li>with that person in the United States for more than 6 months in 2024.</li>
+            </ul></li>
+            <li><p>4. You aren't filing a joint return with your spouse for the year. Or you're filing a joint return with your spouse only to get a refund of money you paid toward taxes.</p></li>
+            </ol>
+            <p>If <strong>all</strong> of these statements are true, you are the qualifying child of another taxpayer for EITC. This is the case even if they don't claim the credit or don't meet all of the rules to claim it.</p>
+          helper_heading: How do I know if I could be someone else's qualifying child for EITC?
+          instructions: We just have to make sure that you are not someone else's qualifying child for this credit first.
+          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
+          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
+          title: You may be eligible for the Earned Income Tax Credit
       nj_estimated_tax_payments:
         edit:
           label: Total
@@ -2810,6 +2850,7 @@ es:
       nj_review:
         edit:
           amount: Cantidad
+          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: Condado
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Vivienda en alquiler o en propiedad propia
@@ -2820,6 +2861,7 @@ es:
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
+          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: Spouse disabled
           spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado

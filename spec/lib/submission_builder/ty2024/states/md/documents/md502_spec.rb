@@ -288,23 +288,36 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
 
       context "subtractions section" do
+        let(:other_subtractions) { 100 }
+        let(:total_subtractions) { 150 }
+        let(:state_adjusted_income) { 300 }
         context "when all relevant values are present in the DF XML" do
           before do
-            allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return other_subtractions
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return total_subtractions
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_income
             intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
             intake.direct_file_data.fed_taxable_ssb = 240
           end
 
           it "outputs child and dependent care expenses" do
-            expect(xml.at("Form502 Subtractions ChildAndDependentCareExpenses").text.to_i).to eq(intake.direct_file_data.total_qualifying_dependent_care_expenses)
+            expect(xml.at("Form502 Subtractions ChildAndDependentCareExpenses").text.to_i).to eq(1200)
           end
 
           it "outputs Taxable Social Security and RR benefits" do
-            expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(intake.direct_file_data.fed_taxable_ssb)
+            expect(xml.at("Form502 Subtractions SocialSecurityRailRoadBenefits").text.to_i).to eq(240)
           end
 
           it "outputs the Subtractions from Form 502SU" do
-            expect(xml.at("Form502 Subtractions Other").text.to_i).to eq(100)
+            expect(xml.at("Form502 Subtractions Other").text.to_i).to eq(other_subtractions)
+          end
+
+          it "outputs the sum of the Subtractions" do
+            expect(xml.at("Form502 Subtractions Total").text.to_i).to eq(total_subtractions)
+          end
+          
+          it 'outputs the state adjusted income' do
+            expect(xml.at("Form502 Subtractions StateAdjustedGrossIncome").text.to_i).to eq(state_adjusted_income)
           end
         end
       end

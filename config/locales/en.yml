@@ -2363,6 +2363,9 @@ en:
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
             eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
+            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
+            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_lived_in_state: did not live in %{state} for all of 2023
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in 2023
@@ -2697,6 +2700,18 @@ en:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Account Holder Name
+      md_two_income_subtractions:
+        edit:
+          description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.
+          spouse_portion_label: Your spouse's portion of the student loan interest deduction
+          student_loan_deduction_copy: This amount is based on interest paid on student loans and is limited to $2,500 per tax return.
+          student_loan_deduction_copy2: See Form(s) 1098-E for more information.
+          student_loan_deduction_heading: What is the federal student loan interest deduction?
+          subtitle: Enter the portions of the federal student loan interest deduction allocated between you and your spouse.
+          sum_form_error: The total of you and/or your spouse's student loan interest deduction must equal %{total_deduction}
+          title: You might qualify for the Maryland two-income subtraction
+          total: The total student loan interest deduction for you and your spouse's federal return is %{total_deduction}.
+          your_portion_label: Your portion of the student loan interest deduction
       nc_county:
         edit:
           county: County
@@ -2769,6 +2784,31 @@ en:
           primary_disabled_question: Are you disabled according to the New Jersey definition?
           spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
           title: Disabled Exemption
+      nj_eitc_qualifying_child:
+        edit:
+          helper_contents_html: |-
+            <p>You are the qualifying child of another taxpayer for the Earned Income Tax Credit (EITC) in 2024 if <strong>all</strong> of these are true.</p>
+            <ol>
+            <li class="spacing-below-25"><p>1. You are that person's:</p>
+            <ul><li>Child, stepchild, foster child, or a descendant of any of them, or</li>
+            <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>
+            </ul></li>
+            <li class="spacing-below-25"><p>2. You were:</p>
+            <ul><li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>
+            <li>Under age 24 at the end of the year, a student, and younger than that person (or that person's spouse, if they filed jointly), or</li>
+            <li>Any age and had a permanent disability that prevented you from working and making money</li>
+            </ul></li>
+            <li class="spacing-below-25"><p>3. You lived:</p>
+            <ul><li>with that person in the United States for more than 6 months in 2024.</li>
+            </ul></li>
+            <li><p>4. You aren't filing a joint return with your spouse for the year. Or you're filing a joint return with your spouse only to get a refund of money you paid toward taxes.</p></li>
+            </ol>
+            <p>If <strong>all</strong> of these statements are true, you are the qualifying child of another taxpayer for EITC. This is the case even if they don't claim the credit or don't meet all of the rules to claim it.</p>
+          helper_heading: How do I know if I could be someone else's qualifying child for EITC?
+          instructions: We just have to make sure that you are not someone else's qualifying child for this credit first.
+          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
+          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
+          title: You may be eligible for the Earned Income Tax Credit
       nj_estimated_tax_payments:
         edit:
           label: Total
@@ -2837,6 +2877,7 @@ en:
       nj_review:
         edit:
           amount: Amount
+          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: County
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
@@ -2847,6 +2888,7 @@ en:
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
+          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: My spouse has a disability
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
