@@ -40,7 +40,7 @@ module PdfFiller
         answers["65 OR OLDER #{i + 1}"] = dependent.senior? ? "2" : "Off"
         dob_field_name = i.zero? ? "DOB date 1_af_date" : "DOB date 1_af_date #{i + 1}"
         answers[dob_field_name] = dependent.dob
-        answers[HEALTH_INSURANCE_CHECKBOX_LABELS[i]] = dependent.did_not_have_health_insurance ? "Yes" : "Off"
+        answers[HEALTH_INSURANCE_CHECKBOX_LABELS[i]] = dependent.md_did_not_have_health_insurance_yes? ? "Yes" : "Off"
       end
       answers
     end

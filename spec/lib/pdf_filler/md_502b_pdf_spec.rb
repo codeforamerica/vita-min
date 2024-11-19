@@ -14,6 +14,7 @@ RSpec.describe PdfFiller::Md502bPdf do
       spouse_first_name: "Jane",
       spouse_middle_initial: "M",
       spouse_last_name: "Jomp",
+      spouse_birth_date: Date.new(1950, 04, 12)
     )
   end
   let(:submission) { create :efile_submission, :for_state, data_source: intake }
@@ -30,7 +31,7 @@ RSpec.describe PdfFiller::Md502bPdf do
       ssn: "123456789",
       relationship: "Daughter",
       dob: young_dob,
-      did_not_have_health_insurance: true
+      md_did_not_have_health_insurance: "yes"
     )
   end
   let!(:senior_dependent) do
@@ -43,7 +44,7 @@ RSpec.describe PdfFiller::Md502bPdf do
       ssn: "234567890",
       relationship: "Grandparent",
       dob: old_dob,
-      did_not_have_health_insurance: false
+      md_did_not_have_health_insurance: "no"
     )
   end
   before do
