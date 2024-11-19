@@ -15,7 +15,7 @@
       "middleInitial": "T",
       "tin": "987-65-4321",
       "dateOfBirth": "1980-01-01",
-      "isPrimaryFiler": true
+      "isPrimaryFiler": false
     }
   ],
   "interestReports": [

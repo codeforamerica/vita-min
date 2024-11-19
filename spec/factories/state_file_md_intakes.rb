@@ -187,7 +187,6 @@ FactoryBot.define do
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
-      spouse_ssn { "987654321" }
     end
   end
 end

@@ -11,7 +11,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   let(:instance) { main_calculator.instance_variable_get(:@two_income_subtraction_worksheet) }
 
   describe "#calculate_fed_income" do
-    context "primary and spouse have only w2 income" do
+    context "primary and spouse have only wage income" do
       let(:intake) { create(:state_file_md_intake, :df_data_many_w2s) }
       it "calculates the fed income amount for primary and spouse" do
         expect(instance.calculate_fed_income(:primary)).to eq(150_000)
@@ -21,8 +21,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
     context "primary and spouse have only interest income" do
       before do
-        intake.direct_file_data.spouse_ssn = "987654321"
-        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
+        intake.direct_file_data.spouse_ssn = intake.direct_file_json_data.spouse_filer&.tin&.delete("-")
       end
       let(:intake) { create(:state_file_md_intake, :df_data_1099_int_with_spouse) }
       it "calculates the fed income amount for primary and spouse" do
