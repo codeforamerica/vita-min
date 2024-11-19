@@ -104,13 +104,10 @@ var followUpQuestion = (function () {
                 // set initial state of follow-ups based on the page
                 $(this).find('input').each(function (index, input) {
                     if ($(this).attr('data-follow-up') != null) {
-                        console.log("we found a checked input with follow-up");
                         if ($(this).is(':checked')) {
-                            console.log("showing follow up: " + $(this).attr('data-follow-up'));
                             $($(this).attr('data-follow-up')).find('input, select').attr('disabled', false);
                             $($(this).attr('data-follow-up')).show();
                         } else {
-                            console.log("hiding follow up: " + $(this).attr('data-follow-up'));
                             $($(this).attr('data-follow-up')).find('input, select').attr('disabled', true);
                             $($(this).attr('data-follow-up')).hide();
                         }
@@ -124,16 +121,14 @@ var followUpQuestion = (function () {
             });
         },
         update: function ($container) {
-            console.log("update has been called");
-            $container.find('.question-with-follow-up__follow-up input, .question-with-follow-up__follow-up select').attr('disabled', true);
-            $container.find('.question-with-follow-up__follow-up').hide();
+            $container.find('> .question-with-follow-up__follow-up input, > .question-with-follow-up__follow-up select').attr('disabled', true);
+            $container.find('> .question-with-follow-up__follow-up').hide();
 
             $container.find('.question-with-follow-up__question input').each(function (index, input) {
                 // if any of the inputs with a data-follow-up is checked then show the follow-up
                 if ($(input).is(':checked') && $(input).attr('data-follow-up') != null) {
                     var followUpSelector = $(this).attr('data-follow-up');
                     if (/^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
-                        console.log("showing follow up: " + $(this).attr('data-follow-up'));
                         $(followUpSelector).show();
                         $(followUpSelector).find('input, select').attr('disabled', false);
                     }

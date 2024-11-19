@@ -15,7 +15,6 @@ module Questions
     end
 
     def update
-      binding.pry
       @form = initialized_update_form
       if @form.valid?
         @form.save
