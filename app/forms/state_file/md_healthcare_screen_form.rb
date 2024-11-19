@@ -15,6 +15,7 @@ module StateFile
 
 
     def initialize(intake = nil, params = nil)
+      binding.pry
       super
       if params.present?
         @intake.assign_attributes(dependents_attributes: dependents_attributes.to_h)
