@@ -87,7 +87,7 @@ module StateFile
         pay_taxes_link: "",
         return_type: "Form40",
         state_name: "Idaho",
-        schema_file_name: "ID.MeF2023V1.0.zip",
+        schema_file_name: "ID_MeF2024V0.1.zip",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Id::IdReturnXml,
         survey_link: "",
         tax_payment_info_url: "",
