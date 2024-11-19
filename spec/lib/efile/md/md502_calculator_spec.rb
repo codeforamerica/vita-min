@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe Efile::Md::Md502Calculator do
   let(:filing_status) { "single" }
-  let(:county) { "Allegany" }
-  let(:intake) { create(:state_file_md_intake, filing_status: filing_status, residence_county: county) }
+  let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,

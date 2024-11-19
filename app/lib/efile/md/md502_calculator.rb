@@ -69,20 +69,12 @@ module Efile
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
-        
+
         set_line(:MD502_LINE_23, :calculate_line_23)
         set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
-
         set_line(:MD502_LINE_40, :calculate_line_40)
-        set_line(:MD502_LINE_42, :calculate_line_42)
-        set_line(:MD502_LINE_43, :calculate_line_43)
-        set_line(:MD502_LINE_44, :calculate_line_44)
-        set_line(:MD502_LINE_45, :calculate_line_45)
-        set_line(:MD502_LINE_46, :calculate_line_46)
-        set_line(:MD502_LINE_48, :calculate_line_48)
-        set_line(:MD502_LINE_50, :calculate_line_50)
 
         # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
@@ -461,10 +453,10 @@ module Efile
                        [150_000..175_000, 7_072.5, 0.05],
                        [175_000..225_000, 8_322.5, 0.0525],
                        [225_000..300_000, 10_947.5, 0.055],
-                       [300_000..Float::INFINITY, 15_072.5, 0.0575]
+                       [300_000..Float::INFINITY, 15_072.5 , 0.0575]
                      ]
                    end
-          range_index = ranges.find_index { |(range, _)| range.include?(taxable_net_income) }
+          range_index = ranges.find_index{ |(range, _)| range.include?(taxable_net_income)}
 
           base = ranges[range_index][1]
           percent = ranges[range_index][2]
