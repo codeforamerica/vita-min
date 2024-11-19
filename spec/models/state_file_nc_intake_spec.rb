@@ -14,6 +14,7 @@
 #  current_step                      :string
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
+#  df_data_import_succeeded_at       :datetime
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
@@ -43,7 +44,7 @@
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  residence_county                  :string
-#  routing_number                    :integer
+#  routing_number                    :string
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null

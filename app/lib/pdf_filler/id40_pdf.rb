@@ -44,8 +44,13 @@ module PdfFiller
         'IncomeL10' => @xml_document.at('Form39R TotalSubtractions')&.text,
         'IncomeL11' => @xml_document.at('Form40 StateTotalAdjustedIncome')&.text,
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
+        'CreditsL25' => @xml_document.at('Form40 IdahoChildTaxCredit')&.text,
+        'CreditsL26' => calculated_fields.fetch(:ID40_LINE_26),
+        'CreditsL27' => calculated_fields.fetch(:ID40_LINE_27),
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
+        'OtherTaxesL33' => @xml_document.at('TotalTax')&.text,
         'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',
+        'DonationsL42' => calculated_fields.fetch(:ID40_LINE_42),
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',
         'PymntOtherCreditL43Amount' => @xml_document.at('GroceryCredit')&.text,
@@ -78,6 +83,12 @@ module PdfFiller
       return if date_str.nil?
 
       Date.parse(date_str)&.strftime(format)
+    end
+
+    private
+
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end

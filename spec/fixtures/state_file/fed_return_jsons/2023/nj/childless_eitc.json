@@ -1,0 +1,12 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Mario",
+      "lastName": "Mario",
+      "dateOfBirth": "1958-01-01",
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

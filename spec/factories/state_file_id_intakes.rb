@@ -13,6 +13,7 @@
 #  current_step                                   :string
 #  date_electronic_withdrawal                     :date
 #  df_data_import_failed_at                       :datetime
+#  df_data_import_succeeded_at                    :datetime
 #  df_data_imported_at                            :datetime
 #  donate_grocery_credit                          :integer          default("unfilled"), not null
 #  eligibility_emergency_rental_assistance        :integer          default("unfilled"), not null
@@ -47,7 +48,7 @@
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
-#  routing_number                                 :integer
+#  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
 #  source                                         :string
 #  spouse_birth_date                              :date
@@ -96,6 +97,17 @@ FactoryBot.define do
       spouse_last_name { nil }
     end
 
+    factory :state_file_id_refund_intake do
+      after(:build) do |intake, evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
+    end
+
     after(:build) do |intake, evaluator|
       numeric_status = {
         single: 1,
@@ -129,9 +141,7 @@ FactoryBot.define do
       intake.raw_direct_file_intake_data = intake.direct_file_json_data
     end
 
-    after(:create) do |intake|
-      intake.synchronize_filers_to_database
-    end
+    after(:create, &:synchronize_filers_to_database)
 
     trait :with_w2s_synced do
       after(:create, &:synchronize_df_w2s_to_database)
@@ -154,9 +164,14 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
 
-      after(:create) do |intake|
-        intake.synchronize_df_dependents_to_database
-      end
+      after(:create, &:synchronize_df_dependents_to_database)
+    end
+    
+    trait :with_qualifying_dependents do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_john_mfj_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_john_mfj_8_deps') }
+
+      after(:create, &:synchronize_df_dependents_to_database)
     end
 
     trait :df_data_1099_int do
