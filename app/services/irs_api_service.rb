@@ -70,14 +70,18 @@ class IrsApiService
       save_response(response, filename)
     end
 
-    unless response.header['SESSION-KEY']
-      Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
-      return
+    if response.body.nil?
+      raise StandardError, "DF export-return API response Error: response.body is nil. header=#{response.header}"
     end
 
     undecrypted_body_json = JSON.parse(response.body)
     if undecrypted_body_json.include?("status") && undecrypted_body_json["status"] == "error"
       raise StandardError, "DF export-return API Response Error: #{undecrypted_body_json["error"]}"
+    end
+
+    unless response.header['SESSION-KEY']
+      Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
+      return
     end
 
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
