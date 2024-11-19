@@ -305,7 +305,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Main XML Doc"
 
-      #needs to be upadated with new XML
       expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Titus</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
