@@ -246,7 +246,7 @@ FactoryBot.define do
         intake.account_type = "checking"
         intake.routing_number = 111111111
         intake.account_number = 222222222
-        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax, 4, 15)
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
         intake.withdraw_amount = 5
       end
     end
