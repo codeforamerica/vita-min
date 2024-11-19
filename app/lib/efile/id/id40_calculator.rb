@@ -36,6 +36,11 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
+        set_line(:ID40_LINE_50, :calculate_line_50)
+        set_line(:ID40_LINE_51, :calculate_line_51)
+        set_line(:ID40_LINE_54, :calculate_line_54)
+        set_line(:ID40_LINE_55, :calculate_line_55)
+        set_line(:ID40_LINE_56, :calculate_line_56)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -182,6 +187,34 @@ module Efile
         @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+      end
+
+      def calculate_line_50
+        # Total Payments and Other Credits. Add lines 43 and 46.
+        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46)
+      end
+
+      def calculate_line_51
+        # Tax Due. If line 42 is more than line 50, subtract line 50 from line 42
+        if line_or_zero(:ID40_LINE_42) > line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50)
+        end
+      end
+
+      def calculate_line_54
+        # Total Due. Add lines 51 and 52, then subtract line 53. (line 52 and 53 out of scope)
+        line_or_zero(:ID40_LINE_51)
+      end
+
+      def calculate_line_55
+        # Overpaid. If line 42 is less than line 50, subtract lines 42 and 52 from line 50
+        if line_or_zero(:ID40_LINE_42) < line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_50) - line_or_zero(:ID40_LINE_42)
+        end
+      end
+
+      def calculate_line_56
+        # Fill “Refund” field with the amount from Line 56.???
       end
     end
   end

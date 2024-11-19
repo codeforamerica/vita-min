@@ -226,6 +226,16 @@ ID40_LINE_43:
   label: 'To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
+ID40_LINE_50:
+  label: '50. Total Payments and Other Credits. Add lines 43 and 46.'
+ID40_LINE_51:
+  label: '51. Tax Due. If line 42 is more than line 50, subtract line 50 from line 42.'
+ID40_LINE_54:
+  label: '54. Total Due. Add lines 51 and 52, then subtract line 53 (line 52 and 53 out of scope).'
+ID40_LINE_55:
+  label: '55. Overpaid. If line 42 is less than line 50, subtract lines 42 and 52 from line 50.'
+ID40_LINE_56:
+  label: '56. Refund'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
