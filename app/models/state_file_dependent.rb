@@ -4,7 +4,6 @@
 #
 #  id                                      :bigint           not null, primary key
 #  ctc_qualifying                          :boolean
-#  did_not_have_health_insurance           :boolean
 #  dob                                     :date
 #  eic_disability                          :integer          default("unfilled")
 #  eic_qualifying                          :boolean
@@ -14,6 +13,7 @@
 #  id_months_ineligible_for_grocery_credit :integer
 #  intake_type                             :string           not null
 #  last_name                               :string
+#  md_did_not_have_health_insurance        :integer          default("unfilled"), not null
 #  middle_initial                          :string
 #  months_in_home                          :integer
 #  needed_assistance                       :integer          default("unfilled"), not null
@@ -55,6 +55,7 @@ class StateFileDependent < ApplicationRecord
   enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
   enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
   enum id_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :id_has_grocery_credit_ineligible_months
+  enum md_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :md_did_not_have_health_insurance
 
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true

@@ -1771,7 +1771,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_212616) do
   create_table "state_file_dependents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "ctc_qualifying"
-    t.boolean "did_not_have_health_insurance"
     t.date "dob"
     t.integer "eic_disability", default: 0
     t.boolean "eic_qualifying"
@@ -1782,6 +1781,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_212616) do
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
+    t.integer "md_did_not_have_health_insurance", default: 0, null: false
     t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "needed_assistance", default: 0, null: false
@@ -1856,7 +1856,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_212616) do
     t.string "primary_suffix"
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
-    t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
     t.integer "routing_number"
     t.integer "sign_in_count", default: 0, null: false
@@ -1932,7 +1931,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_212616) do
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
     t.date "primary_birth_date"
-    t.boolean "primary_did_not_have_health_insurance"
+    t.integer "primary_did_not_have_health_insurance", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -1951,7 +1950,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_212616) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
-    t.boolean "spouse_did_not_have_health_insurance"
+    t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
