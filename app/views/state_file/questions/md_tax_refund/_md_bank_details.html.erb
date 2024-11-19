@@ -24,7 +24,6 @@
       <% end %>
     <% end %>
 
-    <%= form.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
     <%= form.cfa_radio_set(
           :account_type,
           label_text: t("views.questions.bank_details.account_type.label"),
@@ -35,12 +34,13 @@
         )
     %>
     <%= form.cfa_input_field(:account_holder_name, t(".account_holder_name"), classes: ["form-width--long"]) %>
+    <%= form.cfa_input_field(:joint_account_holder_name, t(".joint_account_holder_name"), classes: ["form-width--long"]) %>
     <%= form.cfa_input_field(:routing_number, t("state_file.questions.tax_refund.bank_details.routing_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:routing_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
   </div>
-  <p><strong><%= t("state_file.questions.tax_refund.bank_details.disclaimer") %></strong></p>
+  <%= form.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
   <% if owe_taxes && !before_withdrawal_date_deadline?(current_state_code) %>
     <p>
       <%= t("state_file.questions.tax_refund.bank_details.after_deadline_default_withdrawal_info",

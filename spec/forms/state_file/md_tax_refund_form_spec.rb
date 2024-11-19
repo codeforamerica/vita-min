@@ -11,7 +11,6 @@ RSpec.describe StateFile::MdTaxRefundForm do
       account_number: "12345",
       account_number_confirmation: "12345",
       account_type: "checking",
-      bank_name: "Bank official",
       account_holder_name: "Geddy Lee"
     }
   end
@@ -28,7 +27,6 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "unfilled"
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
-        expect(intake.bank_name).to be_nil
         expect(intake.account_holder_name).to be_nil
       end
     end
@@ -48,7 +46,6 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "checking"
         expect(intake.routing_number).to eq "019456124"
         expect(intake.account_number).to eq "12345"
-        expect(intake.bank_name).to eq "Bank official"
         expect(intake.account_holder_name).to eq "Geddy Lee"
       end
     end
@@ -61,7 +58,6 @@ RSpec.describe StateFile::MdTaxRefundForm do
           routing_number: "019456124",
           account_number: "12345",
           account_type: "checking",
-          bank_name: "Bank official",
           account_holder_name: "Laney Knope"
         )
       end
@@ -76,7 +72,6 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "unfilled"
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
-        expect(intake.bank_name).to be_nil
         expect(intake.account_holder_name).to be_nil
       end
     end
@@ -89,8 +84,8 @@ RSpec.describe StateFile::MdTaxRefundForm do
     let(:account_number) { "12345" }
     let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }
-    let(:bank_name) { "Bank official" }
     let(:account_holder_name) { "Laney Knope" }
+    let(:joint_account_holder_name) { "Lacey Knope" }
 
     let(:params) do
       {
@@ -100,7 +95,6 @@ RSpec.describe StateFile::MdTaxRefundForm do
         account_number: account_number,
         account_number_confirmation: account_number_confirmation,
         account_type: account_type,
-        bank_name: bank_name,
         account_holder_name: account_holder_name
       }
     end
@@ -128,6 +122,15 @@ RSpec.describe StateFile::MdTaxRefundForm do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
           expect(form.errors).to include :account_holder_name
+        end
+      end
+
+      context "missing joint account holder name" do
+        let(:joint_account_holder_name) { nil }
+        it "is valid" do
+          form = described_class.new(intake, params)
+          expect(form).to be_valid
+          expect(form.errors).to be_empty
         end
       end
 

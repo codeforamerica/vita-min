@@ -6,6 +6,7 @@
 #  account_holder_name                      :string
 #  account_number                           :string
 #  account_type                             :integer          default("unfilled"), not null
+#  bank_authorization_confirmed             :integer          default("unfilled"), not null
 #  bank_name                                :string
 #  city                                     :string
 #  confirmed_permanent_address              :integer          default("unfilled"), not null
@@ -29,6 +30,7 @@
 #  failed_attempts                          :integer          default(0), not null
 #  federal_return_status                    :string
 #  hashed_ssn                               :string
+#  joint_account_holder_name                :string
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locale                                   :string           default("en")
@@ -92,6 +94,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
+  self.ignored_columns = [:bank_name]
   include MdResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
@@ -103,6 +106,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_home_different_areas
   enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
   enum permanent_address_outside_md: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_md
+  enum bank_authorization_confirmed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bank_authorization_confirmed
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

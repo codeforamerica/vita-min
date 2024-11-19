@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_15_181146) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_18_234711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1892,6 +1892,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_15_181146) do
     t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
+    t.integer "bank_authorization_confirmed", default: 0, null: false
     t.string "bank_name"
     t.string "city"
     t.integer "confirmed_permanent_address", default: 0, null: false
@@ -1917,6 +1918,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_15_181146) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.string "hashed_ssn"
+    t.string "joint_account_holder_name"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"

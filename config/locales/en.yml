@@ -2700,6 +2700,9 @@ en:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Account Holder Name
+          bank_authorization_confirmation: Check here to confirm you authorize the State of Maryland to issue your refund by direct deposit.
+          bank_authorization_confirmation_error: Please confirm authorization or select pay by mail
+          joint_account_holder_name: Joint Account Holder Name
       md_two_income_subtractions:
         edit:
           description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.
