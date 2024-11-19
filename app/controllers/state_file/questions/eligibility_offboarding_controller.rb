@@ -11,7 +11,7 @@ module StateFile
           I18n.t(
             "state_file.questions.eligibility_offboarding.edit.ineligible_reason.#{key}",
             state: current_state_name,
-            filing_year: filing_year
+            filing_year: current_tax_year
           )
         end
       end
