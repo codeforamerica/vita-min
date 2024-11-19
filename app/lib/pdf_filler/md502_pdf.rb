@@ -92,6 +92,13 @@ module PdfFiller
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+        'Text Box 66': @xml_document.at('Form502 TotalTaxAndContributions')&.text,
+        'Text Box 72': @xml_document.at('Form502 RefundableEIC')&.text,
+        'Text Box 76': @xml_document.at('Form502 TotalPaymentsAndCredits')&.text,
+        'Text Box 78': @xml_document.at('Form502 BalanceDue')&.text,
+        'Text Box 80': @xml_document.at('Form502 Overpayment')&.text,
+        'Text Box 84': @xml_document.at('Form502 AmountOverpayment ToBeRefunded')&.text,
+        'Text Box 91': @xml_document.at('Form502 TotalAmountDue')&.text,
       }
     end
 

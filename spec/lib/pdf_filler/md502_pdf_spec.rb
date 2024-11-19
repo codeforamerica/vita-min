@@ -455,5 +455,41 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Text Box 68"]).to eq "500"
       end
     end
+
+    context "Contributions Sections" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_39).and_return 100
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_42).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_44).and_return 300
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        expect(pdf_fields["Text Box 66"]).to eq "100"
+        expect(pdf_fields["Text Box 72"]).to eq "200"
+        expect(pdf_fields["Text Box 76"]).to eq "300"
+      end
+    end
+
+    context "when taxes are owed" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
+      end
+
+      it 'outputs the amount owed' do
+        expect(pdf_fields["Text Box 78"]).to eq "100"
+        expect(pdf_fields["Text Box 91"]).to eq "100"
+      end
+    end
+
+    context "when there is a refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
+      end
+
+      it 'outputs the amount to be refunded' do
+        expect(pdf_fields["Text Box 80"]).to eq "300"
+        expect(pdf_fields["Text Box 84"]).to eq "300"
+      end
+    end
   end
 end
