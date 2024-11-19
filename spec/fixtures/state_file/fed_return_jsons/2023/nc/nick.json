@@ -12,7 +12,7 @@
     {
       "firstName": "Susie",
       "lastName": "Cave",
-      "middleInitial": null,
+      "middleInitial": "K",
       "tin": "600-00-0030",
       "dateOfBirth": "1979-01-01",
       "isPrimaryFiler": false

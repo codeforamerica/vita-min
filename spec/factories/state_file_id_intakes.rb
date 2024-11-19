@@ -82,6 +82,7 @@ FactoryBot.define do
   factory :state_file_id_intake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+    df_data_import_succeeded_at { DateTime.now }
 
     transient do
       filing_status { "single" }
