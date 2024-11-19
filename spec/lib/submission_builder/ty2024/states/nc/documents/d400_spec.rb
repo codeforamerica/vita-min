@@ -126,12 +126,12 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     context "qw filers" do
       let(:intake) { create(:state_file_nc_intake, filing_status: "qualifying_widow") }
       before do
-        intake.direct_file_data.spouse_date_of_death = "2024-09-30"
+        intake.direct_file_data.spouse_date_of_death = "#{Rails.configuration.statefile_current_tax_year}-09-30"
       end
 
       it "correctly fills qualifying-widow-specific answers" do
         expect(xml.document.at('FilingStatus')&.text).to eq "QW"
-        expect(xml.document.at('QWYearSpouseDied')&.text).to eq "2024"
+        expect(xml.document.at('QWYearSpouseDied')&.text).to eq Rails.configuration.statefile_current_tax_year.to_s
       end
     end
   end

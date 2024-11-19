@@ -2158,7 +2158,7 @@ es:
           mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
           mfs_helper_yes_if: 'Selecciona ''sí'' si::'
           mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
-          subtitle: Para la temporada de impuestos de 2024, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
+          subtitle: Para la temporada de impuestos de %{current_year}, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
           title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
       az_excise_credit:
         edit:
@@ -2335,21 +2335,21 @@ es:
         edit:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el 2023
-            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en 2024
+            eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
+            eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en %{filing_year}
             eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
             eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
-            eligibility_lived_in_state: no viviste en %{state} durante todo el 2024
+            eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
-            eligibility_out_of_state_income: recibiste ingresos en otro estado en el 2024
-            eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el 2024
-            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2024
+            eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
+            eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el %{filing_year}
+            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el %{filing_year}
             eligibility_withdrew_msa_fthb: retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
-            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2024
-            nyc_maintained_home: no viviste en Nueva York durante todo el 2024
+            eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el %{filing_year}
+            nyc_maintained_home: no viviste en Nueva York durante todo el
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
-            permanent_address_outside_ny: no viviste en Nueva York durante todo el 2024
+            permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
         other_options:
           faq_link: Visita nuestras Preguntas Frecuentes
@@ -2502,8 +2502,8 @@ es:
         edit:
           answers_confidential_html: "<strong>Nota:</strong> Sus respuestas son confidenciales y solo se utilizan para verificar la elegibilidad del crédito."
           example_months: Por ejemplo, si usted experimentó 2 de estas situaciones en el mes de abril, eso contaría como 1 mes en total.
-          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en 2024.
-          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en 2024.
+          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en %{filing_year}.
+          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en %{filing_year}.
           see_if_you_qualify:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.

@@ -1,4 +1,8 @@
 module StateFileIntakeHelper
+  def filing_year
+    MultiTenantService.statefile.current_tax_year
+  end
+
   def step_through_eligibility_screener(us_state:)
     expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
     case us_state
@@ -11,7 +15,7 @@ module StateFileIntakeHelper
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
       click_on "Continue"
 
-      expect(page).to have_text "In 2024, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
+      expect(page).to have_text "In #{filing_year}, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
       choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
     when "az"
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
@@ -39,7 +43,7 @@ module StateFileIntakeHelper
     else
       "please change in state_file_intake_helper.rb"
     end
-    expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: long_state_name)
+    expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: filing_year, state: long_state_name)
     click_on "Continue"
   end
 
@@ -83,11 +87,11 @@ module StateFileIntakeHelper
     click_on "Continue"
   end
 
-  def step_through_df_data_transfer(sample_name = "Transfer my 2024 federal tax return to FileYourStateTaxes")
+  def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes")
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 
-    expect(page).to have_text "Your 2024 federal tax return is ready to transfer to your state tax return."
+    expect(page).to have_text "Your #{filing_year} federal tax return is ready to transfer to your state tax return."
     click_on sample_name
 
     expect(page).to have_text "Just a moment, we’re transferring your federal tax return to complete parts of your state return."

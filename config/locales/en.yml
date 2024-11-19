@@ -2191,7 +2191,7 @@ en:
           mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
           mfs_helper_yes_if: 'Select yes if:'
           mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
-          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          subtitle: For the %{current_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
       az_excise_credit:
         edit:
@@ -2361,21 +2361,21 @@ en:
         edit:
           body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2024
-            eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
+            eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
             eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
-            eligibility_lived_in_state: did not live in %{state} for all of 2024
+            eligibility_lived_in_state: did not live in %{state} for all of %{filing_year}
             eligibility_married_filing_separately: are filing “married filing separately”
-            eligibility_out_of_state_income: earned income in another state in 2024
-            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2024
-            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2024
+            eligibility_out_of_state_income: earned income in another state in %{filing_year}
+            eligibility_part_year_nyc_resident: were a part-time New York City resident in %{filing_year}
+            eligibility_withdrew_529: withdrew money from a 529 college savings account in %{filing_year}
             eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
-            eligibility_yonkers: lived or earned income in Yonkers in 2024
+            eligibility_yonkers: lived or earned income in Yonkers in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
-            permanent_address_outside_ny: you did not live in New York for all of 2024
+            permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
         other_options:
           faq_link: Visit our FAQ
@@ -2529,8 +2529,8 @@ en:
         edit:
           answers_confidential_html: "<strong>Note:</strong> Your answers are confidential and only used to check credit eligibility."
           example_months: For example, if you experienced 2 of these situations in the month of April, that would count as 1 total month.
-          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in 2024.
-          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in 2024.
+          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in %{filing_year}.
+          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.

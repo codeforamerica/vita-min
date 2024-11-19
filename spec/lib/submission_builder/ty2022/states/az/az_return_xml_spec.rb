@@ -156,7 +156,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.css('CharityInfo').count).to eq 4
         expect(xml.css('ContinuationPages').count).to eq 1
 
-        expect(xml.at('CharityInfo QualCharityContrDate').text).to eq '2024-08-22'
+        expect(xml.at('CharityInfo QualCharityContrDate').text).to eq "#{Rails.configuration.statefile_current_tax_year}-08-22"
         expect(xml.at('CharityInfo QualCharityCode').text).to eq '22345'
         expect(xml.at('CharityInfo QualCharity').text).to eq 'Heartland'
         expect(xml.at('CharityInfo QualCharityAmt').text).to eq '506'
@@ -177,7 +177,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
 
       it "generates XML with contributions data" do
         expect(xml.css('SContribMadeTo').count).to eq 5
-        expect(xml.at('SContribMadeTo SchoolContrDate').text).to eq '2024-03-04'
+        expect(xml.at('SContribMadeTo SchoolContrDate').text).to eq "#{Rails.configuration.statefile_current_tax_year}-03-04"
         expect(xml.at('SContribMadeTo CTDSCode').text).to eq '123456789'
         expect(xml.at('SContribMadeTo SchoolName').text).to eq 'School A'
         expect(xml.at('SContribMadeTo SchoolDist').text).to eq 'District A'
