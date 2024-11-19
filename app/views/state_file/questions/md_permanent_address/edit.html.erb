@@ -1,11 +1,11 @@
-<% title = t(".title", filing_year: @filing_year) %>
+<% title = t(".title", filing_year: current_tax_year) %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
   <p>
-    <%= t('.mark_no_hint_html', filing_year: @filing_year) %>
+    <%= t('.mark_no_hint_html', filing_year: current_tax_year) %>
   </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
@@ -37,7 +37,7 @@
       <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
         <div class="white-group">
           <div class="form-question spacing-below-25">
-            <%=t(".where_did_you_live", filing_year: @filing_year) %>
+            <%=t(".where_did_you_live", filing_year: current_tax_year) %>
           </div>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:permanent_street, t(".street_address_label")) %>

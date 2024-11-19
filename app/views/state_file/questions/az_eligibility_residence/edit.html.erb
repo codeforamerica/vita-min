@@ -9,7 +9,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_lived_in_state,
-            label_text: t(".lived_in_state_html", state: current_state_name, filing_year: Rails.configuration.statefile_current_tax_year),
+            label_text: t(".lived_in_state_html", state: current_state_name, filing_year: current_tax_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
