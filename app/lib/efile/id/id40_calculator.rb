@@ -2,8 +2,7 @@ module Efile
   module Id
     class Id40Calculator < ::Efile::TaxCalculator
       attr_reader :lines
-      REFUND_LINE_NUM = :ID40_LINE_56
-      OWED_LINE_NUM = :ID40_LINE_54
+      set_refund_owed_lines refund: :ID40_LINE_56, owed: :ID40_LINE_54
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -38,6 +37,8 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
+        set_line(:ID40_LINE_54, :calculate_line_54)
+        set_line(:ID40_LINE_56, :calculate_line_56)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -185,6 +186,9 @@ module Efile
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
+
+      def calculate_line_54; end
+      def calculate_line_56; end
     end
   end
 end

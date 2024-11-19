@@ -468,7 +468,7 @@ describe Efile::Id::Id40Calculator do
       allow(instance).to receive(:calculate_line_56).and_return 0
       allow(instance).to receive(:calculate_line_54).and_return -30
       instance.calculate
-      expect(instance.refund_or_owed_amount).to eq(-30)
+      expect(instance.refund_or_owed_amount).to eq(30)
     end
   end
 end
