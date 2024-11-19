@@ -23,6 +23,7 @@ class DirectFileData < DfXmlAccessor
     fed_tax_exempt_interest: 'IRS1040 TaxExemptInterestAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
     fed_taxable_pensions: 'IRS1040 TotalTaxablePensionsAmt',
+    fed_income_total: 'IRS1040 TotalIncomeAmt',
     fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
     fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
     fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
@@ -263,6 +264,15 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_taxable_pensions=(value)
+    create_or_destroy_df_xml_node(__method__, value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_income_total
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_income_total=(value)
     create_or_destroy_df_xml_node(__method__, value)
     write_df_xml_value(__method__, value)
   end
@@ -888,6 +898,7 @@ class DirectFileData < DfXmlAccessor
       fed_dc_homebuyer_credit_amount
       fed_adjustments_claimed
       fed_taxable_pensions
+      fed_income_total
       total_qualifying_dependent_care_expenses
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)

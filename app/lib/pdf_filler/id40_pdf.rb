@@ -34,7 +34,7 @@ module PdfFiller
         'FilingStatusMarriedSeparate' => @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
         'FilingStatusHead' => @submission.data_source.filing_status_hoh? ? 'Yes' : 'Off',
         'SpouseDeceased' => @submission.data_source.filing_status_qw? ? 'Yes' : 'Off',
-        '6aYourself' =>  @xml_document.at('PrimeExemption')&.text,
+        '6aYourself' => @xml_document.at('PrimeExemption')&.text,
         '6bSpouse' => @xml_document.at('SpouseExemption')&.text,
         '6cDependents' => @xml_document.at('OtherExemption')&.text,
         '6dTotalHousehold' => @xml_document.at('TotalExemption')&.text,
@@ -55,8 +55,13 @@ module PdfFiller
         'TxCompL20' => round_amount_to_nearest_integer(@xml_document.at('StateIncomeTax')&.text),
         'L21' => round_amount_to_nearest_integer(@xml_document.at('StateIncomeTax')&.text),
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
+        'CreditsL25' => @xml_document.at('Form40 IdahoChildTaxCredit')&.text,
+        'CreditsL26' => calculated_fields.fetch(:ID40_LINE_26),
+        'CreditsL27' => calculated_fields.fetch(:ID40_LINE_27),
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
+        'OtherTaxesL33' => @xml_document.at('TotalTax')&.text,
         'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',
+        'DonationsL42' => calculated_fields.fetch(:ID40_LINE_42),
         'PymntOtherCreditsL43' => @xml_document.at('WorksheetGroceryCredit')&.text,
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',
         'PymntOtherCreditL43Amount' => @xml_document.at('GroceryCredit')&.text,
@@ -85,6 +90,12 @@ module PdfFiller
 
     def round_amount_to_nearest_integer(str_value)
       str_value.to_f.round
+    end
+
+    private
+
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end

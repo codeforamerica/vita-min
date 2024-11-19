@@ -54,10 +54,11 @@ module SubmissionBuilder
                 xml.StandardDeduction @direct_file_data.total_itemized_or_standard_deduction_amount
                 xml.TaxableIncomeState calculated_fields.fetch(:ID40_LINE_19)
                 xml.StateIncomeTax calculated_fields.fetch(:ID40_LINE_20)
-
+                xml.IdahoChildTaxCredit calculated_fields.fetch(:ID40_LINE_25)
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.PermanentBuildingFund calculated_fields.fetch(:ID40_LINE_32A)
                 xml.PublicAssistanceIndicator calculated_fields.fetch(:ID40_LINE_32B)
+                add_non_zero_value(xml, :TotalTax, :ID40_LINE_42)
                 xml.WorksheetGroceryCredit calculated_fields.fetch(:ID40_LINE_43_WORKSHEET)
                 xml.GroceryCredit calculated_fields.fetch(:ID40_LINE_43)
                 xml.DonateGroceryCredit calculated_fields.fetch(:ID40_LINE_43_DONATE)

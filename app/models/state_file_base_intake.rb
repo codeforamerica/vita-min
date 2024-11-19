@@ -101,7 +101,8 @@ class StateFileBaseIntake < ApplicationRecord
         json_attributes = {
           middle_initial: dependent_json.middle_initial,
           relationship: dependent_json.relationship,
-          dob: dependent_json.dob
+          dob: dependent_json.dob,
+          qualifying_child: dependent_json.qualifying_child,
         }
         dependent.assign_attributes(json_attributes)
       end
