@@ -1518,10 +1518,38 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
 
-      context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
+      context 'when no EarnedIncomeCreditAmt on federal 1040 but taxpayer qualifies for NJ EITC' do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake, :df_data_minimal
+            :state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child_no
+          )
+        }
+
+        it "fills line 58 with $240 and does not check federal checkbox" do
+          allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return true
+
+          # thousands
+          expect(pdf_fields["58"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_152"]).to eq "2"
+          expect(pdf_fields["undefined_153"]).to eq "4"
+          expect(pdf_fields["Text170"]).to eq "0"
+          # decimals
+          expect(pdf_fields["Text171"]).to eq "0"
+          expect(pdf_fields["Text172"]).to eq "0"
+
+          # federal checkbox
+          expect(pdf_fields["Check Box168"]).to eq "Off"
+
+          # NJ CU checkbox
+          expect(pdf_fields["Check Box169"]).to eq "Off"
+        end
+      end
+
+      context 'when taxpayer does not qualify for NJ EITC' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake, :df_data_minimal, :claimed_as_eitc_qualifying_child
           )
         }
 

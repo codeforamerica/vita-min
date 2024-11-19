@@ -139,5 +139,6 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
+    <IRS2441><TotalQlfdExpensesOrLimitAmt>0</TotalQlfdExpensesOrLimitAmt></IRS2441>
   </ReturnData>
 </Return>
