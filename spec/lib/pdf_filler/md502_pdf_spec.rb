@@ -453,6 +453,7 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the total state and local tax withheld' do
         expect(pdf_fields["Text Box 68"]).to eq "500"
+        expect(pdf_fields["Text Box 69"]).to eq "00"
       end
     end
 
@@ -465,8 +466,11 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the total state and local tax withheld' do
         expect(pdf_fields["Text Box 66"]).to eq "100"
+        expect(pdf_fields["Text Box 67"]).to eq "00"
         expect(pdf_fields["Text Box 72"]).to eq "200"
+        expect(pdf_fields["Text Box 73"]).to eq "00"
         expect(pdf_fields["Text Box 76"]).to eq "300"
+        expect(pdf_fields["Text Box 77"]).to eq "00"
       end
     end
 
@@ -477,7 +481,9 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the amount owed' do
         expect(pdf_fields["Text Box 78"]).to eq "100"
+        expect(pdf_fields["Text Box 79"]).to eq "00"
         expect(pdf_fields["Text Box 91"]).to eq "100"
+        expect(pdf_fields["Text Box 92"]).to eq "00"
       end
     end
 
@@ -488,7 +494,9 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the amount to be refunded' do
         expect(pdf_fields["Text Box 80"]).to eq "300"
+        expect(pdf_fields["Text Box 81"]).to eq "00"
         expect(pdf_fields["Text Box 84"]).to eq "300"
+        expect(pdf_fields["Text Box 85"]).to eq "00"
       end
     end
   end

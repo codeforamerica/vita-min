@@ -75,6 +75,7 @@ module PdfFiller
         'Text Field 12': generate_codes_for_502_su.at(3),
         'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
+        'Text Box 69': @xml_document.at('Form502 TaxWithheld')&.text.present? ? "00" : nil,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
         'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
@@ -93,12 +94,20 @@ module PdfFiller
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
         'Text Box 66': @xml_document.at('Form502 TotalTaxAndContributions')&.text,
+        'Text Box 67': @xml_document.at('Form502 TotalTaxAndContributions')&.text.present? ? "00" : nil,
         'Text Box 72': @xml_document.at('Form502 RefundableEIC')&.text,
+        'Text Box 73': @xml_document.at('Form502 RefundableEIC')&.text.present? ? "00" : nil,
         'Text Box 76': @xml_document.at('Form502 TotalPaymentsAndCredits')&.text,
+        'Text Box 77': @xml_document.at('Form502 TotalPaymentsAndCredits')&.text.present? ? "00" : nil,
         'Text Box 78': @xml_document.at('Form502 BalanceDue')&.text,
+        'Text Box 79': @xml_document.at('Form502 BalanceDue')&.text.present? ? "00" : nil,
         'Text Box 80': @xml_document.at('Form502 Overpayment')&.text,
+        'Text Box 81': @xml_document.at('Form502 Overpayment')&.text.present? ? "00" : nil,
         'Text Box 84': @xml_document.at('Form502 AmountOverpayment ToBeRefunded')&.text,
+        'Text Box 85': @xml_document.at('Form502 AmountOverpayment ToBeRefunded')&.text.present? ? "00" : nil,
         'Text Box 91': @xml_document.at('Form502 TotalAmountDue')&.text,
+        'Text Box 92': @xml_document.at('Form502 TotalAmountDue')&.text.present? ? "00" : nil
+
       }
     end
 

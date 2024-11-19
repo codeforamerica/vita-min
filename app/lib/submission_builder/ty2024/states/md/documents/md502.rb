@@ -139,16 +139,18 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
       end
-      xml.TotalTaxAndContributions calculated_fields.fetch(:MD502_LINE_39)
+      add_non_zero_value(xml, :TotalTaxAndContributions,:MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
-      xml.RefundableEIC calculated_fields.fetch(:MD502_LINE_42)
-      xml.TotalPaymentsAndCredits calculated_fields.fetch(:MD502_LINE_44)
-      add_element_if_present(xml, "BalanceDue", :MD502_LINE_45)
-      add_element_if_present(xml, "Overpayment", :MD502_LINE_46)
-      xml.AmountOverpayment do
-        xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
+      add_non_zero_value(xml, :RefundableEIC,:MD502_LINE_42)
+      add_non_zero_value(xml, :TotalPaymentsAndCredits,:MD502_LINE_44)
+      add_non_zero_value(xml, :BalanceDue,:MD502_LINE_45)
+      add_non_zero_value(xml, :Overpayment,:MD502_LINE_46)
+      if calculated_fields.fetch(:MD502_LINE_48).positive?
+        xml.AmountOverpayment do
+          xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
+        end
       end
-      xml.TotalAmountDue calculated_fields.fetch(:MD502_LINE_50)
+      add_non_zero_value(xml, :TotalAmountDue,:MD502_LINE_50)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end
@@ -178,7 +180,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       :MD502_LINE_C_COUNT,
       :MD502_LINE_C_AMOUNT
     ].any? do |line|
-      calculated_fields.fetch(line) > 0
+      calculated_fields.fetch(line).positive?
     end
   end
 
@@ -187,7 +189,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       :MD502_LINE_A_COUNT,
       :MD502_LINE_B_COUNT
     ].any? do |line|
-      calculated_fields.fetch(line) > 0
+      calculated_fields.fetch(line).positive?
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
   end
