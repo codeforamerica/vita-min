@@ -138,7 +138,7 @@ describe Efile::Id::Id40Calculator do
           end
 
           it "calculates the correct amount" do
-            expected_result = ((line_19 - amount) * 5.695).round(2)
+            expected_result = ((line_19 - amount) * 0.05695).round(2)
             calculator_instance.calculate
             expect(calculator_instance.lines[:ID40_LINE_20].value).to eq expected_result
           end

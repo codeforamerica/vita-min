@@ -103,7 +103,7 @@ module Efile
       }.freeze
       def calculate_line_20
         worksheet_line_2_amount = WK_LINE_2_AMTS[@filing_status]
-        [((line_or_zero(:ID40_LINE_19) - worksheet_line_2_amount) * 5.695).round(2), 0].max
+        [((line_or_zero(:ID40_LINE_19) - worksheet_line_2_amount) * 0.05695).round(2), 0].max
       end
 
       def calculate_line_23
